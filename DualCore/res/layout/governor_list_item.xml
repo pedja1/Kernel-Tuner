@@ -1,0 +1,32 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<!-- Layout for individual news entries in a list -->
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="fill_parent"
+    android:layout_height="fill_parent">
+    
+    
+    
+    <TextView
+        android:id="@+id/news_entry_title"
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+		android:layout_margin="5dp"
+        android:textSize="15dp"
+        android:textStyle="bold"
+        android:text="file" />
+    
+    <!-- Subtitle contains author and date -->
+
+    <TextView
+        android:id="@+id/news_entry_subtitle"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentRight="true"
+        android:layout_alignParentTop="true"
+        android:text="value"
+        android:textColor="#458B00"
+        android:textSize="20dp" />
+
+</RelativeLayout>
+

@@ -1,0 +1,40 @@
+<?xml version="1.0" encoding="utf-8"?>
+<PreferenceScreen xmlns:android="http://schemas.android.com/apk/res/android"
+    android:icon="@drawable/dual_on" >
+
+    <PreferenceCategory android:title="CPU1" >
+    </PreferenceCategory>
+
+    <CheckBoxPreference
+        android:defaultValue="false"
+        android:key="cpu1off"
+        android:summary="Second core will be permanently disabled untill this checkbox is unchecked"
+        android:title="Disable CPU1 Completely" />
+
+    <PreferenceCategory android:title="Boot Settings" >
+        <ListPreference
+            android:entries="@array/listDisplayWord"
+            android:entryValues="@array/listReturnValue"
+            android:key="boot2"
+            android:summary="Setings will be restored after reboot"
+            android:title="Apply Settings on boot" />
+    </PreferenceCategory>
+    <PreferenceCategory android:title="Widget Settings" >
+        <EditTextPreference
+            android:defaultValue="1800"
+            android:key="widget_time"
+            android:summary="Setting to low values will cause your battery to drain faster"
+            android:title="Widget Update Interval(seconds)" />
+    </PreferenceCategory>
+    <PreferenceCategory android:title="Updates">
+        <CheckBoxPreference
+           android:defaultValue="true"
+            android:key="ota"
+            android:summary="Check for updates when starting application"
+            android:title="Update on start" />
+    </PreferenceCategory>
+    <PreferenceCategory android:title="Misc">
+        <CheckBoxPreference android:summary="Use if CPU progress isn\'t shown correctly" android:key="override" android:title="CPU Info Override"/>
+    </PreferenceCategory>
+
+</PreferenceScreen>

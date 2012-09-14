@@ -1,0 +1,372 @@
+package rs.pedjaapps.DualCore;
+
+import java.io.BufferedReader;
+import java.io.DataOutputStream;
+import java.io.File;
+import java.io.FileInputStream;
+import java.io.IOException;
+import java.io.InputStreamReader;
+import java.util.ArrayList;
+import java.util.List;
+import java.util.concurrent.ExecutionException;
+import java.util.concurrent.TimeoutException;
+import android.app.Activity;
+import android.app.ProgressDialog;
+import android.content.Intent;
+import android.content.SharedPreferences;
+import android.content.pm.PackageInfo;
+import android.content.pm.PackageManager;
+import android.os.AsyncTask;
+import android.os.Bundle;
+import android.preference.PreferenceManager;
+import android.util.Log;
+import android.view.View;
+import android.view.View.OnClickListener;
+import android.widget.AdapterView;
+import android.widget.ArrayAdapter;
+import android.widget.Button;
+import android.widget.ProgressBar;
+import android.widget.Spinner;
+import android.widget.AdapterView.OnItemSelectedListener;
+import android.widget.TextView;
+import android.widget.Toast;
+import android.text.method.*;
+import java.util.*;
+import android.widget.*;
+import android.view.Menu;
+import android.view.MenuItem;
+
+public class profiles extends Activity{
+	List<String> profilenames;
+	public SharedPreferences preferences;
+	public String currentprofile;
+	DatabaseHandler db;
+	private static final int GET_CODE = 0;
+	Spinner spinner;
+	private ProgressDialog pd = null;
+	 private Object data = null;
+
+	private class apply extends AsyncTask<String, Void, Object> {
+		String aBuffer = "";
+        protected Object doInBackground(String... args) {
+            Log.i("MyApp", "Background thread starting");
+            Process localProcess;
+            Profile profile = db.getProfileByName(currentprofile);
+      		try {
+ 				localProcess = Runtime.getRuntime().exec("su");
+ 			
+      		DataOutputStream localDataOutputStream = new DataOutputStream(localProcess.getOutputStream());
+      		if(profile.getNOC().equals("1")){
+            	localDataOutputStream.writeBytes("echo 1 > /sys/kernel/msm_mpdecision/conf/enabled\n");
+                localDataOutputStream.writeBytes("chmod 777 /sys/devices/system/cpu/cpu1/online\n");
+                localDataOutputStream.writeBytes("echo 0 > /sys/devices/system/cpu/cpu1/online\n");
+                localDataOutputStream.writeBytes("chown system /sys/devices/system/cpu/cpu1/online\n");
+            }
+            else if(profile.getNOC().equals("2"))
+            {
+            	localDataOutputStream.writeBytes("echo 0 > /sys/kernel/msm_mpdecision/conf/enabled\n");
+                localDataOutputStream.writeBytes("chmod 666 /sys/devices/system/cpu/cpu1/online\n");
+                localDataOutputStream.writeBytes("echo 1 > /sys/devices/system/cpu/cpu1/online\n");
+                localDataOutputStream.writeBytes("chmod 444 /sys/devices/system/cpu/cpu1/online\n");
+                localDataOutputStream.writeBytes("chown system /sys/devices/system/cpu/cpu1/online\n");
+            } 
+      		localDataOutputStream.writeBytes("chmod 777 /sys/devices/system/cpu/cpu0/cpufreq/scaling_governor\n");
+             localDataOutputStream.writeBytes("chmod 777 /sys/devices/system/cpu/cpu0/cpufreq/scaling_min_freq\n");
+             localDataOutputStream.writeBytes("chmod 777 /sys/devices/system/cpu/cpu0/cpufreq/scaling_max_freq\n");
+             localDataOutputStream.writeBytes("echo \"" + profile.getCpu0gov() + "\" > /sys/devices/system/cpu/cpu0/cpufreq/scaling_governor\n");
+             localDataOutputStream.writeBytes("echo \"" + profile.getCpu0min() + "\" > /sys/devices/system/cpu/cpu0/cpufreq/scaling_min_freq\n");
+             localDataOutputStream.writeBytes("echo \"" + profile.getCpu0max() + "\" > /sys/devices/system/cpu/cpu0/cpufreq/scaling_max_freq\n");
+             localDataOutputStream.writeBytes("chmod 777 /sys/devices/system/cpu/cpu1/cpufreq/scaling_governor\n");
+             localDataOutputStream.writeBytes("chmod 777 /sys/devices/system/cpu/cpu1/cpufreq/scaling_min_freq\n");
+             localDataOutputStream.writeBytes("chmod 777 /sys/devices/system/cpu/cpu1/cpufreq/scaling_max_freq\n");
+             localDataOutputStream.writeBytes("echo \"" + profile.getCpu1gov() + "\" > /sys/devices/system/cpu/cpu1/cpufreq/scaling_governor\n");
+             localDataOutputStream.writeBytes("echo \"" + profile.getCpu1min() + "\" > /sys/devices/system/cpu/cpu1/cpufreq/scaling_min_freq\n");
+             localDataOutputStream.writeBytes("echo \"" + profile.getCpu1max() + "\" > /sys/devices/system/cpu/cpu1/cpufreq/scaling_max_freq\n");
+             localDataOutputStream.writeBytes("chmod 777 /sys/devices/platform/kgsl-2d0.0/kgsl/kgsl-2d0/max_gpuclk\n");
+             localDataOutputStream.writeBytes("chmod 777 /sys/devices/platform/kgsl-2d1.1/kgsl/kgsl-2d1/max_gpuclk\n");
+             localDataOutputStream.writeBytes("chmod 777 /sys/devices/platform/kgsl-2d0.0/kgsl/kgsl-2d0/gpuclk\n");
+             localDataOutputStream.writeBytes("chmod 777 /sys/devices/platform/kgsl-2d1.1/kgsl/kgsl-2d1/gpuclk\n");
+             localDataOutputStream.writeBytes("echo " + profile.getGpu2d() + " > /sys/devices/platform/kgsl-2d0.0/kgsl/kgsl-2d0/max_gpuclk\n");
+             localDataOutputStream.writeBytes("echo " + profile.getGpu2d() + " > /sys/devices/platform/kgsl-2d1.1/kgsl/kgsl-2d1/max_gpuclk\n");
+             localDataOutputStream.writeBytes("echo " + profile.getGpu2d()+ " > /sys/devices/platform/kgsl-2d0.0/kgsl/kgsl-2d0/gpuclk\n");
+             localDataOutputStream.writeBytes("echo " + profile.getGpu2d() + " > /sys/devices/platform/kgsl-2d1.1/kgsl/kgsl-2d1/gpuclk\n");
+             localDataOutputStream.writeBytes("chmod 777 /sys/devices/platform/kgsl-3d0.0/kgsl/kgsl-3d0/max_gpuclk\n");
+             localDataOutputStream.writeBytes("chmod 777 /sys/devices/platform/kgsl-3d0.0/kgsl/kgsl-3d0/gpuclk\n");
+             localDataOutputStream.writeBytes("echo " + profile.getGpu3d() + " > /sys/devices/platform/kgsl-3d0.0/kgsl/kgsl-3d0/max_gpuclk\n");
+             localDataOutputStream.writeBytes("echo " + profile.getGpu3d() + " > /sys/devices/platform/kgsl-3d0.0/kgsl/kgsl-3d0/gpuclk\n");
+             localDataOutputStream.writeBytes("chmod 777 /sys/kernel/debug/msm_fb/0/vsync_enable\n");
+             localDataOutputStream.writeBytes("chmod 777 /sys/kernel/debug/msm_fb/0/hw_vsync_mode\n");
+             localDataOutputStream.writeBytes("chmod 777 /sys/kernel/debug/msm_fb/0/backbuff\n");
+             
+             localDataOutputStream.writeBytes("echo " + profile.getVsync() + " > /sys/kernel/debug/msm_fb/0/vsync_enable\n");
+            if(profile.getVsync().equals("1")){
+            	localDataOutputStream.writeBytes("echo " + 1 + " > /sys/kernel/debug/msm_fb/0/hw_vsync_mode\n");
+                localDataOutputStream.writeBytes("echo " + 3 + " > /sys/kernel/debug/msm_fb/0/backbuff\n");
+            }
+            else if(profile.getVsync().equals("0")){
+            	localDataOutputStream.writeBytes("echo " + 0 + " > /sys/kernel/debug/msm_fb/0/hw_vsync_mode\n");
+                localDataOutputStream.writeBytes("echo " + 4 + " > /sys/kernel/debug/msm_fb/0/backbuff\n");
+            
+            }
+            
+             
+            localDataOutputStream.writeBytes("echo " + profile.getMtu() + " > /sys/kernel/msm_mpdecision/conf/nwns_threshold_up\n");
+            localDataOutputStream.writeBytes("echo " + profile.getMtd() + " > /sys/kernel/msm_mpdecision/conf/nwns_threshold_down\n");
+             
+             localDataOutputStream.writeBytes("exit\n");
+             localDataOutputStream.flush();
+             localDataOutputStream.close();
+             localProcess.waitFor();
+             localProcess.destroy();
+      		} catch (IOException e1) {
+ 				// TODO Auto-generated catch block
+ 				e1.printStackTrace();
+ 			} catch (InterruptedException e1) {
+ 				// TODO Auto-generated catch block
+ 				e1.printStackTrace();
+ 			}
+      	
+            
+			
+            return aBuffer;
+        }
+
+        protected void onPostExecute(Object result) {
+        	
+        	pd.dismiss();
+            profiles.this.data = result;
+
+        }
+    	}
+	
+    	@Override
+	public void onCreate(Bundle savedInstanceState) {
+	super.onCreate(savedInstanceState);
+	setContentView(R.layout.profiles);
+	
+	db = new DatabaseHandler(this);
+	 
+    /**
+     * CRUD Operations
+     * */
+    // Inserting Contacts
+    Log.d("Insert: ", "Inserting ..");
+    preferences = PreferenceManager.getDefaultSharedPreferences(this);
+    boolean createpreofilesfirsttime = preferences.getBoolean("profiles", false);
+    if(createpreofilesfirsttime==false){
+    	 db.addProfile(new Profile("Battery","192000", 
+    	    		"1188000", 
+    	    		"192000",
+    	    		"1188000",
+    	    		"conservative",
+    	    		"conservative",
+    	    		"160000000",
+    	    		"200000000",
+    	    		"1",
+    	    		"1",
+    	    		"80",
+    	    		"5"));
+    db.addProfile(new Profile("Balanced","192000", 
+    		"1188000", 
+    		"192000",
+    		"1188000",
+    		"xondemand",
+    		"xondemand",
+    		"228571000",
+    		"300000000",
+    		"1",
+    		"1",
+    		"35",
+    		"5"));
+    db.addProfile(new Profile("Performance","384000", 
+    		"1512000", 
+    		"384000",
+    		"1512000",
+    		"xondemand",
+    		"xondemand",
+    		"266667000",
+    		"320000000",
+    		"0",
+    		"1",
+    		"10",
+    		"70"));
+    db.addProfile(new Profile("Xtreme Performance","384000", 
+    		"1620000", 
+    		"384000",
+    		"1620000",
+    		"Performance",
+    		"Performance",
+    		"266667000",
+    		"320000000",
+    		"0",
+    		"2",
+    		"0",
+    		"100"));
+    SharedPreferences.Editor editor = preferences.edit();
+	 
+	    editor.putBoolean("profiles", true);
+	    editor.commit();
+    }
+    // Reading all contacts
+    //Log.d("Reading: ", "Reading all contacts..");
+   profilenames = new ArrayList<String>();
+    
+    
+   // Profile pr = db.getProfile(1);
+    //Profile pr2 = db.getProfileByName("Performance") ;   
+    //System.out.println(pr.getName());
+    //System.out.println(pr2.getName());
+    //System.out.println(pr);
+
+    getprofiles();
+	
+    	}
+    	public void getprofiles(){
+    		List<Profile> profiles = db.getAllProfiles();
+    	for (Profile pr : profiles) {
+        	profilenames.add(pr.getName());
+            //String log = "Id: "+pr.getID()+"Name: "+pr.getName()+" ,CPU0 Max freq: " + pr.getCpu0min() + " ,CPU0 max freq: " + pr.getCpu0max();
+                // Writing Contacts to log
+        //Log.d("Name: ", log);
+        	
+    }
+    	System.out.println(profilenames);
+    	spinnerProfiles();
+    	}
+    	public void spinnerProfiles(){
+    		//String[] MyStringAray = profiles.split("\\s");
+    		
+    		spinner = (Spinner) findViewById(R.id.spinner1);
+    		ArrayAdapter<String> spinnerArrayAdapter = new ArrayAdapter<String>(this,   android.R.layout.simple_spinner_item, profilenames);
+    		spinnerArrayAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item); // The drop down vieww
+    		spinner.setAdapter(spinnerArrayAdapter);
+    		
+    		spinner.setOnItemSelectedListener(new OnItemSelectedListener() {
+    		    
+    		    public void onItemSelected(AdapterView<?> parent, View view, int pos, long id) {
+    		    	currentprofile = parent.getItemAtPosition(pos).toString();
+    		    	System.out.println(currentprofile);
+    		    	Profile profile = db.getProfileByName(currentprofile) ;
+    		    	TextView cpu0min = (TextView)findViewById(R.id.textView11);
+    		    	TextView cpu0max = (TextView)findViewById(R.id.textView12);
+    		    	TextView cpu1min = (TextView)findViewById(R.id.textView13);
+    		    	TextView cpu1max = (TextView)findViewById(R.id.textView14);
+    		    	TextView cpu0gov = (TextView)findViewById(R.id.textView15);
+    		    	TextView cpu1gov = (TextView)findViewById(R.id.textView23);
+    		    	TextView gpu2d = (TextView)findViewById(R.id.textView17);
+    		    	TextView gpu3d = (TextView)findViewById(R.id.textView18);
+    		    	TextView vsync = (TextView)findViewById(R.id.textView19);
+    		    	TextView noc = (TextView)findViewById(R.id.textView2201);
+    		    	TextView mtu = (TextView)findViewById(R.id.textView2202);
+    		    	TextView mtd = (TextView)findViewById(R.id.textView2203);
+    		    	cpu0min.setText(profile.getCpu0min().substring(0, profile.getCpu0min().length()-3)+"Mhz");
+    		    	cpu0max.setText(profile.getCpu0max().substring(0, profile.getCpu0max().length()-3)+"Mhz");
+    		    	cpu1min.setText(profile.getCpu1min().substring(0, profile.getCpu1min().length()-3)+"Mhz");
+    		    	cpu1max.setText(profile.getCpu1max().substring(0, profile.getCpu1max().length()-3)+"Mhz");
+    		    	cpu1gov.setText(profile.getCpu1gov());
+    		    	cpu0gov.setText(profile.getCpu0gov());
+    		    	gpu2d.setText(profile.getGpu2d().substring(0, profile.getGpu2d().length()-6)+"Mhz");
+    		    	gpu3d.setText(profile.getGpu3d().substring(0, profile.getGpu3d().length()-6)+"Mhz");
+    		    	if(profile.getVsync().equals("1")){
+    		    		vsync.setText("ON");
+    		    	}
+    		    	else{
+    		    		vsync.setText("OFF");
+    		    	}
+    		    	
+    		    	noc.setText(profile.getNOC());
+    		    	mtu.setText(profile.getMtu());
+    		    	mtd.setText(profile.getMtd());
+    		    	
+    		    }
+
+    		    
+    		    public void onNothingSelected(AdapterView<?> parent) {
+    		        //do nothing
+    		    }
+    		});
+
+    		//ArrayAdapter myAdap = (ArrayAdapter) spinner.getAdapter(); //cast to an ArrayAdapter
+
+    		//int spinnerPosition = myAdap.getPosition(scheduler);
+
+    		//set the default according to value
+    		//spinner.setSelection(spinnerPosition);
+    		
+    	}
+    		public boolean onCreateOptionsMenu(Menu menu) {
+	    menu.add(Menu.NONE, 0, 0, "Add ").setIcon(R.drawable.ic_menu_add).setShowAsAction(MenuItem.SHOW_AS_ACTION_ALWAYS);
+	    menu.add(Menu.NONE, 1, 1, "Delete").setIcon(R.drawable.ic_menu_delete).setShowAsAction(MenuItem.SHOW_AS_ACTION_ALWAYS);
+menu.add(Menu.NONE, 2, 2, "Apply").setIcon(R.drawable.ic_menu_mark).setShowAsAction(MenuItem.SHOW_AS_ACTION_ALWAYS);
+	    return super.onCreateOptionsMenu(menu);
+	}
+
+	public boolean onPrepareOptionsMenu (Menu menu) {
+	    
+	    return true;
+	}
+
+
+	
+
+
+	public boolean onOptionsItemSelected(MenuItem item) {
+	    switch (item.getItemId()) {
+	        case 0:
+	        	//startActivity(new Intent(this, ProfileEditor.class));
+	        	Intent intent = new Intent();
+	            intent.setClass(this,ProfileEditor.class);
+	            startActivityForResult(intent,GET_CODE);
+				return true;
+	        case 1:
+	        	Profile pr2 = db.getProfileByName(currentprofile); 
+	        	db.deleteProfileByName(pr2);
+	        	ArrayAdapter myAdap = (ArrayAdapter) spinner.getAdapter(); //cast to an ArrayAdapter
+				  myAdap.clear();
+				  getprofiles();				
+				return true;
+	        case 2:
+	        	this.pd = ProgressDialog.show(this, "Working..", "Applying settings... ", true, false);
+	        	new apply().execute();
+	        	return true;
+	           
+	    }
+	    return false;
+		
+	}
+	protected void onActivityResult(int requestCode, int resultCode, Intent data) {
+		  super.onActivityResult(requestCode, resultCode, data);
+		  
+		  if (requestCode == GET_CODE){
+		   if (resultCode == RESULT_OK) {
+		  //String d = data.getStringExtra("Color");
+			   ArrayAdapter myAdap = (ArrayAdapter) spinner.getAdapter(); //cast to an ArrayAdapter
+				  myAdap.clear();
+		  db.addProfile(new Profile(data.getStringExtra("Name"),
+				  data.getStringExtra("cpu0min"), 
+				  data.getStringExtra("cpu0max"), 
+		    		data.getStringExtra("cpu1min"),
+		    		data.getStringExtra("cpu1max"),
+		    		data.getStringExtra("cpu0gov"),
+		    		data.getStringExtra("cpu1gov"),
+		    		data.getStringExtra("gpu2d"),
+		    		data.getStringExtra("gpu3d"),
+		    		data.getStringExtra("vsync"),
+		    		data.getStringExtra("noc"),
+		    		data.getStringExtra("mtd"),
+		    		data.getStringExtra("mtu")));
+		  getprofiles();
+		  //spinnerProfiles(); 
+		 
+  		int spinnerPosition = myAdap.getPosition(data.getStringExtra("Name"));
+
+  		//set the default according to value
+  		spinner.setSelection(spinnerPosition);
+		   }
+		   
+		   else{
+		    //text.setText("Cancelled");
+		   }
+		  }
+		 }
+}

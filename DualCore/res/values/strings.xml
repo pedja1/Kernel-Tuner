@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+<string name="app_name">Dual Core</string>
+<string-array name="mnth_array">
+        <item>January</item>
+    </string-array>
+<string name="oc">CPU Tweaks</string>
+<color name="orange">#f8a70c</color>
+<color name="black">#00000000</color>
+	<string name="anthrax"><a href="http://anthrax-kernels.us/forum/showthread.php?t=574">anthrax-kernels.us</a></string>
+	<string name="xda"><a href="http://forum.xda-developers.com/showthread.php?t=1719934">xda-developers.com</a></string>
+	<string name="official"><a href="http://dualcore.netii.net/">Official Webiste</a></string>
+	<color name="green">#00ff00</color>
+		</resources>
