@@ -1863,34 +1863,6 @@ setContentView(R.layout.main);
 	changelog();
 checkAnthrax();
 new info().execute();
-/*	Context mContext = this;
-
-    AlertDialog.Builder builder = new AlertDialog.Builder(new ContextThemeWrapper(mContext, R.style.Theme_TransparentNoTitle));
-    // use a custom View defined in xml
-    //View view = LayoutInflater.from(mContext).inflate(R.layout.oc ,  (ViewGroup) findViewById(R.id.parent));
-	LayoutInflater layoutInflater
-		= (LayoutInflater)getApplicationContext().getSystemService(Context.LAYOUT_INFLATER_SERVICE);
-	View view=layoutInflater.inflate(R.layout.dialog,null);
-   builder.setView(view);
-  /*  builder.setPositiveButton(android.R.string.ok, new DialogInterface.OnClickListener() {
-			
-			public void onClick(DialogInterface dialog, int which) {
-
-				// do whatever you want with the input
-			}
-		});*/
-	//	builder.setMessage("fgjjdshkk");
-		
-  /*  AlertDialog alertDialog = builder.create();
-//alertDialog.getWindow().setBackgroundDrawable(new ColorDrawable(0));
-    alertDialog.show();*/
-	
-/*	Dialog dialog = new Dialog(this, R.style.Theme_TransparentNoTitle);
-	dialog.setContentView(R.layout.dialog);
-//	dialog.setTitle("fgkjfd");
-	dialog.show();*/
-	
-//manuafreqcheck();
 	
 	File file = new File("/sys/kernel/debug/msm_fb/0/vsync_enable");
 	try{
@@ -1987,26 +1959,7 @@ new info().execute();
 prefs();
 initialCheck();
 initdexport();
-//SharedPreferences sharedPrefs = PreferenceManager.getDefaultSharedPreferences(this);
-/*ProcessBuilder cmd;
-String result="";
 
-try{
- String[] args = {"/system/bin/cat", "/proc/cpuinfo"};
- cmd = new ProcessBuilder(args);
-
- Process process = cmd.start();
- InputStream in = process.getInputStream();
- byte[] re = new byte[1024];
- while(in.read(re) != -1){
-  //System.out.println(new String(re));
-  result = result + new String(re);
-  System.out.println(result);
- }
- in.close();
-} catch(IOException ex){
- ex.printStackTrace();
-}*/
 
 
 
@@ -3171,8 +3124,6 @@ public void cpu0progress()
 ProgressBar cpu0progbar = (ProgressBar)findViewById(R.id.progressBar1);
 cpu0progbar.setMax(cpu0freqslist.indexOf(cpu0max.trim())+1);
 cpu0progbar.setProgress(cpu0freqslist.indexOf(iscVa.trim())+1);
-//System.out.println("Progress:"+cpu0freqslist.indexOf(cpu0min.trim())+1);
-//System.out.println("Max Progress:"+cpu0freqslist.indexOf(cpu0max.trim())+1);
 
 }
 
@@ -3226,16 +3177,10 @@ cpu3progbar.setProgress(cpu3freqslist.indexOf(freqcpu3.trim())+1);
 private Menu mainMenu;
 //private MenuItem menuItem;
 public boolean onCreateOptionsMenu(Menu menu) {
-    /*menu.add(Menu.NONE, 0, 0, "Settings");
-    menu.add(Menu.NONE, 1, 1, "Changelog");
-	menu.add(Menu.NONE, 2, 2, "Check for updates");
-	menu.add(Menu.NONE, 3, 3, "About");
-	menu.add(Menu.NONE, 4, 4, "Compatibility Check");
-    return super.onCreateOptionsMenu(menu);*/
+   
 	MenuInflater inflater = getMenuInflater();
     inflater.inflate(R.menu.options, menu);
-   // SubMenu subMenu = (SubMenu) menu.findItem(R.id.more);
-   //menuItem = menu.findItem(R.id.more);
+   
     mainMenu = menu;
     //subMenu = menuItem;
     Log.d("Menu", "menu created");
@@ -3249,48 +3194,10 @@ public boolean onPrepareOptionsMenu (Menu menu) {
 }
 
 
-/*public boolean onKeyUp(int keyCode, KeyEvent event) {
-    if(event.getAction() == KeyEvent.ACTION_UP){
-        switch(keyCode) {
-        case KeyEvent.KEYCODE_MENU:
-				int currentapiVersion = android.os.Build.VERSION.SDK_INT;
-				if (currentapiVersion >= android.os.Build.VERSION_CODES.ICE_CREAM_SANDWICH){
-					// Do something for froyo and above versions
-					 mainMenu.performIdentifierAction(R.id.more, 0);
-                     Log.d("Menu", "menu button pressed");
-				} else{
-					// do something for phones running an SDK before froyo
-				}
-           
-            return true;  
-            
-        }
-        
-    }
-    return super.onKeyUp(keyCode, event);
-}
-*/
+
 
 public boolean onOptionsItemSelected(MenuItem item) {
-  /*  switch (item.getItemId()) {
-        case 0:
-            startActivity(new Intent(this, Preferences.class));
-			return true;
-        case 1:
-            startActivity(new Intent(this, changelog.class));
-			return true;
-		case 2:
-			 new updateCheck().execute();
-            return true;
-		case 3:
-			startActivity(new Intent(this, about.class));
-			return true;
-		case 4:
-			startActivity(new Intent(this, check.class));
-			return true;
-           
-    }
-    return false;*/
+  
 	if (item.getItemId() == R.id.settings) {
         startActivity(new Intent(this, Preferences.class));
         Log.d("Menu", "settings selected");
