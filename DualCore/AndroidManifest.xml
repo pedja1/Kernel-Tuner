@@ -81,6 +81,8 @@ android:resource="@xml/widget_provider_4x4" />
 <activity android:name=".uv" android:screenOrientation="portrait" android:label="UV" android:icon="@drawable/voltage"></activity>
 <activity android:name=".cpuStatsTab" android:screenOrientation="portrait" android:label="CPU Times" android:icon="@drawable/times"></activity>
 <activity android:name=".cpuTimesCpu1" android:screenOrientation="portrait" android:label="CPU Times" android:icon="@drawable/times"></activity>
+<activity android:name=".cpuTimesCpu2" android:screenOrientation="portrait" android:label="CPU Times" android:icon="@drawable/times"></activity>
+<activity android:name=".cpuTimesCpu3" android:screenOrientation="portrait" android:label="CPU Times" android:icon="@drawable/times"></activity>
 <activity android:name=".notFoundActivity" android:screenOrientation="portrait" android:label="Unsupported" android:icon="@drawable/err"></activity>
 <activity android:name=".mpdecision" android:screenOrientation="portrait" android:label="Anthrax Tweaks" android:icon="@drawable/icon"></activity>
 <activity android:name=".about" android:screenOrientation="portrait" android:label="About" android:icon="@drawable/tux_gandalf"></activity>
