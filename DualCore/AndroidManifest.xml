@@ -35,6 +35,10 @@ android:versionName="RC9">
 			android:name=".OC_single"
 			android:label="CPU Tweaks" android:screenOrientation="portrait"  android:icon="@drawable/icon">
 		</activity>	
+		<activity
+			android:name=".OC_quad"
+			android:label="CPU Tweaks" android:screenOrientation="portrait"  android:icon="@drawable/icon">
+		</activity>	
 <receiver android:name="StartupReceiver">
 <intent-filter>
 <action

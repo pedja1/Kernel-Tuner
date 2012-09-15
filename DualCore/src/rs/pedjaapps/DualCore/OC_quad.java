@@ -1210,8 +1210,9 @@ String aBuffer = "";
 	
 	public void onCreate(Bundle savedInstanceState) {
 	super.onCreate(savedInstanceState);
-	setContentView(R.layout.oc);
+	setContentView(R.layout.oc_quad);
 	readgovernor();
+	Log.e("String","1");
 	File file = new File("/sys/devices/system/cpu/cpu0/cpufreq/scaling_available_frequencies");
 	File file2 = new File("/sys/devices/system/cpu/cpu0/cpufreq/stats/time_in_state");
 	try{
@@ -1226,7 +1227,7 @@ String aBuffer = "";
    new cpu1Toggle().execute();
    new cpu2Toggle().execute();
    new cpu3Toggle().execute();
-   
+   Log.e("String","2");
    new ReadCPU0freq().execute();
     new spinnerMinCpu0().execute();
     new spinnerMaxCpu0().execute();
@@ -1234,17 +1235,17 @@ String aBuffer = "";
     new spinnerMaxCpu2().execute();
     new spinnerMinCpu3().execute();
     new spinnerMaxCpu3().execute();
-    
+    Log.e("String","3");
     new ReadgovernorsCpu0().execute();
     new ReadgovernorsCpu1().execute();
-    
+    Log.e("String","4");
     new govspinnercpu0().execute();
     new govspinnercpu1().execute();
     new govspinnercpu2().execute();
     new govspinnercpu3().execute();
     	new ReadCPU1freq().execute();
         
-		
+    	Log.e("String","5");
 	}
 
 	catch(FileNotFoundException e){
@@ -1305,10 +1306,11 @@ String aBuffer = "";
     
 	/* File gov = new File("/sys/devices/system/cpu/cpufreq/xondemand/");
 	        ListDir(gov);  */ 
+	Log.e("String","6");
 	  newsEntryListView = (ListView) findViewById(R.id.list);
       newsEntryAdapter = new NewsEntryAdapter(this, R.layout.governor_list_item);
      newsEntryListView.setAdapter(newsEntryAdapter);
-     
+     Log.e("String","7");
      // Populate the list, through the adapter
      for(final NewsEntry entry : getNewsEntries()) {
       newsEntryAdapter.add(entry);
@@ -1380,7 +1382,7 @@ String aBuffer = "";
     			}
 				title.setText("CPU0 Governor Settings");
 			}});
-		
+		Log.e("String","8");
 		TextView gov1 = (TextView)findViewById(R.id.textView9);
 		gov1.setOnClickListener(new OnClickListener(){
 
@@ -1396,7 +1398,7 @@ String aBuffer = "";
     			}
     			title.setText("CPU1 Governor Settings");
 			}});
-		
+		Log.e("String","9");
 		TextView gov2txt = (TextView)findViewById(R.id.gov2);
 		//final TextView title = (TextView)findViewById(R.id.textView15);
 		gov2txt.setOnClickListener(new OnClickListener(){
@@ -1412,8 +1414,9 @@ String aBuffer = "";
     				newsEntryAdapter.add(entry);
     			}
 				title.setText("CPU2 Governor Settings");
+				
 			}});
-		
+		Log.e("String","10");
 		TextView gov3text = (TextView)findViewById(R.id.gov3);
 		gov3text.setOnClickListener(new OnClickListener(){
 
@@ -1429,6 +1432,7 @@ String aBuffer = "";
     			}
     			title.setText("CPU3 Governor Settings");
 			}});
+		Log.e("String","11");
 }
 	
 	public void readgovernor(){
