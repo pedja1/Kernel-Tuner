@@ -11,6 +11,7 @@ import android.content.Intent;
 import android.content.res.Resources;
 import android.database.Cursor;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.GestureDetector;
 import android.view.MotionEvent;
 import android.view.View;
@@ -25,7 +26,9 @@ public class cpuStatsTab extends TabActivity {
  
 	TabSpec tabSpecCpu1;
 	TabSpec tabSpecCpu0;
-	;
+	TabSpec tabSpecCpu2;
+	TabSpec tabSpecCpu3;
+	
 	
 	public void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
@@ -70,13 +73,61 @@ public class cpuStatsTab extends TabActivity {
 		}
 		
 		
- 
+		File file2 = new File("/sys/devices/system/cpu/cpu2/cpufreq/stats/time_in_state");
+		try{
 		
+		InputStream fIn = new FileInputStream(file);
+		Intent intentCpu2 = new Intent().setClass(this, cpuTimesCpu2.class);
+		tabSpecCpu2 = tabHost
+				  .newTabSpec("CPU2")
+				  .setIndicator("CPU2")
+				  .setContent(intentCpu2);
+		}
+		catch(FileNotFoundException e){
+			Intent intentNotSupported = new Intent(this, notFoundActivity.class);
+			tabSpecCpu2 = tabHost
+					  .newTabSpec("CPU2")
+					  .setIndicator("CPU2")
+					  .setContent(intentNotSupported);
+		}
+ 
+		File file3 = new File("/sys/devices/system/cpu/cpu3/cpufreq/stats/time_in_state");
+		try{
+		
+		InputStream fIn = new FileInputStream(file);
+		Intent intentCpu3 = new Intent().setClass(this, cpuTimesCpu3.class);
+		tabSpecCpu3 = tabHost
+				  .newTabSpec("CPU3")
+				  .setIndicator("CPU3")
+				  .setContent(intentCpu3);
+		}
+		catch(FileNotFoundException e){
+			Intent intentNotSupported = new Intent(this, notFoundActivity.class);
+			tabSpecCpu3 = tabHost
+					  .newTabSpec("CPU3")
+					  .setIndicator("CPU3")
+					  .setContent(intentNotSupported);
+		}
 		
  
 		// add all tabs 
-		tabHost.addTab(tabSpecCpu0);
-		tabHost.addTab(tabSpecCpu1);
+		
+			
+		
+		//tabHost.addTab(tabSpecCpu0);
+		if(new File("/sys/devices/system/cpu/cpu0/online").exists()){
+			tabHost.addTab(tabSpecCpu0);
+		}
+		if(new File("/sys/devices/system/cpu/cpu1/online").exists()){
+			tabHost.addTab(tabSpecCpu1);
+		}
+		if(new File("/sys/devices/system/cpu/cpu2/online").exists()){
+			tabHost.addTab(tabSpecCpu2);
+		}
+		if(new File("/sys/devices/system/cpu/cpu3/online").exists()){
+			tabHost.addTab(tabSpecCpu3);
+		}
+		
 		
  
 		//set Windows tab as default (zero based)
