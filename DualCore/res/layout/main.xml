@@ -138,6 +138,7 @@
             style="?android:attr/progressBarStyleHorizontal"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
+            android:layout_alignBottom="@+id/ptextView1"
             android:layout_alignParentTop="true"
             android:layout_toRightOf="@+id/ptextView1"
             android:max="100"
@@ -157,8 +158,8 @@
             style="?android:attr/progressBarStyleHorizontal"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_alignLeft="@+id/progressBar1"
-            android:layout_below="@+id/progressBar1"
+            android:layout_alignBottom="@+id/ptextView2"
+            android:layout_toRightOf="@+id/ptextView2"
             android:max="100"
             android:progress="3" />
 
@@ -192,8 +193,8 @@
             style="?android:attr/progressBarStyleHorizontal"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_alignLeft="@+id/progressBar2"
-            android:layout_below="@+id/progressBar2"
+            android:layout_alignBottom="@+id/ptextView5"
+            android:layout_toRightOf="@+id/ptextView5"
             android:max="100"
             android:progress="0" />
 
@@ -202,8 +203,8 @@
             style="?android:attr/progressBarStyleHorizontal"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_below="@+id/progressBar3"
-            android:layout_toRightOf="@+id/ptextView5"
+            android:layout_alignBottom="@+id/ptextView6"
+            android:layout_toRightOf="@+id/ptextView6"
             android:max="100"
             android:progress="0" />
 
