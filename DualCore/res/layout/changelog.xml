@@ -9,13 +9,39 @@
     android:layout_width="match_parent"
     android:layout_height="wrap_content" >
 	
+<RelativeLayout
+        android:id="@+id/rl15"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentTop="true"
+        android:background="@drawable/divider_strong_holo" >
 
+        <TextView
+            android:id="@+id/textView29"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"      
+            android:text="RC10"
+            android:textColor="@color/green" />
+
+    </RelativeLayout>
+
+    <TextView
+        android:id="@+id/textView30"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/rl15"
+        android:text="-[ADD]QuadCore support(untested)\n
+-[FIX]Bug fixes\n
+-[FIX]Battery optimisation while app is in background"
+ />
+    
 <RelativeLayout
         android:id="@+id/rl14"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_alignParentLeft="true"
-        android:layout_alignParentTop="true"
+        android:layout_below="@+id/textView30"
         android:background="@drawable/divider_strong_holo" >
 
         <TextView
