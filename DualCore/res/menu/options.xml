@@ -36,7 +36,7 @@
         android:title="Compatibility Check"/>
     <item
         android:id="@+id/profiles"
-        android:icon="@drawable/ic_menu_help"
+        android:icon="@drawable/ic_menu_cc"
         android:showAsAction="ifRoom|withText"
         android:title="Profiles"/>
            <!-- </menu> 
