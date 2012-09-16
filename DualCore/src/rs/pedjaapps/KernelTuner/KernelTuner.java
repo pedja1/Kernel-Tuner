@@ -2571,6 +2571,7 @@ public void initdexport(){
 	  String maxfreqselected = sharedPrefs.getString("maxfreqselected", "");
 	  String govselected = sharedPrefs.getString("govselected", "");
 	  String ldt = sharedPrefs.getString("ldt", "");
+	  String s2w = sharedPrefs.getString("s2w", "");
 	  
 	  
 	  String gpu = "#!/system/bin/sh \n" +
@@ -2637,6 +2638,8 @@ public void initdexport(){
 		"echo " + "\""+maxfreqselected.trim() + "\""+" > /sys/kernel/msm_mpdecision/conf/mpdec_scroff_freq \n"+
 		"echo " + "\""+govselected.trim() + "\""+" > /sys/kernel/msm_mpdecision/conf/mpdec_scroff_gov \n\n"+
 		"echo " + "\""+ldt + "\""+" > /sys/kernel/notification_leds/off_timer_multiplier\n"+
+		"echo " + "\""+s2w + "\""+" > /sys/android_touch/sweep2wake\n"+
+		"echo " + "\""+s2w + "\""+" > /sys/android_touch/sweep2wake/s2w_switch\n"+
 		
 	  	  "umount /sys/kernel/debug \n" ;
 

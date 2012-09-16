@@ -72,4 +72,6 @@ rc10
 -quad core support(untested)
 -bug fixes
 -battery optimisation while app is in background
-
+2.0
+-s2w
+-renamed to Kernel Tuner

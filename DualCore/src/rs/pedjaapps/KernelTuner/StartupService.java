@@ -241,6 +241,7 @@ public class StartupService extends Service
 		  String maxfreqselected = sharedPrefs.getString("maxfreqselected", "");
 		  String govselected = sharedPrefs.getString("govselected", "");
 		  String ldt = sharedPrefs.getString("ldt", "");
+		  String s2w = sharedPrefs.getString("s2w", "");
 		  
 		  
 
@@ -292,7 +293,9 @@ public class StartupService extends Service
         localDataOutputStream.writeBytes("echo " + maxfreqselected.trim() + " > /sys/kernel/msm_mpdecision/conf/mpdec_scroff_freq\n");
         localDataOutputStream.writeBytes("echo " + govselected.trim() + " > /sys/kernel/msm_mpdecision/conf/mpdec_scroff_gov\n");
         localDataOutputStream.writeBytes( "echo " + "\""+ldt + "\""+" > /sys/kernel/notification_leds/off_timer_multiplier\n");
-       // localDataOutputStream.writeBytes("chmod 777 /sys/kernel/msm_mpdecision/conf/idle_freq\n");
+        localDataOutputStream.writeBytes( "echo " + "\""+s2w + "\""+" > /sys/android_touch/sweep2wake\n");
+        localDataOutputStream.writeBytes( "echo " + "\""+s2w + "\""+" > /sys/android_touch/sweep2wake/s2w_switch\n");
+        // localDataOutputStream.writeBytes("chmod 777 /sys/kernel/msm_mpdecision/conf/idle_freq\n");
       //  localDataOutputStream.writeBytes("echo " + freqselected + " > /sys/kernel/msm_mpdecision/conf/idle_freq\n");
    
         localDataOutputStream.writeBytes("exit\n");
