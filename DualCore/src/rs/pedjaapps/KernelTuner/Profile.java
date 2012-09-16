@@ -1,4 +1,4 @@
-package rs.pedjaapps.DualCore;
+package rs.pedjaapps.KernelTuner;
 
 public class Profile{
 

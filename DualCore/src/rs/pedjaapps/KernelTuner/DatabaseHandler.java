@@ -1,4 +1,4 @@
-package rs.pedjaapps.DualCore;
+package rs.pedjaapps.KernelTuner;
 
 
 import java.util.List;

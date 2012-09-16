@@ -1,9 +1,11 @@
-package rs.pedjaapps.DualCore;
+package rs.pedjaapps.KernelTuner;
  
 import java.io.File;
 import java.io.FileInputStream;
 import java.io.FileNotFoundException;
 import java.io.InputStream;
+
+import rs.pedjaapps.DualCore.R;
 
 
 import android.app.TabActivity;

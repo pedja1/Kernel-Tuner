@@ -1,4 +1,4 @@
-package rs.pedjaapps.DualCore;
+package rs.pedjaapps.KernelTuner;
 
 import java.io.BufferedReader;
 import java.io.DataInputStream;
@@ -38,6 +38,8 @@ import android.widget.TextView;
 
 import android.widget.AdapterView.OnItemSelectedListener;
 import java.io.*;
+
+import rs.pedjaapps.DualCore.R;
 
 public class uv extends Activity {
 

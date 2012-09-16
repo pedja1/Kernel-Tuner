@@ -1,4 +1,4 @@
-package rs.pedjaapps.DualCore;
+package rs.pedjaapps.KernelTuner;
 
 
 import java.io.BufferedReader;
@@ -13,6 +13,8 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 import java.util.concurrent.TimeUnit;
+
+import rs.pedjaapps.DualCore.R;
 
 import android.annotation.SuppressLint;
 import android.app.Activity;

@@ -1,4 +1,4 @@
-package rs.pedjaapps.DualCore;
+package rs.pedjaapps.KernelTuner;
 
 
 import android.app.Service;

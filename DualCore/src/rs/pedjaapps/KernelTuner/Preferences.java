@@ -1,6 +1,7 @@
-package rs.pedjaapps.DualCore;
+package rs.pedjaapps.KernelTuner;
 
 
+import rs.pedjaapps.DualCore.R;
 import android.os.Bundle;
 
 import android.preference.CheckBoxPreference;

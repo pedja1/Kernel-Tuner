@@ -1,4 +1,4 @@
-package rs.pedjaapps.DualCore;
+package rs.pedjaapps.KernelTuner;
 
 import java.io.BufferedReader;
 import java.io.DataInputStream;
@@ -15,6 +15,8 @@ import java.util.Date;
 import java.util.GregorianCalendar;
 import java.util.List;
 import java.util.concurrent.TimeoutException;
+
+import rs.pedjaapps.DualCore.R;
 
 
 

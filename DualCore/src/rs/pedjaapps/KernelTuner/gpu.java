@@ -1,4 +1,4 @@
-package rs.pedjaapps.DualCore;
+package rs.pedjaapps.KernelTuner;
 
 import java.io.BufferedReader;
 import java.io.DataOutputStream;
@@ -9,6 +9,8 @@ import java.io.InputStreamReader;
 import java.util.List;
 import java.util.concurrent.ExecutionException;
 import java.util.concurrent.TimeoutException;
+
+import rs.pedjaapps.DualCore.R;
 import android.app.Activity;
 import android.app.ProgressDialog;
 import android.content.SharedPreferences;

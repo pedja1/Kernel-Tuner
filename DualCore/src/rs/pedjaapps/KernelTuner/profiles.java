@@ -1,4 +1,4 @@
-package rs.pedjaapps.DualCore;
+package rs.pedjaapps.KernelTuner;
 
 import java.io.BufferedReader;
 import java.io.DataOutputStream;
@@ -32,6 +32,8 @@ import android.widget.TextView;
 import android.widget.Toast;
 import android.text.method.*;
 import java.util.*;
+
+import rs.pedjaapps.DualCore.R;
 import android.widget.*;
 import android.view.Menu;
 import android.view.MenuItem;

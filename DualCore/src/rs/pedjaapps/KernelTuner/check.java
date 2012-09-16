@@ -1,8 +1,10 @@
-package rs.pedjaapps.DualCore;
+package rs.pedjaapps.KernelTuner;
 
 import java.io.File;
 import java.io.FileInputStream;
 import java.io.IOException;
+
+import rs.pedjaapps.DualCore.R;
 
 import android.app.Activity;
 import android.graphics.Color;

@@ -1,4 +1,4 @@
-package rs.pedjaapps.DualCore;
+package rs.pedjaapps.KernelTuner;
 import android.content.BroadcastReceiver;
 import android.content.ComponentName;
 import android.content.Context;

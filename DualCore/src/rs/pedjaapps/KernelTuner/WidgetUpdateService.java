@@ -1,4 +1,4 @@
-package rs.pedjaapps.DualCore;
+package rs.pedjaapps.KernelTuner;
 
 import java.io.BufferedReader;
 import java.io.File;
@@ -6,6 +6,8 @@ import java.io.FileInputStream;
 import java.io.InputStreamReader;
 import java.util.Calendar;
 import java.util.Random;
+
+import rs.pedjaapps.DualCore.R;
 
 import android.app.AlarmManager;
 import android.app.PendingIntent;
