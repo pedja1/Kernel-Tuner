@@ -84,7 +84,9 @@ android:resource="@xml/widget_provider_4x4" />
 <activity android:name=".cpuTimesCpu2" android:screenOrientation="portrait" android:label="CPU Times" android:icon="@drawable/times"></activity>
 <activity android:name=".cpuTimesCpu3" android:screenOrientation="portrait" android:label="CPU Times" android:icon="@drawable/times"></activity>
 <activity android:name=".notFoundActivity" android:screenOrientation="portrait" android:label="Unsupported" android:icon="@drawable/err"></activity>
-<activity android:name=".mpdecision" android:screenOrientation="portrait" android:label="Anthrax Tweaks" android:icon="@drawable/icon"></activity>
+<activity android:name=".mpdecision" android:screenOrientation="portrait" android:label="mpdecision" android:icon="@drawable/icon"></activity>
+<activity android:name=".thermald" android:screenOrientation="portrait" android:label="thermald" android:icon="@drawable/icon"></activity>
+
 <activity android:name=".about" android:screenOrientation="portrait" android:label="About" android:icon="@drawable/tux_gandalf"></activity>
 <activity android:name=".changelog" android:screenOrientation="portrait" android:label="Changelog" android:theme="@style/Theme.TransparentDark"  android:icon="@drawable/icon"></activity>
 <activity android:name=".anthraxTweaks" android:label="Anthrax Tweaks" android:icon="@drawable/icon"></activity>

@@ -34,26 +34,9 @@ public class anthraxTweaks extends Activity {
 
 			public void onClick(View v) {
 
-				AlertDialog.Builder builder = new AlertDialog.Builder(
-						anthraxTweaks.this);
-
-				builder.setTitle("thermald");
-
-				builder.setMessage("Coming soon");
-
-				builder.setIcon(R.drawable.icon);
-
-				builder.setPositiveButton("OK",
-						new DialogInterface.OnClickListener() {
-							public void onClick(DialogInterface dialog,
-									int which) {
-
-							}
-						});
-
-				AlertDialog alert = builder.create();
-
-				alert.show();
+				Intent myIntent = new Intent(anthraxTweaks.this,
+						thermald.class);
+				anthraxTweaks.this.startActivity(myIntent);
 			}
 
 		});
