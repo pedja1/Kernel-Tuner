@@ -28,7 +28,7 @@ import java.io.FileInputStream;
 import java.io.IOException;
 import java.io.InputStreamReader;
 
-import rs.pedjaapps.DualCore.R;
+import rs.pedjaapps.KernelTuner.R;
 import android.widget.*; 
 
 public class mpdecision extends Activity {

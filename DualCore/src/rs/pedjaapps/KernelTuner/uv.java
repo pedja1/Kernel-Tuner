@@ -39,7 +39,7 @@ import android.widget.TextView;
 import android.widget.AdapterView.OnItemSelectedListener;
 import java.io.*;
 
-import rs.pedjaapps.DualCore.R;
+import rs.pedjaapps.KernelTuner.R;
 
 public class uv extends Activity {
 

@@ -55,7 +55,7 @@ import java.io.IOException;
 import java.io.InputStream;
 import java.io.InputStreamReader;
 
-import rs.pedjaapps.DualCore.R; 
+import rs.pedjaapps.KernelTuner.R; 
 
 public class miscTweaks extends Activity implements SeekBar.OnSeekBarChangeListener{
 

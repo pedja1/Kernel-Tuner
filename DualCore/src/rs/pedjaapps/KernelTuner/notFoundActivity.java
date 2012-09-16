@@ -1,6 +1,6 @@
 package rs.pedjaapps.KernelTuner;
  
-import rs.pedjaapps.DualCore.R;
+import rs.pedjaapps.KernelTuner.R;
 import android.app.Activity;
 import android.app.TabActivity;
 import android.content.Intent;

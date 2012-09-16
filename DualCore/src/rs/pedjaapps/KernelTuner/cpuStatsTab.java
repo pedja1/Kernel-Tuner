@@ -5,7 +5,7 @@ import java.io.FileInputStream;
 import java.io.FileNotFoundException;
 import java.io.InputStream;
 
-import rs.pedjaapps.DualCore.R;
+import rs.pedjaapps.KernelTuner.R;
 
 
 import android.app.TabActivity;

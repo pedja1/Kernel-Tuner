@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-<string name="app_name">Dual Core</string>
+<string name="app_name">Kernel Tuner</string>
 <string-array name="mnth_array">
         <item>January</item>
     </string-array>

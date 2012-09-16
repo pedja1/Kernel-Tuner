@@ -13,7 +13,7 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.concurrent.TimeoutException;
 
-import rs.pedjaapps.DualCore.R;
+import rs.pedjaapps.KernelTuner.R;
 import rs.pedjaapps.KernelTuner.OC.NewsEntry;
 import rs.pedjaapps.KernelTuner.OC.NewsEntryAdapter;
 import android.app.Activity;

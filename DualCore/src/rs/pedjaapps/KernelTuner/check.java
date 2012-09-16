@@ -4,7 +4,7 @@ import java.io.File;
 import java.io.FileInputStream;
 import java.io.IOException;
 
-import rs.pedjaapps.DualCore.R;
+import rs.pedjaapps.KernelTuner.R;
 
 import android.app.Activity;
 import android.graphics.Color;

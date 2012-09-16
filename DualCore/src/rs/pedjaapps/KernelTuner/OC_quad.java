@@ -16,7 +16,7 @@ import java.util.GregorianCalendar;
 import java.util.List;
 import java.util.concurrent.TimeoutException;
 
-import rs.pedjaapps.DualCore.R;
+import rs.pedjaapps.KernelTuner.R;
 
 
 

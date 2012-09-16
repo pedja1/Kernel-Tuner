@@ -7,7 +7,7 @@ import java.io.InputStreamReader;
 import java.util.Calendar;
 import java.util.Random;
 
-import rs.pedjaapps.DualCore.R;
+import rs.pedjaapps.KernelTuner.R;
 
 import android.app.AlarmManager;
 import android.app.PendingIntent;

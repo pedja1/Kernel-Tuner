@@ -34,7 +34,7 @@ import android.widget.Toast;
 import android.text.method.*;
 import java.util.*;
 
-import rs.pedjaapps.DualCore.R;
+import rs.pedjaapps.KernelTuner.R;
 import android.widget.*;
 
 public class ProfileEditor extends Activity{

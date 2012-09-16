@@ -56,7 +56,7 @@ import java.io.OutputStreamWriter;
 import java.net.MalformedURLException;
 import java.net.URL;
 
-import rs.pedjaapps.DualCore.R; 
+import rs.pedjaapps.KernelTuner.R; 
 import android.widget.*;
 import android.content.pm.*;
 import android.content.pm.PackageManager.NameNotFoundException;
@@ -65,7 +65,7 @@ import android.view.*;
 
 //EndImports
 
-public class DualCore extends Activity {
+public class KernelTuner extends Activity {
 
 boolean thread = true;
 private Button button2;
@@ -238,7 +238,7 @@ private class updateCheck extends AsyncTask<String, Void, Object> {
 	//	pd.setCancelable(true);
 	
 		pd = ProgressDialog.show(
-			DualCore.this,
+			KernelTuner.this,
 			"Working...",
 			"Checking for updates...",
 			true,
@@ -256,8 +256,8 @@ private class updateCheck extends AsyncTask<String, Void, Object> {
 
     protected void onPostExecute(Object result) {
 	
-        DualCore.this.data = result;
-        DualCore.this.pd.dismiss();
+        KernelTuner.this.data = result;
+        KernelTuner.this.pd.dismiss();
         
 		try {
 		PackageInfo	pInfo = getPackageManager().getPackageInfo(getPackageName(), 0);
@@ -269,7 +269,7 @@ private class updateCheck extends AsyncTask<String, Void, Object> {
 		
         if (remoteversion!= null && !remoteversion.equals(version)){
         	AlertDialog.Builder builder = new AlertDialog.Builder(
-                    DualCore.this);
+                    KernelTuner.this);
 
     builder.setTitle("New Version Available");
 
@@ -342,7 +342,7 @@ private class mountDebugFs extends AsyncTask<String, Void, Object> {
      protected void onPostExecute(Object result) {
          // Pass the result data back to the main activity
     	 
-         DualCore.this.data = result;
+         KernelTuner.this.data = result;
  
      }
 
@@ -426,9 +426,9 @@ private class cpu1Toggle extends AsyncTask<String, Void, Object> {
      protected void onPostExecute(Object result) {
          // Pass the result data back to the main activity
     	 
-         DualCore.this.data = result;
+         KernelTuner.this.data = result;
     
-             DualCore.this.pd.dismiss();
+             KernelTuner.this.pd.dismiss();
          
      }
 
@@ -511,9 +511,9 @@ private class cpu2Toggle extends AsyncTask<String, Void, Object> {
      protected void onPostExecute(Object result) {
          // Pass the result data back to the main activity
     	 
-         DualCore.this.data = result;
+         KernelTuner.this.data = result;
     
-             DualCore.this.pd.dismiss();
+             KernelTuner.this.pd.dismiss();
          
      }
 
@@ -596,9 +596,9 @@ private class cpu3Toggle extends AsyncTask<String, Void, Object> {
      protected void onPostExecute(Object result) {
          // Pass the result data back to the main activity
     	 
-         DualCore.this.data = result;
+         KernelTuner.this.data = result;
     
-             DualCore.this.pd.dismiss();
+             KernelTuner.this.pd.dismiss();
          
      }
 
@@ -640,7 +640,7 @@ private class initdApplyCpuGpuMisc extends AsyncTask<String, Void, Object> {
      protected void onPostExecute(Object result) {
          // Pass the result data back to the main activity
     	 
-         DualCore.this.data = result;
+         KernelTuner.this.data = result;
         
      }
 
@@ -680,7 +680,7 @@ private class initdApplyCpu1Off extends AsyncTask<String, Void, Object> {
      protected void onPostExecute(Object result) {
          // Pass the result data back to the main activity
     	 
-         DualCore.this.data = result;
+         KernelTuner.this.data = result;
   
      }
 
@@ -718,7 +718,7 @@ private class initdApplyCpu1forced extends AsyncTask<String, Void, Object> {
      protected void onPostExecute(Object result) {
          // Pass the result data back to the main activity
     	 
-         DualCore.this.data = result;          
+         KernelTuner.this.data = result;          
          
      }
 
@@ -762,7 +762,7 @@ private class rmInitd extends AsyncTask<String, Void, Object> {
      protected void onPostExecute(Object result) {
          // Pass the result data back to the main activity
     	 
-         DualCore.this.data = result;
+         KernelTuner.this.data = result;
         
      }
 
@@ -1764,7 +1764,7 @@ return "";
   	 */ editor.commit();
 	    
     	
-        DualCore.this.data = result;
+        KernelTuner.this.data = result;
 
         
         //if (DualCore.this.pd != null){   
@@ -1892,12 +1892,12 @@ new info().execute();
 			
 			InputStream fIn = new FileInputStream(file);
 			
-			Intent myIntent = new Intent(DualCore.this, gpu.class);
-			DualCore.this.startActivity(myIntent);
+			Intent myIntent = new Intent(KernelTuner.this, gpu.class);
+			KernelTuner.this.startActivity(myIntent);
 			}
 			catch(FileNotFoundException e){
 				AlertDialog alertDialog = new AlertDialog.Builder(
-                        DualCore.this).create();
+                        KernelTuner.this).create();
 
         alertDialog.setTitle("Unsupported kernel");
  
@@ -1929,12 +1929,12 @@ new info().execute();
 			
 			InputStream fIn = new FileInputStream(file);
 			
-			Intent myIntent = new Intent(DualCore.this, uv.class);
-			DualCore.this.startActivity(myIntent);
+			Intent myIntent = new Intent(KernelTuner.this, uv.class);
+			KernelTuner.this.startActivity(myIntent);
 			}
 			catch(FileNotFoundException e){
 				AlertDialog alertDialog = new AlertDialog.Builder(
-                        DualCore.this).create();
+                        KernelTuner.this).create();
 
         alertDialog.setTitle("Unsupported kernel");
  
@@ -2067,17 +2067,17 @@ button2.setOnClickListener(new OnClickListener(){
 	public void onClick(View v) {
 		
 		if(new File("/sys/devices/system/cpu/cpu3/online").exists()){
-			Intent myIntent = new Intent(DualCore.this, OC_quad.class);
-			DualCore.this.startActivity(myIntent);
+			Intent myIntent = new Intent(KernelTuner.this, OC_quad.class);
+			KernelTuner.this.startActivity(myIntent);
 		}
 		if(new File("/sys/devices/system/cpu/cpu1/online").exists() && !(new File("/sys/devices/system/cpu/cpu3/online").exists())){
-			Intent myIntent = new Intent(DualCore.this, OC.class);
-			DualCore.this.startActivity(myIntent);
+			Intent myIntent = new Intent(KernelTuner.this, OC.class);
+			KernelTuner.this.startActivity(myIntent);
 		}
 		if(!(new File("/sys/devices/system/cpu/cpu1/online").exists()) && !(new File("/sys/devices/system/cpu/cpu3/online").exists()))
 		{
-			Intent myIntent = new Intent(DualCore.this, OC_single.class);
-			DualCore.this.startActivity(myIntent);
+			Intent myIntent = new Intent(KernelTuner.this, OC_single.class);
+			KernelTuner.this.startActivity(myIntent);
 		}
 			
 	}
@@ -2089,8 +2089,8 @@ buttontest.setOnClickListener(new OnClickListener(){
 	
 	public void onClick(View v) {
 		
-		Intent myIntent = new Intent(DualCore.this, cpuStatsTab.class);
-		DualCore.this.startActivity(myIntent);
+		Intent myIntent = new Intent(KernelTuner.this, cpuStatsTab.class);
+		KernelTuner.this.startActivity(myIntent);
 		
 	}
 });
@@ -2101,8 +2101,8 @@ atweaks.setOnClickListener(new OnClickListener(){
 	
 	public void onClick(View v) {
 		
-		Intent myIntent = new Intent(DualCore.this, anthraxTweaks.class);
-		DualCore.this.startActivity(myIntent);
+		Intent myIntent = new Intent(KernelTuner.this, anthraxTweaks.class);
+		KernelTuner.this.startActivity(myIntent);
 		
 	}
 });
@@ -2124,8 +2124,8 @@ buttongpu.setOnClickListener(new OnClickListener(){
 	public void onClick(View v) {
 		
 		
-			Intent myIntent = new Intent(DualCore.this, miscTweaks.class);
-			DualCore.this.startActivity(myIntent);
+			Intent myIntent = new Intent(KernelTuner.this, miscTweaks.class);
+			KernelTuner.this.startActivity(myIntent);
 		
 	}
 });
@@ -2139,7 +2139,7 @@ cpu1toggle.setOnClickListener(new OnClickListener()
 public void onClick(View v) {
 	
 	firstTimeDialog("CPU1");
-	DualCore.this.pd = ProgressDialog.show(DualCore.this, "Working..", "Applying settings...", true, false);
+	KernelTuner.this.pd = ProgressDialog.show(KernelTuner.this, "Working..", "Applying settings...", true, false);
 	new cpu1Toggle().execute();
 	
 	
@@ -2153,7 +2153,7 @@ cpu2toggle.setOnClickListener(new OnClickListener()
 public void onClick(View v) {
 	
 	firstTimeDialog("CPU2");
-	DualCore.this.pd = ProgressDialog.show(DualCore.this, "Working..", "Applying settings...", true, false);
+	KernelTuner.this.pd = ProgressDialog.show(KernelTuner.this, "Working..", "Applying settings...", true, false);
 	new cpu2Toggle().execute();
 	
 	
@@ -2167,7 +2167,7 @@ cpu3toggle.setOnClickListener(new OnClickListener()
 public void onClick(View v) {
 	
 	firstTimeDialog("CPU3");
-	DualCore.this.pd = ProgressDialog.show(DualCore.this, "Working..", "Applying settings...", true, false);
+	KernelTuner.this.pd = ProgressDialog.show(KernelTuner.this, "Working..", "Applying settings...", true, false);
 	new cpu3Toggle().execute();
 	
 	
@@ -2180,7 +2180,7 @@ public void firstTimeDialog(String CPU){
     boolean previouslyStarted = preferences.getBoolean("mpdecdialog", false);
 	if (!previouslyStarted){
     AlertDialog alertDialog = new AlertDialog.Builder(
-            DualCore.this).create();
+            KernelTuner.this).create();
 
 // Setting Dialog Title
 alertDialog.setTitle("Force CPU1 online");
@@ -2245,8 +2245,8 @@ alertDialog.show();
 		String	version = pInfo.versionName;
 			if (!versionpref.equals(version)){
 
-				Intent myIntent = new Intent(DualCore.this, changelog.class);
-				DualCore.this.startActivity(myIntent);
+				Intent myIntent = new Intent(KernelTuner.this, changelog.class);
+				KernelTuner.this.startActivity(myIntent);
 
 			}	
 			SharedPreferences.Editor editor = preferences.edit();

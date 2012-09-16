@@ -35,7 +35,7 @@ import android.app.*;
 import java.io.*;
 import java.lang.Process;
 
-import rs.pedjaapps.DualCore.R;
+import rs.pedjaapps.KernelTuner.R;
 
 public class WidgetUpdateServiceBig extends Service {
 
