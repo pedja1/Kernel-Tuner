@@ -44,7 +44,7 @@
             android:defaultValue="true"
             android:key="ads"
             android:summary="You need to restart app to stop showing ads"
-            android:title="Stop showing ads" />
+            android:title="Showing ads on main screen" />
     </PreferenceCategory>
 
 </PreferenceScreen>
