@@ -242,6 +242,15 @@ public class StartupService extends Service
 		  String govselected = sharedPrefs.getString("govselected", "");
 		  String ldt = sharedPrefs.getString("ldt", "");
 		  String s2w = sharedPrefs.getString("s2w", "");
+		  String p1freq = sharedPrefs.getString("p1freq", "");
+		  String p2freq = sharedPrefs.getString("p2freq", "");
+		  String p3freq = sharedPrefs.getString("p3freq", "");
+		  String p1low = sharedPrefs.getString("p1low", "");
+		  String p1high = sharedPrefs.getString("p1high", "");
+		  String p2low = sharedPrefs.getString("p2low", "");
+		  String p2high = sharedPrefs.getString("p2high", "");
+		  String p3low = sharedPrefs.getString("p3low", "");
+		  String p3high = sharedPrefs.getString("p3high", "");
 		  
 		  
 
@@ -295,6 +304,17 @@ public class StartupService extends Service
         localDataOutputStream.writeBytes( "echo " + "\""+ldt + "\""+" > /sys/kernel/notification_leds/off_timer_multiplier\n");
         localDataOutputStream.writeBytes( "echo " + "\""+s2w + "\""+" > /sys/android_touch/sweep2wake\n");
         localDataOutputStream.writeBytes( "echo " + "\""+s2w + "\""+" > /sys/android_touch/sweep2wake/s2w_switch\n");
+        
+        localDataOutputStream.writeBytes("echo " + p1freq + " > /sys/kernel/msm_thermal/conf/allowed_low_freq\n");
+        localDataOutputStream.writeBytes("echo " + p2freq + " > /sys/kernel/msm_thermal/conf/allowed_mid_freq\n");
+        localDataOutputStream.writeBytes("echo " + p3freq + " > /sys/kernel/msm_thermal/conf/allowed_max_freq\n");
+        localDataOutputStream.writeBytes("echo " + p1low + " > /sys/kernel/msm_thermal/conf/allowed_low_low\n");
+        localDataOutputStream.writeBytes("echo " + p1high + " > /sys/kernel/msm_thermal/conf/allowed_low_high\n");
+        localDataOutputStream.writeBytes("echo " + p2low + " > /sys/kernel/msm_thermal/conf/allowed_mid_low\n");
+        localDataOutputStream.writeBytes("echo " + p2high + " > /sys/kernel/msm_thermal/conf/allowed_mid_high\n");
+        localDataOutputStream.writeBytes("echo " + p3low + " > /sys/kernel/msm_thermal/conf/allowed_max_low\n");
+        localDataOutputStream.writeBytes("echo " + p3high + " > /sys/kernel/msm_thermal/conf/allowed_max_high\n");
+        
         // localDataOutputStream.writeBytes("chmod 777 /sys/kernel/msm_mpdecision/conf/idle_freq\n");
       //  localDataOutputStream.writeBytes("echo " + freqselected + " > /sys/kernel/msm_mpdecision/conf/idle_freq\n");
    

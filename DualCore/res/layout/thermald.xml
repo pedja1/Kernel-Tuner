@@ -60,6 +60,7 @@
                 android:layout_height="wrap_content"
                 android:layout_weight="1"
                android:maxLength="2"
+               android:gravity="center" 
                 android:inputType="number" >
 
                 <requestFocus />
@@ -91,6 +92,7 @@
                 android:layout_height="wrap_content"
                 android:layout_weight="1"
                 android:maxLength="2"
+                android:gravity="center" 
                 android:inputType="number" />
 
         </LinearLayout>
@@ -151,6 +153,7 @@
                 android:layout_height="wrap_content"
                 android:layout_weight="1"
                android:maxLength="2"
+               android:gravity="center" 
                 android:inputType="number" />
 
         </LinearLayout>
@@ -179,6 +182,7 @@
                 android:layout_height="wrap_content"
                 android:layout_weight="1"
                android:maxLength="2"
+               android:gravity="center" 
                 android:inputType="number" />
 
         </LinearLayout>
@@ -239,6 +243,7 @@
                 android:layout_height="wrap_content"
                 android:layout_weight="1"
                android:maxLength="2"
+               android:gravity="center" 
                 android:inputType="number" />
 
         </LinearLayout>
@@ -267,10 +272,17 @@
                 android:layout_height="wrap_content"
                 android:layout_weight="1"
                android:maxLength="2"
+               android:gravity="center" 
                 android:inputType="number" />
 
         </LinearLayout>
 
     </LinearLayout>
+
+    <Button
+        android:id="@+id/button1"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="Apply" />
 
 </LinearLayout>

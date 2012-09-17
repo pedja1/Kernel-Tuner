@@ -57,8 +57,6 @@ import java.net.MalformedURLException;
 import java.net.URL;
 
 import com.google.ads.*;
-import com.google.ads.AdRequest;
-import com.google.ads.AdView;
 
 import rs.pedjaapps.KernelTuner.R; 
 import android.widget.*;
@@ -124,6 +122,16 @@ List<String> list;
 public String ldt;
 public String freqcpu2;
 public String freqcpu3;
+
+public String p1low;
+public String p1high;
+public String p2low;
+public String p2high;
+public String p3low;
+public String p3high;
+public String p1freq;
+public String p2freq;
+public String p3freq;
 
 List<String> frequencies3 = new ArrayList<String>();
 List<String> frequencies4 = new ArrayList<String>();
@@ -1458,6 +1466,194 @@ private class info extends AsyncTask<String, Void, Object> {
 			
 			ldt="266";
 		}
+ 	  
+ 	 try {
+			
+			File myFile = new File("/sys/kernel/msm_thermal/conf/allowed_low_freq");
+			FileInputStream fIn = new FileInputStream(myFile);
+			
+			BufferedReader myReader = new BufferedReader(
+					new InputStreamReader(fIn));
+			String aDataRow = "";
+			String aBuffer = "";
+			while ((aDataRow = myReader.readLine()) != null) {
+				aBuffer += aDataRow + "\n";
+			}
+
+			p1freq = aBuffer.trim();
+			myReader.close();
+						
+		} catch (Exception e) {
+			
+			
+		}
+ 	 
+ 	try {
+		
+		File myFile = new File("/sys/kernel/msm_thermal/conf/allowed_mid_freq");
+		FileInputStream fIn = new FileInputStream(myFile);
+		
+		BufferedReader myReader = new BufferedReader(
+				new InputStreamReader(fIn));
+		String aDataRow = "";
+		String aBuffer = "";
+		while ((aDataRow = myReader.readLine()) != null) {
+			aBuffer += aDataRow + "\n";
+		}
+
+		p2freq = aBuffer.trim();
+		myReader.close();
+					
+	} catch (Exception e) {
+		
+		
+	}
+ 	
+ 	try {
+		
+		File myFile = new File("/sys/kernel/msm_thermal/conf/allowed_max_freq");
+		FileInputStream fIn = new FileInputStream(myFile);
+		
+		BufferedReader myReader = new BufferedReader(
+				new InputStreamReader(fIn));
+		String aDataRow = "";
+		String aBuffer = "";
+		while ((aDataRow = myReader.readLine()) != null) {
+			aBuffer += aDataRow + "\n";
+		}
+
+		p3freq = aBuffer.trim();
+		myReader.close();
+					
+	} catch (Exception e) {
+		
+		
+	}
+ 	
+ 	try {
+		
+		File myFile = new File("/sys/kernel/msm_thermal/conf/allowed_max_freq");
+		FileInputStream fIn = new FileInputStream(myFile);
+		
+		BufferedReader myReader = new BufferedReader(
+				new InputStreamReader(fIn));
+		String aDataRow = "";
+		String aBuffer = "";
+		while ((aDataRow = myReader.readLine()) != null) {
+			aBuffer += aDataRow + "\n";
+		}
+
+		p3freq = aBuffer.trim();
+		myReader.close();
+					
+	} catch (Exception e) {
+		
+		
+	}
+ 	
+	try {
+		
+		File myFile = new File("/sys/kernel/msm_thermal/conf/allowed_low_high");
+		FileInputStream fIn = new FileInputStream(myFile);
+		
+		BufferedReader myReader = new BufferedReader(
+				new InputStreamReader(fIn));
+		String aDataRow = "";
+		String aBuffer = "";
+		while ((aDataRow = myReader.readLine()) != null) {
+			aBuffer += aDataRow + "\n";
+		}
+
+		p1high = aBuffer;
+		myReader.close();
+					
+	} catch (Exception e) {
+		
+		
+	}
+	try {
+		
+		File myFile = new File("/sys/kernel/msm_thermal/conf/allowed_mid_low");
+		FileInputStream fIn = new FileInputStream(myFile);
+		
+		BufferedReader myReader = new BufferedReader(
+				new InputStreamReader(fIn));
+		String aDataRow = "";
+		String aBuffer = "";
+		while ((aDataRow = myReader.readLine()) != null) {
+			aBuffer += aDataRow + "\n";
+		}
+
+		p2low = aBuffer;
+		myReader.close();
+					
+	} catch (Exception e) {
+		
+		
+	}
+	
+	try {
+		
+		File myFile = new File("/sys/kernel/msm_thermal/conf/allowed_mid_high");
+		FileInputStream fIn = new FileInputStream(myFile);
+		
+		BufferedReader myReader = new BufferedReader(
+				new InputStreamReader(fIn));
+		String aDataRow = "";
+		String aBuffer = "";
+		while ((aDataRow = myReader.readLine()) != null) {
+			aBuffer += aDataRow + "\n";
+		}
+
+		p2high = aBuffer;
+		myReader.close();
+					
+	} catch (Exception e) {
+		
+		
+	}
+	
+	try {
+		
+		File myFile = new File("/sys/kernel/msm_thermal/conf/allowed_max_low");
+		FileInputStream fIn = new FileInputStream(myFile);
+		
+		BufferedReader myReader = new BufferedReader(
+				new InputStreamReader(fIn));
+		String aDataRow = "";
+		String aBuffer = "";
+		while ((aDataRow = myReader.readLine()) != null) {
+			aBuffer += aDataRow + "\n";
+		}
+
+		p3low = aBuffer;
+		myReader.close();
+					
+	} catch (Exception e) {
+		
+		
+	}
+	
+	try {
+		
+		File myFile = new File("/sys/kernel/msm_thermal/conf/allowed_max_high");
+		FileInputStream fIn = new FileInputStream(myFile);
+		
+		BufferedReader myReader = new BufferedReader(
+				new InputStreamReader(fIn));
+		String aDataRow = "";
+		String aBuffer = "";
+		while ((aDataRow = myReader.readLine()) != null) {
+			aBuffer += aDataRow + "\n";
+		}
+
+		p3high = aBuffer;
+		myReader.close();
+					
+	} catch (Exception e) {
+		
+		
+	}
 
 return "";
     }
@@ -1759,6 +1955,15 @@ return "";
 	    editor.putString("maxfreqselected", maxfreqselected);
 		editor.putString("govselected", govselected);
 		editor.putString("ldt", ldt);
+		editor.putString("p1freq", p1freq);
+ 	    editor.putString("p2freq", p2freq);
+ 	    editor.putString("p3freq", p3freq);
+ 	    editor.putString("p1low", p1low);
+ 	    editor.putString("p1high", p1high);
+ 	    editor.putString("p2low", p2low);
+ 	    editor.putString("p2high", p2high);
+ 	   editor.putString("p3low", p3low);
+	 	editor.putString("p3high", p3high);
 	/*	editor.putString("cpu0min", cpu0min);
 	    editor.putString("cpu0max", cpu0max);
 	    editor.putString("cpu0gov", curentgovernorcpu0);
@@ -2582,6 +2787,15 @@ public void initdexport(){
 	  String ldt = sharedPrefs.getString("ldt", "");
 	  String s2w = sharedPrefs.getString("s2w", "");
 	  
+	  String p1freq = sharedPrefs.getString("p1freq", "");
+	  String p2freq = sharedPrefs.getString("p2freq", "");
+	  String p3freq = sharedPrefs.getString("p3freq", "");
+	  String p1low = sharedPrefs.getString("p1low", "");
+	  String p1high = sharedPrefs.getString("p1high", "");
+	  String p2low = sharedPrefs.getString("p2low", "");
+	  String p2high = sharedPrefs.getString("p2high", "");
+	  String p3low = sharedPrefs.getString("p3low", "");
+	  String p3high = sharedPrefs.getString("p3high", "");
 	  
 	  String gpu = "#!/system/bin/sh \n" +
 		"echo " + "\""+gpu3d + "\""+" > /sys/devices/platform/kgsl-3d0.0/kgsl/kgsl-3d0/max_gpuclk \n" +
@@ -2648,8 +2862,18 @@ public void initdexport(){
 		"echo " + "\""+govselected.trim() + "\""+" > /sys/kernel/msm_mpdecision/conf/mpdec_scroff_gov \n\n"+
 		"echo " + "\""+ldt + "\""+" > /sys/kernel/notification_leds/off_timer_multiplier\n"+
 		"echo " + "\""+s2w + "\""+" > /sys/android_touch/sweep2wake\n"+
-		"echo " + "\""+s2w + "\""+" > /sys/android_touch/sweep2wake/s2w_switch\n"+
+		"echo " + "\""+s2w + "\""+" > /sys/android_touch/sweep2wake/s2w_switch\n\n"+
 		
+		"echo " + p1freq + " > /sys/kernel/msm_thermal/conf/allowed_low_freq\n"+
+        "echo " + p2freq + " > /sys/kernel/msm_thermal/conf/allowed_mid_freq\n"+
+        "echo " + p3freq + " > /sys/kernel/msm_thermal/conf/allowed_max_freq\n"+
+        "echo " + p1low+ " > /sys/kernel/msm_thermal/conf/allowed_low_low\n"+
+        "echo " + p1high + " > /sys/kernel/msm_thermal/conf/allowed_low_high\n"+
+        "echo " + p2low + " > /sys/kernel/msm_thermal/conf/allowed_mid_low\n"+
+        "echo " + p2high + " > /sys/kernel/msm_thermal/conf/allowed_mid_high\n"+
+        "echo " + p3low + " > /sys/kernel/msm_thermal/conf/allowed_max_low\n"+
+        "echo " + p3high + " > /sys/kernel/msm_thermal/conf/allowed_max_high\n"+
+        
 	  	  "umount /sys/kernel/debug \n" ;
 
 	  String forcecpu1online ="#!/system/bin/sh \n" +
