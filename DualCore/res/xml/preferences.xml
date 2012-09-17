@@ -17,7 +17,7 @@
             android:entryValues="@array/listReturnValue"
             android:key="boot2"
             android:summary="Setings will be restored after reboot"
-            android:title="Apply Settings on boot" />
+            android:title="Apply Settings on boot" android:defaultValue="disable"/>
     </PreferenceCategory>
     <PreferenceCategory android:title="Widget Settings" >
         <EditTextPreference
@@ -26,15 +26,25 @@
             android:summary="Setting to low values will cause your battery to drain faster"
             android:title="Widget Update Interval(seconds)" />
     </PreferenceCategory>
-    <PreferenceCategory android:title="Updates">
+    <PreferenceCategory android:title="Updates" >
         <CheckBoxPreference
-           android:defaultValue="true"
+            android:defaultValue="true"
             android:key="ota"
             android:summary="Check for updates when starting application"
             android:title="Update on start" />
     </PreferenceCategory>
-    <PreferenceCategory android:title="Misc">
-        <CheckBoxPreference android:summary="Use if CPU progress isn\'t shown correctly" android:key="override" android:title="CPU Info Override"/>
+    <PreferenceCategory android:title="Misc" >
+        <CheckBoxPreference
+            android:key="override"
+            android:summary="Use if CPU progress isn\&apos;t shown correctly"
+            android:title="CPU Info Override" />
+    </PreferenceCategory>
+    <PreferenceCategory android:title="Ads" >
+        <CheckBoxPreference
+            android:defaultValue="true"
+            android:key="ads"
+            android:summary="You need to restart app to stop showing ads"
+            android:title="Stop showing ads" />
     </PreferenceCategory>
 
 </PreferenceScreen>

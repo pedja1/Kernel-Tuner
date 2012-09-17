@@ -56,6 +56,10 @@ import java.io.OutputStreamWriter;
 import java.net.MalformedURLException;
 import java.net.URL;
 
+import com.google.ads.*;
+import com.google.ads.AdRequest;
+import com.google.ads.AdView;
+
 import rs.pedjaapps.KernelTuner.R; 
 import android.widget.*;
 import android.content.pm.*;
@@ -615,11 +619,11 @@ private class initdApplyCpuGpuMisc extends AsyncTask<String, Void, Object> {
 
 			DataOutputStream localDataOutputStream = new DataOutputStream(localProcess.getOutputStream());
 			localDataOutputStream.writeBytes("mount -o remount,rw /dev/block/mtdblock3 /system\n");
-			localDataOutputStream.writeBytes("cp /data/data/rs.pedjaapps.DualCore/files/99dccputweaks /system/etc/init.d\n");
+			localDataOutputStream.writeBytes("cp /data/data/rs.pedjaapps.KernelTuner/files/99dccputweaks /system/etc/init.d\n");
 			localDataOutputStream.writeBytes("chmod 777 /system/etc/init.d/99dccputweaks\n");
-			localDataOutputStream.writeBytes("cp /data/data/rs.pedjaapps.DualCore/files/99dcgputweaks /system/etc/init.d\n");
+			localDataOutputStream.writeBytes("cp /data/data/rs.pedjaapps.KernelTuner/files/99dcgputweaks /system/etc/init.d\n");
 			localDataOutputStream.writeBytes("chmod 777 /system/etc/init.d/99dcgputweaks\n");
-			localDataOutputStream.writeBytes("cp /data/data/rs.pedjaapps.DualCore/files/99dcmisctweaks /system/etc/init.d\n");
+			localDataOutputStream.writeBytes("cp /data/data/rs.pedjaapps.KernelTuner/files/99dcmisctweaks /system/etc/init.d\n");
 			localDataOutputStream.writeBytes("chmod 777 /system/etc/init.d/99dcmisctweaks\n");
 			localDataOutputStream.writeBytes("exit\n");
 			localDataOutputStream.flush();
@@ -657,7 +661,7 @@ private class initdApplyCpu1Off extends AsyncTask<String, Void, Object> {
 			localProcess = Runtime.getRuntime().exec("su");
 
 			DataOutputStream localDataOutputStream = new DataOutputStream(localProcess.getOutputStream());
-			localDataOutputStream.writeBytes("cp /data/data/rs.pedjaapps.DualCore/files/99dccpu1disable /system/etc/init.d\n");
+			localDataOutputStream.writeBytes("cp /data/data/rs.pedjaapps.KernelTuner/files/99dccpu1disable /system/etc/init.d\n");
 			localDataOutputStream.writeBytes("chmod 777 /system/etc/init.d/99dccpu1disable\n");
 		
 			localDataOutputStream.writeBytes("exit\n");
@@ -697,7 +701,7 @@ private class initdApplyCpu1forced extends AsyncTask<String, Void, Object> {
 			localProcess = Runtime.getRuntime().exec("su");
 
 			DataOutputStream localDataOutputStream = new DataOutputStream(localProcess.getOutputStream());
-			localDataOutputStream.writeBytes("cp /data/data/rs.pedjaapps.DualCore/files/99dccpu1online /system/etc/init.d\n");
+			localDataOutputStream.writeBytes("cp /data/data/rs.pedjaapps.KernelTuner/files/99dccpu1online /system/etc/init.d\n");
 			localDataOutputStream.writeBytes("chmod 777 /system/etc/init.d/99dccpu1online\n");
 			localDataOutputStream.writeBytes("exit\n");
 			localDataOutputStream.flush();
@@ -1858,6 +1862,11 @@ AppWidget updateSmall = new AppWidget();
 
 public void iscWindow3(){
 setContentView(R.layout.main); 
+SharedPreferences sharedPrefs = PreferenceManager.getDefaultSharedPreferences(this);
+boolean ads = sharedPrefs.getBoolean("ads", true);
+if (ads==true){AdView adView = (AdView)this.findViewById(R.id.ad);
+adView.loadAd(new AdRequest());}
+
 
 
 	changelog();
@@ -1875,7 +1884,7 @@ new info().execute();
 		new mountDebugFs().execute();
 	}
 
-	SharedPreferences sharedPrefs = PreferenceManager.getDefaultSharedPreferences(this);
+	
 	boolean ota = sharedPrefs.getBoolean("ota", true);
 	
     if(ota==true){
@@ -2772,9 +2781,9 @@ public void ReadCPU0freqs()
  			    builder.append(" ");
  			}
  			cpu0freqs = builder.toString();
- 			System.out.println(cpu0freqs);
+ 			
  			cpu0freqslist = Arrays.asList(cpu0freqs.split("\\s"));
- 			System.out.println(cpu0freqslist);
+ 			
  			cpu0progress();
 
  			

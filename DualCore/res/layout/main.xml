@@ -1,6 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
+     xmlns:ads="http://schemas.android.com/apk/lib/com.google.ads"
     android:id="@+id/RelativeLayout1"
     android:layout_width="fill_parent"
     android:layout_height="fill_parent"
@@ -641,7 +642,7 @@
         android:id="@+id/ly2"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_alignParentBottom="true" >
+        android:layout_above="@+id/ly3" >
 
 
         <Button
@@ -668,5 +669,29 @@
             android:layout_weight="1"
             android:text="CPU3 on/off" />
     </LinearLayout>
+    
+    <LinearLayout
+       
+        
+        android:id="@+id/ly3"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_alignParentBottom="true" >
+
+        <com.google.ads.AdView
+            android:id="@+id/ad"
+            android:layout_width="match_parent"
+        	android:layout_height="wrap_content"
+        	 ads:adUnitId="a15056d54ca9d71"
+                         ads:adSize="BANNER"
+                         ads:testDevices="TEST_EMULATOR, 3CE20BB714ED336822A2508B26BBC32B"
+                         />
+        	
+        	
+      <!--   ads:loadAdOnCreate="true"-->
+
+    </LinearLayout>
+    
+    
 
 </RelativeLayout>
