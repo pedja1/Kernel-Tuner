@@ -286,7 +286,7 @@ private class updateCheck extends AsyncTask<String, Void, Object> {
     builder.setTitle("New Version Available");
 
     builder.setMessage("New version of the application is available!\n\n" +
-    		"\"DulaCore-"+ remoteversion+"\"\n\n"+
+    		"\"Kernel Tuner-"+ remoteversion+"\"\n\n"+
 			"Changelog:\n"+ changelog + "\n\n"+
     		"Would you like to download?");
 
@@ -2425,17 +2425,17 @@ alertDialog.show();
 }
 
  public void download(){
-	String url = "http://dualcore.netii.net/fm/DualCore-" + remoteversion + ".php";
+	String url = "http://dualcore.netii.net/fm/KernelTuner-" + remoteversion + ".php";
 	DownloadManager.Request request = new DownloadManager.Request(Uri.parse(url));
-	request.setDescription("Downloading new version");
-	request.setTitle("DualCore-" + remoteversion + ".apk");
+	request.setTitle("Downloading new version");
+	request.setDescription("Kernel Tuner-" + remoteversion + ".apk");
 //in order for this if to run, you must use the android 3.2 to compile your app
 	if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.HONEYCOMB) {
 		request.allowScanningByMediaScanner();
 		request.setNotificationVisibility(DownloadManager.Request.VISIBILITY_VISIBLE_NOTIFY_COMPLETED);
 	}
 	try{
-		request.setDestinationInExternalPublicDir(Environment.DIRECTORY_DOWNLOADS, "DualCore-" + remoteversion + ".apk");
+		request.setDestinationInExternalPublicDir(Environment.DIRECTORY_DOWNLOADS, "KernelTuner-" + remoteversion + ".apk");
 	DownloadManager manager = (DownloadManager) getSystemService(Context.DOWNLOAD_SERVICE);
 	manager.enqueue(request); 
 	
