@@ -31,9 +31,9 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_below="@+id/rl16"
-        android:text="-[ADD]Sweep2Wake
--[]Application is now called Kernel Tuner
--[ADD]Thermald
+        android:text="-[ADD]Sweep2Wake\n
+-[]Application is now called Kernel Tuner\n
+-[ADD]Thermald\n
 -[ADD]Ads(you can disable it in settings)"
  />
     
