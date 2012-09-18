@@ -17,6 +17,7 @@ import android.widget.SeekBar;
 import android.widget.Spinner;
 import android.util.Log;
 import android.view.View;
+import android.view.WindowManager;
 import android.view.View.OnClickListener;
 import android.widget.ProgressBar;
 import java.util.List;
@@ -135,6 +136,7 @@ public class thermald extends Activity {
 	
 public void onCreate(Bundle savedInstanceState) {
 super.onCreate(savedInstanceState);
+this.getWindow().setSoftInputMode(WindowManager.LayoutParams.SOFT_INPUT_STATE_ALWAYS_HIDDEN); 
 
 
 setContentView(R.layout.thermald);

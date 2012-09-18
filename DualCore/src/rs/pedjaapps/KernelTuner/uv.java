@@ -25,6 +25,7 @@ import android.preference.PreferenceManager;
 import android.util.Log;
 
 import android.view.View;
+import android.view.WindowManager;
 
 import android.view.View.OnClickListener;
 import android.widget.AdapterView;
@@ -240,6 +241,8 @@ public class uv extends Activity {
 	
 	public void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
+		this.getWindow().setSoftInputMode(WindowManager.LayoutParams.SOFT_INPUT_STATE_ALWAYS_HIDDEN); 
+		
 		File file = new File("/sys/devices/system/cpu/cpufreq/vdd_table/vdd_levels");
 		try{
 
