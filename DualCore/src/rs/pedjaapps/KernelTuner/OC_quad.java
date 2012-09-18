@@ -1214,7 +1214,7 @@ String aBuffer = "";
 	super.onCreate(savedInstanceState);
 	setContentView(R.layout.oc_quad);
 	readgovernor();
-	Log.e("String","1");
+	
 	File file = new File("/sys/devices/system/cpu/cpu0/cpufreq/scaling_available_frequencies");
 	File file2 = new File("/sys/devices/system/cpu/cpu0/cpufreq/stats/time_in_state");
 	try{
@@ -1229,7 +1229,7 @@ String aBuffer = "";
    new cpu1Toggle().execute();
    new cpu2Toggle().execute();
    new cpu3Toggle().execute();
-   Log.e("String","2");
+  
    new ReadCPU0freq().execute();
     new spinnerMinCpu0().execute();
     new spinnerMaxCpu0().execute();
@@ -1237,17 +1237,17 @@ String aBuffer = "";
     new spinnerMaxCpu2().execute();
     new spinnerMinCpu3().execute();
     new spinnerMaxCpu3().execute();
-    Log.e("String","3");
+    
     new ReadgovernorsCpu0().execute();
     new ReadgovernorsCpu1().execute();
-    Log.e("String","4");
+   
     new govspinnercpu0().execute();
     new govspinnercpu1().execute();
     new govspinnercpu2().execute();
     new govspinnercpu3().execute();
     	new ReadCPU1freq().execute();
         
-    	Log.e("String","5");
+
 	}
 
 	catch(FileNotFoundException e){
@@ -1725,7 +1725,7 @@ String aBuffer = "";
 	}
 	
 	public void spinnermincpu1(){		
-		String[] MyStringAray = freqscpu1.split("\\s");
+		String[] MyStringAray = freqscpu0.split("\\s");
 	
 		Spinner spinner = (Spinner) findViewById(R.id.spinner6);		
 		// Application of the Array to the Spinner
@@ -1757,7 +1757,7 @@ String aBuffer = "";
 
 	}
 	public void spinnermaxcpu1(){
-    	String[] MyStringAray = freqscpu1.split("\\s");
+    	String[] MyStringAray = freqscpu0.split("\\s");
 	
 		Spinner spinner = (Spinner) findViewById(R.id.spinner5);
 
