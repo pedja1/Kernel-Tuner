@@ -452,7 +452,7 @@ private class cpu2Toggle extends AsyncTask<String, Void, Object> {
 	protected Object doInBackground(String... args) {
          Log.i("MyApp", "Background thread starting");
          
-         File file = new File("/sys/devices/system/cpu/cpu1/cpufreq/scaling_governor");
+         File file = new File("/sys/devices/system/cpu/cpu2/cpufreq/scaling_governor");
      	try{
      	
      	InputStream fIn = new FileInputStream(file);
@@ -537,7 +537,7 @@ private class cpu3Toggle extends AsyncTask<String, Void, Object> {
 	protected Object doInBackground(String... args) {
          Log.i("MyApp", "Background thread starting");
          
-         File file = new File("/sys/devices/system/cpu/cpu1/cpufreq/scaling_governor");
+         File file = new File("/sys/devices/system/cpu/cpu3/cpufreq/scaling_governor");
      	try{
      	
      	InputStream fIn = new FileInputStream(file);
