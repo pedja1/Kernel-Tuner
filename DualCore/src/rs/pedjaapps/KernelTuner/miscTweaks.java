@@ -22,6 +22,7 @@ import android.preference.PreferenceManager;
 import android.util.Log;
 import android.view.View;
 import android.view.View.OnClickListener;
+import android.view.WindowManager;
 import android.widget.AdapterView;
 import android.widget.AdapterView.OnItemSelectedListener;
 import android.widget.ArrayAdapter;
@@ -398,7 +399,7 @@ public class miscTweaks extends Activity implements
 			preferences = PreferenceManager
 					.getDefaultSharedPreferences(getBaseContext());
 			SharedPreferences.Editor editor = preferences.edit();
-			editor.putString("ldt", String.valueOf(ldtnew));
+			editor.putString("s2w", s2wnew);
 			// value to store
 			editor.commit();
 
@@ -505,7 +506,7 @@ public class miscTweaks extends Activity implements
 
 	public void iscWindow3() {
 		setContentView(R.layout.misc_tweaks);
-
+		this.getWindow().setSoftInputMode(WindowManager.LayoutParams.SOFT_INPUT_STATE_ALWAYS_HIDDEN); 
 		mSeekBar = (SeekBar) findViewById(R.id.seekBar1);
 		mSeekBar.setOnSeekBarChangeListener(this);
 
