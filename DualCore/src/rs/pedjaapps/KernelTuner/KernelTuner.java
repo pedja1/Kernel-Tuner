@@ -6,15 +6,18 @@ import android.app.DownloadManager;
 import android.app.ProgressDialog;
 import android.appwidget.AppWidgetManager;
 
+import android.content.BroadcastReceiver;
 import android.content.ComponentName;
 import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
+import android.content.IntentFilter;
 
 import android.content.SharedPreferences;
 import android.graphics.Color;
 import android.net.Uri;
 import android.os.AsyncTask;
+import android.os.BatteryManager;
 import android.os.Build;
 import android.os.Bundle;
 import android.os.Environment;
@@ -63,12 +66,65 @@ import android.widget.*;
 import android.content.pm.*;
 import android.content.pm.PackageManager.NameNotFoundException;
 import android.view.*;
+import android.view.animation.AlphaAnimation;
+import android.view.animation.Animation;
 
 
 //EndImports
 
 public class KernelTuner extends Activity {
 
+	private TextView batteryLevel;
+	private TextView batteryTemp;
+	private TextView cputemptxt;
+	  private BroadcastReceiver mBatInfoReceiver = new BroadcastReceiver(){
+	    @Override
+	    public void onReceive(Context arg0, Intent intent) {
+	      // TODO Auto-generated method stub
+	    	
+	    	
+	      int level = intent.getIntExtra("level", 0);
+	      Double temperature = (double) intent.getIntExtra(BatteryManager.EXTRA_TEMPERATURE, 0)/10;
+	      batteryTemp.setText(String.valueOf(temperature) + "°C");
+	      if(temperature<40){
+	    	  batteryTemp.setTextColor(Color.GREEN);
+	    	  battTempWarningStop();
+	      }
+	      else if(temperature>45 && temperature<55){
+	    	  batteryTemp.setTextColor(Color.YELLOW);
+	    	  battTempWarningStop();
+	      }
+	      else if(temperature>60){
+	    	  batteryTemp.setTextColor(Color.RED);
+	    	  battTempWarningStop();
+	      }
+	      else if(temperature>60){
+	    	  Log.e("Battery warning","start animation");
+	    	  batteryTemp.setTextColor(Color.RED);
+	    	  battTempWarning();
+
+	      }
+	      batteryLevel.setText(String.valueOf(level) + "%");
+	      if(level<15 && level>5){
+	    	  batteryLevel.setTextColor(Color.RED);
+	    	  battLevelWarningStop();
+	      }
+	      else if(level>15 && level<=30){
+	    	  batteryLevel.setTextColor(Color.MAGENTA);
+	    	  battLevelWarningStop();
+	      }
+	      else if(level>30 ){
+	    	  batteryLevel.setTextColor(Color.GREEN);
+	    	  battLevelWarningStop();
+	      }
+	      else if(level<5){
+	    	  batteryLevel.setTextColor(Color.RED);
+	    	  battLevelWarning();
+	    	  
+	      }
+	    }
+	  };
+	
 boolean thread = true;
 private Button button2;
 public String iscVa = "offline";
@@ -133,6 +189,8 @@ public String p1freq;
 public String p2freq;
 public String p3freq;
 
+public String cputemp;
+
 List<String> frequencies3 = new ArrayList<String>();
 List<String> frequencies4 = new ArrayList<String>();
 List<String> frequencies5 = new ArrayList<String>();
@@ -167,7 +225,7 @@ public List<String> cpu3freqslist;
 public SharedPreferences preferences;
 private ProgressDialog pd = null;
 private Object data = null;
-
+public String s2w;
 
 
 //set on boot
@@ -1654,6 +1712,54 @@ private class info extends AsyncTask<String, Void, Object> {
 		
 		
 	}
+	
+	try {
+
+		File myFile = new File(
+				"/sys/android_touch/sweep2wake");
+		FileInputStream fIn = new FileInputStream(myFile);
+
+		BufferedReader myReader = new BufferedReader(new InputStreamReader(
+				fIn));
+		String aDataRow = "";
+		String aBuffer = "";
+		while ((aDataRow = myReader.readLine()) != null) {
+			aBuffer += aDataRow + "\n";
+		}
+
+		s2w = aBuffer.trim();
+		
+		myReader.close();
+
+	} catch (Exception e) {
+
+		try {
+
+			File myFile = new File(
+					"/sys/android_touch/sweep2wake/s2w_switch");
+			FileInputStream fIn = new FileInputStream(myFile);
+
+			BufferedReader myReader = new BufferedReader(new InputStreamReader(
+					fIn));
+			String aDataRow = "";
+			String aBuffer = "";
+			while ((aDataRow = myReader.readLine()) != null) {
+				aBuffer += aDataRow + "\n";
+			}
+
+			s2w = aBuffer.trim();
+			
+			myReader.close();
+
+		} catch (Exception e2) {
+
+			s2w="err";
+		}
+	}
+	
+	
+	
+	
 
 return "";
     }
@@ -1922,7 +2028,30 @@ return "";
 	    		ioschedulertxte.setVisibility(View.VISIBLE);
 			}
 		
-		
+		TextView s2wtxt = (TextView)findViewById(R.id.textView36);
+    	TextView s2wtxte = (TextView)findViewById(R.id.textView35);
+    	if (s2w.equals("1")){
+    		s2wtxt.setText("ON with backlight");
+    		
+    		s2wtxt.setVisibility(View.VISIBLE);
+    		s2wtxte.setVisibility(View.VISIBLE);
+    	}
+    	else if (s2w.equals("2")){
+    		s2wtxt.setText("ON without backlight");
+    		
+    		s2wtxt.setVisibility(View.VISIBLE);
+    		s2wtxte.setVisibility(View.VISIBLE);
+    	}
+    	else if(s2w.equals("0")){
+    		s2wtxt.setText("OFF");
+    		s2wtxt.setTextColor(Color.RED);
+    		s2wtxt.setVisibility(View.VISIBLE);
+    		s2wtxte.setVisibility(View.VISIBLE);
+    	}
+    	else  {
+    		s2wtxt.setVisibility(View.GONE);
+    		s2wtxte.setVisibility(View.GONE);
+    	}
     	SharedPreferences.Editor editor = preferences.edit();
 	  //  editor.putString("","");
 	   // editor.putBoolean("cputoggle", false);
@@ -2066,7 +2195,11 @@ AppWidget updateSmall = new AppWidget();
 
 
 public void iscWindow3(){
-setContentView(R.layout.main); 
+setContentView(R.layout.main);
+batteryLevel = (TextView) this.findViewById(R.id.textView42);
+batteryTemp = (TextView) this.findViewById(R.id.textView40);
+this.registerReceiver(this.mBatInfoReceiver, 
+					  new IntentFilter(Intent.ACTION_BATTERY_CHANGED));
 SharedPreferences sharedPrefs = PreferenceManager.getDefaultSharedPreferences(this);
 boolean ads = sharedPrefs.getBoolean("ads", true);
 if (ads==true){AdView adView = (AdView)this.findViewById(R.id.ad);
@@ -2261,6 +2394,7 @@ new Thread(new Runnable() {
                     	
                     	uptime();
                 		deepsleep();
+                		cpuTemp();
                    
                     	
                 		
@@ -2472,6 +2606,45 @@ alertDialog.show();
 	
 
 }
+
+	public void battTempWarning(){
+		Animation anim = new AlphaAnimation(0.0f, 1.0f);
+    	anim.setDuration(500); //You can manage the time of the blink with this parameter
+    	anim.setStartOffset(20);
+    	anim.setRepeatMode(Animation.REVERSE);
+    	anim.setRepeatCount(Animation.INFINITE);
+    	batteryTemp.startAnimation(anim);
+    	
+	}
+	public void battTempWarningStop(){
+		batteryTemp.clearAnimation();
+	}
+	
+	public void battLevelWarning(){
+		Animation anim = new AlphaAnimation(0.0f, 1.0f);
+    	anim.setDuration(500); //You can manage the time of the blink with this parameter
+    	anim.setStartOffset(20);
+    	anim.setRepeatMode(Animation.REVERSE);
+    	anim.setRepeatCount(Animation.INFINITE);
+    	batteryLevel.startAnimation(anim);
+    	
+	}
+	public void battLevelWarningStop(){
+		batteryLevel.clearAnimation();
+	}
+	
+	public void cpuTempWarning(){
+		Animation anim = new AlphaAnimation(0.0f, 1.0f);
+    	anim.setDuration(500); //You can manage the time of the blink with this parameter
+    	anim.setStartOffset(20);
+    	anim.setRepeatMode(Animation.REVERSE);
+    	anim.setRepeatCount(Animation.INFINITE);
+    	cputemptxt.startAnimation(anim);
+    	
+	}
+	public void cpuTempWarningStop(){
+		cputemptxt.clearAnimation();
+	}
 	
 public void uptime(){
 	long uptime = SystemClock.uptimeMillis();
@@ -2501,6 +2674,56 @@ public void deepsleep(){
 	TextView dstimer = (TextView)findViewById(R.id.textView31);
 	dstimer.setText(temp2);
 	
+}
+
+public void cpuTemp(){
+	cputemptxt = (TextView)findViewById(R.id.textView38);
+	TextView cputemptxte = (TextView)findViewById(R.id.textView37);
+	
+	try {
+
+		File myFile = new File(
+				"/sys/class/thermal/thermal_zone1/temp");
+		FileInputStream fIn = new FileInputStream(myFile);
+
+		BufferedReader myReader = new BufferedReader(new InputStreamReader(
+				fIn));
+		String aDataRow = "";
+		String aBuffer = "";
+		while ((aDataRow = myReader.readLine()) != null) {
+			aBuffer += aDataRow + "\n";
+		}
+
+		cputemp = aBuffer.trim();
+		cputemptxt.setVisibility(View.VISIBLE);
+		cputemptxte.setVisibility(View.VISIBLE);
+		cputemptxt.setText(cputemp+"°C");
+		int temp = Integer.parseInt(cputemp);
+		if(temp<45){
+	    	  cputemptxt.setTextColor(Color.GREEN);
+	    	  cpuTempWarningStop();
+	      }
+	      else if(temp>45 && temp<55){
+	    	  cputemptxt.setTextColor(Color.YELLOW);
+	    	  cpuTempWarningStop();
+	      }
+	      else if(temp>60){
+	    	  cputemptxt.setTextColor(Color.RED);
+	    	  cpuTempWarningStop();
+	      }
+	      else if(temp>60){
+	    	  cpuTempWarning();
+	    	  cputemptxt.setTextColor(Color.RED);
+
+	      }
+		myReader.close();
+
+	} catch (Exception e2) {
+
+		cputemptxt.setVisibility(View.GONE);
+		cputemptxte.setVisibility(View.GONE);
+		
+	}
 }
 
 public void initialCheck(){

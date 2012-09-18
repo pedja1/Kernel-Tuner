@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
-     xmlns:ads="http://schemas.android.com/apk/lib/com.google.ads"
+    xmlns:ads="http://schemas.android.com/apk/lib/com.google.ads"
     android:id="@+id/RelativeLayout1"
     android:layout_width="fill_parent"
     android:layout_height="fill_parent"
@@ -15,45 +15,37 @@
         android:layout_below="@+id/rl"
         android:orientation="horizontal" >
 
-        
-
-            <Button
-                android:id="@+id/button2"
-                style="?android:attr/buttonStyleSmall"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:gravity="center|center_vertical"
-                android:layout_weight="1"
-                android:drawableTop="@drawable/icon"
-               
-                android:text="@string/oc" />
-
-            <Button
-                android:id="@+id/button5"
-                style="?android:attr/buttonStyleSmall"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:gravity="center|center_vertical"
-                android:layout_below="@+id/button2"
-                android:layout_weight="1"
-                android:drawableTop="@drawable/times"
-              
-                android:text="Times in State" />
         <Button
-                android:id="@+id/button6"
-                style="?android:attr/buttonStyleSmall"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_below="@+id/button3"
-                android:gravity="center|center_vertical"
-                android:layout_weight="1"
-                android:drawableTop="@drawable/voltage"
-               
-                android:text="Voltage" />
+            android:id="@+id/button2"
+            style="?android:attr/buttonStyleSmall"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:drawableTop="@drawable/icon"
+            android:gravity="center|center_vertical"
+            android:text="@string/oc" />
 
-            
-            
-        
+        <Button
+            android:id="@+id/button5"
+            style="?android:attr/buttonStyleSmall"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_below="@+id/button2"
+            android:layout_weight="1"
+            android:drawableTop="@drawable/times"
+            android:gravity="center|center_vertical"
+            android:text="Times in State" />
+
+        <Button
+            android:id="@+id/button6"
+            style="?android:attr/buttonStyleSmall"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_below="@+id/button3"
+            android:layout_weight="1"
+            android:drawableTop="@drawable/voltage"
+            android:gravity="center|center_vertical"
+            android:text="Voltage" />
     </LinearLayout>
 
     <LinearLayout
@@ -62,44 +54,39 @@
         android:layout_height="wrap_content"
         android:layout_below="@+id/LinearLayout1"
         android:orientation="horizontal" >
-            
+
         <Button
-                android:id="@+id/button3"
-                style="?android:attr/buttonStyleSmall"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-              android:gravity="center|center_vertical"
-                android:layout_weight="1"
-                android:drawableTop="@drawable/gpu"
-                
-                android:text="GPU Tweaks" />
-        
+            android:id="@+id/button3"
+            style="?android:attr/buttonStyleSmall"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:drawableTop="@drawable/gpu"
+            android:gravity="center|center_vertical"
+            android:text="GPU Tweaks" />
 
-            <Button
-                android:id="@+id/button4"
-                style="?android:attr/buttonStyleSmall"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                
-                android:layout_weight="1"
-                android:drawableTop="@drawable/misc"
-                android:gravity="center|center_vertical"
-                android:text="Misc Tweaks" />
+        <Button
+            android:id="@+id/button4"
+            style="?android:attr/buttonStyleSmall"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:drawableTop="@drawable/misc"
+            android:gravity="center|center_vertical"
+            android:text="Misc Tweaks" />
 
-            <Button
-                android:id="@+id/button7"
-                style="?android:attr/buttonStyleSmall"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_below="@+id/button4"
-                
-                android:layout_gravity="center_horizontal"
-                android:layout_weight="1"
-                android:drawableTop="@drawable/anthrax"
-                android:text="Anthrax Tweaks"
-                android:visibility="gone"
-                android:gravity="center|center_vertical" />
-        
+        <Button
+            android:id="@+id/button7"
+            style="?android:attr/buttonStyleSmall"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_below="@+id/button4"
+            android:layout_gravity="center_horizontal"
+            android:layout_weight="1"
+            android:drawableTop="@drawable/anthrax"
+            android:gravity="center|center_vertical"
+            android:text="Anthrax Tweaks"
+            android:visibility="gone" />
     </LinearLayout>
     <!--
          <ImageView
@@ -111,11 +98,96 @@
     -->
     -->
 
+    <LinearLayout
+        android:id="@+id/test1"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_alignBottom="@+id/textView32"
+        android:layout_alignParentTop="true"
+        android:orientation="horizontal" >
+
+        <LinearLayout
+            android:id="@+id/test1a"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+           
+            android:layout_weight="1"
+            android:orientation="horizontal" >
+            
+            <TextView
+                android:id="@+id/textView37"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"           
+                android:text="CPU Temp:"
+                android:layout_weight="1"
+                android:textColor="#FFFFFF" />
+
+            <TextView
+                android:id="@+id/textView38"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                
+               
+                android:text="-" />
+            
+        </LinearLayout>
+        
+         
+
+        <LinearLayout
+            android:id="@+id/test1b"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            android:layout_weight="1"
+             >
+            <TextView
+                android:id="@+id/textView39"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"           
+                android:text=" Battery Temp:"
+                android:layout_weight="1" 
+                 android:textColor="#FFFFFF" />
+
+            <TextView
+                android:id="@+id/textView40"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                
+               
+                android:text="-" />
+        </LinearLayout>
+ 
+        <LinearLayout
+            android:id="@+id/test1c"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            android:layout_weight="1"
+              >
+            <TextView
+                android:id="@+id/textView41"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"           
+                android:text=" Battery Level:"
+                android:layout_weight="1"
+                 android:textColor="#FFFFFF"  />
+
+            <TextView
+                android:id="@+id/textView42"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                
+                
+                android:text="-" />
+        </LinearLayout>
+    </LinearLayout>
+
     <RelativeLayout
         android:id="@+id/rl"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_alignParentTop="true"
+        android:layout_below="@+id/test1"
         android:layout_marginTop="5dp" >
 
         <TextView
@@ -314,7 +386,7 @@
                 android:layout_alignParentLeft="true"
                 android:layout_below="@+id/textView46"
                 android:text="CPU3 max freq:" />
-            
+
             <TextView
                 android:id="@+id/textView6"
                 android:layout_width="wrap_content"
@@ -396,6 +468,7 @@
                 android:layout_alignBaseline="@+id/textView20"
                 android:layout_alignParentRight="true"
                 android:text="-" />
+
             <TextView
                 android:id="@+id/cpu2min"
                 android:layout_width="wrap_content"
@@ -411,7 +484,7 @@
                 android:layout_alignBaseline="@+id/textView300"
                 android:layout_alignParentRight="true"
                 android:text="-" />
-            
+
             <TextView
                 android:id="@+id/cpu3min"
                 android:layout_width="wrap_content"
@@ -478,7 +551,7 @@
                 android:layout_alignParentLeft="true"
                 android:layout_below="@+id/textView20"
                 android:text="CPU1 governor:" />
-            
+
             <TextView
                 android:id="@+id/textView201"
                 android:layout_width="wrap_content"
@@ -510,7 +583,7 @@
                 android:layout_alignBaseline="@+id/textView6"
                 android:layout_alignParentRight="true"
                 android:text="-" />
-            
+
             <TextView
                 android:id="@+id/cpu2gov"
                 android:layout_width="wrap_content"
@@ -577,7 +650,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_below="@+id/textView28"
-                android:text="IO  Scheduler" />
+                android:text="IO  Scheduler:" />
 
             <TextView
                 android:id="@+id/textView32"
@@ -592,7 +665,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_below="@+id/textView29"
-                android:text="SD Cache Size" />
+                android:text="SD Cache Size:" />
 
             <TextView
                 android:id="@+id/textView34"
@@ -602,6 +675,22 @@
                 android:layout_alignParentRight="true"
                 android:text="-" />
 
+            <TextView
+                android:id="@+id/textView35"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_below="@+id/textView33"
+                android:text="Sweep2Wake:" />
+
+            <TextView
+                android:id="@+id/textView36"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignBaseline="@+id/textView35"
+                android:layout_alignParentRight="true"
+                android:text="-" />
+
+            
         </RelativeLayout>
     </ScrollView>
 
@@ -644,35 +733,29 @@
         android:layout_height="wrap_content"
         android:layout_above="@+id/ly3" >
 
-
         <Button
             android:id="@+id/button1"
             android:layout_width="150dp"
             android:layout_height="wrap_content"
-           
             android:layout_weight="1"
             android:text="CPU1 on/off" />
-        
+
         <Button
             android:id="@+id/button8"
             android:layout_width="150dp"
             android:layout_height="wrap_content"
-           
             android:layout_weight="1"
             android:text="CPU2 on/off" />
-        
+
         <Button
             android:id="@+id/button9"
             android:layout_width="150dp"
             android:layout_height="wrap_content"
-            
             android:layout_weight="1"
             android:text="CPU3 on/off" />
     </LinearLayout>
-    
+
     <LinearLayout
-       
-        
         android:id="@+id/ly3"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
@@ -681,17 +764,13 @@
         <com.google.ads.AdView
             android:id="@+id/ad"
             android:layout_width="match_parent"
-        	android:layout_height="wrap_content"
-        	 ads:adUnitId="a15056d54ca9d71"
-                         ads:adSize="BANNER"
-                         ads:testDevices="TEST_EMULATOR, 3CE20BB714ED336822A2508B26BBC32B"
-                         />
-        	
-        	
-      <!--   ads:loadAdOnCreate="true"-->
+            android:layout_height="wrap_content"
+            ads:adSize="BANNER"
+            ads:adUnitId="a15056d54ca9d71"
+            ads:testDevices="TEST_EMULATOR, 3CE20BB714ED336822A2508B26BBC32B" />
+
+        <!-- ads:loadAdOnCreate="true" -->
 
     </LinearLayout>
-    
-    
 
 </RelativeLayout>
