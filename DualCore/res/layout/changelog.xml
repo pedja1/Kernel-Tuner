@@ -10,11 +10,40 @@
     android:layout_height="wrap_content" >
 	
     <RelativeLayout
-        android:id="@+id/rl16"
+        android:id="@+id/rl17"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_alignParentLeft="true"
         android:layout_alignParentTop="true"
+        android:background="@drawable/divider_strong_holo" >
+
+        <TextView
+            android:id="@+id/textView33"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"      
+            android:text="2.1"
+            android:textColor="@color/green" />
+
+    </RelativeLayout>
+
+    <TextView
+        android:id="@+id/textView34"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/rl17"
+        android:text="-[FIX]Removed \'completely disable cpu1\' option\n
+-[FIX]Fixed CPU1 settings doesnt show on quad-core.\n
+-[ADD]Battery Temperature Info\n
+-[ADD]CPU Temperature Info\n
+-[ADD]Option to save current settings as profile"
+ />
+    
+    <RelativeLayout
+        android:id="@+id/rl16"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_alignParentLeft="true"
+        android:layout_below="@+id/textView34"
         android:background="@drawable/divider_strong_holo" >
 
         <TextView

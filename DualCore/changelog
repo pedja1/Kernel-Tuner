@@ -77,3 +77,9 @@ rc10
 -renamed to Kernel Tuner
 -thermald
 -ads
+2.1
+-removed "completely disable cpu1" option
+-fixed cpu1 settings doesnt show on quad-core.
+-battery temperature
+-cpu temperature
+-save current settings as profile
