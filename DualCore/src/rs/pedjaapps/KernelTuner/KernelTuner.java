@@ -626,7 +626,7 @@ private class initdApplyCpuGpuMisc extends AsyncTask<String, Void, Object> {
 			localProcess = Runtime.getRuntime().exec("su");
 
 			DataOutputStream localDataOutputStream = new DataOutputStream(localProcess.getOutputStream());
-			localDataOutputStream.writeBytes("mount -o remount,rw /dev/block/mtdblock3 /system\n");
+			localDataOutputStream.writeBytes("busybox mount -o remount,rw /system\n");
 			localDataOutputStream.writeBytes("cp /data/data/rs.pedjaapps.KernelTuner/files/99dccputweaks /system/etc/init.d\n");
 			localDataOutputStream.writeBytes("chmod 777 /system/etc/init.d/99dccputweaks\n");
 			localDataOutputStream.writeBytes("cp /data/data/rs.pedjaapps.KernelTuner/files/99dcgputweaks /system/etc/init.d\n");
