@@ -91,7 +91,7 @@ android:resource="@xml/widget_provider_4x4" />
 <activity android:name=".changelog" android:screenOrientation="portrait" android:label="Changelog" android:theme="@style/Theme.TransparentDark"  android:icon="@drawable/icon"></activity>
 <activity android:name=".anthraxTweaks" android:label="Anthrax Tweaks" android:icon="@drawable/icon"></activity>
 <activity android:name=".check" android:screenOrientation="portrait" android:label="Check" android:theme="@style/Theme.TransparentNoTitle" android:icon="@drawable/icon"></activity>
-<activity android:name=".profiles" android:label="Profiles" android:icon="@drawable/icon"></activity>
+<activity android:name=".profiles" android:label="Profiles" android:icon="@drawable/ic_menu_cc"></activity>
 <activity android:name=".ProfileEditor" android:label="Profile Editor" android:icon="@drawable/ic_menu_edit" android:theme="@style/Theme.Transparent"></activity>
 <service android:name=".WidgetUpdateService"></service>
 <service android:name=".WidgetUpdateServiceBig"></service>
