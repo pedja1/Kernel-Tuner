@@ -2,14 +2,14 @@
 <PreferenceScreen xmlns:android="http://schemas.android.com/apk/res/android"
     android:icon="@drawable/dual_on" >
 
-    <PreferenceCategory android:title="CPU1" >
-    </PreferenceCategory>
+ <!--     <PreferenceCategory android:title="CPU1" >
 
     <CheckBoxPreference
         android:defaultValue="false"
         android:key="cpu1off"
         android:summary="Second core will be permanently disabled untill this checkbox is unchecked"
         android:title="Disable CPU1 Completely" />
+    </PreferenceCategory>-->
 
     <PreferenceCategory android:title="Boot Settings" >
         <ListPreference

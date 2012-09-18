@@ -2001,7 +2001,7 @@ public void onPause() {
 
 protected void onResume()
 {
-    prefs();
+    //prefs();
     initialCheck();
 new info().execute();
     
@@ -2170,7 +2170,7 @@ new info().execute();
 	
 	});
 
-prefs();
+//prefs();
 initialCheck();
 initdexport();
 
@@ -2179,12 +2179,12 @@ initdexport();
 
 String boot = sharedPrefs.getString("boot2", "");
 boolean cputoggle = sharedPrefs.getBoolean("cputoggle", true);
-boolean cpu1off = sharedPrefs.getBoolean("cpu1off", false);
+//boolean cpu1off = sharedPrefs.getBoolean("cpu1off", false);
 if (boot.equals("init.d")){
 	new initdApplyCpuGpuMisc().execute();
-	if(cpu1off==true){
+	/*if(cpu1off==true){
 		new initdApplyCpu1Off().execute();
-	}
+	}*/
 	if(cputoggle==true){
 		new initdApplyCpu1forced().execute();
 	}
@@ -2747,7 +2747,7 @@ public void initdexport(){
 	
 	SharedPreferences sharedPrefs = PreferenceManager.getDefaultSharedPreferences(this);
 	
-	  boolean cpu1off = sharedPrefs.getBoolean("cpu1off", false);
+	 // boolean cpu1off = sharedPrefs.getBoolean("cpu1off", false);
 	  String gpu3d = sharedPrefs.getString("gpu3d", "");
 	  String gpu2d = sharedPrefs.getString("gpu2d", "");
 	  String hw = sharedPrefs.getString("hw", "");
@@ -2883,10 +2883,10 @@ public void initdexport(){
  		    		"hmod 444 /sys/devices/system/cpu/cpu1/online \n" +
  		    		"chown system /sys/devices/system/cpu/cpu1/online \n";
 	  
-	  String cpu1disable ="#!/system/bin/sh \n" +
+	  /*String cpu1disable ="#!/system/bin/sh \n" +
  		    		 "echo 0 > /sys/devices/system/cpu/cpu1/online \n"+
  		    		"hmod 444 /sys/devices/system/cpu/cpu1/online \n" +
- 		    		"chown system /sys/devices/system/cpu/cpu1/online \n";
+ 		    		"chown system /sys/devices/system/cpu/cpu1/online \n";*/
 	  
 	  try { 
              
@@ -2936,7 +2936,7 @@ public void initdexport(){
   } catch (IOException ioe) {
           ioe.printStackTrace();
   }
-	  try { 
+	 /* try { 
           
           FileOutputStream fOut = openFileOutput("99dccpu1disable",
                                                   MODE_WORLD_READABLE);
@@ -2947,7 +2947,7 @@ public void initdexport(){
 
   } catch (IOException ioe) {
           ioe.printStackTrace();
-  }
+  }*/
 	 
 }
 
@@ -3461,7 +3461,7 @@ public boolean onOptionsItemSelected(MenuItem item) {
     return super.onOptionsItemSelected(item);
 }
 
-public void prefs(){
+/*public void prefs(){
 	SharedPreferences sharedPrefs = PreferenceManager.getDefaultSharedPreferences(this);
 		  boolean a = sharedPrefs.getBoolean("cpu1off", false);
 	      if (a == true){
@@ -3514,7 +3514,7 @@ editor.commit();
 		// TODO Auto-generated catch block
 		e.printStackTrace();
 	}
-}
+}*/
 	
 	
 
