@@ -2031,13 +2031,13 @@ return "";
 		TextView s2wtxt = (TextView)findViewById(R.id.textView36);
     	TextView s2wtxte = (TextView)findViewById(R.id.textView35);
     	if (s2w.equals("1")){
-    		s2wtxt.setText("ON with backlight");
+    		s2wtxt.setText("ON with no backlight");
     		
     		s2wtxt.setVisibility(View.VISIBLE);
     		s2wtxte.setVisibility(View.VISIBLE);
     	}
     	else if (s2w.equals("2")){
-    		s2wtxt.setText("ON without backlight");
+    		s2wtxt.setText("ON with backlight");
     		
     		s2wtxt.setVisibility(View.VISIBLE);
     		s2wtxte.setVisibility(View.VISIBLE);
