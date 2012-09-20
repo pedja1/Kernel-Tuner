@@ -77,6 +77,8 @@ public class KernelTuner extends Activity {
 	private TextView batteryLevel;
 	private TextView batteryTemp;
 	private TextView cputemptxt;
+	public SharedPreferences sharedPrefs;
+	boolean tempPref;
 	  private BroadcastReceiver mBatInfoReceiver = new BroadcastReceiver(){
 	    @Override
 	    public void onReceive(Context arg0, Intent intent) {
@@ -84,26 +86,56 @@ public class KernelTuner extends Activity {
 	    	
 	    	
 	      int level = intent.getIntExtra("level", 0);
-	      Double temperature = (double) intent.getIntExtra(BatteryManager.EXTRA_TEMPERATURE, 0)/10;
-	      batteryTemp.setText(String.valueOf(temperature) + "°C");
-	      if(temperature<40){
-	    	  batteryTemp.setTextColor(Color.GREEN);
-	    	  battTempWarningStop();
-	      }
-	      else if(temperature>45 && temperature<55){
-	    	  batteryTemp.setTextColor(Color.YELLOW);
-	    	  battTempWarningStop();
-	      }
-	      else if(temperature>55 && temperature < 60 ){
-	    	  batteryTemp.setTextColor(Color.RED);
-	    	  battTempWarningStop();
-	      }
-	      else if(temperature>60){
-	    	  Log.e("Battery warning","start animation");
-	    	  batteryTemp.setTextColor(Color.RED);
-	    	  battTempWarning();
+	      double temperature =  intent.getIntExtra(BatteryManager.EXTRA_TEMPERATURE, 0)/10;
+	      
+	      
+	      if (tempPref==true)
+	      {
+	    	  temperature = (temperature*1.8)+32;
+	    	  //int temp = (int)temperature;
+	    	  batteryTemp.setText(String.valueOf((int)temperature) + "°F");
+		      if(temperature<104){
+		    	  batteryTemp.setTextColor(Color.GREEN);
+		    	  battTempWarningStop();
+		      }
+		      else if(temperature>113 && temperature<131){
+		    	  batteryTemp.setTextColor(Color.YELLOW);
+		    	  battTempWarningStop();
+		      }
+		      else if(temperature>131 && temperature < 140 ){
+		    	  batteryTemp.setTextColor(Color.RED);
+		    	  battTempWarningStop();
+		      }
+		      else if(temperature>140){
+		    	  Log.e("Battery warning","start animation");
+		    	  batteryTemp.setTextColor(Color.RED);
+		    	  battTempWarning();
 
+		      }
 	      }
+	      else if(tempPref==false){
+	    	  batteryTemp.setText(String.valueOf(temperature) + "°C");
+		      if(temperature<40){
+		    	  batteryTemp.setTextColor(Color.GREEN);
+		    	  battTempWarningStop();
+		      }
+		      else if(temperature>45 && temperature<55){
+		    	  batteryTemp.setTextColor(Color.YELLOW);
+		    	  battTempWarningStop();
+		      }
+		      else if(temperature>55 && temperature < 60 ){
+		    	  batteryTemp.setTextColor(Color.RED);
+		    	  battTempWarningStop();
+		      }
+		      else if(temperature>60){
+		    	  Log.e("Battery warning","start animation");
+		    	  batteryTemp.setTextColor(Color.RED);
+		    	  battTempWarning();
+
+		      }
+	      }
+	      
+	      ///F = (C x 1.8) + 32 
 	      batteryLevel.setText(String.valueOf(level) + "%");
 	      if(level<15 && level>5){
 	    	  batteryLevel.setTextColor(Color.RED);
@@ -2198,9 +2230,10 @@ public void iscWindow3(){
 setContentView(R.layout.main);
 batteryLevel = (TextView) this.findViewById(R.id.textView42);
 batteryTemp = (TextView) this.findViewById(R.id.textView40);
+SharedPreferences sharedPrefs = PreferenceManager.getDefaultSharedPreferences(this);
+tempPref = sharedPrefs.getBoolean("temp", false);
 this.registerReceiver(this.mBatInfoReceiver, 
 					  new IntentFilter(Intent.ACTION_BATTERY_CHANGED));
-SharedPreferences sharedPrefs = PreferenceManager.getDefaultSharedPreferences(this);
 boolean ads = sharedPrefs.getBoolean("ads", true);
 if (ads==true){AdView adView = (AdView)this.findViewById(R.id.ad);
 adView.loadAd(new AdRequest());}
@@ -2695,30 +2728,55 @@ public void cpuTemp(){
 		}
 
 		cputemp = aBuffer.trim();
-		cputemptxt.setVisibility(View.VISIBLE);
-		cputemptxte.setVisibility(View.VISIBLE);
-		cputemptxt.setText(cputemp+"°C");
-		int temp = Integer.parseInt(cputemp);
-		if(temp<45){
-	    	  cputemptxt.setTextColor(Color.GREEN);
-	    	  cpuTempWarningStop();
-	      }
-	      else if(temp>45 && temp<55){
-	    	  cputemptxt.setTextColor(Color.YELLOW);
-	    	  cpuTempWarningStop();
-	      }
-	      
-	      else if(temp>59){
-	    	  cpuTempWarning();
-	    	  cputemptxt.setTextColor(Color.RED);
+		
+		
+	      if (tempPref==true)
+	      {
+	    	  cputemp = String.valueOf((int)(Double.parseDouble(cputemp)*1.8)+32);
+		  		cputemptxt.setText(cputemp+"°F");
+		  		int temp = Integer.parseInt(cputemp);
+		  		
+		  		if(temp<113){
+		  	    	  cputemptxt.setTextColor(Color.GREEN);
+		  	    	  cpuTempWarningStop();
+		  	      }
+		  	      else if(temp>113 && temp<131){
+		  	    	  cputemptxt.setTextColor(Color.YELLOW);
+		  	    	  cpuTempWarningStop();
+		  	      }
+		  	      
+		  	      else if(temp>138){
+		  	    	  cpuTempWarning();
+		  	    	  cputemptxt.setTextColor(Color.RED);
 
+		  	      }
 	      }
+	      else if(tempPref==false){
+	    	  cputemptxt.setVisibility(View.VISIBLE);
+	  		cputemptxte.setVisibility(View.VISIBLE);
+	  		cputemptxt.setText(cputemp+"°C");
+	  		int temp = Integer.parseInt(cputemp);
+	  		if(temp<45){
+	  	    	  cputemptxt.setTextColor(Color.GREEN);
+	  	    	  cpuTempWarningStop();
+	  	      }
+	  	      else if(temp>45 && temp<55){
+	  	    	  cputemptxt.setTextColor(Color.YELLOW);
+	  	    	  cpuTempWarningStop();
+	  	      }
+	  	      
+	  	      else if(temp>59){
+	  	    	  cpuTempWarning();
+	  	    	  cputemptxt.setTextColor(Color.RED);
+
+	  	      }
+	      }
+		
 		myReader.close();
 
 	} catch (Exception e2) {
 
-		cputemptxt.setVisibility(View.GONE);
-		cputemptxte.setVisibility(View.GONE);
+		
 		
 	}
 }
