@@ -10,11 +10,37 @@
     android:layout_height="wrap_content" >
 	
     <RelativeLayout
-        android:id="@+id/rl18"
+        android:id="@+id/rl19"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_alignParentLeft="true"
         android:layout_alignParentTop="true"
+        android:background="@drawable/divider_strong_holo" >
+
+        <TextView
+            android:id="@+id/textView37"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"      
+            android:text="2.2"
+            android:textColor="@color/green" />
+
+    </RelativeLayout>
+
+    <TextView
+        android:id="@+id/textView38"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/rl19"
+        android:text="-[FIX]Completely redesigned gpu tweaks\n
+-[FIX]Option to show temperature in Fahrenheit"
+ />
+    
+    <RelativeLayout
+        android:id="@+id/rl18"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_alignParentLeft="true"
+        android:layout_below="@+id/textView38"
         android:background="@drawable/divider_strong_holo" >
 
         <TextView
