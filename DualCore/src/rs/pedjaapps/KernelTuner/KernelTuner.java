@@ -1098,7 +1098,7 @@ private class info extends AsyncTask<String, Void, Object> {
 
          try {
   			
-  			File myFile = new File("/sys/devices/platform/kgsl-3d0.0/kgsl/kgsl-3d0/gpuclk");
+  			File myFile = new File("/sys/devices/platform/kgsl-3d0.0/kgsl/kgsl-3d0/max_gpuclk");
   			FileInputStream fIn = new FileInputStream(myFile);
 
   			BufferedReader myReader = new BufferedReader(
@@ -1121,7 +1121,7 @@ private class info extends AsyncTask<String, Void, Object> {
          
          try {
    			
-   			File myFile = new File("/sys/devices/platform/kgsl-2d0.0/kgsl/kgsl-2d0/gpuclk");
+   			File myFile = new File("/sys/devices/platform/kgsl-2d0.0/kgsl/kgsl-2d0/max_gpuclk");
    			FileInputStream fIn = new FileInputStream(myFile);
    			BufferedReader myReader = new BufferedReader(
    					new InputStreamReader(fIn));
@@ -2970,6 +2970,7 @@ public void initdexport(){
 	 // boolean cpu1off = sharedPrefs.getBoolean("cpu1off", false);
 	  String gpu3d = sharedPrefs.getString("gpu3d", "");
 	  String gpu2d = sharedPrefs.getString("gpu2d", "");
+	 
 	  String hw = sharedPrefs.getString("hw", "");
 	  String cdepth = sharedPrefs.getString("cdepth", "");
 	  String cpu1min = sharedPrefs.getString("cpu1min", "");
@@ -3019,9 +3020,7 @@ public void initdexport(){
 	  
 	  String gpu = "#!/system/bin/sh \n" +
 		"echo " + "\""+gpu3d + "\""+" > /sys/devices/platform/kgsl-3d0.0/kgsl/kgsl-3d0/max_gpuclk \n" +
-		"echo " + "\""+gpu2d + "\""+" > /sys/devices/platform/kgsl-2d0.0/kgsl/kgsl-2d0/max_gpuclk \n" +
-		"echo " + "\""+gpu2d + "\""+" > /sys/devices/platform/kgsl-2d0.1/kgsl/kgsl-2d1/max_gpuclk \n";
-	  
+		"echo " + "\""+gpu2d + "\""+" > /sys/devices/platform/kgsl-2d0.0/kgsl/kgsl-2d0/max_gpuclk \n" ;
 	  
 	  
 	  String cpu ="#!/system/bin/sh \n chmod 666 /sys/devices/system/cpu/cpu0/cpufreq/scaling_governor \n" +

@@ -31,76 +31,26 @@ import android.widget.Toast;
 
 public class gpu extends Activity{
 
-	static String gpu2dcurent = "1234567";
-	public String gpu3dcurent = "0000000";
+	public String gpu2dcurent;
+	public String gpu3dcurent ;
+	public String gpu2dmax;
+	public String gpu3dmax;
 	public String selected2d;
+
 	public String selected3d;
-	public String freq2d;
-	public String freq3d;
+	
+	public int new3d;
+	public int new2d;
 	public String[] gpu2d = {"160", "200", "228", "266"};
 	public String[] gpu3d = {"200", "228", "266", "300", "320"};
-	public int selected;
-	public int curent;
-	public int curent3d;
+	
 	private ProgressDialog pd = null;
 	private Object data = null;
 	public SharedPreferences preferences;
 	
-private class changegpu2d extends AsyncTask<String, Void, Object> {
-    	
-    	
-    	protected Object doInBackground(String... args) {
-             Log.i("MyApp", "Background thread starting");
-    
-    
-             Process localProcess;
-       		try {
-  				localProcess = Runtime.getRuntime().exec("su");
-  			
-       		DataOutputStream localDataOutputStream = new DataOutputStream(localProcess.getOutputStream());
-              localDataOutputStream.writeBytes("chmod 777 /sys/devices/platform/kgsl-2d0.0/kgsl/kgsl-2d0/max_gpuclk\n");
-              localDataOutputStream.writeBytes("chmod 777 /sys/devices/platform/kgsl-2d1.1/kgsl/kgsl-2d1/max_gpuclk\n");
-              localDataOutputStream.writeBytes("chmod 777 /sys/devices/platform/kgsl-2d0.0/kgsl/kgsl-2d0/gpuclk\n");
-              localDataOutputStream.writeBytes("chmod 777 /sys/devices/platform/kgsl-2d1.1/kgsl/kgsl-2d1/gpuclk\n");
-              localDataOutputStream.writeBytes("echo " + freq2d + " > /sys/devices/platform/kgsl-2d0.0/kgsl/kgsl-2d0/max_gpuclk\n");
-              localDataOutputStream.writeBytes("echo " + freq2d + " > /sys/devices/platform/kgsl-2d1.1/kgsl/kgsl-2d1/max_gpuclk\n");
-              localDataOutputStream.writeBytes("echo " + freq2d + " > /sys/devices/platform/kgsl-2d0.0/kgsl/kgsl-2d0/gpuclk\n");
-              localDataOutputStream.writeBytes("echo " + freq2d + " > /sys/devices/platform/kgsl-2d1.1/kgsl/kgsl-2d1/gpuclk\n");
-              localDataOutputStream.writeBytes("exit\n");
-              localDataOutputStream.flush();
-              localDataOutputStream.close();
-              localProcess.waitFor();
-              localProcess.destroy();
-       		} catch (IOException e1) {
-  				// TODO Auto-generated catch block
-  				e1.printStackTrace();
-  			} catch (InterruptedException e1) {
-  				// TODO Auto-generated catch block
-  				e1.printStackTrace();
-  			}
 
-    return "";
-        }
 
-        protected void onPostExecute(Object result) {
-        	 preferences = PreferenceManager.getDefaultSharedPreferences(getBaseContext());
- 			SharedPreferences.Editor editor = preferences.edit();
- 	  	    editor.putString("gpu2d", freq2d);
- 	  	  // value to store
- 	  	    editor.commit();
-            // Pass the result data back to the main activity
-        	TextView text2d = (TextView)findViewById(R.id.textView1);
-   		 text2d.setText(freq2d.substring(0, freq2d.length()-6)+"Mhz");
-            gpu.this.data = result;
-
-            
-               gpu.this.pd.dismiss();
-             
-        }
-
-   	}
-
-private class changegpu3d extends AsyncTask<String, Void, Object> {
+private class changegpu extends AsyncTask<String, Void, Object> {
 	
 	
 	protected Object doInBackground(String... args) {
@@ -114,9 +64,52 @@ private class changegpu3d extends AsyncTask<String, Void, Object> {
 			
     		DataOutputStream localDataOutputStream = new DataOutputStream(localProcess.getOutputStream());
            localDataOutputStream.writeBytes("chmod 777 /sys/devices/platform/kgsl-3d0.0/kgsl/kgsl-3d0/max_gpuclk\n");
-           localDataOutputStream.writeBytes("chmod 777 /sys/devices/platform/kgsl-3d0.0/kgsl/kgsl-3d0/gpuclk\n");
-           localDataOutputStream.writeBytes("echo " + freq3d + " > /sys/devices/platform/kgsl-3d0.0/kgsl/kgsl-3d0/max_gpuclk\n");
-           localDataOutputStream.writeBytes("echo " + freq3d + " > /sys/devices/platform/kgsl-3d0.0/kgsl/kgsl-3d0/gpuclk\n");
+           //localDataOutputStream.writeBytes("chmod 777 /sys/devices/platform/kgsl-3d0.0/kgsl/kgsl-3d0/gpuclk\n");
+           if(selected3d.equals("200")){
+				new3d=200000000;
+			}
+			else if(selected3d.equals("228")){
+				new3d=228571000;
+			}
+			else if(selected3d.equals("266")){
+				new3d=266667000;
+			}
+			else if(selected3d.equals("300")){
+				new3d=300000000;
+			}
+			else if(selected3d.equals("320")){
+			new3d=320000000;
+			}
+         
+        	   localDataOutputStream.writeBytes("echo " + new3d + " > /sys/devices/platform/kgsl-3d0.0/kgsl/kgsl-3d0/max_gpuclk\n");
+         
+           localDataOutputStream.writeBytes("chmod 777 /sys/devices/platform/kgsl-2d1.1/kgsl/kgsl-2d1/max_gpuclk\n");
+          localDataOutputStream.writeBytes("chmod 777 /sys/devices/platform/kgsl-2d0.0/kgsl/kgsl-2d0/max_gpuclk\n");
+           if(selected2d.equals("160")){
+				new2d=160000000;
+			System.out.println("new clock = " + new2d);
+			}
+          else if(selected2d.equals("200")){
+				new2d=200000000;
+				System.out.println("new clock = " +new2d);
+			}
+			else if(selected2d.equals("228")){
+				new2d=228571000;
+				System.out.println("new clock = " +new2d);
+			}
+			else if(selected2d.equals("266")){
+				new2d=266667000;
+				System.out.println("new clock = " +new2d);
+			}
+			
+			
+        
+         	localDataOutputStream.writeBytes("echo " + new2d + " > /sys/devices/platform/kgsl-2d0.0/kgsl/kgsl-2d0/max_gpuclk\n");
+         	localDataOutputStream.writeBytes("echo " + new2d + " > /sys/devices/platform/kgsl-2d1.1/kgsl/kgsl-2d1/max_gpuclk\n");   
+            
+        
+         
+           
            localDataOutputStream.writeBytes("exit\n");
            localDataOutputStream.flush();
            localDataOutputStream.close();
@@ -137,16 +130,17 @@ return "";
     protected void onPostExecute(Object result) {
     	preferences = PreferenceManager.getDefaultSharedPreferences(getBaseContext());
 			SharedPreferences.Editor editor = preferences.edit();
-	  	    editor.putString("gpu3d", freq3d);
+	  	    editor.putString("gpu3d", selected3d);
+	  	    editor.putString("gpu2d", selected2d);
 	  	  // value to store
 	  	    editor.commit();
         // Pass the result data back to the main activity
-    	TextView text3d = (TextView)findViewById(R.id.textView2);
-		 text3d.setText(freq3d.substring(0, freq3d.length()-6)+"Mhz");
+    	
         gpu.this.data = result;
 
         
            gpu.this.pd.dismiss();
+           gpu.this.finish();
           
     }
 
@@ -155,123 +149,120 @@ return "";
     	
 	public void onCreate(Bundle savedInstanceState) {
 	super.onCreate(savedInstanceState);
-	setContentView(R.layout.gpu);
+	setContentView(R.layout.gputest);
 	readgpu2dcurent();
+	
 	readgpu3dcurent();
-	setprogress2d();
-	setprogress3d();
+	readgpu2dmax();
 	
-	Button btminus2d = (Button)findViewById(R.id.button3);
-	final ProgressBar prog2d = (ProgressBar)findViewById(R.id.gpuprogressBar1);
-	btminus2d.setOnClickListener(new OnClickListener(){
+	readgpu3dmax();
+	
+	TextView tv1 = (TextView)findViewById(R.id.textView5);
+	TextView tv2 = (TextView)findViewById(R.id.textView7);
+	
+	tv1.setText(gpu3dcurent.substring(0, gpu3dcurent.length()-6)+"Mhz");
+	tv2.setText(gpu2dcurent.substring(0, gpu2dcurent.length()-6)+"Mhz");
+
+	
+	//setprogress2d();
+	//setprogress3d();
+	
+	Button apply = (Button)findViewById(R.id.button2);
+	
+	apply.setOnClickListener(new OnClickListener(){
 		
 		
 		public void onClick(View v) {
-			gpu.this.pd = ProgressDialog.show(gpu.this, "Working..", "Applying settings", true, false);
-			if(prog2d.getProgress()==3){
-				freq2d= "228571000";
-			}
-			else if (prog2d.getProgress()==2){
-				freq2d= "200000000";
-			}
-			else if (prog2d.getProgress()==1){
-				freq2d= "160000000";
-			}
-			prog2d.setProgress(prog2d.getProgress() - 1);
-			new changegpu2d().execute();
 			
-		    // Start a new thread that will download all the data
+			gpu.this.pd = ProgressDialog.show(gpu.this, "Working..", "Applying settings...", true, false);
+			
+			new changegpu().execute();
+			
+		    
 		    
 		}
 	});
 	
-	Button btplus2d = (Button)findViewById(R.id.button4);
-	btplus2d.setOnClickListener(new OnClickListener(){
-		
-		
-		public void onClick(View v) {
-			gpu.this.pd = ProgressDialog.show(gpu.this, "Working..", "Applying settings", true, false);
-			if(prog2d.getProgress()==0){
-				freq2d= "200000000";
-			}
-			else if (prog2d.getProgress()==1){
-				freq2d= "228571000";
-			}
-			else if (prog2d.getProgress()==2){
-				freq2d= "266667000";
-			}
-			prog2d.setProgress(prog2d.getProgress() + 1);
-			new changegpu2d().execute();
-		}
-	});
+Button cancel = (Button)findViewById(R.id.button1);
 	
-	Button btminus3d = (Button)findViewById(R.id.button5);
-	final ProgressBar prog3d = (ProgressBar)findViewById(R.id.gpuprogressBar2);
-	btminus3d.setOnClickListener(new OnClickListener(){
+	cancel.setOnClickListener(new OnClickListener(){
 		
 		
 		public void onClick(View v) {
-			gpu.this.pd = ProgressDialog.show(gpu.this, "Working..", "Applying settings", true, false);
-			if(prog3d.getProgress()==4){
-				freq3d= "300000000";
-			}
-			else if(prog3d.getProgress()==3){
-				freq3d= "266667000";
-			}
-			else if (prog3d.getProgress()==2){
-				freq3d= "228571000";
-			}
-			else if (prog3d.getProgress()==1){
-				freq3d= "200000000";
-			}
-			prog3d.setProgress(prog3d.getProgress() - 1);
-			new changegpu3d().execute();
 			
-		    // Start a new thread that will download all the data
+			gpu.this.finish();
+		   
 		    
 		}
 	});
 	
-	Button btplus3d = (Button)findViewById(R.id.button6);
-	btplus3d.setOnClickListener(new OnClickListener(){
-		
-		
-		public void onClick(View v) {
-			gpu.this.pd = ProgressDialog.show(gpu.this, "Working..", "Applying settings", true, false);
-			if(prog3d.getProgress()==0){
-				freq3d= "228571000";
-			}
-			else if (prog3d.getProgress()==1){
-				freq3d= "266667000";
-			}
-			else if (prog3d.getProgress()==2){
-				freq3d= "300000000";
-			}
-			else if (prog3d.getProgress()==3){
-				freq3d= "320000000";
-			}
-			prog3d.setProgress(prog3d.getProgress() + 1);
-			new changegpu3d().execute();
-		
-		
-		}
-	});
+	
 	
     
 }
-    	 public void setprogress2d(){
-    		 ProgressBar prog2d = (ProgressBar)findViewById(R.id.gpuprogressBar1);
-    		 prog2d.setProgress(curent);
-    		 TextView text2d = (TextView)findViewById(R.id.textView1);
-    		 text2d.setText(gpu2dcurent.substring(0, gpu2dcurent.length()-6)+"Mhz");
-    	   }
-    	 
-    	 public void setprogress3d(){
-    		 ProgressBar prog3d = (ProgressBar)findViewById(R.id.gpuprogressBar2);
-    		 prog3d.setProgress(curent3d);
-    		 TextView text3d = (TextView)findViewById(R.id.textView2);
-    		 text3d.setText(gpu3dcurent.substring(0, gpu3dcurent.length()-6)+"Mhz");
-    	   }
+	
+	public void createSpinner2D(){
+		
+		
+		final Spinner spinner = (Spinner) findViewById(R.id.spinner2);
+		ArrayAdapter<String> spinnerArrayAdapter = new ArrayAdapter<String>(this,   android.R.layout.simple_spinner_item, gpu2d);
+		spinnerArrayAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item); // The drop down vieww
+		spinner.setAdapter(spinnerArrayAdapter);
+		
+		spinner.setOnItemSelectedListener(new OnItemSelectedListener() {
+		    
+		    public void onItemSelected(AdapterView<?> parent, View view, int pos, long id) {
+		    	selected2d = parent.getItemAtPosition(pos).toString();
+		    	
+		    }
+
+		    
+		    public void onNothingSelected(AdapterView<?> parent) {
+		        //do nothing
+		    }
+		});
+
+		ArrayAdapter myAdap = (ArrayAdapter) spinner.getAdapter(); //cast to an ArrayAdapter
+
+		int spinnerPosition = myAdap.getPosition(gpu2dmax.substring(0, gpu2dmax.length()-6));
+
+		//set the default according to value
+		spinner.setSelection(spinnerPosition);
+		
+	}
+	
+
+
+public void createSpinner3D(){
+	
+	
+	final Spinner spinner = (Spinner) findViewById(R.id.spinner1);
+	ArrayAdapter<String> spinnerArrayAdapter = new ArrayAdapter<String>(this,   android.R.layout.simple_spinner_item, gpu3d);
+	spinnerArrayAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item); // The drop down vieww
+	spinner.setAdapter(spinnerArrayAdapter);
+	
+	spinner.setOnItemSelectedListener(new OnItemSelectedListener() {
+	    
+	    public void onItemSelected(AdapterView<?> parent, View view, int pos, long id) {
+	    	selected3d = parent.getItemAtPosition(pos).toString();
+	    	
+	    }
+
+	    
+	    public void onNothingSelected(AdapterView<?> parent) {
+	        //do nothing
+	    }
+	});
+
+	ArrayAdapter myAdap = (ArrayAdapter) spinner.getAdapter(); //cast to an ArrayAdapter
+
+	int spinnerPosition = myAdap.getPosition(gpu3dmax.substring(0, gpu3dmax.length()-6));
+
+	//set the default according to value
+	spinner.setSelection(spinnerPosition);
+	
+}
+    	
 
     	public void readgpu3dcurent(){
     		try {
@@ -288,26 +279,7 @@ return "";
      			}
 
      			gpu3dcurent = aBuffer.trim();
-      			if(gpu3dcurent.equals("200000000")){
-      				curent3d = 0;
-      				freq3d= "200000000";
-      			}
-      			else if(gpu3dcurent.equals("228571000")){
-      				curent3d = 1;
-      				freq3d= "228571000";
-      			}
-      			else if(gpu3dcurent.equals("266667000")){
-      				curent3d = 2;
-      				freq3d= "266667000";
-      			}
-      			else if(gpu3dcurent.equals("300000000")){
-      				curent3d = 3;
-      				freq3d= "300000000";
-      			}
-      			else if(gpu3dcurent.equals("320000000")){
-      				curent3d = 4;
-      				freq3d= "320000000";
-      			}
+      		
      			myReader.close();
      			
 
@@ -333,22 +305,7 @@ return "";
       			}
 
       			gpu2dcurent = aBuffer.trim();
-      			if(gpu2dcurent.equals("160000000")){
-      				curent = 0;
-      				freq2d= "160000000";
-      			}
-      			else if(gpu2dcurent.equals("200000000")){
-      				curent = 1;
-      				freq2d= "200000000";
-      			}
-      			else if(gpu2dcurent.equals("228571000")){
-      				curent = 2;
-      				freq2d= "228571000";
-      			}
-      			else if(gpu2dcurent.equals("266667000")){
-      				curent = 3;
-      				freq2d= "266667000";
-      			}
+      			
       			myReader.close();
       			
       			
@@ -357,7 +314,66 @@ return "";
       		} catch (Exception e) {
       			
       		}
-      		}
+    	}
+    	     
+    	     
+    	     public void readgpu3dmax(){
+    	    		try {
+    	     			
+    	     			File myFile = new File("/sys/devices/platform/kgsl-3d0.0/kgsl/kgsl-3d0/max_gpuclk");
+    	     			FileInputStream fIn = new FileInputStream(myFile);
+
+    	     			BufferedReader myReader = new BufferedReader(
+    	     					new InputStreamReader(fIn));
+    	     			String aDataRow = "";
+    	     			String aBuffer = "";
+    	     			while ((aDataRow = myReader.readLine()) != null) {
+    	     				aBuffer += aDataRow + "\n";
+    	     			}
+
+    	     			gpu3dmax = aBuffer.trim();
+    	     			Log.d("max gpu 3d clock",gpu3dmax);
+    	      			
+    	     			
+    	     			createSpinner3D();
+    	     			myReader.close();
+    	     			
+
+    	     			
+    	     		} catch (Exception e) {
+    	     			Log.e("max gpu 3d clock","not found");
+    	     			
+    	     		}
+    	    	}
+    	    	
+    	    	public void readgpu2dmax(){
+    	    	     try {
+    	      			
+    	      			File myFile = new File("/sys/devices/platform/kgsl-2d0.0/kgsl/kgsl-2d0/max_gpuclk");
+    	      			FileInputStream fIn = new FileInputStream(myFile);
+    	      			BufferedReader myReader = new BufferedReader(
+    	      					new InputStreamReader(fIn));
+    	      			String aDataRow = "";
+    	      			String aBuffer = "";
+    	      			while ((aDataRow = myReader.readLine()) != null) {
+    	      				aBuffer += aDataRow + "\n";
+    	      			}
+
+    	      			gpu2dmax = aBuffer.trim();
+    	      			
+    	      			createSpinner2D();
+    	     			
+    	      			myReader.close();
+    	      			
+    	      			
+
+    	      			
+    	      		} catch (Exception e) {
+    	      			
+    	      		}
+    	    	}
+    	    	     
+    	    	     
     	
    
 	

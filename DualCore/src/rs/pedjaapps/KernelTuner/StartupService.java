@@ -92,15 +92,14 @@ public class StartupService extends Service
 		  }
 		  String gpu3d = sharedPrefs.getString("gpu3d", "");
 		  String gpu2d = sharedPrefs.getString("gpu2d", "");
+		 
 
 		  try {
 				localProcess = Runtime.getRuntime().exec("su");
 			
   		DataOutputStream localDataOutputStream = new DataOutputStream(localProcess.getOutputStream());
          localDataOutputStream.writeBytes("chmod 777 /sys/devices/platform/kgsl-3d0.0/kgsl/kgsl-3d0/max_gpuclk\n");
-         localDataOutputStream.writeBytes("chmod 777 /sys/devices/platform/kgsl-3d0.0/kgsl/kgsl-3d0/gpuclk\n");
          localDataOutputStream.writeBytes("echo " + gpu3d + " > /sys/devices/platform/kgsl-3d0.0/kgsl/kgsl-3d0/max_gpuclk\n");
-         localDataOutputStream.writeBytes("echo " + gpu3d + " > /sys/devices/platform/kgsl-3d0.0/kgsl/kgsl-2d0/gpuclk\n");
          localDataOutputStream.writeBytes("exit\n");
          localDataOutputStream.flush();
          localDataOutputStream.close();
@@ -120,10 +119,6 @@ public class StartupService extends Service
      		DataOutputStream localDataOutputStream = new DataOutputStream(localProcess.getOutputStream());
             localDataOutputStream.writeBytes("chmod 777 /sys/devices/platform/kgsl-2d0.0/kgsl/kgsl-2d0/max_gpuclk\n");
             localDataOutputStream.writeBytes("chmod 777 /sys/devices/platform/kgsl-2d1.1/kgsl/kgsl-2d1/max_gpuclk\n");
-            localDataOutputStream.writeBytes("chmod 777 /sys/devices/platform/kgsl-2d0.0/kgsl/kgsl-2d0/gpuclk\n");
-            localDataOutputStream.writeBytes("chmod 777 /sys/devices/platform/kgsl-2d1.1/kgsl/kgsl-2d1/gpuclk\n");
-            localDataOutputStream.writeBytes("echo " + gpu2d + " > /sys/devices/platform/kgsl-2d0.0/kgsl/kgsl-2d0/max_gpuclk\n");
-            localDataOutputStream.writeBytes("echo " + gpu2d + " > /sys/devices/platform/kgsl-2d1.1/kgsl/kgsl-2d1/max_gpuclk\n");
             localDataOutputStream.writeBytes("echo " + gpu2d + " > /sys/devices/platform/kgsl-2d0.0/kgsl/kgsl-2d0/gpuclk\n");
             localDataOutputStream.writeBytes("echo " + gpu2d + " > /sys/devices/platform/kgsl-2d1.1/kgsl/kgsl-2d1/gpuclk\n");
             localDataOutputStream.writeBytes("exit\n");

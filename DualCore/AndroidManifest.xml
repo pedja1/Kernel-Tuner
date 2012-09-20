@@ -75,7 +75,7 @@ android:icon="@drawable/dual_on">
 android:name="android.appwidget.provider"
 android:resource="@xml/widget_provider_4x4" />
 </receiver>
-<activity android:name=".gpu" android:screenOrientation="portrait" android:theme="@style/Theme.Transparent" android:label="GPU Tweaks" android:icon="@drawable/gpu"></activity>
+<activity android:name=".gpu" android:screenOrientation="portrait"  android:label="GPU Tweaks" android:theme="@style/Theme.Transparent" android:icon="@drawable/gpu"></activity>
 <activity android:name=".miscTweaks" android:screenOrientation="portrait" android:label="Misc Tweaks" android:icon="@drawable/misc"></activity>
 <activity android:name=".cpuTimes" android:screenOrientation="portrait" android:label="CPU Times - CPU0" android:icon="@drawable/times"></activity>
 <activity android:name=".uv" android:screenOrientation="portrait" android:label="UV" android:icon="@drawable/voltage"></activity>
