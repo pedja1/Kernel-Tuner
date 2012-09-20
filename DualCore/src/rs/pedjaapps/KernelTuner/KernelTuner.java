@@ -94,7 +94,7 @@ public class KernelTuner extends Activity {
 	    	  batteryTemp.setTextColor(Color.YELLOW);
 	    	  battTempWarningStop();
 	      }
-	      else if(temperature>60){
+	      else if(temperature>55 && temperature < 60 ){
 	    	  batteryTemp.setTextColor(Color.RED);
 	    	  battTempWarningStop();
 	      }
@@ -2707,11 +2707,8 @@ public void cpuTemp(){
 	    	  cputemptxt.setTextColor(Color.YELLOW);
 	    	  cpuTempWarningStop();
 	      }
-	      else if(temp>60){
-	    	  cputemptxt.setTextColor(Color.RED);
-	    	  cpuTempWarningStop();
-	      }
-	      else if(temp>60){
+	      
+	      else if(temp>59){
 	    	  cpuTempWarning();
 	    	  cputemptxt.setTextColor(Color.RED);
 
