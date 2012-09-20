@@ -50,8 +50,8 @@
         <CheckBoxPreference
             android:defaultValue="false"
             android:key="temp"
-            android:summary="Display temperature of CPU and battery in Farenheit"
-            android:title="Temperature in Farenheit" />
+            android:summary="Display temperature of CPU and battery in Fahrenheit"
+            android:title="Temperature in Fahrenheit" />
     </PreferenceCategory>
     
 </PreferenceScreen>
