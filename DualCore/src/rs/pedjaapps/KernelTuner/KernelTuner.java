@@ -3,6 +3,9 @@ package rs.pedjaapps.KernelTuner;
 import android.app.Activity;
 import android.app.AlertDialog;
 import android.app.DownloadManager;
+import android.app.Notification;
+import android.app.NotificationManager;
+import android.app.PendingIntent;
 import android.app.ProgressDialog;
 import android.appwidget.AppWidgetManager;
 
@@ -88,6 +91,7 @@ public class KernelTuner extends Activity {
 	      int level = intent.getIntExtra("level", 0);
 	      double temperature =  intent.getIntExtra(BatteryManager.EXTRA_TEMPERATURE, 0)/10;
 	      
+	     
 	      
 	      if (tempPref==true)
 	      {
@@ -156,7 +160,28 @@ public class KernelTuner extends Activity {
 	      }
 	    }
 	  };
-	
+	  public void TempWarning(){
+		  String ns = Context.NOTIFICATION_SERVICE;
+		  NotificationManager mNotificationManager = (NotificationManager) getSystemService(ns);
+		  int icon = R.drawable.icon;
+		  CharSequence tickerText = "Hello";
+		  long when = System.currentTimeMillis();
+
+		  Notification notification = new Notification(icon, tickerText, when);
+		  
+		  Context context = getApplicationContext();
+		  CharSequence contentTitle = "My notification";
+		  CharSequence contentText = "Hello World!";
+		  Intent notificationIntent = new Intent(this, KernelTuner.class);
+		  PendingIntent contentIntent = PendingIntent.getActivity(this, 0, notificationIntent, 0);
+
+		  notification.setLatestEventInfo(context, contentTitle, contentText, contentIntent);
+		  
+		  final int HELLO_ID = 1;
+
+		  mNotificationManager.notify(HELLO_ID, notification);
+	  }
+	  
 boolean thread = true;
 private Button button2;
 public String iscVa = "offline";
@@ -2228,6 +2253,7 @@ AppWidget updateSmall = new AppWidget();
 
 public void iscWindow3(){
 setContentView(R.layout.main);
+TempWarning();
 batteryLevel = (TextView) this.findViewById(R.id.textView42);
 batteryTemp = (TextView) this.findViewById(R.id.textView40);
 SharedPreferences sharedPrefs = PreferenceManager.getDefaultSharedPreferences(this);
@@ -2238,6 +2264,7 @@ boolean ads = sharedPrefs.getBoolean("ads", true);
 if (ads==true){AdView adView = (AdView)this.findViewById(R.id.ad);
 adView.loadAd(new AdRequest());}
 
+System.out.println(android.os.Build.BOARD);
 
 
 	changelog();
@@ -3094,18 +3121,18 @@ public void initdexport(){
 	  		"chmod 666 /sys/devices/system/cpu/cpu1/cpufreq/scaling_min_freq \n" +
 		"echo " +"\""+ cpu1min +"\""+ " > /sys/devices/system/cpu/cpu1/cpufreq/scaling_min_freq \n\n"+
 		
-		"chmod 666 /sys/devices/system/cpu/cpu0/cpufreq/scaling_governor \n" +
-  		"echo " + "\""+cpu2gov+"\"" + " > /sys/devices/system/cpu/cpu0/cpufreq/scaling_governor \n" +
-  		"chmod 666 /sys/devices/system/cpu/cpu0/cpufreq/scaling_max_freq \n" +
-	"echo " + "\""+cpu2max + "\""+" > /sys/devices/system/cpu/cpu0/cpufreq/scaling_max_freq \n" +
-  		"chmod 666 /sys/devices/system/cpu/cpu0/cpufreq/scaling_min_freq \n" +
-	"echo " + "\""+cpu2min + "\""+" > /sys/devices/system/cpu/cpu0/cpufreq/scaling_min_freq \n\n" +
-  		"chmod 666 /sys/devices/system/cpu/cpu1/cpufreq/scaling_governor \n" +
-	"echo " + "\""+cpu3gov +"\""+ " > /sys/devices/system/cpu/cpu1/cpufreq/scaling_governor \n" +
-  		"chmod 666 /sys/devices/system/cpu/cpu1/cpufreq/scaling_max_freq \n" +
-	"echo " + "\""+cpu3max +"\""+ " > /sys/devices/system/cpu/cpu1/cpufreq/scaling_max_freq \n" +
-  		"chmod 666 /sys/devices/system/cpu/cpu1/cpufreq/scaling_min_freq \n" +
-	"echo " +"\""+ cpu3min +"\""+ " > /sys/devices/system/cpu/cpu1/cpufreq/scaling_min_freq \n";
+		"chmod 666 /sys/devices/system/cpu/cpu2/cpufreq/scaling_governor \n" +
+  		"echo " + "\""+cpu2gov+"\"" + " > /sys/devices/system/cpu/cpu2/cpufreq/scaling_governor \n" +
+  		"chmod 666 /sys/devices/system/cpu/cpu2/cpufreq/scaling_max_freq \n" +
+	"echo " + "\""+cpu2max + "\""+" > /sys/devices/system/cpu/cpu2/cpufreq/scaling_max_freq \n" +
+  		"chmod 666 /sys/devices/system/cpu/cpu2/cpufreq/scaling_min_freq \n" +
+	"echo " + "\""+cpu2min + "\""+" > /sys/devices/system/cpu/cpu2/cpufreq/scaling_min_freq \n\n" +
+  		"chmod 666 /sys/devices/system/cpu/cpu3/cpufreq/scaling_governor \n" +
+	"echo " + "\""+cpu3gov +"\""+ " > /sys/devices/system/cpu/cpu3/cpufreq/scaling_governor \n" +
+  		"chmod 666 /sys/devices/system/cpu/cpu3/cpufreq/scaling_max_freq \n" +
+	"echo " + "\""+cpu3max +"\""+ " > /sys/devices/system/cpu/cpu3/cpufreq/scaling_max_freq \n" +
+  		"chmod 666 /sys/devices/system/cpu/cpu3/cpufreq/scaling_min_freq \n" +
+	"echo " +"\""+ cpu3min +"\""+ " > /sys/devices/system/cpu/cpu3/cpufreq/scaling_min_freq \n";
 	  
 	  String misc = "#!/system/bin/sh \n" +
 	  		"mount -t debugfs debugfs /sys/kernel/debug \n\n" +
@@ -3153,12 +3180,12 @@ public void initdexport(){
         
 	  	  "umount /sys/kernel/debug \n" ;
 
-	  String forcecpu1online ="#!/system/bin/sh \n" +
+	 /* String forcecpu1online ="#!/system/bin/sh \n" +
 			  "echo 0 > /sys/kernel/msm_mpdecision/conf/enabled \n"+
  		    		"chmod 666 /sys/devices/system/cpu/cpu1/online \n"+
  		    		 "echo 1 > /sys/devices/system/cpu/cpu1/online \n"+
  		    		"hmod 444 /sys/devices/system/cpu/cpu1/online \n" +
- 		    		"chown system /sys/devices/system/cpu/cpu1/online \n";
+ 		    		"chown system /sys/devices/system/cpu/cpu1/online \n";*/
 	  
 	  /*String cpu1disable ="#!/system/bin/sh \n" +
  		    		 "echo 0 > /sys/devices/system/cpu/cpu1/online \n"+
@@ -3201,7 +3228,7 @@ public void initdexport(){
   } catch (IOException ioe) {
           ioe.printStackTrace();
   }
-	  try { 
+	 /* try { 
           
           FileOutputStream fOut = openFileOutput("99dccpu1online",
                                                   MODE_WORLD_READABLE);
@@ -3212,7 +3239,7 @@ public void initdexport(){
 
   } catch (IOException ioe) {
           ioe.printStackTrace();
-  }
+  }*/
 	 /* try { 
           
           FileOutputStream fOut = openFileOutput("99dccpu1disable",
