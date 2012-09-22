@@ -31,7 +31,7 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_below="@+id/rl20"
-        android:text="-[FIX]Support for One XL and One S\n
+        android:text="-[ADD]Support for One XL and One S\n
 -[FIX]Fixed init.d bug\n
 -[ADD]Temperature monitor"
  />
