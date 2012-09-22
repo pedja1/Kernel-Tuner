@@ -41,14 +41,27 @@ public class gpu extends Activity{
 	
 	public int new3d;
 	public int new2d;
-	public String[] gpu2d = {"160", "200", "228", "266"};
-	public String[] gpu3d = {"200", "228", "266", "300", "320"};
+	
+	String board = android.os.Build.BOARD;
+	
+	
+	public String[] gpu2ds ;//= {"160", "200", "228", "266"};
+	public String[] gpu3ds ;//= {"200", "228", "266", "300", "320"};
 	
 	private ProgressDialog pd = null;
 	private Object data = null;
 	public SharedPreferences preferences;
 	
-
+public String[] gpu2d(String[] gpu2d){
+	gpu2ds=gpu2d;
+	return gpu2d;
+	
+	}
+public String[] gpu3d(String[] gpu3d){
+	gpu3ds=gpu3d;
+	return gpu3d;
+	
+	}
 
 private class changegpu extends AsyncTask<String, Void, Object> {
 	
@@ -65,6 +78,8 @@ private class changegpu extends AsyncTask<String, Void, Object> {
     		DataOutputStream localDataOutputStream = new DataOutputStream(localProcess.getOutputStream());
            localDataOutputStream.writeBytes("chmod 777 /sys/devices/platform/kgsl-3d0.0/kgsl/kgsl-3d0/max_gpuclk\n");
            //localDataOutputStream.writeBytes("chmod 777 /sys/devices/platform/kgsl-3d0.0/kgsl/kgsl-3d0/gpuclk\n");
+           if(board.equals("shooter") || board.equals("shooteru") || board.equals("pyramid")){
+        	   //3d freqs for shooter,shooteru,pyramid(msm8x60)
            if(selected3d.equals("200")){
 				new3d=200000000;
 			}
@@ -80,16 +95,13 @@ private class changegpu extends AsyncTask<String, Void, Object> {
 			else if(selected3d.equals("320")){
 			new3d=320000000;
 			}
-         
-        	   localDataOutputStream.writeBytes("echo " + new3d + " > /sys/devices/platform/kgsl-3d0.0/kgsl/kgsl-3d0/max_gpuclk\n");
-         
-           localDataOutputStream.writeBytes("chmod 777 /sys/devices/platform/kgsl-2d1.1/kgsl/kgsl-2d1/max_gpuclk\n");
-          localDataOutputStream.writeBytes("chmod 777 /sys/devices/platform/kgsl-2d0.0/kgsl/kgsl-2d0/max_gpuclk\n");
+           
+           //2d freqs for shooter,shooteru,pyramid(msm8x60)
            if(selected2d.equals("160")){
 				new2d=160000000;
-			System.out.println("new clock = " + new2d);
+		
 			}
-          else if(selected2d.equals("200")){
+         else if(selected2d.equals("200")){
 				new2d=200000000;
 				System.out.println("new clock = " +new2d);
 			}
@@ -101,6 +113,40 @@ private class changegpu extends AsyncTask<String, Void, Object> {
 				new2d=266667000;
 				System.out.println("new clock = " +new2d);
 			}
+           }
+           else if(board.equals("evita") || board.equals("ville")){
+        	  // 3d freqs for evita
+        	   if(selected3d.equals("200")){
+   				new3d=200000000;
+   			}
+   			else if(selected3d.equals("300")){
+   				new3d=300000000;
+   			}
+   			else if(selected3d.equals("400")){
+   				new3d=400000000;
+   			}
+   			else if(selected3d.equals("500")){
+   				new3d=500000000;
+   			}
+        	   
+        	   //2d freqs for evita
+        	   if(selected2d.equals("200")){
+   				new2d=200000000;
+   			
+   			}
+             else if(selected2d.equals("300")){
+   				new2d=300000000;
+   				
+   			}
+   			
+   			
+   			
+           }
+        	   localDataOutputStream.writeBytes("echo " + new3d + " > /sys/devices/platform/kgsl-3d0.0/kgsl/kgsl-3d0/max_gpuclk\n");
+         
+           localDataOutputStream.writeBytes("chmod 777 /sys/devices/platform/kgsl-2d1.1/kgsl/kgsl-2d1/max_gpuclk\n");
+          localDataOutputStream.writeBytes("chmod 777 /sys/devices/platform/kgsl-2d0.0/kgsl/kgsl-2d0/max_gpuclk\n");
+           
 			
 			
         
@@ -149,7 +195,16 @@ return "";
     	
 	public void onCreate(Bundle savedInstanceState) {
 	super.onCreate(savedInstanceState);
-	setContentView(R.layout.gputest);
+	setContentView(R.layout.gpu);
+	System.out.println(android.os.Build.BOARD);
+	if(board.equals("shooter") || board.equals("shooteru") || board.equals("pyramid")){
+	gpu2d(new String[]{"160", "200", "228", "266"});
+	gpu3d(new String[]{"200", "228", "266", "300", "320"});
+	}
+	else if(board.equals("evita") || board.equals("ville")){
+		gpu2d(new String[]{"200", "300"});
+		gpu3d(new String[]{"200", "300", "400", "500"});
+	}
 	readgpu2dcurent();
 	
 	readgpu3dcurent();
@@ -205,7 +260,7 @@ Button cancel = (Button)findViewById(R.id.button1);
 		
 		
 		final Spinner spinner = (Spinner) findViewById(R.id.spinner2);
-		ArrayAdapter<String> spinnerArrayAdapter = new ArrayAdapter<String>(this,   android.R.layout.simple_spinner_item, gpu2d);
+		ArrayAdapter<String> spinnerArrayAdapter = new ArrayAdapter<String>(this,   android.R.layout.simple_spinner_item, gpu2ds);
 		spinnerArrayAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item); // The drop down vieww
 		spinner.setAdapter(spinnerArrayAdapter);
 		
@@ -237,7 +292,7 @@ public void createSpinner3D(){
 	
 	
 	final Spinner spinner = (Spinner) findViewById(R.id.spinner1);
-	ArrayAdapter<String> spinnerArrayAdapter = new ArrayAdapter<String>(this,   android.R.layout.simple_spinner_item, gpu3d);
+	ArrayAdapter<String> spinnerArrayAdapter = new ArrayAdapter<String>(this,   android.R.layout.simple_spinner_item, gpu3ds);
 	spinnerArrayAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item); // The drop down vieww
 	spinner.setAdapter(spinnerArrayAdapter);
 	
