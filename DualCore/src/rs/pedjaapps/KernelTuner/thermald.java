@@ -385,7 +385,7 @@ public void readCurrentPhase1(){
 	public void readP1Low(){
 		try {
 			
-			File myFile = new File("/sys/kernel/msm_thermal/conf/allowed_max_freq");
+			File myFile = new File("/sys/kernel/msm_thermal/conf/allowed_low_low");
 			FileInputStream fIn = new FileInputStream(myFile);
 			
 			BufferedReader myReader = new BufferedReader(
@@ -396,7 +396,7 @@ public void readCurrentPhase1(){
 				aBuffer += aDataRow + "\n";
 			}
 
-			p3freq = aBuffer.trim();
+			p1low = aBuffer.trim();
 			myReader.close();
 						
 		} catch (Exception e) {
