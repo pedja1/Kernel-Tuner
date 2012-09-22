@@ -82,6 +82,7 @@ public class KernelTuner extends Activity {
 	private TextView cputemptxt;
 	public SharedPreferences sharedPrefs;
 	boolean tempPref;
+	boolean tempMonitor;
 	  private BroadcastReceiver mBatInfoReceiver = new BroadcastReceiver(){
 	    @Override
 	    public void onReceive(Context arg0, Intent intent) {
@@ -160,6 +161,8 @@ public class KernelTuner extends Activity {
 	      }
 	    }
 	  };
+	  
+	 
 	  public void TempWarning(){
 		  String ns = Context.NOTIFICATION_SERVICE;
 		  NotificationManager mNotificationManager = (NotificationManager) getSystemService(ns);
@@ -2211,6 +2214,18 @@ new info().execute();
     		new rmInitd().execute();
     	}
   
+    	tempMonitor = sharedPrefs.getBoolean("tempmon", false);
+    	if(tempMonitor==true){
+    		Intent intent = new Intent(this, TemperatureMonitorService.class);
+    		startService(intent);
+    		//SharedPreferences.Editor editor = preferences.edit();
+    		  //  editor.putBoolean("temp_service_started", true);
+    	}
+    	else if(tempMonitor==false){
+    		Intent intent = new Intent(this, TemperatureMonitorService.class);
+    		stopService(intent);
+    	}
+    	
     super.onResume();
     
 }
@@ -2225,7 +2240,7 @@ public void onStop() {
 
 public void onDestroy() {
    
-    
+	
 	thread=false;
 AppWidgetBig updateBig = new AppWidgetBig();
 	Context context = this;
@@ -2253,18 +2268,21 @@ AppWidget updateSmall = new AppWidget();
 
 public void iscWindow3(){
 setContentView(R.layout.main);
-TempWarning();
+SharedPreferences sharedPrefs = PreferenceManager.getDefaultSharedPreferences(this);
+
+
 batteryLevel = (TextView) this.findViewById(R.id.textView42);
 batteryTemp = (TextView) this.findViewById(R.id.textView40);
-SharedPreferences sharedPrefs = PreferenceManager.getDefaultSharedPreferences(this);
+
 tempPref = sharedPrefs.getBoolean("temp", false);
 this.registerReceiver(this.mBatInfoReceiver, 
 					  new IntentFilter(Intent.ACTION_BATTERY_CHANGED));
+
 boolean ads = sharedPrefs.getBoolean("ads", true);
 if (ads==true){AdView adView = (AdView)this.findViewById(R.id.ad);
 adView.loadAd(new AdRequest());}
 
-System.out.println(android.os.Build.BOARD);
+
 
 
 	changelog();

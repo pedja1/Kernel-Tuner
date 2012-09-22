@@ -46,12 +46,17 @@
             android:summary="You need to restart app to stop showing ads"
             android:title="Show ads on main screen" />
     </PreferenceCategory>
-<PreferenceCategory android:title="Temperature unit" >
+<PreferenceCategory android:title="Temperature" >
         <CheckBoxPreference
             android:defaultValue="false"
             android:key="temp"
             android:summary="Display temperature of CPU and battery in Fahrenheit"
             android:title="Temperature in Fahrenheit" />
+        <CheckBoxPreference
+            android:defaultValue="false"
+            android:key="tempmon"
+            android:summary="Warn me when temperature goes to high"
+            android:title="Temperature Monitor" />
     </PreferenceCategory>
     
 </PreferenceScreen>

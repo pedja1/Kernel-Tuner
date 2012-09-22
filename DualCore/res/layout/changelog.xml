@@ -10,11 +10,38 @@
     android:layout_height="wrap_content" >
 	
     <RelativeLayout
-        android:id="@+id/rl19"
+        android:id="@+id/rl20"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_alignParentLeft="true"
         android:layout_alignParentTop="true"
+        android:background="@drawable/divider_strong_holo" >
+
+        <TextView
+            android:id="@+id/textView39"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"      
+            android:text="2.3"
+            android:textColor="@color/green" />
+
+    </RelativeLayout>
+
+    <TextView
+        android:id="@+id/textView40"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/rl20"
+        android:text="-[FIX]Support for One XL and One S\n
+-[FIX]Fixed init.d bug\n
+-[ADD]Temperature monitor"
+ />
+    
+    <RelativeLayout
+        android:id="@+id/rl19"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_alignParentLeft="true"
+        android:layout_below="@+id/textView40"
         android:background="@drawable/divider_strong_holo" >
 
         <TextView

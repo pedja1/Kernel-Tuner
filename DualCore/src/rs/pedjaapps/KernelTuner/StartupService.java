@@ -25,6 +25,15 @@ public class StartupService extends Service
 	public void onCreate() {
 		super.onCreate();
 		boot();
+		SharedPreferences sharedPrefs = PreferenceManager.getDefaultSharedPreferences(this);
+
+		boolean tempMonitor = sharedPrefs.getBoolean("tempmon", false);
+    	if(tempMonitor==true){
+    		Intent intent = new Intent(this, TemperatureMonitorService.class);
+    		startService(intent);
+    		//SharedPreferences.Editor editor = preferences.edit();
+    		  //  editor.putBoolean("temp_service_started", true);
+    	}
 	}
 
 	@Override

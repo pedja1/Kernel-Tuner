@@ -1,8 +1,8 @@
 <?xml version="1.0" encoding="utf-8"?>
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
 package="rs.pedjaapps.KernelTuner"
-android:versionCode="23"
-android:versionName="2.2">
+android:versionCode="24"
+android:versionName="2.3">
 <uses-sdk android:minSdkVersion="9"
     android:targetSdkVersion="16" />
 
@@ -95,15 +95,13 @@ android:resource="@xml/widget_provider_4x4" />
 <activity android:name=".ProfileEditor" android:label="Profile Editor" android:icon="@drawable/ic_menu_edit" android:theme="@style/Theme.Transparent"></activity>
 <service android:name=".WidgetUpdateService"></service>
 <service android:name=".WidgetUpdateServiceBig"></service>
-
- <!--  <meta-data android:value="a15056d54ca9d71" android:name="ADMOB_PUBLISHER_ID"/>
- <activity android:name="com.google.ads.AdMobActivity" android:theme="@android:style/Theme.NoTitleBar.Fullscreen" android:configChanges="orientation|keyboard|keyboardHidden"/>
- <receiver android:name="com.google.ads.analytics.InstallReceiver"
-     android:exported="true">
-     <intent-filter >
-         <action android:name="com.android.vending.INSTAL_REFERRER"/>
-     </intent-filter>
- </receiver>-->
+<service
+  android:name="TemperatureMonitorService"
+  android:process=":temp_mon_service" 
+  android:icon="@drawable/icon"
+  android:label="TemperatureMonitorService"
+  >
+</service>
   <activity android:name="com.google.ads.AdActivity"
                   android:configChanges="keyboard|keyboardHidden|orientation|screenLayout|uiMode|screenSize|smallestScreenSize"/>
 </application>

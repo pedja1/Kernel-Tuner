@@ -83,3 +83,10 @@ rc10
 -battery temperature
 -cpu temperature
 -save current settings as profile
+2.2
+--[FIX]Completely redesigned gpu tweaks\n
+-[FIX]Option to show temperature in Fahrenheit"
+2.3
+-Support for One XL and One S
+-fixed init.d bug
+-Temperature monitor
