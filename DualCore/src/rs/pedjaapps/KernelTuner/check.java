@@ -203,7 +203,7 @@ public class check extends Activity {
 			try {
 
 				File myFile = new File(
-						"/sys/class/misc/fsynccontrol/fsync_enabled");
+						"/sys/kernel/dyn_fsync/Dyn_fsync_version");
 				FileInputStream fIn = new FileInputStream(myFile);
 				count = count + 1;
 				fs = true;
