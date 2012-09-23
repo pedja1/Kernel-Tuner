@@ -128,7 +128,7 @@
                 android:layout_height="wrap_content"
                 
                
-                android:text="-" />
+                android:text="n/a" />
             
         </LinearLayout>
         

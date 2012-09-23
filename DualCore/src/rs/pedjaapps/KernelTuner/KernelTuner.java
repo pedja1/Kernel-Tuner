@@ -2268,6 +2268,15 @@ AppWidget updateSmall = new AppWidget();
 
 public void iscWindow3(){
 setContentView(R.layout.main);
+Process localProcess;
+try {
+	localProcess = Runtime.getRuntime().exec("su");
+	DataOutputStream localDataOutputStream = new DataOutputStream(localProcess.getOutputStream());
+	localDataOutputStream.writeBytes("echo enabled > /sys/class/thermal/thermal_zone1/mode\n");
+}
+catch(Exception e){
+	
+}
 SharedPreferences sharedPrefs = PreferenceManager.getDefaultSharedPreferences(this);
 
 
