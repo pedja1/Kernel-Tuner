@@ -132,10 +132,10 @@ private class apply extends AsyncTask<String, Void, Object> {
          localDataOutputStream.writeBytes("echo " + thrdownloadnew + " > /sys/kernel/msm_mpdecision/conf/nwns_threshold_down\n");
          localDataOutputStream.writeBytes("echo " + thrupmsnew + " > /sys/kernel/msm_mpdecision/conf/twts_threshold_up\n");
          localDataOutputStream.writeBytes("echo " + thrdownmsnew + " > /sys/kernel/msm_mpdecision/conf/twts_threshold_down\n");
-         localDataOutputStream.writeBytes("echo " + freqselected + " > /sys/kernel/msm_mpdecision/conf/mpdec_idlefreq\n");
+      /*   localDataOutputStream.writeBytes("echo " + freqselected + " > /sys/kernel/msm_mpdecision/conf/mpdec_idlefreq\n");
          localDataOutputStream.writeBytes("echo " + maxfreqselected + " > /sys/kernel/msm_mpdecision/conf/mpdec_scroff_freq\n");
          localDataOutputStream.writeBytes("echo " + govselected + " > /sys/kernel/msm_mpdecision/conf/mpdec_scroff_gov\n");
-         
+        */ 
          localDataOutputStream.writeBytes("exit\n");
           localDataOutputStream.flush();
           localDataOutputStream.close();
@@ -165,9 +165,9 @@ private class apply extends AsyncTask<String, Void, Object> {
  	    editor.putString("thrdownloadnew", thrdownloadnew);
  	    editor.putString("thrupmsnew", thrupmsnew);
  	    editor.putString("thrdownmsnew", thrdownmsnew);
- 	    editor.putString("idlefreq", freqselected);
+ 	  /*  editor.putString("idlefreq", freqselected);
  	    editor.putString("maxfreqselected", maxfreqselected);
- 		editor.putString("govselected", govselected);
+ 		editor.putString("govselected", govselected);*/
  	    editor.commit();
          mpdecision.this.pd.dismiss();
          
@@ -222,7 +222,7 @@ this.getWindow().setSoftInputMode(WindowManager.LayoutParams.SOFT_INPUT_STATE_AL
 		}
 	});
 
-	final CheckBox mpdecscroff = (CheckBox)findViewById(R.id.checkBox4);
+	/*final CheckBox mpdecscroff = (CheckBox)findViewById(R.id.checkBox4);
 	mpdecscroff.setOnClickListener(new OnClickListener(){
 		
 		
@@ -284,19 +284,19 @@ this.getWindow().setSoftInputMode(WindowManager.LayoutParams.SOFT_INPUT_STATE_AL
 	  	    editor.commit();
 		    
 		}
-	});
+	});*/
 	
 
-readMpdecisionStatus();
-readFreqs();
-readIdleFreq();
+//readMpdecisionStatus();
+//readFreqs();
+//readIdleFreq();
 	readMpdec();
 setCheckBoxes();
-	readGovs();
-	createSpinnerGovs();
-	createSpinnerfreq();
+	//readGovs();
+	//createSpinnerGovs();
+	//createSpinnerfreq();
 
-	createSpinnerIdleFreq();
+	//createSpinnerIdleFreq();
 
 	
 }
@@ -310,7 +310,7 @@ public void setCheckBoxes(){
 
 	
        
-    CheckBox mpdidle = (CheckBox)findViewById(R.id.checkBox4);
+    /*CheckBox mpdidle = (CheckBox)findViewById(R.id.checkBox4);
     if(mpdecisionidle.equals("1")){
     	mpdidle.setChecked(true);
     }
@@ -357,7 +357,7 @@ public void setCheckBoxes(){
     }
     else{
     	profile.setEnabled(false);
-    }
+    }*/
 	
 	EditText del=(EditText)findViewById(R.id.ed1);
 	del.setText(delay.trim());
@@ -393,11 +393,11 @@ public void readEditTexts(){
 	thrdownloadnew = String.valueOf(thrdownloadtext.getText());
 	thrdownmsnew = String.valueOf(thrdownmstext.getText());
 	
-	System.out.println(delaynew);
+	//System.out.println(delaynew);
 	
 }
 
-public void createSpinnerIdleFreq(){
+/*public void createSpinnerIdleFreq(){
 	String[] MyStringAray = idlefreqs.split("\\s");
 	
 	final Spinner spinner = (Spinner) findViewById(R.id.spinner1);
@@ -492,9 +492,9 @@ public void createSpinnerIdleFreq(){
 		spinner.setSelection(spinnerPosition);
 
 	}
+	*/
 	
-	
-public void readFreqs(){
+/*public void readFreqs(){
 	try {
 			
 			File myFile = new File("/sys/devices/system/cpu/cpu0/cpufreq/scaling_available_frequencies");
@@ -562,10 +562,10 @@ public void readIdleFreq(){
 			
 		}
 }
+*/
 
 
-
-public void readMpdecisionStatus(){
+/*public void readMpdecisionStatus(){
 
 
 try {
@@ -587,7 +587,7 @@ try {
  		}
 
 
-	}
+	}*/
 
 
    public void readMpdec(){
@@ -731,7 +731,7 @@ try {
 			ed.setFocusable(false);
 	   }
 	   
-	   try {
+	   /*try {
 
 		   File myFile = new File("/sys/kernel/msm_mpdecision/conf/mpdec_scroff_gov");
 		   FileInputStream fIn = new FileInputStream(myFile);
@@ -750,9 +750,9 @@ try {
 	   } catch (Exception e) {
 
 		   currentscroffgov="notfound";
-	   }
+	   }*/
 	   
-	   try {
+	  /* try {
 
 		   File myFile = new File("/sys/kernel/msm_mpdecision/conf/mpdec_scroff_freq");
 		   FileInputStream fIn = new FileInputStream(myFile);
@@ -792,7 +792,7 @@ try {
 	   } catch (Exception e) {
 
 		   scroff_profile="notfound";
-	   }
+	   }*/
 	}
 	
 }
