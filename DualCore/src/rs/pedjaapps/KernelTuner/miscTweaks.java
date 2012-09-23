@@ -85,6 +85,11 @@ public class miscTweaks extends Activity implements
 	public String s2w;
 	public String s2wnew;
 	public boolean s2wmethod;
+	public String s2wButtons;
+	public String s2wStart;
+	public String s2wEnd;
+	public String s2wStartnew;
+	public String s2wEndnew;
 
 	Handler mHandler = new Handler();
 
@@ -372,6 +377,11 @@ public class miscTweaks extends Activity implements
 				if(s2wmethod==true){
 				localDataOutputStream.writeBytes("chmod 777 /sys/android_touch/sweep2wake\n");
 				localDataOutputStream.writeBytes("echo "+ s2wnew + " > /sys/android_touch/sweep2wake\n");
+				localDataOutputStream.writeBytes("chmod 777 /sys/android_touch/sweep2wake_startbutton\n");
+				localDataOutputStream.writeBytes("echo "+ s2wStartnew + " > /sys/android_touch/sweep2wake_startbutton\n");
+				localDataOutputStream.writeBytes("chmod 777 /sys/android_touch/sweep2wake_endbutton\n");
+				localDataOutputStream.writeBytes("echo "+ s2wEndnew + " > /sys/android_touch/sweep2wake_endbutton\n");
+				
 				}
 				else{
 					localDataOutputStream.writeBytes("chmod 777 /sys/android_touch/sweep2wake/s2w_switch\n");
@@ -489,17 +499,7 @@ public class miscTweaks extends Activity implements
 	}
 
 	protected void onStop() {
-		EditText sd = (EditText) findViewById(R.id.editText1);
-		sdcache = String.valueOf(sd.getText());
-		new applyIO().execute();
-
-		EditText ldttv = (EditText) findViewById(R.id.editText2);
-		RadioButton dva = (RadioButton) findViewById(R.id.radio2);
-		if (dva.isChecked()) {
-			ldtnew = String.valueOf(ldttv.getText());
-		}
-		new applyldt().execute();
-		new applys2w().execute();
+		
 		super.onStop();
 
 	}
@@ -510,6 +510,27 @@ public class miscTweaks extends Activity implements
 		mSeekBar = (SeekBar) findViewById(R.id.seekBar1);
 		mSeekBar.setOnSeekBarChangeListener(this);
 
+		Button apply = (Button)findViewById(R.id.apply);
+		apply.setOnClickListener(new OnClickListener(){
+
+			public void onClick(View arg0) {
+				EditText sd = (EditText) findViewById(R.id.editText1);
+				sdcache = String.valueOf(sd.getText());
+				new applyIO().execute();
+
+				EditText ldttv = (EditText) findViewById(R.id.editText2);
+				RadioButton dva = (RadioButton) findViewById(R.id.radio2);
+				if (dva.isChecked()) {
+					ldtnew = String.valueOf(ldttv.getText());
+				}
+				new applyldt().execute();
+				new applys2w().execute();
+				finish();
+				
+			}
+			
+		});
+		
 		Button vsyncexplanation = (Button) findViewById(R.id.button1);
 		vsyncexplanation.setOnClickListener(new OnClickListener() {
 
@@ -725,6 +746,8 @@ public class miscTweaks extends Activity implements
 		setColorDepth();
 		readS2W();
 		createSpinnerS2W();
+		createSpinnerS2WEnd();
+		createSpinnerS2WStart();
 
 	}
 
@@ -884,6 +907,7 @@ public class miscTweaks extends Activity implements
 			s2w = aBuffer.trim();
 			s2wmethod=true;
 			myReader.close();
+			
 
 		} catch (Exception e) {
 
@@ -903,12 +927,83 @@ public class miscTweaks extends Activity implements
 
 				s2w = aBuffer.trim();
 				s2wmethod=false;
+				Spinner spinner = (Spinner) findViewById(R.id.spinner3);
+				TextView s2wtxt = (TextView) findViewById(R.id.textView14);
+				spinner.setVisibility(View.GONE);
+				s2wtxt.setVisibility(View.GONE);
+				Spinner spinner2 = (Spinner) findViewById(R.id.spinner4);
+				TextView s2wtxt2 = (TextView) findViewById(R.id.textView15);
+				spinner2.setVisibility(View.GONE);
+				s2wtxt2.setVisibility(View.GONE);
 				myReader.close();
 
 			} catch (Exception e2) {
-
+				
 				s2w="err";
 			}
+		}
+		
+		try{
+			File myFile = new File(
+					"/sys/android_touch/sweep2wake_buttons");
+			FileInputStream fIn = new FileInputStream(myFile);
+
+			BufferedReader myReader = new BufferedReader(new InputStreamReader(
+					fIn));
+			String aDataRow = "";
+			String aBuffer = "";
+			while ((aDataRow = myReader.readLine()) != null) {
+				aBuffer += aDataRow + "\n";
+			}
+
+			s2wButtons = aBuffer.trim();
+			
+			myReader.close();
+		}
+		catch(IOException e){
+			
+		}
+		
+		try{
+			File myFile = new File(
+					"/sys/android_touch/sweep2wake_startbutton");
+			FileInputStream fIn = new FileInputStream(myFile);
+
+			BufferedReader myReader = new BufferedReader(new InputStreamReader(
+					fIn));
+			String aDataRow = "";
+			String aBuffer = "";
+			while ((aDataRow = myReader.readLine()) != null) {
+				aBuffer += aDataRow + "\n";
+			}
+
+			s2wStart = aBuffer.trim();
+			
+			myReader.close();
+		}
+		catch(IOException e){
+			s2wStart="err";
+		}
+		
+		try{
+			File myFile = new File(
+					"/sys/android_touch/sweep2wake_endbutton");
+			FileInputStream fIn = new FileInputStream(myFile);
+
+			BufferedReader myReader = new BufferedReader(new InputStreamReader(
+					fIn));
+			String aDataRow = "";
+			String aBuffer = "";
+			while ((aDataRow = myReader.readLine()) != null) {
+				aBuffer += aDataRow + "\n";
+			}
+
+			s2wEnd = aBuffer.trim();
+			
+			myReader.close();
+		}
+		catch(IOException e){
+			s2wEnd="err";
 		}
 	}
 	
@@ -1068,6 +1163,94 @@ public class miscTweaks extends Activity implements
 			int spinnerPosition = myAdap.getPosition("ON with backlight");
 			spinner.setSelection(spinnerPosition);
 		}
+		
+
+		// set the default according to value
+		
+
+	}
+	
+	public void createSpinnerS2WStart() {
+		String[] MyStringAray = s2wButtons.split("\\s");
+
+		final Spinner spinner = (Spinner) findViewById(R.id.spinner3);
+		ArrayAdapter<String> spinnerArrayAdapter = new ArrayAdapter<String>(
+				this, android.R.layout.simple_spinner_item, MyStringAray);
+		spinnerArrayAdapter
+				.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item); // The
+																							// drop
+																							// down
+																							// vieww
+		spinner.setAdapter(spinnerArrayAdapter);
+
+		spinner.setOnItemSelectedListener(new OnItemSelectedListener() {
+
+			public void onItemSelected(AdapterView<?> parent, View view,
+					int pos, long id) {
+				s2wStartnew = parent.getItemAtPosition(pos).toString();
+				if (s2wStart == "err") {
+					Spinner spinner = (Spinner) findViewById(R.id.spinner3);
+					TextView s2wtxt = (TextView) findViewById(R.id.textView14);
+					spinner.setVisibility(View.GONE);
+					s2wtxt.setVisibility(View.GONE);
+				}
+			}
+
+			public void onNothingSelected(AdapterView<?> parent) {
+				// do nothing
+			}
+		});
+
+		ArrayAdapter myAdap = (ArrayAdapter) spinner.getAdapter(); // cast to an
+																	// ArrayAdapter
+		
+			int spinnerPosition = myAdap.getPosition(s2wStart);
+			spinner.setSelection(spinnerPosition);
+		
+		
+
+		// set the default according to value
+		
+
+	}
+	
+	public void createSpinnerS2WEnd() {
+		String[] MyStringAray = s2wButtons.split("\\s");
+
+		final Spinner spinner = (Spinner) findViewById(R.id.spinner4);
+		ArrayAdapter<String> spinnerArrayAdapter = new ArrayAdapter<String>(
+				this, android.R.layout.simple_spinner_item, MyStringAray);
+		spinnerArrayAdapter
+				.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item); // The
+																							// drop
+																							// down
+																							// vieww
+		spinner.setAdapter(spinnerArrayAdapter);
+
+		spinner.setOnItemSelectedListener(new OnItemSelectedListener() {
+
+			public void onItemSelected(AdapterView<?> parent, View view,
+					int pos, long id) {
+				s2wEndnew = parent.getItemAtPosition(pos).toString();
+				if (s2wEnd == "err") {
+					Spinner spinner = (Spinner) findViewById(R.id.spinner4);
+					TextView s2wtxt = (TextView) findViewById(R.id.textView15);
+					spinner.setVisibility(View.GONE);
+					s2wtxt.setVisibility(View.GONE);
+				}
+			}
+
+			public void onNothingSelected(AdapterView<?> parent) {
+				// do nothing
+			}
+		});
+
+		ArrayAdapter myAdap = (ArrayAdapter) spinner.getAdapter(); // cast to an
+																	// ArrayAdapter
+		
+			int spinnerPosition = myAdap.getPosition(s2wEnd);
+			spinner.setSelection(spinnerPosition);
+		
 		
 
 		// set the default according to value
