@@ -42,7 +42,7 @@ public class gpu extends Activity{
 	public int new3d;
 	public int new2d;
 	
-	String board = android.os.Build.BOARD;
+	String board = android.os.Build.DEVICE;
 	
 	
 	public String[] gpu2ds ;//= {"160", "200", "228", "266"};
