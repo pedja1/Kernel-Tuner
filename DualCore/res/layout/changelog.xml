@@ -10,11 +10,38 @@
     android:layout_height="wrap_content" >
 	
     <RelativeLayout
-        android:id="@+id/rl20"
+        android:id="@+id/rl21"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_alignParentLeft="true"
         android:layout_alignParentTop="true"
+        android:background="@drawable/divider_strong_holo" >
+
+        <TextView
+            android:id="@+id/textView41"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"      
+            android:text="2.3.1"
+            android:textColor="@color/green" />
+
+    </RelativeLayout>
+
+    <TextView
+        android:id="@+id/textView42"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/rl21"
+        android:text="-[ADD]Start and End button for sweep2wake\n
+-[FIX]Minor fixes in temperature monitor\n
+-[FIX]Other minor fixes"
+ />
+    
+    <RelativeLayout
+        android:id="@+id/rl20"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_alignParentLeft="true"
+        android:layout_below="@+id/textView42"
         android:background="@drawable/divider_strong_holo" >
 
         <TextView
