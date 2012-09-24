@@ -114,6 +114,7 @@ private class changegpu extends AsyncTask<String, Void, Object> {
 				System.out.println("new clock = " +new2d);
 			}
            }
+           //freqs for one s and one xl
            else if(board.equals("evita") || board.equals("ville")){
         	  // 3d freqs for evita
         	   if(selected3d.equals("200")){
