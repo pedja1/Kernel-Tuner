@@ -746,8 +746,11 @@ public class miscTweaks extends Activity implements
 		setColorDepth();
 		readS2W();
 		createSpinnerS2W();
+		if(new File("/sys/android_touch/sweep2wake_buttons").exists()){
 		createSpinnerS2WEnd();
 		createSpinnerS2WStart();
+		}
+		
 
 	}
 

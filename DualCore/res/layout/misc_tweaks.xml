@@ -350,7 +350,7 @@
          android:layout_height="wrap_content"
          android:layout_below="@+id/textView13"
          android:layout_alignParentLeft="true"
-         android:text="S2W Start Button"
+         android:text="S2W Start Button;"
          android:layout_marginTop="7dp"
          android:textAppearance="?android:attr/textAppearanceLarge" />
      
@@ -369,7 +369,7 @@
          android:layout_height="wrap_content"
          android:layout_below="@+id/textView14"
          android:layout_alignParentLeft="true"
-         android:text="S2W End Button"
+         android:text="S2W End Button:"
          android:layout_marginTop="7dp"
          android:textAppearance="?android:attr/textAppearanceLarge" />
      
@@ -381,6 +381,8 @@
          android:layout_height="wrap_content"
          android:layout_alignParentRight="true"
          android:layout_alignBaseline="@+id/textView15" />
+     
+     
      
       <Button
         android:id="@+id/apply"
