@@ -750,6 +750,17 @@ public class miscTweaks extends Activity implements
 		createSpinnerS2WEnd();
 		createSpinnerS2WStart();
 		}
+		else {
+			TextView tv = (TextView) findViewById(R.id.textView14);
+			TextView tv2 = (TextView) findViewById(R.id.textView15);
+			Spinner sp = (Spinner)findViewById(R.id.spinner3);
+			Spinner sp2 = (Spinner)findViewById(R.id.spinner4);
+			tv.setVisibility(View.GONE);
+			tv2.setVisibility(View.GONE);
+			sp.setVisibility(View.GONE);
+			sp2.setVisibility(View.GONE);
+			
+		}
 		
 
 	}
@@ -936,6 +947,8 @@ public class miscTweaks extends Activity implements
 				s2wtxt.setVisibility(View.GONE);
 				Spinner spinner2 = (Spinner) findViewById(R.id.spinner4);
 				TextView s2wtxt2 = (TextView) findViewById(R.id.textView15);
+				ImageView img = (ImageView) findViewById(R.id.imageView6);
+				img.setVisibility(View.GONE);
 				spinner2.setVisibility(View.GONE);
 				s2wtxt2.setVisibility(View.GONE);
 				myReader.close();
