@@ -10,4 +10,18 @@
  <item>init.d</item>
  <item>disable</item>
 </string-array>
+
+<string-array name="tempCheckOptionList">
+ <item>3 min</item>
+ <item>5 min</item>
+ <item>10 min</item>
+ <item>15 min</item>
+</string-array>
+<string-array name="tempCheckListValues">
+ <item>180000</item>
+ <item>300000</item>
+ <item>600000</item>
+ <item>900000</item>
+</string-array>
+
 </resources>

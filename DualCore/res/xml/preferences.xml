@@ -57,6 +57,13 @@
             android:key="tempmon"
             android:summary="Warn me when temperature goes to high"
             android:title="Temperature Monitor" />
+        <ListPreference
+            android:entries="@array/tempCheckOptionList"
+            android:entryValues="@array/tempCheckListValues"
+            android:key="cpuTempInterval"
+            android:summary="How often to check CPU temperature"
+            android:title="Temperature Check Interval" android:defaultValue="180000"/>
+    
     </PreferenceCategory>
     
 </PreferenceScreen>

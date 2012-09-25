@@ -25,7 +25,7 @@ public class StartupService extends Service
 	public void onCreate() {
 		super.onCreate();
 		boot();
-		SharedPreferences sharedPrefs = PreferenceManager.getDefaultSharedPreferences(this);
+		/*SharedPreferences sharedPrefs = PreferenceManager.getDefaultSharedPreferences(this);
 
 		boolean tempMonitor = sharedPrefs.getBoolean("tempmon", false);
     	if(tempMonitor==true){
@@ -33,7 +33,7 @@ public class StartupService extends Service
     		startService(intent);
     		//SharedPreferences.Editor editor = preferences.edit();
     		  //  editor.putBoolean("temp_service_started", true);
-    	}
+    	}*/
 	}
 
 	@Override

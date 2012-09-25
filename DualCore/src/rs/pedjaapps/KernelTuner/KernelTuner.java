@@ -142,7 +142,7 @@ public class KernelTuner extends Activity {
 	      
 	      ///F = (C x 1.8) + 32 
 	      batteryLevel.setText(String.valueOf(level) + "%");
-	      if(level<15 && level>5){
+	      if(level<15 && level>=5){
 	    	  batteryLevel.setTextColor(Color.RED);
 	    	  battLevelWarningStop();
 	      }
@@ -163,27 +163,7 @@ public class KernelTuner extends Activity {
 	  };
 	  
 	 
-	  public void TempWarning(){
-		  String ns = Context.NOTIFICATION_SERVICE;
-		  NotificationManager mNotificationManager = (NotificationManager) getSystemService(ns);
-		  int icon = R.drawable.icon;
-		  CharSequence tickerText = "Hello";
-		  long when = System.currentTimeMillis();
-
-		  Notification notification = new Notification(icon, tickerText, when);
-		  
-		  Context context = getApplicationContext();
-		  CharSequence contentTitle = "My notification";
-		  CharSequence contentText = "Hello World!";
-		  Intent notificationIntent = new Intent(this, KernelTuner.class);
-		  PendingIntent contentIntent = PendingIntent.getActivity(this, 0, notificationIntent, 0);
-
-		  notification.setLatestEventInfo(context, contentTitle, contentText, contentIntent);
-		  
-		  final int HELLO_ID = 1;
-
-		  mNotificationManager.notify(HELLO_ID, notification);
-	  }
+	  
 	  
 boolean thread = true;
 private Button button2;
@@ -2214,7 +2194,7 @@ new info().execute();
     		new rmInitd().execute();
     	}
   
-    	tempMonitor = sharedPrefs.getBoolean("tempmon", false);
+    	/*tempMonitor = sharedPrefs.getBoolean("tempmon", false);
     	if(tempMonitor==true){
     		Intent intent = new Intent(this, TemperatureMonitorService.class);
     		startService(intent);
@@ -2224,7 +2204,7 @@ new info().execute();
     	else if(tempMonitor==false){
     		Intent intent = new Intent(this, TemperatureMonitorService.class);
     		stopService(intent);
-    	}
+    	}*/
     	
     super.onResume();
     
