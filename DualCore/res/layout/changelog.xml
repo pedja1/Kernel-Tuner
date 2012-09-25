@@ -10,11 +10,37 @@
     android:layout_height="wrap_content" >
 	
     <RelativeLayout
-        android:id="@+id/rl21"
+        android:id="@+id/rl22"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_alignParentLeft="true"
         android:layout_alignParentTop="true"
+        android:background="@drawable/divider_strong_holo" >
+
+        <TextView
+            android:id="@+id/textView43"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"      
+            android:text="2.3.2"
+            android:textColor="@color/green" />
+
+    </RelativeLayout>
+
+    <TextView
+        android:id="@+id/textView44"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/rl22"
+        android:text="-[FIX]FC in misc tweaks\n
+ -[FIX]Temperature Monitor disabled for now(its causing battery drain and crashes on my device)"
+ />
+    
+    <RelativeLayout
+        android:id="@+id/rl21"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_alignParentLeft="true"
+        android:layout_below="@+id/textView44"
         android:background="@drawable/divider_strong_holo" >
 
         <TextView
