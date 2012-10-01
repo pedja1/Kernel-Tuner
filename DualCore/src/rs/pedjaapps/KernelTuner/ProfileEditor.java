@@ -135,7 +135,7 @@ List<String> frequencies = new ArrayList<String>();
   
   Button done = (Button)findViewById(R.id.button1);
   done.setOnClickListener(new OnClickListener(){
-
+	  @Override
 	public void onClick(View arg0) {
 		// TODO Auto-generated method stub
 		EditText name = (EditText)findViewById(R.id.editText1);
@@ -194,13 +194,13 @@ List<String> frequencies = new ArrayList<String>();
         	spinner1.setAdapter(spinnerArrayAdapter);
         	
         	spinner1.setOnItemSelectedListener(new OnItemSelectedListener() {
-        	    
+        		@Override
         	    public void onItemSelected(AdapterView<?> parent, View view, int pos, long id) {
         	    	cpu0min = parent.getItemAtPosition(pos).toString();
         	    	
         	    }
 
-        	    
+        		@Override
         	    public void onNothingSelected(AdapterView<?> parent) {
         	        //do nothing
         	    }
@@ -219,13 +219,13 @@ List<String> frequencies = new ArrayList<String>();
         	spinner2.setAdapter(spinner2ArrayAdapter);
         	
         	spinner2.setOnItemSelectedListener(new OnItemSelectedListener() {
-        	    
+        		@Override
         	    public void onItemSelected(AdapterView<?> parent, View view, int pos, long id) {
         	    	cpu0max = parent.getItemAtPosition(pos).toString();
         	    	
         	    }
 
-        	    
+        		@Override
         	    public void onNothingSelected(AdapterView<?> parent) {
         	        //do nothing
         	    }
@@ -236,13 +236,13 @@ List<String> frequencies = new ArrayList<String>();
         	spinner3.setAdapter(spinner3ArrayAdapter);
         	
         	spinner3.setOnItemSelectedListener(new OnItemSelectedListener() {
-        	    
+        		@Override
         	    public void onItemSelected(AdapterView<?> parent, View view, int pos, long id) {
         	    	cpu1min = parent.getItemAtPosition(pos).toString();
         	    	
         	    }
 
-        	    
+        		@Override
         	    public void onNothingSelected(AdapterView<?> parent) {
         	        //do nothing
         	    }
@@ -254,13 +254,13 @@ List<String> frequencies = new ArrayList<String>();
         	spinner4.setAdapter(spinner4ArrayAdapter);
         	
         	spinner4.setOnItemSelectedListener(new OnItemSelectedListener() {
-        	    
+        		@Override
         	    public void onItemSelected(AdapterView<?> parent, View view, int pos, long id) {
         	    	cpu1max = parent.getItemAtPosition(pos).toString();
         	    	
         	    }
 
-        	    
+        		@Override
         	    public void onNothingSelected(AdapterView<?> parent) {
         	        //do nothing
         	    }
@@ -272,13 +272,13 @@ List<String> frequencies = new ArrayList<String>();
         	spinner5.setAdapter(spinner5ArrayAdapter);
         	
         	spinner5.setOnItemSelectedListener(new OnItemSelectedListener() {
-        	    
+        		@Override
         	    public void onItemSelected(AdapterView<?> parent, View view, int pos, long id) {
         	    	cpu0gov = parent.getItemAtPosition(pos).toString();
         	    	
         	    }
 
-        	    
+        		@Override
         	    public void onNothingSelected(AdapterView<?> parent) {
         	        //do nothing
         	    }
@@ -290,13 +290,13 @@ List<String> frequencies = new ArrayList<String>();
         	spinner6.setAdapter(spinner6ArrayAdapter);
         	
         	spinner6.setOnItemSelectedListener(new OnItemSelectedListener() {
-        	    
+        		@Override
         	    public void onItemSelected(AdapterView<?> parent, View view, int pos, long id) {
         	    	cpu1gov = parent.getItemAtPosition(pos).toString();
         	    	
         	    }
 
-        	    
+        		@Override
         	    public void onNothingSelected(AdapterView<?> parent) {
         	        //do nothing
         	    }
@@ -308,13 +308,13 @@ List<String> frequencies = new ArrayList<String>();
         	spinner7.setAdapter(spinner7ArrayAdapter);
         	
         	spinner7.setOnItemSelectedListener(new OnItemSelectedListener() {
-        	    
+        		@Override
         	    public void onItemSelected(AdapterView<?> parent, View view, int pos, long id) {
         	    	gpu2d = parent.getItemAtPosition(pos).toString();
         	    	
         	    }
 
-        	    
+        		@Override
         	    public void onNothingSelected(AdapterView<?> parent) {
         	        //do nothing
         	    }
@@ -326,13 +326,13 @@ List<String> frequencies = new ArrayList<String>();
         	spinner8.setAdapter(spinner8ArrayAdapter);
         	
         	spinner8.setOnItemSelectedListener(new OnItemSelectedListener() {
-        	    
+        		@Override
         	    public void onItemSelected(AdapterView<?> parent, View view, int pos, long id) {
         	    	gpu3d = parent.getItemAtPosition(pos).toString();
         	    	
         	    }
 
-        	    
+        		@Override
         	    public void onNothingSelected(AdapterView<?> parent) {
         	        //do nothing
         	    }
@@ -344,7 +344,7 @@ List<String> frequencies = new ArrayList<String>();
         	spinner9.setAdapter(spinner9ArrayAdapter);
         	
         	spinner9.setOnItemSelectedListener(new OnItemSelectedListener() {
-        	    
+        		@Override
         	    public void onItemSelected(AdapterView<?> parent, View view, int pos, long id) {
         	    	if(parent.getItemAtPosition(pos).toString().equals("ON")){
         	    		vsync = "1";
@@ -356,7 +356,7 @@ List<String> frequencies = new ArrayList<String>();
         	    	
         	    }
 
-        	    
+        		@Override
         	    public void onNothingSelected(AdapterView<?> parent) {
         	        //do nothing
         	    }
@@ -368,13 +368,13 @@ List<String> frequencies = new ArrayList<String>();
         	spinner10.setAdapter(spinner10ArrayAdapter);
         	
         	spinner10.setOnItemSelectedListener(new OnItemSelectedListener() {
-        	    
+        		@Override
         	    public void onItemSelected(AdapterView<?> parent, View view, int pos, long id) {
         	    	number_of_cores = parent.getItemAtPosition(pos).toString();
         	    	
         	    }
 
-        	    
+        		@Override
         	    public void onNothingSelected(AdapterView<?> parent) {
         	        //do nothing
         	    }
@@ -386,13 +386,13 @@ List<String> frequencies = new ArrayList<String>();
         	spinner11.setAdapter(spinner11ArrayAdapter);
         	
         	spinner11.setOnItemSelectedListener(new OnItemSelectedListener() {
-        	    
+        		@Override
         	    public void onItemSelected(AdapterView<?> parent, View view, int pos, long id) {
         	    	mtu = parent.getItemAtPosition(pos).toString();
         	    	
         	    }
 
-        	    
+        		@Override
         	    public void onNothingSelected(AdapterView<?> parent) {
         	        //do nothing
         	    }
@@ -404,13 +404,13 @@ List<String> frequencies = new ArrayList<String>();
         	spinner12.setAdapter(spinner12ArrayAdapter);
         	
         	spinner12.setOnItemSelectedListener(new OnItemSelectedListener() {
-        	    
+        		@Override
         	    public void onItemSelected(AdapterView<?> parent, View view, int pos, long id) {
         	    	mtd = parent.getItemAtPosition(pos).toString();
         	    	
         	    }
 
-        	    
+        		@Override
         	    public void onNothingSelected(AdapterView<?> parent) {
         	        //do nothing
         	    }

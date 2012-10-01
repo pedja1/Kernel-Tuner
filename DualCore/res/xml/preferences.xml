@@ -2,15 +2,6 @@
 <PreferenceScreen xmlns:android="http://schemas.android.com/apk/res/android"
     android:icon="@drawable/dual_on" >
 
- <!--     <PreferenceCategory android:title="CPU1" >
-
-    <CheckBoxPreference
-        android:defaultValue="false"
-        android:key="cpu1off"
-        android:summary="Second core will be permanently disabled untill this checkbox is unchecked"
-        android:title="Disable CPU1 Completely" />
-    </PreferenceCategory>-->
-
     <PreferenceCategory android:title="Boot Settings" >
         <ListPreference
             android:entries="@array/listDisplayWord"
@@ -52,7 +43,7 @@
             android:key="temp"
             android:summary="Display temperature of CPU and battery in Fahrenheit"
             android:title="Temperature in Fahrenheit" />
-        <CheckBoxPreference
+        <!--  <CheckBoxPreference
             android:defaultValue="false"
             android:key="tempmon"
             android:summary="Warn me when temperature goes to high"
@@ -62,8 +53,36 @@
             android:entryValues="@array/tempCheckListValues"
             android:key="cpuTempInterval"
             android:summary="How often to check CPU temperature"
-            android:title="Temperature Check Interval" android:defaultValue="180000"/>
-    
+            android:title="Temperature Check Interval" android:defaultValue="180000"/>-->
+    <PreferenceCategory android:title="Themes" >
+      
+			
+		<PreferenceScreen
+            
+            android:key="ui"
+            android:summary="Change how parts of UI looks like"
+            android:title="Look and Feal" >
+			<ListPreference
+				android:entries="@array/themeTitles"
+				android:entryValues="@array/themeValues"
+				android:key="theme"
+				android:summary="Theme for application interface"
+				android:title="Application Theme" android:defaultValue="system"/>
+			
+        <!--   <yuku.ambilwarna.widget.AmbilWarnaPreference
+                android:key="title_background"
+                android:defaultValue="0xff33b5e5" 
+                android:title="Page Title Background Color" 
+                
+                />
+           <yuku.ambilwarna.widget.AmbilWarnaPreference
+                android:key="title_text"
+                android:defaultValue="0xffffffff" 
+                android:title="Page Title Text Color" 
+                
+                />-->
+	</PreferenceScreen>
+    </PreferenceCategory>
     </PreferenceCategory>
     
 </PreferenceScreen>

@@ -516,7 +516,7 @@ public class profiles extends Activity{
 	
 	Button current = (Button)findViewById(R.id.button1);
 	current.setOnClickListener(new OnClickListener(){
-
+		@Override
 		public void onClick(View arg0) {
 			AlertDialog.Builder builder = new AlertDialog.Builder(arg0.getContext());
 
@@ -534,6 +534,7 @@ public class profiles extends Activity{
 			input.setGravity(Gravity.CENTER_HORIZONTAL);
 			//input.selectAll();
 			builder.setPositiveButton("Done", new DialogInterface.OnClickListener() {
+				@Override
 				public void onClick(DialogInterface dialog, int which) {
 					name = String.valueOf(input.getText());
 					new SaveCurrent().execute();
@@ -698,14 +699,14 @@ public class profiles extends Activity{
     		//set the default according to value
     		//spinner.setSelection(spinnerPosition);
     		
-    	}
+    	}@Override
     		public boolean onCreateOptionsMenu(Menu menu) {
 	    menu.add(Menu.NONE, 0, 0, "Add ").setIcon(R.drawable.ic_menu_add).setShowAsAction(MenuItem.SHOW_AS_ACTION_ALWAYS);
 	    menu.add(Menu.NONE, 1, 1, "Delete").setIcon(R.drawable.ic_menu_delete).setShowAsAction(MenuItem.SHOW_AS_ACTION_ALWAYS);
 menu.add(Menu.NONE, 2, 2, "Apply").setIcon(R.drawable.ic_menu_mark).setShowAsAction(MenuItem.SHOW_AS_ACTION_ALWAYS);
 	    return super.onCreateOptionsMenu(menu);
 	}
-
+    	@Override
 	public boolean onPrepareOptionsMenu (Menu menu) {
 	    
 	    return true;
@@ -714,7 +715,7 @@ menu.add(Menu.NONE, 2, 2, "Apply").setIcon(R.drawable.ic_menu_mark).setShowAsAct
 
 	
 
-
+    	@Override
 	public boolean onOptionsItemSelected(MenuItem item) {
 	    switch (item.getItemId()) {
 	        case 0:
@@ -739,6 +740,7 @@ menu.add(Menu.NONE, 2, 2, "Apply").setIcon(R.drawable.ic_menu_mark).setShowAsAct
 	    return false;
 		
 	}
+    	@Override
 	protected void onActivityResult(int requestCode, int resultCode, Intent data) {
 		  super.onActivityResult(requestCode, resultCode, data);
 		  

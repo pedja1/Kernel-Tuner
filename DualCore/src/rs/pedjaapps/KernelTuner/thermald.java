@@ -133,7 +133,7 @@ public class thermald extends Activity {
 		}
 
 	  
-	
+	@Override
 public void onCreate(Bundle savedInstanceState) {
 super.onCreate(savedInstanceState);
 this.getWindow().setSoftInputMode(WindowManager.LayoutParams.SOFT_INPUT_STATE_ALWAYS_HIDDEN); 
@@ -169,7 +169,7 @@ createSpinnerp3();
 
 Button apply = (Button)findViewById(R.id.button1);
 apply.setOnClickListener(new OnClickListener(){
-
+	@Override
 	public void onClick(View arg0) {
 		thermald.this.pd = ProgressDialog.show(thermald.this, "Working..", "Applying settings...", true, false);
 		p1lownew = String.valueOf(ed1.getText());
@@ -187,12 +187,12 @@ apply.setOnClickListener(new OnClickListener(){
 
 
 
-
+	@Override
 public void onPause() {
     super.onPause();
 }
 
-
+	@Override
 protected void onResume()
 {
     
@@ -210,13 +210,13 @@ public void createSpinnerp1(){
 	spinner.setAdapter(spinnerArrayAdapter);
 
 	spinner.setOnItemSelectedListener(new OnItemSelectedListener() {
-			
+		@Override
 			public void onItemSelected(AdapterView<?> parent, View view, int pos, long id) {
 					p1freqnew = parent.getItemAtPosition(pos).toString();
 			    	
 			}
 
-			
+		@Override
 			public void onNothingSelected(AdapterView<?> parent) {
 				//do nothing
 			}
@@ -240,13 +240,13 @@ public void createSpinnerp2(){
 	spinner.setAdapter(spinnerArrayAdapter);
 
 	spinner.setOnItemSelectedListener(new OnItemSelectedListener() {
-			
+		@Override
 			public void onItemSelected(AdapterView<?> parent, View view, int pos, long id) {
 					p2freqnew = parent.getItemAtPosition(pos).toString();
 			    	
 			}
 
-			
+		@Override
 			public void onNothingSelected(AdapterView<?> parent) {
 				//do nothing
 			}
@@ -270,13 +270,13 @@ public void createSpinnerp3(){
 	spinner.setAdapter(spinnerArrayAdapter);
 
 	spinner.setOnItemSelectedListener(new OnItemSelectedListener() {
-			
+		@Override
 			public void onItemSelected(AdapterView<?> parent, View view, int pos, long id) {
 					p3freqnew = parent.getItemAtPosition(pos).toString();
 			    	
 			}
 
-			
+		@Override
 			public void onNothingSelected(AdapterView<?> parent) {
 				//do nothing
 			}

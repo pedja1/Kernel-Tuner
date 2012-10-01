@@ -24,4 +24,31 @@
  <item>900000</item>
 </string-array>
 
+<string-array name="themeTitles">
+ <item>System Theme</item>
+ <item>ICS Holo</item>
+ <item>ICS Holo(No ActionBar)</item>
+ <item>ICS Holo(Full Screen)</item>
+ <item>ICS Holo(Wallpaper)</item>
+ <item>ICS Holo Light</item>
+ <item>ICS Holo Light(Dark ActionBar)</item>
+ <item>ICS Holo Light(No ActionBar)</item>
+ <item>ICS Holo Light(Full Screen)</item>
+ <item>Gingerbread Light</item>
+ <item>Gingerbread Dark</item>
+</string-array>
+<string-array name="themeValues">
+ <item>system</item>
+ <item>holo</item>
+ <item>holo_no_ab</item>
+ <item>holo_fs</item>
+ <item>holo_wp</item>
+ <item>holo_light</item>
+ <item>holo_light_dark_ab</item>
+ <item>holo_light_no_ab</item>
+ <item>holo_light_fs</item>
+ <item>light</item>
+ <item>dark</item>
+</string-array>
+
 </resources>

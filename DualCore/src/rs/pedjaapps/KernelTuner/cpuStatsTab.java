@@ -31,7 +31,7 @@ public class cpuStatsTab extends TabActivity {
 	TabSpec tabSpecCpu2;
 	TabSpec tabSpecCpu3;
 	
-	
+	@Override
 	public void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.tabl_layout_cpu_stats);

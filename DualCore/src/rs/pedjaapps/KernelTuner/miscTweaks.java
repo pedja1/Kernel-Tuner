@@ -480,31 +480,10 @@ public class miscTweaks extends Activity implements
 		}
 
 	}
-
+	@Override
 	public void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
 
-		iscWindow3();
-
-	}
-
-	public void onPause() {
-		super.onPause();
-	}
-
-	protected void onResume() {
-
-		super.onResume();
-
-	}
-
-	protected void onStop() {
-		
-		super.onStop();
-
-	}
-
-	public void iscWindow3() {
 		setContentView(R.layout.misc_tweaks);
 		this.getWindow().setSoftInputMode(WindowManager.LayoutParams.SOFT_INPUT_STATE_ALWAYS_HIDDEN); 
 		mSeekBar = (SeekBar) findViewById(R.id.seekBar1);
@@ -764,6 +743,22 @@ public class miscTweaks extends Activity implements
 		
 
 	}
+	@Override
+	public void onPause() {
+		super.onPause();
+	}
+	@Override
+	protected void onResume() {
+
+		super.onResume();
+
+	}
+	@Override
+	protected void onStop() {
+		
+		super.onStop();
+
+	}
 
 	public void setCheckBoxes() {
 
@@ -815,7 +810,7 @@ public class miscTweaks extends Activity implements
 		RadioButton jedan = (RadioButton) findViewById(R.id.radio1);
 		RadioButton dva = (RadioButton) findViewById(R.id.radio2);
 		nula.setOnClickListener(new OnClickListener() {
-
+			@Override
 			public void onClick(View p1) {
 				et.setVisibility(View.GONE);
 				ldtnew = "0";
@@ -824,7 +819,7 @@ public class miscTweaks extends Activity implements
 		});
 
 		jedan.setOnClickListener(new OnClickListener() {
-
+			@Override
 			public void onClick(View p1) {
 				et.setVisibility(View.GONE);
 				ldtnew = "1";
@@ -833,7 +828,7 @@ public class miscTweaks extends Activity implements
 		});
 
 		dva.setOnClickListener(new OnClickListener() {
-
+			@Override
 			public void onClick(View p1) {
 				et.setVisibility(View.VISIBLE);
 			}
@@ -1105,9 +1100,9 @@ public class miscTweaks extends Activity implements
 																							// down
 																							// vieww
 		spinner.setAdapter(spinnerArrayAdapter);
-
+		
 		spinner.setOnItemSelectedListener(new OnItemSelectedListener() {
-
+			@Override
 			public void onItemSelected(AdapterView<?> parent, View view,
 					int pos, long id) {
 				scheduler = parent.getItemAtPosition(pos).toString();
@@ -1118,7 +1113,7 @@ public class miscTweaks extends Activity implements
 					iotxt.setVisibility(View.GONE);
 				}
 			}
-
+			@Override
 			public void onNothingSelected(AdapterView<?> parent) {
 				// do nothing
 			}
@@ -1148,7 +1143,7 @@ public class miscTweaks extends Activity implements
 		spinner.setAdapter(spinnerArrayAdapter);
 
 		spinner.setOnItemSelectedListener(new OnItemSelectedListener() {
-
+			@Override
 			public void onItemSelected(AdapterView<?> parent, View view,
 					int pos, long id) {
 				s2wnew = String.valueOf(pos);
@@ -1159,7 +1154,7 @@ public class miscTweaks extends Activity implements
 					s2wtxt.setVisibility(View.GONE);
 				}
 			}
-
+			@Override
 			public void onNothingSelected(AdapterView<?> parent) {
 				// do nothing
 			}
@@ -1200,7 +1195,7 @@ public class miscTweaks extends Activity implements
 		spinner.setAdapter(spinnerArrayAdapter);
 
 		spinner.setOnItemSelectedListener(new OnItemSelectedListener() {
-
+			@Override
 			public void onItemSelected(AdapterView<?> parent, View view,
 					int pos, long id) {
 				s2wStartnew = parent.getItemAtPosition(pos).toString();
@@ -1211,7 +1206,7 @@ public class miscTweaks extends Activity implements
 					s2wtxt.setVisibility(View.GONE);
 				}
 			}
-
+			@Override
 			public void onNothingSelected(AdapterView<?> parent) {
 				// do nothing
 			}
@@ -1244,7 +1239,7 @@ public class miscTweaks extends Activity implements
 		spinner.setAdapter(spinnerArrayAdapter);
 
 		spinner.setOnItemSelectedListener(new OnItemSelectedListener() {
-
+			@Override
 			public void onItemSelected(AdapterView<?> parent, View view,
 					int pos, long id) {
 				s2wEndnew = parent.getItemAtPosition(pos).toString();
@@ -1255,7 +1250,7 @@ public class miscTweaks extends Activity implements
 					s2wtxt.setVisibility(View.GONE);
 				}
 			}
-
+			@Override
 			public void onNothingSelected(AdapterView<?> parent) {
 				// do nothing
 			}
@@ -1397,7 +1392,7 @@ public class miscTweaks extends Activity implements
 			im.setVisibility(View.GONE);
 		}
 	}
-
+	@Override
 	public void onProgressChanged(SeekBar arg0, int progress, boolean arg2) {
 		// TODO Auto-generated method stub
 		ledprogress = progress;
@@ -1413,11 +1408,11 @@ public class miscTweaks extends Activity implements
 		 */
 
 	}
-
+	@Override
 	public void onStartTrackingTouch(SeekBar arg0) {
 		// TODO Auto-generated method stub
 	}
-
+	@Override
 	public void onStopTrackingTouch(SeekBar arg0) {
 		// TODO Auto-generated method stub
 		ledprogress = mSeekBar.getProgress();

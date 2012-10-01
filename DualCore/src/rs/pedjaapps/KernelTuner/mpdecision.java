@@ -177,32 +177,10 @@ private class apply extends AsyncTask<String, Void, Object> {
 
   
 
-
+@Override
 public void onCreate(Bundle savedInstanceState) {
 super.onCreate(savedInstanceState);
 
-iscWindow3();
-
-
-}
-
-
-public void onPause() {
-    super.onPause();
-}
-
-
-protected void onResume()
-{
-    
-    
-    super.onResume();
-    
-}
-
-
-
-public void iscWindow3(){
 setContentView(R.layout.mpdecision);
 this.getWindow().setSoftInputMode(WindowManager.LayoutParams.SOFT_INPUT_STATE_ALWAYS_HIDDEN); 
 
@@ -213,7 +191,7 @@ this.getWindow().setSoftInputMode(WindowManager.LayoutParams.SOFT_INPUT_STATE_AL
 	Button apply = (Button)findViewById(R.id.button1);
 	apply.setOnClickListener(new OnClickListener(){
 		
-		
+		@Override
 		public void onClick(View v) {
 			mpdecision.this.pd = ProgressDialog.show(mpdecision.this, "Working..", "Applying settings...", true, false);
 			readEditTexts();
@@ -222,142 +200,33 @@ this.getWindow().setSoftInputMode(WindowManager.LayoutParams.SOFT_INPUT_STATE_AL
 		}
 	});
 
-	/*final CheckBox mpdecscroff = (CheckBox)findViewById(R.id.checkBox4);
-	mpdecscroff.setOnClickListener(new OnClickListener(){
-		
-		
-		public void onClick(View v) {
-			
-			if (mpdecscroff.isChecked()){
-				mpscroff= "1";
-				
-				
-			}
-			else if(!mpdecscroff.isChecked()){
-				mpscroff= "0";
-				
-				
-			}
-			preferences = PreferenceManager.getDefaultSharedPreferences(getBaseContext());
-			SharedPreferences.Editor editor = preferences.edit();
-	  	    editor.putString("mpdecisionscroff", mpscroff);
-	  	  // value to store
-	  	    editor.commit();
-		    
-		}
-	});
-	
-	final CheckBox govfreqonoff = (CheckBox)findViewById(R.id.checkBox1);
-	govfreqonoff.setOnClickListener(new OnClickListener(){
-		
-		
-		public void onClick(View v) {
-			
-			if (govfreqonoff.isChecked()){
-				onoff= "1";
-				TextView tv1 = (TextView)findViewById(R.id.textView1);
-		         TextView tv2 = (TextView)findViewById(R.id.textView2);
-		         Spinner sp1 = (Spinner)findViewById(R.id.spinner2);
-		         Spinner sp2 = (Spinner)findViewById(R.id.spinner3);
-		         sp1.setVisibility(View.VISIBLE);
-		         sp2.setVisibility(View.VISIBLE);
-		         tv1.setVisibility(View.VISIBLE);
-		         tv2.setVisibility(View.VISIBLE);
-				
-			}
-			else if(!govfreqonoff.isChecked()){
-				onoff= "0";
-				
-				 TextView tv1 = (TextView)findViewById(R.id.textView1);
-		         TextView tv2 = (TextView)findViewById(R.id.textView2);
-		         Spinner sp1 = (Spinner)findViewById(R.id.spinner2);
-		         Spinner sp2 = (Spinner)findViewById(R.id.spinner3);
-		         sp1.setVisibility(View.GONE);
-		         sp2.setVisibility(View.GONE);
-		         tv1.setVisibility(View.GONE);
-		         tv2.setVisibility(View.GONE);
-			}
-			preferences = PreferenceManager.getDefaultSharedPreferences(getBaseContext());
-			SharedPreferences.Editor editor = preferences.edit();
-	  	    editor.putString("atwgovfreqonoff", onoff);
-	  	  // value to store
-	  	    editor.commit();
-		    
-		}
-	});*/
-	
 
-//readMpdecisionStatus();
-//readFreqs();
-//readIdleFreq();
+
+
 	readMpdec();
 setCheckBoxes();
-	//readGovs();
-	//createSpinnerGovs();
-	//createSpinnerfreq();
-
-	//createSpinnerIdleFreq();
-
 	
+
+
+}
+
+@Override
+public void onPause() {
+    super.onPause();
+}
+
+@Override
+protected void onResume()
+{
+    
+    
+    super.onResume();
+    
 }
 
 
-
-
-
 public void setCheckBoxes(){
-	
 
-	
-       
-    /*CheckBox mpdidle = (CheckBox)findViewById(R.id.checkBox4);
-    if(mpdecisionidle.equals("1")){
-    	mpdidle.setChecked(true);
-    }
-    else if (mpdecisionidle.equals("0")){
-    	mpdidle.setChecked(false);
-    }
-    else{
-    	mpdidle.setEnabled(false);
-    }
-    
-    
-    
-    CheckBox profile = (CheckBox)findViewById(R.id.checkBox1);
-    
-    if (profile.isChecked()){
-		
-		TextView tv1 = (TextView)findViewById(R.id.textView1);
-         TextView tv2 = (TextView)findViewById(R.id.textView2);
-         Spinner sp1 = (Spinner)findViewById(R.id.spinner2);
-         Spinner sp2 = (Spinner)findViewById(R.id.spinner3);
-         sp1.setVisibility(View.VISIBLE);
-         sp2.setVisibility(View.VISIBLE);
-         tv1.setVisibility(View.VISIBLE);
-         tv2.setVisibility(View.VISIBLE);
-		
-	}
-	else if(!profile.isChecked()){
-		
-		
-		 TextView tv1 = (TextView)findViewById(R.id.textView1);
-         TextView tv2 = (TextView)findViewById(R.id.textView2);
-         Spinner sp1 = (Spinner)findViewById(R.id.spinner2);
-         Spinner sp2 = (Spinner)findViewById(R.id.spinner3);
-         sp1.setVisibility(View.GONE);
-         sp2.setVisibility(View.GONE);
-         tv1.setVisibility(View.GONE);
-         tv2.setVisibility(View.GONE);
-	}
-    if(scroff_profile.equals("1")){
-    	profile.setChecked(true);
-    }
-    else if (scroff_profile.equals("0")){
-    	profile.setChecked(false);
-    }
-    else{
-    	profile.setEnabled(false);
-    }*/
 	
 	EditText del=(EditText)findViewById(R.id.ed1);
 	del.setText(delay.trim());
@@ -393,201 +262,11 @@ public void readEditTexts(){
 	thrdownloadnew = String.valueOf(thrdownloadtext.getText());
 	thrdownmsnew = String.valueOf(thrdownmstext.getText());
 	
-	//System.out.println(delaynew);
+	
 	
 }
 
-/*public void createSpinnerIdleFreq(){
-	String[] MyStringAray = idlefreqs.split("\\s");
-	
-	final Spinner spinner = (Spinner) findViewById(R.id.spinner1);
-	ArrayAdapter<String> spinnerArrayAdapter = new ArrayAdapter<String>(this,   android.R.layout.simple_spinner_item, MyStringAray);
-	spinnerArrayAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item); // The drop down vieww
-	spinner.setAdapter(spinnerArrayAdapter);
-	
-	spinner.setOnItemSelectedListener(new OnItemSelectedListener() {
-	    
-	    public void onItemSelected(AdapterView<?> parent, View view, int pos, long id) {
-	    	freqselected = parent.getItemAtPosition(pos).toString();
-	    	if (curentidlefreq=="notfound"){
-	    		spinner.setEnabled(false);
-	    	}
-	    }
 
-	    
-	    public void onNothingSelected(AdapterView<?> parent) {
-	        //do nothing
-	    }
-	});
-
-	ArrayAdapter myAdap = (ArrayAdapter) spinner.getAdapter(); //cast to an ArrayAdapter
-
-	int spinnerPosition = myAdap.getPosition(curentidlefreq);
-
-	//set the default according to value
-	spinner.setSelection(spinnerPosition);
-	
-}
-
-	public void createSpinnerGovs(){
-		String[] MyStringAray = govs.split("\\s");
-
-		final Spinner spinner = (Spinner) findViewById(R.id.spinner3);
-		ArrayAdapter<String> spinnerArrayAdapter = new ArrayAdapter<String>(this,   android.R.layout.simple_spinner_item, MyStringAray);
-		spinnerArrayAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item); // The drop down vieww
-		spinner.setAdapter(spinnerArrayAdapter);
-
-		spinner.setOnItemSelectedListener(new OnItemSelectedListener() {
-				
-				public void onItemSelected(AdapterView<?> parent, View view, int pos, long id) {
-					govselected = parent.getItemAtPosition(pos).toString();
-					if (currentscroffgov=="notfound"){
-						spinner.setEnabled(false);
-					}
-				}
-
-				
-				public void onNothingSelected(AdapterView<?> parent) {
-					//do nothing
-				}
-			});
-
-		ArrayAdapter myAdap = (ArrayAdapter) spinner.getAdapter(); //cast to an ArrayAdapter
-
-		int spinnerPosition = myAdap.getPosition(currentscroffgov);
-
-		//set the default according to value
-		spinner.setSelection(spinnerPosition);
-
-	}
-
-	public void createSpinnerfreq(){
-		String[] MyStringAray = idlefreqs.split("\\s");
-
-		final Spinner spinner = (Spinner) findViewById(R.id.spinner2);
-		ArrayAdapter<String> spinnerArrayAdapter = new ArrayAdapter<String>(this,   android.R.layout.simple_spinner_item, MyStringAray);
-		spinnerArrayAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item); // The drop down vieww
-		spinner.setAdapter(spinnerArrayAdapter);
-
-		spinner.setOnItemSelectedListener(new OnItemSelectedListener() {
-				
-				public void onItemSelected(AdapterView<?> parent, View view, int pos, long id) {
-						maxfreqselected = parent.getItemAtPosition(pos).toString();
-				    	if (currentscrofffreq=="notfound"){
-							spinner.setEnabled(false);
-						}
-				}
-
-				
-				public void onNothingSelected(AdapterView<?> parent) {
-					//do nothing
-				}
-			});
-
-		ArrayAdapter myAdap = (ArrayAdapter) spinner.getAdapter(); //cast to an ArrayAdapter
-
-		int spinnerPosition = myAdap.getPosition(currentscrofffreq);
-
-		//set the default according to value
-		spinner.setSelection(spinnerPosition);
-
-	}
-	*/
-	
-/*public void readFreqs(){
-	try {
-			
-			File myFile = new File("/sys/devices/system/cpu/cpu0/cpufreq/scaling_available_frequencies");
-			FileInputStream fIn = new FileInputStream(myFile);
-			
-			BufferedReader myReader = new BufferedReader(
-					new InputStreamReader(fIn));
-			String aDataRow = "";
-			String aBuffer = "";
-			while ((aDataRow = myReader.readLine()) != null) {
-				aBuffer += aDataRow + "\n";
-			}
-
-			idlefreqs = aBuffer;
-			myReader.close();
-						
-		} catch (Exception e) {
-			
-			
-		}
-}
-
-	public void readGovs(){
-		try {
-
-			File myFile = new File("/sys/devices/system/cpu/cpu0/cpufreq/scaling_available_governors");
-			FileInputStream fIn = new FileInputStream(myFile);
-
-			BufferedReader myReader = new BufferedReader(
-				new InputStreamReader(fIn));
-			String aDataRow = "";
-			String aBuffer = "";
-			while ((aDataRow = myReader.readLine()) != null) {
-				aBuffer += aDataRow + "\n";
-			}
-
-			govs = aBuffer;
-			myReader.close();
-
-		} catch (Exception e) {
-
-
-		}
-	}
-
-public void readIdleFreq(){
-	try {
-			
-			File myFile = new File("/sys/kernel/msm_mpdecision/conf/mpdec_idle_freq");
-			FileInputStream fIn = new FileInputStream(myFile);
-		
-			BufferedReader myReader = new BufferedReader(
-					new InputStreamReader(fIn));
-			String aDataRow = "";
-			String aBuffer = "";
-			while ((aDataRow = myReader.readLine()) != null) {
-				aBuffer += aDataRow + "\n";
-			}
-
-			curentidlefreq = aBuffer.trim();
-			myReader.close();
-						
-		} catch (Exception e) {
-			curentidlefreq = "notfound";
-			
-		}
-}
-*/
-
-
-/*public void readMpdecisionStatus(){
-
-
-try {
-	String aBuffer = "";
- 			File myFile = new File("/sys/kernel/msm_mpdecision/conf/do_scroff_single_core");
- 			FileInputStream fIn = new FileInputStream(myFile);
- 			BufferedReader myReader = new BufferedReader(
- 					new InputStreamReader(fIn));
- 			String aDataRow = "";
- 			while ((aDataRow = myReader.readLine()) != null) {
- 				aBuffer += aDataRow + "\n";
- 			}
-
- 			mpdecisionidle = aBuffer.trim();
- 			myReader.close();
- 	
- 		} catch (Exception e) {
- 
- 		}
-
-
-	}*/
 
 
    public void readMpdec(){
@@ -731,68 +410,7 @@ try {
 			ed.setFocusable(false);
 	   }
 	   
-	   /*try {
-
-		   File myFile = new File("/sys/kernel/msm_mpdecision/conf/mpdec_scroff_gov");
-		   FileInputStream fIn = new FileInputStream(myFile);
-
-		   BufferedReader myReader = new BufferedReader(
-			   new InputStreamReader(fIn));
-		   String aDataRow = "";
-		   String aBuffer = "";
-		   while ((aDataRow = myReader.readLine()) != null) {
-			   aBuffer += aDataRow + "\n";
-		   }
-
-		   currentscroffgov = aBuffer;
-		   myReader.close();
-
-	   } catch (Exception e) {
-
-		   currentscroffgov="notfound";
-	   }*/
 	   
-	  /* try {
-
-		   File myFile = new File("/sys/kernel/msm_mpdecision/conf/mpdec_scroff_freq");
-		   FileInputStream fIn = new FileInputStream(myFile);
-
-		   BufferedReader myReader = new BufferedReader(
-			   new InputStreamReader(fIn));
-		   String aDataRow = "";
-		   String aBuffer = "";
-		   while ((aDataRow = myReader.readLine()) != null) {
-			   aBuffer += aDataRow + "\n";
-		   }
-
-		   currentscrofffreq = aBuffer;
-		   myReader.close();
-
-	   } catch (Exception e) {
-
-		   currentscrofffreq="notfound";
-	   }
-	   
-	   try {
-
-		   File myFile = new File("/sys/kernel/msm_mpdecision/conf/scroff_profile");
-		   FileInputStream fIn = new FileInputStream(myFile);
-
-		   BufferedReader myReader = new BufferedReader(
-			   new InputStreamReader(fIn));
-		   String aDataRow = "";
-		   String aBuffer = "";
-		   while ((aDataRow = myReader.readLine()) != null) {
-			   aBuffer += aDataRow + "\n";
-		   }
-
-		   scroff_profile = aBuffer;
-		   myReader.close();
-
-	   } catch (Exception e) {
-
-		   scroff_profile="notfound";
-	   }*/
 	}
 	
 }

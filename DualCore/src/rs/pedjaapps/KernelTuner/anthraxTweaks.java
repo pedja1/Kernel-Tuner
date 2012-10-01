@@ -20,6 +20,7 @@ public class anthraxTweaks extends Activity {
 		Button mpdecision = (Button) this.findViewById(R.id.button1);
 		mpdecision.setOnClickListener(new OnClickListener() {
 
+			@Override
 			public void onClick(View v) {
 
 				Intent myIntent = new Intent(anthraxTweaks.this,
@@ -32,6 +33,7 @@ public class anthraxTweaks extends Activity {
 		Button thermald = (Button) findViewById(R.id.button2);
 		thermald.setOnClickListener(new OnClickListener() {
 
+			@Override
 			public void onClick(View v) {
 
 				Intent myIntent = new Intent(anthraxTweaks.this,
@@ -44,6 +46,7 @@ public class anthraxTweaks extends Activity {
 		Button other = (Button) findViewById(R.id.button3);
 		other.setOnClickListener(new OnClickListener() {
 
+			@Override
 			public void onClick(View v) {
 
 				AlertDialog.Builder builder = new AlertDialog.Builder(

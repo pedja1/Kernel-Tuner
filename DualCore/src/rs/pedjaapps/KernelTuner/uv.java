@@ -238,7 +238,7 @@ public class uv extends Activity {
 	private ProgressDialog pd = null;
 	private Object data = null;
 
-	
+	@Override
 	public void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
 		this.getWindow().setSoftInputMode(WindowManager.LayoutParams.SOFT_INPUT_STATE_ALWAYS_HIDDEN); 
@@ -276,7 +276,7 @@ public class uv extends Activity {
 		Button apply = (Button) findViewById(R.id.button1);
 		apply.setOnClickListener(new OnClickListener() {
 
-			
+			@Override
 			public void onClick(View v) {
 				EditText uv = (EditText) findViewById(R.id.editText1);
 				edittextValue = String.valueOf(uv.getText());
@@ -291,7 +291,7 @@ public class uv extends Activity {
 		Button minus = (Button) findViewById(R.id.button2);
 		minus.setOnClickListener(new OnClickListener() {
 
-			
+			@Override
 			public void onClick(View v) {
 				// EditText uv =(EditText)findViewById(R.id.editText1);
 				// edittextValue = String.valueOf(uv.getText());
@@ -306,7 +306,7 @@ public class uv extends Activity {
 		Button plus = (Button) findViewById(R.id.button3);
 		plus.setOnClickListener(new OnClickListener() {
 
-			
+			@Override
 			public void onClick(View v) {
 				// EditText uv =(EditText)findViewById(R.id.editText1);
 				// edittextValue = String.valueOf(uv.getText());
@@ -319,7 +319,7 @@ public class uv extends Activity {
 		});
 	}
 
-	
+		@Override
 	protected void onResume() {
 		
 		super.onResume();
@@ -365,7 +365,7 @@ public class uv extends Activity {
 		spinner.setAdapter(spinnerArrayAdapter);
 
 		spinner.setOnItemSelectedListener(new OnItemSelectedListener() {
-			
+			@Override
 			public void onItemSelected(AdapterView<?> parent, View view,
 					int pos, long id) {
 				position = pos;
@@ -374,7 +374,7 @@ public class uv extends Activity {
 				uv.setText(vddarray[pos]);
 			}
 
-			
+			@Override
 			public void onNothingSelected(AdapterView<?> parent) {
 				// do nothing
 			}

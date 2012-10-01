@@ -288,6 +288,7 @@ setListAdapter(adapter);
 			        mPosition = position;
 			    }
 			    
+			    @Override
 			    public void onClick(View arg0) {
 			        Log.v("TAG", "onItemClick at position" + mPosition);          
 			    }       
@@ -340,7 +341,7 @@ setListAdapter(adapter);
 
 		}
 
-
+		@Override
 		public void onClick(View arg0) {
 			// TODO Auto-generated method stub
 			

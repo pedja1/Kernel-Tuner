@@ -1209,7 +1209,7 @@ String aBuffer = "";
             }
         	}
     	
-	
+    	@Override
 	public void onCreate(Bundle savedInstanceState) {
 	super.onCreate(savedInstanceState);
 	setContentView(R.layout.oc_quad);
@@ -1325,6 +1325,7 @@ String aBuffer = "";
 	 
       // 	ListView lv = (ListView)findViewById(R.id.list);
 		newsEntryListView.setOnItemClickListener(new OnItemClickListener() {
+			@Override
 			public void onItemClick(AdapterView<?> parent, View view, final int position, long id) 
 			{
 				// When clicked, show a toast with the TextView text 
@@ -1352,6 +1353,7 @@ String aBuffer = "";
 				input.setGravity(Gravity.CENTER_HORIZONTAL);
 				//input.selectAll();
 				builder.setPositiveButton("Apply", new DialogInterface.OnClickListener() {
+					@Override
 					public void onClick(DialogInterface dialog, int which) {
 						newvalue = String.valueOf(input.getText());
 						curfile = filesx[position];
@@ -1375,7 +1377,7 @@ String aBuffer = "";
 		TextView gov0 = (TextView)findViewById(R.id.textView8);
 		final TextView title = (TextView)findViewById(R.id.textView15);
 		gov0.setOnClickListener(new OnClickListener(){
-
+			@Override
 			public void onClick(View arg0) {
 				// TODO Auto-generated method stub
 				governor=govselectedcpu0;
@@ -1391,7 +1393,7 @@ String aBuffer = "";
 		Log.e("String","8");
 		TextView gov1 = (TextView)findViewById(R.id.textView9);
 		gov1.setOnClickListener(new OnClickListener(){
-
+			@Override
 			public void onClick(View arg0) {
 				// TODO Auto-generated method stub
 				governor=govselectedcpu1;
@@ -1408,7 +1410,7 @@ String aBuffer = "";
 		TextView gov2txt = (TextView)findViewById(R.id.gov2);
 		//final TextView title = (TextView)findViewById(R.id.textView15);
 		gov2txt.setOnClickListener(new OnClickListener(){
-
+			@Override
 			public void onClick(View arg0) {
 				// TODO Auto-generated method stub
 				governor=govselectedcpu2;
@@ -1425,7 +1427,7 @@ String aBuffer = "";
 		Log.e("String","10");
 		TextView gov3text = (TextView)findViewById(R.id.gov3);
 		gov3text.setOnClickListener(new OnClickListener(){
-
+			@Override
 			public void onClick(View arg0) {
 				// TODO Auto-generated method stub
 				governor=govselectedcpu3;
@@ -1466,7 +1468,7 @@ String aBuffer = "";
 		
 
 	}
-	
+	@Override
 	public void onDestroy(){
 		if(cpu1check==false){
 			Process localProcess;
@@ -1550,23 +1552,13 @@ String aBuffer = "";
     	spinner.setAdapter(spinnerArrayAdapter);
     	
     	spinner.setOnItemSelectedListener(new OnItemSelectedListener() {
-    	    
+    		@Override
     	    public void onItemSelected(AdapterView<?> parent, View view, int pos, long id) {
     	    	govselectedcpu0 = parent.getItemAtPosition(pos).toString();
-    	    	
-    	    	//curentgovernorcpu0=govselectedcpu0;
-    	    	/*//governor = govselectedcpu0;
-    	    	newsEntryAdapter.clear();
-    	    	getNewsEntries();
-    			
-    			for(final NewsEntry entry : getNewsEntries()) {
-    				newsEntryAdapter.add(entry);
-    			}
-    			//newsEntryAdapter.notifyDataSetChanged();
-    			//newsEntryListView.invalidate();*/
+    	    
     	    }
 
-    	    
+    		@Override
     	    public void onNothingSelected(AdapterView<?> parent) {
     	        //do nothing
     	    }
@@ -1590,21 +1582,14 @@ String aBuffer = "";
     	spinner.setAdapter(spinnerArrayAdapter);
     	
     	spinner.setOnItemSelectedListener(new OnItemSelectedListener() {
-    	    
+    		@Override
     	    public void onItemSelected(AdapterView<?> parent, View view, int pos, long id) {
     	    	govselectedcpu1 = parent.getItemAtPosition(pos).toString();
     	    	
-    	    	//curentgovernorcpu0=govselectedcpu1;
-    			/*newsEntryAdapter.clear();
-    			getNewsEntries();
-    			for(final NewsEntry entry : getNewsEntries()) {
-    				newsEntryAdapter.add(entry);
-    			}
-    			//newsEntryAdapter.notifyDataSetChanged();
-    			//newsEntryListView.invalidate();*/	
+    	    	
     	    }
 
-    	    
+    		@Override
     	    public void onNothingSelected(AdapterView<?> parent) {
     	        //do nothing
     	    }
@@ -1629,23 +1614,14 @@ String aBuffer = "";
     	spinner.setAdapter(spinnerArrayAdapter);
     	
     	spinner.setOnItemSelectedListener(new OnItemSelectedListener() {
-    	    
+    		@Override
     	    public void onItemSelected(AdapterView<?> parent, View view, int pos, long id) {
     	    	govselectedcpu2 = parent.getItemAtPosition(pos).toString();
     	    	
-    	    	//curentgovernorcpu0=govselectedcpu0;
-    	    	/*//governor = govselectedcpu0;
-    	    	newsEntryAdapter.clear();
-    	    	getNewsEntries();
-    			
-    			for(final NewsEntry entry : getNewsEntries()) {
-    				newsEntryAdapter.add(entry);
-    			}
-    			//newsEntryAdapter.notifyDataSetChanged();
-    			//newsEntryListView.invalidate();*/
+    	    	
     	    }
 
-    	    
+    		@Override
     	    public void onNothingSelected(AdapterView<?> parent) {
     	        //do nothing
     	    }
@@ -1669,21 +1645,14 @@ String aBuffer = "";
     	spinner.setAdapter(spinnerArrayAdapter);
     	
     	spinner.setOnItemSelectedListener(new OnItemSelectedListener() {
-    	    
+    		@Override
     	    public void onItemSelected(AdapterView<?> parent, View view, int pos, long id) {
     	    	govselectedcpu3 = parent.getItemAtPosition(pos).toString();
     	    	
-    	    	//curentgovernorcpu0=govselectedcpu1;
-    			/*newsEntryAdapter.clear();
-    			getNewsEntries();
-    			for(final NewsEntry entry : getNewsEntries()) {
-    				newsEntryAdapter.add(entry);
-    			}
-    			//newsEntryAdapter.notifyDataSetChanged();
-    			//newsEntryListView.invalidate();*/	
+    	    		
     	    }
 
-    	    
+    		@Override
     	    public void onNothingSelected(AdapterView<?> parent) {
     	        //do nothing
     	    }
@@ -1706,14 +1675,14 @@ String aBuffer = "";
 		spinner.setAdapter(spinnerArrayAdapter);
 				
 		spinner.setOnItemSelectedListener(new OnItemSelectedListener() {
-		    
+			@Override
 		    public void onItemSelected(AdapterView<?> parent, View view, int pos, long id) {
 		    	minselectedcpu0 = parent.getItemAtPosition(pos).toString();
 		    	minselectedcpu0.trim();
 		    	
 		    }
 
-		    
+			@Override
 		    public void onNothingSelected(AdapterView<?> parent) {
 		        //do nothing
 		    }
@@ -1746,14 +1715,14 @@ String aBuffer = "";
 		//String myString = "ondemand"; //the value you want the position for
 		
 		spinner.setOnItemSelectedListener(new OnItemSelectedListener() {
-		    
+			@Override
 		    public void onItemSelected(AdapterView<?> parent, View view, int pos, long id) {
 		    	minselectedcpu1 = parent.getItemAtPosition(pos).toString();
 		    	minselectedcpu1.trim();
 		    	
 		    }
 
-		    
+			@Override
 		    public void onNothingSelected(AdapterView<?> parent) {
 		        //do nothing
 		    }
@@ -1776,14 +1745,14 @@ String aBuffer = "";
 		//set the default according to value
 		spinner.setSelection(spinnerPosition);		
 		spinner.setOnItemSelectedListener(new OnItemSelectedListener() {
-		    
+			@Override
 		    public void onItemSelected(AdapterView<?> parent, View view, int pos, long id) {
 		    	maxselectedcpu1 = parent.getItemAtPosition(pos).toString();
 		    	maxselectedcpu1.trim();
 
 		    }
 
-		    
+			@Override
 		    public void onNothingSelected(AdapterView<?> parent) {
 		        //do nothing
 		    }
@@ -1802,14 +1771,14 @@ String aBuffer = "";
 		spinner.setAdapter(spinnerArrayAdapter);
 				
 		spinner.setOnItemSelectedListener(new OnItemSelectedListener() {
-		    
+			@Override
 		    public void onItemSelected(AdapterView<?> parent, View view, int pos, long id) {
 		    	maxselectedcpu0 = parent.getItemAtPosition(pos).toString();
 		    	maxselectedcpu0.trim();
 		    			    	
 		    }
 
-		    
+			@Override
 		    public void onNothingSelected(AdapterView<?> parent) {
 		        //do nothing
 		    }
@@ -1830,14 +1799,14 @@ String aBuffer = "";
 		spinner.setAdapter(spinnerArrayAdapter);
 				
 		spinner.setOnItemSelectedListener(new OnItemSelectedListener() {
-		    
+			@Override
 		    public void onItemSelected(AdapterView<?> parent, View view, int pos, long id) {
 		    	minselectedcpu2 = parent.getItemAtPosition(pos).toString();
 		    	minselectedcpu2.trim();
 		    	
 		    }
 
-		    
+			@Override
 		    public void onNothingSelected(AdapterView<?> parent) {
 		        //do nothing
 		    }
@@ -1870,14 +1839,14 @@ String aBuffer = "";
 		//String myString = "ondemand"; //the value you want the position for
 		
 		spinner.setOnItemSelectedListener(new OnItemSelectedListener() {
-		    
+			@Override
 		    public void onItemSelected(AdapterView<?> parent, View view, int pos, long id) {
 		    	minselectedcpu3 = parent.getItemAtPosition(pos).toString();
 		    	minselectedcpu3.trim();
 		    	
 		    }
 
-		    
+			@Override
 		    public void onNothingSelected(AdapterView<?> parent) {
 		        //do nothing
 		    }
@@ -1900,14 +1869,14 @@ String aBuffer = "";
 		//set the default according to value
 		spinner.setSelection(spinnerPosition);		
 		spinner.setOnItemSelectedListener(new OnItemSelectedListener() {
-		    
+			@Override
 		    public void onItemSelected(AdapterView<?> parent, View view, int pos, long id) {
 		    	maxselectedcpu3 = parent.getItemAtPosition(pos).toString();
 		    	maxselectedcpu3.trim();
 
 		    }
 
-		    
+			@Override
 		    public void onNothingSelected(AdapterView<?> parent) {
 		        //do nothing
 		    }
@@ -1926,14 +1895,14 @@ String aBuffer = "";
 		spinner.setAdapter(spinnerArrayAdapter);
 				
 		spinner.setOnItemSelectedListener(new OnItemSelectedListener() {
-		    
+			@Override
 		    public void onItemSelected(AdapterView<?> parent, View view, int pos, long id) {
 		    	maxselectedcpu2 = parent.getItemAtPosition(pos).toString();
 		    	maxselectedcpu2.trim();
 		    			    	
 		    }
 
-		    
+			@Override
 		    public void onNothingSelected(AdapterView<?> parent) {
 		        //do nothing
 		    }
@@ -1964,18 +1933,7 @@ String aBuffer = "";
 	    editor.apply();
 	}
 	
-	/*void ListDir(File f){
-	     File[] files = f.listFiles();
-	     fileList.clear();
-	     for (File file : files){
-	      fileList.add(file.getName()); 
-	     }
-	      
-	     ArrayAdapter<String> directoryList
-	     = new ArrayAdapter<String>(this,
-	       android.R.layout.simple_list_item_1, fileList);
-	     setListAdapter(directoryList);
-	    }*/
+	
 	
 	public final class NewsEntryAdapter extends ArrayAdapter<NewsEntry> {
 
@@ -2151,22 +2109,19 @@ String aBuffer = "";
 	      }
 	     return entries;
 	    }
-	
+	@Override
 	public boolean onCreateOptionsMenu(Menu menu) {
 	    menu.add(Menu.NONE, 0, 0, "Apply").setShowAsAction(MenuItem.SHOW_AS_ACTION_ALWAYS);
 	    menu.add(Menu.NONE, 1, 1, "Cancel").setShowAsAction(MenuItem.SHOW_AS_ACTION_ALWAYS);
 	    return super.onCreateOptionsMenu(menu);
 	}
-
+	@Override
 	public boolean onPrepareOptionsMenu (Menu menu) {
 	    
 	    return true;
 	}
 
-
-	
-
-
+	@Override
 	public boolean onOptionsItemSelected(MenuItem item) {
 	    switch (item.getItemId()) {
 	        case 0:

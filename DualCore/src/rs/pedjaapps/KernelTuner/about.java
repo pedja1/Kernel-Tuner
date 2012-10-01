@@ -38,30 +38,7 @@ public class about extends Activity{
 			if (official != null) {
 				official.setMovementMethod(LinkMovementMethod.getInstance());
 			}
-			
-
-		/*	Random randomGenerator = new Random();
-			
-				int randomInt = randomGenerator.nextInt(16);
-				
-				
-				int[] i =  {
-					R.drawable.tux_droid,
-					R.drawable.tux2, 
-					R.drawable.tux_gandalf, 
-					R.drawable.tux_goku,
-					R.drawable.tux_harry,
-					R.drawable.tux_homer,
-					R.drawable.tux_king,
-					R.drawable.tux_luke,
-					R.drawable.tux_patrick,
-					R.drawable.tux_pika,
-					R.drawable.tux_predator,
-					R.drawable.tux_ubuntu,
-					R.drawable.tux_wader,
-					R.drawable.tux_yoda,
-					R.drawable.yoda_tux
-				};*/
+		
 				ImageView tux = (ImageView)findViewById(R.id.tux);
 			   tux.setImageResource(R.drawable.tux_gandalf);
 			   try

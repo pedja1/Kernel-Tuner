@@ -45,6 +45,7 @@ public class check extends Activity {
 
 	private class exec extends AsyncTask<Void, Integer, Void> {
 
+		
 		protected Void doInBackground(Void... args) {
 			Log.i("MyApp", "Background thread starting");
 			// Random randomGenerator = new Random();

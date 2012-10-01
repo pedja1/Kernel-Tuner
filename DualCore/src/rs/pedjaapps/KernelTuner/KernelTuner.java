@@ -2154,99 +2154,37 @@ return "";
     
 	}
 
-
+@Override
 public void onCreate(Bundle savedInstanceState) {
 super.onCreate(savedInstanceState);
-	iscWindow3();
-  
+
+sharedPrefs = PreferenceManager.getDefaultSharedPreferences(this);
+String theme = sharedPrefs.getString("theme", "system");
+if (theme.equals("system")) {
+	setTheme(android.R.style.Theme_DeviceDefault);
+} else if (theme.equals("holo")) {
+	setTheme(android.R.style.Theme_Holo);
+} else if (theme.equals("holo_light")) {
+	setTheme(android.R.style.Theme_Holo_Light);
+} else if (theme.equals("dark")) {
+	setTheme(android.R.style.Theme_Black);
+} else if (theme.equals("light")) {
+	setTheme(android.R.style.Theme_Light);
+} else if (theme.equals("holo_no_ab")) {
+	setTheme(android.R.style.Theme_Holo_NoActionBar);
+} else if (theme.equals("holo_wp")) {
+	setTheme(android.R.style.Theme_Holo_Wallpaper);
+} else if (theme.equals("holo_fs")) {
+	setTheme(android.R.style.Theme_Holo_NoActionBar_Fullscreen);
+} else if (theme.equals("holo_light_dark_ab")) {
+	setTheme(android.R.style.Theme_Holo_Light_DarkActionBar);
+} else if (theme.equals("holo_light_no_ab")) {
+	setTheme(android.R.style.Theme_Holo_Light_NoActionBar);
+} else if (theme.equals("holo_light_fs")) {
+	setTheme(android.R.style.Theme_Holo_Light_NoActionBar_Fullscreen);
 }
 
 
-public void onPause() {
-    super.onPause();
-    
-}
-
-
-protected void onResume()
-{
-    //prefs();
-    initialCheck();
-new info().execute();
-    
-  
-    	initdexport();
-    	SharedPreferences sharedPrefs = PreferenceManager.getDefaultSharedPreferences(this);
-
-    	String boot = sharedPrefs.getString("boot2", "");
-    	boolean cputoggle = sharedPrefs.getBoolean("cputoggle", true);
-    	boolean cpu1off = sharedPrefs.getBoolean("cpu1off", false);
-    	if (boot.equals("init.d")){
-    		new initdApplyCpuGpuMisc().execute();
-    		if(cpu1off==true){
-    			new initdApplyCpu1Off().execute();
-    		}
-    		if(cputoggle==true){
-    			new initdApplyCpu1forced().execute();
-    		}
-    	}
-    	else {
-    		new rmInitd().execute();
-    	}
-  
-    	/*tempMonitor = sharedPrefs.getBoolean("tempmon", false);
-    	if(tempMonitor==true){
-    		Intent intent = new Intent(this, TemperatureMonitorService.class);
-    		startService(intent);
-    		//SharedPreferences.Editor editor = preferences.edit();
-    		  //  editor.putBoolean("temp_service_started", true);
-    	}
-    	else if(tempMonitor==false){
-    		Intent intent = new Intent(this, TemperatureMonitorService.class);
-    		stopService(intent);
-    	}*/
-    	
-    super.onResume();
-    
-}
-
-
-public void onStop() {
-	
- 
-       super.onStop();
-    
-}
-
-public void onDestroy() {
-   
-	
-	thread=false;
-AppWidgetBig updateBig = new AppWidgetBig();
-	Context context = this;
-	AppWidgetManager appWidgetManager = AppWidgetManager.getInstance(context);
-	RemoteViews remoteViews = new RemoteViews(context.getPackageName(), R.layout.widget_4x4);
-	ComponentName thisWidget = new ComponentName(context, AppWidgetBig.class);
-	//remoteViews.setTextViewText(R.id.my_text_view, "myText" + System.currentTimeMillis());
-	appWidgetManager.updateAppWidget(thisWidget, remoteViews);
-	int[] appWidgetIds = null;
-	updateBig.onUpdate(context, appWidgetManager,  appWidgetIds);
-	
-	
-AppWidget updateSmall = new AppWidget();
-	RemoteViews remoteViewsSmall = new RemoteViews(context.getPackageName(), R.layout.widget_2x1);
-	ComponentName thisWidgetSmall = new ComponentName(context, AppWidget.class);
-	//remoteViews.setTextViewText(R.id.my_text_view, "myText" + System.currentTimeMillis());
-	appWidgetManager.updateAppWidget(thisWidgetSmall, remoteViewsSmall);
-	
-	updateSmall.onUpdate(context, appWidgetManager,  appWidgetIds);
-       super.onDestroy();
-    finish();
-}
-
-
-
-public void iscWindow3(){
 setContentView(R.layout.main);
 Process localProcess;
 try {
@@ -2299,7 +2237,7 @@ new info().execute();
 	Button gpu = (Button)findViewById(R.id.button3);
 	gpu.setOnClickListener(new OnClickListener(){
 		
-		
+		@Override
 		public void onClick(View v) {
 			File file = new File("/sys/devices/platform/kgsl-2d0.0/kgsl/kgsl-2d0/max_gpuclk");
 			try{
@@ -2336,7 +2274,7 @@ new info().execute();
 	Button voltage = (Button)findViewById(R.id.button6);
 	voltage.setOnClickListener(new OnClickListener(){
 		
-		
+		@Override
 		public void onClick(View v) {
 			File file = new File("/sys/devices/system/cpu/cpufreq/vdd_table/vdd_levels");
 			try{
@@ -2396,8 +2334,9 @@ else {
 
 
 
+
 new Thread(new Runnable() {
-    
+	@Override
     public void run() {
         // TODO Auto-generated method stub
         while (thread) {
@@ -2405,13 +2344,13 @@ new Thread(new Runnable() {
                 Thread.sleep(700);
                 mHandler.post(new Runnable() {
 
-                    
+                	@Override
                     public void run() {
                         // TODO Auto-generated method stub
                     	ReadCPU0Clock();
-                    	
                     	ReadCPU0maxfreq();
                     	ReadCPU0freqs();
+                    	
                     	
                     	if(new File("/sys/devices/system/cpu/cpu1/online").exists()){
                     	
@@ -2428,8 +2367,8 @@ new Thread(new Runnable() {
                     	}
                     	if(new File("/sys/devices/system/cpu/cpu3/online").exists()){
                     		ReadCPU3Clock();
-                        	ReadCPU3maxfreq();
-                        	ReadCPU3freqs();
+                    		ReadCPU3maxfreq();
+                    		ReadCPU3freqs();
                         	
                     	}
                
@@ -2447,7 +2386,7 @@ new Thread(new Runnable() {
     }
 }).start();
 new Thread(new Runnable() {
-    
+	@Override
     public void run() {
         // TODO Auto-generated method stub
         while (thread) {
@@ -2455,7 +2394,7 @@ new Thread(new Runnable() {
                 Thread.sleep(1000);
                 mHandler.post(new Runnable() {
 
-                   
+                	@Override
                     public void run() {
                         // TODO Auto-generated method stub
                     	
@@ -2478,7 +2417,7 @@ new Thread(new Runnable() {
 button2 = (Button)this.findViewById(R.id.button2);
 button2.setOnClickListener(new OnClickListener(){
 	
-	
+	@Override
 	public void onClick(View v) {
 		
 		if(new File("/sys/devices/system/cpu/cpu3/online").exists()){
@@ -2501,7 +2440,7 @@ button2.setOnClickListener(new OnClickListener(){
 Button buttontest = (Button)this.findViewById(R.id.button5);
 buttontest.setOnClickListener(new OnClickListener(){
 	
-	
+	@Override
 	public void onClick(View v) {
 		
 		Intent myIntent = new Intent(KernelTuner.this, cpuStatsTab.class);
@@ -2513,7 +2452,7 @@ buttontest.setOnClickListener(new OnClickListener(){
 Button atweaks = (Button)this.findViewById(R.id.button7);
 atweaks.setOnClickListener(new OnClickListener(){
 	
-	
+	@Override
 	public void onClick(View v) {
 		
 		Intent myIntent = new Intent(KernelTuner.this, anthraxTweaks.class);
@@ -2525,7 +2464,7 @@ atweaks.setOnClickListener(new OnClickListener(){
 	RelativeLayout info = (RelativeLayout)this.findViewById(R.id.rl2);
 	info.setOnClickListener(new OnClickListener(){
 
-			
+		@Override
 			public void onClick(View v) {
 
 				new info().execute();
@@ -2535,7 +2474,7 @@ atweaks.setOnClickListener(new OnClickListener(){
 Button buttongpu = (Button)this.findViewById(R.id.button4);
 buttongpu.setOnClickListener(new OnClickListener(){
 	
-	
+	@Override
 	public void onClick(View v) {
 		
 		
@@ -2550,10 +2489,10 @@ Button cpu1toggle = (Button)this.findViewById(R.id.button1);
 cpu1toggle.setOnClickListener(new OnClickListener()
 {
 	
-
+	@Override
 public void onClick(View v) {
 	
-	firstTimeDialog("CPU1");
+	
 	KernelTuner.this.pd = ProgressDialog.show(KernelTuner.this, "Working..", "Applying settings...", true, false);
 	new cpu1Toggle().execute();
 	
@@ -2564,10 +2503,10 @@ Button cpu2toggle = (Button)this.findViewById(R.id.button8);
 cpu2toggle.setOnClickListener(new OnClickListener()
 {
 	
-
+	@Override
 public void onClick(View v) {
 	
-	firstTimeDialog("CPU2");
+	
 	KernelTuner.this.pd = ProgressDialog.show(KernelTuner.this, "Working..", "Applying settings...", true, false);
 	new cpu2Toggle().execute();
 	
@@ -2578,10 +2517,10 @@ Button cpu3toggle = (Button)this.findViewById(R.id.button9);
 cpu3toggle.setOnClickListener(new OnClickListener()
 {
 	
-
+	@Override
 public void onClick(View v) {
 	
-	firstTimeDialog("CPU3");
+	
 	KernelTuner.this.pd = ProgressDialog.show(KernelTuner.this, "Working..", "Applying settings...", true, false);
 	new cpu3Toggle().execute();
 	
@@ -2590,40 +2529,93 @@ public void onClick(View v) {
 
 }
 
-public void firstTimeDialog(String CPU){
-	preferences = PreferenceManager.getDefaultSharedPreferences(getBaseContext());
-    boolean previouslyStarted = preferences.getBoolean("mpdecdialog", false);
-	if (!previouslyStarted){
-    AlertDialog alertDialog = new AlertDialog.Builder(
-            KernelTuner.this).create();
 
-// Setting Dialog Title
-alertDialog.setTitle("Force CPU1 online");
-
-// Setting Dialog Message
-alertDialog.setMessage("By forcing "+CPU+ " online \"mpdecision\" needs to be disabled." +
-		"It will be re enabled when you disable CPU1." +
-		"If your kernel doesnt support \"mpdecision\" please ignore this message");
-
-// Setting Icon to Dialog
-alertDialog.setIcon(R.drawable.icon);
-
-// Setting OK Button
-alertDialog.setButton("OK", new DialogInterface.OnClickListener() {
-    public void onClick(DialogInterface dialog, int which) {
-    // Write your code here to execute after dialog closed
-    }
-});
-
-// Showing Alert Message
-alertDialog.show();
-	alertDialog.setIcon(R.drawable.icon);
-	alertDialog.show();
-	}	
-	SharedPreferences.Editor editor = preferences.edit();
-    editor.putBoolean("mpdecdialog", true); // value to store
-    editor.commit();
+@Override
+public void onPause() {
+    super.onPause();
+    
 }
+
+@Override
+protected void onResume()
+{
+    //prefs();
+    initialCheck();
+new info().execute();
+    
+  
+    	initdexport();
+    	SharedPreferences sharedPrefs = PreferenceManager.getDefaultSharedPreferences(this);
+
+    	String boot = sharedPrefs.getString("boot2", "");
+    	boolean cputoggle = sharedPrefs.getBoolean("cputoggle", true);
+    	boolean cpu1off = sharedPrefs.getBoolean("cpu1off", false);
+    	if (boot.equals("init.d")){
+    		new initdApplyCpuGpuMisc().execute();
+    		if(cpu1off==true){
+    			new initdApplyCpu1Off().execute();
+    		}
+    		if(cputoggle==true){
+    			new initdApplyCpu1forced().execute();
+    		}
+    	}
+    	else {
+    		new rmInitd().execute();
+    	}
+  
+    	/*tempMonitor = sharedPrefs.getBoolean("tempmon", false);
+    	if(tempMonitor==true){
+    		Intent intent = new Intent(this, TemperatureMonitorService.class);
+    		startService(intent);
+    		//SharedPreferences.Editor editor = preferences.edit();
+    		  //  editor.putBoolean("temp_service_started", true);
+    	}
+    	else if(tempMonitor==false){
+    		Intent intent = new Intent(this, TemperatureMonitorService.class);
+    		stopService(intent);
+    	}*/
+    	
+    super.onResume();
+    
+}
+
+@Override
+public void onStop() {
+	
+ 
+       super.onStop();
+    
+}
+@Override
+public void onDestroy() {
+   
+	
+	thread=false;
+AppWidgetBig updateBig = new AppWidgetBig();
+	Context context = this;
+	AppWidgetManager appWidgetManager = AppWidgetManager.getInstance(context);
+	RemoteViews remoteViews = new RemoteViews(context.getPackageName(), R.layout.widget_4x4);
+	ComponentName thisWidget = new ComponentName(context, AppWidgetBig.class);
+	//remoteViews.setTextViewText(R.id.my_text_view, "myText" + System.currentTimeMillis());
+	appWidgetManager.updateAppWidget(thisWidget, remoteViews);
+	int[] appWidgetIds = null;
+	updateBig.onUpdate(context, appWidgetManager,  appWidgetIds);
+	
+	
+AppWidget updateSmall = new AppWidget();
+	RemoteViews remoteViewsSmall = new RemoteViews(context.getPackageName(), R.layout.widget_2x1);
+	ComponentName thisWidgetSmall = new ComponentName(context, AppWidget.class);
+	//remoteViews.setTextViewText(R.id.my_text_view, "myText" + System.currentTimeMillis());
+	appWidgetManager.updateAppWidget(thisWidgetSmall, remoteViewsSmall);
+	
+	updateSmall.onUpdate(context, appWidgetManager,  appWidgetIds);
+       super.onDestroy();
+    finish();
+}
+
+
+
+
 
  public void download(){
 	String url = "http://dualcore.netii.net/fm/KernelTuner-" + remoteversion + ".php";
@@ -3723,6 +3715,7 @@ cpu3progbar.setProgress(cpu3freqslist.indexOf(freqcpu3.trim())+1);
 
 private Menu mainMenu;
 //private MenuItem menuItem;
+@Override
 public boolean onCreateOptionsMenu(Menu menu) {
    
 	MenuInflater inflater = getMenuInflater();
@@ -3734,7 +3727,7 @@ public boolean onCreateOptionsMenu(Menu menu) {
     
     return true;
 }
-
+@Override
 public boolean onPrepareOptionsMenu (Menu menu) {
     
     return true;
@@ -3742,7 +3735,7 @@ public boolean onPrepareOptionsMenu (Menu menu) {
 
 
 
-
+@Override
 public boolean onOptionsItemSelected(MenuItem item) {
   
 	if (item.getItemId() == R.id.settings) {
@@ -3771,63 +3764,6 @@ public boolean onOptionsItemSelected(MenuItem item) {
     }	
     return super.onOptionsItemSelected(item);
 }
-
-/*public void prefs(){
-	SharedPreferences sharedPrefs = PreferenceManager.getDefaultSharedPreferences(this);
-		  boolean a = sharedPrefs.getBoolean("cpu1off", false);
-	      if (a == true){
-	    	  Button b2 = (Button) findViewById(R.id.button1);
-	    	  b2.setEnabled(false);
-	    	  disablecpu1();
-	    	  cpu1 = (TextView)this.findViewById(R.id.ptextView4);
-	    	  cpu1.setTextColor(Color.RED);
-
-	     }
-	      else{
-	    	
-	    	  Button b2 = (Button) findViewById(R.id.button1);
-	    	  b2.setEnabled(true);
-			 
-	    	  cpu1 = (TextView)this.findViewById(R.id.ptextView4);
-	    	  cpu1.setTextColor(Color.WHITE);
-	    	  
-	      }
-}
-
-public void disablecpu1() {
-
-	Process localProcess;
-	try {
-		localProcess = Runtime.getRuntime().exec("su");
-
-		DataOutputStream localDataOutputStream = new DataOutputStream(localProcess.getOutputStream());
-		localDataOutputStream.writeBytes("echo 1 > /sys/kernel/msm_mpdecision/conf/enabled\n");
-		localDataOutputStream.writeBytes("chmod 777 /sys/devices/system/cpu/cpu1/online\n");
-		localDataOutputStream.writeBytes("echo echo 0 > /sys/devices/system/cpu/cpu1/online\n");
-		localDataOutputStream.writeBytes("chmod 444 /sys/devices/system/cpu/cpu1/online\n");
-		localDataOutputStream.writeBytes("chown system /sys/devices/system/cpu/cpu1/online\n");
-		
-	//	localDataOutputStream.writeBytes("echo 0 > /sys/kernel/msm_mpdecision/conf/nwns_threshold_down\n");
-		
-		
-		localDataOutputStream.writeBytes("exit\n");
-		localDataOutputStream.flush();
-		localDataOutputStream.close();
-		localProcess.waitFor();
-		localProcess.destroy();
-			SharedPreferences.Editor editor = preferences.edit();
-	    editor.putString("thrcpu1",thrupload);
-editor.commit();
-	} catch (IOException e) {
-		// TODO Auto-generated catch block
-		e.printStackTrace();
-	} catch (InterruptedException e) {
-		// TODO Auto-generated catch block
-		e.printStackTrace();
-	}
-}*/
-	
-	
 
 
 public void checkAnthrax(){

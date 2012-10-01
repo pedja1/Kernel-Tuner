@@ -193,7 +193,7 @@ return "";
 
 	}
 	
-    	
+    @Override
 	public void onCreate(Bundle savedInstanceState) {
 	super.onCreate(savedInstanceState);
 	setContentView(R.layout.gpu);
@@ -227,7 +227,7 @@ return "";
 	
 	apply.setOnClickListener(new OnClickListener(){
 		
-		
+		@Override
 		public void onClick(View v) {
 			
 			gpu.this.pd = ProgressDialog.show(gpu.this, "Working..", "Applying settings...", true, false);
@@ -243,7 +243,7 @@ Button cancel = (Button)findViewById(R.id.button1);
 	
 	cancel.setOnClickListener(new OnClickListener(){
 		
-		
+		@Override
 		public void onClick(View v) {
 			
 			gpu.this.finish();
@@ -267,12 +267,13 @@ Button cancel = (Button)findViewById(R.id.button1);
 		
 		spinner.setOnItemSelectedListener(new OnItemSelectedListener() {
 		    
+			@Override
 		    public void onItemSelected(AdapterView<?> parent, View view, int pos, long id) {
 		    	selected2d = parent.getItemAtPosition(pos).toString();
 		    	
 		    }
 
-		    
+			@Override
 		    public void onNothingSelected(AdapterView<?> parent) {
 		        //do nothing
 		    }
@@ -298,13 +299,13 @@ public void createSpinner3D(){
 	spinner.setAdapter(spinnerArrayAdapter);
 	
 	spinner.setOnItemSelectedListener(new OnItemSelectedListener() {
-	    
+		@Override
 	    public void onItemSelected(AdapterView<?> parent, View view, int pos, long id) {
 	    	selected3d = parent.getItemAtPosition(pos).toString();
 	    	
 	    }
 
-	    
+		@Override
 	    public void onNothingSelected(AdapterView<?> parent) {
 	        //do nothing
 	    }

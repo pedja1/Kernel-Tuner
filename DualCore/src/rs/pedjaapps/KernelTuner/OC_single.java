@@ -422,7 +422,7 @@ private class ReadgovernorsCpu0 extends AsyncTask<String, Void, Object> {
              }
         	}
     	
-    	
+    	@Override
 	public void onCreate(Bundle savedInstanceState) {
 	super.onCreate(savedInstanceState);
 	setContentView(R.layout.oc_single);
@@ -524,7 +524,9 @@ private class ReadgovernorsCpu0 extends AsyncTask<String, Void, Object> {
 				input.setInputType(InputType.TYPE_CLASS_NUMBER);
 				input.setGravity(Gravity.CENTER_HORIZONTAL);
 				//input.selectAll();
+				
 				builder.setPositiveButton("Apply", new DialogInterface.OnClickListener() {
+					@Override
 					public void onClick(DialogInterface dialog, int which) {
 						newvalue = String.valueOf(input.getText());
 						curfile = filesx[position];
@@ -543,32 +545,7 @@ private class ReadgovernorsCpu0 extends AsyncTask<String, Void, Object> {
 			
 			} 
 			});
-	// Show the ProgressDialog on this thread
-   
-    
-	  /*Button apply = (Button)findViewById(R.id.button2);
-		apply.setOnClickListener(new OnClickListener(){
-			
-			
-			public void onClick(View v) {
-				OC_single.this.pd = ProgressDialog.show(OC_single.this, "Working..", "Applying settings", true, false);
-				new apply().execute();
-				
-				
-			    // Start a new thread that will download all the dat
-			}
-		});
-		
-		Button cancel = (Button)findViewById(R.id.button1);
-		cancel.setOnClickListener(new OnClickListener(){
-			
-			
-			public void onClick(View v) {
-				OC_single.this.finish();
-				
-			    // Start a new thread that will download all the data
-			}
-		});*/
+	
     	}
 
 	public void readgovernor(){
@@ -606,13 +583,13 @@ private class ReadgovernorsCpu0 extends AsyncTask<String, Void, Object> {
     	spinner.setAdapter(spinnerArrayAdapter);
     	
     	spinner.setOnItemSelectedListener(new OnItemSelectedListener() {
-    	    
+    		@Override
     	    public void onItemSelected(AdapterView<?> parent, View view, int pos, long id) {
     	    	govselected = parent.getItemAtPosition(pos).toString();
     	    	
     	    }
 
-    	    
+    		@Override
     	    public void onNothingSelected(AdapterView<?> parent) {
     	        //do nothing
     	    }
@@ -639,13 +616,13 @@ private class ReadgovernorsCpu0 extends AsyncTask<String, Void, Object> {
 		spinner.setAdapter(spinnerArrayAdapter);
 		
 		spinner.setOnItemSelectedListener(new OnItemSelectedListener() {
-		    
+			@Override
 		    public void onItemSelected(AdapterView<?> parent, View view, int pos, long id) {
 		    	minselected = parent.getItemAtPosition(pos).toString();
 		    	minselected.trim();
 		    }
 
-		    
+			@Override
 		    public void onNothingSelected(AdapterView<?> parent) {
 		        //do nothing
 		    }
@@ -669,13 +646,13 @@ private class ReadgovernorsCpu0 extends AsyncTask<String, Void, Object> {
 		spinner.setAdapter(spinnerArrayAdapter);
 		
 		spinner.setOnItemSelectedListener(new OnItemSelectedListener() {
-		    
+			@Override
 		    public void onItemSelected(AdapterView<?> parent, View view, int pos, long id) {
 		    	maxselected = parent.getItemAtPosition(pos).toString();
 		    	maxselected.trim();
 
 		    }
-		    
+			@Override
 		    public void onNothingSelected(AdapterView<?> parent) {
 		        //do nothing
 		    }
@@ -862,13 +839,13 @@ private class ReadgovernorsCpu0 extends AsyncTask<String, Void, Object> {
 	      }
 	     return entries;
 	    }
-	
+	@Override
 	public boolean onCreateOptionsMenu(Menu menu) {
 	    menu.add(Menu.NONE, 0, 0, "Apply").setShowAsAction(MenuItem.SHOW_AS_ACTION_ALWAYS);
 	    menu.add(Menu.NONE, 1, 1, "Cancel").setShowAsAction(MenuItem.SHOW_AS_ACTION_ALWAYS);
 	    return super.onCreateOptionsMenu(menu);
 	}
-
+	@Override
 	public boolean onPrepareOptionsMenu (Menu menu) {
 	    
 	    return true;
@@ -877,7 +854,7 @@ private class ReadgovernorsCpu0 extends AsyncTask<String, Void, Object> {
 
 	
 
-
+	@Override
 	public boolean onOptionsItemSelected(MenuItem item) {
 	    switch (item.getItemId()) {
 	        case 0:
