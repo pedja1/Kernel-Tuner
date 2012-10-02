@@ -2674,7 +2674,7 @@ AppWidget updateSmall = new AppWidget();
 
 
  public void download(){
-	String url = "http://kerneltuner.co.cc/httpdocs/ktuner/KernelTuner-" + remoteversion + ".php";
+	String url = "http://kerneltuner.co.cc/ktuner/KernelTuner-" + remoteversion + ".php";
 	DownloadManager.Request request = new DownloadManager.Request(Uri.parse(url));
 	request.setDescription("Downloading new version");
 	request.setTitle("Kernel Tuner-" + remoteversion + ".apk");
