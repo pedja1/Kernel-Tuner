@@ -10,11 +10,40 @@
     android:layout_height="wrap_content" >
 	
     <RelativeLayout
-        android:id="@+id/rl22"
+        android:id="@+id/rl23"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_alignParentLeft="true"
         android:layout_alignParentTop="true"
+        android:background="@drawable/divider_strong_holo" >
+
+        <TextView
+            android:id="@+id/textView45"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"      
+            android:text="2.3.3"
+            android:textColor="@color/green" />
+
+    </RelativeLayout>
+
+    <TextView
+        android:id="@+id/textView46"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/rl23"
+        android:text="-[FIX]Performance improvements\n
+-[FIX]Bug fixes\n
+-[FIX]Changed update server\n
+-[FIX]Disable auto update check\n
+-[Add]UI Themes"
+ />
+    
+    <RelativeLayout
+        android:id="@+id/rl22"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_alignParentLeft="true"
+        android:layout_below="@+id/textView46"
         android:background="@drawable/divider_strong_holo" >
 
         <TextView
