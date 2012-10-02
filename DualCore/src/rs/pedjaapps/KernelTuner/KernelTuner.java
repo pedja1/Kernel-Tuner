@@ -231,12 +231,17 @@ public String p3freq;
 
 public String cputemp;
 
+File cpu0online = new File("/sys/devices/system/cpu/cpu0/online"); 
+File cpu1online = new File("/sys/devices/system/cpu/cpu1/online");
+File cpu2online = new File("/sys/devices/system/cpu/cpu2/online");
+File cpu3online = new File("/sys/devices/system/cpu/cpu3/online");
+
 List<String> frequencies3 = new ArrayList<String>();
 List<String> frequencies4 = new ArrayList<String>();
 List<String> frequencies5 = new ArrayList<String>();
 	public String[] delims;
 
-String[] freqs;
+String freqs;
 List<String> vdd = new ArrayList<String>();
 
 List<String> frequencies = new ArrayList<String>();
@@ -257,10 +262,7 @@ public String mpdecisionidle;
 public String version;
 public String changelog;
 //public String[] cpu0freqslist;
-public List<String> cpu0freqslist;
-public List<String> cpu1freqslist;
-public List<String> cpu2freqslist;
-public List<String> cpu3freqslist;
+public List<String> freqlist;
 //private ToggleButton cpu1toggle;
 public SharedPreferences preferences;
 private ProgressDialog pd = null;
@@ -2241,6 +2243,7 @@ TextView tv6 = (TextView)findViewById(R.id.ptextView8);
 	tv6.setTextColor(Color.BLACK);
 }
 
+
 Process localProcess;
 try {
 	localProcess = Runtime.getRuntime().exec("su");
@@ -2383,7 +2386,11 @@ else {
 
 
 
-
+ReadCPU0maxfreq();
+ReadCPU1maxfreq();
+ReadCPU2maxfreq();
+ReadCPU3maxfreq();
+readFreqs();
 
 new Thread(new Runnable() {
 	@Override
@@ -2398,27 +2405,24 @@ new Thread(new Runnable() {
                     public void run() {
                         // TODO Auto-generated method stub
                     	ReadCPU0Clock();
-                    	ReadCPU0maxfreq();
-                    	ReadCPU0freqs();
+                    
+                    	
                     	
                     	
                     	if(new File("/sys/devices/system/cpu/cpu1/online").exists()){
                     	
                     		
                         	ReadCPU1Clock();
-                        	ReadCPU1maxfreq();
-                        	ReadCPU1freqs();
+                        	
                     	}
                     	if(new File("/sys/devices/system/cpu/cpu2/online").exists()){
                     		ReadCPU2Clock();
-                        	ReadCPU2maxfreq();
-                        	ReadCPU2freqs();
+                        	
                         	
                     	}
                     	if(new File("/sys/devices/system/cpu/cpu3/online").exists()){
                     		ReadCPU3Clock();
-                    		ReadCPU3maxfreq();
-                    		ReadCPU3freqs();
+                    		
                         	
                     	}
                
@@ -2576,6 +2580,8 @@ public void onClick(View v) {
 	
 	
 }});
+
+
 
 }
 
@@ -2993,7 +2999,7 @@ public void ReadCPU0Clock()
 	}
 	
 	
-
+	cpu0progress();
 cpu0update();
 
 }
@@ -3027,7 +3033,7 @@ public void ReadCPU1Clock()
 	}
 	
 	
-
+	cpu1progress();
 	cpu1update();
 
 }
@@ -3056,7 +3062,7 @@ public void ReadCPU2Clock()
 	}
 	
 	
-
+	cpu2progress();
 cpu2update();
 
 }
@@ -3090,7 +3096,7 @@ public void ReadCPU3Clock()
 	}
 	
 	
-
+	cpu3progress();
 	cpu3update();
 
 }
@@ -3115,9 +3121,7 @@ public void initdexport(){
 	  String cpu3max = sharedPrefs.getString("cpu3max", "");
 	  String cpu2max = sharedPrefs.getString("cpu2max", "");
 	  String cpu2min = sharedPrefs.getString("cpu2min", "");
-	  boolean cputoggle = sharedPrefs.getBoolean("cputoggle", true);
-	  boolean cpu2toggle = sharedPrefs.getBoolean("cputoggle", true);
-	  boolean cpu3toggle = sharedPrefs.getBoolean("cputoggle", true);
+	 
 	  String fastcharge = sharedPrefs.getString("fastcharge", "");
 	  String mpdecisionscroff = sharedPrefs.getString("mpdecisionscroff", "");
 	  String backbuff = sharedPrefs.getString("backbuf", "");
@@ -3277,34 +3281,11 @@ public void initdexport(){
   } catch (IOException ioe) {
           ioe.printStackTrace();
   }
-	 /* try { 
-          
-          FileOutputStream fOut = openFileOutput("99dccpu1online",
-                                                  MODE_WORLD_READABLE);
-          OutputStreamWriter osw = new OutputStreamWriter(fOut); 
-          osw.write(forcecpu1online);        
-          osw.flush();
-          osw.close();
-
-  } catch (IOException ioe) {
-          ioe.printStackTrace();
-  }*/
-	 /* try { 
-          
-          FileOutputStream fOut = openFileOutput("99dccpu1disable",
-                                                  MODE_WORLD_READABLE);
-          OutputStreamWriter osw = new OutputStreamWriter(fOut); 
-          osw.write(cpu1disable);        
-          osw.flush();
-          osw.close();
-
-  } catch (IOException ioe) {
-          ioe.printStackTrace();
-  }*/
+	 
 	 
 }
 
-public void ReadCPU0freqs()
+public void readFreqs()
 {
 	 
 
@@ -3320,10 +3301,10 @@ public void ReadCPU0freqs()
 			aBuffer += aDataRow + "\n";
 		}
 		
-		cpu0freqs = aBuffer;
+		freqs = aBuffer;
 		myReader.close();
-		cpu0freqslist = Arrays.asList(cpu0freqs.split("\\s"));
-		cpu0progress();
+		freqlist = Arrays.asList(freqs.split("\\s"));
+		
 	} catch (Exception e) {
 		try{
 			// Open the file that is the first 
@@ -3341,246 +3322,36 @@ public void ReadCPU0freqs()
  				String freq = delims[0];
  				//freq= 	freq.substring(0, freq.length()-3)+"Mhz";
 
- 				frequencies3.add(freq);
+ 				frequencies.add(freq);
 
  			}
  			SharedPreferences sharedPrefs = PreferenceManager.getDefaultSharedPreferences(this);
  			boolean ov = sharedPrefs.getBoolean("override", false);
  			if(ov==true){
- 			Collections.reverse(frequencies3);
+ 			Collections.reverse(frequencies);
  			}
- 			String[] strarray = frequencies3.toArray(new String[0]);
- 			frequencies3.clear();
- 			System.out.println(frequencies3);
+ 			String[] strarray = frequencies.toArray(new String[0]);
+ 			frequencies.clear();
+ 			System.out.println(frequencies);
  			StringBuilder builder = new StringBuilder();
  			for(String s : strarray) {
  			    builder.append(s);
  			    builder.append(" ");
  			}
- 			cpu0freqs = builder.toString();
+ 			freqs = builder.toString();
  			
- 			cpu0freqslist = Arrays.asList(cpu0freqs.split("\\s"));
+ 			freqlist = Arrays.asList(freqs.split("\\s"));
  			
- 			cpu0progress();
+ 			
 
  			
  			in.close();
 		}
 		catch(Exception ee){
-		ProgressBar cpu1progbar = (ProgressBar)findViewById(R.id.progressBar2);
-		cpu1progbar.setProgress(0);
-		TextView cpu1prog = (TextView)this.findViewById(R.id.ptextView4);
-		cpu1prog.setText(iscVa2.trim());
+		/**/
 		}
 	}
 	
-}
-
-public void ReadCPU1freqs()
-{
-	 
-
-	try {
-		
-		File myFile = new File("/sys/devices/system/cpu/cpu1/cpufreq/scaling_available_frequencies");
-		FileInputStream fIn = new FileInputStream(myFile);
-		BufferedReader myReader = new BufferedReader(
-				new InputStreamReader(fIn));
-		String aDataRow = "";
-		String aBuffer = "";
-		while ((aDataRow = myReader.readLine()) != null) {
-			aBuffer += aDataRow + "\n";
-		}		
-		cpu1freqs = aBuffer;
-		myReader.close();
-		cpu1freqslist = Arrays.asList(cpu1freqs.split("\\s"));		
-		cpu1progress();
-
-	} catch (Exception e) {
-		try{
-			// Open the file that is the first 
- 			// command line parameter
- 			FileInputStream fstream = new FileInputStream("/sys/devices/system/cpu/cpu1/cpufreq/stats/time_in_state");
- 			// Get the object of DataInputStream
- 			DataInputStream in = new DataInputStream(fstream);
- 			BufferedReader br = new BufferedReader(new InputStreamReader(in));
- 			String strLine;
- 			//Read File Line By Line
- 			
- 			while ((strLine = br.readLine()) != null)   {
- 				
- 				delims = strLine.split(" ");
- 				String freq = delims[0];
- 				//freq= 	freq.substring(0, freq.length()-3)+"Mhz";
-
- 				frequencies3.add(freq);
-
- 			}
- 			SharedPreferences sharedPrefs = PreferenceManager.getDefaultSharedPreferences(this);
- 			boolean ov = sharedPrefs.getBoolean("override", false);
- 			if(ov==true){
- 			Collections.reverse(frequencies3);
- 			}
- 			String[] strarray = frequencies3.toArray(new String[0]);
- 			frequencies3.clear();
- 			StringBuilder builder = new StringBuilder();
- 			for(String s : strarray) {
- 			    builder.append(s);
- 			    builder.append(" ");
- 			}
- 			cpu1freqs = builder.toString();
- 			cpu1freqslist = Arrays.asList(cpu1freqs.split("\\s"));
- 			cpu1progress();
-
- 			
- 			in.close();
-		}
-		catch(Exception ee){
-		ProgressBar cpu1progbar = (ProgressBar)findViewById(R.id.progressBar2);
-		cpu1progbar.setProgress(0);
-		TextView cpu1prog = (TextView)this.findViewById(R.id.ptextView4);
-		cpu1prog.setText(iscVa2.trim());
-		}
-	}
-
-}
-
-public void ReadCPU2freqs()
-{
-	 
-
-	try {
-		
-		File myFile = new File("/sys/devices/system/cpu/cpu2/cpufreq/scaling_available_frequencies");
-		FileInputStream fIn = new FileInputStream(myFile);
-		BufferedReader myReader = new BufferedReader(
-				new InputStreamReader(fIn));
-		String aDataRow = "";
-		String aBuffer = "";
-		while ((aDataRow = myReader.readLine()) != null) {
-			aBuffer += aDataRow + "\n";
-		}
-		
-		cpu2freqs = aBuffer;
-		myReader.close();
-		cpu2freqslist = Arrays.asList(cpu2freqs.split("\\s"));
-		cpu0progress();
-	} catch (Exception e) {
-		try{
-			// Open the file that is the first 
- 			// command line parameter
- 			FileInputStream fstream = new FileInputStream("/sys/devices/system/cpu/cpu2/cpufreq/stats/time_in_state");
- 			// Get the object of DataInputStream
- 			DataInputStream in = new DataInputStream(fstream);
- 			BufferedReader br = new BufferedReader(new InputStreamReader(in));
- 			String strLine;
- 			//Read File Line By Line
- 			
- 			while ((strLine = br.readLine()) != null)   {
- 				
- 				delims = strLine.split(" ");
- 				String freq = delims[0];
- 				//freq= 	freq.substring(0, freq.length()-3)+"Mhz";
-
- 				frequencies4.add(freq);
-
- 			}
- 			SharedPreferences sharedPrefs = PreferenceManager.getDefaultSharedPreferences(this);
- 			boolean ov = sharedPrefs.getBoolean("override", false);
- 			if(ov==true){
- 			Collections.reverse(frequencies4);
- 			}
- 			String[] strarray = frequencies4.toArray(new String[0]);
- 			frequencies4.clear();
- 			StringBuilder builder = new StringBuilder();
- 			for(String s : strarray) {
- 			    builder.append(s);
- 			    builder.append(" ");
- 			}
- 			cpu2freqs = builder.toString();
- 			cpu2freqslist = Arrays.asList(cpu2freqs.split("\\s"));
- 			cpu2progress();
-
- 			
- 			in.close();
-		}
-		catch(Exception ee){
-		ProgressBar cpu2progbar = (ProgressBar)findViewById(R.id.progressBar3);
-		cpu2progbar.setProgress(0);
-		TextView cpu2prog = (TextView)this.findViewById(R.id.ptextView7);
-		cpu2prog.setText(iscVa2.trim());
-		}
-	}
-	
-}
-
-public void ReadCPU3freqs()
-{
-	 
-
-	try {
-		
-		File myFile = new File("/sys/devices/system/cpu/cpu3/cpufreq/scaling_available_frequencies");
-		FileInputStream fIn = new FileInputStream(myFile);
-		BufferedReader myReader = new BufferedReader(
-				new InputStreamReader(fIn));
-		String aDataRow = "";
-		String aBuffer = "";
-		while ((aDataRow = myReader.readLine()) != null) {
-			aBuffer += aDataRow + "\n";
-		}		
-		cpu3freqs = aBuffer;
-		myReader.close();
-		cpu3freqslist = Arrays.asList(cpu3freqs.split("\\s"));		
-		cpu1progress();
-
-	} catch (Exception e) {
-		try{
-			// Open the file that is the first 
- 			// command line parameter
- 			FileInputStream fstream = new FileInputStream("/sys/devices/system/cpu/cpu3/cpufreq/stats/time_in_state");
- 			// Get the object of DataInputStream
- 			DataInputStream in = new DataInputStream(fstream);
- 			BufferedReader br = new BufferedReader(new InputStreamReader(in));
- 			String strLine;
- 			//Read File Line By Line
- 			
- 			while ((strLine = br.readLine()) != null)   {
- 				
- 				delims = strLine.split(" ");
- 				String freq = delims[0];
- 				//freq= 	freq.substring(0, freq.length()-3)+"Mhz";
-
- 				frequencies5.add(freq);
-
- 			}
- 			SharedPreferences sharedPrefs = PreferenceManager.getDefaultSharedPreferences(this);
- 			boolean ov = sharedPrefs.getBoolean("override", false);
- 			if(ov==true){
- 			Collections.reverse(frequencies5);
- 			}
- 			String[] strarray = frequencies5.toArray(new String[0]);
- 			frequencies5.clear();
- 			StringBuilder builder = new StringBuilder();
- 			for(String s : strarray) {
- 			    builder.append(s);
- 			    builder.append(" ");
- 			}
- 			cpu3freqs = builder.toString();
- 			cpu3freqslist = Arrays.asList(cpu3freqs.split("\\s"));
- 			cpu3progress();
-
- 			
- 			in.close();
-		}
-		catch(Exception ee){
-		ProgressBar cpu1progbar = (ProgressBar)findViewById(R.id.progressBar4);
-		cpu1progbar.setProgress(0);
-		TextView cpu1prog = (TextView)this.findViewById(R.id.ptextView8);
-		cpu1prog.setText(iscVa2.trim());
-		}
-	}
-
 }
 
 
@@ -3711,8 +3482,8 @@ public void cpu0progress()
 {
 
 ProgressBar cpu0progbar = (ProgressBar)findViewById(R.id.progressBar1);
-cpu0progbar.setMax(cpu0freqslist.indexOf(cpu0max.trim())+1);
-cpu0progbar.setProgress(cpu0freqslist.indexOf(iscVa.trim())+1);
+cpu0progbar.setMax(freqlist.indexOf(cpu0max.trim())+1);
+cpu0progbar.setProgress(freqlist.indexOf(iscVa.trim())+1);
 
 }
 
@@ -3726,8 +3497,8 @@ public void cpu1progress()
 {
 
 ProgressBar cpu1progbar = (ProgressBar)findViewById(R.id.progressBar2);
-cpu1progbar.setMax(cpu1freqslist.indexOf(cpu1max.trim())+1);
-cpu1progbar.setProgress(cpu1freqslist.indexOf(iscVa2.trim())+1);
+cpu1progbar.setMax(freqlist.indexOf(cpu1max.trim())+1);
+cpu1progbar.setProgress(freqlist.indexOf(iscVa2.trim())+1);
 
 }
 
@@ -3742,8 +3513,8 @@ public void cpu2progress()
 {
 
 ProgressBar cpu2progbar = (ProgressBar)findViewById(R.id.progressBar3);
-cpu2progbar.setMax(cpu2freqslist.indexOf(cpu2max.trim())+1);
-cpu2progbar.setProgress(cpu2freqslist.indexOf(freqcpu2.trim())+1);
+cpu2progbar.setMax(freqlist.indexOf(cpu2max.trim())+1);
+cpu2progbar.setProgress(freqlist.indexOf(freqcpu2.trim())+1);
 
 }
 
@@ -3757,8 +3528,9 @@ public void cpu3progress()
 {
 
 ProgressBar cpu3progbar = (ProgressBar)findViewById(R.id.progressBar4);
-cpu3progbar.setMax(cpu3freqslist.indexOf(cpu3max.trim())+1);
-cpu3progbar.setProgress(cpu3freqslist.indexOf(freqcpu3.trim())+1);
+
+cpu3progbar.setMax(freqlist.indexOf(cpu3max.trim())+1);
+cpu3progbar.setProgress(freqlist.indexOf(freqcpu3.trim())+1);
 
 }
 

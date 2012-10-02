@@ -215,7 +215,8 @@
             android:layout_alignParentTop="true"
             android:layout_toRightOf="@+id/ptextView1"
             android:max="100"
-            android:progress="3" />
+            android:progress="3"
+             />
 
         <TextView
             android:id="@+id/ptextView3"
