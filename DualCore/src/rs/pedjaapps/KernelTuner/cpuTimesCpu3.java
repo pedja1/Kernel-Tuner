@@ -23,10 +23,12 @@ import android.app.Activity;
 import android.app.ListActivity;
 import android.content.Context;
 import android.content.Intent;
+import android.content.SharedPreferences;
 
 import android.os.AsyncTask;
 import android.os.Bundle;
 import android.os.SystemClock;
+import android.preference.PreferenceManager;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -65,10 +67,35 @@ public class cpuTimesCpu3 extends ListActivity{
 	
 	String mynewstring;
 	int itemCount;
-	
+	SharedPreferences sharedPrefs;
 	
 	@Override
 	public void onCreate(Bundle savedInstanceState) {
+		sharedPrefs = PreferenceManager.getDefaultSharedPreferences(this);
+		String theme = sharedPrefs.getString("theme", "system");
+		if (theme.equals("system")) {
+			setTheme(android.R.style.Theme_DeviceDefault);
+		} else if (theme.equals("holo")) {
+			setTheme(android.R.style.Theme_Holo);
+		} else if (theme.equals("holo_light")) {
+			setTheme(android.R.style.Theme_Holo_Light);
+		} else if (theme.equals("dark")) {
+			setTheme(android.R.style.Theme_Black);
+		} else if (theme.equals("light")) {
+			setTheme(android.R.style.Theme_Light);
+		} else if (theme.equals("holo_no_ab")) {
+			setTheme(android.R.style.Theme_Holo_NoActionBar);
+		} else if (theme.equals("holo_wp")) {
+			setTheme(android.R.style.Theme_Holo_Wallpaper);
+		} else if (theme.equals("holo_fs")) {
+			setTheme(android.R.style.Theme_Holo_NoActionBar_Fullscreen);
+		} else if (theme.equals("holo_light_dark_ab")) {
+			setTheme(android.R.style.Theme_Holo_Light_DarkActionBar);
+		} else if (theme.equals("holo_light_no_ab")) {
+			setTheme(android.R.style.Theme_Holo_Light_NoActionBar);
+		} else if (theme.equals("holo_light_fs")) {
+			setTheme(android.R.style.Theme_Holo_Light_NoActionBar_Fullscreen);
+		}
 	super.onCreate(savedInstanceState);
 	
 	

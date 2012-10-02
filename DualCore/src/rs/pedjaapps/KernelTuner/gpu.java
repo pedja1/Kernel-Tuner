@@ -195,6 +195,31 @@ return "";
 	
     @Override
 	public void onCreate(Bundle savedInstanceState) {
+    	preferences = PreferenceManager.getDefaultSharedPreferences(this);
+    	String theme = preferences.getString("theme", "system");
+    	if (theme.equals("system")) {
+    		setTheme(android.R.style.Theme_DeviceDefault);
+    	} else if (theme.equals("holo")) {
+    		setTheme(android.R.style.Theme_Holo);
+    	} else if (theme.equals("holo_light")) {
+    		setTheme(android.R.style.Theme_Holo_Light);
+    	} else if (theme.equals("dark")) {
+    		setTheme(android.R.style.Theme_Black);
+    	} else if (theme.equals("light")) {
+    		setTheme(android.R.style.Theme_Light);
+    	} else if (theme.equals("holo_no_ab")) {
+    		setTheme(android.R.style.Theme_Holo_NoActionBar);
+    	} else if (theme.equals("holo_wp")) {
+    		setTheme(android.R.style.Theme_Holo_Wallpaper);
+    	} else if (theme.equals("holo_fs")) {
+    		setTheme(android.R.style.Theme_Holo_NoActionBar_Fullscreen);
+    	} else if (theme.equals("holo_light_dark_ab")) {
+    		setTheme(android.R.style.Theme_Holo_Light_DarkActionBar);
+    	} else if (theme.equals("holo_light_no_ab")) {
+    		setTheme(android.R.style.Theme_Holo_Light_NoActionBar);
+    	} else if (theme.equals("holo_light_fs")) {
+    		setTheme(android.R.style.Theme_Holo_Light_NoActionBar_Fullscreen);
+    	}
 	super.onCreate(savedInstanceState);
 	setContentView(R.layout.gpu);
 	System.out.println(android.os.Build.BOARD);

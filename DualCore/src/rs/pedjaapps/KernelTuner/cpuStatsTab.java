@@ -10,9 +10,11 @@ import rs.pedjaapps.KernelTuner.R;
 
 import android.app.TabActivity;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.content.res.Resources;
 import android.database.Cursor;
 import android.os.Bundle;
+import android.preference.PreferenceManager;
 import android.util.Log;
 import android.view.GestureDetector;
 import android.view.MotionEvent;
@@ -30,10 +32,36 @@ public class cpuStatsTab extends TabActivity {
 	TabSpec tabSpecCpu0;
 	TabSpec tabSpecCpu2;
 	TabSpec tabSpecCpu3;
+	SharedPreferences sharedPrefs;
 	
 	@Override
 	public void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
+		sharedPrefs = PreferenceManager.getDefaultSharedPreferences(this);
+		String theme = sharedPrefs.getString("theme", "system");
+		if (theme.equals("system")) {
+			setTheme(android.R.style.Theme_DeviceDefault);
+		} else if (theme.equals("holo")) {
+			setTheme(android.R.style.Theme_Holo);
+		} else if (theme.equals("holo_light")) {
+			setTheme(android.R.style.Theme_Holo_Light);
+		} else if (theme.equals("dark")) {
+			setTheme(android.R.style.Theme_Black);
+		} else if (theme.equals("light")) {
+			setTheme(android.R.style.Theme_Light);
+		} else if (theme.equals("holo_no_ab")) {
+			setTheme(android.R.style.Theme_Holo_NoActionBar);
+		} else if (theme.equals("holo_wp")) {
+			setTheme(android.R.style.Theme_Holo_Wallpaper);
+		} else if (theme.equals("holo_fs")) {
+			setTheme(android.R.style.Theme_Holo_NoActionBar_Fullscreen);
+		} else if (theme.equals("holo_light_dark_ab")) {
+			setTheme(android.R.style.Theme_Holo_Light_DarkActionBar);
+		} else if (theme.equals("holo_light_no_ab")) {
+			setTheme(android.R.style.Theme_Holo_Light_NoActionBar);
+		} else if (theme.equals("holo_light_fs")) {
+			setTheme(android.R.style.Theme_Holo_Light_NoActionBar_Fullscreen);
+		}
 		setContentView(R.layout.tabl_layout_cpu_stats);
  
 		Resources ressources = getResources(); 
