@@ -17,13 +17,6 @@
             android:summary="Setting to low values will cause your battery to drain faster"
             android:title="Widget Update Interval(seconds)" />
     </PreferenceCategory>
-    <PreferenceCategory android:title="Updates" >
-        <CheckBoxPreference
-            android:defaultValue="true"
-            android:key="ota"
-            android:summary="Check for updates when starting application"
-            android:title="Update on start" />
-    </PreferenceCategory>
     <PreferenceCategory android:title="Misc" >
         <CheckBoxPreference
             android:key="override"

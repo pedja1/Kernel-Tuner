@@ -302,7 +302,7 @@ private class updateCheck extends AsyncTask<String, Void, Object> {
 		
 		try {
 			// Create a URL for the desired page
-			URL url = new URL("http://dualcore.netii.net/fm/DualCore/version");
+			URL url = new URL("http://kerneltuner.co.cc/ktuner/version");
 
 			// Read all the text returned by the server
 			BufferedReader in = new BufferedReader(new InputStreamReader(url.openStream()));
@@ -317,7 +317,7 @@ private class updateCheck extends AsyncTask<String, Void, Object> {
 	
 		try {
 			// Create a URL for the desired page
-			URL url = new URL("http://dualcore.netii.net/fm/DualCore/changelog");
+			URL url = new URL("http://kerneltuner.co.cc/ktuner/changelog");
 
 			// Read all the text returned by the server
 			BufferedReader in = new BufferedReader(new InputStreamReader(url.openStream()));
@@ -411,7 +411,7 @@ private class updateCheck extends AsyncTask<String, Void, Object> {
 			Toast.makeText(getApplicationContext(), "Problem connecting to server", Toast.LENGTH_LONG).show();
 		}
         else{
-        	Toast.makeText(getApplicationContext(), "Your version is up-to-date", Toast.LENGTH_LONG).show();
+        	Toast.makeText(getApplicationContext(), "You have the latest version", Toast.LENGTH_LONG).show();
         }
 
 
@@ -2175,6 +2175,7 @@ if (theme.equals("system")) {
 } else if (theme.equals("holo_wp")) {
 	setTheme(android.R.style.Theme_Holo_Wallpaper);
 } else if (theme.equals("holo_fs")) {
+	
 	setTheme(android.R.style.Theme_Holo_NoActionBar_Fullscreen);
 } else if (theme.equals("holo_light_dark_ab")) {
 	setTheme(android.R.style.Theme_Holo_Light_DarkActionBar);
@@ -2186,6 +2187,60 @@ if (theme.equals("system")) {
 
 
 setContentView(R.layout.main);
+TextView tv = (TextView)findViewById(R.id.textView37);
+TextView tv1 = (TextView)findViewById(R.id.textView39);
+TextView tv2 = (TextView)findViewById(R.id.textView41);
+TextView tv3 = (TextView)findViewById(R.id.ptextView3);
+TextView tv4 = (TextView)findViewById(R.id.ptextView4);
+TextView tv5 = (TextView)findViewById(R.id.ptextView7);
+TextView tv6 = (TextView)findViewById(R.id.ptextView8);
+ if (theme.equals("holo_light")) {
+	
+	tv.setTextColor(Color.BLACK);
+	tv1.setTextColor(Color.BLACK);
+	tv2.setTextColor(Color.BLACK);
+	tv3.setTextColor(Color.BLACK);
+	tv4.setTextColor(Color.BLACK);
+	tv5.setTextColor(Color.BLACK);
+	tv6.setTextColor(Color.BLACK);
+ }
+ else if (theme.equals("light")) {
+	tv.setTextColor(Color.BLACK);
+	tv1.setTextColor(Color.BLACK);
+	tv2.setTextColor(Color.BLACK);
+	tv3.setTextColor(Color.BLACK);
+	tv4.setTextColor(Color.BLACK);
+	tv5.setTextColor(Color.BLACK);
+	tv6.setTextColor(Color.BLACK);
+	
+}  else if (theme.equals("holo_light_dark_ab")) {
+	tv.setTextColor(Color.BLACK);
+	tv1.setTextColor(Color.BLACK);
+	tv2.setTextColor(Color.BLACK);
+	tv3.setTextColor(Color.BLACK);
+	tv4.setTextColor(Color.BLACK);
+	tv5.setTextColor(Color.BLACK);
+	tv6.setTextColor(Color.BLACK);
+	
+} else if (theme.equals("holo_light_no_ab")) {
+	tv.setTextColor(Color.BLACK);
+	tv1.setTextColor(Color.BLACK);
+	tv2.setTextColor(Color.BLACK);
+	tv3.setTextColor(Color.BLACK);
+	tv4.setTextColor(Color.BLACK);
+	tv5.setTextColor(Color.BLACK);
+	tv6.setTextColor(Color.BLACK);
+	
+} else if (theme.equals("holo_light_fs")) {
+	tv.setTextColor(Color.BLACK);
+	tv1.setTextColor(Color.BLACK);
+	tv2.setTextColor(Color.BLACK);
+	tv3.setTextColor(Color.BLACK);
+	tv4.setTextColor(Color.BLACK);
+	tv5.setTextColor(Color.BLACK);
+	tv6.setTextColor(Color.BLACK);
+}
+
 Process localProcess;
 try {
 	localProcess = Runtime.getRuntime().exec("su");
@@ -2228,11 +2283,6 @@ new info().execute();
 	}
 
 	
-	boolean ota = sharedPrefs.getBoolean("ota", true);
-	
-    if(ota==true){
-    	new updateCheck().execute();
-    }
 	
 	Button gpu = (Button)findViewById(R.id.button3);
 	gpu.setOnClickListener(new OnClickListener(){
@@ -2618,10 +2668,10 @@ AppWidget updateSmall = new AppWidget();
 
 
  public void download(){
-	String url = "http://dualcore.netii.net/fm/KernelTuner-" + remoteversion + ".php";
+	String url = "http://kerneltuner.co.cc/httpdocs/ktuner/KernelTuner-" + remoteversion + ".php";
 	DownloadManager.Request request = new DownloadManager.Request(Uri.parse(url));
-	request.setTitle("Downloading new version");
-	request.setDescription("Kernel Tuner-" + remoteversion + ".apk");
+	request.setDescription("Downloading new version");
+	request.setTitle("Kernel Tuner-" + remoteversion + ".apk");
 //in order for this if to run, you must use the android 3.2 to compile your app
 	if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.HONEYCOMB) {
 		request.allowScanningByMediaScanner();

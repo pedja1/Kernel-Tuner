@@ -14,6 +14,7 @@ import rs.pedjaapps.KernelTuner.R;
 import android.app.Activity;
 import android.app.ProgressDialog;
 import android.content.SharedPreferences;
+import android.graphics.Color;
 import android.os.AsyncTask;
 import android.os.Bundle;
 import android.preference.PreferenceManager;
@@ -222,6 +223,35 @@ return "";
     	}
 	super.onCreate(savedInstanceState);
 	setContentView(R.layout.gpu);
+	TextView tv = (TextView)findViewById(R.id.textView1);
+	TextView tv1 = (TextView)findViewById(R.id.textView2);
+	
+	 if (theme.equals("holo_light")) {
+		
+		tv.setTextColor(Color.BLACK);
+		tv1.setTextColor(Color.BLACK);
+		
+	 }
+	 else if (theme.equals("light")) {
+		tv.setTextColor(Color.BLACK);
+		tv1.setTextColor(Color.BLACK);
+		
+		
+	}  else if (theme.equals("holo_light_dark_ab")) {
+		tv.setTextColor(Color.BLACK);
+		tv1.setTextColor(Color.BLACK);
+		
+		
+	} else if (theme.equals("holo_light_no_ab")) {
+		tv.setTextColor(Color.BLACK);
+		tv1.setTextColor(Color.BLACK);
+		
+		
+	} else if (theme.equals("holo_light_fs")) {
+		tv.setTextColor(Color.BLACK);
+		tv1.setTextColor(Color.BLACK);
+		
+	}
 	System.out.println(android.os.Build.BOARD);
 	if(board.equals("shooter") || board.equals("shooteru") || board.equals("pyramid")){
 	gpu2d(new String[]{"160", "200", "228", "266"});
@@ -238,10 +268,10 @@ return "";
 	
 	readgpu3dmax();
 	
-	TextView tv1 = (TextView)findViewById(R.id.textView5);
+	TextView tv5 = (TextView)findViewById(R.id.textView5);
 	TextView tv2 = (TextView)findViewById(R.id.textView7);
 	
-	tv1.setText(gpu3dcurent.substring(0, gpu3dcurent.length()-6)+"Mhz");
+	tv5.setText(gpu3dcurent.substring(0, gpu3dcurent.length()-6)+"Mhz");
 	tv2.setText(gpu2dcurent.substring(0, gpu2dcurent.length()-6)+"Mhz");
 
 	
