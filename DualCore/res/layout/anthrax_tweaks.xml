@@ -12,7 +12,7 @@
         android:layout_centerVertical="true"
         android:layout_marginTop="5dp"
 		android:background="@drawable/button_selector"
-        android:text="thermald" 
+        android:text="@string/activity_anthrax_button_thermald" 
         android:drawableTop="@drawable/temp"/>
 
     <Button
@@ -22,7 +22,7 @@
         android:layout_above="@+id/button2"
         android:layout_centerHorizontal="true"
      	android:background="@drawable/button_selector"
-     	android:text="mpdecision" 
+     	android:text="@string/activity_anthrax_button_mpdecision" 
         android:drawableTop="@drawable/dual"
         />
 
@@ -34,7 +34,7 @@
         android:layout_centerHorizontal="true"
         android:layout_marginTop="5dp"
      	android:background="@drawable/button_selector"
-        android:text="Other"
+        android:text="@string/activity_anthrax_button_other"
         android:drawableTop="@drawable/misc" />
 
     <ImageView

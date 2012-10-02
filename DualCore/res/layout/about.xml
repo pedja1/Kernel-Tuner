@@ -50,7 +50,7 @@
 		android:layout_marginTop="5dp"
 android:gravity="center"
 		android:layout_centerHorizontal="true"
-		android:text="Copyright © Čokulov Predrag 2012"
+		android:text="@string/copyright_cokulov_predrag_2012"
 		android:autoLink="web"
 		android:linksClickable="true"
 	/>
@@ -63,7 +63,7 @@ android:gravity="center"
         android:layout_centerHorizontal="true"
 		android:layout_marginTop="5dp"
         android:textAppearance="?android:attr/textAppearanceLarge"
-		android:text="FAQ and Support:"/>
+		android:text="@string/about_faq_and_support"/>
 	
 	<TextView
         android:id="@+id/textView5"

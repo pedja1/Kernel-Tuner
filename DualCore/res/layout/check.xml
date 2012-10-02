@@ -24,7 +24,7 @@
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_weight="1"
-                    android:text="scaling_available_frequencies..."
+                    android:text="@string/activity_check_scaling_available_frequencies"
                     android:textColor="#FFFFFF" />
 
                 <TextView
@@ -45,7 +45,7 @@
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_weight="1"
-                    android:text="Undervolting..."
+                    android:text="@string/activity_check_undervolting_"
                      android:textColor="#FFFFFF" />
 
                 <TextView
@@ -66,7 +66,7 @@
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_weight="1"
-                    android:text="Time in State..."
+                    android:text="@string/activity_check_time_in_state_"
                      android:textColor="#FFFFFF" />
 
                 <TextView
@@ -87,7 +87,7 @@
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_weight="1"
-                    android:text="LED Notification Timeout..."
+                    android:text="@string/activity_check_led_notification_timeout_"
                      android:textColor="#FFFFFF" />
 
                 <TextView
@@ -108,7 +108,7 @@
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_weight="1"
-                    android:text="Capacitive Buttons Backlight..."
+                    android:text="@string/activity_check_capacitive_buttons_backlight_"
                      android:textColor="#FFFFFF" />
 
                 <TextView
@@ -129,7 +129,7 @@
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_weight="1"
-                    android:text="GPU 3D Overclocking..."
+                    android:text="@string/activity_check_gpu_3d_overclocking_"
                      android:textColor="#FFFFFF" />
 
                 <TextView
@@ -150,7 +150,7 @@
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_weight="1"
-                    android:text="GPU 2D Overclocking"
+                    android:text="@string/activity_check_gpu_2d_overclocking"
                      android:textColor="#FFFFFF" />
 
                 <TextView
@@ -171,7 +171,7 @@
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_weight="1"
-                    android:text="Fastcharge..."
+                    android:text="@string/activity_check_fastcharge_"
                      android:textColor="#FFFFFF" />
 
                 <TextView
@@ -192,7 +192,7 @@
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_weight="1"
-                    android:text="Vsync..." 
+                    android:text="@string/activity_check_vsync_" 
                      android:textColor="#FFFFFF"/>
 
                 <TextView
@@ -213,7 +213,7 @@
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_weight="1"
-                    android:text="Color Depth..."
+                    android:text="@string/activity_check_color_depth_"
                      android:textColor="#FFFFFF" />
 
                 <TextView
@@ -234,7 +234,7 @@
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_weight="1"
-                    android:text="f/sync..."
+                    android:text="@string/activity_check_f_sync_"
                      android:textColor="#FFFFFF" />
 
                 <TextView
@@ -255,7 +255,7 @@
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_weight="1"
-                    android:text="Sweep2Wake..."
+                    android:text="@string/activity_check_sweep2wake_"
                      android:textColor="#FFFFFF" />
 
                 <TextView
@@ -276,7 +276,7 @@
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_weight="1"
-                    android:text="Thermald..."
+                    android:text="@string/activity_check_thermald_"
                      android:textColor="#FFFFFF" />
 
                 <TextView
@@ -297,7 +297,7 @@
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_weight="1"
-                    android:text="Mpdecision..."
+                    android:text="@string/activity_check_mpdecision_"
                      android:textColor="#FFFFFF" />
 
                 <TextView
@@ -318,7 +318,7 @@
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_weight="1"
-                    android:text="sdcache...."
+                    android:text="@string/activity_check_sdcache_"
                      android:textColor="#FFFFFF" />
 
                 <TextView
@@ -339,7 +339,7 @@
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_weight="1"
-                    android:text="IO Scheduler..."
+                    android:text="@string/activity_check_io_scheduler_"
                      android:textColor="#FFFFFF" />
 
                 <TextView
@@ -372,7 +372,7 @@
             android:id="@+id/textView33"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="Your device is " 
+            android:text="@string/activity_check_your_device_is_" 
             android:layout_weight="1"
             android:textSize="20dp"/>
 
@@ -390,7 +390,7 @@
             android:layout_height="wrap_content"
               android:textSize="20dp"
               android:layout_weight="1"
-            android:text=" compatible!" />
+            android:text="@string/activity_check_compatible_" />
 
     </LinearLayout>
 
@@ -400,7 +400,7 @@
         android:layout_height="wrap_content"
         android:layout_alignParentLeft="true"
         android:layout_below="@+id/resultll"
-        android:text="OK"
+        android:text="@string/activity_check_button_ok"
         android:visibility="gone" />
 
 </RelativeLayout>
