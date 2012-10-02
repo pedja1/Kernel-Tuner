@@ -54,6 +54,7 @@
             android:key="cpuTempInterval"
             android:summary="How often to check CPU temperature"
             android:title="Temperature Check Interval" android:defaultValue="180000"/>-->
+    </PreferenceCategory>
     <PreferenceCategory android:title="Themes" >
       
 			
@@ -82,7 +83,7 @@
                 
                 />-->
 	</PreferenceScreen>
-    </PreferenceCategory>
+    
     </PreferenceCategory>
     
 </PreferenceScreen>
