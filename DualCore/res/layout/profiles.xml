@@ -47,7 +47,7 @@
                 android:layout_height="wrap_content"
                 android:layout_alignParentLeft="true"
                 android:layout_below="@+id/textView1"
-                android:text="CPU0 min freq:" />
+                android:text="@string/activity_main_cpu0_min_freq_" />
 
             <TextView
                 android:id="@+id/textView3"
@@ -55,7 +55,7 @@
                 android:layout_height="wrap_content"
                 android:layout_alignParentLeft="true"
                 android:layout_below="@+id/textView2"
-                android:text="CPU0 max freq:" />
+                android:text="@string/activity_main_cpu0_max_freq_" />
 
             <TextView
                 android:id="@+id/textView4"
@@ -63,7 +63,7 @@
                 android:layout_height="wrap_content"
                 android:layout_alignParentLeft="true"
                 android:layout_below="@+id/textView3"
-                android:text="CPU1 min freq:" />
+                android:text="@string/activity_main_cpu1_min_freq_" />
 
             <TextView
                 android:id="@+id/textView5"
@@ -127,7 +127,7 @@
                 android:layout_alignBaseline="@+id/textView2"
                 android:layout_alignBottom="@+id/textView2"
                 android:layout_alignParentRight="true"
-                android:text="-" />
+                android:text="@string/crtica" />
 
             <TextView
                 android:id="@+id/textView12"
@@ -136,7 +136,7 @@
                 android:layout_alignBaseline="@+id/textView3"
                 android:layout_alignBottom="@+id/textView3"
                 android:layout_alignParentRight="true"
-                android:text="-" />
+                android:text="@string/crtica" />
 
             <TextView
                 android:id="@+id/textView13"
@@ -144,7 +144,7 @@
                 android:layout_height="wrap_content"
                 android:layout_alignBaseline="@+id/textView4"
                 android:layout_alignParentRight="true"
-                android:text="-" />
+                android:text="@string/crtica" />
 
             <TextView
                 android:id="@+id/textView14"
@@ -152,7 +152,7 @@
                 android:layout_height="wrap_content"
                 android:layout_alignBaseline="@+id/textView5"
                 android:layout_alignParentRight="true"
-                android:text="-" />
+                android:text="@string/crtica" />
 
             <TextView
                 android:id="@+id/textView15"
@@ -160,7 +160,7 @@
                 android:layout_height="wrap_content"
                 android:layout_alignBaseline="@+id/textView20"
                 android:layout_alignParentRight="true"
-                android:text="-" />
+                android:text="@string/crtica" />
 
             <TextView
                 android:id="@+id/textView17"
@@ -169,7 +169,7 @@
                 android:layout_alignBaseline="@+id/textView8"
                 android:layout_alignBottom="@+id/textView8"
                 android:layout_alignParentRight="true"
-                android:text="-" />
+                android:text="@string/crtica" />
 
             <TextView
                 android:id="@+id/textView18"
@@ -177,7 +177,7 @@
                 android:layout_height="wrap_content"
                 android:layout_alignBaseline="@+id/textView9"
                 android:layout_alignParentRight="true"
-                android:text="-" />
+                android:text="@string/crtica" />
 
             <TextView
                 android:id="@+id/textView19"
@@ -186,7 +186,7 @@
                 android:layout_alignBaseline="@+id/textView10"
                 android:layout_alignBottom="@+id/textView10"
                 android:layout_alignParentRight="true"
-                android:text="-" />
+                android:text="@string/crtica" />
 
             <TextView
                 android:id="@+id/textView20"
@@ -210,7 +210,7 @@
                 android:layout_height="wrap_content"
                 android:layout_alignBaseline="@+id/textView21"
                 android:layout_alignParentRight="true"
-                android:text="-" />
+                android:text="@string/crtica" />
 
             <TextView
                 android:id="@+id/textView2201"
@@ -218,7 +218,7 @@
                 android:layout_height="wrap_content"
                 android:layout_alignBaseline="@+id/textView200"
                 android:layout_alignParentRight="true"
-                android:text="-" />
+                android:text="@string/crtica" />
             
             <TextView
                 android:id="@+id/textView2202"
@@ -226,7 +226,7 @@
                 android:layout_height="wrap_content"
                 android:layout_alignBaseline="@+id/textView202"
                 android:layout_alignParentRight="true"
-                android:text="-" />
+                android:text="@string/crtica" />
             
             <TextView
                 android:id="@+id/textView2203"
@@ -234,7 +234,7 @@
                 android:layout_height="wrap_content"
                 android:layout_alignBaseline="@+id/textView203"
                 android:layout_alignParentRight="true"
-                android:text="-" />
+                android:text="@string/crtica" />
 
             <Button
                 android:id="@+id/button1"

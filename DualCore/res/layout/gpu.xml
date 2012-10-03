@@ -22,7 +22,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_weight="1"
-                android:text="3D max freq:"
+                android:text="@string/activity_gpu_3d_max_freq_"
                 android:textColor="#ffffff"
                 android:textAppearance="?android:attr/textAppearanceLarge" />
 
@@ -35,7 +35,7 @@
                 android:id="@+id/textView3"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="Mhz"
+                android:text="@string/activity_gpu_mhz"
                 android:textAppearance="?android:attr/textAppearanceLarge" />
 
         </LinearLayout>
@@ -52,7 +52,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_weight="1"
-                android:text="2D max freq:"
+                android:text="@string/activity_gpu__2d_max_freq_"
                 android:textColor="#ffffff"
                 android:textAppearance="?android:attr/textAppearanceLarge" />
 
@@ -66,7 +66,7 @@
                 android:id="@+id/textView8"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="Mhz"
+                android:text="@string/activity_gpu_mhz"
                 android:textAppearance="?android:attr/textAppearanceLarge" />
 
         </LinearLayout>
@@ -79,7 +79,7 @@
         android:layout_below="@+id/LinearLayout1"
         android:layout_centerHorizontal="true"
         android:layout_marginTop="10dp"
-        android:text="Current 3D frequency:"
+        android:text="@string/activity_gpu_current_3d_frequency_"
         android:textAppearance="?android:attr/textAppearanceLarge" />
 
     <TextView
@@ -88,7 +88,7 @@
         android:layout_height="wrap_content"
         android:layout_below="@+id/textView4"
         android:layout_centerHorizontal="true"
-        android:text="n/a"
+        android:text="@string/activity_gpu_n_a"
         android:textAppearance="?android:attr/textAppearanceMedium" />
 
     <TextView
@@ -98,7 +98,7 @@
         android:layout_below="@+id/textView5"
         android:layout_centerHorizontal="true"
         android:layout_marginTop="20dp"
-        android:text="Current 2D frequency:"
+        android:text="@string/activity_gpu_current_2d_frequency_"
         android:textAppearance="?android:attr/textAppearanceLarge" />
 
     <TextView
@@ -107,7 +107,7 @@
         android:layout_height="wrap_content"
         android:layout_below="@+id/textView6"
         android:layout_centerHorizontal="true"
-        android:text="n/a"
+        android:text="@string/activity_gpu_n_a"
         android:textAppearance="?android:attr/textAppearanceMedium" />
 
     <LinearLayout
@@ -120,14 +120,14 @@
             android:id="@+id/button1"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="Cancel"
+            android:text="@string/activity_gpu_cancel"
             android:layout_weight="1" />
 
         <Button
             android:id="@+id/button2"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="Apply"
+            android:text="@string/activity_gpu_apply"
             android:layout_weight="1" />
 
     </LinearLayout>

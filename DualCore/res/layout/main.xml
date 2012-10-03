@@ -30,22 +30,20 @@
             style="?android:attr/buttonStyleSmall"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:layout_below="@+id/button2"
             android:layout_weight="1"
             android:drawableTop="@drawable/times"
             android:gravity="center|center_vertical"
-            android:text="Times in State" />
+            android:text="@string/activity_main_times_in_state" />
 
         <Button
             android:id="@+id/button6"
             style="?android:attr/buttonStyleSmall"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:layout_below="@+id/button3"
             android:layout_weight="1"
             android:drawableTop="@drawable/voltage"
             android:gravity="center|center_vertical"
-            android:text="Voltage" />
+            android:text="@string/activity_main_voltage" />
     </LinearLayout>
 
     <LinearLayout
@@ -63,7 +61,7 @@
             android:layout_weight="1"
             android:drawableTop="@drawable/gpu"
             android:gravity="center|center_vertical"
-            android:text="GPU Tweaks" />
+            android:text="@string/activity_main_gpu_tweaks" />
 
         <Button
             android:id="@+id/button4"
@@ -73,7 +71,7 @@
             android:layout_weight="1"
             android:drawableTop="@drawable/misc"
             android:gravity="center|center_vertical"
-            android:text="Misc Tweaks" />
+            android:text="@string/activity_main_misc_tweaks" />
 
         <Button
             android:id="@+id/button7"
@@ -81,11 +79,10 @@
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:layout_below="@+id/button4"
-            android:layout_gravity="center_horizontal"
             android:layout_weight="1"
             android:drawableTop="@drawable/anthrax"
             android:gravity="center|center_vertical"
-            android:text="Anthrax Tweaks"
+            android:text="@string/activity_main_anthrax_tweaks"
             android:visibility="gone" />
     </LinearLayout>
     <!--
@@ -104,7 +101,7 @@
         android:layout_height="wrap_content"
         android:layout_alignBottom="@+id/textView32"
         android:layout_alignParentTop="true"
-        android:orientation="horizontal" >
+        android:orientation="horizontal" android:baselineAligned="false">
 
         <LinearLayout
             android:id="@+id/test1a"
@@ -116,9 +113,9 @@
             
             <TextView
                 android:id="@+id/textView37"
-                android:layout_width="wrap_content"
+                android:layout_width="0dp"
                 android:layout_height="wrap_content"           
-                android:text="CPU Temp:"
+                android:text="@string/activity_main_cpu_temp_"
                 android:layout_weight="1"
                 android:textColor="#FFFFFF" />
 
@@ -128,7 +125,7 @@
                 android:layout_height="wrap_content"
                 
                
-                android:text="n/a" />
+                android:text="@string/activity_main_n_a" />
             
         </LinearLayout>
         
@@ -143,9 +140,9 @@
              >
             <TextView
                 android:id="@+id/textView39"
-                android:layout_width="wrap_content"
+                android:layout_width="0dp"
                 android:layout_height="wrap_content"           
-                android:text=" Battery Temp:"
+                android:text="@string/activity_main__battery_temp_"
                 android:layout_weight="1" 
                  android:textColor="#FFFFFF" />
 
@@ -155,7 +152,7 @@
                 android:layout_height="wrap_content"
                 
                
-                android:text="-" />
+                android:text="@string/crtica" />
         </LinearLayout>
  
         <LinearLayout
@@ -169,7 +166,7 @@
                 android:id="@+id/textView41"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"           
-                android:text=" Battery Level:"
+                android:text="@string/activity_main__battery_level_"
                 android:layout_weight="1"
                  android:textColor="#FFFFFF"  />
 
@@ -179,7 +176,7 @@
                 android:layout_height="wrap_content"
                 
                 
-                android:text="-" />
+                android:text="@string/crtica" />
         </LinearLayout>
     </LinearLayout>
 
@@ -196,7 +193,7 @@
             android:layout_height="wrap_content"
             android:layout_alignParentLeft="true"
             android:layout_alignParentTop="true"
-            android:text="CPU0" />
+            android:text="@string/activity_main_cpu0" />
 
         <TextView
             android:id="@+id/ptextView2"
@@ -204,7 +201,7 @@
             android:layout_height="wrap_content"
             android:layout_alignParentLeft="true"
             android:layout_below="@+id/ptextView1"
-            android:text="CPU1" />
+            android:text="@string/activity_main_cpu1" />
 
         <ProgressBar
             android:id="@+id/progressBar1"
@@ -224,7 +221,7 @@
             android:layout_height="wrap_content"
             android:layout_alignParentTop="true"
             android:layout_centerHorizontal="true"
-            android:text="offline"
+            android:text="@string/activity_main_offline"
             android:textColor="#ffffffff" />
 
         <ProgressBar
@@ -243,7 +240,7 @@
             android:layout_height="wrap_content"
             android:layout_alignLeft="@+id/ptextView3"
             android:layout_below="@+id/progressBar1"
-            android:text="offline"
+            android:text="@string/activity_main_offline"
             android:textColor="#ffffffff" />
 
         <TextView
@@ -252,7 +249,7 @@
             android:layout_height="wrap_content"
             android:layout_alignParentLeft="true"
             android:layout_below="@+id/ptextView2"
-            android:text="CPU2" />
+            android:text="@string/activity_main_cpu2" />
 
         <TextView
             android:id="@+id/ptextView6"
@@ -260,7 +257,7 @@
             android:layout_height="wrap_content"
             android:layout_alignParentLeft="true"
             android:layout_below="@+id/ptextView5"
-            android:text="CPU3" />
+            android:text="@string/activity_main_cpu3" />
 
         <ProgressBar
             android:id="@+id/progressBar3"
@@ -288,7 +285,7 @@
             android:layout_height="wrap_content"
             android:layout_below="@+id/ptextView2"
             android:layout_centerHorizontal="true"
-            android:text="offline"
+            android:text="@string/activity_main_offline"
             android:textColor="#ffffffff" />
 
         <TextView
@@ -297,7 +294,7 @@
             android:layout_height="wrap_content"
             android:layout_below="@+id/ptextView7"
             android:layout_centerHorizontal="true"
-            android:text="offline"
+            android:text="@string/activity_main_offline"
             android:textColor="#ffffffff" />
     </RelativeLayout>
 
@@ -321,7 +318,7 @@
                 android:layout_height="wrap_content"
                 android:layout_alignParentLeft="true"
                 android:layout_below="@+id/button2"
-                android:text="Info:"
+                android:text="@string/activity_main_info_"
                 android:textAppearance="?android:attr/textAppearanceMedium" />
 
             <TextView
@@ -330,7 +327,7 @@
                 android:layout_height="wrap_content"
                 android:layout_alignParentLeft="true"
                 android:layout_below="@+id/textView1"
-                android:text="CPU0 min freq:" />
+                android:text="@string/activity_main_cpu0_min_freq_" />
 
             <TextView
                 android:id="@+id/textView3"
@@ -338,7 +335,7 @@
                 android:layout_height="wrap_content"
                 android:layout_alignParentLeft="true"
                 android:layout_below="@+id/textView2"
-                android:text="CPU0 max freq:" />
+                android:text="@string/activity_main_cpu0_max_freq_" />
 
             <TextView
                 android:id="@+id/textView4"
@@ -346,7 +343,7 @@
                 android:layout_height="wrap_content"
                 android:layout_alignParentLeft="true"
                 android:layout_below="@+id/textView3"
-                android:text="CPU1 min freq:" />
+                android:text="@string/activity_main_cpu1_min_freq_" />
 
             <TextView
                 android:id="@+id/textView5"
@@ -354,7 +351,7 @@
                 android:layout_height="wrap_content"
                 android:layout_alignParentLeft="true"
                 android:layout_below="@+id/textView4"
-                android:text="CPU1 max freq:" />
+                android:text="@string/activity_main_cpu1_max_freq_" />
 
             <TextView
                 android:id="@+id/textView256"
@@ -362,7 +359,7 @@
                 android:layout_height="wrap_content"
                 android:layout_alignParentLeft="true"
                 android:layout_below="@+id/textView5"
-                android:text="CPU2 min freq:" />
+                android:text="@string/activity_main_cpu2_min_freq_" />
 
             <TextView
                 android:id="@+id/textView300"
@@ -370,7 +367,7 @@
                 android:layout_height="wrap_content"
                 android:layout_alignParentLeft="true"
                 android:layout_below="@+id/textView256"
-                android:text="CPU2 max freq:" />
+                android:text="@string/activity_main_cpu2_max_freq_" />
 
             <TextView
                 android:id="@+id/textView46"
@@ -378,7 +375,7 @@
                 android:layout_height="wrap_content"
                 android:layout_alignParentLeft="true"
                 android:layout_below="@+id/textView300"
-                android:text="CPU3 min freq:" />
+                android:text="@string/activity_main_cpu3_min_freq_" />
 
             <TextView
                 android:id="@+id/textView56"
@@ -386,7 +383,7 @@
                 android:layout_height="wrap_content"
                 android:layout_alignParentLeft="true"
                 android:layout_below="@+id/textView46"
-                android:text="CPU3 max freq:" />
+                android:text="@string/activity_main_cpu3_max_freq_" />
 
             <TextView
                 android:id="@+id/textView6"
@@ -394,7 +391,7 @@
                 android:layout_height="wrap_content"
                 android:layout_alignParentLeft="true"
                 android:layout_below="@+id/textView213"
-                android:text="Fastcharge status:" />
+                android:text="@string/activity_main_fastcharge_status_" />
 
             <TextView
                 android:id="@+id/textView7"
@@ -402,7 +399,7 @@
                 android:layout_height="wrap_content"
                 android:layout_alignParentLeft="true"
                 android:layout_below="@+id/textView6"
-                android:text="Softbuttons light level:" />
+                android:text="@string/activity_main_softbuttons_light_level_" />
 
             <TextView
                 android:id="@+id/textView8"
@@ -410,7 +407,7 @@
                 android:layout_height="wrap_content"
                 android:layout_alignParentLeft="true"
                 android:layout_below="@+id/textView7"
-                android:text="GPU2D max freq:" />
+                android:text="@string/activity_main_gpu2d_max_freq_" />
 
             <TextView
                 android:id="@+id/textView9"
@@ -418,7 +415,7 @@
                 android:layout_height="wrap_content"
                 android:layout_alignParentLeft="true"
                 android:layout_below="@+id/textView8"
-                android:text="GPU3D max freq:" />
+                android:text="@string/activity_main_gpu3d_max_freq_" />
 
             <TextView
                 android:id="@+id/textView10"
@@ -426,7 +423,7 @@
                 android:layout_height="wrap_content"
                 android:layout_alignParentLeft="true"
                 android:layout_below="@+id/textView9"
-                android:text="vsync:" />
+                android:text="@string/activity_main_vsync_" />
 
             <TextView
                 android:id="@+id/textView11"
@@ -435,7 +432,7 @@
                 android:layout_alignBaseline="@+id/textView2"
                 android:layout_alignBottom="@+id/textView2"
                 android:layout_alignParentRight="true"
-                android:text="-" />
+                android:text="@string/crtica" />
 
             <TextView
                 android:id="@+id/textView12"
@@ -444,7 +441,7 @@
                 android:layout_alignBaseline="@+id/textView3"
                 android:layout_alignBottom="@+id/textView3"
                 android:layout_alignParentRight="true"
-                android:text="-" />
+                android:text="@string/crtica" />
 
             <TextView
                 android:id="@+id/textView13"
@@ -452,7 +449,7 @@
                 android:layout_height="wrap_content"
                 android:layout_alignBaseline="@+id/textView4"
                 android:layout_alignParentRight="true"
-                android:text="-" />
+                android:text="@string/crtica" />
 
             <TextView
                 android:id="@+id/textView14"
@@ -460,7 +457,7 @@
                 android:layout_height="wrap_content"
                 android:layout_alignBaseline="@+id/textView5"
                 android:layout_alignParentRight="true"
-                android:text="-" />
+                android:text="@string/crtica" />
 
             <TextView
                 android:id="@+id/textView15"
@@ -468,7 +465,7 @@
                 android:layout_height="wrap_content"
                 android:layout_alignBaseline="@+id/textView20"
                 android:layout_alignParentRight="true"
-                android:text="-" />
+                android:text="@string/crtica" />
 
             <TextView
                 android:id="@+id/cpu2min"
@@ -476,7 +473,7 @@
                 android:layout_height="wrap_content"
                 android:layout_alignBaseline="@+id/textView256"
                 android:layout_alignParentRight="true"
-                android:text="-" />
+                android:text="@string/crtica" />
 
             <TextView
                 android:id="@+id/cpu2max"
@@ -484,7 +481,7 @@
                 android:layout_height="wrap_content"
                 android:layout_alignBaseline="@+id/textView300"
                 android:layout_alignParentRight="true"
-                android:text="-" />
+                android:text="@string/crtica" />
 
             <TextView
                 android:id="@+id/cpu3min"
@@ -492,7 +489,7 @@
                 android:layout_height="wrap_content"
                 android:layout_alignBaseline="@+id/textView46"
                 android:layout_alignParentRight="true"
-                android:text="-" />
+                android:text="@string/crtica" />
 
             <TextView
                 android:id="@+id/cpu3max"
@@ -500,7 +497,7 @@
                 android:layout_height="wrap_content"
                 android:layout_alignBaseline="@+id/textView56"
                 android:layout_alignParentRight="true"
-                android:text="-" />
+                android:text="@string/crtica" />
 
             <TextView
                 android:id="@+id/textView16"
@@ -509,7 +506,7 @@
                 android:layout_alignBaseline="@+id/textView7"
                 android:layout_alignBottom="@+id/textView7"
                 android:layout_alignParentRight="true"
-                android:text="-" />
+                android:text="@string/crtica" />
 
             <TextView
                 android:id="@+id/textView17"
@@ -518,7 +515,7 @@
                 android:layout_alignBaseline="@+id/textView8"
                 android:layout_alignBottom="@+id/textView8"
                 android:layout_alignParentRight="true"
-                android:text="-" />
+                android:text="@string/crtica" />
 
             <TextView
                 android:id="@+id/textView18"
@@ -526,7 +523,7 @@
                 android:layout_height="wrap_content"
                 android:layout_alignBaseline="@+id/textView9"
                 android:layout_alignParentRight="true"
-                android:text="-" />
+                android:text="@string/crtica" />
 
             <TextView
                 android:id="@+id/textView19"
@@ -535,7 +532,7 @@
                 android:layout_alignBaseline="@+id/textView10"
                 android:layout_alignBottom="@+id/textView10"
                 android:layout_alignParentRight="true"
-                android:text="-" />
+                android:text="@string/crtica" />
 
             <TextView
                 android:id="@+id/textView20"
@@ -543,7 +540,7 @@
                 android:layout_height="wrap_content"
                 android:layout_alignParentLeft="true"
                 android:layout_below="@+id/textView56"
-                android:text="CPU0 governor:" />
+                android:text="@string/activity_main_cpu0_governor_" />
 
             <TextView
                 android:id="@+id/textView21"
@@ -551,7 +548,7 @@
                 android:layout_height="wrap_content"
                 android:layout_alignParentLeft="true"
                 android:layout_below="@+id/textView20"
-                android:text="CPU1 governor:" />
+                android:text="@string/activity_main_cpu1_governor_" />
 
             <TextView
                 android:id="@+id/textView201"
@@ -559,7 +556,7 @@
                 android:layout_height="wrap_content"
                 android:layout_alignParentLeft="true"
                 android:layout_below="@+id/textView21"
-                android:text="CPU2 governor:" />
+                android:text="@string/activity_main_cpu2_governor_" />
 
             <TextView
                 android:id="@+id/textView213"
@@ -567,7 +564,7 @@
                 android:layout_height="wrap_content"
                 android:layout_alignParentLeft="true"
                 android:layout_below="@+id/textView201"
-                android:text="CPU3 governor:" />
+                android:text="@string/activity_main_cpu3_governor_" />
 
             <TextView
                 android:id="@+id/textView23"
@@ -575,7 +572,7 @@
                 android:layout_height="wrap_content"
                 android:layout_alignBaseline="@+id/textView21"
                 android:layout_alignParentRight="true"
-                android:text="-" />
+                android:text="@string/crtica" />
 
             <TextView
                 android:id="@+id/textView22"
@@ -583,7 +580,7 @@
                 android:layout_height="wrap_content"
                 android:layout_alignBaseline="@+id/textView6"
                 android:layout_alignParentRight="true"
-                android:text="-" />
+                android:text="@string/crtica" />
 
             <TextView
                 android:id="@+id/cpu2gov"
@@ -591,7 +588,7 @@
                 android:layout_height="wrap_content"
                 android:layout_alignBaseline="@+id/textView201"
                 android:layout_alignParentRight="true"
-                android:text="-" />
+                android:text="@string/crtica" />
 
             <TextView
                 android:id="@+id/cpu3gov"
@@ -599,14 +596,14 @@
                 android:layout_height="wrap_content"
                 android:layout_alignBaseline="@+id/textView213"
                 android:layout_alignParentRight="true"
-                android:text="-" />
+                android:text="@string/crtica" />
 
             <TextView
                 android:id="@+id/textView24"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_below="@id/textView10"
-                android:text="Color Depth" />
+                android:text="@string/activity_main_color_depth" />
 
             <TextView
                 android:id="@+id/textView25"
@@ -614,14 +611,14 @@
                 android:layout_height="wrap_content"
                 android:layout_alignBaseline="@+id/textView24"
                 android:layout_alignParentRight="true"
-                android:text="-" />
+                android:text="@string/crtica" />
 
             <TextView
                 android:id="@+id/textView27"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_below="@+id/textView24"
-                android:text="Up-time:" />
+                android:text="@string/activity_main_up_time_" />
 
             <TextView
                 android:id="@+id/textView30"
@@ -629,14 +626,14 @@
                 android:layout_height="wrap_content"
                 android:layout_alignBaseline="@+id/textView27"
                 android:layout_alignParentRight="true"
-                android:text="-" />
+                android:text="@string/crtica" />
 
             <TextView
                 android:id="@+id/textView28"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_below="@+id/textView27"
-                android:text="Deep sleep:" />
+                android:text="@string/activity_main_deep_sleep_" />
 
             <TextView
                 android:id="@+id/textView31"
@@ -644,14 +641,14 @@
                 android:layout_height="wrap_content"
                 android:layout_alignBaseline="@+id/textView28"
                 android:layout_alignParentRight="true"
-                android:text="-" />
+                android:text="@string/crtica" />
 
             <TextView
                 android:id="@+id/textView29"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_below="@+id/textView28"
-                android:text="IO  Scheduler:" />
+                android:text="@string/activity_main_io_scheduler_" />
 
             <TextView
                 android:id="@+id/textView32"
@@ -659,14 +656,14 @@
                 android:layout_height="wrap_content"
                 android:layout_alignBaseline="@+id/textView29"
                 android:layout_alignParentRight="true"
-                android:text="-" />
+                android:text="@string/crtica" />
 
             <TextView
                 android:id="@+id/textView33"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_below="@+id/textView29"
-                android:text="SD Cache Size:" />
+                android:text="@string/activity_main_sd_cache_size_" />
 
             <TextView
                 android:id="@+id/textView34"
@@ -674,14 +671,14 @@
                 android:layout_height="wrap_content"
                 android:layout_alignBaseline="@+id/textView33"
                 android:layout_alignParentRight="true"
-                android:text="-" />
+                android:text="@string/crtica" />
 
             <TextView
                 android:id="@+id/textView35"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_below="@+id/textView33"
-                android:text="Sweep2Wake:" />
+                android:text="@string/activity_main_sweep2wake_" />
 
             <TextView
                 android:id="@+id/textView36"
@@ -689,7 +686,7 @@
                 android:layout_height="wrap_content"
                 android:layout_alignBaseline="@+id/textView35"
                 android:layout_alignParentRight="true"
-                android:text="-" />
+                android:text="@string/crtica" />
 
             
         </RelativeLayout>
@@ -739,21 +736,21 @@
             android:layout_width="150dp"
             android:layout_height="wrap_content"
             android:layout_weight="1"
-            android:text="CPU1 on/off" />
+            android:text="@string/activity_main_cpu1_on_off" />
 
         <Button
             android:id="@+id/button8"
             android:layout_width="150dp"
             android:layout_height="wrap_content"
             android:layout_weight="1"
-            android:text="CPU2 on/off" />
+            android:text="@string/activity_main_cpu2_on_off" />
 
         <Button
             android:id="@+id/button9"
             android:layout_width="150dp"
             android:layout_height="wrap_content"
             android:layout_weight="1"
-            android:text="CPU3 on/off" />
+            android:text="@string/activity_main_cpu3_on_off" />
     </LinearLayout>
 
     <LinearLayout

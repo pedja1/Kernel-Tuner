@@ -183,7 +183,7 @@
             android:id="@+id/textView14"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="CPU2"
+            android:text="@string/activity_main_cpu2"
             android:textAppearance="?android:attr/textAppearanceLarge" />
 
         <Spinner
@@ -213,7 +213,7 @@
             android:id="@+id/textView14"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="CPU3"
+            android:text="@string/activity_main_cpu3"
             android:textAppearance="?android:attr/textAppearanceLarge" />
 
         <Spinner

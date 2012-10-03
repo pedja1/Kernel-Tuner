@@ -32,7 +32,7 @@
         android:layout_alignBottom="@+id/seekBar1"
         android:layout_alignParentLeft="true"
         android:layout_alignTop="@+id/seekBar1"
-        android:text="-" />
+        android:text="@string/crtica" />
 
     <Button
         android:id="@+id/progbutton3"
@@ -161,7 +161,7 @@
         android:layout_alignBottom="@id/progressBar1"
         android:layout_alignParentLeft="true"
     android:layout_marginTop="20dp"
-        android:text="-" />
+        android:text="@string/crtica" />
     
     <Button
         android:id="@+id/button7"
