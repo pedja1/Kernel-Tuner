@@ -116,7 +116,30 @@ public String curfile;
 			try{
 
 				InputStream fIn = new FileInputStream(file);
-				cpu1check=true;
+				Process localProcess;
+				try {
+					localProcess = Runtime.getRuntime().exec("su");
+
+					DataOutputStream localDataOutputStream = new DataOutputStream(localProcess.getOutputStream());
+					localDataOutputStream.writeBytes("echo 0 > /sys/kernel/msm_mpdecision/conf/enabled\n");
+					localDataOutputStream.writeBytes("chmod 666 /sys/devices/system/cpu/cpu1/online\n");
+					localDataOutputStream.writeBytes("echo 1 > /sys/devices/system/cpu/cpu1/online\n");
+					localDataOutputStream.writeBytes("chmod 444 /sys/devices/system/cpu/cpu1/online\n");
+					localDataOutputStream.writeBytes("chown system /sys/devices/system/cpu/cpu1/online\n");
+
+					localDataOutputStream.writeBytes("exit\n");
+					localDataOutputStream.flush();
+					localDataOutputStream.close();
+					localProcess.waitFor();
+					localProcess.destroy();
+					cpu1check=true;
+				} catch (IOException e1) {
+					// TODO Auto-generated catch block
+					e1.printStackTrace();
+				} catch (InterruptedException e1) {
+					// TODO Auto-generated catch block
+					e1.printStackTrace();
+				}
 
 			}
 
@@ -177,7 +200,30 @@ public String curfile;
 			try{
 
 				InputStream fIn = new FileInputStream(file);
-				cpu2check=true;
+				Process localProcess;
+				try {
+					localProcess = Runtime.getRuntime().exec("su");
+
+					DataOutputStream localDataOutputStream = new DataOutputStream(localProcess.getOutputStream());
+					localDataOutputStream.writeBytes("echo 0 > /sys/kernel/msm_mpdecision/conf/enabled\n");
+					localDataOutputStream.writeBytes("chmod 666 /sys/devices/system/cpu/cpu2/online\n");
+					localDataOutputStream.writeBytes("echo 1 > /sys/devices/system/cpu/cpu2/online\n");
+					localDataOutputStream.writeBytes("chmod 444 /sys/devices/system/cpu/cpu2/online\n");
+					localDataOutputStream.writeBytes("chown system /sys/devices/system/cpu/cpu2/online\n");
+
+					localDataOutputStream.writeBytes("exit\n");
+					localDataOutputStream.flush();
+					localDataOutputStream.close();
+					localProcess.waitFor();
+					localProcess.destroy();
+					cpu2check=true;
+				} catch (IOException e1) {
+					// TODO Auto-generated catch block
+					e1.printStackTrace();
+				} catch (InterruptedException e1) {
+					// TODO Auto-generated catch block
+					e1.printStackTrace();
+				}
 
 			}
 
@@ -238,7 +284,30 @@ public String curfile;
 			try{
 
 				InputStream fIn = new FileInputStream(file);
-				cpu3check=true;
+				Process localProcess;
+				try {
+					localProcess = Runtime.getRuntime().exec("su");
+
+					DataOutputStream localDataOutputStream = new DataOutputStream(localProcess.getOutputStream());
+					localDataOutputStream.writeBytes("echo 0 > /sys/kernel/msm_mpdecision/conf/enabled\n");
+					localDataOutputStream.writeBytes("chmod 666 /sys/devices/system/cpu/cpu3/online\n");
+					localDataOutputStream.writeBytes("echo 1 > /sys/devices/system/cpu/cpu3/online\n");
+					localDataOutputStream.writeBytes("chmod 444 /sys/devices/system/cpu/cpu3/online\n");
+					localDataOutputStream.writeBytes("chown system /sys/devices/system/cpu/cpu3/online\n");
+
+					localDataOutputStream.writeBytes("exit\n");
+					localDataOutputStream.flush();
+					localDataOutputStream.close();
+					localProcess.waitFor();
+					localProcess.destroy();
+					cpu3check=true;
+				} catch (IOException e1) {
+					// TODO Auto-generated catch block
+					e1.printStackTrace();
+				} catch (InterruptedException e1) {
+					// TODO Auto-generated catch block
+					e1.printStackTrace();
+				}
 
 			}
 
