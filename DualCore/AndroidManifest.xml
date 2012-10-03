@@ -1,8 +1,8 @@
 <?xml version="1.0" encoding="utf-8"?>
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
 package="rs.pedjaapps.KernelTuner"
-android:versionCode="27"
-android:versionName="2.3.3">
+android:versionCode="28"
+android:versionName="2.3.4">
 <uses-sdk android:minSdkVersion="9"
     android:targetSdkVersion="16" />
 
@@ -95,13 +95,7 @@ android:resource="@xml/widget_provider_4x4" />
 <activity android:name=".ProfileEditor" android:label="Profile Editor" android:icon="@drawable/ic_menu_edit" android:theme="@style/Theme.Transparent"></activity>
 <service android:name=".WidgetUpdateService"></service>
 <service android:name=".WidgetUpdateServiceBig"></service>
-<!--  <service
-  android:name="TemperatureMonitorService"
-  android:process=":temp_mon_service" 
-  android:icon="@drawable/icon"
-  android:label="TemperatureMonitorService"
-  >
-</service>-->
+
   <activity android:name="com.google.ads.AdActivity"
                   android:configChanges="keyboard|keyboardHidden|orientation|screenLayout|uiMode|screenSize|smallestScreenSize"/>
 </application>
