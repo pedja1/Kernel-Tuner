@@ -83,9 +83,9 @@ public class uv extends Activity {
 		}
 
 		protected void onPostExecute(Object result) {
-			/*SharedPreferences.Editor editor = preferences.edit();
+			SharedPreferences.Editor editor = preferences.edit();
 		    editor.putString("uv"+freqselected, freqselected + " " +edittextValue.trim());
-		    editor.commit();*/
+		    editor.commit();
 			
 			 
 			getuvtable();
@@ -119,9 +119,9 @@ public class uv extends Activity {
 									+ " "
 									+ volt
 									+ " > /sys/devices/system/cpu/cpufreq/vdd_table/vdd_levels\n");
-					/*SharedPreferences.Editor editor = preferences.edit();
+					SharedPreferences.Editor editor = preferences.edit();
 				    editor.putString("uv"+freqarray2[i], String.valueOf(freqarray2[i]+" "+volt));
-				    editor.commit();*/
+				    editor.commit();
 				}
 
 				localDataOutputStream.writeBytes("exit\n");

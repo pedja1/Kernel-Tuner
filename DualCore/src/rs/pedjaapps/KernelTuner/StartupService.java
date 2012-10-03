@@ -7,9 +7,17 @@ import android.content.SharedPreferences;
 import android.os.IBinder;
 import android.preference.PreferenceManager;
 import android.util.Log;
+
+import java.io.BufferedReader;
+import java.io.DataInputStream;
 import java.io.DataOutputStream;
+import java.io.File;
+import java.io.FileInputStream;
 import java.io.IOException;
+import java.io.InputStreamReader;
+import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.Collections;
 import java.util.List;
 import java.util.concurrent.TimeoutException;
 
@@ -20,10 +28,13 @@ public class StartupService extends Service
 		// TODO Auto-generated method stub
 		return null;
 	}
-	
+	List<String> frequencies = new ArrayList<String>();
+	List<String> freqlist = new ArrayList<String>();
+	String freqs;
 	@Override
 	public void onCreate() {
 		super.onCreate();
+		readFreqs();
 		boot();
 		/*SharedPreferences sharedPrefs = PreferenceManager.getDefaultSharedPreferences(this);
 
@@ -322,7 +333,13 @@ public class StartupService extends Service
 		localDataOutputStream.writeBytes("chmod 777 /sys/android_touch/sweep2wake_endbutton\n");
 		localDataOutputStream.writeBytes("echo "+ s2wEnd + " > /sys/android_touch/sweep2wake_endbutton\n");
 		
-        
+		for(String s : freqlist){
+			String temp = sharedPrefs.getString("uv"+s, "");
+		  
+		    if(!temp.equals("")){
+		    	localDataOutputStream.writeBytes("echo " + "\""+temp+"\"" + " > /sys/devices/system/cpu/cpufreq/vdd_table/vdd_levels\n");
+		    }
+		}
        
         localDataOutputStream.writeBytes("exit\n");
          localDataOutputStream.flush();
@@ -336,6 +353,75 @@ public class StartupService extends Service
  				// TODO Auto-generated catch block
  				e1.printStackTrace();
  			}
+	}
+	
+	public void readFreqs()
+	{
+		 
+
+		try {
+			
+			File myFile = new File("/sys/devices/system/cpu/cpu0/cpufreq/scaling_available_frequencies");
+			FileInputStream fIn = new FileInputStream(myFile);
+			BufferedReader myReader = new BufferedReader(
+					new InputStreamReader(fIn));
+			String aDataRow = "";
+			String aBuffer = "";
+			while ((aDataRow = myReader.readLine()) != null) {
+				aBuffer += aDataRow + "\n";
+			}
+			
+			freqs = aBuffer;
+			myReader.close();
+			freqlist = Arrays.asList(freqs.split("\\s"));
+			
+		} catch (Exception e) {
+			try{
+				// Open the file that is the first 
+	 			// command line parameter
+	 			FileInputStream fstream = new FileInputStream("/sys/devices/system/cpu/cpu0/cpufreq/stats/time_in_state");
+	 			// Get the object of DataInputStream
+	 			DataInputStream in = new DataInputStream(fstream);
+	 			BufferedReader br = new BufferedReader(new InputStreamReader(in));
+	 			String strLine;
+	 			//Read File Line By Line
+	 			
+	 			while ((strLine = br.readLine()) != null)   {
+	 				
+	 				String[] delims = strLine.split(" ");
+	 				String freq = delims[0];
+	 				//freq= 	freq.substring(0, freq.length()-3)+"Mhz";
+
+	 				frequencies.add(freq);
+
+	 			}
+	 			SharedPreferences sharedPrefs = PreferenceManager.getDefaultSharedPreferences(this);
+	 			boolean ov = sharedPrefs.getBoolean("override", false);
+	 			if(ov==true){
+	 			Collections.reverse(frequencies);
+	 			}
+	 			String[] strarray = frequencies.toArray(new String[0]);
+	 			frequencies.clear();
+	 			System.out.println(frequencies);
+	 			StringBuilder builder = new StringBuilder();
+	 			for(String s : strarray) {
+	 			    builder.append(s);
+	 			    builder.append(" ");
+	 			}
+	 			freqs = builder.toString();
+	 			
+	 			freqlist = Arrays.asList(freqs.split("\\s"));
+	 			
+	 			
+
+	 			
+	 			in.close();
+			}
+			catch(Exception ee){
+			/**/
+			}
+		}
+		
 	}
 
 }

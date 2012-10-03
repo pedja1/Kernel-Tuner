@@ -724,6 +724,9 @@ private class initdApplyCpuGpuMisc extends AsyncTask<String, Void, Object> {
 			localDataOutputStream.writeBytes("chmod 777 /system/etc/init.d/99ktgputweaks\n");
 			localDataOutputStream.writeBytes("cp /data/data/rs.pedjaapps.KernelTuner/files/99ktmisctweaks /system/etc/init.d\n");
 			localDataOutputStream.writeBytes("chmod 777 /system/etc/init.d/99ktmisctweaks\n");
+			localDataOutputStream.writeBytes("cp /data/data/rs.pedjaapps.KernelTuner/files/99ktvoltage /system/etc/init.d\n");
+			localDataOutputStream.writeBytes("chmod 777 /system/etc/init.d/99ktvoltage\n");
+			
 			localDataOutputStream.writeBytes("exit\n");
 			localDataOutputStream.flush();
 			localDataOutputStream.close();
@@ -2282,8 +2285,9 @@ new info().execute();
 	});
 
 //prefs();
+	readFreqs();
 initialCheck();
-initdexport();
+
 
 
 
@@ -2308,7 +2312,7 @@ ReadCPU0maxfreq();
 ReadCPU1maxfreq();
 ReadCPU2maxfreq();
 ReadCPU3maxfreq();
-readFreqs();
+
 
 new Thread(new Runnable() {
 	@Override
@@ -2522,8 +2526,7 @@ new info().execute();
     	SharedPreferences sharedPrefs = PreferenceManager.getDefaultSharedPreferences(this);
 
     	String boot = sharedPrefs.getString("boot2", "");
-    	boolean cputoggle = sharedPrefs.getBoolean("cputoggle", true);
-    	boolean cpu1off = sharedPrefs.getBoolean("cpu1off", false);
+    	
     	if (boot.equals("init.d")){
     		new initdApplyCpuGpuMisc().execute();
     		
@@ -2533,17 +2536,7 @@ new info().execute();
     		new rmInitd().execute();
     	}
   
-    	/*tempMonitor = sharedPrefs.getBoolean("tempmon", false);
-    	if(tempMonitor==true){
-    		Intent intent = new Intent(this, TemperatureMonitorService.class);
-    		startService(intent);
-    		//SharedPreferences.Editor editor = preferences.edit();
-    		  //  editor.putBoolean("temp_service_started", true);
-    	}
-    	else if(tempMonitor==false){
-    		Intent intent = new Intent(this, TemperatureMonitorService.class);
-    		stopService(intent);
-    	}*/
+    	
     	
     super.onResume();
     
@@ -3288,9 +3281,16 @@ public void initdexport(){
 		
         
 	  	   
-
-	 
-	  
+	  StringBuilder voltagebuilder = new StringBuilder();
+	  voltagebuilder.append("#!/system/bin/sh \n");
+	  for(String s : freqlist){
+			String temp = sharedPrefs.getString("uv"+s, "");
+		    System.out.println(temp);
+		    if(!temp.equals("")){
+			voltagebuilder.append("echo " + "\""+temp+"\"" + " > /sys/devices/system/cpu/cpufreq/vdd_table/vdd_levels\n");
+		    }
+		}
+	  String voltage = voltagebuilder.toString();
 	  try { 
              
           FileOutputStream fOut = openFileOutput("99ktcputweaks",
@@ -3328,7 +3328,18 @@ public void initdexport(){
           ioe.printStackTrace();
   }
 	 
-	 
+	  try { 
+          
+          FileOutputStream fOut = openFileOutput("99ktvoltage",
+                                                  MODE_WORLD_READABLE);
+          OutputStreamWriter osw = new OutputStreamWriter(fOut); 
+          osw.write(voltage);        
+          osw.flush();
+          osw.close();
+
+  } catch (IOException ioe) {
+          ioe.printStackTrace();
+  } 
 }
 
 public void readFreqs()
