@@ -110,15 +110,10 @@ public class profiles extends Activity{
              localDataOutputStream.writeBytes("chmod 777 /sys/devices/platform/kgsl-2d0.0/kgsl/kgsl-2d0/max_gpuclk\n");
              localDataOutputStream.writeBytes("chmod 777 /sys/devices/platform/kgsl-2d1.1/kgsl/kgsl-2d1/max_gpuclk\n");
              localDataOutputStream.writeBytes("chmod 777 /sys/devices/platform/kgsl-2d0.0/kgsl/kgsl-2d0/gpuclk\n");
-             localDataOutputStream.writeBytes("chmod 777 /sys/devices/platform/kgsl-2d1.1/kgsl/kgsl-2d1/gpuclk\n");
              localDataOutputStream.writeBytes("echo " + profile.getGpu2d() + " > /sys/devices/platform/kgsl-2d0.0/kgsl/kgsl-2d0/max_gpuclk\n");
              localDataOutputStream.writeBytes("echo " + profile.getGpu2d() + " > /sys/devices/platform/kgsl-2d1.1/kgsl/kgsl-2d1/max_gpuclk\n");
-             localDataOutputStream.writeBytes("echo " + profile.getGpu2d()+ " > /sys/devices/platform/kgsl-2d0.0/kgsl/kgsl-2d0/gpuclk\n");
-             localDataOutputStream.writeBytes("echo " + profile.getGpu2d() + " > /sys/devices/platform/kgsl-2d1.1/kgsl/kgsl-2d1/gpuclk\n");
              localDataOutputStream.writeBytes("chmod 777 /sys/devices/platform/kgsl-3d0.0/kgsl/kgsl-3d0/max_gpuclk\n");
-             localDataOutputStream.writeBytes("chmod 777 /sys/devices/platform/kgsl-3d0.0/kgsl/kgsl-3d0/gpuclk\n");
              localDataOutputStream.writeBytes("echo " + profile.getGpu3d() + " > /sys/devices/platform/kgsl-3d0.0/kgsl/kgsl-3d0/max_gpuclk\n");
-             localDataOutputStream.writeBytes("echo " + profile.getGpu3d() + " > /sys/devices/platform/kgsl-3d0.0/kgsl/kgsl-3d0/gpuclk\n");
              localDataOutputStream.writeBytes("chmod 777 /sys/kernel/debug/msm_fb/0/vsync_enable\n");
              localDataOutputStream.writeBytes("chmod 777 /sys/kernel/debug/msm_fb/0/hw_vsync_mode\n");
              localDataOutputStream.writeBytes("chmod 777 /sys/kernel/debug/msm_fb/0/backbuff\n");
@@ -326,7 +321,7 @@ public class profiles extends Activity{
 	    		}
 	         try {
 	   			
-	   			File myFile = new File("/sys/devices/platform/kgsl-3d0.0/kgsl/kgsl-3d0/gpuclk");
+	   			File myFile = new File("/sys/devices/platform/kgsl-3d0.0/kgsl/kgsl-3d0/max_gpuclk");
 	   			FileInputStream fIn = new FileInputStream(myFile);
 
 	   			BufferedReader myReader = new BufferedReader(
@@ -349,7 +344,7 @@ public class profiles extends Activity{
 	          
 	          try {
 	    			
-	    			File myFile = new File("/sys/devices/platform/kgsl-2d0.0/kgsl/kgsl-2d0/gpuclk");
+	    			File myFile = new File("/sys/devices/platform/kgsl-2d0.0/kgsl/kgsl-2d0/max_gpuclk");
 	    			FileInputStream fIn = new FileInputStream(myFile);
 	    			BufferedReader myReader = new BufferedReader(
 	    					new InputStreamReader(fIn));
