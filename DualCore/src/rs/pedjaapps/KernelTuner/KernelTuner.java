@@ -2164,6 +2164,11 @@ try {
 	localProcess = Runtime.getRuntime().exec("su");
 	DataOutputStream localDataOutputStream = new DataOutputStream(localProcess.getOutputStream());
 	localDataOutputStream.writeBytes("echo enabled > /sys/class/thermal/thermal_zone1/mode\n");
+	 localDataOutputStream.writeBytes("exit\n");
+     localDataOutputStream.flush();
+     localDataOutputStream.close();
+     localProcess.waitFor();
+     localProcess.destroy();
 }
 catch(Exception e){
 	
