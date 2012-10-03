@@ -410,6 +410,8 @@ public class miscTweaks extends Activity implements
 					.getDefaultSharedPreferences(getBaseContext());
 			SharedPreferences.Editor editor = preferences.edit();
 			editor.putString("s2w", s2wnew);
+			editor.putString("s2wStart", s2wStartnew);
+			editor.putString("s2wEnd", s2wEndnew);
 			// value to store
 			editor.commit();
 

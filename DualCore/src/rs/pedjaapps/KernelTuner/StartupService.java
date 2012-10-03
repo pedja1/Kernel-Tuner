@@ -255,6 +255,8 @@ public class StartupService extends Service
 		  String p2high = sharedPrefs.getString("p2high", "");
 		  String p3low = sharedPrefs.getString("p3low", "");
 		  String p3high = sharedPrefs.getString("p3high", "");
+		  String s2wStart = sharedPrefs.getString("s2wStart","");
+		  String s2wEnd = sharedPrefs.getString("s2wEnd","");
 		  
 		  
 
@@ -269,7 +271,7 @@ public class StartupService extends Service
         localDataOutputStream.writeBytes("echo " + hw + " > /sys/kernel/debug/msm_fb/0/hw_vsync_mode\n");
         localDataOutputStream.writeBytes("echo " + backbuf + " > /sys/kernel/debug/msm_fb/0/backbuff\n");
         localDataOutputStream.writeBytes("chmod 777 /sys/kernel/msm_mpdecision/conf/do_scroff_single_core\n");
-        localDataOutputStream.writeBytes("echo " + mpscroff + " > /sys/kernel/msm_mpdecision/conf/do_scroff_single_core\n");
+        localDataOutputStream.writeBytes("echo " + mpscroff + " > /sys/kernel/msm_mpdecision/conf/scroff_single_core\n");
         localDataOutputStream.writeBytes("chmod 777 /sys/kernel/fast_charge/force_fast_charge\n");
         localDataOutputStream.writeBytes("echo " + fastcharge + " > /sys/kernel/fast_charge/force_fast_charge\n");
         localDataOutputStream.writeBytes("chmod 777 /sys/kernel/debug/msm_fb/0/bpp\n");
@@ -284,8 +286,6 @@ public class StartupService extends Service
         localDataOutputStream.writeBytes("echo " + io + " > /sys/block/mmcblk1/queue/scheduler\n");
         
         localDataOutputStream.writeBytes("chmod 777 /sys/kernel/msm_mpdecision/conf/do_scroff_single_core\n");
-        localDataOutputStream.writeBytes("chmod 777 /sys/kernel/msm_mpdecision/conf/mpdec_scroff_gov\n");
-        localDataOutputStream.writeBytes("chmod 777 /sys/kernel/msm_mpdecision/conf/mpdec_scroff_freq\n");
         localDataOutputStream.writeBytes("chmod 777 /sys/kernel/msm_mpdecision/conf/mpdec_idlefreq\n");
         localDataOutputStream.writeBytes("chmod 777 /sys/kernel/msm_mpdecision/conf/dealy\n");
         localDataOutputStream.writeBytes("chmod 777 /sys/kernel/msm_mpdecision/conf/pause\n");
@@ -293,9 +293,9 @@ public class StartupService extends Service
         localDataOutputStream.writeBytes("chmod 777 /sys/kernel/msm_mpdecision/conf/twts_threshold_up\n");
         localDataOutputStream.writeBytes("chmod 777 /sys/kernel/msm_mpdecision/conf/nwns_threshold_down\n");
         localDataOutputStream.writeBytes("chmod 777 /sys/kernel/msm_mpdecision/conf/twts_threshold_down\n");
-        localDataOutputStream.writeBytes("chmod 777 /sys/kernel/msm_mpdecision/conf/scroff_profile\n");
+
         
-        localDataOutputStream.writeBytes("echo " + onoff.trim() + " > /sys/kernel/msm_mpdecision/conf/scroff_profile\n");
+
         localDataOutputStream.writeBytes("echo " + delaynew.trim() + " > /sys/kernel/msm_mpdecision/conf/delay\n");
         localDataOutputStream.writeBytes("echo " + pausenew.trim() + " > /sys/kernel/msm_mpdecision/conf/pause\n");
         localDataOutputStream.writeBytes("echo " + thruploadnew.trim() + " > /sys/kernel/msm_mpdecision/conf/nwns_threshold_up\n");
@@ -303,8 +303,6 @@ public class StartupService extends Service
         localDataOutputStream.writeBytes("echo " + thrupmsnew.trim() + " > /sys/kernel/msm_mpdecision/conf/twts_threshold_up\n");
         localDataOutputStream.writeBytes("echo " + thrdownmsnew.trim() + " > /sys/kernel/msm_mpdecision/conf/twts_threshold_down\n");
         //localDataOutputStream.writeBytes("echo " + freqselected + " > /sys/kernel/msm_mpdecision/conf/mpdec_idlefreq\n");
-        localDataOutputStream.writeBytes("echo " + maxfreqselected.trim() + " > /sys/kernel/msm_mpdecision/conf/mpdec_scroff_freq\n");
-        localDataOutputStream.writeBytes("echo " + govselected.trim() + " > /sys/kernel/msm_mpdecision/conf/mpdec_scroff_gov\n");
         localDataOutputStream.writeBytes( "echo " + "\""+ldt + "\""+" > /sys/kernel/notification_leds/off_timer_multiplier\n");
         localDataOutputStream.writeBytes( "echo " + "\""+s2w + "\""+" > /sys/android_touch/sweep2wake\n");
         localDataOutputStream.writeBytes( "echo " + "\""+s2w + "\""+" > /sys/android_touch/sweep2wake/s2w_switch\n");
@@ -319,9 +317,13 @@ public class StartupService extends Service
         localDataOutputStream.writeBytes("echo " + p3low + " > /sys/kernel/msm_thermal/conf/allowed_max_low\n");
         localDataOutputStream.writeBytes("echo " + p3high + " > /sys/kernel/msm_thermal/conf/allowed_max_high\n");
         
-        // localDataOutputStream.writeBytes("chmod 777 /sys/kernel/msm_mpdecision/conf/idle_freq\n");
-      //  localDataOutputStream.writeBytes("echo " + freqselected + " > /sys/kernel/msm_mpdecision/conf/idle_freq\n");
-   
+        localDataOutputStream.writeBytes("chmod 777 /sys/android_touch/sweep2wake_startbutton\n");
+		localDataOutputStream.writeBytes("echo "+ s2wStart + " > /sys/android_touch/sweep2wake_startbutton\n");
+		localDataOutputStream.writeBytes("chmod 777 /sys/android_touch/sweep2wake_endbutton\n");
+		localDataOutputStream.writeBytes("echo "+ s2wEnd + " > /sys/android_touch/sweep2wake_endbutton\n");
+		
+        
+       
         localDataOutputStream.writeBytes("exit\n");
          localDataOutputStream.flush();
          localDataOutputStream.close();
