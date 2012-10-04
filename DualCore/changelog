@@ -94,9 +94,12 @@ rc10
 -start and end button for sweep to wake
 -minor fixes in temperature monitor
 -other minor fixes
-2.3.2
+2.3.3
 -Performance improvements
 -Bug fixes
 -changed update server
 -disable auto update check
 -UI themes
+2.3.5
+-click notification to install new version
+
