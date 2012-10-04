@@ -1,7 +1,10 @@
 package rs.pedjaapps.KernelTuner;
 
 
+import android.app.AlarmManager;
+import android.app.PendingIntent;
 import android.app.Service;
+import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.IBinder;
@@ -17,8 +20,10 @@ import java.io.IOException;
 import java.io.InputStreamReader;
 import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.Calendar;
 import java.util.Collections;
 import java.util.List;
+import java.util.TimeZone;
 import java.util.concurrent.TimeoutException;
 
 public class StartupService extends Service
@@ -34,17 +39,27 @@ public class StartupService extends Service
 	@Override
 	public void onCreate() {
 		super.onCreate();
+		
+		
+		    // we know mobiletuts updates at right around 1130 GMT.
+		    // let's grab new stuff at around 11:45 GMT, inexactly
+		   /* Calendar updateTime = Calendar.getInstance();
+		    updateTime.setTimeZone(TimeZone.getTimeZone("GMT"));
+		    updateTime.set(Calendar.HOUR_OF_DAY, 13);
+		    updateTime.set(Calendar.MINUTE, 00);
+		    Intent updateService = new Intent(this, AlarmReceiver.class);
+		    PendingIntent recurringDownload = PendingIntent.getBroadcast(this,
+		            0, updateService, PendingIntent.FLAG_CANCEL_CURRENT);
+		    AlarmManager alarms = (AlarmManager) getSystemService(
+		            ALARM_SERVICE);
+		    alarms.setInexactRepeating(AlarmManager.RTC_WAKEUP,
+		            updateTime.getTimeInMillis(),
+		            AlarmManager.INTERVAL_DAY, recurringDownload);
+		*/
+		
 		readFreqs();
 		boot();
-		/*SharedPreferences sharedPrefs = PreferenceManager.getDefaultSharedPreferences(this);
-
-		boolean tempMonitor = sharedPrefs.getBoolean("tempmon", false);
-    	if(tempMonitor==true){
-    		Intent intent = new Intent(this, TemperatureMonitorService.class);
-    		startService(intent);
-    		//SharedPreferences.Editor editor = preferences.edit();
-    		  //  editor.putBoolean("temp_service_started", true);
-    	}*/
+		
 	}
 
 	@Override

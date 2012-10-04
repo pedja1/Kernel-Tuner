@@ -15,10 +15,14 @@ import java.net.MalformedURLException;
 import java.net.URL;
 import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.Calendar;
 import java.util.Collections;
 import java.util.List;
+import java.util.TimeZone;
 
+import android.annotation.SuppressLint;
 import android.app.Activity;
+import android.app.AlarmManager;
 import android.app.AlertDialog;
 import android.app.DownloadManager;
 import android.app.PendingIntent;
@@ -287,7 +291,7 @@ public static boolean isDownloadManagerAvailable(Context context) {
 	}
 }
 
-private class updateCheck extends AsyncTask<String, Void, Object> {
+class updateCheck extends AsyncTask<String, Void, Object> {
 
 
 	protected Object doInBackground(String... args) {
@@ -2505,9 +2509,21 @@ public void onClick(View v) {
 	
 }});
 
-
-
+/*Calendar updateTime = Calendar.getInstance();
+//updateTime.setTimeZone(TimeZone.getTimeZone("GMT"));
+updateTime.set(Calendar.HOUR_OF_DAY, 1);
+updateTime.set(Calendar.MINUTE, 44);
+Intent updateService = new Intent(this, AlarmReceiver.class);
+PendingIntent recurringDownload = PendingIntent.getBroadcast(this,
+        0, updateService, PendingIntent.FLAG_CANCEL_CURRENT);
+AlarmManager alarms = (AlarmManager) getSystemService(
+        ALARM_SERVICE);
+alarms.setInexactRepeating(AlarmManager.RTC_WAKEUP,
+        1000,
+       1000, recurringDownload);
+*/
 }
+
 
 
 @Override
@@ -2745,12 +2761,12 @@ public void cpuTemp(){
 		  	    	  cputemptxt.setTextColor(Color.GREEN);
 		  	    	  cpuTempWarningStop();
 		  	      }
-		  	      else if(temp>113 && temp<131){
+		  	      else if(temp>=113 && temp<138){
 		  	    	  cputemptxt.setTextColor(Color.YELLOW);
 		  	    	  cpuTempWarningStop();
 		  	      }
 		  	      
-		  	      else if(temp>138){
+		  	      else if(temp>=138){
 		  	    	  cpuTempWarning();
 		  	    	  cputemptxt.setTextColor(Color.RED);
 
@@ -2765,7 +2781,7 @@ public void cpuTemp(){
 	  	    	  cputemptxt.setTextColor(Color.GREEN);
 	  	    	  cpuTempWarningStop();
 	  	      }
-	  	      else if(temp>45 && temp<55){
+	  	      else if(temp>=45 && temp<=59){
 	  	    	  cputemptxt.setTextColor(Color.YELLOW);
 	  	    	  cpuTempWarningStop();
 	  	      }
@@ -3643,6 +3659,18 @@ public boolean onOptionsItemSelected(MenuItem item) {
     }
     if (item.getItemId() == R.id.update) {
 		new updateCheck().execute();
+		Calendar updateTime = Calendar.getInstance();
+	    updateTime.setTimeZone(TimeZone.getTimeZone("GMT"));
+	    updateTime.set(Calendar.HOUR_OF_DAY, 13);
+	    updateTime.set(Calendar.MINUTE, 00);
+	    Intent updateService = new Intent(this, AlarmReceiver.class);
+	    PendingIntent recurringDownload = PendingIntent.getBroadcast(this,
+	            0, updateService, PendingIntent.FLAG_CANCEL_CURRENT);
+	    AlarmManager alarms = (AlarmManager) getSystemService(
+	            ALARM_SERVICE);
+	    alarms.setInexactRepeating(AlarmManager.RTC_WAKEUP,
+	            updateTime.getTimeInMillis(),
+	            AlarmManager.INTERVAL_DAY, recurringDownload);
 		Log.d("Menu", "update selected");
     }
 	if (item.getItemId() == R.id.about) {

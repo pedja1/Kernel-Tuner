@@ -2,7 +2,7 @@
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
 package="rs.pedjaapps.KernelTuner"
 android:versionCode="28"
-android:versionName="2.3.4">
+android:versionName="2.3.5">
 <uses-sdk android:minSdkVersion="9"
     android:targetSdkVersion="16" />
 
@@ -98,5 +98,12 @@ android:resource="@xml/widget_provider_4x4" />
 
   <activity android:name="com.google.ads.AdActivity"
                   android:configChanges="keyboard|keyboardHidden|orientation|screenLayout|uiMode|screenSize|smallestScreenSize"/>
+<receiver  android:process=":remote" android:name="AlarmReceiver"></receiver>
+<service android:name=".UpdateCheckService">
+<intent-filter>
+<action
+android:name="rs.pedjaapps.KernelTuner.UpdateCheckService" />
+</intent-filter>
+</service>
 </application>
 </manifest>
