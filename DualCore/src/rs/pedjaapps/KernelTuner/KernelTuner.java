@@ -21,6 +21,7 @@ import java.util.List;
 import android.app.Activity;
 import android.app.AlertDialog;
 import android.app.DownloadManager;
+import android.app.PendingIntent;
 import android.app.ProgressDialog;
 import android.appwidget.AppWidgetManager;
 import android.content.BroadcastReceiver;
@@ -90,19 +91,19 @@ public class KernelTuner extends Activity {
 	    	  temperature = (temperature*1.8)+32;
 	    	  //int temp = (int)temperature;
 	    	  batteryTemp.setText(String.valueOf((int)temperature) + "°F");
-		      if(temperature<104){
+		      if(temperature<=104){
 		    	  batteryTemp.setTextColor(Color.GREEN);
 		    	  battTempWarningStop();
 		      }
-		      else if(temperature>113 && temperature<131){
+		      else if(temperature>104 && temperature<131){
 		    	  batteryTemp.setTextColor(Color.YELLOW);
 		    	  battTempWarningStop();
 		      }
-		      else if(temperature>131 && temperature < 140 ){
+		      else if(temperature>=131 && temperature < 140 ){
 		    	  batteryTemp.setTextColor(Color.RED);
 		    	  battTempWarningStop();
 		      }
-		      else if(temperature>140){
+		      else if(temperature>=140){
 		    	  Log.e("Battery warning","start animation");
 		    	  batteryTemp.setTextColor(Color.RED);
 		    	  battTempWarning();
@@ -111,7 +112,7 @@ public class KernelTuner extends Activity {
 	      }
 	      else if(tempPref==false){
 	    	  batteryTemp.setText(String.valueOf(temperature) + "°C");
-		      if(temperature<40){
+		      if(temperature<45){
 		    	  batteryTemp.setTextColor(Color.GREEN);
 		    	  battTempWarningStop();
 		      }
@@ -119,11 +120,11 @@ public class KernelTuner extends Activity {
 		    	  batteryTemp.setTextColor(Color.YELLOW);
 		    	  battTempWarningStop();
 		      }
-		      else if(temperature>55 && temperature < 60 ){
+		      else if(temperature>=55 && temperature < 60 ){
 		    	  batteryTemp.setTextColor(Color.RED);
 		    	  battTempWarningStop();
 		      }
-		      else if(temperature>60){
+		      else if(temperature>=60){
 		    	  Log.e("Battery warning","start animation");
 		    	  batteryTemp.setTextColor(Color.RED);
 		    	  battTempWarning();
@@ -2286,6 +2287,10 @@ new info().execute();
 
 //prefs();
 	readFreqs();
+	ReadCPU0maxfreq();
+	ReadCPU1maxfreq();
+	ReadCPU2maxfreq();
+	ReadCPU3maxfreq();
 initialCheck();
 
 
@@ -2308,10 +2313,7 @@ else {
 
 
 
-ReadCPU0maxfreq();
-ReadCPU1maxfreq();
-ReadCPU2maxfreq();
-ReadCPU3maxfreq();
+
 
 
 new Thread(new Runnable() {
@@ -2581,23 +2583,37 @@ AppWidget updateSmall = new AppWidget();
 
 
  public void download(){
+	 BroadcastReceiver onComplete=new BroadcastReceiver() {
+		    public void onReceive(Context ctxt, Intent intent) {
+		        // Do Something
+		    	intent = new Intent(Intent.ACTION_VIEW);
+		        intent.setDataAndType(Uri.fromFile(new File(Environment.getExternalStorageDirectory() + "/download/" + "KernelTuner-" + remoteversion + ".apk")), "application/vnd.android.package-archive");
+		       System.out.println( Environment.getExternalStorageDirectory() + "/download/" + "KernelTuner-" + remoteversion + ".apk");
+		        startActivity(intent);
+		    }
+		};
 	String url = "http://kerneltuner.co.cc/ktuner/KernelTuner-" + remoteversion + ".php";
 	DownloadManager.Request request = new DownloadManager.Request(Uri.parse(url));
 	request.setDescription("Downloading new version");
 	request.setTitle("Kernel Tuner-" + remoteversion + ".apk");
-//in order for this if to run, you must use the android 3.2 to compile your app
+	//in order for this if to run, you must use the android 3.2 to compile your app
 	if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.HONEYCOMB) {
 		request.allowScanningByMediaScanner();
 		request.setNotificationVisibility(DownloadManager.Request.VISIBILITY_VISIBLE_NOTIFY_COMPLETED);
 	}
-	try{
+	try{ 
 		request.setDestinationInExternalPublicDir(Environment.DIRECTORY_DOWNLOADS, "KernelTuner-" + remoteversion + ".apk");
 	DownloadManager manager = (DownloadManager) getSystemService(Context.DOWNLOAD_SERVICE);
 	manager.enqueue(request); 
 	
+	registerReceiver(onComplete, new IntentFilter(DownloadManager.ACTION_NOTIFICATION_CLICKED));
 	}catch(Exception e){
 		Toast.makeText(getApplicationContext(), "SD card is not mounted", Toast.LENGTH_LONG).show();
 	}
+	
+
+	
+
 //get download service and enqueue file
 	System.out.println(request);
 }
