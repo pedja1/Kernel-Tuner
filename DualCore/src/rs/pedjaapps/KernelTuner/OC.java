@@ -59,15 +59,15 @@ import android.widget.*;
 
 public class OC extends Activity{
 
-	public String freqscpu0;
+	public String freqs;
 	public String[] delims;
-	public String freqscpu1;
+	
 	public String curentminfreqcpu0;
 	public String curentmaxfreqcpu0;
 	public String curentminfreqcpu1;
 	public String curentmaxfreqcpu1;
 	public String governors;
-	public String governorscpu1;
+	
 	public String curentgovernorcpu0;
 	public String curentgovernorcpu1;
 	public String govselectedcpu0;
@@ -236,7 +236,7 @@ public String curfile;
 	}	
 	
 	
-    private class ReadCPU0freq extends AsyncTask<String, Void, Object> {
+    private class readFreqs extends AsyncTask<String, Void, Object> {
     	  	
     	protected Object doInBackground(String... args) {
              Log.i("MyApp", "Background thread starting");
@@ -255,7 +255,7 @@ public String curfile;
      				aBuffer += aDataRow + "\n";
      			}
 
-     			freqscpu0 = aBuffer;
+     			freqs = aBuffer;
      			myReader.close();
      			    			
      		} catch (Exception e) {
@@ -271,45 +271,9 @@ public String curfile;
          }    	
     	}
     
-private class ReadCPU1freq extends AsyncTask<String, Void, Object> {
-    	   	
-    	protected Object doInBackground(String... args) {
-             Log.i("MyApp", "Background thread starting");
-             
-             String aBuffer = "";
-             // This is where you would do all the work of downloading your data
-             try {
-     			
-     			File myFile = new File("/sys/devices/system/cpu/cpu1/cpufreq/scaling_available_frequencies");
-     			FileInputStream fIn = new FileInputStream(myFile);
 
-     			BufferedReader myReader = new BufferedReader(
-     					new InputStreamReader(fIn));
-     			String aDataRow = "";
-     			//String aBuffer = "";
-     			while ((aDataRow = myReader.readLine()) != null) {
-     				aBuffer += aDataRow + "\n";
-     			}
 
-     			freqscpu1 = aBuffer;
-     			myReader.close();
-     			
-
-     		} catch (Exception e) {
-     		     			
-     		}
-    
-             return aBuffer;
-         }
-
-         protected void onPostExecute(Object result) {
-             // Pass the result data back to the main activity      	 
-             OC.this.data = result;             
-         }
-    	
-    	}
-
-private class ReadCPU0freqAlt extends AsyncTask<String, Void, Object> {
+private class readFreqsAlt extends AsyncTask<String, Void, Object> {
   	
 	protected Object doInBackground(String... args) {
          Log.i("MyApp", "Background thread starting");
@@ -341,7 +305,7 @@ private class ReadCPU0freqAlt extends AsyncTask<String, Void, Object> {
  			    builder.append(s);
  			    builder.append(" ");
  			}
- 			freqscpu0 = builder.toString();
+ 			freqs = builder.toString();
 
 
  			
@@ -359,64 +323,14 @@ private class ReadCPU0freqAlt extends AsyncTask<String, Void, Object> {
      }    	
 	}
 
-private class ReadCPU1freqAlt extends AsyncTask<String, Void, Object> {
-	   	
-	protected Object doInBackground(String... args) {
-         Log.i("MyApp", "Background thread starting");
-         
-         String aBuffer = "";
-         // This is where you would do all the work of downloading your data
-         try{
-  			// Open the file that is the first 
-  			// command line parameter
-  			FileInputStream fstream = new FileInputStream("/sys/devices/system/cpu/cpu1/cpufreq/stats/time_in_state");
-  			// Get the object of DataInputStream
-  			DataInputStream in = new DataInputStream(fstream);
-  			BufferedReader br = new BufferedReader(new InputStreamReader(in));
-  			String strLine;
-  			//Read File Line By Line
-  			
-  			while ((strLine = br.readLine()) != null)   {
-  				
-  				delims = strLine.split(" ");
-  				String freq = delims[0];
-  				//freq= 	freq.substring(0, freq.length()-3)+"Mhz";
 
-  				frequencies.add(freq);
-
-  			}
-  			String[] strarray = frequencies.toArray(new String[0]);
-  			StringBuilder builder = new StringBuilder();
-  			for(String s : strarray) {
-  			    builder.append(s);
-  			    builder.append(" ");
-  			}
-  			freqscpu1 = builder.toString();
-
-
-  			
-  			in.close();
-  		}catch (Exception e){
-  			System.err.println("Error: " + e.getMessage());
-  		}
-
-         return aBuffer;
-     }
-
-     protected void onPostExecute(Object result) {
-         // Pass the result data back to the main activity      	 
-         OC.this.data = result;             
-     }
-	
-	}
     
     private class spinnerMaxCpu0 extends AsyncTask<String, Void, Object> {
     	
         protected Object doInBackground(String... args) {
             Log.i("MyApp", "Background thread starting");
 
-            // This is where you would do all the work of downloading your data            
-            try {
+             try {
     			
     			File myFile = new File("/sys/devices/system/cpu/cpu0/cpufreq/scaling_max_freq");
     			FileInputStream fIn = new FileInputStream(myFile);    			
@@ -568,7 +482,7 @@ private class spinnerMinCpu1 extends AsyncTask<String, Void, Object> {
 
     	}
     	   	
-    	private class ReadgovernorsCpu0 extends AsyncTask<String, Void, Object> {
+    	private class readGovernors extends AsyncTask<String, Void, Object> {
     		String aBuffer = "";
             protected Object doInBackground(String... args) {
                 Log.i("MyApp", "Background thread starting");
@@ -604,44 +518,7 @@ private class spinnerMinCpu1 extends AsyncTask<String, Void, Object> {
 
         	}
     	
-    	private class ReadgovernorsCpu1 extends AsyncTask<String, Void, Object> {
-    		String aBuffer = "";
-            protected Object doInBackground(String... args) {
-                Log.i("MyApp", "Background thread starting");
-
-                // This is where you would do all the work of downloading your data
-                              
-                try {
-            		
-            		File myFile = new File("/sys/devices/system/cpu/cpu1/cpufreq/scaling_available_governors");
-            		FileInputStream fIn = new FileInputStream(myFile);
-           		
-            		BufferedReader myReader = new BufferedReader(
-            				new InputStreamReader(fIn));
-            		String aDataRow = "";
-            		String aBuffer = "";
-            		while ((aDataRow = myReader.readLine()) != null) {
-            			aBuffer += aDataRow + "\n";
-            		}
-
-            		governorscpu1 = aBuffer;
-            		myReader.close();
-            		           		
-            		
-            	} catch (Exception e) {
-            		
-             	}
-                
-                return aBuffer;
-            }
-
-            protected void onPostExecute(Object result) {
-                // Pass the result data back to the main activity
-            	
-                OC.this.data = result;               
-            }
-
-        	}
+    	
 
     	private class govspinnercpu0 extends AsyncTask<String, Void, Object> {
     		String aBuffer = "";
@@ -837,11 +714,11 @@ private class spinnerMinCpu1 extends AsyncTask<String, Void, Object> {
 	dialog.show();*/
     // Start a new thread that will download all the data
    new cpu1Toggle().execute();
-   new ReadCPU0freq().execute();
+   new readFreqs().execute();
     new spinnerMinCpu0().execute();
     new spinnerMaxCpu0().execute();
-    new ReadgovernorsCpu0().execute();
-    new ReadgovernorsCpu1().execute();
+    new readGovernors().execute();
+    
     new govspinnercpu0().execute();
     
     SharedPreferences sharedPrefs = PreferenceManager.getDefaultSharedPreferences(this);
@@ -850,7 +727,6 @@ private class spinnerMinCpu1 extends AsyncTask<String, Void, Object> {
 	  boolean a = sharedPrefs.getBoolean("cpu1off", false);
 
     	new govspinnercpu1().execute();
-    	new ReadCPU1freq().execute();
         new spinnerMinCpu1().execute();
         new spinnerMaxCpu1().execute();
 		
@@ -862,11 +738,11 @@ private class spinnerMinCpu1 extends AsyncTask<String, Void, Object> {
 			this.pd = ProgressDialog.show(this, "Working..", "Loading...", true, false);
 			
 			   new cpu1Toggle().execute();
-			   new ReadCPU0freqAlt().execute();
+			   new readFreqsAlt().execute();
 			    new spinnerMinCpu0().execute();
 			    new spinnerMaxCpu0().execute();
-			    new ReadgovernorsCpu0().execute();
-			    new ReadgovernorsCpu1().execute();
+			    new readGovernors().execute();
+			    
 			    new govspinnercpu0().execute();
 			    
 			    SharedPreferences sharedPrefs = PreferenceManager.getDefaultSharedPreferences(this);
@@ -875,7 +751,6 @@ private class spinnerMinCpu1 extends AsyncTask<String, Void, Object> {
 				  boolean a = sharedPrefs.getBoolean("cpu1off", false);
 
 			    	new govspinnercpu1().execute();
-			    	new ReadCPU1freqAlt().execute();
 			        new spinnerMinCpu1().execute();
 			        new spinnerMaxCpu1().execute();
 		}
@@ -928,27 +803,18 @@ private class spinnerMinCpu1 extends AsyncTask<String, Void, Object> {
 				// When clicked, show a toast with the TextView text 
 			Toast.makeText(getApplicationContext(),
 			("Position " + position), Toast.LENGTH_SHORT).show();
-		//	Context context = null;
+	
 			String[] valuess = govvalues.toArray(new String[0]);
 				AlertDialog.Builder builder = new AlertDialog.Builder(view.getContext());
-
 				builder.setTitle(filesx[position]);
-
 				builder.setMessage("Set new value: ");
-
 				builder.setIcon(R.drawable.icon);
 
-				
-			
-				//LayoutInflater inflater = (LayoutInflater) getSystemService(Context.LAYOUT_INFLATER_SERVICE);
-				//final View layout = inflater.inflate(R.layout.gov_edit, null);
-               final EditText input = new EditText(view.getContext());//)layout.findViewById(R.id.editText2);
-				
-               input.setHint(valuess[position]);
+				 final EditText input = new EditText(view.getContext());              input.setHint(valuess[position]);
 				input.selectAll();
 				input.setInputType(InputType.TYPE_CLASS_NUMBER);
 				input.setGravity(Gravity.CENTER_HORIZONTAL);
-				//input.selectAll();
+			
 				builder.setPositiveButton("Apply", new DialogInterface.OnClickListener() {
 					@Override
 					public void onClick(DialogInterface dialog, int which) {
@@ -1072,16 +938,7 @@ private class spinnerMinCpu1 extends AsyncTask<String, Void, Object> {
     	    public void onItemSelected(AdapterView<?> parent, View view, int pos, long id) {
     	    	govselectedcpu0 = parent.getItemAtPosition(pos).toString();
     	    	
-    	    	//curentgovernorcpu0=govselectedcpu0;
-    	    	/*//governor = govselectedcpu0;
-    	    	newsEntryAdapter.clear();
-    	    	getNewsEntries();
-    			
-    			for(final NewsEntry entry : getNewsEntries()) {
-    				newsEntryAdapter.add(entry);
-    			}
-    			//newsEntryAdapter.notifyDataSetChanged();
-    			//newsEntryListView.invalidate();*/
+    	    	
     	    }
 
     		@Override
@@ -1100,7 +957,7 @@ private class spinnerMinCpu1 extends AsyncTask<String, Void, Object> {
     }
 
     public void createspinnerforcpu1(){
-    	String[] MyStringAray = governorscpu1.split("\\s");  
+    	String[] MyStringAray = governors.split("\\s");  
     	Spinner spinner = (Spinner) findViewById(R.id.spinner2);
     	// Application of the Array to the Spinner
     	ArrayAdapter<String> spinnerArrayAdapter = new ArrayAdapter<String>(this,   android.R.layout.simple_spinner_item, MyStringAray);
@@ -1129,7 +986,7 @@ private class spinnerMinCpu1 extends AsyncTask<String, Void, Object> {
     }
 
     public void spinnermincpu0(){
-		String[] MyStringAray = freqscpu0.split("\\s");
+		String[] MyStringAray = freqs.split("\\s");
 		Spinner spinner = (Spinner) findViewById(R.id.spinner3);		
 		// Application of the Array to the Spinner
 		ArrayAdapter<String> spinnerArrayAdapter = new ArrayAdapter<String>(OC.this,   android.R.layout.simple_spinner_item, MyStringAray);
@@ -1160,7 +1017,7 @@ private class spinnerMinCpu1 extends AsyncTask<String, Void, Object> {
 	}
 	
 	public void spinnermincpu1(){		
-		String[] MyStringAray = freqscpu1.split("\\s");
+		String[] MyStringAray = freqs.split("\\s");
 	
 		Spinner spinner = (Spinner) findViewById(R.id.spinner6);		
 		// Application of the Array to the Spinner
@@ -1192,7 +1049,7 @@ private class spinnerMinCpu1 extends AsyncTask<String, Void, Object> {
 
 	}
 	public void spinnermaxcpu1(){
-    	String[] MyStringAray = freqscpu1.split("\\s");
+    	String[] MyStringAray = freqs.split("\\s");
 	
 		Spinner spinner = (Spinner) findViewById(R.id.spinner5);
 
@@ -1223,7 +1080,7 @@ private class spinnerMinCpu1 extends AsyncTask<String, Void, Object> {
     }
 
 	public void spinnermaxcpu0(){
-    	String[] MyStringAray = freqscpu0.split("\\s");
+    	String[] MyStringAray = freqs.split("\\s");
 	
 		Spinner spinner = (Spinner) findViewById(R.id.spinner4);
 
@@ -1278,19 +1135,13 @@ private class spinnerMinCpu1 extends AsyncTask<String, Void, Object> {
 		@Override
 		public View getView(final int position, final View convertView, final ViewGroup parent) {
 
-		// We need to get the best view (re-used if possible) and then
-		// retrieve its corresponding ViewHolder, which optimizes lookup efficiency
 		final View view = getWorkingView(convertView);
 		final ViewHolder viewHolder = getViewHolder(view);
 		final NewsEntry entry = getItem(position);
 
-		// Setting the title view is straightforward
+		
 		viewHolder.titleView.setText(entry.getTitle());
 
-		// Setting the subTitle view requires a tiny bit of formatting
-		/*final String formattedSubTitle = String.format("By %s",
-		entry.getAuthor());
-		*/
 
 		viewHolder.subTitleView.setText(entry.getAuthor());
 
@@ -1317,8 +1168,6 @@ private class spinnerMinCpu1 extends AsyncTask<String, Void, Object> {
 		}
 
 		private ViewHolder getViewHolder(final View workingView) {
-		// The viewHolder allows us to avoid re-looking up view references
-		// Since views are recycled, these references will never change
 		final Object tag = workingView.getTag();
 		ViewHolder viewHolder = null;
 
