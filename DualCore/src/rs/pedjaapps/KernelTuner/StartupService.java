@@ -43,7 +43,7 @@ public class StartupService extends Service
 		
 		    // we know mobiletuts updates at right around 1130 GMT.
 		    // let's grab new stuff at around 11:45 GMT, inexactly
-		   /* Calendar updateTime = Calendar.getInstance();
+		    Calendar updateTime = Calendar.getInstance();
 		    updateTime.setTimeZone(TimeZone.getTimeZone("GMT"));
 		    updateTime.set(Calendar.HOUR_OF_DAY, 13);
 		    updateTime.set(Calendar.MINUTE, 00);
@@ -55,7 +55,7 @@ public class StartupService extends Service
 		    alarms.setInexactRepeating(AlarmManager.RTC_WAKEUP,
 		            updateTime.getTimeInMillis(),
 		            AlarmManager.INTERVAL_DAY, recurringDownload);
-		*/
+		
 		
 		readFreqs();
 		boot();
