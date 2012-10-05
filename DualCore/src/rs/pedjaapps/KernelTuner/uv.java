@@ -48,6 +48,7 @@ public class uv extends Activity {
 	
 	private class apply extends AsyncTask<String, Void, Object> {
 
+		@Override
 		protected Object doInBackground(String... args) {
 			Log.i("MyApp", "Background thread starting");
 
@@ -82,6 +83,7 @@ public class uv extends Activity {
 			return "";
 		}
 
+		@Override
 		protected void onPostExecute(Object result) {
 			SharedPreferences.Editor editor = preferences.edit();
 		    editor.putString("uv"+freqselected, freqselected + " " +edittextValue.trim());
@@ -100,6 +102,7 @@ public class uv extends Activity {
 
 		
 		
+		@Override
 		protected Object doInBackground(String... args) {
 			Log.i("MyApp", "Background thread starting");
 
@@ -142,6 +145,7 @@ public class uv extends Activity {
 			return "";
 		}
 
+		@Override
 		protected void onPostExecute(Object result) {
 			
 	     	
@@ -157,6 +161,7 @@ public class uv extends Activity {
 
 	private class applyplus extends AsyncTask<String, Void, Object> {
 
+		@Override
 		protected Object doInBackground(String... args) {
 			Log.i("MyApp", "Background thread starting");
 
@@ -200,6 +205,7 @@ public class uv extends Activity {
 			return "";
 		}
 
+		@Override
 		protected void onPostExecute(Object result) {
 			getuvtable();
 

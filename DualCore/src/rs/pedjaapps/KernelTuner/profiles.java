@@ -10,16 +10,12 @@ import java.io.InputStream;
 import java.io.InputStreamReader;
 import java.util.ArrayList;
 import java.util.List;
-import java.util.concurrent.ExecutionException;
-import java.util.concurrent.TimeoutException;
 import android.app.Activity;
 import android.app.AlertDialog;
 import android.app.ProgressDialog;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.SharedPreferences;
-import android.content.pm.PackageInfo;
-import android.content.pm.PackageManager;
 import android.os.AsyncTask;
 import android.os.Bundle;
 import android.preference.PreferenceManager;
@@ -30,18 +26,11 @@ import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.EditText;
-import android.widget.ProgressBar;
 import android.widget.Spinner;
 import android.widget.AdapterView.OnItemSelectedListener;
 import android.widget.TextView;
-import android.widget.Toast;
-import android.text.InputType;
-import android.text.method.*;
-import java.util.*;
-
 import rs.pedjaapps.KernelTuner.R;
 
-import android.widget.*;
 import android.view.Gravity;
 import android.view.Menu;
 import android.view.MenuItem;
@@ -73,7 +62,8 @@ public class profiles extends Activity{
 
 	private class apply extends AsyncTask<String, Void, Object> {
 		String aBuffer = "";
-        protected Object doInBackground(String... args) {
+        @Override
+		protected Object doInBackground(String... args) {
             Log.i("MyApp", "Background thread starting");
             Process localProcess;
             Profile profile = db.getProfileByName(currentprofile);
@@ -151,7 +141,8 @@ public class profiles extends Activity{
             return aBuffer;
         }
 
-        protected void onPostExecute(Object result) {
+        @Override
+		protected void onPostExecute(Object result) {
         	
         	pd.dismiss();
             profiles.this.data = result;
@@ -161,7 +152,8 @@ public class profiles extends Activity{
 	
 	private class SaveCurrent extends AsyncTask<String, Void, Object> {
 		String aBuffer = "";
-        protected Object doInBackground(String... args) {
+        @Override
+		protected Object doInBackground(String... args) {
             Log.i("MyApp", "Background thread starting");
             
             File file = new File("/sys/devices/system/cpu/cpu1/cpufreq/scaling_governor");
@@ -457,7 +449,8 @@ public class profiles extends Activity{
             return aBuffer;
         }
 
-        protected void onPreExecute() {
+        @Override
+		protected void onPreExecute() {
             super.onPreExecute();
           //  DualCore.this.pd = ProgressDialog.show(DualCore.this, "Working..", "Checking for updates...", true, false );
     	//	pd.setCancelable(true);
@@ -475,7 +468,8 @@ public class profiles extends Activity{
             );
         }
         
-        protected void onPostExecute(Object result) {
+        @Override
+		protected void onPostExecute(Object result) {
         	ArrayAdapter myAdap = (ArrayAdapter) spinner.getAdapter(); //cast to an ArrayAdapter
 			  myAdap.clear();
 			  db.addProfile(new Profile(name,cpu0min, 
@@ -669,7 +663,8 @@ public class profiles extends Activity{
     		
     		spinner.setOnItemSelectedListener(new OnItemSelectedListener() {
     		    
-    		    public void onItemSelected(AdapterView<?> parent, View view, int pos, long id) {
+    		    @Override
+				public void onItemSelected(AdapterView<?> parent, View view, int pos, long id) {
     		    	currentprofile = parent.getItemAtPosition(pos).toString();
     		    	System.out.println(currentprofile);
     		    	Profile profile = db.getProfileByName(currentprofile) ;
@@ -707,7 +702,8 @@ public class profiles extends Activity{
     		    }
 
     		    
-    		    public void onNothingSelected(AdapterView<?> parent) {
+    		    @Override
+				public void onNothingSelected(AdapterView<?> parent) {
     		        //do nothing
     		    }
     		});

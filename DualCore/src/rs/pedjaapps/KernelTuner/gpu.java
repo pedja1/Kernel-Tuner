@@ -6,10 +6,6 @@ import java.io.File;
 import java.io.FileInputStream;
 import java.io.IOException;
 import java.io.InputStreamReader;
-import java.util.List;
-import java.util.concurrent.ExecutionException;
-import java.util.concurrent.TimeoutException;
-
 import rs.pedjaapps.KernelTuner.R;
 import android.app.Activity;
 import android.app.ProgressDialog;
@@ -24,7 +20,6 @@ import android.view.View.OnClickListener;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
-import android.widget.ProgressBar;
 import android.widget.Spinner;
 import android.widget.AdapterView.OnItemSelectedListener;
 import android.widget.TextView;
@@ -67,6 +62,7 @@ public String[] gpu3d(String[] gpu3d){
 private class changegpu extends AsyncTask<String, Void, Object> {
 	
 	
+	@Override
 	protected Object doInBackground(String... args) {
          Log.i("MyApp", "Background thread starting");
 
@@ -175,7 +171,8 @@ private class changegpu extends AsyncTask<String, Void, Object> {
 return "";
     }
 
-    protected void onPostExecute(Object result) {
+    @Override
+	protected void onPostExecute(Object result) {
     	preferences = PreferenceManager.getDefaultSharedPreferences(getBaseContext());
 			SharedPreferences.Editor editor = preferences.edit();
 	  	    editor.putString("gpu3d", selected3d);

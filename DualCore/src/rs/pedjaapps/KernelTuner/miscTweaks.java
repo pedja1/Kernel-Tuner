@@ -97,6 +97,7 @@ public class miscTweaks extends Activity implements
 
 	private class colorDepth extends AsyncTask<String, Void, Object> {
 
+		@Override
 		protected Object doInBackground(String... args) {
 			Log.i("MyApp", "Backgrond thread starting");
 
@@ -126,6 +127,7 @@ public class miscTweaks extends Activity implements
 			return "";
 		}
 
+		@Override
 		protected void onPostExecute(Object result) {
 			preferences = PreferenceManager
 					.getDefaultSharedPreferences(getBaseContext());
@@ -140,6 +142,7 @@ public class miscTweaks extends Activity implements
 
 	private class mountDebugFs extends AsyncTask<String, Void, Object> {
 
+		@Override
 		protected Object doInBackground(String... args) {
 			Log.i("MyApp", "Background thread starting");
 
@@ -167,6 +170,7 @@ public class miscTweaks extends Activity implements
 			return "";
 		}
 
+		@Override
 		protected void onPostExecute(Object result) {
 			// Pass the result data back to the main activity
 
@@ -180,6 +184,7 @@ public class miscTweaks extends Activity implements
 
 	private class fastcharge extends AsyncTask<String, Void, Object> {
 
+		@Override
 		protected Object doInBackground(String... args) {
 			Log.i("MyApp", "Background thread starting");
 
@@ -209,6 +214,7 @@ public class miscTweaks extends Activity implements
 			return "";
 		}
 
+		@Override
 		protected void onPostExecute(Object result) {
 			// Pass the result data back to the main activity
 
@@ -220,6 +226,7 @@ public class miscTweaks extends Activity implements
 
 	private class vsync extends AsyncTask<String, Void, Object> {
 
+		@Override
 		protected Object doInBackground(String... args) {
 			Log.i("MyApp", "Background thread starting");
 
@@ -257,6 +264,7 @@ public class miscTweaks extends Activity implements
 			return "";
 		}
 
+		@Override
 		protected void onPostExecute(Object result) {
 			// Pass the result data back to the main activity
 
@@ -267,6 +275,7 @@ public class miscTweaks extends Activity implements
 
 	private class changeled extends AsyncTask<String, Void, Object> {
 
+		@Override
 		protected Object doInBackground(String... args) {
 			Log.i("MyApp", "Background thread starting");
 
@@ -298,6 +307,7 @@ public class miscTweaks extends Activity implements
 			return "";
 		}
 
+		@Override
 		protected void onPostExecute(Object result) {
 			// Pass the result data back to the main activity
 			preferences = PreferenceManager
@@ -316,6 +326,7 @@ public class miscTweaks extends Activity implements
 
 	private class applyldt extends AsyncTask<String, Void, Object> {
 
+		@Override
 		protected Object doInBackground(String... args) {
 			Log.i("MyApp", "Background thread starting");
 
@@ -347,6 +358,7 @@ public class miscTweaks extends Activity implements
 			return "";
 		}
 
+		@Override
 		protected void onPostExecute(Object result) {
 			// Pass the result data back to the main activity
 			preferences = PreferenceManager
@@ -364,6 +376,7 @@ public class miscTweaks extends Activity implements
 	
 	private class applys2w extends AsyncTask<String, Void, Object> {
 
+		@Override
 		protected Object doInBackground(String... args) {
 			Log.i("MyApp", "Background thread starting");
 
@@ -404,6 +417,7 @@ public class miscTweaks extends Activity implements
 			return "";
 		}
 
+		@Override
 		protected void onPostExecute(Object result) {
 			// Pass the result data back to the main activity
 			preferences = PreferenceManager
@@ -423,6 +437,7 @@ public class miscTweaks extends Activity implements
 
 	private class applyIO extends AsyncTask<String, Void, Object> {
 
+		@Override
 		protected Object doInBackground(String... args) {
 			Log.i("MyApp", "Background thread starting");
 			Process localProcess;
@@ -467,6 +482,7 @@ public class miscTweaks extends Activity implements
 			return "";
 		}
 
+		@Override
 		protected void onPostExecute(Object result) {
 			preferences = PreferenceManager
 					.getDefaultSharedPreferences(getBaseContext());
@@ -519,6 +535,7 @@ public class miscTweaks extends Activity implements
 		Button apply = (Button)findViewById(R.id.apply);
 		apply.setOnClickListener(new OnClickListener(){
 
+			@Override
 			public void onClick(View arg0) {
 				EditText sd = (EditText) findViewById(R.id.editText1);
 				sdcache = String.valueOf(sd.getText());
@@ -540,6 +557,7 @@ public class miscTweaks extends Activity implements
 		Button vsyncexplanation = (Button) findViewById(R.id.button1);
 		vsyncexplanation.setOnClickListener(new OnClickListener() {
 
+			@Override
 			public void onClick(View v) {
 
 				AlertDialog alertDialog = new AlertDialog.Builder(
@@ -559,6 +577,7 @@ public class miscTweaks extends Activity implements
 				// Setting OK Button
 				alertDialog.setButton("OK",
 						new DialogInterface.OnClickListener() {
+							@Override
 							public void onClick(DialogInterface dialog,
 									int which) {
 								// Write your code here to execute after dialog
@@ -578,6 +597,7 @@ public class miscTweaks extends Activity implements
 		Button fastchargeexplanation = (Button) findViewById(R.id.button2);
 		fastchargeexplanation.setOnClickListener(new OnClickListener() {
 
+			@Override
 			public void onClick(View v) {
 
 				AlertDialog alertDialog = new AlertDialog.Builder(
@@ -596,6 +616,7 @@ public class miscTweaks extends Activity implements
 				// Setting OK Button
 				alertDialog.setButton("OK",
 						new DialogInterface.OnClickListener() {
+							@Override
 							public void onClick(DialogInterface dialog,
 									int which) {
 								// Write your code here to execute after dialog
@@ -615,6 +636,7 @@ public class miscTweaks extends Activity implements
 		Button btminus = (Button) findViewById(R.id.progbutton2);
 		btminus.setOnClickListener(new OnClickListener() {
 
+			@Override
 			public void onClick(View v) {
 
 				mSeekBar.setProgress(mSeekBar.getProgress() - 5);
@@ -627,6 +649,7 @@ public class miscTweaks extends Activity implements
 		Button btplus = (Button) findViewById(R.id.progbutton3);
 		btplus.setOnClickListener(new OnClickListener() {
 
+			@Override
 			public void onClick(View v) {
 
 				mSeekBar.setProgress(mSeekBar.getProgress() + 5);
@@ -639,6 +662,7 @@ public class miscTweaks extends Activity implements
 		Button btminuscdepth = (Button) findViewById(R.id.button3);
 		btminuscdepth.setOnClickListener(new OnClickListener() {
 
+			@Override
 			public void onClick(View v) {
 				prog = (ProgressBar) findViewById(R.id.progressBar1);
 				if (prog.getProgress() == 2) {
@@ -657,6 +681,7 @@ public class miscTweaks extends Activity implements
 		Button btpluscdepth = (Button) findViewById(R.id.button7);
 		btpluscdepth.setOnClickListener(new OnClickListener() {
 
+			@Override
 			public void onClick(View v) {
 
 				prog = (ProgressBar) findViewById(R.id.progressBar1);
@@ -675,6 +700,7 @@ public class miscTweaks extends Activity implements
 		final CheckBox fastchargechbx = (CheckBox) findViewById(R.id.checkBox1);
 		fastchargechbx.setOnClickListener(new OnClickListener() {
 
+			@Override
 			public void onClick(View v) {
 
 				if (fastchargechbx.isChecked()) {
@@ -702,6 +728,7 @@ public class miscTweaks extends Activity implements
 		final CheckBox vsynchbx = (CheckBox) findViewById(R.id.checkBox2);
 		vsynchbx.setOnClickListener(new OnClickListener() {
 
+			@Override
 			public void onClick(View v) {
 
 				if (vsynchbx.isChecked()) {

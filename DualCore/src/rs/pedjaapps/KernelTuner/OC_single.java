@@ -11,19 +11,13 @@ import java.io.InputStream;
 import java.io.InputStreamReader;
 import java.util.ArrayList;
 import java.util.List;
-import java.util.concurrent.TimeoutException;
-
 import rs.pedjaapps.KernelTuner.R;
-import rs.pedjaapps.KernelTuner.OC.NewsEntry;
-import rs.pedjaapps.KernelTuner.OC.NewsEntryAdapter;
 import android.app.Activity;
 import android.app.AlertDialog;
 import android.app.ProgressDialog;
 import android.content.Context;
 import android.content.DialogInterface;
-import android.content.Intent;
 import android.content.SharedPreferences;
-import android.graphics.Color;
 import android.os.AsyncTask;
 import android.os.Bundle;
 import android.preference.PreferenceManager;
@@ -35,13 +29,10 @@ import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
-import android.view.View.OnClickListener;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
-import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ListView;
-import android.widget.ProgressBar;
 import android.widget.Spinner;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -82,7 +73,8 @@ public class OC_single extends Activity{
     	private class applygovsettings extends AsyncTask<String, Void, Object> {
 
 
-    		protected Object doInBackground(String... args) {
+    		@Override
+			protected Object doInBackground(String... args) {
     			Log.i("MyApp", "Background thread starting");
 
     			
@@ -120,7 +112,8 @@ public class OC_single extends Activity{
 
     		
     		
-    		protected void onPostExecute(Object result) {
+    		@Override
+			protected void onPostExecute(Object result) {
     			// Pass the result data back to the main activity
     			getNewsEntries();
 
@@ -141,7 +134,8 @@ public class OC_single extends Activity{
     	
     private class ReadCPU0freq extends AsyncTask<String, Void, Object> {
     	  	
-    	protected Object doInBackground(String... args) {
+    	@Override
+		protected Object doInBackground(String... args) {
              Log.i("MyApp", "Background thread starting");
              
              String aBuffer = "";
@@ -169,7 +163,8 @@ public class OC_single extends Activity{
              return aBuffer;
          }
 
-         protected void onPostExecute(Object result) {
+         @Override
+		protected void onPostExecute(Object result) {
              // Pass the result data back to the main activity
         	 
              OC_single.this.data = result;
@@ -179,7 +174,8 @@ public class OC_single extends Activity{
     
     private class ReadCPU0freqAlt extends AsyncTask<String, Void, Object> {
       	
-    	protected Object doInBackground(String... args) {
+    	@Override
+		protected Object doInBackground(String... args) {
              Log.i("MyApp", "Background thread starting");
              
              
@@ -221,7 +217,8 @@ public class OC_single extends Activity{
              return "";
          }
 
-         protected void onPostExecute(Object result) {
+         @Override
+		protected void onPostExecute(Object result) {
              // Pass the result data back to the main activity       	 
              OC_single.this.data = result;             
          }    	
@@ -229,7 +226,8 @@ public class OC_single extends Activity{
     
 private class spinnerMaxCpu0 extends AsyncTask<String, Void, Object> {
     	
-        protected Object doInBackground(String... args) {
+        @Override
+		protected Object doInBackground(String... args) {
             Log.i("MyApp", "Background thread starting");
 
             // This is where you would do all the work of downloading your data            
@@ -254,7 +252,8 @@ private class spinnerMaxCpu0 extends AsyncTask<String, Void, Object> {
             return "replace this with your data object";
         }
 
-        protected void onPostExecute(Object result) {
+        @Override
+		protected void onPostExecute(Object result) {
             // Pass the result data back to the main activity
        	 spinnermaxcpu0();
             OC_single.this.data = result;
@@ -265,7 +264,8 @@ private class spinnerMaxCpu0 extends AsyncTask<String, Void, Object> {
     
 private class spinnerMinCpu0 extends AsyncTask<String, Void, Object> {
     	
-        protected Object doInBackground(String... args) {
+        @Override
+		protected Object doInBackground(String... args) {
             Log.i("MyApp", "Background thread starting");
 
             // This is where you would do all the work of downloading your data
@@ -290,7 +290,8 @@ try {
             return "replace this with your data object";
         }
 
-        protected void onPostExecute(Object result) {
+        @Override
+		protected void onPostExecute(Object result) {
             // Pass the result data back to the main activity
         	spinnermincpu0();
             OC_single.this.data = result;
@@ -299,7 +300,8 @@ try {
     
 private class ReadgovernorsCpu0 extends AsyncTask<String, Void, Object> {
     		String aBuffer = "";
-            protected Object doInBackground(String... args) {
+            @Override
+			protected Object doInBackground(String... args) {
                 Log.i("MyApp", "Background thread starting");
 
                 // This is where you would do all the work of downloading your data
@@ -324,7 +326,8 @@ private class ReadgovernorsCpu0 extends AsyncTask<String, Void, Object> {
                 return aBuffer;
             }
 
-            protected void onPostExecute(Object result) {
+            @Override
+			protected void onPostExecute(Object result) {
                 // Pass the result data back to the main activity
             	
                 OC_single.this.data = result;
@@ -334,7 +337,8 @@ private class ReadgovernorsCpu0 extends AsyncTask<String, Void, Object> {
     	
     	private class govspinnercpu0 extends AsyncTask<String, Void, Object> {
     		String aBuffer = "";
-            protected Object doInBackground(String... args) {
+            @Override
+			protected Object doInBackground(String... args) {
                 Log.i("MyApp", "Background thread starting");
 
                 // This is where you would do all the work of downloading your data
@@ -361,7 +365,8 @@ private class ReadgovernorsCpu0 extends AsyncTask<String, Void, Object> {
                 return aBuffer;
             }
 
-            protected void onPostExecute(Object result) {
+            @Override
+			protected void onPostExecute(Object result) {
                 // Pass the result data back to the main activity
             	createspinnerforcpu0();
                 OC_single.this.data = result;
@@ -376,7 +381,8 @@ private class ReadgovernorsCpu0 extends AsyncTask<String, Void, Object> {
     	private class apply extends AsyncTask<String, Void, Object> {
         	
         	
-        	protected Object doInBackground(String... args) {
+        	@Override
+			protected Object doInBackground(String... args) {
                  Log.i("MyApp", "Background thread starting");
                 
                  Process localProcess;
@@ -408,7 +414,8 @@ private class ReadgovernorsCpu0 extends AsyncTask<String, Void, Object> {
                  return "";
              }
 
-             protected void onPostExecute(Object result) {
+             @Override
+			protected void onPostExecute(Object result) {
             	 preferences = PreferenceManager.getDefaultSharedPreferences(getBaseContext());
             	 SharedPreferences.Editor editor = preferences.edit();
             	    editor.putString("cpu0min", minselected);
@@ -496,7 +503,8 @@ private class ReadgovernorsCpu0 extends AsyncTask<String, Void, Object> {
 
 		// Setting OK Button
 		alertDialog.setButton("OK", new DialogInterface.OnClickListener() {
-		    public void onClick(DialogInterface dialog, int which) {
+		    @Override
+			public void onClick(DialogInterface dialog, int which) {
 		    // Write your code here to execute after dialog closed
 		    	finish();
 		    }
@@ -523,6 +531,7 @@ private class ReadgovernorsCpu0 extends AsyncTask<String, Void, Object> {
 	 
      // 	ListView lv = (ListView)findViewById(R.id.list);
 		newsEntryListView.setOnItemClickListener(new OnItemClickListener() {
+			@Override
 			public void onItemClick(AdapterView<?> parent, View view, final int position, long id) 
 			{
 				// When clicked, show a toast with the TextView text 

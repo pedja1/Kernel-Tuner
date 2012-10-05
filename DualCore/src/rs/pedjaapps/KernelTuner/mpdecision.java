@@ -1,6 +1,5 @@
 package rs.pedjaapps.KernelTuner;
 
-import android.annotation.SuppressLint;
 import android.app.Activity;
 import android.app.ProgressDialog;
 import android.content.SharedPreferences;
@@ -9,12 +8,7 @@ import android.os.AsyncTask;
 import android.os.Bundle;
 import android.os.Handler;
 import android.preference.PreferenceManager;
-import android.widget.AdapterView;
-import android.widget.AdapterView.OnItemSelectedListener;
-import android.widget.ArrayAdapter;
-import android.widget.CheckBox;
 import android.widget.SeekBar;
-import android.widget.Spinner;
 import android.util.Log;
 import android.view.View;
 import android.view.WindowManager;
@@ -102,6 +96,7 @@ Handler mHandler = new Handler();
 private class apply extends AsyncTask<String, Void, Object> {
 	
 	
+	@Override
 	protected Object doInBackground(String... args) {
          Log.i("MyApp", "Background thread starting");
 
@@ -152,7 +147,8 @@ private class apply extends AsyncTask<String, Void, Object> {
          return "";
      }
 
-     protected void onPostExecute(Object result) {
+     @Override
+	protected void onPostExecute(Object result) {
          // Pass the result data back to the main activity
     	 
          mpdecision.this.data = result;

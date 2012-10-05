@@ -12,12 +12,10 @@ import android.graphics.Color;
 import android.os.AsyncTask;
 import android.os.Bundle;
 import android.os.SystemClock;
-import android.preference.PreferenceManager;
 import android.util.Log;
 import android.view.View;
 import android.view.View.OnClickListener;
 import android.widget.Button;
-import android.widget.EditText;
 import android.widget.LinearLayout;
 import android.widget.ProgressBar;
 import android.widget.TextView;
@@ -50,6 +48,7 @@ public class check extends Activity {
 	private class exec extends AsyncTask<Void, Integer, Void> {
 
 		
+		@Override
 		protected Void doInBackground(Void... args) {
 			Log.i("MyApp", "Background thread starting");
 			// Random randomGenerator = new Random();
@@ -295,6 +294,7 @@ public class check extends Activity {
 			return null;
 		}
 
+		@Override
 		protected void onProgressUpdate(Integer... values) {
 
 			super.onProgressUpdate();
@@ -497,6 +497,7 @@ public class check extends Activity {
 
 		}
 
+		@Override
 		protected void onPostExecute(Void result) {
 			// Pass the result data back to the main activity
 			TextView res = (TextView) findViewById(R.id.textView34);
@@ -526,6 +527,7 @@ public class check extends Activity {
 
 	}
 
+	@Override
 	public void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
 		
@@ -536,6 +538,7 @@ public class check extends Activity {
 		Button ok = (Button) findViewById(R.id.button1);
 		ok.setOnClickListener(new OnClickListener() {
 
+			@Override
 			public void onClick(View arg0) {
 				// TODO Auto-generated method stub
 				finish();

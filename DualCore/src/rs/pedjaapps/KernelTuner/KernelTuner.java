@@ -20,7 +20,6 @@ import java.util.Collections;
 import java.util.List;
 import java.util.TimeZone;
 
-import android.annotation.SuppressLint;
 import android.app.Activity;
 import android.app.AlarmManager;
 import android.app.AlertDialog;
@@ -294,6 +293,7 @@ public static boolean isDownloadManagerAvailable(Context context) {
 class updateCheck extends AsyncTask<String, Void, Object> {
 
 
+	@Override
 	protected Object doInBackground(String... args) {
 		Log.i("DualCore", "Check for new version");
 
@@ -340,7 +340,8 @@ class updateCheck extends AsyncTask<String, Void, Object> {
     }
 	
 	
-    protected void onPreExecute() {
+    @Override
+	protected void onPreExecute() {
         super.onPreExecute();
       //  DualCore.this.pd = ProgressDialog.show(DualCore.this, "Working..", "Checking for updates...", true, false );
 	//	pd.setCancelable(true);
@@ -353,6 +354,7 @@ class updateCheck extends AsyncTask<String, Void, Object> {
 			true,
 			new DialogInterface.OnCancelListener(){
 			
+				@Override
 				public void onCancel(DialogInterface dialog) {
 					updateCheck.this.cancel(true);
 				//	finish();
@@ -362,7 +364,8 @@ class updateCheck extends AsyncTask<String, Void, Object> {
     }
 
 
-    protected void onPostExecute(Object result) {
+    @Override
+	protected void onPostExecute(Object result) {
 	
         KernelTuner.this.data = result;
         KernelTuner.this.pd.dismiss();
@@ -389,12 +392,14 @@ class updateCheck extends AsyncTask<String, Void, Object> {
     builder.setIcon(R.drawable.icon);
 
     builder.setPositiveButton("Download", new DialogInterface.OnClickListener() {
-            public void onClick(DialogInterface dialog, int which) {
+            @Override
+			public void onClick(DialogInterface dialog, int which) {
             	download();
             }
     });
     builder.setNegativeButton("Cancel", new DialogInterface.OnClickListener() {
-        public void onClick(DialogInterface dialog, int which) {
+        @Override
+		public void onClick(DialogInterface dialog, int which) {
       
         }
 });
@@ -422,6 +427,7 @@ class updateCheck extends AsyncTask<String, Void, Object> {
 private class mountDebugFs extends AsyncTask<String, Void, Object> {
 	
 	
+	@Override
 	protected Object doInBackground(String... args) {
          Log.i("MyApp", "Background thread starting");
 
@@ -447,7 +453,8 @@ private class mountDebugFs extends AsyncTask<String, Void, Object> {
          return "";
      }
 
-     protected void onPostExecute(Object result) {
+     @Override
+	protected void onPostExecute(Object result) {
          // Pass the result data back to the main activity
     	 
          KernelTuner.this.data = result;
@@ -460,6 +467,7 @@ private class mountDebugFs extends AsyncTask<String, Void, Object> {
 private class cpu1Toggle extends AsyncTask<String, Void, Object> {
 	
 	
+	@Override
 	protected Object doInBackground(String... args) {
          Log.i("MyApp", "Background thread starting");
          
@@ -531,7 +539,8 @@ private class cpu1Toggle extends AsyncTask<String, Void, Object> {
          return "";
      }
 
-     protected void onPostExecute(Object result) {
+     @Override
+	protected void onPostExecute(Object result) {
          // Pass the result data back to the main activity
     	 
          KernelTuner.this.data = result;
@@ -545,6 +554,7 @@ private class cpu1Toggle extends AsyncTask<String, Void, Object> {
 private class cpu2Toggle extends AsyncTask<String, Void, Object> {
 	
 	
+	@Override
 	protected Object doInBackground(String... args) {
          Log.i("MyApp", "Background thread starting");
          
@@ -616,7 +626,8 @@ private class cpu2Toggle extends AsyncTask<String, Void, Object> {
          return "";
      }
 
-     protected void onPostExecute(Object result) {
+     @Override
+	protected void onPostExecute(Object result) {
          // Pass the result data back to the main activity
     	 
          KernelTuner.this.data = result;
@@ -630,6 +641,7 @@ private class cpu2Toggle extends AsyncTask<String, Void, Object> {
 private class cpu3Toggle extends AsyncTask<String, Void, Object> {
 	
 	
+	@Override
 	protected Object doInBackground(String... args) {
          Log.i("MyApp", "Background thread starting");
          
@@ -701,7 +713,8 @@ private class cpu3Toggle extends AsyncTask<String, Void, Object> {
          return "";
      }
 
-     protected void onPostExecute(Object result) {
+     @Override
+	protected void onPostExecute(Object result) {
          // Pass the result data back to the main activity
     	 
          KernelTuner.this.data = result;
@@ -714,6 +727,7 @@ private class cpu3Toggle extends AsyncTask<String, Void, Object> {
 private class initdApplyCpuGpuMisc extends AsyncTask<String, Void, Object> {
 	
 	
+	@Override
 	protected Object doInBackground(String... args) {
          Log.i("MyApp", "Background thread starting");
 		
@@ -748,7 +762,8 @@ private class initdApplyCpuGpuMisc extends AsyncTask<String, Void, Object> {
          return "";
      }
 
-     protected void onPostExecute(Object result) {
+     @Override
+	protected void onPostExecute(Object result) {
          // Pass the result data back to the main activity
     	 
          KernelTuner.this.data = result;
@@ -764,6 +779,7 @@ private class initdApplyCpuGpuMisc extends AsyncTask<String, Void, Object> {
 private class rmInitd extends AsyncTask<String, Void, Object> {
 	
 	
+	@Override
 	protected Object doInBackground(String... args) {
          Log.i("MyApp", "Background thread starting");
 
@@ -794,7 +810,8 @@ private class rmInitd extends AsyncTask<String, Void, Object> {
          return "";
      }
 
-     protected void onPostExecute(Object result) {
+     @Override
+	protected void onPostExecute(Object result) {
          // Pass the result data back to the main activity
     	 
          KernelTuner.this.data = result;
@@ -807,6 +824,7 @@ private class rmInitd extends AsyncTask<String, Void, Object> {
 private class info extends AsyncTask<String, Void, Object> {
 	
 	
+	@Override
 	protected Object doInBackground(String... args) {
          Log.i("MyApp", "Background thread starting");
          try {
@@ -1729,7 +1747,8 @@ private class info extends AsyncTask<String, Void, Object> {
 return "";
     }
 
-    protected void onPostExecute(Object result) {
+    @Override
+	protected void onPostExecute(Object result) {
         // Pass the result data back to the main activity
     	TextView cpu0mintxt = (TextView)findViewById(R.id.textView11);
     	TextView cpu0mintxte = (TextView)findViewById(R.id.textView2);
@@ -2239,7 +2258,8 @@ new info().execute();
         alertDialog.setIcon(R.drawable.icon);
  
         alertDialog.setButton("OK", new DialogInterface.OnClickListener() {
-                public void onClick(DialogInterface dialog, int which) {
+                @Override
+				public void onClick(DialogInterface dialog, int which) {
               
                 }
         });
@@ -2276,7 +2296,8 @@ new info().execute();
         alertDialog.setIcon(R.drawable.icon);
  
         alertDialog.setButton("OK", new DialogInterface.OnClickListener() {
-                public void onClick(DialogInterface dialog, int which) {
+                @Override
+				public void onClick(DialogInterface dialog, int which) {
               
                 }
         });
@@ -2597,7 +2618,8 @@ AppWidget updateSmall = new AppWidget();
 
  public void download(){
 	 BroadcastReceiver onComplete=new BroadcastReceiver() {
-		    public void onReceive(Context ctxt, Intent intent) {
+		    @Override
+			public void onReceive(Context ctxt, Intent intent) {
 		        // Do Something
 		    	intent = new Intent(Intent.ACTION_VIEW);
 		        intent.setDataAndType(Uri.fromFile(new File(Environment.getExternalStorageDirectory() + "/download/" + "KernelTuner-" + remoteversion + ".apk")), "application/vnd.android.package-archive");

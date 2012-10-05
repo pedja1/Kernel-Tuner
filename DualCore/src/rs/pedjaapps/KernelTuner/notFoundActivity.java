@@ -2,15 +2,10 @@ package rs.pedjaapps.KernelTuner;
  
 import rs.pedjaapps.KernelTuner.R;
 import android.app.Activity;
-import android.app.TabActivity;
-import android.content.Intent;
 import android.content.SharedPreferences;
-import android.content.res.Resources;
 import android.os.Bundle;
 import android.preference.PreferenceManager;
-import android.widget.TabHost;
 import android.widget.TextView;
-import android.widget.TabHost.TabSpec;
  
 public class notFoundActivity extends Activity {
 	SharedPreferences sharedPrefs;

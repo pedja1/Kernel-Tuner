@@ -3,46 +3,27 @@ package rs.pedjaapps.KernelTuner;
 
 import java.io.BufferedReader;
 import java.io.DataInputStream;
-import java.io.File;
 import java.io.FileInputStream;
 import java.io.InputStreamReader;
-import java.text.SimpleDateFormat;
 import java.util.ArrayList;
-import java.util.Calendar;
-import java.util.HashMap;
 import java.util.List;
-import java.util.Map;
-import java.util.concurrent.TimeUnit;
-
 import rs.pedjaapps.KernelTuner.R;
 
-import android.annotation.SuppressLint;
-import android.app.Activity;
 import android.app.ListActivity;
 import android.content.Context;
 import android.content.SharedPreferences;
 
-import android.os.AsyncTask;
 import android.os.Bundle;
 import android.os.SystemClock;
 import android.preference.PreferenceManager;
 import android.util.Log;
-import android.view.GestureDetector;
 import android.view.LayoutInflater;
-import android.view.MotionEvent;
 import android.view.View;
 import android.view.ViewGroup;
-import android.view.GestureDetector.SimpleOnGestureListener;
 import android.view.View.OnClickListener;
-import android.widget.ArrayAdapter;
 import android.widget.BaseAdapter;
-import android.widget.LinearLayout;
-import android.widget.ListView;
 import android.widget.ProgressBar;
-import android.widget.RelativeLayout;
-import android.widget.SimpleAdapter;
 import android.widget.TextView;
-import android.widget.Toast;
 
 
 
@@ -339,22 +320,26 @@ public class cpuTimes extends ListActivity{
 		}
 
 
+		@Override
 		public int getCount() {
 		    return str1.length;
 		}
 
 
+		@Override
 		public Object getItem(int arg0) {
 		    return str1[arg0];
 		}
 
 
+		@Override
 		public long getItemId(int arg0) {
 		    return arg0;
 		}
 
 
 
+		@Override
 		public View getView(final int position, View convertView, ViewGroup parent) {
 
 		    if (convertView == null) {

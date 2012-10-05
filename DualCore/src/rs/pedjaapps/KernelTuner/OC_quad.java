@@ -9,44 +9,32 @@ import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.io.InputStream;
 import java.io.InputStreamReader;
-import java.text.DateFormat;
 import java.util.ArrayList;
-import java.util.Date;
-import java.util.GregorianCalendar;
 import java.util.List;
-import java.util.concurrent.TimeoutException;
-
 import rs.pedjaapps.KernelTuner.R;
 
 
 
-import android.annotation.SuppressLint;
 import android.app.Activity;
 import android.app.AlertDialog;
 import android.app.ProgressDialog;
 import android.content.Context;
 import android.content.DialogInterface;
-import android.content.Intent;
 import android.content.SharedPreferences;
-import android.graphics.Color;
 import android.os.AsyncTask;
 import android.os.Bundle;
 import android.preference.PreferenceManager;
 import android.text.InputType;
 import android.util.Log;
 import android.view.Gravity;
-import android.view.KeyEvent;
 import android.view.LayoutInflater;
 import android.view.Menu;
-import android.view.MenuInflater;
 import android.view.MenuItem;
 import android.view.View;
 import android.view.View.OnClickListener;
 import android.view.ViewGroup;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
-import android.widget.Button;
-import android.widget.ImageView;
 import android.widget.ListView;
 import android.widget.Spinner;
 import android.widget.TextView;
@@ -109,6 +97,7 @@ public String curfile;
 	private class cpu1Toggle extends AsyncTask<String, Void, Object> {
 
 
+		@Override
 		protected Object doInBackground(String... args) {
 			Log.i("MyApp", "Background thread starting");
 
@@ -179,6 +168,7 @@ public String curfile;
 
 		
 		
+		@Override
 		protected void onPostExecute(Object result) {
 			// Pass the result data back to the main activity
 
@@ -193,6 +183,7 @@ public String curfile;
 	private class cpu2Toggle extends AsyncTask<String, Void, Object> {
 
 
+		@Override
 		protected Object doInBackground(String... args) {
 			Log.i("MyApp", "Background thread starting");
 
@@ -263,6 +254,7 @@ public String curfile;
 
 		
 		
+		@Override
 		protected void onPostExecute(Object result) {
 			// Pass the result data back to the main activity
 
@@ -277,6 +269,7 @@ public String curfile;
 	private class cpu3Toggle extends AsyncTask<String, Void, Object> {
 
 
+		@Override
 		protected Object doInBackground(String... args) {
 			Log.i("MyApp", "Background thread starting");
 
@@ -347,6 +340,7 @@ public String curfile;
 
 		
 		
+		@Override
 		protected void onPostExecute(Object result) {
 			// Pass the result data back to the main activity
 
@@ -361,6 +355,7 @@ public String curfile;
 	private class applygovsettings extends AsyncTask<String, Void, Object> {
 
 
+		@Override
 		protected Object doInBackground(String... args) {
 			Log.i("MyApp", "Background thread starting");
 
@@ -399,6 +394,7 @@ public String curfile;
 
 		
 		
+		@Override
 		protected void onPostExecute(Object result) {
 			// Pass the result data back to the main activity
 			getNewsEntries();
@@ -420,7 +416,8 @@ public String curfile;
 	
     private class readFreqs extends AsyncTask<String, Void, Object> {
     	  	
-    	protected Object doInBackground(String... args) {
+    	@Override
+		protected Object doInBackground(String... args) {
              Log.i("MyApp", "Background thread starting");
              
              String aBuffer = "";
@@ -447,7 +444,8 @@ public String curfile;
              return aBuffer;
          }
 
-         protected void onPostExecute(Object result) {
+         @Override
+		protected void onPostExecute(Object result) {
              // Pass the result data back to the main activity       	 
              OC_quad.this.data = result;             
          }    	
@@ -457,6 +455,7 @@ public String curfile;
 
 private class readFreqsAlt extends AsyncTask<String, Void, Object> {
   	
+	@Override
 	protected Object doInBackground(String... args) {
          Log.i("MyApp", "Background thread starting");
          
@@ -499,7 +498,8 @@ private class readFreqsAlt extends AsyncTask<String, Void, Object> {
          return "";
      }
 
-     protected void onPostExecute(Object result) {
+     @Override
+	protected void onPostExecute(Object result) {
          // Pass the result data back to the main activity       	 
          OC_quad.this.data = result;             
      }    	
@@ -509,7 +509,8 @@ private class readFreqsAlt extends AsyncTask<String, Void, Object> {
     
     private class spinnerMaxCpu0 extends AsyncTask<String, Void, Object> {
     	
-        protected Object doInBackground(String... args) {
+        @Override
+		protected Object doInBackground(String... args) {
             Log.i("MyApp", "Background thread starting");
 
             // This is where you would do all the work of downloading your data            
@@ -535,7 +536,8 @@ private class readFreqsAlt extends AsyncTask<String, Void, Object> {
             return "replace this with your data object";
         }
 
-        protected void onPostExecute(Object result) {
+        @Override
+		protected void onPostExecute(Object result) {
             // Pass the result data back to the main activity
        	 spinnermaxcpu0();
             OC_quad.this.data = result;
@@ -545,7 +547,8 @@ private class readFreqsAlt extends AsyncTask<String, Void, Object> {
     
 private class spinnerMaxCpu1 extends AsyncTask<String, Void, Object> {
 	String aBuffer = "";
-        protected Object doInBackground(String... args) {
+        @Override
+		protected Object doInBackground(String... args) {
             Log.i("MyApp", "Background thread starting");
             try {
     			
@@ -569,7 +572,8 @@ private class spinnerMaxCpu1 extends AsyncTask<String, Void, Object> {
             return aBuffer;
         }
 
-        protected void onPostExecute(Object result) {
+        @Override
+		protected void onPostExecute(Object result) {
             // Pass the result data back to the main activity
         	if(result!=""){
         		spinnermaxcpu1();
@@ -590,7 +594,8 @@ private class spinnerMaxCpu1 extends AsyncTask<String, Void, Object> {
     
     private class spinnerMinCpu0 extends AsyncTask<String, Void, Object> {
     	
-        protected Object doInBackground(String... args) {
+        @Override
+		protected Object doInBackground(String... args) {
             Log.i("MyApp", "Background thread starting");
 
             // This is where you would do all the work of downloading your data            
@@ -616,7 +621,8 @@ try {
             return "replace this with your data object";
         }
 
-        protected void onPostExecute(Object result) {
+        @Override
+		protected void onPostExecute(Object result) {
             // Pass the result data back to the main activity
         	spinnermincpu0();
             OC_quad.this.data = result;
@@ -626,7 +632,8 @@ try {
     
 private class spinnerMinCpu1 extends AsyncTask<String, Void, Object> {
 	String aBuffer = "";
-        protected Object doInBackground(String... args) {
+        @Override
+		protected Object doInBackground(String... args) {
             Log.i("MyApp", "Background thread starting");
  
             try {
@@ -651,7 +658,8 @@ private class spinnerMinCpu1 extends AsyncTask<String, Void, Object> {
             return aBuffer;
         }
 
-        protected void onPostExecute(Object result) {
+        @Override
+		protected void onPostExecute(Object result) {
             // Pass the result data back to the main activity
         	if(result!=""){
         		spinnermincpu1();
@@ -667,7 +675,8 @@ private class spinnerMinCpu1 extends AsyncTask<String, Void, Object> {
     	   
 private class spinnerMaxCpu2 extends AsyncTask<String, Void, Object> {
 	
-    protected Object doInBackground(String... args) {
+    @Override
+	protected Object doInBackground(String... args) {
         Log.i("MyApp", "Background thread starting");
 
         // This is where you would do all the work of downloading your data            
@@ -693,7 +702,8 @@ private class spinnerMaxCpu2 extends AsyncTask<String, Void, Object> {
         return "replace this with your data object";
     }
 
-    protected void onPostExecute(Object result) {
+    @Override
+	protected void onPostExecute(Object result) {
         // Pass the result data back to the main activity
    	 spinnermaxcpu2();
         OC_quad.this.data = result;
@@ -703,7 +713,8 @@ private class spinnerMaxCpu2 extends AsyncTask<String, Void, Object> {
 
 private class spinnerMaxCpu3 extends AsyncTask<String, Void, Object> {
 String aBuffer = "";
-    protected Object doInBackground(String... args) {
+    @Override
+	protected Object doInBackground(String... args) {
         Log.i("MyApp", "Background thread starting");
         try {
 			
@@ -727,7 +738,8 @@ String aBuffer = "";
         return aBuffer;
     }
 
-    protected void onPostExecute(Object result) {
+    @Override
+	protected void onPostExecute(Object result) {
         // Pass the result data back to the main activity
     	if(result!=""){
     		spinnermaxcpu3();
@@ -748,7 +760,8 @@ String aBuffer = "";
 
 private class spinnerMinCpu2 extends AsyncTask<String, Void, Object> {
 	
-    protected Object doInBackground(String... args) {
+    @Override
+	protected Object doInBackground(String... args) {
         Log.i("MyApp", "Background thread starting");
 
         // This is where you would do all the work of downloading your data            
@@ -774,7 +787,8 @@ try {
         return "replace this with your data object";
     }
 
-    protected void onPostExecute(Object result) {
+    @Override
+	protected void onPostExecute(Object result) {
         // Pass the result data back to the main activity
     	spinnermincpu2();
         OC_quad.this.data = result;
@@ -784,7 +798,8 @@ try {
 
 private class spinnerMinCpu3 extends AsyncTask<String, Void, Object> {
 String aBuffer = "";
-    protected Object doInBackground(String... args) {
+    @Override
+	protected Object doInBackground(String... args) {
         Log.i("MyApp", "Background thread starting");
 
         try {
@@ -809,7 +824,8 @@ String aBuffer = "";
         return aBuffer;
     }
 
-    protected void onPostExecute(Object result) {
+    @Override
+	protected void onPostExecute(Object result) {
         // Pass the result data back to the main activity
     	if(result!=""){
     		spinnermincpu3();
@@ -825,7 +841,8 @@ String aBuffer = "";
 
     	private class readGovernors extends AsyncTask<String, Void, Object> {
     		String aBuffer = "";
-            protected Object doInBackground(String... args) {
+            @Override
+			protected Object doInBackground(String... args) {
                 Log.i("MyApp", "Background thread starting");
 
                 // This is where you would do all the work of downloading your data              
@@ -851,7 +868,8 @@ String aBuffer = "";
                return aBuffer;
             }
 
-            protected void onPostExecute(Object result) {
+            @Override
+			protected void onPostExecute(Object result) {
                 // Pass the result data back to the main activity            	
                OC_quad.this.data = result;
                
@@ -863,7 +881,8 @@ String aBuffer = "";
 
     	private class govspinnercpu0 extends AsyncTask<String, Void, Object> {
     		String aBuffer = "";
-            protected Object doInBackground(String... args) {
+            @Override
+			protected Object doInBackground(String... args) {
                 Log.i("MyApp", "Background thread starting");
 
                 // This is where you would do all the work of downloading your data               
@@ -889,7 +908,8 @@ String aBuffer = "";
                 return aBuffer;
             }
 
-            protected void onPostExecute(Object result) {
+            @Override
+			protected void onPostExecute(Object result) {
                 // Pass the result data back to the main activity
             	createspinnerforcpu0();
                 OC_quad.this.data = result;
@@ -900,7 +920,8 @@ String aBuffer = "";
     	
     	private class govspinnercpu1 extends AsyncTask<String, Void, Object> {
     		String aBuffer = "";
-            protected Object doInBackground(String... args) {
+            @Override
+			protected Object doInBackground(String... args) {
                 Log.i("MyApp", "Background thread starting");
 
                 // This is where you would do all the work of downloading your data
@@ -927,7 +948,8 @@ String aBuffer = "";
                 return aBuffer;
             }
 
-            protected void onPostExecute(Object result) {
+            @Override
+			protected void onPostExecute(Object result) {
             	
                 // Pass the result data back to the main activity
             	if (result!=""){
@@ -945,7 +967,8 @@ String aBuffer = "";
     	
     	private class govspinnercpu2 extends AsyncTask<String, Void, Object> {
     		String aBuffer = "";
-            protected Object doInBackground(String... args) {
+            @Override
+			protected Object doInBackground(String... args) {
                 Log.i("MyApp", "Background thread starting");
 
                 // This is where you would do all the work of downloading your data               
@@ -971,7 +994,8 @@ String aBuffer = "";
                 return aBuffer;
             }
 
-            protected void onPostExecute(Object result) {
+            @Override
+			protected void onPostExecute(Object result) {
                 // Pass the result data back to the main activity
             	createspinnerforcpu2();
                 OC_quad.this.data = result;
@@ -982,7 +1006,8 @@ String aBuffer = "";
     	
     	private class govspinnercpu3 extends AsyncTask<String, Void, Object> {
     		String aBuffer = "";
-            protected Object doInBackground(String... args) {
+            @Override
+			protected Object doInBackground(String... args) {
                 Log.i("MyApp", "Background thread starting");
 
                 // This is where you would do all the work of downloading your data
@@ -1009,7 +1034,8 @@ String aBuffer = "";
                 return aBuffer;
             }
 
-            protected void onPostExecute(Object result) {
+            @Override
+			protected void onPostExecute(Object result) {
             	
                 // Pass the result data back to the main activity
             	if (result!=""){
@@ -1027,7 +1053,8 @@ String aBuffer = "";
     	
     	private class apply extends AsyncTask<String, Void, Object> {
     		String aBuffer = "";
-            protected Object doInBackground(String... args) {
+            @Override
+			protected Object doInBackground(String... args) {
                 Log.i("MyApp", "Background thread starting");
                 Process localProcess;
           		try {
@@ -1148,7 +1175,8 @@ String aBuffer = "";
                 return aBuffer;
             }
 
-            protected void onPostExecute(Object result) {
+            @Override
+			protected void onPostExecute(Object result) {
             	setprefs();
            	
                 OC_quad.this.data = result;
@@ -1268,7 +1296,8 @@ String aBuffer = "";
 
 	// Setting OK Button
 	alertDialog.setButton("OK", new DialogInterface.OnClickListener() {
-	    public void onClick(DialogInterface dialog, int which) {
+	    @Override
+		public void onClick(DialogInterface dialog, int which) {
 	    // Write your code here to execute after dialog closed
 	    	finish();
 	    }
