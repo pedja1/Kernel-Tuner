@@ -8,10 +8,26 @@
 <color name="orange">#f8a70c</color>
 <color name="black">#00000000</color>
 
-<string name="preferences_widget_settings">Widget Settings</string>
+
 <string name="preferences_boot_settings">Boot Settings</string>
 <string name="preferences_boot_settings_apply_summary">Setings will be restored after reboot</string>
 <string name="preferences_boot_settings_apply_title">Restore settings on boot</string>
+
+<string name="preferences_widget_settings">Widget Settings</string>
+<string name="preferences_widget_settings_interval_title">Widget Update Interval(seconds)</string>
+<string name="preferences_widget_settings_interval_summary">Setting to low values will cause your battery to drain faster</string>
+
+<string name="preferences_misc">Misc</string>
+<string name="preferences_misc_cpu_info_title">CPU Info Override</string>
+<string name="preferences_misc_cpu_info_summary">Use if CPU progress isn\&apos;t shown correctly</string>
+<string name="preferences_misc_ads_title">Show ads on main screen</string>
+<string name="preferences_misc_ads_summary">You need to restart app to stop showing ads</string>
+<string name="preferences_misc_temp_title">Temperature in Fahrenheit</string>
+<string name="preferences_misc_temp_summary">Display temperature of CPU and battery in Fahrenheit</string>
+
+<string name="preferences_ui">UI</string>
+<string name="preferences_ui_theme_title">Application Theme</string>
+<string name="preferences_ui_theme_summary">Theme for application interface</string>
 
 
 	<string name="activity_title_preferences">Preferences</string>

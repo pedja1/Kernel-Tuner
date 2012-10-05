@@ -8,10 +8,26 @@
 <color name="orange">#f8a70c</color>
 <color name="black">#00000000</color>
 
-<string name="preferences_widget_settings">Podesavanja Vidžeta</string>
+
 <string name="preferences_boot_settings">Boot Settings</string>
 <string name="preferences_boot_settings_apply_summary">Setings will be restored after reboot</string>
 <string name="preferences_boot_settings_apply_title">Restore settings on boot</string>
+
+<string name="preferences_widget_settings">Podešavanja Vidžeta</string>
+<string name="preferences_widget_settings_interval_title">Widget Update Interval(seconds)</string>
+<string name="preferences_widget_settings_interval_summary">Setting to low values will cause your battery to drain faster</string>
+
+<string name="preferences_misc">Ostalo</string>
+<string name="preferences_misc_cpu_info_title">CPU Info Override</string>
+<string name="preferences_misc_cpu_info_summary">Use if CPU progress isn\&apos;t shown correctly</string>
+<string name="preferences_misc_ads_title">Prokazuj reklame na početno ekranu</string>
+<string name="preferences_misc_ads_summary">Morate ponovo pokrenuti aplikaciju da bi uklonili reklame</string>
+<string name="preferences_misc_temp_title">Temperature in Fahrenheit</string>
+<string name="preferences_misc_temp_summary">Display temperature of CPU and battery in Fahrenheit</string>
+
+<string name="preferences_ui">Interfejs</string>
+<string name="preferences_ui_theme_title">Application Theme</string>
+<string name="preferences_ui_theme_summary">Theme for application interface</string>
 
 
 	<string name="activity_title_preferences">Podešavanja</string>
@@ -62,10 +78,10 @@
 	<string name="activity_main_gpu_tweaks">GPU Tweaks</string>
 	<string name="activity_main_misc_tweaks">Misc Tweaks</string>
 	<string name="activity_main_anthrax_tweaks">Anthrax Tweaks</string>
-	<string name="activity_main_cpu_temp_">Temperatura Procesora</string>
+	<string name="activity_main_cpu_temp_">Temp. Procesora</string>
 	<string name="activity_main_n_a">n/a</string>
-	<string name="activity_main__battery_temp_">Temperatura Baterije</string>
-	<string name="activity_main__battery_level_">Nivo Baterije:</string>
+	<string name="activity_main__battery_temp_">Temp. Baterije</string>
+	<string name="activity_main__battery_level_">Baterija:</string>
 	<string name="cpu0">Procesor 0</string>
 	<string name="cpu1">Procesor 1</string>
 	<string name="activity_main_offline">isključen</string>

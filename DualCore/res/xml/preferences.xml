@@ -14,54 +14,40 @@
         <EditTextPreference
             android:defaultValue="1800"
             android:key="widget_time"
-            android:summary="Setting to low values will cause your battery to drain faster"
-            android:title="Widget Update Interval(seconds)" />
+            android:summary="@string/preferences_widget_settings_interval_summary"
+            android:title="@string/preferences_widget_settings_interval_title" />
     </PreferenceCategory>
-    <PreferenceCategory android:title="Misc" >
+    <PreferenceCategory android:title="@string/preferences_misc" >
         <CheckBoxPreference
             android:key="override"
-            android:summary="Use if CPU progress isn\&apos;t shown correctly"
-            android:title="CPU Info Override" />
-    </PreferenceCategory>
-    <PreferenceCategory android:title="Ads" >
+            android:summary="@string/preferences_misc_cpu_info_summary"
+            android:title="@string/preferences_misc_cpu_info_title" />
         <CheckBoxPreference
             android:defaultValue="true"
             android:key="ads"
-            android:summary="You need to restart app to stop showing ads"
-            android:title="Show ads on main screen" />
-    </PreferenceCategory>
-<PreferenceCategory android:title="Temperature" >
+            android:summary="@string/preferences_misc_ads_summary"
+            android:title="@string/preferences_misc_ads_title" />
+  
         <CheckBoxPreference
             android:defaultValue="false"
             android:key="temp"
-            android:summary="Display temperature of CPU and battery in Fahrenheit"
-            android:title="Temperature in Fahrenheit" />
-        <!--  <CheckBoxPreference
-            android:defaultValue="false"
-            android:key="tempmon"
-            android:summary="Warn me when temperature goes to high"
-            android:title="Temperature Monitor" />
-        <ListPreference
-            android:entries="@array/tempCheckOptionList"
-            android:entryValues="@array/tempCheckListValues"
-            android:key="cpuTempInterval"
-            android:summary="How often to check CPU temperature"
-            android:title="Temperature Check Interval" android:defaultValue="180000"/>-->
-    </PreferenceCategory>
-    <PreferenceCategory android:title="Themes" >
+            android:summary="@string/preferences_misc_temp_summary"
+            android:title="@string/preferences_misc_temp_title" />
+         </PreferenceCategory>
+    <PreferenceCategory android:title="@string/preferences_ui" >
       
 			
-		<PreferenceScreen
+		<!--  <PreferenceScreen
             
             android:key="ui"
             android:summary="Change how parts of UI looks like"
-            android:title="Look and Feal" >
+            android:title="Look and Feal" >-->
 			<ListPreference
 				android:entries="@array/themeTitles"
 				android:entryValues="@array/themeValues"
 				android:key="theme"
-				android:summary="Theme for application interface"
-				android:title="Application Theme" android:defaultValue="system"/>
+				android:summary="@string/preferences_ui_theme_summary"
+				android:title="@string/preferences_ui_theme_title" android:defaultValue="system"/>
 			
         <!--   <yuku.ambilwarna.widget.AmbilWarnaPreference
                 android:key="title_background"
@@ -75,7 +61,7 @@
                 android:title="Page Title Text Color" 
                 
                 />-->
-	</PreferenceScreen>
+	<!--  </PreferenceScreen>-->
     
     </PreferenceCategory>
     
