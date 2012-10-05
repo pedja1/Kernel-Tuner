@@ -149,15 +149,15 @@ public class UpdateCheckService extends Service
 			}
 			
 	        if (remoteversion!= null && !remoteversion.equals(version)){
-	        	download();
+	        	notif();
 			
 			
 			}
 			else if(remoteversion==null){
-				Toast.makeText(getApplicationContext(), "Problem connecting to server", Toast.LENGTH_LONG).show();
+				//Toast.makeText(getApplicationContext(), "Problem connecting to server", Toast.LENGTH_LONG).show();
 			}
 	        else{
-	        	Toast.makeText(getApplicationContext(), "You have the latest version", Toast.LENGTH_LONG).show();
+	        	//Toast.makeText(getApplicationContext(), "You have the latest version", Toast.LENGTH_LONG).show();
 	        }
 
 
@@ -202,7 +202,29 @@ public class UpdateCheckService extends Service
 		super.onDestroy();
 	}
 
-	public void download(){
+	public void notif(){
+		String ns = Context.NOTIFICATION_SERVICE;
+		  NotificationManager mNotificationManager = (NotificationManager) getSystemService(ns);
+		  int icon = R.drawable.icon;
+		  CharSequence tickerText = "Update Available";
+		  long when = System.currentTimeMillis();
+
+		  Notification notification = new Notification(icon, tickerText, when);
+		  notification.flags |= Notification.FLAG_AUTO_CANCEL;
+		  Context context = getApplicationContext();
+		  CharSequence contentTitle = "Update Avalable";
+		  CharSequence contentText = "Kernel Tuner " + remoteversion;
+		  Intent notificationIntent = new Intent(this, KernelTuner.class);
+		  PendingIntent contentIntent = PendingIntent.getActivity(this, 0, notificationIntent, android.content.Intent.FLAG_ACTIVITY_NEW_TASK);
+
+		  notification.setLatestEventInfo(context, contentTitle, contentText, contentIntent);
+		  
+		  final int HELLO_ID = 1;
+
+		  mNotificationManager.notify(HELLO_ID, notification);
+	}
+	
+	/*public void download(){
 		 BroadcastReceiver onComplete=new BroadcastReceiver() {
 			    public void onReceive(Context ctxt, Intent intent) {
 			        // Do Something
@@ -237,7 +259,7 @@ public class UpdateCheckService extends Service
 	//get download service and enqueue file
 		System.out.println(request);
 	}
-	
+	*/
 	
 
 	
