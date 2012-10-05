@@ -8,35 +8,36 @@
 <color name="orange">#f8a70c</color>
 <color name="black">#00000000</color>
 
-<string name="preferences_widget_settings">Widget Settings</string>
+<string name="preferences_widget_settings">Podesavanja Vidžeta</string>
 <string name="preferences_boot_settings">Boot Settings</string>
 <string name="preferences_boot_settings_apply_summary">Setings will be restored after reboot</string>
 <string name="preferences_boot_settings_apply_title">Restore settings on boot</string>
 
 
-	<string name="activity_title_preferences">Preferences</string>
-	<string name="activity_title_cpu">CPU Tweaks</string>
+	<string name="activity_title_preferences">Podešavanja</string>
+	<string name="activity_title_cpu">Podečavanja Procesora</string>
 	<string name="activity_title_gpu">GPU Tweaks</string>
-	<string name="activity_title_misc">Misc Tweaks</string>
+	<string name="activity_title_misc">Ostala Podečavanja</string>
 	<string name="activity_title_times">Times in State</string>
 	<string name="activity_title_voltage">Voltage</string>
 	<string name="activity_title_mpdecision">Mpdecision</string>
 	<string name="activity_title_thermald">Thermald</string>
-	<string name="activity_title_about">About</string>
+	<string name="activity_title_about">O Aplikaciji</string>
 	<string name="activity_title_changelog">Changelog</string>
 	<string name="activity_title_anthrax">Anthrax Tweaks</string>
 	<string name="activity_title_check">Compatibility Check</string>
-	<string name="activity_title_profiles">Profiles</string>
+	<string name="activity_title_profiles">Profili</string>
 	<string name="activity_title_profile_editor">Profile Editor</string>
+
 	<string name="anthrax"><a href="http://anthrax-kernels.us/forum/showthread.php?t=574">anthrax-kernels.us</a></string>
 	<string name="xda"><a href="http://forum.xda-developers.com/showthread.php?t=1719934">xda-developers.com</a></string>
 	<string name="official"><a href="http://kerneltuner.co.cc/">Official Website</a></string>
 	<color name="green">#00ff00</color>
 	<string name="copyright_cokulov_predrag_2012">Copyright © Čokulov Predrag 2012</string>
-	<string name="about_faq_and_support">FAQ and Support:</string>
+	<string name="about_faq_and_support">ČPP i Podrska:</string>
 	<string name="activity_anthrax_button_thermald">thermald</string>
 	<string name="activity_anthrax_button_mpdecision">mpdecision</string>
-	<string name="activity_anthrax_button_other">Other</string>
+	<string name="activity_anthrax_button_other">Drugo</string>
 	<string name="activity_check_scaling_available_frequencies">scaling_available_frequencies...</string>
 	<string name="activity_check_undervolting_">Undervolting...</string>
 	<string name="activity_check_time_in_state_">Time in State...</string>
@@ -55,21 +56,21 @@
 	<string name="activity_check_io_scheduler_">IO Scheduler...</string>
 	<string name="activity_check_your_device_is_">"Your device is "</string>
 	<string name="activity_check_compatible_">" compatible!"</string>
-	<string name="activity_check_button_ok">OK</string>
+	<string name="activity_check_button_ok">Uredu</string>
 	<string name="activity_main_times_in_state">Times in State</string>
 	<string name="activity_main_voltage">Voltage</string>
 	<string name="activity_main_gpu_tweaks">GPU Tweaks</string>
 	<string name="activity_main_misc_tweaks">Misc Tweaks</string>
 	<string name="activity_main_anthrax_tweaks">Anthrax Tweaks</string>
-	<string name="activity_main_cpu_temp_">CPU Temp:</string>
+	<string name="activity_main_cpu_temp_">Temperatura Procesora</string>
 	<string name="activity_main_n_a">n/a</string>
-	<string name="activity_main__battery_temp_">" Battery Temp:"</string>
-	<string name="activity_main__battery_level_">" Battery Level:"</string>
-	<string name="cpu0">CPU0</string>
-	<string name="cpu1">CPU1</string>
-	<string name="activity_main_offline">offline</string>
-	<string name="cpu2">CPU2</string>
-	<string name="cpu3">CPU3</string>
+	<string name="activity_main__battery_temp_">Temperatura Baterije</string>
+	<string name="activity_main__battery_level_">Nivo Baterije:</string>
+	<string name="cpu0">Procesor 0</string>
+	<string name="cpu1">Procesor 1</string>
+	<string name="activity_main_offline">isključen</string>
+	<string name="cpu2">Procesor 2</string>
+	<string name="cpu3">Procesor 3</string>
 	<string name="info_">Info:</string>
 	<string name="cpu0_min_freq_">CPU0 min freq:</string>
 	<string name="cpu0_max_freq_">CPU0 max freq:</string>
@@ -104,26 +105,25 @@
 	<string name="activity_gpu_current_3d_frequency_">Current 3D frequency:</string>
 	<string name="activity_gpu_n_a">n/a</string>
 	<string name="activity_gpu_current_2d_frequency_">Current 2D frequency:</string>
-	<string name="cancel">Cancel</string>
-	
+	<string name="cancel">Otkaži</string>
 	<string name="plus">+</string>
 	<string name="activity_misc_soft_buttons_backlight">Capacitive Buttons Backlight</string>
 	<string name="fastcharge">Fastcharge</string>
 	<string name="enable_disable_fastcharge_mod">Enable/Disable Fastcharge Mod</string>
 	<string name="vsync">Vsync:</string>
-	<string name="enable_disable_vsync">Enable/Disable Vsync</string>
+	<string name="enable_disable_vsync">Uključi/Isključi Vsync</string>
 	<string name="question_mark">\\?</string>
 	<string name="color_depth">Color Depth</string>
 	<string name="io_scheduler_">IO Scheduler:</string>
 	<string name="sd_cache_size_">SD Cache Size:</string>
 	<string name="led_notofications_timeout">LED Notofications Timeout</string>
-	<string name="unlimited">Unlimited</string>
+	<string name="unlimited">Neograniceno</string>
 	<string name="application_default">Application Default</string>
 	<string name="app_default_custom_multiplier">App default * custom multiplier</string>
 	<string name="sweep2wake_">Sweep2Wake:</string>
 	<string name="s2w_start_button_">S2W Start Button;</string>
 	<string name="s2w_end_button_">S2W End Button:</string>
-	<string name="apply">Apply</string>
+	<string name="apply">Primeni</string>
 	<string name="mpdecision">mpdecision</string>
 	<string name="service_start_delay_">Service start delay:</string>
 	<string name="sleep_time_">Sleep time:</string>
@@ -134,13 +134,13 @@
 	<string name="max">max</string>
 	<string name="min">min</string>
 	<string name="cpu0_governor_settings_">CPU0 Governor settings:</string>
-	<string name="profile_name">Profile Name</string>
+	<string name="profile_name">Ime Profila</string>
 	<string name="number_of_active_cores_">Number of active Cores:</string>
 	<string name="mpdecision_threshold_up_">mpdecision threshold up:</string>
 	<string name="mpdecision_threshold_down_">mpdecision threshold down:</string>
-	<string name="done">Done</string>
-	<string name="profile_">Profile:</string>
-	<string name="create_profile_from_current_settings">Create profile from current settings</string>
+	<string name="done">Uradjeno</string>
+	<string name="profile_">Profil:</string>
+	<string name="create_profile_from_current_settings">Napravi profil od trenutnih postavki</string>
 	<string name="phase1_low">Phase1-Low</string>
 	<string name="max_frequency_">Max Frequency:</string>
 	<string name="low_range_temperature_">Low range temperature:</string>

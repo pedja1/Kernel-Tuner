@@ -2,15 +2,15 @@
 <PreferenceScreen xmlns:android="http://schemas.android.com/apk/res/android"
     android:icon="@drawable/dual_on" >
 
-    <PreferenceCategory android:title="Boot Settings" >
+    <PreferenceCategory android:title="@string/preferences_boot_settings" >
         <ListPreference
             android:entries="@array/listDisplayWord"
             android:entryValues="@array/listReturnValue"
             android:key="boot2"
-            android:summary="Setings will be restored after reboot"
-            android:title="Apply Settings on boot" android:defaultValue="disable"/>
+            android:summary="@string/preferences_boot_settings_apply_summary"
+            android:title="@string/preferences_boot_settings_apply_title" android:defaultValue="disable"/>
     </PreferenceCategory>
-    <PreferenceCategory android:title="Widget Settings" >
+    <PreferenceCategory android:title="@string/preferences_widget_settings" >
         <EditTextPreference
             android:defaultValue="1800"
             android:key="widget_time"
