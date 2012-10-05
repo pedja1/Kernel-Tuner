@@ -54,10 +54,10 @@ public class check extends Activity {
 			// Random randomGenerator = new Random();
 
 			// int randomInt = randomGenerator.nextInt(16);
-			int rand = 100 + (int) (Math.random() * ((1000 - 100) + 1));
+			//int rand = 100 + (int) (Math.random() * ((1000 - 100) + 1));
 
 			//int progress = 0;
-			SystemClock.sleep(rand);
+			//SystemClock.sleep(rand);
 			try {
 
 				File myFile = new File(
@@ -71,8 +71,8 @@ public class check extends Activity {
 			}
 
 			publishProgress(3);
-			rand = 100 + (int) (Math.random() * ((1000 - 100) + 1));
-			SystemClock.sleep(rand);
+			//rand = 100 + (int) (Math.random() * ((1000 - 100) + 1));
+			//SystemClock.sleep(rand);
 			try {
 
 				File myFile = new File(
@@ -85,8 +85,8 @@ public class check extends Activity {
 				uv = false;
 			}
 			publishProgress(4);
-			rand = 100 + (int) (Math.random() * ((1000 - 100) + 1));
-			SystemClock.sleep(rand);
+			//rand = 100 + (int) (Math.random() * ((1000 - 100) + 1));
+			//SystemClock.sleep(rand);
 			try {
 
 				File myFile = new File(
@@ -99,8 +99,8 @@ public class check extends Activity {
 				tis = false;
 			}
 			publishProgress(5);
-			rand = 100 + (int) (Math.random() * ((1000 - 100) + 1));
-			SystemClock.sleep(rand);
+			//rand = 100 + (int) (Math.random() * ((1000 - 100) + 1));
+			//SystemClock.sleep(rand);
 			try {
 
 				File myFile = new File(
@@ -113,8 +113,8 @@ public class check extends Activity {
 				lt = false;
 			}
 			publishProgress(6);
-			rand = 100 + (int) (Math.random() * ((1000 - 100) + 1));
-			SystemClock.sleep(rand);
+			//rand = 100 + (int) (Math.random() * ((1000 - 100) + 1));
+			//SystemClock.sleep(rand);
 			try {
 
 				File myFile = new File(
@@ -127,8 +127,8 @@ public class check extends Activity {
 				bl = false;
 			}
 			publishProgress(7);
-			rand = 100 + (int) (Math.random() * ((1000 - 100) + 1));
-			SystemClock.sleep(rand);
+			//rand = 100 + (int) (Math.random() * ((1000 - 100) + 1));
+			//SystemClock.sleep(rand);
 			try {
 
 				File myFile = new File(
@@ -143,8 +143,8 @@ public class check extends Activity {
 				g3d = false;
 			}
 			publishProgress(8);
-			rand = 100 + (int) (Math.random() * ((1000 - 100) + 1));
-			SystemClock.sleep(rand);
+			//rand = 100 + (int) (Math.random() * ((1000 - 100) + 1));
+			//SystemClock.sleep(rand);
 			try {
 
 				File myFile = new File(
@@ -157,8 +157,8 @@ public class check extends Activity {
 				g2d = false;
 			}
 			publishProgress(9);
-			rand = 100 + (int) (Math.random() * ((1000 - 100) + 1));
-			SystemClock.sleep(rand);
+			//rand = 100 + (int) (Math.random() * ((1000 - 100) + 1));
+			//SystemClock.sleep(rand);
 			try {
 
 				File myFile = new File(
@@ -172,8 +172,8 @@ public class check extends Activity {
 				fc = false;
 			}
 			publishProgress(10);
-			rand = 100 + (int) (Math.random() * ((1000 - 100) + 1));
-			SystemClock.sleep(rand);
+			//rand = 100 + (int) (Math.random() * ((1000 - 100) + 1));
+			//SystemClock.sleep(rand);
 			try {
 
 				File myFile = new File(
@@ -186,8 +186,8 @@ public class check extends Activity {
 				vs = false;
 			}
 			publishProgress(11);
-			rand = 100 + (int) (Math.random() * ((1000 - 100) + 1));
-			SystemClock.sleep(rand);
+			//rand = 100 + (int) (Math.random() * ((1000 - 100) + 1));
+			//SystemClock.sleep(rand);
 
 			try {
 
@@ -202,8 +202,8 @@ public class check extends Activity {
 
 			}
 			publishProgress(12);
-			rand = 100 + (int) (Math.random() * ((1000 - 100) + 1));
-			SystemClock.sleep(rand);
+			//rand = 100 + (int) (Math.random() * ((1000 - 100) + 1));
+			//SystemClock.sleep(rand);
 			try {
 
 				File myFile = new File(
@@ -215,8 +215,8 @@ public class check extends Activity {
 				fs = false;
 			}
 			publishProgress(13);
-			rand = 100 + (int) (Math.random() * ((1000 - 100) + 1));
-			SystemClock.sleep(rand);
+			//rand = 100 + (int) (Math.random() * ((1000 - 100) + 1));
+			//SystemClock.sleep(rand);
 			try {
 
 				File myFile = new File("/sys/android_touch/sweep2wake");
@@ -228,8 +228,8 @@ public class check extends Activity {
 				s2w = false;
 			}
 			publishProgress(14);
-			rand = 100 + (int) (Math.random() * ((1000 - 100) + 1));
-			SystemClock.sleep(rand);
+			//rand = 100 + (int) (Math.random() * ((1000 - 100) + 1));
+			//SystemClock.sleep(rand);
 			try {
 
 				File myFile = new File(
@@ -243,8 +243,8 @@ public class check extends Activity {
 				td = false;
 			}
 			publishProgress(15);
-			rand = 100 + (int) (Math.random() * ((1000 - 100) + 1));
-			SystemClock.sleep(rand);
+			//rand = 100 + (int) (Math.random() * ((1000 - 100) + 1));
+			//SystemClock.sleep(rand);
 			try {
 
 				File myFile = new File(
@@ -258,8 +258,8 @@ public class check extends Activity {
 
 			}
 			publishProgress(16);
-			rand = 100 + (int) (Math.random() * ((1000 - 100) + 1));
-			SystemClock.sleep(rand);
+			//rand = 100 + (int) (Math.random() * ((1000 - 100) + 1));
+			///SystemClock.sleep(rand);
 			try {
 
 				File myFile = new File(
@@ -273,8 +273,8 @@ public class check extends Activity {
 				sdc = false;
 			}
 			publishProgress(17);
-			rand = 100 + (int) (Math.random() * ((1000 - 100) + 1));
-			SystemClock.sleep(rand);
+			//rand = 100 + (int) (Math.random() * ((1000 - 100) + 1));
+			//SystemClock.sleep(rand);
 
 			try {
 
@@ -288,8 +288,8 @@ public class check extends Activity {
 			}
 
 			publishProgress(18);
-			rand = 100 + (int) (Math.random() * ((1000 - 100) + 1));
-			SystemClock.sleep(rand);
+			//rand = 100 + (int) (Math.random() * ((1000 - 100) + 1));
+			//SystemClock.sleep(rand);
 
 			return null;
 		}

@@ -27,7 +27,7 @@
         android:layout_alignBaseline="@+id/textView1"
         android:layout_alignBottom="@+id/textView1"
         android:layout_alignParentRight="true"
-        android:text="TextView" />
+        android:text="@string/n_a" />
 
     <TextView
         android:id="@+id/textView2"
@@ -37,7 +37,7 @@
         android:layout_alignBottom="@+id/label"
         android:layout_marginRight="60dp"
         android:layout_alignParentRight="true"
-        android:text="TextView" />
+        android:text="@string/n_a" />
     
    <ImageView
         android:id="@+id/imageView1"

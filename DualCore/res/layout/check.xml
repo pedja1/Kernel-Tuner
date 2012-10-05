@@ -10,7 +10,7 @@
 
         <LinearLayout
             android:layout_width="match_parent"
-            android:layout_height="match_parent"
+            android:layout_height="wrap_content"
             android:orientation="vertical" >
 
             <LinearLayout
@@ -31,7 +31,7 @@
                     android:id="@+id/textView2"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="TextView" />
+                    android:text="@string/n_a" />
             </LinearLayout>
 
             <LinearLayout
@@ -52,7 +52,7 @@
                     android:id="@+id/textView4"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="TextView" />
+                    android:text="@string/n_a" />
             </LinearLayout>
 
             <LinearLayout
@@ -73,7 +73,7 @@
                     android:id="@+id/textView6"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="TextView" />
+                    android:text="@string/n_a" />
             </LinearLayout>
 
             <LinearLayout
@@ -94,7 +94,7 @@
                     android:id="@+id/textView8"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="TextView" />
+                    android:text="@string/n_a" />
             </LinearLayout>
 
             <LinearLayout
@@ -115,7 +115,7 @@
                     android:id="@+id/textView10"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="TextView" />
+                    android:text="@string/n_a" />
             </LinearLayout>
 
             <LinearLayout
@@ -136,7 +136,7 @@
                     android:id="@+id/textView12"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="TextView" />
+                    android:text="@string/n_a" />
             </LinearLayout>
 
             <LinearLayout
@@ -157,7 +157,7 @@
                     android:id="@+id/textView14"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="TextView" />
+                    android:text="@string/n_a" />
             </LinearLayout>
             
             <LinearLayout
@@ -178,7 +178,7 @@
                     android:id="@+id/textView16"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="TextView" />
+                    android:text="@string/n_a" />
             </LinearLayout>
             
             <LinearLayout
@@ -199,7 +199,7 @@
                     android:id="@+id/textView18"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="TextView" />
+                    android:text="@string/n_a" />
             </LinearLayout>
             
             <LinearLayout
@@ -220,7 +220,7 @@
                     android:id="@+id/textView20"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="TextView" />
+                    android:text="@string/n_a" />
             </LinearLayout>
             
             <LinearLayout
@@ -241,7 +241,7 @@
                     android:id="@+id/textView22"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="TextView" />
+                    android:text="@string/n_a" />
             </LinearLayout>
             
             <LinearLayout
@@ -262,7 +262,7 @@
                     android:id="@+id/textView24"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="TextView" />
+                    android:text="@string/n_a" />
             </LinearLayout>
             
             <LinearLayout
@@ -283,7 +283,7 @@
                     android:id="@+id/textView26"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="TextView" />
+                    android:text="@string/n_a" />
             </LinearLayout>
             
             <LinearLayout
@@ -304,7 +304,7 @@
                     android:id="@+id/textView28"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="TextView" />
+                    android:text="@string/n_a" />
             </LinearLayout>
             
             <LinearLayout
@@ -325,7 +325,7 @@
                     android:id="@+id/textView30"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="TextView" />
+                    android:text="@string/n_a" />
             </LinearLayout>
             
             <LinearLayout
@@ -346,7 +346,7 @@
                     android:id="@+id/textView32"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="TextView" />
+                    android:text="@string/n_a" />
             </LinearLayout>
             
         </LinearLayout>

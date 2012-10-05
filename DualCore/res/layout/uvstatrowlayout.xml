@@ -40,6 +40,6 @@
         android:layout_height="wrap_content"
         android:layout_alignParentBottom="true"
         android:layout_alignParentLeft="true"
-        android:text="TextView" />
+        android:text="@string/n_a" />
 
 </RelativeLayout> 
