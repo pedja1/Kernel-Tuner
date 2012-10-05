@@ -31,7 +31,7 @@
                 android:layout_height="wrap_content"
                 
                 android:layout_centerHorizontal="true"
-                android:text="mpdecision"
+                android:text="@string/mpdecision"
                 android:textAppearance="?android:attr/textAppearanceLarge" />
 
            <!--   <Spinner
@@ -146,7 +146,7 @@
                 android:layout_below="@+id/textView3"
 				android:layout_marginTop="3dp"
 				android:textAppearance="?android:attr/textAppearanceLarge"
-                android:text="Service start delay:" />
+                android:text="@string/service_start_delay_" />
 
 			<EditText
                 android:id="@+id/ed1"
@@ -154,7 +154,7 @@
                 android:layout_height="wrap_content"
 			
                 android:layout_toLeftOf="@+id/tv"
-                android:layout_alignBaseline="@+id/textView5" />
+                android:layout_alignBaseline="@+id/textView5" android:inputType="number"/>
 			
 			<TextView
 			    android:id="@+id/tv"
@@ -171,7 +171,7 @@
                 android:layout_below="@+id/textView5"
 				android:layout_marginTop="3dp"
 				android:textAppearance="?android:attr/textAppearanceLarge"
-                android:text="Sleep time:" />
+                android:text="@string/sleep_time_" />
 
 			<EditText
                 android:id="@+id/ed2"
@@ -179,7 +179,7 @@
                 android:layout_height="wrap_content"
 		
                 android:layout_toLeftOf="@+id/tv2"
-                android:layout_alignBaseline="@+id/textView6" />
+                android:layout_alignBaseline="@+id/textView6" android:inputType="number"/>
 
 			<TextView
                 android:id="@+id/tv2"
@@ -209,7 +209,7 @@
                 android:layout_below="@+id/imageView8"
 				android:layout_marginTop="5dp"
 				android:textAppearance="?android:attr/textAppearanceLarge"
-                android:text="Up threshold(load):" />
+                android:text="@string/up_threshold_load_" />
 
 			<EditText
                 android:id="@+id/ed3"
@@ -218,7 +218,7 @@
 				android:layout_marginBottom="3dp"
 				
                 android:layout_toLeftOf="@+id/tv3"
-                android:layout_alignBaseline="@+id/textView7" />
+                android:layout_alignBaseline="@+id/textView7" android:inputType="number"/>
 
 			<TextView
                 android:id="@+id/tv3"
@@ -237,7 +237,7 @@
                 android:layout_below="@+id/textView7"
 			
 				android:textAppearance="?android:attr/textAppearanceLarge"
-                android:text="Up threshold(time):" />
+                android:text="@string/up_threshold_time_" />
 
 			<EditText
                 android:id="@+id/ed4"
@@ -246,7 +246,7 @@
 				android:layout_marginBottom="3dp"
 				
                 android:layout_toLeftOf="@+id/tv4"
-                android:layout_alignBaseline="@+id/textView8" />
+                android:layout_alignBaseline="@+id/textView8" android:inputType="number"/>
 
 			<TextView
                 android:id="@+id/tv4"
@@ -276,7 +276,7 @@
                 android:layout_below="@+id/imageView9"
 				android:layout_marginTop="5dp"
 				android:textAppearance="?android:attr/textAppearanceLarge"
-                android:text="Down threshold(load):" />
+                android:text="@string/down_threshold_load_" />
 
 			<EditText
                 android:id="@+id/ed5"
@@ -285,7 +285,7 @@
 				android:layout_marginBottom="3dp"
 				
                 android:layout_toLeftOf="@+id/tv5"
-                android:layout_alignBaseline="@+id/textView9" />
+                android:layout_alignBaseline="@+id/textView9" android:inputType="number"/>
 
 			<TextView
                 android:id="@+id/tv5"
@@ -305,7 +305,7 @@
                 android:layout_below="@+id/textView9"
 				android:layout_marginBottom="10dp"
 				android:textAppearance="?android:attr/textAppearanceLarge"
-                android:text="Down threshold(time):" />
+                android:text="@string/down_threshold_time_" />
 
 			<EditText
                 android:id="@+id/ed6"
@@ -314,7 +314,7 @@
 				android:layout_marginBottom="3dp"
 				
                 android:layout_toLeftOf="@+id/tv6"
-                android:layout_alignBaseline="@+id/textView10" />
+                android:layout_alignBaseline="@+id/textView10" android:inputType="number"/>
 
 			<TextView
                 android:id="@+id/tv6"
@@ -342,7 +342,7 @@
 			    android:layout_alignParentLeft="true"
 			    android:layout_alignParentRight="true"
 			    android:layout_below="@+id/imageView4"
-			    android:text="Apply" />
+			    android:text="@string/apply" />
 				
         </RelativeLayout>
         

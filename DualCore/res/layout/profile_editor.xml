@@ -10,7 +10,7 @@
         android:layout_alignParentLeft="true"
         android:layout_alignParentTop="true"
         android:layout_marginTop="10dp"
-        android:text="Profile Name"
+        android:text="@string/profile_name"
         android:textAppearance="?android:attr/textAppearanceLarge" />
     
     
@@ -21,7 +21,7 @@
         android:layout_alignParentLeft="true"
         android:layout_below="@+id/textView0"
         android:layout_marginTop="10dp"
-        android:text="@string/activity_main_cpu0_min_freq_"
+        android:text="@string/cpu0_min_freq_"
         android:textAppearance="?android:attr/textAppearanceLarge" />
 
     <TextView
@@ -30,7 +30,7 @@
         android:layout_height="wrap_content"
         android:layout_alignParentLeft="true"
         android:layout_below="@+id/textView1"
-        android:text="@string/activity_main_cpu0_max_freq_"
+        android:text="@string/cpu0_max_freq_"
         android:layout_marginTop="10dp"
         android:textAppearance="?android:attr/textAppearanceLarge" />
 
@@ -40,7 +40,7 @@
         android:layout_height="wrap_content"
         android:layout_alignParentLeft="true"
         android:layout_below="@+id/textView2"
-        android:text="@string/activity_main_cpu1_min_freq_"
+        android:text="@string/cpu1_min_freq_"
         android:layout_marginTop="10dp"
         android:textAppearance="?android:attr/textAppearanceLarge" />
 
@@ -52,7 +52,7 @@
         android:layout_height="wrap_content"
         android:layout_alignParentLeft="true"
         android:layout_below="@+id/textView3"
-        android:text="CPU1 max freq:"
+        android:text="@string/cpu1_max_freq_"
         android:layout_marginTop="10dp"
         android:textAppearance="?android:attr/textAppearanceLarge" />
 
@@ -62,7 +62,7 @@
         android:layout_height="wrap_content"
         android:layout_alignParentLeft="true"
         android:layout_below="@+id/textView4"
-        android:text="CPU0 Governor:"
+        android:text="@string/cpu0_governor_"
         android:layout_marginTop="10dp"
         android:textAppearance="?android:attr/textAppearanceLarge" />
 
@@ -72,7 +72,7 @@
         android:layout_height="wrap_content"
         android:layout_alignParentLeft="true"
         android:layout_below="@+id/textView5"
-        android:text="CPU1 Governor:"
+        android:text="@string/cpu1_governor_"
         android:layout_marginTop="10dp"
         android:textAppearance="?android:attr/textAppearanceLarge" />
 
@@ -82,7 +82,7 @@
         android:layout_height="wrap_content"
         android:layout_alignParentLeft="true"
         android:layout_below="@+id/textView6"
-        android:text="GPU2D Freq:"
+        android:text="@string/gpu2d_max_freq_"
         android:layout_marginTop="10dp"
         android:textAppearance="?android:attr/textAppearanceLarge" />
 
@@ -92,7 +92,7 @@
         android:layout_height="wrap_content"
         android:layout_alignParentLeft="true"
         android:layout_below="@+id/textView7"
-        android:text="GPU3D Freq:"
+        android:text="@string/gpu3d_max_freq_"
         android:layout_marginTop="10dp"
         android:textAppearance="?android:attr/textAppearanceLarge" />
 
@@ -102,7 +102,7 @@
         android:layout_height="wrap_content"
         android:layout_alignParentLeft="true"
         android:layout_below="@+id/textView8"
-        android:text="Vsync:"
+        android:text="@string/vsync"
         android:layout_marginTop="10dp"
         android:textAppearance="?android:attr/textAppearanceLarge" />
 
@@ -112,7 +112,7 @@
         android:layout_height="wrap_content"
         android:layout_alignParentLeft="true"
         android:layout_below="@+id/textView9"
-        android:text="Number of active cores:"
+        android:text="@string/number_of_active_cores_"
         android:layout_marginTop="10dp"
         android:textAppearance="?android:attr/textAppearanceLarge" />
 
@@ -122,7 +122,7 @@
         android:layout_height="wrap_content"
         android:layout_alignParentLeft="true"
         android:layout_below="@+id/textView10"
-        android:text="Mpdecision threshold up:"
+        android:text="@string/mpdecision_threshold_up_"
         android:layout_marginTop="10dp"
         android:textAppearance="?android:attr/textAppearanceLarge" />
 
@@ -132,7 +132,7 @@
         android:layout_height="wrap_content"
         android:layout_alignParentLeft="true"
         android:layout_below="@+id/textView11"
-        android:text="Mpdecision threshold down:"
+        android:text="@string/mpdecision_threshold_down_"
         android:layout_marginTop="10dp"
         android:textAppearance="?android:attr/textAppearanceLarge" />
     <Spinner
@@ -225,7 +225,7 @@
         android:layout_height="wrap_content"
         android:layout_below="@+id/textView12"
         android:layout_alignParentLeft="true"
-        android:text="Done" />
+        android:text="@string/done" />
 
     <EditText
         android:id="@+id/editText1"

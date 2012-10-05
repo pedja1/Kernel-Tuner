@@ -99,7 +99,7 @@
             android:shadowDx="1.0"
             android:shadowDy="1.0"
             android:shadowRadius="2.0"
-            android:text="Frequency:"
+            android:text="@string/frequency_"
             android:textColor="#ffffffff"
             android:typeface="sans" />
 
@@ -128,7 +128,7 @@
             android:shadowDx="1.0"
             android:shadowDy="1.0"
             android:shadowRadius="2.0"
-            android:text="Governor:"
+            android:text="@string/governor_"
             android:textColor="#ffffffff"
             android:typeface="sans" />
 

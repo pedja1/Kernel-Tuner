@@ -42,7 +42,7 @@
         android:layout_alignBottom="@+id/seekBar1"
         android:layout_alignParentRight="true"
         android:layout_alignTop="@+id/seekBar1"
-        android:text="+" />
+        android:text="@string/plus" />
 
     <TextView
         android:id="@+id/progtextView1"
@@ -57,7 +57,7 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_centerHorizontal="true"
-        android:text="Soft Buttons Backlight"
+        android:text="@string/activity_misc_soft_buttons_backlight"
         android:textAppearance="?android:attr/textAppearanceLarge" />
 
     <ImageView
@@ -75,7 +75,7 @@
         android:layout_height="wrap_content"
         android:layout_below="@+id/imageView1"
         android:layout_centerHorizontal="true"
-        android:text="Fastcharge"
+        android:text="@string/fastcharge"
         android:textAppearance="?android:attr/textAppearanceLarge" />
 
     <CheckBox
@@ -84,7 +84,7 @@
         android:layout_height="wrap_content"
         android:layout_alignParentLeft="true"
         android:layout_below="@+id/textView1"
-        android:text="Enable/Disable Fastcharge Mod" />
+        android:text="@string/enable_disable_fastcharge_mod" />
 
     <ImageView
         android:id="@+id/imageView2"
@@ -103,7 +103,7 @@
         android:layout_height="wrap_content"
         android:layout_below="@+id/imageView2"
         android:layout_centerHorizontal="true"
-        android:text="Vsync"
+        android:text="@string/vsync"
         android:textAppearance="?android:attr/textAppearanceLarge" />
 
     <CheckBox
@@ -112,7 +112,7 @@
         android:layout_height="wrap_content"
         android:layout_alignParentLeft="true"
         android:layout_below="@+id/textView2"
-        android:text="Enable/Disable Vsync" />
+        android:text="@string/enable_disable_vsync" />
 
     <Button
         android:id="@+id/button1"
@@ -121,7 +121,7 @@
         android:layout_height="wrap_content"
         android:layout_alignBottom="@+id/checkBox2"
         android:layout_alignParentRight="true"
-        android:text="\?" />
+        android:text="@string/question_mark" />
 
     <Button
         android:id="@+id/button2"
@@ -131,7 +131,7 @@
         android:layout_alignBaseline="@+id/checkBox1"
         android:layout_alignBottom="@+id/checkBox1"
         android:layout_alignParentRight="true"
-        android:text="\?" />
+        android:text="@string/question_mark" />
     
     <ImageView
         android:id="@+id/imageView3"
@@ -150,7 +150,7 @@
         android:layout_height="wrap_content"
         android:layout_below="@+id/imageView3"
         android:layout_centerHorizontal="true"
-        android:text="Color Depth"
+        android:text="@string/color_depth"
         android:textAppearance="?android:attr/textAppearanceLarge" />
 
     <Button
@@ -171,7 +171,7 @@
         android:layout_alignBottom="@id/progressBar1"
         android:layout_alignParentRight="true"
       android:layout_marginTop="20dp"
-        android:text="+" />
+        android:text="@string/plus" />
 
     <ProgressBar
         android:id="@+id/progressBar1"
@@ -233,7 +233,7 @@
          android:layout_height="wrap_content"
          android:layout_below="@+id/imageView4"
          android:layout_alignParentLeft="true"
-         android:text="IO Scheduler:"
+         android:text="@string/io_scheduler_"
          android:textAppearance="?android:attr/textAppearanceLarge" />
      
      <TextView
@@ -243,7 +243,7 @@
          android:layout_alignParentLeft="true"
          android:layout_below="@+id/textView10"
          android:layout_marginTop="12dp"
-         android:text="SD Cache Size:"
+         android:text="@string/sd_cache_size_"
          android:textAppearance="?android:attr/textAppearanceLarge" />
 
      <Spinner
@@ -277,7 +277,7 @@
         android:layout_height="wrap_content"
         android:layout_below="@+id/imageView5"
         android:layout_centerHorizontal="true"
-        android:text="LED Notofications Timeout"
+        android:text="@string/led_notofications_timeout"
         android:textAppearance="?android:attr/textAppearanceLarge" />
      <RadioGroup
         android:id="@+id/radioGroup1"
@@ -291,19 +291,19 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:checked="true"
-            android:text="Unlimited" />
+            android:text="@string/unlimited" />
 
         <RadioButton
             android:id="@+id/radio1"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="Application Default" />
+            android:text="@string/application_default" />
 
         <RadioButton
             android:id="@+id/radio2"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="App default * custom multiplier" />
+            android:text="@string/app_default_custom_multiplier" />
     </RadioGroup>
 
      <EditText
@@ -332,7 +332,7 @@
          android:layout_height="wrap_content"
          android:layout_below="@+id/imageView6"
          android:layout_alignParentLeft="true"
-         android:text="Sweep2Wake:"
+         android:text="@string/sweep2wake_"
          android:textAppearance="?android:attr/textAppearanceLarge" />
      
      
@@ -350,7 +350,7 @@
          android:layout_height="wrap_content"
          android:layout_below="@+id/textView13"
          android:layout_alignParentLeft="true"
-         android:text="S2W Start Button;"
+         android:text="@string/s2w_start_button_"
          android:layout_marginTop="7dp"
          android:textAppearance="?android:attr/textAppearanceLarge" />
      
@@ -369,7 +369,7 @@
          android:layout_height="wrap_content"
          android:layout_below="@+id/textView14"
          android:layout_alignParentLeft="true"
-         android:text="S2W End Button:"
+         android:text="@string/s2w_end_button_"
          android:layout_marginTop="7dp"
          android:textAppearance="?android:attr/textAppearanceLarge" />
      
@@ -390,7 +390,7 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_below="@+id/textView15"
-        android:text="Apply" />
+        android:text="@string/apply" />
      
 </RelativeLayout>
        

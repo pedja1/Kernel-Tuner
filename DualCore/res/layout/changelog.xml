@@ -10,11 +10,37 @@
     android:layout_height="wrap_content" >
 	
     <RelativeLayout
-        android:id="@+id/rl24"
+        android:id="@+id/rl25"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_alignParentLeft="true"
         android:layout_alignParentTop="true"
+        android:background="@drawable/divider_strong_holo" >
+
+        <TextView
+            android:id="@+id/textView49"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"      
+            android:text="2.3.5"
+            android:textColor="@color/green" />
+
+    </RelativeLayout>
+
+    <TextView
+        android:id="@+id/textView50"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/rl25"
+        android:text="-[ADD]Auto update-check every 24h\n
+-[ADD]Click notificaton to install update after download"
+ />
+    
+    <RelativeLayout
+        android:id="@+id/rl24"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_alignParentLeft="true"
+        android:layout_below="@+id/textView50"
         android:background="@drawable/divider_strong_holo" >
 
         <TextView

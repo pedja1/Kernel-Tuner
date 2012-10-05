@@ -10,7 +10,7 @@
         android:layout_height="wrap_content"
         android:layout_alignParentLeft="true"
         android:layout_alignParentTop="true"
-        android:text="Frequency:"
+        android:text="@string/frequency_"
         android:textAppearance="?android:attr/textAppearanceLarge" />
 
     <EditText
@@ -35,7 +35,7 @@
         android:layout_alignBottom="@+id/editText1"
         android:layout_alignParentRight="true"
         android:layout_toRightOf="@+id/editText1"
-        android:text="Apply" />
+        android:text="@string/apply" />
 
     <TextView
         android:id="@+id/textView2"
@@ -52,7 +52,7 @@
         android:layout_below="@+id/editText1"
         android:layout_marginTop="10dp"
         android:layout_toLeftOf="@+id/textView2"
-        android:text="All -12.5mV" />
+        android:text="@string/all_m12_5mv" />
 
     <Button
         android:id="@+id/button3"
@@ -62,7 +62,7 @@
         android:layout_below="@+id/editText1"
         android:layout_marginTop="10dp"
         android:layout_toRightOf="@+id/textView2"
-        android:text="All +12.5mV" />
+        android:text="@string/all_p12_5mv" />
 
     <ScrollView
         android:id="@+id/scrollView1"
@@ -91,7 +91,7 @@
         android:layout_height="wrap_content"
         android:layout_alignParentRight="true"
         android:layout_alignParentTop="true"
-        android:text="Mhz"
+        android:text="@string/mhz"
         android:textAppearance="?android:attr/textAppearanceLarge" />
 
     <Spinner

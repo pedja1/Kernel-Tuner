@@ -9,7 +9,7 @@
         android:layout_height="wrap_content"
         android:layout_alignParentLeft="true"
         android:layout_alignParentTop="true"
-        android:text="Profile:"
+        android:text="@string/profile_"
         android:textAppearance="?android:attr/textAppearanceLarge" />
 
     <Spinner
@@ -47,7 +47,7 @@
                 android:layout_height="wrap_content"
                 android:layout_alignParentLeft="true"
                 android:layout_below="@+id/textView1"
-                android:text="@string/activity_main_cpu0_min_freq_" />
+                android:text="@string/cpu0_min_freq_" />
 
             <TextView
                 android:id="@+id/textView3"
@@ -55,7 +55,7 @@
                 android:layout_height="wrap_content"
                 android:layout_alignParentLeft="true"
                 android:layout_below="@+id/textView2"
-                android:text="@string/activity_main_cpu0_max_freq_" />
+                android:text="@string/cpu0_max_freq_" />
 
             <TextView
                 android:id="@+id/textView4"
@@ -63,7 +63,7 @@
                 android:layout_height="wrap_content"
                 android:layout_alignParentLeft="true"
                 android:layout_below="@+id/textView3"
-                android:text="@string/activity_main_cpu1_min_freq_" />
+                android:text="@string/cpu1_min_freq_" />
 
             <TextView
                 android:id="@+id/textView5"
@@ -71,7 +71,7 @@
                 android:layout_height="wrap_content"
                 android:layout_alignParentLeft="true"
                 android:layout_below="@+id/textView4"
-                android:text="CPU1 max freq:" />
+                android:text="@string/cpu1_max_freq_" />
 
             <TextView
                 android:id="@+id/textView8"
@@ -79,7 +79,7 @@
                 android:layout_height="wrap_content"
                 android:layout_alignParentLeft="true"
                 android:layout_below="@+id/textView21"
-                android:text="GPU2D freq:" />
+                android:text="@string/gpu2d_max_freq_" />
 
             <TextView
                 android:id="@+id/textView9"
@@ -87,7 +87,7 @@
                 android:layout_height="wrap_content"
                 android:layout_alignParentLeft="true"
                 android:layout_below="@+id/textView8"
-                android:text="GPU3D freq:" />
+                android:text="@string/gpu3d_max_freq_" />
 
             <TextView
                 android:id="@+id/textView10"
@@ -95,14 +95,14 @@
                 android:layout_height="wrap_content"
                 android:layout_alignParentLeft="true"
                 android:layout_below="@+id/textView9"
-                android:text="vsync:" />
+                android:text="@string/vsync" />
             <TextView
                 android:id="@+id/textView200"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_alignParentLeft="true"
                 android:layout_below="@+id/textView10"
-                android:text="Number of active Cores:" />
+                android:text="@string/number_of_active_cores_" />
             
              <TextView
                 android:id="@+id/textView202"
@@ -110,7 +110,7 @@
                 android:layout_height="wrap_content"
                 android:layout_alignParentLeft="true"
                 android:layout_below="@+id/textView200"
-                android:text="mpdecision threshold up:" />
+                android:text="@string/mpdecision_threshold_up_" />
              
               <TextView
                 android:id="@+id/textView203"
@@ -118,7 +118,7 @@
                 android:layout_height="wrap_content"
                 android:layout_alignParentLeft="true"
                 android:layout_below="@+id/textView202"
-                android:text="mpdecision threshold down:" />
+                android:text="@string/mpdecision_threshold_down_" />
 
             <TextView
                 android:id="@+id/textView11"
@@ -194,7 +194,7 @@
                 android:layout_height="wrap_content"
                 android:layout_alignParentLeft="true"
                 android:layout_below="@+id/textView5"
-                android:text="CPU0 governor" />
+                android:text="@string/cpu0_governor_" />
 
             <TextView
                 android:id="@+id/textView21"
@@ -202,7 +202,7 @@
                 android:layout_height="wrap_content"
                 android:layout_alignParentLeft="true"
                 android:layout_below="@+id/textView20"
-                android:text="CPU1 governor" />
+                android:text="@string/cpu1_governor_" />
 
             <TextView
                 android:id="@+id/textView23"
@@ -241,7 +241,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_below="@id/textView203"
-                android:text="Create profile from current settings" />
+                android:text="@string/create_profile_from_current_settings" />
             
         </RelativeLayout>
 

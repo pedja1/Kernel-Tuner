@@ -16,7 +16,7 @@
             android:layout_alignParentRight="true"
             android:layout_alignParentTop="true"
             android:layout_marginRight="45dp"
-            android:text="max"
+            android:text="@string/max"
             android:textAppearance="?android:attr/textAppearanceMedium" />
 
         <TextView
@@ -26,7 +26,7 @@
             android:layout_alignParentTop="true"
             android:layout_marginRight="86dp"
             android:layout_toLeftOf="@+id/textView12"
-            android:text="min"
+            android:text="@string/min"
             android:textAppearance="?android:attr/textAppearanceMedium" />
     </RelativeLayout>
 
@@ -41,7 +41,7 @@
             android:id="@+id/textView13"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="CPU0"
+            android:text="@string/cpu0"
             android:textAppearance="?android:attr/textAppearanceLarge" />
 
         <Spinner
@@ -72,7 +72,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_alignParentLeft="true"
-            android:text="CPU0 governor"
+            android:text="@string/cpu0_governor_"
             android:textAppearance="?android:attr/textAppearanceLarge" />
 
         <Spinner
@@ -95,7 +95,7 @@
             android:id="@+id/textView15"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="CPU0 Governor settings:"
+            android:text="@string/cpu0_governor_settings_"
             android:layout_centerHorizontal="true"
             android:layout_below="@+id/imageView1"
             android:textAppearance="?android:attr/textAppearanceLarge" />

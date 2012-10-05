@@ -2302,13 +2302,10 @@ initialCheck();
 
 
 String boot = sharedPrefs.getString("boot2", "");
-boolean cputoggle = sharedPrefs.getBoolean("cputoggle", true);
-//boolean cpu1off = sharedPrefs.getBoolean("cpu1off", false);
+
 if (boot.equals("init.d")){
 	new initdApplyCpuGpuMisc().execute();
-	/*if(cpu1off==true){
-		new initdApplyCpu1Off().execute();
-	}*/
+	
 	
 }
 else {
