@@ -2311,10 +2311,7 @@ new info().execute();
 
 //prefs();
 	readFreqs();
-	ReadCPU0maxfreq();
-	ReadCPU1maxfreq();
-	ReadCPU2maxfreq();
-	ReadCPU3maxfreq();
+	
 initialCheck();
 
 
@@ -2350,7 +2347,8 @@ new Thread(new Runnable() {
                     public void run() {
                         // TODO Auto-generated method stub
                     	ReadCPU0Clock();
-                    
+                    	ReadCPU0maxfreq();
+                    	
                     	
                     	
                     	
@@ -2358,16 +2356,18 @@ new Thread(new Runnable() {
                     	
                     		
                         	ReadCPU1Clock();
+                        	ReadCPU1maxfreq();
                         	
                     	}
                     	if(new File("/sys/devices/system/cpu/cpu2/online").exists()){
                     		ReadCPU2Clock();
+                    		ReadCPU2maxfreq();
                         	
                         	
                     	}
                     	if(new File("/sys/devices/system/cpu/cpu3/online").exists()){
                     		ReadCPU3Clock();
-                    		
+                    		ReadCPU3maxfreq();
                         	
                     	}
                
@@ -2997,7 +2997,7 @@ public void ReadCPU2Clock()
 
 	try {
 		
-		File myFile = new File("/sys/devices/system/cpu/cpu0/cpufreq/scaling_cur_freq");
+		File myFile = new File("/sys/devices/system/cpu/cpu2/cpufreq/scaling_cur_freq");
 		FileInputStream fIn = new FileInputStream(myFile);
 		BufferedReader myReader = new BufferedReader(
 				new InputStreamReader(fIn));
@@ -3011,7 +3011,7 @@ public void ReadCPU2Clock()
 		
 		
 	} catch (Exception e) {
-		
+		freqcpu2="offline";
 	}
 	
 	
@@ -3027,7 +3027,7 @@ public void ReadCPU3Clock()
 
 	try {
 		
-		File myFile = new File("/sys/devices/system/cpu/cpu1/cpufreq/scaling_cur_freq");
+		File myFile = new File("/sys/devices/system/cpu/cpu3/cpufreq/scaling_cur_freq");
 		FileInputStream fIn = new FileInputStream(myFile);
 
 		
@@ -3044,7 +3044,7 @@ public void ReadCPU3Clock()
 		myReader.close();
 		
 	} catch (Exception e) {
-		iscVa2 = "offline";
+		freqcpu3 = "offline";
 
 	}
 	
