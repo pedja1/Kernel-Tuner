@@ -535,8 +535,7 @@ private class ReadgovernorsCpu0 extends AsyncTask<String, Void, Object> {
 			public void onItemClick(AdapterView<?> parent, View view, final int position, long id) 
 			{
 				// When clicked, show a toast with the TextView text 
-			Toast.makeText(getApplicationContext(),
-			("Position " + position), Toast.LENGTH_SHORT).show();
+			
 		//	Context context = null;
 			String[] valuess = govvalues.toArray(new String[0]);
 				AlertDialog.Builder builder = new AlertDialog.Builder(view.getContext());
