@@ -226,10 +226,42 @@ public String p3freq;
 
 public String cputemp;
 
-File cpu0online = new File("/sys/devices/system/cpu/cpu0/online"); 
-File cpu1online = new File("/sys/devices/system/cpu/cpu1/online");
-File cpu2online = new File("/sys/devices/system/cpu/cpu2/online");
-File cpu3online = new File("/sys/devices/system/cpu/cpu3/online");
+public static String cpu0online = "/sys/devices/system/cpu/cpu0/online"; 
+public static String cpu1online = "/sys/devices/system/cpu/cpu1/online"; 
+public static String cpu2online = "/sys/devices/system/cpu/cpu2/online"; 
+public static String cpu3online = "/sys/devices/system/cpu/cpu3/online"; 
+
+
+public static String CPU0_FREQS = "/sys/devices/system/cpu/cpu0/cpufreq/scaling_available_frequencies";
+public static String CPU1_FREQS = "/sys/devices/system/cpu/cpu1/cpufreq/scaling_available_frequencies";
+public static String CPU2_FREQS = "/sys/devices/system/cpu/cpu2/cpufreq/scaling_available_frequencies";
+public static String CPU3_FREQS = "/sys/devices/system/cpu/cpu3/cpufreq/scaling_available_frequencies";
+
+public static String CPU0_CURR_FREQ = "/sys/devices/system/cpu/cpu0/cpufreq/scaling_cur_freq";
+public static String CPU1_CURR_FREQ = "/sys/devices/system/cpu/cpu1/cpufreq/scaling_cur_freq";
+public static String CPU2_CURR_FREQ = "/sys/devices/system/cpu/cpu2/cpufreq/scaling_cur_freq";
+public static String CPU3_CURR_FREQ = "/sys/devices/system/cpu/cpu3/cpufreq/scaling_cur_freq";
+
+public static String CPU0_MAX_FREQ = "/sys/devices/system/cpu/cpu0/cpufreq/scaling_max_freq";
+public static String CPU1_MAX_FREQ = "/sys/devices/system/cpu/cpu1/cpufreq/scaling_max_freq";
+public static String CPU2_MAX_FREQ = "/sys/devices/system/cpu/cpu2/cpufreq/scaling_max_freq";
+public static String CPU3_MAX_FREQ = "/sys/devices/system/cpu/cpu3/cpufreq/scaling_max_freq";
+
+public static String CPU0_MIN_FREQ = "/sys/devices/system/cpu/cpu0/cpufreq/scaling_min_freq";
+public static String CPU1_MIN_FREQ = "/sys/devices/system/cpu/cpu1/cpufreq/scaling_min_freq";
+public static String CPU2_MIN_FREQ = "/sys/devices/system/cpu/cpu2/cpufreq/scaling_min_freq";
+public static String CPU3_MIN_FREQ = "/sys/devices/system/cpu/cpu3/cpufreq/scaling_min_freq";
+
+public static String CPU0_CURR_GOV = "/sys/devices/system/cpu/cpu0/cpufreq/scaling_governor";
+public static String CPU1_CURR_GOV = "/sys/devices/system/cpu/cpu1/cpufreq/scaling_governor";
+public static String CPU2_CURR_GOV = "/sys/devices/system/cpu/cpu2/cpufreq/scaling_governor";
+public static String CPU3_CURR_GOV = "/sys/devices/system/cpu/cpu3/cpufreq/scaling_governor";
+
+public static String CPU0_GOVS = "/sys/devices/system/cpu/cpu0/cpufreq/scaling_available_governor";
+public static String CPU1_GOVS = "/sys/devices/system/cpu/cpu1/cpufreq/scaling_available_governor";
+public static String CPU2_GOVS = "/sys/devices/system/cpu/cpu2/cpufreq/scaling_available_governor";
+public static String CPU3_GOVS = "/sys/devices/system/cpu/cpu3/cpufreq/scaling_available_governor";
+
 
 List<String> frequencies3 = new ArrayList<String>();
 List<String> frequencies4 = new ArrayList<String>();
@@ -829,7 +861,7 @@ private class info extends AsyncTask<String, Void, Object> {
          Log.i("MyApp", "Background thread starting");
          try {
  			
- 			File myFile = new File("/sys/devices/system/cpu/cpu0/cpufreq/scaling_min_freq");
+ 			File myFile = new File(CPU0_MIN_FREQ);
  			FileInputStream fIn = new FileInputStream(myFile);	
  			BufferedReader myReader = new BufferedReader(
  					new InputStreamReader(fIn));
@@ -848,7 +880,7 @@ private class info extends AsyncTask<String, Void, Object> {
          
          try {
   			
-  			File myFile = new File("/sys/devices/system/cpu/cpu0/cpufreq/scaling_max_freq");
+  			File myFile = new File(CPU0_MAX_FREQ);
   			FileInputStream fIn = new FileInputStream(myFile);	
   			BufferedReader myReader = new BufferedReader(
   					new InputStreamReader(fIn));
@@ -867,7 +899,7 @@ private class info extends AsyncTask<String, Void, Object> {
          
          try {
   			
-  			File myFile = new File("/sys/devices/system/cpu/cpu1/cpufreq/scaling_min_freq");
+  			File myFile = new File(CPU1_MAX_FREQ);
   			FileInputStream fIn = new FileInputStream(myFile);
 		
   			BufferedReader myReader = new BufferedReader(
@@ -887,7 +919,7 @@ private class info extends AsyncTask<String, Void, Object> {
          
          try {
   			
-  			File myFile = new File("/sys/devices/system/cpu/cpu1/cpufreq/scaling_max_freq");
+  			File myFile = new File(CPU1_MAX_FREQ);
   			FileInputStream fIn = new FileInputStream(myFile);		
   			BufferedReader myReader = new BufferedReader(
   					new InputStreamReader(fIn));
@@ -906,7 +938,7 @@ private class info extends AsyncTask<String, Void, Object> {
          
          try {
    			
-   			File myFile = new File("/sys/devices/system/cpu/cpu0/cpufreq/scaling_governor");
+   			File myFile = new File(CPU0_CURR_GOV);
    			FileInputStream fIn = new FileInputStream(myFile);
 
    			BufferedReader myReader = new BufferedReader(
@@ -926,7 +958,7 @@ private class info extends AsyncTask<String, Void, Object> {
          
          try {
     			
-    			File myFile = new File("/sys/devices/system/cpu/cpu1/cpufreq/scaling_governor");
+    			File myFile = new File(CPU1_CURR_GOV);
     			FileInputStream fIn = new FileInputStream(myFile);
 	
     			BufferedReader myReader = new BufferedReader(
@@ -946,7 +978,7 @@ private class info extends AsyncTask<String, Void, Object> {
 
          try {
   			
-  			File myFile = new File("/sys/devices/system/cpu/cpu2/cpufreq/scaling_min_freq");
+  			File myFile = new File(CPU2_MIN_FREQ);
   			FileInputStream fIn = new FileInputStream(myFile);	
   			BufferedReader myReader = new BufferedReader(
   					new InputStreamReader(fIn));
@@ -965,7 +997,7 @@ private class info extends AsyncTask<String, Void, Object> {
           
           try {
    			
-   			File myFile = new File("/sys/devices/system/cpu/cpu2/cpufreq/scaling_max_freq");
+   			File myFile = new File(CPU2_MAX_FREQ);
    			FileInputStream fIn = new FileInputStream(myFile);	
    			BufferedReader myReader = new BufferedReader(
    					new InputStreamReader(fIn));
@@ -984,7 +1016,7 @@ private class info extends AsyncTask<String, Void, Object> {
           
           try {
    			
-   			File myFile = new File("/sys/devices/system/cpu/cpu3/cpufreq/scaling_min_freq");
+   			File myFile = new File(CPU3_MIN_FREQ);
    			FileInputStream fIn = new FileInputStream(myFile);
  		
    			BufferedReader myReader = new BufferedReader(
@@ -1004,7 +1036,7 @@ private class info extends AsyncTask<String, Void, Object> {
           
           try {
    			
-   			File myFile = new File("/sys/devices/system/cpu/cpu3/cpufreq/scaling_max_freq");
+   			File myFile = new File(CPU3_MAX_FREQ);
    			FileInputStream fIn = new FileInputStream(myFile);		
    			BufferedReader myReader = new BufferedReader(
    					new InputStreamReader(fIn));
@@ -1023,7 +1055,7 @@ private class info extends AsyncTask<String, Void, Object> {
           
           try {
     			
-    			File myFile = new File("/sys/devices/system/cpu/cpu2/cpufreq/scaling_governor");
+    			File myFile = new File(CPU2_CURR_GOV);
     			FileInputStream fIn = new FileInputStream(myFile);
 
     			BufferedReader myReader = new BufferedReader(
@@ -1043,7 +1075,7 @@ private class info extends AsyncTask<String, Void, Object> {
           
           try {
      			
-     			File myFile = new File("/sys/devices/system/cpu/cpu3/cpufreq/scaling_governor");
+     			File myFile = new File(CPU3_CURR_GOV);
      			FileInputStream fIn = new FileInputStream(myFile);
  	
      			BufferedReader myReader = new BufferedReader(
@@ -2352,20 +2384,20 @@ new Thread(new Runnable() {
                     	
                     	
                     	
-                    	if(new File("/sys/devices/system/cpu/cpu1/online").exists()){
+                    	if(new File(cpu1online).exists()){
                     	
                     		
                         	ReadCPU1Clock();
                         	ReadCPU1maxfreq();
                         	
                     	}
-                    	if(new File("/sys/devices/system/cpu/cpu2/online").exists()){
+                    	if(new File(cpu2online).exists()){
                     		ReadCPU2Clock();
                     		ReadCPU2maxfreq();
                         	
                         	
                     	}
-                    	if(new File("/sys/devices/system/cpu/cpu3/online").exists()){
+                    	if(new File(cpu3online).exists()){
                     		ReadCPU3Clock();
                     		ReadCPU3maxfreq();
                         	
@@ -2419,15 +2451,15 @@ button2.setOnClickListener(new OnClickListener(){
 	@Override
 	public void onClick(View v) {
 		
-		if(new File("/sys/devices/system/cpu/cpu3/online").exists()){
+		if(new File(cpu3online).exists()){
 			Intent myIntent = new Intent(KernelTuner.this, OC_quad.class);
 			KernelTuner.this.startActivity(myIntent);
 		}
-		if(new File("/sys/devices/system/cpu/cpu1/online").exists() && !(new File("/sys/devices/system/cpu/cpu3/online").exists())){
+		if(new File(cpu1online).exists() && !(new File(cpu3online).exists())){
 			Intent myIntent = new Intent(KernelTuner.this, OC.class);
 			KernelTuner.this.startActivity(myIntent);
 		}
-		if(!(new File("/sys/devices/system/cpu/cpu1/online").exists()) && !(new File("/sys/devices/system/cpu/cpu3/online").exists()))
+		if(!(new File(cpu1online).exists()) && !(new File(cpu3online).exists()))
 		{
 			Intent myIntent = new Intent(KernelTuner.this, OC_single.class);
 			KernelTuner.this.startActivity(myIntent);
@@ -2818,7 +2850,7 @@ public void cpuTemp(){
 
 public void initialCheck(){
 	
-	if(new File("/sys/devices/system/cpu/cpu1/online").exists()){
+	if(new File(cpu1online).exists()){
 	Button b2 = (Button) findViewById(R.id.button1);
 	b2.setVisibility(View.VISIBLE);
 		ProgressBar cpu1progbar = (ProgressBar)findViewById(R.id.progressBar2);
@@ -2838,7 +2870,7 @@ public void initialCheck(){
 		 TextView tv4 = (TextView) findViewById(R.id.ptextView4);
 		 tv4.setVisibility(View.GONE);
 }
-	if(new File("/sys/devices/system/cpu/cpu2/online").exists()){
+	if(new File(cpu2online).exists()){
 		Button b3 = (Button) findViewById(R.id.button8);
 		b3.setVisibility(View.VISIBLE);
 			ProgressBar cpu1progbar = (ProgressBar)findViewById(R.id.progressBar3);
@@ -2858,7 +2890,7 @@ public void initialCheck(){
 			 TextView tv4 = (TextView) findViewById(R.id.ptextView7);
 			 tv4.setVisibility(View.GONE);
 	}
-	if(new File("/sys/devices/system/cpu/cpu3/online").exists()){
+	if(new File(cpu3online).exists()){
 		Button b4 = (Button) findViewById(R.id.button9);
 		  b4.setVisibility(View.VISIBLE);
 			ProgressBar cpu1progbar = (ProgressBar)findViewById(R.id.progressBar4);
@@ -2934,7 +2966,7 @@ public void ReadCPU0Clock()
 
 	try {
 		
-		File myFile = new File("/sys/devices/system/cpu/cpu0/cpufreq/scaling_cur_freq");
+		File myFile = new File(CPU0_CURR_FREQ);
 		FileInputStream fIn = new FileInputStream(myFile);
 		BufferedReader myReader = new BufferedReader(
 				new InputStreamReader(fIn));
@@ -2964,7 +2996,7 @@ public void ReadCPU1Clock()
 
 	try {
 		
-		File myFile = new File("/sys/devices/system/cpu/cpu1/cpufreq/scaling_cur_freq");
+		File myFile = new File(CPU1_CURR_FREQ);
 		FileInputStream fIn = new FileInputStream(myFile);
 
 		
@@ -2997,7 +3029,7 @@ public void ReadCPU2Clock()
 
 	try {
 		
-		File myFile = new File("/sys/devices/system/cpu/cpu2/cpufreq/scaling_cur_freq");
+		File myFile = new File(CPU2_CURR_FREQ);
 		FileInputStream fIn = new FileInputStream(myFile);
 		BufferedReader myReader = new BufferedReader(
 				new InputStreamReader(fIn));
@@ -3027,7 +3059,7 @@ public void ReadCPU3Clock()
 
 	try {
 		
-		File myFile = new File("/sys/devices/system/cpu/cpu3/cpufreq/scaling_cur_freq");
+		File myFile = new File(CPU3_CURR_FREQ);
 		FileInputStream fIn = new FileInputStream(myFile);
 
 		
@@ -3394,7 +3426,7 @@ public void readFreqs()
 
 	try {
 		
-		File myFile = new File("/sys/devices/system/cpu/cpu0/cpufreq/scaling_available_frequencies");
+		File myFile = new File(CPU0_FREQS);
 		FileInputStream fIn = new FileInputStream(myFile);
 		BufferedReader myReader = new BufferedReader(
 				new InputStreamReader(fIn));
@@ -3464,7 +3496,7 @@ public void ReadCPU0maxfreq()
 
 	try {
 		
-		File myFile = new File("/sys/devices/system/cpu/cpu0/cpufreq/scaling_max_freq");
+		File myFile = new File(CPU0_MAX_FREQ);
 		FileInputStream fIn = new FileInputStream(myFile);
 		BufferedReader myReader = new BufferedReader(
 				new InputStreamReader(fIn));
@@ -3493,7 +3525,7 @@ public void ReadCPU1maxfreq()
 
 	try {
 		
-		File myFile = new File("/sys/devices/system/cpu/cpu1/cpufreq/scaling_max_freq");
+		File myFile = new File(CPU1_MAX_FREQ);
 		FileInputStream fIn = new FileInputStream(myFile);
 		BufferedReader myReader = new BufferedReader(
 				new InputStreamReader(fIn));
@@ -3522,7 +3554,7 @@ public void ReadCPU2maxfreq()
 
 	try {
 		
-		File myFile = new File("/sys/devices/system/cpu/cpu2/cpufreq/scaling_max_freq");
+		File myFile = new File(CPU2_MAX_FREQ);
 		FileInputStream fIn = new FileInputStream(myFile);
 		BufferedReader myReader = new BufferedReader(
 				new InputStreamReader(fIn));
@@ -3551,7 +3583,7 @@ public void ReadCPU3maxfreq()
 
 	try {
 		
-		File myFile = new File("/sys/devices/system/cpu/cpu3/cpufreq/scaling_max_freq");
+		File myFile = new File(CPU3_MAX_FREQ);
 		FileInputStream fIn = new FileInputStream(myFile);
 		BufferedReader myReader = new BufferedReader(
 				new InputStreamReader(fIn));
