@@ -1,9 +1,15 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+ <ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+        android:id="@+id/scrollView1"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_margin="15dp"
+        >
+<LinearLayout 
     android:id="@+id/LinearLayout1"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:layout_margin="15dp"
+    
     android:orientation="vertical" >
 
     <TextView
@@ -286,3 +292,4 @@
         android:text="@string/apply" />
 
 </LinearLayout>
+</ScrollView>
