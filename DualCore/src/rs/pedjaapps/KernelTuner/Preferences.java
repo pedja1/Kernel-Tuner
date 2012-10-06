@@ -5,6 +5,7 @@ import rs.pedjaapps.KernelTuner.R;
 import android.os.Bundle;
 
 import android.preference.PreferenceActivity;
+import android.preference.PreferenceFragment;
 
 
 public class Preferences extends PreferenceActivity {

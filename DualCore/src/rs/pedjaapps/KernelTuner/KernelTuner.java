@@ -2207,8 +2207,7 @@ batteryLevel = (TextView) this.findViewById(R.id.textView42);
 batteryTemp = (TextView) this.findViewById(R.id.textView40);
 
 tempPref = sharedPrefs.getBoolean("temp", false);
-this.registerReceiver(this.mBatInfoReceiver, 
-					  new IntentFilter(Intent.ACTION_BATTERY_CHANGED));
+
 
 boolean ads = sharedPrefs.getBoolean("ads", true);
 if (ads==true){AdView adView = (AdView)this.findViewById(R.id.ad);
@@ -2527,25 +2526,15 @@ public void onClick(View v) {
 	
 }});
 
-/*Calendar updateTime = Calendar.getInstance();
-//updateTime.setTimeZone(TimeZone.getTimeZone("GMT"));
-updateTime.set(Calendar.HOUR_OF_DAY, 1);
-updateTime.set(Calendar.MINUTE, 44);
-Intent updateService = new Intent(this, AlarmReceiver.class);
-PendingIntent recurringDownload = PendingIntent.getBroadcast(this,
-        0, updateService, PendingIntent.FLAG_CANCEL_CURRENT);
-AlarmManager alarms = (AlarmManager) getSystemService(
-        ALARM_SERVICE);
-alarms.setInexactRepeating(AlarmManager.RTC_WAKEUP,
-        1000,
-       1000, recurringDownload);
-*/
+
 }
 
 
 
 @Override
 public void onPause() {
+	
+
     super.onPause();
     
 }
@@ -2553,6 +2542,8 @@ public void onPause() {
 @Override
 protected void onResume()
 {
+	this.registerReceiver(this.mBatInfoReceiver, 
+			  new IntentFilter(Intent.ACTION_BATTERY_CHANGED));
     //prefs();
     initialCheck();
 new info().execute();
@@ -2580,7 +2571,11 @@ new info().execute();
 
 @Override
 public void onStop() {
-	
+	if (mBatInfoReceiver != null){
+        unregisterReceiver(mBatInfoReceiver);
+        
+        mBatInfoReceiver = null;
+    }
  
        super.onStop();
     
@@ -2609,7 +2604,7 @@ AppWidget updateSmall = new AppWidget();
 	
 	updateSmall.onUpdate(context, appWidgetManager,  appWidgetIds);
        super.onDestroy();
-    finish();
+    //finish();
 }
 
 
