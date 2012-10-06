@@ -10,8 +10,8 @@
         android:layout_height="100dp"
         android:layout_centerHorizontal="true"
         android:layout_centerVertical="true"
-        
-        android:background="@drawable/lcd_background_grey"
+        android:background="@drawable/button_selector"
+       android:drawableTop="@drawable/dual"
         android:text="@string/activity_anthrax_button_mpdecision" />
 
     <Button
@@ -21,7 +21,8 @@
         android:layout_toLeftOf="@+id/button1"
         android:layout_centerVertical="true"
 		android:layout_marginRight="5dp"
-        android:background="@drawable/lcd_background_grey"
+       android:background="@drawable/button_selector"
+         android:drawableTop="@drawable/temp"
         android:text="@string/activity_anthrax_button_thermald" />
 
     <Button
@@ -31,7 +32,8 @@
         android:layout_toRightOf="@+id/button1"
         android:layout_centerVertical="true"
         android:layout_marginLeft="5dp"
-        android:background="@drawable/lcd_background_grey"
+        android:background="@drawable/button_selector"
+        android:drawableTop="@drawable/misc"
         android:text="@string/activity_anthrax_button_other" />
 
     <ImageView
