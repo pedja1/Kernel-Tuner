@@ -3246,6 +3246,9 @@ public void readFreqs()
 		freqs = aBuffer;
 		myReader.close();
 		freqlist = Arrays.asList(freqs.split("\\s"));
+		if(Integer.parseInt(frequencies.get(0))>Integer.parseInt(frequencies.get(frequencies.size()))){
+				Collections.reverse(freqlist);
+			}
 		
 	} catch (Exception e) {
 		try{
@@ -3267,11 +3270,15 @@ public void readFreqs()
  				frequencies.add(freq);
 
  			}
- 			SharedPreferences sharedPrefs = PreferenceManager.getDefaultSharedPreferences(this);
+ 			/*SharedPreferences sharedPrefs = PreferenceManager.getDefaultSharedPreferences(this);
  			boolean ov = sharedPrefs.getBoolean("override", false);
  			if(ov==true){
  			Collections.reverse(frequencies);
+ 			}*/
+ 			if(Integer.parseInt(frequencies.get(0))>Integer.parseInt(frequencies.get(frequencies.size()))){
+ 				Collections.reverse(frequencies);
  			}
+ 			
  			String[] strarray = frequencies.toArray(new String[0]);
  			frequencies.clear();
  			System.out.println(frequencies);
