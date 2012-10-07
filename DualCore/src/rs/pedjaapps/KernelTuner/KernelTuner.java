@@ -142,7 +142,7 @@ public class KernelTuner extends Activity {
 	    	  battLevelWarningStop();
 	      }
 	      else if(level>15 && level<=30){
-	    	  batteryLevel.setTextColor(Color.MAGENTA);
+	    	  batteryLevel.setTextColor(Color.YELLOW);
 	    	  battLevelWarningStop();
 	      }
 	      else if(level>30 ){
@@ -262,6 +262,7 @@ public static String CPU1_GOVS = "/sys/devices/system/cpu/cpu1/cpufreq/scaling_a
 public static String CPU2_GOVS = "/sys/devices/system/cpu/cpu2/cpufreq/scaling_available_governor";
 public static String CPU3_GOVS = "/sys/devices/system/cpu/cpu3/cpufreq/scaling_available_governor";
 
+String mpdec;
 
 List<String> frequencies3 = new ArrayList<String>();
 List<String> frequencies4 = new ArrayList<String>();
@@ -503,7 +504,7 @@ private class cpu1Toggle extends AsyncTask<String, Void, Object> {
 	protected Object doInBackground(String... args) {
          Log.i("MyApp", "Background thread starting");
          
-         File file = new File("/sys/devices/system/cpu/cpu1/cpufreq/scaling_governor");
+         File file = new File(CPU1_CURR_GOV);
      	try{
      	
      	InputStream fIn = new FileInputStream(file);
@@ -514,9 +515,9 @@ private class cpu1Toggle extends AsyncTask<String, Void, Object> {
 		
          DataOutputStream localDataOutputStream = new DataOutputStream(localProcess.getOutputStream());
          localDataOutputStream.writeBytes("echo 1 > /sys/kernel/msm_mpdecision/conf/enabled\n");
-         localDataOutputStream.writeBytes("chmod 777 /sys/devices/system/cpu/cpu1/online\n");
-         localDataOutputStream.writeBytes("echo 0 > /sys/devices/system/cpu/cpu1/online\n");
-         localDataOutputStream.writeBytes("chown system /sys/devices/system/cpu/cpu1/online\n");
+         localDataOutputStream.writeBytes("chmod 777 " + cpu1online+"\n");
+         localDataOutputStream.writeBytes("echo 0 > " +cpu1online +"\n");
+         localDataOutputStream.writeBytes("chown system " +cpu1online +"\n");
          localDataOutputStream.writeBytes("exit\n");
          localDataOutputStream.flush();
          localDataOutputStream.close();
@@ -546,10 +547,10 @@ private class cpu1Toggle extends AsyncTask<String, Void, Object> {
 			
      		DataOutputStream localDataOutputStream = new DataOutputStream(localProcess.getOutputStream());
             localDataOutputStream.writeBytes("echo 0 > /sys/kernel/msm_mpdecision/conf/enabled\n");
-            localDataOutputStream.writeBytes("chmod 666 /sys/devices/system/cpu/cpu1/online\n");
-            localDataOutputStream.writeBytes("echo 1 > /sys/devices/system/cpu/cpu1/online\n");
-            localDataOutputStream.writeBytes("chmod 444 /sys/devices/system/cpu/cpu1/online\n");
-            localDataOutputStream.writeBytes("chown system /sys/devices/system/cpu/cpu1/online\n");
+            localDataOutputStream.writeBytes("chmod 666 "+cpu1online+"\n");
+            localDataOutputStream.writeBytes("echo 1 > "+cpu1online+"\n");
+            localDataOutputStream.writeBytes("chmod 444 "+cpu1online+"\n");
+            localDataOutputStream.writeBytes("chown system "+cpu1online+"\n");
             
             localDataOutputStream.writeBytes("exit\n");
             localDataOutputStream.flush();
@@ -590,7 +591,7 @@ private class cpu2Toggle extends AsyncTask<String, Void, Object> {
 	protected Object doInBackground(String... args) {
          Log.i("MyApp", "Background thread starting");
          
-         File file = new File("/sys/devices/system/cpu/cpu2/cpufreq/scaling_governor");
+         File file = new File(CPU2_CURR_GOV);
      	try{
      	
      	InputStream fIn = new FileInputStream(file);
@@ -601,9 +602,9 @@ private class cpu2Toggle extends AsyncTask<String, Void, Object> {
 		
          DataOutputStream localDataOutputStream = new DataOutputStream(localProcess.getOutputStream());
          localDataOutputStream.writeBytes("echo 1 > /sys/kernel/msm_mpdecision/conf/enabled\n");
-         localDataOutputStream.writeBytes("chmod 777 /sys/devices/system/cpu/cpu2/online\n");
-         localDataOutputStream.writeBytes("echo 0 > /sys/devices/system/cpu/cpu2/online\n");
-         localDataOutputStream.writeBytes("chown system /sys/devices/system/cpu/cpu2/online\n");
+         localDataOutputStream.writeBytes("chmod 777 " + cpu2online+"\n");
+         localDataOutputStream.writeBytes("echo 0 > " +cpu2online +"\n");
+         localDataOutputStream.writeBytes("chown system " +cpu2online +"\n"); 
          localDataOutputStream.writeBytes("exit\n");
          localDataOutputStream.flush();
          localDataOutputStream.close();
@@ -633,11 +634,10 @@ private class cpu2Toggle extends AsyncTask<String, Void, Object> {
 			
      		DataOutputStream localDataOutputStream = new DataOutputStream(localProcess.getOutputStream());
             localDataOutputStream.writeBytes("echo 0 > /sys/kernel/msm_mpdecision/conf/enabled\n");
-            localDataOutputStream.writeBytes("chmod 666 /sys/devices/system/cpu/cpu2/online\n");
-            localDataOutputStream.writeBytes("echo 1 > /sys/devices/system/cpu/cpu2/online\n");
-            localDataOutputStream.writeBytes("chmod 444 /sys/devices/system/cpu/cpu2/online\n");
-            localDataOutputStream.writeBytes("chown system /sys/devices/system/cpu/cpu2/online\n");
-            
+            localDataOutputStream.writeBytes("chmod 666 "+cpu2online+"\n");
+            localDataOutputStream.writeBytes("echo 1 > "+cpu2online+"\n");
+            localDataOutputStream.writeBytes("chmod 444 "+cpu2online+"\n");
+            localDataOutputStream.writeBytes("chown system "+cpu2online+"\n");
             localDataOutputStream.writeBytes("exit\n");
             localDataOutputStream.flush();
             localDataOutputStream.close();
@@ -677,7 +677,7 @@ private class cpu3Toggle extends AsyncTask<String, Void, Object> {
 	protected Object doInBackground(String... args) {
          Log.i("MyApp", "Background thread starting");
          
-         File file = new File("/sys/devices/system/cpu/cpu3/cpufreq/scaling_governor");
+         File file = new File(CPU3_CURR_GOV);
      	try{
      	
      	InputStream fIn = new FileInputStream(file);
@@ -688,10 +688,10 @@ private class cpu3Toggle extends AsyncTask<String, Void, Object> {
 		
          DataOutputStream localDataOutputStream = new DataOutputStream(localProcess.getOutputStream());
          localDataOutputStream.writeBytes("echo 1 > /sys/kernel/msm_mpdecision/conf/enabled\n");
-         localDataOutputStream.writeBytes("chmod 777 /sys/devices/system/cpu/cpu3/online\n");
-         localDataOutputStream.writeBytes("echo 0 > /sys/devices/system/cpu/cpu3/online\n");
-         localDataOutputStream.writeBytes("chown system /sys/devices/system/cpu/cpu3/online\n");
-         localDataOutputStream.writeBytes("exit\n");
+         localDataOutputStream.writeBytes("chmod 777 " + cpu3online+"\n");
+         localDataOutputStream.writeBytes("echo 0 > " +cpu3online +"\n");
+         localDataOutputStream.writeBytes("chown system " +cpu3online +"\n");
+          localDataOutputStream.writeBytes("exit\n");
          localDataOutputStream.flush();
          localDataOutputStream.close();
          localProcess.waitFor();
@@ -720,11 +720,10 @@ private class cpu3Toggle extends AsyncTask<String, Void, Object> {
 			
      		DataOutputStream localDataOutputStream = new DataOutputStream(localProcess.getOutputStream());
             localDataOutputStream.writeBytes("echo 0 > /sys/kernel/msm_mpdecision/conf/enabled\n");
-            localDataOutputStream.writeBytes("chmod 666 /sys/devices/system/cpu/cpu3/online\n");
-            localDataOutputStream.writeBytes("echo 1 > /sys/devices/system/cpu/cpu3/online\n");
-            localDataOutputStream.writeBytes("chmod 444 /sys/devices/system/cpu/cpu3/online\n");
-            localDataOutputStream.writeBytes("chown system /sys/devices/system/cpu/cpu3/online\n");
-            
+            localDataOutputStream.writeBytes("chmod 666 "+cpu3online+"\n");
+            localDataOutputStream.writeBytes("echo 1 > "+cpu3online+"\n");
+            localDataOutputStream.writeBytes("chmod 444 "+cpu3online+"\n");
+            localDataOutputStream.writeBytes("chown system "+cpu3online+"\n");
             localDataOutputStream.writeBytes("exit\n");
             localDataOutputStream.flush();
             localDataOutputStream.close();
@@ -1290,7 +1289,7 @@ private class info extends AsyncTask<String, Void, Object> {
          
          try {
  			
- 			File myFile = new File("/sys/kernel/msm_mpdecision/conf/mpdec_idle_freq");
+ 			File myFile = new File("/sys/kernel/msm_mpdecision/conf/enabled");
  			FileInputStream fIn = new FileInputStream(myFile);
  		
  			BufferedReader myReader = new BufferedReader(
@@ -1301,223 +1300,15 @@ private class info extends AsyncTask<String, Void, Object> {
  				aBuffer += aDataRow + "\n";
  			}
 
- 			curentidlefreq = aBuffer.trim();
+ 			mpdec = aBuffer.trim();
  			myReader.close();
  						
  		} catch (Exception e) {
- 			curentidlefreq = "err";
+ 			mpdec = "err";
  			
  		}
          
-         try {
-        		String aBuffer = "";
-        	 			File myFile = new File("/sys/kernel/msm_mpdecision/conf/do_scroff_single_core");
-        	 			FileInputStream fIn = new FileInputStream(myFile);
-        	 			BufferedReader myReader = new BufferedReader(
-        	 					new InputStreamReader(fIn));
-        	 			String aDataRow = "";
-        	 			while ((aDataRow = myReader.readLine()) != null) {
-        	 				aBuffer += aDataRow + "\n";
-        	 			}
-
-        	 			mpdecisionidle = aBuffer.trim();
-        	 			myReader.close();
-        	 	
-        	 		} catch (Exception e) {
-						mpdecisionidle="err";
-        	 		}
-
          
-         try {
-
- 			File myFile = new File("/sys/kernel/msm_mpdecision/conf/delay");
- 			FileInputStream fIn = new FileInputStream(myFile);
-
- 			BufferedReader myReader = new BufferedReader(
- 				new InputStreamReader(fIn));
- 			String aDataRow = "";
- 			String aBuffer = "";
- 			while ((aDataRow = myReader.readLine()) != null) {
- 				aBuffer += aDataRow + "\n";
- 			}
-
- 			delay = aBuffer;
- 			myReader.close();
-
- 		} catch (Exception e) {
- 			delay="err";
- 			
- 		}
- 		
- 		
- 	   try {
-
- 		   File myFile = new File("/sys/kernel/msm_mpdecision/conf/pause");
- 		   FileInputStream fIn = new FileInputStream(myFile);
-
- 		   BufferedReader myReader = new BufferedReader(
- 			   new InputStreamReader(fIn));
- 		   String aDataRow = "";
- 		   String aBuffer = "";
- 		   while ((aDataRow = myReader.readLine()) != null) {
- 			   aBuffer += aDataRow + "\n";
- 		   }
-
- 		   pause = aBuffer;
- 		   myReader.close();
-
- 	   } catch (Exception e) {
- 		   pause ="err" ;
- 		   
-
- 	   }
- 	   
- 	      try {
-
- 		   File myFile = new File("/sys/kernel/msm_mpdecision/conf/nwns_threshold_up");
- 		   FileInputStream fIn = new FileInputStream(myFile);
-
- 		   BufferedReader myReader = new BufferedReader(
- 			   new InputStreamReader(fIn));
- 		   String aDataRow = "";
- 		   String aBuffer = "";
- 		   while ((aDataRow = myReader.readLine()) != null) {
- 			   aBuffer += aDataRow + "\n";
- 		   }
-
- 		   thrupload = aBuffer;
- 		   myReader.close();
-
- 	   } catch (Exception e) {
- 		   thrupload="err";
- 		  
- 	   }
- 	   
- 	     try {
-
- 		   File myFile = new File("/sys/kernel/msm_mpdecision/conf/twts_threshold_up");
- 		   FileInputStream fIn = new FileInputStream(myFile);
-
- 		   BufferedReader myReader = new BufferedReader(
- 			   new InputStreamReader(fIn));
- 		   String aDataRow = "";
- 		   String aBuffer = "";
- 		   while ((aDataRow = myReader.readLine()) != null) {
- 			   aBuffer += aDataRow + "\n";
- 		   }
-
- 		   thrupms = aBuffer;
- 		   myReader.close();
-
- 	   } catch (Exception e) {
- 		   thrupms="err";
- 		   
- 	   }
- 	   
- 	    try {
-
- 		   File myFile = new File("/sys/kernel/msm_mpdecision/conf/twts_threshold_down");
- 		   FileInputStream fIn = new FileInputStream(myFile);
-
- 		   BufferedReader myReader = new BufferedReader(
- 			   new InputStreamReader(fIn));
- 		   String aDataRow = "";
- 		   String aBuffer = "";
- 		   while ((aDataRow = myReader.readLine()) != null) {
- 			   aBuffer += aDataRow + "\n";
- 		   }
-
- 		   thrdownms = aBuffer;
- 		   myReader.close();
-
- 	   } catch (Exception e) {
- 		   thrdownms="err";
- 		  
- 	   }
- 	   
- 	   try {
-
- 		   File myFile = new File("/sys/kernel/msm_mpdecision/conf/nwns_threshold_down");
- 		   FileInputStream fIn = new FileInputStream(myFile);
-
- 		   BufferedReader myReader = new BufferedReader(
- 			   new InputStreamReader(fIn));
- 		   String aDataRow = "";
- 		   String aBuffer = "";
- 		   while ((aDataRow = myReader.readLine()) != null) {
- 			   aBuffer += aDataRow + "\n";
- 		   }
-
- 		   thrdownload = aBuffer;
- 		   myReader.close();
-
- 	   } catch (Exception e) {
- 		   thrdownload="err";
- 		   
- 	   }
- 	   
- 	   try {
-
- 		   File myFile = new File("/sys/kernel/msm_mpdecision/conf/mpdec_scroff_gov");
- 		   FileInputStream fIn = new FileInputStream(myFile);
-
- 		   BufferedReader myReader = new BufferedReader(
- 			   new InputStreamReader(fIn));
- 		   String aDataRow = "";
- 		   String aBuffer = "";
- 		   while ((aDataRow = myReader.readLine()) != null) {
- 			   aBuffer += aDataRow + "\n";
- 		   }
-
- 		   currentscroffgov = aBuffer;
- 		   myReader.close();
-
- 	   } catch (Exception e) {
-
- 		   currentscroffgov="err";
- 	   }
- 	   
- 	   try {
-
- 		   File myFile = new File("/sys/kernel/msm_mpdecision/conf/mpdec_scroff_freq");
- 		   FileInputStream fIn = new FileInputStream(myFile);
-
- 		   BufferedReader myReader = new BufferedReader(
- 			   new InputStreamReader(fIn));
- 		   String aDataRow = "";
- 		   String aBuffer = "";
- 		   while ((aDataRow = myReader.readLine()) != null) {
- 			   aBuffer += aDataRow + "\n";
- 		   }
-
- 		   currentscrofffreq = aBuffer;
- 		   myReader.close();
-
- 	   } catch (Exception e) {
-
- 		   currentscrofffreq="err";
- 	   }
- 	   
- 	   try {
-
- 		   File myFile = new File("/sys/kernel/msm_mpdecision/conf/scroff_profile");
- 		   FileInputStream fIn = new FileInputStream(myFile);
-
- 		   BufferedReader myReader = new BufferedReader(
- 			   new InputStreamReader(fIn));
- 		   String aDataRow = "";
- 		   String aBuffer = "";
- 		   while ((aDataRow = myReader.readLine()) != null) {
- 			   aBuffer += aDataRow + "\n";
- 		   }
-
- 		   scroff_profile = aBuffer;
- 		   myReader.close();
-
- 	   } catch (Exception e) {
-
- 		   scroff_profile="err";
- 	   }
 	   
  	  try {
 			
@@ -2067,6 +1858,22 @@ return "";
     	else  {
     		s2wtxt.setVisibility(View.GONE);
     		s2wtxte.setVisibility(View.GONE);
+    	}
+    	TextView mpdectxt = (TextView)findViewById(R.id.mpdecValue);
+    	TextView mpdectxte = (TextView)findViewById(R.id.mpdecText);
+    	if(mpdec.equals("0")){
+    		mpdectxt.setText("OFF");
+    		mpdectxt.setVisibility(View.VISIBLE);
+    		mpdectxte.setVisibility(View.VISIBLE);
+    	}
+    	else if(mpdec.equals("1")){
+    		mpdectxt.setText("ON");
+    		mpdectxt.setVisibility(View.VISIBLE);
+    		mpdectxte.setVisibility(View.VISIBLE);
+    	}
+    	else{
+    		mpdectxt.setVisibility(View.GONE);
+    		mpdectxte.setVisibility(View.GONE);
     	}
     /*	SharedPreferences.Editor editor = preferences.edit();
 	  //  editor.putString("","");
