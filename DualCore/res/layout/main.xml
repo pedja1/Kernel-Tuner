@@ -687,6 +687,21 @@
                 android:layout_alignBaseline="@+id/textView35"
                 android:layout_alignParentRight="true"
                 android:text="@string/crtica" />
+            
+            <TextView
+                android:id="@+id/mpdecText"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_below="@+id/textView35"
+                android:text="@string/mpdecision" />
+
+            <TextView
+                android:id="@+id/mpdecValue"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignBaseline="@+id/mpdecText"
+                android:layout_alignParentRight="true"
+                android:text="@string/crtica" />
 
             
         </RelativeLayout>
