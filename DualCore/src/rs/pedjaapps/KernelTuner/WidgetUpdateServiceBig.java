@@ -4,11 +4,13 @@ import java.io.BufferedReader;
 import java.io.File;
 import java.io.FileInputStream;
 import java.io.InputStreamReader;
+import android.annotation.SuppressLint;
 import android.app.PendingIntent;
 import android.app.Service;
 import android.appwidget.AppWidgetManager;
 import android.content.ComponentName;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.graphics.Bitmap;
 import android.graphics.Bitmap.Config;
 import android.graphics.Canvas;
@@ -613,7 +615,8 @@ public String gov;
 	System.out.println(angle);
 }
 
-  @Override
+  @SuppressLint("ParserError")
+@Override
   public void onStart(Intent intent, int startId) {
     Log.i(LOG, "Called");
     // Create some random data
@@ -765,11 +768,11 @@ public String gov;
 		if (Integer.parseInt(led)<2){
 			remoteViews.setImageViewResource(R.id.imageView5,	R.drawable.red);
 		}
-		else if (Integer.parseInt(led)<11 && Integer.parseInt(led)>2){
+		else if (Integer.parseInt(led)<11 && Integer.parseInt(led)>=2){
 			remoteViews.setImageViewResource(R.id.imageView5,	R.drawable.yellow);
 			
 		}
-		else if (Integer.parseInt(led)>50){
+		else if (Integer.parseInt(led)>=11){
 			remoteViews.setImageViewResource(R.id.imageView5,	R.drawable.green);
 		}
 		else {
@@ -851,12 +854,24 @@ public String gov;
 		remoteViews.setProgressBar(R.id.progressBar1, 100, battperciconint, false );
 		remoteViews.setTextViewText(R.id.textView14, battperc+"%");
 		
-		Double battempint = Double.parseDouble(batttemp);
+		double battempint = Double.parseDouble(batttemp);
 		
+		SharedPreferences sharedPrefs = PreferenceManager.getDefaultSharedPreferences(this);
+		boolean tempPref = sharedPrefs.getBoolean("temp", false);
+		if (tempPref==true){
+			battempint = (battempint*1.8)+32;
+			batttemp = String.valueOf((int)battempint/10);
+			remoteViews.setTextViewText(R.id.textView20, batttemp+"°F");
+			if(battempint>932){
+				remoteViews.setTextColor(R.id.textView20, Color.RED);
+			}
+		}
+		else if(tempPref==false){
 		batttemp = String.valueOf(battempint/10);
 		remoteViews.setTextViewText(R.id.textView20, batttemp+"°C");
 		if(battempint>500){
 			remoteViews.setTextColor(R.id.textView20, Color.RED);
+		}
 		}
 		remoteViews.setTextViewText(R.id.textView21, battvol.trim()+"mV");
 		remoteViews.setTextViewText(R.id.textView22, batttech);
@@ -879,8 +894,7 @@ public String gov;
       clickIntent.putExtra(AppWidgetManager.EXTRA_APPWIDGET_IDS,
           allWidgetIds);
 		  
-		  final SharedPreferences sharedPrefs = PreferenceManager.getDefaultSharedPreferences(this);
- 	 
+		 
  	 
 	  String timer = sharedPrefs.getString("widget_time", "1800");
 	  System.out.println(timer);

@@ -158,10 +158,10 @@
     <string name="all_m12_5mv">All -12.5mV</string>
     <string name="mhz">Mhz</string>
     <string name="governor_">Governor:</string>
-    <string name="buttons_n_light">Buttons \\n Light</string>
-    <string name="fast_ncharge">Fast\\ncharge</string>
-    <string name="color_n_depth">Color \\n Depth</string>
-    <string name="vsync_n_">Vsync \\n .</string>
+    <string name="buttons_n_light">Button Light</string>
+    <string name="fast_ncharge">Fastcharge</string>
+    <string name="color_n_depth">Color Depth</string>
+    <string name="vsync_n_">Vsync</string>
     <string name="uptime_">Uptime:</string>
     <string name="deep_sleep">Deep Sleep</string>
     <string name="temperature_">Temperature:</string>
@@ -170,6 +170,6 @@
     <string name="drain_charge_">Drain/Charge:</string>
     <string name="health_">Health:</string>
     <string name="capacity_">Capacity:</string>
-    <string name="n_a">n\\a</string>
+    <string name="n_a">n\a</string>
 
 </resources>
