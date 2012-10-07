@@ -18,10 +18,10 @@
             android:title="@string/preferences_widget_settings_interval_title" />
     </PreferenceCategory>
     <PreferenceCategory android:title="@string/preferences_misc" >
-        <CheckBoxPreference
+       <!--   <CheckBoxPreference
             android:key="override"
             android:summary="@string/preferences_misc_cpu_info_summary"
-            android:title="@string/preferences_misc_cpu_info_title" />
+            android:title="@string/preferences_misc_cpu_info_title" />-->
         <CheckBoxPreference
             android:defaultValue="true"
             android:key="ads"
