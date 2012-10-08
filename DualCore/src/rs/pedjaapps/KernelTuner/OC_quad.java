@@ -94,17 +94,14 @@ public String curfile;
 	public String governor;
 	List<String> frequencies = new ArrayList<String>();
 
-	private class cpu1Toggle extends AsyncTask<String, Void, Object> {
+	private class cpuToggle extends AsyncTask<String, Void, Object> {
 
 
 		@Override
 		protected Object doInBackground(String... args) {
 			Log.i("MyApp", "Background thread starting");
 
-			File file = new File("/sys/devices/system/cpu/cpu1/cpufreq/scaling_governor");
-			try{
-
-				InputStream fIn = new FileInputStream(file);
+			
 				Process localProcess;
 				try {
 					localProcess = Runtime.getRuntime().exec("su");
@@ -116,43 +113,23 @@ public String curfile;
 					localDataOutputStream.writeBytes("chmod 444 /sys/devices/system/cpu/cpu1/online\n");
 					localDataOutputStream.writeBytes("chown system /sys/devices/system/cpu/cpu1/online\n");
 
+					localDataOutputStream.writeBytes("chmod 666 /sys/devices/system/cpu/cpu2/online\n");
+					localDataOutputStream.writeBytes("echo 1 > /sys/devices/system/cpu/cpu2/online\n");
+					localDataOutputStream.writeBytes("chmod 444 /sys/devices/system/cpu/cpu2/online\n");
+					localDataOutputStream.writeBytes("chown system /sys/devices/system/cpu/cpu2/online\n");
+
+					localDataOutputStream.writeBytes("chmod 666 /sys/devices/system/cpu/cpu3/online\n");
+					localDataOutputStream.writeBytes("echo 1 > /sys/devices/system/cpu/cpu3/online\n");
+					localDataOutputStream.writeBytes("chmod 444 /sys/devices/system/cpu/cpu3/online\n");
+					localDataOutputStream.writeBytes("chown system /sys/devices/system/cpu/cpu3/online\n");
+
+					
 					localDataOutputStream.writeBytes("exit\n");
 					localDataOutputStream.flush();
 					localDataOutputStream.close();
 					localProcess.waitFor();
 					localProcess.destroy();
-					cpu1check=true;
-				} catch (IOException e1) {
-					// TODO Auto-generated catch block
-					e1.printStackTrace();
-				} catch (InterruptedException e1) {
-					// TODO Auto-generated catch block
-					e1.printStackTrace();
-				}
-
-			}
-
-			catch(FileNotFoundException e){
-				//enable cpu1
-
-
-				Process localProcess;
-				try {
-					localProcess = Runtime.getRuntime().exec("su");
-
-					DataOutputStream localDataOutputStream = new DataOutputStream(localProcess.getOutputStream());
-					localDataOutputStream.writeBytes("echo 0 > /sys/kernel/msm_mpdecision/conf/enabled\n");
-					localDataOutputStream.writeBytes("chmod 666 /sys/devices/system/cpu/cpu1/online\n");
-					localDataOutputStream.writeBytes("echo 1 > /sys/devices/system/cpu/cpu1/online\n");
-					localDataOutputStream.writeBytes("chmod 444 /sys/devices/system/cpu/cpu1/online\n");
-					localDataOutputStream.writeBytes("chown system /sys/devices/system/cpu/cpu1/online\n");
-
-					localDataOutputStream.writeBytes("exit\n");
-					localDataOutputStream.flush();
-					localDataOutputStream.close();
-					localProcess.waitFor();
-					localProcess.destroy();
-					cpu1check=false;
+					
 				} catch (IOException e1) {
 					// TODO Auto-generated catch block
 					e1.printStackTrace();
@@ -161,7 +138,7 @@ public String curfile;
 					e1.printStackTrace();
 				}
 		
-			}
+			
 
 			return "";
 		}
@@ -180,177 +157,6 @@ public String curfile;
 
 	}	
 	
-	private class cpu2Toggle extends AsyncTask<String, Void, Object> {
-
-
-		@Override
-		protected Object doInBackground(String... args) {
-			Log.i("MyApp", "Background thread starting");
-
-			File file = new File("/sys/devices/system/cpu/cpu2/cpufreq/scaling_governor");
-			try{
-
-				InputStream fIn = new FileInputStream(file);
-				Process localProcess;
-				try {
-					localProcess = Runtime.getRuntime().exec("su");
-
-					DataOutputStream localDataOutputStream = new DataOutputStream(localProcess.getOutputStream());
-					localDataOutputStream.writeBytes("echo 0 > /sys/kernel/msm_mpdecision/conf/enabled\n");
-					localDataOutputStream.writeBytes("chmod 666 /sys/devices/system/cpu/cpu2/online\n");
-					localDataOutputStream.writeBytes("echo 1 > /sys/devices/system/cpu/cpu2/online\n");
-					localDataOutputStream.writeBytes("chmod 444 /sys/devices/system/cpu/cpu2/online\n");
-					localDataOutputStream.writeBytes("chown system /sys/devices/system/cpu/cpu2/online\n");
-
-					localDataOutputStream.writeBytes("exit\n");
-					localDataOutputStream.flush();
-					localDataOutputStream.close();
-					localProcess.waitFor();
-					localProcess.destroy();
-					cpu2check=true;
-				} catch (IOException e1) {
-					// TODO Auto-generated catch block
-					e1.printStackTrace();
-				} catch (InterruptedException e1) {
-					// TODO Auto-generated catch block
-					e1.printStackTrace();
-				}
-
-			}
-
-			catch(FileNotFoundException e){
-				//enable cpu1
-
-
-				Process localProcess;
-				try {
-					localProcess = Runtime.getRuntime().exec("su");
-
-					DataOutputStream localDataOutputStream = new DataOutputStream(localProcess.getOutputStream());
-					localDataOutputStream.writeBytes("echo 0 > /sys/kernel/msm_mpdecision/conf/enabled\n");
-					localDataOutputStream.writeBytes("chmod 666 /sys/devices/system/cpu/cpu2/online\n");
-					localDataOutputStream.writeBytes("echo 1 > /sys/devices/system/cpu/cpu2/online\n");
-					localDataOutputStream.writeBytes("chmod 444 /sys/devices/system/cpu/cpu2/online\n");
-					localDataOutputStream.writeBytes("chown system /sys/devices/system/cpu/cpu2/online\n");
-
-					localDataOutputStream.writeBytes("exit\n");
-					localDataOutputStream.flush();
-					localDataOutputStream.close();
-					localProcess.waitFor();
-					localProcess.destroy();
-					cpu2check=false;
-				} catch (IOException e1) {
-					// TODO Auto-generated catch block
-					e1.printStackTrace();
-				} catch (InterruptedException e1) {
-					// TODO Auto-generated catch block
-					e1.printStackTrace();
-				}
-		
-			}
-
-			return "";
-		}
-
-		
-		
-		@Override
-		protected void onPostExecute(Object result) {
-			// Pass the result data back to the main activity
-
-			OC_quad.this.data = result;
-
-			
-
-		}
-
-	}	
-	
-	private class cpu3Toggle extends AsyncTask<String, Void, Object> {
-
-
-		@Override
-		protected Object doInBackground(String... args) {
-			Log.i("MyApp", "Background thread starting");
-
-			File file = new File("/sys/devices/system/cpu/cpu3/cpufreq/scaling_governor");
-			try{
-
-				InputStream fIn = new FileInputStream(file);
-				Process localProcess;
-				try {
-					localProcess = Runtime.getRuntime().exec("su");
-
-					DataOutputStream localDataOutputStream = new DataOutputStream(localProcess.getOutputStream());
-					localDataOutputStream.writeBytes("echo 0 > /sys/kernel/msm_mpdecision/conf/enabled\n");
-					localDataOutputStream.writeBytes("chmod 666 /sys/devices/system/cpu/cpu3/online\n");
-					localDataOutputStream.writeBytes("echo 1 > /sys/devices/system/cpu/cpu3/online\n");
-					localDataOutputStream.writeBytes("chmod 444 /sys/devices/system/cpu/cpu3/online\n");
-					localDataOutputStream.writeBytes("chown system /sys/devices/system/cpu/cpu3/online\n");
-
-					localDataOutputStream.writeBytes("exit\n");
-					localDataOutputStream.flush();
-					localDataOutputStream.close();
-					localProcess.waitFor();
-					localProcess.destroy();
-					cpu3check=true;
-				} catch (IOException e1) {
-					// TODO Auto-generated catch block
-					e1.printStackTrace();
-				} catch (InterruptedException e1) {
-					// TODO Auto-generated catch block
-					e1.printStackTrace();
-				}
-
-			}
-
-			catch(FileNotFoundException e){
-				//enable cpu1
-
-
-				Process localProcess;
-				try {
-					localProcess = Runtime.getRuntime().exec("su");
-
-					DataOutputStream localDataOutputStream = new DataOutputStream(localProcess.getOutputStream());
-					localDataOutputStream.writeBytes("echo 0 > /sys/kernel/msm_mpdecision/conf/enabled\n");
-					localDataOutputStream.writeBytes("chmod 666 /sys/devices/system/cpu/cpu3/online\n");
-					localDataOutputStream.writeBytes("echo 1 > /sys/devices/system/cpu/cpu3/online\n");
-					localDataOutputStream.writeBytes("chmod 444 /sys/devices/system/cpu/cpu3/online\n");
-					localDataOutputStream.writeBytes("chown system /sys/devices/system/cpu/cpu3/online\n");
-
-					localDataOutputStream.writeBytes("exit\n");
-					localDataOutputStream.flush();
-					localDataOutputStream.close();
-					localProcess.waitFor();
-					localProcess.destroy();
-					cpu3check=false;
-				} catch (IOException e1) {
-					// TODO Auto-generated catch block
-					e1.printStackTrace();
-				} catch (InterruptedException e1) {
-					// TODO Auto-generated catch block
-					e1.printStackTrace();
-				}
-		
-			}
-
-			return "";
-		}
-
-		
-		
-		@Override
-		protected void onPostExecute(Object result) {
-			// Pass the result data back to the main activity
-
-			OC_quad.this.data = result;
-
-			
-
-		}
-
-	}	
 	
 	private class applygovsettings extends AsyncTask<String, Void, Object> {
 
@@ -507,7 +313,7 @@ private class readFreqsAlt extends AsyncTask<String, Void, Object> {
 
 
     
-    private class spinnerMaxCpu0 extends AsyncTask<String, Void, Object> {
+    private class cpuInfo extends AsyncTask<String, Void, Object> {
     	
         @Override
 		protected Object doInBackground(String... args) {
@@ -533,23 +339,7 @@ private class readFreqsAlt extends AsyncTask<String, Void, Object> {
 
     		}
     		
-            return "replace this with your data object";
-        }
-
-        @Override
-		protected void onPostExecute(Object result) {
-            // Pass the result data back to the main activity
-       	 spinnermaxcpu0();
-            OC_quad.this.data = result;
-           
-        }   	
-    	}
-    
-private class spinnerMaxCpu1 extends AsyncTask<String, Void, Object> {
-	String aBuffer = "";
-        @Override
-		protected Object doInBackground(String... args) {
-            Log.i("MyApp", "Background thread starting");
+            
             try {
     			
     			File myFile = new File("/sys/devices/system/cpu/cpu1/cpufreq/scaling_max_freq");
@@ -557,7 +347,7 @@ private class spinnerMaxCpu1 extends AsyncTask<String, Void, Object> {
     			BufferedReader myReader = new BufferedReader(
     					new InputStreamReader(fIn));
     			String aDataRow = "";
-    			
+    			String aBuffer = "";
     			while ((aDataRow = myReader.readLine()) != null) {
     				aBuffer += aDataRow + "\n";
     			}
@@ -568,38 +358,8 @@ private class spinnerMaxCpu1 extends AsyncTask<String, Void, Object> {
     		} catch (Exception e) {
     			
     		}
-    
-            return aBuffer;
-        }
-
-        @Override
-		protected void onPostExecute(Object result) {
-            // Pass the result data back to the main activity
-        	if(result!=""){
-        		spinnermaxcpu1();
-        		}
-        	else{
-        		
-        	}
-       	 
-            OC_quad.this.data = result;
-
-            if (OC_quad.this.pd != null) {
-                pd.dismiss();
-			   
-            }
-        }
-
-    	}    
-    
-    private class spinnerMinCpu0 extends AsyncTask<String, Void, Object> {
-    	
-        @Override
-		protected Object doInBackground(String... args) {
-            Log.i("MyApp", "Background thread starting");
-
-            // This is where you would do all the work of downloading your data            
-try {
+            
+            try {
     			
     			File myFile = new File("/sys/devices/system/cpu/cpu0/cpufreq/scaling_min_freq");
     			FileInputStream fIn = new FileInputStream(myFile);
@@ -618,24 +378,6 @@ try {
     		} catch (Exception e) {
     		}
             
-            return "replace this with your data object";
-        }
-
-        @Override
-		protected void onPostExecute(Object result) {
-            // Pass the result data back to the main activity
-        	spinnermincpu0();
-            OC_quad.this.data = result;
-           
-        }   	
-    	}
-    
-private class spinnerMinCpu1 extends AsyncTask<String, Void, Object> {
-	String aBuffer = "";
-        @Override
-		protected Object doInBackground(String... args) {
-            Log.i("MyApp", "Background thread starting");
- 
             try {
     			
     			File myFile = new File("/sys/devices/system/cpu/cpu1/cpufreq/scaling_min_freq");
@@ -643,7 +385,7 @@ private class spinnerMinCpu1 extends AsyncTask<String, Void, Object> {
     			BufferedReader myReader = new BufferedReader(
     					new InputStreamReader(fIn));
     			String aDataRow = "";
-    			
+    			String aBuffer = "";
     			while ((aDataRow = myReader.readLine()) != null) {
     				aBuffer += aDataRow + "\n";
     			}
@@ -654,402 +396,197 @@ private class spinnerMinCpu1 extends AsyncTask<String, Void, Object> {
     		} catch (Exception e) {
     			
     		}
-         
-            return aBuffer;
+            try {
+    			
+    			File myFile = new File("/sys/devices/system/cpu/cpu2/cpufreq/scaling_max_freq");
+    			FileInputStream fIn = new FileInputStream(myFile);    			
+    			BufferedReader myReader = new BufferedReader(
+    					new InputStreamReader(fIn));
+    			String aDataRow = "";
+    			String aBuffer = "";
+    			while ((aDataRow = myReader.readLine()) != null) {
+    				aBuffer += aDataRow + "\n";
+    			}
+
+    			curentmaxfreqcpu2 = aBuffer.trim();
+    			myReader.close();
+    			   			
+    		} catch (Exception e) {
+
+    		}
+            
+            try {
+    			
+    			File myFile = new File("/sys/devices/system/cpu/cpu3/cpufreq/scaling_max_freq");
+    			FileInputStream fIn = new FileInputStream(myFile);   			
+    			BufferedReader myReader = new BufferedReader(
+    					new InputStreamReader(fIn));
+    			String aDataRow = "";
+    			String aBuffer = "";
+    			while ((aDataRow = myReader.readLine()) != null) {
+    				aBuffer += aDataRow + "\n";
+    			}
+    			
+    			curentmaxfreqcpu3 = aBuffer.trim();
+    			myReader.close();
+    			
+    		} catch (Exception e) {
+    			
+    		}
+            try {
+    			
+    			File myFile = new File("/sys/devices/system/cpu/cpu2/cpufreq/scaling_min_freq");
+    			FileInputStream fIn = new FileInputStream(myFile);
+    			
+    			BufferedReader myReader = new BufferedReader(
+    					new InputStreamReader(fIn));
+    			String aDataRow = "";
+    			String aBuffer = "";
+    			while ((aDataRow = myReader.readLine()) != null) {
+    				aBuffer += aDataRow + "\n";
+    			}
+
+    			curentminfreqcpu2 = aBuffer.trim();
+    			myReader.close();
+    	   			
+    		} catch (Exception e) {
+    		}
+            
+            try {
+    			
+    			File myFile = new File("/sys/devices/system/cpu/cpu3/cpufreq/scaling_min_freq");
+    			FileInputStream fIn = new FileInputStream(myFile);    			
+    			BufferedReader myReader = new BufferedReader(
+    					new InputStreamReader(fIn));
+    			String aDataRow = "";
+    			String aBuffer = "";
+    			while ((aDataRow = myReader.readLine()) != null) {
+    				aBuffer += aDataRow + "\n";
+    			}
+    			
+    			curentminfreqcpu3 = aBuffer.trim();
+    			myReader.close();
+    			
+    		} catch (Exception e) {
+    			
+    		}
+            
+            try {
+        		
+        		File myFile = new File("/sys/devices/system/cpu/cpu0/cpufreq/scaling_available_governors");
+        		FileInputStream fIn = new FileInputStream(myFile);
+       		
+        		BufferedReader myReader = new BufferedReader(
+        				new InputStreamReader(fIn));
+        		String aDataRow = "";
+        		String aBuffer = "";
+        		while ((aDataRow = myReader.readLine()) != null) {
+        			aBuffer += aDataRow + "\n";
+        		}
+
+        		governors = aBuffer;
+        		myReader.close();
+        		
+        	} catch (Exception e) {
+       	}
+            
+            try {
+        		
+        		File myFile = new File("/sys/devices/system/cpu/cpu0/cpufreq/scaling_governor");
+        		FileInputStream fIn = new FileInputStream(myFile);
+    		
+        		BufferedReader myReader = new BufferedReader(
+        				new InputStreamReader(fIn));
+        		String aDataRow = "";
+        		String aBuffer = "";
+        		while ((aDataRow = myReader.readLine()) != null) {
+        			aBuffer += aDataRow + "\n";
+        		}
+
+        		curentgovernorcpu0 = aBuffer.trim();
+        		myReader.close();
+        	           		           		
+        	} catch (Exception e) {
+        	}
+            try {
+        		
+        		File myFile = new File("/sys/devices/system/cpu/cpu1/cpufreq/scaling_governor");
+        		FileInputStream fIn = new FileInputStream(myFile);
+      		
+        		BufferedReader myReader = new BufferedReader(
+        				new InputStreamReader(fIn));
+        		String aDataRow = "";
+        		String aBuffer = "";
+        		while ((aDataRow = myReader.readLine()) != null) {
+        			aBuffer += aDataRow + "\n";
+        		}
+
+        		curentgovernorcpu1 = aBuffer.trim();
+        		myReader.close();
+        		
+        	} catch (Exception e) {
+        	}
+            
+            try {
+        		
+        		File myFile = new File("/sys/devices/system/cpu/cpu2/cpufreq/scaling_governor");
+        		FileInputStream fIn = new FileInputStream(myFile);
+    		
+        		BufferedReader myReader = new BufferedReader(
+        				new InputStreamReader(fIn));
+        		String aDataRow = "";
+        		String aBuffer = "";
+        		while ((aDataRow = myReader.readLine()) != null) {
+        			aBuffer += aDataRow + "\n";
+        		}
+
+        		curentgovernorcpu2 = aBuffer.trim();
+        		myReader.close();
+        	           		           		
+        	} catch (Exception e) {
+        	}
+            
+            try {
+        		
+        		File myFile = new File("/sys/devices/system/cpu/cpu3/cpufreq/scaling_governor");
+        		FileInputStream fIn = new FileInputStream(myFile);
+      		
+        		BufferedReader myReader = new BufferedReader(
+        				new InputStreamReader(fIn));
+        		String aDataRow = "";
+        		String aBuffer = "";
+        		while ((aDataRow = myReader.readLine()) != null) {
+        			aBuffer += aDataRow + "\n";
+        		}
+
+        		curentgovernorcpu3 = aBuffer.trim();
+        		myReader.close();
+        		
+        	} catch (Exception e) {
+        	}
+            return "replace this with your data object";
         }
 
         @Override
 		protected void onPostExecute(Object result) {
             // Pass the result data back to the main activity
-        	if(result!=""){
-        		spinnermincpu1();
-        	}
-        	else{
-        		
-        	}
-        	
-            OC_quad.this.data = result;           
-        }
-
+        	createspinnerforcpu0();
+        	createspinnerforcpu1();
+        	createspinnerforcpu2();
+        	createspinnerforcpu3();
+       	 spinnermaxcpu0();
+       	spinnermaxcpu1();
+       	spinnermaxcpu2();
+       	spinnermaxcpu3();
+       	spinnermincpu0();
+       	spinnermincpu1();
+       	spinnermincpu2();
+       	spinnermincpu3();
+            OC_quad.this.data = result;
+           
+        }   	
     	}
-    	   
-private class spinnerMaxCpu2 extends AsyncTask<String, Void, Object> {
-	
-    @Override
-	protected Object doInBackground(String... args) {
-        Log.i("MyApp", "Background thread starting");
-
-        // This is where you would do all the work of downloading your data            
-        try {
-			
-			File myFile = new File("/sys/devices/system/cpu/cpu2/cpufreq/scaling_max_freq");
-			FileInputStream fIn = new FileInputStream(myFile);    			
-			BufferedReader myReader = new BufferedReader(
-					new InputStreamReader(fIn));
-			String aDataRow = "";
-			String aBuffer = "";
-			while ((aDataRow = myReader.readLine()) != null) {
-				aBuffer += aDataRow + "\n";
-			}
-
-			curentmaxfreqcpu2 = aBuffer.trim();
-			myReader.close();
-			   			
-		} catch (Exception e) {
-
-		}
-		
-        return "replace this with your data object";
-    }
-
-    @Override
-	protected void onPostExecute(Object result) {
-        // Pass the result data back to the main activity
-   	 spinnermaxcpu2();
-        OC_quad.this.data = result;
-       
-    }   	
-	}
-
-private class spinnerMaxCpu3 extends AsyncTask<String, Void, Object> {
-String aBuffer = "";
-    @Override
-	protected Object doInBackground(String... args) {
-        Log.i("MyApp", "Background thread starting");
-        try {
-			
-			File myFile = new File("/sys/devices/system/cpu/cpu3/cpufreq/scaling_max_freq");
-			FileInputStream fIn = new FileInputStream(myFile);   			
-			BufferedReader myReader = new BufferedReader(
-					new InputStreamReader(fIn));
-			String aDataRow = "";
-			
-			while ((aDataRow = myReader.readLine()) != null) {
-				aBuffer += aDataRow + "\n";
-			}
-			
-			curentmaxfreqcpu3 = aBuffer.trim();
-			myReader.close();
-			
-		} catch (Exception e) {
-			
-		}
-
-        return aBuffer;
-    }
-
-    @Override
-	protected void onPostExecute(Object result) {
-        // Pass the result data back to the main activity
-    	if(result!=""){
-    		spinnermaxcpu3();
-    		}
-    	else{
-    		
-    	}
-   	 
-        OC_quad.this.data = result;
-
-        if (OC_quad.this.pd != null) {
-            pd.dismiss();
-		   
-        }
-    }
-
-	}    
-
-private class spinnerMinCpu2 extends AsyncTask<String, Void, Object> {
-	
-    @Override
-	protected Object doInBackground(String... args) {
-        Log.i("MyApp", "Background thread starting");
-
-        // This is where you would do all the work of downloading your data            
-try {
-			
-			File myFile = new File("/sys/devices/system/cpu/cpu2/cpufreq/scaling_min_freq");
-			FileInputStream fIn = new FileInputStream(myFile);
-			
-			BufferedReader myReader = new BufferedReader(
-					new InputStreamReader(fIn));
-			String aDataRow = "";
-			String aBuffer = "";
-			while ((aDataRow = myReader.readLine()) != null) {
-				aBuffer += aDataRow + "\n";
-			}
-
-			curentminfreqcpu2 = aBuffer.trim();
-			myReader.close();
-	   			
-		} catch (Exception e) {
-		}
-        
-        return "replace this with your data object";
-    }
-
-    @Override
-	protected void onPostExecute(Object result) {
-        // Pass the result data back to the main activity
-    	spinnermincpu2();
-        OC_quad.this.data = result;
-       
-    }   	
-	}
-
-private class spinnerMinCpu3 extends AsyncTask<String, Void, Object> {
-String aBuffer = "";
-    @Override
-	protected Object doInBackground(String... args) {
-        Log.i("MyApp", "Background thread starting");
-
-        try {
-			
-			File myFile = new File("/sys/devices/system/cpu/cpu3/cpufreq/scaling_min_freq");
-			FileInputStream fIn = new FileInputStream(myFile);    			
-			BufferedReader myReader = new BufferedReader(
-					new InputStreamReader(fIn));
-			String aDataRow = "";
-			
-			while ((aDataRow = myReader.readLine()) != null) {
-				aBuffer += aDataRow + "\n";
-			}
-			
-			curentminfreqcpu3 = aBuffer.trim();
-			myReader.close();
-			
-		} catch (Exception e) {
-			
-		}
-     
-        return aBuffer;
-    }
-
-    @Override
-	protected void onPostExecute(Object result) {
-        // Pass the result data back to the main activity
-    	if(result!=""){
-    		spinnermincpu3();
-    	}
-    	else{
-    		
-    	}
-    	
-        OC_quad.this.data = result;           
-    }
-
-	}
-
-    	private class readGovernors extends AsyncTask<String, Void, Object> {
-    		String aBuffer = "";
-            @Override
-			protected Object doInBackground(String... args) {
-                Log.i("MyApp", "Background thread starting");
-
-                // This is where you would do all the work of downloading your data              
-                try {
-            		
-            		File myFile = new File("/sys/devices/system/cpu/cpu0/cpufreq/scaling_available_governors");
-            		FileInputStream fIn = new FileInputStream(myFile);
-           		
-            		BufferedReader myReader = new BufferedReader(
-            				new InputStreamReader(fIn));
-            		String aDataRow = "";
-            		
-            		while ((aDataRow = myReader.readLine()) != null) {
-            			aBuffer += aDataRow + "\n";
-            		}
-
-            		governors = aBuffer;
-            		myReader.close();
-            		
-            	} catch (Exception e) {
-           	}
-            	               
-               return aBuffer;
-            }
-
-            @Override
-			protected void onPostExecute(Object result) {
-                // Pass the result data back to the main activity            	
-               OC_quad.this.data = result;
-               
-            }
-
-        	}
-    	
-    	
-
-    	private class govspinnercpu0 extends AsyncTask<String, Void, Object> {
-    		String aBuffer = "";
-            @Override
-			protected Object doInBackground(String... args) {
-                Log.i("MyApp", "Background thread starting");
-
-                // This is where you would do all the work of downloading your data               
-                try {
-            		
-            		File myFile = new File("/sys/devices/system/cpu/cpu0/cpufreq/scaling_governor");
-            		FileInputStream fIn = new FileInputStream(myFile);
-        		
-            		BufferedReader myReader = new BufferedReader(
-            				new InputStreamReader(fIn));
-            		String aDataRow = "";
-            		String aBuffer = "";
-            		while ((aDataRow = myReader.readLine()) != null) {
-            			aBuffer += aDataRow + "\n";
-            		}
-
-            		curentgovernorcpu0 = aBuffer.trim();
-            		myReader.close();
-            	           		           		
-            	} catch (Exception e) {
-            	}
-                               
-                return aBuffer;
-            }
-
-            @Override
-			protected void onPostExecute(Object result) {
-                // Pass the result data back to the main activity
-            	createspinnerforcpu0();
-                OC_quad.this.data = result;
-               
-            }
-
-        	}
-    	
-    	private class govspinnercpu1 extends AsyncTask<String, Void, Object> {
-    		String aBuffer = "";
-            @Override
-			protected Object doInBackground(String... args) {
-                Log.i("MyApp", "Background thread starting");
-
-                // This is where you would do all the work of downloading your data
-                
-                try {
-            		
-            		File myFile = new File("/sys/devices/system/cpu/cpu1/cpufreq/scaling_governor");
-            		FileInputStream fIn = new FileInputStream(myFile);
-          		
-            		BufferedReader myReader = new BufferedReader(
-            				new InputStreamReader(fIn));
-            		String aDataRow = "";
-            		
-            		while ((aDataRow = myReader.readLine()) != null) {
-            			aBuffer += aDataRow + "\n";
-            		}
-
-            		curentgovernorcpu1 = aBuffer.trim();
-            		myReader.close();
-            		
-            	} catch (Exception e) {
-            	}
-                              
-                return aBuffer;
-            }
-
-            @Override
-			protected void onPostExecute(Object result) {
-            	
-                // Pass the result data back to the main activity
-            	if (result!=""){
-            		createspinnerforcpu1();
-            	}
-            	else{
-            		
-            	}
-            	
-                OC_quad.this.data = result;
-               
-            }
-
-        	}
-    	
-    	private class govspinnercpu2 extends AsyncTask<String, Void, Object> {
-    		String aBuffer = "";
-            @Override
-			protected Object doInBackground(String... args) {
-                Log.i("MyApp", "Background thread starting");
-
-                // This is where you would do all the work of downloading your data               
-                try {
-            		
-            		File myFile = new File("/sys/devices/system/cpu/cpu2/cpufreq/scaling_governor");
-            		FileInputStream fIn = new FileInputStream(myFile);
-        		
-            		BufferedReader myReader = new BufferedReader(
-            				new InputStreamReader(fIn));
-            		String aDataRow = "";
-            		String aBuffer = "";
-            		while ((aDataRow = myReader.readLine()) != null) {
-            			aBuffer += aDataRow + "\n";
-            		}
-
-            		curentgovernorcpu2 = aBuffer.trim();
-            		myReader.close();
-            	           		           		
-            	} catch (Exception e) {
-            	}
-                               
-                return aBuffer;
-            }
-
-            @Override
-			protected void onPostExecute(Object result) {
-                // Pass the result data back to the main activity
-            	createspinnerforcpu2();
-                OC_quad.this.data = result;
-               
-            }
-
-        	}
-    	
-    	private class govspinnercpu3 extends AsyncTask<String, Void, Object> {
-    		String aBuffer = "";
-            @Override
-			protected Object doInBackground(String... args) {
-                Log.i("MyApp", "Background thread starting");
-
-                // This is where you would do all the work of downloading your data
-                
-                try {
-            		
-            		File myFile = new File("/sys/devices/system/cpu/cpu3/cpufreq/scaling_governor");
-            		FileInputStream fIn = new FileInputStream(myFile);
-          		
-            		BufferedReader myReader = new BufferedReader(
-            				new InputStreamReader(fIn));
-            		String aDataRow = "";
-            		
-            		while ((aDataRow = myReader.readLine()) != null) {
-            			aBuffer += aDataRow + "\n";
-            		}
-
-            		curentgovernorcpu3 = aBuffer.trim();
-            		myReader.close();
-            		
-            	} catch (Exception e) {
-            	}
-                              
-                return aBuffer;
-            }
-
-            @Override
-			protected void onPostExecute(Object result) {
-            	
-                // Pass the result data back to the main activity
-            	if (result!=""){
-            		createspinnerforcpu3();
-            	}
-            	else{
-            		
-            	}
-            	
-                OC_quad.this.data = result;
-               
-            }
-
-        	}
+  
     	
     	private class apply extends AsyncTask<String, Void, Object> {
     		String aBuffer = "";
@@ -1101,8 +638,26 @@ String aBuffer = "";
      				e1.printStackTrace();
      			}
           	
-                if(cpu1check==false){
-			
+
+				
+                return aBuffer;
+            }
+
+            @Override
+			protected void onPostExecute(Object result) {
+            	setprefs();
+           	new disableCPUs().execute();
+                OC_quad.this.data = result;
+   
+            }
+        	}
+    	private class disableCPUs extends AsyncTask<String, Void, Object> {
+    		String aBuffer = "";
+            @Override
+			protected Object doInBackground(String... args) {
+                Log.i("MyApp", "Background thread starting");
+                
+			Process localProcess;
 					try {
 						localProcess = Runtime.getRuntime().exec("su");
 
@@ -1111,30 +666,16 @@ String aBuffer = "";
 						localDataOutputStream.writeBytes("chmod 777 /sys/devices/system/cpu/cpu1/online\n");
 						localDataOutputStream.writeBytes("echo 0 > /sys/devices/system/cpu/cpu1/online\n");
 						localDataOutputStream.writeBytes("chown system /sys/devices/system/cpu/cpu1/online\n");
-						localDataOutputStream.writeBytes("exit\n");
-						localDataOutputStream.flush();
-						localDataOutputStream.close();
-						localProcess.waitFor();
-						localProcess.destroy();
-					} catch (IOException e) {
-						// TODO Auto-generated catch block
-						e.printStackTrace();
-					} catch (InterruptedException e) {
-						// TODO Auto-generated catch block
-						e.printStackTrace();
-					}
-				}
-                
-                if(cpu2check==false){
-        			
-					try {
-						localProcess = Runtime.getRuntime().exec("su");
-
-						DataOutputStream localDataOutputStream = new DataOutputStream(localProcess.getOutputStream());
-						localDataOutputStream.writeBytes("echo 1 > /sys/kernel/msm_mpdecision/conf/enabled\n");
+						
 						localDataOutputStream.writeBytes("chmod 777 /sys/devices/system/cpu/cpu2/online\n");
 						localDataOutputStream.writeBytes("echo 0 > /sys/devices/system/cpu/cpu2/online\n");
 						localDataOutputStream.writeBytes("chown system /sys/devices/system/cpu/cpu2/online\n");
+						
+						localDataOutputStream.writeBytes("chmod 777 /sys/devices/system/cpu/cpu3/online\n");
+						localDataOutputStream.writeBytes("echo 0 > /sys/devices/system/cpu/cpu3/online\n");
+						localDataOutputStream.writeBytes("chown system /sys/devices/system/cpu/cpu3/online\n");
+						
+						
 						localDataOutputStream.writeBytes("exit\n");
 						localDataOutputStream.flush();
 						localDataOutputStream.close();
@@ -1147,37 +688,13 @@ String aBuffer = "";
 						// TODO Auto-generated catch block
 						e.printStackTrace();
 					}
-					
-					if(cpu3check==false){
-						
-						try {
-							localProcess = Runtime.getRuntime().exec("su");
-
-							DataOutputStream localDataOutputStream = new DataOutputStream(localProcess.getOutputStream());
-							localDataOutputStream.writeBytes("echo 1 > /sys/kernel/msm_mpdecision/conf/enabled\n");
-							localDataOutputStream.writeBytes("chmod 777 /sys/devices/system/cpu/cpu3/online\n");
-							localDataOutputStream.writeBytes("echo 0 > /sys/devices/system/cpu/cpu3/online\n");
-							localDataOutputStream.writeBytes("chown system /sys/devices/system/cpu/cpu3/online\n");
-							localDataOutputStream.writeBytes("exit\n");
-							localDataOutputStream.flush();
-							localDataOutputStream.close();
-							localProcess.waitFor();
-							localProcess.destroy();
-						} catch (IOException e) {
-							// TODO Auto-generated catch block
-							e.printStackTrace();
-						} catch (InterruptedException e) {
-							// TODO Auto-generated catch block
-							e.printStackTrace();
-						}
-					}
-				}
+	
                 return aBuffer;
             }
 
             @Override
 			protected void onPostExecute(Object result) {
-            	setprefs();
+            	OC_quad.this.pd.dismiss();
            	
                 OC_quad.this.data = result;
    
@@ -1221,35 +738,11 @@ String aBuffer = "";
 	
 	InputStream fIn = new FileInputStream(file);
   this.pd = ProgressDialog.show(this, "Working..", "Loading...", true, false);
-/*	dialog = new Dialog(OC.this, R.style.Theme_TransparentNoTitle);
-	dialog.setContentView(R.layout.dialog);
-//	pd.setMessage("Loading...");
-	dialog.show();*/
-    // Start a new thread that will download all the data
-   new cpu1Toggle().execute();
-   new cpu2Toggle().execute();
-   new cpu3Toggle().execute();
-  
+   new cpuToggle().execute();
    new readFreqs().execute();
-    new spinnerMinCpu0().execute();
-    new spinnerMaxCpu0().execute();
-    new spinnerMinCpu1().execute();
-    new spinnerMaxCpu1().execute();
-    new spinnerMinCpu2().execute();
-    new spinnerMaxCpu2().execute();
-    new spinnerMinCpu3().execute();
-    new spinnerMaxCpu3().execute();
-    
-    new readGovernors().execute();
-    
-   
-    new govspinnercpu0().execute();
-    new govspinnercpu1().execute();
-    new govspinnercpu2().execute();
-    new govspinnercpu3().execute();
+    new cpuInfo().execute();
     	
-        
-
+    
 	}
 
 	catch(FileNotFoundException e){
@@ -1257,28 +750,9 @@ String aBuffer = "";
 			InputStream fIn = new FileInputStream(file2);
 			this.pd = ProgressDialog.show(this, "Working..", "Loading...", true, false);
 			
-			new cpu1Toggle().execute();
-			   new cpu2Toggle().execute();
-			   new cpu3Toggle().execute();
-			   
-			   new readFreqsAlt().execute();
-			    new spinnerMinCpu0().execute();
-			    new spinnerMaxCpu0().execute();
-			    new spinnerMinCpu1().execute();
-			    new spinnerMaxCpu1().execute();
-			    new spinnerMinCpu2().execute();
-			    new spinnerMaxCpu2().execute();
-			    new spinnerMinCpu3().execute();
-			    new spinnerMaxCpu3().execute();
-			    
-			    new readGovernors().execute();
-			   
-			    
-			    new govspinnercpu0().execute();
-			    new govspinnercpu1().execute();
-			    new govspinnercpu2().execute();
-			    new govspinnercpu3().execute();
-			    	
+			new cpuToggle().execute();			   
+			new readFreqsAlt().execute();
+			new cpuInfo().execute();	
 			        
 		}
 		catch(FileNotFoundException ee){
@@ -1470,7 +944,7 @@ String aBuffer = "";
 	}
 	@Override
 	public void onDestroy(){
-		if(cpu1check==false){
+		
 			Process localProcess;
 			try {
 				localProcess = Runtime.getRuntime().exec("su");
@@ -1480,29 +954,16 @@ String aBuffer = "";
 				localDataOutputStream.writeBytes("chmod 777 /sys/devices/system/cpu/cpu1/online\n");
 				localDataOutputStream.writeBytes("echo 0 > /sys/devices/system/cpu/cpu1/online\n");
 				localDataOutputStream.writeBytes("chown system /sys/devices/system/cpu/cpu1/online\n");
-				localDataOutputStream.writeBytes("exit\n");
-				localDataOutputStream.flush();
-				localDataOutputStream.close();
-				localProcess.waitFor();
-				localProcess.destroy();
-			} catch (IOException e) {
-				// TODO Auto-generated catch block
-				e.printStackTrace();
-			} catch (InterruptedException e) {
-				// TODO Auto-generated catch block
-				e.printStackTrace();
-			}
-		}
-		if(cpu2check==false){
-			Process localProcess;
-			try {
-				localProcess = Runtime.getRuntime().exec("su");
-
-				DataOutputStream localDataOutputStream = new DataOutputStream(localProcess.getOutputStream());
-				localDataOutputStream.writeBytes("echo 1 > /sys/kernel/msm_mpdecision/conf/enabled\n");
+				
 				localDataOutputStream.writeBytes("chmod 777 /sys/devices/system/cpu/cpu2/online\n");
 				localDataOutputStream.writeBytes("echo 0 > /sys/devices/system/cpu/cpu2/online\n");
 				localDataOutputStream.writeBytes("chown system /sys/devices/system/cpu/cpu2/online\n");
+				
+				localDataOutputStream.writeBytes("chmod 777 /sys/devices/system/cpu/cpu2/online\n");
+				localDataOutputStream.writeBytes("echo 0 > /sys/devices/system/cpu/cpu2/online\n");
+				localDataOutputStream.writeBytes("chown system /sys/devices/system/cpu/cpu2/online\n");
+				
+				
 				localDataOutputStream.writeBytes("exit\n");
 				localDataOutputStream.flush();
 				localDataOutputStream.close();
@@ -1515,30 +976,8 @@ String aBuffer = "";
 				// TODO Auto-generated catch block
 				e.printStackTrace();
 			}
-		}
-		if(cpu3check==false){
-			Process localProcess;
-			try {
-				localProcess = Runtime.getRuntime().exec("su");
-
-				DataOutputStream localDataOutputStream = new DataOutputStream(localProcess.getOutputStream());
-				localDataOutputStream.writeBytes("echo 1 > /sys/kernel/msm_mpdecision/conf/enabled\n");
-				localDataOutputStream.writeBytes("chmod 777 /sys/devices/system/cpu/cpu3/online\n");
-				localDataOutputStream.writeBytes("echo 0 > /sys/devices/system/cpu/cpu3/online\n");
-				localDataOutputStream.writeBytes("chown system /sys/devices/system/cpu/cpu3/online\n");
-				localDataOutputStream.writeBytes("exit\n");
-				localDataOutputStream.flush();
-				localDataOutputStream.close();
-				localProcess.waitFor();
-				localProcess.destroy();
-			} catch (IOException e) {
-				// TODO Auto-generated catch block
-				e.printStackTrace();
-			} catch (InterruptedException e) {
-				// TODO Auto-generated catch block
-				e.printStackTrace();
-			}
-		}
+		
+		
 		super.onDestroy();
 	}
     public void createspinnerforcpu0(){
