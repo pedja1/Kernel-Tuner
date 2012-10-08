@@ -86,7 +86,7 @@ public String curfile;
 		protected Object doInBackground(String... args) {
 			Log.i("MyApp", "Background thread starting");
 
-			File file = new File("/sys/devices/system/cpu/cpu1/cpufreq/scaling_governor");
+		/*	File file = new File("/sys/devices/system/cpu/cpu1/cpufreq/scaling_governor");
 			try{
 
 				InputStream fIn = new FileInputStream(file);
@@ -121,7 +121,7 @@ public String curfile;
 			catch(FileNotFoundException e){
 				//enable cpu1
 
-
+*/
 				Process localProcess;
 				try {
 					localProcess = Runtime.getRuntime().exec("su");
@@ -138,7 +138,7 @@ public String curfile;
 					localDataOutputStream.close();
 					localProcess.waitFor();
 					localProcess.destroy();
-					cpu1check=false;
+					//cpu1check=false;
 				} catch (IOException e1) {
 					// TODO Auto-generated catch block
 					e1.printStackTrace();
@@ -147,7 +147,7 @@ public String curfile;
 					e1.printStackTrace();
 				}
 		
-			}
+			//}
 
 			return "";
 		}
@@ -321,7 +321,7 @@ private class readFreqsAlt extends AsyncTask<String, Void, Object> {
 
 
     
-    private class spinnerMaxCpu0 extends AsyncTask<String, Void, Object> {
+    private class cpuInfo extends AsyncTask<String, Void, Object> {
     	
         @Override
 		protected Object doInBackground(String... args) {
@@ -346,271 +346,137 @@ private class readFreqsAlt extends AsyncTask<String, Void, Object> {
 
     		}
     		
-            return "replace this with your data object";
-        }
+             try {
+     			
+     			File myFile = new File("/sys/devices/system/cpu/cpu1/cpufreq/scaling_max_freq");
+     			FileInputStream fIn = new FileInputStream(myFile);   			
+     			BufferedReader myReader = new BufferedReader(
+     					new InputStreamReader(fIn));
+     			String aDataRow = "";
+     			String aBuffer = "";
+     			while ((aDataRow = myReader.readLine()) != null) {
+     				aBuffer += aDataRow + "\n";
+     			}
+     			
+     			curentmaxfreqcpu1 = aBuffer.trim();
+     			myReader.close();
+     			
+     		} catch (Exception e) {
+     			
+     		}
+             
+             try {
+     			
+     			File myFile = new File("/sys/devices/system/cpu/cpu0/cpufreq/scaling_min_freq");
+     			FileInputStream fIn = new FileInputStream(myFile);
+    			
+     			BufferedReader myReader = new BufferedReader(
+     					new InputStreamReader(fIn));
+     			String aDataRow = "";
+     			String aBuffer = "";
+     			while ((aDataRow = myReader.readLine()) != null) {
+     				aBuffer += aDataRow + "\n";
+     			}
 
-        @Override
-		protected void onPostExecute(Object result) {
-            // Pass the result data back to the main activity
-       	 spinnermaxcpu0();
-            OC.this.data = result;
-           
-        }   	
-    	}
-    
-private class spinnerMaxCpu1 extends AsyncTask<String, Void, Object> {
-	String aBuffer = "";
-        @Override
-		protected Object doInBackground(String... args) {
-            Log.i("MyApp", "Background thread starting");
-            try {
-    			
-    			File myFile = new File("/sys/devices/system/cpu/cpu1/cpufreq/scaling_max_freq");
-    			FileInputStream fIn = new FileInputStream(myFile);   			
-    			BufferedReader myReader = new BufferedReader(
-    					new InputStreamReader(fIn));
-    			String aDataRow = "";
-    			
-    			while ((aDataRow = myReader.readLine()) != null) {
-    				aBuffer += aDataRow + "\n";
-    			}
-    			
-    			curentmaxfreqcpu1 = aBuffer.trim();
-    			myReader.close();
-    			
-    		} catch (Exception e) {
-    			
-    		}
-    
-            return aBuffer;
-        }
-
-        @Override
-		protected void onPostExecute(Object result) {
-            // Pass the result data back to the main activity
-        	if(result!=""){
-        		spinnermaxcpu1();
-        		}
-        	else{
+     			curentminfreqcpu0 = aBuffer.trim();
+     			myReader.close();
+     	   			
+     		} catch (Exception e) {
+     		}
+             
+             try {
+     			
+     			File myFile = new File("/sys/devices/system/cpu/cpu1/cpufreq/scaling_min_freq");
+     			FileInputStream fIn = new FileInputStream(myFile);    			
+     			BufferedReader myReader = new BufferedReader(
+     					new InputStreamReader(fIn));
+     			String aDataRow = "";
+     			String aBuffer = "";
+     			while ((aDataRow = myReader.readLine()) != null) {
+     				aBuffer += aDataRow + "\n";
+     			}
+     			
+     			curentminfreqcpu1 = aBuffer.trim();
+     			myReader.close();
+     			
+     		} catch (Exception e) {
+     			
+     		}
+             
+             try {
+         		
+         		File myFile = new File("/sys/devices/system/cpu/cpu0/cpufreq/scaling_available_governors");
+         		FileInputStream fIn = new FileInputStream(myFile);
         		
+         		BufferedReader myReader = new BufferedReader(
+         				new InputStreamReader(fIn));
+         		String aDataRow = "";
+         		String aBuffer = "";
+         		while ((aDataRow = myReader.readLine()) != null) {
+         			aBuffer += aDataRow + "\n";
+         		}
+
+         		governors = aBuffer;
+         		myReader.close();
+         		
+         	} catch (Exception e) {
         	}
-       	 
-            OC.this.data = result;
+             
+             try {
+         		
+         		File myFile = new File("/sys/devices/system/cpu/cpu0/cpufreq/scaling_governor");
+         		FileInputStream fIn = new FileInputStream(myFile);
+     		
+         		BufferedReader myReader = new BufferedReader(
+         				new InputStreamReader(fIn));
+         		String aDataRow = "";
+         		String aBuffer = "";
+         		while ((aDataRow = myReader.readLine()) != null) {
+         			aBuffer += aDataRow + "\n";
+         		}
 
-            if (OC.this.pd != null) {
-                pd.dismiss();
-			   
-            }
-        }
-
-    	}    
-    
-    private class spinnerMinCpu0 extends AsyncTask<String, Void, Object> {
-    	
-        @Override
-		protected Object doInBackground(String... args) {
-            Log.i("MyApp", "Background thread starting");
-
-            // This is where you would do all the work of downloading your data            
-try {
-    			
-    			File myFile = new File("/sys/devices/system/cpu/cpu0/cpufreq/scaling_min_freq");
-    			FileInputStream fIn = new FileInputStream(myFile);
-   			
-    			BufferedReader myReader = new BufferedReader(
-    					new InputStreamReader(fIn));
-    			String aDataRow = "";
-    			String aBuffer = "";
-    			while ((aDataRow = myReader.readLine()) != null) {
-    				aBuffer += aDataRow + "\n";
-    			}
-
-    			curentminfreqcpu0 = aBuffer.trim();
-    			myReader.close();
-    	   			
-    		} catch (Exception e) {
-    		}
-            
-            return "replace this with your data object";
-        }
-
-        @Override
-		protected void onPostExecute(Object result) {
-            // Pass the result data back to the main activity
-        	spinnermincpu0();
-            OC.this.data = result;
-           
-        }   	
-    	}
-    
-private class spinnerMinCpu1 extends AsyncTask<String, Void, Object> {
-	String aBuffer = "";
-        @Override
-		protected Object doInBackground(String... args) {
-            Log.i("MyApp", "Background thread starting");
- 
-            try {
-    			
-    			File myFile = new File("/sys/devices/system/cpu/cpu1/cpufreq/scaling_min_freq");
-    			FileInputStream fIn = new FileInputStream(myFile);    			
-    			BufferedReader myReader = new BufferedReader(
-    					new InputStreamReader(fIn));
-    			String aDataRow = "";
-    			
-    			while ((aDataRow = myReader.readLine()) != null) {
-    				aBuffer += aDataRow + "\n";
-    			}
-    			
-    			curentminfreqcpu1 = aBuffer.trim();
-    			myReader.close();
-    			
-    		} catch (Exception e) {
-    			
-    		}
-         
-            return aBuffer;
-        }
-
-        @Override
-		protected void onPostExecute(Object result) {
-            // Pass the result data back to the main activity
-        	if(result!=""){
-        		spinnermincpu1();
-        	}
-        	else{
-        		
-        	}
-        	
-            OC.this.data = result;           
-        }
-
-    	}
-    	   	
-    	private class readGovernors extends AsyncTask<String, Void, Object> {
-    		String aBuffer = "";
-            @Override
-			protected Object doInBackground(String... args) {
-                Log.i("MyApp", "Background thread starting");
-
-                // This is where you would do all the work of downloading your data              
-                try {
-            		
-            		File myFile = new File("/sys/devices/system/cpu/cpu0/cpufreq/scaling_available_governors");
-            		FileInputStream fIn = new FileInputStream(myFile);
-           		
-            		BufferedReader myReader = new BufferedReader(
-            				new InputStreamReader(fIn));
-            		String aDataRow = "";
-            		
-            		while ((aDataRow = myReader.readLine()) != null) {
-            			aBuffer += aDataRow + "\n";
-            		}
-
-            		governors = aBuffer;
-            		myReader.close();
-            		
-            	} catch (Exception e) {
-           	}
-            	               
-               return aBuffer;
-            }
-
-            @Override
-			protected void onPostExecute(Object result) {
-                // Pass the result data back to the main activity            	
-               OC.this.data = result;
-               
-            }
-
-        	}
-    	
-    	
-
-    	private class govspinnercpu0 extends AsyncTask<String, Void, Object> {
-    		String aBuffer = "";
-            @Override
-			protected Object doInBackground(String... args) {
-                Log.i("MyApp", "Background thread starting");
-
-                // This is where you would do all the work of downloading your data               
-                try {
-            		
-            		File myFile = new File("/sys/devices/system/cpu/cpu0/cpufreq/scaling_governor");
-            		FileInputStream fIn = new FileInputStream(myFile);
-        		
-            		BufferedReader myReader = new BufferedReader(
-            				new InputStreamReader(fIn));
-            		String aDataRow = "";
-            		String aBuffer = "";
-            		while ((aDataRow = myReader.readLine()) != null) {
-            			aBuffer += aDataRow + "\n";
-            		}
-
-            		curentgovernorcpu0 = aBuffer.trim();
-            		myReader.close();
-            	           		           		
-            	} catch (Exception e) {
-            	}
-                               
-                return aBuffer;
-            }
-
-            @Override
-			protected void onPostExecute(Object result) {
-                // Pass the result data back to the main activity
-            	createspinnerforcpu0();
-                OC.this.data = result;
-               
-            }
-
-        	}
-    	
-    	private class govspinnercpu1 extends AsyncTask<String, Void, Object> {
-    		String aBuffer = "";
-            @Override
-			protected Object doInBackground(String... args) {
-                Log.i("MyApp", "Background thread starting");
-
-                // This is where you would do all the work of downloading your data
-                
-                try {
-            		
-            		File myFile = new File("/sys/devices/system/cpu/cpu1/cpufreq/scaling_governor");
-            		FileInputStream fIn = new FileInputStream(myFile);
+         		curentgovernorcpu0 = aBuffer.trim();
+         		myReader.close();
+         	           		           		
+         	} catch (Exception e) {
+         	}
+             
+             try {
           		
-            		BufferedReader myReader = new BufferedReader(
-            				new InputStreamReader(fIn));
-            		String aDataRow = "";
-            		
-            		while ((aDataRow = myReader.readLine()) != null) {
-            			aBuffer += aDataRow + "\n";
-            		}
+          		File myFile = new File("/sys/devices/system/cpu/cpu1/cpufreq/scaling_governor");
+          		FileInputStream fIn = new FileInputStream(myFile);
+      		
+          		BufferedReader myReader = new BufferedReader(
+          				new InputStreamReader(fIn));
+          		String aDataRow = "";
+          		String aBuffer = "";
+          		while ((aDataRow = myReader.readLine()) != null) {
+          			aBuffer += aDataRow + "\n";
+          		}
 
-            		curentgovernorcpu1 = aBuffer.trim();
-            		myReader.close();
-            		
-            	} catch (Exception e) {
-            	}
-                              
-                return aBuffer;
-            }
+          		curentgovernorcpu1 = aBuffer.trim();
+          		myReader.close();
+          	           		           		
+          	} catch (Exception e) {
+          	}
+           
+            return "replace this with your data object";
+        }
 
-            @Override
-			protected void onPostExecute(Object result) {
-            	
-                // Pass the result data back to the main activity
-            	if (result!=""){
-            		createspinnerforcpu1();
-            	}
-            	else{
-            		
-            	}
-            	
-                OC.this.data = result;
-               
-            }
-
-        	}
+        @Override
+		protected void onPostExecute(Object result) {
+            // Pass the result data back to the main activity
+        	createspinnerforcpu0();
+            createspinnerforcpu1();
+            spinnermincpu0();
+            spinnermaxcpu0();
+            spinnermincpu1();
+            spinnermaxcpu1();
+            
+           OC.this.pd.dismiss();
+        }   	
+    	}
+  
     	
     	private class apply extends AsyncTask<String, Void, Object> {
     		String aBuffer = "";
@@ -649,8 +515,30 @@ private class spinnerMinCpu1 extends AsyncTask<String, Void, Object> {
      				e1.printStackTrace();
      			}
           	
-                if(cpu1check==false){
+               
 			
+					
+				
+                return aBuffer;
+            }
+
+            @Override
+			protected void onPostExecute(Object result) {
+            	setprefs();
+            	new disableCPU1().execute();
+            	
+         
+   
+            }
+        	}
+    	
+    	private class disableCPU1 extends AsyncTask<String, Void, Object> {
+    		String aBuffer = "";
+            @Override
+			protected Object doInBackground(String... args) {
+                Log.i("MyApp", "Background thread starting");
+                Process localProcess;
+
 					try {
 						localProcess = Runtime.getRuntime().exec("su");
 
@@ -671,16 +559,14 @@ private class spinnerMinCpu1 extends AsyncTask<String, Void, Object> {
 						// TODO Auto-generated catch block
 						e.printStackTrace();
 					}
-				}
+				
                 return aBuffer;
             }
 
             @Override
 			protected void onPostExecute(Object result) {
-            	setprefs();
-           	
-                OC.this.data = result;
-   
+
+                OC.this.finish();
             }
         	}
     	
@@ -720,27 +606,11 @@ private class spinnerMinCpu1 extends AsyncTask<String, Void, Object> {
 	
 	InputStream fIn = new FileInputStream(file);
   this.pd = ProgressDialog.show(this, "Working..", "Loading...", true, false);
-/*	dialog = new Dialog(OC.this, R.style.Theme_TransparentNoTitle);
-	dialog.setContentView(R.layout.dialog);
-//	pd.setMessage("Loading...");
-	dialog.show();*/
-    // Start a new thread that will download all the data
+
    new cpu1Toggle().execute();
    new readFreqs().execute();
-    new spinnerMinCpu0().execute();
-    new spinnerMaxCpu0().execute();
-    new readGovernors().execute();
-    
-    new govspinnercpu0().execute();
-    
-    SharedPreferences sharedPrefs = PreferenceManager.getDefaultSharedPreferences(this);
-	 
-	  
-	  boolean a = sharedPrefs.getBoolean("cpu1off", false);
+    new cpuInfo().execute();
 
-    	new govspinnercpu1().execute();
-        new spinnerMinCpu1().execute();
-        new spinnerMaxCpu1().execute();
 		
 	}
 
@@ -751,20 +621,8 @@ private class spinnerMinCpu1 extends AsyncTask<String, Void, Object> {
 			
 			   new cpu1Toggle().execute();
 			   new readFreqsAlt().execute();
-			    new spinnerMinCpu0().execute();
-			    new spinnerMaxCpu0().execute();
-			    new readGovernors().execute();
-			    
-			    new govspinnercpu0().execute();
-			    
-			    SharedPreferences sharedPrefs = PreferenceManager.getDefaultSharedPreferences(this);
-				 
-				  
-				  boolean a = sharedPrefs.getBoolean("cpu1off", false);
+			    new cpuInfo().execute();
 
-			    	new govspinnercpu1().execute();
-			        new spinnerMinCpu1().execute();
-			        new spinnerMaxCpu1().execute();
 		}
 		catch(FileNotFoundException ee){
 			AlertDialog alertDialog = new AlertDialog.Builder(
@@ -910,7 +768,7 @@ private class spinnerMinCpu1 extends AsyncTask<String, Void, Object> {
 	}
 	@Override
 	public void onDestroy(){
-		if(cpu1check==false){
+		
 			Process localProcess;
 			try {
 				localProcess = Runtime.getRuntime().exec("su");
@@ -932,7 +790,7 @@ private class spinnerMinCpu1 extends AsyncTask<String, Void, Object> {
 				// TODO Auto-generated catch block
 				e.printStackTrace();
 			}
-		}
+		
 		super.onDestroy();
 	}
     public void createspinnerforcpu0(){
@@ -1322,10 +1180,10 @@ private class spinnerMinCpu1 extends AsyncTask<String, Void, Object> {
 	        case 0:
 	        	OC.this.pd = ProgressDialog.show(OC.this, "Working..", "Applying settings", true, false);
 				new apply().execute();
-				OC.this.finish();;
+				
 				return true;
 	        case 1:
-	        	if(cpu1check==false){
+	        	
 	        		Process localProcess;
 	        							try {
 	        								localProcess = Runtime.getRuntime().exec("su");
@@ -1347,7 +1205,7 @@ private class spinnerMinCpu1 extends AsyncTask<String, Void, Object> {
 	        								// TODO Auto-generated catch block
 	        								e.printStackTrace();
 	        							}
-	        							}
+	        							
 	        						OC.this.finish();
 				return true;
 			
