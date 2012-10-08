@@ -1875,62 +1875,12 @@ return "";
     		mpdectxt.setVisibility(View.GONE);
     		mpdectxte.setVisibility(View.GONE);
     	}
-    /*	SharedPreferences.Editor editor = preferences.edit();
-	  //  editor.putString("","");
-	   // editor.putBoolean("cputoggle", false);
-	    editor.putString("gpu2d", gpu2d);
-	    editor.putString("gpu3d", gpu3d);
-	    editor.putString("cdepth", cdepth);
-	    editor.putString("led", led);
-	    editor.putString("io", scheduler);
-  	    editor.putString("sdcache", sdcache);
-  	    editor.putString("fastcharge", fastcharge);
-  	    editor.putString("vsync", vsync);
-  	    
-  	    if (vsync.equals("1")){
-  	    editor.putString("hw", "1");
-  	    editor.putString("backbuf", "3");
-  	  
-  	    }
-  	    else{
-  	    	editor.putString("hw", "0");
-  	  	    editor.putString("backbuf", "4");
-  	  	    }
-  	  editor.putString("onoff", onoff);
-	    editor.putString("delaynew", delay);
-	    editor.putString("pausenew", pause);
-	    editor.putString("thruploadnew", thrupload);
-	    editor.putString("thrdownloadnew", thrdownload);
-	    editor.putString("thrupmsnew", thrupms);
-	    editor.putString("thrdownmsnew", thrdownms);
-	    editor.putString("idlefreq", curentidlefreq);
-	    editor.putString("maxfreqselected", maxfreqselected);
-		editor.putString("govselected", govselected);
-		editor.putString("ldt", ldt);
-		editor.putString("p1freq", p1freq);
- 	    editor.putString("p2freq", p2freq);
- 	    editor.putString("p3freq", p3freq);
- 	    editor.putString("p1low", p1low);
- 	    editor.putString("p1high", p1high);
- 	    editor.putString("p2low", p2low);
- 	    editor.putString("p2high", p2high);
- 	   editor.putString("p3low", p3low);
-	 	editor.putString("p3high", p3high);
-	/*	editor.putString("cpu0min", cpu0min);
-	    editor.putString("cpu0max", cpu0max);
-	    editor.putString("cpu0gov", curentgovernorcpu0);
-	    editor.putString("cpu1min", cpu1min);
-	    editor.putString("cpu1max", cpu1max);
-	    editor.putString("cpu1gov", curentgovernorcpu1);
-  	  editor.commit();
-	    */
+    
     	
         KernelTuner.this.data = result;
 
         
-        //if (DualCore.this.pd != null){   
-        //DualCore.this.pd.dismiss();
-        //}// gpu.this.finish();
+        
     }
 
     
@@ -3544,7 +3494,11 @@ public boolean onOptionsItemSelected(MenuItem item) {
 	if (item.getItemId() == R.id.profiles) {
         startActivity(new Intent(this, profiles.class));
         Log.d("Menu", "check selected");
-    }	
+    }
+	if (item.getItemId() == R.id.swap) {
+        startActivity(new Intent(this, Swap.class));
+        
+    }
     return super.onOptionsItemSelected(item);
 }
 

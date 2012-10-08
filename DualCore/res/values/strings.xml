@@ -171,5 +171,15 @@
     <string name="health_">Health:</string>
     <string name="capacity_">Capacity:</string>
     <string name="n_a">n\a</string>
+    <string name="swap_size">Swap Size(MB)</string>
+    <string name="swap_location">Swap file location</string>
+    <string name="swappiness">Swappiness</string>
+    <string name="create_swap">Create Swap File</string>
+    <string name="activate_swap">Activate Swap</string>
+    <string name="swap_status">Swap Status</string>
+    <string name="restore_on_reboot">Activate Swap after reboot</string>
+    <string name="delete_swap">Delete Swap File</string>
+     <string name="activity_title_swap">Swap Manager</string>
+     <string name="deactivate_swap">Deactivate Swap</string>
 
 </resources>

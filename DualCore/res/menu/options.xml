@@ -39,6 +39,12 @@
         android:icon="@drawable/ic_menu_cc"
         android:showAsAction="ifRoom|withText"
         android:title="Profiles"/>
+    
+    <item
+        android:id="@+id/swap"
+       
+        android:showAsAction="ifRoom|withText"
+        android:title="Swap Manager"/>
            <!-- </menu> 
             </item>-->
 

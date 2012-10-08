@@ -93,6 +93,8 @@ android:resource="@xml/widget_provider_4x4" />
 <activity android:name=".check" android:label="@string/activity_title_check" android:theme="@style/Theme.TransparentNoTitle" android:icon="@drawable/icon"></activity>
 <activity android:name=".profiles" android:label="@string/activity_title_profiles" android:icon="@drawable/ic_menu_cc"></activity>
 <activity android:name=".ProfileEditor" android:label="@string/activity_title_profile_editor" android:icon="@drawable/ic_menu_edit" android:theme="@style/Theme.Transparent"></activity>
+<activity android:name=".Swap" android:label="@string/activity_title_swap" android:icon="@drawable/icon" ></activity>
+
 <service android:name=".WidgetUpdateService"></service>
 <service android:name=".WidgetUpdateServiceBig"></service>
 
