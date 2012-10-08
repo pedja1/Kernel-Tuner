@@ -415,7 +415,7 @@ public void swaps(){
 		
 		try {
     		
-    		File myFile = new File("/proc/swapsa");
+    		File myFile = new File("/proc/swaps");
     		FileInputStream fIn = new FileInputStream(myFile);
 		
     		BufferedReader myReader = new BufferedReader(
