@@ -10,6 +10,7 @@ import java.io.IOException;
 import java.io.InputStream;
 import java.io.InputStreamReader;
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
 import rs.pedjaapps.KernelTuner.R;
 import android.app.Activity;
@@ -63,6 +64,7 @@ public class Swap extends Activity{
     public SharedPreferences preferences;
     
     List<String> swapsList = new ArrayList<String>();
+    List<String> temp = new ArrayList<String>();
 
     	
     	
@@ -240,15 +242,12 @@ private class createSwap extends AsyncTask<String, Void, Object> {
 	Button create = (Button)findViewById(R.id.button2);
 	
 	Button deactivate = (Button)findViewById(R.id.button4);
-	TextView status = (TextView)findViewById(R.id.textView2);
+	
 	final EditText ed = (EditText)findViewById(R.id.EditText1);
 	updateUI();
 		
-	status.setText(swaps2);
 	
-	String[] swapsArray = swaps.split("\\s");
-	swapLocationCurrent = swapsArray[0];
-	System.out.println(swapLocationCurrent);
+	
 	
 	
 	
@@ -298,10 +297,20 @@ private class createSwap extends AsyncTask<String, Void, Object> {
     		EditText ed = (EditText)findViewById(R.id.EditText1);
     		Button activate = (Button)findViewById(R.id.button1);
     		Button create = (Button)findViewById(R.id.button2);
-    		Button delete = (Button)findViewById(R.id.button3);
+    		Button swappiness = (Button)findViewById(R.id.button3);
+    		
     		Button deactivate = (Button)findViewById(R.id.button4);
     		TextView status = (TextView)findViewById(R.id.textView2);
     		LinearLayout ll = (LinearLayout)findViewById(R.id.LinearLayout1);
+    		LinearLayout ll1 = (LinearLayout)findViewById(R.id.ll1);
+    		LinearLayout ll2 = (LinearLayout)findViewById(R.id.ll2);
+    		
+    		
+    		TextView swappinesstxt = (TextView)findViewById(R.id.textView6);
+    		TextView total = (TextView)findViewById(R.id.textView7);
+    		TextView used = (TextView)findViewById(R.id.textView8);
+    		TextView free = (TextView)findViewById(R.id.textView9);
+    		TextView location = (TextView)findViewById(R.id.textView10);
     		if(!currentSwappiness.equals("err"))
     		{
     			ed.setText(currentSwappiness);
@@ -313,23 +322,63 @@ private class createSwap extends AsyncTask<String, Void, Object> {
     	if(new File("/data/swap").exists()){
     		System.out.println("swap file found on /data");
     		create.setVisibility(View.GONE);
+    		ll1.setVisibility(View.GONE);
+    		ll2.setVisibility(View.GONE);
     	}	
     	else if(new File(String.valueOf(Environment.getExternalStorageDirectory())+"/swap").exists()){
     		System.out.println("swap file found on /sdcard");
     		create.setVisibility(View.GONE);
+    		ll1.setVisibility(View.GONE);
+    		ll2.setVisibility(View.GONE);
     	}
     	else{
     		
     		activate.setVisibility(View.GONE);
     		deactivate.setVisibility(View.GONE);
+    		swappiness.setVisibility(View.GONE);
+    		
     	}
     	
     	if(swaps.equals("")){
     		deactivate.setVisibility(View.GONE);
+    		
     	}
     	else{
     		activate.setVisibility(View.GONE);
     		
+    	}
+    	
+    	if(!swaps.equals("") && !swaps.equals("err")){
+    	String[] swapsArray = swaps.split("\\s");
+    	swapLocationCurrent = swapsArray[0];
+    	temp = Arrays.asList(swapsArray); 
+    	for(String s : temp) {
+    	       if(s != null && s.length() > 0) {
+    	          swapsList.add(s);
+    	       }
+    	    }
+    	}
+    	if(!swaps.equals("") && !swaps.equals("err")){
+    		status.setText("Swap Status: Activated");
+    		swappinesstxt.setText("Swappiness: "+currentSwappiness+"%");
+    		total.setText("Total Swap Memory: "+ Integer.parseInt(swapsList.get(2))/1024+"MB");
+    		used.setText("Used Swap Memory: "+ Integer.parseInt(swapsList.get(3))/1024+"MB");
+    		free.setText("Free Swap Memory: "+ (Integer.parseInt(swapsList.get(2))/1024-Integer.parseInt(swapsList.get(3))/1024)+"MB");
+    		location.setText("Swap file location: "+swapsList.get(0));
+    	}
+    	else if(swaps.equals("")){
+    		status.setText("Swap Status: Deactivated");
+    		swappinesstxt.setVisibility(View.GONE);
+    		total.setVisibility(View.GONE);
+    		used.setVisibility(View.GONE);
+    		free.setVisibility(View.GONE);
+    		location.setVisibility(View.GONE);
+    	}
+    	if(new File(String.valueOf(Environment.getExternalStorageDirectory())+"/swap").exists()){
+    		swapLocationCurrent = String.valueOf(Environment.getExternalStorageDirectory())+"/swap";
+    	}
+    	else if(new File("/data/swap").exists()){
+    		swapLocationCurrent = "/data/swap";
     	}
     	} 
     	
@@ -366,7 +415,7 @@ public void swaps(){
 		
 		try {
     		
-    		File myFile = new File("/proc/swaps");
+    		File myFile = new File("/proc/swapsa");
     		FileInputStream fIn = new FileInputStream(myFile);
 		
     		BufferedReader myReader = new BufferedReader(
@@ -380,35 +429,13 @@ public void swaps(){
     		}
 
     		swaps = aBuffer.trim();
-    		System.out.println(swaps);
+    		
     		myReader.close();
     	           		           		
     	} catch (Exception e) {
     		swaps = "err";
     	}
 		
-try {
-    		
-    		File myFile = new File("/proc/swaps");
-    		FileInputStream fIn = new FileInputStream(myFile);
-		
-    		BufferedReader myReader = new BufferedReader(
-    				new InputStreamReader(fIn));
-    		String aDataRow = "";
-    		String aBuffer = "";
-    		//myReader.readLine();
-    		while ((aDataRow = myReader.readLine()) != null) {
-    			
-    			aBuffer += aDataRow + "\n";
-    		}
-
-    		swaps2 = aBuffer.trim();
-    		System.out.println(swaps2);
-    		myReader.close();
-    	           		           		
-    	} catch (Exception e) {
-    		swaps2 = "err";
-    	}
 
 	}
 	

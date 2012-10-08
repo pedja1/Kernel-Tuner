@@ -181,5 +181,6 @@
     <string name="delete_swap">Delete Swap File</string>
      <string name="activity_title_swap">Swap Manager</string>
      <string name="deactivate_swap">Deactivate Swap</string>
+     <string name="set_swappiness">Set Swappiness</string>
 
 </resources>
