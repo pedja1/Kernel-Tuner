@@ -898,7 +898,7 @@ private class info extends AsyncTask<String, Void, Object> {
          
          try {
   			
-  			File myFile = new File(CPU1_MAX_FREQ);
+  			File myFile = new File(CPU1_MIN_FREQ);
   			FileInputStream fIn = new FileInputStream(myFile);
 		
   			BufferedReader myReader = new BufferedReader(
