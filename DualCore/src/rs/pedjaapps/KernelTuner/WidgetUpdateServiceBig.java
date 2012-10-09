@@ -859,8 +859,8 @@ public String gov;
 		SharedPreferences sharedPrefs = PreferenceManager.getDefaultSharedPreferences(this);
 		boolean tempPref = sharedPrefs.getBoolean("temp", false);
 		if (tempPref==true){
-			battempint = (battempint*1.8)+32;
-			batttemp = String.valueOf((int)battempint/10);
+			battempint = (battempint*0.18)+32;
+			batttemp = String.valueOf((int)battempint);
 			remoteViews.setTextViewText(R.id.textView20, batttemp+"°F");
 			if(battempint>932){
 				remoteViews.setTextColor(R.id.textView20, Color.RED);
