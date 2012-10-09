@@ -64,7 +64,7 @@ public class UpdateCheckService extends Service
 			
 			try {
 				// Create a URL for the desired page
-				URL url = new URL("http://kerneltuner.co.cc/ktuner/version");
+				URL url = new URL("http://kerneltuner.tk/ktuner/version");
 
 				// Read all the text returned by the server
 				BufferedReader in = new BufferedReader(new InputStreamReader(url.openStream()));
@@ -79,7 +79,7 @@ public class UpdateCheckService extends Service
 		
 			try {
 				// Create a URL for the desired page
-				URL url = new URL("http://kerneltuner.co.cc/ktuner/changelog");
+				URL url = new URL("http://kerneltuner.tk/ktuner/changelog");
 
 				// Read all the text returned by the server
 				BufferedReader in = new BufferedReader(new InputStreamReader(url.openStream()));
