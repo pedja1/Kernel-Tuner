@@ -104,7 +104,7 @@ public class uv extends Activity {
 		
 		@Override
 		protected Object doInBackground(String... args) {
-			Log.i("MyApp", "Background thread starting");
+			//Log.i("MyApp", "Background thread starting");
 
 			Process localProcess;
 			try {
@@ -163,7 +163,7 @@ public class uv extends Activity {
 
 		@Override
 		protected Object doInBackground(String... args) {
-			Log.i("MyApp", "Background thread starting");
+			//Log.i("MyApp", "Background thread starting");
 
 			Process localProcess;
 			try {
@@ -433,7 +433,7 @@ public class uv extends Activity {
 				frequencies.add(freq);
 
 			}
-			System.out.println(frequencies);
+			//System.out.println(frequencies);
 			in.close();
 		} catch (Exception e) {// Catch exception if any
 			System.err.println("Error: " + e.getMessage());
@@ -462,7 +462,7 @@ public class uv extends Activity {
 				frequencies2.add(freq);
 
 			}
-			System.out.println(frequencies2);
+			//System.out.println(frequencies2);
 			in.close();
 		} catch (Exception e) {// Catch exception if any
 			System.err.println("Error: " + e.getMessage());

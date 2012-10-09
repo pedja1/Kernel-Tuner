@@ -79,11 +79,11 @@ public class changelog extends Activity {
 		TextView anth = (TextView) findViewById(R.id.textView12);
 		int intIndex = anthrax.indexOf("anthrax");
 		if (intIndex == -1) {
-			System.out.println("not found");
+			//System.out.println("not found");
 
 			anth.setVisibility(View.GONE);
 		} else {
-			System.out.println("Found anthrax at index " + intIndex);
+			//System.out.println("Found anthrax at index " + intIndex);
 			anth.setVisibility(View.VISIBLE);
 
 		}

@@ -75,7 +75,7 @@ private class deactivateSwap extends AsyncTask<String, Void, Object> {
         	
         	@Override
 			protected Object doInBackground(String... args) {
-                 Log.i("MyApp", "Background thread starting");
+                // Log.i("MyApp", "Background thread starting");
                 
                  Process localProcess;
           		try {
@@ -120,7 +120,7 @@ private class activateSwap extends AsyncTask<String, Void, Object> {
 	
 	@Override
 	protected Object doInBackground(String... args) {
-         Log.i("MyApp", "Background thread starting");
+         //Log.i("MyApp", "Background thread starting");
         
          Process localProcess;
   		try {
@@ -165,7 +165,7 @@ private class setSwappiness extends AsyncTask<String, Void, Object> {
 	
 	@Override
 	protected Object doInBackground(String... args) {
-         Log.i("MyApp", "Background thread starting");
+        // Log.i("MyApp", "Background thread starting");
         
          Process localProcess;
   		try {
@@ -210,7 +210,7 @@ private class createSwap extends AsyncTask<String, Void, Object> {
 	
 	@Override
 	protected Object doInBackground(String... args) {
-         Log.i("MyApp", "Background thread starting");
+         //Log.i("MyApp", "Background thread starting");
         
         
          Process localProcess;
@@ -380,7 +380,7 @@ private class createSwap extends AsyncTask<String, Void, Object> {
     		}
     	
     	if(new File("/data/swap").exists()){
-    		System.out.println("swap file found on /data");
+    		//System.out.println("swap file found on /data");
     		create.setVisibility(View.GONE);
     		ll1.setVisibility(View.GONE);
     		ll2.setVisibility(View.GONE);
@@ -389,7 +389,7 @@ private class createSwap extends AsyncTask<String, Void, Object> {
     		swappiness.setVisibility(View.VISIBLE);
     	}	
     	else if(new File(String.valueOf(Environment.getExternalStorageDirectory())+"/swap").exists()){
-    		System.out.println("swap file found on /sdcard");
+    		//System.out.println("swap file found on /sdcard");
     		create.setVisibility(View.GONE);
     		ll1.setVisibility(View.GONE);
     		ll2.setVisibility(View.GONE);

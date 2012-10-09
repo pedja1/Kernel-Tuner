@@ -84,44 +84,7 @@ public String curfile;
 
 		@Override
 		protected Object doInBackground(String... args) {
-			Log.i("MyApp", "Background thread starting");
-
-		/*	File file = new File("/sys/devices/system/cpu/cpu1/cpufreq/scaling_governor");
-			try{
-
-				InputStream fIn = new FileInputStream(file);
-				Process localProcess;
-				try {
-					localProcess = Runtime.getRuntime().exec("su");
-
-					DataOutputStream localDataOutputStream = new DataOutputStream(localProcess.getOutputStream());
-					localDataOutputStream.writeBytes("echo 0 > /sys/kernel/msm_mpdecision/conf/enabled\n");
-					localDataOutputStream.writeBytes("chmod 666 /sys/devices/system/cpu/cpu1/online\n");
-					localDataOutputStream.writeBytes("echo 1 > /sys/devices/system/cpu/cpu1/online\n");
-					localDataOutputStream.writeBytes("chmod 444 /sys/devices/system/cpu/cpu1/online\n");
-					localDataOutputStream.writeBytes("chown system /sys/devices/system/cpu/cpu1/online\n");
-
-					localDataOutputStream.writeBytes("exit\n");
-					localDataOutputStream.flush();
-					localDataOutputStream.close();
-					localProcess.waitFor();
-					localProcess.destroy();
-					cpu1check=true;
-				} catch (IOException e1) {
-					// TODO Auto-generated catch block
-					e1.printStackTrace();
-				} catch (InterruptedException e1) {
-					// TODO Auto-generated catch block
-					e1.printStackTrace();
-				}
 			
-
-			}
-
-			catch(FileNotFoundException e){
-				//enable cpu1
-
-*/
 				Process localProcess;
 				try {
 					localProcess = Runtime.getRuntime().exec("su");
@@ -147,7 +110,7 @@ public String curfile;
 					e1.printStackTrace();
 				}
 		
-			//}
+			
 
 			return "";
 		}
@@ -171,7 +134,7 @@ public String curfile;
 
 		@Override
 		protected Object doInBackground(String... args) {
-			Log.i("MyApp", "Background thread starting");
+			//Log.i("MyApp", "Background thread starting");
 
 			
 
@@ -232,7 +195,7 @@ public String curfile;
     	  	
     	@Override
 		protected Object doInBackground(String... args) {
-             Log.i("MyApp", "Background thread starting");
+             //Log.i("MyApp", "Background thread starting");
              
              String aBuffer = "";
              // This is where you would do all the work of downloading your data
@@ -271,7 +234,7 @@ private class readFreqsAlt extends AsyncTask<String, Void, Object> {
   	
 	@Override
 	protected Object doInBackground(String... args) {
-         Log.i("MyApp", "Background thread starting");
+        // Log.i("MyApp", "Background thread starting");
          
          
          // This is where you would do all the work of downloading your data
@@ -325,7 +288,7 @@ private class readFreqsAlt extends AsyncTask<String, Void, Object> {
     	
         @Override
 		protected Object doInBackground(String... args) {
-            Log.i("MyApp", "Background thread starting");
+           // Log.i("MyApp", "Background thread starting");
 
              try {
     			
@@ -482,7 +445,7 @@ private class readFreqsAlt extends AsyncTask<String, Void, Object> {
     		String aBuffer = "";
             @Override
 			protected Object doInBackground(String... args) {
-                Log.i("MyApp", "Background thread starting");
+                //Log.i("MyApp", "Background thread starting");
                 Process localProcess;
           		try {
      				localProcess = Runtime.getRuntime().exec("su");
@@ -536,7 +499,7 @@ private class readFreqsAlt extends AsyncTask<String, Void, Object> {
     		String aBuffer = "";
             @Override
 			protected Object doInBackground(String... args) {
-                Log.i("MyApp", "Background thread starting");
+                //Log.i("MyApp", "Background thread starting");
                 Process localProcess;
 
 					try {
@@ -690,8 +653,8 @@ private class readFreqsAlt extends AsyncTask<String, Void, Object> {
 					public void onClick(DialogInterface dialog, int which) {
 						newvalue = String.valueOf(input.getText());
 						curfile = filesx[position];
-						Log.d("new value", newvalue);
-						Log.d("curent file", curfile);
+						//Log.d("new value", newvalue);
+						//Log.d("curent file", curfile);
 						new applygovsettings().execute();
 					 
 					}
@@ -1138,22 +1101,22 @@ private class readFreqsAlt extends AsyncTask<String, Void, Object> {
 	    				aBuffer += aDataRow + "\n";
 	    			}	    			
 	    			//cpu1max = aBuffer;
-	    			Log.d("values",aBuffer);
+	    			//Log.d("values",aBuffer);
 	    			
 	    			myReader.close();
 	    			
 	    			entries.add(new NewsEntry(filesx[i], aBuffer));
 	    			govvalues.add(aBuffer);
-	    			Log.d(filesx[i], aBuffer);
+	    			//Log.d(filesx[i], aBuffer);
 	    			
 	    		} catch (Exception e) {
 	    			//entries.add(new NewsEntry(null, null));
-	    			Log.d("catch statement","catche");
+	    			//Log.d("catch statement","catche");
 	    		}
 	    	 
 	     }
 	     
-	     System.out.println(govvalues);
+	    // System.out.println(govvalues);
 	    
 	     
 	      }

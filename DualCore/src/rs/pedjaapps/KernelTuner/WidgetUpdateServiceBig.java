@@ -124,7 +124,7 @@ public String gov;
 		
 		
 		
-		System.out.println(cpu0min);
+		//System.out.println(cpu0min);
 			try {
 
 				File myFile = new File("/sys/devices/system/cpu/cpu0/cpufreq/scaling_min_freq");
@@ -421,7 +421,7 @@ public String gov;
 			charge="0";
 		}
 
-		System.out.println(cpu0min);
+		//System.out.println(cpu0min);
 	
 	try {
 
@@ -612,13 +612,13 @@ public String gov;
 	
 	cf = index*100/freqslength+4;
 	cf2 = index2*100/freqslength+4;
-	System.out.println(angle);
+	//System.out.println(angle);
 }
 
   @SuppressLint("ParserError")
 @Override
   public void onStart(Intent intent, int startId) {
-    Log.i(LOG, "Called");
+    //Log.i(LOG, "Called");
     // Create some random data
 
     AppWidgetManager appWidgetManager = AppWidgetManager.getInstance(this
@@ -630,8 +630,8 @@ public String gov;
     ComponentName thisWidget = new ComponentName(getApplicationContext(),
         AppWidgetBig.class);
     int[] allWidgetIds2 = appWidgetManager.getAppWidgetIds(thisWidget);
-    Log.w(LOG, "From Intent" + String.valueOf(allWidgetIds.length));
-    Log.w(LOG, "Direct" + String.valueOf(allWidgetIds2.length));
+    //Log.w(LOG, "From Intent" + String.valueOf(allWidgetIds.length));
+   // Log.w(LOG, "Direct" + String.valueOf(allWidgetIds2.length));
 	  
 		  
 	  File file = new File("/sys/kernel/debug/msm_fb/0/vsync_enable");
@@ -738,7 +738,7 @@ public String gov;
 	    remoteViews.setImageViewBitmap(R.id.imageView7, bitmap);
 	    remoteViews.setImageViewBitmap(R.id.ImageView01, bitmap2);
 
-		System.out.println(cpu0min);
+		//System.out.println(cpu0min);
 		if(!curentfreq.equals("offline")){
 			remoteViews.setTextViewText(R.id.freq0, curentfreq.substring(0, curentfreq.length()-3)+"Mhz");
 		}
@@ -897,7 +897,7 @@ public String gov;
 		 
  	 
 	  String timer = sharedPrefs.getString("widget_time", "1800");
-	  System.out.println(timer);
+	 // System.out.println(timer);
 	  
 		try{
 				timeint = Integer.parseInt(timer.trim());

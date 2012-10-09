@@ -300,7 +300,7 @@ setListAdapter(adapter);
 			    
 			    @Override
 			    public void onClick(View arg0) {
-			        Log.v("TAG", "onItemClick at position" + mPosition);          
+			       // Log.v("TAG", "onItemClick at position" + mPosition);          
 			    }       
 			}
 

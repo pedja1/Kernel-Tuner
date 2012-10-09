@@ -99,7 +99,7 @@ public class miscTweaks extends Activity implements
 
 		@Override
 		protected Object doInBackground(String... args) {
-			Log.i("MyApp", "Backgrond thread starting");
+			//Log.i("MyApp", "Backgrond thread starting");
 
 			Process localProcess;
 			try {
@@ -144,7 +144,7 @@ public class miscTweaks extends Activity implements
 
 		@Override
 		protected Object doInBackground(String... args) {
-			Log.i("MyApp", "Background thread starting");
+			//Log.i("MyApp", "Background thread starting");
 
 			Process localProcess;
 			try {
@@ -186,7 +186,7 @@ public class miscTweaks extends Activity implements
 
 		@Override
 		protected Object doInBackground(String... args) {
-			Log.i("MyApp", "Background thread starting");
+			//Log.i("MyApp", "Background thread starting");
 
 			Process localProcess;
 			try {
@@ -228,7 +228,7 @@ public class miscTweaks extends Activity implements
 
 		@Override
 		protected Object doInBackground(String... args) {
-			Log.i("MyApp", "Background thread starting");
+			//Log.i("MyApp", "Background thread starting");
 
 			Process localProcess;
 			try {
@@ -277,7 +277,7 @@ public class miscTweaks extends Activity implements
 
 		@Override
 		protected Object doInBackground(String... args) {
-			Log.i("MyApp", "Background thread starting");
+			//Log.i("MyApp", "Background thread starting");
 
 			Process localProcess;
 			try {
@@ -317,7 +317,7 @@ public class miscTweaks extends Activity implements
 			// value to store
 			editor.commit();
 
-			System.out.println(ledprogress);
+			//System.out.println(ledprogress);
 			miscTweaks.this.data = result;
 
 		}
@@ -328,7 +328,7 @@ public class miscTweaks extends Activity implements
 
 		@Override
 		protected Object doInBackground(String... args) {
-			Log.i("MyApp", "Background thread starting");
+			//Log.i("MyApp", "Background thread starting");
 
 			Process localProcess;
 			try {
@@ -378,7 +378,7 @@ public class miscTweaks extends Activity implements
 
 		@Override
 		protected Object doInBackground(String... args) {
-			Log.i("MyApp", "Background thread starting");
+			//Log.i("MyApp", "Background thread starting");
 
 			Process localProcess;
 			
@@ -439,7 +439,7 @@ public class miscTweaks extends Activity implements
 
 		@Override
 		protected Object doInBackground(String... args) {
-			Log.i("MyApp", "Background thread starting");
+			//Log.i("MyApp", "Background thread starting");
 			Process localProcess;
 			try {
 				localProcess = Runtime.getRuntime().exec("su");
@@ -1352,13 +1352,13 @@ public class miscTweaks extends Activity implements
 			scheduler.trim();
 			schedulers = schedulers.replace("[", "");
 			schedulers = schedulers.replace("]", "");
-			System.out.println(scheduler);
-			System.out.println(schedulers);
+			//System.out.println(scheduler);
+			//System.out.println(schedulers);
 
 		} catch (Exception e) {
 			schedulers = "err";
 			scheduler = "err";
-			System.out.println(schedulers);
+			//System.out.println(schedulers);
 		}
 
 	}
@@ -1470,7 +1470,7 @@ public class miscTweaks extends Activity implements
 	public void onStopTrackingTouch(SeekBar arg0) {
 		// TODO Auto-generated method stub
 		ledprogress = mSeekBar.getProgress();
-		System.out.println(ledprogress);
+		//System.out.println(ledprogress);
 		new changeled().execute();
 	}
 

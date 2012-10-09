@@ -64,7 +64,7 @@ private class changegpu extends AsyncTask<String, Void, Object> {
 	
 	@Override
 	protected Object doInBackground(String... args) {
-         Log.i("MyApp", "Background thread starting");
+         //Log.i("MyApp", "Background thread starting");
 
 
 
@@ -100,15 +100,15 @@ private class changegpu extends AsyncTask<String, Void, Object> {
 			}
          else if(selected2d.equals("200")){
 				new2d=200000000;
-				System.out.println("new clock = " +new2d);
+				//System.out.println("new clock = " +new2d);
 			}
 			else if(selected2d.equals("228")){
 				new2d=228571000;
-				System.out.println("new clock = " +new2d);
+				//System.out.println("new clock = " +new2d);
 			}
 			else if(selected2d.equals("266")){
 				new2d=266667000;
-				System.out.println("new clock = " +new2d);
+				//System.out.println("new clock = " +new2d);
 			}
            }
            //freqs for one s and one xl
@@ -249,7 +249,7 @@ return "";
 		tv1.setTextColor(Color.BLACK);
 		
 	}
-	System.out.println(android.os.Build.BOARD);
+	//System.out.println(android.os.Build.BOARD);
 	if(board.equals("shooter") || board.equals("shooteru") || board.equals("pyramid")){
 	gpu2d(new String[]{"160", "200", "228", "266"});
 	gpu3d(new String[]{"200", "228", "266", "300", "320"});
@@ -441,7 +441,7 @@ public void createSpinner3D(){
     	     			}
 
     	     			gpu3dmax = aBuffer.trim();
-    	     			Log.d("max gpu 3d clock",gpu3dmax);
+    	     			//Log.d("max gpu 3d clock",gpu3dmax);
     	      			
     	     			
     	     			createSpinner3D();
@@ -450,7 +450,7 @@ public void createSpinner3D(){
 
     	     			
     	     		} catch (Exception e) {
-    	     			Log.e("max gpu 3d clock","not found");
+    	     			//Log.e("max gpu 3d clock","not found");
     	     			
     	     		}
     	    	}

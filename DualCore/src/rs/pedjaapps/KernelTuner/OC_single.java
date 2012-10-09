@@ -75,7 +75,7 @@ public class OC_single extends Activity{
 
     		@Override
 			protected Object doInBackground(String... args) {
-    			Log.i("MyApp", "Background thread starting");
+    			//Log.i("MyApp", "Background thread starting");
 
     			
 
@@ -136,7 +136,7 @@ public class OC_single extends Activity{
     	  	
     	@Override
 		protected Object doInBackground(String... args) {
-             Log.i("MyApp", "Background thread starting");
+             //Log.i("MyApp", "Background thread starting");
              
              String aBuffer = "";
              // This is where you would do all the work of downloading your data
@@ -176,7 +176,7 @@ public class OC_single extends Activity{
       	
     	@Override
 		protected Object doInBackground(String... args) {
-             Log.i("MyApp", "Background thread starting");
+            // Log.i("MyApp", "Background thread starting");
              
              
              // This is where you would do all the work of downloading your data
@@ -228,7 +228,7 @@ private class spinnerMaxCpu0 extends AsyncTask<String, Void, Object> {
     	
         @Override
 		protected Object doInBackground(String... args) {
-            Log.i("MyApp", "Background thread starting");
+            ///Log.i("MyApp", "Background thread starting");
 
             // This is where you would do all the work of downloading your data            
             try {
@@ -266,7 +266,7 @@ private class spinnerMinCpu0 extends AsyncTask<String, Void, Object> {
     	
         @Override
 		protected Object doInBackground(String... args) {
-            Log.i("MyApp", "Background thread starting");
+            //Log.i("MyApp", "Background thread starting");
 
             // This is where you would do all the work of downloading your data
             
@@ -302,7 +302,7 @@ private class ReadgovernorsCpu0 extends AsyncTask<String, Void, Object> {
     		String aBuffer = "";
             @Override
 			protected Object doInBackground(String... args) {
-                Log.i("MyApp", "Background thread starting");
+                //Log.i("MyApp", "Background thread starting");
 
                 // This is where you would do all the work of downloading your data
                 try {
@@ -339,7 +339,7 @@ private class ReadgovernorsCpu0 extends AsyncTask<String, Void, Object> {
     		String aBuffer = "";
             @Override
 			protected Object doInBackground(String... args) {
-                Log.i("MyApp", "Background thread starting");
+               // Log.i("MyApp", "Background thread starting");
 
                 // This is where you would do all the work of downloading your data
                 
@@ -383,7 +383,7 @@ private class ReadgovernorsCpu0 extends AsyncTask<String, Void, Object> {
         	
         	@Override
 			protected Object doInBackground(String... args) {
-                 Log.i("MyApp", "Background thread starting");
+                 //Log.i("MyApp", "Background thread starting");
                 
                  Process localProcess;
           		try {
@@ -563,8 +563,8 @@ private class ReadgovernorsCpu0 extends AsyncTask<String, Void, Object> {
 					public void onClick(DialogInterface dialog, int which) {
 						newvalue = String.valueOf(input.getText());
 						curfile = filesx[position];
-						Log.d("new value", newvalue);
-						Log.d("curent file", curfile);
+						//Log.d("new value", newvalue);
+						//Log.d("curent file", curfile);
 						new applygovsettings().execute();
 					 
 					}
@@ -851,22 +851,22 @@ private class ReadgovernorsCpu0 extends AsyncTask<String, Void, Object> {
 	    				aBuffer += aDataRow + "\n";
 	    			}	    			
 	    			//cpu1max = aBuffer;
-	    			Log.d("values",aBuffer);
+	    			//Log.d("values",aBuffer);
 	    			
 	    			myReader.close();
 	    			
 	    			entries.add(new NewsEntry(filesx[i], aBuffer));
 	    			govvalues.add(aBuffer);
-	    			Log.d(filesx[i], aBuffer);
+	    			//Log.d(filesx[i], aBuffer);
 	    			
 	    		} catch (Exception e) {
 	    			//entries.add(new NewsEntry(null, null));
-	    			Log.d("catch statement","catche");
+	    			//Log.d("catch statement","catche");
 	    		}
 	    	 
 	     }
 	     
-	     System.out.println(govvalues);
+	     //System.out.println(govvalues);
 	    
 	     
 	      }

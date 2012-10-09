@@ -59,7 +59,7 @@ public class UpdateCheckService extends Service
 
 		@Override
 		protected Object doInBackground(String... args) {
-			Log.i("DualCore", "Check for new version");
+			//Log.i("DualCore", "Check for new version");
 
 			
 			try {
@@ -170,7 +170,7 @@ public class UpdateCheckService extends Service
 	@Override
     public int onStartCommand(Intent intent, int flags, int startId) {
         // The service is starting, due to a call to startService()
-		System.out.println("service started");
+		//System.out.println("service started");
 		new updateCheck().execute();
         return mStartMode;
     }

@@ -50,7 +50,7 @@ public class check extends Activity {
 		
 		@Override
 		protected Void doInBackground(Void... args) {
-			Log.i("MyApp", "Background thread starting");
+			//Log.i("MyApp", "Background thread starting");
 			// Random randomGenerator = new Random();
 
 			// int randomInt = randomGenerator.nextInt(16);

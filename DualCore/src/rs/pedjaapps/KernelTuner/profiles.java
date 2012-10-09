@@ -64,7 +64,7 @@ public class profiles extends Activity{
 		String aBuffer = "";
         @Override
 		protected Object doInBackground(String... args) {
-            Log.i("MyApp", "Background thread starting");
+            //Log.i("MyApp", "Background thread starting");
             Process localProcess;
             Profile profile = db.getProfileByName(currentprofile);
       		try {
@@ -154,7 +154,7 @@ public class profiles extends Activity{
 		String aBuffer = "";
         @Override
 		protected Object doInBackground(String... args) {
-            Log.i("MyApp", "Background thread starting");
+            //Log.i("MyApp", "Background thread starting");
             
             File file = new File("/sys/devices/system/cpu/cpu1/cpufreq/scaling_governor");
 			try{
@@ -570,7 +570,7 @@ public class profiles extends Activity{
      * CRUD Operations
      * */
     // Inserting Contacts
-    Log.d("Insert: ", "Inserting ..");
+    //Log.d("Insert: ", "Inserting ..");
     preferences = PreferenceManager.getDefaultSharedPreferences(this);
     boolean createpreofilesfirsttime = preferences.getBoolean("profiles", false);
     if(createpreofilesfirsttime==false){
@@ -650,7 +650,7 @@ public class profiles extends Activity{
         //Log.d("Name: ", log);
         	
     }
-    	System.out.println(profilenames);
+    	//System.out.println(profilenames);
     	spinnerProfiles();
     	}
     	public void spinnerProfiles(){
@@ -666,7 +666,7 @@ public class profiles extends Activity{
     		    @Override
 				public void onItemSelected(AdapterView<?> parent, View view, int pos, long id) {
     		    	currentprofile = parent.getItemAtPosition(pos).toString();
-    		    	System.out.println(currentprofile);
+    		    	//System.out.println(currentprofile);
     		    	Profile profile = db.getProfileByName(currentprofile) ;
     		    	TextView cpu0min = (TextView)findViewById(R.id.textView11);
     		    	TextView cpu0max = (TextView)findViewById(R.id.textView12);

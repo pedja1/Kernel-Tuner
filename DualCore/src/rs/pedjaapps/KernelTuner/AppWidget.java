@@ -18,7 +18,7 @@ public class AppWidget extends AppWidgetProvider {
 	public void onUpdate(final Context context,
 			AppWidgetManager appWidgetManager, int[] appWidgetIds) {
 
-		Log.w(LOG, "onUpdate method called");
+		//Log.w(LOG, "onUpdate method called");
 		// Get all ids
 		ComponentName thisWidget = new ComponentName(context, AppWidget.class);
 		int[] allWidgetIds = appWidgetManager.getAppWidgetIds(thisWidget);

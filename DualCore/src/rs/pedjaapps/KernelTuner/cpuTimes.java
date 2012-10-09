@@ -165,7 +165,7 @@ public class cpuTimes extends ListActivity{
 				
 			long	temp = Integer.parseInt(freq);	
 			temp = (int) (temp*1000/uptime);
-			System.out.println(temp);
+			//System.out.println(temp);
 				perint.add((int) temp);
 
 			}
@@ -306,7 +306,7 @@ public class cpuTimes extends ListActivity{
 			    
 			    @Override
 			    public void onClick(View arg0) {
-			        Log.v("TAG", "onItemClick at position" + mPosition);          
+			        //Log.v("TAG", "onItemClick at position" + mPosition);          
 			    }       
 			}
 

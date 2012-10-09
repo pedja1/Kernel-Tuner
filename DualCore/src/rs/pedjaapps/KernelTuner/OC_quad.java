@@ -99,7 +99,7 @@ public String curfile;
 
 		@Override
 		protected Object doInBackground(String... args) {
-			Log.i("MyApp", "Background thread starting");
+			//Log.i("MyApp", "Background thread starting");
 
 			
 				Process localProcess;
@@ -163,7 +163,7 @@ public String curfile;
 
 		@Override
 		protected Object doInBackground(String... args) {
-			Log.i("MyApp", "Background thread starting");
+			//Log.i("MyApp", "Background thread starting");
 
 			
 
@@ -224,7 +224,7 @@ public String curfile;
     	  	
     	@Override
 		protected Object doInBackground(String... args) {
-             Log.i("MyApp", "Background thread starting");
+             //Log.i("MyApp", "Background thread starting");
              
              String aBuffer = "";
              // This is where you would do all the work of downloading your data
@@ -263,7 +263,7 @@ private class readFreqsAlt extends AsyncTask<String, Void, Object> {
   	
 	@Override
 	protected Object doInBackground(String... args) {
-         Log.i("MyApp", "Background thread starting");
+         //Log.i("MyApp", "Background thread starting");
          
          
          // This is where you would do all the work of downloading your data
@@ -317,7 +317,7 @@ private class readFreqsAlt extends AsyncTask<String, Void, Object> {
     	
         @Override
 		protected Object doInBackground(String... args) {
-            Log.i("MyApp", "Background thread starting");
+            //Log.i("MyApp", "Background thread starting");
 
             // This is where you would do all the work of downloading your data            
             try {
@@ -592,7 +592,7 @@ private class readFreqsAlt extends AsyncTask<String, Void, Object> {
     		String aBuffer = "";
             @Override
 			protected Object doInBackground(String... args) {
-                Log.i("MyApp", "Background thread starting");
+                //Log.i("MyApp", "Background thread starting");
                 Process localProcess;
           		try {
      				localProcess = Runtime.getRuntime().exec("su");
@@ -655,7 +655,7 @@ private class readFreqsAlt extends AsyncTask<String, Void, Object> {
     		String aBuffer = "";
             @Override
 			protected Object doInBackground(String... args) {
-                Log.i("MyApp", "Background thread starting");
+                //Log.i("MyApp", "Background thread starting");
                 
 			Process localProcess;
 					try {
@@ -787,11 +787,11 @@ private class readFreqsAlt extends AsyncTask<String, Void, Object> {
     
 	/* File gov = new File("/sys/devices/system/cpu/cpufreq/xondemand/");
 	        ListDir(gov);  */ 
-	Log.e("String","6");
+	//Log.e("String","6");
 	  newsEntryListView = (ListView) findViewById(R.id.list);
       newsEntryAdapter = new NewsEntryAdapter(this, R.layout.governor_list_item);
      newsEntryListView.setAdapter(newsEntryAdapter);
-     Log.e("String","7");
+     //Log.e("String","7");
      // Populate the list, through the adapter
      for(final NewsEntry entry : getNewsEntries()) {
       newsEntryAdapter.add(entry);
@@ -831,8 +831,8 @@ private class readFreqsAlt extends AsyncTask<String, Void, Object> {
 					public void onClick(DialogInterface dialog, int which) {
 						newvalue = String.valueOf(input.getText());
 						curfile = filesx[position];
-						Log.d("new value", newvalue);
-						Log.d("curent file", curfile);
+						//Log.d("new value", newvalue);
+						//Log.d("curent file", curfile);
 						new applygovsettings().execute();
 					 
 					}
@@ -864,7 +864,7 @@ private class readFreqsAlt extends AsyncTask<String, Void, Object> {
     			}
 				title.setText("CPU0 Governor Settings");
 			}});
-		Log.e("String","8");
+		//Log.e("String","8");
 		TextView gov1 = (TextView)findViewById(R.id.textView9);
 		gov1.setOnClickListener(new OnClickListener(){
 			@Override
@@ -880,7 +880,7 @@ private class readFreqsAlt extends AsyncTask<String, Void, Object> {
     			}
     			title.setText("CPU1 Governor Settings");
 			}});
-		Log.e("String","9");
+		//Log.e("String","9");
 		TextView gov2txt = (TextView)findViewById(R.id.gov2);
 		//final TextView title = (TextView)findViewById(R.id.textView15);
 		gov2txt.setOnClickListener(new OnClickListener(){
@@ -898,7 +898,7 @@ private class readFreqsAlt extends AsyncTask<String, Void, Object> {
 				title.setText("CPU2 Governor Settings");
 				
 			}});
-		Log.e("String","10");
+		//Log.e("String","10");
 		TextView gov3text = (TextView)findViewById(R.id.gov3);
 		gov3text.setOnClickListener(new OnClickListener(){
 			@Override
@@ -914,7 +914,7 @@ private class readFreqsAlt extends AsyncTask<String, Void, Object> {
     			}
     			title.setText("CPU3 Governor Settings");
 			}});
-		Log.e("String","11");
+		//Log.e("String","11");
 }
 	
 	public void readgovernor(){
@@ -1527,22 +1527,22 @@ private class readFreqsAlt extends AsyncTask<String, Void, Object> {
 	    				aBuffer += aDataRow + "\n";
 	    			}	    			
 	    			//cpu1max = aBuffer;
-	    			Log.d("values",aBuffer);
+	    			//Log.d("values",aBuffer);
 	    			
 	    			myReader.close();
 	    			
 	    			entries.add(new NewsEntry(filesx[i], aBuffer));
 	    			govvalues.add(aBuffer);
-	    			Log.d(filesx[i], aBuffer);
+	    			//Log.d(filesx[i], aBuffer);
 	    			
 	    		} catch (Exception e) {
 	    			//entries.add(new NewsEntry(null, null));
-	    			Log.d("catch statement","catche");
+	    			//Log.d("catch statement","catche");
 	    		}
 	    	 
 	     }
 	     
-	     System.out.println(govvalues);
+	     //System.out.println(govvalues);
 	    
 	     
 	      }

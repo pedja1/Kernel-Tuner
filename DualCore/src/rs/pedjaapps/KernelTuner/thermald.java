@@ -56,7 +56,7 @@ public class thermald extends Activity {
 		
 		@Override
 		protected Object doInBackground(String... args) {
-	         Log.i("MyApp", "Background thread starting");
+	         //Log.i("MyApp", "Background thread starting");
 
 	         
 	         

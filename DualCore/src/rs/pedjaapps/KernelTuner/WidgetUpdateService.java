@@ -120,7 +120,7 @@ try {
 }
   @Override
   public void onStart(Intent intent, int startId) {
-    Log.i(LOG, "Called");
+    //Log.i(LOG, "Called");
     
 
     AppWidgetManager appWidgetManager = AppWidgetManager.getInstance(this
@@ -132,8 +132,8 @@ try {
     ComponentName thisWidget = new ComponentName(getApplicationContext(),
         AppWidget.class);
     int[] allWidgetIds2 = appWidgetManager.getAppWidgetIds(thisWidget);
-    Log.w(LOG, "From Intent" + String.valueOf(allWidgetIds.length));
-    Log.w(LOG, "Direct" + String.valueOf(allWidgetIds2.length));
+   // Log.w(LOG, "From Intent" + String.valueOf(allWidgetIds.length));
+    //Log.w(LOG, "Direct" + String.valueOf(allWidgetIds2.length));
 
     read();
     
@@ -144,7 +144,7 @@ try {
       RemoteViews remoteViews = new RemoteViews(this
           .getApplicationContext().getPackageName(),
           R.layout.widget_2x1);
-      Log.w("Widget", String.valueOf(number));
+      //Log.w("Widget", String.valueOf(number));
       remoteViews.setTextViewText(R.id.textView5, curentfreq.substring(0, curentfreq.length()-4)+"Mhz");
 		int fr = Integer.parseInt(curentfreq.substring(0, curentfreq.length()-4));
 		if (fr <= 918){
@@ -192,7 +192,7 @@ try {
  	 
  	 
 	  String timer = sharedPrefs.getString("widget_time", "");
-	  System.out.println(timer);
+	  //System.out.println(timer);
 	  
 		 	try{
 				timeint = Integer.parseInt(timer.trim());

@@ -110,7 +110,7 @@ public class KernelTuner extends Activity {
 		    	  battTempWarningStop();
 		      }
 		      else if(temperature>=140){
-		    	  Log.e("Battery warning","start animation");
+		    	 // Log.e("Battery warning","start animation");
 		    	  batteryTemp.setTextColor(Color.RED);
 		    	  battTempWarning();
 
@@ -131,7 +131,7 @@ public class KernelTuner extends Activity {
 		    	  battTempWarningStop();
 		      }
 		      else if(temperature>=60){
-		    	  Log.e("Battery warning","start animation");
+		    	 // Log.e("Battery warning","start animation");
 		    	  batteryTemp.setTextColor(Color.RED);
 		    	  battTempWarning();
 
@@ -331,7 +331,7 @@ class updateCheck extends AsyncTask<String, Void, Object> {
 
 	@Override
 	protected Object doInBackground(String... args) {
-		Log.i("DualCore", "Check for new version");
+		//Log.i("KernelTuner.java", "Check for new version");
 
 		
 		try {
@@ -465,7 +465,7 @@ private class mountDebugFs extends AsyncTask<String, Void, Object> {
 	
 	@Override
 	protected Object doInBackground(String... args) {
-         Log.i("MyApp", "Background thread starting");
+         //Log.i("MyApp", "Background thread starting");
 
 		Process localProcess;
 		try {
@@ -505,7 +505,7 @@ private class cpu1Toggle extends AsyncTask<String, Void, Object> {
 	
 	@Override
 	protected Object doInBackground(String... args) {
-         Log.i("MyApp", "Background thread starting");
+        // Log.i("MyApp", "Background thread starting");
          
          File file = new File(CPU1_CURR_GOV);
      	try{
@@ -592,7 +592,7 @@ private class cpu2Toggle extends AsyncTask<String, Void, Object> {
 	
 	@Override
 	protected Object doInBackground(String... args) {
-         Log.i("MyApp", "Background thread starting");
+        // Log.i("MyApp", "Background thread starting");
          
          File file = new File(CPU2_CURR_GOV);
      	try{
@@ -678,7 +678,7 @@ private class cpu3Toggle extends AsyncTask<String, Void, Object> {
 	
 	@Override
 	protected Object doInBackground(String... args) {
-         Log.i("MyApp", "Background thread starting");
+         //Log.i("MyApp", "Background thread starting");
          
          File file = new File(CPU3_CURR_GOV);
      	try{
@@ -763,7 +763,7 @@ private class initdApplyCpuGpuMisc extends AsyncTask<String, Void, Object> {
 	
 	@Override
 	protected Object doInBackground(String... args) {
-         Log.i("MyApp", "Background thread starting");
+        // Log.i("MyApp", "Background thread starting");
 		
 		Process localProcess;
 		try {
@@ -815,7 +815,7 @@ private class rmInitd extends AsyncTask<String, Void, Object> {
 	
 	@Override
 	protected Object doInBackground(String... args) {
-         Log.i("MyApp", "Background thread starting");
+        // Log.i("MyApp", "Background thread starting");
 
 		Process localProcess;
 		try {
@@ -860,7 +860,7 @@ private class info extends AsyncTask<String, Void, Object> {
 	
 	@Override
 	protected Object doInBackground(String... args) {
-         Log.i("MyApp", "Background thread starting");
+        // Log.i("MyApp", "Background thread starting");
          try {
  			
  			File myFile = new File(CPU0_MIN_FREQ);
@@ -1209,12 +1209,12 @@ private class info extends AsyncTask<String, Void, Object> {
 
  			cdepth = aBuffer.trim();
  			myReader.close();
- 			Log.d("done",cdepth);
+ 			//Log.d("done",cdepth);
 
  		} catch (IOException e) {
  			cdepth = "err";
-			System.out.println(cdepth);
- 			Log.d("failed",cdepth);
+			//System.out.println(cdepth);
+ 			//Log.d("failed",cdepth);
  		}
          
          try {
@@ -2442,7 +2442,7 @@ private float readUsage() {
 		        // Do Something
 		    	intent = new Intent(Intent.ACTION_VIEW);
 		        intent.setDataAndType(Uri.fromFile(new File(Environment.getExternalStorageDirectory() + "/download/" + "KernelTuner-" + remoteversion + ".apk")), "application/vnd.android.package-archive");
-		       System.out.println( Environment.getExternalStorageDirectory() + "/download/" + "KernelTuner-" + remoteversion + ".apk");
+		      // System.out.println( Environment.getExternalStorageDirectory() + "/download/" + "KernelTuner-" + remoteversion + ".apk");
 		        startActivity(intent);
 		    }
 		};
@@ -2469,7 +2469,7 @@ private float readUsage() {
 	
 
 //get download service and enqueue file
-	System.out.println(request);
+	//System.out.println(request);
 }
  
 
@@ -3155,7 +3155,7 @@ public void initdexport(){
 	  voltagebuilder.append("#!/system/bin/sh \n");
 	  for(String s : freqlist){
 			String temp = sharedPrefs.getString("uv"+s, "");
-		    System.out.println(temp);
+		    //System.out.println(temp);
 		    if(!temp.equals("")){
 			voltagebuilder.append("echo " + "\""+temp+"\"" + " > /sys/devices/system/cpu/cpufreq/vdd_table/vdd_levels\n");
 		    }
@@ -3266,7 +3266,7 @@ public void readFreqs()
  			//System.out.println();
  			String[] strarray = frequencies.toArray(new String[0]);
  			frequencies.clear();
- 			System.out.println(frequencies);
+ 			//System.out.println(frequencies);
  			StringBuilder builder = new StringBuilder();
  			for(String s : strarray) {
  			    builder.append(s);
@@ -3282,7 +3282,7 @@ public void readFreqs()
  			in.close();
 		}
 		catch(Exception ee){
-		System.out.println("failed to read frequencies");
+		//System.out.println("failed to read frequencies");
 		}
 	}
 	
@@ -3479,7 +3479,7 @@ public boolean onCreateOptionsMenu(Menu menu) {
    
     mainMenu = menu;
     //subMenu = menuItem;
-    Log.d("Menu", "menu created");
+   // Log.d("Menu", "menu created");
     
     return true;
 }
@@ -3496,11 +3496,11 @@ public boolean onOptionsItemSelected(MenuItem item) {
   
 	if (item.getItemId() == R.id.settings) {
         startActivity(new Intent(this, Preferences.class));
-        Log.d("Menu", "settings selected");
+       // Log.d("Menu", "settings selected");
     }
     if (item.getItemId() == R.id.changelog) {
         startActivity(new Intent(this, changelog.class));
-        Log.d("Menu", "changelog selected");
+       // Log.d("Menu", "changelog selected");
     }
     if (item.getItemId() == R.id.update) {
 		new updateCheck().execute();
@@ -3516,19 +3516,19 @@ public boolean onOptionsItemSelected(MenuItem item) {
 	    alarms.setInexactRepeating(AlarmManager.RTC_WAKEUP,
 	            updateTime.getTimeInMillis(),
 	            AlarmManager.INTERVAL_DAY, recurringDownload);
-		Log.d("Menu", "update selected");
+		//Log.d("Menu", "update selected");
     }
 	if (item.getItemId() == R.id.about) {
         startActivity(new Intent(this, about.class));
-        Log.d("Menu", "about selected");
+        //Log.d("Menu", "about selected");
     }	
 	if (item.getItemId() == R.id.check) {
         startActivity(new Intent(this, check.class));
-        Log.d("Menu", "check selected");
+        //Log.d("Menu", "check selected");
     }	
 	if (item.getItemId() == R.id.profiles) {
         startActivity(new Intent(this, profiles.class));
-        Log.d("Menu", "check selected");
+        //Log.d("Menu", "check selected");
     }
 	if (item.getItemId() == R.id.swap) {
         startActivity(new Intent(this, Swap.class));
@@ -3562,12 +3562,12 @@ public void checkAnthrax(){
 	Button anth = (Button)findViewById(R.id.button7);
     int intIndex = anthrax.indexOf("anthrax");
     if(intIndex == - 1){
-       System.out.println("not found");
+       //System.out.println("not found");
        
        anth.setVisibility(View.GONE);
     }else{
-       System.out.println("Found anthrax at index "
-       + intIndex);
+       //System.out.println("Found anthrax at index "
+       //+ intIndex);
        anth.setVisibility(View.VISIBLE);
       
     }

@@ -98,7 +98,7 @@ private class apply extends AsyncTask<String, Void, Object> {
 	
 	@Override
 	protected Object doInBackground(String... args) {
-         Log.i("MyApp", "Background thread starting");
+         //Log.i("MyApp", "Background thread starting");
 
          
          

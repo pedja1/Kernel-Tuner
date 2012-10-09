@@ -413,7 +413,7 @@ public class StartupService extends Service
 	 			}
 	 			String[] strarray = frequencies.toArray(new String[0]);
 	 			frequencies.clear();
-	 			System.out.println(frequencies);
+	 			//System.out.println(frequencies);
 	 			StringBuilder builder = new StringBuilder();
 	 			for(String s : strarray) {
 	 			    builder.append(s);

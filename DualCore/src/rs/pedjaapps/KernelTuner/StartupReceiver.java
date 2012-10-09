@@ -11,7 +11,7 @@ public class StartupReceiver extends BroadcastReceiver
   {
   
 	  Intent serviceIntent = new Intent();
-		serviceIntent.setAction("rs.pedjaapps.DualCore.StartupService");
+		serviceIntent.setAction("rs.pedjaapps.KernelTuner.StartupService");
 		context.startService(serviceIntent);
   }
 }
