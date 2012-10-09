@@ -50,7 +50,7 @@ public class Swap extends Activity{
 	
 	private ProgressDialog pd = null;
     private Object data = null;
-   String[] swapSize = {"128","256","512","758","1024"};
+   String[] swapSize = {"64","128","256","512","758","1024"};
     String[] swapLocation = {"/data/",String.valueOf(Environment.getExternalStorageDirectory())+"/"};
     String[] swappiness = {"10","20","30","40","50","60","70","80","90","100"};
     
@@ -128,8 +128,51 @@ private class activateSwap extends AsyncTask<String, Void, Object> {
 			
   		DataOutputStream localDataOutputStream = new DataOutputStream(localProcess.getOutputStream());
          localDataOutputStream.writeBytes("swapon "+swapLocationSelected.trim()+"/swap"+"\n");
-         localDataOutputStream.writeBytes("echo "+swappinessSelected+"/proc/sys/vm/swappiness\n");
-         
+         localDataOutputStream.writeBytes("exit\n");
+         localDataOutputStream.flush();
+         localDataOutputStream.close();
+         localProcess.waitFor();
+         localProcess.destroy();
+  		} catch (IOException e1) {
+				// TODO Auto-generated catch block
+				e1.printStackTrace();
+			} catch (InterruptedException e1) {
+				// TODO Auto-generated catch block
+				e1.printStackTrace();
+			}
+  	           
+         return "";
+     }
+
+     @Override
+	protected void onPostExecute(Object result) {
+    	/* preferences = PreferenceManager.getDefaultSharedPreferences(getBaseContext());
+    	 SharedPreferences.Editor editor = preferences.edit();
+    	   /* editor.putString("cpu0min", minselected);
+    	    editor.putString("cpu0max", maxselected);
+    	    editor.putString("cpu0gov", govselected);// value to store
+    	    editor.commit();
+    	 
+         Swap.this.data = result;*/
+    	 updateUI();
+         Swap.this.pd.dismiss();
+        
+     }
+	}
+
+private class setSwappiness extends AsyncTask<String, Void, Object> {
+	
+	
+	@Override
+	protected Object doInBackground(String... args) {
+         Log.i("MyApp", "Background thread starting");
+        
+         Process localProcess;
+  		try {
+				localProcess = Runtime.getRuntime().exec("su");
+			
+  		DataOutputStream localDataOutputStream = new DataOutputStream(localProcess.getOutputStream());
+         localDataOutputStream.writeBytes("echo "+swappinessSelected+" > /proc/sys/vm/swappiness\n");
          localDataOutputStream.writeBytes("exit\n");
          localDataOutputStream.flush();
          localDataOutputStream.close();
@@ -169,12 +212,14 @@ private class createSwap extends AsyncTask<String, Void, Object> {
 	protected Object doInBackground(String... args) {
          Log.i("MyApp", "Background thread starting");
         
+        
          Process localProcess;
   		try {
 				localProcess = Runtime.getRuntime().exec("su");
 			
   		DataOutputStream localDataOutputStream = new DataOutputStream(localProcess.getOutputStream());
-         localDataOutputStream.writeBytes("swapon "+swapLocationCurrent.trim()+"\n");
+         localDataOutputStream.writeBytes("busybox dd if=/dev/zero of="+swapLocationSelected.trim()+"/swap bs=1k count="+swapSizeSelected+"\n");
+         localDataOutputStream.writeBytes("mkswap "+swapLocationSelected.trim()+"swap\n");
          localDataOutputStream.writeBytes("exit\n");
          localDataOutputStream.flush();
          localDataOutputStream.close();
@@ -191,6 +236,12 @@ private class createSwap extends AsyncTask<String, Void, Object> {
          return "";
      }
 
+	@Override
+	protected void onPreExecute(){
+		Swap.this.pd = ProgressDialog.show(Swap.this, "Creating swap file...", "This can take a while...\nPlease be patient...", true, false);
+
+	}
+	
      @Override
 	protected void onPostExecute(Object result) {
     	/* preferences = PreferenceManager.getDefaultSharedPreferences(getBaseContext());
@@ -240,14 +291,24 @@ private class createSwap extends AsyncTask<String, Void, Object> {
 
 	Button activate = (Button)findViewById(R.id.button1);
 	Button create = (Button)findViewById(R.id.button2);
-	
+	Button swappiness = (Button)findViewById(R.id.button3);
 	Button deactivate = (Button)findViewById(R.id.button4);
 	
 	final EditText ed = (EditText)findViewById(R.id.EditText1);
 	updateUI();
 		
 	
-	
+	swappiness.setOnClickListener(new OnClickListener(){
+
+		@Override
+		public void onClick(View arg0) {
+			// TODO Auto-generated method stub
+			Swap.this.pd = ProgressDialog.show(Swap.this, "Please wait...", "Changing Swappiness...", true, false);
+			swappinessSelected=ed.getText().toString();
+			new setSwappiness().execute();
+		}
+		
+	});
 	
 	
 	
@@ -269,7 +330,7 @@ private class createSwap extends AsyncTask<String, Void, Object> {
 		public void onClick(View arg0) {
 			// TODO Auto-generated method stub
 			Swap.this.pd = ProgressDialog.show(Swap.this, "Please wait...", "Activating swap...", true, false);
-			swappinessSelected=ed.getText().toString();
+			
 			new activateSwap().execute();
 		}
 		
@@ -280,8 +341,7 @@ private class createSwap extends AsyncTask<String, Void, Object> {
 		@Override
 		public void onClick(View arg0) {
 			// TODO Auto-generated method stub
-			Swap.this.pd = ProgressDialog.show(Swap.this, "Please wait...", "Creating swap file...", true, false);
-
+			
 			new createSwap().execute();
 		}
 		
@@ -324,27 +384,38 @@ private class createSwap extends AsyncTask<String, Void, Object> {
     		create.setVisibility(View.GONE);
     		ll1.setVisibility(View.GONE);
     		ll2.setVisibility(View.GONE);
+    		activate.setVisibility(View.VISIBLE);
+    		deactivate.setVisibility(View.VISIBLE);
+    		swappiness.setVisibility(View.VISIBLE);
     	}	
     	else if(new File(String.valueOf(Environment.getExternalStorageDirectory())+"/swap").exists()){
     		System.out.println("swap file found on /sdcard");
     		create.setVisibility(View.GONE);
     		ll1.setVisibility(View.GONE);
     		ll2.setVisibility(View.GONE);
+    		activate.setVisibility(View.VISIBLE);
+    		deactivate.setVisibility(View.VISIBLE);
+    		swappiness.setVisibility(View.VISIBLE);
     	}
     	else{
-    		
+    		create.setVisibility(View.VISIBLE);
+    		ll1.setVisibility(View.VISIBLE);
+    		ll2.setVisibility(View.VISIBLE);
     		activate.setVisibility(View.GONE);
     		deactivate.setVisibility(View.GONE);
     		swappiness.setVisibility(View.GONE);
     		
     	}
     	
-    	if(swaps.equals("")){
+    	if(swaps.equals("") && new File(String.valueOf(Environment.getExternalStorageDirectory())+"/swap").exists() || new File("/data/swap").exists()){
     		deactivate.setVisibility(View.GONE);
-    		
+    		activate.setVisibility(View.VISIBLE);
+    		ll2.setVisibility(View.VISIBLE);
     	}
-    	else{
+    	else if(!swaps.equals("") && new File(String.valueOf(Environment.getExternalStorageDirectory())+"/swap").exists() || new File("/data/swap").exists()){
     		activate.setVisibility(View.GONE);
+    		deactivate.setVisibility(View.VISIBLE);
+    		ll2.setVisibility(View.GONE);
     		
     	}
     	
