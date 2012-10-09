@@ -37,11 +37,38 @@
 		android:linksClickable="true" /> 
     
     <RelativeLayout
-        android:id="@+id/rl26"
+        android:id="@+id/rl27"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_alignParentLeft="true"
         android:layout_below="@+id/textView12"
+        android:background="@drawable/divider_strong_holo" >
+
+        <TextView
+            android:id="@+id/textView53"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"      
+            android:text="2.4"
+            android:textColor="@color/green" />
+
+    </RelativeLayout>
+
+    <TextView
+        android:id="@+id/textView54"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/rl27"
+        android:text="-[FIX]Fshrenheit temp for widget\n
+-[ADD]Swap Manager - Add swap on /sdcard or /data\n
+-[FIX]Fixed update server"
+ />
+    
+    <RelativeLayout
+        android:id="@+id/rl26"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_alignParentLeft="true"
+        android:layout_below="@+id/textView54"
         android:background="@drawable/divider_strong_holo" >
 
         <TextView
