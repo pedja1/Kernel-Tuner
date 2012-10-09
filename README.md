@@ -3,9 +3,9 @@ Kernel Tuner
 
 Android application for hardware twekas for HTC Evo 3D
 
-Quote:
+
 Features:
-Quote:
+
 
     Full CPU controll(single and dual-core devices)
     GPU Overclocking*
