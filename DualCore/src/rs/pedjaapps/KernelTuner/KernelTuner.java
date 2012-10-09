@@ -21,6 +21,7 @@ import java.util.Collections;
 import java.util.List;
 import java.util.TimeZone;
 
+import android.annotation.SuppressLint;
 import android.app.Activity;
 import android.app.AlarmManager;
 import android.app.AlertDialog;
@@ -71,6 +72,7 @@ import com.google.ads.AdView;
 
 //EndImports
 
+@SuppressLint("WorldReadableFiles")
 public class KernelTuner extends Activity {
 
 	private TextView batteryLevel;
@@ -2770,7 +2772,7 @@ public void ReadCPU0Clock()
 		
 		
 	} catch (Exception e) {
-		
+		iscVa = "offline";
 	}
 	
 	
@@ -3257,11 +3259,11 @@ public void readFreqs()
  			boolean ov = sharedPrefs.getBoolean("override", false);
  			if(ov==true){
  			Collections.reverse(frequencies);
- 			}*/
- 			if(Integer.parseInt(frequencies.get(0))>Integer.parseInt(frequencies.get(frequencies.size()))){
+ 			}*/ 
+ 			if(frequencies.get(0).length()>frequencies.get(frequencies.size()-1).length()){
  				Collections.reverse(frequencies);
  			}
- 			
+ 			//System.out.println();
  			String[] strarray = frequencies.toArray(new String[0]);
  			frequencies.clear();
  			System.out.println(frequencies);
@@ -3280,7 +3282,7 @@ public void readFreqs()
  			in.close();
 		}
 		catch(Exception ee){
-		/**/
+		System.out.println("failed to read frequencies");
 		}
 	}
 	
