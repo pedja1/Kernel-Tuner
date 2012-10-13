@@ -11,6 +11,8 @@
 # generated files
 bin/
 gen/
+.settings/
+.git/
 
 # Local configuration file (sdk path, etc)
 local.properties
