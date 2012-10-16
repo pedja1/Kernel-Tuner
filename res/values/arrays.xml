@@ -51,4 +51,15 @@
  <item>dark</item>
 </string-array>
 
+<string-array name="tempTitles">
+ <item>Celsius</item>
+ <item>Fahrenheit</item>
+ <item>Kelvin</item>
+</string-array>
+<string-array name="tempValues">
+ <item>celsius</item>
+ <item>fahrenheit</item>
+ <item>kelvin</item>
+</string-array>
+
 </resources>

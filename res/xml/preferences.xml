@@ -6,7 +6,7 @@
         <ListPreference
             android:entries="@array/listDisplayWord"
             android:entryValues="@array/listReturnValue"
-            android:key="boot2"
+            android:key="boot"
             android:summary="@string/preferences_boot_settings_apply_summary"
             android:title="@string/preferences_boot_settings_apply_title" android:defaultValue="disable"/>
     </PreferenceCategory>
@@ -18,51 +18,20 @@
             android:title="@string/preferences_widget_settings_interval_title" />
     </PreferenceCategory>
     <PreferenceCategory android:title="@string/preferences_misc" >
-       <!--   <CheckBoxPreference
-            android:key="override"
-            android:summary="@string/preferences_misc_cpu_info_summary"
-            android:title="@string/preferences_misc_cpu_info_title" />-->
-        <CheckBoxPreference
+          <CheckBoxPreference
             android:defaultValue="true"
             android:key="ads"
             android:summary="@string/preferences_misc_ads_summary"
             android:title="@string/preferences_misc_ads_title" />
   
-        <CheckBoxPreference
-            android:defaultValue="false"
+        <ListPreference
+            android:entries="@array/tempTitles"
+            android:entryValues="@array/tempValues"
             android:key="temp"
-            android:summary="@string/preferences_misc_temp_summary"
-            android:title="@string/preferences_misc_temp_title" />
+            android:summary="Temperature Unit"
+            android:title="Temperature Unit" 
+            android:defaultValue="celsius"/>
          </PreferenceCategory>
-    <PreferenceCategory android:title="@string/preferences_ui" >
-      
-			
-		<!--  <PreferenceScreen
-            
-            android:key="ui"
-            android:summary="Change how parts of UI looks like"
-            android:title="Look and Feal" >-->
-			<ListPreference
-				android:entries="@array/themeTitles"
-				android:entryValues="@array/themeValues"
-				android:key="theme"
-				android:summary="@string/preferences_ui_theme_summary"
-				android:title="@string/preferences_ui_theme_title" android:defaultValue="system"/>
-			
-        <!--   <yuku.ambilwarna.widget.AmbilWarnaPreference
-                android:key="title_background"
-                android:defaultValue="0xff33b5e5" 
-                android:title="Page Title Background Color" 
-                
-                />
-           <yuku.ambilwarna.widget.AmbilWarnaPreference
-                android:key="title_text"
-                android:defaultValue="0xffffffff" 
-                android:title="Page Title Text Color" 
-                
-                />-->
-	<!--  </PreferenceScreen>-->
-    
-    </PreferenceCategory>
+
     
 </PreferenceScreen>

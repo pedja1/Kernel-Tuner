@@ -95,6 +95,9 @@ android:resource="@xml/widget_provider_4x4" />
 <activity android:name=".ProfileEditor" android:label="@string/activity_title_profile_editor" android:icon="@drawable/ic_menu_edit" android:theme="@style/Theme.Transparent"></activity>
 <activity android:name=".Swap" android:label="@string/activity_title_swap" android:icon="@drawable/icon" ></activity>
 
+<activity android:name=".CPUTuner" android:label="@string/activity_title_cpu" android:icon="@drawable/icon" ></activity>
+
+
 <service android:name=".WidgetUpdateService"></service>
 <service android:name=".WidgetUpdateServiceBig"></service>
 

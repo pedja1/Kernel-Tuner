@@ -79,7 +79,7 @@ public class KernelTuner extends Activity {
 	private TextView batteryTemp;
 	private TextView cputemptxt;
 	public SharedPreferences sharedPrefs;
-	boolean tempPref;
+	String tempPref;
 	boolean tempMonitor;
 	  private BroadcastReceiver mBatInfoReceiver = new BroadcastReceiver(){
 	    @Override
@@ -92,10 +92,9 @@ public class KernelTuner extends Activity {
 	      
 	     
 	      
-	      if (tempPref==true)
+	      if (tempPref.equals("celsius"))
 	      {
 	    	  temperature = (temperature*1.8)+32;
-	    	  //int temp = (int)temperature;
 	    	  batteryTemp.setText(String.valueOf((int)temperature) + "°F");
 		      if(temperature<=104){
 		    	  batteryTemp.setTextColor(Color.GREEN);
@@ -116,7 +115,7 @@ public class KernelTuner extends Activity {
 
 		      }
 	      }
-	      else if(tempPref==false){
+	      else if(tempPref.equals("fahrenheit")){
 	    	  batteryTemp.setText(String.valueOf(temperature) + "°C");
 		      if(temperature<45){
 		    	  batteryTemp.setTextColor(Color.GREEN);
@@ -173,7 +172,6 @@ public String curentgovernorcpu0;
 public String curentgovernorcpu1;
 public String curentgovernorcpu2;
 public String curentgovernorcpu3;
-private TextView cpu1;
 public String led;
 SeekBar mSeekBar;
 TextView progresstext;
@@ -292,23 +290,12 @@ public String scroff_profile;
 public String mpdecisionidle;
 public String version;
 public String changelog;
-//public String[] cpu0freqslist;
 public List<String> freqlist;
-//private ToggleButton cpu1toggle;
 public SharedPreferences preferences;
 private ProgressDialog pd = null;
-private Object data = null;
 public String s2w;
 
-
-//set on boot
-
-
-///public String[] MyStringAray;// = {"1","2",};
 Handler mHandler = new Handler();
-
-
-//EndOfGlobalVariables
 
 public static boolean isDownloadManagerAvailable(Context context) {
 	try {
@@ -331,7 +318,7 @@ class updateCheck extends AsyncTask<String, Void, Object> {
 
 	@Override
 	protected Object doInBackground(String... args) {
-		//Log.i("KernelTuner.java", "Check for new version");
+
 
 		
 		try {
@@ -379,8 +366,7 @@ class updateCheck extends AsyncTask<String, Void, Object> {
     @Override
 	protected void onPreExecute() {
         super.onPreExecute();
-      //  DualCore.this.pd = ProgressDialog.show(DualCore.this, "Working..", "Checking for updates...", true, false );
-	//	pd.setCancelable(true);
+
 	
 		pd = ProgressDialog.show(
 			KernelTuner.this,
@@ -393,7 +379,6 @@ class updateCheck extends AsyncTask<String, Void, Object> {
 				@Override
 				public void onCancel(DialogInterface dialog) {
 					updateCheck.this.cancel(true);
-				//	finish();
 				}
 			}
         );
@@ -402,15 +387,13 @@ class updateCheck extends AsyncTask<String, Void, Object> {
 
     @Override
 	protected void onPostExecute(Object result) {
-	
-        KernelTuner.this.data = result;
+
         KernelTuner.this.pd.dismiss();
         
 		try {
 		PackageInfo	pInfo = getPackageManager().getPackageInfo(getPackageName(), 0);
 		version = pInfo.versionName;
 		} catch (NameNotFoundException e1) {
-			// TODO Auto-generated catch block
 			e1.printStackTrace();
 		}
 		
@@ -465,7 +448,6 @@ private class mountDebugFs extends AsyncTask<String, Void, Object> {
 	
 	@Override
 	protected Object doInBackground(String... args) {
-         //Log.i("MyApp", "Background thread starting");
 
 		Process localProcess;
 		try {
@@ -491,9 +473,7 @@ private class mountDebugFs extends AsyncTask<String, Void, Object> {
 
      @Override
 	protected void onPostExecute(Object result) {
-         // Pass the result data back to the main activity
-    	 
-         KernelTuner.this.data = result;
+
  
      }
 
@@ -505,7 +485,6 @@ private class cpu1Toggle extends AsyncTask<String, Void, Object> {
 	
 	@Override
 	protected Object doInBackground(String... args) {
-        // Log.i("MyApp", "Background thread starting");
          
          File file = new File(CPU1_CURR_GOV);
      	try{
@@ -577,10 +556,7 @@ private class cpu1Toggle extends AsyncTask<String, Void, Object> {
 
      @Override
 	protected void onPostExecute(Object result) {
-         // Pass the result data back to the main activity
-    	 
-         KernelTuner.this.data = result;
-    
+
              KernelTuner.this.pd.dismiss();
          
      }
@@ -663,10 +639,7 @@ private class cpu2Toggle extends AsyncTask<String, Void, Object> {
 
      @Override
 	protected void onPostExecute(Object result) {
-         // Pass the result data back to the main activity
-    	 
-         KernelTuner.this.data = result;
-    
+
              KernelTuner.this.pd.dismiss();
          
      }
@@ -749,10 +722,6 @@ private class cpu3Toggle extends AsyncTask<String, Void, Object> {
 
      @Override
 	protected void onPostExecute(Object result) {
-         // Pass the result data back to the main activity
-    	 
-         KernelTuner.this.data = result;
-    
              KernelTuner.this.pd.dismiss();
          
      }
@@ -798,10 +767,7 @@ private class initdApplyCpuGpuMisc extends AsyncTask<String, Void, Object> {
 
      @Override
 	protected void onPostExecute(Object result) {
-         // Pass the result data back to the main activity
-    	 
-         KernelTuner.this.data = result;
-        
+
      }
 
 	}
@@ -846,10 +812,7 @@ private class rmInitd extends AsyncTask<String, Void, Object> {
 
      @Override
 	protected void onPostExecute(Object result) {
-         // Pass the result data back to the main activity
-    	 
-         KernelTuner.this.data = result;
-        
+
      }
 
 	}
@@ -1878,12 +1841,7 @@ return "";
     		mpdectxt.setVisibility(View.GONE);
     		mpdectxte.setVisibility(View.GONE);
     	}
-    
-    	
-        KernelTuner.this.data = result;
-
-        
-        
+      
     }
 
     
@@ -1895,89 +1853,12 @@ public void onCreate(Bundle savedInstanceState) {
 super.onCreate(savedInstanceState);
 
 sharedPrefs = PreferenceManager.getDefaultSharedPreferences(this);
-String theme = sharedPrefs.getString("theme", "system");
-if (theme.equals("system")) {
-	setTheme(android.R.style.Theme_DeviceDefault);
-} else if (theme.equals("holo")) {
-	setTheme(android.R.style.Theme_Holo);
-} else if (theme.equals("holo_light")) {
-	setTheme(android.R.style.Theme_Holo_Light);
-} else if (theme.equals("dark")) {
-	setTheme(android.R.style.Theme_Black);
-} else if (theme.equals("light")) {
-	setTheme(android.R.style.Theme_Light);
-} else if (theme.equals("holo_no_ab")) {
-	setTheme(android.R.style.Theme_Holo_NoActionBar);
-} else if (theme.equals("holo_wp")) {
-	setTheme(android.R.style.Theme_Holo_Wallpaper);
-} else if (theme.equals("holo_fs")) {
-	
-	setTheme(android.R.style.Theme_Holo_NoActionBar_Fullscreen);
-} else if (theme.equals("holo_light_dark_ab")) {
-	setTheme(android.R.style.Theme_Holo_Light_DarkActionBar);
-} else if (theme.equals("holo_light_no_ab")) {
-	setTheme(android.R.style.Theme_Holo_Light_NoActionBar);
-} else if (theme.equals("holo_light_fs")) {
-	setTheme(android.R.style.Theme_Holo_Light_NoActionBar_Fullscreen);
-}
+
 
 
 setContentView(R.layout.main);
-TextView tv = (TextView)findViewById(R.id.textView37);
-TextView tv1 = (TextView)findViewById(R.id.textView39);
-TextView tv2 = (TextView)findViewById(R.id.textView41);
-TextView tv3 = (TextView)findViewById(R.id.ptextView3);
-TextView tv4 = (TextView)findViewById(R.id.ptextView4);
-TextView tv5 = (TextView)findViewById(R.id.ptextView7);
-TextView tv6 = (TextView)findViewById(R.id.ptextView8);
- if (theme.equals("holo_light")) {
-	
-	tv.setTextColor(Color.BLACK);
-	tv1.setTextColor(Color.BLACK);
-	tv2.setTextColor(Color.BLACK);
-	tv3.setTextColor(Color.BLACK);
-	tv4.setTextColor(Color.BLACK);
-	tv5.setTextColor(Color.BLACK);
-	tv6.setTextColor(Color.BLACK);
- }
- else if (theme.equals("light")) {
-	tv.setTextColor(Color.BLACK);
-	tv1.setTextColor(Color.BLACK);
-	tv2.setTextColor(Color.BLACK);
-	tv3.setTextColor(Color.BLACK);
-	tv4.setTextColor(Color.BLACK);
-	tv5.setTextColor(Color.BLACK);
-	tv6.setTextColor(Color.BLACK);
-	
-}  else if (theme.equals("holo_light_dark_ab")) {
-	tv.setTextColor(Color.BLACK);
-	tv1.setTextColor(Color.BLACK);
-	tv2.setTextColor(Color.BLACK);
-	tv3.setTextColor(Color.BLACK);
-	tv4.setTextColor(Color.BLACK);
-	tv5.setTextColor(Color.BLACK);
-	tv6.setTextColor(Color.BLACK);
-	
-} else if (theme.equals("holo_light_no_ab")) {
-	tv.setTextColor(Color.BLACK);
-	tv1.setTextColor(Color.BLACK);
-	tv2.setTextColor(Color.BLACK);
-	tv3.setTextColor(Color.BLACK);
-	tv4.setTextColor(Color.BLACK);
-	tv5.setTextColor(Color.BLACK);
-	tv6.setTextColor(Color.BLACK);
-	
-} else if (theme.equals("holo_light_fs")) {
-	tv.setTextColor(Color.BLACK);
-	tv1.setTextColor(Color.BLACK);
-	tv2.setTextColor(Color.BLACK);
-	tv3.setTextColor(Color.BLACK);
-	tv4.setTextColor(Color.BLACK);
-	tv5.setTextColor(Color.BLACK);
-	tv6.setTextColor(Color.BLACK);
-}
 
-
+ 
 Process localProcess;
 try {
 	localProcess = Runtime.getRuntime().exec("su");
@@ -1998,7 +1879,7 @@ SharedPreferences sharedPrefs = PreferenceManager.getDefaultSharedPreferences(th
 batteryLevel = (TextView) this.findViewById(R.id.textView42);
 batteryTemp = (TextView) this.findViewById(R.id.textView40);
 
-tempPref = sharedPrefs.getBoolean("temp", false);
+tempPref = sharedPrefs.getString("temp", "");
 
 
 boolean ads = sharedPrefs.getBoolean("ads", true);
@@ -2029,36 +1910,10 @@ new info().execute();
 	gpu.setOnClickListener(new OnClickListener(){
 		
 		@Override
-		public void onClick(View v) {
-			File file = new File("/sys/devices/platform/kgsl-2d0.0/kgsl/kgsl-2d0/max_gpuclk");
-			try{
-			
-			InputStream fIn = new FileInputStream(file);
-			
+		public void onClick(View v) {		
 			Intent myIntent = new Intent(KernelTuner.this, gpu.class);
 			KernelTuner.this.startActivity(myIntent);
-			}
-			catch(FileNotFoundException e){
-				AlertDialog alertDialog = new AlertDialog.Builder(
-                        KernelTuner.this).create();
 
-        alertDialog.setTitle("Unsupported kernel");
- 
-        alertDialog.setMessage("Your kernel doesnt support GPU Overclocking");
- 
-        alertDialog.setIcon(R.drawable.icon);
- 
-        alertDialog.setButton("OK", new DialogInterface.OnClickListener() {
-                @Override
-				public void onClick(DialogInterface dialog, int which) {
-              
-                }
-        });
- 
-        alertDialog.show();
-				alertDialog.setIcon(R.drawable.icon);
-				alertDialog.show();
-			}
 			}
 	
 	});
@@ -2068,62 +1923,18 @@ new info().execute();
 		
 		@Override
 		public void onClick(View v) {
-			File file = new File("/sys/devices/system/cpu/cpufreq/vdd_table/vdd_levels");
-			try{
 			
-			InputStream fIn = new FileInputStream(file);
-			
-			Intent myIntent = new Intent(KernelTuner.this, uv.class);
-			KernelTuner.this.startActivity(myIntent);
-			}
-			catch(FileNotFoundException e){
-				AlertDialog alertDialog = new AlertDialog.Builder(
-                        KernelTuner.this).create();
-
-        alertDialog.setTitle("Unsupported kernel");
- 
-        alertDialog.setMessage("Your kernel doesnt support Undervolting");
- 
-        alertDialog.setIcon(R.drawable.icon);
- 
-        alertDialog.setButton("OK", new DialogInterface.OnClickListener() {
-                @Override
-				public void onClick(DialogInterface dialog, int which) {
-              
-                }
-        });
- 
-        alertDialog.show();
-				alertDialog.setIcon(R.drawable.icon);
-				alertDialog.show();
-			}
+			Intent intent = new Intent(KernelTuner.this,
+					   CPUTuner.class);
+			intent.putExtra("item", "VOLTAGE");
+			KernelTuner.this.startActivity(intent);
 			}
 	
 	});
 
-//prefs();
+
 	readFreqs();
-	
 initialCheck();
-
-
-
-
-
-String boot = sharedPrefs.getString("boot2", "");
-
-if (boot.equals("init.d")){
-	new initdApplyCpuGpuMisc().execute();
-	
-	
-}
-else {
-	new rmInitd().execute();
-}
-
-
-
-
 
 
 new Thread(new Runnable() {
@@ -2132,7 +1943,7 @@ new Thread(new Runnable() {
         // TODO Auto-generated method stub
         while (thread) {
             try {
-                Thread.sleep(700);
+                Thread.sleep(1000);
                 mHandler.post(new Runnable() {
 
                 	@Override
@@ -2140,6 +1951,8 @@ new Thread(new Runnable() {
                         // TODO Auto-generated method stub
                     	ReadCPU0Clock();
                     	ReadCPU0maxfreq();
+                    	cpuTemp();
+                    	times();
                     	//System.out.println(readUsage());
                     	
                     	
@@ -2176,34 +1989,7 @@ new Thread(new Runnable() {
         }
     }
 }).start();
-new Thread(new Runnable() {
-	@Override
-    public void run() {
-        // TODO Auto-generated method stub
-        while (thread) {
-            try {
-                Thread.sleep(1000);
-                mHandler.post(new Runnable() {
 
-                	@Override
-                    public void run() {
-                        // TODO Auto-generated method stub
-                    	
-                    	uptime();
-                		deepsleep();
-                		cpuTemp();
-                   
-                    	
-                		
-                    	
-                    }
-                });
-            } catch (Exception e) {
-                // TODO: handle exception
-            }
-        }
-    }
-}).start();
 
 button2 = (Button)this.findViewById(R.id.button2);
 button2.setOnClickListener(new OnClickListener(){
@@ -2211,20 +1997,10 @@ button2.setOnClickListener(new OnClickListener(){
 	@Override
 	public void onClick(View v) {
 		
-		if(new File(cpu3online).exists()){
-			Intent myIntent = new Intent(KernelTuner.this, OC_quad.class);
-			KernelTuner.this.startActivity(myIntent);
-		}
-		if(new File(cpu1online).exists() && !(new File(cpu3online).exists())){
-			Intent myIntent = new Intent(KernelTuner.this, OC.class);
-			KernelTuner.this.startActivity(myIntent);
-		}
-		if(!(new File(cpu1online).exists()) && !(new File(cpu3online).exists()))
-		{
-			Intent myIntent = new Intent(KernelTuner.this, OC_single.class);
-			KernelTuner.this.startActivity(myIntent);
-		}
-			
+		Intent intent = new Intent(KernelTuner.this,
+				CPUTuner.class);
+	intent.putExtra("item", "CPU TWEAKS");
+		KernelTuner.this.startActivity(intent);
 	}
 });
 
@@ -2234,8 +2010,10 @@ buttontest.setOnClickListener(new OnClickListener(){
 	@Override
 	public void onClick(View v) {
 		
-		Intent myIntent = new Intent(KernelTuner.this, cpuStatsTab.class);
-		KernelTuner.this.startActivity(myIntent);
+		Intent intent = new Intent(KernelTuner.this,
+				CPUTuner.class);
+	intent.putExtra("item", "TIMES IN STATE");
+		KernelTuner.this.startActivity(intent);
 		
 	}
 });
@@ -2336,24 +2114,18 @@ protected void onResume()
 {
 	this.registerReceiver(this.mBatInfoReceiver, 
 			  new IntentFilter(Intent.ACTION_BATTERY_CHANGED));
-    //prefs();
     initialCheck();
 new info().execute();
     
   
-    	initdexport();
-    	SharedPreferences sharedPrefs = PreferenceManager.getDefaultSharedPreferences(this);
-
-    	String boot = sharedPrefs.getString("boot2", "");
-    	
-    	if (boot.equals("init.d")){
-    		new initdApplyCpuGpuMisc().execute();
-    		
-    		
-    	}
-    	else {
-    		new rmInitd().execute();
-    	}
+SharedPreferences sharedPrefs = PreferenceManager.getDefaultSharedPreferences(this);
+String boot = sharedPrefs.getString("boot", "");
+if(boot.equals("init.d")){
+	initdExport();
+}
+else{
+	new Initd().execute(new String[] {"rm"});
+}
   
     	
     	
@@ -2382,7 +2154,6 @@ AppWidgetBig updateBig = new AppWidgetBig();
 	AppWidgetManager appWidgetManager = AppWidgetManager.getInstance(context);
 	RemoteViews remoteViews = new RemoteViews(context.getPackageName(), R.layout.widget_4x4);
 	ComponentName thisWidget = new ComponentName(context, AppWidgetBig.class);
-	//remoteViews.setTextViewText(R.id.my_text_view, "myText" + System.currentTimeMillis());
 	appWidgetManager.updateAppWidget(thisWidget, remoteViews);
 	int[] appWidgetIds = null;
 	updateBig.onUpdate(context, appWidgetManager,  appWidgetIds);
@@ -2391,58 +2162,22 @@ AppWidgetBig updateBig = new AppWidgetBig();
 AppWidget updateSmall = new AppWidget();
 	RemoteViews remoteViewsSmall = new RemoteViews(context.getPackageName(), R.layout.widget_2x1);
 	ComponentName thisWidgetSmall = new ComponentName(context, AppWidget.class);
-	//remoteViews.setTextViewText(R.id.my_text_view, "myText" + System.currentTimeMillis());
 	appWidgetManager.updateAppWidget(thisWidgetSmall, remoteViewsSmall);
 	
 	updateSmall.onUpdate(context, appWidgetManager,  appWidgetIds);
        super.onDestroy();
-    //finish();
+    
 }
 
 
-private float readUsage() {
-    try {
-        RandomAccessFile reader = new RandomAccessFile("/proc/stat", "r");
-        String load = reader.readLine();
-
-        String[] toks = load.split(" ");
-
-        long idle1 = Long.parseLong(toks[5]);
-        long cpu1 = Long.parseLong(toks[2]) + Long.parseLong(toks[3]) + Long.parseLong(toks[4])
-              + Long.parseLong(toks[6]) + Long.parseLong(toks[7]) + Long.parseLong(toks[8]);
-
-        try {
-            Thread.sleep(360);
-        } catch (Exception e) {}
-
-        reader.seek(0);
-        load = reader.readLine();
-        reader.close();
-
-        toks = load.split(" ");
-
-        long idle2 = Long.parseLong(toks[5]);
-        long cpu2 = Long.parseLong(toks[2]) + Long.parseLong(toks[3]) + Long.parseLong(toks[4])
-            + Long.parseLong(toks[6]) + Long.parseLong(toks[7]) + Long.parseLong(toks[8]);
-
-        return (float)(cpu2 - cpu1) / ((cpu2 + idle2) - (cpu1 + idle1));
-
-    } catch (IOException ex) {
-        ex.printStackTrace();
-    }
-
-    return 0;
-} 
 
 
  public void download(){
 	 BroadcastReceiver onComplete=new BroadcastReceiver() {
 		    @Override
 			public void onReceive(Context ctxt, Intent intent) {
-		        // Do Something
-		    	intent = new Intent(Intent.ACTION_VIEW);
+		        intent = new Intent(Intent.ACTION_VIEW);
 		        intent.setDataAndType(Uri.fromFile(new File(Environment.getExternalStorageDirectory() + "/download/" + "KernelTuner-" + remoteversion + ".apk")), "application/vnd.android.package-archive");
-		      // System.out.println( Environment.getExternalStorageDirectory() + "/download/" + "KernelTuner-" + remoteversion + ".apk");
 		        startActivity(intent);
 		    }
 		};
@@ -2450,7 +2185,6 @@ private float readUsage() {
 	DownloadManager.Request request = new DownloadManager.Request(Uri.parse(url));
 	request.setDescription("Downloading new version");
 	request.setTitle("Kernel Tuner-" + remoteversion + ".apk");
-	//in order for this if to run, you must use the android 3.2 to compile your app
 	if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.HONEYCOMB) {
 		request.allowScanningByMediaScanner();
 		request.setNotificationVisibility(DownloadManager.Request.VISIBILITY_VISIBLE_NOTIFY_COMPLETED);
@@ -2464,12 +2198,7 @@ private float readUsage() {
 	}catch(Exception e){
 		Toast.makeText(getApplicationContext(), "SD card is not mounted", Toast.LENGTH_LONG).show();
 	}
-	
 
-	
-
-//get download service and enqueue file
-	//System.out.println(request);
 }
  
 
@@ -2538,35 +2267,16 @@ private float readUsage() {
 		cputemptxt.clearAnimation();
 	}
 	
-public void uptime(){
-	long uptime = SystemClock.uptimeMillis();
-	int hr =  (int) ((uptime / 1000) / 3600);
-   int   mn =  (int) (((uptime / 1000) / 60) % 60);
-      int sc =  (int) ((uptime / 1000) % 60);
-	String minut = String.valueOf(mn);
-	String sekund = String.valueOf(sc);
-	String sati = String.valueOf(hr);
-	String tmp;
-	tmp= sati+"h:"+minut+"m:"+sekund+"s";
-	TextView uptimer = (TextView)findViewById(R.id.textView30);
-	uptimer.setText(tmp);
 	
-}
-public void deepsleep(){
-	String temp2 = String.valueOf(SystemClock.elapsedRealtime()-SystemClock.uptimeMillis()); 
-	  int time = Integer.parseInt(temp2);
-	  int hr =  ((time / 1000) / 3600);
-    int mn =  (((time / 1000) / 60) % 60);
-    int sc =  ((time / 1000) % 60);
-    String minut = String.valueOf(mn);
-     String sekund = String.valueOf(sc);
-     String sati = String.valueOf(hr);
-     
-     temp2= sati+"h:"+minut+"m:"+sekund+"s";
-	TextView dstimer = (TextView)findViewById(R.id.textView31);
-	dstimer.setText(temp2);
-	
-}
+
+	public void times(){
+		TextView deepSleep = (TextView)findViewById(R.id.textView31);
+		TextView uptime = (TextView)findViewById(R.id.textView30);
+			uptime.setText(CPUInfo.uptime());
+			deepSleep.setText(CPUInfo.deepSleep());
+			
+		
+	}
 
 public void cpuTemp(){
 	cputemptxt = (TextView)findViewById(R.id.textView38);
@@ -2589,7 +2299,7 @@ public void cpuTemp(){
 		cputemp = aBuffer.trim();
 		
 		
-	      if (tempPref==true)
+	      if (tempPref.equals("celsius"))
 	      {
 	    	  cputemp = String.valueOf((int)(Double.parseDouble(cputemp)*1.8)+32);
 		  		cputemptxt.setText(cputemp+"°F");
@@ -2610,7 +2320,7 @@ public void cpuTemp(){
 
 		  	      }
 	      }
-	      else if(tempPref==false){
+	      else if(tempPref.equals("fahrenheit")){
 	    	  cputemptxt.setVisibility(View.VISIBLE);
 	  		cputemptxte.setVisibility(View.VISIBLE);
 	  		cputemptxt.setText(cputemp+"°C");
@@ -2880,11 +2590,9 @@ public void ReadCPU3Clock()
 
 
 
-public void initdexport(){
+public void initdExport(){
 	
 	SharedPreferences sharedPrefs = PreferenceManager.getDefaultSharedPreferences(this);
-	
-	 // boolean cpu1off = sharedPrefs.getBoolean("cpu1off", false);
 	  String gpu3d = sharedPrefs.getString("gpu3d", "");
 	  String gpu2d = sharedPrefs.getString("gpu2d", "");
 	 
@@ -2959,15 +2667,15 @@ public void initdexport(){
 	  /**
 	   * cpu0
 	   * */
-	  if(cpu0gov!=null){
+	  if(!cpu0gov.equals("")){
 		  cpubuilder.append("chmod 666 /sys/devices/system/cpu/cpu0/cpufreq/scaling_governor \n" +
 	  		"echo " + "\""+cpu0gov+"\"" + " > /sys/devices/system/cpu/cpu0/cpufreq/scaling_governor\n");
 	  }
-	  if(cpu0max!=null){
+	  if(!cpu0max.equals("")){
 		  cpubuilder.append("chmod 666 /sys/devices/system/cpu/cpu0/cpufreq/scaling_max_freq \n" +
 		"echo " + "\""+cpu0max + "\""+" > /sys/devices/system/cpu/cpu0/cpufreq/scaling_max_freq \n");
 	  }
-	  if(cpu0min!=null){
+	  if(!cpu0min.equals("")){
 		  cpubuilder.append("chmod 666 /sys/devices/system/cpu/cpu0/cpufreq/scaling_min_freq \n" +
 		"echo " + "\""+cpu0min + "\""+" > /sys/devices/system/cpu/cpu0/cpufreq/scaling_min_freq \n\n");
 	  }
@@ -3018,6 +2726,20 @@ public void initdexport(){
 		  cpubuilder.append("chmod 666 /sys/devices/system/cpu/cpu3/cpufreq/scaling_min_freq \n" +
 		"echo " + "\""+cpu3min + "\""+" > /sys/devices/system/cpu/cpu3/cpufreq/scaling_min_freq \n\n");
 	  }
+	  List<String> govSettings = CPUInfo.govSettings();
+      List<String> availableGovs = CPUInfo.availableGovs();
+      
+      for(String s : availableGovs){
+   	   for(String st : govSettings){
+   		   String temp = sharedPrefs.getString(s+"_"+st, "");
+   	   		  
+     		    if(!temp.equals("")){
+     		    	cpubuilder.append("chmod 777 /sys/devices/system/cpu/cpufreq/" + s + "/" + st + "\n");
+     		    	cpubuilder.append("echo " + "\""+temp+"\"" + " > /sys/devices/system/cpu/cpufreq/" + s + "/" + st + "\n");
+     		    	
+     		    }
+   	   }
+      }
 	  String cpu = cpubuilder.toString();
 		
 	  StringBuilder miscbuilder = new StringBuilder();
@@ -3145,6 +2867,7 @@ public void initdexport(){
 		  miscbuilder.append("chmod 777 /sys/kernel/msm_thermal/conf/allowed_high_high\n"+
 	  "echo " + "\""+p3high.trim() +  "\"" + " > /sys/kernel/msm_thermal/conf/allowed_high_high\n\n");
 	  }
+	  
 	  miscbuilder.append("#Umount debug filesystem\n"+
 	  "umount /sys/kernel/debug \n");
 	  String misc = miscbuilder.toString();
@@ -3153,9 +2876,8 @@ public void initdexport(){
 	  	   
 	  StringBuilder voltagebuilder = new StringBuilder();
 	  voltagebuilder.append("#!/system/bin/sh \n");
-	  for(String s : freqlist){
-			String temp = sharedPrefs.getString("uv"+s, "");
-		    //System.out.println(temp);
+	  for(String s : CPUInfo.voltageFreqs()){
+			String temp = sharedPrefs.getString("voltage_"+s, "");
 		    if(!temp.equals("")){
 			voltagebuilder.append("echo " + "\""+temp+"\"" + " > /sys/devices/system/cpu/cpufreq/vdd_table/vdd_levels\n");
 		    }
@@ -3210,6 +2932,7 @@ public void initdexport(){
   } catch (IOException ioe) {
           ioe.printStackTrace();
   } 
+	  new Initd().execute(new String[] {"apply"});
 }
 
 public void readFreqs()
