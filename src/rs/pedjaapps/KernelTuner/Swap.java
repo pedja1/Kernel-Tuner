@@ -49,7 +49,6 @@ public class Swap extends Activity{
 
 	
 	private ProgressDialog pd = null;
-    private Object data = null;
    String[] swapSize = {"64","128","256","512","758","1024"};
     String[] swapLocation = {"/data/",String.valueOf(Environment.getExternalStorageDirectory())+"/"};
     String[] swappiness = {"10","20","30","40","50","60","70","80","90","100"};
@@ -101,14 +100,12 @@ private class deactivateSwap extends AsyncTask<String, Void, Object> {
 
              @Override
 			protected void onPostExecute(Object result) {
-            	/* preferences = PreferenceManager.getDefaultSharedPreferences(getBaseContext());
+            	 preferences = PreferenceManager.getDefaultSharedPreferences(getBaseContext());
             	 SharedPreferences.Editor editor = preferences.edit();
-            	   /* editor.putString("cpu0min", minselected);
-            	    editor.putString("cpu0max", maxselected);
-            	    editor.putString("cpu0gov", govselected);// value to store
-            	    editor.commit();
+            	    editor.putBoolean("swap", false);
+            	   editor.commit();
             	 
-                 Swap.this.data = result;*/
+                
             	 updateUI();
                  Swap.this.pd.dismiss();
                 
@@ -146,14 +143,10 @@ private class activateSwap extends AsyncTask<String, Void, Object> {
 
      @Override
 	protected void onPostExecute(Object result) {
-    	/* preferences = PreferenceManager.getDefaultSharedPreferences(getBaseContext());
+    	 preferences = PreferenceManager.getDefaultSharedPreferences(getBaseContext());
     	 SharedPreferences.Editor editor = preferences.edit();
-    	   /* editor.putString("cpu0min", minselected);
-    	    editor.putString("cpu0max", maxselected);
-    	    editor.putString("cpu0gov", govselected);// value to store
-    	    editor.commit();
-    	 
-         Swap.this.data = result;*/
+    	    editor.putBoolean("swap", true);
+    	   editor.commit();
     	 updateUI();
          Swap.this.pd.dismiss();
         
@@ -191,14 +184,10 @@ private class setSwappiness extends AsyncTask<String, Void, Object> {
 
      @Override
 	protected void onPostExecute(Object result) {
-    	/* preferences = PreferenceManager.getDefaultSharedPreferences(getBaseContext());
+    	 preferences = PreferenceManager.getDefaultSharedPreferences(getBaseContext());
     	 SharedPreferences.Editor editor = preferences.edit();
-    	   /* editor.putString("cpu0min", minselected);
-    	    editor.putString("cpu0max", maxselected);
-    	    editor.putString("cpu0gov", govselected);// value to store
-    	    editor.commit();
-    	 
-         Swap.this.data = result;*/
+    	    editor.putString("swap", swappinessSelected);
+    	   editor.commit();
     	 updateUI();
          Swap.this.pd.dismiss();
         
@@ -244,14 +233,7 @@ private class createSwap extends AsyncTask<String, Void, Object> {
 	
      @Override
 	protected void onPostExecute(Object result) {
-    	/* preferences = PreferenceManager.getDefaultSharedPreferences(getBaseContext());
-    	 SharedPreferences.Editor editor = preferences.edit();
-    	   /* editor.putString("cpu0min", minselected);
-    	    editor.putString("cpu0max", maxselected);
-    	    editor.putString("cpu0gov", govselected);// value to store
-    	    editor.commit();
-    	 
-         Swap.this.data = result;*/
+    	
     	 updateUI();
          Swap.this.pd.dismiss();
         

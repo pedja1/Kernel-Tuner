@@ -106,6 +106,11 @@ public class StartupService extends Service
 		  String s2wStart = sharedPrefs.getString("s2wStart","");
 		  String s2wEnd = sharedPrefs.getString("s2wEnd","");
 		  
+		  boolean swap = sharedPrefs.getBoolean("swap",false);
+		  String swapLocation = sharedPrefs.getString("swap_location","");
+		  String swappiness = sharedPrefs.getString("swappiness","");
+		  
+		  
 		  try {
 				localProcess = Runtime.getRuntime().exec("su");
 			
@@ -226,7 +231,14 @@ public class StartupService extends Service
        		    }
      	   }
         }
-           
+        if(swap==true){
+        localDataOutputStream.writeBytes("echo "+swappiness+" > /proc/sys/vm/swappiness\n");
+        localDataOutputStream.writeBytes("swapon "+swapLocation.trim()+"/swap"+"\n");
+        }
+        else if(swap==false){
+        	localDataOutputStream.writeBytes("swapoff "+swapLocation.trim()+"/swap"+"\n");
+            
+        }
            localDataOutputStream.writeBytes("exit\n");
            localDataOutputStream.flush();
            localDataOutputStream.close();
