@@ -7,8 +7,13 @@ import java.io.InputStreamReader;
 import java.util.ArrayList;
 import java.util.List;
 
+import com.google.ads.AdRequest;
+import com.google.ads.AdView;
+
+import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.os.SystemClock;
+import android.preference.PreferenceManager;
 import android.support.v4.app.Fragment;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -34,6 +39,11 @@ public class TISFragment extends Fragment {
 		v = inflater.inflate(R.layout.times_in_state,
 				container, false);
 
+		SharedPreferences sharedPrefs = PreferenceManager.getDefaultSharedPreferences(this.getActivity());
+		boolean ads = sharedPrefs.getBoolean("ads", true);
+		if (ads==true){AdView adView = (AdView)v.findViewById(R.id.ad);
+		adView.loadAd(new AdRequest());}
+		
 		tisListView = (ListView) v.findViewById(R.id.list);
 	      tisAdapter = new TISAdapter(this.getActivity(), R.layout.tis_list_item);
 	     tisListView.setAdapter(tisAdapter);

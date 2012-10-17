@@ -10,6 +10,10 @@ import java.io.InputStream;
 import java.io.InputStreamReader;
 import java.util.ArrayList;
 import java.util.List;
+
+import com.google.ads.AdRequest;
+import com.google.ads.AdView;
+
 import android.app.Activity;
 import android.app.AlertDialog;
 import android.app.ProgressDialog;
@@ -501,33 +505,12 @@ public class profiles extends Activity{
     	@Override
 	public void onCreate(Bundle savedInstanceState) {
 	super.onCreate(savedInstanceState);
-	preferences = PreferenceManager.getDefaultSharedPreferences(this);
-	String theme = preferences.getString("theme", "system");
-	if (theme.equals("system")) {
-		setTheme(android.R.style.Theme_DeviceDefault);
-	} else if (theme.equals("holo")) {
-		setTheme(android.R.style.Theme_Holo);
-	} else if (theme.equals("holo_light")) {
-		setTheme(android.R.style.Theme_Holo_Light);
-	} else if (theme.equals("dark")) {
-		setTheme(android.R.style.Theme_Black);
-	} else if (theme.equals("light")) {
-		setTheme(android.R.style.Theme_Light);
-	} else if (theme.equals("holo_no_ab")) {
-		setTheme(android.R.style.Theme_Holo_NoActionBar);
-	} else if (theme.equals("holo_wp")) {
-		setTheme(android.R.style.Theme_Holo_Wallpaper);
-	} else if (theme.equals("holo_fs")) {
-		setTheme(android.R.style.Theme_Holo_NoActionBar_Fullscreen);
-	} else if (theme.equals("holo_light_dark_ab")) {
-		setTheme(android.R.style.Theme_Holo_Light_DarkActionBar);
-	} else if (theme.equals("holo_light_no_ab")) {
-		setTheme(android.R.style.Theme_Holo_Light_NoActionBar);
-	} else if (theme.equals("holo_light_fs")) {
-		setTheme(android.R.style.Theme_Holo_Light_NoActionBar_Fullscreen);
-	}
-	setContentView(R.layout.profiles);
 	
+	setContentView(R.layout.profiles);
+	SharedPreferences sharedPrefs = PreferenceManager.getDefaultSharedPreferences(this);
+	boolean ads = sharedPrefs.getBoolean("ads", true);
+	if (ads==true){AdView adView = (AdView)findViewById(R.id.ad);
+	adView.loadAd(new AdRequest());}
 	Button current = (Button)findViewById(R.id.button1);
 	current.setOnClickListener(new OnClickListener(){
 		@Override

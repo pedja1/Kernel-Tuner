@@ -198,5 +198,9 @@
      <string name="refresh">Refresh</string>
      <string name="save">Save</string>
      <string name="load">Load</string>
+     <string name="thermald">thermald</string>
+     <string name="profiles">Profiles</string>
+     <string name="swap">Swap</string>
+     <string name="info">System Info</string>
 
 </resources>

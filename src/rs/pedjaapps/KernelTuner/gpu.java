@@ -6,6 +6,10 @@ import java.io.File;
 import java.io.FileInputStream;
 import java.io.IOException;
 import java.io.InputStreamReader;
+
+import com.google.ads.AdRequest;
+import com.google.ads.AdView;
+
 import rs.pedjaapps.KernelTuner.R;
 import android.app.Activity;
 import android.app.ProgressDialog;
@@ -193,68 +197,19 @@ return "";
 	
     @Override
 	public void onCreate(Bundle savedInstanceState) {
-    	preferences = PreferenceManager.getDefaultSharedPreferences(this);
-    	String theme = preferences.getString("theme", "system");
-    	if (theme.equals("system")) {
-    		setTheme(android.R.style.Theme_DeviceDefault);
-    	} else if (theme.equals("holo")) {
-    		setTheme(android.R.style.Theme_Holo);
-    	} else if (theme.equals("holo_light")) {
-    		setTheme(android.R.style.Theme_Holo_Light);
-    	} else if (theme.equals("dark")) {
-    		setTheme(android.R.style.Theme_Black);
-    	} else if (theme.equals("light")) {
-    		setTheme(android.R.style.Theme_Light);
-    	} else if (theme.equals("holo_no_ab")) {
-    		setTheme(android.R.style.Theme_Holo_NoActionBar);
-    	} else if (theme.equals("holo_wp")) {
-    		setTheme(android.R.style.Theme_Holo_Wallpaper);
-    	} else if (theme.equals("holo_fs")) {
-    		setTheme(android.R.style.Theme_Holo_NoActionBar_Fullscreen);
-    	} else if (theme.equals("holo_light_dark_ab")) {
-    		setTheme(android.R.style.Theme_Holo_Light_DarkActionBar);
-    	} else if (theme.equals("holo_light_no_ab")) {
-    		setTheme(android.R.style.Theme_Holo_Light_NoActionBar);
-    	} else if (theme.equals("holo_light_fs")) {
-    		setTheme(android.R.style.Theme_Holo_Light_NoActionBar_Fullscreen);
-    	}
+    	
 	super.onCreate(savedInstanceState);
 	setContentView(R.layout.gpu);
-	TextView tv = (TextView)findViewById(R.id.textView1);
-	TextView tv1 = (TextView)findViewById(R.id.textView2);
-	
-	 if (theme.equals("holo_light")) {
-		
-		tv.setTextColor(Color.BLACK);
-		tv1.setTextColor(Color.BLACK);
-		
-	 }
-	 else if (theme.equals("light")) {
-		tv.setTextColor(Color.BLACK);
-		tv1.setTextColor(Color.BLACK);
-		
-		
-	}  else if (theme.equals("holo_light_dark_ab")) {
-		tv.setTextColor(Color.BLACK);
-		tv1.setTextColor(Color.BLACK);
-		
-		
-	} else if (theme.equals("holo_light_no_ab")) {
-		tv.setTextColor(Color.BLACK);
-		tv1.setTextColor(Color.BLACK);
-		
-		
-	} else if (theme.equals("holo_light_fs")) {
-		tv.setTextColor(Color.BLACK);
-		tv1.setTextColor(Color.BLACK);
-		
-	}
+	SharedPreferences sharedPrefs = PreferenceManager.getDefaultSharedPreferences(this);
+	boolean ads = sharedPrefs.getBoolean("ads", true);
+	if (ads==true){AdView adView = (AdView)findViewById(R.id.ad);
+	adView.loadAd(new AdRequest());}
 	//System.out.println(android.os.Build.BOARD);
 	if(board.equals("shooter") || board.equals("shooteru") || board.equals("pyramid")){
 	gpu2d(new String[]{"160", "200", "228", "266"});
 	gpu3d(new String[]{"200", "228", "266", "300", "320"});
 	}
-	else if(board.equals("evita") || board.equals("ville")){
+	else if(board.equals("evita") || board.equals("ville") | board.equals("jet")){
 		gpu2d(new String[]{"200", "300"});
 		gpu3d(new String[]{"200", "300", "400", "500"});
 	}

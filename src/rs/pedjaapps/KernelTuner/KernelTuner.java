@@ -84,7 +84,6 @@ public class KernelTuner extends Activity {
 	  private BroadcastReceiver mBatInfoReceiver = new BroadcastReceiver(){
 	    @Override
 	    public void onReceive(Context arg0, Intent intent) {
-	      // TODO Auto-generated method stub
 	    	
 	    	
 	      int level = intent.getIntExtra("level", 0);
@@ -92,7 +91,7 @@ public class KernelTuner extends Activity {
 	      
 	     
 	      
-	      if (tempPref.equals("celsius"))
+	      if (tempPref.equals("fahrenheit"))
 	      {
 	    	  temperature = (temperature*1.8)+32;
 	    	  batteryTemp.setText(String.valueOf((int)temperature) + "°F");
@@ -115,7 +114,7 @@ public class KernelTuner extends Activity {
 
 		      }
 	      }
-	      else if(tempPref.equals("fahrenheit")){
+	      else if(tempPref.equals("celsius")){
 	    	  batteryTemp.setText(String.valueOf(temperature) + "°C");
 		      if(temperature<45){
 		    	  batteryTemp.setTextColor(Color.GREEN);
@@ -818,7 +817,7 @@ private class rmInitd extends AsyncTask<String, Void, Object> {
 	}
 
 
-private class info extends AsyncTask<String, Void, Object> {
+/*private class info extends AsyncTask<String, Void, Object> {
 	
 	
 	@Override
@@ -1215,13 +1214,7 @@ private class info extends AsyncTask<String, Void, Object> {
 
  			schedulers = aBuffer;
  			myReader.close();
- 			/*String[] schedaray = schedulers.split(" ");
- 			int schedlength = schedaray.length;
- 			List<String> wordList = Arrays.asList(schedaray); 
- 			int index = wordList.indexOf(curentfreq);
- 			int index2 = wordList.indexOf(curentfreqcpu1);
- 				scheduler = */
- 			//String between = schedulers.split("]|[")[1];
+ 			
  			scheduler = schedulers.substring(schedulers.indexOf("[") + 1, schedulers.indexOf("]"));
  			scheduler.trim();
  			schedulers = schedulers.replace("[", "");
@@ -1847,18 +1840,65 @@ return "";
     
     
 	}
+*/
+private class cpuLoad extends AsyncTask<String, Void, Float> {
+	
+	
+
+    
+	@Override
+	protected Float doInBackground(String... params) {
+		// TODO Auto-generated method stub
+		try {
+	        RandomAccessFile reader = new RandomAccessFile("/proc/stat", "r");
+	        String load = reader.readLine();
+
+	        String[] toks = load.split(" ");
+
+	        long idle1 = Long.parseLong(toks[5]);
+	        long cpu1 = Long.parseLong(toks[2]) + Long.parseLong(toks[3]) + Long.parseLong(toks[4])
+	              + Long.parseLong(toks[6]) + Long.parseLong(toks[7]) + Long.parseLong(toks[8]);
+
+	        try {
+	            Thread.sleep(360);
+	        } catch (Exception e) {}
+
+	        reader.seek(0);
+	        load = reader.readLine();
+	        reader.close();
+
+	        toks = load.split(" ");
+
+	        long idle2 = Long.parseLong(toks[5]);
+	        long cpu2 = Long.parseLong(toks[2]) + Long.parseLong(toks[3]) + Long.parseLong(toks[4])
+	            + Long.parseLong(toks[6]) + Long.parseLong(toks[7]) + Long.parseLong(toks[8]);
+
+	        return  ((float)(cpu2 - cpu1) / ((cpu2 + idle2) - (cpu1 + idle1)))*100;
+
+	    } catch (IOException ex) {
+	        ex.printStackTrace();
+	    }
+
+	    return  (float)0;
+		
+	}
+
+	@Override
+	protected void onPostExecute(Float result) {
+		TextView cpuLoadTxt = (TextView)findViewById(R.id.textView1);
+		
+		ProgressBar cpuLoad = (ProgressBar)findViewById(R.id.progressBar5);
+    	 cpuLoad.setProgress(Math.round(result));
+ 		cpuLoadTxt.setText(String.valueOf(Math.round(result))+"%");
+     }
+
+	}
 
 @Override
 public void onCreate(Bundle savedInstanceState) {
 super.onCreate(savedInstanceState);
-
-sharedPrefs = PreferenceManager.getDefaultSharedPreferences(this);
-
-
-
 setContentView(R.layout.main);
-
- 
+sharedPrefs = PreferenceManager.getDefaultSharedPreferences(this);
 Process localProcess;
 try {
 	localProcess = Runtime.getRuntime().exec("su");
@@ -1873,13 +1913,11 @@ try {
 catch(Exception e){
 	
 }
-SharedPreferences sharedPrefs = PreferenceManager.getDefaultSharedPreferences(this);
-
 
 batteryLevel = (TextView) this.findViewById(R.id.textView42);
 batteryTemp = (TextView) this.findViewById(R.id.textView40);
 
-tempPref = sharedPrefs.getString("temp", "");
+tempPref = sharedPrefs.getString("temp", "celsius");
 
 
 boolean ads = sharedPrefs.getBoolean("ads", true);
@@ -1890,8 +1928,6 @@ adView.loadAd(new AdRequest());}
 
 
 	changelog();
-checkAnthrax();
-new info().execute();
 	
 	File file = new File("/sys/kernel/debug/msm_fb/0/vsync_enable");
 	try{
@@ -1940,7 +1976,6 @@ initialCheck();
 new Thread(new Runnable() {
 	@Override
     public void run() {
-        // TODO Auto-generated method stub
         while (thread) {
             try {
                 Thread.sleep(1000);
@@ -1948,12 +1983,13 @@ new Thread(new Runnable() {
 
                 	@Override
                     public void run() {
-                        // TODO Auto-generated method stub
+                      
                     	ReadCPU0Clock();
                     	ReadCPU0maxfreq();
                     	cpuTemp();
-                    	times();
-                    	//System.out.println(readUsage());
+                    	new cpuLoad().execute();
+                    	//times();
+                    	
                     	
                     	
                     	
@@ -1984,15 +2020,15 @@ new Thread(new Runnable() {
                     }
                 });
             } catch (Exception e) {
-                // TODO: handle exception
+               
             }
         }
     }
 }).start();
 
 
-button2 = (Button)this.findViewById(R.id.button2);
-button2.setOnClickListener(new OnClickListener(){
+Button cpu = (Button)this.findViewById(R.id.button2);
+cpu.setOnClickListener(new OnClickListener(){
 	
 	@Override
 	public void onClick(View v) {
@@ -2004,8 +2040,8 @@ button2.setOnClickListener(new OnClickListener(){
 	}
 });
 
-Button buttontest = (Button)this.findViewById(R.id.button5);
-buttontest.setOnClickListener(new OnClickListener(){
+Button tis = (Button)this.findViewById(R.id.button5);
+tis.setOnClickListener(new OnClickListener(){
 	
 	@Override
 	public void onClick(View v) {
@@ -2018,27 +2054,19 @@ buttontest.setOnClickListener(new OnClickListener(){
 	}
 });
 	
-Button atweaks = (Button)this.findViewById(R.id.button7);
-atweaks.setOnClickListener(new OnClickListener(){
+Button mpdec = (Button)this.findViewById(R.id.button7);
+mpdec.setOnClickListener(new OnClickListener(){
 	
 	@Override
 	public void onClick(View v) {
 		
-		Intent myIntent = new Intent(KernelTuner.this, anthraxTweaks.class);
+		Intent myIntent = new Intent(KernelTuner.this, mpdecision.class);
 		KernelTuner.this.startActivity(myIntent);
 		
 	}
 });
 
-	RelativeLayout info = (RelativeLayout)this.findViewById(R.id.rl2);
-	info.setOnClickListener(new OnClickListener(){
-
-		@Override
-			public void onClick(View v) {
-
-				new info().execute();
-			}
-		});
+	
 
 Button buttongpu = (Button)this.findViewById(R.id.button4);
 buttongpu.setOnClickListener(new OnClickListener(){
@@ -2096,6 +2124,85 @@ public void onClick(View v) {
 	
 }});
 
+Button governor = (Button)findViewById(R.id.button10);
+governor.setOnClickListener(new OnClickListener(){
+
+	@Override
+	public void onClick(View v) {
+		Intent intent = new Intent(KernelTuner.this,
+				CPUTuner.class);
+	intent.putExtra("item", "GOVERNOR SETTINGS");
+		KernelTuner.this.startActivity(intent);
+		
+	}
+	
+});
+
+Button swap = (Button)this.findViewById(R.id.button13);
+swap.setOnClickListener(new OnClickListener(){
+	
+	@Override
+	public void onClick(View v) {
+		
+		
+			Intent myIntent = new Intent(KernelTuner.this, Swap.class);
+			KernelTuner.this.startActivity(myIntent);
+		
+	}
+});
+
+Button profiles = (Button)this.findViewById(R.id.button12);
+profiles.setOnClickListener(new OnClickListener(){
+	
+	@Override
+	public void onClick(View v) {
+		
+		
+			Intent myIntent = new Intent(KernelTuner.this, profiles.class);
+			KernelTuner.this.startActivity(myIntent);
+		
+	}
+});
+
+Button thermald = (Button)this.findViewById(R.id.button11);
+thermald.setOnClickListener(new OnClickListener(){
+	
+	@Override
+	public void onClick(View v) {
+		
+		
+			Intent myIntent = new Intent(KernelTuner.this, thermald.class);
+			KernelTuner.this.startActivity(myIntent);
+		
+	}
+});
+
+Button about = (Button)this.findViewById(R.id.button15);
+about.setOnClickListener(new OnClickListener(){
+	
+	@Override
+	public void onClick(View v) {
+		
+		
+			Intent myIntent = new Intent(KernelTuner.this, about.class);
+			KernelTuner.this.startActivity(myIntent);
+		
+	}
+});
+
+Button sys = (Button)this.findViewById(R.id.button14);
+sys.setOnClickListener(new OnClickListener(){
+	
+	@Override
+	public void onClick(View v) {
+		
+		
+			Intent myIntent = new Intent(KernelTuner.this, SystemInfo.class);
+			KernelTuner.this.startActivity(myIntent);
+		
+	}
+});
+
 
 }
 
@@ -2115,7 +2222,7 @@ protected void onResume()
 	this.registerReceiver(this.mBatInfoReceiver, 
 			  new IntentFilter(Intent.ACTION_BATTERY_CHANGED));
     initialCheck();
-new info().execute();
+//new info().execute();
     
   
 SharedPreferences sharedPrefs = PreferenceManager.getDefaultSharedPreferences(this);
@@ -2219,7 +2326,7 @@ AppWidget updateSmall = new AppWidget();
 
 			}	
 			SharedPreferences.Editor editor = preferences.edit();
-			editor.putString("version", version); // value to store
+			editor.putString("version", version);
 			editor.commit();
 		}
 		catch (PackageManager.NameNotFoundException e)
@@ -2230,7 +2337,7 @@ AppWidget updateSmall = new AppWidget();
 
 	public void battTempWarning(){
 		Animation anim = new AlphaAnimation(0.0f, 1.0f);
-    	anim.setDuration(500); //You can manage the time of the blink with this parameter
+    	anim.setDuration(500); 
     	anim.setStartOffset(20);
     	anim.setRepeatMode(Animation.REVERSE);
     	anim.setRepeatCount(Animation.INFINITE);
@@ -2243,7 +2350,7 @@ AppWidget updateSmall = new AppWidget();
 	
 	public void battLevelWarning(){
 		Animation anim = new AlphaAnimation(0.0f, 1.0f);
-    	anim.setDuration(500); //You can manage the time of the blink with this parameter
+    	anim.setDuration(500); 
     	anim.setStartOffset(20);
     	anim.setRepeatMode(Animation.REVERSE);
     	anim.setRepeatCount(Animation.INFINITE);
@@ -2256,7 +2363,7 @@ AppWidget updateSmall = new AppWidget();
 	
 	public void cpuTempWarning(){
 		Animation anim = new AlphaAnimation(0.0f, 1.0f);
-    	anim.setDuration(500); //You can manage the time of the blink with this parameter
+    	anim.setDuration(500); 
     	anim.setStartOffset(20);
     	anim.setRepeatMode(Animation.REVERSE);
     	anim.setRepeatCount(Animation.INFINITE);
@@ -2299,7 +2406,7 @@ public void cpuTemp(){
 		cputemp = aBuffer.trim();
 		
 		
-	      if (tempPref.equals("celsius"))
+	      if (tempPref.equals("fahrenheit"))
 	      {
 	    	  cputemp = String.valueOf((int)(Double.parseDouble(cputemp)*1.8)+32);
 		  		cputemptxt.setText(cputemp+"°F");
@@ -2320,7 +2427,7 @@ public void cpuTemp(){
 
 		  	      }
 	      }
-	      else if(tempPref.equals("fahrenheit")){
+	      else if(tempPref.equals("celsius")){
 	    	  cputemptxt.setVisibility(View.VISIBLE);
 	  		cputemptxte.setVisibility(View.VISIBLE);
 	  		cputemptxt.setText(cputemp+"°C");
@@ -2352,7 +2459,7 @@ public void cpuTemp(){
 
 public void initialCheck(){
 	
-	if(new File(cpu1online).exists()){
+	if(CPUInfo.cpu1Online()==true){
 	Button b2 = (Button) findViewById(R.id.button1);
 	b2.setVisibility(View.VISIBLE);
 		ProgressBar cpu1progbar = (ProgressBar)findViewById(R.id.progressBar2);
@@ -2372,7 +2479,7 @@ public void initialCheck(){
 		 TextView tv4 = (TextView) findViewById(R.id.ptextView4);
 		 tv4.setVisibility(View.GONE);
 }
-	if(new File(cpu2online).exists()){
+	if(CPUInfo.cpu2Online()==true){
 		Button b3 = (Button) findViewById(R.id.button8);
 		b3.setVisibility(View.VISIBLE);
 			ProgressBar cpu1progbar = (ProgressBar)findViewById(R.id.progressBar3);
@@ -2392,7 +2499,7 @@ public void initialCheck(){
 			 TextView tv4 = (TextView) findViewById(R.id.ptextView7);
 			 tv4.setVisibility(View.GONE);
 	}
-	if(new File(cpu3online).exists()){
+	if(CPUInfo.cpu3Online()==true){
 		Button b4 = (Button) findViewById(R.id.button9);
 		  b4.setVisibility(View.VISIBLE);
 			ProgressBar cpu1progbar = (ProgressBar)findViewById(R.id.progressBar4);
@@ -2423,8 +2530,8 @@ public void initialCheck(){
 			InputStream fIn = new FileInputStream(file5);
 		}
 		catch(FileNotFoundException e2){
-			Button voltage = (Button)findViewById(R.id.button2);
-		voltage.setVisibility(View.GONE);
+			Button cpu = (Button)findViewById(R.id.button2);
+		cpu.setVisibility(View.GONE);
 		}
 	
 
@@ -2459,7 +2566,29 @@ public void initialCheck(){
 		gpu.setVisibility(View.GONE);
 
 		}
+		
+		File file6 = new File("/sys/kernel/msm_mpdecision/conf/enabled");
+		try{
+			InputStream fIn = new FileInputStream(file6);
+		}
+		catch(FileNotFoundException e){ 
+		Button mpdec = (Button)findViewById(R.id.button7);
+		mpdec.setVisibility(View.GONE);
+
+		}
+		
+		File file7 = new File("/sys/kernel/msm_thermal/conf/allowed_low_freq");
+		try{
+			InputStream fIn = new FileInputStream(file7);
+		}
+		catch(FileNotFoundException e){ 
+		Button td = (Button)findViewById(R.id.button11);
+		td.setVisibility(View.GONE);
+
+		}
 	
+		 
+		
 	}
 
 public void ReadCPU0Clock()
@@ -2640,6 +2769,9 @@ public void initdExport(){
 	  String p2high = sharedPrefs.getString("p2high", "");
 	  String p3low = sharedPrefs.getString("p3low", "");
 	  String p3high = sharedPrefs.getString("p3high", "");
+	  boolean swap = sharedPrefs.getBoolean("swap",false);
+	  String swapLocation = sharedPrefs.getString("swap_location","");
+	  String swappiness = sharedPrefs.getString("swappiness","");
 	  
 	  StringBuilder gpubuilder = new StringBuilder();
 		
@@ -2867,7 +2999,18 @@ public void initdExport(){
 		  miscbuilder.append("chmod 777 /sys/kernel/msm_thermal/conf/allowed_high_high\n"+
 	  "echo " + "\""+p3high.trim() +  "\"" + " > /sys/kernel/msm_thermal/conf/allowed_high_high\n\n");
 	  }
-	  
+	  if(swap==true){
+		  miscbuilder.append("echo "+swappiness+" > /proc/sys/vm/swappiness\n"
+	  +"swapon "+swapLocation.trim()+"/swap"+"\n"
+				  );
+	        
+	        
+	        }
+	        else if(swap==false){
+	        	miscbuilder.append("swapoff "+swapLocation.trim()+"/swap"+"\n\n");
+	            
+	        }
+	 
 	  miscbuilder.append("#Umount debug filesystem\n"+
 	  "umount /sys/kernel/debug \n");
 	  String misc = miscbuilder.toString();
@@ -3192,18 +3335,14 @@ cpu3progbar.setProgress(freqlist.indexOf(freqcpu3.trim())+1);
 }
 
 
-private Menu mainMenu;
-//private MenuItem menuItem;
+
+
 @Override
 public boolean onCreateOptionsMenu(Menu menu) {
    
 	MenuInflater inflater = getMenuInflater();
     inflater.inflate(R.menu.options, menu);
-   
-    mainMenu = menu;
-    //subMenu = menuItem;
-   // Log.d("Menu", "menu created");
-    
+
     return true;
 }
 @Override
@@ -3219,11 +3358,11 @@ public boolean onOptionsItemSelected(MenuItem item) {
   
 	if (item.getItemId() == R.id.settings) {
         startActivity(new Intent(this, Preferences.class));
-       // Log.d("Menu", "settings selected");
+      
     }
     if (item.getItemId() == R.id.changelog) {
         startActivity(new Intent(this, changelog.class));
-       // Log.d("Menu", "changelog selected");
+       
     }
     if (item.getItemId() == R.id.update) {
 		new updateCheck().execute();
@@ -3239,64 +3378,19 @@ public boolean onOptionsItemSelected(MenuItem item) {
 	    alarms.setInexactRepeating(AlarmManager.RTC_WAKEUP,
 	            updateTime.getTimeInMillis(),
 	            AlarmManager.INTERVAL_DAY, recurringDownload);
-		//Log.d("Menu", "update selected");
+		
     }
-	if (item.getItemId() == R.id.about) {
-        startActivity(new Intent(this, about.class));
-        //Log.d("Menu", "about selected");
-    }	
+		
 	if (item.getItemId() == R.id.check) {
         startActivity(new Intent(this, check.class));
-        //Log.d("Menu", "check selected");
-    }	
-	if (item.getItemId() == R.id.profiles) {
-        startActivity(new Intent(this, profiles.class));
-        //Log.d("Menu", "check selected");
-    }
-	if (item.getItemId() == R.id.swap) {
-        startActivity(new Intent(this, Swap.class));
         
-    }
+    }	
+	
 	
     return super.onOptionsItemSelected(item);
 }
 
 
-public void checkAnthrax(){
-	String anthrax = null;
-	try {
-		File myFile = new File("/proc/version");
-		FileInputStream fIn = new FileInputStream(myFile);
-		BufferedReader myReader = new BufferedReader(
-				new InputStreamReader(fIn));
-		String aDataRow = "";
-		String aBuffer = "";
-		while ((aDataRow = myReader.readLine()) != null) {
-			aBuffer += aDataRow + "\n";
-		}
-		anthrax = aBuffer;
-		myReader.close();
-		
-	} catch (Exception e) {
-		anthrax="notfound";
-	}
-	
-	
-	Button anth = (Button)findViewById(R.id.button7);
-    int intIndex = anthrax.indexOf("anthrax");
-    if(intIndex == - 1){
-       //System.out.println("not found");
-       
-       anth.setVisibility(View.GONE);
-    }else{
-       //System.out.println("Found anthrax at index "
-       //+ intIndex);
-       anth.setVisibility(View.VISIBLE);
-      
-    }
-}
 
-
-	
 }
 

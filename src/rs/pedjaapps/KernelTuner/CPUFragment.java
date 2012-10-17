@@ -7,6 +7,9 @@ import java.io.IOException;
 import java.io.RandomAccessFile;
 import java.util.List;
 
+import com.google.ads.AdRequest;
+import com.google.ads.AdView;
+
 import android.content.SharedPreferences;
 import android.os.AsyncTask;
 import android.os.Bundle;
@@ -217,6 +220,10 @@ public class CPUFragment extends Fragment {
 
 		v = inflater.inflate(R.layout.cpu_tweaks,
 				container, false);
+		SharedPreferences sharedPrefs = PreferenceManager.getDefaultSharedPreferences(this.getActivity());
+		boolean ads = sharedPrefs.getBoolean("ads", true);
+		if (ads==true){AdView adView = (AdView)this.v.findViewById(R.id.ad);
+		adView.loadAd(new AdRequest());}
 		//preferences = PreferenceManager.getDefaultSharedPreferences(CPUFragment.this.getActivity());
 		
 		
@@ -278,7 +285,7 @@ public class CPUFragment extends Fragment {
 	@Override
 	public void onResume(){
 		SharedPreferences sharedPrefs = PreferenceManager.getDefaultSharedPreferences(this.getActivity());
-		tempUnit = sharedPrefs.getString("temp", "");
+		tempUnit = sharedPrefs.getString("temp", "celsius");
 		
 		thread=true;
 		

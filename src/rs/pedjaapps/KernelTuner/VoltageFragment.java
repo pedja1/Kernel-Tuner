@@ -3,8 +3,13 @@ package rs.pedjaapps.KernelTuner;
 import java.util.ArrayList;
 import java.util.List;
 
+import com.google.ads.AdRequest;
+import com.google.ads.AdView;
+
 import android.app.ProgressDialog;
+import android.content.SharedPreferences;
 import android.os.Bundle;
+import android.preference.PreferenceManager;
 import android.support.v4.app.Fragment;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -29,6 +34,11 @@ public class VoltageFragment extends Fragment {
 
 		v = inflater.inflate(R.layout.voltage,
 				container, false);
+		
+		SharedPreferences sharedPrefs = PreferenceManager.getDefaultSharedPreferences(this.getActivity());
+		boolean ads = sharedPrefs.getBoolean("ads", true);
+		if (ads==true){AdView adView = (AdView)v.findViewById(R.id.ad);
+		adView.loadAd(new AdRequest());}
 		
 		voltageListView = (ListView) v.findViewById(R.id.list);
 	      voltageAdapter = new VoltageAdapter(this.getActivity(), R.layout.voltage_list_item);

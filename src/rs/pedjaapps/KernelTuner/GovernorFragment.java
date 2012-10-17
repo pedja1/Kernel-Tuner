@@ -8,9 +8,15 @@ import java.io.InputStreamReader;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
+
+import com.google.ads.AdRequest;
+import com.google.ads.AdView;
+
 import android.app.AlertDialog;
 import android.content.DialogInterface;
+import android.content.SharedPreferences;
 import android.os.Bundle;
+import android.preference.PreferenceManager;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.ListFragment;
 import android.text.InputType;
@@ -49,6 +55,11 @@ public class GovernorFragment extends Fragment {
 
 		v = inflater.inflate(R.layout.governor_settings,
 				container, false);
+		
+		SharedPreferences sharedPrefs = PreferenceManager.getDefaultSharedPreferences(this.getActivity());
+		boolean ads = sharedPrefs.getBoolean("ads", true);
+		if (ads==true){AdView adView = (AdView)v.findViewById(R.id.ad);
+		adView.loadAd(new AdRequest());}
 		scanAvailableGovernors();
 		 govListView = (ListView) v.findViewById(R.id.list);
 		if(!availableGovs.isEmpty()){

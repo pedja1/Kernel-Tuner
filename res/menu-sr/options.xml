@@ -7,12 +7,6 @@
         android:showAsAction="ifRoom|withText"
         android:title="Podesavanja"/>
     
-    <item
-        android:id="@+id/about"
-        android:icon="@drawable/ic_menu_info_details"
-        android:showAsAction="ifRoom|withText"
-        android:title="O Aplikaciji"/>
-    
     <!--<item
         android:id="@+id/more"
         android:icon="@drawable/ic_menu_moreoverflow_normal_holo_dark"
@@ -34,17 +28,6 @@
         android:icon="@drawable/ic_menu_help"
         android:showAsAction="ifRoom|withText"
         android:title="Provera Kompatibilnosti"/>
-    <item
-        android:id="@+id/profiles"
-        android:icon="@drawable/ic_menu_cc"
-        android:showAsAction="ifRoom|withText"
-        android:title="Profili"/>
-    
-     <item
-        android:id="@+id/swap"
-       
-        android:showAsAction="ifRoom|withText"
-        android:title="Swap Manager"/>
      
      
            <!-- </menu> 

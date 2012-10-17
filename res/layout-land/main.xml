@@ -56,13 +56,41 @@
             android:gravity="center|center_vertical"
             android:text="@string/activity_main_voltage" />
     
-
+		<Button
+            android:id="@+id/button10"
+            style="?android:attr/buttonStyleSmall"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_weight="1"
+            android:drawableTop="@drawable/dual"
+            android:gravity="center|center_vertical"
+            android:text="@string/governor_" />
+		
+		<Button
+            android:id="@+id/button7"
+            style="?android:attr/buttonStyleSmall"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:drawableTop="@drawable/dual"
+            android:gravity="center|center_vertical"
+            android:text="@string/mpdecision"
+           />
+        
+		<Button
+            android:id="@+id/button11"
+            style="?android:attr/buttonStyleSmall"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_weight="1"
+            android:drawableTop="@drawable/temp"
+            android:gravity="center|center_vertical"
+            android:text="@string/thermald" />
+		
         <Button
             android:id="@+id/button3"
             style="?android:attr/buttonStyleSmall"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            
             android:drawableTop="@drawable/gpu"
             android:gravity="center|center_vertical"
             android:text="@string/activity_main_gpu_tweaks" />
@@ -72,22 +100,51 @@
             style="?android:attr/buttonStyleSmall"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            
             android:drawableTop="@drawable/misc"
             android:gravity="center|center_vertical"
             android:text="@string/activity_main_misc_tweaks" />
 
+        
+        
         <Button
-            android:id="@+id/button7"
+            android:id="@+id/button12"
             style="?android:attr/buttonStyleSmall"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:layout_below="@+id/button4"
-            
-            android:drawableTop="@drawable/anthrax"
+            android:layout_weight="1"
+             android:drawableTop="@drawable/profile"
             android:gravity="center|center_vertical"
-            android:text="@string/activity_main_anthrax_tweaks"
-            android:visibility="gone" />
+            android:text="@string/profiles" />
+        <Button
+            android:id="@+id/button13"
+            style="?android:attr/buttonStyleSmall"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_weight="1"
+            android:drawableTop="@drawable/swap"
+            android:gravity="center|center_vertical"
+            android:text="@string/swap" />
+
+        <Button
+            android:id="@+id/button14"
+            style="?android:attr/buttonStyleSmall"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_weight="1"
+            android:drawableTop="@drawable/info"
+            android:gravity="center|center_vertical"
+            android:text="@string/info" />
+
+        <Button
+            android:id="@+id/button15"
+            style="?android:attr/buttonStyleSmall"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_weight="1"
+            android:drawableTop="@drawable/about"
+            android:gravity="center|center_vertical"
+            android:text="@string/activity_title_about" />
+        
     </LinearLayout>
     </ScrollView>
     <!--
@@ -190,15 +247,15 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_below="@+id/test1"
-         android:layout_toRightOf="@+id/scrollView2"
-        android:layout_marginTop="5dp" >
+        android:layout_marginTop="20dp"
+        android:layout_toRightOf="@+id/scrollView2" >
 
         <TextView
             android:id="@+id/ptextView1"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_alignParentLeft="true"
-            android:layout_alignParentTop="true"
+            android:layout_below="@+id/cpuLoad"
             android:text="@string/cpu0" />
 
         <TextView
@@ -215,17 +272,17 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_alignBottom="@+id/ptextView1"
-            android:layout_alignParentTop="true"
+            android:layout_alignParentTop="false"
             android:layout_toRightOf="@+id/ptextView1"
             android:max="100"
-            android:progress="3"
-             />
+            android:progress="3" />
 
         <TextView
             android:id="@+id/ptextView3"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_alignParentTop="true"
+            android:layout_alignParentTop="false"
+            android:layout_below="@+id/cpuLoad"
             android:layout_centerHorizontal="true"
             android:text="@string/activity_main_offline"
             android:textColor="#ffffffff" />
@@ -302,9 +359,34 @@
             android:layout_centerHorizontal="true"
             android:text="@string/activity_main_offline"
             android:textColor="#ffffffff" />
+        
+        <TextView
+            android:id="@+id/cpuLoad"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/cpu_load" />
+        
+        <ProgressBar
+            android:id="@+id/progressBar5"
+            style="?android:attr/progressBarStyleHorizontal"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignBottom="@+id/cpuLoad"
+            android:layout_alignParentRight="true"
+            android:layout_toRightOf="@+id/cpuLoad" />
+
+        <TextView
+            android:id="@+id/textView1"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentTop="true"
+            android:layout_centerHorizontal="true"
+            android:text="@string/n_a"
+             android:textColor="#ffffffff" />
+        
     </RelativeLayout>
 
-    <ScrollView
+   <!--   <ScrollView
         android:id="@+id/scrollView1"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
@@ -747,7 +829,7 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_centerHorizontal="true" />
-
+-->
     <LinearLayout
         android:id="@+id/ly2"
         android:layout_width="match_parent"
