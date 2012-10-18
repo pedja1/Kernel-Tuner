@@ -251,10 +251,6 @@ private class createSwap extends AsyncTask<String, Void, Object> {
 	super.onCreate(savedInstanceState);
 	
 	setContentView(R.layout.swap);
-	SharedPreferences sharedPrefs = PreferenceManager.getDefaultSharedPreferences(this);
-	boolean ads = sharedPrefs.getBoolean("ads", true);
-	if (ads==true){AdView adView = (AdView)findViewById(R.id.ad);
-	adView.loadAd(new AdRequest());}
 	this.getWindow().setSoftInputMode(WindowManager.LayoutParams.SOFT_INPUT_STATE_ALWAYS_HIDDEN); 
 
 	Button activate = (Button)findViewById(R.id.button1);
