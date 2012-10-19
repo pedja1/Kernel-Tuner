@@ -226,7 +226,7 @@ import android.preference.PreferenceManager;
 					DataOutputStream localDataOutputStream = new DataOutputStream(
 							localProcess.getOutputStream());
 					localDataOutputStream
-							.writeBytes("chmod 777 /sys/devices/system/cpu/cpufreq/vdd_table/vdd_levels\n");
+							.writeBytes("chmod 777 /sys/devices/system/cpu/cpu0/cpufreq/UV_mV_table\n");
 				
 					for (int i = 0; i < voltageFreqs.size(); i++) {
 						int volt = voltages.get(i) - 12500;
@@ -236,7 +236,7 @@ import android.preference.PreferenceManager;
 										+ voltageFreqs.get(i)
 										+ " "
 										+volt
-										+ " > /sys/devices/system/cpu/cpufreq/vdd_table/vdd_levels\n");
+										+ " > /sys/devices/system/cpu/cpu0/cpufreq/UV_mV_table\n");
 						SharedPreferences.Editor editor = preferences.edit();
 					    editor.putString("voltage_"+voltageFreqs.get(i), voltageFreqs.get(i)+" "+ volt);
 					    editor.commit();
@@ -263,7 +263,7 @@ import android.preference.PreferenceManager;
 						DataOutputStream localDataOutputStream = new DataOutputStream(
 								localProcess.getOutputStream());
 						localDataOutputStream
-								.writeBytes("chmod 777 /sys/devices/system/cpu/cpufreq/vdd_table/vdd_levels\n");
+								.writeBytes("chmod 777 /sys/devices/system/cpu/cpu0/cpufreq/UV_mV_table\n");
 						
 						for (int i = 0; i < voltageFreqs.size(); i++) {
 							int volt = voltages.get(i) + 12500;
@@ -273,7 +273,7 @@ import android.preference.PreferenceManager;
 											+ voltageFreqs.get(i)
 											+ " "
 											+volt
-											+ " > /sys/devices/system/cpu/cpufreq/vdd_table/vdd_levels\n");
+											+ " > /sys/devices/system/cpu/cpu0/cpufreq/UV_mV_table\n");
 							SharedPreferences.Editor editor = preferences.edit();
 						    editor.putString("voltage_"+voltageFreqs.get(i), voltageFreqs.get(i)+" "+ volt);
 						    editor.commit();
@@ -300,7 +300,7 @@ import android.preference.PreferenceManager;
 						DataOutputStream localDataOutputStream = new DataOutputStream(
 								localProcess.getOutputStream());
 						localDataOutputStream
-								.writeBytes("chmod 777 /sys/devices/system/cpu/cpufreq/vdd_table/vdd_levels\n");
+								.writeBytes("chmod 777 /sys/devices/system/cpu/cpu0/cpufreq/UV_mV_table\n");
 						
 						
 							int volt = voltages.get(Integer.parseInt(args[1])) + 12500;
@@ -310,7 +310,7 @@ import android.preference.PreferenceManager;
 											+ voltageFreqs.get(Integer.parseInt(args[1]))
 											+ " "
 											+volt
-											+ " > /sys/devices/system/cpu/cpufreq/vdd_table/vdd_levels\n");
+											+ " > /sys/devices/system/cpu/cpu0/cpufreq/UV_mV_table\n");
 							SharedPreferences.Editor editor = preferences.edit();
 						    editor.putString("voltage_"+voltageFreqs.get(Integer.parseInt(args[1])), voltageFreqs.get(Integer.parseInt(args[1]))+" "+ volt);
 						    editor.commit();
@@ -337,7 +337,7 @@ import android.preference.PreferenceManager;
 						DataOutputStream localDataOutputStream = new DataOutputStream(
 								localProcess.getOutputStream());
 						localDataOutputStream
-								.writeBytes("chmod 777 /sys/devices/system/cpu/cpufreq/vdd_table/vdd_levels\n");
+								.writeBytes("chmod 777 /sys/devices/system/cpu/cpu0/cpufreq/UV_mV_table\n");
 						
 						
 							int volt = voltages.get(Integer.parseInt(args[1])) - 12500;
@@ -347,7 +347,7 @@ import android.preference.PreferenceManager;
 											+ voltageFreqs.get(Integer.parseInt(args[1]))
 											+ " "
 											+volt
-											+ " > /sys/devices/system/cpu/cpufreq/vdd_table/vdd_levels\n");
+											+ " > /sys/devices/system/cpu/cpu0/cpufreq/UV_mV_table\n");
 							SharedPreferences.Editor editor = preferences.edit();
 						    editor.putString("voltage_"+voltageFreqs.get(Integer.parseInt(args[1])), voltageFreqs.get(Integer.parseInt(args[1]))+" "+ volt);
 						    editor.commit();
@@ -374,7 +374,7 @@ import android.preference.PreferenceManager;
 						DataOutputStream localDataOutputStream = new DataOutputStream(
 								localProcess.getOutputStream());
 						localDataOutputStream
-								.writeBytes("chmod 777 /sys/devices/system/cpu/cpufreq/vdd_table/vdd_levels\n");
+								.writeBytes("chmod 777 /sys/devices/system/cpu/cpu0/cpufreq/UV_mV_table\n");
 						
 						
 							int volt = Integer.parseInt(args[1]);
@@ -384,7 +384,7 @@ import android.preference.PreferenceManager;
 											+ args[2]
 											+ " "
 											+ volt
-											+ " > /sys/devices/system/cpu/cpufreq/vdd_table/vdd_levels\n");
+											+ " > /sys/devices/system/cpu/cpu0/cpufreq/UV_mV_table\n");
 							SharedPreferences.Editor editor = preferences.edit();
 						    editor.putString("voltage_"+args[2], args[2]+" "+ volt);
 						    editor.commit();
