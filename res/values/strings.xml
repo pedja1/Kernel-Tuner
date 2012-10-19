@@ -80,8 +80,8 @@
     <string name="activity_main_anthrax_tweaks">Anthrax Tweaks</string>
     <string name="activity_main_cpu_temp_">CPU Temp:</string>
     <string name="activity_main_n_a">n/a</string>
-    <string name="activity_main__battery_temp_">" Battery Temp:"</string>
-    <string name="activity_main__battery_level_">" Battery Level:"</string>
+    <string name="activity_main__battery_temp_">" Batt. Tmp:"</string>
+    <string name="activity_main__battery_level_">" Battery:"</string>
     <string name="cpu0">CPU0</string>
     <string name="cpu1">CPU1</string>
     <string name="offline">offline</string>
