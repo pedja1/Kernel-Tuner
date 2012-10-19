@@ -23,7 +23,7 @@ import android.widget.SeekBar;
 import android.widget.Toast;
 import android.widget.SeekBar.OnSeekBarChangeListener;
 import android.widget.TextView;
-
+import java.io.File;
 public final class VoltageAdapter extends ArrayAdapter<VoltageEntry> {
 
 	static ProgressDialog pd = null;
@@ -94,7 +94,9 @@ public final class VoltageAdapter extends ArrayAdapter<VoltageEntry> {
 			builder.setPositiveButton("Apply", new DialogInterface.OnClickListener() {
 				@Override
 				public void onClick(DialogInterface dialog, int which) {
+					
 					if(!input.getText().toString().equals("")){
+						if(new File(CPUInfo.VOLTAGE_PATH).exists()){
 						if(Integer.parseInt(input.getText().toString())>=700000 && Integer.parseInt(input.getText().toString())<=1400000){
 							VoltageAdapter.pd = ProgressDialog.show(VoltageAdapter.this.getContext(), null, "Please wait...\nChanging voltage...", true, false);
 							new ChangeVoltage(VoltageAdapter.this.getContext()).execute(new String[] {"singleseek", input.getText().toString(), voltageFreqs.get(position)});
@@ -102,6 +104,16 @@ public final class VoltageAdapter extends ArrayAdapter<VoltageEntry> {
 						else{
 							Toast.makeText(VoltageAdapter.this.getContext(), "Value must be between 700000 and 1400000", Toast.LENGTH_LONG).show();
 						}
+						}
+						else if(new File(CPUInfo.VOLTAGE_PATH_TEGRA_3).exists()){
+							if(Integer.parseInt(input.getText().toString())>=700 && Integer.parseInt(input.getText().toString())<=1400){
+								VoltageAdapter.pd = ProgressDialog.show(VoltageAdapter.this.getContext(), null, "Please wait...\nChanging voltage...", true, false);
+								new ChangeVoltage(VoltageAdapter.this.getContext()).execute(new String[] {"singleseek", input.getText().toString(), voltageFreqs.get(position)});
+							}
+							else{
+								Toast.makeText(VoltageAdapter.this.getContext(), "Value must be between 700 and 1400", Toast.LENGTH_LONG).show();
+							}
+							}
 					}
 					else{
 						Toast.makeText(VoltageAdapter.this.getContext(), "Value can't be empty", Toast.LENGTH_LONG).show();
