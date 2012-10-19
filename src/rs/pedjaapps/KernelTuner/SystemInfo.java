@@ -82,6 +82,7 @@ public String curentgovernorcpu3;
 public String led;
 public String mpdec;
 public String s2w;
+String cpu_info;
 public static String cpu0online = "/sys/devices/system/cpu/cpu0/online"; 
 public static String cpu1online = "/sys/devices/system/cpu/cpu1/online"; 
 public static String cpu2online = "/sys/devices/system/cpu/cpu2/online"; 
@@ -123,7 +124,26 @@ private class info extends AsyncTask<String, Void, Object> {
 	
 	@Override
 	protected Object doInBackground(String... args) {
-        // Log.i("MyApp", "Background thread starting");
+        
+		try {
+ 			
+ 			File myFile = new File("/proc/cpuinfo");
+ 			FileInputStream fIn = new FileInputStream(myFile);	
+ 			BufferedReader myReader = new BufferedReader(
+ 					new InputStreamReader(fIn));
+ 			String aDataRow = "";
+ 			String aBuffer = "";
+ 			while ((aDataRow = myReader.readLine()) != null) {
+ 				aBuffer += aDataRow + "\n";
+ 			}
+ 			
+ 			cpu_info = aBuffer.trim();
+ 			myReader.close();
+ 			
+ 		} catch (Exception e) {
+ 			cpu_info="err";
+ 		}
+		
          try {
  			
  			File myFile = new File(CPU0_MIN_FREQ);
@@ -142,6 +162,7 @@ private class info extends AsyncTask<String, Void, Object> {
  		} catch (Exception e) {
  			cpu0min="err";
  		}
+         
          
          try {
   			
@@ -1153,7 +1174,32 @@ return "";
     		mpdectxte.setVisibility(View.GONE);
     	}
       
+    	TextView cpuinfo = (TextView)findViewById(R.id.cpu_i);
+    	cpuinfo.setText(cpu_info);
+    	TextView board = (TextView)findViewById(R.id.board);
+    	TextView device = (TextView)findViewById(R.id.deviceTxt);
+    	TextView display = (TextView)findViewById(R.id.display);
+    	TextView bootloader = (TextView)findViewById(R.id.bootloader);
+    	TextView brand = (TextView)findViewById(R.id.brand);
+    	TextView hardware = (TextView)findViewById(R.id.hardware);
+    	TextView manufacturer = (TextView)findViewById(R.id.manufacturer);
+    	TextView model = (TextView)findViewById(R.id.model);
+    	TextView product = (TextView)findViewById(R.id.product);
+    	TextView radio = (TextView)findViewById(R.id.radio);
+    	board.setText(android.os.Build.BOARD);
+    	device.setText(android.os.Build.DEVICE);
+    	display.setText(android.os.Build.DISPLAY);
+    	bootloader.setText(android.os.Build.BOOTLOADER);
+    	brand.setText(android.os.Build.BRAND);
+    	hardware.setText(android.os.Build.HARDWARE);
+    	manufacturer.setText(android.os.Build.MANUFACTURER);
+    	model.setText(android.os.Build.MODEL);
+    	product.setText(android.os.Build.PRODUCT);
+    	if(android.os.Build.getRadioVersion()!=null){
+    	radio.setText(android.os.Build.getRadioVersion());
+    	}
     }
+    	
 
 	}
 
@@ -1164,13 +1210,83 @@ return "";
 	setContentView(R.layout.system_info);
 	
 	new info().execute();
-	RelativeLayout rl = (RelativeLayout)findViewById(R.id.rl2);
-	rl.setOnClickListener(new OnClickListener(){
+	RelativeLayout cpu = (RelativeLayout)findViewById(R.id.cpu);
+	final RelativeLayout cpuInfo = (RelativeLayout)findViewById(R.id.cpu_info);
+	final ImageView cpuImg = (ImageView)findViewById(R.id.cpu_img);
+	
+	RelativeLayout other = (RelativeLayout)findViewById(R.id.other);
+	final RelativeLayout otherInfo = (RelativeLayout)findViewById(R.id.other_info);
+	final ImageView otherImg = (ImageView)findViewById(R.id.other_img);
+	
+	RelativeLayout kernel = (RelativeLayout)findViewById(R.id.kernel);
+	final RelativeLayout kernelInfo = (RelativeLayout)findViewById(R.id.kernel_info);
+	final ImageView kernelImg = (ImageView)findViewById(R.id.kernel_img);
+	
+	RelativeLayout device = (RelativeLayout)findViewById(R.id.device);
+	final RelativeLayout deviceInfo = (RelativeLayout)findViewById(R.id.device_info);
+	final ImageView deviceImg = (ImageView)findViewById(R.id.device_img);
+	
+	
+	cpu.setOnClickListener(new OnClickListener(){
 
 		@Override
 		public void onClick(View arg0) {
-			// TODO Auto-generated method stub
-			new info().execute();
+			if(cpuInfo.getVisibility() == View.VISIBLE){
+				cpuInfo.setVisibility(View.GONE);
+				cpuImg.setImageResource(R.drawable.arrow_right);
+			}
+			else if(cpuInfo.getVisibility() == View.GONE){
+				cpuInfo.setVisibility(View.VISIBLE);
+				cpuImg.setImageResource(R.drawable.arrow_down);
+			}
+		}
+		
+	});
+	
+	device.setOnClickListener(new OnClickListener(){
+
+		@Override
+		public void onClick(View arg0) {
+			if(deviceInfo.getVisibility() == View.VISIBLE){
+				deviceInfo.setVisibility(View.GONE);
+				deviceImg.setImageResource(R.drawable.arrow_right);
+			}
+			else if(deviceInfo.getVisibility() == View.GONE){
+				deviceInfo.setVisibility(View.VISIBLE);
+				deviceImg.setImageResource(R.drawable.arrow_down);
+			}
+		}
+		
+	});
+	
+	kernel.setOnClickListener(new OnClickListener(){
+
+		@Override
+		public void onClick(View arg0) {
+			if(kernelInfo.getVisibility() == View.VISIBLE){
+				kernelInfo.setVisibility(View.GONE);
+				kernelImg.setImageResource(R.drawable.arrow_right);
+			}
+			else if(kernelInfo.getVisibility() == View.GONE){
+				kernelInfo.setVisibility(View.VISIBLE);
+				kernelImg.setImageResource(R.drawable.arrow_down);
+			}
+		}
+		
+	});
+	
+	other.setOnClickListener(new OnClickListener(){
+
+		@Override
+		public void onClick(View arg0) {
+			if(otherInfo.getVisibility() == View.VISIBLE){
+				otherInfo.setVisibility(View.GONE);
+				otherImg.setImageResource(R.drawable.arrow_right);
+			}
+			else if(otherInfo.getVisibility() == View.GONE){
+				otherInfo.setVisibility(View.VISIBLE);
+				otherImg.setImageResource(R.drawable.arrow_down);
+			}
 		}
 		
 	});
