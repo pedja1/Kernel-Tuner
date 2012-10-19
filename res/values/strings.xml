@@ -11,6 +11,7 @@
     <string name="title_thermald">Thermald</string>
     <string name="title_about">About</string>
     <string name="title_info">System Info</string>
+    <string name="title_preferences">Settings</string>
     <string name="app_name">Kernel Tuner</string>
     <string name="oc">CPU Tweaks</string>
     <string name="preferences_boot_settings">Boot Settings</string>
@@ -20,28 +21,14 @@
     <string name="preferences_widget_settings_interval_title">Widget Update Interval(seconds)</string>
     <string name="preferences_widget_settings_interval_summary">Setting to low values will cause your battery to drain faster</string>
     <string name="preferences_misc">Misc</string>
-    <string name="preferences_misc_cpu_info_title">CPU Info Override</string>
-    <string name="preferences_misc_cpu_info_summary">Use if CPU progress isn\&apos;t shown correctly</string>
+    
     <string name="preferences_misc_ads_title">Show ads on main screen</string>
     <string name="preferences_misc_ads_summary">You need to restart app to stop showing ads</string>
-    <string name="preferences_misc_temp_title">Temperature in Fahrenheit</string>
-    <string name="preferences_misc_temp_summary">Display temperature of CPU and battery in Fahrenheit</string>
-    <string name="preferences_ui">UI</string>
-    <string name="preferences_ui_theme_title">Application Theme</string>
-    <string name="preferences_ui_theme_summary">Theme for application interface</string>
-    <string name="activity_title_preferences">Preferences</string>
-    <string name="activity_title_cpu">CPU Tweaks</string>
-    <string name="activity_title_gpu">GPU Tweaks</string>
-    <string name="activity_title_misc">Misc Tweaks</string>
-    <string name="activity_title_times">Times in State</string>
-    <string name="activity_title_voltage">Voltage</string>
-    <string name="activity_title_mpdecision">Mpdecision</string>
-    <string name="activity_title_thermald">Thermald</string>
-    <string name="activity_title_about">About</string>
-    <string name="activity_title_changelog">Changelog</string>
-    <string name="activity_title_anthrax">Anthrax Tweaks</string>
-    <string name="activity_title_check">Compatibility Check</string>
-    <string name="activity_title_profiles">Profiles</string>
+    
+    
+    <string name="title_changelog">Changelog</string>   
+     <string name="title_check">Compatibility Check</string>
+    <string name="title_profiles">Profiles</string>
     <string name="activity_title_profile_editor">Profile Editor</string>
     <string name="anthrax"><a href="http://anthrax-kernels.us/forum/showthread.php?t=574">anthrax-kernels.us</a></string>
     <string name="xda"><a href="http://forum.xda-developers.com/showthread.php?t=1719934">xda-developers.com</a></string>
@@ -72,13 +59,7 @@
     <string name="activity_check_io_scheduler_">IO Scheduler...</string>
     <string name="activity_check_your_device_is_">"Your device is "</string>
     <string name="activity_check_compatible_">" compatible!"</string>
-    <string name="activity_check_button_ok">OK</string>
-    <string name="activity_main_times_in_state">Times in State</string>
-    <string name="activity_main_voltage">Voltage</string>
-    <string name="activity_main_gpu_tweaks">GPU Tweaks</string>
-    <string name="activity_main_misc_tweaks">Misc Tweaks</string>
-    <string name="activity_main_anthrax_tweaks">Anthrax Tweaks</string>
-    <string name="activity_main_cpu_temp_">CPU Temp:</string>
+     <string name="activity_main_cpu_temp_">CPU Temp:</string>
     <string name="activity_main_n_a">n/a</string>
     <string name="activity_main__battery_temp_">" Batt. Tmp:"</string>
     <string name="activity_main__battery_level_">" Battery:"</string>
@@ -97,39 +78,36 @@
     <string name="cpu3_min_freq_">CPU3 min freq:</string>
     <string name="crtica">-</string>
     <string name="cpu3_max_freq_">CPU3 max freq:</string>
-    <string name="activity_main_fastcharge_status_">Fastcharge status:</string>
-    <string name="activity_main_softbuttons_light_level_">Softbuttons light level:</string>
+    <string name="fastcharge_status_">Fastcharge Status:</string>
+    <string name="buttons_backlight">Capacitive Buttons Backlight</string>
+    <string name="buttons_backlight_">Capacitive Buttons Backlight:</string>
     <string name="gpu2d_max_freq_">GPU2D freq:</string>
     <string name="gpu3d_max_freq_">GPU3D Max freq:</string>
-    <string name="activity_main_vsync_">vsync:</string>
+    
     <string name="cpu0_governor_">CPU0 Governor:</string>
     <string name="cpu1_governor_">CPU1 Governor:</string>
     <string name="cpu2_governor_">CPU2 Governor:</string>
     <string name="cpu3_governor_">CPU3 Governor:</string>
-    <string name="activity_main_color_depth">Color Depth</string>
-    <string name="activity_main_up_time_">Up-time:</string>
+     <string name="activity_main_up_time_">Up-time:</string>
     <string name="activity_main_deep_sleep_">Deep sleep:</string>
-    <string name="activity_main_io_scheduler_">IO  Scheduler:</string>
-    <string name="activity_main_sd_cache_size_">SD Cache Size:</string>
-    <string name="activity_main_sweep2wake_">Sweep2Wake:</string>
+   <string name="activity_main_sweep2wake_">Sweep2Wake:</string>
     <string name="activity_main_cpu1_on_off">CPU1 on/off</string>
     <string name="activity_main_cpu2_on_off">CPU2 on/off</string>
     <string name="activity_main_cpu3_on_off">CPU3 on/off</string>
     <string name="activity_gpu_3d_max_freq_">3D max freq:</string>
-    <string name="activity_gpu_mhz">Mhz</string>
+    <string name="mhz">Mhz</string>
     <string name="activity_gpu__2d_max_freq_">2D max freq:</string>
     <string name="activity_gpu_current_3d_frequency_">Current 3D frequency:</string>
     <string name="activity_gpu_n_a">n/a</string>
     <string name="activity_gpu_current_2d_frequency_">Current 2D frequency:</string>
     <string name="cancel">Cancel</string>
     <string name="plus">+</string>
-    <string name="activity_misc_soft_buttons_backlight">Capacitive Buttons Backlight</string>
     <string name="fastcharge">Fastcharge</string>
     <string name="enable_disable_fastcharge_mod">Enable/Disable Fastcharge Mod</string>
     <string name="vsync">Vsync:</string>
     <string name="enable_disable_vsync">Enable/Disable Vsync</string>
     <string name="question_mark">\\?</string>
-    <string name="color_depth">Color Depth</string>
+    <string name="color_depth">Color Depth:</string>
     <string name="io_scheduler_">IO Scheduler:</string>
     <string name="sd_cache_size_">SD Cache Size:</string>
     <string name="led_notofications_timeout">LED Notofications Timeout</string>
@@ -149,8 +127,7 @@
     <string name="down_threshold_time_">Down threshold(time):</string>
     <string name="max">max</string>
     <string name="min">min</string>
-    <string name="cpu0_governor_settings_">CPU0 Governor settings:</string>
-    <string name="profile_name">Profile Name</string>
+     <string name="profile_name">Profile Name</string>
     <string name="number_of_active_cores_">Number of active Cores:</string>
     <string name="mpdecision_threshold_up_">mpdecision threshold up:</string>
     <string name="mpdecision_threshold_down_">mpdecision threshold down:</string>
@@ -171,9 +148,7 @@
     <string name="buttons_n_light">Button Light</string>
     <string name="fast_ncharge">Fastcharge</string>
     <string name="color_n_depth">Color Depth</string>
-    <string name="vsync_n_">Vsync</string>
-    <string name="uptime_">Up-time:</string>
-    <string name="deep_sleep">Deep Sleep:</string>
+   
     <string name="temperature_">Temperature:</string>
      <string name="temp">Temp</string>
     <string name="voltage_">Voltage:</string>
@@ -188,11 +163,8 @@
     <string name="create_swap">Create Swap File</string>
     <string name="activate_swap">Activate Swap</string>
     <string name="swap_status">Swap Status</string>
-    <string name="restore_on_reboot">Activate Swap after reboot</string>
     <string name="delete_swap">Delete Swap File</string>
-     <string name="activity_title_swap">Swap Manager</string>
-     <string name="activity_title_chart">Charts</string>
-     <string name="deactivate_swap">Deactivate Swap</string>
+       <string name="deactivate_swap">Deactivate Swap</string>
      <string name="set_swappiness">Set Swappiness</string>
      <string name="cpu_load">CPU Load:</string>
      <string name="refresh">Refresh</string>
@@ -202,5 +174,8 @@
      <string name="profiles">Profiles</string>
      <string name="swap">Swap</string>
      <string name="info">System Info</string>
+     <string name="ok">OK</string>
+	<string name="uptime_">Up-time:</string>
+	<string name="deep_sleep_">Deep Sleep:</string>
 
 </resources>

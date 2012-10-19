@@ -405,7 +405,7 @@
         android:layout_height="wrap_content"
         android:layout_alignParentLeft="true"
         android:layout_below="@+id/resultll"
-        android:text="@string/activity_check_button_ok"
+        android:text="@string/ok"
         android:visibility="gone" />
 
 </RelativeLayout>

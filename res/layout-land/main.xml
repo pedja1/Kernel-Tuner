@@ -44,7 +44,7 @@
             
             android:drawableTop="@drawable/times"
             android:gravity="center|center_vertical"
-            android:text="@string/activity_main_times_in_state" />
+            android:text="@string/title_tis" />
 
         <Button
             android:id="@+id/button6"
@@ -54,7 +54,7 @@
           
             android:drawableTop="@drawable/voltage"
             android:gravity="center|center_vertical"
-            android:text="@string/activity_main_voltage" />
+            android:text="@string/title_voltage" />
     
 		<Button
             android:id="@+id/button10"
@@ -93,7 +93,7 @@
             android:layout_height="match_parent"
             android:drawableTop="@drawable/gpu"
             android:gravity="center|center_vertical"
-            android:text="@string/activity_main_gpu_tweaks" />
+            android:text="@string/title_gpu" />
 
         <Button
             android:id="@+id/button4"
@@ -102,7 +102,7 @@
             android:layout_height="match_parent"
             android:drawableTop="@drawable/misc"
             android:gravity="center|center_vertical"
-            android:text="@string/activity_main_misc_tweaks" />
+            android:text="@string/title_misc" />
 
         
         
@@ -143,7 +143,7 @@
             android:layout_weight="1"
             android:drawableTop="@drawable/about"
             android:gravity="center|center_vertical"
-            android:text="@string/activity_title_about" />
+            android:text="@string/title_about" />
         
     </LinearLayout>
     </ScrollView>
@@ -284,7 +284,7 @@
             android:layout_alignParentTop="false"
             android:layout_below="@+id/cpuLoad"
             android:layout_centerHorizontal="true"
-            android:text="@string/activity_main_offline"
+            android:text="@string/offline"
             android:textColor="#ffffffff" />
 
         <ProgressBar
@@ -303,7 +303,7 @@
             android:layout_height="wrap_content"
             android:layout_alignLeft="@+id/ptextView3"
             android:layout_below="@+id/progressBar1"
-            android:text="@string/activity_main_offline"
+            android:text="@string/offline"
             android:textColor="#ffffffff" />
 
         <TextView
@@ -348,7 +348,7 @@
             android:layout_height="wrap_content"
             android:layout_below="@+id/ptextView2"
             android:layout_centerHorizontal="true"
-            android:text="@string/activity_main_offline"
+            android:text="@string/offline"
             android:textColor="#ffffffff" />
 
         <TextView
@@ -357,7 +357,7 @@
             android:layout_height="wrap_content"
             android:layout_below="@+id/ptextView7"
             android:layout_centerHorizontal="true"
-            android:text="@string/activity_main_offline"
+            android:text="@string/offline"
             android:textColor="#ffffffff" />
         
         <TextView

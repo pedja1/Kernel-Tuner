@@ -331,7 +331,7 @@
                     android:shadowDx="1.0"
                     android:shadowDy="1.0"
                     android:shadowRadius="2.0"
-                    android:text="@string/deep_sleep"
+                    android:text="@string/deep_sleep_"
                     android:textColor="#ffffffff"
                     android:typeface="sans" />
 
@@ -660,7 +660,7 @@
                 android:shadowDx="1.0"
                 android:shadowDy="1.0"
                 android:shadowRadius="2.0"
-                android:text="@string/vsync_n_"
+                android:text="@string/vsync"
                 android:textColor="#ffffffff"
                 android:typeface="sans" />
 

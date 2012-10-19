@@ -281,7 +281,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_alignParentLeft="true"
-                android:text="@string/activity_main_fastcharge_status_" />
+                android:text="@string/fastcharge_status_" />
 
             <TextView
                 android:id="@+id/textView7"
@@ -289,7 +289,7 @@
                 android:layout_height="wrap_content"
                 android:layout_alignParentLeft="true"
                 android:layout_below="@+id/textView6"
-                android:text="@string/activity_main_softbuttons_light_level_" />
+                android:text="@string/buttons_backlight_" />
 
             <TextView
                 android:id="@+id/textView8"
@@ -313,7 +313,7 @@
                 android:layout_height="wrap_content"
                 android:layout_alignParentLeft="true"
                 android:layout_below="@+id/textView9"
-                android:text="@string/activity_main_vsync_" />
+                android:text="@string/vsync" />
 
             <TextView
                 android:id="@+id/textView16"
@@ -363,7 +363,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_below="@id/textView10"
-                android:text="@string/activity_main_color_depth" />
+                android:text="@string/color_depth" />
 
             <TextView
                 android:id="@+id/textView25"
@@ -378,7 +378,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_below="@+id/textView24"
-                android:text="@string/activity_main_io_scheduler_" />
+                android:text="@string/io_scheduler_" />
 
             <TextView
                 android:id="@+id/textView32"
@@ -393,7 +393,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_below="@+id/textView29"
-                android:text="@string/activity_main_sd_cache_size_" />
+                android:text="@string/sd_cache_size_" />
 
             <TextView
                 android:id="@+id/textView34"

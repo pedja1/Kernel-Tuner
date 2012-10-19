@@ -34,7 +34,7 @@
             android:layout_weight="1"
             android:drawableTop="@drawable/times"
             android:gravity="center|center_vertical"
-            android:text="@string/activity_main_times_in_state" />
+            android:text="@string/title_tis" />
 
         <Button
             android:id="@+id/button6"
@@ -44,7 +44,7 @@
             android:layout_weight="1"
             android:drawableTop="@drawable/voltage"
             android:gravity="center|center_vertical"
-            android:text="@string/activity_main_voltage" />
+            android:text="@string/title_voltage" />
 
     </LinearLayout>
 
@@ -63,7 +63,7 @@
             android:layout_weight="1"
             android:drawableTop="@drawable/gpu"
             android:gravity="center|center_vertical"
-            android:text="@string/activity_main_gpu_tweaks" />
+            android:text="@string/title_gpu" />
 
         <Button
             android:id="@+id/button4"
@@ -73,7 +73,7 @@
             android:layout_weight="1"
             android:drawableTop="@drawable/misc"
             android:gravity="center|center_vertical"
-            android:text="@string/activity_main_misc_tweaks" />
+            android:text="@string/title_misc" />
 
         <Button
             android:id="@+id/button12"
@@ -170,7 +170,7 @@
             android:layout_weight="1"
             android:drawableTop="@drawable/about"
             android:gravity="center|center_vertical"
-            android:text="@string/activity_title_about" />
+            android:text="@string/title_about" />
 
     </LinearLayout>
     
