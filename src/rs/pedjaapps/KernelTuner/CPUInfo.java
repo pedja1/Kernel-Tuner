@@ -54,8 +54,8 @@ public class CPUInfo {
 	public static String TIMES_IN_STATE_CPU2 = "/sys/devices/system/cpu/cpu2/cpufreq/stats/time_in_state";
 	public static String TIMES_IN_STATE_CPU3 = "/sys/devices/system/cpu/cpu3/cpufreq/stats/time_in_state";
 	
-	public static String VOLTAGE_PATH = "sd/sys/devices/system/cpu/cpufreq/vdd_table/vdd_levels";
-	public static String VOLTAGE_PATH_TEGRA_3 = "/sdcard/sys/devices/system/cpu/cpu0/cpufreq/UV_mV_table";
+	public static String VOLTAGE_PATH = "/sys/devices/system/cpu/cpufreq/vdd_table/vdd_levels";
+	public static String VOLTAGE_PATH_TEGRA_3 = "/sys/devices/system/cpu/cpu0/cpufreq/UV_mV_table";
 	
 	
 	public static boolean cpu0Online(){
