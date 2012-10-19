@@ -1439,13 +1439,20 @@ public void initialCheck(){
 
 	}
 	
-		 	File file = new File("/sys/devices/system/cpu/cpufreq/vdd_table/vdd_levels");
+		 	File file = new File(CPUInfo.VOLTAGE_PATH);
 		try{
 			InputStream fIn = new FileInputStream(file);
 		}
 		catch(FileNotFoundException e){ 
-		Button voltage = (Button)findViewById(R.id.button6);
-		voltage.setVisibility(View.GONE);
+		 	File file2 = new File(CPUInfo.VOLTAGE_PATH_TEGRA_3);
+			try{
+				InputStream fIn = new FileInputStream(file2);
+			}
+			catch(FileNotFoundException ex){ 
+			Button voltage = (Button)findViewById(R.id.button6);
+			voltage.setVisibility(View.GONE);
+
+			}
 
 		}
 		

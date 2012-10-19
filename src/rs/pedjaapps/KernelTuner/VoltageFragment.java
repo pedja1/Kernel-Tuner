@@ -1,5 +1,6 @@
 package rs.pedjaapps.KernelTuner;
 
+import java.io.File;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -94,14 +95,25 @@ public class VoltageFragment extends Fragment {
 	  
 	    
 	     List<Integer> allVoltages = CPUInfo.allVoltages();
+	     List<Integer> allVoltagesTegra3 = CPUInfo.allVoltagesTegra3();
 	     List<Integer> voltages = CPUInfo.voltages();
 	     List<String> voltageFreqs = CPUInfo.voltageFreqs();
 	     
-	    // if(voltages!=null){
-	     for(int i= 0; i<voltages.size(); i++){
-	     entries.add(new VoltageEntry(voltageFreqs.get(i).substring(0, voltageFreqs.get(i).length() - 3)+"Mhz", allVoltages.indexOf(voltages.get(i))));
-	     }	
-	    // }
+	     if(new File(CPUInfo.VOLTAGE_PATH).exists()){
+	    	 for(int i= 0; i<voltages.size(); i++){	    	 
+	    		 entries.add(new VoltageEntry(voltageFreqs.get(i).substring(0, voltageFreqs.get(i).length() - 3)+"Mhz", allVoltages.indexOf(voltages.get(i))));
+	    		 System.out.println(allVoltages.indexOf(voltages.get(i)));
+
+	    	 }	
+	    
+	     }
+	     else if(new File(CPUInfo.VOLTAGE_PATH_TEGRA_3).exists()){
+	    	 for(int i= 0; i<voltages.size(); i++){	    	 
+	    		 entries.add(new VoltageEntry(voltageFreqs.get(i)+"Mhz", allVoltagesTegra3.indexOf(voltages.get(i))));
+	    		 System.out.println(allVoltagesTegra3.indexOf(voltages.get(i)));
+
+	    	 }	
+	     }
 	     return entries;
 	    }
 }

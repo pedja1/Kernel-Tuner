@@ -54,7 +54,9 @@ public class CPUInfo {
 	public static String TIMES_IN_STATE_CPU2 = "/sys/devices/system/cpu/cpu2/cpufreq/stats/time_in_state";
 	public static String TIMES_IN_STATE_CPU3 = "/sys/devices/system/cpu/cpu3/cpufreq/stats/time_in_state";
 	
-	public static String VOLTAGE_PATH = "/sys/devices/system/cpu/cpufreq/vdd_table/vdd_levels";
+	public static String VOLTAGE_PATH = "sd/sys/devices/system/cpu/cpufreq/vdd_table/vdd_levels";
+	public static String VOLTAGE_PATH_TEGRA_3 = "/sdcard/sys/devices/system/cpu/cpu0/cpufreq/UV_mV_table";
+	
 	
 	public static boolean cpu0Online(){
 		boolean i = false;
@@ -95,6 +97,9 @@ public class CPUInfo {
 	public static boolean voltageExists(){
 		boolean i = false;
 		if(new File(VOLTAGE_PATH).exists()){
+			i=true;
+		}
+		else if(new File(VOLTAGE_PATH_TEGRA_3).exists()){
 			i=true;
 		}
 		return i;
@@ -810,7 +815,7 @@ public class CPUInfo {
 		
 		try {
 		
-			FileInputStream fstream = new FileInputStream("/sys/devices/system/cpu/cpufreq/vdd_table/vdd_levels");
+			FileInputStream fstream = new FileInputStream(VOLTAGE_PATH);
 			
 			DataInputStream in = new DataInputStream(fstream);
 			BufferedReader br = new BufferedReader(new InputStreamReader(in));
@@ -824,11 +829,27 @@ public class CPUInfo {
 
 			in.close();
 		} catch (Exception e) {
+			try{
+				  
+				  FileInputStream fstream = new FileInputStream(VOLTAGE_PATH_TEGRA_3);
+				
+				  DataInputStream in = new DataInputStream(fstream);
+				  BufferedReader br = new BufferedReader(new InputStreamReader(in));
+				  String strLine;
 		
+				  while ((strLine = br.readLine()) != null)   {	
+				      String[] delims = strLine.split(" ");
+				      voltages.add(Integer.parseInt(delims[1]));
+				  }
+				
+				  in.close();
+				    }catch (Exception ex){
+				  
+				  }
 		}
-	
+		System.out.println(voltages);
 		return voltages;
-		
+		 
 	}
 	
 	public static List<String> voltageFreqs() {
@@ -836,7 +857,7 @@ public class CPUInfo {
 		
 		try {
 		
-			FileInputStream fstream = new FileInputStream("/sys/devices/system/cpu/cpufreq/vdd_table/vdd_levels");
+			FileInputStream fstream = new FileInputStream(VOLTAGE_PATH);
 			
 			DataInputStream in = new DataInputStream(fstream);
 			BufferedReader br = new BufferedReader(new InputStreamReader(in));
@@ -851,10 +872,28 @@ public class CPUInfo {
 			in.close();
 		} catch (Exception e) {
 		
+			try{
+				  
+				  FileInputStream fstream = new FileInputStream(VOLTAGE_PATH_TEGRA_3);
+				
+				  DataInputStream in = new DataInputStream(fstream);
+				  BufferedReader br = new BufferedReader(new InputStreamReader(in));
+				  String strLine;
+		
+				  while ((strLine = br.readLine()) != null)   {	
+				      String[] delims = strLine.split(" ");
+				      voltageFreqs.add(delims[0].substring(0, delims[0].length()-4));
+				  }
+				
+				  in.close();
+				    }catch (Exception ex){
+				  
+				  }
+			
 		}
-		
+		System.out.println(voltageFreqs);
 		return voltageFreqs;
-		
+	
 	}
 	
 	
@@ -863,6 +902,16 @@ public class CPUInfo {
 		
 		for(int i = 700000; i<1412500; i+=12500 ){
 			allVoltages.add(i);
+		}
+		return allVoltages;
+		
+	}
+	
+	public static List<Integer> allVoltagesTegra3() {
+		List<Integer> allVoltages = new ArrayList<Integer>();
+		
+		for(int i = 700000; i<1412500; i+=12500 ){
+			allVoltages.add(i/1000);
 		}
 		return allVoltages;
 		
