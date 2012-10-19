@@ -200,10 +200,6 @@ return "";
     	
 	super.onCreate(savedInstanceState);
 	setContentView(R.layout.gpu);
-	SharedPreferences sharedPrefs = PreferenceManager.getDefaultSharedPreferences(this);
-	boolean ads = sharedPrefs.getBoolean("ads", true);
-	if (ads==true){AdView adView = (AdView)findViewById(R.id.ad);
-	adView.loadAd(new AdRequest());}
 	//System.out.println(android.os.Build.BOARD);
 	if(board.equals("shooter") || board.equals("shooteru") || board.equals("pyramid")){
 	gpu2d(new String[]{"160", "200", "228", "266"});

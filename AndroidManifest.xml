@@ -64,7 +64,7 @@ android:icon="@drawable/dual_on">
 android:name="android.appwidget.provider"
 android:resource="@xml/widget_provider_4x4" />
 </receiver>
-<activity android:name=".gpu"   android:label="@string/title_gpu" android:theme="@style/Theme.Transparent" android:icon="@drawable/gpu"></activity>
+<activity android:name=".gpu"   android:label="@string/title_gpu" android:theme="@style/Theme.TransparentNoTitle" android:icon="@drawable/gpu"></activity>
 <activity android:name=".miscTweaks"  android:label="@string/title_misc" android:icon="@drawable/misc"></activity>
 <activity android:name=".mpdecision"  android:label="@string/title_mpdecision" android:icon="@drawable/dual"></activity>
 <activity android:name=".thermald"  android:label="@string/title_thermald" android:icon="@drawable/temp"></activity>
