@@ -37,11 +37,36 @@
 		android:linksClickable="true" /> 
     
     <RelativeLayout
-        android:id="@+id/rl27"
+        android:id="@+id/rl1"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_alignParentLeft="true"
         android:layout_below="@+id/textView12"
+        android:background="@drawable/divider_strong_holo" >
+
+        <TextView
+            android:id="@+id/textView1"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"      
+            android:text="3.0"
+            android:textColor="@color/green" />
+
+    </RelativeLayout>
+
+    <TextView
+        android:id="@+id/textView2"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/rl1"
+        android:text="-[FIX]Completely redesigned CPU, Voltage, Times in State and Main Screen\n-[ADD]Added CPU Load info on main screen\n-[ADD]Added System Info Screen\n-[RM]Removed themes\n-[FIX]Implemented completey new way of restoring settings after reboot\n-[FIX]A lot of other improvements\n-[RM]Removed kernel restriction "
+ />
+    
+    <RelativeLayout
+        android:id="@+id/rl27"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_alignParentLeft="true"
+        android:layout_below="@+id/textView2"
         android:background="@drawable/divider_strong_holo" >
 
         <TextView
@@ -58,9 +83,7 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_below="@+id/rl27"
-        android:text="-[FIX]Fahrenheit temp for widget\n
--[ADD]Swap Manager - Add swap on /sdcard or /data\n
--[FIX]Fixed update server"
+        android:text="-[FIX]Fahrenheit temp for widget\n-[ADD]Swap Manager - Add swap on /sdcard or /data\n-[FIX]Fixed update server"
  />
     
     <RelativeLayout
@@ -85,9 +108,7 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_below="@+id/rl26"
-        android:text="-[FIX]Fixed bugs for quad-core devices\n
--[ADD]Landscape mode\n
--[FIX]Widget improvements"
+        android:text="-[FIX]Fixed bugs for quad-core devices\n-[ADD]Landscape mode\n-[FIX]Widget improvements"
  />
     
     <RelativeLayout
@@ -112,37 +133,8 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_below="@+id/rl25"
-        android:text="-[ADD]Auto update-check every 24h\n
--[ADD]Click notificaton to install update after download"
+        android:text="-[ADD]Auto update-check every 24h\n-[ADD]Click notificaton to install update after download"
  />
     
-    <RelativeLayout
-        android:id="@+id/rl24"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_alignParentLeft="true"
-        android:layout_below="@+id/textView50"
-        android:background="@drawable/divider_strong_holo" >
-
-        <TextView
-            android:id="@+id/textView47"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"      
-            android:text="2.3.4"
-            android:textColor="@color/green" />
-
-    </RelativeLayout>
-
-    <TextView
-        android:id="@+id/textView48"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_below="@+id/rl24"
-        android:text="-[FIX]Init.d fixes\n
--[FIX]Voltage will now restore after reboot"
- />
-    
-   
-   
 </RelativeLayout>
 </ScrollView>
