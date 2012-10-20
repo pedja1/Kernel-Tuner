@@ -857,8 +857,8 @@ public String gov;
 		double battempint = Double.parseDouble(batttemp);
 		
 		SharedPreferences sharedPrefs = PreferenceManager.getDefaultSharedPreferences(this);
-		boolean tempPref = sharedPrefs.getBoolean("temp", false);
-		if (tempPref==true){
+		String tempPref = sharedPrefs.getString("temp", "celsius");
+		if (tempPref.equals("fahrenheit")){
 			battempint = (battempint*0.18)+32;
 			batttemp = String.valueOf((int)battempint);
 			remoteViews.setTextViewText(R.id.textView20, batttemp+"°F");
@@ -866,7 +866,7 @@ public String gov;
 				remoteViews.setTextColor(R.id.textView20, Color.RED);
 			}
 		}
-		else if(tempPref==false){
+		else if(tempPref.equals("celsius")){
 		batttemp = String.valueOf(battempint/10);
 		remoteViews.setTextViewText(R.id.textView20, batttemp+"°C");
 		if(battempint>500){
