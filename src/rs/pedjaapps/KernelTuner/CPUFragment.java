@@ -16,6 +16,7 @@ import android.os.Bundle;
 import android.os.Handler;
 import android.preference.PreferenceManager;
 import android.support.v4.app.Fragment;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -286,7 +287,7 @@ public class CPUFragment extends Fragment {
 	public void onResume(){
 		SharedPreferences sharedPrefs = PreferenceManager.getDefaultSharedPreferences(this.getActivity());
 		tempUnit = sharedPrefs.getString("temp", "celsius");
-		
+		frequencies = CPUInfo.frequencies();
 		thread=true;
 		
 		new Thread(new Runnable() {
@@ -304,14 +305,19 @@ public class CPUFragment extends Fragment {
 
 								public void run()
 								{
+									
 									cpu0CurFreq = CPUInfo.cpu0CurFreq();
 									cpu0MaxFreq = CPUInfo.cpu0MaxFreq();
 									
+									
 									updateCpu0();
+									
 									cpuInfo();
+									
 									new cpuLoad().execute();
+									
 									cpuTemp();
-						
+									
 						
 									   if(cpu1Online==true){
 
@@ -804,14 +810,16 @@ public class CPUFragment extends Fragment {
 		{
 			cpu0prog.setText(cpu0CurFreq.substring(0, cpu0CurFreq.length() - 3) + "Mhz");
 		}
-		else{
+		else{			
 			cpu0prog.setText("offline");
 		}
-		
+		if(frequencies!=null && !cpu0MaxFreq.equals("") && !cpu0CurFreq.equals("")){
 		progCpu0.setMax(frequencies.indexOf(cpu0MaxFreq.trim())+1);
+		System.out.println(frequencies.indexOf(cpu0MaxFreq.trim())+1);
 		progCpu0.setProgress(frequencies.indexOf(cpu0CurFreq.trim())+1);
-        
-		
+		System.out.println(frequencies.indexOf(cpu0CurFreq.trim())+1);
+		}
+	
 	}
 	
 public void updateCpu1(){
