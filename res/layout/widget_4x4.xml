@@ -81,7 +81,7 @@
             <LinearLayout
                 android:id="@+id/LinearLayout1"
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content"
+                android:layout_height="0dp"
                 android:layout_weight="1"
                 android:orientation="vertical" >
 
@@ -91,7 +91,7 @@
 
                     <TextView
                         android:id="@+id/textView15"
-                        android:layout_width="wrap_content"
+                        android:layout_width="0dp"
                         android:layout_height="wrap_content"
                         android:layout_marginLeft="3dp"
                         android:layout_marginTop="10dp"
@@ -125,7 +125,7 @@
 
                     <TextView
                         android:id="@+id/textView16"
-                        android:layout_width="wrap_content"
+                        android:layout_width="0dp"
                         android:layout_height="wrap_content"
                         android:layout_marginLeft="3dp"
                         android:shadowColor="#00000000"
@@ -157,7 +157,7 @@
 
                     <TextView
                         android:id="@+id/textView17"
-                        android:layout_width="wrap_content"
+                        android:layout_width="0dp"
                         android:layout_height="wrap_content"
                         android:layout_marginLeft="3dp"
                         android:shadowColor="#00000000"
@@ -189,7 +189,7 @@
 
                     <TextView
                         android:id="@+id/textView18"
-                        android:layout_width="wrap_content"
+                        android:layout_width="0dp"
                         android:layout_height="wrap_content"
                         android:layout_marginLeft="3dp"
                         android:shadowColor="#00000000"
@@ -221,7 +221,7 @@
 
                     <TextView
                         android:id="@+id/textView19"
-                        android:layout_width="wrap_content"
+                        android:layout_width="0dp"
                         android:layout_height="wrap_content"
                         android:layout_marginLeft="3dp"
                         android:shadowColor="#00000000"
@@ -253,7 +253,7 @@
 
                     <TextView
                         android:id="@+id/textView25"
-                        android:layout_width="wrap_content"
+                        android:layout_width="0dp"
                         android:layout_height="wrap_content"
                         android:layout_marginLeft="3dp"
                         android:shadowColor="#00000000"
@@ -365,7 +365,7 @@
             android:id="@+id/LinearLayout1"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:layout_weight="0.8" >
+            android:layout_weight="0.8" android:baselineAligned="false">
 
             <LinearLayout
                 android:id="@+id/LinearLayout1"

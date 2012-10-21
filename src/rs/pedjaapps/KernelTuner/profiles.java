@@ -700,9 +700,9 @@ public class profiles extends Activity{
     		
     	}@Override
     		public boolean onCreateOptionsMenu(Menu menu) {
-	    menu.add(Menu.NONE, 0, 0, "Add ").setIcon(R.drawable.ic_menu_add).setShowAsAction(MenuItem.SHOW_AS_ACTION_ALWAYS);
-	    menu.add(Menu.NONE, 1, 1, "Delete").setIcon(R.drawable.ic_menu_delete).setShowAsAction(MenuItem.SHOW_AS_ACTION_ALWAYS);
-menu.add(Menu.NONE, 2, 2, "Apply").setIcon(R.drawable.ic_menu_mark).setShowAsAction(MenuItem.SHOW_AS_ACTION_ALWAYS);
+	    menu.add(Menu.NONE, 0, 0, "Add ").setIcon(R.drawable.ic_menu_add).setShowAsAction(MenuItem.SHOW_AS_ACTION_IF_ROOM);
+	    menu.add(Menu.NONE, 1, 1, "Delete").setIcon(R.drawable.ic_menu_delete).setShowAsAction(MenuItem.SHOW_AS_ACTION_IF_ROOM);
+menu.add(Menu.NONE, 2, 2, "Apply").setIcon(R.drawable.ic_menu_mark).setShowAsAction(MenuItem.SHOW_AS_ACTION_IF_ROOM);
 	    return super.onCreateOptionsMenu(menu);
 	}
     	@Override

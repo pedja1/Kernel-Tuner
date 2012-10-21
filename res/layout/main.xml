@@ -174,13 +174,12 @@
 
     </LinearLayout>
     
-    -->
+ 
 
     <LinearLayout
         android:id="@+id/test1"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_alignBottom="@+id/textView32"
         android:layout_alignParentTop="true"
         android:orientation="horizontal" android:baselineAligned="false">
 
@@ -245,7 +244,7 @@
               >
             <TextView
                 android:id="@+id/textView41"
-                android:layout_width="wrap_content"
+                android:layout_width="0dp"
                 android:layout_height="wrap_content"           
                 android:text="@string/activity_main__battery_level_"
                 android:layout_weight="1"
