@@ -226,41 +226,38 @@ public String p3freq;
 
 public String cputemp;
 
-public static String cpu0online = "/sys/devices/system/cpu/cpu0/online"; 
-public static String cpu1online = "/sys/devices/system/cpu/cpu1/online"; 
-public static String cpu2online = "/sys/devices/system/cpu/cpu2/online"; 
-public static String cpu3online = "/sys/devices/system/cpu/cpu3/online"; 
+public static String cpu0online = CPUInfo.cpu0online; 
+public static String cpu1online = CPUInfo.cpu1online; 
+public static String cpu2online = CPUInfo.cpu2online; 
+public static String cpu3online = CPUInfo.cpu3online; 
 
 
-public static String CPU0_FREQS = "/sys/devices/system/cpu/cpu0/cpufreq/scaling_available_frequencies";
-public static String CPU1_FREQS = "/sys/devices/system/cpu/cpu1/cpufreq/scaling_available_frequencies";
-public static String CPU2_FREQS = "/sys/devices/system/cpu/cpu2/cpufreq/scaling_available_frequencies";
-public static String CPU3_FREQS = "/sys/devices/system/cpu/cpu3/cpufreq/scaling_available_frequencies";
+public static String CPU0_FREQS = CPUInfo.CPU0_FREQS;
 
-public static String CPU0_CURR_FREQ = "/sys/devices/system/cpu/cpu0/cpufreq/scaling_cur_freq";
-public static String CPU1_CURR_FREQ = "/sys/devices/system/cpu/cpu1/cpufreq/scaling_cur_freq";
-public static String CPU2_CURR_FREQ = "/sys/devices/system/cpu/cpu2/cpufreq/scaling_cur_freq";
-public static String CPU3_CURR_FREQ = "/sys/devices/system/cpu/cpu3/cpufreq/scaling_cur_freq";
+public static String CPU0_CURR_FREQ = CPUInfo.CPU0_CURR_FREQ;
+public static String CPU1_CURR_FREQ = CPUInfo.CPU1_CURR_FREQ;
+public static String CPU2_CURR_FREQ = CPUInfo.CPU2_CURR_FREQ;
+public static String CPU3_CURR_FREQ = CPUInfo.CPU3_CURR_FREQ;
 
-public static String CPU0_MAX_FREQ = "/sys/devices/system/cpu/cpu0/cpufreq/scaling_max_freq";
-public static String CPU1_MAX_FREQ = "/sys/devices/system/cpu/cpu1/cpufreq/scaling_max_freq";
-public static String CPU2_MAX_FREQ = "/sys/devices/system/cpu/cpu2/cpufreq/scaling_max_freq";
-public static String CPU3_MAX_FREQ = "/sys/devices/system/cpu/cpu3/cpufreq/scaling_max_freq";
+public static String CPU0_MAX_FREQ = CPUInfo.CPU0_MAX_FREQ;
+public static String CPU1_MAX_FREQ = CPUInfo.CPU1_MAX_FREQ;
+public static String CPU2_MAX_FREQ = CPUInfo.CPU2_MAX_FREQ;
+public static String CPU3_MAX_FREQ = CPUInfo.CPU3_MAX_FREQ;
 
-public static String CPU0_MIN_FREQ = "/sys/devices/system/cpu/cpu0/cpufreq/scaling_min_freq";
-public static String CPU1_MIN_FREQ = "/sys/devices/system/cpu/cpu1/cpufreq/scaling_min_freq";
-public static String CPU2_MIN_FREQ = "/sys/devices/system/cpu/cpu2/cpufreq/scaling_min_freq";
-public static String CPU3_MIN_FREQ = "/sys/devices/system/cpu/cpu3/cpufreq/scaling_min_freq";
+public static String CPU0_MIN_FREQ = CPUInfo.CPU0_MIN_FREQ;
+public static String CPU1_MIN_FREQ = CPUInfo.CPU1_MIN_FREQ;
+public static String CPU2_MIN_FREQ = CPUInfo.CPU2_MIN_FREQ;
+public static String CPU3_MIN_FREQ = CPUInfo.CPU3_MIN_FREQ;
 
-public static String CPU0_CURR_GOV = "/sys/devices/system/cpu/cpu0/cpufreq/scaling_governor";
-public static String CPU1_CURR_GOV = "/sys/devices/system/cpu/cpu1/cpufreq/scaling_governor";
-public static String CPU2_CURR_GOV = "/sys/devices/system/cpu/cpu2/cpufreq/scaling_governor";
-public static String CPU3_CURR_GOV = "/sys/devices/system/cpu/cpu3/cpufreq/scaling_governor";
+public static String CPU0_CURR_GOV = CPUInfo.CPU0_CURR_GOV;
+public static String CPU1_CURR_GOV = CPUInfo.CPU1_CURR_GOV;
+public static String CPU2_CURR_GOV = CPUInfo.CPU2_CURR_GOV;
+public static String CPU3_CURR_GOV = CPUInfo.CPU3_CURR_GOV;
 
-public static String CPU0_GOVS = "/sys/devices/system/cpu/cpu0/cpufreq/scaling_available_governor";
-public static String CPU1_GOVS = "/sys/devices/system/cpu/cpu1/cpufreq/scaling_available_governor";
-public static String CPU2_GOVS = "/sys/devices/system/cpu/cpu2/cpufreq/scaling_available_governor";
-public static String CPU3_GOVS = "/sys/devices/system/cpu/cpu3/cpufreq/scaling_available_governor";
+public static String CPU0_GOVS = CPUInfo.CPU0_GOVS;
+public static String CPU1_GOVS = CPUInfo.CPU1_GOVS;
+public static String CPU2_GOVS = CPUInfo.CPU2_GOVS;
+public static String CPU3_GOVS = CPUInfo.CPU3_GOVS;
 
 String mpdec;
 
