@@ -192,7 +192,7 @@ private class setSwappiness extends AsyncTask<String, Void, Object> {
 	protected void onPostExecute(Object result) {
     	 preferences = PreferenceManager.getDefaultSharedPreferences(getBaseContext());
     	 SharedPreferences.Editor editor = preferences.edit();
-    	    editor.putString("swap", swappinessSelected);
+    	    editor.putString("swappiness", swappinessSelected);
     	   editor.commit();
     	 updateUI();
          Swap.this.pd.dismiss();
