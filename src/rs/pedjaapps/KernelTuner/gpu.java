@@ -179,8 +179,8 @@ return "";
 	protected void onPostExecute(Object result) {
     	preferences = PreferenceManager.getDefaultSharedPreferences(getBaseContext());
 			SharedPreferences.Editor editor = preferences.edit();
-	  	    editor.putString("gpu3d", selected3d);
-	  	    editor.putString("gpu2d", selected2d);
+	  	    editor.putString("gpu3d", String.valueOf(new3d));
+	  	    editor.putString("gpu2d", String.valueOf(new2d));
 	  	  // value to store
 	  	    editor.commit();
         // Pass the result data back to the main activity
