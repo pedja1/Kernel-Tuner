@@ -64,7 +64,7 @@ public class UpdateCheckService extends Service
 			
 			try {
 				// Create a URL for the desired page
-				URL url = new URL("http://kerneltuner.tk/ktuner/version");
+				URL url = new URL("http://kerneltuner.pedjaapps.in.rs/ktuner/version");
 
 				// Read all the text returned by the server
 				BufferedReader in = new BufferedReader(new InputStreamReader(url.openStream()));
@@ -79,7 +79,7 @@ public class UpdateCheckService extends Service
 		
 			try {
 				// Create a URL for the desired page
-				URL url = new URL("http://kerneltuner.tk/ktuner/changelog");
+				URL url = new URL("http://kerneltuner.pedjaapps.in.rs/ktuner/changelog");
 
 				// Read all the text returned by the server
 				BufferedReader in = new BufferedReader(new InputStreamReader(url.openStream()));
@@ -204,45 +204,6 @@ public class UpdateCheckService extends Service
 		  mNotificationManager.notify(HELLO_ID, notification);
 	}
 	
-	/*public void download(){
-		 BroadcastReceiver onComplete=new BroadcastReceiver() {
-			    public void onReceive(Context ctxt, Intent intent) {
-			        // Do Something
-			    	intent = new Intent(Intent.ACTION_VIEW);
-			        intent.setDataAndType(Uri.fromFile(new File(Environment.getExternalStorageDirectory() + "/download/" + "KernelTuner-" + remoteversion + ".apk")), "application/vnd.android.package-archive");
-			       System.out.println( Environment.getExternalStorageDirectory() + "/download/" + "KernelTuner-" + remoteversion + ".apk");
-			        startActivity(intent);
-			    }
-			};
-		String url = "http://kerneltuner.co.cc/ktuner/KernelTuner-" + remoteversion + ".php";
-		DownloadManager.Request request = new DownloadManager.Request(Uri.parse(url));
-		request.setDescription("Downloading new version");
-		request.setTitle("Kernel Tuner-" + remoteversion + ".apk");
-		//in order for this if to run, you must use the android 3.2 to compile your app
-		if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.HONEYCOMB) {
-			request.allowScanningByMediaScanner();
-			request.setNotificationVisibility(DownloadManager.Request.VISIBILITY_VISIBLE_NOTIFY_COMPLETED);
-		}
-		try{ 
-			request.setDestinationInExternalPublicDir(Environment.DIRECTORY_DOWNLOADS, "KernelTuner-" + remoteversion + ".apk");
-		DownloadManager manager = (DownloadManager) getSystemService(Context.DOWNLOAD_SERVICE);
-		manager.enqueue(request); 
-		
-		registerReceiver(onComplete, new IntentFilter(DownloadManager.ACTION_NOTIFICATION_CLICKED));
-		}catch(Exception e){
-			Toast.makeText(getApplicationContext(), "SD card is not mounted", Toast.LENGTH_LONG).show();
-		}
-		
-
-		
-
-	//get download service and enqueue file
-		System.out.println(request);
-	}
-	*/
 	
-
-	
-
 
 }

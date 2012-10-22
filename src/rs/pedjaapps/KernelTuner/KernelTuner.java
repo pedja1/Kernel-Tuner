@@ -319,7 +319,7 @@ class updateCheck extends AsyncTask<String, Void, Object> {
 		
 		try {
 			// Create a URL for the desired page
-			URL url = new URL("http://kerneltuner.tk/ktuner/version");
+			URL url = new URL("http://kerneltuner.pedjaapps.in.rs/ktuner/version");
 
 			// Read all the text returned by the server
 			BufferedReader in = new BufferedReader(new InputStreamReader(url.openStream()));
@@ -334,7 +334,7 @@ class updateCheck extends AsyncTask<String, Void, Object> {
 	
 		try {
 			// Create a URL for the desired page
-			URL url = new URL("http://kerneltuner.tk/ktuner/changelog");
+			URL url = new URL("http://kerneltuner.pedjaapps.in.rs/ktuner/changelog");
 
 			// Read all the text returned by the server
 			BufferedReader in = new BufferedReader(new InputStreamReader(url.openStream()));
@@ -1187,7 +1187,7 @@ AppWidget updateSmall = new AppWidget();
 		        startActivity(intent);
 		    }
 		};
-	String url = "http://kerneltuner.tk/ktuner/KernelTuner-" + remoteversion + ".php";
+	String url = "http://kerneltuner.pedjaapps.in.rs/ktuner/KernelTuner-" + remoteversion + ".php";
 	DownloadManager.Request request = new DownloadManager.Request(Uri.parse(url));
 	request.setDescription("Downloading new version");
 	request.setTitle("Kernel Tuner-" + remoteversion + ".apk");
