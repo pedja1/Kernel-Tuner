@@ -113,7 +113,7 @@
                 android:layout_height="wrap_content"
                 android:layout_alignParentLeft="true"
                 android:layout_below="@+id/textView200"
-                android:text="@string/mpdecision_threshold_up_" />
+                android:text="@string/mpdecision_threshold_down_" />
              
               <TextView
                 android:id="@+id/textView203"
@@ -121,7 +121,7 @@
                 android:layout_height="wrap_content"
                 android:layout_alignParentLeft="true"
                 android:layout_below="@+id/textView202"
-                android:text="@string/mpdecision_threshold_down_" />
+                android:text="@string/mpdecision_threshold_up_" />
 
             <TextView
                 android:id="@+id/textView11"

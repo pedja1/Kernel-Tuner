@@ -126,7 +126,7 @@
         android:layout_height="wrap_content"
         android:layout_alignParentLeft="true"
         android:layout_below="@+id/textView10"
-        android:text="@string/mpdecision_threshold_up_"
+        android:text="@string/mpdecision_threshold_down_"
         android:layout_marginTop="10dp"
         android:textAppearance="?android:attr/textAppearanceLarge" />
 
@@ -136,7 +136,7 @@
         android:layout_height="wrap_content"
         android:layout_alignParentLeft="true"
         android:layout_below="@+id/textView11"
-        android:text="@string/mpdecision_threshold_down_"
+        android:text="@string/mpdecision_threshold_up_"
         android:layout_marginTop="10dp"
         android:textAppearance="?android:attr/textAppearanceLarge" />
     <Spinner
