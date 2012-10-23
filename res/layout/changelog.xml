@@ -6,135 +6,16 @@
         android:layout_alignParentLeft="true"
         android:layout_alignParentTop="true" >
         
-
+ 
 <RelativeLayout 
     android:layout_width="match_parent"
     android:layout_height="wrap_content" >
 	
-    <RelativeLayout
-        android:id="@+id/rl6"
+
+    <WebView
+        android:id="@+id/webView1"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_alignParentLeft="true"
-        android:layout_alignParentTop="true"
-        android:background="@drawable/divider_strong_holo" >
-
-        <TextView
-            android:id="@+id/textView11"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="Full Changelog"
-            android:textColor="@color/green" />
-
-    </RelativeLayout>
-
-    <TextView
-        android:id="@+id/textView12"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_below="@+id/rl6"
-        android:text="@string/official"
-		android:linksClickable="true" /> 
-    
-    <RelativeLayout
-        android:id="@+id/rl1"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_alignParentLeft="true"
-        android:layout_below="@+id/textView12"
-        android:background="@drawable/divider_strong_holo" >
-
-        <TextView
-            android:id="@+id/textView1"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"      
-            android:text="3.0"
-            android:textColor="@color/green" />
-
-    </RelativeLayout>
-
-    <TextView
-        android:id="@+id/textView2"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_below="@+id/rl1"
-        android:text="-[FIX]Completely redesigned CPU, Voltage, Times in State and Main Screen\n-[ADD]Added CPU Load info on main screen\n-[ADD]Added System Info Screen\n-[RM]Removed themes\n-[FIX]Implemented completey new way of restoring settings after reboot\n-[FIX]A lot of other improvements\n-[RM]Removed kernel restriction "
- />
-    
-    <RelativeLayout
-        android:id="@+id/rl27"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_alignParentLeft="true"
-        android:layout_below="@+id/textView2"
-        android:background="@drawable/divider_strong_holo" >
-
-        <TextView
-            android:id="@+id/textView53"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"      
-            android:text="2.4"
-            android:textColor="@color/green" />
-
-    </RelativeLayout>
-
-    <TextView
-        android:id="@+id/textView54"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_below="@+id/rl27"
-        android:text="-[FIX]Fahrenheit temp for widget\n-[ADD]Swap Manager - Add swap on /sdcard or /data\n-[FIX]Fixed update server"
- />
-    
-    <RelativeLayout
-        android:id="@+id/rl26"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_alignParentLeft="true"
-        android:layout_below="@+id/textView54"
-        android:background="@drawable/divider_strong_holo" >
-
-        <TextView
-            android:id="@+id/textView51"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"      
-            android:text="2.3.6"
-            android:textColor="@color/green" />
-
-    </RelativeLayout>
-
-    <TextView
-        android:id="@+id/textView52"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_below="@+id/rl26"
-        android:text="-[FIX]Fixed bugs for quad-core devices\n-[ADD]Landscape mode\n-[FIX]Widget improvements"
- />
-    
-    <RelativeLayout
-        android:id="@+id/rl25"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_alignParentLeft="true"
-        android:layout_below="@+id/textView52"
-        android:background="@drawable/divider_strong_holo" >
-
-        <TextView
-            android:id="@+id/textView49"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"      
-            android:text="2.3.5"
-            android:textColor="@color/green" />
-
-    </RelativeLayout>
-
-    <TextView
-        android:id="@+id/textView50"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_below="@+id/rl25"
-        android:text="-[ADD]Auto update-check every 24h\n-[ADD]Click notificaton to install update after download"
- />
-    
+        android:layout_height="match_parent" />
+  
 </RelativeLayout>
 </ScrollView>

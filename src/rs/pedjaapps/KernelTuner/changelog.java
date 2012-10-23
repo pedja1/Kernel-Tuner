@@ -13,6 +13,7 @@ import android.os.Bundle;
 import android.preference.PreferenceManager;
 import android.text.method.LinkMovementMethod;
 import android.view.View;
+import android.webkit.WebView;
 import android.widget.TextView;
 
 public class changelog extends Activity {
@@ -25,11 +26,8 @@ public class changelog extends Activity {
 		
 		setContentView(R.layout.changelog);
 
-		TextView changelog = (TextView) findViewById(R.id.textView12);
-		
-			changelog.setMovementMethod(LinkMovementMethod.getInstance());
-		
-
+		WebView myWebView = (WebView) findViewById(R.id.webView1);
+		myWebView.loadUrl("http://kerneltuner.pedjaapps.in.rs/ktuner/changelog.html");
 	}
 
 
