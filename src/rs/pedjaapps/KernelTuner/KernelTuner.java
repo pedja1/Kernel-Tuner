@@ -58,6 +58,7 @@ import android.view.View;
 import android.view.View.OnClickListener;
 import android.view.animation.AlphaAnimation;
 import android.view.animation.Animation;
+import android.webkit.WebView;
 import android.widget.Button;
 import android.widget.ProgressBar;
 import android.widget.RelativeLayout;
@@ -421,10 +422,9 @@ class updateCheck extends AsyncTask<String, Void, Object> {
 
     builder.setTitle("New Version Available");
 
-    builder.setMessage("New version of the application is available!\n\n" +
-    		"\"Kernel Tuner-"+ remoteversion+"\"\n\n"+
-			"Changelog:\n"+ changelog + "\n\n"+
-    		"Would you like to download?");
+    WebView cl = new WebView(KernelTuner.this);
+    cl.loadUrl("http://kerneltuner.pedjaapps.in.rs/ktuner/changelog.html");
+    builder.setMessage("Download Now?");
 
     builder.setIcon(R.drawable.icon);
 
@@ -440,7 +440,7 @@ class updateCheck extends AsyncTask<String, Void, Object> {
       
         }
 });
-
+    builder.setView(cl);
     AlertDialog alert = builder.create();
 			
 			alert.show();
