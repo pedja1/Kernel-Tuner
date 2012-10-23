@@ -1955,13 +1955,13 @@ public void initdExport(){
 	  }
 	  if(swap==true){
 		  miscbuilder.append("echo "+swappiness+" > /proc/sys/vm/swappiness\n"
-	  +"swapon "+swapLocation.trim()+"/swap"+"\n"
+	  +"swapon "+swapLocation.trim()+"\n\n"
 				  );
 	        
 	        
 	        }
 	        else if(swap==false){
-	        	miscbuilder.append("swapoff "+swapLocation.trim()+"/swap"+"\n\n");
+	        	miscbuilder.append("swapoff "+swapLocation.trim()+"\n\n");
 	            
 	        }
 	 

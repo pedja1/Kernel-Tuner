@@ -107,7 +107,7 @@ private class deactivateSwap extends AsyncTask<String, Void, Object> {
             	 preferences = PreferenceManager.getDefaultSharedPreferences(getBaseContext());
             	 SharedPreferences.Editor editor = preferences.edit();
             	    editor.putBoolean("swap", false);
-            	    editor.putString("swap_location", swapLocationSelected);
+            	    editor.putString("swap_location", swapLocationSelected+"swap");
             	   editor.commit();
             	 
                 
@@ -151,7 +151,7 @@ private class activateSwap extends AsyncTask<String, Void, Object> {
     	 preferences = PreferenceManager.getDefaultSharedPreferences(getBaseContext());
     	 SharedPreferences.Editor editor = preferences.edit();
     	    editor.putBoolean("swap", true);
-    	    editor.putString("swap_location", swapLocationSelected);
+    	    editor.putString("swap_location", swapLocationSelected+"swap");
     	   editor.commit();
     	 updateUI();
          Swap.this.pd.dismiss();

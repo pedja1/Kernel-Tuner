@@ -233,10 +233,10 @@ public class StartupService extends Service
         }
         if(swap==true){
         localDataOutputStream.writeBytes("echo "+swappiness+" > /proc/sys/vm/swappiness\n");
-        localDataOutputStream.writeBytes("swapon "+swapLocation.trim()+"/swap"+"\n");
+        localDataOutputStream.writeBytes("swapon "+swapLocation.trim()+"\n");
         }
         else if(swap==false){
-        	localDataOutputStream.writeBytes("swapoff "+swapLocation.trim()+"/swap"+"\n");
+        	localDataOutputStream.writeBytes("swapoff "+swapLocation.trim()+"\n");
             
         }
            localDataOutputStream.writeBytes("exit\n");
