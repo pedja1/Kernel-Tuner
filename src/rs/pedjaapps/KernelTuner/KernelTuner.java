@@ -114,6 +114,7 @@ public class KernelTuner extends Activity {
 
 		      }
 	      }
+	      
 	      else if(tempPref.equals("celsius")){
 	    	  batteryTemp.setText(String.valueOf(temperature) + "°C");
 		      if(temperature<45){
@@ -135,7 +136,28 @@ public class KernelTuner extends Activity {
 
 		      }
 	      }
-	      
+	      else if(tempPref.equals("kelvin")){
+	    	  temperature = temperature + 273.15; 
+	    	  batteryTemp.setText(String.valueOf(temperature) + "°K");
+		      if(temperature<318.15){
+		    	  batteryTemp.setTextColor(Color.GREEN);
+		    	  battTempWarningStop();
+		      }
+		      else if(temperature>318.15 && temperature<328.15){
+		    	  batteryTemp.setTextColor(Color.YELLOW);
+		    	  battTempWarningStop();
+		      }
+		      else if(temperature>=328.15 && temperature < 333.15 ){
+		    	  batteryTemp.setTextColor(Color.RED);
+		    	  battTempWarningStop();
+		      }
+		      else if(temperature>=333.15){
+		    	 // Log.e("Battery warning","start animation");
+		    	  batteryTemp.setTextColor(Color.RED);
+		    	  battTempWarning();
+
+		      }
+	      }
 	      ///F = (C x 1.8) + 32 
 	      batteryLevel.setText(String.valueOf(level) + "%");
 	      if(level<15 && level>=5){
@@ -1328,6 +1350,7 @@ public void cpuTemp(){
 
 		  	      }
 	      }
+	      
 	      else if(tempPref.equals("celsius")){
 	    	  cputemptxt.setVisibility(View.VISIBLE);
 	  		cputemptxte.setVisibility(View.VISIBLE);
@@ -1343,6 +1366,29 @@ public void cpuTemp(){
 	  	      }
 	  	      
 	  	      else if(temp>59){
+	  	    	  cpuTempWarning();
+	  	    	  cputemptxt.setTextColor(Color.RED);
+
+	  	      }
+	      }
+	      else if(tempPref.equals("kelvin")){
+	    	  cputemp=String.valueOf((int)(Double.parseDouble(cputemp)+273.15));
+	    	  cputemptxt.setVisibility(View.VISIBLE);
+	  		cputemptxte.setVisibility(View.VISIBLE);
+	  		cputemptxt.setText(cputemp+"°K");
+	  		System.out.println(cputemp);
+	  		int temp = Integer.parseInt(cputemp);
+	  		System.out.println("temp int"+temp);
+	  		if(temp<318){
+	  	    	  cputemptxt.setTextColor(Color.GREEN);
+	  	    	  cpuTempWarningStop();
+	  	      }
+	  	      else if(temp>=318 && temp<=332){
+	  	    	  cputemptxt.setTextColor(Color.YELLOW);
+	  	    	  cpuTempWarningStop();
+	  	      }
+	  	      
+	  	      else if(temp>332){
 	  	    	  cpuTempWarning();
 	  	    	  cputemptxt.setTextColor(Color.RED);
 
