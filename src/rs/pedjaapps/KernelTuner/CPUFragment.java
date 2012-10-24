@@ -796,7 +796,9 @@ public class CPUFragment extends Fragment {
 			temp.setText(CPUInfo.cpuTemp()+"°C");
 		}
 		else if(tempUnit.equals("fahrenheit")){
+			if(!CPUInfo.cpuTemp().equals("")){
 			temp.setText(Double.parseDouble(CPUInfo.cpuTemp())*1.8+32+"°F");
+			}
 		}
 		else if(tempUnit.equals("kelvin")){
 			temp.setText(Double.parseDouble(CPUInfo.cpuTemp())+273.15+"°K");
