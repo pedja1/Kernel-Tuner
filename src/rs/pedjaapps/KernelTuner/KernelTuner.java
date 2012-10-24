@@ -423,7 +423,7 @@ class updateCheck extends AsyncTask<String, Void, Object> {
     builder.setTitle("New Version Available");
 
     WebView cl = new WebView(KernelTuner.this);
-    cl.loadUrl("http://kerneltuner.pedjaapps.in.rs/ktuner/changelog.html");
+    cl.loadUrl("http://kerneltuner.pedjaapps.in.rs/ktuner/changelog_latest.html");
     builder.setMessage("Download Now?");
 
     builder.setIcon(R.drawable.icon);
