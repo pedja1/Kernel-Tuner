@@ -382,7 +382,7 @@ class updateCheck extends AsyncTask<String, Void, Object> {
     }
 	
 	
-    @Override
+   /* @Override
 	protected void onPreExecute() {
         super.onPreExecute();
 
@@ -402,12 +402,12 @@ class updateCheck extends AsyncTask<String, Void, Object> {
 			}
         );
     }
-
+*/
 
     @Override
 	protected void onPostExecute(Object result) {
 
-        KernelTuner.this.pd.dismiss();
+        //KernelTuner.this.pd.dismiss();
         
 		try {
 		PackageInfo	pInfo = getPackageManager().getPackageInfo(getPackageName(), 0);
@@ -448,10 +448,12 @@ class updateCheck extends AsyncTask<String, Void, Object> {
 		
 		}
 		else if(remoteversion==null){
-			Toast.makeText(getApplicationContext(), "Problem connecting to server", Toast.LENGTH_LONG).show();
+			//Toast.makeText(getApplicationContext(), "Problem connecting to server", Toast.LENGTH_LONG).show();
+		Log.e("Update Check","problem connecting to update server");
 		}
         else{
-        	Toast.makeText(getApplicationContext(), "You have the latest version", Toast.LENGTH_LONG).show();
+        	//Toast.makeText(getApplicationContext(), "You have the latest version", Toast.LENGTH_LONG).show();
+       Log.d("Update Check","Latest version already installed");
         }
 
 
@@ -834,8 +836,12 @@ private class enableTempMonitor extends AsyncTask<String, Void, Object> {
 public void onCreate(Bundle savedInstanceState) {
 super.onCreate(savedInstanceState);
 setContentView(R.layout.main);
-sharedPrefs = PreferenceManager.getDefaultSharedPreferences(this);
 
+sharedPrefs = PreferenceManager.getDefaultSharedPreferences(this);
+boolean update = sharedPrefs.getBoolean("update", true);
+if(update==true){
+new updateCheck().execute();
+}
 new enableTempMonitor().execute();
 batteryLevel = (TextView) this.findViewById(R.id.textView42);
 batteryTemp = (TextView) this.findViewById(R.id.textView40);
@@ -2318,9 +2324,9 @@ public boolean onOptionsItemSelected(MenuItem item) {
         startActivity(new Intent(this, changelog.class));
        
     }
-    if (item.getItemId() == R.id.update) {
+    /*if (item.getItemId() == R.id.update) {
 		new updateCheck().execute();
-		Calendar updateTime = Calendar.getInstance();
+		/*Calendar updateTime = Calendar.getInstance();
 	    updateTime.setTimeZone(TimeZone.getTimeZone("GMT"));
 	    updateTime.set(Calendar.HOUR_OF_DAY, 13);
 	    updateTime.set(Calendar.MINUTE, 00);
@@ -2333,7 +2339,7 @@ public boolean onOptionsItemSelected(MenuItem item) {
 	            updateTime.getTimeInMillis(),
 	            AlarmManager.INTERVAL_DAY, recurringDownload);
 		
-    }
+    }*/
 		
 	if (item.getItemId() == R.id.check) {
         startActivity(new Intent(this, check.class));

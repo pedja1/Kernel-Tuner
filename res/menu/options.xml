@@ -7,22 +7,12 @@
         android:showAsAction="ifRoom|withText"
         android:title="Settings"/>
     
-    <!--<item
-        android:id="@+id/more"
-        android:icon="@drawable/ic_menu_moreoverflow_normal_holo_dark"
-        android:showAsAction="ifRoom|withText"
-        android:title="More">
-        <menu>-->
             <item
         android:id="@+id/changelog"
         android:icon="@drawable/ic_menu_recent_history"
         android:showAsAction="ifRoom|withText"
         android:title="Changelog"/>
-            <item
-        android:id="@+id/update"
-        android:icon="@drawable/ic_menu_refresh"
-        android:showAsAction="ifRoom|withText"
-        android:title="Update Check"/>
+           
     <item
         android:id="@+id/check"
         android:icon="@drawable/ic_menu_help"
@@ -30,7 +20,4 @@
         android:title="Compatibility Check"/>
     
     
-           <!-- </menu> 
-            </item>-->
-
 </menu>

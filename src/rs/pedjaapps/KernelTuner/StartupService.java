@@ -30,7 +30,7 @@ public class StartupService extends Service
 		super.onCreate();
 		
 		
-		    
+		   /* 
 		    Calendar updateTime = Calendar.getInstance();
 		    updateTime.setTimeZone(TimeZone.getTimeZone("GMT"));
 		    updateTime.set(Calendar.HOUR_OF_DAY, 13);
@@ -43,7 +43,7 @@ public class StartupService extends Service
 		    alarms.setInexactRepeating(AlarmManager.RTC_WAKEUP,
 		            updateTime.getTimeInMillis(),
 		            AlarmManager.INTERVAL_DAY, recurringDownload);
-		
+		*/
 		    sharedPrefs = PreferenceManager.getDefaultSharedPreferences(this);
 			  String applyonboot = sharedPrefs.getString("boot2", "");
 			  if (applyonboot.equals("boot")){

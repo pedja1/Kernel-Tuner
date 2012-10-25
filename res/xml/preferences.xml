@@ -31,6 +31,12 @@
             android:summary="Temperature Unit"
             android:title="Temperature Unit" 
             android:defaultValue="celsius"/>
+        
+        <CheckBoxPreference
+            android:defaultValue="true"
+            android:key="update"
+            android:summary="@string/preferences_misc_update_summary"
+            android:title="@string/preferences_misc_update_title" />
          </PreferenceCategory>
 
     

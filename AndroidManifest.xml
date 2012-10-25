@@ -85,12 +85,12 @@ android:resource="@xml/widget_provider_4x4" />
 
   <activity android:name="com.google.ads.AdActivity"
                   android:configChanges="keyboard|keyboardHidden|orientation|screenLayout|uiMode|screenSize|smallestScreenSize"/>
-<receiver  android:process=":remote" android:name="AlarmReceiver"></receiver>
+<!--  <receiver  android:process=":remote" android:name="AlarmReceiver"></receiver>
 <service android:name=".UpdateCheckService">
 <intent-filter>
 <action
 android:name="rs.pedjaapps.KernelTuner.UpdateCheckService" />
 </intent-filter> 
-</service>
+</service>-->
 </application>
 </manifest>

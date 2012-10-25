@@ -23,6 +23,9 @@
     <string name="preferences_misc">Ostalo</string>
     <string name="preferences_misc_ads_title">Prokazuj reklame na početno ekranu</string>
     <string name="preferences_misc_ads_summary">Morate ponovo pokrenuti aplikaciju da bi uklonili reklame</string>
+       <string name="preferences_misc_update_title">Auto Update Check</string>
+    <string name="preferences_misc_update_summary">Check for updates every time you start app</string>
+    
     <string name="title_preferences">Podešavanja</string>
     <string name="title_changelog">Promene</string>
     
