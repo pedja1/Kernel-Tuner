@@ -116,30 +116,53 @@ private class changegpu extends AsyncTask<String, Void, Object> {
 			}
            }
            //freqs for one s and one xl
-           else if(board.equals("evita") || board.equals("ville")){
+           else if(board.equals("evita") || board.equals("ville") || board.equals("jwel")){
         	  // 3d freqs for evita
-        	   if(selected3d.equals("200")){
+        	   if(selected3d.equals("27")){
+   				new3d=27000000;
+   			}
+   			else if(selected3d.equals("177")){
+   				new3d=177778000;
+   			}
+   			else if(selected3d.equals("200")){
    				new3d=200000000;
+   			}
+   			else if(selected3d.equals("228")){
+   				new3d=228571000;
+   			}
+   			else if(selected3d.equals("266")){
+   				new3d=266667000;
    			}
    			else if(selected3d.equals("300")){
    				new3d=300000000;
    			}
+   			else if(selected3d.equals("320")){
+   				new3d=320000000;
+   			}
    			else if(selected3d.equals("400")){
    				new3d=400000000;
    			}
-   			else if(selected3d.equals("500")){
-   				new3d=500000000;
-   			}
         	   
         	   //2d freqs for evita
-        	   if(selected2d.equals("200")){
-   				new2d=200000000;
+        	   if(selected2d.equals("27")){
+   				new2d=27000000;
    			
    			}
-             else if(selected2d.equals("300")){
-   				new2d=300000000;
-   				
+             else if(selected2d.equals("96")){
+   				new2d=96000000;
    			}
+             else if(selected2d.equals("160")){
+    				new2d=160000000;
+    			}
+             else if(selected2d.equals("200")){
+    				new2d=200000000;
+    			}
+             else if(selected2d.equals("228")){
+    				new2d=228571000;
+    			}
+             else if(selected2d.equals("266")){
+    				new2d=266667000;
+    			}
    			
    			
    			
@@ -205,10 +228,11 @@ return "";
 	gpu2d(new String[]{"160", "200", "228", "266"});
 	gpu3d(new String[]{"200", "228", "266", "300", "320"});
 	}
-	else if(board.equals("evita") || board.equals("ville") | board.equals("jet")){
-		gpu2d(new String[]{"200", "300"});
-		gpu3d(new String[]{"200", "300", "400", "500"});
+	else if(board.equals("evita") || board.equals("ville") || board.equals("jwel")){
+		gpu2d(new String[]{"266", "228", "200", "160", "96", "27"});
+		gpu3d(new String[]{"400", "320", "300", "266", "228", "200", "177", "27"});
 	}
+	
 	readgpu2dcurent();
 	
 	readgpu3dcurent();
