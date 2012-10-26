@@ -1,57 +1,47 @@
 package rs.pedjaapps.KernelTuner;
 
-import java.io.BufferedReader;
-import java.io.File;
-import java.io.FileInputStream;
-import java.io.InputStreamReader;
+
 import java.util.ArrayList;
 import java.util.List;
 
 import com.google.ads.AdRequest;
 import com.google.ads.AdView;
 
+import android.app.Activity;
 import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.os.SystemClock;
 import android.preference.PreferenceManager;
-import android.support.v4.app.Fragment;
-import android.view.LayoutInflater;
 import android.view.View;
 import android.view.View.OnClickListener;
-import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.ListView;
 
-public class TISFragment extends Fragment {
-	public TISFragment() {
-	}
+public class TISActivity extends Activity {
+	
 
-	public static final String ARG_SECTION_NUMBER = "section_number";
 
 	TISAdapter tisAdapter ;
 	ListView tisListView;
 	@Override
-	public View onCreateView(LayoutInflater inflater, ViewGroup container,
-			Bundle savedInstanceState) {
-		Bundle args = getArguments();
-		View v = null;
+	public void onCreate(Bundle savedInstanceState) {
+		super.onCreate(savedInstanceState);
+		
+		setContentView(R.layout.times_in_state);
 
-		v = inflater.inflate(R.layout.times_in_state,
-				container, false);
-
-		SharedPreferences sharedPrefs = PreferenceManager.getDefaultSharedPreferences(this.getActivity());
+		SharedPreferences sharedPrefs = PreferenceManager.getDefaultSharedPreferences(this);
 		boolean ads = sharedPrefs.getBoolean("ads", true);
-		if (ads==true){AdView adView = (AdView)v.findViewById(R.id.ad);
+		if (ads==true){AdView adView = (AdView)findViewById(R.id.ad);
 		adView.loadAd(new AdRequest());}
 		
-		tisListView = (ListView) v.findViewById(R.id.list);
-	      tisAdapter = new TISAdapter(this.getActivity(), R.layout.tis_list_item);
+		tisListView = (ListView) findViewById(R.id.list);
+	      tisAdapter = new TISAdapter(this, R.layout.tis_list_item);
 	     tisListView.setAdapter(tisAdapter);
 	    
 	     for(final TISEntry entry : getTISEntries()) {
 	      tisAdapter.add(entry);
 	     }
-	     Button refresh = (Button)v.findViewById(R.id.button1);
+	     Button refresh = (Button)findViewById(R.id.button1);
 	     refresh.setOnClickListener(new OnClickListener(){
 
 			@Override
@@ -65,7 +55,7 @@ public class TISFragment extends Fragment {
 			}
 	    	 
 	     });
-		return v;
+		
 	}
 	
 	private List<TISEntry> getTISEntries() {

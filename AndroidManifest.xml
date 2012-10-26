@@ -2,7 +2,7 @@
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
 package="rs.pedjaapps.KernelTuner"
 android:versionCode="34"
-android:versionName="3.1.1">
+android:versionName="3.1.1.test">
 <uses-sdk android:minSdkVersion="9"
     android:targetSdkVersion="16" />
 
@@ -76,8 +76,11 @@ android:resource="@xml/widget_provider_4x4" />
 <activity android:name=".ProfileEditor" android:label="@string/activity_title_profile_editor" android:icon="@drawable/ic_menu_edit" android:theme="@style/Theme.Transparent"></activity>
 <activity android:name=".Swap" android:label="@string/swap" android:icon="@drawable/swap" ></activity>
 
-<activity android:name=".CPUTuner" android:label="@string/title_cpu" android:icon="@drawable/icon" android:screenOrientation="portrait" ></activity>
 <activity android:name=".SystemInfo" android:label="@string/info" android:icon="@drawable/info" ></activity>
+<activity android:name=".CPUActivity" android:label="@string/title_cpu" android:icon="@drawable/icon" android:screenOrientation="portrait" ></activity>
+<activity android:name=".VoltageActivity" android:label="@string/title_voltage" android:icon="@drawable/voltage"  ></activity>
+<activity android:name=".TISActivity" android:label="@string/title_tis" android:icon="@drawable/times" ></activity>
+<activity android:name=".GovernorActivity" android:label="@string/title_governor" android:icon="@drawable/dual" ></activity>
 
 
 <service android:name=".WidgetUpdateService"></service>
@@ -85,12 +88,5 @@ android:resource="@xml/widget_provider_4x4" />
 
   <activity android:name="com.google.ads.AdActivity"
                   android:configChanges="keyboard|keyboardHidden|orientation|screenLayout|uiMode|screenSize|smallestScreenSize"/>
-<!--  <receiver  android:process=":remote" android:name="AlarmReceiver"></receiver>
-<service android:name=".UpdateCheckService">
-<intent-filter>
-<action
-android:name="rs.pedjaapps.KernelTuner.UpdateCheckService" />
-</intent-filter> 
-</service>-->
 </application>
 </manifest>

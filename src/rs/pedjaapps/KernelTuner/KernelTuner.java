@@ -1,5 +1,6 @@
 package rs.pedjaapps.KernelTuner;
 
+import java.io.BufferedInputStream;
 import java.io.BufferedReader;
 import java.io.DataInputStream;
 import java.io.DataOutputStream;
@@ -10,10 +11,12 @@ import java.io.FileOutputStream;
 import java.io.IOException;
 import java.io.InputStream;
 import java.io.InputStreamReader;
+import java.io.OutputStream;
 import java.io.OutputStreamWriter;
 import java.io.RandomAccessFile;
 import java.net.MalformedURLException;
 import java.net.URL;
+import java.net.URLConnection;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Calendar;
@@ -316,20 +319,65 @@ public String s2w;
 
 Handler mHandler = new Handler();
 
-public static boolean isDownloadManagerAvailable(Context context) {
-	try {
-		if (Build.VERSION.SDK_INT < Build.VERSION_CODES.GINGERBREAD) {
-			return false;
-		}
-		Intent intent = new Intent(Intent.ACTION_MAIN);
-		intent.addCategory(Intent.CATEGORY_LAUNCHER);
-		intent.setClassName("com.android.providers.downloads.ui", "com.android.providers.downloads.ui.DownloadList");
-		List<ResolveInfo> list = context.getPackageManager().queryIntentActivities(intent,
-																				   PackageManager.MATCH_DEFAULT_ONLY);
-		return list.size() > 0;
-	} catch (Exception e) {
-		return false;
-	}
+
+
+ProgressDialog mProgressDialog;
+private class DownloadNewVersion extends AsyncTask<String, Integer, String> {
+    @Override
+    protected String doInBackground(String... sUrl) {
+        try {
+            URL url = new URL(sUrl[0]);
+            URLConnection connection = url.openConnection();
+            connection.connect();
+            // this will be useful so that you can show a typical 0-100% progress bar
+            int fileLength = connection.getContentLength();
+
+            // download the file
+            InputStream input = new BufferedInputStream(url.openStream());
+            OutputStream output = new FileOutputStream(Environment.getExternalStorageDirectory() + "/download/KernelTuner-" + remoteversion + ".apk");
+
+            byte data[] = new byte[1024];
+            long total = 0;
+            int count;
+            while ((count = input.read(data)) != -1) {
+                total += count;
+                // publishing the progress....
+                publishProgress((int) (total * 100 / fileLength));
+                output.write(data, 0, count);
+            }
+
+            output.flush();
+            output.close();
+            input.close();
+        } catch (Exception e) {
+        }
+        return null;
+    }
+    @Override
+    protected void onPreExecute() {
+        super.onPreExecute();
+        mProgressDialog = new ProgressDialog(KernelTuner.this);
+    	mProgressDialog.setMessage("Downloading Update");
+    	mProgressDialog.setIndeterminate(false);
+    	mProgressDialog.setMax(100);
+    	mProgressDialog.setProgressStyle(ProgressDialog.STYLE_HORIZONTAL);
+        mProgressDialog.show();
+    }
+
+    @Override
+    protected void onProgressUpdate(Integer... progress) {
+        super.onProgressUpdate(progress);
+        mProgressDialog.setProgress(progress[0]);
+        
+    }
+    @Override
+    protected void onPostExecute(String result) {
+    	mProgressDialog.dismiss();
+    	Intent intent = new Intent(Intent.ACTION_VIEW);
+        intent.setDataAndType(Uri.fromFile(new File(Environment.getExternalStorageDirectory() + "/download/" + "KernelTuner-" + remoteversion + ".apk")), "application/vnd.android.package-archive");
+        startActivity(intent);
+        
+    }
 }
 
 class updateCheck extends AsyncTask<String, Void, Object> {
@@ -381,28 +429,7 @@ class updateCheck extends AsyncTask<String, Void, Object> {
 		return "";
     }
 	
-	
-   /* @Override
-	protected void onPreExecute() {
-        super.onPreExecute();
 
-	
-		pd = ProgressDialog.show(
-			KernelTuner.this,
-			"Working...",
-			"Checking for updates...",
-			true,
-			true,
-			new DialogInterface.OnCancelListener(){
-			
-				@Override
-				public void onCancel(DialogInterface dialog) {
-					updateCheck.this.cancel(true);
-				}
-			}
-        );
-    }
-*/
 
     @Override
 	protected void onPostExecute(Object result) {
@@ -420,7 +447,7 @@ class updateCheck extends AsyncTask<String, Void, Object> {
         	AlertDialog.Builder builder = new AlertDialog.Builder(
                     KernelTuner.this);
 
-    builder.setTitle("New Version Available");
+    builder.setTitle("Kernel Tuner "+ remoteversion+" Available");
 
     WebView cl = new WebView(KernelTuner.this);
     cl.loadUrl("http://kerneltuner.pedjaapps.in.rs/ktuner/changelog_latest.html");
@@ -431,7 +458,12 @@ class updateCheck extends AsyncTask<String, Void, Object> {
     builder.setPositiveButton("Download", new DialogInterface.OnClickListener() {
             @Override
 			public void onClick(DialogInterface dialog, int which) {
-            	download();
+            	//download();
+            	
+            	// execute this when the downloader must be fired
+            	DownloadNewVersion downloadNewVersion = new DownloadNewVersion();
+            	downloadNewVersion.execute("http://kerneltuner.pedjaapps.in.rs/ktuner/KernelTuner-" + remoteversion + ".php");
+            	
             }
     });
     builder.setNegativeButton("Cancel", new DialogInterface.OnClickListener() {
@@ -889,10 +921,8 @@ adView.loadAd(new AdRequest());}
 		@Override
 		public void onClick(View v) {
 			
-			Intent intent = new Intent(KernelTuner.this,
-					   CPUTuner.class);
-			intent.putExtra("item", "VOLTAGE");
-			KernelTuner.this.startActivity(intent);
+			Intent myIntent = new Intent(KernelTuner.this, VoltageActivity.class);
+			KernelTuner.this.startActivity(myIntent);
 			}
 	
 	});
@@ -962,10 +992,8 @@ cpu.setOnClickListener(new OnClickListener(){
 	@Override
 	public void onClick(View v) {
 		
-		Intent intent = new Intent(KernelTuner.this,
-				CPUTuner.class);
-	intent.putExtra("item", "CPU TWEAKS");
-		KernelTuner.this.startActivity(intent);
+		Intent myIntent = new Intent(KernelTuner.this, CPUActivity.class);
+		KernelTuner.this.startActivity(myIntent);
 	}
 });
 
@@ -975,10 +1003,8 @@ tis.setOnClickListener(new OnClickListener(){
 	@Override
 	public void onClick(View v) {
 		
-		Intent intent = new Intent(KernelTuner.this,
-				CPUTuner.class);
-	intent.putExtra("item", "TIMES IN STATE");
-		KernelTuner.this.startActivity(intent);
+		Intent myIntent = new Intent(KernelTuner.this, TISActivity.class);
+		KernelTuner.this.startActivity(myIntent);
 		
 	}
 });
@@ -1058,10 +1084,8 @@ governor.setOnClickListener(new OnClickListener(){
 
 	@Override
 	public void onClick(View v) {
-		Intent intent = new Intent(KernelTuner.this,
-				CPUTuner.class);
-	intent.putExtra("item", "GOVERNOR SETTINGS");
-		KernelTuner.this.startActivity(intent);
+		Intent myIntent = new Intent(KernelTuner.this, GovernorActivity.class);
+		KernelTuner.this.startActivity(myIntent);
 		
 	}
 	
@@ -1204,39 +1228,6 @@ AppWidget updateSmall = new AppWidget();
        super.onDestroy();
     
 }
-
-
-
-
- public void download(){
-	 BroadcastReceiver onComplete=new BroadcastReceiver() {
-		    @Override
-			public void onReceive(Context ctxt, Intent intent) {
-		        intent = new Intent(Intent.ACTION_VIEW);
-		        intent.setDataAndType(Uri.fromFile(new File(Environment.getExternalStorageDirectory() + "/download/" + "KernelTuner-" + remoteversion + ".apk")), "application/vnd.android.package-archive");
-		        startActivity(intent);
-		    }
-		};
-	String url = "http://kerneltuner.pedjaapps.in.rs/ktuner/KernelTuner-" + remoteversion + ".php";
-	DownloadManager.Request request = new DownloadManager.Request(Uri.parse(url));
-	request.setDescription("Downloading new version");
-	request.setTitle("Kernel Tuner-" + remoteversion + ".apk");
-	if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.HONEYCOMB) {
-		request.allowScanningByMediaScanner();
-		request.setNotificationVisibility(DownloadManager.Request.VISIBILITY_VISIBLE_NOTIFY_COMPLETED);
-	}
-	try{ 
-		request.setDestinationInExternalPublicDir(Environment.DIRECTORY_DOWNLOADS, "KernelTuner-" + remoteversion + ".apk");
-	DownloadManager manager = (DownloadManager) getSystemService(Context.DOWNLOAD_SERVICE);
-	manager.enqueue(request); 
-	
-	registerReceiver(onComplete, new IntentFilter(DownloadManager.ACTION_NOTIFICATION_CLICKED));
-	}catch(Exception e){
-		Toast.makeText(getApplicationContext(), "SD card is not mounted", Toast.LENGTH_LONG).show();
-	}
-
-}
- 
 
 
 	
@@ -2108,7 +2099,7 @@ public void readFreqs()
  			in.close();
 		}
 		catch(Exception ee){
-		//System.out.println("failed to read frequencies");
+		System.out.println("failed to read frequencies");
 		}
 	}
 	
@@ -2240,10 +2231,11 @@ cpu0prog.setText(iscVa.trim());
 
 public void cpu0progress()
 {
-
+if(freqlist!=null){
 ProgressBar cpu0progbar = (ProgressBar)findViewById(R.id.progressBar1);
 cpu0progbar.setMax(freqlist.indexOf(cpu0max.trim())+1);
 cpu0progbar.setProgress(freqlist.indexOf(iscVa.trim())+1);
+}
 
 }
 
@@ -2255,11 +2247,11 @@ cpu1prog.setText(iscVa2.trim());
 }
 public void cpu1progress()
 {
-
+	if(freqlist!=null){
 ProgressBar cpu1progbar = (ProgressBar)findViewById(R.id.progressBar2);
 cpu1progbar.setMax(freqlist.indexOf(cpu1max.trim())+1);
 cpu1progbar.setProgress(freqlist.indexOf(iscVa2.trim())+1);
-
+	}
 }
 
 public void cpu2update()
@@ -2271,11 +2263,11 @@ cpu2prog.setText(freqcpu2.trim());
 
 public void cpu2progress()
 {
-
+	if(freqlist!=null){
 ProgressBar cpu2progbar = (ProgressBar)findViewById(R.id.progressBar3);
 cpu2progbar.setMax(freqlist.indexOf(cpu2max.trim())+1);
 cpu2progbar.setProgress(freqlist.indexOf(freqcpu2.trim())+1);
-
+	}
 }
 
 public void cpu3update()
@@ -2286,12 +2278,12 @@ cpu3prog.setText(freqcpu3.trim());
 }
 public void cpu3progress()
 {
-
+	if(freqlist!=null){
 ProgressBar cpu3progbar = (ProgressBar)findViewById(R.id.progressBar4);
 
 cpu3progbar.setMax(freqlist.indexOf(cpu3max.trim())+1);
 cpu3progbar.setProgress(freqlist.indexOf(freqcpu3.trim())+1);
-
+	}
 }
 
 

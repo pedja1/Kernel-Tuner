@@ -1195,8 +1195,10 @@ return "";
     	manufacturer.setText(android.os.Build.MANUFACTURER);
     	model.setText(android.os.Build.MODEL);
     	product.setText(android.os.Build.PRODUCT);
+    	if(android.os.Build.VERSION.SDK_INT>10){
     	if(android.os.Build.getRadioVersion()!=null){
     	radio.setText(android.os.Build.getRadioVersion());
+    	}
     	}
     }
     	

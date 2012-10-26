@@ -12,13 +12,12 @@ import java.util.List;
 import com.google.ads.AdRequest;
 import com.google.ads.AdView;
 
+import android.app.Activity;
 import android.app.AlertDialog;
 import android.content.DialogInterface;
 import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.preference.PreferenceManager;
-import android.support.v4.app.Fragment;
-import android.support.v4.app.ListFragment;
 import android.text.InputType;
 import android.util.Log;
 import android.view.Gravity;
@@ -31,9 +30,8 @@ import android.widget.ListView;
 import android.widget.AdapterView.OnItemClickListener;
 import android.widget.TextView;
 
-public class GovernorFragment extends Fragment {
-	public GovernorFragment() {
-	}
+public class GovernorActivity extends Activity {
+	
 	GovernorSettingsAdapter govAdapter ;
 	ListView govListView;
 	String[] filesx;
@@ -48,23 +46,20 @@ public class GovernorFragment extends Fragment {
 	public static final String ARG_SECTION_NUMBER = "section_number";
 
 	@Override
-	public View onCreateView(LayoutInflater inflater, ViewGroup container,
-			Bundle savedInstanceState) {
-		Bundle args = getArguments();
-		View v = null;
-
-		v = inflater.inflate(R.layout.governor_settings,
-				container, false);
+	public void onCreate(Bundle savedInstanceState) {
+		super.onCreate(savedInstanceState);
 		
-		SharedPreferences sharedPrefs = PreferenceManager.getDefaultSharedPreferences(this.getActivity());
+		setContentView(R.layout.governor_settings);
+		
+		SharedPreferences sharedPrefs = PreferenceManager.getDefaultSharedPreferences(this);
 		boolean ads = sharedPrefs.getBoolean("ads", true);
-		if (ads==true){AdView adView = (AdView)v.findViewById(R.id.ad);
+		if (ads==true){AdView adView = (AdView)findViewById(R.id.ad);
 		adView.loadAd(new AdRequest());}
 		scanAvailableGovernors();
-		 govListView = (ListView) v.findViewById(R.id.list);
+		 govListView = (ListView) findViewById(R.id.list);
 		if(!availableGovs.isEmpty()){
 		
-	      govAdapter = new GovernorSettingsAdapter(this.getActivity(), R.layout.governor_list_item);
+	      govAdapter = new GovernorSettingsAdapter(this, R.layout.governor_list_item);
 	     govListView.setAdapter(govAdapter);
 	    
 	     for(final GovEntry entry : getGovEntries()) {
@@ -72,7 +67,7 @@ public class GovernorFragment extends Fragment {
 	     }
 		}
 		else{
-			TextView tv = (TextView)v.findViewById(R.id.textView1);
+			TextView tv = (TextView)findViewById(R.id.textView1);
 			tv.setVisibility(View.VISIBLE);
 			tv.setText("Current Governor(s) doesn't have any settings\n\n" +
 					"Only following governors can be configured:\n" +
@@ -104,7 +99,7 @@ public class GovernorFragment extends Fragment {
 						public void onClick(DialogInterface dialog, int which) {
 							newvalue = String.valueOf(input.getText());
 							curfile = fileList.get(position);
-							new ChangeGovernorSettings(GovernorFragment.this.getActivity()).execute(new String[] {String.valueOf(input.getText()), fileList.get(position), governors.get(position)});
+							new ChangeGovernorSettings(GovernorActivity.this).execute(new String[] {String.valueOf(input.getText()), fileList.get(position), governors.get(position)});
 						 
 							try {
 								Thread.sleep(700);
@@ -141,8 +136,6 @@ public class GovernorFragment extends Fragment {
 				} 
 				});
 		
-		
-		return v;
 	}
 	
 	public void scanAvailableGovernors(){

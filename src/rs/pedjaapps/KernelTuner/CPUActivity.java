@@ -10,12 +10,12 @@ import java.util.List;
 import com.google.ads.AdRequest;
 import com.google.ads.AdView;
 
+import android.app.Activity;
 import android.content.SharedPreferences;
 import android.os.AsyncTask;
 import android.os.Bundle;
 import android.os.Handler;
 import android.preference.PreferenceManager;
-import android.support.v4.app.Fragment;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -32,7 +32,7 @@ import android.widget.TextView;
 import android.widget.AdapterView.OnItemSelectedListener;
 import android.widget.VerticalSeekBar;
 
-public class CPUFragment extends Fragment {
+public class CPUActivity extends Activity {
 	
 	boolean thread = true;
 	Handler mHandler = new Handler();
@@ -115,7 +115,7 @@ public class CPUFragment extends Fragment {
 	
 	SharedPreferences preferences;
 	
-	View v = null;
+	
 	
 	private class ToggleCPUs extends AsyncTask<Boolean, Void, Boolean> {
 
@@ -208,84 +208,81 @@ public class CPUFragment extends Fragment {
 		}
 	}	
 	
-	public CPUFragment() {
-	}
-
-	public static final String ARG_SECTION_NUMBER = "section_number";
+	
 
 	@Override
-	public View onCreateView(LayoutInflater inflater, ViewGroup container,
-			Bundle savedInstanceState) {
-		Bundle args = getArguments();
+	public void onCreate(Bundle savedInstanceState) {
+		super.onCreate(savedInstanceState);
+		
+		setContentView(R.layout.cpu_tweaks);
 		new ToggleCPUs().execute(new Boolean[] {true});
 
-		v = inflater.inflate(R.layout.cpu_tweaks,
-				container, false);
-		SharedPreferences sharedPrefs = PreferenceManager.getDefaultSharedPreferences(this.getActivity());
+		
+		SharedPreferences sharedPrefs = PreferenceManager.getDefaultSharedPreferences(this);
 		boolean ads = sharedPrefs.getBoolean("ads", true);
-		if (ads==true){AdView adView = (AdView)this.v.findViewById(R.id.ad);
+		if (ads==true){AdView adView = (AdView)this.findViewById(R.id.ad);
 		adView.loadAd(new AdRequest());}
 		//preferences = PreferenceManager.getDefaultSharedPreferences(CPUFragment.this.getActivity());
 		
 		
-		rlcpu1 = (RelativeLayout)v.findViewById(R.id.rlcpu1);
-		rlcpu2 = (RelativeLayout)v.findViewById(R.id.rlcpu2);
-		rlcpu3 = (RelativeLayout)v.findViewById(R.id.rlcpu3);
+		rlcpu1 = (RelativeLayout)findViewById(R.id.rlcpu1);
+		rlcpu2 = (RelativeLayout)findViewById(R.id.rlcpu2);
+		rlcpu3 = (RelativeLayout)findViewById(R.id.rlcpu3);
 		
-		uptime = (TextView)v.findViewById(R.id.textView28);
-		deepSleep = (TextView)v.findViewById(R.id.textView30);
-		temp = (TextView)v.findViewById(R.id.textView32);
+		uptime = (TextView)findViewById(R.id.textView28);
+		deepSleep = (TextView)findViewById(R.id.textView30);
+		temp = (TextView)findViewById(R.id.textView32);
 		
-		curFreq0 = (TextView)v.findViewById(R.id.ptextView3);
-		curFreq1 = (TextView)v.findViewById(R.id.ptextView4);
-		curFreq2 = (TextView)v.findViewById(R.id.ptextView7);
-		curFreq3 = (TextView)v.findViewById(R.id.ptextView8);
+		curFreq0 = (TextView)findViewById(R.id.ptextView3);
+		curFreq1 = (TextView)findViewById(R.id.ptextView4);
+		curFreq2 = (TextView)findViewById(R.id.ptextView7);
+		curFreq3 = (TextView)findViewById(R.id.ptextView8);
 		
-		progCpu0 = (ProgressBar)v.findViewById(R.id.progressBar1);
-		progCpu1 = (ProgressBar)v.findViewById(R.id.progressBar2);
-		progCpu2 = (ProgressBar)v.findViewById(R.id.progressBar3);
-		progCpu3 = (ProgressBar)v.findViewById(R.id.progressBar4);
+		progCpu0 = (ProgressBar)findViewById(R.id.progressBar1);
+		progCpu1 = (ProgressBar)findViewById(R.id.progressBar2);
+		progCpu2 = (ProgressBar)findViewById(R.id.progressBar3);
+		progCpu3 = (ProgressBar)findViewById(R.id.progressBar4);
 		
-		cpu0txt = (TextView)v.findViewById(R.id.ptextView1);
-		cpu1txt = (TextView)v.findViewById(R.id.ptextView2);
-		cpu2txt = (TextView)v.findViewById(R.id.ptextView5);
-		cpu3txt = (TextView)v.findViewById(R.id.ptextView6);
+		cpu0txt = (TextView)findViewById(R.id.ptextView1);
+		cpu1txt = (TextView)findViewById(R.id.ptextView2);
+		cpu2txt = (TextView)findViewById(R.id.ptextView5);
+		cpu3txt = (TextView)findViewById(R.id.ptextView6);
 		
-		cpu1govtxt = (TextView)v.findViewById(R.id.textView4);
-		cpu2govtxt = (TextView)v.findViewById(R.id.textView3);
-		cpu3govtxt = (TextView)v.findViewById(R.id.textView2);
+		cpu1govtxt = (TextView)findViewById(R.id.textView4);
+		cpu2govtxt = (TextView)findViewById(R.id.textView3);
+		cpu3govtxt = (TextView)findViewById(R.id.textView2);
 		
-		gov0spinner = (Spinner)v.findViewById(R.id.spinner3);
-		gov1spinner = (Spinner)v.findViewById(R.id.spinner1);
-		gov2spinner = (Spinner)v.findViewById(R.id.spinner2);
-		gov3spinner = (Spinner)v.findViewById(R.id.spinner4);
+		gov0spinner = (Spinner)findViewById(R.id.spinner3);
+		gov1spinner = (Spinner)findViewById(R.id.spinner1);
+		gov2spinner = (Spinner)findViewById(R.id.spinner2);
+		gov3spinner = (Spinner)findViewById(R.id.spinner4);
 		
-		cpu0prog = (TextView)v.findViewById(R.id.ptextView3);
-		cpu1prog = (TextView)v.findViewById(R.id.ptextView4);
-		cpu2prog = (TextView)v.findViewById(R.id.ptextView7);
-		cpu3prog = (TextView)v.findViewById(R.id.ptextView8);
+		cpu0prog = (TextView)findViewById(R.id.ptextView3);
+		cpu1prog = (TextView)findViewById(R.id.ptextView4);
+		cpu2prog = (TextView)findViewById(R.id.ptextView7);
+		cpu3prog = (TextView)findViewById(R.id.ptextView8);
 		
 		
-		cpu0min = (TextView)v.findViewById(R.id.textView6);
-		cpu0max = (TextView)v.findViewById(R.id.textView8);
-		cpu1min = (TextView)v.findViewById(R.id.textView11);
-		cpu1max = (TextView)v.findViewById(R.id.textView13);
+		cpu0min = (TextView)findViewById(R.id.textView6);
+		cpu0max = (TextView)findViewById(R.id.textView8);
+		cpu1min = (TextView)findViewById(R.id.textView11);
+		cpu1max = (TextView)findViewById(R.id.textView13);
 		
-		cpu2min = (TextView)v.findViewById(R.id.textView16);
-		cpu2max = (TextView)v.findViewById(R.id.textView18);
-		cpu3min = (TextView)v.findViewById(R.id.textView21);
-		cpu3max = (TextView)v.findViewById(R.id.textView23);
-		cpuLoadTxt = (TextView)v.findViewById(R.id.textView26);
+		cpu2min = (TextView)findViewById(R.id.textView16);
+		cpu2max = (TextView)findViewById(R.id.textView18);
+		cpu3min = (TextView)findViewById(R.id.textView21);
+		cpu3max = (TextView)findViewById(R.id.textView23);
+		cpuLoadTxt = (TextView)findViewById(R.id.textView26);
 		
-		cpuLoad = (ProgressBar)v.findViewById(R.id.progressBar5);
+		cpuLoad = (ProgressBar)findViewById(R.id.progressBar5);
 	
 		
 		
-		return v;
+		
 	}
 	@Override
 	public void onResume(){
-		SharedPreferences sharedPrefs = PreferenceManager.getDefaultSharedPreferences(this.getActivity());
+		SharedPreferences sharedPrefs = PreferenceManager.getDefaultSharedPreferences(this);
 		tempUnit = sharedPrefs.getString("temp", "celsius");
 		frequencies = CPUInfo.frequencies();
 		thread=true;
@@ -394,8 +391,8 @@ public class CPUFragment extends Fragment {
 		cpu3min.setText(cpu3MinFreq.substring(0, cpu3MinFreq.length() - 3) + "Mhz");
 		cpu3max.setText(cpu3MaxFreq.substring(0, cpu3MaxFreq.length() - 3) + "Mhz");
 		
-		cpu0maxSeek = (VerticalSeekBar)v.findViewById(R.id.cpu0MaxSeekbar);
-		cpu0minSeek = (VerticalSeekBar)v.findViewById(R.id.cpu0MinSeekbar);
+		cpu0maxSeek = (VerticalSeekBar)findViewById(R.id.cpu0MaxSeekbar);
+		cpu0minSeek = (VerticalSeekBar)findViewById(R.id.cpu0MinSeekbar);
 		cpu0minSeek.setMax(frequencies.size()-1);
 		cpu0maxSeek.setMax(frequencies.size()-1);
 		cpu0minSeek.setProgress(frequencies.indexOf(cpu0MinFreq));
@@ -425,7 +422,7 @@ public class CPUFragment extends Fragment {
 					cpu0minSeek.setProgressAndThumb(frequencies.indexOf(CPUInfo.cpu0MinFreq()));
 				}
 				else{
-					new FrequencyChanger(CPUFragment.this.getActivity()).execute(new String[] {"cpu0","min", frequencies.get(prog)});
+					new FrequencyChanger(CPUActivity.this).execute(new String[] {"cpu0","min", frequencies.get(prog)});
 					
 				}
 				   
@@ -459,7 +456,7 @@ public class CPUFragment extends Fragment {
 					cpu0maxSeek.setProgressAndThumb(frequencies.indexOf(CPUInfo.cpu0MaxFreq()));
 				}
 				else{
-					new FrequencyChanger(CPUFragment.this.getActivity()).execute(new String[] {"cpu0","max", frequencies.get(prog)});
+					new FrequencyChanger(CPUActivity.this).execute(new String[] {"cpu0","max", frequencies.get(prog)});
 					
 				}
 				   
@@ -468,8 +465,8 @@ public class CPUFragment extends Fragment {
 			
 		});
 		if(cpu1Online==true){
-		cpu1maxSeek = (VerticalSeekBar)v.findViewById(R.id.cpu1MaxSeekbar);
-		cpu1minSeek = (VerticalSeekBar)v.findViewById(R.id.cpu1MinSeekbar);
+		cpu1maxSeek = (VerticalSeekBar)findViewById(R.id.cpu1MaxSeekbar);
+		cpu1minSeek = (VerticalSeekBar)findViewById(R.id.cpu1MinSeekbar);
 		cpu1minSeek.setMax(frequencies.size()-1);
 		cpu1maxSeek.setMax(frequencies.size()-1);
 		cpu1minSeek.setProgress(frequencies.indexOf(cpu1MinFreq));
@@ -501,7 +498,7 @@ public class CPUFragment extends Fragment {
 					cpu1minSeek.setProgressAndThumb(frequencies.indexOf(CPUInfo.cpu1MinFreq()));
 				}
 				else{
-					new FrequencyChanger(CPUFragment.this.getActivity()).execute(new String[] {"cpu1","min", frequencies.get(prog)});
+					new FrequencyChanger(CPUActivity.this).execute(new String[] {"cpu1","min", frequencies.get(prog)});
 					
 				}
 				   
@@ -535,7 +532,7 @@ public class CPUFragment extends Fragment {
 					cpu1maxSeek.setProgressAndThumb(frequencies.indexOf(CPUInfo.cpu1MaxFreq()));
 				}
 				else{
-					new FrequencyChanger(CPUFragment.this.getActivity()).execute(new String[] {"cpu1","max", frequencies.get(prog)});
+					new FrequencyChanger(CPUActivity.this).execute(new String[] {"cpu1","max", frequencies.get(prog)});
 					
 				}
 				   
@@ -546,8 +543,8 @@ public class CPUFragment extends Fragment {
 		
 		}
 		if(cpu2Online==true){
-		cpu2minSeek = (VerticalSeekBar)v.findViewById(R.id.cpu2MinSeekbar);
-		cpu2maxSeek = (VerticalSeekBar)v.findViewById(R.id.cpu2MaxSeekbar);
+		cpu2minSeek = (VerticalSeekBar)findViewById(R.id.cpu2MinSeekbar);
+		cpu2maxSeek = (VerticalSeekBar)findViewById(R.id.cpu2MaxSeekbar);
 		cpu2minSeek.setMax(frequencies.size()-1);
 		cpu2maxSeek.setMax(frequencies.size()-1);
 		cpu2minSeek.setProgress(frequencies.indexOf(cpu2MinFreq));
@@ -579,7 +576,7 @@ public class CPUFragment extends Fragment {
 					cpu2minSeek.setProgressAndThumb(frequencies.indexOf(CPUInfo.cpu2MinFreq()));
 				}
 				else{
-					new FrequencyChanger(CPUFragment.this.getActivity()).execute(new String[] {"cpu2","min", frequencies.get(prog)});
+					new FrequencyChanger(CPUActivity.this).execute(new String[] {"cpu2","min", frequencies.get(prog)});
 					
 				}
 				   
@@ -613,7 +610,7 @@ public class CPUFragment extends Fragment {
 					cpu2maxSeek.setProgressAndThumb(frequencies.indexOf(CPUInfo.cpu2MaxFreq()));
 				}
 				else{
-					new FrequencyChanger(CPUFragment.this.getActivity()).execute(new String[] {"cpu2","max", frequencies.get(prog)});
+					new FrequencyChanger(CPUActivity.this).execute(new String[] {"cpu2","max", frequencies.get(prog)});
 					
 				}
 				   
@@ -623,8 +620,8 @@ public class CPUFragment extends Fragment {
 		});
 		}
 		if(cpu3Online==true){
-		cpu3minSeek = (VerticalSeekBar)v.findViewById(R.id.cpu3MinSeekbar);
-		cpu3maxSeek = (VerticalSeekBar)v.findViewById(R.id.cpu3MaxSeekbar);
+		cpu3minSeek = (VerticalSeekBar)findViewById(R.id.cpu3MinSeekbar);
+		cpu3maxSeek = (VerticalSeekBar)findViewById(R.id.cpu3MaxSeekbar);
 		cpu3minSeek.setMax(frequencies.size()-1);
 		cpu3maxSeek.setMax(frequencies.size()-1);
 		cpu3minSeek.setProgress(frequencies.indexOf(cpu3MinFreq));
@@ -656,7 +653,7 @@ public class CPUFragment extends Fragment {
 					cpu3minSeek.setProgressAndThumb(frequencies.indexOf(CPUInfo.cpu3MinFreq()));
 				}
 				else{
-					new FrequencyChanger(CPUFragment.this.getActivity()).execute(new String[] {"cpu3","min", frequencies.get(prog)});
+					new FrequencyChanger(CPUActivity.this).execute(new String[] {"cpu3","min", frequencies.get(prog)});
 					
 				}
 				   
@@ -690,7 +687,7 @@ public class CPUFragment extends Fragment {
 					cpu3maxSeek.setProgressAndThumb(frequencies.indexOf(CPUInfo.cpu3MaxFreq()));
 				}
 				else{
-					new FrequencyChanger(CPUFragment.this.getActivity()).execute(new String[] {"cpu3","max", frequencies.get(prog)});
+					new FrequencyChanger(CPUActivity.this).execute(new String[] {"cpu3","max", frequencies.get(prog)});
 				}
 				   
 				
@@ -874,7 +871,7 @@ public void updateCpu3(){
 
 public void populateGovernorSpinners(){
 	//governors for cpu0
-	ArrayAdapter<String> gov0spinnerArrayAdapter = new ArrayAdapter<String>(this.getActivity(),   android.R.layout.simple_spinner_item, CPUInfo.governors());
+	ArrayAdapter<String> gov0spinnerArrayAdapter = new ArrayAdapter<String>(this,   android.R.layout.simple_spinner_item, CPUInfo.governors());
 	System.out.println(CPUInfo.governors());
 	gov0spinnerArrayAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
 	gov0spinner.setAdapter(gov0spinnerArrayAdapter);
@@ -886,7 +883,7 @@ public void populateGovernorSpinners(){
 	gov0spinner.setOnItemSelectedListener(new OnItemSelectedListener() {
 		@Override
 	    public void onItemSelected(AdapterView<?> parent, View view, int pos, long id) {
-			new ChangeGovernor(CPUFragment.this.getActivity()).execute(new String[] {"cpu0",parent.getItemAtPosition(pos).toString()});
+			new ChangeGovernor(CPUActivity.this).execute(new String[] {"cpu0",parent.getItemAtPosition(pos).toString()});
 	    }
 
 		@Override
@@ -900,7 +897,7 @@ public void populateGovernorSpinners(){
 	
 	//govrnors for cpu1
 	if(cpu0Online==true){
-	ArrayAdapter<String> gov1spinnerArrayAdapter = new ArrayAdapter<String>(this.getActivity(),   android.R.layout.simple_spinner_item, CPUInfo.governors());
+	ArrayAdapter<String> gov1spinnerArrayAdapter = new ArrayAdapter<String>(this,   android.R.layout.simple_spinner_item, CPUInfo.governors());
 	gov1spinnerArrayAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
 	gov1spinner.setAdapter(gov1spinnerArrayAdapter);
 	
@@ -911,7 +908,7 @@ public void populateGovernorSpinners(){
 	gov1spinner.setOnItemSelectedListener(new OnItemSelectedListener() {
 		@Override
 	    public void onItemSelected(AdapterView<?> parent, View view, int pos, long id) {
-			new ChangeGovernor(CPUFragment.this.getActivity()).execute(new String[] {"cpu1",parent.getItemAtPosition(pos).toString()});
+			new ChangeGovernor(CPUActivity.this).execute(new String[] {"cpu1",parent.getItemAtPosition(pos).toString()});
 	    	
 	    }
 
@@ -926,7 +923,7 @@ public void populateGovernorSpinners(){
 	
 	//cpu2 governors
 	if(cpu2Online==true){
-	ArrayAdapter<String> gov2spinnerArrayAdapter = new ArrayAdapter<String>(this.getActivity(),   android.R.layout.simple_spinner_item, CPUInfo.governors());
+	ArrayAdapter<String> gov2spinnerArrayAdapter = new ArrayAdapter<String>(this,   android.R.layout.simple_spinner_item, CPUInfo.governors());
 	gov2spinnerArrayAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
 	gov2spinner.setAdapter(gov2spinnerArrayAdapter);
 	
@@ -937,7 +934,7 @@ public void populateGovernorSpinners(){
 	gov2spinner.setOnItemSelectedListener(new OnItemSelectedListener() {
 		@Override
 	    public void onItemSelected(AdapterView<?> parent, View view, int pos, long id) {
-			new ChangeGovernor(CPUFragment.this.getActivity()).execute(new String[] {"cpu2",parent.getItemAtPosition(pos).toString()});
+			new ChangeGovernor(CPUActivity.this).execute(new String[] {"cpu2",parent.getItemAtPosition(pos).toString()});
 	    	
 	    }
 
@@ -951,7 +948,7 @@ public void populateGovernorSpinners(){
 	}
 	if(cpu3Online==true){
 	//cpu3 governors
-	ArrayAdapter<String> gov3spinnerArrayAdapter = new ArrayAdapter<String>(this.getActivity(),   android.R.layout.simple_spinner_item, CPUInfo.governors());
+	ArrayAdapter<String> gov3spinnerArrayAdapter = new ArrayAdapter<String>(this,   android.R.layout.simple_spinner_item, CPUInfo.governors());
 	gov3spinnerArrayAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
 	gov3spinner.setAdapter(gov3spinnerArrayAdapter);
 	
@@ -962,7 +959,7 @@ public void populateGovernorSpinners(){
 	gov3spinner.setOnItemSelectedListener(new OnItemSelectedListener() {
 		@Override
 	    public void onItemSelected(AdapterView<?> parent, View view, int pos, long id) {
-			new ChangeGovernor(CPUFragment.this.getActivity()).execute(new String[] {"cpu3",parent.getItemAtPosition(pos).toString()});
+			new ChangeGovernor(CPUActivity.this).execute(new String[] {"cpu3",parent.getItemAtPosition(pos).toString()});
 			
 	    	
 	    }

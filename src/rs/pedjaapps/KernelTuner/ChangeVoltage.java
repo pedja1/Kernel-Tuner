@@ -410,7 +410,7 @@ import android.preference.PreferenceManager;
 		
 		@Override
 		protected void onPostExecute(String result){
-			VoltageFragment.notifyChanges();
+			VoltageActivity.notifyChanges();
 			VoltageAdapter.pd.dismiss();
 		}
 	}	
