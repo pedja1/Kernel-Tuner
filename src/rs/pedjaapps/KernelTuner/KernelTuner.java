@@ -85,6 +85,8 @@ public class KernelTuner extends Activity {
 	public SharedPreferences sharedPrefs;
 	String tempPref;
 	boolean tempMonitor;
+	private long mLastBackPressTime = 0;
+	Toast mToast;
 	  private BroadcastReceiver mBatInfoReceiver = new BroadcastReceiver(){
 	    @Override
 	    public void onReceive(Context arg0, Intent intent) {
@@ -1225,6 +1227,7 @@ AppWidget updateSmall = new AppWidget();
 	appWidgetManager.updateAppWidget(thisWidgetSmall, remoteViewsSmall);
 	
 	updateSmall.onUpdate(context, appWidgetManager,  appWidgetIds);
+	
        super.onDestroy();
     
 }
@@ -2316,22 +2319,7 @@ public boolean onOptionsItemSelected(MenuItem item) {
         startActivity(new Intent(this, changelog.class));
        
     }
-    /*if (item.getItemId() == R.id.update) {
-		new updateCheck().execute();
-		/*Calendar updateTime = Calendar.getInstance();
-	    updateTime.setTimeZone(TimeZone.getTimeZone("GMT"));
-	    updateTime.set(Calendar.HOUR_OF_DAY, 13);
-	    updateTime.set(Calendar.MINUTE, 00);
-	    Intent updateService = new Intent(this, AlarmReceiver.class);
-	    PendingIntent recurringDownload = PendingIntent.getBroadcast(this,
-	            0, updateService, PendingIntent.FLAG_CANCEL_CURRENT);
-	    AlarmManager alarms = (AlarmManager) getSystemService(
-	            ALARM_SERVICE);
-	    alarms.setInexactRepeating(AlarmManager.RTC_WAKEUP,
-	            updateTime.getTimeInMillis(),
-	            AlarmManager.INTERVAL_DAY, recurringDownload);
-		
-    }*/
+
 		
 	if (item.getItemId() == R.id.check) {
         startActivity(new Intent(this, check.class));
@@ -2340,6 +2328,25 @@ public boolean onOptionsItemSelected(MenuItem item) {
 	
 	
     return super.onOptionsItemSelected(item);
+}
+
+@Override
+public void onBackPressed() {
+if( mLastBackPressTime < java.lang.System.currentTimeMillis() - 4000 )
+{
+mToast = Toast.makeText( this, "Press back again to exit.", Toast.LENGTH_SHORT );
+mToast.show();
+mLastBackPressTime = java.lang.System.currentTimeMillis();
+}
+else
+{
+if( mToast != null )
+mToast.cancel();
+KernelTuner.this.finish();
+
+
+mLastBackPressTime = 0;
+}
 }
 
 
