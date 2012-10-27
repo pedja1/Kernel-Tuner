@@ -1,26 +1,17 @@
 package rs.pedjaapps.KernelTuner;
 
-import java.io.File;
-import java.io.FileInputStream;
-import java.io.IOException;
+import android.app.*;
+import android.content.*;
+import android.graphics.*;
+import android.os.*;
+import android.view.*;
+import android.view.View.*;
+import android.widget.*;
+import java.io.*;
+import rs.pedjaapps.KernelTuner.*;
 
-import rs.pedjaapps.KernelTuner.R;
-
-import android.app.Activity;
-import android.content.SharedPreferences;
-import android.graphics.Color;
-import android.os.AsyncTask;
-import android.os.Bundle;
-import android.os.SystemClock;
-import android.util.Log;
-import android.view.View;
-import android.view.View.OnClickListener;
-import android.widget.Button;
-import android.widget.LinearLayout;
-import android.widget.ProgressBar;
-import android.widget.TextView;
-
-public class check extends Activity {
+public class check extends Activity
+{
 
 	public String out = "sad";
 	private Object data = null;
@@ -42,14 +33,16 @@ public class check extends Activity {
 	public boolean s2w;
 	public boolean sdc;
 	public boolean sh;
-	
+
 	SharedPreferences sharedPrefs;
 
-	private class exec extends AsyncTask<Void, Integer, Void> {
+	private class exec extends AsyncTask<Void, Integer, Void>
+	{
 
-		
+
 		@Override
-		protected Void doInBackground(Void... args) {
+		protected Void doInBackground(Void... args)
+		{
 			//Log.i("MyApp", "Background thread starting");
 			// Random randomGenerator = new Random();
 
@@ -58,138 +51,166 @@ public class check extends Activity {
 
 			//int progress = 0;
 			//SystemClock.sleep(rand);
-			try {
+			try
+			{
 
 				File myFile = new File(
-						"/sys/devices/system/cpu/cpu0/cpufreq/scaling_available_frequencies");
+					"/sys/devices/system/cpu/cpu0/cpufreq/scaling_available_frequencies");
 				FileInputStream fIn = new FileInputStream(myFile);
 
 				count = count + 1;
 				saf = true;
-			} catch (IOException e) {
+			}
+			catch (IOException e)
+			{
 				saf = false;
 			}
 
 			publishProgress(3);
 			//rand = 100 + (int) (Math.random() * ((1000 - 100) + 1));
 			//SystemClock.sleep(rand);
-			try {
+			try
+			{
 
 				File myFile = new File(
-						"/sys/devices/system/cpu/cpufreq/vdd_table/vdd_levels");
+					"/sys/devices/system/cpu/cpufreq/vdd_table/vdd_levels");
 				FileInputStream fIn = new FileInputStream(myFile);
 
 				count = count + 1;
 				uv = true;
-			} catch (IOException e) {
+			}
+			catch (IOException e)
+			{
 				uv = false;
 			}
 			publishProgress(4);
 			//rand = 100 + (int) (Math.random() * ((1000 - 100) + 1));
 			//SystemClock.sleep(rand);
-			try {
+			try
+			{
 
 				File myFile = new File(
-						"/sys/devices/system/cpu/cpu0/cpufreq/stats/time_in_state");
+					"/sys/devices/system/cpu/cpu0/cpufreq/stats/time_in_state");
 				FileInputStream fIn = new FileInputStream(myFile);
 
 				count = count + 1;
 				tis = true;
-			} catch (IOException e) {
+			}
+			catch (IOException e)
+			{
 				tis = false;
 			}
 			publishProgress(5);
 			//rand = 100 + (int) (Math.random() * ((1000 - 100) + 1));
 			//SystemClock.sleep(rand);
-			try {
+			try
+			{
 
 				File myFile = new File(
-						"/sys/kernel/notification_leds/off_timer_multiplier");
+					"/sys/kernel/notification_leds/off_timer_multiplier");
 				FileInputStream fIn = new FileInputStream(myFile);
 
 				count = count + 1;
 				lt = true;
-			} catch (IOException e) {
+			}
+			catch (IOException e)
+			{
 				lt = false;
 			}
 			publishProgress(6);
 			//rand = 100 + (int) (Math.random() * ((1000 - 100) + 1));
 			//SystemClock.sleep(rand);
-			try {
+			try
+			{
 
 				File myFile = new File(
-						"/sys/devices/platform/leds-pm8058/leds/button-backlight/currents");
+					"/sys/devices/platform/leds-pm8058/leds/button-backlight/currents");
 				FileInputStream fIn = new FileInputStream(myFile);
 
 				count = count + 1;
 				bl = true;
-			} catch (IOException e) {
+			}
+			catch (IOException e)
+			{
 				bl = false;
 			}
 			publishProgress(7);
 			//rand = 100 + (int) (Math.random() * ((1000 - 100) + 1));
 			//SystemClock.sleep(rand);
-			try {
+			try
+			{
 
 				File myFile = new File(
-						"/sys/devices/platform/kgsl-3d0.0/kgsl/kgsl-3d0/gpuclk");
+					"/sys/devices/platform/kgsl-3d0.0/kgsl/kgsl-3d0/gpuclk");
 				FileInputStream fIn = new FileInputStream(myFile);
 
 				count = count + 1;
 				g3d = true;
 
-			} catch (IOException e) {
+			}
+			catch (IOException e)
+			{
 
 				g3d = false;
 			}
 			publishProgress(8);
 			//rand = 100 + (int) (Math.random() * ((1000 - 100) + 1));
 			//SystemClock.sleep(rand);
-			try {
+			try
+			{
 
 				File myFile = new File(
-						"/sys/devices/platform/kgsl-2d0.0/kgsl/kgsl-2d0/gpuclk");
+					"/sys/devices/platform/kgsl-2d0.0/kgsl/kgsl-2d0/gpuclk");
 				FileInputStream fIn = new FileInputStream(myFile);
 
 				count = count + 1;
 				g2d = true;
-			} catch (IOException e) {
+			}
+			catch (IOException e)
+			{
 				g2d = false;
 			}
 			publishProgress(9);
 			//rand = 100 + (int) (Math.random() * ((1000 - 100) + 1));
 			//SystemClock.sleep(rand);
-			try {
+			try
+			{
 
 				File myFile = new File(
-						"/sys/kernel/fast_charge/force_fast_charge");
+					"/sys/kernel/fast_charge/force_fast_charge");
 				FileInputStream fIn = new FileInputStream(myFile);
 
 				count = count + 1;
 				fc = true;
 
-			} catch (IOException e) {
+			}
+			catch (IOException e)
+			{
 				fc = false;
 			}
 			publishProgress(10);
 			//rand = 100 + (int) (Math.random() * ((1000 - 100) + 1));
 			//SystemClock.sleep(rand);
-			try {
+			try
+			{
 
 				File myFile = new File(
-						"/sys/kernel/debug/msm_fb/0/vsync_enable");
+					"/sys/kernel/debug/msm_fb/0/vsync_enable");
 				FileInputStream fIn = new FileInputStream(myFile);
 
 				count = count + 1;
 				vs = true;
-			} catch (IOException e) {
+			}
+			catch (IOException e)
+			{
 				vs = false;
 			}
 			publishProgress(11);
 			//rand = 100 + (int) (Math.random() * ((1000 - 100) + 1));
 			//SystemClock.sleep(rand);
 
-			try {
+			try
+			{
 
 				File myFile = new File("/sys/kernel/debug/msm_fb/0/bpp");
 				FileInputStream fIn = new FileInputStream(myFile);
@@ -197,78 +218,95 @@ public class check extends Activity {
 				count = count + 1;
 				cd = true;
 
-			} catch (IOException e) {
+			}
+			catch (IOException e)
+			{
 				cd = false;
 
 			}
 			publishProgress(12);
 			//rand = 100 + (int) (Math.random() * ((1000 - 100) + 1));
 			//SystemClock.sleep(rand);
-			try {
+			try
+			{
 
 				File myFile = new File(
-						"/sys/kernel/dyn_fsync/Dyn_fsync_version");
+					"/sys/kernel/dyn_fsync/Dyn_fsync_version");
 				FileInputStream fIn = new FileInputStream(myFile);
 				count = count + 1;
 				fs = true;
-			} catch (IOException e) {
+			}
+			catch (IOException e)
+			{
 				fs = false;
 			}
 			publishProgress(13);
 			//rand = 100 + (int) (Math.random() * ((1000 - 100) + 1));
 			//SystemClock.sleep(rand);
-			try {
+			try
+			{
 
 				File myFile = new File("/sys/android_touch/sweep2wake");
 				FileInputStream fIn = new FileInputStream(myFile);
 
 				count = count + 1;
 				s2w = true;
-			} catch (IOException e) {
+			}
+			catch (IOException e)
+			{
 				s2w = false;
 			}
 			publishProgress(14);
 			//rand = 100 + (int) (Math.random() * ((1000 - 100) + 1));
 			//SystemClock.sleep(rand);
-			try {
+			try
+			{
 
 				File myFile = new File(
-						"/sys/kernel/msm_thermal/conf/allowed_low_freq");
+					"/sys/kernel/msm_thermal/conf/allowed_low_freq");
 				FileInputStream fIn = new FileInputStream(myFile);
 
 				count = count + 1;
 				td = true;
-			} catch (IOException e) {
+			}
+			catch (IOException e)
+			{
 
 				td = false;
 			}
 			publishProgress(15);
 			//rand = 100 + (int) (Math.random() * ((1000 - 100) + 1));
 			//SystemClock.sleep(rand);
-			try {
+			try
+			{
 
 				File myFile = new File(
-						"/sys/kernel/msm_mpdecision/conf/enabled");
+					"/sys/kernel/msm_mpdecision/conf/enabled");
 				FileInputStream fIn = new FileInputStream(myFile);
 
 				count = count + 1;
 				mp = true;
-			} catch (IOException e) {
+			}
+			catch (IOException e)
+			{
 				mp = false;
 
 			}
 			publishProgress(16);
 			//rand = 100 + (int) (Math.random() * ((1000 - 100) + 1));
 			///SystemClock.sleep(rand);
-			try {
+			try
+			{
 
 				File myFile = new File(
-						"/sys/devices/virtual/bdi/179:0/read_ahead_kb");
+					"/sys/devices/virtual/bdi/179:0/read_ahead_kb");
 				FileInputStream fIn = new FileInputStream(myFile);
 				count = count + 1;
 				sdc = true;
 
-			} catch (Exception e) {
+			}
+			catch (Exception e)
+			{
 
 				sdc = false;
 			}
@@ -276,14 +314,17 @@ public class check extends Activity {
 			//rand = 100 + (int) (Math.random() * ((1000 - 100) + 1));
 			//SystemClock.sleep(rand);
 
-			try {
+			try
+			{
 
 				File myFile = new File("/sys/block/mmcblk0/queue/scheduler");
 				FileInputStream fIn = new FileInputStream(myFile);
 				count = count + 1;
 				sh = true;
 
-			} catch (Exception e) {
+			}
+			catch (Exception e)
+			{
 				sh = false;
 			}
 
@@ -295,7 +336,8 @@ public class check extends Activity {
 		}
 
 		@Override
-		protected void onProgressUpdate(Integer... values) {
+		protected void onProgressUpdate(Integer... values)
+		{
 
 			super.onProgressUpdate();
 			final TextView output = (TextView) findViewById(R.id.textView1);
@@ -333,163 +375,227 @@ public class check extends Activity {
 			TextView shtv = (TextView) findViewById(R.id.textView32);
 
 			// output.setText(output.getText()+String.valueOf(values[0]));
-			if (values[0] == 3) {
+			if (values[0] == 3)
+			{
 				ll1.setVisibility(View.VISIBLE);
-				if (saf == true) {
+				if (saf == true)
+				{
 					saftv.setText("[OK]");
 					saftv.setTextColor(Color.GREEN);
-				} else {
+				}
+				else
+				{
 					saftv.setText("[Not Found]");
 					saftv.setTextColor(Color.RED);
 				}
 			}
-			if (values[0] == 4) {
+			if (values[0] == 4)
+			{
 				ll2.setVisibility(View.VISIBLE);
-				if (uv == true) {
+				if (uv == true)
+				{
 					uvtv.setText("[OK]");
 					uvtv.setTextColor(Color.GREEN);
-				} else {
+				}
+				else
+				{
 					uvtv.setText("[Not Found]");
 					uvtv.setTextColor(Color.RED);
 				}
 			}
-			if (values[0] == 5) {
+			if (values[0] == 5)
+			{
 				ll3.setVisibility(View.VISIBLE);
-				if (tis == true) {
+				if (tis == true)
+				{
 					tistv.setText("[OK]");
 					tistv.setTextColor(Color.GREEN);
-				} else {
+				}
+				else
+				{
 					tistv.setText("[Not Found]");
 					tistv.setTextColor(Color.RED);
 				}
 			}
-			if (values[0] == 6) {
+			if (values[0] == 6)
+			{
 				ll4.setVisibility(View.VISIBLE);
-				if (lt == true) {
+				if (lt == true)
+				{
 					lttv.setText("[OK]");
 					lttv.setTextColor(Color.GREEN);
-				} else {
+				}
+				else
+				{
 					lttv.setText("[Not Found]");
 					lttv.setTextColor(Color.RED);
 				}
 			}
-			if (values[0] == 7) {
+			if (values[0] == 7)
+			{
 				ll5.setVisibility(View.VISIBLE);
-				if (bl == true) {
+				if (bl == true)
+				{
 					bltv.setText("[OK]");
 					bltv.setTextColor(Color.GREEN);
-				} else {
+				}
+				else
+				{
 					bltv.setText("[Not Found]");
 					bltv.setTextColor(Color.RED);
 				}
 			}
-			if (values[0] == 8) {
+			if (values[0] == 8)
+			{
 				ll6.setVisibility(View.VISIBLE);
-				if (g3d == true) {
+				if (g3d == true)
+				{
 					g3dtv.setText("[OK]");
 					g3dtv.setTextColor(Color.GREEN);
-				} else {
+				}
+				else
+				{
 					g3dtv.setText("[Not Found]");
 					g3dtv.setTextColor(Color.RED);
 				}
 			}
-			if (values[0] == 9) {
+			if (values[0] == 9)
+			{
 				ll7.setVisibility(View.VISIBLE);
-				if (g2d == true) {
+				if (g2d == true)
+				{
 					g2dtv.setText("[OK]");
 					g2dtv.setTextColor(Color.GREEN);
-				} else {
+				}
+				else
+				{
 					g2dtv.setText("[Not Found]");
 					g2dtv.setTextColor(Color.RED);
 				}
 			}
-			if (values[0] == 10) {
+			if (values[0] == 10)
+			{
 				ll8.setVisibility(View.VISIBLE);
-				if (fc == true) {
+				if (fc == true)
+				{
 					fctv.setText("[OK]");
 					fctv.setTextColor(Color.GREEN);
-				} else {
+				}
+				else
+				{
 					fctv.setText("[Not Found]");
 					fctv.setTextColor(Color.RED);
 				}
 			}
-			if (values[0] == 11) {
+			if (values[0] == 11)
+			{
 				ll9.setVisibility(View.VISIBLE);
-				if (vs == true) {
+				if (vs == true)
+				{
 					vstv.setText("[OK]");
 					vstv.setTextColor(Color.GREEN);
-				} else {
+				}
+				else
+				{
 					vstv.setText("[Not Found]");
 					vstv.setTextColor(Color.RED);
 				}
 			}
-			if (values[0] == 12) {
+			if (values[0] == 12)
+			{
 				ll10.setVisibility(View.VISIBLE);
-				if (cd == true) {
+				if (cd == true)
+				{
 					cdtv.setText("[OK]");
 					cdtv.setTextColor(Color.GREEN);
-				} else {
+				}
+				else
+				{
 					cdtv.setText("[Not Found]");
 					cdtv.setTextColor(Color.RED);
 				}
 			}
-			if (values[0] == 13) {
+			if (values[0] == 13)
+			{
 				ll11.setVisibility(View.VISIBLE);
-				if (fs == true) {
+				if (fs == true)
+				{
 					fstv.setText("[OK]");
 					fstv.setTextColor(Color.GREEN);
-				} else {
+				}
+				else
+				{
 					fstv.setText("[Not Found]");
 					fstv.setTextColor(Color.RED);
 				}
 			}
-			if (values[0] == 14) {
+			if (values[0] == 14)
+			{
 				ll12.setVisibility(View.VISIBLE);
-				if (s2w == true) {
+				if (s2w == true)
+				{
 					s2wtv.setText("[OK]");
 					s2wtv.setTextColor(Color.GREEN);
-				} else {
+				}
+				else
+				{
 					s2wtv.setText("[Not Found]");
 					s2wtv.setTextColor(Color.RED);
 				}
 			}
-			if (values[0] == 15) {
+			if (values[0] == 15)
+			{
 				ll13.setVisibility(View.VISIBLE);
-				if (td == true) {
+				if (td == true)
+				{
 					tdtv.setText("[OK]");
 					tdtv.setTextColor(Color.GREEN);
-				} else {
+				}
+				else
+				{
 					tdtv.setText("[Not Found]");
 					tdtv.setTextColor(Color.RED);
 				}
 			}
-			if (values[0] == 16) {
+			if (values[0] == 16)
+			{
 				ll14.setVisibility(View.VISIBLE);
-				if (mp == true) {
+				if (mp == true)
+				{
 					mptv.setText("[OK]");
 					mptv.setTextColor(Color.GREEN);
-				} else {
+				}
+				else
+				{
 					mptv.setText("[Not Found]");
 					mptv.setTextColor(Color.RED);
 				}
 			}
 
-			if (values[0] == 17) {
+			if (values[0] == 17)
+			{
 				ll15.setVisibility(View.VISIBLE);
-				if (sdc == true) {
+				if (sdc == true)
+				{
 					sdctv.setText("[OK]");
 					sdctv.setTextColor(Color.GREEN);
-				} else {
+				}
+				else
+				{
 					sdctv.setText("[Not Found]");
 					sdctv.setTextColor(Color.RED);
 				}
 			}
-			if (values[0] == 18) {
+			if (values[0] == 18)
+			{
 				ll16.setVisibility(View.VISIBLE);
-				if (sh == true) {
+				if (sh == true)
+				{
 					shtv.setText("[OK]");
 					shtv.setTextColor(Color.GREEN);
-				} else {
+				}
+				else
+				{
 					shtv.setText("[Not Found]");
 					shtv.setTextColor(Color.RED);
 				}
@@ -498,20 +604,30 @@ public class check extends Activity {
 		}
 
 		@Override
-		protected void onPostExecute(Void result) {
+		protected void onPostExecute(Void result)
+		{
 			// Pass the result data back to the main activity
 			TextView res = (TextView) findViewById(R.id.textView34);
 			int cn = count * 100 / 16;
 			res.setText(String.valueOf(cn) + "%");
-			if (cn < 30) {
+			if (cn < 30)
+			{
 				res.setTextColor(Color.RED);
-			} else if (cn > 30 && cn < 50) {
+			}
+			else if (cn > 30 && cn < 50)
+			{
 				res.setTextColor(Color.MAGENTA);
-			} else if (cn > 50 && cn < 70) {
+			}
+			else if (cn > 50 && cn < 70)
+			{
 				res.setTextColor(Color.YELLOW);
-			} else if (cn > 70 && cn < 90) {
+			}
+			else if (cn > 70 && cn < 90)
+			{
 				res.setTextColor(Color.BLUE);
-			} else if (cn > 90) {
+			}
+			else if (cn > 90)
+			{
 				res.setTextColor(Color.GREEN);
 			}
 			ProgressBar pb = (ProgressBar) findViewById(R.id.progressBar1);
@@ -528,9 +644,10 @@ public class check extends Activity {
 	}
 
 	@Override
-	public void onCreate(Bundle savedInstanceState) {
+	public void onCreate(Bundle savedInstanceState)
+	{
 		super.onCreate(savedInstanceState);
-		
+
 		setContentView(R.layout.check);
 		//final EditText prompt = (EditText) findViewById(R.id.editText1);
 		//final TextView output = (TextView) findViewById(R.id.textView1);
@@ -538,13 +655,14 @@ public class check extends Activity {
 		Button ok = (Button) findViewById(R.id.button1);
 		ok.setOnClickListener(new OnClickListener() {
 
-			@Override
-			public void onClick(View arg0) {
-				// TODO Auto-generated method stub
-				finish();
+				@Override
+				public void onClick(View arg0)
+				{
+					// TODO Auto-generated method stub
+					finish();
 
-			}
-		});
+				}
+			});
 
 	}
 }

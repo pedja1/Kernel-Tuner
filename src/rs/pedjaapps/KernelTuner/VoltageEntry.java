@@ -1,26 +1,30 @@
 package rs.pedjaapps.KernelTuner;
 
-public final class VoltageEntry {
+public final class VoltageEntry
+{
 
-	
+
 	private final int voltage;
 	private final String freq;
-	
-	
 
-	public VoltageEntry(final String freq, final int voltage) {
-	this.voltage = voltage;
-	this.freq = freq;
-	
+
+
+	public VoltageEntry(final String freq, final int voltage)
+	{
+		this.voltage = voltage;
+		this.freq = freq;
+
 	}
 
-	
-	public int getVoltage() {
-	return voltage;
+
+	public int getVoltage()
+	{
+		return voltage;
 	}
-	
-	public String getFreq() {
+
+	public String getFreq()
+	{
 		return freq;
-		}
-
 	}
+
+}
