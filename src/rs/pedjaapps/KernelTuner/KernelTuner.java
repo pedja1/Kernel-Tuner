@@ -847,8 +847,10 @@ private class enableTempMonitor extends AsyncTask<String, Void, Object> {
 			DataOutputStream localDataOutputStream = new DataOutputStream(localProcess.getOutputStream());
 			localDataOutputStream.writeBytes("chmod 777 /sys/devices/virtual/thermal/thermal_zone1/mode\n");
 			System.out.println("enabling cpu temp");
-			localDataOutputStream.writeBytes("echo enabled > /sys/devices/virtual/thermal/thermal_zone1/mode\n");
-			 localDataOutputStream.writeBytes("exit\n");
+			localDataOutputStream.writeBytes("echo -n enabled > /sys/devices/virtual/thermal/thermal_zone1/mode\n");
+			localDataOutputStream.writeBytes("echo -n enabled > /sys/devices/virtual/thermal/thermal_zone0/mode\n");
+			
+			localDataOutputStream.writeBytes("exit\n");
 		     localDataOutputStream.flush();
 		     localDataOutputStream.close();
 		     localProcess.waitFor();
