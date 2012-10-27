@@ -175,14 +175,7 @@
                     android:layout_weight="1"
                     android:orientation="vertical" >
 
-                    <android.widget.VerticalSeekBar
-                        android:id="@+id/cpu0MinSeekbar"
-                        android:layout_width="wrap_content"
-                        android:layout_height="0dp"
-                        android:layout_gravity="center"
-                        android:layout_weight="1" />
-
-                    <TextView
+                     <TextView
                         android:id="@+id/textView5"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
@@ -195,6 +188,15 @@
                         android:layout_height="wrap_content"
                         android:layout_gravity="center"
                         android:text="n/a" />
+                    
+                    <android.widget.VerticalSeekBar
+                        android:id="@+id/cpu0MinSeekbar"
+                        android:layout_width="wrap_content"
+                        android:layout_height="0dp"
+                        android:layout_gravity="center"
+                        android:layout_weight="1" />
+
+                   
                 </LinearLayout>
 
                 <LinearLayout
@@ -202,13 +204,6 @@
                     android:layout_height="match_parent"
                     android:layout_weight="1"
                     android:orientation="vertical" >
-
-                    <android.widget.VerticalSeekBar
-                        android:id="@+id/cpu0MaxSeekbar"
-                        android:layout_width="wrap_content"
-                        android:layout_height="0dp"
-                        android:layout_gravity="center"
-                        android:layout_weight="1" />
 
                     <TextView
                         android:id="@+id/textView7"
@@ -223,6 +218,15 @@
                         android:layout_height="wrap_content"
                         android:layout_gravity="center"
                         android:text="n/a" />
+                    
+                    <android.widget.VerticalSeekBar
+                        android:id="@+id/cpu0MaxSeekbar"
+                        android:layout_width="wrap_content"
+                        android:layout_height="0dp"
+                        android:layout_gravity="center"
+                        android:layout_weight="1" />
+
+                    
                 </LinearLayout>
             </LinearLayout>
         </RelativeLayout>
@@ -252,13 +256,6 @@
                     android:layout_weight="1"
                     android:orientation="vertical" >
 
-                    <android.widget.VerticalSeekBar
-                        android:id="@+id/cpu1MinSeekbar"
-                        android:layout_width="wrap_content"
-                        android:layout_height="0dp"
-                        android:layout_gravity="center"
-                        android:layout_weight="1" />
-
                     <TextView
                         android:id="@+id/textView10"
                         android:layout_width="wrap_content"
@@ -272,6 +269,15 @@
                         android:layout_height="wrap_content"
                         android:layout_gravity="center"
                         android:text="n/a" />
+                    
+                    <android.widget.VerticalSeekBar
+                        android:id="@+id/cpu1MinSeekbar"
+                        android:layout_width="wrap_content"
+                        android:layout_height="0dp"
+                        android:layout_gravity="center"
+                        android:layout_weight="1" />
+
+                    
                 </LinearLayout>
 
                 <LinearLayout
@@ -279,13 +285,6 @@
                     android:layout_height="match_parent"
                     android:layout_weight="1"
                     android:orientation="vertical" >
-
-                    <android.widget.VerticalSeekBar
-                        android:id="@+id/cpu1MaxSeekbar"
-                        android:layout_width="wrap_content"
-                        android:layout_height="0dp"
-                        android:layout_gravity="center"
-                        android:layout_weight="1" />
 
                     <TextView
                         android:id="@+id/textView12"
@@ -300,6 +299,15 @@
                         android:layout_height="wrap_content"
                         android:layout_gravity="center"
                         android:text="n/a" />
+                    
+                    <android.widget.VerticalSeekBar
+                        android:id="@+id/cpu1MaxSeekbar"
+                        android:layout_width="wrap_content"
+                        android:layout_height="0dp"
+                        android:layout_gravity="center"
+                        android:layout_weight="1" />
+
+                    
                 </LinearLayout>
             </LinearLayout>
         </RelativeLayout>
@@ -329,14 +337,7 @@
                     android:layout_weight="1"
                     android:orientation="vertical" >
 
-                    <android.widget.VerticalSeekBar
-                        android:id="@+id/cpu2MinSeekbar"
-                        android:layout_width="wrap_content"
-                        android:layout_height="0dp"
-                        android:layout_gravity="center"
-                        android:layout_weight="1" />
-
-                    <TextView
+                     <TextView
                         android:id="@+id/textView15"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
@@ -349,6 +350,15 @@
                         android:layout_height="wrap_content"
                         android:layout_gravity="center"
                         android:text="n/a" />
+                    
+                    <android.widget.VerticalSeekBar
+                        android:id="@+id/cpu2MinSeekbar"
+                        android:layout_width="wrap_content"
+                        android:layout_height="0dp"
+                        android:layout_gravity="center"
+                        android:layout_weight="1" />
+
+                   
                 </LinearLayout>
 
                 <LinearLayout
@@ -356,13 +366,6 @@
                     android:layout_height="match_parent"
                     android:layout_weight="1"
                     android:orientation="vertical" >
-
-                    <android.widget.VerticalSeekBar
-                        android:id="@+id/cpu2MaxSeekbar"
-                        android:layout_width="wrap_content"
-                        android:layout_height="0dp"
-                        android:layout_gravity="center"
-                        android:layout_weight="1" />
 
                     <TextView
                         android:id="@+id/textView17"
@@ -377,6 +380,15 @@
                         android:layout_height="wrap_content"
                         android:layout_gravity="center"
                         android:text="n/a" />
+                    
+                    <android.widget.VerticalSeekBar
+                        android:id="@+id/cpu2MaxSeekbar"
+                        android:layout_width="wrap_content"
+                        android:layout_height="0dp"
+                        android:layout_gravity="center"
+                        android:layout_weight="1" />
+
+                    
                 </LinearLayout>
             </LinearLayout>
         </RelativeLayout>
@@ -406,13 +418,6 @@
                     android:layout_weight="1"
                     android:orientation="vertical" >
 
-                    <android.widget.VerticalSeekBar
-                        android:id="@+id/cpu3MinSeekbar"
-                        android:layout_width="wrap_content"
-                        android:layout_height="0dp"
-                        android:layout_gravity="center"
-                        android:layout_weight="1" />
-
                     <TextView
                         android:id="@+id/textView20"
                         android:layout_width="wrap_content"
@@ -426,6 +431,15 @@
                         android:layout_height="wrap_content"
                         android:layout_gravity="center"
                         android:text="n/a" />
+                    
+                    <android.widget.VerticalSeekBar
+                        android:id="@+id/cpu3MinSeekbar"
+                        android:layout_width="wrap_content"
+                        android:layout_height="0dp"
+                        android:layout_gravity="center"
+                        android:layout_weight="1" />
+
+                    
                 </LinearLayout>
 
                 <LinearLayout
@@ -433,13 +447,6 @@
                     android:layout_height="match_parent"
                     android:layout_weight="1"
                     android:orientation="vertical" >
-
-                    <android.widget.VerticalSeekBar
-                        android:id="@+id/cpu3MaxSeekbar"
-                        android:layout_width="wrap_content"
-                        android:layout_height="0dp"
-                        android:layout_gravity="center"
-                        android:layout_weight="1" />
 
                     <TextView
                         android:id="@+id/textView22"
@@ -454,6 +461,15 @@
                         android:layout_height="wrap_content"
                         android:layout_gravity="center"
                         android:text="n/a" />
+                    
+                    <android.widget.VerticalSeekBar
+                        android:id="@+id/cpu3MaxSeekbar"
+                        android:layout_width="wrap_content"
+                        android:layout_height="0dp"
+                        android:layout_gravity="center"
+                        android:layout_weight="1" />
+
+                    
                 </LinearLayout>
             </LinearLayout>
         </RelativeLayout>
