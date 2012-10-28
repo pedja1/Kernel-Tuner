@@ -1,21 +1,25 @@
 package rs.pedjaapps.KernelTuner;
 
-import java.io.DataOutputStream;
-import java.io.IOException;
+import android.os.*;
+import java.io.*;
 
-import android.os.AsyncTask;
+import java.lang.Process;
 
-public class Initd extends AsyncTask<String, Void, String> {
-	
-	
+public class Initd extends AsyncTask<String, Void, String>
+{
+
+
 	@Override
-	protected String doInBackground(String... args) {
-      
-		
+	protected String doInBackground(String... args)
+	{
+
+
 		Process localProcess;
-		
-		if(args[0].equals("apply")){
-			try {
+
+		if (args[0].equals("apply"))
+		{
+			try
+			{
 				localProcess = Runtime.getRuntime().exec("su");
 
 				DataOutputStream localDataOutputStream = new DataOutputStream(localProcess.getOutputStream());
@@ -28,20 +32,26 @@ public class Initd extends AsyncTask<String, Void, String> {
 				localDataOutputStream.writeBytes("chmod 777 /system/etc/init.d/99ktmisctweaks\n");
 				localDataOutputStream.writeBytes("cp /data/data/rs.pedjaapps.KernelTuner/files/99ktvoltage /system/etc/init.d\n");
 				localDataOutputStream.writeBytes("chmod 777 /system/etc/init.d/99ktvoltage\n");
-					
+
 				localDataOutputStream.writeBytes("exit\n");
 				localDataOutputStream.flush();
 				localDataOutputStream.close();
 				localProcess.waitFor();
 				localProcess.destroy();
-			} catch (IOException e) {
+			}
+			catch (IOException e)
+			{
 				e.printStackTrace();
-			} catch (InterruptedException e) {
+			}
+			catch (InterruptedException e)
+			{
 				e.printStackTrace();
 			}
 		}
-		else if(args[0].equals("rm")){
-			try {
+		else if (args[0].equals("rm"))
+		{
+			try
+			{
 				localProcess = Runtime.getRuntime().exec("su");
 
 				DataOutputStream localDataOutputStream = new DataOutputStream(localProcess.getOutputStream());
@@ -55,15 +65,19 @@ public class Initd extends AsyncTask<String, Void, String> {
 				localDataOutputStream.close();
 				localProcess.waitFor();
 				localProcess.destroy();
-			} catch (IOException e) {
+			}
+			catch (IOException e)
+			{
 				e.printStackTrace();
-			} catch (InterruptedException e) {
+			}
+			catch (InterruptedException e)
+			{
 				e.printStackTrace();
 			}
 		}
-         return "";
-     }
-
+		return "";
 	}
+
+}
 
 
