@@ -29,7 +29,7 @@ public class StartupService extends Service
 
 
 		sharedPrefs = PreferenceManager.getDefaultSharedPreferences(this);
-		String applyonboot = sharedPrefs.getString("boot2", "");
+		String applyonboot = sharedPrefs.getString("boot", "");
 		if (applyonboot.equals("boot"))
 		{
 			apply();
