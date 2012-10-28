@@ -2328,6 +2328,39 @@ public boolean onOptionsItemSelected(MenuItem item) {
         
     }	
 	
+	if (item.getItemId() == R.id.log) {
+       
+		AlertDialog.Builder builder = new AlertDialog.Builder(
+                KernelTuner.this);
+
+builder.setTitle("Create Log file");
+
+builder.setMessage("This will dump all system information needed for this application to work in a file on your sdcard\n" +
+		"No private data will be collected\n" +
+		"Do you want to cotinue?");
+
+builder.setIcon(R.drawable.ic_menu_paste_holo_light);
+
+builder.setPositiveButton("Proceed", new DialogInterface.OnClickListener() {
+        @Override
+		public void onClick(DialogInterface dialog, int which) {
+   
+        
+        }
+});
+builder.setNegativeButton("Cancel", new DialogInterface.OnClickListener() {
+    @Override
+	public void onClick(DialogInterface dialog, int which) {
+  
+    }
+});
+
+AlertDialog alert = builder.create();
+		
+		alert.show();
+        
+    }
+	
 	
     return super.onOptionsItemSelected(item);
 }

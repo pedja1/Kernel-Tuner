@@ -19,5 +19,10 @@
         android:showAsAction="ifRoom|withText"
         android:title="Compatibility Check"/>
     
+    <item
+        android:id="@+id/log"
+        android:icon="@drawable/ic_menu_paste_holo_light"
+        android:showAsAction="ifRoom|withText"
+        android:title="Create Log File"/>
     
 </menu>
