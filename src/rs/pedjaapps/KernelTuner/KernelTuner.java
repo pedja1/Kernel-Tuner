@@ -2655,7 +2655,7 @@ public class KernelTuner extends Activity
 		}	
 	
 		if (item.getItemId() == R.id.log) {
-       
+      
 		AlertDialog.Builder builder = new AlertDialog.Builder(
                 KernelTuner.this);
 
@@ -2673,7 +2673,7 @@ tv2.setText(R.string.system_dump_text2);
 tv2.setTextColor(Color.RED);
 
 
-builder.setIcon(R.drawable.ic_menu_paste_holo_light);
+builder.setIcon(R.drawable.ic_menu_paste_holo_dark);
 
 builder.setPositiveButton("Proceed", new DialogInterface.OnClickListener() {
         @Override
@@ -2684,6 +2684,7 @@ builder.setPositiveButton("Proceed", new DialogInterface.OnClickListener() {
    builder.append(CPUInfo.voltDebug());
    builder.append(CPUInfo.tisDebug());
    builder.append(CPUInfo.frequenciesDebug());
+   builder.append(CPUInfo.logcat());
    
    
    try

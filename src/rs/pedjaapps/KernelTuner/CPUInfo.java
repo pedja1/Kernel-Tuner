@@ -3,6 +3,7 @@ package rs.pedjaapps.KernelTuner;
 import android.os.*;
 import java.io.*;
 import java.util.*;
+import java.lang.Process;
 
 public class CPUInfo
 {
@@ -1856,5 +1857,23 @@ public class CPUInfo
 		freq = builder.toString();
 	return freq;
 		}
+	
+	public static String logcat(){
+		String logcat = "";
+		try{
+		 Process process = Runtime.getRuntime().exec("logcat -d rs.pedjaapps.KernelTuner:V *:S");
+	      BufferedReader bufferedReader = new BufferedReader(
+	      new InputStreamReader(process.getInputStream()));
+	                       
+	      StringBuilder log=new StringBuilder();
+	      String line;
+	      while ((line = bufferedReader.readLine()) != null) {
+	        log.append(line);
+	      }
+	      logcat = log.toString();
+	    } catch (IOException e) {
+	    }
+		return logcat;
+	}
 	
 }
