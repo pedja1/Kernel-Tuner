@@ -1420,6 +1420,441 @@ public class CPUInfo
 
 				}
 			}}
-		return govSettings;}
+		return govSettings;
+		}
 
+	public static String voltDebug(){
+		String voltage = "";
+		String div = "####################";
+		List<String> paths = new ArrayList<String>();
+		/*0*/paths.add("/sys/devices/system/cpu/cpufreq/frequency_voltage_table");
+		/*1*/paths.add("/sys/devices/system/cpu/cpu0/cpufreq/frequency_voltage_table");
+		/*2*/paths.add("/sys/devices/system/cpu/cpu0/cpufreq/FakeShmoo_freq_voltage_table");
+		/*3*/paths.add("/sys/devices/system/cpu/cpu0/cpufreq/vdd_levels_havs");
+		/*4*/paths.add("/sys/devices/system/cpu/cpu0/cpufreq/UV_mV_table");
+		/*5*/paths.add("/sys/devices/system/cpu/cpufreq/vdd_table/vdd_levels");
+		/*6*/paths.add("/sys/devices/system/cpu/cpu0/cpufreq/vdd_levels");
+		/*7*/paths.add("/sys/class/misc/customvoltage/UV_mV_table");
+		/*8*/paths.add("/sys/class/misc/customvoltage/vdd_levels");
+		/*9*/paths.add("/sys/devices/system/cpu/cpufreq/UV_mV_table");
+		
+		StringBuilder builder = new StringBuilder();
+		try
+		{
+			File myFile = new File(paths.get(0));
+			FileInputStream fIn = new FileInputStream(myFile);
+			BufferedReader myReader = new BufferedReader(
+				new InputStreamReader(fIn));
+			String aDataRow = "";
+			String aBuffer = "";
+			while ((aDataRow = myReader.readLine()) != null)
+			{
+				aBuffer += aDataRow + "\n";
+			}
+
+			builder.append(div+"\n\n");
+			builder.append("VOLTAGE INFORMATION\n\n");
+			builder.append(paths.get(0)+"\n\n");
+			builder.append(aBuffer+"\n\n");
+			builder.append(div+"\n\n");
+			
+			voltage = builder.toString();
+			myReader.close();
+
+		}
+		catch (Exception e)
+		{
+
+			try
+			{
+				File myFile = new File(paths.get(1));
+				FileInputStream fIn = new FileInputStream(myFile);
+				BufferedReader myReader = new BufferedReader(
+					new InputStreamReader(fIn));
+				String aDataRow = "";
+				String aBuffer = "";
+				while ((aDataRow = myReader.readLine()) != null)
+				{
+					aBuffer += aDataRow + "\n";
+				}
+
+				builder.append(div+"\n\n");
+				builder.append("VOLTAGE INFORMATION\n\n");
+				builder.append(paths.get(1)+"\n\n");
+				builder.append(aBuffer+"\n\n");
+				builder.append(div+"\n\n");
+				
+				voltage = builder.toString();
+				myReader.close();
+
+			}
+			catch (Exception e1)
+			{
+				try
+				{
+					File myFile = new File(paths.get(2));
+					FileInputStream fIn = new FileInputStream(myFile);
+					BufferedReader myReader = new BufferedReader(
+						new InputStreamReader(fIn));
+					String aDataRow = "";
+					String aBuffer = "";
+					while ((aDataRow = myReader.readLine()) != null)
+					{
+						aBuffer += aDataRow + "\n";
+					}
+
+					builder.append(div+"\n\n");
+					builder.append("VOLTAGE INFORMATION\n\n");
+					builder.append(paths.get(2)+"\n\n");
+					builder.append(aBuffer+"\n\n");
+					builder.append(div+"\n\n");
+					
+					voltage = builder.toString();
+					myReader.close();
+
+				}
+				catch (Exception e2)
+				{
+					try
+					{
+						File myFile = new File(paths.get(3));
+						FileInputStream fIn = new FileInputStream(myFile);
+						BufferedReader myReader = new BufferedReader(
+							new InputStreamReader(fIn));
+						String aDataRow = "";
+						String aBuffer = "";
+						while ((aDataRow = myReader.readLine()) != null)
+						{
+							aBuffer += aDataRow + "\n";
+						}
+
+						builder.append(div+"\n\n");
+						builder.append("VOLTAGE INFORMATION\n\n");
+						builder.append(paths.get(3)+"\n\n");
+						builder.append(aBuffer+"\n\n");
+						builder.append(div+"\n\n");
+						
+						voltage = builder.toString();
+						myReader.close();
+
+					}
+					catch (Exception e3)
+					{
+						try
+						{
+							File myFile = new File(paths.get(4));
+							FileInputStream fIn = new FileInputStream(myFile);
+							BufferedReader myReader = new BufferedReader(
+								new InputStreamReader(fIn));
+							String aDataRow = "";
+							String aBuffer = "";
+							while ((aDataRow = myReader.readLine()) != null)
+							{
+								aBuffer += aDataRow + "\n";
+							}
+
+							builder.append(div+"\n\n");
+							builder.append("VOLTAGE INFORMATION\n\n");
+							builder.append(paths.get(4)+"\n\n");
+							builder.append(aBuffer+"\n\n");
+							builder.append(div+"\n\n");
+							
+							voltage = builder.toString();
+							myReader.close();
+
+						}
+						catch (Exception e4)
+						{
+							try
+							{
+								File myFile = new File(paths.get(5));
+								FileInputStream fIn = new FileInputStream(myFile);
+								BufferedReader myReader = new BufferedReader(
+									new InputStreamReader(fIn));
+								String aDataRow = "";
+								String aBuffer = "";
+								while ((aDataRow = myReader.readLine()) != null)
+								{
+									aBuffer += aDataRow + "\n";
+								}
+
+								builder.append(div+"\n\n");
+								builder.append("VOLTAGE INFORMATION\n\n");
+								builder.append(paths.get(5)+"\n\n");
+								builder.append(aBuffer+"\n\n");
+								builder.append(div+"\n\n");
+								
+								voltage = builder.toString();
+								myReader.close();
+
+							}
+							catch (Exception e5)
+							{
+								try
+								{
+									File myFile = new File(paths.get(6));
+									FileInputStream fIn = new FileInputStream(myFile);
+									BufferedReader myReader = new BufferedReader(
+										new InputStreamReader(fIn));
+									String aDataRow = "";
+									String aBuffer = "";
+									while ((aDataRow = myReader.readLine()) != null)
+									{
+										aBuffer += aDataRow + "\n";
+									}
+
+									builder.append(div+"\n\n");
+									builder.append("VOLTAGE INFORMATION\n\n");
+									builder.append(paths.get(6)+"\n\n");
+									builder.append(aBuffer+"\n\n");
+									builder.append(div+"\n\n");
+									
+									voltage = builder.toString();
+									myReader.close();
+
+								}
+								catch (Exception e6)
+								{
+									try
+									{
+										File myFile = new File(paths.get(7));
+										FileInputStream fIn = new FileInputStream(myFile);
+										BufferedReader myReader = new BufferedReader(
+											new InputStreamReader(fIn));
+										String aDataRow = "";
+										String aBuffer = "";
+										while ((aDataRow = myReader.readLine()) != null)
+										{
+											aBuffer += aDataRow + "\n";
+										}
+
+										builder.append(div+"\n\n");
+										builder.append("VOLTAGE INFORMATION\n\n");
+										builder.append(paths.get(7)+"\n\n");
+										builder.append(aBuffer+"\n\n");
+										builder.append(div+"\n\n");
+										
+										voltage = builder.toString();
+										myReader.close();
+
+									}
+									catch (Exception e7)
+									{
+										try
+										{
+											File myFile = new File(paths.get(8));
+											FileInputStream fIn = new FileInputStream(myFile);
+											BufferedReader myReader = new BufferedReader(
+												new InputStreamReader(fIn));
+											String aDataRow = "";
+											String aBuffer = "";
+											while ((aDataRow = myReader.readLine()) != null)
+											{
+												aBuffer += aDataRow + "\n";
+											}
+
+											builder.append(div+"\n\n");
+											builder.append("VOLTAGE INFORMATION\n\n");
+											builder.append(paths.get(8)+"\n\n");
+											builder.append(aBuffer+"\n\n");
+											builder.append(div+"\n\n");
+											
+											voltage = builder.toString();
+											myReader.close();
+
+										}
+										catch (Exception e8)
+										{
+											try
+											{
+												File myFile = new File(paths.get(9));
+												FileInputStream fIn = new FileInputStream(myFile);
+												BufferedReader myReader = new BufferedReader(
+													new InputStreamReader(fIn));
+												String aDataRow = "";
+												String aBuffer = "";
+												while ((aDataRow = myReader.readLine()) != null)
+												{
+													aBuffer += aDataRow + "\n";
+												}
+
+												builder.append(div+"\n\n");
+												builder.append("VOLTAGE INFORMATION\n\n");
+												builder.append(paths.get(9)+"\n\n");
+												builder.append(aBuffer+"\n\n");
+												builder.append(div+"\n\n");
+												
+												voltage = builder.toString();
+												myReader.close();
+
+											}
+											catch (Exception e9)
+											{
+												builder.append(div+"\n\n");
+												builder.append("VOLTAGE INFORMATION\n\n");
+												builder.append("no voltage information found\n\n");
+												builder.append(div+"\n\n");
+												
+												voltage = builder.toString();
+											}
+										}
+									}
+								}
+							}
+						}
+					}
+				}
+			}
+			
+		}
+		return voltage;
+	}
+	
+	public static String tisDebug(){
+		String tis = "";
+		String div = "####################";
+		List<String> paths = new ArrayList<String>();
+		paths.add("/sys/devices/system/cpu/cpu0/cpufreq/stats/time_in_state");
+		
+		StringBuilder builder = new StringBuilder();
+		try
+		{
+			File myFile = new File(paths.get(0));
+			FileInputStream fIn = new FileInputStream(myFile);
+			BufferedReader myReader = new BufferedReader(
+				new InputStreamReader(fIn));
+			String aDataRow = "";
+			String aBuffer = "";
+			while ((aDataRow = myReader.readLine()) != null)
+			{
+				aBuffer += aDataRow + "\n";
+			}
+
+			builder.append(div+"\n\n");
+			builder.append("TIMES IN STATE INFORMATION\n\n");
+			builder.append(paths.get(0)+"\n\n");
+			builder.append(aBuffer+"\n\n");
+			builder.append(div+"\n\n");
+			
+			tis = builder.toString();
+			myReader.close();
+
+		}
+		catch (Exception e)
+		{
+			builder.append(div+"\n\n");
+			builder.append("TIMES IN STATE INFORMATION\n\n");
+			builder.append("no times in state information found\n\n");
+			builder.append(div+"\n\n");
+			
+			tis = builder.toString();
+		
+		}
+	return tis;
+		}
+	
+	public static String frequenciesDebug(){
+		String freq = "";
+		String div = "####################";
+		List<String> paths = new ArrayList<String>();
+		paths.add("/sys/devices/system/cpu/cpu0/cpufreq/scaling_available_frequencies");
+		
+		StringBuilder builder = new StringBuilder();
+		try
+		{
+			File myFile = new File(paths.get(0));
+			FileInputStream fIn = new FileInputStream(myFile);
+			BufferedReader myReader = new BufferedReader(
+				new InputStreamReader(fIn));
+			String aDataRow = "";
+			String aBuffer = "";
+			while ((aDataRow = myReader.readLine()) != null)
+			{
+				aBuffer += aDataRow + "\n";
+			}
+
+			builder.append(div+"\n\n");
+			builder.append("FREQUENCY TABLE INFORMATION\n\n");
+			builder.append(paths.get(0)+"\n\n");
+			builder.append(aBuffer+"\n\n");
+			builder.append(div+"\n\n");
+			
+			freq = builder.toString();
+			myReader.close();
+
+		}
+		catch (Exception e)
+		{
+			builder.append(div+"\n\n");
+			builder.append("FREQUENCY TABLE INFORMATION\n\n");
+			builder.append("no 	frequency information found\n\n");
+			builder.append(div+"\n\n");
+			
+			freq = builder.toString();
+		
+		}
+	return freq;
+		}
+	
+	public static String deviceInfoDebug(){
+		String freq = "";
+		String div = "####################";
+		List<String> paths = new ArrayList<String>();
+		paths.add("/proc/version");
+		
+		StringBuilder builder = new StringBuilder();
+		builder.append(div+"\n\n");
+		builder.append("DEVICE INFORMATION\n\n");
+		builder.append("Device: "+android.os.Build.DEVICE+"\n");
+		builder.append("Model: "+android.os.Build.MODEL+"\n");
+		builder.append("Free Memory: "+String.valueOf(Runtime.getRuntime().freeMemory())+"\n");
+		builder.append("Total Memory: "+String.valueOf(Runtime.getRuntime().totalMemory())+"\n");
+		if(cpu3Online()){
+			builder.append("Total Number of Cores: 4\n");
+		}
+		else if(cpu1Online() && cpu3Online()==false){
+			builder.append("Total Number of Cores: 2\n");
+		}
+		else if(cpu1Online()==false && cpu3Online()==false ){
+			builder.append("Total Number of Cores: 1\n");
+		}
+		else{
+			builder.append("Unable to detect number of cpu cores\n");
+		}
+		builder.append("Number of Active Cores: "+String.valueOf(Runtime.getRuntime().availableProcessors())+"\n\n\n");
+		try
+		{
+			File myFile = new File(paths.get(0));
+			FileInputStream fIn = new FileInputStream(myFile);
+			BufferedReader myReader = new BufferedReader(
+				new InputStreamReader(fIn));
+			String aDataRow = "";
+			String aBuffer = "";
+			while ((aDataRow = myReader.readLine()) != null)
+			{
+				aBuffer += aDataRow + "\n";
+			}
+
+			
+			builder.append("Kernel Information:\n\n");
+			builder.append(aBuffer+"\n\n");
+			builder.append(div+"\n\n");
+			
+			
+			myReader.close();
+
+		}
+		catch (Exception e)
+		{
+			builder.append("Kernel Information\n");
+			builder.append("Unable to find kernel information\n\n");
+			builder.append(div+"\n\n");
+			
+			
+		
+		}
+		freq = builder.toString();
+	return freq;
+		}
+	
 }

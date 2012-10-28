@@ -2648,32 +2648,63 @@ public class KernelTuner extends Activity
 			startActivity(new Intent(this, changelog.class));
 
 		}
-
-
-
 		
-	if (item.getItemId() == R.id.check) {
+		if (item.getItemId() == R.id.check) {
         startActivity(new Intent(this, check.class));
         
-    }	
+		}	
 	
-	if (item.getItemId() == R.id.log) {
+		if (item.getItemId() == R.id.log) {
        
 		AlertDialog.Builder builder = new AlertDialog.Builder(
                 KernelTuner.this);
 
-builder.setTitle("Create Log file");
+builder.setTitle("Dump System information to a file");
 
-builder.setMessage("This will dump all system information needed for this application to work in a file on your sdcard\n" +
-		"No private data will be collected\n" +
-		"Do you want to cotinue?");
+LinearLayout ln = new LinearLayout(KernelTuner.this);
+ln.setOrientation(LinearLayout.VERTICAL);
+TextView tv = new TextView(KernelTuner.this);
+TextView tv2 = new TextView(KernelTuner.this);
+ln.addView(tv);
+ln.addView(tv2);
+
+tv.setText(R.string.system_dump_text1);
+tv2.setText(R.string.system_dump_text2);
+tv2.setTextColor(Color.RED);
+
 
 builder.setIcon(R.drawable.ic_menu_paste_holo_light);
 
 builder.setPositiveButton("Proceed", new DialogInterface.OnClickListener() {
         @Override
 		public void onClick(DialogInterface dialog, int which) {
+
+   StringBuilder builder = new StringBuilder();
+   builder.append(CPUInfo.deviceInfoDebug());
+   builder.append(CPUInfo.voltDebug());
+   builder.append(CPUInfo.tisDebug());
+   builder.append(CPUInfo.frequenciesDebug());
    
+   
+   try
+	{ 
+	   File myFile = new File(Environment.getExternalStorageDirectory()+"/ktuner_log.txt");
+       	myFile.createNewFile();
+		FileOutputStream fOut = new FileOutputStream(myFile);;
+		OutputStreamWriter osw = new OutputStreamWriter(fOut); 
+		osw.write(builder.toString());        
+		osw.flush();
+		osw.close();
+		
+		mToast = Toast.makeText(KernelTuner.this, "Log writen to: "+myFile.toString(), Toast.LENGTH_LONG);
+		mToast.show();
+	}
+	catch (IOException ioe)
+	{
+		ioe.printStackTrace();
+		mToast = Toast.makeText(KernelTuner.this, "Error while making log file: " + ioe.getMessage() , Toast.LENGTH_LONG);
+		mToast.show();
+	}
         
         }
 });
@@ -2683,7 +2714,7 @@ builder.setNegativeButton("Cancel", new DialogInterface.OnClickListener() {
   
     }
 });
-
+builder.setView(ln);
 AlertDialog alert = builder.create();
 		
 		alert.show();

@@ -178,5 +178,10 @@
      <string name="ok">OK</string>
 	<string name="uptime_">Up-time:</string>
 	<string name="deep_sleep_">Deep Sleep:</string>
+	<string name="system_dump_text1">This will dump all system information needed for this application to work in a file on your sdcard.\n\n
+		\'/sdcard/ktuner_log.txt\'\n\n
+		This information can help me improve application and add support for new devices\n\n
+		Do you want to cotinue?</string>
+		<string name="system_dump_text2">No private date will be collected!</string>
 
 </resources>
