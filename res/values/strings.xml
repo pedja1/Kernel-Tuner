@@ -183,5 +183,7 @@
 		This information can help me improve application and add support for new devices\n\n
 		Do you want to cotinue?</string>
 		<string name="system_dump_text2">No private date will be collected!</string>
+		<string name="clear">Clear</string>
+		<string name="delete">Delete</string>
 
 </resources>

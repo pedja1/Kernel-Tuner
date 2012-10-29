@@ -255,6 +255,54 @@ public class ChangeVoltage extends AsyncTask<String, Void, String>
 					e1.printStackTrace();
 				}
 			}
+			
+			else if (args[0].equals("profile"))
+			{
+				
+				String[] values = args[1].split("\\s");
+						try
+				{
+					localProcess = Runtime.getRuntime().exec("su");
+
+					DataOutputStream localDataOutputStream = new DataOutputStream(
+						localProcess.getOutputStream());
+					localDataOutputStream
+						.writeBytes("chmod 777 /sys/devices/system/cpu/cpufreq/vdd_table/vdd_levels\n");
+
+					for (int i = 0; i < voltageFreqs.size(); i++)
+					{
+						//int volt = voltages.get(i) + 12500;
+						
+							localDataOutputStream
+								.writeBytes("echo "
+											+ voltageFreqs.get(i)
+											+ " "
+											+ values[i]
+											+ " > /sys/devices/system/cpu/cpufreq/vdd_table/vdd_levels\n");
+							SharedPreferences.Editor editor = preferences.edit();
+							editor.putString("voltage_" + voltageFreqs.get(i), voltageFreqs.get(i) + " " + values[i]);
+							editor.commit();
+						
+					}
+					localDataOutputStream.writeBytes("exit\n");
+					localDataOutputStream.flush();
+					localDataOutputStream.close();
+					localProcess.waitFor();
+					localProcess.destroy();
+
+				}
+				catch (IOException e1)
+				{
+
+					e1.printStackTrace();
+				}
+				catch (InterruptedException e1)
+				{
+
+					e1.printStackTrace();
+				}
+			}
+			
 		}
 		else if (new File(CPUInfo.VOLTAGE_PATH_TEGRA_3).exists())
 		{
