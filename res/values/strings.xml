@@ -185,5 +185,6 @@
 		<string name="system_dump_text2">No private date will be collected!</string>
 		<string name="clear">Clear</string>
 		<string name="delete">Delete</string>
+	<string name="plugin_name">Kernel Tuner - Profiles</string>
 
 </resources>

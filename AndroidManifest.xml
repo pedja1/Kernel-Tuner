@@ -1,8 +1,12 @@
 <?xml version="1.0" encoding="utf-8"?>
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
 package="rs.pedjaapps.KernelTuner"
+	android:installLocation="internalOnly"
+   xmlns:tools="http://schemas.android.com/tools"
 android:versionCode="37"
 android:versionName="3.1.3">
+	
+	
 <uses-sdk android:minSdkVersion="9"
     android:targetSdkVersion="16" />
 
@@ -12,9 +16,23 @@ android:versionName="3.1.3">
     <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE"></uses-permission>
 	<uses-permission android:name="android.permission.READ_LOGS" />
     
+	<supports-screens
+        android:anyDensity="true"
+        android:largeScreens="true"
+        android:normalScreens="true"
+        android:smallScreens="true"
+        android:xlargeScreens="true" />
+
     
-	<application android:label="@string/app_name"  android:icon="@drawable/dual_on">
-<activity android:name="rs.pedjaapps.KernelTuner.KernelTuner"
+    
+	<application android:label="@string/app_name" 
+		android:icon="@drawable/dual_on"
+		android:name=".PluginApplication"
+        android:hardwareAccelerated="true"
+		android:theme="@style/Theme.Locale.Dark"
+        android:uiOptions="splitActionBarWhenNarrow"
+		>
+    <activity android:name="rs.pedjaapps.KernelTuner.KernelTuner"
     android:icon="@drawable/dual_on"
 	android:label="@string/app_name"  android:windowSoftInputMode="adjustResize" 
 	>
@@ -74,7 +92,7 @@ android:resource="@xml/widget_provider_4x4" />
 <activity android:name=".about"  android:label="@string/title_about" android:icon="@drawable/tux_gandalf"></activity>
 <activity android:name=".changelog"  android:label="@string/title_changelog" android:theme="@style/Theme.TransparentDark"  android:icon="@drawable/icon"></activity>
 <activity android:name=".check" android:label="@string/title_check" android:theme="@style/Theme.TransparentNoTitle" android:icon="@drawable/icon"></activity>
-<activity android:name=".profiles" android:label="@string/title_profiles" android:icon="@drawable/ic_menu_cc"></activity>
+		<activity android:name=".profiles" android:label="@string/title_profiles" android:icon="@drawable/ic_menu_cc"  android:theme="@style/Theme.Locale.Dark"></activity>
 <activity android:name=".ProfileEditor" android:label="@string/activity_title_profile_editor" android:icon="@drawable/ic_menu_edit" android:theme="@style/Theme.Transparent"></activity>
 <activity android:name=".Swap" android:label="@string/swap" android:icon="@drawable/swap" ></activity>
 
@@ -84,6 +102,38 @@ android:resource="@xml/widget_provider_4x4" />
 <activity android:name=".TISActivity" android:label="@string/title_tis" android:icon="@drawable/times" ></activity>
 <activity android:name=".GovernorActivity" android:label="@string/title_governor" android:icon="@drawable/dual" ></activity>
 
+		<activity
+            android:name=".ui.EditActivity"
+            android:exported="true"
+            android:icon="@drawable/ic_locale_plugin"
+            android:label="@string/plugin_name"
+            android:theme="@style/Theme.Locale.Dark"
+            android:uiOptions="splitActionBarWhenNarrow"
+            android:windowSoftInputMode="adjustResize" 
+            tools:ignore="ExportedActivity">
+
+            <!-- this Intent filter allows the plug-in to be discovered by Locale -->
+            <intent-filter>
+                <action android:name="com.twofortyfouram.locale.intent.action.EDIT_SETTING" />
+            </intent-filter>
+        </activity>
+        <!--
+		This is the "fire" BroadcastReceiver. Note that Locale will reject plug-in BroadcastReceivers for the following reasons:
+		- The BroadcastReceiver isn't exported (e.g. android:exported="false")
+		- The BroadcastReceiver isn't enabled (e.g. android:enabled="false")
+		- The BroadcastReceiver requires permissions not available to Locale
+		- There are multiple BroadcastReceivers for com.twofortyfouram.locale.intent.action.FIRE_SETTING
+        -->
+        <receiver
+            android:name=".receiver.FireReceiver"
+            android:exported="true"
+            android:process=":background" tools:ignore="ExportedReceiver">
+
+            <!-- this Intent filter allows the plug-in to discovered by Locale -->
+            <intent-filter>
+                <action android:name="com.twofortyfouram.locale.intent.action.FIRE_SETTING" />
+            </intent-filter>
+        </receiver>
 
 <service android:name=".WidgetUpdateService"></service>
 <service android:name=".WidgetUpdateServiceBig"></service>

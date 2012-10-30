@@ -1,0 +1,63 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+
+    <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+        android:id="@+id/ll"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentTop="true" >
+
+		<ImageView
+			android:id="@+id/icon"
+			android:layout_width="wrap_content"
+			android:layout_height="match_parent"
+			android:src="@drawable/icon" />
+		
+        <LinearLayout
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:layout_weight="1"
+			android:orientation="vertical">
+
+			<TextView
+				android:id="@+id/textView1"
+				android:layout_width="wrap_content"
+				android:layout_height="wrap_content"
+				android:text="freq"
+				android:textAppearance="?android:attr/textAppearanceLarge" />
+				
+			<TextView
+				android:id="@+id/textView2"
+				android:layout_width="wrap_content"
+				android:layout_height="wrap_content"
+				android:text="freq"
+				android:textAppearance="?android:attr/textAppearanceLarge" />
+
+        </LinearLayout>
+
+		<ImageView
+			android:id="@+id/apply"
+			android:layout_width="wrap_content"
+			android:layout_height="match_parent"
+			android:src="@drawable/minus" />
+
+
+
+		<ImageView
+			android:id="@+id/delete"
+			android:layout_width="wrap_content"
+			android:layout_height="match_parent"
+			android:src="@drawable/plus" />
+
+		<CheckBox
+			android:id="@+id/enable"
+			android:layout_width="wrap_content"
+			android:layout_height="match_parent"
+			 />
+			
+    </LinearLayout>
+
+   
+
+

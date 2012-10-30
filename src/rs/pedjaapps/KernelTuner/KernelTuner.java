@@ -940,6 +940,8 @@ public class KernelTuner extends Activity
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.main);
 
+		getActionBar().setSubtitle("Various kernel and system tuning");
+		
 		sharedPrefs = PreferenceManager.getDefaultSharedPreferences(this);
 		/**
 		If auto update check is enabled check for updates
