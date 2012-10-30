@@ -98,23 +98,26 @@ android:gravity="center"
 	/>
 	
 	
-	<ImageView
-        android:id="@+id/tux"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_below="@+id/textView6"
-		android:layout_marginTop="20dp"
-		android:gravity="center"
-		android:layout_centerHorizontal="true"
-		android:src="@drawable/tux_gandalf"
-
-	/>
+	
 	
 	<TextView
         android:id="@+id/textView8"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_below="@+id/tux"
+        android:layout_below="@+id/textView6"
+		android:layout_marginTop="5dp"
+		android:gravity="center"
+		android:layout_centerHorizontal="true"
+		android:text="@string/official"
+		android:linksClickable="true"
+
+	/>
+	
+	<TextView
+        android:id="@+id/textView9"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/textView6"
 		android:layout_marginTop="5dp"
 		android:gravity="center"
 		android:layout_centerHorizontal="true"

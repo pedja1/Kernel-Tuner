@@ -40,8 +40,7 @@ public class about extends Activity
 			official.setMovementMethod(LinkMovementMethod.getInstance());
 		}
 
-		ImageView tux = (ImageView)findViewById(R.id.tux);
-		tux.setImageResource(R.drawable.tux_gandalf);
+		
 		try
 		{
 			PackageInfo pInfo = getPackageManager().getPackageInfo(getPackageName(), 0);
