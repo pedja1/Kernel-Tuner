@@ -6,251 +6,50 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent" >
 
-    <TextView
-        android:id="@+id/textView100"
-        android:layout_width="wrap_content"
+    <ListView
+		android:id="@+id/list"
+		android:layout_width="match_parent"
+		android:layout_height="wrap_content"
+		android:layout_alignParentTop="true"
+		android:layout_alignParentLeft="true"
+		android:layout_above="@+id/ll3"
+		>
+		
+	</ListView>
+	
+	<TextView
+		android:id="@+id/tv1"
+		android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_alignParentLeft="true"
-        android:layout_alignParentTop="true"
-        android:text="@string/profile_"
-        android:textAppearance="?android:attr/textAppearanceLarge" />
-
-    <Spinner
-        android:id="@+id/spinner1"
-        android:layout_width="wrap_content"
+		android:layout_centerHorizontal="true"
+		android:layout_centerVertical="true"
+		android:text="There are no profiles."/>
+		
+	<LinearLayout
+	    android:id="@+id/ll1"
+		android:layout_below="@+id/tv1"
+		android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_alignParentRight="true"
-        android:layout_alignParentTop="true" />
-    
-    <ScrollView
-        android:id="@+id/scrollView1"
-        android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:layout_above="@+id/ly3"
-        android:layout_alignParentLeft="true"
-        android:layout_below="@+id/textView100"
-        android:layout_marginTop="5dp" >
-
-        <RelativeLayout
-            android:id="@+id/rl2"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content" >
-
-            <TextView
-                android:id="@+id/textView1"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_alignParentLeft="true"
-                android:text="Info:"
-                android:textAppearance="?android:attr/textAppearanceMedium" />
-
-            <TextView
-                android:id="@+id/textView2"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_alignParentLeft="true"
-                android:layout_below="@+id/textView1"
-                android:text="@string/cpu0_min_freq_" />
-
-            <TextView
-                android:id="@+id/textView3"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_alignParentLeft="true"
-                android:layout_below="@+id/textView2"
-                android:text="@string/cpu0_max_freq_" />
-
-            <TextView
-                android:id="@+id/textView4"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_alignParentLeft="true"
-                android:layout_below="@+id/textView3"
-                android:text="@string/cpu1_min_freq_" />
-
-            <TextView
-                android:id="@+id/textView5"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_alignParentLeft="true"
-                android:layout_below="@+id/textView4"
-                android:text="@string/cpu1_max_freq_" />
-
-            <TextView
-                android:id="@+id/textView8"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_alignParentLeft="true"
-                android:layout_below="@+id/textView21"
-                android:text="@string/gpu2d_max_freq_" />
-
-            <TextView
-                android:id="@+id/textView9"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_alignParentLeft="true"
-                android:layout_below="@+id/textView8"
-                android:text="@string/gpu3d_max_freq_" />
-
-            <TextView
-                android:id="@+id/textView10"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_alignParentLeft="true"
-                android:layout_below="@+id/textView9"
-                android:text="@string/vsync" />
-            <TextView
-                android:id="@+id/textView200"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_alignParentLeft="true"
-                android:layout_below="@+id/textView10"
-                android:text="@string/number_of_active_cores_" />
-            
-             <TextView
-                android:id="@+id/textView202"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_alignParentLeft="true"
-                android:layout_below="@+id/textView200"
-                android:text="@string/mpdecision_threshold_down_" />
-             
-              <TextView
-                android:id="@+id/textView203"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_alignParentLeft="true"
-                android:layout_below="@+id/textView202"
-                android:text="@string/mpdecision_threshold_up_" />
-
-            <TextView
-                android:id="@+id/textView11"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_alignBaseline="@+id/textView2"
-                android:layout_alignBottom="@+id/textView2"
-                android:layout_alignParentRight="true"
-                android:text="@string/crtica" />
-
-            <TextView
-                android:id="@+id/textView12"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_alignBaseline="@+id/textView3"
-                android:layout_alignBottom="@+id/textView3"
-                android:layout_alignParentRight="true"
-                android:text="@string/crtica" />
-
-            <TextView
-                android:id="@+id/textView13"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_alignBaseline="@+id/textView4"
-                android:layout_alignParentRight="true"
-                android:text="@string/crtica" />
-
-            <TextView
-                android:id="@+id/textView14"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_alignBaseline="@+id/textView5"
-                android:layout_alignParentRight="true"
-                android:text="@string/crtica" />
-
-            <TextView
-                android:id="@+id/textView15"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_alignBaseline="@+id/textView20"
-                android:layout_alignParentRight="true"
-                android:text="@string/crtica" />
-
-            <TextView
-                android:id="@+id/textView17"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_alignBaseline="@+id/textView8"
-                android:layout_alignBottom="@+id/textView8"
-                android:layout_alignParentRight="true"
-                android:text="@string/crtica" />
-
-            <TextView
-                android:id="@+id/textView18"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_alignBaseline="@+id/textView9"
-                android:layout_alignParentRight="true"
-                android:text="@string/crtica" />
-
-            <TextView
-                android:id="@+id/textView19"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_alignBaseline="@+id/textView10"
-                android:layout_alignBottom="@+id/textView10"
-                android:layout_alignParentRight="true"
-                android:text="@string/crtica" />
-
-            <TextView
-                android:id="@+id/textView20"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_alignParentLeft="true"
-                android:layout_below="@+id/textView5"
-                android:text="@string/cpu0_governor_" />
-
-            <TextView
-                android:id="@+id/textView21"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_alignParentLeft="true"
-                android:layout_below="@+id/textView20"
-                android:text="@string/cpu1_governor_" />
-
-            <TextView
-                android:id="@+id/textView23"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_alignBaseline="@+id/textView21"
-                android:layout_alignParentRight="true"
-                android:text="@string/crtica" />
-
-            <TextView
-                android:id="@+id/textView2201"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_alignBaseline="@+id/textView200"
-                android:layout_alignParentRight="true"
-                android:text="@string/crtica" />
-            
-            <TextView
-                android:id="@+id/textView2202"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_alignBaseline="@+id/textView202"
-                android:layout_alignParentRight="true"
-                android:text="@string/crtica" />
-            
-            <TextView
-                android:id="@+id/textView2203"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_alignBaseline="@+id/textView203"
-                android:layout_alignParentRight="true"
-                android:text="@string/crtica" />
-
-            <Button
-                android:id="@+id/button1"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_below="@id/textView203"
-                android:text="@string/create_profile_from_current_settings" />
-            
-        </RelativeLayout>
-
-        
-
-    </ScrollView>
+		android:layout_centerHorizontal="true"	>
+		
+		<TextView
+		    android:layout_width="wrap_content"
+		    android:layout_height="wrap_content"
+		    android:layout_gravity="center_vertical"
+		    android:text="Tap " />
+			
+			<ImageView
+				android:layout_width="wrap_content"
+				android:layout_height="wrap_content"
+		        android:src="@drawable/ic_menu_add"	/>
+			
+		<TextView
+		    android:layout_width="wrap_content"
+		    android:layout_height="wrap_content"
+		    android:layout_gravity="center_vertical"
+		    android:text=" to add new profile" />
+		
+		</LinearLayout>
 	
     <LinearLayout
         android:id="@+id/ly3"

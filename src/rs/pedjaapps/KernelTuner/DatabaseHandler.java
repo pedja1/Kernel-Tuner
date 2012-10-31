@@ -35,6 +35,18 @@ public class DatabaseHandler extends SQLiteOpenHelper
     private static final String KEY_PROFILE_NOC = "number_of_cores";
     private static final String KEY_PROFILE_MTD = "mtd";
     private static final String KEY_PROFILE_MTU = "mtu";
+    private static final String KEY_PROFILE_CPU = "cpu";
+    private static final String KEY_PROFILE_VT = "vt";
+    private static final String KEY_PROFILE_MD = "md";
+    private static final String KEY_PROFILE_GPU = "gpu";
+    private static final String KEY_PROFILE_CBL = "cbl";
+    private static final String KEY_PROFILE_VS = "vs";
+    private static final String KEY_PROFILE_FC = "fc";
+    private static final String KEY_PROFILE_CD = "cd";
+    private static final String KEY_PROFILE_IO = "io";
+    private static final String KEY_PROFILE_SD = "sd";
+    private static final String KEY_PROFILE_NLT = "nlt";
+    private static final String KEY_PROFILE_S2W = "s2w";
     
     private static final String KEY_VOLTAGE_ID = "id";
     private static final String KEY_VOLTAGE_NAME = "Name";
@@ -61,7 +73,19 @@ public class DatabaseHandler extends SQLiteOpenHelper
 			+ KEY_PROFILE_VSYNC + " TEXT,"
 			+ KEY_PROFILE_NOC + " TEXT,"
 			+ KEY_PROFILE_MTD + " TEXT,"
-			+ KEY_PROFILE_MTU + " TEXT"
+			+ KEY_PROFILE_MTU + " TEXT,"
+			+ KEY_PROFILE_CPU + " INTEGER,"
+			+ KEY_PROFILE_VT + " INTEGER,"
+			+ KEY_PROFILE_MD + " INTEGER,"
+			+ KEY_PROFILE_GPU + " INTEGER,"
+			+ KEY_PROFILE_CBL + " INTEGER,"
+			+ KEY_PROFILE_VS + " INTEGER,"
+			+ KEY_PROFILE_FC + " INTEGER,"
+			+ KEY_PROFILE_CD + " INTEGER,"
+			+ KEY_PROFILE_IO + " INTEGER,"
+			+ KEY_PROFILE_SD + " INTEGER,"
+			+ KEY_PROFILE_NLT + " INTEGER,"
+			+ KEY_PROFILE_S2W + " INTEGER"
 			+
 			")";
         String CREATE_VOLTAGE_TABLE = "CREATE TABLE " + TABLE_VOLTAGE + "("
@@ -72,6 +96,7 @@ public class DatabaseHandler extends SQLiteOpenHelper
         db.execSQL(CREATE_VOLTAGE_TABLE);
     }
 
+    
     // Upgrading database
     @Override
     public void onUpgrade(SQLiteDatabase db, int oldVersion, int newVersion)
@@ -107,6 +132,18 @@ public class DatabaseHandler extends SQLiteOpenHelper
         values.put(KEY_PROFILE_NOC, profile.getNOC());
         values.put(KEY_PROFILE_MTD, profile.getMtd());
         values.put(KEY_PROFILE_MTU, profile.getMtu());
+        values.put(KEY_PROFILE_CPU, profile.getCpu());
+        values.put(KEY_PROFILE_VT, profile.getVt());
+        values.put(KEY_PROFILE_MD, profile.getMd());
+        values.put(KEY_PROFILE_GPU, profile.getGpu());
+        values.put(KEY_PROFILE_CBL, profile.getCbl());
+        values.put(KEY_PROFILE_VS, profile.getVs());
+        values.put(KEY_PROFILE_FC, profile.getFc());
+        values.put(KEY_PROFILE_CD, profile.getCd());
+        values.put(KEY_PROFILE_IO, profile.getIo());
+        values.put(KEY_PROFILE_SD, profile.getSd());
+        values.put(KEY_PROFILE_NLT, profile.getNlt());
+        values.put(KEY_PROFILE_S2W, profile.getS2w());
 
         // Inserting Row
         db.insert(TABLE_PROFILES, null, values);
@@ -131,7 +168,19 @@ public class DatabaseHandler extends SQLiteOpenHelper
 									 KEY_PROFILE_VSYNC,
 									 KEY_PROFILE_NOC,
 									 KEY_PROFILE_MTD,
-									 KEY_PROFILE_MTU }, KEY_PROFILE_ID + "=?",
+									 KEY_PROFILE_MTU,
+									 KEY_PROFILE_CPU,
+									 KEY_PROFILE_VT,
+									 KEY_PROFILE_MD,
+									 KEY_PROFILE_GPU,
+									 KEY_PROFILE_CBL,
+									 KEY_PROFILE_VS,
+									 KEY_PROFILE_FC,
+									 KEY_PROFILE_CD,
+									 KEY_PROFILE_IO,
+									 KEY_PROFILE_SD,
+								 KEY_PROFILE_NLT,
+									KEY_PROFILE_S2W}, KEY_PROFILE_ID + "=?",
 								 new String[] { String.valueOf(id) }, null, null, null, null);
         if (cursor != null)
             cursor.moveToFirst();
@@ -149,7 +198,21 @@ public class DatabaseHandler extends SQLiteOpenHelper
 									  cursor.getString(10),
 									  cursor.getString(11),
 									  cursor.getString(12),
-									  cursor.getString(13));
+									  cursor.getString(13),
+									  cursor.getInt(14),
+									  cursor.getInt(15),
+									  cursor.getInt(16),
+									  cursor.getInt(17),
+									  cursor.getInt(18),
+									  cursor.getInt(19),
+									  cursor.getInt(20),
+									  cursor.getInt(21),
+									  cursor.getInt(22),
+									  cursor.getInt(23),
+									  cursor.getInt(24),
+									  cursor.getInt(25)
+									  
+									  );
         // return contact
         return profile;
     }
@@ -171,7 +234,19 @@ public class DatabaseHandler extends SQLiteOpenHelper
 									 KEY_PROFILE_VSYNC,
 									 KEY_PROFILE_NOC,
 									 KEY_PROFILE_MTD,
-									 KEY_PROFILE_MTU }, KEY_PROFILE_NAME + "=?",
+									 KEY_PROFILE_MTU,
+									 KEY_PROFILE_CPU,
+									 KEY_PROFILE_VT,
+									 KEY_PROFILE_MD,
+									 KEY_PROFILE_GPU,
+									 KEY_PROFILE_CBL,
+									 KEY_PROFILE_VS,
+									 KEY_PROFILE_FC,
+									 KEY_PROFILE_CD,
+									 KEY_PROFILE_IO,
+									 KEY_PROFILE_SD,
+								 KEY_PROFILE_NLT,
+									KEY_PROFILE_S2W}, KEY_PROFILE_NAME + "=?",
 								 new String[] { name }, null, null, null, null);
         if (cursor != null)
             cursor.moveToFirst();
@@ -189,7 +264,19 @@ public class DatabaseHandler extends SQLiteOpenHelper
 									  cursor.getString(10),
 									  cursor.getString(11),
 									  cursor.getString(12),
-									  cursor.getString(13));
+									  cursor.getString(13),
+									  cursor.getInt(14),
+									  cursor.getInt(15),
+									  cursor.getInt(16),
+									  cursor.getInt(17),
+									  cursor.getInt(18),
+									  cursor.getInt(19),
+									  cursor.getInt(14),
+									  cursor.getInt(20),
+									  cursor.getInt(21),
+									  cursor.getInt(22),
+									  cursor.getInt(23),
+									  cursor.getInt(24));
         // return contact
         return profile;
     }
@@ -223,6 +310,19 @@ public class DatabaseHandler extends SQLiteOpenHelper
                 profile.setNOC(cursor.getString(11));
                 profile.setMtd(cursor.getString(12));
                 profile.setMtu(cursor.getString(13));
+                profile.setCpu(cursor.getInt(14));
+                profile.setVt(cursor.getInt(15));
+                profile.setMd(cursor.getInt(16));
+                profile.setGpu(cursor.getInt(17));
+                profile.setCbl(cursor.getInt(18));
+                profile.setVs(cursor.getInt(19));
+                profile.setFc(cursor.getInt(20));
+                profile.setCd(cursor.getInt(21));
+                profile.setIo(cursor.getInt(22));
+                profile.setSd(cursor.getInt(23));
+                profile.setNlt(cursor.getInt(24));
+                profile.setS2w(cursor.getInt(25)
+                );
                 // Adding contact to list
                 profileList.add(profile);
             } while (cursor.moveToNext());
@@ -251,7 +351,19 @@ public class DatabaseHandler extends SQLiteOpenHelper
         values.put(KEY_PROFILE_NOC, profile.getNOC());
         values.put(KEY_PROFILE_MTD, profile.getMtd());
         values.put(KEY_PROFILE_MTU, profile.getMtu());
-
+        values.put(KEY_PROFILE_CPU, profile.getCpu());
+        values.put(KEY_PROFILE_VT, profile.getVt());
+        values.put(KEY_PROFILE_MD, profile.getMd());
+        values.put(KEY_PROFILE_GPU, profile.getGpu());
+        values.put(KEY_PROFILE_CBL, profile.getCbl());
+        values.put(KEY_PROFILE_VS, profile.getVs());
+        values.put(KEY_PROFILE_FC, profile.getFc());
+        values.put(KEY_PROFILE_CD, profile.getCd());
+        values.put(KEY_PROFILE_IO, profile.getIo());
+        values.put(KEY_PROFILE_SD, profile.getSd());
+        values.put(KEY_PROFILE_NLT, profile.getNlt());
+        values.put(KEY_PROFILE_S2W, profile.getS2w());
+        
         // updating row
         return db.update(TABLE_PROFILES, values, KEY_PROFILE_ID + " = ?",
 						 new String[] { String.valueOf(profile.getID()) });
