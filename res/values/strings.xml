@@ -186,5 +186,6 @@
 		<string name="clear">Clear</string>
 		<string name="delete">Delete</string>
 	<string name="plugin_name">Kernel Tuner - Profiles</string>
+	<string name="voltage_profile">Voltage Profile</string>
 
 </resources>

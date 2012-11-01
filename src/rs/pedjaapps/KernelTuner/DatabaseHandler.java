@@ -47,20 +47,8 @@ public class DatabaseHandler extends SQLiteOpenHelper
 	private static final String KEY_PROFILE_CDEPTH = "cdepth";
 	private static final String KEY_PROFILE_IOSCHEDULER = "IOScheduler";
 	private static final String KEY_PROFILE_SDCACHE = "sdCache";
-	private static final String KEY_PROFILE_NOTIFICATION_LED = "notificationLed";
 	private static final String KEY_PROFILE_SWEEP2WAKE = "sweep2wake";
-  /*  private static final String KEY_PROFILE_CPU = "cpu";
-    private static final String KEY_PROFILE_VT = "vt";
-    private static final String KEY_PROFILE_MD = "md";
-    private static final String KEY_PROFILE_GPU = "gpu";
-    private static final String KEY_PROFILE_CBL = "cbl";
-    private static final String KEY_PROFILE_VS = "vs";
-    private static final String KEY_PROFILE_FC = "fc";
-    private static final String KEY_PROFILE_CD = "cd";
-    private static final String KEY_PROFILE_IO = "io";
-    private static final String KEY_PROFILE_SD = "sd";
-    private static final String KEY_PROFILE_NLT = "nlt";
-    private static final String KEY_PROFILE_S2W = "s2w";*/
+  
 	
     
     private static final String KEY_VOLTAGE_ID = "id";
@@ -103,20 +91,8 @@ public class DatabaseHandler extends SQLiteOpenHelper
 			+ KEY_PROFILE_CDEPTH + " TEXT,"
 			+ KEY_PROFILE_IOSCHEDULER + " TEXT,"
 			+ KEY_PROFILE_SDCACHE + " INTEGER,"
-			+ KEY_PROFILE_NOTIFICATION_LED + " TEXT,"
 			+ KEY_PROFILE_SWEEP2WAKE + " INTEGER"
-			/*+ KEY_PROFILE_CPU + " INTEGER,"
-			+ KEY_PROFILE_VT + " INTEGER,"
-			+ KEY_PROFILE_MD + " INTEGER,"
-			+ KEY_PROFILE_GPU + " INTEGER,"
-			+ KEY_PROFILE_CBL + " INTEGER,"
-			+ KEY_PROFILE_VS + " INTEGER,"
-			+ KEY_PROFILE_FC + " INTEGER,"
-			+ KEY_PROFILE_CD + " INTEGER,"
-			+ KEY_PROFILE_IO + " INTEGER,"
-			+ KEY_PROFILE_SD + " INTEGER,"
-			+ KEY_PROFILE_NLT + " INTEGER,"
-			+ KEY_PROFILE_S2W + " INTEGER"*/
+			
 			+
 			")";
         String CREATE_VOLTAGE_TABLE = "CREATE TABLE " + TABLE_VOLTAGE + "("
@@ -174,20 +150,8 @@ public class DatabaseHandler extends SQLiteOpenHelper
         values.put(KEY_PROFILE_CDEPTH, profile.getCdepth());
         values.put(KEY_PROFILE_IOSCHEDULER, profile.getIoScheduler());
         values.put(KEY_PROFILE_SDCACHE, profile.getSdcache());
-        values.put(KEY_PROFILE_NOTIFICATION_LED, profile.getNotificationLed());
         values.put(KEY_PROFILE_SWEEP2WAKE, profile.getSweep2wake());
-        /*values.put(KEY_PROFILE_CPU, profile.getCpu());
-        values.put(KEY_PROFILE_VT, profile.getVt());
-        values.put(KEY_PROFILE_MD, profile.getMd());
-        values.put(KEY_PROFILE_GPU, profile.getGpu());
-        values.put(KEY_PROFILE_CBL, profile.getCbl());
-        values.put(KEY_PROFILE_VS, profile.getVs());
-        values.put(KEY_PROFILE_FC, profile.getFc());
-        values.put(KEY_PROFILE_CD, profile.getCd());
-        values.put(KEY_PROFILE_IO, profile.getIo());
-        values.put(KEY_PROFILE_SD, profile.getSd());
-        values.put(KEY_PROFILE_NLT, profile.getNlt());
-        values.put(KEY_PROFILE_S2W, profile.getS2w());*/
+       
 
         // Inserting Row
         db.insert(TABLE_PROFILES, null, values);
@@ -224,20 +188,8 @@ public class DatabaseHandler extends SQLiteOpenHelper
 									 KEY_PROFILE_CDEPTH,
 									 KEY_PROFILE_IOSCHEDULER,
 									 KEY_PROFILE_SDCACHE,
-									 KEY_PROFILE_NOTIFICATION_LED,
 									 KEY_PROFILE_SWEEP2WAKE
-									/* KEY_PROFILE_CPU,
-									 KEY_PROFILE_VT,
-									 KEY_PROFILE_MD,
-									 KEY_PROFILE_GPU,
-									 KEY_PROFILE_CBL,
-									 KEY_PROFILE_VS,
-									 KEY_PROFILE_FC,
-									 KEY_PROFILE_CD,
-									 KEY_PROFILE_IO,
-									 KEY_PROFILE_SD,
-								 KEY_PROFILE_NLT,
-									KEY_PROFILE_S2W*/}, KEY_PROFILE_ID + "=?",
+									}, KEY_PROFILE_ID + "=?",
 								 new String[] { String.valueOf(id) }, null, null, null, null);
         if (cursor != null)
             cursor.moveToFirst();
@@ -267,20 +219,9 @@ public class DatabaseHandler extends SQLiteOpenHelper
 									  cursor.getString(22),
 									  cursor.getString(23),
 									  cursor.getInt(24),
-									  cursor.getString(25),
-									  cursor.getInt(26)
-									 /* cursor.getInt(27),
-									  cursor.getInt(28),
-									  cursor.getInt(29),
-									  cursor.getInt(30),
-									  cursor.getInt(31),
-									  cursor.getInt(32),
-									  cursor.getInt(33),
-									  cursor.getInt(34),
-									  cursor.getInt(35),
-									  cursor.getInt(36),
-									  cursor.getInt(37),
-									  cursor.getInt(38)*/
+									  
+									  cursor.getInt(25)
+									
 									  
 									  );
         // return contact
@@ -316,20 +257,8 @@ public class DatabaseHandler extends SQLiteOpenHelper
 									 KEY_PROFILE_CDEPTH,
 									 KEY_PROFILE_IOSCHEDULER,
 									 KEY_PROFILE_SDCACHE,
-									 KEY_PROFILE_NOTIFICATION_LED,
 									 KEY_PROFILE_SWEEP2WAKE
-									/* KEY_PROFILE_CPU,
-									 KEY_PROFILE_VT,
-									 KEY_PROFILE_MD,
-									 KEY_PROFILE_GPU,
-									 KEY_PROFILE_CBL,
-									 KEY_PROFILE_VS,
-									 KEY_PROFILE_FC,
-									 KEY_PROFILE_CD,
-									 KEY_PROFILE_IO,
-									 KEY_PROFILE_SD,
-									 KEY_PROFILE_NLT,
-									 KEY_PROFILE_S2W*/}, KEY_PROFILE_NAME + "=?",
+									}, KEY_PROFILE_NAME + "=?",
 								 new String[] { name }, null, null, null, null);
         if (cursor != null)
             cursor.moveToFirst();
@@ -359,20 +288,9 @@ public class DatabaseHandler extends SQLiteOpenHelper
 									  cursor.getString(22),
 									  cursor.getString(23),
 									  cursor.getInt(24),
-									  cursor.getString(25),
-									  cursor.getInt(26)
-									/*  cursor.getInt(27),
-									  cursor.getInt(28),
-									  cursor.getInt(29),
-									  cursor.getInt(30),
-									  cursor.getInt(31),
-									  cursor.getInt(32),
-									  cursor.getInt(33),
-									  cursor.getInt(34),
-									  cursor.getInt(35),
-									  cursor.getInt(36),
-									  cursor.getInt(37),
-									  cursor.getInt(38)*/);
+									  
+									  cursor.getInt(25)
+									);
         // return contact
         return profile;
     }
@@ -417,20 +335,9 @@ public class DatabaseHandler extends SQLiteOpenHelper
                 profile.setCdepth(cursor.getString(22));
                 profile.setIoScheduler(cursor.getString(23));
                 profile.setSdcache(cursor.getInt(24));
-                profile.setNotificationLed(cursor.getString(25));
-                profile.setSweep2wake(cursor.getInt(26));
-              /*  profile.setCpu(cursor.getInt(27));
-                profile.setVt(cursor.getInt(28));
-                profile.setMd(cursor.getInt(29));
-                profile.setGpu(cursor.getInt(30));
-                profile.setCbl(cursor.getInt(31));
-                profile.setVs(cursor.getInt(32));
-                profile.setFc(cursor.getInt(33));
-                profile.setCd(cursor.getInt(34));
-                profile.setIo(cursor.getInt(35));
-                profile.setSd(cursor.getInt(36));
-                profile.setNlt(cursor.getInt(37));
-                profile.setS2w(cursor.getInt(38)*/
+                
+                profile.setSweep2wake(cursor.getInt(25));
+              
                 
                 // Adding contact to list
                 profileList.add(profile);
@@ -471,20 +378,8 @@ public class DatabaseHandler extends SQLiteOpenHelper
         values.put(KEY_PROFILE_CDEPTH, profile.getCdepth());
         values.put(KEY_PROFILE_IOSCHEDULER, profile.getIoScheduler());
         values.put(KEY_PROFILE_SDCACHE, profile.getSdcache());
-        values.put(KEY_PROFILE_NOTIFICATION_LED, profile.getNotificationLed());
         values.put(KEY_PROFILE_SWEEP2WAKE, profile.getSweep2wake());
-        /*values.put(KEY_PROFILE_CPU, profile.getCpu());
-        values.put(KEY_PROFILE_VT, profile.getVt());
-        values.put(KEY_PROFILE_MD, profile.getMd());
-        values.put(KEY_PROFILE_GPU, profile.getGpu());
-        values.put(KEY_PROFILE_CBL, profile.getCbl());
-        values.put(KEY_PROFILE_VS, profile.getVs());
-        values.put(KEY_PROFILE_FC, profile.getFc());
-        values.put(KEY_PROFILE_CD, profile.getCd());
-        values.put(KEY_PROFILE_IO, profile.getIo());
-        values.put(KEY_PROFILE_SD, profile.getSd());
-        values.put(KEY_PROFILE_NLT, profile.getNlt());
-        values.put(KEY_PROFILE_S2W, profile.getS2w());*/
+        
         
         // updating row
         return db.update(TABLE_PROFILES, values, KEY_PROFILE_ID + " = ?",

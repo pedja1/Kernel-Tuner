@@ -98,9 +98,9 @@ public boolean onOptionsItemSelected(MenuItem item) {
 switch (item.getItemId()) {
     case 0:
     	
-    //	Intent intent = new Intent();
-       // intent.setClass(this,ProfileEditor.class);
-      //  startActivityForResult(intent,GET_CODE);
+    	Intent intent = new Intent();
+        intent.setClass(this,ProfileEditor.class);
+        startActivityForResult(intent,GET_CODE);
 		
 		db.addProfile(new Profile(0, "Battery", "192", 
 								  "1188", 
@@ -125,7 +125,7 @@ switch (item.getItemId()) {
 								  "24",
 								  "noop",
 								  3072,
-								  "null",
+								  
 								  2));
 			 profilesAdapter.clear();
 		for (final ProfilesEntry entry : getProfilesEntries())

@@ -29,22 +29,11 @@ public class Profile
     String _colorDepth;
     String _IOScheduler;
     int _sdCache;
-    String _notLedTim;
+    
     int _sweep2wake;
    
     
-    /* int _cpu;
-	 int _vt;
-	 int _md;
-	 int _gpu;
-	 int _cbl;
-	 int _vs;
-	 int _fc;
-	 int _cd;
-	 int _io;
-	 int _sd;
-	 int _nlt;
-	 int _s2w;*/
+   
 
     // Empty constructor
     public Profile()
@@ -77,20 +66,9 @@ public class Profile
 				   String colorDepth,
 				   String IOScheduler,
 				   int sdCache,
-				   String notLedTim,
+				   
 				   int sweep2wake
-				  /* int cpu,
-				   int vt,
-				   int md,
-				   int gpu,
-				   int cbl,
-				   int vs,
-				   int fc,
-				   int cd,
-				   	int io,
-				   	int sd,
-				   	int nlt,
-				   	int s2w*/)
+				 )
 	{
         this._id = id;
         this._Name = Name;
@@ -118,21 +96,9 @@ public class Profile
         this._colorDepth = colorDepth;
 		  this._IOScheduler = IOScheduler;
 		   this._sdCache = sdCache;
-		   this._notLedTim = notLedTim;
 		   this._sweep2wake = sweep2wake;
         
-     /*   this._cpu = cpu;
-        this._vt = vt;
-        this._md = md;
-        this._gpu = gpu;
-        this._cbl = cbl;
-        this._vs = vs;
-        this._fc = fc;
-        this._cd = cd;
-        this._io = io;
-        this._sd = sd;
-        this._nlt = nlt;
-        this._s2w = s2w;*/
+  
 
 
     }
@@ -163,20 +129,8 @@ public class Profile
 		   String colorDepth,
 		   String IOScheduler,
 		   int sdCache,
-		   String notLedTim,
 		   int sweep2wake
-				 /*  int cpu,
-					 int vt,
-					 int md,
-					 int gpu,
-					 int cbl,
-					 int vs,
-					 int fc,
-					 int cd,
-					 int io,
-					 int sd,
-					 int nlt,
-					 int s2w*/)
+				 )
 	{
 
     	this._Name = Name;
@@ -204,20 +158,8 @@ public class Profile
         this._colorDepth = colorDepth;
 		  this._IOScheduler = IOScheduler;
 		   this._sdCache = sdCache;
-		   this._notLedTim = notLedTim;
 		   this._sweep2wake = sweep2wake;
-      /*  this._cpu = cpu;
-        this._vt = vt;
-        this._md = md;
-        this._gpu = gpu;
-        this._cbl = cbl;
-        this._vs = vs;
-        this._fc = fc;
-        this._cd = cd;
-        this._io = io;
-        this._sd = sd;
-        this._nlt = nlt;
-        this._s2w = s2w;*/
+      
     }
     // getting ID
     public int getID()
@@ -499,15 +441,7 @@ public class Profile
         this._colorDepth = cDepth;
     }
 	
-	public String getNotificationLed()
-	{
-        return this._notLedTim;
-    }
-
-    public void setNotificationLed(String nlt)
-	{
-        this._notLedTim = nlt;
-    }
+	
 	
 	public String getIoScheduler()
 	{

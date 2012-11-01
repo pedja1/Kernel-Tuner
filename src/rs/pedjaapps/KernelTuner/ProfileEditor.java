@@ -40,7 +40,90 @@ public class ProfileEditor extends Activity
 		super.onCreate(savedInstanceState);
 
 		setContentView(R.layout.profile_editor);
-		try
+		RelativeLayout cpu = (RelativeLayout)findViewById(R.id.cpu);
+		final LinearLayout cpuInfo = (LinearLayout)findViewById(R.id.cpu_settings);
+		final ImageView cpuImg = (ImageView)findViewById(R.id.cpu_img);
+
+		RelativeLayout other = (RelativeLayout)findViewById(R.id.other);
+		final LinearLayout otherInfo = (LinearLayout)findViewById(R.id.other_settings);
+		final ImageView otherImg = (ImageView)findViewById(R.id.other_img);
+
+		RelativeLayout gpu = (RelativeLayout)findViewById(R.id.gpu);
+		final LinearLayout gpuInfo = (LinearLayout)findViewById(R.id.gpu_settings);
+		final ImageView gpuImg = (ImageView)findViewById(R.id.gpu_img);
+
+		Button cancel = (Button)findViewById(R.id.cancel);
+		
+		cpu.setOnClickListener(new OnClickListener(){
+
+			@Override
+			public void onClick(View arg0)
+			{
+				if (cpuInfo.getVisibility() == View.VISIBLE)
+				{
+					cpuInfo.setVisibility(View.GONE);
+					cpuImg.setImageResource(R.drawable.arrow_right);
+				}
+				else if (cpuInfo.getVisibility() == View.GONE)
+				{
+					cpuInfo.setVisibility(View.VISIBLE);
+					cpuImg.setImageResource(R.drawable.arrow_down);
+				}
+			}
+
+		});
+
+	gpu.setOnClickListener(new OnClickListener(){
+
+			@Override
+			public void onClick(View arg0)
+			{
+				if (gpuInfo.getVisibility() == View.VISIBLE)
+				{
+					gpuInfo.setVisibility(View.GONE);
+					gpuImg.setImageResource(R.drawable.arrow_right);
+				}
+				else if (gpuInfo.getVisibility() == View.GONE)
+				{
+					gpuInfo.setVisibility(View.VISIBLE);
+					gpuImg.setImageResource(R.drawable.arrow_down);
+				}
+			}
+
+		});
+
+	other.setOnClickListener(new OnClickListener(){
+
+			@Override
+			public void onClick(View arg0)
+			{
+				if (otherInfo.getVisibility() == View.VISIBLE)
+				{
+					otherInfo.setVisibility(View.GONE);
+					otherImg.setImageResource(R.drawable.arrow_right);
+				}
+				else if (otherInfo.getVisibility() == View.GONE)
+				{
+					otherInfo.setVisibility(View.VISIBLE);
+					otherImg.setImageResource(R.drawable.arrow_down);
+				}
+			}
+
+		});
+	
+	cancel.setOnClickListener(new OnClickListener(){
+
+		@Override
+		public void onClick(View arg0)
+		{
+			finish();
+		}
+
+	});
+	
+	setUI();
+	}
+		/*try
 		{
 
 			File myFile = new File("/sys/devices/system/cpu/cpu0/cpufreq/scaling_available_frequencies");
@@ -155,7 +238,7 @@ public class ProfileEditor extends Activity
 
 			});
 	}
-
+*/
 	public void setUI()
 	{
 		Spinner spinner1 = (Spinner)findViewById(R.id.spinner1);
@@ -171,10 +254,19 @@ public class ProfileEditor extends Activity
 		Spinner spinner11 = (Spinner)findViewById(R.id.spinner11);
 		Spinner spinner12 = (Spinner)findViewById(R.id.spinner12);
 
-		String[] freqsStringAray = freqs.split("\\s");
-		String[] govsStringAray = govs.split("\\s");
-		String[] gpu2darr = {"160000000", "200000000", "228571000", "266667000"};
-		String[] gpu3darr = {"200000000", "228857100", "266667000", "300000000", "320000000"};
+		List<String> freqs = new ArrayList<String>();
+				freqs.add("Unchanged");
+				freqs.addAll(CPUInfo.frequencies());
+				
+				System.out.println("Freqs"+freqs);
+				
+		List<String> govs = new ArrayList<String>();
+				govs.add("Unchanged");
+				govs.addAll(CPUInfo.governors());
+				
+		
+		//String[] gpu2darr = {"160000000", "200000000", "228571000", "266667000"};
+		//String[] gpu3darr = {"200000000", "228857100", "266667000", "300000000", "320000000"};
 		List<String> numbers = new ArrayList<String>();
 		for (int i = 0; i < 100; i++)
 		{
@@ -184,7 +276,7 @@ public class ProfileEditor extends Activity
 
 
 		/**spinner1*/
-		ArrayAdapter<String> spinnerArrayAdapter = new ArrayAdapter<String>(this,   android.R.layout.simple_spinner_item, freqsStringAray);
+		ArrayAdapter<String> spinnerArrayAdapter = new ArrayAdapter<String>(this,   android.R.layout.simple_spinner_item, freqs);
 		spinnerArrayAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item); // The drop down vieww
 		spinner1.setAdapter(spinnerArrayAdapter);
 
@@ -211,7 +303,7 @@ public class ProfileEditor extends Activity
 		 spinner.setSelection(spinnerPosition);
 		 //*/
 		/**spinner2*/
-		ArrayAdapter<String> spinner2ArrayAdapter = new ArrayAdapter<String>(this,   android.R.layout.simple_spinner_item, freqsStringAray);
+		ArrayAdapter<String> spinner2ArrayAdapter = new ArrayAdapter<String>(this,   android.R.layout.simple_spinner_item, freqs);
 		spinner2ArrayAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item); // The drop down vieww
 		spinner2.setAdapter(spinner2ArrayAdapter);
 
@@ -230,7 +322,7 @@ public class ProfileEditor extends Activity
         	    }
         	});
 		/**spinner3*/
-		ArrayAdapter<String> spinner3ArrayAdapter = new ArrayAdapter<String>(this,   android.R.layout.simple_spinner_item, freqsStringAray);
+		ArrayAdapter<String> spinner3ArrayAdapter = new ArrayAdapter<String>(this,   android.R.layout.simple_spinner_item, freqs);
 		spinner3ArrayAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item); // The drop down vieww
 		spinner3.setAdapter(spinner3ArrayAdapter);
 
@@ -250,7 +342,7 @@ public class ProfileEditor extends Activity
         	});
 
 		/**spinner4*/
-		ArrayAdapter<String> spinner4ArrayAdapter = new ArrayAdapter<String>(this,   android.R.layout.simple_spinner_item, freqsStringAray);
+		ArrayAdapter<String> spinner4ArrayAdapter = new ArrayAdapter<String>(this,   android.R.layout.simple_spinner_item, freqs);
 		spinner4ArrayAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item); // The drop down vieww
 		spinner4.setAdapter(spinner4ArrayAdapter);
 
@@ -269,7 +361,7 @@ public class ProfileEditor extends Activity
         	    }
         	});
 
-		/**spinner5*/
+		/**spinner5
 		ArrayAdapter<String> spinner5ArrayAdapter = new ArrayAdapter<String>(this,   android.R.layout.simple_spinner_item, govsStringAray);
 		spinner5ArrayAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item); // The drop down vieww
 		spinner5.setAdapter(spinner5ArrayAdapter);
@@ -289,7 +381,7 @@ public class ProfileEditor extends Activity
         	    }
         	});
 
-		/**spinner6*/
+		/**spinner6
 		ArrayAdapter<String> spinner6ArrayAdapter = new ArrayAdapter<String>(this,   android.R.layout.simple_spinner_item, govsStringAray);
 		spinner6ArrayAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item); // The drop down vieww
 		spinner6.setAdapter(spinner6ArrayAdapter);
@@ -309,7 +401,7 @@ public class ProfileEditor extends Activity
         	    }
         	});
 
-		/**spinner7*/
+		/**spinner7
 		ArrayAdapter<String> spinner7ArrayAdapter = new ArrayAdapter<String>(this,   android.R.layout.simple_spinner_item, gpu2darr);
 		spinner7ArrayAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item); // The drop down vieww
 		spinner7.setAdapter(spinner7ArrayAdapter);
@@ -329,7 +421,7 @@ public class ProfileEditor extends Activity
         	    }
         	});
 
-		/**spinner8*/
+		/**spinner8
 		ArrayAdapter<String> spinner8ArrayAdapter = new ArrayAdapter<String>(this,   android.R.layout.simple_spinner_item, gpu3darr);
 		spinner8ArrayAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item); // The drop down vieww
 		spinner8.setAdapter(spinner8ArrayAdapter);
@@ -349,7 +441,7 @@ public class ProfileEditor extends Activity
         	    }
         	});
 
-		/**spinner9*/
+		/**spinner9
 		ArrayAdapter<String> spinner9ArrayAdapter = new ArrayAdapter<String>(this,   android.R.layout.simple_spinner_item, new String[] {"ON", "OFF"});
 		spinner9ArrayAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item); // The drop down vieww
 		spinner9.setAdapter(spinner9ArrayAdapter);
@@ -377,7 +469,7 @@ public class ProfileEditor extends Activity
         	    }
         	});
 
-		/**spinner10*/
+		/**spinner10
 		ArrayAdapter<String> spinner10ArrayAdapter = new ArrayAdapter<String>(this,   android.R.layout.simple_spinner_item, new String[] {"1", "2"});
 		spinner10ArrayAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item); // The drop down vieww
 		spinner10.setAdapter(spinner10ArrayAdapter);
@@ -397,7 +489,7 @@ public class ProfileEditor extends Activity
         	    }
         	});
 
-		/**spinner11*/
+		/**spinner11
 		ArrayAdapter<String> spinner11ArrayAdapter = new ArrayAdapter<String>(this,   android.R.layout.simple_spinner_item, numbers);
 		spinner11ArrayAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item); // The drop down vieww
 		spinner11.setAdapter(spinner11ArrayAdapter);
@@ -417,8 +509,8 @@ public class ProfileEditor extends Activity
         	    }
         	});
 
-		/**spinner12*/
-		ArrayAdapter<String> spinner12ArrayAdapter = new ArrayAdapter<String>(this,   android.R.layout.simple_spinner_item, numbers);
+		/**spinner12
+		/*ArrayAdapter<String> spinner12ArrayAdapter = new ArrayAdapter<String>(this,   android.R.layout.simple_spinner_item, numbers);
 		spinner12ArrayAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item); // The drop down vieww
 		spinner12.setAdapter(spinner12ArrayAdapter);
 
@@ -435,7 +527,7 @@ public class ProfileEditor extends Activity
 				{
         	        //do nothing
         	    }
-        	});
+        	});*/
 	}
 
 
