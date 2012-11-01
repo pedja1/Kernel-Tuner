@@ -12,23 +12,23 @@
 
 package rs.pedjaapps.KernelTuner.ui;
 
-import android.annotation.TargetApi;
-import android.app.Activity;
-import android.content.Intent;
-import android.content.pm.PackageManager.NameNotFoundException;
-import android.net.Uri;
-import android.os.Build;
-import android.os.Bundle;
-import android.util.Log;
-import android.view.Menu;
-import android.view.MenuItem;
-import android.widget.EditText;
+import android.annotation.*;
+import android.app.*;
+import android.content.*;
+import android.content.pm.PackageManager.*;
+import android.net.*;
+import android.os.*;
+import android.util.*;
+import android.view.*;
+import android.widget.*;
+import android.widget.AdapterView.*;
+import com.twofortyfouram.locale.*;
+import java.util.*;
+import rs.pedjaapps.KernelTuner.*;
+import rs.pedjaapps.KernelTuner.bundle.*;
 
-import com.twofortyfouram.locale.BreadCrumber;
+import android.content.Intent;
 import rs.pedjaapps.KernelTuner.Constants;
-import rs.pedjaapps.KernelTuner.R;
-import rs.pedjaapps.KernelTuner.bundle.BundleScrubber;
-import rs.pedjaapps.KernelTuner.bundle.PluginBundleManager;
 
 /**
  * This is the "Edit" activity for a Locale Plug-in.
@@ -40,7 +40,7 @@ public final class EditActivity extends Activity
      * Help URL, used for the {@link R.id#twofortyfouram_locale_menu_help} menu item.
      */
     // TODO: Place your help URL here
-    private static final String HELP_URL = "http://www.yourcompany.com/yourhelp.html"; //$NON-NLS-1$
+    private static final String HELP_URL = "http://kerneltuner.pedjaapps.in.rs/faq"; //$NON-NLS-1$
 
     /**
      * Flag boolean that can only be set to true via the "Don't Save"
@@ -68,7 +68,7 @@ public final class EditActivity extends Activity
         BundleScrubber.scrub(getIntent());
         BundleScrubber.scrub(getIntent().getBundleExtra(com.twofortyfouram.locale.Intent.EXTRA_BUNDLE));
 
-        setContentView(R.layout.plugin_test);
+        setContentView(R.layout.locale_plugin);
 
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.HONEYCOMB)
         {
@@ -96,6 +96,36 @@ public final class EditActivity extends Activity
          * if savedInstanceState isn't null, there is no need to restore any Activity state directly via
          * onSaveInstanceState(), as the EditText object handles that automatically
          */
+		 DatabaseHandler db = new DatabaseHandler(this);
+		 List<String> profileList = new ArrayList<String>();
+		 List<Profile> profiles = db.getAllProfiles();
+		 for(Profile p : profiles){
+			 profileList.add(p.getName());
+		 }
+		 Spinner profSpinner = (Spinner)findViewById(R.id.spinner1);
+		ArrayAdapter<String> profileAdapter = new ArrayAdapter<String>(this,   android.R.layout.simple_spinner_item, profileList);
+		
+		profileAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
+		profSpinner.setAdapter(profileAdapter);
+
+		//ArrayAdapter<String> gov0Adap = (ArrayAdapter<String>) gov0spinner.getAdapter();
+	//	int gov0spinnerPosition = gov0Adap.getPosition(CPUInfo.cpu0CurGov());
+	//	gov0spinner.setSelection(gov0spinnerPosition);
+
+		profSpinner.setOnItemSelectedListener(new OnItemSelectedListener() {
+				@Override
+				public void onItemSelected(AdapterView<?> parent, View view, int pos, long id)
+				{
+					
+				}
+
+				@Override
+				public void onNothingSelected(AdapterView<?> parent)
+				{
+
+				}
+			});
+		
     }
 
     @TargetApi(11)

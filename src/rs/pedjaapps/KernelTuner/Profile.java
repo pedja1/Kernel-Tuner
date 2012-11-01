@@ -6,7 +6,6 @@ public class Profile
 	//private variables
     int _id;
     String _Name;
-    String _number_of_cores;
     String _cpu0min;
     String _cpu0max;
     String _cpu1min;
@@ -34,7 +33,7 @@ public class Profile
     int _sweep2wake;
    
     
-     int _cpu;
+    /* int _cpu;
 	 int _vt;
 	 int _md;
 	 int _gpu;
@@ -45,7 +44,7 @@ public class Profile
 	 int _io;
 	 int _sd;
 	 int _nlt;
-	 int _s2w;
+	 int _s2w;*/
 
     // Empty constructor
     public Profile()
@@ -54,7 +53,7 @@ public class Profile
     }
     // constructor
     public Profile(int id, String Name, 
-    				String number_of_cores, 
+    				
     				String cpu0min, 
     				String cpu0max, 
     				String cpu1min,
@@ -79,8 +78,8 @@ public class Profile
 				   String IOScheduler,
 				   int sdCache,
 				   String notLedTim,
-				   int sweep2wake,
-				   int cpu,
+				   int sweep2wake
+				  /* int cpu,
 				   int vt,
 				   int md,
 				   int gpu,
@@ -91,11 +90,11 @@ public class Profile
 				   	int io,
 				   	int sd,
 				   	int nlt,
-				   	int s2w)
+				   	int s2w*/)
 	{
         this._id = id;
         this._Name = Name;
-        this._number_of_cores = number_of_cores;
+        
         this._cpu0min = cpu0min;
         this._cpu0max = cpu0max;
         this._cpu1min = cpu1min;
@@ -122,7 +121,7 @@ public class Profile
 		   this._notLedTim = notLedTim;
 		   this._sweep2wake = sweep2wake;
         
-        this._cpu = cpu;
+     /*   this._cpu = cpu;
         this._vt = vt;
         this._md = md;
         this._gpu = gpu;
@@ -133,14 +132,14 @@ public class Profile
         this._io = io;
         this._sd = sd;
         this._nlt = nlt;
-        this._s2w = s2w;
+        this._s2w = s2w;*/
 
 
     }
 
     // constructor
     public Profile(String Name, 
-    		String number_of_cores, 
+    		
 			String cpu0min, 
 			String cpu0max, 
 			String cpu1min,
@@ -165,8 +164,8 @@ public class Profile
 		   String IOScheduler,
 		   int sdCache,
 		   String notLedTim,
-		   int sweep2wake,
-				   int cpu,
+		   int sweep2wake
+				 /*  int cpu,
 					 int vt,
 					 int md,
 					 int gpu,
@@ -177,11 +176,11 @@ public class Profile
 					 int io,
 					 int sd,
 					 int nlt,
-					 int s2w)
+					 int s2w*/)
 	{
 
     	this._Name = Name;
-    	this._number_of_cores = number_of_cores;
+    	
         this._cpu0min = cpu0min;
         this._cpu0max = cpu0max;
         this._cpu1min = cpu1min;
@@ -207,7 +206,7 @@ public class Profile
 		   this._sdCache = sdCache;
 		   this._notLedTim = notLedTim;
 		   this._sweep2wake = sweep2wake;
-        this._cpu = cpu;
+      /*  this._cpu = cpu;
         this._vt = vt;
         this._md = md;
         this._gpu = gpu;
@@ -218,7 +217,7 @@ public class Profile
         this._io = io;
         this._sd = sd;
         this._nlt = nlt;
-        this._s2w = s2w;
+        this._s2w = s2w;*/
     }
     // getting ID
     public int getID()
@@ -292,6 +291,54 @@ public class Profile
         this._cpu1max = cpu1max;
     }
 
+	// getting cpu0min
+    public String getCpu2min()
+	{
+        return this._cpu2min;
+    }
+
+    // setting cpu0min
+    public void setCpu2min(String cpu2min)
+	{
+        this._cpu2min = cpu2min;
+    }
+
+    // getting phone cpu0max
+    public String getCpu2max()
+	{
+        return this._cpu2max;
+    }
+
+    // setting phone cpu0max
+    public void setCpu2max(String cpu2max)
+	{
+        this._cpu2max = cpu2max;
+    }
+
+	// getting phone cpu1min
+    public String getCpu3min()
+	{
+        return this._cpu3min;
+    }
+
+    // setting phone cpu1min
+    public void setCpu3min(String cpu3min)
+	{
+        this._cpu3min = cpu3min;
+    }
+
+	// getting phone cpu1max
+    public String getCpu3max()
+	{
+        return this._cpu3max;
+    }
+
+    // setting phone cpu1max
+    public void setCpu3max(String cpu3max)
+	{
+        this._cpu3max = cpu3max;
+    }
+	
 	// getting phone cpu0gov
     public String getCpu0gov()
 	{
@@ -316,6 +363,31 @@ public class Profile
         this._cpu1gov = cpu1gov;
     }
 
+	// getting phone cpu0gov
+    public String getCpu2gov()
+	{
+        return this._cpu2gov;
+    }
+
+    // setting phone cpu0gov
+    public void setCpu2gov(String cpu2gov)
+	{
+        this._cpu2gov = cpu2gov;
+    }
+
+	// getting phone cpu1gov
+    public String getCpu3gov()
+	{
+        return this._cpu3gov;
+    }
+
+    // setting phone cpu1gov
+    public void setCpu3gov(String cpu3gov)
+	{
+        this._cpu3gov = cpu3gov;
+    }
+	
+	
 	// getting phone gpu2d
     public String getGpu2d()
 	{
@@ -347,23 +419,42 @@ public class Profile
     }
 
     // setting phone vsync
+    public void setFcharge(int fCharge)
+	{
+        this._fCharge = fCharge;
+    }
+
+	public int getFcharge()
+	{
+        return this._fCharge;
+    }
+
+	public void setSdcache(int sd)
+	{
+        this._sdCache = sd;
+    }
+
+	public int getSdcache()
+	{
+        return this._sdCache;
+    }
+	
+	public void setSweep2wake(int s2w)
+	{
+        this._sweep2wake = s2w;
+    }
+
+	public int getSweep2wake()
+	{
+        return this._sweep2wake;
+    }
+	
+    // setting phone vsync
     public void setVsync(int vsync)
 	{
         this._vsync = vsync;
     }
-
-	// getting phone noc
-    public String getNOC()
-	{
-        return this._number_of_cores;
-    }
-
-    // setting phone noc
-    public void setNOC(String number_of_cores)
-	{
-        this._number_of_cores = number_of_cores;
-    }
-
+	
 	// getting phone mtd
     public String getMtd()
 	{
@@ -388,7 +479,58 @@ public class Profile
         this._mtu = mtu;
     }
 
-    public int getCpu(){
+	public String getVoltage()
+	{
+        return this._voltageProfile;
+    }
+
+    public void setVoltage(String voltageProfile)
+	{
+        this._voltageProfile = voltageProfile;
+    }
+	
+	public String getCdepth()
+	{
+        return this._colorDepth;
+    }
+
+    public void setCdepth(String cDepth)
+	{
+        this._colorDepth = cDepth;
+    }
+	
+	public String getNotificationLed()
+	{
+        return this._notLedTim;
+    }
+
+    public void setNotificationLed(String nlt)
+	{
+        this._notLedTim = nlt;
+    }
+	
+	public String getIoScheduler()
+	{
+        return this._IOScheduler;
+    }
+
+    public void setIoScheduler(String io)
+	{
+        this._IOScheduler = io;
+    }
+	
+	public String getButtonsLight()
+	{
+        return this._buttonsLight;
+    }
+
+    public void setButtonsLight(String buttonsLight)
+	{
+        this._buttonsLight = buttonsLight;
+    }
+	
+	
+   /* public int getCpu(){
     	return this._cpu;
     }
     
@@ -478,5 +620,5 @@ public class Profile
     public void setS2w(int s2w){
     	this._s2w = s2w;
     }
-
+*/
 }

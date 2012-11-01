@@ -31,31 +31,7 @@ public class Profiles extends Activity
 		
 		
 		db = new DatabaseHandler(this);
-		db.addProfile(new Profile(0, "Battery", "192", 
-				  "1188", 
-				  "192", 
-				  "1188", 
-				  "ondemand",
-				  "ondemand",
-				  "320",
-				  "320",
-				  "1",
-				  "2",
-				  "50",
-				  "100",
-				  1,
-				  1,
-				  1,
-				  1,
-				  1, 
-				  0, 
-				  0, 
-				  0, 
-				  0, 
-				  0, 
-				  0, 
-				  0
-				  ));
+	
 		
 		profilesListView = (ListView) findViewById(R.id.list);
 		profilesAdapter = new ProfilesAdapter(this, R.layout.profile_list_item);
@@ -71,11 +47,15 @@ public class Profiles extends Activity
 	}
 	
 	public void setUI(){
+		TextView tv1 = (TextView)findViewById(R.id.tv1);
+		LinearLayout ll = (LinearLayout)findViewById(R.id.ll1);
 		if(profilesAdapter.isEmpty()==false){
-			TextView tv1 = (TextView)findViewById(R.id.tv1);
-			LinearLayout ll = (LinearLayout)findViewById(R.id.ll1);
 			tv1.setVisibility(View.GONE);
 			ll.setVisibility(View.GONE);
+		}
+		else{
+			tv1.setVisibility(View.VISIBLE);
+			ll.setVisibility(View.VISIBLE);
 		}
 	}
 	
@@ -83,11 +63,15 @@ public class Profiles extends Activity
 	{
 
 		final List<ProfilesEntry> entries = new ArrayList<ProfilesEntry>();
-
+        List<Profile> profiles = db.getAllProfiles();
 		
-		//entries.add(new ProfilesEntry("Battery", 0, 0, 0, 0, 1, 0, 0, 0, 0, 0, 0, 0));
-		//entries.add(new ProfilesEntry("Performances", 0, 0, 0, 0, 1, 1, 1, 0, 0, 0, 0, 0));
-		//entries.add(new ProfilesEntry("test", 1, 0, 1, 0, 1, 0, 0, 0, 0, 0, 0, 0));
+		for(Profile p : profiles){
+			entries.add(new ProfilesEntry(p.getName(), 0));
+		}
+		
+	//	entries.add(new ProfilesEntry("Battery", 0, 0, 0, 0, 1, 0, 0, 0, 0, 0, 0, 0));
+	//	entries.add(new ProfilesEntry("Performances", 0, 0, 0, 0, 1, 1, 1, 0, 0, 0, 0, 0));
+	//	entries.add(new ProfilesEntry("test", 1, 0, 1, 0, 1, 0, 0, 0, 0, 0, 0, 0));
 
 		
 
@@ -114,12 +98,58 @@ public boolean onOptionsItemSelected(MenuItem item) {
 switch (item.getItemId()) {
     case 0:
     	
-    	Intent intent = new Intent();
-        intent.setClass(this,ProfileEditor.class);
-        startActivityForResult(intent,GET_CODE);
+    //	Intent intent = new Intent();
+       // intent.setClass(this,ProfileEditor.class);
+      //  startActivityForResult(intent,GET_CODE);
+		
+		db.addProfile(new Profile(0, "Battery", "192", 
+								  "1188", 
+								  "192", 
+								  "1188", 
+								  "1188", 
+								  "1188", 
+								  "1188", 
+								  "1188", 
+								  "ondemand",
+								  "ondemand",
+								  "ondemand",
+								  "ondemand",
+								  "low",	
+								  "50",
+								  "100",
+								  "320",
+								  "320",
+								  "60",
+								  1,
+								  0,
+								  "24",
+								  "noop",
+								  3072,
+								  "null",
+								  2));
+			 profilesAdapter.clear();
+		for (final ProfilesEntry entry : getProfilesEntries())
+		{
+			profilesAdapter.add(entry);
+		}
+		profilesListView.invalidate();
+		setUI();
+		
 		return true;
     case 1:
-    					
+		List<Profile> profiles = db.getAllProfiles();
+        
+		for(Profile p : profiles){
+			db.deleteProfile(p);
+		
+		}
+		profilesAdapter.clear();
+		for (final ProfilesEntry entry : getProfilesEntries())
+		{
+			profilesAdapter.add(entry);
+		}
+		profilesListView.invalidate();
+		setUI();
 		return true;
    
        

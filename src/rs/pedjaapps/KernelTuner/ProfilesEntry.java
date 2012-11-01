@@ -4,8 +4,8 @@ public final class ProfilesEntry
 {
 
 	private final String name;
-	private final int cpu;
-	private final int vt;
+	private final int check;
+	/*private final int vt;
 	private final int md;
 	private final int gpu;
 	private final int cbl;
@@ -15,21 +15,21 @@ public final class ProfilesEntry
 	private final int io;
 	private final int sd;
 	private final int nlt;
-	private final int s2w;
+	private final int s2w;*/
 
 
 
 	public ProfilesEntry(final String name, 
-			final int cpu, final int vt,
+			final int check/* final int vt,
 			final int md, final int gpu,
 			final int cbl, final int vs,
 			final int fc, final int cd,
 			final int io, final int sd,
-			final int nlt, final int s2w)
+			final int nlt, final int s2w*/)
 	{
 		this.name = name;
-		this.cpu = cpu;
-		this.vt = vt;
+		this.check = check;
+	/*	this.vt = vt;
 		this.md = md;
 		this.gpu = gpu;
 		this.cbl = cbl;
@@ -39,7 +39,7 @@ public final class ProfilesEntry
 		this.io = io;
 		this.sd = sd;
 		this.nlt = nlt;
-		this.s2w = s2w;
+		this.s2w = s2w;*/
 		
 
 	}
@@ -51,11 +51,11 @@ public final class ProfilesEntry
 	}
 
 
-	public int getCpu(){
-		return cpu;
+	public int getCheck(){
+		return check;
 	}
 	
-	public int getVt(){
+/*	public int getVt(){
 		return vt;
 	}
 	
@@ -100,6 +100,6 @@ public final class ProfilesEntry
 		return s2w;
 	}
 	
-	
+	*/
 
 }

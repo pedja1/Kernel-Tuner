@@ -24,8 +24,8 @@ public final class ProfilesAdapter extends ArrayAdapter<ProfilesEntry>
 		final ViewHolder viewHolder = getViewHolder(view);
 		final ProfilesEntry entry = getItem(position);
 
-		 int cpu = entry.getCpu();
-		 int vt = entry.getVt();
+		 int check = entry.getCheck();
+		/* int vt = entry.getVt();
 		 int md = entry.getMd();
 		 int gpu = entry.getGpu();
 		 int cbl = entry.getCbl();
@@ -37,15 +37,15 @@ public final class ProfilesAdapter extends ArrayAdapter<ProfilesEntry>
 		 int nlt = entry.getNlt();
 		 int s2w = entry.getS2w();
 		 
-		 
-		 if (cpu==1){
+		 */
+		 if (check==1){
 			 
-			 viewHolder.cpuView.setVisibility(View.VISIBLE);
+			 viewHolder.checkView.setVisibility(View.VISIBLE);
 		 }
 		 else{
-			 viewHolder.cpuView.setVisibility(View.GONE);
+			 viewHolder.checkView.setVisibility(View.GONE);
 		 }
-		 if (vt==1){
+	/*	 if (vt==1){
 			 viewHolder.vtView.setVisibility(View.VISIBLE);
 		 }
 		 else{
@@ -110,7 +110,7 @@ public final class ProfilesAdapter extends ArrayAdapter<ProfilesEntry>
 		 }
 		 else{
 			 viewHolder.s2wView.setVisibility(View.GONE);
-		 }
+		 }*/
 		viewHolder.nameView.setText(entry.getName());
 		
 
@@ -148,8 +148,8 @@ public final class ProfilesAdapter extends ArrayAdapter<ProfilesEntry>
 			viewHolder = new ViewHolder();
 
 			viewHolder.nameView = (TextView) workingView.findViewById(R.id.profile_name);
-			viewHolder.cpuView = (ImageView)workingView.findViewById(R.id.cpu);
-			viewHolder.vtView = (ImageView)workingView.findViewById(R.id.vt);
+			viewHolder.checkView = (ImageView)workingView.findViewById(R.id.check);
+		/*	viewHolder.vtView = (ImageView)workingView.findViewById(R.id.vt);
 			viewHolder.mdView = (ImageView)workingView.findViewById(R.id.md);
 			viewHolder.gpuView = (ImageView)workingView.findViewById(R.id.gpu);
 			viewHolder.cblView = (ImageView)workingView.findViewById(R.id.cbl);
@@ -159,7 +159,7 @@ public final class ProfilesAdapter extends ArrayAdapter<ProfilesEntry>
 			viewHolder.ioView = (ImageView)workingView.findViewById(R.id.io);
 			viewHolder.sdView = (ImageView)workingView.findViewById(R.id.sd);
 			viewHolder.nltView = (ImageView)workingView.findViewById(R.id.nlt);
-			viewHolder.s2wView = (ImageView)workingView.findViewById(R.id.s2w);
+			viewHolder.s2wView = (ImageView)workingView.findViewById(R.id.s2w);*/
 
 			workingView.setTag(viewHolder);
 
@@ -175,8 +175,8 @@ public final class ProfilesAdapter extends ArrayAdapter<ProfilesEntry>
 	private class ViewHolder
 	{
 		public TextView nameView;
-		public ImageView cpuView;
-		public ImageView vtView;
+		public ImageView checkView;
+	/*	public ImageView vtView;
 		public ImageView mdView;
 		public ImageView gpuView;
 		public ImageView cblView;
@@ -186,7 +186,7 @@ public final class ProfilesAdapter extends ArrayAdapter<ProfilesEntry>
 		public ImageView ioView;
 		public ImageView sdView;
 		public ImageView nltView;
-		public ImageView s2wView;
+		public ImageView s2wView;*/
 
 	}
 
