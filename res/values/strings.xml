@@ -61,7 +61,7 @@
     <string name="activity_check_your_device_is_">"Your device is "</string>
     <string name="activity_check_compatible_">" compatible!"</string>
      <string name="activity_main_cpu_temp_">CPU Temp:</string>
-    <string name="activity_main_n_a">n/a</string>
+    <string name="n_a">n/a</string>
     <string name="activity_main__battery_temp_">" Batt. Tmp:"</string>
     <string name="activity_main__battery_level_">" Battery:"</string>
     <string name="cpu0">CPU0</string>
@@ -107,7 +107,7 @@
     <string name="enable_disable_fastcharge_mod">Enable/Disable Fastcharge Mod</string>
     <string name="vsync">Vsync:</string>
     <string name="enable_disable_vsync">Enable/Disable Vsync</string>
-    <string name="question_mark">\\?</string>
+    <string name="question_mark">\?</string>
     <string name="color_depth">Color Depth:</string>
     <string name="io_scheduler_">IO Scheduler:</string>
     <string name="sd_cache_size_">SD Cache Size:</string>
