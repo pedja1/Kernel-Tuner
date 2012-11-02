@@ -810,19 +810,18 @@ SeekBar.OnSeekBarChangeListener
 				}
 			});
 
-		File file = new File("/sys/kernel/debug/msm_fb/0/vsync_enable");
-		try
-		{
-
-			InputStream fIn = new FileInputStream(file);
-
+		File file = new File("/sys/kernel/debug");
+		if(file.list().length>0){
+			
 		}
-		catch (FileNotFoundException e)
-		{
+		else{
 			this.pd = ProgressDialog.show(this, "Working..",
-										  "Mounting debug filesystem", true, false);
+					  "Mounting debug filesystem", true, false);
 			new mountDebugFs().execute();
 		}
+
+			
+		
 		readSDCache();
 		readIOScheduler();
 		createSpinnerIO();

@@ -497,50 +497,7 @@ public class KernelTuner extends Activity
 
 	}
 
-	private class mountDebugFs extends AsyncTask<String, Void, Object>
-	{
-
-
-		@Override
-		protected Object doInBackground(String... args)
-		{
-
-			Process localProcess;
-			try
-			{
-				localProcess = Runtime.getRuntime().exec("su");
-
-				DataOutputStream localDataOutputStream = new DataOutputStream(localProcess.getOutputStream());
-				localDataOutputStream.writeBytes("mount -t debugfs debugfs /sys/kernel/debug\n");
-				localDataOutputStream.writeBytes("exit\n");
-				localDataOutputStream.flush();
-				localDataOutputStream.close();
-				localProcess.waitFor();
-				localProcess.destroy();
-			}
-			catch (IOException e)
-			{
-				// TODO Auto-generated catch block
-				e.printStackTrace();
-			}
-			catch (InterruptedException e)
-			{
-				// TODO Auto-generated catch block
-				e.printStackTrace();
-			}
-
-			return "";
-		}
-
-		@Override
-		protected void onPostExecute(Object result)
-		{
-
-
-		}
-
-	}
-
+	
 
 	private class cpu1Toggle extends AsyncTask<String, Void, Object>
 	{
@@ -978,31 +935,11 @@ public class KernelTuner extends Activity
 		*/
 		changelog();
 
-		
-		/**
-		If debug fs is not mounted, mount it
-		*/
-		File file = new File("/sys/kernel/debug/msm_fb/0/vsync_enable");
-		try
-		{
-
-			InputStream fIn = new FileInputStream(file);
-
-
-		}
-		catch (FileNotFoundException e)
-		{ 
-			new mountDebugFs().execute();
-		}
-
-
 		/**
 		Read all available frequency steps
 		*/
 		readFreqs();
-		
 		initialCheck();
-
 
 		/***
 		Create new thread that will loop and show current frequency for each core
