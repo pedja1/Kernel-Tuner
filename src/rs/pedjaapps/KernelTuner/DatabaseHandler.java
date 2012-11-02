@@ -225,6 +225,8 @@ public class DatabaseHandler extends SQLiteOpenHelper
 									  
 									  );
         // return contact
+        db.close();
+        cursor.close();
         return profile;
     }
 
@@ -291,7 +293,9 @@ public class DatabaseHandler extends SQLiteOpenHelper
 									  
 									  cursor.getInt(25)
 									);
-        // return contact
+        
+        db.close();
+        cursor.close();
         return profile;
     }
 
@@ -339,16 +343,18 @@ public class DatabaseHandler extends SQLiteOpenHelper
                 profile.setSweep2wake(cursor.getInt(25));
               
                 
-                // Adding contact to list
+                // Adding  to list
                 profileList.add(profile);
             } while (cursor.moveToNext());
         }
 
-        // return contact list
+        // return list
+        db.close();
+        cursor.close();
         return profileList;
     }
 
-    // Updating single contact
+    // Updating single 
     public int updateProfile(Profile profile)
 	{
         SQLiteDatabase db = this.getWritableDatabase();
@@ -382,9 +388,11 @@ public class DatabaseHandler extends SQLiteOpenHelper
         
         
         // updating row
+        db.close();
         return db.update(TABLE_PROFILES, values, KEY_PROFILE_ID + " = ?",
 						 new String[] { String.valueOf(profile.getID()) });
-    }
+        
+	}
 
     // Deleting single profile
     public void deleteProfile(Profile profile)
@@ -448,6 +456,8 @@ public class DatabaseHandler extends SQLiteOpenHelper
    									  cursor.getString(2),
    									cursor.getString(3));
            // return 
+           db.close();
+           cursor.close();
            return voltage;
        }
 
@@ -468,6 +478,8 @@ public class DatabaseHandler extends SQLiteOpenHelper
    									  cursor.getString(2),
    									cursor.getString(3));
            // return 
+           db.close();
+           cursor.close();
            return voltage;
        }
        
@@ -488,6 +500,8 @@ public class DatabaseHandler extends SQLiteOpenHelper
       									  cursor.getString(2),
       									cursor.getString(3));
               // return 
+              db.close();
+              cursor.close();
               return voltage;
           }
 
@@ -517,6 +531,8 @@ public class DatabaseHandler extends SQLiteOpenHelper
            }
 
            // return  list
+           db.close();
+           cursor.close();
            return voltageList;
        }
 
@@ -531,6 +547,7 @@ public class DatabaseHandler extends SQLiteOpenHelper
            values.put(KEY_VOLTAGE_VALUE, voltage.getValue());
 
            // updating row
+           db.close();
            return db.update(TABLE_VOLTAGE, values, KEY_VOLTAGE_ID + " = ?",
    						 new String[] { String.valueOf(voltage.getID()) });
        }
