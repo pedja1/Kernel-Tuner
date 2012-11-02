@@ -20,42 +20,9 @@
                 android:layout_weight="1"
                 android:text="@string/profile_name" />
 
-            <EditText
-                android:id="@+id/editText3"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                
-                android:ems="10" />
-
         </LinearLayout>
-
-       <RelativeLayout
-                android:id="@+id/cpu"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:background="@drawable/background_dark_sharp_edges" >
-
-                <ImageView
-                    android:id="@+id/cpu_img"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:src="@drawable/arrow_right" />
-
-                <TextView
-                    android:id="@+id/cpuTextView"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_centerVertical="true"
-                    android:layout_toRightOf="@+id/cpu_img"
-                    android:text="@string/cpu_" />
-            </RelativeLayout>
         
-       <LinearLayout
-           android:id="@+id/cpu_settings"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:orientation="vertical"
-        android:visibility="gone" >
+      
         <LinearLayout
             android:id="@+id/cpu0min"
             android:layout_width="match_parent"
@@ -68,8 +35,8 @@
                 android:layout_weight="1"
                 android:text="@string/cpu0_min_freq_" />
 
-            <Spinner
-                android:id="@+id/spinner1"
+            <TextView
+                android:id="@+id/tv1"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content" />
             
@@ -87,8 +54,8 @@
                 android:layout_weight="1"
                 android:text="@string/cpu0_max_freq_" />
 
-            <Spinner
-                android:id="@+id/spinner2"
+            <TextView
+                android:id="@+id/tv2"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                  />
@@ -107,8 +74,8 @@
                 android:layout_weight="1"
                 android:text="@string/cpu1_min_freq_" />
 
-            <Spinner
-                android:id="@+id/spinner3"
+            <TextView
+                android:id="@+id/tv3"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 />
@@ -127,8 +94,8 @@
                 android:layout_weight="1"
                 android:text="@string/cpu1_max_freq_" />
 
-            <Spinner
-                android:id="@+id/spinner4"
+            <TextView
+                android:id="@+id/tv4"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                  />
@@ -148,8 +115,8 @@
                 android:layout_weight="1"
                 android:text="@string/cpu2_min_freq_" />
 
-            <Spinner
-                android:id="@+id/spinner5"
+            <TextView
+                android:id="@+id/tv5"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content" />
 
@@ -167,8 +134,8 @@
                 android:layout_weight="1"
                 android:text="@string/cpu2_max_freq_" />
 
-            <Spinner
-                android:id="@+id/spinner6"
+            <TextView
+                android:id="@+id/tv6"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 />
@@ -187,8 +154,8 @@
                 android:layout_weight="1"
                 android:text="@string/cpu3_min_freq_" />
 
-            <Spinner
-                android:id="@+id/spinner7"
+            <TextView
+                android:id="@+id/tv7"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                  />
@@ -207,8 +174,8 @@
                 android:layout_weight="1"
                 android:text="@string/cpu3_max_freq_" />
 
-            <Spinner
-                android:id="@+id/spinner8"
+            <TextView
+                android:id="@+id/tv8"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                  />
@@ -227,8 +194,8 @@
                 android:text="@string/cpu0_governor_"
                 android:layout_weight="1" />
 
-            <Spinner
-                android:id="@+id/spinner13"
+            <TextView
+                android:id="@+id/tv9"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                  />
@@ -247,8 +214,8 @@
                 android:text="@string/cpu1_governor_"
                  android:layout_weight="1" />
 
-            <Spinner
-                android:id="@+id/spinner9"
+            <TextView
+                android:id="@+id/tv10"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                  />
@@ -267,8 +234,8 @@
                 android:text="@string/cpu2_governor_"
                  android:layout_weight="1" />
 
-            <Spinner
-                android:id="@+id/spinner10"
+            <TextView
+                android:id="@+id/tv11"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                  />
@@ -287,8 +254,8 @@
                 android:text="@string/cpu3_governor_" 
                  android:layout_weight="1"/>
 
-            <Spinner
-                android:id="@+id/spinner11"
+            <TextView
+                android:id="@+id/tv12"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 />
@@ -315,8 +282,8 @@
                 android:text="@string/voltage_profile"
                   android:layout_weight="1" />
 
-            <Spinner
-                android:id="@+id/spinner12"
+            <TextView
+                android:id="@+id/tv13"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                />
@@ -340,16 +307,16 @@
                 android:layout_weight="1"
                 android:text="@string/mpdecision_threshold_down_" />
 
-            <EditText
-                android:id="@+id/editText1"
+            <TextView
+                android:id="@+id/tv14"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                
                 android:ems="4"
-                android:inputType="number" >
+                android:inputType="number" />
 
-                <requestFocus />
-            </EditText>
+              
+           
 
         </LinearLayout>
         
@@ -365,8 +332,8 @@
                 android:layout_weight="1"
                 android:text="@string/mpdecision_threshold_up_" />
 
-            <EditText
-                android:id="@+id/editText2"
+            <TextView
+                android:id="@+id/tv15"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 
@@ -375,35 +342,8 @@
 
         </LinearLayout>
         
-                </LinearLayout>
-        
-       <RelativeLayout
-                android:id="@+id/gpu"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:background="@drawable/background_dark_sharp_edges" >
-
-                <ImageView
-                    android:id="@+id/gpu_img"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:src="@drawable/arrow_right" />
-
-                <TextView
-                    android:id="@+id/gpuTextView"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_centerVertical="true"
-                    android:layout_toRightOf="@+id/gpu_img"
-                    android:text="@string/gpu_" />
-            </RelativeLayout>
        
-       <LinearLayout
-           android:id="@+id/gpu_settings"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:orientation="vertical"
-        android:visibility="gone" >
+      
         <LinearLayout
             android:id="@+id/gpu2d"
             android:layout_width="match_parent"
@@ -416,8 +356,8 @@
                 android:text="@string/gpu2d_max_freq_"
                   android:layout_weight="1" />
 
-            <Spinner
-                android:id="@+id/spinner14"
+            <TextView
+                android:id="@+id/tv16"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                />
@@ -435,41 +375,16 @@
                 android:text="@string/gpu3d_max_freq_"
                   android:layout_weight="1" />
 
-            <Spinner
-                android:id="@+id/spinner15"
+            <TextView
+                android:id="@+id/tv17"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                />
         </LinearLayout>
         
-                </LinearLayout>
-        <RelativeLayout
-                android:id="@+id/other"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:background="@drawable/background_dark_sharp_edges" >
-
-                <ImageView
-                    android:id="@+id/other_img"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:src="@drawable/arrow_right" />
-
-                <TextView
-                    android:id="@+id/otherTextView"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_centerVertical="true"
-                    android:layout_toRightOf="@+id/other_img"
-                    android:text="@string/other_" />
-            </RelativeLayout>
+               
         
-       <LinearLayout
-           android:id="@+id/other_settings"
-           android:layout_width="match_parent"
-           android:layout_height="wrap_content"
-           android:orientation="vertical"
-           android:visibility="gone" >
+       
 
         <LinearLayout
             android:id="@+id/buttons"
@@ -482,8 +397,8 @@
                 android:layout_weight="1"
                 android:text="@string/capacitive_buttons_light_level_0_60_" />
 
-            <EditText
-                android:id="@+id/editText4"
+            <TextView
+                android:id="@+id/tv18"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:ems="4"
@@ -496,11 +411,24 @@
         	android:scaleType="fitXY"
         	android:src="@drawable/divider_strong_holo" />
         
-               <CheckBox
-                   android:id="@+id/vsync"
-                   android:layout_width="match_parent"
-                   android:layout_height="wrap_content"
-                   android:text="@string/vsync"/> 
+               <LinearLayout
+            android:id="@+id/vsync"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content" >
+             <TextView
+                android:id="@+id/textView18"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:text="@string/capacitive_buttons_light_level_0_60_" />
+
+            <TextView
+                android:id="@+id/tv19"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:ems="4"
+                android:inputType="number" />
+        </LinearLayout>
                    
                     <ImageView
         	android:id="@+id/imageView7"
@@ -509,11 +437,24 @@
         	android:scaleType="fitXY"
         	android:src="@drawable/divider_strong_holo" />
         
-               <CheckBox
-                   android:id="@+id/fcharge"
-                   android:layout_width="match_parent"
-                   android:layout_height="wrap_content"
-                   android:text="@string/fastcharge"/> 
+               <LinearLayout
+            android:id="@+id/fcharge"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content" >
+             <TextView
+                android:id="@+id/textView18"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:text="@string/capacitive_buttons_light_level_0_60_" />
+
+            <TextView
+                android:id="@+id/tv20"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:ems="4"
+                android:inputType="number" />
+        </LinearLayout>
                    
                 <ImageView
         	android:id="@+id/imageView8"
@@ -534,8 +475,8 @@
                 android:text="@string/color_depth_"
                   android:layout_weight="1" />
 
-            <Spinner
-                android:id="@+id/spinner16"
+            <TextView
+                android:id="@+id/tv21"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                />
@@ -558,8 +499,8 @@
                 android:text="@string/io_scheduler_"
                   android:layout_weight="1" />
 
-            <Spinner
-                android:id="@+id/spinner17"
+            <TextView
+                android:id="@+id/tv22"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                />
@@ -583,8 +524,8 @@
                   android:layout_weight="1" />
 
             
-           <EditText
-                android:id="@+id/editText5"
+           <TextView
+                android:id="@+id/tv23"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:ems="6"
@@ -608,33 +549,14 @@
                 android:text="@string/sweep2wake_"
                   android:layout_weight="1" />
 
-            <Spinner
-                android:id="@+id/spinner19"
+            <TextView
+                android:id="@+id/tv24"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                />
         </LinearLayout>
         
-                 </LinearLayout>
-                 <LinearLayout
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content" >
-            
-             <Button
-                android:id="@+id/cancel"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="@string/cancel"
-                  android:layout_weight="1" />
-
-            <Button
-                android:id="@+id/apply"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="@string/apply"
-                  android:layout_weight="1"
-               />
-        </LinearLayout>
+                 
     </LinearLayout>
 
 </ScrollView>

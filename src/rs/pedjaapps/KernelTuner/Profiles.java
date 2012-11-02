@@ -6,13 +6,13 @@ import android.content.pm.*;
 import android.os.*;
 import android.text.method.*;
 import android.view.*;
+import android.webkit.WebView;
 import android.widget.*;
 
 import java.io.*;
 import java.util.ArrayList;
 import java.util.List;
 
-import rs.pedjaapps.KernelTuner.*;
 
 public class Profiles extends Activity
 {
@@ -102,54 +102,50 @@ switch (item.getItemId()) {
         intent.setClass(this,ProfileEditor.class);
         startActivityForResult(intent,GET_CODE);
 		
-		db.addProfile(new Profile(0, "Battery", "192", 
-								  "1188", 
-								  "192", 
-								  "1188", 
-								  "1188", 
-								  "1188", 
-								  "1188", 
-								  "1188", 
-								  "ondemand",
-								  "ondemand",
-								  "ondemand",
-								  "ondemand",
-								  "low",	
-								  "50",
-								  "100",
-								  "320",
-								  "320",
-								  "60",
-								  1,
-								  0,
-								  "24",
-								  "noop",
-								  3072,
-								  
-								  2));
-			 profilesAdapter.clear();
-		for (final ProfilesEntry entry : getProfilesEntries())
-		{
-			profilesAdapter.add(entry);
-		}
-		profilesListView.invalidate();
-		setUI();
+		
+			
 		
 		return true;
     case 1:
-		List<Profile> profiles = db.getAllProfiles();
-        
-		for(Profile p : profiles){
-			db.deleteProfile(p);
+    	AlertDialog.Builder builder = new AlertDialog.Builder(
+                Profiles.this);
+
+			builder.setTitle("Delete all profiles");
+
+			builder.setMessage("Are you sure you want to delete all profiles?");
+
+			builder.setIcon(R.drawable.icon);
+
+			builder.setPositiveButton("Yes, do it.", new DialogInterface.OnClickListener() {
+					@Override
+					public void onClick(DialogInterface dialog, int which)
+					{
+						List<Profile> profiles = db.getAllProfiles();
+				        
+						for(Profile p : profiles){
+							db.deleteProfile(p);
+						
+						}
+						profilesAdapter.clear();
+						for (final ProfilesEntry entry : getProfilesEntries())
+						{
+							profilesAdapter.add(entry);
+						}
+						profilesListView.invalidate();
+						setUI();
+					}
+				});
+			builder.setNegativeButton("Cancel", new DialogInterface.OnClickListener() {
+					@Override
+					public void onClick(DialogInterface dialog, int which)
+					{
+
+					}
+				});
+			AlertDialog alert = builder.create();
+
+			alert.show();
 		
-		}
-		profilesAdapter.clear();
-		for (final ProfilesEntry entry : getProfilesEntries())
-		{
-			profilesAdapter.add(entry);
-		}
-		profilesListView.invalidate();
-		setUI();
 		return true;
    
        
@@ -164,21 +160,39 @@ protected void onActivityResult(int requestCode, int resultCode, Intent data) {
   if (requestCode == GET_CODE){
    if (resultCode == RESULT_OK) {
   
-  /*db.addProfile(new Profile(data.getStringExtra("Name"),
+  db.addProfile(new Profile(data.getStringExtra("Name"),
 		  data.getStringExtra("cpu0min"), 
 		  data.getStringExtra("cpu0max"), 
     		data.getStringExtra("cpu1min"),
     		data.getStringExtra("cpu1max"),
+    		data.getStringExtra("cpu2min"), 
+  		  data.getStringExtra("cpu2max"), 
+      		data.getStringExtra("cpu3min"),
+      		data.getStringExtra("cpu3max"),
     		data.getStringExtra("cpu0gov"),
     		data.getStringExtra("cpu1gov"),
+    		data.getStringExtra("cpu2gov"),
+    		data.getStringExtra("cpu3gov"),
+    		data.getStringExtra("voltageProfile"),
     		data.getStringExtra("gpu2d"),
     		data.getStringExtra("gpu3d"),
-    		data.getStringExtra("vsync"),
-    		data.getStringExtra("noc"),
     		data.getStringExtra("mtd"),
-    		data.getStringExtra("mtu")));*/
-  //getprofiles();
-  //spinnerProfiles(); 
+    		data.getStringExtra("mtu"),
+    		data.getStringExtra("buttonsBacklight"),
+    		data.getIntExtra("vsync", 0),
+    		data.getIntExtra("fcharge", 0),
+    		data.getStringExtra("cdepth"),
+    		data.getStringExtra("io"),
+    		data.getIntExtra("sdcache", 0),
+    		data.getIntExtra("s2w", 0))
+    		);
+	   profilesAdapter.clear();
+		for (final ProfilesEntry entry : getProfilesEntries())
+		{
+			profilesAdapter.add(entry);
+		}
+		profilesListView.invalidate();
+		setUI();
  
 	
    }

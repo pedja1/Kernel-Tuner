@@ -25,19 +25,7 @@ public final class ProfilesAdapter extends ArrayAdapter<ProfilesEntry>
 		final ProfilesEntry entry = getItem(position);
 
 		 int check = entry.getCheck();
-		/* int vt = entry.getVt();
-		 int md = entry.getMd();
-		 int gpu = entry.getGpu();
-		 int cbl = entry.getCbl();
-		 int vs = entry.getVs();
-		 int fc = entry.getFc();
-		 int cd = entry.getCd();
-		 int io = entry.getIo();
-		 int sd = entry.getSd();
-		 int nlt = entry.getNlt();
-		 int s2w = entry.getS2w();
-		 
-		 */
+		
 		 if (check==1){
 			 
 			 viewHolder.checkView.setVisibility(View.VISIBLE);
@@ -45,72 +33,7 @@ public final class ProfilesAdapter extends ArrayAdapter<ProfilesEntry>
 		 else{
 			 viewHolder.checkView.setVisibility(View.GONE);
 		 }
-	/*	 if (vt==1){
-			 viewHolder.vtView.setVisibility(View.VISIBLE);
-		 }
-		 else{
-			 viewHolder.vtView.setVisibility(View.GONE);
-		 }
-		 if (md==1){
-			 viewHolder.mdView.setVisibility(View.VISIBLE);
-		 }
-		 else{
-			 viewHolder.mdView.setVisibility(View.GONE);
-		 }
-		 if (gpu==1){
-			 viewHolder.gpuView.setVisibility(View.VISIBLE);
-		 }
-		 else{
-			 viewHolder.gpuView.setVisibility(View.GONE);
-		 }
-		 if (cbl==1){
-			 viewHolder.cblView.setVisibility(View.VISIBLE);
-		 }
-		 else{
-			 viewHolder.cblView.setVisibility(View.GONE);
-		 }
-		 if (vs==1){
-			 viewHolder.vsView.setVisibility(View.VISIBLE);
-		 }
-		 else{
-			 viewHolder.vsView.setVisibility(View.GONE);
-		 }
-		 if (fc==1){
-			 viewHolder.fcView.setVisibility(View.VISIBLE);
-		 }
-		 else{
-			 viewHolder.fcView.setVisibility(View.GONE);
-		 }
-		 if (cd==1){
-			 viewHolder.cdView.setVisibility(View.VISIBLE);
-		 }
-		 else{
-			 viewHolder.cdView.setVisibility(View.GONE);
-		 }
-		 if (io==1){
-			 viewHolder.ioView.setVisibility(View.VISIBLE);
-		 }
-		 else{
-			 viewHolder.ioView.setVisibility(View.GONE);
-		 }
-		 if (sd==1){
-			 viewHolder.sdView.setVisibility(View.VISIBLE);
-		 }
-		 else{
-			 viewHolder.sdView.setVisibility(View.GONE);
-		 }
-		 if (nlt==1){
-			 viewHolder.nltView.setVisibility(View.VISIBLE);
-		 }
-		 else{
-			 viewHolder.nltView.setVisibility(View.GONE);
-		 }
-		 if (s2w==1){
-			 viewHolder.s2wView.setVisibility(View.VISIBLE);
-		 }
-		 else{
-			 viewHolder.s2wView.setVisibility(View.GONE);
-		 }*/
+	
 		viewHolder.nameView.setText(entry.getName());
 		
 

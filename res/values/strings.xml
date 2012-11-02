@@ -82,8 +82,8 @@
     <string name="fastcharge_status_">Fastcharge Status:</string>
     <string name="buttons_backlight">Capacitive Buttons Backlight</string>
     <string name="buttons_backlight_">Capacitive Buttons Backlight:</string>
-    <string name="gpu2d_max_freq_">GPU2D freq:</string>
-    <string name="gpu3d_max_freq_">GPU3D Max freq:</string>
+    <string name="gpu2d_max_freq_">GPU2D Max Freq:</string>
+    <string name="gpu3d_max_freq_">GPU3D Max Freq:</string>
     
     <string name="cpu0_governor_">CPU0 Governor:</string>
     <string name="cpu1_governor_">CPU1 Governor:</string>
@@ -187,5 +187,11 @@
 		<string name="delete">Delete</string>
 	<string name="plugin_name">Kernel Tuner - Profiles</string>
 	<string name="voltage_profile">Voltage Profile</string>
+	<string name="cpu_">CPU:</string>
+	<string name="gpu_">GPU:</string>
+	<string name="other_">Other:</string>
+	<string name="capacitive_buttons_light_level_0_60_">Capacitive Buttons Light Level(0-60):</string>
+	<string name="color_depth_">Color Depth:</string>
+	<string name="sd_card_cache">SD Card Cache Size:</string>
 
 </resources>

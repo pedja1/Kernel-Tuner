@@ -50,8 +50,11 @@ public class CPUInfo
 
 	public static String VOLTAGE_PATH = "/sys/devices/system/cpu/cpufreq/vdd_table/vdd_levels";
 	public static String VOLTAGE_PATH_TEGRA_3 = "/sys/devices/system/cpu/cpu0/cpufreq/UV_mV_table";
-
-
+	public static String GPU = "/sys/devices/platform/kgsl-3d0.0/kgsl/kgsl-3d0/max_gpuclk";
+	public static String CDEPTH = "/sys/kernel/debug/msm_fb/0/bpp";
+	public static String S2W = "/sys/android_touch/sweep2wake";
+	public static String S2W_ALT = "/sys/android_touch/sweep2wake/s2w_switch";
+	
 	public static boolean cpu0Online()
 	{
 		boolean i = false;
@@ -95,6 +98,28 @@ public class CPUInfo
 		return i;
 
 	}
+	
+	public static boolean gpuExists()
+	{
+		boolean i = false;
+		if (new File(GPU).exists())
+		{
+			i = true;
+		}
+		return i;
+
+	}
+	
+	public static boolean cdExists()
+	{
+		boolean i = false;
+		if (new File(CDEPTH).exists())
+		{
+			i = true;
+		}
+		return i;
+
+	}
 
 	public static boolean voltageExists()
 	{
@@ -111,6 +136,21 @@ public class CPUInfo
 
 	}
 
+	public static boolean s2wExists()
+	{
+		boolean i = false;
+		if (new File(S2W).exists())
+		{
+			i = true;
+		}
+		else if (new File(S2W_ALT).exists())
+		{
+			i = true;
+		}
+		return i;
+
+	}
+	
 	public static boolean TISExists()
 	{
 		boolean i = false;
