@@ -22,8 +22,16 @@ public class ProfileEditor extends Activity
 	String cpu0max; 
 	String cpu1min;
 	String cpu1max;
+
+	String cpu2min;
+	String cpu2max; 
+	String cpu3min;
+	String cpu3max;
 	String cpu0gov;
 	String cpu1gov;
+
+	String cpu2gov;
+	String cpu3gov;
 	String gpu2d;
 	String gpu3d;
 	String vsync;
@@ -361,8 +369,8 @@ public class ProfileEditor extends Activity
         	    }
         	});
 
-		/**spinner5
-		ArrayAdapter<String> spinner5ArrayAdapter = new ArrayAdapter<String>(this,   android.R.layout.simple_spinner_item, govsStringAray);
+		/**spinner5*/
+		ArrayAdapter<String> spinner5ArrayAdapter = new ArrayAdapter<String>(this,   android.R.layout.simple_spinner_item, freqs);
 		spinner5ArrayAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item); // The drop down vieww
 		spinner5.setAdapter(spinner5ArrayAdapter);
 
@@ -370,7 +378,7 @@ public class ProfileEditor extends Activity
         		@Override
         	    public void onItemSelected(AdapterView<?> parent, View view, int pos, long id)
 				{
-        	    	cpu0gov = parent.getItemAtPosition(pos).toString();
+        	    	cpu2min = parent.getItemAtPosition(pos).toString();
 
         	    }
 
@@ -381,8 +389,8 @@ public class ProfileEditor extends Activity
         	    }
         	});
 
-		/**spinner6
-		ArrayAdapter<String> spinner6ArrayAdapter = new ArrayAdapter<String>(this,   android.R.layout.simple_spinner_item, govsStringAray);
+		/**spinner6*/
+		ArrayAdapter<String> spinner6ArrayAdapter = new ArrayAdapter<String>(this,   android.R.layout.simple_spinner_item, freqs);
 		spinner6ArrayAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item); // The drop down vieww
 		spinner6.setAdapter(spinner6ArrayAdapter);
 
@@ -390,7 +398,7 @@ public class ProfileEditor extends Activity
         		@Override
         	    public void onItemSelected(AdapterView<?> parent, View view, int pos, long id)
 				{
-        	    	cpu1gov = parent.getItemAtPosition(pos).toString();
+        	    	cpu2max = parent.getItemAtPosition(pos).toString();
 
         	    }
 
@@ -401,8 +409,8 @@ public class ProfileEditor extends Activity
         	    }
         	});
 
-		/**spinner7
-		ArrayAdapter<String> spinner7ArrayAdapter = new ArrayAdapter<String>(this,   android.R.layout.simple_spinner_item, gpu2darr);
+		/**spinner7*/
+		ArrayAdapter<String> spinner7ArrayAdapter = new ArrayAdapter<String>(this,   android.R.layout.simple_spinner_item, freqs);
 		spinner7ArrayAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item); // The drop down vieww
 		spinner7.setAdapter(spinner7ArrayAdapter);
 
@@ -410,7 +418,7 @@ public class ProfileEditor extends Activity
         		@Override
         	    public void onItemSelected(AdapterView<?> parent, View view, int pos, long id)
 				{
-        	    	gpu2d = parent.getItemAtPosition(pos).toString();
+        	    	cpu3min = parent.getItemAtPosition(pos).toString();
 
         	    }
 
@@ -421,8 +429,8 @@ public class ProfileEditor extends Activity
         	    }
         	});
 
-		/**spinner8
-		ArrayAdapter<String> spinner8ArrayAdapter = new ArrayAdapter<String>(this,   android.R.layout.simple_spinner_item, gpu3darr);
+		/**spinner8*/
+		ArrayAdapter<String> spinner8ArrayAdapter = new ArrayAdapter<String>(this,   android.R.layout.simple_spinner_item, freqs);
 		spinner8ArrayAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item); // The drop down vieww
 		spinner8.setAdapter(spinner8ArrayAdapter);
 
@@ -430,7 +438,7 @@ public class ProfileEditor extends Activity
         		@Override
         	    public void onItemSelected(AdapterView<?> parent, View view, int pos, long id)
 				{
-        	    	gpu3d = parent.getItemAtPosition(pos).toString();
+        	    	cpu3max = parent.getItemAtPosition(pos).toString();
 
         	    }
 
