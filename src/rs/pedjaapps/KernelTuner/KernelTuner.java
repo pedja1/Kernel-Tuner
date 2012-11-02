@@ -938,7 +938,8 @@ public class KernelTuner extends Activity
 		/**
 		Read all available frequency steps
 		*/
-		readFreqs();
+		
+		freqlist = CPUInfo.frequencies();
 		initialCheck();
 
 		/***
