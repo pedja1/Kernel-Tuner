@@ -1876,4 +1876,44 @@ public class CPUInfo
 		return logcat;
 	}
 	
+	
+
+	public static List<String> schedulers()
+	{
+
+		List<String> schedulers = new ArrayList<String>();
+
+		try
+		{
+
+			File myFile = new File("/sys/block/mmcblk0/queue/scheduler");
+			FileInputStream fIn = new FileInputStream(myFile);
+
+			BufferedReader myReader = new BufferedReader(new InputStreamReader(
+															 fIn));
+			String aDataRow = "";
+			String aBuffer = "";
+			while ((aDataRow = myReader.readLine()) != null)
+			{
+				aBuffer += aDataRow + "\n";
+			}
+
+			String schedulersTemp = aBuffer;
+			myReader.close();
+			
+			
+			schedulersTemp = schedulersTemp.replace("[", "");
+			schedulersTemp = schedulersTemp.replace("]", "");
+			String[] temp = schedulersTemp.split("\\s");
+			for(String s : temp){
+			schedulers.add(s);
+			}
+		}
+		catch (Exception e)
+		{
+
+		}
+		
+		return schedulers;
+		}
 }
