@@ -97,6 +97,8 @@ public class CPUActivity extends Activity
 
 	String tempUnit;
 
+	ProgressDialog pd;	
+	
 	SharedPreferences preferences;
 
 
@@ -211,6 +213,7 @@ public class CPUActivity extends Activity
 			{
 				updateUI();
 			}
+			pd.dismiss();
 		}
 	}	
 
@@ -222,6 +225,8 @@ public class CPUActivity extends Activity
 		super.onCreate(savedInstanceState);
 
 		setContentView(R.layout.cpu_tweaks);
+		this.pd = ProgressDialog.show(this, "Working..",
+				  "Enabling all CPUs...\nPlease wait...", true, false);
 		new ToggleCPUs().execute(new Boolean[] {true});
 
 
