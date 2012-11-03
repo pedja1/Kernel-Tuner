@@ -221,6 +221,8 @@ public class KernelTuner extends Activity
 	public String p2freq;
 	public String p3freq;
 
+	float fLoad;
+	
 	public String cputemp;
 
 	public static String cpu0online = CPUInfo.cpu0online; 
@@ -287,6 +289,7 @@ public class KernelTuner extends Activity
 	public SharedPreferences preferences;
 	private ProgressDialog pd = null;
 	public String s2w;
+	int load;
 
 	Handler mHandler = new Handler();
 
@@ -792,68 +795,6 @@ public class KernelTuner extends Activity
 
 	}
 
-	private class cpuLoad extends AsyncTask<String, Void, Float>
-	{
-
-
-
-
-		@Override
-		protected Float doInBackground(String... params)
-		{
-			// TODO Auto-generated method stub
-			try
-			{
-				RandomAccessFile reader = new RandomAccessFile("/proc/stat", "r");
-				String load = reader.readLine();
-
-				String[] toks = load.split(" ");
-
-				long idle1 = Long.parseLong(toks[5]);
-				long cpu1 = Long.parseLong(toks[2]) + Long.parseLong(toks[3]) + Long.parseLong(toks[4])
-					+ Long.parseLong(toks[6]) + Long.parseLong(toks[7]) + Long.parseLong(toks[8]);
-
-				try
-				{
-					Thread.sleep(360);
-				}
-				catch (Exception e)
-				{}
-
-				reader.seek(0);
-				load = reader.readLine();
-				reader.close();
-
-				toks = load.split(" ");
-
-				long idle2 = Long.parseLong(toks[5]);
-				long cpu2 = Long.parseLong(toks[2]) + Long.parseLong(toks[3]) + Long.parseLong(toks[4])
-					+ Long.parseLong(toks[6]) + Long.parseLong(toks[7]) + Long.parseLong(toks[8]);
-
-				return  ((float)(cpu2 - cpu1) / ((cpu2 + idle2) - (cpu1 + idle1))) * 100;
-
-			}
-			catch (IOException ex)
-			{
-				ex.printStackTrace();
-			}
-
-			return  (float)0;
-
-		}
-
-		@Override
-		protected void onPostExecute(Float result)
-		{
-			TextView cpuLoadTxt = (TextView)findViewById(R.id.textView1);
-
-			ProgressBar cpuLoad = (ProgressBar)findViewById(R.id.progressBar5);
-			cpuLoad.setProgress(Math.round(result));
-			cpuLoadTxt.setText(String.valueOf(Math.round(result)) + "%");
-		}
-
-	}
-
 	private class enableTempMonitor extends AsyncTask<String, Void, Object>
 	{
 
@@ -964,7 +905,7 @@ public class KernelTuner extends Activity
 										ReadCPU0Clock();
 										ReadCPU0maxfreq();
 										cpuTemp();
-										new cpuLoad().execute();
+									
 										
 										if (new File(cpu1online).exists())
 										{
@@ -1000,6 +941,7 @@ public class KernelTuner extends Activity
 				}
 			}).start();
 
+			
 			
 			/**
 			Declare buttons and set onClickListener for each
@@ -1214,7 +1156,7 @@ public class KernelTuner extends Activity
 				}
 			});
 
-
+startCpuLoadThread();
 	}
 
 
@@ -1307,59 +1249,71 @@ public class KernelTuner extends Activity
 
 	}
 
-/**
-	Check for version string in shared preferences and compare it to current app version
-	If they are different show changelog and set current app version to shared prefs
-	*/
+	public void setCpuLoad(){
+		TextView cpuLoadTxt = (TextView)findViewById(R.id.textView1);
 
-	/*private int[] getCpuUsageStatistic() {
-
-	    String tempString = executeTop();
-
-	    tempString = tempString.replaceAll(",", "");
-	    tempString = tempString.replaceAll("User", "");
-	    tempString = tempString.replaceAll("System", "");
-	    tempString = tempString.replaceAll("IOW", "");
-	    tempString = tempString.replaceAll("IRQ", "");
-	    tempString = tempString.replaceAll("%", "");
-	    for (int i = 0; i < 10; i++) {
-	        tempString = tempString.replaceAll("  ", " ");
-	    }
-	    tempString = tempString.trim();
-	    String[] myString = tempString.split(" ");
-	    int[] cpuUsageAsInt = new int[myString.length];
-	    for (int i = 0; i < myString.length; i++) {
-	        myString[i] = myString[i].trim();
-	        cpuUsageAsInt[i] = Integer.parseInt(myString[i]);
-	    }
-	    return cpuUsageAsInt;
+		ProgressBar cpuLoad = (ProgressBar)findViewById(R.id.progressBar5);
+		cpuLoad.setProgress(load);
+		cpuLoadTxt.setText(String.valueOf(load) + "%");
+		
 	}
+	
+	
+public void startCpuLoadThread() {
+		// Do something long
+		Runnable runnable = new Runnable() {
+			@Override
+			public void run() {
+				while(thread) {
+					try {
+						RandomAccessFile reader = new RandomAccessFile("/proc/stat", "r");
+						String load = reader.readLine();
 
-	private String executeTop() {
-	    java.lang.Process p = null;
-	    BufferedReader in = null;
-	    String returnString = null;
-	    try {
-	        p = Runtime.getRuntime().exec("top -n 1");
-	        in = new BufferedReader(new InputStreamReader(p.getInputStream()));
-	        while (returnString == null || returnString.contentEquals("")) {
-	            returnString = in.readLine();
-	        }
-	    } catch (IOException e) {
-	        Log.e("executeTop", "error in getting first line of top");
-	        e.printStackTrace();
-	    } finally {
-	        try {
-	            in.close();
-	            p.destroy();
-	        } catch (IOException e) {
-	            Log.e("executeTop",
-	                    "error in closing and destroying top process");
-	            e.printStackTrace();
-	        }
-	    }
-	    return returnString;
-	}*/
+						String[] toks = load.split(" ");
+
+						long idle1 = Long.parseLong(toks[5]);
+						long cpu1 = Long.parseLong(toks[2]) + Long.parseLong(toks[3]) + Long.parseLong(toks[4])
+							+ Long.parseLong(toks[6]) + Long.parseLong(toks[7]) + Long.parseLong(toks[8]);
+
+						try {
+							Thread.sleep(360);
+						} catch (Exception e) {}
+
+						reader.seek(0);
+						load = reader.readLine();
+						reader.close();
+
+						toks = load.split(" ");
+
+						long idle2 = Long.parseLong(toks[5]);
+						long cpu2 = Long.parseLong(toks[2]) + Long.parseLong(toks[3]) + Long.parseLong(toks[4])
+							+ Long.parseLong(toks[6]) + Long.parseLong(toks[7]) + Long.parseLong(toks[8]);
+
+						fLoad =	 (float)(cpu2 - cpu1) / ((cpu2 + idle2) - (cpu1 + idle1));
+
+					} catch (IOException ex) {
+						ex.printStackTrace();
+					}
+					load =(int) (fLoad*100);
+					try {
+						Thread.sleep(1000);
+					} catch (InterruptedException e) {
+						e.printStackTrace();
+					}
+					mHandler.post(new Runnable() {
+							@Override
+							public void run() {
+							
+								setCpuLoad();
+								//	progress.setProgress(value);
+							}
+						});
+				}
+			}
+		};
+		new Thread(runnable).start();
+	}
+	
 	
 	public void changelog()
 	{

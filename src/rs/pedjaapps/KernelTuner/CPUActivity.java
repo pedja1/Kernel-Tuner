@@ -94,6 +94,9 @@ public class CPUActivity extends Activity
 	TextView uptime;
 	TextView deepSleep;
 	TextView temp;
+	
+	int load;
+	float fLoad;
 
 	String tempUnit;
 
@@ -289,7 +292,7 @@ public class CPUActivity extends Activity
 
 		cpuLoad = (ProgressBar)findViewById(R.id.progressBar5);
 
-
+startCpuLoadThread();
 
 
 	}
@@ -322,11 +325,7 @@ public class CPUActivity extends Activity
 
 
 										updateCpu0();
-
 										cpuInfo();
-
-										new cpuLoad().execute();
-
 										cpuTemp();
 
 
@@ -386,6 +385,68 @@ public class CPUActivity extends Activity
 		super.onStop();
 	}
 
+	public void setCpuLoad(){
+		cpuLoad.setProgress(load);
+		cpuLoadTxt.setText(String.valueOf(load) + "%");
+	}
+	
+	public void startCpuLoadThread() {
+		// Do something long
+		Runnable runnable = new Runnable() {
+			@Override
+			public void run() {
+				while(thread) {
+					try {
+						RandomAccessFile reader = new RandomAccessFile("/proc/stat", "r");
+						String load = reader.readLine();
+
+						String[] toks = load.split(" ");
+
+						long idle1 = Long.parseLong(toks[5]);
+						long cpu1 = Long.parseLong(toks[2]) + Long.parseLong(toks[3]) + Long.parseLong(toks[4])
+							+ Long.parseLong(toks[6]) + Long.parseLong(toks[7]) + Long.parseLong(toks[8]);
+
+						try {
+							Thread.sleep(360);
+						} catch (Exception e) {}
+
+						reader.seek(0);
+						load = reader.readLine();
+						reader.close();
+
+						toks = load.split(" ");
+
+						long idle2 = Long.parseLong(toks[5]);
+						long cpu2 = Long.parseLong(toks[2]) + Long.parseLong(toks[3]) + Long.parseLong(toks[4])
+							+ Long.parseLong(toks[6]) + Long.parseLong(toks[7]) + Long.parseLong(toks[8]);
+
+						fLoad =	 (float)(cpu2 - cpu1) / ((cpu2 + idle2) - (cpu1 + idle1));
+
+					} catch (IOException ex) {
+						ex.printStackTrace();
+					}
+					load =(int) (fLoad*100);
+					try {
+						Thread.sleep(1000);
+					} catch (InterruptedException e) {
+						e.printStackTrace();
+					}
+					mHandler.post(new Runnable() {
+							@Override
+							public void run() {
+							
+								setCpuLoad();
+								//	progress.setProgress(value);
+							}
+						});
+				}
+			}
+		};
+		new Thread(runnable).start();
+	}
+	
+
+	
 	public void updateUI()
 	{
 		cpu0Online = CPUInfo.cpu0Online();
@@ -804,64 +865,7 @@ public class CPUActivity extends Activity
 
 
 
-	private class cpuLoad extends AsyncTask<String, Void, Float>
-	{
-
-
-
-
-		@Override
-		protected Float doInBackground(String... params)
-		{
-			// TODO Auto-generated method stub
-			try
-			{
-		        RandomAccessFile reader = new RandomAccessFile("/proc/stat", "r");
-		        String load = reader.readLine();
-
-		        String[] toks = load.split(" ");
-
-		        long idle1 = Long.parseLong(toks[5]);
-		        long cpu1 = Long.parseLong(toks[2]) + Long.parseLong(toks[3]) + Long.parseLong(toks[4])
-					+ Long.parseLong(toks[6]) + Long.parseLong(toks[7]) + Long.parseLong(toks[8]);
-
-		        try
-				{
-		            Thread.sleep(360);
-		        }
-				catch (Exception e)
-				{}
-
-		        reader.seek(0);
-		        load = reader.readLine();
-		        reader.close();
-
-		        toks = load.split(" ");
-
-		        long idle2 = Long.parseLong(toks[5]);
-		        long cpu2 = Long.parseLong(toks[2]) + Long.parseLong(toks[3]) + Long.parseLong(toks[4])
-		            + Long.parseLong(toks[6]) + Long.parseLong(toks[7]) + Long.parseLong(toks[8]);
-
-		        return  ((float)(cpu2 - cpu1) / ((cpu2 + idle2) - (cpu1 + idle1))) * 100;
-
-		    }
-			catch (IOException ex)
-			{
-		        ex.printStackTrace();
-		    }
-
-		    return  (float)0;
-
-		}
-
-		@Override
-		protected void onPostExecute(Float result)
-		{
-			cpuLoad.setProgress(Math.round(result));
-	 		cpuLoadTxt.setText(String.valueOf(Math.round(result)) + "%");
-		}
-
-	}
+	
 
 	public void cpuTemp()
 	{
