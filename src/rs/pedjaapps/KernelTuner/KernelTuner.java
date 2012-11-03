@@ -24,6 +24,7 @@ import java.util.*;
 import java.lang.Process;
 
 
+
 //EndImports
 
 @SuppressLint("WorldReadableFiles")
@@ -795,6 +796,54 @@ public class KernelTuner extends Activity
 
 	}
 
+	private class mountDebugFs extends AsyncTask<String, Void, Object>
+	{
+
+		@Override
+		protected Object doInBackground(String... args)
+		{
+			//Log.i("MyApp", "Background thread starting");
+
+			Process localProcess;
+			try
+			{
+				localProcess = Runtime.getRuntime().exec("su");
+
+				DataOutputStream localDataOutputStream = new DataOutputStream(
+					localProcess.getOutputStream());
+				localDataOutputStream
+					.writeBytes("mount -t debugfs debugfs /sys/kernel/debug\n");
+				localDataOutputStream.writeBytes("exit\n");
+				localDataOutputStream.flush();
+				localDataOutputStream.close();
+				localProcess.waitFor();
+				localProcess.destroy();
+			}
+			catch (IOException e1)
+			{
+				// TODO Auto-generated catch block
+				e1.printStackTrace();
+			}
+			catch (InterruptedException e1)
+			{
+				// TODO Auto-generated catch block
+				e1.printStackTrace();
+			}
+
+			return "";
+		}
+
+		@Override
+		protected void onPostExecute(Object result)
+		{
+			
+
+			KernelTuner.this.pd.dismiss();
+
+		}
+
+	}
+	
 	private class enableTempMonitor extends AsyncTask<String, Void, Object>
 	{
 
@@ -844,6 +893,15 @@ public class KernelTuner extends Activity
 		/**
 		If auto update check is enabled check for updates
 		*/
+		File file = new File("/sys/kernel/debug");
+		if(file.list().length>0){
+			
+		}
+		else{
+			this.pd = ProgressDialog.show(this, "Working..",
+					  "Mounting debug filesystem", true, false);
+			new mountDebugFs().execute();
+		}
 		boolean update = sharedPrefs.getBoolean("update", true);
 		if (update == true)
 		{

@@ -126,55 +126,7 @@ SeekBar.OnSeekBarChangeListener
 		}
 	}
 
-	private class mountDebugFs extends AsyncTask<String, Void, Object>
-	{
-
-		@Override
-		protected Object doInBackground(String... args)
-		{
-			//Log.i("MyApp", "Background thread starting");
-
-			Process localProcess;
-			try
-			{
-				localProcess = Runtime.getRuntime().exec("su");
-
-				DataOutputStream localDataOutputStream = new DataOutputStream(
-					localProcess.getOutputStream());
-				localDataOutputStream
-					.writeBytes("mount -t debugfs debugfs /sys/kernel/debug\n");
-				localDataOutputStream.writeBytes("exit\n");
-				localDataOutputStream.flush();
-				localDataOutputStream.close();
-				localProcess.waitFor();
-				localProcess.destroy();
-			}
-			catch (IOException e1)
-			{
-				// TODO Auto-generated catch block
-				e1.printStackTrace();
-			}
-			catch (InterruptedException e1)
-			{
-				// TODO Auto-generated catch block
-				e1.printStackTrace();
-			}
-
-			return "";
-		}
-
-		@Override
-		protected void onPostExecute(Object result)
-		{
-			// Pass the result data back to the main activity
-
-			miscTweaks.this.data = result;
-
-			miscTweaks.this.pd.dismiss();
-
-		}
-
-	}
+	
 
 	private class fastcharge extends AsyncTask<String, Void, Object>
 	{
@@ -810,15 +762,7 @@ SeekBar.OnSeekBarChangeListener
 				}
 			});
 
-		File file = new File("/sys/kernel/debug");
-		if(file.list().length>0){
-			
-		}
-		else{
-			this.pd = ProgressDialog.show(this, "Working..",
-					  "Mounting debug filesystem", true, false);
-			new mountDebugFs().execute();
-		}
+		
 
 			
 		
