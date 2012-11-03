@@ -293,10 +293,7 @@
             <TextView
                 android:id="@+id/tv14"
                 android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-               
-                android:ems="4"
-                android:inputType="number" />
+                android:layout_height="wrap_content" />
 
               
            
@@ -318,10 +315,7 @@
             <TextView
                 android:id="@+id/tv15"
                 android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                
-                android:ems="4"
-                android:inputType="number" />
+                android:layout_height="wrap_content"/>
 
         </LinearLayout>
         
@@ -394,8 +388,7 @@
                 android:id="@+id/tv18"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:ems="4"
-                android:inputType="number" />
+              />
         </LinearLayout>
                
         
@@ -403,19 +396,19 @@
             android:id="@+id/vsync"
             android:layout_width="match_parent"
             android:layout_height="wrap_content" >
+
              <TextView
-                android:id="@+id/textView18"
-                android:layout_width="0dp"
-                android:layout_height="wrap_content"
-                android:layout_weight="1"
-                android:text="@string/capacitive_buttons_light_level_0_60_" />
+                 android:id="@+id/textView18"
+                 android:layout_width="0dp"
+                 android:layout_height="wrap_content"
+                 android:layout_weight="1"
+                 android:text="@string/vsync" />
 
             <TextView
                 android:id="@+id/tv19"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:ems="4"
-                android:inputType="number" />
+                 />
         </LinearLayout>
                    
                    
@@ -424,19 +417,19 @@
             android:id="@+id/fcharge"
             android:layout_width="match_parent"
             android:layout_height="wrap_content" >
+
              <TextView
-                android:id="@+id/textView18"
-                android:layout_width="0dp"
-                android:layout_height="wrap_content"
-                android:layout_weight="1"
-                android:text="@string/capacitive_buttons_light_level_0_60_" />
+                 android:id="@+id/textView18"
+                 android:layout_width="0dp"
+                 android:layout_height="wrap_content"
+                 android:layout_weight="1"
+                 android:text="@string/fastcharge" />
 
             <TextView
                 android:id="@+id/tv20"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:ems="4"
-                android:inputType="number" />
+                />
         </LinearLayout>
                    
                 
@@ -496,8 +489,7 @@
                 android:id="@+id/tv23"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:ems="6"
-                android:inputType="number" />
+                 />
         </LinearLayout>
         
          <LinearLayout

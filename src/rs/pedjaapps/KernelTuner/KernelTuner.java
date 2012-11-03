@@ -1743,6 +1743,428 @@ public void startCpuLoadThread() {
 
 	
 	/**
+	Create init.d files and export them to private application folder
+	*/
+	public void initdExport()
+	{
+	
+		SharedPreferences sharedPrefs = PreferenceManager.getDefaultSharedPreferences(this);
+		String gpu3d = sharedPrefs.getString("gpu3d", "");
+		String gpu2d = sharedPrefs.getString("gpu2d", "");
+	
+		String hw = sharedPrefs.getString("hw", "");
+		String cdepth = sharedPrefs.getString("cdepth", "");
+		String cpu1min = sharedPrefs.getString("cpu1min", "");
+		String cpu1max = sharedPrefs.getString("cpu1max", "");
+		String cpu0max = sharedPrefs.getString("cpu0max", "");
+		String cpu0min = sharedPrefs.getString("cpu0min", "");
+		String cpu3min = sharedPrefs.getString("cpu3min", "");
+		String cpu3max = sharedPrefs.getString("cpu3max", "");
+		String cpu2max = sharedPrefs.getString("cpu2max", "");
+		String cpu2min = sharedPrefs.getString("cpu2min", "");
+	
+		String fastcharge = sharedPrefs.getString("fastcharge", "");
+		String mpdecisionscroff = sharedPrefs.getString("mpdecisionscroff", "");
+		String backbuff = sharedPrefs.getString("backbuf", "");
+		String vsync = sharedPrefs.getString("vsync", "");
+		String led = sharedPrefs.getString("led", "");
+		String cpu0gov = sharedPrefs.getString("cpu0gov", "");
+		String cpu1gov = sharedPrefs.getString("cpu1gov", "");
+		String cpu2gov = sharedPrefs.getString("cpu2gov", "");
+		String cpu3gov = sharedPrefs.getString("cpu3gov", "");
+		String io = sharedPrefs.getString("io", "");
+		String sdcache = sharedPrefs.getString("sdcache", "");
+	
+	
+		String delaynew = sharedPrefs.getString("delaynew", "");
+		String pausenew = sharedPrefs.getString("pausenew", "");
+		String thruploadnew = sharedPrefs.getString("thruploadnew", "");
+		String thrupmsnew = sharedPrefs.getString("thrupmsnew", "");
+		String thrdownloadnew = sharedPrefs.getString("thrdownloadnew", "");
+		String thrdownmsnew = sharedPrefs.getString("thrdownmsnew", "");
+		String ldt = sharedPrefs.getString("ldt", "");
+		String s2w = sharedPrefs.getString("s2w", "");
+		String s2wStart = sharedPrefs.getString("s2wStart", "");
+		String s2wEnd = sharedPrefs.getString("s2wEnd", "");
+	
+		String p1freq = sharedPrefs.getString("p1freq", "");
+		String p2freq = sharedPrefs.getString("p2freq", "");
+		String p3freq = sharedPrefs.getString("p3freq", "");
+		String p1low = sharedPrefs.getString("p1low", "");
+		String p1high = sharedPrefs.getString("p1high", "");
+		String p2low = sharedPrefs.getString("p2low", "");
+		String p2high = sharedPrefs.getString("p2high", "");
+		String p3low = sharedPrefs.getString("p3low", "");
+		String p3high = sharedPrefs.getString("p3high", "");
+		boolean swap = sharedPrefs.getBoolean("swap", false);
+		String swapLocation = sharedPrefs.getString("swap_location", "");
+		String swappiness = sharedPrefs.getString("swappiness", "");
+	
+		StringBuilder gpubuilder = new StringBuilder();
+	
+		gpubuilder.append("#!/system/bin/sh");
+		gpubuilder.append("\n");
+		if (!gpu3d.equals(""))
+		{
+			gpubuilder.append("echo " + "\"" + gpu3d + "\"" + " > /sys/devices/platform/kgsl-3d0.0/kgsl/kgsl-3d0/max_gpuclk");
+			gpubuilder.append("\n");
+		}
+		if (!gpu2d.equals(""))
+		{
+			gpubuilder.append("echo " + "\"" + gpu2d + "\"" + " > /sys/devices/platform/kgsl-2d0.0/kgsl/kgsl-2d0/max_gpuclk");
+			gpubuilder.append("\n");
+			gpubuilder.append("echo " + "\"" + gpu2d + "\"" + " > /sys/devices/platform/kgsl-2d1.1/kgsl/kgsl-2d1/max_gpuclk");
+			gpubuilder.append("\n");
+	
+		}
+	
+	
+		String gpu = gpubuilder.toString();
+	
+		StringBuilder cpubuilder = new StringBuilder();
+	
+		cpubuilder.append("#!/system/bin/sh");
+		cpubuilder.append("\n");
+		/**
+		 * cpu0
+		 * */
+		if (!cpu0gov.equals(""))
+		{
+			cpubuilder.append("chmod 666 /sys/devices/system/cpu/cpu0/cpufreq/scaling_governor \n" +
+							  "echo " + "\"" + cpu0gov + "\"" + " > /sys/devices/system/cpu/cpu0/cpufreq/scaling_governor\n");
+		}
+		if (!cpu0max.equals(""))
+		{
+			cpubuilder.append("chmod 666 /sys/devices/system/cpu/cpu0/cpufreq/scaling_max_freq \n" +
+							  "echo " + "\"" + cpu0max + "\"" + " > /sys/devices/system/cpu/cpu0/cpufreq/scaling_max_freq \n");
+		}
+		if (!cpu0min.equals(""))
+		{
+			cpubuilder.append("chmod 666 /sys/devices/system/cpu/cpu0/cpufreq/scaling_min_freq \n" +
+							  "echo " + "\"" + cpu0min + "\"" + " > /sys/devices/system/cpu/cpu0/cpufreq/scaling_min_freq \n\n");
+		}
+		/**
+		 * cpu1
+		 * */
+		if (!cpu1gov.equals(""))
+		{
+			cpubuilder.append("chmod 666 /sys/devices/system/cpu/cpu1/cpufreq/scaling_governor \n" +
+							  "echo " + "\"" + cpu1gov + "\"" + " > /sys/devices/system/cpu/cpu1/cpufreq/scaling_governor\n");
+		}
+		if (!cpu1max.equals(""))
+		{
+			cpubuilder.append("chmod 666 /sys/devices/system/cpu/cpu1/cpufreq/scaling_max_freq \n" +
+							  "echo " + "\"" + cpu1max + "\"" + " > /sys/devices/system/cpu/cpu1/cpufreq/scaling_max_freq \n");
+		}
+		if (!cpu1min.equals(""))
+		{
+			cpubuilder.append("chmod 666 /sys/devices/system/cpu/cpu1/cpufreq/scaling_min_freq \n" +
+							  "echo " + "\"" + cpu1min + "\"" + " > /sys/devices/system/cpu/cpu1/cpufreq/scaling_min_freq \n\n");
+		}
+	
+		/**
+		 * cpu2
+		 * */
+		if (!cpu2gov.equals(""))
+		{
+			cpubuilder.append("chmod 666 /sys/devices/system/cpu/cpu2/cpufreq/scaling_governor \n" +
+							  "echo " + "\"" + cpu2gov + "\"" + " > /sys/devices/system/cpu/cpu2/cpufreq/scaling_governor\n");
+		}
+		if (!cpu2max.equals(""))
+		{
+			cpubuilder.append("chmod 666 /sys/devices/system/cpu/cpu2/cpufreq/scaling_max_freq \n" +
+							  "echo " + "\"" + cpu2max + "\"" + " > /sys/devices/system/cpu/cpu2/cpufreq/scaling_max_freq \n");
+		}
+		if (!cpu2min.equals(""))
+		{
+			cpubuilder.append("chmod 666 /sys/devices/system/cpu/cpu2/cpufreq/scaling_min_freq \n" +
+							  "echo " + "\"" + cpu2min + "\"" + " > /sys/devices/system/cpu/cpu2/cpufreq/scaling_min_freq \n\n");
+		}
+		/**
+		 * cpu3
+		 * */
+	
+		if (!cpu3gov.equals(""))
+		{
+			cpubuilder.append("chmod 666 /sys/devices/system/cpu/cpu3/cpufreq/scaling_governor \n" +
+							  "echo " + "\"" + cpu3gov + "\"" + " > /sys/devices/system/cpu/cpu3/cpufreq/scaling_governor\n");
+		}
+		if (!cpu3max.equals(""))
+		{
+			cpubuilder.append("chmod 666 /sys/devices/system/cpu/cpu3/cpufreq/scaling_max_freq \n" +
+							  "echo " + "\"" + cpu3max + "\"" + " > /sys/devices/system/cpu/cpu3/cpufreq/scaling_max_freq \n");
+		}
+		if (!cpu3min.equals(""))
+		{
+			cpubuilder.append("chmod 666 /sys/devices/system/cpu/cpu3/cpufreq/scaling_min_freq \n" +
+							  "echo " + "\"" + cpu3min + "\"" + " > /sys/devices/system/cpu/cpu3/cpufreq/scaling_min_freq \n\n");
+		}
+		List<String> govSettings = CPUInfo.govSettings();
+		List<String> availableGovs = CPUInfo.availableGovs();
+	
+		for (String s : availableGovs)
+		{
+			for (String st : govSettings)
+			{
+				String temp = sharedPrefs.getString(s + "_" + st, "");
+	
+	 		    if (!temp.equals(""))
+				{
+	 		    	cpubuilder.append("chmod 777 /sys/devices/system/cpu/cpufreq/" + s + "/" + st + "\n");
+	 		    	cpubuilder.append("echo " + "\"" + temp + "\"" + " > /sys/devices/system/cpu/cpufreq/" + s + "/" + st + "\n");
+	
+	 		    }
+			}
+		}
+		String cpu = cpubuilder.toString();
+	
+		StringBuilder miscbuilder = new StringBuilder();
+	
+		miscbuilder.append("#!/system/bin/sh \n\n" + "#mount debug filesystem\n" +
+						   "mount -t debugfs debugfs /sys/kernel/debug \n\n");
+		if (!vsync.equals(""))
+		{
+			miscbuilder.append("#vsync\n" +
+							   "chmod 777 /sys/kernel/debug/msm_fb/0/vsync_enable \n" +
+							   "chmod 777 /sys/kernel/debug/msm_fb/0/hw_vsync_mode \n" +
+							   "chmod 777 /sys/kernel/debug/msm_fb/0/backbuff \n" +
+							   "echo " + "\"" + vsync + "\"" + " > /sys/kernel/debug/msm_fb/0/vsync_enable \n" +
+							   "echo " + "\"" + hw + "\"" + " > /sys/kernel/debug/msm_fb/0/hw_vsync_mode \n" +
+							   "echo " + "\"" + backbuff + "\"" + " > /sys/kernel/debug/msm_fb/0/backbuff \n\n");
+		}
+		if (!led.equals(""))
+		{
+			miscbuilder.append("#capacitive buttons backlight\n" + "chmod 777 /sys/devices/platform/leds-pm8058/leds/button-backlight/currents \n" +
+							   "echo " + "\"" + led + "\"" + " > /sys/devices/platform/leds-pm8058/leds/button-backlight/currents \n\n");
+		}
+		if (!fastcharge.equals(""))
+		{
+			miscbuilder.append("#fastcharge\n" + "chmod 777 /sys/kernel/fast_charge/force_fast_charge \n" +
+							   "echo " + "\"" + fastcharge + "\"" + " > /sys/kernel/fast_charge/force_fast_charge \n\n");
+		}
+		if (!cdepth.equals(""))
+		{
+			miscbuilder.append("#color depth\n" + "chmod 777 /sys/kernel/debug/msm_fb/0/bpp \n" +
+							   "echo " + "\"" + cdepth + "\"" + " > /sys/kernel/debug/msm_fb/0/bpp \n\n");
+		}
+	
+		if (!mpdecisionscroff.equals(""))
+		{
+			miscbuilder.append("chmod 777 /sys/kernel/msm_mpdecision/conf/scroff_single_core \n" +
+							   "echo " + "\"" + mpdecisionscroff + "\"" + " > /sys/kernel/msm_mpdecision/conf/scroff_single_core \n");
+		}
+		if (!delaynew.equals(""))
+		{
+			miscbuilder.append("chmod 777 /sys/kernel/msm_mpdecision/conf/delay \n" +
+							   "echo " + "\"" + delaynew.trim() + "\"" + " > /sys/kernel/msm_mpdecision/conf/delay \n");
+		}
+		if (!pausenew.equals(""))
+		{
+			miscbuilder.append("chmod 777 /sys/kernel/msm_mpdecision/conf/pause \n" +
+							   "echo " + "\"" + pausenew.trim() + "\"" + " > /sys/kernel/msm_mpdecision/conf/pause \n");
+		}
+		if (!thruploadnew.equals(""))
+		{
+			miscbuilder.append("chmod 777 /sys/kernel/msm_mpdecision/conf/nwns_threshold_up \n" +
+							   "echo " + "\"" + thruploadnew.trim() + "\"" + " > /sys/kernel/msm_mpdecision/conf/nwns_threshold_up \n");
+	
+		}
+		if (!thrdownloadnew.equals(""))
+		{
+			miscbuilder.append("chmod 777 /sys/kernel/msm_mpdecision/conf/nwns_threshold_down \n" +
+							   "echo " + "\"" + thrdownloadnew.trim() + "\"" + " > /sys/kernel/msm_mpdecision/conf/nwns_threshold_down \n");
+	
+		}
+		if (!thrupmsnew.equals(""))
+		{
+			miscbuilder.append("chmod 777 /sys/kernel/msm_mpdecision/conf/twts_threshold_up" +
+							   "echo " + "\"" + thrupmsnew.trim() + "\"" + " > /sys/kernel/msm_mpdecision/conf/twts_threshold_up \n");
+		}
+		if (!thrdownmsnew.equals(""))
+		{
+			miscbuilder.append("chmod 777 /sys/kernel/msm_mpdecision/conf/twts_threshold_down" +
+							   "echo " + "\"" + thrdownmsnew.trim() + "\"" + " > /sys/kernel/msm_mpdecision/conf/twts_threshold_down \n\n");
+		}
+		if (!sdcache.equals(""))
+		{
+			miscbuilder.append("#sd card cache size\n" +
+							   "chmod 777 /sys/block/mmcblk1/queue/read_ahead_kb \n" +
+							   "chmod 777 /sys/block/mmcblk0/queue/read_ahead_kb \n" +
+							   "chmod 777 /sys/devices/virtual/bdi/179:0/read_ahead_kb \n" +
+							   "echo " + "\"" + sdcache + "\"" + " > /sys/block/mmcblk1/queue/read_ahead_kb \n" +
+							   "echo " + "\"" + sdcache + "\"" + " > /sys/block/mmcblk0/queue/read_ahead_kb \n" +
+							   "echo " + "\"" + sdcache + "\"" + " > /sys/devices/virtual/bdi/179:0/read_ahead_kb \n\n");
+		}
+		if (!io.equals(""))
+		{
+			miscbuilder.append("#IO scheduler\n" +
+							   "chmod 777 /sys/block/mmcblk0/queue/scheduler \n" +
+							   "chmod 777 /sys/block/mmcblk1/queue/scheduler \n" +
+							   "echo " + "\"" + io + "\"" + " > /sys/block/mmcblk0/queue/scheduler \n" +
+							   "echo " + "\"" + io + "\"" + " > /sys/block/mmcblk1/queue/scheduler \n\n");
+		}
+		if (!ldt.equals(""))
+		{
+			miscbuilder.append("#Notification LED Timeout\n" +
+							   "chmod 777 /sys/kernel/notification_leds/off_timer_multiplier\n" +
+							   "echo " + "\"" + ldt + "\"" + " > /sys/kernel/notification_leds/off_timer_multiplier\n\n");
+		}
+		if (!s2w.equals(""))
+		{
+			miscbuilder.append("#Sweep2Wake\n" +
+							   "chmod 777 /sys/android_touch/sweep2wake\n" +
+							   "echo " + "\"" + s2w + "\"" + " > /sys/android_touch/sweep2wake\n\n");
+		}
+		if (!s2wStart.equals(""))
+		{
+			miscbuilder.append("chmod 777 /sys/android_touch/sweep2wake_startbutton\n" +
+							   "echo " + s2wStart + " > /sys/android_touch/sweep2wake_startbutton\n" +
+							   "chmod 777 /sys/android_touch/sweep2wake_endbutton\n" +
+							   "echo " + s2wEnd + " > /sys/android_touch/sweep2wake_endbutton\n\n");
+		}
+	
+		if (!p1freq.trim().equals(""))
+		{
+			miscbuilder.append("chmod 777 /sys/kernel/msm_thermal/conf/allowed_low_freq\n" +
+							   "echo " + "\"" + p1freq.trim() + "\"" + " > /sys/kernel/msm_thermal/conf/allowed_low_freq\n");
+		}
+		if (!p2freq.trim().equals(""))
+		{
+			miscbuilder.append("chmod 777 /sys/kernel/msm_thermal/conf/allowed_mid_freq\n" +
+							   "echo " + "\"" + p2freq.trim() + "\"" + " > /sys/kernel/msm_thermal/conf/allowed_mid_freq\n");
+		}
+		if (!p3freq.trim().equals(""))
+		{
+			miscbuilder.append("chmod 777 /sys/kernel/msm_thermal/conf/allowed_max_freq\n" +
+							   "echo " + "\"" + p3freq.trim() + "\"" + " > /sys/kernel/msm_thermal/conf/allowed_max_freq\n");
+		}
+		if (!p1low.trim().equals(""))
+		{
+			miscbuilder.append("chmod 777 /sys/kernel/msm_thermal/conf/allowed_low_low\n" +
+							   "echo " + "\"" + p1low.trim() +  "\"" + " > /sys/kernel/msm_thermal/conf/allowed_low_low\n");
+		}
+		if (!p1high.trim().equals(""))
+		{
+			miscbuilder.append("chmod 777 /sys/kernel/msm_thermal/conf/allowed_low_high\n" +
+							   "echo " + "\"" + p1high.trim() +  "\"" + " > /sys/kernel/msm_thermal/conf/allowed_low_high\n");
+		}
+		if (!p2low.trim().equals(""))
+		{
+			miscbuilder.append("chmod 777 /sys/kernel/msm_thermal/conf/allowed_mid_low\n" +
+							   "echo " + "\"" + p2low.trim() +  "\"" + " > /sys/kernel/msm_thermal/conf/allowed_mid_low\n");
+		}
+		if (!p2high.trim().equals(""))
+		{
+			miscbuilder.append("chmod 777 /sys/kernel/msm_thermal/conf/allowed_mid_high\n" +
+							   "echo " + "\"" + p2high.trim() +  "\"" + " > /sys/kernel/msm_thermal/conf/allowed_mid_high\n");
+		}
+		if (!p3low.trim().equals(""))
+		{
+			miscbuilder.append("chmod 777 /sys/kernel/msm_thermal/conf/allowed_high_low\n" +
+							   "echo " + "\"" + p3low.trim() +  "\"" + " > /sys/kernel/msm_thermal/conf/allowed_high_low\n");
+		}
+		if (!p3high.trim().equals(""))
+		{
+			miscbuilder.append("chmod 777 /sys/kernel/msm_thermal/conf/allowed_high_high\n" +
+							   "echo " + "\"" + p3high.trim() +  "\"" + " > /sys/kernel/msm_thermal/conf/allowed_high_high\n\n");
+		}
+		if (swap == true)
+		{
+			miscbuilder.append("echo " + swappiness + " > /proc/sys/vm/swappiness\n"
+							   + "swapon " + swapLocation.trim() + "\n\n"
+							   );
+	
+	
+		}
+		else if (swap == false)
+		{
+			miscbuilder.append("swapoff " + swapLocation.trim() + "\n\n");
+	
+		}
+	
+		miscbuilder.append("#Umount debug filesystem\n" +
+						   "umount /sys/kernel/debug \n");
+		String misc = miscbuilder.toString();
+	
+	
+	
+		StringBuilder voltagebuilder = new StringBuilder();
+		voltagebuilder.append("#!/system/bin/sh \n");
+		for (String s : CPUInfo.voltageFreqs())
+		{
+			String temp = sharedPrefs.getString("voltage_" + s, "");
+		    if (!temp.equals(""))
+			{
+				voltagebuilder.append("echo " + "\"" + temp + "\"" + " > /sys/devices/system/cpu/cpufreq/vdd_table/vdd_levels\n");
+		    }
+		}
+		String voltage = voltagebuilder.toString();
+		try
+		{ 
+	
+			FileOutputStream fOut = openFileOutput("99ktcputweaks",
+												   MODE_WORLD_READABLE);
+			OutputStreamWriter osw = new OutputStreamWriter(fOut); 
+			osw.write(cpu);        
+			osw.flush();
+			osw.close();
+	
+		}
+		catch (IOException ioe)
+		{
+			ioe.printStackTrace();
+		}
+		try
+		{ 
+	
+			FileOutputStream fOut = openFileOutput("99ktgputweaks",
+												   MODE_WORLD_READABLE);
+			OutputStreamWriter osw = new OutputStreamWriter(fOut); 
+			osw.write(gpu);        
+			osw.flush();
+			osw.close();
+	
+		}
+		catch (IOException ioe)
+		{
+			ioe.printStackTrace();
+		}
+		try
+		{ 
+	
+			FileOutputStream fOut = openFileOutput("99ktmisctweaks",
+												   MODE_WORLD_READABLE);
+			OutputStreamWriter osw = new OutputStreamWriter(fOut); 
+			osw.write(misc);        
+			osw.flush();
+			osw.close();
+	
+		}
+		catch (IOException ioe)
+		{
+			ioe.printStackTrace();
+		}
+	
+		try
+		{ 
+	
+			FileOutputStream fOut = openFileOutput("99ktvoltage",
+												   MODE_WORLD_READABLE);
+			OutputStreamWriter osw = new OutputStreamWriter(fOut); 
+			osw.write(voltage);        
+			osw.flush();
+			osw.close();
+	
+		}
+		catch (IOException ioe)
+		{
+			ioe.printStackTrace();
+		} 
+		new Initd().execute(new String[] {"apply"});
+	}
+
+
+	/**
 	Read current cpu0 frequency
 	*/
 	public void ReadCPU0Clock()
@@ -1896,427 +2318,6 @@ public void startCpuLoadThread() {
 	}
 
 
-
-	/**
-	Create init.d files and export them to private application folder
-	*/
-	public void initdExport()
-	{
-
-		SharedPreferences sharedPrefs = PreferenceManager.getDefaultSharedPreferences(this);
-		String gpu3d = sharedPrefs.getString("gpu3d", "");
-		String gpu2d = sharedPrefs.getString("gpu2d", "");
-
-		String hw = sharedPrefs.getString("hw", "");
-		String cdepth = sharedPrefs.getString("cdepth", "");
-		String cpu1min = sharedPrefs.getString("cpu1min", "");
-		String cpu1max = sharedPrefs.getString("cpu1max", "");
-		String cpu0max = sharedPrefs.getString("cpu0max", "");
-		String cpu0min = sharedPrefs.getString("cpu0min", "");
-		String cpu3min = sharedPrefs.getString("cpu3min", "");
-		String cpu3max = sharedPrefs.getString("cpu3max", "");
-		String cpu2max = sharedPrefs.getString("cpu2max", "");
-		String cpu2min = sharedPrefs.getString("cpu2min", "");
-
-		String fastcharge = sharedPrefs.getString("fastcharge", "");
-		String mpdecisionscroff = sharedPrefs.getString("mpdecisionscroff", "");
-		String backbuff = sharedPrefs.getString("backbuf", "");
-		String vsync = sharedPrefs.getString("vsync", "");
-		String led = sharedPrefs.getString("led", "");
-		String cpu0gov = sharedPrefs.getString("cpu0gov", "");
-		String cpu1gov = sharedPrefs.getString("cpu1gov", "");
-		String cpu2gov = sharedPrefs.getString("cpu2gov", "");
-		String cpu3gov = sharedPrefs.getString("cpu3gov", "");
-		String io = sharedPrefs.getString("io", "");
-		String sdcache = sharedPrefs.getString("sdcache", "");
-
-
-		String delaynew = sharedPrefs.getString("delaynew", "");
-		String pausenew = sharedPrefs.getString("pausenew", "");
-		String thruploadnew = sharedPrefs.getString("thruploadnew", "");
-		String thrupmsnew = sharedPrefs.getString("thrupmsnew", "");
-		String thrdownloadnew = sharedPrefs.getString("thrdownloadnew", "");
-		String thrdownmsnew = sharedPrefs.getString("thrdownmsnew", "");
-		String ldt = sharedPrefs.getString("ldt", "");
-		String s2w = sharedPrefs.getString("s2w", "");
-		String s2wStart = sharedPrefs.getString("s2wStart", "");
-		String s2wEnd = sharedPrefs.getString("s2wEnd", "");
-
-		String p1freq = sharedPrefs.getString("p1freq", "");
-		String p2freq = sharedPrefs.getString("p2freq", "");
-		String p3freq = sharedPrefs.getString("p3freq", "");
-		String p1low = sharedPrefs.getString("p1low", "");
-		String p1high = sharedPrefs.getString("p1high", "");
-		String p2low = sharedPrefs.getString("p2low", "");
-		String p2high = sharedPrefs.getString("p2high", "");
-		String p3low = sharedPrefs.getString("p3low", "");
-		String p3high = sharedPrefs.getString("p3high", "");
-		boolean swap = sharedPrefs.getBoolean("swap", false);
-		String swapLocation = sharedPrefs.getString("swap_location", "");
-		String swappiness = sharedPrefs.getString("swappiness", "");
-
-		StringBuilder gpubuilder = new StringBuilder();
-
-		gpubuilder.append("#!/system/bin/sh");
-		gpubuilder.append("\n");
-		if (!gpu3d.equals(""))
-		{
-			gpubuilder.append("echo " + "\"" + gpu3d + "\"" + " > /sys/devices/platform/kgsl-3d0.0/kgsl/kgsl-3d0/max_gpuclk");
-			gpubuilder.append("\n");
-		}
-		if (!gpu2d.equals(""))
-		{
-			gpubuilder.append("echo " + "\"" + gpu2d + "\"" + " > /sys/devices/platform/kgsl-2d0.0/kgsl/kgsl-2d0/max_gpuclk");
-			gpubuilder.append("\n");
-			gpubuilder.append("echo " + "\"" + gpu2d + "\"" + " > /sys/devices/platform/kgsl-2d1.1/kgsl/kgsl-2d1/max_gpuclk");
-			gpubuilder.append("\n");
-
-		}
-
-
-		String gpu = gpubuilder.toString();
-
-		StringBuilder cpubuilder = new StringBuilder();
-
-		cpubuilder.append("#!/system/bin/sh");
-		cpubuilder.append("\n");
-		/**
-		 * cpu0
-		 * */
-		if (!cpu0gov.equals(""))
-		{
-			cpubuilder.append("chmod 666 /sys/devices/system/cpu/cpu0/cpufreq/scaling_governor \n" +
-							  "echo " + "\"" + cpu0gov + "\"" + " > /sys/devices/system/cpu/cpu0/cpufreq/scaling_governor\n");
-		}
-		if (!cpu0max.equals(""))
-		{
-			cpubuilder.append("chmod 666 /sys/devices/system/cpu/cpu0/cpufreq/scaling_max_freq \n" +
-							  "echo " + "\"" + cpu0max + "\"" + " > /sys/devices/system/cpu/cpu0/cpufreq/scaling_max_freq \n");
-		}
-		if (!cpu0min.equals(""))
-		{
-			cpubuilder.append("chmod 666 /sys/devices/system/cpu/cpu0/cpufreq/scaling_min_freq \n" +
-							  "echo " + "\"" + cpu0min + "\"" + " > /sys/devices/system/cpu/cpu0/cpufreq/scaling_min_freq \n\n");
-		}
-		/**
-		 * cpu1
-		 * */
-		if (!cpu1gov.equals(""))
-		{
-			cpubuilder.append("chmod 666 /sys/devices/system/cpu/cpu1/cpufreq/scaling_governor \n" +
-							  "echo " + "\"" + cpu1gov + "\"" + " > /sys/devices/system/cpu/cpu1/cpufreq/scaling_governor\n");
-		}
-		if (!cpu1max.equals(""))
-		{
-			cpubuilder.append("chmod 666 /sys/devices/system/cpu/cpu1/cpufreq/scaling_max_freq \n" +
-							  "echo " + "\"" + cpu1max + "\"" + " > /sys/devices/system/cpu/cpu1/cpufreq/scaling_max_freq \n");
-		}
-		if (!cpu1min.equals(""))
-		{
-			cpubuilder.append("chmod 666 /sys/devices/system/cpu/cpu1/cpufreq/scaling_min_freq \n" +
-							  "echo " + "\"" + cpu1min + "\"" + " > /sys/devices/system/cpu/cpu1/cpufreq/scaling_min_freq \n\n");
-		}
-
-		/**
-		 * cpu2
-		 * */
-		if (!cpu2gov.equals(""))
-		{
-			cpubuilder.append("chmod 666 /sys/devices/system/cpu/cpu2/cpufreq/scaling_governor \n" +
-							  "echo " + "\"" + cpu2gov + "\"" + " > /sys/devices/system/cpu/cpu2/cpufreq/scaling_governor\n");
-		}
-		if (!cpu2max.equals(""))
-		{
-			cpubuilder.append("chmod 666 /sys/devices/system/cpu/cpu2/cpufreq/scaling_max_freq \n" +
-							  "echo " + "\"" + cpu2max + "\"" + " > /sys/devices/system/cpu/cpu2/cpufreq/scaling_max_freq \n");
-		}
-		if (!cpu2min.equals(""))
-		{
-			cpubuilder.append("chmod 666 /sys/devices/system/cpu/cpu2/cpufreq/scaling_min_freq \n" +
-							  "echo " + "\"" + cpu2min + "\"" + " > /sys/devices/system/cpu/cpu2/cpufreq/scaling_min_freq \n\n");
-		}
-		/**
-		 * cpu3
-		 * */
-
-		if (!cpu3gov.equals(""))
-		{
-			cpubuilder.append("chmod 666 /sys/devices/system/cpu/cpu3/cpufreq/scaling_governor \n" +
-							  "echo " + "\"" + cpu3gov + "\"" + " > /sys/devices/system/cpu/cpu3/cpufreq/scaling_governor\n");
-		}
-		if (!cpu3max.equals(""))
-		{
-			cpubuilder.append("chmod 666 /sys/devices/system/cpu/cpu3/cpufreq/scaling_max_freq \n" +
-							  "echo " + "\"" + cpu3max + "\"" + " > /sys/devices/system/cpu/cpu3/cpufreq/scaling_max_freq \n");
-		}
-		if (!cpu3min.equals(""))
-		{
-			cpubuilder.append("chmod 666 /sys/devices/system/cpu/cpu3/cpufreq/scaling_min_freq \n" +
-							  "echo " + "\"" + cpu3min + "\"" + " > /sys/devices/system/cpu/cpu3/cpufreq/scaling_min_freq \n\n");
-		}
-		List<String> govSettings = CPUInfo.govSettings();
-		List<String> availableGovs = CPUInfo.availableGovs();
-
-		for (String s : availableGovs)
-		{
-			for (String st : govSettings)
-			{
-				String temp = sharedPrefs.getString(s + "_" + st, "");
-
-     		    if (!temp.equals(""))
-				{
-     		    	cpubuilder.append("chmod 777 /sys/devices/system/cpu/cpufreq/" + s + "/" + st + "\n");
-     		    	cpubuilder.append("echo " + "\"" + temp + "\"" + " > /sys/devices/system/cpu/cpufreq/" + s + "/" + st + "\n");
-
-     		    }
-			}
-		}
-		String cpu = cpubuilder.toString();
-
-		StringBuilder miscbuilder = new StringBuilder();
-
-		miscbuilder.append("#!/system/bin/sh \n\n" + "#mount debug filesystem\n" +
-						   "mount -t debugfs debugfs /sys/kernel/debug \n\n");
-		if (!vsync.equals(""))
-		{
-			miscbuilder.append("#vsync\n" +
-							   "chmod 777 /sys/kernel/debug/msm_fb/0/vsync_enable \n" +
-							   "chmod 777 /sys/kernel/debug/msm_fb/0/hw_vsync_mode \n" +
-							   "chmod 777 /sys/kernel/debug/msm_fb/0/backbuff \n" +
-							   "echo " + "\"" + vsync + "\"" + " > /sys/kernel/debug/msm_fb/0/vsync_enable \n" +
-							   "echo " + "\"" + hw + "\"" + " > /sys/kernel/debug/msm_fb/0/hw_vsync_mode \n" +
-							   "echo " + "\"" + backbuff + "\"" + " > /sys/kernel/debug/msm_fb/0/backbuff \n\n");
-		}
-		if (!led.equals(""))
-		{
-			miscbuilder.append("#capacitive buttons backlight\n" + "chmod 777 /sys/devices/platform/leds-pm8058/leds/button-backlight/currents \n" +
-							   "echo " + "\"" + led + "\"" + " > /sys/devices/platform/leds-pm8058/leds/button-backlight/currents \n\n");
-		}
-		if (!fastcharge.equals(""))
-		{
-			miscbuilder.append("#fastcharge\n" + "chmod 777 /sys/kernel/fast_charge/force_fast_charge \n" +
-							   "echo " + "\"" + fastcharge + "\"" + " > /sys/kernel/fast_charge/force_fast_charge \n\n");
-		}
-		if (!cdepth.equals(""))
-		{
-			miscbuilder.append("#color depth\n" + "chmod 777 /sys/kernel/debug/msm_fb/0/bpp \n" +
-							   "echo " + "\"" + cdepth + "\"" + " > /sys/kernel/debug/msm_fb/0/bpp \n\n");
-		}
-
-		if (!mpdecisionscroff.equals(""))
-		{
-			miscbuilder.append("chmod 777 /sys/kernel/msm_mpdecision/conf/scroff_single_core \n" +
-							   "echo " + "\"" + mpdecisionscroff + "\"" + " > /sys/kernel/msm_mpdecision/conf/scroff_single_core \n");
-		}
-		if (!delaynew.equals(""))
-		{
-			miscbuilder.append("chmod 777 /sys/kernel/msm_mpdecision/conf/delay \n" +
-							   "echo " + "\"" + delaynew.trim() + "\"" + " > /sys/kernel/msm_mpdecision/conf/delay \n");
-		}
-		if (!pausenew.equals(""))
-		{
-			miscbuilder.append("chmod 777 /sys/kernel/msm_mpdecision/conf/pause \n" +
-							   "echo " + "\"" + pausenew.trim() + "\"" + " > /sys/kernel/msm_mpdecision/conf/pause \n");
-		}
-		if (!thruploadnew.equals(""))
-		{
-			miscbuilder.append("chmod 777 /sys/kernel/msm_mpdecision/conf/nwns_threshold_up \n" +
-							   "echo " + "\"" + thruploadnew.trim() + "\"" + " > /sys/kernel/msm_mpdecision/conf/nwns_threshold_up \n");
-
-		}
-		if (!thrdownloadnew.equals(""))
-		{
-			miscbuilder.append("chmod 777 /sys/kernel/msm_mpdecision/conf/nwns_threshold_down \n" +
-							   "echo " + "\"" + thrdownloadnew.trim() + "\"" + " > /sys/kernel/msm_mpdecision/conf/nwns_threshold_down \n");
-
-		}
-		if (!thrupmsnew.equals(""))
-		{
-			miscbuilder.append("chmod 777 /sys/kernel/msm_mpdecision/conf/twts_threshold_up" +
-							   "echo " + "\"" + thrupmsnew.trim() + "\"" + " > /sys/kernel/msm_mpdecision/conf/twts_threshold_up \n");
-		}
-		if (!thrdownmsnew.equals(""))
-		{
-			miscbuilder.append("chmod 777 /sys/kernel/msm_mpdecision/conf/twts_threshold_down" +
-							   "echo " + "\"" + thrdownmsnew.trim() + "\"" + " > /sys/kernel/msm_mpdecision/conf/twts_threshold_down \n\n");
-		}
-		if (!sdcache.equals(""))
-		{
-			miscbuilder.append("#sd card cache size\n" +
-							   "chmod 777 /sys/block/mmcblk1/queue/read_ahead_kb \n" +
-							   "chmod 777 /sys/block/mmcblk0/queue/read_ahead_kb \n" +
-							   "chmod 777 /sys/devices/virtual/bdi/179:0/read_ahead_kb \n" +
-							   "echo " + "\"" + sdcache + "\"" + " > /sys/block/mmcblk1/queue/read_ahead_kb \n" +
-							   "echo " + "\"" + sdcache + "\"" + " > /sys/block/mmcblk0/queue/read_ahead_kb \n" +
-							   "echo " + "\"" + sdcache + "\"" + " > /sys/devices/virtual/bdi/179:0/read_ahead_kb \n\n");
-		}
-		if (!io.equals(""))
-		{
-			miscbuilder.append("#IO scheduler\n" +
-							   "chmod 777 /sys/block/mmcblk0/queue/scheduler \n" +
-							   "chmod 777 /sys/block/mmcblk1/queue/scheduler \n" +
-							   "echo " + "\"" + io + "\"" + " > /sys/block/mmcblk0/queue/scheduler \n" +
-							   "echo " + "\"" + io + "\"" + " > /sys/block/mmcblk1/queue/scheduler \n\n");
-		}
-		if (!ldt.equals(""))
-		{
-			miscbuilder.append("#Notification LED Timeout\n" +
-							   "chmod 777 /sys/kernel/notification_leds/off_timer_multiplier\n" +
-							   "echo " + "\"" + ldt + "\"" + " > /sys/kernel/notification_leds/off_timer_multiplier\n\n");
-		}
-		if (!s2w.equals(""))
-		{
-			miscbuilder.append("#Sweep2Wake\n" +
-							   "chmod 777 /sys/android_touch/sweep2wake\n" +
-							   "echo " + "\"" + s2w + "\"" + " > /sys/android_touch/sweep2wake\n\n");
-		}
-		if (!s2wStart.equals(""))
-		{
-			miscbuilder.append("chmod 777 /sys/android_touch/sweep2wake_startbutton\n" +
-							   "echo " + s2wStart + " > /sys/android_touch/sweep2wake_startbutton\n" +
-							   "chmod 777 /sys/android_touch/sweep2wake_endbutton\n" +
-							   "echo " + s2wEnd + " > /sys/android_touch/sweep2wake_endbutton\n\n");
-		}
-
-		if (!p1freq.trim().equals(""))
-		{
-			miscbuilder.append("chmod 777 /sys/kernel/msm_thermal/conf/allowed_low_freq\n" +
-							   "echo " + "\"" + p1freq.trim() + "\"" + " > /sys/kernel/msm_thermal/conf/allowed_low_freq\n");
-		}
-		if (!p2freq.trim().equals(""))
-		{
-			miscbuilder.append("chmod 777 /sys/kernel/msm_thermal/conf/allowed_mid_freq\n" +
-							   "echo " + "\"" + p2freq.trim() + "\"" + " > /sys/kernel/msm_thermal/conf/allowed_mid_freq\n");
-		}
-		if (!p3freq.trim().equals(""))
-		{
-			miscbuilder.append("chmod 777 /sys/kernel/msm_thermal/conf/allowed_max_freq\n" +
-							   "echo " + "\"" + p3freq.trim() + "\"" + " > /sys/kernel/msm_thermal/conf/allowed_max_freq\n");
-		}
-		if (!p1low.trim().equals(""))
-		{
-			miscbuilder.append("chmod 777 /sys/kernel/msm_thermal/conf/allowed_low_low\n" +
-							   "echo " + "\"" + p1low.trim() +  "\"" + " > /sys/kernel/msm_thermal/conf/allowed_low_low\n");
-		}
-		if (!p1high.trim().equals(""))
-		{
-			miscbuilder.append("chmod 777 /sys/kernel/msm_thermal/conf/allowed_low_high\n" +
-							   "echo " + "\"" + p1high.trim() +  "\"" + " > /sys/kernel/msm_thermal/conf/allowed_low_high\n");
-		}
-		if (!p2low.trim().equals(""))
-		{
-			miscbuilder.append("chmod 777 /sys/kernel/msm_thermal/conf/allowed_mid_low\n" +
-							   "echo " + "\"" + p2low.trim() +  "\"" + " > /sys/kernel/msm_thermal/conf/allowed_mid_low\n");
-		}
-		if (!p2high.trim().equals(""))
-		{
-			miscbuilder.append("chmod 777 /sys/kernel/msm_thermal/conf/allowed_mid_high\n" +
-							   "echo " + "\"" + p2high.trim() +  "\"" + " > /sys/kernel/msm_thermal/conf/allowed_mid_high\n");
-		}
-		if (!p3low.trim().equals(""))
-		{
-			miscbuilder.append("chmod 777 /sys/kernel/msm_thermal/conf/allowed_high_low\n" +
-							   "echo " + "\"" + p3low.trim() +  "\"" + " > /sys/kernel/msm_thermal/conf/allowed_high_low\n");
-		}
-		if (!p3high.trim().equals(""))
-		{
-			miscbuilder.append("chmod 777 /sys/kernel/msm_thermal/conf/allowed_high_high\n" +
-							   "echo " + "\"" + p3high.trim() +  "\"" + " > /sys/kernel/msm_thermal/conf/allowed_high_high\n\n");
-		}
-		if (swap == true)
-		{
-			miscbuilder.append("echo " + swappiness + " > /proc/sys/vm/swappiness\n"
-							   + "swapon " + swapLocation.trim() + "\n\n"
-							   );
-
-
-		}
-		else if (swap == false)
-		{
-			miscbuilder.append("swapoff " + swapLocation.trim() + "\n\n");
-
-		}
-
-		miscbuilder.append("#Umount debug filesystem\n" +
-						   "umount /sys/kernel/debug \n");
-		String misc = miscbuilder.toString();
-
-
-
-		StringBuilder voltagebuilder = new StringBuilder();
-		voltagebuilder.append("#!/system/bin/sh \n");
-		for (String s : CPUInfo.voltageFreqs())
-		{
-			String temp = sharedPrefs.getString("voltage_" + s, "");
-		    if (!temp.equals(""))
-			{
-				voltagebuilder.append("echo " + "\"" + temp + "\"" + " > /sys/devices/system/cpu/cpufreq/vdd_table/vdd_levels\n");
-		    }
-		}
-		String voltage = voltagebuilder.toString();
-		try
-		{ 
-
-			FileOutputStream fOut = openFileOutput("99ktcputweaks",
-												   MODE_WORLD_READABLE);
-			OutputStreamWriter osw = new OutputStreamWriter(fOut); 
-			osw.write(cpu);        
-			osw.flush();
-			osw.close();
-
-		}
-		catch (IOException ioe)
-		{
-			ioe.printStackTrace();
-		}
-		try
-		{ 
-
-			FileOutputStream fOut = openFileOutput("99ktgputweaks",
-												   MODE_WORLD_READABLE);
-			OutputStreamWriter osw = new OutputStreamWriter(fOut); 
-			osw.write(gpu);        
-			osw.flush();
-			osw.close();
-
-		}
-		catch (IOException ioe)
-		{
-			ioe.printStackTrace();
-		}
-		try
-		{ 
-
-			FileOutputStream fOut = openFileOutput("99ktmisctweaks",
-												   MODE_WORLD_READABLE);
-			OutputStreamWriter osw = new OutputStreamWriter(fOut); 
-			osw.write(misc);        
-			osw.flush();
-			osw.close();
-
-		}
-		catch (IOException ioe)
-		{
-			ioe.printStackTrace();
-		}
-
-		try
-		{ 
-
-			FileOutputStream fOut = openFileOutput("99ktvoltage",
-												   MODE_WORLD_READABLE);
-			OutputStreamWriter osw = new OutputStreamWriter(fOut); 
-			osw.write(voltage);        
-			osw.flush();
-			osw.close();
-
-		}
-		catch (IOException ioe)
-		{
-			ioe.printStackTrace();
-		} 
-		new Initd().execute(new String[] {"apply"});
-	}
 
 	public void readFreqs()
 	{

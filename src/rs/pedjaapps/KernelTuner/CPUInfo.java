@@ -54,6 +54,11 @@ public class CPUInfo
 	public static String CDEPTH = "/sys/kernel/debug/msm_fb/0/bpp";
 	public static String S2W = "/sys/android_touch/sweep2wake";
 	public static String S2W_ALT = "/sys/android_touch/sweep2wake/s2w_switch";
+	public static String MPDECISION = "/sys/kernel/msm_mpdecision/conf/enabled";
+	public static String BUTTONS_LIGHT = "/sys/devices/platform/leds-pm8058/leds/button-backlight/currents";
+	public static String SD_CACHE = "/sys/devices/virtual/bdi/179:0/read_ahead_kb";
+	public static String VSYNC = "/sys/kernel/debug/msm_fb/0/vsync_enable";
+	public static String FCHARGE = "/sys/kernel/fast_charge/force_fast_charge";
 	
 	public static boolean cpu0Online()
 	{
@@ -155,6 +160,61 @@ public class CPUInfo
 	{
 		boolean i = false;
 		if (new File(TIMES_IN_STATE_CPU0).exists())
+		{
+			i = true;
+		}
+		return i;
+
+	}
+	
+	public static boolean mpdecisionExists()
+	{
+		boolean i = false;
+		if (new File(MPDECISION).exists())
+		{
+			i = true;
+		}
+		return i;
+
+	}
+	
+	public static boolean buttonsExists()
+	{
+		boolean i = false;
+		if (new File(BUTTONS_LIGHT).exists())
+		{
+			i = true;
+		}
+		return i;
+
+	}
+	
+	public static boolean sdcacheExists()
+	{
+		boolean i = false;
+		if (new File(SD_CACHE).exists())
+		{
+			i = true;
+		}
+		return i;
+
+	}
+	
+	public static boolean vsyncExists()
+	{
+		boolean i = false;
+		if (new File(VSYNC).exists())
+		{
+			i = true;
+		}
+		return i;
+
+	}
+	
+	public static boolean fchargeExists()
+	{
+		boolean i = false;
+		if (new File(FCHARGE).exists())
 		{
 			i = true;
 		}

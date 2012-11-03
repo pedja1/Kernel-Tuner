@@ -20,6 +20,7 @@ import android.util.Log;
 import android.widget.Toast;
 
 import rs.pedjaapps.KernelTuner.Constants;
+import rs.pedjaapps.KernelTuner.ProfileApplier;
 import rs.pedjaapps.KernelTuner.bundle.BundleScrubber;
 import rs.pedjaapps.KernelTuner.bundle.PluginBundleManager;
 import rs.pedjaapps.KernelTuner.ui.EditActivity;
@@ -70,8 +71,10 @@ public final class FireReceiver extends BroadcastReceiver
          */
         if (PluginBundleManager.isBundleValid(bundle))
         {
-            Toast.makeText(context, bundle.getString(PluginBundleManager.BUNDLE_EXTRA_STRING_MESSAGE), Toast.LENGTH_LONG)
+            Toast.makeText(context, "Applyng profile: "+bundle.getString(PluginBundleManager.BUNDLE_EXTRA_STRING_MESSAGE), Toast.LENGTH_LONG)
                  .show();
+            
+            new ProfileApplier(context).execute(new String[] {bundle.getString(PluginBundleManager.BUNDLE_EXTRA_STRING_MESSAGE)});
         }
     }
 }

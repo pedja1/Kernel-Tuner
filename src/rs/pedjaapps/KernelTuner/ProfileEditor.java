@@ -279,7 +279,32 @@ public class ProfileEditor extends Activity
 			numbers.add(String.valueOf(i));
 		}
 
+		EditText name = (EditText)findViewById(R.id.editText3);//profile name
+		LinearLayout mpup  = (LinearLayout)findViewById(R.id.mpup);//mpdec thr down
+		LinearLayout mpdown  = (LinearLayout)findViewById(R.id.mpdown);//mpdec thrs up
+		LinearLayout buttons  = (LinearLayout)findViewById(R.id.buttons);//capacitive lights
+		LinearLayout sd  = (LinearLayout)findViewById(R.id.sd);//sd cache
 		
+		CheckBox vsyncBox = (CheckBox)findViewById(R.id.vsync);
+		CheckBox fchargeBox = (CheckBox)findViewById(R.id.fcharge);
+		
+		if(CPUInfo.mpdecisionExists()==false){
+			mpup.setVisibility(View.GONE);
+			mpdown.setVisibility(View.GONE);
+		}
+		if(CPUInfo.buttonsExists()==false){
+			buttons.setVisibility(View.GONE);
+		}
+		if(CPUInfo.sdcacheExists()==false){
+			sd.setVisibility(View.GONE);
+		}
+		
+		if(CPUInfo.vsyncExists()==false){
+			vsyncBox.setVisibility(View.GONE);
+		}
+		if(CPUInfo.fchargeExists()==false){
+			fchargeBox.setVisibility(View.GONE);
+		}
 		
 		if (board.equals("shooter") || board.equals("shooteru") || board.equals("pyramid"))
 		{
@@ -296,8 +321,8 @@ public class ProfileEditor extends Activity
 		String[] sweep2wake = {"Unchanged","OFF","ON with no backlight","ON with backlight"};
 
 		
-		if(CPUInfo.cpu0Online())
-		{
+		/*if(CPUInfo.cpu0Online()==true)
+		{*/
 		/**spinner1*/
 		ArrayAdapter<String> spinnerArrayAdapter = new ArrayAdapter<String>(this,   android.R.layout.simple_spinner_item, freqs);
 		spinnerArrayAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item); // The drop down vieww
@@ -358,7 +383,7 @@ public class ProfileEditor extends Activity
         	        //do nothing
         	    }
         	});
-		}
+		/*}
 		else{
 			LinearLayout cpu0minll = (LinearLayout)findViewById(R.id.cpu0min);
 			LinearLayout cpu0maxll = (LinearLayout)findViewById(R.id.cpu0max);
@@ -367,8 +392,8 @@ public class ProfileEditor extends Activity
 			cpu0minll.setVisibility(View.GONE);
 			cpu0maxll.setVisibility(View.GONE);
 			cpu0govll.setVisibility(View.GONE);
-		}
-		if(CPUInfo.cpu1Online())
+		}*/
+		if(CPUInfo.cpu1Online()==true)
 		{
 		/**spinner3*/
 		ArrayAdapter<String> spinner3ArrayAdapter = new ArrayAdapter<String>(this,   android.R.layout.simple_spinner_item, freqs);
@@ -439,7 +464,7 @@ public class ProfileEditor extends Activity
 			cpu1maxll.setVisibility(View.GONE);
 			cpu1govll.setVisibility(View.GONE);
 		}
-		if(CPUInfo.cpu2Online())
+		if(CPUInfo.cpu2Online()==true)
 		{
 		/**spinner5*/
 		ArrayAdapter<String> spinner5ArrayAdapter = new ArrayAdapter<String>(this,   android.R.layout.simple_spinner_item, freqs);
@@ -510,7 +535,7 @@ public class ProfileEditor extends Activity
 			cpu2maxll.setVisibility(View.GONE);
 			cpu2govll.setVisibility(View.GONE);
 		}
-		if(CPUInfo.cpu3Online())
+		if(CPUInfo.cpu3Online()==true)
 		{
 		/**spinner7*/
 		
@@ -604,6 +629,11 @@ public class ProfileEditor extends Activity
         	    }
         	});
 		}
+		else{
+			LinearLayout voltage = (LinearLayout)findViewById(R.id.voltage);
+			
+			voltage.setVisibility(View.GONE);
+		}
 		if(CPUInfo.gpuExists())
 		{
 		/**spinner14*/
@@ -646,6 +676,13 @@ public class ProfileEditor extends Activity
         	    }
         	});
 		}
+		else{
+			LinearLayout gpu2d = (LinearLayout)findViewById(R.id.gpu2d);
+			LinearLayout gpu3d = (LinearLayout)findViewById(R.id.gpu3d);
+			
+			gpu2d.setVisibility(View.GONE);
+			gpu3d.setVisibility(View.GONE);
+		}
 		if(CPUInfo.cdExists())
 		{
 		/**spinner16*/
@@ -667,6 +704,11 @@ public class ProfileEditor extends Activity
         	        //do nothing
         	    }
         	});
+		}
+		else{
+			LinearLayout cdepth = (LinearLayout)findViewById(R.id.cdepth);
+			
+			cdepth.setVisibility(View.GONE);
 		}
 		/**spinner17*/
 		ArrayAdapter<String> spinner17ArrayAdapter = new ArrayAdapter<String>(this,   android.R.layout.simple_spinner_item, schedulers);
@@ -724,6 +766,11 @@ public class ProfileEditor extends Activity
         	        //do nothing
         	    }
         	});
+		}
+		else{
+			LinearLayout s2w = (LinearLayout)findViewById(R.id.s2w);
+			
+			s2w.setVisibility(View.GONE);
 		}
 		
 	}

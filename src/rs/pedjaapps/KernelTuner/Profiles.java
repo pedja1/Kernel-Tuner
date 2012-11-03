@@ -14,6 +14,8 @@ import java.io.*;
 import java.util.ArrayList;
 import java.util.List;
 
+import rs.pedjaapps.KernelTuner.bundle.PluginBundleManager;
+
 
 public class Profiles extends Activity
 {
@@ -50,9 +52,9 @@ public class Profiles extends Activity
 					AlertDialog.Builder builder = new AlertDialog.Builder(
 						Profiles.this);
 
-						DatabaseHandler db = new DatabaseHandler(Profiles.this);
+						final DatabaseHandler db = new DatabaseHandler(Profiles.this);
 						List<Profile> profiles = db.getAllProfiles();
-					Profile profile = profiles.get(p3);
+					final Profile profile = profiles.get(p3);
 						
                      String cpu0min = profile.getCpu0min();
 					String cpu0max = profile.getCpu0max();
@@ -62,6 +64,28 @@ public class Profiles extends Activity
 					String cpu2max = profile.getCpu2max();
 					String cpu3min = profile.getCpu3min();
 					String cpu3max = profile.getCpu3max();
+					
+					 String cpu0gov = profile.getCpu0gov();
+					 String cpu1gov = profile.getCpu1gov();
+					 String cpu2gov = profile.getCpu2gov();
+					 String cpu3gov = profile.getCpu3gov();
+					 
+					 String mpup = profile.getMtu();
+					 String mpdown = profile.getMtd();
+					 
+					 String gpu2d = profile.getGpu2d();
+					 String gpu3d = profile.getGpu3d();
+					 
+					 String voltage = profile.getVoltage();
+
+					 String buttons = profile.getButtonsLight();
+					 int vsync = profile.getVsync();
+					 int fcharge = profile.getFcharge();
+					 String cdepth = profile.getCdepth();
+					 String io = profile.getIoScheduler();
+					 Integer sdcache = profile.getSdcache();
+
+					 Integer s2w = profile.getSweep2wake();
 					
 				builder.setTitle(profile.getName());
                  	
@@ -100,6 +124,31 @@ public class Profiles extends Activity
 					LinearLayout cpu2maxll = (LinearLayout)view.findViewById(R.id.cpu2max);
 					LinearLayout cpu3minll = (LinearLayout)view.findViewById(R.id.cpu3min);
 					LinearLayout cpu3maxll = (LinearLayout)view.findViewById(R.id.cpu3max);
+					
+					LinearLayout cpu0govll = (LinearLayout)view.findViewById(R.id.cpu0gov);
+					LinearLayout cpu1govll = (LinearLayout)view.findViewById(R.id.cpu1gov);
+					LinearLayout cpu2govll = (LinearLayout)view.findViewById(R.id.cpu2gov);
+					LinearLayout cpu3govll = (LinearLayout)view.findViewById(R.id.cpu3gov);
+					
+					LinearLayout mpupll = (LinearLayout)view.findViewById(R.id.mpup);
+					LinearLayout mpdownll = (LinearLayout)view.findViewById(R.id.mpdown);
+					
+					LinearLayout gpu2dll = (LinearLayout)view.findViewById(R.id.gpu2d);
+					LinearLayout gpu3dll = (LinearLayout)view.findViewById(R.id.gpu3d);
+					
+					LinearLayout buttonsll = (LinearLayout)view.findViewById(R.id.buttons);
+
+					LinearLayout vsyncBox = (LinearLayout)view.findViewById(R.id.vsync);
+					LinearLayout fchargeBox = (LinearLayout)view.findViewById(R.id.fcharge);
+					
+					LinearLayout cdepthll = (LinearLayout)view.findViewById(R.id.cdepth);
+					LinearLayout ioll = (LinearLayout)view.findViewById(R.id.io);
+					LinearLayout sdll = (LinearLayout)view.findViewById(R.id.sd);
+					LinearLayout voltagell = (LinearLayout)view.findViewById(R.id.voltage);
+					LinearLayout s2wll = (LinearLayout)view.findViewById(R.id.s2w);
+
+					
+					//cpu0 min
 					if( cpu0min != null && !cpu0min.equals("Unchanged") && !cpu0min.equals("") ){
 						tv1.setText(cpu0min);
 					}
@@ -107,7 +156,7 @@ public class Profiles extends Activity
 					 cpu0minll.setVisibility(View.GONE);
 					
 					}
-				
+				//cpu0 max
 					if( cpu0max != null && !cpu0max.equals("Unchanged") && !cpu0max.equals("") ){
 						tv2.setText(cpu0max);
 					}
@@ -115,7 +164,7 @@ public class Profiles extends Activity
 						cpu0maxll.setVisibility(View.GONE);
 
 					}
-					
+					//cpu1min
 					if( cpu1min != null && !cpu1min.equals("Unchanged") && !cpu1min.equals("") ){
 						tv3.setText(cpu1min);
 					}
@@ -123,7 +172,7 @@ public class Profiles extends Activity
 						cpu1minll.setVisibility(View.GONE);
 
 					}
-
+					//cpu1max
 					if( cpu1max != null && !cpu1max.equals("Unchanged") && !cpu1max.equals("") ){
 						tv4.setText(cpu1max);
 					}
@@ -131,7 +180,7 @@ public class Profiles extends Activity
 						cpu1maxll.setVisibility(View.GONE);
 
 					}
-					//
+					//cpu2min
 					if( cpu2min != null && !cpu2min.equals("Unchanged") && !cpu2min.equals("") ){
 						tv5.setText(cpu2min);
 					}
@@ -139,7 +188,7 @@ public class Profiles extends Activity
 						cpu2minll.setVisibility(View.GONE);
 
 					}
-
+					//cpu2max
 					if( cpu2max != null && !cpu2max.equals("Unchanged") && !cpu2max.equals("") ){
 						tv6.setText(cpu2max);
 					}
@@ -147,7 +196,7 @@ public class Profiles extends Activity
 						cpu2maxll.setVisibility(View.GONE);
 
 					}
-
+					//cpu3min
 					if( cpu3min != null && !cpu3min.equals("Unchanged") && !cpu3min.equals("") ){
 						tv7.setText(cpu3min);
 					}
@@ -155,7 +204,7 @@ public class Profiles extends Activity
 						cpu3minll.setVisibility(View.GONE);
 
 					}
-
+					//cpu3max
 					if( cpu3max != null && !cpu3max.equals("Unchanged") && !cpu3max.equals("") ){
 						tv8.setText(cpu3max);
 					}
@@ -163,13 +212,147 @@ public class Profiles extends Activity
 						cpu3maxll.setVisibility(View.GONE);
 
 					}
+					//cpu0governor
+					if( cpu0gov != null && !cpu0gov.equals("Unchanged") && !cpu0gov.equals("") ){
+						tv9.setText(cpu0gov);
+					}
+					else{
+						cpu0govll.setVisibility(View.GONE);
+
+					}
+					//cpu1governor
+					if( cpu1gov != null && !cpu1gov.equals("Unchanged") && !cpu1gov.equals("") ){
+						tv10.setText(cpu1gov);
+					}
+					else{
+						cpu1govll.setVisibility(View.GONE);
+
+					}
+					//cpu2governor
+					if( cpu2gov != null && !cpu2gov.equals("Unchanged") && !cpu2gov.equals("") ){
+						tv11.setText(cpu2gov);
+					}
+					else{
+						cpu2govll.setVisibility(View.GONE);
+
+					}
+					
+					//cpu3governor
+					if( cpu3gov != null && !cpu3gov.equals("Unchanged") && !cpu3gov.equals("") ){
+						tv12.setText(cpu3gov);
+					}
+					else{
+						cpu3govll.setVisibility(View.GONE);
+
+					}
+					//voltage
+					if( voltage != null && !voltage.equals("Unchanged") && !voltage.equals("") ){
+						tv13.setText(voltage);
+					}
+					else{
+						voltagell.setVisibility(View.GONE);
+
+					}
+					//mpdecision down
+					if( mpdown != null && !mpdown.equals("") ){
+						tv14.setText(mpdown);
+					}
+					else{
+						mpdownll.setVisibility(View.GONE);
+
+					}
+					//mpdecision up
+					if( mpup != null && !mpup.equals("") ){
+						tv15.setText(mpup);
+					}
+					else{
+						mpupll.setVisibility(View.GONE);
+
+					}
+					//gpu2d
+					if( gpu2d != null && !gpu2d.equals("Unchanged") && !gpu2d.equals("") ){
+						tv16.setText(gpu2d);
+					}
+					else{
+						gpu2dll.setVisibility(View.GONE);
+					}
+					//gpu3d
+					if( gpu3d != null && !gpu3d.equals("Unchanged") && !gpu3d.equals("") ){
+						tv17.setText(gpu3d);
+					}
+					else{
+						gpu3dll.setVisibility(View.GONE);
+					}
+					//buttons
+					if( buttons != null && !buttons.equals("") ){
+						tv18.setText(buttons);
+					}
+					else{
+						buttonsll.setVisibility(View.GONE);
+					}
+					//vsync
+					if( vsync==0 ){
+						tv19.setText("OFF");
+					}
+					else if(vsync == 1){
+						tv19.setText("ON");
+					}
+					else{
+						vsyncBox.setVisibility(View.GONE);
+					}
+					//fcharge
+					if( fcharge==0 ){
+						tv20.setText("OFF");
+					}
+					else if(fcharge == 1){
+						tv20.setText("ON");
+					}
+					else{
+						fchargeBox.setVisibility(View.GONE);
+					}
+					//cdepth
+					if( cdepth != null && !cdepth.equals("Unchanged") && !cdepth.equals("") ){
+						tv21.setText(cdepth);
+					}
+					else{
+						cdepthll.setVisibility(View.GONE);
+					}
+					//io
+					if( io != null && !io.equals("Unchanged") && !io.equals("") ){
+						tv22.setText(io);
+					}
+					else{
+						ioll.setVisibility(View.GONE);
+					}
+					//sd
+					if( sdcache != null && sdcache!=0){
+						tv23.setText(String.valueOf(sdcache));
+					}
+					else{
+						sdll.setVisibility(View.GONE);
+
+					}
+					//s2w
+					if( s2w==0 ){
+						tv24.setText("OFF");
+					}
+					else if(s2w==1){
+						tv24.setText("On with no backlight");
+					}
+					else if(s2w==2){
+						tv24.setText("On with backlight");
+					}
+					else{
+						s2wll.setVisibility(View.GONE);
+					}
 					builder.setIcon(R.drawable.ic_menu_cc);
 
-					/*builder.setPositiveButton("Download", new DialogInterface.OnClickListener() {
+					builder.setPositiveButton("Apply", new DialogInterface.OnClickListener() {
 							@Override
 							public void onClick(DialogInterface dialog, int which)
 							{
-								
+								new ProfileApplier(Profiles.this).execute(new String[] {profile.getName()});
+							       
 							}
 						});
 					builder.setNegativeButton("Cancel", new DialogInterface.OnClickListener() {
@@ -178,7 +361,21 @@ public class Profiles extends Activity
 							{
 
 							}
-						});*/
+						});
+					builder.setNeutralButton("Delete", new DialogInterface.OnClickListener() {
+							@Override
+							public void onClick(DialogInterface dialog, int which)
+							{
+								db.deleteProfile(profile);
+								profilesAdapter.clear();
+								for (final ProfilesEntry entry : getProfilesEntries())
+								{
+									profilesAdapter.add(entry);
+								}
+								profilesListView.invalidate();
+								setUI();
+							}
+						});
 					builder.setView(view);
 					AlertDialog alert = builder.create();
 

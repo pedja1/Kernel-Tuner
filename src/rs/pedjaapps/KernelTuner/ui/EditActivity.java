@@ -42,6 +42,7 @@ public final class EditActivity extends Activity
     // TODO: Place your help URL here
     private static final String HELP_URL = "http://kerneltuner.pedjaapps.in.rs/faq"; //$NON-NLS-1$
 
+    private String profile;
     /**
      * Flag boolean that can only be set to true via the "Don't Save"
      * {@link R.id#twofortyfouram_locale_menu_dontsave} menu item in
@@ -83,7 +84,7 @@ public final class EditActivity extends Activity
          * if savedInstanceState is null, then then this is a new Activity instance and a check for
          * EXTRA_BUNDLE is needed
          */
-        if (null == savedInstanceState)
+       /* if (null == savedInstanceState)
         {
             final Bundle forwardedBundle = getIntent().getBundleExtra(com.twofortyfouram.locale.Intent.EXTRA_BUNDLE);
 
@@ -91,7 +92,7 @@ public final class EditActivity extends Activity
             {
                 ((EditText) findViewById(android.R.id.text1)).setText(forwardedBundle.getString(PluginBundleManager.BUNDLE_EXTRA_STRING_MESSAGE));
             }
-        }
+        }*/
         /*
          * if savedInstanceState isn't null, there is no need to restore any Activity state directly via
          * onSaveInstanceState(), as the EditText object handles that automatically
@@ -108,15 +109,12 @@ public final class EditActivity extends Activity
 		profileAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
 		profSpinner.setAdapter(profileAdapter);
 
-		//ArrayAdapter<String> gov0Adap = (ArrayAdapter<String>) gov0spinner.getAdapter();
-	//	int gov0spinnerPosition = gov0Adap.getPosition(CPUInfo.cpu0CurGov());
-	//	gov0spinner.setSelection(gov0spinnerPosition);
 
 		profSpinner.setOnItemSelectedListener(new OnItemSelectedListener() {
 				@Override
 				public void onItemSelected(AdapterView<?> parent, View view, int pos, long id)
 				{
-					
+					profile = parent.getItemAtPosition(pos).toString();
 				}
 
 				@Override
@@ -158,12 +156,12 @@ public final class EditActivity extends Activity
         }
         else
         {
-            final String message = ((EditText) findViewById(android.R.id.text1)).getText().toString();
+            //final String message = ((EditText) findViewById(android.R.id.text1)).getText().toString();
 
             /*
              * If the message is of 0 length, then there isn't a setting to save.
              */
-            if (0 == message.length())
+            if (0 == profile.length())
             {
                 setResult(RESULT_CANCELED);
             }
@@ -184,7 +182,7 @@ public final class EditActivity extends Activity
                  */
                 final Bundle resultBundle = new Bundle();
                 resultBundle.putInt(PluginBundleManager.BUNDLE_EXTRA_INT_VERSION_CODE, Constants.getVersionCode(this));
-                resultBundle.putString(PluginBundleManager.BUNDLE_EXTRA_STRING_MESSAGE, message);
+                resultBundle.putString(PluginBundleManager.BUNDLE_EXTRA_STRING_MESSAGE, profile);
 
                 resultIntent.putExtra(com.twofortyfouram.locale.Intent.EXTRA_BUNDLE, resultBundle);
 
@@ -192,13 +190,13 @@ public final class EditActivity extends Activity
                  * This is the blurb concisely describing what your setting's state is. This is simply used
                  * for display in the UI.
                  */
-                if (message.length() > getResources().getInteger(R.integer.twofortyfouram_locale_maximum_blurb_length))
+                if (profile.length() > getResources().getInteger(R.integer.twofortyfouram_locale_maximum_blurb_length))
                 {
-                    resultIntent.putExtra(com.twofortyfouram.locale.Intent.EXTRA_STRING_BLURB, message.substring(0, getResources().getInteger(R.integer.twofortyfouram_locale_maximum_blurb_length)));
+                    resultIntent.putExtra(com.twofortyfouram.locale.Intent.EXTRA_STRING_BLURB, profile.substring(0, getResources().getInteger(R.integer.twofortyfouram_locale_maximum_blurb_length)));
                 }
                 else
                 {
-                    resultIntent.putExtra(com.twofortyfouram.locale.Intent.EXTRA_STRING_BLURB, message);
+                    resultIntent.putExtra(com.twofortyfouram.locale.Intent.EXTRA_STRING_BLURB, profile);
                 }
 
                 setResult(RESULT_OK, resultIntent);
