@@ -326,7 +326,7 @@
         	android:id="@+id/imageView3"
         	android:layout_width="match_parent"
         	android:layout_height="wrap_content"
-       		android:layout_alignParentLeft="true"
+					android:scaleType="fitXY"
         	android:src="@drawable/divider_strong_holo" />
         <LinearLayout
             android:id="@+id/mpup"

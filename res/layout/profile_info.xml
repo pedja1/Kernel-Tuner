@@ -9,19 +9,12 @@
         android:layout_height="wrap_content"
         android:orientation="vertical" >
 
-        <LinearLayout
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content" >
-
-            <TextView
-                android:id="@+id/textView16"
-                android:layout_width="0dp"
-                android:layout_height="wrap_content"
-                android:layout_weight="1"
-                android:text="@string/profile_name" />
-
-        </LinearLayout>
-        
+		<ImageView
+        	android:id="@+id/imageView4"
+        	android:layout_width="match_parent"
+        	android:layout_height="wrap_content"
+        	android:scaleType="fitXY"
+        	android:src="@drawable/divider_strong_holo" />
       
         <LinearLayout
             android:id="@+id/cpu0min"
@@ -262,12 +255,7 @@
 
         </LinearLayout>
         
-                <ImageView
-        	android:id="@+id/imageView2"
-        	android:layout_width="match_parent"
-        	android:layout_height="wrap_content"
-       		android:scaleType="fitXY"
-        	android:src="@drawable/divider_strong_holo" />
+               
         
         <LinearLayout
             android:id="@+id/voltage"
@@ -289,12 +277,7 @@
                />
 
         </LinearLayout>
-                <ImageView
-        	android:id="@+id/imageView3"
-        	android:layout_width="match_parent"
-        	android:layout_height="wrap_content"
-       		android:layout_alignParentLeft="true"
-        	android:src="@drawable/divider_strong_holo" />
+               
         <LinearLayout
             android:id="@+id/mpup"
             android:layout_width="match_parent"
@@ -342,7 +325,12 @@
 
         </LinearLayout>
         
-       
+		<ImageView
+        	android:id="@+id/imageView1"
+        	android:layout_width="match_parent"
+        	android:layout_height="wrap_content"
+        	android:scaleType="fitXY"
+        	android:src="@drawable/divider_strong_holo" />
       
         <LinearLayout
             android:id="@+id/gpu2d"
@@ -383,7 +371,12 @@
         </LinearLayout>
         
                
-        
+		<ImageView
+        	android:id="@+id/imageView2"
+        	android:layout_width="match_parent"
+        	android:layout_height="wrap_content"
+        	android:scaleType="fitXY"
+        	android:src="@drawable/divider_strong_holo" />
        
 
         <LinearLayout
@@ -404,12 +397,7 @@
                 android:ems="4"
                 android:inputType="number" />
         </LinearLayout>
-                <ImageView
-        	android:id="@+id/imageView6"
-        	android:layout_width="match_parent"
-        	android:layout_height="wrap_content"
-        	android:scaleType="fitXY"
-        	android:src="@drawable/divider_strong_holo" />
+               
         
                <LinearLayout
             android:id="@+id/vsync"
@@ -430,12 +418,7 @@
                 android:inputType="number" />
         </LinearLayout>
                    
-                    <ImageView
-        	android:id="@+id/imageView7"
-        	android:layout_width="match_parent"
-        	android:layout_height="wrap_content"
-        	android:scaleType="fitXY"
-        	android:src="@drawable/divider_strong_holo" />
+                   
         
                <LinearLayout
             android:id="@+id/fcharge"
@@ -456,12 +439,7 @@
                 android:inputType="number" />
         </LinearLayout>
                    
-                <ImageView
-        	android:id="@+id/imageView8"
-        	android:layout_width="match_parent"
-        	android:layout_height="wrap_content"
-        	android:scaleType="fitXY"
-        	android:src="@drawable/divider_strong_holo" />
+                
                 
                 <LinearLayout
                     android:id="@+id/cdepth"
@@ -481,12 +459,7 @@
                 android:layout_height="wrap_content"
                />
         </LinearLayout>
-        <ImageView
-        	android:id="@+id/imageView9"
-        	android:layout_width="match_parent"
-        	android:layout_height="wrap_content"
-        	android:scaleType="fitXY"
-        	android:src="@drawable/divider_strong_holo" />
+       
                  <LinearLayout
                      android:id="@+id/io"
             android:layout_width="match_parent"
@@ -505,12 +478,7 @@
                 android:layout_height="wrap_content"
                />
         </LinearLayout>
-        <ImageView
-        	android:id="@+id/imageView10"
-        	android:layout_width="match_parent"
-        	android:layout_height="wrap_content"
-        	android:scaleType="fitXY"
-        	android:src="@drawable/divider_strong_holo" />
+       
          <LinearLayout
              android:id="@+id/sd"
             android:layout_width="match_parent"
@@ -531,12 +499,7 @@
                 android:ems="6"
                 android:inputType="number" />
         </LinearLayout>
-        <ImageView
-        	android:id="@+id/imageView11"
-        	android:layout_width="match_parent"
-        	android:layout_height="wrap_content"
-        	android:scaleType="fitXY"
-        	android:src="@drawable/divider_strong_holo" />
+        
          <LinearLayout
              android:id="@+id/s2w"
             android:layout_width="match_parent"
@@ -556,7 +519,13 @@
                />
         </LinearLayout>
         
-                 
+		<ImageView
+        	android:id="@+id/imageView3"
+        	android:layout_width="match_parent"
+        	android:layout_height="wrap_content"
+        	android:scaleType="fitXY"
+        	android:src="@drawable/divider_strong_holo" />
+				 
     </LinearLayout>
 
 </ScrollView>
