@@ -15,7 +15,7 @@ import rs.pedjaapps.KernelTuner.*;
 import android.view.View.OnClickListener;
 import java.lang.Process; 
 
-public class thermald extends Activity
+public class Thermald extends Activity
 {
 
 	public String freqs;
@@ -105,7 +105,7 @@ public class thermald extends Activity
 		{
 			// Pass the result data back to the main activity
 
-			thermald.this.data = result;
+			Thermald.this.data = result;
 			preferences = PreferenceManager.getDefaultSharedPreferences(getBaseContext());
 			SharedPreferences.Editor editor = preferences.edit();
 	 	    editor.putString("p1freq", p1freq);
@@ -119,8 +119,8 @@ public class thermald extends Activity
 		 	editor.putString("p3high", p3high);
 
 	 	    editor.commit();
-			thermald.this.pd.dismiss();
-			thermald.this.finish();
+			Thermald.this.pd.dismiss();
+			Thermald.this.finish();
 
 		}
 
@@ -173,7 +173,7 @@ public class thermald extends Activity
 				@Override
 				public void onClick(View arg0)
 				{
-					thermald.this.pd = ProgressDialog.show(thermald.this, "Working..", "Applying settings...", true, false);
+					Thermald.this.pd = ProgressDialog.show(Thermald.this, "Working..", "Applying settings...", true, false);
 					p1lownew = String.valueOf(ed1.getText());
 					p1highnew = String.valueOf(ed2.getText());
 					p2lownew = String.valueOf(ed3.getText());

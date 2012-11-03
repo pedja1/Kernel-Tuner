@@ -14,7 +14,7 @@ import rs.pedjaapps.KernelTuner.*;
 
 import java.lang.Process; 
 
-public class mpdecision extends Activity
+public class Mpdecision extends Activity
 {
 
 	public String iscVa = "";
@@ -148,7 +148,7 @@ public class mpdecision extends Activity
 		{
 			// Pass the result data back to the main activity
 
-			mpdecision.this.data = result;
+			Mpdecision.this.data = result;
 			preferences = PreferenceManager.getDefaultSharedPreferences(getBaseContext());
 			SharedPreferences.Editor editor = preferences.edit();
 			editor.putString("onoff", onoff);
@@ -162,7 +162,7 @@ public class mpdecision extends Activity
 			 editor.putString("maxfreqselected", maxfreqselected);
 			 editor.putString("govselected", govselected);*/
 			editor.commit();
-			mpdecision.this.pd.dismiss();
+			Mpdecision.this.pd.dismiss();
 
 		}
 
@@ -194,7 +194,7 @@ public class mpdecision extends Activity
 				@Override
 				public void onClick(View v)
 				{
-					mpdecision.this.pd = ProgressDialog.show(mpdecision.this, "Working..", "Applying settings...", true, false);
+					Mpdecision.this.pd = ProgressDialog.show(Mpdecision.this, "Working..", "Applying settings...", true, false);
 					readEditTexts();
 					new apply().execute();
 

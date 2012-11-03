@@ -14,7 +14,7 @@ import rs.pedjaapps.KernelTuner.*;
 import android.view.View.OnClickListener;
 import java.lang.Process;
 
-public class gpu extends Activity
+public class Gpu extends Activity
 {
 
 	public String gpu2dcurent;
@@ -229,11 +229,11 @@ public class gpu extends Activity
 	  	    editor.commit();
 			// Pass the result data back to the main activity
 
-			gpu.this.data = result;
+			Gpu.this.data = result;
 
 
-			gpu.this.pd.dismiss();
-			gpu.this.finish();
+			Gpu.this.pd.dismiss();
+			Gpu.this.finish();
 
 		}
 
@@ -282,7 +282,7 @@ public class gpu extends Activity
 				public void onClick(View v)
 				{
 
-					gpu.this.pd = ProgressDialog.show(gpu.this, "Working..", "Applying settings...", true, false);
+					Gpu.this.pd = ProgressDialog.show(Gpu.this, "Working..", "Applying settings...", true, false);
 
 					new changegpu().execute();
 
@@ -299,7 +299,7 @@ public class gpu extends Activity
 				public void onClick(View v)
 				{
 
-					gpu.this.finish();
+					Gpu.this.finish();
 
 
 				}

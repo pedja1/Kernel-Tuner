@@ -10,7 +10,7 @@ import android.widget.*;
 import java.io.*;
 import rs.pedjaapps.KernelTuner.*;
 
-public class about extends Activity
+public class About extends Activity
 {
 	
 	SharedPreferences sharedPrefs;

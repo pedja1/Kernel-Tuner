@@ -10,7 +10,7 @@ import android.widget.*;
 import java.io.*;
 import rs.pedjaapps.KernelTuner.*;
 
-public class check extends Activity
+public class CompatibilityCheck extends Activity
 {
 
 	public String out = "sad";
@@ -637,7 +637,7 @@ public class check extends Activity
 			Button ok = (Button) findViewById(R.id.button1);
 			ok.setVisibility(View.VISIBLE);
 
-			check.this.data = result;
+			CompatibilityCheck.this.data = result;
 
 		}
 

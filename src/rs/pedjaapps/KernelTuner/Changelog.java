@@ -6,7 +6,7 @@ import android.os.*;
 import android.webkit.*;
 import rs.pedjaapps.KernelTuner.*;
 
-public class changelog extends Activity
+public class Changelog extends Activity
 {
 
 	SharedPreferences sharedPrefs;

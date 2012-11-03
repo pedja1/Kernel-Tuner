@@ -15,7 +15,7 @@ import java.util.*;
 import android.view.View.OnClickListener;
 import java.lang.Process;
 
-public class miscTweaks extends Activity implements
+public class MiscTweaks extends Activity implements
 SeekBar.OnSeekBarChangeListener
 {
 
@@ -121,7 +121,7 @@ SeekBar.OnSeekBarChangeListener
 			editor.putString("cdepth", cdepth);
 			// value to store
 			editor.commit();
-			miscTweaks.this.data = result;
+			MiscTweaks.this.data = result;
 
 		}
 	}
@@ -172,7 +172,7 @@ SeekBar.OnSeekBarChangeListener
 		{
 			// Pass the result data back to the main activity
 
-			miscTweaks.this.data = result;
+			MiscTweaks.this.data = result;
 
 		}
 
@@ -230,7 +230,7 @@ SeekBar.OnSeekBarChangeListener
 		{
 			// Pass the result data back to the main activity
 
-			miscTweaks.this.data = result;
+			MiscTweaks.this.data = result;
 		}
 
 	}
@@ -288,7 +288,7 @@ SeekBar.OnSeekBarChangeListener
 			editor.commit();
 
 			//System.out.println(ledprogress);
-			miscTweaks.this.data = result;
+			MiscTweaks.this.data = result;
 
 		}
 
@@ -346,7 +346,7 @@ SeekBar.OnSeekBarChangeListener
 			// value to store
 			editor.commit();
 
-			miscTweaks.this.data = result;
+			MiscTweaks.this.data = result;
 
 		}
 
@@ -417,7 +417,7 @@ SeekBar.OnSeekBarChangeListener
 			// value to store
 			editor.commit();
 
-			miscTweaks.this.data = result;
+			MiscTweaks.this.data = result;
 
 		}
 
@@ -489,7 +489,7 @@ SeekBar.OnSeekBarChangeListener
 			editor.commit();
 			// Pass the result data back to the main activity
 
-			miscTweaks.this.data = result;
+			MiscTweaks.this.data = result;
 
 		}
 
@@ -541,7 +541,7 @@ SeekBar.OnSeekBarChangeListener
 				{
 
 					AlertDialog alertDialog = new AlertDialog.Builder(
-						miscTweaks.this).create();
+						MiscTweaks.this).create();
 
 					// Setting Dialog Title
 					alertDialog.setTitle("Vsync");
@@ -583,7 +583,7 @@ SeekBar.OnSeekBarChangeListener
 				{
 
 					AlertDialog alertDialog = new AlertDialog.Builder(
-						miscTweaks.this).create();
+						MiscTweaks.this).create();
 
 					// Setting Dialog Title
 					alertDialog.setTitle("Fastcharge");

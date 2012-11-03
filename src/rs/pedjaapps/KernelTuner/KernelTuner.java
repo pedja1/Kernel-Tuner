@@ -1011,7 +1011,7 @@ public class KernelTuner extends Activity
 				@Override
 				public void onClick(View v)
 				{		
-					Intent myIntent = new Intent(KernelTuner.this, gpu.class);
+					Intent myIntent = new Intent(KernelTuner.this, Gpu.class);
 					KernelTuner.this.startActivity(myIntent);
 
 				}
@@ -1063,7 +1063,7 @@ public class KernelTuner extends Activity
 				public void onClick(View v)
 				{
 
-					Intent myIntent = new Intent(KernelTuner.this, mpdecision.class);
+					Intent myIntent = new Intent(KernelTuner.this, Mpdecision.class);
 					KernelTuner.this.startActivity(myIntent);
 
 				}
@@ -1079,7 +1079,7 @@ public class KernelTuner extends Activity
 				{
 
 
-					Intent myIntent = new Intent(KernelTuner.this, miscTweaks.class);
+					Intent myIntent = new Intent(KernelTuner.this, MiscTweaks.class);
 					KernelTuner.this.startActivity(myIntent);
 
 				}
@@ -1180,7 +1180,7 @@ public class KernelTuner extends Activity
 				{
 
 
-					Intent myIntent = new Intent(KernelTuner.this, thermald.class);
+					Intent myIntent = new Intent(KernelTuner.this, Thermald.class);
 					KernelTuner.this.startActivity(myIntent);
 
 				}
@@ -1194,7 +1194,7 @@ public class KernelTuner extends Activity
 				{
 
 
-					Intent myIntent = new Intent(KernelTuner.this, about.class);
+					Intent myIntent = new Intent(KernelTuner.this, About.class);
 					KernelTuner.this.startActivity(myIntent);
 
 				}
@@ -1385,7 +1385,7 @@ public void startCpuLoadThread() {
 			if (!versionpref.equals(version))
 			{
 
-				Intent myIntent = new Intent(KernelTuner.this, changelog.class);
+				Intent myIntent = new Intent(KernelTuner.this, Changelog.class);
 				KernelTuner.this.startActivity(myIntent);
 
 			}	
@@ -2647,12 +2647,12 @@ public void startCpuLoadThread() {
 		}
 		if (item.getItemId() == R.id.changelog)
 		{
-			startActivity(new Intent(this, changelog.class));
+			startActivity(new Intent(this, Changelog.class));
 
 		}
 		
 		if (item.getItemId() == R.id.check) {
-        startActivity(new Intent(this, check.class));
+        startActivity(new Intent(this, CompatibilityCheck.class));
         
 		}	
 	
@@ -2729,7 +2729,7 @@ AlertDialog alert = builder.create();
 
 		if (item.getItemId() == R.id.check)
 		{
-			startActivity(new Intent(this, check.class));
+			startActivity(new Intent(this, CompatibilityCheck.class));
 
 
 		}	
