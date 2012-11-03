@@ -145,7 +145,7 @@
     <string name="all_p12_5mv">All +12.5mV</string>
     <string name="all_m12_5mv">All -12.5mV</string>
    
-    <string name="governor_">Governor:</string>
+    <string name="governor_">Governor</string>
     <string name="buttons_n_light">Button Light</string>
     <string name="fast_ncharge">Fastcharge</string>
     <string name="color_n_depth">Color Depth</string>

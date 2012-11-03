@@ -177,5 +177,20 @@
 <string name="ok">OK</string>
 	<string name="uptime_">Up-time:</string>
 	<string name="deep_sleep_">Deep Sleep:</string>
-	
+	<string name="system_dump_text1">This will dump all system information needed for this application to work in a file on your sdcard.\n\n
+		\'/sdcard/ktuner_log.txt\'\n\n
+		This information can help me improve application and add support for new devices\n\n
+		Do you want to cotinue?</string>
+		<string name="system_dump_text2">No private date will be collected!</string>
+		<string name="clear">Clear</string>
+		<string name="delete">Delete</string>
+	<string name="plugin_name">Kernel Tuner - Profiles</string>
+	<string name="voltage_profile">Voltage Profile</string>
+	<string name="cpu_">CPU:</string>
+	<string name="gpu_">GPU:</string>
+	<string name="other_">Other:</string>
+	<string name="capacitive_buttons_light_level_0_60_">Capacitive Buttons Light Level(0-60):</string>
+	<string name="color_depth_">Color Depth:</string>
+	<string name="sd_card_cache">SD Card Cache Size:</string>
+
 </resources>
