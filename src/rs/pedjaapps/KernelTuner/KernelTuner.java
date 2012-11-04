@@ -886,8 +886,11 @@ public class KernelTuner extends Activity
 	{
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.main);
-
-		getActionBar().setSubtitle("Various kernel and system tuning");
+		if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.HONEYCOMB)
+        {
+			getActionBar().setSubtitle("Various kernel and system tuning");
+        }
+		
 		
 		sharedPrefs = PreferenceManager.getDefaultSharedPreferences(this);
 		/**
