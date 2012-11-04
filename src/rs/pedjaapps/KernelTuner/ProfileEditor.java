@@ -38,6 +38,9 @@ public class ProfileEditor extends Activity
 	String voltage;
 	String scheduler;
 	String cdepth;
+	
+	String profileName;
+	Profile profile;
 	List<String> frequencies = new ArrayList<String>();
 	SharedPreferences sharedPrefs;
 	public String[] delims;
@@ -60,6 +63,15 @@ public class ProfileEditor extends Activity
 
 	}
 	
+	EditText ed1;
+	EditText ed2;
+	EditText ed3;
+	EditText ed4;
+	EditText name;
+	CheckBox vsyncBox;
+	CheckBox fchargeBox;
+	DatabaseHandler db;
+	
 	String board = android.os.Build.DEVICE;
 	@Override
 	public void onCreate(Bundle savedInstanceState)
@@ -67,6 +79,13 @@ public class ProfileEditor extends Activity
 		super.onCreate(savedInstanceState);
 
 		setContentView(R.layout.profile_editor);
+		Intent intent = getIntent();
+		db = new DatabaseHandler(this);
+		profileName = intent.getExtras().getString("profileName");
+		
+		if(profileName!=null && !profileName.equals("")){
+		profile = db.getProfileByName(profileName);
+		}
 		RelativeLayout cpu = (RelativeLayout)findViewById(R.id.cpu);
 		final LinearLayout cpuInfo = (LinearLayout)findViewById(R.id.cpu_settings);
 		final ImageView cpuImg = (ImageView)findViewById(R.id.cpu_img);
@@ -78,6 +97,15 @@ public class ProfileEditor extends Activity
 		RelativeLayout gpu = (RelativeLayout)findViewById(R.id.gpu);
 		final LinearLayout gpuInfo = (LinearLayout)findViewById(R.id.gpu_settings);
 		final ImageView gpuImg = (ImageView)findViewById(R.id.gpu_img);
+		
+		name = (EditText)findViewById(R.id.editText3);//profile name
+		ed1  = (EditText)findViewById(R.id.editText1);//mpdec thr down
+		ed2  = (EditText)findViewById(R.id.editText2);//mpdec thrs up
+		ed3  = (EditText)findViewById(R.id.editText4);//capacitive lights
+		ed4  = (EditText)findViewById(R.id.editText5);//sd cache
+		vsyncBox = (CheckBox)findViewById(R.id.vsync);
+		fchargeBox = (CheckBox)findViewById(R.id.fcharge);
+		
 
 		Button cancel = (Button)findViewById(R.id.cancel);
 		
@@ -158,14 +186,7 @@ public class ProfileEditor extends Activity
 				public void onClick(View arg0)
 				{
 					
-					EditText name = (EditText)findViewById(R.id.editText3);//profile name
-					EditText ed1  = (EditText)findViewById(R.id.editText1);//mpdec thr down
-					EditText ed2  = (EditText)findViewById(R.id.editText2);//mpdec thrs up
-					EditText ed3  = (EditText)findViewById(R.id.editText4);//capacitive lights
-					EditText ed4  = (EditText)findViewById(R.id.editText5);//sd cache
 					
-					CheckBox vsyncBox = (CheckBox)findViewById(R.id.vsync);
-					CheckBox fchargeBox = (CheckBox)findViewById(R.id.fcharge);
 					if(name.getText().toString().length()<1 || name.getText().toString().equals(""))
 					{
 						Toast.makeText(getApplicationContext(), "Profile Name cannot be empty!\nPlease enter Profile Name", Toast.LENGTH_LONG).show();
@@ -195,7 +216,9 @@ public class ProfileEditor extends Activity
 					}
 					mtd = ed1.getText().toString();
 					mtu = ed2.getText().toString();
-					
+					if(profileName!=null && !profileName.equals("")){
+						db.deleteProfileByName(profile);
+					}
 					Name = name.getText().toString();
 					Intent intent = new Intent();
 					intent.putExtra("Name", Name);
@@ -233,7 +256,7 @@ public class ProfileEditor extends Activity
 
 	public void setUI()
 	{
-		Spinner spinner1 = (Spinner)findViewById(R.id.spinner1);
+		final Spinner spinner1 = (Spinner)findViewById(R.id.spinner1);
 		Spinner spinner2 = (Spinner)findViewById(R.id.spinner2);
 		Spinner spinner3 = (Spinner)findViewById(R.id.spinner3);
 		Spinner spinner4 = (Spinner)findViewById(R.id.spinner4);
@@ -265,7 +288,7 @@ public class ProfileEditor extends Activity
 		schedulers.add("Unchanged");
 		schedulers.addAll(CPUInfo.schedulers());
 				
-		DatabaseHandler db = new DatabaseHandler(this); 
+		
 		List<String> voltageProfiles = new ArrayList<String>();
 		List<Voltage> voltages = db.getAllVoltages();
 		voltageProfiles.add("Unchanged");
@@ -279,14 +302,43 @@ public class ProfileEditor extends Activity
 			numbers.add(String.valueOf(i));
 		}
 
-		EditText name = (EditText)findViewById(R.id.editText3);//profile name
 		LinearLayout mpup  = (LinearLayout)findViewById(R.id.mpup);//mpdec thr down
 		LinearLayout mpdown  = (LinearLayout)findViewById(R.id.mpdown);//mpdec thrs up
 		LinearLayout buttons  = (LinearLayout)findViewById(R.id.buttons);//capacitive lights
 		LinearLayout sd  = (LinearLayout)findViewById(R.id.sd);//sd cache
 		
-		CheckBox vsyncBox = (CheckBox)findViewById(R.id.vsync);
-		CheckBox fchargeBox = (CheckBox)findViewById(R.id.fcharge);
+		
+		if(profileName!=null && !profileName.equals("")){
+		name.setText(profileName.toString());
+		}
+		if(profileName!=null && !profileName.equals("")){
+			ed2.setText(profile.getMtu());
+			}
+		if(profileName!=null && !profileName.equals("")){
+			ed1.setText(profile.getMtd());
+			}
+		if(profileName!=null && !profileName.equals("")){
+			ed3.setText(profile.getButtonsLight());
+			}
+		if(profileName!=null && !profileName.equals("")){
+			ed4.setText(String.valueOf(profile.getSdcache()));
+			}
+		if(profileName!=null && !profileName.equals("")){
+			if(profile.getVsync()==0){
+				vsyncBox.setChecked(false);
+			}
+			else if(profile.getVsync()==1){
+				vsyncBox.setChecked(true);
+			}
+		}
+		if(profileName!=null && !profileName.equals("")){
+			if(profile.getFcharge()==0){
+				fchargeBox.setChecked(false);
+			}
+			else if(profile.getFcharge()==1){
+				fchargeBox.setChecked(true);
+			}
+		}
 		
 		if(CPUInfo.mpdecisionExists()==false){
 			mpup.setVisibility(View.GONE);
@@ -328,6 +380,11 @@ public class ProfileEditor extends Activity
 		spinnerArrayAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item); // The drop down vieww
 		spinner1.setAdapter(spinnerArrayAdapter);
 
+		if(profileName!=null && !profileName.equals("")){
+		ArrayAdapter<String> spinner1Adap = (ArrayAdapter<String>) spinner1.getAdapter();
+		int spinner1Position = spinner1Adap.getPosition(profile.getCpu0min());
+		spinner1.setSelection(spinner1Position);
+		}
 		spinner1.setOnItemSelectedListener(new OnItemSelectedListener() {
         		@Override
         	    public void onItemSelected(AdapterView<?> parent, View view, int pos, long id)
@@ -341,6 +398,9 @@ public class ProfileEditor extends Activity
 				{
         	        //do nothing
         	    }
+        		
+ 
+        		
         	});
 
         
@@ -349,6 +409,12 @@ public class ProfileEditor extends Activity
 		spinner2ArrayAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item); // The drop down vieww
 		spinner2.setAdapter(spinner2ArrayAdapter);
 
+		if(profileName!=null && !profileName.equals("")){
+			ArrayAdapter<String> spinner1Adap = (ArrayAdapter<String>) spinner2.getAdapter();
+			int spinner1Position = spinner1Adap.getPosition(profile.getCpu0max());
+			spinner2.setSelection(spinner1Position);
+			}
+		
 		spinner2.setOnItemSelectedListener(new OnItemSelectedListener() {
         		@Override
         	    public void onItemSelected(AdapterView<?> parent, View view, int pos, long id)
@@ -369,6 +435,12 @@ public class ProfileEditor extends Activity
 		spinner9ArrayAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item); // The drop down vieww
 		spinner9.setAdapter(spinner9ArrayAdapter);
 
+		if(profileName!=null && !profileName.equals("")){
+			ArrayAdapter<String> spinner1Adap = (ArrayAdapter<String>) spinner9.getAdapter();
+			int spinner1Position = spinner1Adap.getPosition(profile.getCpu0gov());
+			spinner9.setSelection(spinner1Position);
+			}
+		
 		spinner9.setOnItemSelectedListener(new OnItemSelectedListener() {
         		@Override
         	    public void onItemSelected(AdapterView<?> parent, View view, int pos, long id)
@@ -400,6 +472,12 @@ public class ProfileEditor extends Activity
 		spinner3ArrayAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item); // The drop down vieww
 		spinner3.setAdapter(spinner3ArrayAdapter);
 
+		if(profileName!=null && !profileName.equals("")){
+			ArrayAdapter<String> spinner1Adap = (ArrayAdapter<String>) spinner3.getAdapter();
+			int spinner1Position = spinner1Adap.getPosition(profile.getCpu1min());
+			spinner3.setSelection(spinner1Position);
+			}
+		
 		spinner3.setOnItemSelectedListener(new OnItemSelectedListener() {
         		@Override
         	    public void onItemSelected(AdapterView<?> parent, View view, int pos, long id)
@@ -420,6 +498,12 @@ public class ProfileEditor extends Activity
 		spinner4ArrayAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item); // The drop down vieww
 		spinner4.setAdapter(spinner4ArrayAdapter);
 
+		if(profileName!=null && !profileName.equals("")){
+			ArrayAdapter<String> spinner1Adap = (ArrayAdapter<String>) spinner4.getAdapter();
+			int spinner1Position = spinner1Adap.getPosition(profile.getCpu1max());
+			spinner4.setSelection(spinner1Position);
+			}
+		
 		spinner4.setOnItemSelectedListener(new OnItemSelectedListener() {
         		@Override
         	    public void onItemSelected(AdapterView<?> parent, View view, int pos, long id)
@@ -440,6 +524,12 @@ public class ProfileEditor extends Activity
 		spinner12ArrayAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item); // The drop down vieww
 		spinner12.setAdapter(spinner12ArrayAdapter);
 
+		if(profileName!=null && !profileName.equals("")){
+			ArrayAdapter<String> spinner1Adap = (ArrayAdapter<String>) spinner12.getAdapter();
+			int spinner1Position = spinner1Adap.getPosition(profile.getCpu1gov());
+			spinner12.setSelection(spinner1Position);
+			}
+		
 		spinner12.setOnItemSelectedListener(new OnItemSelectedListener() {
         		@Override
         	    public void onItemSelected(AdapterView<?> parent, View view, int pos, long id)
@@ -471,6 +561,12 @@ public class ProfileEditor extends Activity
 		spinner5ArrayAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item); // The drop down vieww
 		spinner5.setAdapter(spinner5ArrayAdapter);
 
+		if(profileName!=null && !profileName.equals("")){
+			ArrayAdapter<String> spinner1Adap = (ArrayAdapter<String>) spinner5.getAdapter();
+			int spinner1Position = spinner1Adap.getPosition(profile.getCpu2min());
+			spinner5.setSelection(spinner1Position);
+			}
+		
 		spinner5.setOnItemSelectedListener(new OnItemSelectedListener() {
         		@Override
         	    public void onItemSelected(AdapterView<?> parent, View view, int pos, long id)
@@ -491,6 +587,12 @@ public class ProfileEditor extends Activity
 		spinner6ArrayAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item); // The drop down vieww
 		spinner6.setAdapter(spinner6ArrayAdapter);
 
+		if(profileName!=null && !profileName.equals("")){
+			ArrayAdapter<String> spinner1Adap = (ArrayAdapter<String>) spinner6.getAdapter();
+			int spinner1Position = spinner1Adap.getPosition(profile.getCpu2max());
+			spinner6.setSelection(spinner1Position);
+			}
+		
 		spinner6.setOnItemSelectedListener(new OnItemSelectedListener() {
         		@Override
         	    public void onItemSelected(AdapterView<?> parent, View view, int pos, long id)
@@ -511,6 +613,12 @@ public class ProfileEditor extends Activity
 		spinner10ArrayAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item); // The drop down vieww
 		spinner10.setAdapter(spinner10ArrayAdapter);
 
+		if(profileName!=null && !profileName.equals("")){
+			ArrayAdapter<String> spinner1Adap = (ArrayAdapter<String>) spinner10.getAdapter();
+			int spinner1Position = spinner1Adap.getPosition(profile.getCpu2gov());
+			spinner10.setSelection(spinner1Position);
+			}
+		
 		spinner10.setOnItemSelectedListener(new OnItemSelectedListener() {
         		@Override
         	    public void onItemSelected(AdapterView<?> parent, View view, int pos, long id)
@@ -543,6 +651,12 @@ public class ProfileEditor extends Activity
 		spinner7ArrayAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item); // The drop down vieww
 		spinner7.setAdapter(spinner7ArrayAdapter);
 
+		if(profileName!=null && !profileName.equals("")){
+			ArrayAdapter<String> spinner1Adap = (ArrayAdapter<String>) spinner7.getAdapter();
+			int spinner1Position = spinner1Adap.getPosition(profile.getCpu3min());
+			spinner7.setSelection(spinner1Position);
+			}
+		
 		spinner7.setOnItemSelectedListener(new OnItemSelectedListener() {
         		@Override
         	    public void onItemSelected(AdapterView<?> parent, View view, int pos, long id)
@@ -563,6 +677,12 @@ public class ProfileEditor extends Activity
 		spinner8ArrayAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item); // The drop down vieww
 		spinner8.setAdapter(spinner8ArrayAdapter);
 
+		if(profileName!=null && !profileName.equals("")){
+			ArrayAdapter<String> spinner1Adap = (ArrayAdapter<String>) spinner8.getAdapter();
+			int spinner1Position = spinner1Adap.getPosition(profile.getCpu3max());
+			spinner8.setSelection(spinner1Position);
+			}
+		
 		spinner8.setOnItemSelectedListener(new OnItemSelectedListener() {
         		@Override
         	    public void onItemSelected(AdapterView<?> parent, View view, int pos, long id)
@@ -583,6 +703,12 @@ public class ProfileEditor extends Activity
 		spinner11ArrayAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item); // The drop down vieww
 		spinner11.setAdapter(spinner11ArrayAdapter);
 
+		if(profileName!=null && !profileName.equals("")){
+			ArrayAdapter<String> spinner1Adap = (ArrayAdapter<String>) spinner11.getAdapter();
+			int spinner1Position = spinner1Adap.getPosition(profile.getCpu3gov());
+			spinner11.setSelection(spinner1Position);
+			}
+		
 		spinner11.setOnItemSelectedListener(new OnItemSelectedListener() {
         		@Override
         	    public void onItemSelected(AdapterView<?> parent, View view, int pos, long id)
@@ -614,6 +740,12 @@ public class ProfileEditor extends Activity
 		spinner13ArrayAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item); // The drop down vieww
 		spinner13.setAdapter(spinner13ArrayAdapter);
 
+		if(profileName!=null && !profileName.equals("")){
+			ArrayAdapter<String> spinner1Adap = (ArrayAdapter<String>) spinner13.getAdapter();
+			int spinner1Position = spinner1Adap.getPosition(profile.getVoltage());
+			spinner13.setSelection(spinner1Position);
+			}
+		
 		spinner13.setOnItemSelectedListener(new OnItemSelectedListener() {
         		@Override
         	    public void onItemSelected(AdapterView<?> parent, View view, int pos, long id)
@@ -641,6 +773,12 @@ public class ProfileEditor extends Activity
 		spinner14ArrayAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item); // The drop down vieww
 		spinner14.setAdapter(spinner14ArrayAdapter);
 
+		if(profileName!=null && !profileName.equals("")){
+			ArrayAdapter<String> spinner1Adap = (ArrayAdapter<String>) spinner14.getAdapter();
+			int spinner1Position = spinner1Adap.getPosition(profile.getGpu2d());
+			spinner14.setSelection(spinner1Position);
+			}
+		
 		spinner14.setOnItemSelectedListener(new OnItemSelectedListener() {
         		@Override
         	    public void onItemSelected(AdapterView<?> parent, View view, int pos, long id)
@@ -661,6 +799,12 @@ public class ProfileEditor extends Activity
 		spinner15ArrayAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item); // The drop down vieww
 		spinner15.setAdapter(spinner15ArrayAdapter);
 
+		if(profileName!=null && !profileName.equals("")){
+			ArrayAdapter<String> spinner1Adap = (ArrayAdapter<String>) spinner15.getAdapter();
+			int spinner1Position = spinner1Adap.getPosition(profile.getGpu3d());
+			spinner15.setSelection(spinner1Position);
+			}
+		
 		spinner15.setOnItemSelectedListener(new OnItemSelectedListener() {
         		@Override
         	    public void onItemSelected(AdapterView<?> parent, View view, int pos, long id)
@@ -690,6 +834,12 @@ public class ProfileEditor extends Activity
 		spinner16ArrayAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item); // The drop down vieww
 		spinner16.setAdapter(spinner16ArrayAdapter);
 
+		if(profileName!=null && !profileName.equals("")){
+			ArrayAdapter<String> spinner1Adap = (ArrayAdapter<String>) spinner16.getAdapter();
+			int spinner1Position = spinner1Adap.getPosition(profile.getCdepth());
+			spinner16.setSelection(spinner1Position);
+			}
+		
 		spinner16.setOnItemSelectedListener(new OnItemSelectedListener() {
         		@Override
         	    public void onItemSelected(AdapterView<?> parent, View view, int pos, long id)
@@ -715,6 +865,12 @@ public class ProfileEditor extends Activity
 		spinner17ArrayAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item); // The drop down vieww
 		spinner17.setAdapter(spinner17ArrayAdapter);
 
+		if(profileName!=null && !profileName.equals("")){
+			ArrayAdapter<String> spinner1Adap = (ArrayAdapter<String>) spinner17.getAdapter();
+			int spinner1Position = spinner1Adap.getPosition(profile.getIoScheduler());
+			spinner17.setSelection(spinner1Position);
+			}
+		
 		spinner17.setOnItemSelectedListener(new OnItemSelectedListener() {
         		@Override
         	    public void onItemSelected(AdapterView<?> parent, View view, int pos, long id)
@@ -736,6 +892,23 @@ public class ProfileEditor extends Activity
 		spinner18ArrayAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item); // The drop down vieww
 		spinner18.setAdapter(spinner18ArrayAdapter);
 
+		if(profileName!=null && !profileName.equals("")){
+			ArrayAdapter<String> spinner1Adap = (ArrayAdapter<String>) spinner18.getAdapter();
+			if(profile.getSweep2wake()==0){
+				int spinner1Position = spinner1Adap.getPosition("OFF");
+				spinner18.setSelection(spinner1Position);
+			}
+			else if(profile.getSweep2wake()==1){
+				int spinner1Position = spinner1Adap.getPosition("ON with no backlight");
+				spinner18.setSelection(spinner1Position);
+			}
+			else if(profile.getSweep2wake()==1){
+				int spinner1Position = spinner1Adap.getPosition("ON with backlight");
+				spinner18.setSelection(spinner1Position);
+			}
+			
+			}
+		
 		spinner18.setOnItemSelectedListener(new OnItemSelectedListener() {
         		@Override
         	    public void onItemSelected(AdapterView<?> parent, View view, int pos, long id)

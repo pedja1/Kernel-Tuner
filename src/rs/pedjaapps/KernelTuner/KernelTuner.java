@@ -896,7 +896,7 @@ public class KernelTuner extends Activity
 		/**
 		If auto update check is enabled check for updates
 		*/
-		File file = new File("/sys/kernel/debug");
+		/*File file = new File("/sys/kernel/debug");
 		if(file.list().length>0){
 			
 		}
@@ -904,7 +904,7 @@ public class KernelTuner extends Activity
 			this.pd = ProgressDialog.show(this, "Working..",
 					  "Mounting debug filesystem", true, false);
 			new mountDebugFs().execute();
-		}
+		}*/
 		boolean update = sharedPrefs.getBoolean("update", true);
 		if (update == true)
 		{

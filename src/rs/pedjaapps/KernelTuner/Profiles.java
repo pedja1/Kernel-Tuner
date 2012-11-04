@@ -6,6 +6,7 @@ import android.content.pm.*;
 import android.os.*;
 import android.text.method.*;
 import android.view.*;
+import android.view.ContextMenu.ContextMenuInfo;
 import android.webkit.WebView;
 import android.widget.*;
 import android.widget.AdapterView.*;
@@ -24,6 +25,7 @@ public class Profiles extends Activity
 	DatabaseHandler db;
 	ProfilesAdapter profilesAdapter ;
 	ListView profilesListView;
+	List<Profile> profiles;
 	private static final int GET_CODE = 0;
 	@Override
 	public void onCreate(Bundle savedInstanceState)
@@ -34,12 +36,14 @@ public class Profiles extends Activity
 		
 		
 		db = new DatabaseHandler(this);
-	
+		profiles = db.getAllProfiles();
 		
 		profilesListView = (ListView) findViewById(R.id.list);
 		profilesAdapter = new ProfilesAdapter(this, R.layout.profile_list_item);
 		profilesListView.setAdapter(profilesAdapter);
 
+		registerForContextMenu(profilesListView);
+		
 		for (final ProfilesEntry entry : getProfilesEntries())
 		{
 			profilesAdapter.add(entry);
@@ -52,8 +56,7 @@ public class Profiles extends Activity
 					AlertDialog.Builder builder = new AlertDialog.Builder(
 						Profiles.this);
 
-						final DatabaseHandler db = new DatabaseHandler(Profiles.this);
-						List<Profile> profiles = db.getAllProfiles();
+						
 					final Profile profile = profiles.get(p3);
 						
                      String cpu0min = profile.getCpu0min();
@@ -75,6 +78,7 @@ public class Profiles extends Activity
 					 
 					 String gpu2d = profile.getGpu2d();
 					 String gpu3d = profile.getGpu3d();
+					
 					 
 					 String voltage = profile.getVoltage();
 
@@ -347,7 +351,7 @@ public class Profiles extends Activity
 					}
 					builder.setIcon(R.drawable.ic_menu_cc);
 
-					builder.setPositiveButton("Apply", new DialogInterface.OnClickListener() {
+					/*builder.setPositiveButton("Apply", new DialogInterface.OnClickListener() {
 							@Override
 							public void onClick(DialogInterface dialog, int which)
 							{
@@ -376,6 +380,7 @@ public class Profiles extends Activity
 								setUI();
 							}
 						});
+					*/
 					builder.setView(view);
 					AlertDialog alert = builder.create();
 
@@ -423,9 +428,11 @@ public class Profiles extends Activity
 
 	@Override
 	public boolean onCreateOptionsMenu(Menu menu) {
-menu.add(Menu.NONE, 0, 0, "Add ").setIcon(R.drawable.ic_menu_add).setShowAsAction(MenuItem.SHOW_AS_ACTION_IF_ROOM);
-menu.add(Menu.NONE, 1, 1, "Delete All").setIcon(R.drawable.ic_menu_delete).setShowAsAction(MenuItem.SHOW_AS_ACTION_IF_ROOM);
-return super.onCreateOptionsMenu(menu);
+//menu.add(Menu.NONE, 0, 0, "Add ").setIcon(R.drawable.ic_menu_add).setShowAsAction(MenuItem.SHOW_AS_ACTION_IF_ROOM);
+//menu.add(Menu.NONE, 1, 1, "Delete All").setIcon(R.drawable.ic_menu_delete).setShowAsAction(MenuItem.SHOW_AS_ACTION_IF_ROOM);
+		MenuInflater inflater = getMenuInflater();
+		inflater.inflate(R.menu.profiles_options_menu, menu);
+		return super.onCreateOptionsMenu(menu);
 }
 @Override
 public boolean onPrepareOptionsMenu (Menu menu) {
@@ -438,18 +445,17 @@ return true;
 
 @Override
 public boolean onOptionsItemSelected(MenuItem item) {
-switch (item.getItemId()) {
-    case 0:
-    	
+
+	if (item.getItemId() == R.id.add)
+	{
     	Intent intent = new Intent();
         intent.setClass(this,ProfileEditor.class);
+        intent.putExtra("profileName","");
         startActivityForResult(intent,GET_CODE);
+	}	
 		
-		
-			
-		
-		return true;
-    case 1:
+	if (item.getItemId() == R.id.delete_all)
+	{
     	AlertDialog.Builder builder = new AlertDialog.Builder(
                 Profiles.this);
 
@@ -475,6 +481,9 @@ switch (item.getItemId()) {
 							profilesAdapter.add(entry);
 						}
 						profilesListView.invalidate();
+
+						profilesAdapter.notifyDataSetChanged();
+						profiles = db.getAllProfiles();
 						setUI();
 					}
 				});
@@ -488,12 +497,9 @@ switch (item.getItemId()) {
 			AlertDialog alert = builder.create();
 
 			alert.show();
-		
-		return true;
-   
-       
-}
-return false;
+	}
+
+return super.onOptionsItemSelected(item);
 
 }
 @Override
@@ -517,10 +523,10 @@ protected void onActivityResult(int requestCode, int resultCode, Intent data) {
     		data.getStringExtra("cpu2gov"),
     		data.getStringExtra("cpu3gov"),
     		data.getStringExtra("voltageProfile"),
-    		data.getStringExtra("gpu2d"),
-    		data.getStringExtra("gpu3d"),
     		data.getStringExtra("mtd"),
     		data.getStringExtra("mtu"),
+    		data.getStringExtra("gpu2d"),
+    		data.getStringExtra("gpu3d"),
     		data.getStringExtra("buttonsBacklight"),
     		data.getIntExtra("vsync", 0),
     		data.getIntExtra("fcharge", 0),
@@ -535,6 +541,8 @@ protected void onActivityResult(int requestCode, int resultCode, Intent data) {
 			profilesAdapter.add(entry);
 		}
 		profilesListView.invalidate();
+		profilesAdapter.notifyDataSetChanged();
+		profiles = db.getAllProfiles();
 		setUI();
  
 	
@@ -546,4 +554,147 @@ protected void onActivityResult(int requestCode, int resultCode, Intent data) {
   }
  }
 	
+@Override
+public void onCreateContextMenu(ContextMenu menu, View v,
+        ContextMenuInfo menuInfo) {
+	AdapterView.AdapterContextMenuInfo info = (AdapterView.AdapterContextMenuInfo)menuInfo;
+    super.onCreateContextMenu(menu, v, menuInfo);
+	final Profile profile = profiles.get(info.position);
+    menu.setHeaderTitle(profile.getName());
+    menu.setHeaderIcon(R.drawable.ic_menu_cc);
+    MenuInflater inflater = getMenuInflater();
+    inflater.inflate(R.menu.profiles_context_menu, menu);
+}
+
+@Override
+public boolean onContextItemSelected(MenuItem item) {
+    AdapterContextMenuInfo info = (AdapterContextMenuInfo) item
+            .getMenuInfo();
+    final Profile profile = profiles.get(info.position);
+    switch (item.getItemId()) {
+    case R.id.apply:
+    	
+    	new ProfileApplier(Profiles.this).execute(new String[] {profile.getName()});
+	      
+        return true;
+    
+	case R.id.delete:
+		db.deleteProfile(profile);
+		profilesAdapter.clear();
+		for (final ProfilesEntry entry : getProfilesEntries())
+		{
+			profilesAdapter.add(entry);
+		}
+		profilesListView.invalidate();
+		profilesAdapter.notifyDataSetChanged();
+		profiles = db.getAllProfiles();
+		setUI();
+      return true;
+	case R.id.edit:
+		Intent intent = new Intent();
+        intent.setClass(this,ProfileEditor.class);
+        intent.putExtra("profileName", profile.getName());
+        startActivityForResult(intent,GET_CODE);
+	      return true;
+	      
+	case R.id.copy:
+		AlertDialog.Builder builder = new AlertDialog.Builder(
+                Profiles.this);
+
+			builder.setTitle("Copy Profile");
+
+			
+
+			builder.setIcon(R.drawable.ic_menu_copy);
+			final EditText ed = new EditText(Profiles.this);
+			builder.setPositiveButton("Copy.", new DialogInterface.OnClickListener() {
+					@Override
+					public void onClick(DialogInterface dialog, int which)
+					{
+						String name = ed.getText().toString();
+						 String cpu0min = profile.getCpu0min();
+							String cpu0max = profile.getCpu0max();
+							String cpu1min = profile.getCpu1min();
+							String cpu1max = profile.getCpu1max();
+							String cpu2min = profile.getCpu2min();
+							String cpu2max = profile.getCpu2max();
+							String cpu3min = profile.getCpu3min();
+							String cpu3max = profile.getCpu3max();
+							
+							 String cpu0gov = profile.getCpu0gov();
+							 String cpu1gov = profile.getCpu1gov();
+							 String cpu2gov = profile.getCpu2gov();
+							 String cpu3gov = profile.getCpu3gov();
+							 
+							 String mpup = profile.getMtu();
+							 String mpdown = profile.getMtd();
+							 
+							 String gpu2d = profile.getGpu2d();
+							 String gpu3d = profile.getGpu3d();
+						
+							 
+							 String voltage = profile.getVoltage();
+
+							 String buttons = profile.getButtonsLight();
+							 int vsync = profile.getVsync();
+							 int fcharge = profile.getFcharge();
+							 String cdepth = profile.getCdepth();
+							 String io = profile.getIoScheduler();
+							 Integer sdcache = profile.getSdcache();
+
+							 Integer s2w = profile.getSweep2wake();
+						 db.addProfile(new Profile(name,
+								 cpu0min, 
+								  cpu0max, 
+						    		cpu1min,
+						    		cpu1max,
+						    		cpu2min, 
+						  		 cpu2max, 
+						      		cpu3min,
+						      		cpu3max,
+						    		cpu0gov,
+						    		cpu1gov,
+						    		cpu2gov,
+						    		cpu3gov,
+						    		voltage,
+						    		mpdown,
+						    		mpup,
+						    		gpu2d,
+						    		gpu3d,
+						    		buttons,
+						    		vsync,
+						    		fcharge,
+						    		cdepth,
+						    		io,
+						    		sdcache,
+						    		s2w
+						    		));
+							   profilesAdapter.clear();
+								for (final ProfilesEntry entry : getProfilesEntries())
+								{
+									profilesAdapter.add(entry);
+								}
+								profilesListView.invalidate();
+								profilesAdapter.notifyDataSetChanged();
+								profiles = db.getAllProfiles();
+								setUI();
+					}
+				});
+			builder.setNegativeButton("Cancel", new DialogInterface.OnClickListener() {
+					@Override
+					public void onClick(DialogInterface dialog, int which)
+					{
+
+					}
+				});
+			builder.setView(ed);
+			AlertDialog alert = builder.create();
+
+			alert.show();
+		
+	      return true;
+  }
+    return false;
+}
+
 }

@@ -332,7 +332,7 @@ public class DatabaseHandler extends SQLiteOpenHelper
                 profile.setMtd(cursor.getString(15));
                 profile.setMtu(cursor.getString(16));
                 profile.setGpu2d(cursor.getString(17));
-                profile.setGpu3d(cursor.getString(8));
+                profile.setGpu3d(cursor.getString(18));
 				profile.setButtonsLight(cursor.getString(19));
                 profile.setVsync(cursor.getInt(20));
                 profile.setFcharge(cursor.getInt(21));
