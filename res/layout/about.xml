@@ -24,7 +24,7 @@
         android:layout_toLeftOf="@+id/textView1"
 		android:layout_marginRight="45dp"
 		android:layout_marginTop="15dp"
-        android:src="@drawable/dual_on"
+        android:src="@drawable/ic_launcher"
 		/>
 		
 	<TextView

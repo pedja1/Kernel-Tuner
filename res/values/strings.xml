@@ -157,7 +157,7 @@
     <string name="drain_charge_">Drain/Charge:</string>
     <string name="health_">Health:</string>
     <string name="capacity_">Capacity:</string>
-    <string name="n_a">n\a</string>
+    
     <string name="swap_size">Swap Size(MB)</string>
     <string name="swap_location">Swap file location</string>
     <string name="swappiness">Swappiness</string>

@@ -26,14 +26,14 @@ android:versionName="3.2">
     
     
 	<application android:label="@string/app_name" 
-		android:icon="@drawable/dual_on"
+		android:icon="@drawable/ic_launcher"
 		
         android:hardwareAccelerated="true"
 		android:theme="@style/Theme.Locale.Dark"
         android:uiOptions="splitActionBarWhenNarrow"
 		>
     <activity android:name="rs.pedjaapps.KernelTuner.KernelTuner"
-    android:icon="@drawable/dual_on"
+    android:icon="@drawable/ic_launcher"
 	android:label="@string/app_name"  android:windowSoftInputMode="adjustResize" 
 	>
 <intent-filter>
@@ -97,7 +97,7 @@ android:resource="@xml/widget_provider_4x4" />
 <activity android:name=".Swap" android:label="@string/swap" android:icon="@drawable/swap" ></activity>
 
 <activity android:name=".SystemInfo" android:label="@string/info" android:icon="@drawable/info" ></activity>
-<activity android:name=".CPUActivity" android:label="@string/title_cpu" android:icon="@drawable/icon" android:screenOrientation="portrait" ></activity>
+<activity android:name=".CPUActivity" android:label="@string/title_cpu" android:icon="@drawable/ic_launcher" android:screenOrientation="portrait" ></activity>
 <activity android:name=".VoltageActivity" android:label="@string/title_voltage" android:icon="@drawable/voltage"  ></activity>
 <activity android:name=".TISActivity" android:label="@string/title_tis" android:icon="@drawable/times" ></activity>
 <activity android:name=".GovernorActivity" android:label="@string/title_governor" android:icon="@drawable/dual" ></activity>
