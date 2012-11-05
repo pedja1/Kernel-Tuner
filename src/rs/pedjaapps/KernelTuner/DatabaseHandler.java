@@ -70,8 +70,8 @@ public class DatabaseHandler extends SQLiteOpenHelper
 			+ KEY_PROFILE_NAME + " TEXT,"
 			+ KEY_PROFILE_CPU0MIN + " TEXT,"
 			+ KEY_PROFILE_CPU0MAX + " TEXT," 
-			+ KEY_PROFILE_CPU1MAX + " TEXT,"
 			+ KEY_PROFILE_CPU1MIN + " TEXT,"
+			+ KEY_PROFILE_CPU1MAX + " TEXT,"
 			+ KEY_PROFILE_CPU2MIN + " TEXT,"
 			+ KEY_PROFILE_CPU2MAX + " TEXT," 
 			+ KEY_PROFILE_CPU3MAX + " TEXT,"
@@ -129,8 +129,8 @@ public class DatabaseHandler extends SQLiteOpenHelper
         values.put(KEY_PROFILE_NAME, profile.getName());
         values.put(KEY_PROFILE_CPU0MIN, profile.getCpu0min()); 
         values.put(KEY_PROFILE_CPU0MAX, profile.getCpu0max()); 
-        values.put(KEY_PROFILE_CPU1MAX, profile.getCpu1max());
-        values.put(KEY_PROFILE_CPU1MIN, profile.getCpu1min());
+        values.put(KEY_PROFILE_CPU1MIN, profile.getCpu1max());
+        values.put(KEY_PROFILE_CPU1MAX, profile.getCpu1min());
         values.put(KEY_PROFILE_CPU2MIN, profile.getCpu2min()); 
         values.put(KEY_PROFILE_CPU2MAX, profile.getCpu2max()); 
         values.put(KEY_PROFILE_CPU3MAX, profile.getCpu3max());
@@ -364,7 +364,7 @@ public class DatabaseHandler extends SQLiteOpenHelper
         values.put(KEY_PROFILE_CPU0MIN, profile.getCpu0min()); 
         values.put(KEY_PROFILE_CPU0MAX, profile.getCpu0max()); 
         values.put(KEY_PROFILE_CPU1MAX, profile.getCpu1max());
-        values.put(KEY_PROFILE_CPU1MIN, profile.getCpu1min());
+        values.put(KEY_PROFILE_CPU1MAX, profile.getCpu1min());
         values.put(KEY_PROFILE_CPU2MIN, profile.getCpu2min()); 
         values.put(KEY_PROFILE_CPU2MAX, profile.getCpu2max()); 
         values.put(KEY_PROFILE_CPU3MAX, profile.getCpu3max());
