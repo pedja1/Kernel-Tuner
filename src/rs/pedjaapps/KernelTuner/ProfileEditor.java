@@ -744,11 +744,11 @@ public class ProfileEditor extends Activity
         	});
 		}
 		else{
-			LinearLayout gpu2d = (LinearLayout)findViewById(R.id.gpu2d);
-			LinearLayout gpu3d = (LinearLayout)findViewById(R.id.gpu3d);
+			LinearLayout gpu2dll = (LinearLayout)findViewById(R.id.gpu2d);
+			LinearLayout gpu3dll = (LinearLayout)findViewById(R.id.gpu3d);
 			
-			gpu2d.setVisibility(View.GONE);
-			gpu3d.setVisibility(View.GONE);
+			gpu2dll.setVisibility(View.GONE);
+			gpu3dll.setVisibility(View.GONE);
 		}
 		if(CPUInfo.cdExists())
 		{
@@ -779,9 +779,9 @@ public class ProfileEditor extends Activity
         	});
 		}
 		else{
-			LinearLayout cdepth = (LinearLayout)findViewById(R.id.cdepth);
+			LinearLayout cdepthll = (LinearLayout)findViewById(R.id.cdepth);
 			
-			cdepth.setVisibility(View.GONE);
+			cdepthll.setVisibility(View.GONE);
 		}
 		/**spinner17*/
 		ArrayAdapter<String> spinner17ArrayAdapter = new ArrayAdapter<String>(this,   android.R.layout.simple_spinner_item, schedulers);
@@ -864,9 +864,9 @@ public class ProfileEditor extends Activity
         	});
 		}
 		else{
-			LinearLayout s2w = (LinearLayout)findViewById(R.id.s2w);
+			LinearLayout s2wll = (LinearLayout)findViewById(R.id.s2w);
 			
-			s2w.setVisibility(View.GONE);
+			s2wll.setVisibility(View.GONE);
 		}
 		
 	}
