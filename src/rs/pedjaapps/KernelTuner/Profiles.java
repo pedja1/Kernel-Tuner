@@ -14,12 +14,219 @@ import android.widget.AdapterView.*;
 import java.io.*;
 import java.util.ArrayList;
 import java.util.List;
+import java.lang.Process;
 
-import rs.pedjaapps.KernelTuner.bundle.PluginBundleManager;
 
 
 public class Profiles extends Activity
 {
+	 String _cpu0max;
+	 String _cpu1max;
+	 String _cpu0min;
+	 String _cpu1min;
+	 String _cpu2max;
+	 String _cpu3max;
+	 String _cpu2min;
+	 String _cpu3min;
+	 String _cpu0gov;
+	 String _cpu1gov;
+	 String _cpu2gov;
+	 String _cpu3gov;
+	 String _mpup;
+	 String _mpdown;
+	 String _gpu2d;
+	 String _gpu3d;
+	 String _cbb;
+	 int _fcharge;
+	 int _vsync;
+	 String _cdepth;
+	 String _scheduler;
+	 int _sdcache ;
+	 int _s2w;
+	 String _name;
+	 
+	ProgressDialog pd;
+	 
+	private class SaveCurrentAsProfile extends AsyncTask<String, Void, Object>
+	{
+
+		@Override
+		protected Object doInBackground(String... args)
+		{
+			Process localProcess;
+			try
+			{
+				localProcess = Runtime.getRuntime().exec("su");
+
+				DataOutputStream localDataOutputStream = new DataOutputStream(localProcess.getOutputStream());
+				
+				if (CPUInfo.cpu1Online() == true)
+						{
+							localDataOutputStream.writeBytes("echo 0 > /sys/kernel/msm_mpdecision/conf/enabled\n");
+							localDataOutputStream.writeBytes("chmod 666 /sys/devices/system/cpu/cpu1/online\n");
+							localDataOutputStream.writeBytes("echo 1 > /sys/devices/system/cpu/cpu1/online\n");
+							localDataOutputStream.writeBytes("chmod 444 /sys/devices/system/cpu/cpu1/online\n");
+							localDataOutputStream.writeBytes("chown system /sys/devices/system/cpu/cpu1/online\n");
+						}
+						if (CPUInfo.cpu2Online() == true)
+						{
+							localDataOutputStream.writeBytes("chmod 666 /sys/devices/system/cpu/cpu2/online\n");
+							localDataOutputStream.writeBytes("echo 1 > /sys/devices/system/cpu/cpu2/online\n");
+							localDataOutputStream.writeBytes("chmod 444 /sys/devices/system/cpu/cpu2/online\n");
+							localDataOutputStream.writeBytes("chown system /sys/devices/system/cpu/cpu2/online\n");
+						}
+						if (CPUInfo.cpu3Online() == true)
+						{
+							localDataOutputStream.writeBytes("chmod 666 /sys/devices/system/cpu/cpu3/online\n");
+							localDataOutputStream.writeBytes("echo 1 > /sys/devices/system/cpu/cpu3/online\n");
+							localDataOutputStream.writeBytes("chmod 444 /sys/devices/system/cpu/cpu3/online\n");
+							localDataOutputStream.writeBytes("chown system /sys/devices/system/cpu/cpu3/online\n");
+						}
+						localDataOutputStream.writeBytes("exit\n");
+						localDataOutputStream.flush();
+						localDataOutputStream.close();
+						localProcess.waitFor();
+						localProcess.destroy();
+			}
+			catch (IOException e1)
+			{
+				// TODO Auto-generated catch block
+				e1.printStackTrace();
+			}
+			catch (InterruptedException e1)
+			{
+				// TODO Auto-generated catch block
+				e1.printStackTrace();
+			}
+						
+			_cpu0min = CPUInfo.cpu0MinFreq();
+			_cpu0max = CPUInfo.cpu0MaxFreq();
+			_cpu0gov = CPUInfo.cpu0CurGov();
+			if(CPUInfo.cpu1Online()){
+			_cpu1min = CPUInfo.cpu1MinFreq();
+			_cpu1max = CPUInfo.cpu1MaxFreq();
+			_cpu1gov = CPUInfo.cpu1CurGov();
+			}
+			if(CPUInfo.cpu2Online()){
+			_cpu2min = CPUInfo.cpu2MinFreq();
+			_cpu2max = CPUInfo.cpu2MaxFreq();
+			_cpu2gov = CPUInfo.cpu2CurGov();
+			}
+			if(CPUInfo.cpu3Online()){
+			_cpu3min = CPUInfo.cpu3MinFreq();
+			_cpu3max = CPUInfo.cpu3MaxFreq();
+			_cpu3gov = CPUInfo.cpu3CurGov();
+			}
+			_mpup = CPUInfo.mpup();
+			_mpdown = CPUInfo.mpdown();
+			_gpu2d = CPUInfo.gpu2d();
+			_gpu3d = CPUInfo.gpu3d();
+			_cbb = CPUInfo.cbb();
+			_vsync = CPUInfo.vsync();
+			_fcharge = CPUInfo.fcharge();
+			_cdepth = CPUInfo.cDepth();
+			_scheduler = CPUInfo.scheduler();
+			_sdcache = CPUInfo.sdCache();
+			_s2w = CPUInfo.s2w();
+			
+try{
+	localProcess = Runtime.getRuntime().exec("su");
+
+	DataOutputStream localDataOutputStream = new DataOutputStream(localProcess.getOutputStream());
+	
+			if (CPUInfo.cpu1Online() == true)
+			{
+				localDataOutputStream.writeBytes("echo 1 > /sys/kernel/msm_mpdecision/conf/enabled\n");
+				localDataOutputStream.writeBytes("chmod 777 /sys/devices/system/cpu/cpu1/online\n");
+				localDataOutputStream.writeBytes("echo 0 > /sys/devices/system/cpu/cpu1/online\n");
+				localDataOutputStream.writeBytes("chown system /sys/devices/system/cpu/cpu1/online\n");
+			}
+			if (CPUInfo.cpu2Online() == true)
+			{
+				localDataOutputStream.writeBytes("chmod 777 /sys/devices/system/cpu/cpu2/online\n");
+				localDataOutputStream.writeBytes("echo 0 > /sys/devices/system/cpu/cpu2/online\n");
+				localDataOutputStream.writeBytes("chown system /sys/devices/system/cpu/cpu2/online\n");
+			}
+			if (CPUInfo.cpu3Online() == true)
+			{
+				localDataOutputStream.writeBytes("chmod 777 /sys/devices/system/cpu/cpu3/online\n");
+				localDataOutputStream.writeBytes("echo 0 > /sys/devices/system/cpu/cpu3/online\n");
+				localDataOutputStream.writeBytes("chown system /sys/devices/system/cpu/cpu3/online\n");
+			}
+
+			localDataOutputStream.writeBytes("exit\n");
+			localDataOutputStream.flush();
+			localDataOutputStream.close();
+			localProcess.waitFor();
+			localProcess.destroy();
+}
+catch (IOException e1)
+{
+	// TODO Auto-generated catch block
+	e1.printStackTrace();
+}
+catch (InterruptedException e1)
+{
+	// TODO Auto-generated catch block
+	e1.printStackTrace();
+}
+
+
+
+			
+			
+			
+			
+			
+
+			return "";
+		}
+
+		@Override
+		protected void onPostExecute(Object result)
+		{
+			
+
+			db.addProfile(new Profile(_name,
+					 _cpu0min, 
+					  _cpu0max, 
+			    		_cpu1min,
+			    		_cpu1max,
+			    		_cpu2min, 
+			  		 _cpu2max, 
+			      		_cpu3min,
+			      		_cpu3max,
+			    		_cpu0gov,
+			    		_cpu1gov,
+			    		_cpu2gov,
+			    		_cpu3gov,
+			    		"Unchanged",
+			    		_mpdown,
+			    		_mpup,
+			    		_gpu2d,
+			    		_gpu3d,
+			    		_cbb,
+			    		_vsync,
+			    		_fcharge,
+			    		_cdepth,
+			    		_scheduler,
+			    		_sdcache,
+			    		_s2w
+			    		));
+				   profilesAdapter.clear();
+					for (final ProfilesEntry entry : getProfilesEntries())
+					{
+						profilesAdapter.add(entry);
+					}
+					profilesListView.invalidate();
+					profilesAdapter.notifyDataSetChanged();
+					profiles = db.getAllProfiles();
+					setUI();
+
+					pd.dismiss();
+		}
+
+	}
 
 	SharedPreferences sharedPrefs;
 	DatabaseHandler db;
@@ -463,7 +670,7 @@ public boolean onOptionsItemSelected(MenuItem item) {
 
 			builder.setMessage("Are you sure you want to delete all profiles?");
 
-			builder.setIcon(R.drawable.icon);
+			builder.setIcon(R.drawable.ic_menu_delete);
 
 			builder.setPositiveButton("Yes, do it.", new DialogInterface.OnClickListener() {
 					@Override
@@ -498,6 +705,48 @@ public boolean onOptionsItemSelected(MenuItem item) {
 
 			alert.show();
 	}
+	
+	if (item.getItemId() == R.id.save)
+	{
+	AlertDialog.Builder builder2 = new AlertDialog.Builder(
+            Profiles.this);
+
+		builder2.setTitle("Save Current Settings");
+
+		
+
+		builder2.setIcon(R.drawable.ic_menu_save);
+		final EditText ed2 = new EditText(Profiles.this);
+		ed2.setHint("Profile Name");
+		builder2.setPositiveButton("Save", new DialogInterface.OnClickListener() {
+				@Override
+				public void onClick(DialogInterface dialog, int which)
+				{
+					if(ed2.getText().toString().length()<1 || ed2.getText().toString().equals(""))
+					{
+						Toast.makeText(getApplicationContext(), "Profile Name cannot be empty!\nPlease enter Profile Name", Toast.LENGTH_LONG).show();
+						
+					}
+					else{
+					_name = ed2.getText().toString();
+					Profiles.this.pd = ProgressDialog.show(Profiles.this, "Please Wait..",
+								  "Gathering system information...", true, false);
+					new SaveCurrentAsProfile().execute();
+					}
+				}
+			});
+		builder2.setNegativeButton("Cancel", new DialogInterface.OnClickListener() {
+				@Override
+				public void onClick(DialogInterface dialog, int which)
+				{
+
+				}
+			});
+		builder2.setView(ed2);
+		AlertDialog alert2 = builder2.create();
+
+		alert2.show();
+}
 
 return super.onOptionsItemSelected(item);
 
@@ -607,10 +856,12 @@ public boolean onContextItemSelected(MenuItem item) {
 
 			builder.setIcon(R.drawable.ic_menu_copy);
 			final EditText ed = new EditText(Profiles.this);
-			builder.setPositiveButton("Copy.", new DialogInterface.OnClickListener() {
+			ed.setHint("Profile Name");
+			builder.setPositiveButton("Copy", new DialogInterface.OnClickListener() {
 					@Override
 					public void onClick(DialogInterface dialog, int which)
 					{
+						
 						String name = ed.getText().toString();
 						 String cpu0min = profile.getCpu0min();
 							String cpu0max = profile.getCpu0max();
@@ -693,6 +944,8 @@ public boolean onContextItemSelected(MenuItem item) {
 			alert.show();
 		
 	      return true;
+	      
+	
   }
     return false;
 }

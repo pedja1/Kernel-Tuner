@@ -25,7 +25,9 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 
-                android:ems="10" />
+                android:ems="10" >
+                <requestFocus />
+            </EditText>
 
         </LinearLayout>
 
@@ -347,10 +349,9 @@
                 android:layout_height="wrap_content"
                
                 android:ems="4"
-                android:inputType="number" >
+                android:inputType="number" />
 
-                <requestFocus />
-            </EditText>
+                
 
         </LinearLayout>
         
@@ -618,25 +619,6 @@
         </LinearLayout>
         
                  </LinearLayout>
-                 <LinearLayout
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content" >
-            
-             <Button
-                android:id="@+id/cancel"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="@string/cancel"
-                  android:layout_weight="1" />
-
-            <Button
-                android:id="@+id/apply"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="@string/apply"
-                  android:layout_weight="1"
-               />
-        </LinearLayout>
     </LinearLayout>
 
 </ScrollView>

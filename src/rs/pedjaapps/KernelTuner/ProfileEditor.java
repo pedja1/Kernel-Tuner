@@ -12,6 +12,8 @@ import android.view.View.OnClickListener;
 
 public class ProfileEditor extends Activity
 {
+	
+	
 
 	String freqs;
 	String govs;
@@ -166,92 +168,13 @@ public class ProfileEditor extends Activity
 
 		});
 	
-	cancel.setOnClickListener(new OnClickListener(){
-
-		@Override
-		public void onClick(View arg0)
-		{
-			finish();
-		}
-
-	});
+	
 	
 	setUI();
 	
 		
 
-		Button apply = (Button)findViewById(R.id.apply);
-		apply.setOnClickListener(new OnClickListener(){
-				@Override
-				public void onClick(View arg0)
-				{
-					
-					
-					if(name.getText().toString().length()<1 || name.getText().toString().equals(""))
-					{
-						Toast.makeText(getApplicationContext(), "Profile Name cannot be empty!\nPlease enter Profile Name", Toast.LENGTH_LONG).show();
-						
-					}
-					else{
-					int vsync;
-					int fcharge;
-					int sdcache = 0;
-					try{
-						sdcache = Integer.parseInt(ed4.getText().toString());
-					}catch(NumberFormatException e){
-						
-					}
-					if(vsyncBox.isChecked()){
-						vsync=1;
-					}
-					else{
-						vsync = 0;
-					}
-					
-					if(fchargeBox.isChecked()){
-						fcharge=1;
-					}
-					else{
-						fcharge = 0;
-					}
-					mtd = ed1.getText().toString();
-					mtu = ed2.getText().toString();
-					if(profileName!=null && !profileName.equals("")){
-						db.deleteProfileByName(profile);
-					}
-					Name = name.getText().toString();
-					Intent intent = new Intent();
-					intent.putExtra("Name", Name);
-					intent.putExtra("cpu0min", cpu0min);
-					intent.putExtra("cpu0max", cpu0max);
-					intent.putExtra("cpu1min", cpu1min);
-					intent.putExtra("cpu1max", cpu1max);
-					intent.putExtra("cpu2min", cpu2min);
-					intent.putExtra("cpu2max", cpu2max);
-					intent.putExtra("cpu3min", cpu3min);
-					intent.putExtra("cpu3max", cpu3max);
-					intent.putExtra("cpu0gov", cpu0gov);
-					intent.putExtra("cpu1gov", cpu1gov);
-					intent.putExtra("cpu2gov", cpu2gov);
-					intent.putExtra("cpu3gov", cpu3gov);
-					intent.putExtra("voltageProfile", voltage);
-					intent.putExtra("mtd", mtd);
-					intent.putExtra("mtu", mtu);
-					intent.putExtra("gpu2d", gpu2d);
-					intent.putExtra("gpu3d", gpu3d);
-					intent.putExtra("buttonsBacklight", ed3.getText().toString());
-					intent.putExtra("vsync", vsync);
-					intent.putExtra("fcharge", fcharge);
-					intent.putExtra("cdepth", cdepth);
-					intent.putExtra("io", scheduler);
-					intent.putExtra("sdcache", sdcache);
-					intent.putExtra("s2w", s2w);
-					setResult(RESULT_OK, intent);
-					finish();
-					}
-				}
-
-			});
+		
 	}
 
 	public void setUI()
@@ -274,11 +197,11 @@ public class ProfileEditor extends Activity
 		Spinner spinner16 = (Spinner)findViewById(R.id.spinner16);
 		Spinner spinner17 = (Spinner)findViewById(R.id.spinner17);
 		Spinner spinner18 = (Spinner)findViewById(R.id.spinner19);
+		
 		List<String> freqs = new ArrayList<String>();
 				freqs.add("Unchanged");
 				freqs.addAll(CPUInfo.frequencies());
 				
-				System.out.println("Freqs"+freqs);
 				
 		List<String> govs = new ArrayList<String>();
 				govs.add("Unchanged");
@@ -948,7 +871,96 @@ public class ProfileEditor extends Activity
 		
 	}
 
+	@Override
+	public boolean onCreateOptionsMenu(Menu menu) {
+		MenuInflater inflater = getMenuInflater();
+		inflater.inflate(R.menu.profile_editor_options_menu, menu);
+		return super.onCreateOptionsMenu(menu);
+}
+@Override
+public boolean onPrepareOptionsMenu (Menu menu) {
 
+return true;
+}
+
+@Override
+public boolean onOptionsItemSelected(MenuItem item) {
+
+	if (item.getItemId() == R.id.save)
+	{
+    	
+		if(name.getText().toString().length()<1 || name.getText().toString().equals(""))
+		{
+			Toast.makeText(getApplicationContext(), "Profile Name cannot be empty!\nPlease enter Profile Name", Toast.LENGTH_LONG).show();
+			
+		}
+		else{
+		int vsync;
+		int fcharge;
+		int sdcache = 0;
+		try{
+			sdcache = Integer.parseInt(ed4.getText().toString());
+		}catch(NumberFormatException e){
+			
+		}
+		if(vsyncBox.isChecked()){
+			vsync=1;
+		}
+		else{
+			vsync = 0;
+		}
+		
+		if(fchargeBox.isChecked()){
+			fcharge=1;
+		}
+		else{
+			fcharge = 0;
+		}
+		mtd = ed1.getText().toString();
+		mtu = ed2.getText().toString();
+		if(profileName!=null && !profileName.equals("")){
+			db.deleteProfileByName(profile);
+		}
+		Name = name.getText().toString();
+		Intent intent = new Intent();
+		intent.putExtra("Name", Name);
+		intent.putExtra("cpu0min", cpu0min);
+		intent.putExtra("cpu0max", cpu0max);
+		intent.putExtra("cpu1min", cpu1min);
+		intent.putExtra("cpu1max", cpu1max);
+		intent.putExtra("cpu2min", cpu2min);
+		intent.putExtra("cpu2max", cpu2max);
+		intent.putExtra("cpu3min", cpu3min);
+		intent.putExtra("cpu3max", cpu3max);
+		intent.putExtra("cpu0gov", cpu0gov);
+		intent.putExtra("cpu1gov", cpu1gov);
+		intent.putExtra("cpu2gov", cpu2gov);
+		intent.putExtra("cpu3gov", cpu3gov);
+		intent.putExtra("voltageProfile", voltage);
+		intent.putExtra("mtd", mtd);
+		intent.putExtra("mtu", mtu);
+		intent.putExtra("gpu2d", gpu2d);
+		intent.putExtra("gpu3d", gpu3d);
+		intent.putExtra("buttonsBacklight", ed3.getText().toString());
+		intent.putExtra("vsync", vsync);
+		intent.putExtra("fcharge", fcharge);
+		intent.putExtra("cdepth", cdepth);
+		intent.putExtra("io", scheduler);
+		intent.putExtra("sdcache", sdcache);
+		intent.putExtra("s2w", s2w);
+		setResult(RESULT_OK, intent);
+		finish();
+		}
+	}
+		
+	if (item.getItemId() == R.id.cancel)
+	{
+    	finish();
+	}
+
+return super.onOptionsItemSelected(item);
+
+}
 
 }
 

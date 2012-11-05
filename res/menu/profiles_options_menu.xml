@@ -13,5 +13,11 @@
         android:showAsAction="ifRoom|withText"
         android:title="Delete All"/>
  
+             <item
+        android:id="@+id/save"
+        android:icon="@drawable/ic_menu_save"
+        android:showAsAction="ifRoom|withText"
+        android:title="Save"/>
+    
     
 </menu>

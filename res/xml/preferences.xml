@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <PreferenceScreen xmlns:android="http://schemas.android.com/apk/res/android"
-    android:icon="@drawable/dual_on" >
+    android:icon="@drawable/misc" >
 
     <PreferenceCategory android:title="@string/preferences_boot_settings" >
         <ListPreference

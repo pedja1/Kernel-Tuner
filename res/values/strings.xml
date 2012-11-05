@@ -99,7 +99,6 @@
     <string name="mhz">Mhz</string>
     <string name="activity_gpu__2d_max_freq_">2D max freq:</string>
     <string name="activity_gpu_current_3d_frequency_">Current 3D frequency:</string>
-    <string name="activity_gpu_n_a">n/a</string>
     <string name="activity_gpu_current_2d_frequency_">Current 2D frequency:</string>
     <string name="cancel">Cancel</string>
     <string name="plus">+</string>

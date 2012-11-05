@@ -31,7 +31,7 @@
             android:layout_width="match_parent"
             android:layout_height="match_parent"
           
-            android:drawableTop="@drawable/icon"
+            android:drawableTop="@drawable/ic_launcher"
             android:gravity="center|center_vertical"
             android:text="@string/oc" />
 
@@ -177,7 +177,7 @@
                 android:layout_height="wrap_content"
                 
                
-                android:text="@string/activity_main_n_a" />
+                android:text="@string/n_a" />
             
         </LinearLayout>
         

@@ -39,6 +39,7 @@ public class KernelTuner extends Activity
 	boolean tempMonitor;
 	private long mLastBackPressTime = 0;
 	Toast mToast;
+	LinearLayout tempLayout;
 	private BroadcastReceiver mBatInfoReceiver = new BroadcastReceiver(){
 	    @Override
 	    public void onReceive(Context arg0, Intent intent)
@@ -57,23 +58,23 @@ public class KernelTuner extends Activity
 				if (temperature <= 104)
 				{
 					batteryTemp.setTextColor(Color.GREEN);
-					battTempWarningStop();
+					//battTempWarningStop();
 				}
 				else if (temperature > 104 && temperature < 131)
 				{
 					batteryTemp.setTextColor(Color.YELLOW);
-					battTempWarningStop();
+					//battTempWarningStop();
 				}
 				else if (temperature >= 131 && temperature < 140)
 				{
 					batteryTemp.setTextColor(Color.RED);
-					battTempWarningStop();
+					//battTempWarningStop();
 				}
 				else if (temperature >= 140)
 				{
 					// Log.e("Battery warning","start animation");
 					batteryTemp.setTextColor(Color.RED);
-					battTempWarning();
+					//battTempWarning();
 
 				}
 			}
@@ -84,23 +85,23 @@ public class KernelTuner extends Activity
 				if (temperature < 45)
 				{
 					batteryTemp.setTextColor(Color.GREEN);
-					battTempWarningStop();
+					//battTempWarningStop();
 				}
 				else if (temperature > 45 && temperature < 55)
 				{
 					batteryTemp.setTextColor(Color.YELLOW);
-					battTempWarningStop();
+					//battTempWarningStop();
 				}
 				else if (temperature >= 55 && temperature < 60)
 				{
 					batteryTemp.setTextColor(Color.RED);
-					battTempWarningStop();
+					//battTempWarningStop();
 				}
 				else if (temperature >= 60)
 				{
 					// Log.e("Battery warning","start animation");
 					batteryTemp.setTextColor(Color.RED);
-					battTempWarning();
+					//battTempWarning();
 
 				}
 			}
@@ -111,23 +112,23 @@ public class KernelTuner extends Activity
 				if (temperature < 318.15)
 				{
 					batteryTemp.setTextColor(Color.GREEN);
-					battTempWarningStop();
+					//battTempWarningStop();
 				}
 				else if (temperature > 318.15 && temperature < 328.15)
 				{
 					batteryTemp.setTextColor(Color.YELLOW);
-					battTempWarningStop();
+					//battTempWarningStop();
 				}
 				else if (temperature >= 328.15 && temperature < 333.15)
 				{
 					batteryTemp.setTextColor(Color.RED);
-					battTempWarningStop();
+					//battTempWarningStop();
 				}
 				else if (temperature >= 333.15)
 				{
 					// Log.e("Battery warning","start animation");
 					batteryTemp.setTextColor(Color.RED);
-					battTempWarning();
+					//battTempWarning();
 
 				}
 			}
@@ -136,22 +137,22 @@ public class KernelTuner extends Activity
 			if (level < 15 && level >= 5)
 			{
 				batteryLevel.setTextColor(Color.RED);
-				battLevelWarningStop();
+				//battLevelWarningStop();
 			}
 			else if (level > 15 && level <= 30)
 			{
 				batteryLevel.setTextColor(Color.YELLOW);
-				battLevelWarningStop();
+				//battLevelWarningStop();
 			}
 			else if (level > 30)
 			{
 				batteryLevel.setTextColor(Color.GREEN);
-				battLevelWarningStop();
+				//battLevelWarningStop();
 			}
 			else if (level < 5)
 			{
 				batteryLevel.setTextColor(Color.RED);
-				battLevelWarning();
+				//battLevelWarning();
 
 			}
 	    }
@@ -455,7 +456,7 @@ public class KernelTuner extends Activity
 				cl.loadUrl("http://kerneltuner.pedjaapps.in.rs/ktuner/changelog_latest.html");
 				builder.setMessage("Download Now?");
 
-				builder.setIcon(R.drawable.icon);
+				builder.setIcon(R.drawable.ic_menu_recent_history);
 
 				builder.setPositiveButton("Download", new DialogInterface.OnClickListener() {
 						@Override
@@ -838,7 +839,7 @@ public class KernelTuner extends Activity
 		{
 			
 
-			KernelTuner.this.pd.dismiss();
+			//KernelTuner.this.pd.dismiss();
 
 		}
 
@@ -886,6 +887,7 @@ public class KernelTuner extends Activity
 	{
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.main);
+		tempLayout = (LinearLayout)findViewById(R.id.test1a);
 		if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.HONEYCOMB)
         {
 			getActionBar().setSubtitle("Various kernel and system tuning");
@@ -896,15 +898,15 @@ public class KernelTuner extends Activity
 		/**
 		If auto update check is enabled check for updates
 		*/
-		/*File file = new File("/sys/kernel/debug");
+		File file = new File("/sys/kernel/debug");
 		if(file.list().length>0){
 			
 		}
 		else{
-			this.pd = ProgressDialog.show(this, "Working..",
-					  "Mounting debug filesystem", true, false);
+			//this.pd = ProgressDialog.show(this, "Working..",
+				//	  "Mounting debug filesystem", true, false);
 			new mountDebugFs().execute();
-		}*/
+		}
 		boolean update = sharedPrefs.getBoolean("update", true);
 		if (update == true)
 		{
@@ -1406,7 +1408,7 @@ public void startCpuLoadThread() {
 	/**
 	Animations for textViews
 	*/
-	public void battTempWarning()
+/*	public void battTempWarning()
 	{
 		Animation anim = new AlphaAnimation(0.0f, 1.0f);
     	anim.setDuration(500); 
@@ -1450,7 +1452,7 @@ public void startCpuLoadThread() {
 	{
 		cputemptxt.clearAnimation();
 	}
-
+*/
 
 	/**
 	CPU Temperature
@@ -1478,7 +1480,7 @@ public void startCpuLoadThread() {
 			}
 
 			cputemp = aBuffer.trim();
-
+			tempLayout.setVisibility(View.VISIBLE);
 
 			/**
 			If fahrenheit is selected in settings, convert temp to fahreinheit
@@ -1492,17 +1494,17 @@ public void startCpuLoadThread() {
 		  		if (temp < 113)
 				{
 					cputemptxt.setTextColor(Color.GREEN);
-					cpuTempWarningStop();
+					//cpuTempWarningStop();
 				}
 				else if (temp >= 113 && temp < 138)
 				{
 					cputemptxt.setTextColor(Color.YELLOW);
-					cpuTempWarningStop();
+					//cpuTempWarningStop();
 				}
 
 				else if (temp >= 138)
 				{
-					cpuTempWarning();
+					//cpuTempWarning();
 					cputemptxt.setTextColor(Color.RED);
 
 				}
@@ -1510,24 +1512,22 @@ public void startCpuLoadThread() {
 
 			else if (tempPref.equals("celsius"))
 			{
-				cputemptxt.setVisibility(View.VISIBLE);
-				cputemptxte.setVisibility(View.VISIBLE);
 				cputemptxt.setText(cputemp + "°C");
 				int temp = Integer.parseInt(cputemp);
 				if (temp < 45)
 				{
 					cputemptxt.setTextColor(Color.GREEN);
-					cpuTempWarningStop();
+					//cpuTempWarningStop();
 				}
 				else if (temp >= 45 && temp <= 59)
 				{
 					cputemptxt.setTextColor(Color.YELLOW);
-					cpuTempWarningStop();
+					//cpuTempWarningStop();
 				}
 
 				else if (temp > 59)
 				{
-					cpuTempWarning();
+					//cpuTempWarning();
 					cputemptxt.setTextColor(Color.RED);
 
 				}
@@ -1538,8 +1538,7 @@ public void startCpuLoadThread() {
 			else if (tempPref.equals("kelvin"))
 			{
 				cputemp = String.valueOf((int)(Double.parseDouble(cputemp) + 273.15));
-				cputemptxt.setVisibility(View.VISIBLE);
-				cputemptxte.setVisibility(View.VISIBLE);
+				
 				cputemptxt.setText(cputemp + "°K");
 				System.out.println(cputemp);
 				int temp = Integer.parseInt(cputemp);
@@ -1547,17 +1546,17 @@ public void startCpuLoadThread() {
 				if (temp < 318)
 				{
 					cputemptxt.setTextColor(Color.GREEN);
-					cpuTempWarningStop();
+					//cpuTempWarningStop();
 				}
 				else if (temp >= 318 && temp <= 332)
 				{
 					cputemptxt.setTextColor(Color.YELLOW);
-					cpuTempWarningStop();
+					//cpuTempWarningStop();
 				}
 
 				else if (temp > 332)
 				{
-					cpuTempWarning();
+					//cpuTempWarning();
 					cputemptxt.setTextColor(Color.RED);
 
 				}
@@ -1569,7 +1568,7 @@ public void startCpuLoadThread() {
 		catch (Exception e2)
 		{
 
-
+			tempLayout.setVisibility(View.GONE);
 
 		}
 	}

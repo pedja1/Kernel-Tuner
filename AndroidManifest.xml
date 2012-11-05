@@ -63,7 +63,7 @@ android:name="rs.pedjaapps.KernelTuner.StartupService" />
 </service>
 <receiver android:name=".AppWidget"
 android:label="Kernel Tuner 2x1"
-android:icon="@drawable/dual_on">
+android:icon="@drawable/ic_launcher">
 <intent-filter>
 <action android:name="android.appwidget.action.APPWIDGET_UPDATE"/>
 <action android:name="rs.pedjaapps.KernelTuner.AppWidget.ACTION_CLICK" />
@@ -75,7 +75,7 @@ android:resource="@xml/widget_provider_2x1" />
 
 <receiver android:name=".AppWidgetBig"
 android:label="Kernel Tuner 4x4"
-android:icon="@drawable/dual_on">
+android:icon="@drawable/ic_launcher">
 <intent-filter>
 <action android:name="android.appwidget.action.APPWIDGET_UPDATE"/>
 <action android:name="rs.pedjaapps.KernelTuner.AppWidget.ACTION_CLICK" />
@@ -89,14 +89,14 @@ android:resource="@xml/widget_provider_4x4" />
 <activity android:name=".Mpdecision"  android:label="@string/title_mpdecision" android:icon="@drawable/dual"></activity>
 <activity android:name=".Thermald"  android:label="@string/title_thermald" android:icon="@drawable/temp"></activity>
 
-<activity android:name=".About"  android:label="@string/title_about" android:icon="@drawable/tux_gandalf"></activity>
-<activity android:name=".Changelog"  android:label="@string/title_changelog" android:theme="@style/Theme.TransparentDark"  android:icon="@drawable/icon"></activity>
-<activity android:name=".CompatibilityCheck" android:label="@string/title_check" android:theme="@style/Theme.TransparentNoTitle" android:icon="@drawable/icon"></activity>
+<activity android:name=".About"  android:label="@string/title_about" android:icon="@drawable/about"></activity>
+<activity android:name=".Changelog"  android:label="@string/title_changelog" android:theme="@style/Theme.TransparentDark"  android:icon="@drawable/ic_menu_recent_history"></activity>
+<activity android:name=".CompatibilityCheck" android:label="@string/title_check" android:theme="@style/Theme.TransparentNoTitle" android:icon="@drawable/ic_menu_help"></activity>
 		<activity android:name=".Profiles" android:label="@string/title_profiles" android:icon="@drawable/ic_menu_cc"  android:theme="@style/Theme.Locale.Dark"></activity>
-<activity android:name=".ProfileEditor" android:label="@string/activity_title_profile_editor" android:icon="@drawable/ic_menu_edit" android:theme="@android:style/Theme.Holo.Dialog"></activity>
+<activity android:name=".ProfileEditor" android:label="@string/activity_title_profile_editor" android:icon="@drawable/ic_menu_edit"></activity><!-- android:theme="@android:style/Theme.Holo.Dialog -->
 <activity android:name=".Swap" android:label="@string/swap" android:icon="@drawable/swap" ></activity>
 
-<activity android:name=".SystemInfo" android:label="@string/info" android:icon="@drawable/info" ></activity>
+<activity android:name=".SystemInfo" android:label="@string/info" android:icon="@drawable/ic_menu_info_details" ></activity>
 <activity android:name=".CPUActivity" android:label="@string/title_cpu" android:icon="@drawable/ic_launcher" android:screenOrientation="portrait" ></activity>
 <activity android:name=".VoltageActivity" android:label="@string/title_voltage" android:icon="@drawable/voltage"  ></activity>
 <activity android:name=".TISActivity" android:label="@string/title_tis" android:icon="@drawable/times" ></activity>

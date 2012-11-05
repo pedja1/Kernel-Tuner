@@ -552,7 +552,7 @@ SeekBar.OnSeekBarChangeListener
 									+ "Disabling this will create higher FPS rates, but on some hardware it can distort the display.");
 
 					// Setting Icon to Dialog
-					alertDialog.setIcon(R.drawable.icon);
+					alertDialog.setIcon(R.drawable.misc);
 
 					// Setting OK Button
 					alertDialog.setButton("OK",
@@ -569,7 +569,6 @@ SeekBar.OnSeekBarChangeListener
 
 					// Showing Alert Message
 					alertDialog.show();
-					alertDialog.setIcon(R.drawable.icon);
 					alertDialog.show();
 				}
 
@@ -593,7 +592,7 @@ SeekBar.OnSeekBarChangeListener
 						.setMessage("This option will forces AC charging mode when connected to a USB connection");
 
 					// Setting Icon to Dialog
-					alertDialog.setIcon(R.drawable.icon);
+					alertDialog.setIcon(R.drawable.misc);
 
 					// Setting OK Button
 					alertDialog.setButton("OK",
@@ -610,7 +609,6 @@ SeekBar.OnSeekBarChangeListener
 
 					// Showing Alert Message
 					alertDialog.show();
-					alertDialog.setIcon(R.drawable.icon);
 					alertDialog.show();
 				}
 

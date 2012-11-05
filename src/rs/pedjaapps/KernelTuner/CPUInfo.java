@@ -1,6 +1,8 @@
 package rs.pedjaapps.KernelTuner;
 
 import android.os.*;
+import android.widget.EditText;
+
 import java.io.*;
 import java.util.*;
 import java.lang.Process;
@@ -2016,4 +2018,345 @@ public class CPUInfo
 		
 		return schedulers;
 		}
+	
+	public static String mpup(){
+		String mpup = "";
+		try
+		{
+
+			File myFile = new File("/sys/kernel/msm_mpdecision/conf/nwns_threshold_up");
+			FileInputStream fIn = new FileInputStream(myFile);
+
+			BufferedReader myReader = new BufferedReader(
+				new InputStreamReader(fIn));
+			String aDataRow = "";
+			String aBuffer = "";
+			while ((aDataRow = myReader.readLine()) != null)
+			{
+				aBuffer += aDataRow + "\n";
+			}
+
+			mpup = aBuffer;
+			myReader.close();
+
+		}
+		catch (Exception e)
+		{
+			
+		}
+		return mpup;
+	}
+	
+	public static String mpdown(){
+		String mpdown = "";
+		try
+		{
+
+			File myFile = new File("/sys/kernel/msm_mpdecision/conf/nwns_threshold_down");
+			FileInputStream fIn = new FileInputStream(myFile);
+
+			BufferedReader myReader = new BufferedReader(
+				new InputStreamReader(fIn));
+			String aDataRow = "";
+			String aBuffer = "";
+			while ((aDataRow = myReader.readLine()) != null)
+			{
+				aBuffer += aDataRow + "\n";
+			}
+
+			mpdown = aBuffer;
+			myReader.close();
+
+		}
+		catch (Exception e)
+		{
+			
+		}
+		return mpdown;
+	}
+	
+	public static String gpu3d(){
+		String gpu3d = "";
+		try
+		{
+
+			File myFile = new File("/sys/devices/platform/kgsl-3d0.0/kgsl/kgsl-3d0/max_gpuclk");
+			FileInputStream fIn = new FileInputStream(myFile);
+
+			BufferedReader myReader = new BufferedReader(
+					new InputStreamReader(fIn));
+			String aDataRow = "";
+			String aBuffer = "";
+			while ((aDataRow = myReader.readLine()) != null)
+			{
+				aBuffer += aDataRow + "\n";
+			}
+
+			gpu3d = aBuffer.trim();
+			myReader.close();
+
+
+
+		}
+		catch (Exception e)
+		{
+			
+
+		}
+		return gpu3d;
+	}
+	
+	public static String gpu2d(){
+		String gpu2d = "";
+		try
+		{
+
+			File myFile = new File("/sys/devices/platform/kgsl-2d0.0/kgsl/kgsl-2d0/max_gpuclk");
+			FileInputStream fIn = new FileInputStream(myFile);
+
+			BufferedReader myReader = new BufferedReader(
+					new InputStreamReader(fIn));
+			String aDataRow = "";
+			String aBuffer = "";
+			while ((aDataRow = myReader.readLine()) != null)
+			{
+				aBuffer += aDataRow + "\n";
+			}
+
+			gpu2d = aBuffer.trim();
+			myReader.close();
+
+
+
+		}
+		catch (Exception e)
+		{
+			
+
+		}
+		return gpu2d;
+	}
+	
+	public static String cbb(){
+		String cbb = "";
+		try
+		{
+    		String aBuffer = "";
+			File myFile = new File("/sys/devices/platform/leds-pm8058/leds/button-backlight/currents");
+			FileInputStream fIn = new FileInputStream(myFile);
+			BufferedReader myReader = new BufferedReader(
+				new InputStreamReader(fIn));
+			String aDataRow = "";
+			while ((aDataRow = myReader.readLine()) != null)
+			{
+				aBuffer += aDataRow + "\n";
+			}
+
+			cbb = aBuffer.trim();
+			myReader.close();
+
+		}
+		catch (Exception e)
+		{
+			
+		}
+		return cbb;
+	}
+	
+	public static int fcharge(){
+		int fcharge = 0;
+		try
+		{
+    		String aBuffer = "";
+			File myFile = new File("/sys/kernel/fast_charge/force_fast_charge");
+			FileInputStream fIn = new FileInputStream(myFile);
+			BufferedReader myReader = new BufferedReader(
+				new InputStreamReader(fIn));
+			String aDataRow = "";
+			while ((aDataRow = myReader.readLine()) != null)
+			{
+				aBuffer += aDataRow + "\n";
+			}
+
+			fcharge = Integer.parseInt(aBuffer.trim());
+			myReader.close();
+
+		}
+		catch (Exception e)
+		{
+			
+		}
+		return fcharge;
+	}
+	
+	public static int vsync(){
+		int vsync = 0;
+		try
+		{
+    		String aBuffer = "";
+			File myFile = new File("/sys/kernel/debug/msm_fb/0/vsync_enable");
+			FileInputStream fIn = new FileInputStream(myFile);
+			BufferedReader myReader = new BufferedReader(
+				new InputStreamReader(fIn));
+			String aDataRow = "";
+			while ((aDataRow = myReader.readLine()) != null)
+			{
+				aBuffer += aDataRow + "\n";
+			}
+
+			vsync = Integer.parseInt(aBuffer.trim());
+			myReader.close();
+
+		}
+		catch (Exception e)
+		{
+			
+		}
+		return vsync;
+	}
+	
+	public static String cDepth(){
+		String cdepth = "";
+		try
+		{
+
+			File myFile = new File("/sys/kernel/debug/msm_fb/0/bpp");
+			FileInputStream fIn = new FileInputStream(myFile);
+
+			BufferedReader myReader = new BufferedReader(
+					new InputStreamReader(fIn));
+			String aDataRow = "";
+			String aBuffer = "";
+			while ((aDataRow = myReader.readLine()) != null)
+			{
+				aBuffer += aDataRow + "\n";
+			}
+
+			cdepth = aBuffer.trim();
+			myReader.close();
+			
+
+		}
+		catch (IOException e)
+		{
+			
+		}
+		return cdepth;
+	}
+	
+	public static String scheduler(){
+		String scheduler = "";
+		try
+		{
+
+			File myFile = new File("/sys/block/mmcblk0/queue/scheduler");
+			FileInputStream fIn = new FileInputStream(myFile);
+
+			BufferedReader myReader = new BufferedReader(
+					new InputStreamReader(fIn));
+			String aDataRow = "";
+			String aBuffer = "";
+			while ((aDataRow = myReader.readLine()) != null)
+			{
+				aBuffer += aDataRow + "\n";
+			}
+
+			String schedulers = aBuffer;
+			myReader.close();
+
+			scheduler = schedulers.substring(schedulers.indexOf("[") + 1, schedulers.indexOf("]"));
+			scheduler.trim();
+			
+
+		}
+		catch (Exception e)
+		{
+			
+		}
+		return scheduler;
+	}
+	
+	public static int sdCache(){
+		int sd = 0;
+		try
+		{
+
+			File myFile = new File("/sys/devices/virtual/bdi/179:0/read_ahead_kb");
+			FileInputStream fIn = new FileInputStream(myFile);
+
+			BufferedReader myReader = new BufferedReader(
+					new InputStreamReader(fIn));
+			String aDataRow = "";
+			String aBuffer = "";
+			while ((aDataRow = myReader.readLine()) != null)
+			{
+				aBuffer += aDataRow + "\n";
+			}
+
+			sd = Integer.parseInt(aBuffer.trim());
+			myReader.close();
+
+		}
+		catch (Exception e)
+		{
+			
+
+		}
+		return sd;
+	}
+	
+	public static int s2w(){
+		int s2w = 0;
+		try
+		{
+
+			File myFile = new File(
+				"/sys/android_touch/sweep2wake");
+			FileInputStream fIn = new FileInputStream(myFile);
+
+			BufferedReader myReader = new BufferedReader(new InputStreamReader(
+															 fIn));
+			String aDataRow = "";
+			String aBuffer = "";
+			while ((aDataRow = myReader.readLine()) != null)
+			{
+				aBuffer += aDataRow + "\n";
+			}
+
+			s2w = Integer.parseInt(aBuffer.trim());
+
+			myReader.close();
+
+		}
+		catch (Exception e)
+		{
+
+			try
+			{
+
+				File myFile = new File(
+					"/sys/android_touch/sweep2wake/s2w_switch");
+				FileInputStream fIn = new FileInputStream(myFile);
+
+				BufferedReader myReader = new BufferedReader(new InputStreamReader(
+																 fIn));
+				String aDataRow = "";
+				String aBuffer = "";
+				while ((aDataRow = myReader.readLine()) != null)
+				{
+					aBuffer += aDataRow + "\n";
+				}
+
+				s2w = Integer.parseInt(aBuffer.trim());
+
+				myReader.close();
+
+			}
+			catch (Exception e2)
+			{
+
+			}
+		}
+		return s2w;
+	}
 }

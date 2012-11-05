@@ -74,7 +74,7 @@ public class GovernorActivity extends Activity
 
 					builder.setMessage("Set new value: ");
 
-					builder.setIcon(R.drawable.icon);
+					builder.setIcon(R.drawable.ic_menu_edit);
 
 
 					final EditText input = new EditText(view.getContext());

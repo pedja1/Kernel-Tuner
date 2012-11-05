@@ -13,5 +13,11 @@
         android:showAsAction="ifRoom|withText"
         android:title="Obrisi Sve"/>
  
+     <item
+        android:id="@+id/save"
+        android:icon="@drawable/ic_menu_save"
+        android:showAsAction="ifRoom|withText"
+        android:title="Save"/>
     
+            
 </menu>
