@@ -21,10 +21,10 @@ public class WidgetUpdateServiceBig extends Service
 	
 	private static final String LOG = "";
 	public String led;
-	public String curentfreq;
+	public String cpu0curr;
 	public String gov;
-	public String curentgovernorcpu0;
-	public String curentgovernorcpu1;
+	public String cpu0gov;
+	public String cpu1gov;
 	public String cpu0max = "        ";
 	public String cpu1max = "        ";
 	public String cpu0min = "     7   ";
@@ -38,8 +38,8 @@ public class WidgetUpdateServiceBig extends Service
 	public String out;
 	public String cdepth = " ";
 	public String kernel = "     ";
-	public String temp;
-	public String tmp;
+	public String deepSleep;
+	public String upTime;
 	public String charge;
 	public String battperc;
 	public String batttemp;
@@ -48,40 +48,16 @@ public class WidgetUpdateServiceBig extends Service
 	public String battcurrent;
 	public String batthealth;
 	public String battcap;
-	public String cpu0freqs;
+	public List<String> frequencies;
 	public int angle;
 	public int cf = 0;
-	public String curentfreqcpu1;
+	public String cpu1curr;
 	public int cf2 = 0;
 	public int timeint = 1800;
 
 
-	public void uptime()
-	{
-		long uptime = SystemClock.elapsedRealtime();
-		int hr =  (int) ((uptime / 1000) / 3600);
-		int   mn =  (int) (((uptime / 1000) / 60) % 60);
-		int sc =  (int) ((uptime / 1000) % 60);
-		String minut = String.valueOf(mn);
-		String sekund = String.valueOf(sc);
-		String sati = String.valueOf(hr);
-
-		tmp = sati + "h:" + minut + "m:" + sekund + "s";
-
-	}
-	public void deepsleep()
-	{
-		temp = String.valueOf(SystemClock.elapsedRealtime() - SystemClock.uptimeMillis()); 
-		int time = Integer.parseInt(temp);
-		int hr =  ((time / 1000) / 3600);
-		int mn =  (((time / 1000) / 60) % 60);
-		int sc =  ((time / 1000) % 60);
-		String minut = String.valueOf(mn);
-		String sekund = String.valueOf(sc);
-		String sati = String.valueOf(hr);
-
-		temp = sati + "h:" + minut + "m:" + sekund + "s";
-	}
+	
+	
 
 	public void mountdebugfs()
 	{
@@ -92,6 +68,8 @@ public class WidgetUpdateServiceBig extends Service
 
 			DataOutputStream localDataOutputStream = new DataOutputStream(localProcess.getOutputStream());
 			localDataOutputStream.writeBytes("mount -t debugfs debugfs /sys/kernel/debug\n");
+			localDataOutputStream.writeBytes("echo -n enabled > /sys/devices/virtual/thermal/thermal_zone1/mode\n");
+			localDataOutputStream.writeBytes("echo -n enabled > /sys/devices/virtual/thermal/thermal_zone0/mode\n");
 			localDataOutputStream.writeBytes("exit\n");
 			localDataOutputStream.flush();
 			localDataOutputStream.close();
@@ -117,289 +95,23 @@ public class WidgetUpdateServiceBig extends Service
 	{
 
 
-
-		//System.out.println(cpu0min);
-		try
-		{
-
-			File myFile = new File("/sys/devices/system/cpu/cpu0/cpufreq/scaling_min_freq");
-			FileInputStream fIn = new FileInputStream(myFile);
-
-			BufferedReader myReader = new BufferedReader(
-				new InputStreamReader(fIn));
-			String aDataRow = "";
-			String aBuffer = "";
-			while ((aDataRow = myReader.readLine()) != null)
-			{
-				aBuffer += aDataRow + "\n";
-			}
-
-			cpu0min = aBuffer.trim();
-			myReader.close();
-
-		}
-		catch (Exception e)
-		{
-			cpu0min = "offline";
-		}
-
-		try
-		{
-
-			File myFile = new File("/sys/devices/system/cpu/cpu0/cpufreq/scaling_max_freq");
-			FileInputStream fIn = new FileInputStream(myFile);
-
-			BufferedReader myReader = new BufferedReader(
-				new InputStreamReader(fIn));
-			String aDataRow = "";
-			String aBuffer = "";
-			while ((aDataRow = myReader.readLine()) != null)
-			{
-				aBuffer += aDataRow + "\n";
-			}
-
-			cpu0max = aBuffer.trim();
-			myReader.close();
-
-		}
-		catch (Exception e)
-		{
-			cpu0max = "offline";
-		}
-
-		try
-		{
-
-			File myFile = new File("/sys/devices/system/cpu/cpu1/cpufreq/scaling_min_freq");
-			FileInputStream fIn = new FileInputStream(myFile);
-
-			BufferedReader myReader = new BufferedReader(
-				new InputStreamReader(fIn));
-			String aDataRow = "";
-			String aBuffer = "";
-			while ((aDataRow = myReader.readLine()) != null)
-			{
-				aBuffer += aDataRow + "\n";
-			}
-
-			cpu1min = aBuffer.trim();
-			myReader.close();
-
-		}
-		catch (Exception e)
-		{
-			cpu1min = "offline";
-		}
-
-		try
-		{
-
-			File myFile = new File("/sys/devices/system/cpu/cpu1/cpufreq/scaling_max_freq");
-			FileInputStream fIn = new FileInputStream(myFile);
-
-			BufferedReader myReader = new BufferedReader(
-				new InputStreamReader(fIn));
-			String aDataRow = "";
-			String aBuffer = "";
-			while ((aDataRow = myReader.readLine()) != null)
-			{
-				aBuffer += aDataRow + "\n";
-			}
-
-			cpu1max = aBuffer.trim();
-			myReader.close();
-
-		}
-		catch (Exception e)
-		{
-			cpu1max = "offline";
-		}
-
-		try
-		{
-
-			File myFile = new File("/sys/devices/system/cpu/cpu0/cpufreq/scaling_governor");
-			FileInputStream fIn = new FileInputStream(myFile);
-
-			BufferedReader myReader = new BufferedReader(
-				new InputStreamReader(fIn));
-			String aDataRow = "";
-			String aBuffer = "";
-			while ((aDataRow = myReader.readLine()) != null)
-			{
-				aBuffer += aDataRow + "\n";
-			}
-
-			curentgovernorcpu0 = aBuffer.trim();
-			myReader.close();
-
-		}
-		catch (Exception e)
-		{
-			curentgovernorcpu0 = "offline";
-		}
-
-		try
-		{
-
-			File myFile = new File("/sys/devices/system/cpu/cpu1/cpufreq/scaling_governor");
-			FileInputStream fIn = new FileInputStream(myFile);
-
-			BufferedReader myReader = new BufferedReader(
-				new InputStreamReader(fIn));
-			String aDataRow = "";
-			String aBuffer = "";
-			while ((aDataRow = myReader.readLine()) != null)
-			{
-				aBuffer += aDataRow + "\n";
-			}
-
-			curentgovernorcpu1 = aBuffer.trim();
-			myReader.close();
-
-		}
-		catch (Exception e)
-		{
-			curentgovernorcpu1 = "offline";
-		}
-
-		try
-		{
-			String aBuffer = "";
-			File myFile = new File("/sys/devices/platform/leds-pm8058/leds/button-backlight/currents");
-			FileInputStream fIn = new FileInputStream(myFile);
-			BufferedReader myReader = new BufferedReader(
-				new InputStreamReader(fIn));
-			String aDataRow = "";
-			while ((aDataRow = myReader.readLine()) != null)
-			{
-				aBuffer += aDataRow + "\n";
-			}
-
-			led = aBuffer.trim();
-			myReader.close();
-
-		}
-		catch (Exception e)
-		{
-			led = "UNSUPPORTED";
-		}
-
-		try
-		{
-
-			File myFile = new File("/sys/devices/platform/kgsl-3d0.0/kgsl/kgsl-3d0/gpuclk");
-			FileInputStream fIn = new FileInputStream(myFile);
-
-			BufferedReader myReader = new BufferedReader(
-				new InputStreamReader(fIn));
-			String aDataRow = "";
-			String aBuffer = "";
-			while ((aDataRow = myReader.readLine()) != null)
-			{
-				aBuffer += aDataRow + "\n";
-			}
-
-			gpu3d = aBuffer.trim();
-			myReader.close();
-
-		}
-		catch (Exception e)
-		{
-			gpu3d = "UNUSPPORTED";
-
-		}
-
-		try
-		{
-
-			File myFile = new File("/sys/devices/platform/kgsl-2d0.0/kgsl/kgsl-2d0/gpuclk");
-			FileInputStream fIn = new FileInputStream(myFile);
-			BufferedReader myReader = new BufferedReader(
-				new InputStreamReader(fIn));
-			String aDataRow = "";
-			String aBuffer = "";
-			while ((aDataRow = myReader.readLine()) != null)
-			{
-				aBuffer += aDataRow + "\n";
-			}
-
-			gpu2d = aBuffer.trim();
-
-			myReader.close();
-
-		}
-		catch (Exception e)
-		{
-			gpu2d = "UNSUPPORTED";
-		}
-
-		try
-		{
-			String aBuffer = "";
-			File myFile = new File("/sys/kernel/fast_charge/force_fast_charge");
-			FileInputStream fIn = new FileInputStream(myFile);
-			BufferedReader myReader = new BufferedReader(
-				new InputStreamReader(fIn));
-			String aDataRow = "";
-			while ((aDataRow = myReader.readLine()) != null)
-			{
-				aBuffer += aDataRow + "\n";
-			}
-
-			fastcharge = aBuffer.trim();
-			myReader.close();
-
-		}
-		catch (Exception e)
-		{
-			fastcharge = "UNSUPPORTED";
-		}
-
-		try
-		{
-			String aBuffer = "";
-			File myFile = new File("/sys/kernel/debug/msm_fb/0/vsync_enable");
-			FileInputStream fIn = new FileInputStream(myFile);
-			BufferedReader myReader = new BufferedReader(
-				new InputStreamReader(fIn));
-			String aDataRow = "";
-			while ((aDataRow = myReader.readLine()) != null)
-			{
-				aBuffer += aDataRow + "\n";
-			}
-
-			vsync = aBuffer.trim();
-			myReader.close();
-
-		}
-		catch (Exception e)
-		{
-			vsync = "UNSUPPORTED";
-		}
-
-		try
-		{
-
-			File myFile = new File("/sys/kernel/debug/msm_fb/0/bpp");
-			FileInputStream fIn = new FileInputStream(myFile);
-			BufferedReader myReader = new BufferedReader(
-				new InputStreamReader(fIn));
-			String aDataRow = "";
-			String aBuffer = "";
-			while ((aDataRow = myReader.readLine()) != null)
-			{
-				aBuffer += aDataRow + "\n";
-			}
-
-			cdepth = aBuffer.trim();
-			myReader.close();
-		}
-		catch (Exception e)
-		{
-			cdepth = "UNSUPPORTED";
-
-		}
+		cpu0min = CPUInfo.cpu0MinFreq();
+		cpu0max = CPUInfo.cpu0MaxFreq();
+		cpu1min = CPUInfo.cpu1MinFreq();
+		cpu1max = CPUInfo.cpu1MaxFreq();
+		cpu0gov = CPUInfo.cpu0CurGov();
+		cpu1gov = CPUInfo.cpu1CurGov();
+		led = CPUInfo.cbb();
+		gpu2d = CPUInfo.gpu2d();
+		gpu3d = CPUInfo.gpu3d();
+		fastcharge = String.valueOf(CPUInfo.fcharge());
+		vsync = String.valueOf(CPUInfo.vsync());
+		cdepth = CPUInfo.cDepth();
+		frequencies = CPUInfo.frequencies();
+		cpu0curr = CPUInfo.cpu0CurFreq();
+		cpu1curr = CPUInfo.cpu1CurFreq();
+		upTime = CPUInfo.uptime();
+		deepSleep =CPUInfo.deepSleep();
 
 		try
 		{
@@ -621,84 +333,12 @@ public class WidgetUpdateServiceBig extends Service
 			battcap = "err";
 		}	
 
-		try
-		{
+		
+		
 
-			File myFile = new File("/sys/devices/system/cpu/cpu0/cpufreq/scaling_available_frequencies");
-			FileInputStream fIn = new FileInputStream(myFile);
-
-			BufferedReader myReader = new BufferedReader(
-				new InputStreamReader(fIn));
-			String aDataRow = "";
-			String aBuffer = "";
-			while ((aDataRow = myReader.readLine()) != null)
-			{
-				aBuffer += aDataRow + "\n";
-			}
-
-			cpu0freqs = aBuffer;
-			myReader.close();
-
-		}
-		catch (Exception e)
-		{
-			cpu0freqs = "offline";
-		}
-		try
-		{
-
-			File myFile = new File("/sys/devices/system/cpu/cpu0/cpufreq/scaling_cur_freq");
-			FileInputStream fIn = new FileInputStream(myFile);
-
-			BufferedReader myReader = new BufferedReader(
-				new InputStreamReader(fIn));
-			String aDataRow = "";
-			String aBuffer = "";
-			while ((aDataRow = myReader.readLine()) != null)
-			{
-				aBuffer += aDataRow + "\n";
-			}
-
-			curentfreq = aBuffer.trim();
-			myReader.close();
-
-		}
-		catch (Exception e)
-		{
-			curentfreq = "offline";
-
-		}
-
-		try
-		{
-
-			File myFile = new File("/sys/devices/system/cpu/cpu1/cpufreq/scaling_cur_freq");
-			FileInputStream fIn = new FileInputStream(myFile);
-
-			BufferedReader myReader = new BufferedReader(
-				new InputStreamReader(fIn));
-			String aDataRow = "";
-			String aBuffer = "";
-			while ((aDataRow = myReader.readLine()) != null)
-			{
-				aBuffer += aDataRow + "\n";
-			}
-
-			curentfreqcpu1 = aBuffer.trim();
-			myReader.close();
-
-		}
-		catch (Exception e)
-		{
-			curentfreqcpu1 = "offline";
-
-		}
-
-		String[] freqarray = cpu0freqs.split(" ");
-		int freqslength = freqarray.length;
-		List<String> wordList = Arrays.asList(freqarray); 
-		int index = wordList.indexOf(curentfreq);
-		int index2 = wordList.indexOf(curentfreqcpu1);
+		int freqslength = frequencies.size();
+		int index = frequencies.indexOf(cpu0curr);
+		int index2 = frequencies.indexOf(cpu1curr);
 
 		cf = index * 100 / freqslength + 4;
 		cf2 = index2 * 100 / freqslength + 4;
@@ -725,22 +365,17 @@ public class WidgetUpdateServiceBig extends Service
 		// Log.w(LOG, "Direct" + String.valueOf(allWidgetIds2.length));
 
 
-		File file = new File("/sys/kernel/debug/msm_fb/0/vsync_enable");
-		try
-		{
-
-			InputStream fIn = new FileInputStream(file);
-
-
+		File file = new File("/sys/kernel/debug");
+		if(file.list().length>0){
+			
 		}
-		catch (FileNotFoundException e)
-		{
+		else{
+			
 			mountdebugfs();
 		}
 		info();
 
-		uptime();
-		deepsleep();
+		
 
 		for (int widgetId : allWidgetIds)
 		{
@@ -791,7 +426,7 @@ public class WidgetUpdateServiceBig extends Service
 			Bitmap bitmap2 = Bitmap.createBitmap(100, 100, Config.ARGB_8888);
 			Canvas canvas2 = new Canvas(bitmap2);
 			// canvas2.drawArc(new RectF(5, 5, 90, 90), 90, angle, true, p);
-			if (!curentfreqcpu1.equals("offline"))
+			if (!cpu1curr.equals("offline"))
 			{
 				for (int i = 5, a = 8; a < 100 && i < 100; i = i + 4, a = a + 4)
 				{
@@ -840,33 +475,33 @@ public class WidgetUpdateServiceBig extends Service
 			remoteViews.setImageViewBitmap(R.id.ImageView01, bitmap2);
 
 			//System.out.println(cpu0min);
-			if (!curentfreq.equals("offline"))
+			if (!cpu0curr.equals("offline"))
 			{
-				remoteViews.setTextViewText(R.id.freq0, curentfreq.substring(0, curentfreq.length() - 3) + "Mhz");
+				remoteViews.setTextViewText(R.id.freq0, cpu0curr.substring(0, cpu0curr.length() - 3) + "Mhz");
 			}
 			else
 			{
-				remoteViews.setTextViewText(R.id.freq0, curentfreq);
+				remoteViews.setTextViewText(R.id.freq0, cpu0curr);
 				remoteViews.setTextColor(R.id.freq0, Color.RED);
 			}
 
-			if (!curentfreqcpu1.equals("offline"))
+			if (!cpu1curr.equals("offline"))
 			{
-				remoteViews.setTextViewText(R.id.freq1, curentfreqcpu1.substring(0, curentfreqcpu1.length() - 3) + "Mhz");
+				remoteViews.setTextViewText(R.id.freq1, cpu1curr.substring(0, cpu1curr.length() - 3) + "Mhz");
 				remoteViews.setTextColor(R.id.freq1, Color.WHITE);
 			}
 			else
 			{
-				remoteViews.setTextViewText(R.id.freq1, curentfreqcpu1);
+				remoteViews.setTextViewText(R.id.freq1, cpu1curr);
 				remoteViews.setTextColor(R.id.freq1, Color.RED);
 			}
 
 
-			remoteViews.setTextViewText(R.id.textView9,	curentgovernorcpu0);
+			remoteViews.setTextViewText(R.id.textView9,	cpu0gov);
 
-			remoteViews.setTextViewText(R.id.TextView02, curentgovernorcpu1);
+			remoteViews.setTextViewText(R.id.TextView02, cpu1gov);
 			remoteViews.setTextColor(R.id.TextView02, Color.WHITE);
-			if (curentgovernorcpu1.equals("offline"))
+			if (cpu1gov.equals("offline"))
 			{
 				remoteViews.setTextColor(R.id.TextView02, Color.RED);
 			}
@@ -939,8 +574,8 @@ public class WidgetUpdateServiceBig extends Service
 			}
 
 			remoteViews.setTextViewText(R.id.textView1k, kernel.trim());
-			remoteViews.setTextViewText(R.id.textView11, tmp);
-			remoteViews.setTextViewText(R.id.textView13, temp);
+			remoteViews.setTextViewText(R.id.textView11, upTime);
+			remoteViews.setTextViewText(R.id.textView13, deepSleep);
 
 			int battperciconint = 0;
 			try
@@ -984,28 +619,65 @@ public class WidgetUpdateServiceBig extends Service
 			remoteViews.setProgressBar(R.id.progressBar1, 100, battperciconint, false);
 			remoteViews.setTextViewText(R.id.textView14, battperc + "%");
 
-			double battempint = Double.parseDouble(batttemp);
+			double battempint = Double.parseDouble(batttemp)/10;
 
 			SharedPreferences sharedPrefs = PreferenceManager.getDefaultSharedPreferences(this);
 			String tempPref = sharedPrefs.getString("temp", "celsius");
 			if (tempPref.equals("fahrenheit"))
 			{
-				battempint = (battempint * 0.18) + 32;
-				batttemp = String.valueOf((int)battempint);
-				remoteViews.setTextViewText(R.id.textView20, batttemp + "°F");
-				if (battempint > 932)
+				battempint = (battempint * 1.8) + 32;
+				remoteViews.setTextViewText(R.id.textView20, String.valueOf((int)battempint) + "°F");
+				if (battempint <= 104)
+				{
+					remoteViews.setTextColor(R.id.textView20, Color.GREEN);
+				}
+				else if (battempint > 104 && battempint < 131)
+				{
+					remoteViews.setTextColor(R.id.textView20, Color.YELLOW);
+				}
+				
+				else if (battempint >= 140)
 				{
 					remoteViews.setTextColor(R.id.textView20, Color.RED);
 				}
+				
 			}
 			else if (tempPref.equals("celsius"))
 			{
-				batttemp = String.valueOf(battempint / 10);
-				remoteViews.setTextViewText(R.id.textView20, batttemp + "°C");
-				if (battempint > 500)
+				remoteViews.setTextViewText(R.id.textView20, String.valueOf((int)battempint) + "°C");
+				if (battempint <= 45)
+				{
+					remoteViews.setTextColor(R.id.textView20, Color.GREEN);
+				}
+				else if (battempint > 45 && battempint < 55)
+				{
+					remoteViews.setTextColor(R.id.textView20, Color.YELLOW);
+				}
+				
+				else if (battempint >= 55)
 				{
 					remoteViews.setTextColor(R.id.textView20, Color.RED);
 				}
+				
+			}
+			else if (tempPref.equals("kelvin"))
+			{
+				battempint = battempint + 273.15;
+				remoteViews.setTextViewText(R.id.textView20, String.valueOf((int)battempint) + "°K");
+				if (battempint <= 318.15)
+				{
+					remoteViews.setTextColor(R.id.textView20, Color.GREEN);
+				}
+				else if (battempint > 318.15 && battempint < 328.15)
+				{
+					remoteViews.setTextColor(R.id.textView20, Color.YELLOW);
+				}
+				
+				else if (battempint >= 328.15)
+				{
+					remoteViews.setTextColor(R.id.textView20, Color.RED);
+				}
+				
 			}
 			remoteViews.setTextViewText(R.id.textView21, battvol.trim() + "mV");
 			remoteViews.setTextViewText(R.id.textView22, batttech);
