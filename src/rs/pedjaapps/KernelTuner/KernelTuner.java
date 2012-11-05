@@ -2729,12 +2729,7 @@ AlertDialog alert = builder.create();
 	
 
 
-		if (item.getItemId() == R.id.check)
-		{
-			startActivity(new Intent(this, CompatibilityCheck.class));
-
-
-		}	
+		
 
 
 		return super.onOptionsItemSelected(item);
