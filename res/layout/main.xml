@@ -8,84 +8,171 @@
     android:orientation="vertical"
     tools:context=".DualCore" >
 
-    <LinearLayout
-        android:id="@+id/LinearLayout1"
+    <ScrollView
+        android:id="@+id/scrollView1"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_below="@+id/rl"
-        android:layout_marginTop="15dp"
-        android:orientation="horizontal" >
+        android:layout_above="@+id/ly2"
+        android:layout_below="@+id/rl" >
 
-        <Button
-            android:id="@+id/button2"
-            style="?android:attr/buttonStyleSmall"
+        <LinearLayout
             android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:layout_weight="1"
-            android:drawableTop="@drawable/ic_launcher"
-            android:gravity="center|center_vertical"
-            android:text="@string/oc" />
+            android:layout_height="wrap_content"
+            android:orientation="vertical" >
 
-        <Button
-            android:id="@+id/button5"
-            style="?android:attr/buttonStyleSmall"
-            android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:layout_weight="1"
-            android:drawableTop="@drawable/times"
-            android:gravity="center|center_vertical"
-            android:text="@string/title_tis" />
+            <LinearLayout
+                android:id="@+id/LinearLayout1"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="15dp"
+                android:orientation="horizontal" >
 
-        <Button
-            android:id="@+id/button6"
-            style="?android:attr/buttonStyleSmall"
-            android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:layout_weight="1"
-            android:drawableTop="@drawable/voltage"
-            android:gravity="center|center_vertical"
-            android:text="@string/title_voltage" />
+                <Button
+                    android:id="@+id/button2"
+                    style="?android:attr/buttonStyleSmall"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:layout_weight="1"
+                    android:drawableTop="@drawable/ic_launcher"
+                    android:gravity="center|center_vertical"
+                    android:text="@string/oc" />
 
-    </LinearLayout>
+                <Button
+                    android:id="@+id/button5"
+                    style="?android:attr/buttonStyleSmall"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:layout_weight="1"
+                    android:drawableTop="@drawable/times"
+                    android:gravity="center|center_vertical"
+                    android:text="@string/title_tis" />
 
-    <LinearLayout
-        android:id="@+id/linearLayout3"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_below="@+id/LinearLayout2"
-        android:orientation="horizontal" >
+                <Button
+                    android:id="@+id/button6"
+                    style="?android:attr/buttonStyleSmall"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:layout_weight="1"
+                    android:drawableTop="@drawable/voltage"
+                    android:gravity="center|center_vertical"
+                    android:text="@string/title_voltage" />
+            </LinearLayout>
 
-        <Button
-            android:id="@+id/button3"
-            style="?android:attr/buttonStyleSmall"
-            android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:layout_weight="1"
-            android:drawableTop="@drawable/gpu"
-            android:gravity="center|center_vertical"
-            android:text="@string/title_gpu" />
+            <LinearLayout
+                android:id="@+id/linearLayout3"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal" >
 
-        <Button
-            android:id="@+id/button4"
-            style="?android:attr/buttonStyleSmall"
-            android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:layout_weight="1"
-            android:drawableTop="@drawable/misc"
-            android:gravity="center|center_vertical"
-            android:text="@string/title_misc" />
+                <Button
+                    android:id="@+id/button3"
+                    style="?android:attr/buttonStyleSmall"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:layout_weight="1"
+                    android:drawableTop="@drawable/gpu"
+                    android:gravity="center|center_vertical"
+                    android:text="@string/title_gpu" />
 
-        <Button
-            android:id="@+id/button12"
-            style="?android:attr/buttonStyleSmall"
-            android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:layout_weight="1"
-             android:drawableTop="@drawable/profile"
-            android:gravity="center|center_vertical"
-            android:text="@string/profiles" />
+                <Button
+                    android:id="@+id/button4"
+                    style="?android:attr/buttonStyleSmall"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:layout_weight="1"
+                    android:drawableTop="@drawable/misc"
+                    android:gravity="center|center_vertical"
+                    android:text="@string/title_misc" />
 
-    </LinearLayout>
+                <Button
+                    android:id="@+id/button12"
+                    style="?android:attr/buttonStyleSmall"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:layout_weight="1"
+                    android:drawableTop="@drawable/profile"
+                    android:gravity="center|center_vertical"
+                    android:text="@string/profiles" />
+            </LinearLayout>
+
+            <LinearLayout
+                android:id="@+id/LinearLayout2"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal" >
+
+                <Button
+                    android:id="@+id/button10"
+                    style="?android:attr/buttonStyleSmall"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:layout_weight="1"
+                    android:drawableTop="@drawable/dual"
+                    android:gravity="center|center_vertical"
+                    android:text="@string/governor_" />
+
+                <Button
+                    android:id="@+id/button7"
+                    style="?android:attr/buttonStyleSmall"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:layout_weight="1"
+                    android:drawableTop="@drawable/dual"
+                    android:gravity="center|center_vertical"
+                    android:text="@string/mpdecision"
+                    android:visibility="visible" />
+
+                <Button
+                    android:id="@+id/button11"
+                    style="?android:attr/buttonStyleSmall"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:layout_weight="1"
+                    android:drawableTop="@drawable/temp"
+                    android:gravity="center|center_vertical"
+                    android:text="@string/thermald" />
+            </LinearLayout>
+
+            <LinearLayout
+                android:id="@+id/linearLayout4"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal" >
+
+                <Button
+                    android:id="@+id/button13"
+                    style="?android:attr/buttonStyleSmall"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:layout_weight="1"
+                    android:drawableTop="@drawable/swap"
+                    android:gravity="center|center_vertical"
+                    android:text="@string/swap" />
+
+                <Button
+                    android:id="@+id/button14"
+                    style="?android:attr/buttonStyleSmall"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:layout_weight="1"
+                    android:drawableTop="@drawable/info"
+                    android:gravity="center|center_vertical"
+                    android:text="@string/info" />
+
+                <Button
+                    android:id="@+id/button15"
+                    style="?android:attr/buttonStyleSmall"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:layout_weight="1"
+                    android:drawableTop="@drawable/about"
+                    android:gravity="center|center_vertical"
+                    android:text="@string/title_about" />
+            </LinearLayout>
+        </LinearLayout>
+
+    </ScrollView>
+
     <!--
          <ImageView
         android:id="@+id/imageView1"
@@ -94,85 +181,6 @@
         android:layout_centerHorizontal="true"
         android:src="@android:drawable/alert_dark_frame" />
     -->
-
-    <LinearLayout
-        android:id="@+id/LinearLayout2"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_below="@+id/LinearLayout1"
-        android:orientation="horizontal" >
-
-        <Button
-            android:id="@+id/button10"
-            style="?android:attr/buttonStyleSmall"
-            android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:layout_weight="1"
-            android:drawableTop="@drawable/dual"
-            android:gravity="center|center_vertical"
-            android:text="@string/governor_" />
-
-        <Button
-            android:id="@+id/button7"
-            style="?android:attr/buttonStyleSmall"
-            android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:layout_weight="1"
-            android:drawableTop="@drawable/dual"
-            android:gravity="center|center_vertical"
-            android:text="@string/mpdecision"
-            android:visibility="visible" />
-
-        <Button
-            android:id="@+id/button11"
-            style="?android:attr/buttonStyleSmall"
-            android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:layout_weight="1"
-            android:drawableTop="@drawable/temp"
-            android:gravity="center|center_vertical"
-            android:text="@string/thermald" />
-
-    </LinearLayout>
-
-    <LinearLayout
-        android:id="@+id/linearLayout4"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_below="@+id/linearLayout3"
-        android:orientation="horizontal" >
-
-        <Button
-            android:id="@+id/button13"
-            style="?android:attr/buttonStyleSmall"
-            android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:layout_weight="1"
-            android:drawableTop="@drawable/swap"
-            android:gravity="center|center_vertical"
-            android:text="@string/swap" />
-
-        <Button
-            android:id="@+id/button14"
-            style="?android:attr/buttonStyleSmall"
-            android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:layout_weight="1"
-            android:drawableTop="@drawable/info"
-            android:gravity="center|center_vertical"
-            android:text="@string/info" />
-
-        <Button
-            android:id="@+id/button15"
-            style="?android:attr/buttonStyleSmall"
-            android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:layout_weight="1"
-            android:drawableTop="@drawable/about"
-            android:gravity="center|center_vertical"
-            android:text="@string/title_about" />
-
-    </LinearLayout>
     
  
 
