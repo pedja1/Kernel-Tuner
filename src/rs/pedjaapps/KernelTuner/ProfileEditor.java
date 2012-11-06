@@ -43,27 +43,14 @@ public class ProfileEditor extends Activity
 	
 	String profileName;
 	Profile profile;
-	List<String> frequencies = new ArrayList<String>();
 	SharedPreferences sharedPrefs;
-	public String[] delims;
 	
 	public String[] gpu2ds ;
 	public String[] gpu3ds ;
 
 	int s2w;
 
-	public String[] gpu2d(String[] gpu2d)
-	{
-		gpu2ds = gpu2d;
-		return gpu2d;
-
-	}
-	public String[] gpu3d(String[] gpu3d)
-	{
-		gpu3ds = gpu3d;
-		return gpu3d;
-
-	}
+	
 	
 	EditText ed1;
 	EditText ed2;
@@ -268,13 +255,17 @@ public class ProfileEditor extends Activity
 
 		if (board.equals("shooter") || board.equals("shooteru") || board.equals("pyramid"))
 		{
-			gpu2d(new String[]{"Unchanged","160000000", "200000000", "228571000", "266667000"});
-			gpu3d(new String[]{"Unchanged","200000000", "228571000", "266667000", "300000000", "320000000"});
+			gpu2ds = new String[] {"Unchanged","160000000", "200000000", "228571000", "266667000"};
+			gpu3ds = new String[]{"Unchanged","200000000", "228571000", "266667000", "300000000", "320000000"};
 		}
-		else if (board.equals("evita") || board.equals("ville") || board.equals("jwel"))
+		else if (board.equals("evita") || board.equals("ville") || board.equals("jwel") || board.equals("jet"))
 		{
-			gpu2d(new String[]{"Unchanged","266667000", "228571000", "200000000", "160000000", "96000000", "27000000"});
-			gpu3d(new String[]{"Unchanged","400000000", "320000000", "300000000", "228571000", "266667000", "200000000", "177778000", "27000000"});
+			gpu2ds = new String[]{"Unchanged","266667000", "228571000", "200000000", "160000000", "96000000", "27000000"};
+			gpu3ds = new String[]{"Unchanged","400000000", "320000000", "300000000", "228571000", "266667000", "200000000", "177778000", "27000000"};
+		}
+		else{
+			gpu2ds = new String[]{"Unchanged"};
+			gpu3ds = new String[]{"Unchanged"};
 		}
 
 		String[] cd = {"Unchanged","16","24","32"};
@@ -294,7 +285,7 @@ public class ProfileEditor extends Activity
 			spinner1.setSelection(spinner1Position);
 		}
 		spinner1.setOnItemSelectedListener(new OnItemSelectedListener() {
-        		@Override
+        		@Override 
         	    public void onItemSelected(AdapterView<?> parent, View view, int pos, long id)
 				{
         	    	cpu0min = parent.getItemAtPosition(pos).toString();
