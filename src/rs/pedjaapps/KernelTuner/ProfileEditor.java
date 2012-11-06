@@ -101,15 +101,15 @@ public class ProfileEditor extends Activity
 		final ImageView gpuImg = (ImageView)findViewById(R.id.gpu_img);
 		
 		name = (EditText)findViewById(R.id.editText3);//profile name
-		ed1  = (EditText)findViewById(R.id.editText1);//mpdec thr down
-		ed2  = (EditText)findViewById(R.id.editText2);//mpdec thrs up
+		ed1  = (EditText)findViewById(R.id.editText2);//mpdec thr down
+		ed2  = (EditText)findViewById(R.id.editText1);//mpdec thrs up
 		ed3  = (EditText)findViewById(R.id.editText4);//capacitive lights
 		ed4  = (EditText)findViewById(R.id.editText5);//sd cache
 		vsyncBox = (CheckBox)findViewById(R.id.vsync);
 		fchargeBox = (CheckBox)findViewById(R.id.fcharge);
 		
 
-		Button cancel = (Button)findViewById(R.id.cancel);
+	
 		
 		cpu.setOnClickListener(new OnClickListener(){
 
@@ -168,17 +168,6 @@ public class ProfileEditor extends Activity
 
 		});
 	
-	
-	
-	setUI();
-	
-		
-
-		
-	}
-
-	public void setUI()
-	{
 		final Spinner spinner1 = (Spinner)findViewById(R.id.spinner1);
 		Spinner spinner2 = (Spinner)findViewById(R.id.spinner2);
 		Spinner spinner3 = (Spinner)findViewById(R.id.spinner3);
@@ -197,55 +186,51 @@ public class ProfileEditor extends Activity
 		Spinner spinner16 = (Spinner)findViewById(R.id.spinner16);
 		Spinner spinner17 = (Spinner)findViewById(R.id.spinner17);
 		Spinner spinner18 = (Spinner)findViewById(R.id.spinner19);
-		
+
 		List<String> freqs = new ArrayList<String>();
-				freqs.add("Unchanged");
-				freqs.addAll(CPUInfo.frequencies());
-				
-				
+		freqs.add("Unchanged");
+		freqs.addAll(CPUInfo.frequencies());
+
+
 		List<String> govs = new ArrayList<String>();
-				govs.add("Unchanged");
-				govs.addAll(CPUInfo.governors());
-				
+		govs.add("Unchanged");
+		govs.addAll(CPUInfo.governors());
+
 		List<String> schedulers = new ArrayList<String>();
 		schedulers.add("Unchanged");
 		schedulers.addAll(CPUInfo.schedulers());
-				
-		
+
+
 		List<String> voltageProfiles = new ArrayList<String>();
 		List<Voltage> voltages = db.getAllVoltages();
 		voltageProfiles.add("Unchanged");
 		for(Voltage v : voltages){
 			voltageProfiles.add(v.getName());
 		}
-		
-		List<String> numbers = new ArrayList<String>();
-		for (int i = 0; i < 100; i++)
-		{
-			numbers.add(String.valueOf(i));
-		}
+
+
 
 		LinearLayout mpup  = (LinearLayout)findViewById(R.id.mpup);//mpdec thr down
 		LinearLayout mpdown  = (LinearLayout)findViewById(R.id.mpdown);//mpdec thrs up
 		LinearLayout buttons  = (LinearLayout)findViewById(R.id.buttons);//capacitive lights
 		LinearLayout sd  = (LinearLayout)findViewById(R.id.sd);//sd cache
-		
-		
+
+
 		if(profileName!=null && !profileName.equals("")){
-		name.setText(profileName.toString());
+			name.setText(profileName.toString());
 		}
 		if(profileName!=null && !profileName.equals("")){
 			ed2.setText(profile.getMtu());
-			}
+		}
 		if(profileName!=null && !profileName.equals("")){
 			ed1.setText(profile.getMtd());
-			}
+		}
 		if(profileName!=null && !profileName.equals("")){
 			ed3.setText(profile.getButtonsLight());
-			}
+		}
 		if(profileName!=null && !profileName.equals("")){
 			ed4.setText(String.valueOf(profile.getSdcache()));
-			}
+		}
 		if(profileName!=null && !profileName.equals("")){
 			if(profile.getVsync()==0){
 				vsyncBox.setChecked(false);
@@ -262,7 +247,7 @@ public class ProfileEditor extends Activity
 				fchargeBox.setChecked(true);
 			}
 		}
-		
+
 		if(CPUInfo.mpdecisionExists()==false){
 			mpup.setVisibility(View.GONE);
 			mpdown.setVisibility(View.GONE);
@@ -273,14 +258,14 @@ public class ProfileEditor extends Activity
 		if(CPUInfo.sdcacheExists()==false){
 			sd.setVisibility(View.GONE);
 		}
-		
+
 		if(CPUInfo.vsyncExists()==false){
 			vsyncBox.setVisibility(View.GONE);
 		}
 		if(CPUInfo.fchargeExists()==false){
 			fchargeBox.setVisibility(View.GONE);
 		}
-		
+
 		if (board.equals("shooter") || board.equals("shooteru") || board.equals("pyramid"))
 		{
 			gpu2d(new String[]{"Unchanged","160000000", "200000000", "228571000", "266667000"});
@@ -295,18 +280,18 @@ public class ProfileEditor extends Activity
 		String[] cd = {"Unchanged","16","24","32"};
 		String[] sweep2wake = {"Unchanged","OFF","ON with no backlight","ON with backlight"};
 
-		
+
 		/*if(CPUInfo.cpu0Online()==true)
-		{*/
+		 {*/
 		/**spinner1*/
 		ArrayAdapter<String> spinnerArrayAdapter = new ArrayAdapter<String>(this,   android.R.layout.simple_spinner_item, freqs);
 		spinnerArrayAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item); // The drop down vieww
 		spinner1.setAdapter(spinnerArrayAdapter);
 
 		if(profileName!=null && !profileName.equals("")){
-		ArrayAdapter<String> spinner1Adap = (ArrayAdapter<String>) spinner1.getAdapter();
-		int spinner1Position = spinner1Adap.getPosition(profile.getCpu0min());
-		spinner1.setSelection(spinner1Position);
+			ArrayAdapter<String> spinner1Adap = (ArrayAdapter<String>) spinner1.getAdapter();
+			int spinner1Position = spinner1Adap.getPosition(profile.getCpu0min());
+			spinner1.setSelection(spinner1Position);
 		}
 		spinner1.setOnItemSelectedListener(new OnItemSelectedListener() {
         		@Override
@@ -321,12 +306,12 @@ public class ProfileEditor extends Activity
 				{
         	        //do nothing
         	    }
-        		
- 
-        		
+
+
+
         	});
 
-        
+
 		/**spinner2*/
 		ArrayAdapter<String> spinner2ArrayAdapter = new ArrayAdapter<String>(this,   android.R.layout.simple_spinner_item, freqs);
 		spinner2ArrayAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item); // The drop down vieww
@@ -336,8 +321,8 @@ public class ProfileEditor extends Activity
 			ArrayAdapter<String> spinner1Adap = (ArrayAdapter<String>) spinner2.getAdapter();
 			int spinner1Position = spinner1Adap.getPosition(profile.getCpu0max());
 			spinner2.setSelection(spinner1Position);
-			}
-		
+		}
+
 		spinner2.setOnItemSelectedListener(new OnItemSelectedListener() {
         		@Override
         	    public void onItemSelected(AdapterView<?> parent, View view, int pos, long id)
@@ -352,7 +337,7 @@ public class ProfileEditor extends Activity
         	        //do nothing
         	    }
         	});
-		
+
 		/**spinner9*/
 		ArrayAdapter<String> spinner9ArrayAdapter = new ArrayAdapter<String>(this,   android.R.layout.simple_spinner_item, govs);
 		spinner9ArrayAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item); // The drop down vieww
@@ -362,8 +347,8 @@ public class ProfileEditor extends Activity
 			ArrayAdapter<String> spinner1Adap = (ArrayAdapter<String>) spinner9.getAdapter();
 			int spinner1Position = spinner1Adap.getPosition(profile.getCpu0gov());
 			spinner9.setSelection(spinner1Position);
-			}
-		
+		}
+
 		spinner9.setOnItemSelectedListener(new OnItemSelectedListener() {
         		@Override
         	    public void onItemSelected(AdapterView<?> parent, View view, int pos, long id)
@@ -379,408 +364,408 @@ public class ProfileEditor extends Activity
         	    }
         	});
 		/*}
-		else{
-			LinearLayout cpu0minll = (LinearLayout)findViewById(R.id.cpu0min);
-			LinearLayout cpu0maxll = (LinearLayout)findViewById(R.id.cpu0max);
-			LinearLayout cpu0govll = (LinearLayout)findViewById(R.id.cpu0gov);
-			
-			cpu0minll.setVisibility(View.GONE);
-			cpu0maxll.setVisibility(View.GONE);
-			cpu0govll.setVisibility(View.GONE);
-		}*/
+		 else{
+		 LinearLayout cpu0minll = (LinearLayout)findViewById(R.id.cpu0min);
+		 LinearLayout cpu0maxll = (LinearLayout)findViewById(R.id.cpu0max);
+		 LinearLayout cpu0govll = (LinearLayout)findViewById(R.id.cpu0gov);
+
+		 cpu0minll.setVisibility(View.GONE);
+		 cpu0maxll.setVisibility(View.GONE);
+		 cpu0govll.setVisibility(View.GONE);
+		 }*/
 		if(CPUInfo.cpu1Online()==true)
 		{
-		/**spinner3*/
-		ArrayAdapter<String> spinner3ArrayAdapter = new ArrayAdapter<String>(this,   android.R.layout.simple_spinner_item, freqs);
-		spinner3ArrayAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item); // The drop down vieww
-		spinner3.setAdapter(spinner3ArrayAdapter);
+			/**spinner3*/
+			ArrayAdapter<String> spinner3ArrayAdapter = new ArrayAdapter<String>(this,   android.R.layout.simple_spinner_item, freqs);
+			spinner3ArrayAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item); // The drop down vieww
+			spinner3.setAdapter(spinner3ArrayAdapter);
 
-		if(profileName!=null && !profileName.equals("")){
-			ArrayAdapter<String> spinner1Adap = (ArrayAdapter<String>) spinner3.getAdapter();
-			int spinner1Position = spinner1Adap.getPosition(profile.getCpu1min());
-			spinner3.setSelection(spinner1Position);
+			if(profileName!=null && !profileName.equals("")){
+				ArrayAdapter<String> spinner1Adap = (ArrayAdapter<String>) spinner3.getAdapter();
+				int spinner1Position = spinner1Adap.getPosition(profile.getCpu1min());
+				spinner3.setSelection(spinner1Position);
 			}
-		
-		spinner3.setOnItemSelectedListener(new OnItemSelectedListener() {
-        		@Override
-        	    public void onItemSelected(AdapterView<?> parent, View view, int pos, long id)
-				{
-        	    	cpu1min = parent.getItemAtPosition(pos).toString();
 
-        	    }
+			spinner3.setOnItemSelectedListener(new OnItemSelectedListener() {
+					@Override
+					public void onItemSelected(AdapterView<?> parent, View view, int pos, long id)
+					{
+						cpu1min = parent.getItemAtPosition(pos).toString();
 
-        		@Override
-        	    public void onNothingSelected(AdapterView<?> parent)
-				{
-        	        //do nothing
-        	    }
-        	});
+					}
 
-		/**spinner4*/
-		ArrayAdapter<String> spinner4ArrayAdapter = new ArrayAdapter<String>(this,   android.R.layout.simple_spinner_item, freqs);
-		spinner4ArrayAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item); // The drop down vieww
-		spinner4.setAdapter(spinner4ArrayAdapter);
+					@Override
+					public void onNothingSelected(AdapterView<?> parent)
+					{
+						//do nothing
+					}
+				});
 
-		if(profileName!=null && !profileName.equals("")){
-			ArrayAdapter<String> spinner1Adap = (ArrayAdapter<String>) spinner4.getAdapter();
-			int spinner1Position = spinner1Adap.getPosition(profile.getCpu1max());
-			spinner4.setSelection(spinner1Position);
+			/**spinner4*/
+			ArrayAdapter<String> spinner4ArrayAdapter = new ArrayAdapter<String>(this,   android.R.layout.simple_spinner_item, freqs);
+			spinner4ArrayAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item); // The drop down vieww
+			spinner4.setAdapter(spinner4ArrayAdapter);
+
+			if(profileName!=null && !profileName.equals("")){
+				ArrayAdapter<String> spinner1Adap = (ArrayAdapter<String>) spinner4.getAdapter();
+				int spinner1Position = spinner1Adap.getPosition(profile.getCpu1max());
+				spinner4.setSelection(spinner1Position);
 			}
-		
-		spinner4.setOnItemSelectedListener(new OnItemSelectedListener() {
-        		@Override
-        	    public void onItemSelected(AdapterView<?> parent, View view, int pos, long id)
-				{
-        	    	cpu1max = parent.getItemAtPosition(pos).toString();
 
-        	    }
+			spinner4.setOnItemSelectedListener(new OnItemSelectedListener() {
+					@Override
+					public void onItemSelected(AdapterView<?> parent, View view, int pos, long id)
+					{
+						cpu1max = parent.getItemAtPosition(pos).toString();
 
-        		@Override
-        	    public void onNothingSelected(AdapterView<?> parent)
-				{
-        	        //do nothing
-        	    }
-        	});
+					}
 
-		/**spinner10*/
-		ArrayAdapter<String> spinner12ArrayAdapter = new ArrayAdapter<String>(this,   android.R.layout.simple_spinner_item, govs);
-		spinner12ArrayAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item); // The drop down vieww
-		spinner12.setAdapter(spinner12ArrayAdapter);
+					@Override
+					public void onNothingSelected(AdapterView<?> parent)
+					{
+						//do nothing
+					}
+				});
 
-		if(profileName!=null && !profileName.equals("")){
-			ArrayAdapter<String> spinner1Adap = (ArrayAdapter<String>) spinner12.getAdapter();
-			int spinner1Position = spinner1Adap.getPosition(profile.getCpu1gov());
-			spinner12.setSelection(spinner1Position);
+			/**spinner10*/
+			ArrayAdapter<String> spinner12ArrayAdapter = new ArrayAdapter<String>(this,   android.R.layout.simple_spinner_item, govs);
+			spinner12ArrayAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item); // The drop down vieww
+			spinner12.setAdapter(spinner12ArrayAdapter);
+
+			if(profileName!=null && !profileName.equals("")){
+				ArrayAdapter<String> spinner1Adap = (ArrayAdapter<String>) spinner12.getAdapter();
+				int spinner1Position = spinner1Adap.getPosition(profile.getCpu1gov());
+				spinner12.setSelection(spinner1Position);
 			}
-		
-		spinner12.setOnItemSelectedListener(new OnItemSelectedListener() {
-        		@Override
-        	    public void onItemSelected(AdapterView<?> parent, View view, int pos, long id)
-				{
-        	    	cpu1gov = parent.getItemAtPosition(pos).toString();
 
-        	    }
+			spinner12.setOnItemSelectedListener(new OnItemSelectedListener() {
+					@Override
+					public void onItemSelected(AdapterView<?> parent, View view, int pos, long id)
+					{
+						cpu1gov = parent.getItemAtPosition(pos).toString();
 
-        		@Override
-        	    public void onNothingSelected(AdapterView<?> parent)
-				{
-        	        //do nothing
-        	    }
-        	});
+					}
+
+					@Override
+					public void onNothingSelected(AdapterView<?> parent)
+					{
+						//do nothing
+					}
+				});
 		}
 		else{
 			LinearLayout cpu1minll = (LinearLayout)findViewById(R.id.cpu1min);
 			LinearLayout cpu1maxll = (LinearLayout)findViewById(R.id.cpu1max);
 			LinearLayout cpu1govll = (LinearLayout)findViewById(R.id.cpu1gov);
-			
+
 			cpu1minll.setVisibility(View.GONE);
 			cpu1maxll.setVisibility(View.GONE);
 			cpu1govll.setVisibility(View.GONE);
 		}
 		if(CPUInfo.cpu2Online()==true)
 		{
-		/**spinner5*/
-		ArrayAdapter<String> spinner5ArrayAdapter = new ArrayAdapter<String>(this,   android.R.layout.simple_spinner_item, freqs);
-		spinner5ArrayAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item); // The drop down vieww
-		spinner5.setAdapter(spinner5ArrayAdapter);
+			/**spinner5*/
+			ArrayAdapter<String> spinner5ArrayAdapter = new ArrayAdapter<String>(this,   android.R.layout.simple_spinner_item, freqs);
+			spinner5ArrayAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item); // The drop down vieww
+			spinner5.setAdapter(spinner5ArrayAdapter);
 
-		if(profileName!=null && !profileName.equals("")){
-			ArrayAdapter<String> spinner1Adap = (ArrayAdapter<String>) spinner5.getAdapter();
-			int spinner1Position = spinner1Adap.getPosition(profile.getCpu2min());
-			spinner5.setSelection(spinner1Position);
+			if(profileName!=null && !profileName.equals("")){
+				ArrayAdapter<String> spinner1Adap = (ArrayAdapter<String>) spinner5.getAdapter();
+				int spinner1Position = spinner1Adap.getPosition(profile.getCpu2min());
+				spinner5.setSelection(spinner1Position);
 			}
-		
-		spinner5.setOnItemSelectedListener(new OnItemSelectedListener() {
-        		@Override
-        	    public void onItemSelected(AdapterView<?> parent, View view, int pos, long id)
-				{
-        	    	cpu2min = parent.getItemAtPosition(pos).toString();
 
-        	    }
+			spinner5.setOnItemSelectedListener(new OnItemSelectedListener() {
+					@Override
+					public void onItemSelected(AdapterView<?> parent, View view, int pos, long id)
+					{
+						cpu2min = parent.getItemAtPosition(pos).toString();
 
-        		@Override
-        	    public void onNothingSelected(AdapterView<?> parent)
-				{
-        	        //do nothing
-        	    }
-        	});
+					}
 
-		/**spinner6*/
-		ArrayAdapter<String> spinner6ArrayAdapter = new ArrayAdapter<String>(this,   android.R.layout.simple_spinner_item, freqs);
-		spinner6ArrayAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item); // The drop down vieww
-		spinner6.setAdapter(spinner6ArrayAdapter);
+					@Override
+					public void onNothingSelected(AdapterView<?> parent)
+					{
+						//do nothing
+					}
+				});
 
-		if(profileName!=null && !profileName.equals("")){
-			ArrayAdapter<String> spinner1Adap = (ArrayAdapter<String>) spinner6.getAdapter();
-			int spinner1Position = spinner1Adap.getPosition(profile.getCpu2max());
-			spinner6.setSelection(spinner1Position);
+			/**spinner6*/
+			ArrayAdapter<String> spinner6ArrayAdapter = new ArrayAdapter<String>(this,   android.R.layout.simple_spinner_item, freqs);
+			spinner6ArrayAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item); // The drop down vieww
+			spinner6.setAdapter(spinner6ArrayAdapter);
+
+			if(profileName!=null && !profileName.equals("")){
+				ArrayAdapter<String> spinner1Adap = (ArrayAdapter<String>) spinner6.getAdapter();
+				int spinner1Position = spinner1Adap.getPosition(profile.getCpu2max());
+				spinner6.setSelection(spinner1Position);
 			}
-		
-		spinner6.setOnItemSelectedListener(new OnItemSelectedListener() {
-        		@Override
-        	    public void onItemSelected(AdapterView<?> parent, View view, int pos, long id)
-				{
-        	    	cpu2max = parent.getItemAtPosition(pos).toString();
 
-        	    }
+			spinner6.setOnItemSelectedListener(new OnItemSelectedListener() {
+					@Override
+					public void onItemSelected(AdapterView<?> parent, View view, int pos, long id)
+					{
+						cpu2max = parent.getItemAtPosition(pos).toString();
 
-        		@Override
-        	    public void onNothingSelected(AdapterView<?> parent)
-				{
-        	        //do nothing
-        	    }
-        	});
+					}
 
-		/**spinner11*/
-		ArrayAdapter<String> spinner10ArrayAdapter = new ArrayAdapter<String>(this,   android.R.layout.simple_spinner_item, govs);
-		spinner10ArrayAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item); // The drop down vieww
-		spinner10.setAdapter(spinner10ArrayAdapter);
+					@Override
+					public void onNothingSelected(AdapterView<?> parent)
+					{
+						//do nothing
+					}
+				});
 
-		if(profileName!=null && !profileName.equals("")){
-			ArrayAdapter<String> spinner1Adap = (ArrayAdapter<String>) spinner10.getAdapter();
-			int spinner1Position = spinner1Adap.getPosition(profile.getCpu2gov());
-			spinner10.setSelection(spinner1Position);
+			/**spinner11*/
+			ArrayAdapter<String> spinner10ArrayAdapter = new ArrayAdapter<String>(this,   android.R.layout.simple_spinner_item, govs);
+			spinner10ArrayAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item); // The drop down vieww
+			spinner10.setAdapter(spinner10ArrayAdapter);
+
+			if(profileName!=null && !profileName.equals("")){
+				ArrayAdapter<String> spinner1Adap = (ArrayAdapter<String>) spinner10.getAdapter();
+				int spinner1Position = spinner1Adap.getPosition(profile.getCpu2gov());
+				spinner10.setSelection(spinner1Position);
 			}
-		
-		spinner10.setOnItemSelectedListener(new OnItemSelectedListener() {
-        		@Override
-        	    public void onItemSelected(AdapterView<?> parent, View view, int pos, long id)
-				{
-        	    	cpu2gov = parent.getItemAtPosition(pos).toString();
 
-        	    }
+			spinner10.setOnItemSelectedListener(new OnItemSelectedListener() {
+					@Override
+					public void onItemSelected(AdapterView<?> parent, View view, int pos, long id)
+					{
+						cpu2gov = parent.getItemAtPosition(pos).toString();
 
-        		@Override
-        	    public void onNothingSelected(AdapterView<?> parent)
-				{
-        	        //do nothing
-        	    }
-        	});
-	}
+					}
+
+					@Override
+					public void onNothingSelected(AdapterView<?> parent)
+					{
+						//do nothing
+					}
+				});
+		}
 		else{
 			LinearLayout cpu2minll = (LinearLayout)findViewById(R.id.cpu2min);
 			LinearLayout cpu2maxll = (LinearLayout)findViewById(R.id.cpu2max);
 			LinearLayout cpu2govll = (LinearLayout)findViewById(R.id.cpu2gov);
-			
+
 			cpu2minll.setVisibility(View.GONE);
 			cpu2maxll.setVisibility(View.GONE);
 			cpu2govll.setVisibility(View.GONE);
 		}
 		if(CPUInfo.cpu3Online()==true)
 		{
-		/**spinner7*/
-		
-		ArrayAdapter<String> spinner7ArrayAdapter = new ArrayAdapter<String>(this,   android.R.layout.simple_spinner_item, freqs);
-		spinner7ArrayAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item); // The drop down vieww
-		spinner7.setAdapter(spinner7ArrayAdapter);
+			/**spinner7*/
 
-		if(profileName!=null && !profileName.equals("")){
-			ArrayAdapter<String> spinner1Adap = (ArrayAdapter<String>) spinner7.getAdapter();
-			int spinner1Position = spinner1Adap.getPosition(profile.getCpu3min());
-			spinner7.setSelection(spinner1Position);
+			ArrayAdapter<String> spinner7ArrayAdapter = new ArrayAdapter<String>(this,   android.R.layout.simple_spinner_item, freqs);
+			spinner7ArrayAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item); // The drop down vieww
+			spinner7.setAdapter(spinner7ArrayAdapter);
+
+			if(profileName!=null && !profileName.equals("")){
+				ArrayAdapter<String> spinner1Adap = (ArrayAdapter<String>) spinner7.getAdapter();
+				int spinner1Position = spinner1Adap.getPosition(profile.getCpu3min());
+				spinner7.setSelection(spinner1Position);
 			}
-		
-		spinner7.setOnItemSelectedListener(new OnItemSelectedListener() {
-        		@Override
-        	    public void onItemSelected(AdapterView<?> parent, View view, int pos, long id)
-				{
-        	    	cpu3min = parent.getItemAtPosition(pos).toString();
 
-        	    }
+			spinner7.setOnItemSelectedListener(new OnItemSelectedListener() {
+					@Override
+					public void onItemSelected(AdapterView<?> parent, View view, int pos, long id)
+					{
+						cpu3min = parent.getItemAtPosition(pos).toString();
 
-        		@Override
-        	    public void onNothingSelected(AdapterView<?> parent)
-				{
-        	        //do nothing
-        	    }
-        	});
+					}
 
-		/**spinner8*/
-		ArrayAdapter<String> spinner8ArrayAdapter = new ArrayAdapter<String>(this,   android.R.layout.simple_spinner_item, freqs);
-		spinner8ArrayAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item); // The drop down vieww
-		spinner8.setAdapter(spinner8ArrayAdapter);
+					@Override
+					public void onNothingSelected(AdapterView<?> parent)
+					{
+						//do nothing
+					}
+				});
 
-		if(profileName!=null && !profileName.equals("")){
-			ArrayAdapter<String> spinner1Adap = (ArrayAdapter<String>) spinner8.getAdapter();
-			int spinner1Position = spinner1Adap.getPosition(profile.getCpu3max());
-			spinner8.setSelection(spinner1Position);
+			/**spinner8*/
+			ArrayAdapter<String> spinner8ArrayAdapter = new ArrayAdapter<String>(this,   android.R.layout.simple_spinner_item, freqs);
+			spinner8ArrayAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item); // The drop down vieww
+			spinner8.setAdapter(spinner8ArrayAdapter);
+
+			if(profileName!=null && !profileName.equals("")){
+				ArrayAdapter<String> spinner1Adap = (ArrayAdapter<String>) spinner8.getAdapter();
+				int spinner1Position = spinner1Adap.getPosition(profile.getCpu3max());
+				spinner8.setSelection(spinner1Position);
 			}
-		
-		spinner8.setOnItemSelectedListener(new OnItemSelectedListener() {
-        		@Override
-        	    public void onItemSelected(AdapterView<?> parent, View view, int pos, long id)
-				{
-        	    	cpu3max = parent.getItemAtPosition(pos).toString();
 
-        	    }
+			spinner8.setOnItemSelectedListener(new OnItemSelectedListener() {
+					@Override
+					public void onItemSelected(AdapterView<?> parent, View view, int pos, long id)
+					{
+						cpu3max = parent.getItemAtPosition(pos).toString();
 
-        		@Override
-        	    public void onNothingSelected(AdapterView<?> parent)
-				{
-        	        //do nothing
-        	    }
-        	});
-		
-		/**spinner12*/
-		ArrayAdapter<String> spinner11ArrayAdapter = new ArrayAdapter<String>(this,   android.R.layout.simple_spinner_item, govs);
-		spinner11ArrayAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item); // The drop down vieww
-		spinner11.setAdapter(spinner11ArrayAdapter);
+					}
 
-		if(profileName!=null && !profileName.equals("")){
-			ArrayAdapter<String> spinner1Adap = (ArrayAdapter<String>) spinner11.getAdapter();
-			int spinner1Position = spinner1Adap.getPosition(profile.getCpu3gov());
-			spinner11.setSelection(spinner1Position);
+					@Override
+					public void onNothingSelected(AdapterView<?> parent)
+					{
+						//do nothing
+					}
+				});
+
+			/**spinner12*/
+			ArrayAdapter<String> spinner11ArrayAdapter = new ArrayAdapter<String>(this,   android.R.layout.simple_spinner_item, govs);
+			spinner11ArrayAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item); // The drop down vieww
+			spinner11.setAdapter(spinner11ArrayAdapter);
+
+			if(profileName!=null && !profileName.equals("")){
+				ArrayAdapter<String> spinner1Adap = (ArrayAdapter<String>) spinner11.getAdapter();
+				int spinner1Position = spinner1Adap.getPosition(profile.getCpu3gov());
+				spinner11.setSelection(spinner1Position);
 			}
-		
-		spinner11.setOnItemSelectedListener(new OnItemSelectedListener() {
-        		@Override
-        	    public void onItemSelected(AdapterView<?> parent, View view, int pos, long id)
-				{
-        	    	cpu3gov = parent.getItemAtPosition(pos).toString();
 
-        	    }
+			spinner11.setOnItemSelectedListener(new OnItemSelectedListener() {
+					@Override
+					public void onItemSelected(AdapterView<?> parent, View view, int pos, long id)
+					{
+						cpu3gov = parent.getItemAtPosition(pos).toString();
 
-        		@Override
-        	    public void onNothingSelected(AdapterView<?> parent)
-				{
-        	        //do nothing
-        	    }
-        	});
+					}
+
+					@Override
+					public void onNothingSelected(AdapterView<?> parent)
+					{
+						//do nothing
+					}
+				});
 		}
 		else{
 			LinearLayout cpu3minll = (LinearLayout)findViewById(R.id.cpu3min);
 			LinearLayout cpu3maxll = (LinearLayout)findViewById(R.id.cpu3max);
 			LinearLayout cpu3govll = (LinearLayout)findViewById(R.id.cpu3gov);
-			
+
 			cpu3minll.setVisibility(View.GONE);
 			cpu3maxll.setVisibility(View.GONE);
 			cpu3govll.setVisibility(View.GONE);
 		}
 		if(CPUInfo.voltageExists())
 		{
-		/**spinner13*/
-		ArrayAdapter<String> spinner13ArrayAdapter = new ArrayAdapter<String>(this,   android.R.layout.simple_spinner_item, voltageProfiles);
-		spinner13ArrayAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item); // The drop down vieww
-		spinner13.setAdapter(spinner13ArrayAdapter);
+			/**spinner13*/
+			ArrayAdapter<String> spinner13ArrayAdapter = new ArrayAdapter<String>(this,   android.R.layout.simple_spinner_item, voltageProfiles);
+			spinner13ArrayAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item); // The drop down vieww
+			spinner13.setAdapter(spinner13ArrayAdapter);
 
-		if(profileName!=null && !profileName.equals("")){
-			ArrayAdapter<String> spinner1Adap = (ArrayAdapter<String>) spinner13.getAdapter();
-			int spinner1Position = spinner1Adap.getPosition(profile.getVoltage());
-			spinner13.setSelection(spinner1Position);
+			if(profileName!=null && !profileName.equals("")){
+				ArrayAdapter<String> spinner1Adap = (ArrayAdapter<String>) spinner13.getAdapter();
+				int spinner1Position = spinner1Adap.getPosition(profile.getVoltage());
+				spinner13.setSelection(spinner1Position);
 			}
-		
-		spinner13.setOnItemSelectedListener(new OnItemSelectedListener() {
-        		@Override
-        	    public void onItemSelected(AdapterView<?> parent, View view, int pos, long id)
-				{
-        	    	voltage = parent.getItemAtPosition(pos).toString();
 
-        	    }
+			spinner13.setOnItemSelectedListener(new OnItemSelectedListener() {
+					@Override
+					public void onItemSelected(AdapterView<?> parent, View view, int pos, long id)
+					{
+						voltage = parent.getItemAtPosition(pos).toString();
 
-        		@Override
-        	    public void onNothingSelected(AdapterView<?> parent)
-				{
-        	        //do nothing
-        	    }
-        	});
+					}
+
+					@Override
+					public void onNothingSelected(AdapterView<?> parent)
+					{
+						//do nothing
+					}
+				});
 		}
 		else{
 			LinearLayout voltage = (LinearLayout)findViewById(R.id.voltage);
-			
+
 			voltage.setVisibility(View.GONE);
 		}
 		if(CPUInfo.gpuExists())
 		{
-		/**spinner14*/
-		ArrayAdapter<String> spinner14ArrayAdapter = new ArrayAdapter<String>(this,   android.R.layout.simple_spinner_item, gpu2ds);
-		spinner14ArrayAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item); // The drop down vieww
-		spinner14.setAdapter(spinner14ArrayAdapter);
+			/**spinner14*/
+			ArrayAdapter<String> spinner14ArrayAdapter = new ArrayAdapter<String>(this,   android.R.layout.simple_spinner_item, gpu2ds);
+			spinner14ArrayAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item); // The drop down vieww
+			spinner14.setAdapter(spinner14ArrayAdapter);
 
-		if(profileName!=null && !profileName.equals("")){
-			ArrayAdapter<String> spinner1Adap = (ArrayAdapter<String>) spinner14.getAdapter();
-			int spinner1Position = spinner1Adap.getPosition(profile.getGpu2d());
-			spinner14.setSelection(spinner1Position);
+			if(profileName!=null && !profileName.equals("")){
+				ArrayAdapter<String> spinner1Adap = (ArrayAdapter<String>) spinner14.getAdapter();
+				int spinner1Position = spinner1Adap.getPosition(profile.getGpu2d());
+				spinner14.setSelection(spinner1Position);
 			}
-		
-		spinner14.setOnItemSelectedListener(new OnItemSelectedListener() {
-        		@Override
-        	    public void onItemSelected(AdapterView<?> parent, View view, int pos, long id)
-				{
-        	    	gpu2d = parent.getItemAtPosition(pos).toString();
 
-        	    }
+			spinner14.setOnItemSelectedListener(new OnItemSelectedListener() {
+					@Override
+					public void onItemSelected(AdapterView<?> parent, View view, int pos, long id)
+					{
+						gpu2d = parent.getItemAtPosition(pos).toString();
 
-        		@Override
-        	    public void onNothingSelected(AdapterView<?> parent)
-				{
-        	        //do nothing
-        	    }
-        	});
-		
-		/**spinner15*/
-		ArrayAdapter<String> spinner15ArrayAdapter = new ArrayAdapter<String>(this,   android.R.layout.simple_spinner_item, gpu3ds);
-		spinner15ArrayAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item); // The drop down vieww
-		spinner15.setAdapter(spinner15ArrayAdapter);
+					}
 
-		if(profileName!=null && !profileName.equals("")){
-			ArrayAdapter<String> spinner1Adap = (ArrayAdapter<String>) spinner15.getAdapter();
-			int spinner1Position = spinner1Adap.getPosition(profile.getGpu3d());
-			spinner15.setSelection(spinner1Position);
+					@Override
+					public void onNothingSelected(AdapterView<?> parent)
+					{
+						//do nothing
+					}
+				});
+
+			/**spinner15*/
+			ArrayAdapter<String> spinner15ArrayAdapter = new ArrayAdapter<String>(this,   android.R.layout.simple_spinner_item, gpu3ds);
+			spinner15ArrayAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item); // The drop down vieww
+			spinner15.setAdapter(spinner15ArrayAdapter);
+
+			if(profileName!=null && !profileName.equals("")){
+				ArrayAdapter<String> spinner1Adap = (ArrayAdapter<String>) spinner15.getAdapter();
+				int spinner1Position = spinner1Adap.getPosition(profile.getGpu3d());
+				spinner15.setSelection(spinner1Position);
 			}
-		
-		spinner15.setOnItemSelectedListener(new OnItemSelectedListener() {
-        		@Override
-        	    public void onItemSelected(AdapterView<?> parent, View view, int pos, long id)
-				{
-        	    	gpu3d = parent.getItemAtPosition(pos).toString();
 
-        	    }
+			spinner15.setOnItemSelectedListener(new OnItemSelectedListener() {
+					@Override
+					public void onItemSelected(AdapterView<?> parent, View view, int pos, long id)
+					{
+						gpu3d = parent.getItemAtPosition(pos).toString();
 
-        		@Override
-        	    public void onNothingSelected(AdapterView<?> parent)
-				{
-        	        //do nothing
-        	    }
-        	});
+					}
+
+					@Override
+					public void onNothingSelected(AdapterView<?> parent)
+					{
+						//do nothing
+					}
+				});
 		}
 		else{
 			LinearLayout gpu2dll = (LinearLayout)findViewById(R.id.gpu2d);
 			LinearLayout gpu3dll = (LinearLayout)findViewById(R.id.gpu3d);
-			
+
 			gpu2dll.setVisibility(View.GONE);
 			gpu3dll.setVisibility(View.GONE);
 		}
 		if(CPUInfo.cdExists())
 		{
-		/**spinner16*/
-		ArrayAdapter<String> spinner16ArrayAdapter = new ArrayAdapter<String>(this,   android.R.layout.simple_spinner_item, cd);
-		spinner16ArrayAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item); // The drop down vieww
-		spinner16.setAdapter(spinner16ArrayAdapter);
+			/**spinner16*/
+			ArrayAdapter<String> spinner16ArrayAdapter = new ArrayAdapter<String>(this,   android.R.layout.simple_spinner_item, cd);
+			spinner16ArrayAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item); // The drop down vieww
+			spinner16.setAdapter(spinner16ArrayAdapter);
 
-		if(profileName!=null && !profileName.equals("")){
-			ArrayAdapter<String> spinner1Adap = (ArrayAdapter<String>) spinner16.getAdapter();
-			int spinner1Position = spinner1Adap.getPosition(profile.getCdepth());
-			spinner16.setSelection(spinner1Position);
+			if(profileName!=null && !profileName.equals("")){
+				ArrayAdapter<String> spinner1Adap = (ArrayAdapter<String>) spinner16.getAdapter();
+				int spinner1Position = spinner1Adap.getPosition(profile.getCdepth());
+				spinner16.setSelection(spinner1Position);
 			}
-		
-		spinner16.setOnItemSelectedListener(new OnItemSelectedListener() {
-        		@Override
-        	    public void onItemSelected(AdapterView<?> parent, View view, int pos, long id)
-				{
-        	    	cdepth = parent.getItemAtPosition(pos).toString();
 
-        	    }
+			spinner16.setOnItemSelectedListener(new OnItemSelectedListener() {
+					@Override
+					public void onItemSelected(AdapterView<?> parent, View view, int pos, long id)
+					{
+						cdepth = parent.getItemAtPosition(pos).toString();
 
-        		@Override
-        	    public void onNothingSelected(AdapterView<?> parent)
-				{
-        	        //do nothing
-        	    }
-        	});
+					}
+
+					@Override
+					public void onNothingSelected(AdapterView<?> parent)
+					{
+						//do nothing
+					}
+				});
 		}
 		else{
 			LinearLayout cdepthll = (LinearLayout)findViewById(R.id.cdepth);
-			
+
 			cdepthll.setVisibility(View.GONE);
 		}
 		/**spinner17*/
@@ -792,8 +777,8 @@ public class ProfileEditor extends Activity
 			ArrayAdapter<String> spinner1Adap = (ArrayAdapter<String>) spinner17.getAdapter();
 			int spinner1Position = spinner1Adap.getPosition(profile.getIoScheduler());
 			spinner17.setSelection(spinner1Position);
-			}
-		
+		}
+
 		spinner17.setOnItemSelectedListener(new OnItemSelectedListener() {
         		@Override
         	    public void onItemSelected(AdapterView<?> parent, View view, int pos, long id)
@@ -810,66 +795,67 @@ public class ProfileEditor extends Activity
         	});
 		if(CPUInfo.s2wExists())
 		{
-		/**spinner18*/
-		ArrayAdapter<String> spinner18ArrayAdapter = new ArrayAdapter<String>(this,   android.R.layout.simple_spinner_item, sweep2wake);
-		spinner18ArrayAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item); // The drop down vieww
-		spinner18.setAdapter(spinner18ArrayAdapter);
+			/**spinner18*/
+			ArrayAdapter<String> spinner18ArrayAdapter = new ArrayAdapter<String>(this,   android.R.layout.simple_spinner_item, sweep2wake);
+			spinner18ArrayAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item); // The drop down vieww
+			spinner18.setAdapter(spinner18ArrayAdapter);
 
-		if(profileName!=null && !profileName.equals("")){
-			ArrayAdapter<String> spinner1Adap = (ArrayAdapter<String>) spinner18.getAdapter();
-			if(profile.getSweep2wake()==0){
-				int spinner1Position = spinner1Adap.getPosition("OFF");
-				spinner18.setSelection(spinner1Position);
-			}
-			else if(profile.getSweep2wake()==1){
-				int spinner1Position = spinner1Adap.getPosition("ON with no backlight");
-				spinner18.setSelection(spinner1Position);
-			}
-			else if(profile.getSweep2wake()==1){
-				int spinner1Position = spinner1Adap.getPosition("ON with backlight");
-				spinner18.setSelection(spinner1Position);
-			}
-			
-			}
-		
-		spinner18.setOnItemSelectedListener(new OnItemSelectedListener() {
-        		@Override
-        	    public void onItemSelected(AdapterView<?> parent, View view, int pos, long id)
-				{
-        			if(parent.getItemAtPosition(pos).toString().equals("ON with no backlight"))
-        	    	{
-        				s2w = 1;
-        	    	}
-        			else if(parent.getItemAtPosition(pos).toString().equals("OFF"))
-        	    	{
-        				s2w = 0;
-        	    	}
-        			else if(parent.getItemAtPosition(pos).toString().equals("ON with backlight"))
-        	    	{
-        				s2w = 2;
-        	    	}
-        			else if(parent.getItemAtPosition(pos).toString().equals("Unchanged"))
-        	    	{
-        				s2w = 3;
-        	    	}
-        			
+			if(profileName!=null && !profileName.equals("")){
+				ArrayAdapter<String> spinner1Adap = (ArrayAdapter<String>) spinner18.getAdapter();
+				if(profile.getSweep2wake()==0){
+					int spinner1Position = spinner1Adap.getPosition("OFF");
+					spinner18.setSelection(spinner1Position);
+				}
+				else if(profile.getSweep2wake()==1){
+					int spinner1Position = spinner1Adap.getPosition("ON with no backlight");
+					spinner18.setSelection(spinner1Position);
+				}
+				else if(profile.getSweep2wake()==1){
+					int spinner1Position = spinner1Adap.getPosition("ON with backlight");
+					spinner18.setSelection(spinner1Position);
+				}
 
-        	    }
+			}
 
-        		@Override
-        	    public void onNothingSelected(AdapterView<?> parent)
-				{
-        	        //do nothing
-        	    }
-        	});
+			spinner18.setOnItemSelectedListener(new OnItemSelectedListener() {
+					@Override
+					public void onItemSelected(AdapterView<?> parent, View view, int pos, long id)
+					{
+						if(parent.getItemAtPosition(pos).toString().equals("ON with no backlight"))
+						{
+							s2w = 1;
+						}
+						else if(parent.getItemAtPosition(pos).toString().equals("OFF"))
+						{
+							s2w = 0;
+						}
+						else if(parent.getItemAtPosition(pos).toString().equals("ON with backlight"))
+						{
+							s2w = 2;
+						}
+						else if(parent.getItemAtPosition(pos).toString().equals("Unchanged"))
+						{
+							s2w = 3;
+						}
+
+
+					}
+
+					@Override
+					public void onNothingSelected(AdapterView<?> parent)
+					{
+						//do nothing
+					}
+				});
 		}
 		else{
 			LinearLayout s2wll = (LinearLayout)findViewById(R.id.s2w);
-			
+
 			s2wll.setVisibility(View.GONE);
 		}
-		
+			
 	}
+
 
 	@Override
 	public boolean onCreateOptionsMenu(Menu menu) {

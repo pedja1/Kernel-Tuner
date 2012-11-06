@@ -55,7 +55,7 @@ public class CPUInfo
 	public static String GPU = "/sys/devices/platform/kgsl-3d0.0/kgsl/kgsl-3d0/max_gpuclk";
 	public static String CDEPTH = "/sys/kernel/debug/msm_fb/0/bpp";
 	public static String S2W = "/sys/android_touch/sweep2wake";
-	public static String S2W_ALT = "/sys/android_touch/sweep2wake/s2w_switch";
+	public static String S2W_ALT = "c/sys/android_touch/sweep2wake/s2w_switch";
 	public static String MPDECISION = "/sys/kernel/msm_mpdecision/conf/enabled";
 	public static String BUTTONS_LIGHT = "/sys/devices/platform/leds-pm8058/leds/button-backlight/currents";
 	public static String SD_CACHE = "/sys/devices/virtual/bdi/179:0/read_ahead_kb";
