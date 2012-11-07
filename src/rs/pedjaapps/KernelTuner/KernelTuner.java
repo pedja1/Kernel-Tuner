@@ -20,6 +20,8 @@ import com.google.ads.*;
 import java.io.*;
 import java.net.*;
 import java.util.*;
+import android.app.ActivityManager;
+import android.app.ActivityManager.RunningAppProcessInfo;
 
 import java.lang.Process;
 
@@ -887,6 +889,22 @@ public class KernelTuner extends Activity
 	{
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.main);
+		
+		ActivityManager manager = (ActivityManager) getSystemService(ACTIVITY_SERVICE);
+        List<RunningAppProcessInfo> runningProcesses = manager.getRunningAppProcesses();
+	//	System.out.println("process name"+	runningProcesses.get(6).processName);
+		
+		final PackageManager pm = getApplicationContext().getPackageManager(); 
+		ApplicationInfo ai; 
+		try {
+			ai = pm.getApplicationInfo( runningProcesses.get(6).processName, 0); 
+			} 
+		catch (final NameNotFoundException e)
+		{ 
+		ai = null; 
+		}
+		
+	System.out.println("app name"+	pm.getApplicationLabel(ai));
 		tempLayout = (LinearLayout)findViewById(R.id.test1a);
 		if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.HONEYCOMB)
         {
