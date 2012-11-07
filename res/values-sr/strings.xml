@@ -14,6 +14,8 @@
     <string name="title_preferences">Podešavanja</string>
     <string name="app_name">Kernel Tuner</string>
     <string name="oc">Procesor</string>
+    
+    <string name="task_manager">Task Manager</string>
     <string name="preferences_boot_settings">Boot Settings</string>
     <string name="preferences_boot_settings_apply_summary">Podešavanja će se sačuvati posle restarta</string>
     <string name="preferences_boot_settings_apply_title">Vrati podešavanja posle restarta</string>

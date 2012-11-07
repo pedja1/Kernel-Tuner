@@ -14,6 +14,7 @@
     <string name="title_preferences">Settings</string>
     <string name="app_name">Kernel Tuner</string>
     <string name="oc">CPU Tweaks</string>
+    <string name="task_manager">Task Manager</string>
     <string name="preferences_boot_settings">Boot Settings</string>
     <string name="preferences_boot_settings_apply_summary">Setings will be restored after reboot</string>
     <string name="preferences_boot_settings_apply_title">Restore settings on boot</string>

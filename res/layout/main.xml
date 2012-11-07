@@ -59,43 +59,6 @@
             </LinearLayout>
 
             <LinearLayout
-                android:id="@+id/linearLayout3"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:orientation="horizontal" >
-
-                <Button
-                    android:id="@+id/button3"
-                    style="?android:attr/buttonStyleSmall"
-                    android:layout_width="match_parent"
-                    android:layout_height="match_parent"
-                    android:layout_weight="1"
-                    android:drawableTop="@drawable/gpu"
-                    android:gravity="center|center_vertical"
-                    android:text="@string/title_gpu" />
-
-                <Button
-                    android:id="@+id/button4"
-                    style="?android:attr/buttonStyleSmall"
-                    android:layout_width="match_parent"
-                    android:layout_height="match_parent"
-                    android:layout_weight="1"
-                    android:drawableTop="@drawable/misc"
-                    android:gravity="center|center_vertical"
-                    android:text="@string/title_misc" />
-
-                <Button
-                    android:id="@+id/button12"
-                    style="?android:attr/buttonStyleSmall"
-                    android:layout_width="match_parent"
-                    android:layout_height="match_parent"
-                    android:layout_weight="1"
-                    android:drawableTop="@drawable/profile"
-                    android:gravity="center|center_vertical"
-                    android:text="@string/profiles" />
-            </LinearLayout>
-
-            <LinearLayout
                 android:id="@+id/LinearLayout2"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
@@ -134,6 +97,43 @@
             </LinearLayout>
 
             <LinearLayout
+                android:id="@+id/linearLayout3"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal" >
+
+                <Button
+                    android:id="@+id/button3"
+                    style="?android:attr/buttonStyleSmall"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:layout_weight="1"
+                    android:drawableTop="@drawable/gpu"
+                    android:gravity="center|center_vertical"
+                    android:text="@string/title_gpu" />
+
+                <Button
+                    android:id="@+id/button4"
+                    style="?android:attr/buttonStyleSmall"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:layout_weight="1"
+                    android:drawableTop="@drawable/misc"
+                    android:gravity="center|center_vertical"
+                    android:text="@string/title_misc" />
+
+                <Button
+                    android:id="@+id/button12"
+                    style="?android:attr/buttonStyleSmall"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:layout_weight="1"
+                    android:drawableTop="@drawable/profile"
+                    android:gravity="center|center_vertical"
+                    android:text="@string/profiles" />
+            </LinearLayout>
+
+            <LinearLayout
                 android:id="@+id/linearLayout4"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
@@ -147,7 +147,7 @@
                     android:layout_weight="1"
                     android:drawableTop="@drawable/swap"
                     android:gravity="center|center_vertical"
-                    android:text="@string/swap" />
+                    android:text="@string/task_manager" />
 
                 <Button
                     android:id="@+id/button14"
