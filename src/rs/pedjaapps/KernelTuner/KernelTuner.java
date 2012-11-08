@@ -903,14 +903,16 @@ public class KernelTuner extends Activity
 		If auto update check is enabled check for updates
 		*/
 		File file = new File("/sys/kernel/debug");
-		if(file.list().length>0){
+		
+		if(file.exists() && file.list().length>0){
 			
+			System.out.println("Mounting debug fs");
 		}
 		else{
-			//this.pd = ProgressDialog.show(this, "Working..",
-				//	  "Mounting debug filesystem", true, false);
+			System.out.println("Debug fs already mounted");
 			new mountDebugFs().execute();
 		}
+		
 		boolean update = sharedPrefs.getBoolean("update", true);
 		if (update == true)
 		{
