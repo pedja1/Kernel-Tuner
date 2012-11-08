@@ -7,6 +7,7 @@ import android.os.*;
 import android.preference.*;
 import android.view.*;
 import android.widget.*;
+import android.widget.CompoundButton.OnCheckedChangeListener;
 import android.widget.AdapterView.*;
 import android.widget.SeekBar.*;
 import com.google.ads.*;
@@ -102,9 +103,10 @@ public class CPUActivity extends Activity
 
 	ProgressDialog pd;	
 	
-	SharedPreferences preferences;
+	SharedPreferences sharedPrefs;
 
-
+	CheckBox cb;
+	boolean cpuLock;
 
 	private class ToggleCPUs extends AsyncTask<Boolean, Void, Boolean>
 	{
@@ -233,7 +235,7 @@ public class CPUActivity extends Activity
 		new ToggleCPUs().execute(new Boolean[] {true});
 
 
-		SharedPreferences sharedPrefs = PreferenceManager.getDefaultSharedPreferences(this);
+		sharedPrefs = PreferenceManager.getDefaultSharedPreferences(this);
 		boolean ads = sharedPrefs.getBoolean("ads", true);
 		if (ads == true)
 		{AdView adView = (AdView)this.findViewById(R.id.ad);
@@ -291,6 +293,64 @@ public class CPUActivity extends Activity
 		cpuLoadTxt = (TextView)findViewById(R.id.textView26);
 
 		cpuLoad = (ProgressBar)findViewById(R.id.progressBar5);
+		
+		cpu0Online = CPUInfo.cpu0Online();
+		cpu1Online = CPUInfo.cpu1Online();
+		cpu2Online = CPUInfo.cpu2Online();
+		cpu3Online = CPUInfo.cpu3Online();
+		cb = (CheckBox)findViewById(R.id.cb);
+		cpuLock = sharedPrefs.getBoolean("cpuLock", false);
+		if(cpuLock==false){
+			cb.setChecked(false);
+		}
+		else if(cpuLock==true){
+			cb.setChecked(true);
+		}
+		
+		cb.setOnCheckedChangeListener(new OnCheckedChangeListener(){
+
+			@Override
+			public void onCheckedChanged(CompoundButton arg0, boolean arg1) {
+				// TODO Auto-generated method stub
+				
+					SharedPreferences.Editor editor = sharedPrefs.edit();
+					editor.putBoolean("cpuLock", arg1);
+					editor.commit();
+				
+			}
+			
+		});
+		if (cpu1Online == false)
+		{
+			rlcpu1.setVisibility(View.GONE);
+			cb.setVisibility(View.GONE);
+			curFreq1.setVisibility(View.GONE);
+			progCpu1.setVisibility(View.GONE);
+			cpu1txt.setVisibility(View.GONE);
+			cpu1govtxt.setVisibility(View.GONE);
+			gov1spinner.setVisibility(View.GONE);
+			
+		}
+		if (cpu2Online == false)
+		{
+			rlcpu2.setVisibility(View.GONE);
+
+			curFreq2.setVisibility(View.GONE);
+			progCpu2.setVisibility(View.GONE);
+			cpu2txt.setVisibility(View.GONE);
+			cpu2govtxt.setVisibility(View.GONE);
+			gov2spinner.setVisibility(View.GONE);
+		}
+		if (cpu3Online == false)
+		{
+			rlcpu3.setVisibility(View.GONE);
+
+			curFreq3.setVisibility(View.GONE);
+			progCpu3.setVisibility(View.GONE);
+			cpu3txt.setVisibility(View.GONE);
+			cpu3govtxt.setVisibility(View.GONE);
+			gov3spinner.setVisibility(View.GONE);
+		}
 
 startCpuLoadThread();
 
@@ -299,7 +359,6 @@ startCpuLoadThread();
 	@Override
 	public void onResume()
 	{
-		SharedPreferences sharedPrefs = PreferenceManager.getDefaultSharedPreferences(this);
 		tempUnit = sharedPrefs.getString("temp", "celsius");
 		frequencies = CPUInfo.frequencies();
 		thread = true;
@@ -449,10 +508,7 @@ startCpuLoadThread();
 	
 	public void updateUI()
 	{
-		cpu0Online = CPUInfo.cpu0Online();
-		cpu1Online = CPUInfo.cpu1Online();
-		cpu2Online = CPUInfo.cpu2Online();
-		cpu3Online = CPUInfo.cpu3Online();
+		
 
 		frequencies = CPUInfo.frequencies();
 		cpu0MinFreq = CPUInfo.cpu0MinFreq();
@@ -471,9 +527,15 @@ startCpuLoadThread();
 		cpu2max.setText(cpu2MaxFreq.substring(0, cpu2MaxFreq.length() - 3) + "Mhz");
 		cpu3min.setText(cpu3MinFreq.substring(0, cpu3MinFreq.length() - 3) + "Mhz");
 		cpu3max.setText(cpu3MaxFreq.substring(0, cpu3MaxFreq.length() - 3) + "Mhz");
-
+		
 		cpu0maxSeek = (VerticalSeekBar)findViewById(R.id.cpu0MaxSeekbar);
 		cpu0minSeek = (VerticalSeekBar)findViewById(R.id.cpu0MinSeekbar);
+		cpu1maxSeek = (VerticalSeekBar)findViewById(R.id.cpu1MaxSeekbar);
+		cpu1minSeek = (VerticalSeekBar)findViewById(R.id.cpu1MinSeekbar);
+		cpu2minSeek = (VerticalSeekBar)findViewById(R.id.cpu2MinSeekbar);
+		cpu2maxSeek = (VerticalSeekBar)findViewById(R.id.cpu2MaxSeekbar);
+		cpu3minSeek = (VerticalSeekBar)findViewById(R.id.cpu3MinSeekbar);
+		cpu3maxSeek = (VerticalSeekBar)findViewById(R.id.cpu3MaxSeekbar);
 		cpu0minSeek.setMax(frequencies.size() - 1);
 		cpu0maxSeek.setMax(frequencies.size() - 1);
 		cpu0minSeek.setProgress(frequencies.indexOf(cpu0MinFreq));
@@ -485,7 +547,17 @@ startCpuLoadThread();
 											  boolean fromUser)
 				{
 					prog = progress;
-
+					if(cb.isChecked()){
+						if(CPUInfo.cpu1Online()){
+						cpu1minSeek.setProgressAndThumb(progress);
+						}
+						if(CPUInfo.cpu2Online()){
+							cpu2minSeek.setProgressAndThumb(progress);
+							}
+						if(CPUInfo.cpu3Online()){
+							cpu3minSeek.setProgressAndThumb(progress);
+							}
+					}
 
 					cpu0min.setText(frequencies.get(progress).substring(0, frequencies.get(progress).length() - 3) + "Mhz");
 
@@ -508,8 +580,20 @@ startCpuLoadThread();
 					}
 					else
 					{
+						
 						new FrequencyChanger(CPUActivity.this).execute(new String[] {"cpu0","min", frequencies.get(prog)});
-
+						if(cb.isChecked()){
+							if(CPUInfo.cpu1Online()){
+							new FrequencyChanger(CPUActivity.this).execute(new String[] {"cpu1","min", frequencies.get(prog)});
+							}
+							if(CPUInfo.cpu2Online()){
+								new FrequencyChanger(CPUActivity.this).execute(new String[] {"cpu2","min", frequencies.get(prog)});
+								}
+							if(CPUInfo.cpu3Online()){
+								new FrequencyChanger(CPUActivity.this).execute(new String[] {"cpu3","min", frequencies.get(prog)});
+								}
+							
+						}
 					}
 
 
@@ -524,6 +608,17 @@ startCpuLoadThread();
 				{
 					prog = progress;
 
+					if(cb.isChecked()){
+						if(CPUInfo.cpu1Online()){
+						cpu1maxSeek.setProgressAndThumb(progress);
+						}
+						if(CPUInfo.cpu2Online()){
+							cpu2maxSeek.setProgressAndThumb(progress);
+							}
+						if(CPUInfo.cpu3Online()){
+							cpu3maxSeek.setProgressAndThumb(progress);
+							}
+					}
 
 					cpu0max.setText(frequencies.get(progress).substring(0, frequencies.get(progress).length() - 3) + "Mhz");
 
@@ -548,7 +643,17 @@ startCpuLoadThread();
 					else
 					{
 						new FrequencyChanger(CPUActivity.this).execute(new String[] {"cpu0","max", frequencies.get(prog)});
-
+						if(cb.isChecked()){
+							if(CPUInfo.cpu1Online()){
+							new FrequencyChanger(CPUActivity.this).execute(new String[] {"cpu1","max", frequencies.get(prog)});
+							}
+							if(CPUInfo.cpu2Online()){
+								new FrequencyChanger(CPUActivity.this).execute(new String[] {"cpu2","max", frequencies.get(prog)});
+								}
+							if(CPUInfo.cpu3Online()){
+								new FrequencyChanger(CPUActivity.this).execute(new String[] {"cpu3","max", frequencies.get(prog)});
+								}
+						}
 					}
 
 
@@ -557,8 +662,7 @@ startCpuLoadThread();
 			});
 		if (cpu1Online == true)
 		{
-			cpu1maxSeek = (VerticalSeekBar)findViewById(R.id.cpu1MaxSeekbar);
-			cpu1minSeek = (VerticalSeekBar)findViewById(R.id.cpu1MinSeekbar);
+			
 			cpu1minSeek.setMax(frequencies.size() - 1);
 			cpu1maxSeek.setMax(frequencies.size() - 1);
 			cpu1minSeek.setProgress(frequencies.indexOf(cpu1MinFreq));
@@ -571,7 +675,18 @@ startCpuLoadThread();
 					{
 						prog = progress;
 
-
+						if(cb.isChecked()){
+							if(CPUInfo.cpu0Online()){
+							cpu0minSeek.setProgressAndThumb(progress);
+							}
+							if(CPUInfo.cpu2Online()){
+								cpu2minSeek.setProgressAndThumb(progress);
+								}
+							if(CPUInfo.cpu3Online()){
+								cpu3minSeek.setProgressAndThumb(progress);
+								}
+						}
+						
 						cpu1min.setText(frequencies.get(progress).substring(0, frequencies.get(progress).length() - 3) + "Mhz");
 
 
@@ -596,7 +711,17 @@ startCpuLoadThread();
 						else
 						{
 							new FrequencyChanger(CPUActivity.this).execute(new String[] {"cpu1","min", frequencies.get(prog)});
-
+							if(cb.isChecked()){
+								if(CPUInfo.cpu0Online()){
+								new FrequencyChanger(CPUActivity.this).execute(new String[] {"cpu0","min", frequencies.get(prog)});
+								}
+								if(CPUInfo.cpu2Online()){
+									new FrequencyChanger(CPUActivity.this).execute(new String[] {"cpu2","min", frequencies.get(prog)});
+									}
+								if(CPUInfo.cpu3Online()){
+									new FrequencyChanger(CPUActivity.this).execute(new String[] {"cpu3","min", frequencies.get(prog)});
+									}
+							}
 						}
 
 
@@ -611,7 +736,18 @@ startCpuLoadThread();
 					{
 						prog = progress;
 
-
+						if(cb.isChecked()){
+							if(CPUInfo.cpu0Online()){
+							cpu0maxSeek.setProgressAndThumb(progress);
+							}
+							if(CPUInfo.cpu2Online()){
+								cpu2maxSeek.setProgressAndThumb(progress);
+								}
+							if(CPUInfo.cpu3Online()){
+								cpu3maxSeek.setProgressAndThumb(progress);
+								}
+						}
+						
 						cpu1max.setText(frequencies.get(progress).substring(0, frequencies.get(progress).length() - 3) + "Mhz");
 
 
@@ -635,7 +771,17 @@ startCpuLoadThread();
 						else
 						{
 							new FrequencyChanger(CPUActivity.this).execute(new String[] {"cpu1","max", frequencies.get(prog)});
-
+							if(cb.isChecked()){
+								if(CPUInfo.cpu0Online()){
+								new FrequencyChanger(CPUActivity.this).execute(new String[] {"cpu0","max", frequencies.get(prog)});
+								}
+								if(CPUInfo.cpu2Online()){
+									new FrequencyChanger(CPUActivity.this).execute(new String[] {"cpu2","max", frequencies.get(prog)});
+									}
+								if(CPUInfo.cpu3Online()){
+									new FrequencyChanger(CPUActivity.this).execute(new String[] {"cpu3","max", frequencies.get(prog)});
+									}
+							}
 						}
 
 
@@ -646,8 +792,6 @@ startCpuLoadThread();
 		}
 		if (cpu2Online == true)
 		{
-			cpu2minSeek = (VerticalSeekBar)findViewById(R.id.cpu2MinSeekbar);
-			cpu2maxSeek = (VerticalSeekBar)findViewById(R.id.cpu2MaxSeekbar);
 			cpu2minSeek.setMax(frequencies.size() - 1);
 			cpu2maxSeek.setMax(frequencies.size() - 1);
 			cpu2minSeek.setProgress(frequencies.indexOf(cpu2MinFreq));
@@ -660,7 +804,18 @@ startCpuLoadThread();
 					{
 						prog = progress;
 
-
+						if(cb.isChecked()){
+							if(CPUInfo.cpu0Online()){
+							cpu0minSeek.setProgressAndThumb(progress);
+							}
+							if(CPUInfo.cpu1Online()){
+								cpu1minSeek.setProgressAndThumb(progress);
+								}
+							if(CPUInfo.cpu3Online()){
+								cpu3minSeek.setProgressAndThumb(progress);
+								}
+						}
+						
 						cpu2min.setText(frequencies.get(progress).substring(0, frequencies.get(progress).length() - 3) + "Mhz");
 
 
@@ -686,6 +841,17 @@ startCpuLoadThread();
 						{
 							new FrequencyChanger(CPUActivity.this).execute(new String[] {"cpu2","min", frequencies.get(prog)});
 
+							if(cb.isChecked()){
+								if(CPUInfo.cpu0Online()){
+								new FrequencyChanger(CPUActivity.this).execute(new String[] {"cpu0","min", frequencies.get(prog)});
+								}
+								if(CPUInfo.cpu1Online()){
+									new FrequencyChanger(CPUActivity.this).execute(new String[] {"cpu1","min", frequencies.get(prog)});
+									}
+								if(CPUInfo.cpu3Online()){
+									new FrequencyChanger(CPUActivity.this).execute(new String[] {"cpu3","min", frequencies.get(prog)});
+									}
+							}
 						}
 
 
@@ -700,7 +866,18 @@ startCpuLoadThread();
 					{
 						prog = progress;
 
-
+						if(cb.isChecked()){
+							if(CPUInfo.cpu0Online()){
+							cpu0maxSeek.setProgressAndThumb(progress);
+							}
+							if(CPUInfo.cpu1Online()){
+								cpu1maxSeek.setProgressAndThumb(progress);
+								}
+							if(CPUInfo.cpu3Online()){
+								cpu3maxSeek.setProgressAndThumb(progress);
+								}
+						}
+						
 						cpu2max.setText(frequencies.get(progress).substring(0, frequencies.get(progress).length() - 3) + "Mhz");
 
 
@@ -724,7 +901,17 @@ startCpuLoadThread();
 						else
 						{
 							new FrequencyChanger(CPUActivity.this).execute(new String[] {"cpu2","max", frequencies.get(prog)});
-
+							if(cb.isChecked()){
+								if(CPUInfo.cpu0Online()){
+								new FrequencyChanger(CPUActivity.this).execute(new String[] {"cpu0","max", frequencies.get(prog)});
+								}
+								if(CPUInfo.cpu1Online()){
+									new FrequencyChanger(CPUActivity.this).execute(new String[] {"cpu1","max", frequencies.get(prog)});
+									}
+								if(CPUInfo.cpu3Online()){
+									new FrequencyChanger(CPUActivity.this).execute(new String[] {"cpu3","max", frequencies.get(prog)});
+									}
+							}
 						}
 
 
@@ -734,8 +921,6 @@ startCpuLoadThread();
 		}
 		if (cpu3Online == true)
 		{
-			cpu3minSeek = (VerticalSeekBar)findViewById(R.id.cpu3MinSeekbar);
-			cpu3maxSeek = (VerticalSeekBar)findViewById(R.id.cpu3MaxSeekbar);
 			cpu3minSeek.setMax(frequencies.size() - 1);
 			cpu3maxSeek.setMax(frequencies.size() - 1);
 			cpu3minSeek.setProgress(frequencies.indexOf(cpu3MinFreq));
@@ -748,7 +933,18 @@ startCpuLoadThread();
 					{
 						prog = progress;
 
-
+						if(cb.isChecked()){
+							if(CPUInfo.cpu0Online()){
+							cpu0minSeek.setProgressAndThumb(progress);
+							}
+							if(CPUInfo.cpu1Online()){
+								cpu1minSeek.setProgressAndThumb(progress);
+								}
+							if(CPUInfo.cpu2Online()){
+								cpu2minSeek.setProgressAndThumb(progress);
+								}
+						}
+						
 						cpu3min.setText(frequencies.get(progress).substring(0, frequencies.get(progress).length() - 3) + "Mhz");
 
 
@@ -773,7 +969,17 @@ startCpuLoadThread();
 						else
 						{
 							new FrequencyChanger(CPUActivity.this).execute(new String[] {"cpu3","min", frequencies.get(prog)});
-
+							if(cb.isChecked()){
+								if(CPUInfo.cpu0Online()){
+								new FrequencyChanger(CPUActivity.this).execute(new String[] {"cpu0","max", frequencies.get(prog)});
+								}
+								if(CPUInfo.cpu1Online()){
+									new FrequencyChanger(CPUActivity.this).execute(new String[] {"cpu1","min", frequencies.get(prog)});
+									}
+								if(CPUInfo.cpu2Online()){
+									new FrequencyChanger(CPUActivity.this).execute(new String[] {"cpu2","min", frequencies.get(prog)});
+									}
+							}
 						}
 
 
@@ -788,7 +994,18 @@ startCpuLoadThread();
 					{
 						prog = progress;
 
-
+						if(cb.isChecked()){
+							if(CPUInfo.cpu0Online()){
+							cpu0maxSeek.setProgressAndThumb(progress);
+							}
+							if(CPUInfo.cpu1Online()){
+								cpu1maxSeek.setProgressAndThumb(progress);
+								}
+							if(CPUInfo.cpu2Online()){
+								cpu2maxSeek.setProgressAndThumb(progress);
+								}
+						}
+						
 						cpu3max.setText(frequencies.get(progress).substring(0, frequencies.get(progress).length() - 3) + "Mhz");
 
 
@@ -812,6 +1029,17 @@ startCpuLoadThread();
 						else
 						{
 							new FrequencyChanger(CPUActivity.this).execute(new String[] {"cpu3","max", frequencies.get(prog)});
+							if(cb.isChecked()){
+								if(CPUInfo.cpu0Online()){
+								new FrequencyChanger(CPUActivity.this).execute(new String[] {"cpu0","max", frequencies.get(prog)});
+								}
+								if(CPUInfo.cpu1Online()){
+									new FrequencyChanger(CPUActivity.this).execute(new String[] {"cpu1","max", frequencies.get(prog)});
+									}
+								if(CPUInfo.cpu2Online()){
+									new FrequencyChanger(CPUActivity.this).execute(new String[] {"cpu2","max", frequencies.get(prog)});
+									}
+							}
 						}
 
 
@@ -822,36 +1050,7 @@ startCpuLoadThread();
 
 
 
-		if (cpu1Online == false)
-		{
-			rlcpu1.setVisibility(View.GONE);
-
-			curFreq1.setVisibility(View.GONE);
-			progCpu1.setVisibility(View.GONE);
-			cpu1txt.setVisibility(View.GONE);
-			cpu1govtxt.setVisibility(View.GONE);
-			gov1spinner.setVisibility(View.GONE);
-		}
-		if (cpu2Online == false)
-		{
-			rlcpu2.setVisibility(View.GONE);
-
-			curFreq2.setVisibility(View.GONE);
-			progCpu2.setVisibility(View.GONE);
-			cpu2txt.setVisibility(View.GONE);
-			cpu2govtxt.setVisibility(View.GONE);
-			gov2spinner.setVisibility(View.GONE);
-		}
-		if (cpu3Online == false)
-		{
-			rlcpu3.setVisibility(View.GONE);
-
-			curFreq3.setVisibility(View.GONE);
-			progCpu3.setVisibility(View.GONE);
-			cpu3txt.setVisibility(View.GONE);
-			cpu3govtxt.setVisibility(View.GONE);
-			gov3spinner.setVisibility(View.GONE);
-		}
+		
 
 		populateGovernorSpinners();
 	}

@@ -140,12 +140,28 @@
         android:scaleType="fitXY"
         android:layout_marginTop="25dp"
         android:src="@drawable/divider_strong_holo" />
+    
+    <ImageView
+        android:id="@+id/imageView3"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_above="@+id/cb"
+        android:layout_alignParentLeft="true"
+        android:scaleType="fitXY"
+        android:src="@drawable/divider_strong_holo" />
+    <CheckBox 
+        android:id="@+id/cb"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_above="@+id/imageView1"
+        android:text="Lock CPUs"
+        />
 
     <LinearLayout
         android:id="@+id/ll1"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_above="@+id/imageView1"
+        android:layout_above="@+id/imageView3"
         android:layout_below="@+id/imageView2"
         
         android:baselineAligned="false" >
