@@ -1163,7 +1163,7 @@ public class KernelTuner extends Activity
 				{
 
 
-					Intent myIntent = new Intent(KernelTuner.this, TaskManagerActivity.class);
+					Intent myIntent = new Intent(KernelTuner.this, Swap.class);
 					KernelTuner.this.startActivity(myIntent);
 
 				}

@@ -147,7 +147,7 @@
                     android:layout_weight="1"
                     android:drawableTop="@drawable/swap"
                     android:gravity="center|center_vertical"
-                    android:text="@string/task_manager" />
+                    android:text="@string/swap" />
 
                 <Button
                     android:id="@+id/button14"
