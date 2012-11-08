@@ -34,6 +34,8 @@ public class TaskManagerActivity extends Activity
 	List<String> pids;
 	List<String> cpu;
 	List<String> mem;
+	List<Integer> status;
+	List<String> processes;
 	boolean check = false;
 	Button displayAll;
 	
@@ -50,6 +52,7 @@ public class TaskManagerActivity extends Activity
 	        pids = new ArrayList<String>();
 	        cpu = new ArrayList<String>();
 	        mem = new ArrayList<String>();
+			status = new ArrayList<Integer>();
 	        try
 			{
 	        	
@@ -112,7 +115,10 @@ public class TaskManagerActivity extends Activity
 			
 		ActivityManager manager = (ActivityManager) getSystemService(ACTIVITY_SERVICE);
         List<RunningAppProcessInfo> runningProcesses = manager.getRunningAppProcesses();
-	
+		processes = new ArrayList<String>();
+	    for(RunningAppProcessInfo p : runningProcesses){
+			processes.add(p.processName);
+		}
         icons = new ArrayList<Drawable>();
 		
 		final PackageManager pm = getApplicationContext().getPackageManager(); 
@@ -120,7 +126,18 @@ public class TaskManagerActivity extends Activity
 		//System.out.println(runningProcesses.size());
 		for(int i = 0; i < names2.size(); i++){
 			try {
-				
+				if(names2.indexOf(names2.get(i))<processes.size()-1){
+					
+				if(processes.contains(names2.get(i)))
+				{
+					System.out.println("contains");
+				status.add(	runningProcesses.get(i).importance);
+				}
+				else{
+					status.add(0);
+					System.out.println("doesnt contain");
+				}
+				}
 				ai = pm.getApplicationInfo( names2.get(i), 0);
 				icons.add(pm.getApplicationIcon(ai));
 				} 
@@ -128,6 +145,7 @@ public class TaskManagerActivity extends Activity
 			{ 
 			ai = null; 
 			try {
+				//status.add(0);
 				icons.add(pm.getApplicationIcon("com.android.packageinstaller"));
 			} catch (NameNotFoundException e1) {
 				// TODO Auto-generated catch block
@@ -140,6 +158,7 @@ public class TaskManagerActivity extends Activity
 		
 		
 		System.out.println(icons.size());
+		System.out.println(status.size());
 	
 		
 			return null;
@@ -248,7 +267,7 @@ public void check(){
 
 			 
 		 for(int i = 0; i<names.size(); i++){
-			 entries.add(new TaskManagerEntry(names.get(i), pids.get(i), 0, icons.get(i), "CPU: "+cpu.get(i), "Mem: "+mem.get(i)));
+			 entries.add(new TaskManagerEntry(names.get(i), pids.get(i), status.get(i), icons.get(i), "CPU: "+cpu.get(i), "Mem: "+mem.get(i)));
 
 		 }
 				

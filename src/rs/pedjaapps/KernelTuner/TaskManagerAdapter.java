@@ -35,8 +35,26 @@ public final class TaskManagerAdapter extends ArrayAdapter<TaskManagerEntry>
 
 		viewHolder.nameView.setText(entry.getName());
 		viewHolder.pidView.setText("pid: "+entry.getPid());
-		 viewHolder.statusView.setText(String.valueOf(entry.getStatus()));
-		 viewHolder.iconView.setImageDrawable(entry.getIcon());
+		if(entry.getStatus()==400){
+			
+		 viewHolder.statusView.setText("BACKGROUND APPLICATIONS");
+		}
+		else if(entry.getStatus()==500){
+			viewHolder.statusView.setText("EMPTY APPLICATIONS");	
+		}
+		else if(entry.getStatus()==100){
+			viewHolder.statusView.setText("FOREGROUND APPLICATIONS");	
+		}
+		else if(entry.getStatus()==130){
+			viewHolder.statusView.setText("PERCEPTIBLE APPLICATIONS");
+		}
+		else if(entry.getStatus()==300){
+			viewHolder.statusView.setText("SERVICE");
+		}
+		else if(entry.getStatus()==200){
+			viewHolder.statusView.setText("VISIBLE APPLICATIONS");
+		}
+		viewHolder.iconView.setImageDrawable(entry.getIcon());
 		 viewHolder.memoryView.setText(entry.getMemory());
 		 viewHolder.cpuView.setText(entry.getCpu());
 
