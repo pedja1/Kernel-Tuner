@@ -170,11 +170,41 @@ public class VoltageActivity extends Activity
 				@Override
 				public void onClick(View arg0)
 				{
-					// TODO Auto-generated method stub
-					List<Voltage> voltages = db.getAllVoltages();
-					for(int i =0; i<voltages.size(); i++){
-						db.deleteVoltageByName(voltages.get(i));
-					}
+					AlertDialog.Builder builder = new AlertDialog.Builder(arg0.getContext());
+
+					builder.setTitle("Clear Voltage Profiles");
+
+					builder.setMessage("Are you sure you want to delete all Voltage Profiles? ");
+
+					builder.setIcon(R.drawable.ic_menu_delete);
+
+					
+					
+					builder.setPositiveButton("Yes", new DialogInterface.OnClickListener() {
+							@Override
+							public void onClick(DialogInterface dialog, int which)
+							{
+								
+								List<Voltage> voltages = db.getAllVoltages();
+								for(int i =0; i<voltages.size(); i++){
+									db.deleteVoltageByName(voltages.get(i));
+								}
+
+							}
+						});
+					builder.setNegativeButton("No", new DialogInterface.OnClickListener() {
+						@Override
+						public void onClick(DialogInterface dialog, int which)
+						{
+							
+
+						}
+					});
+					
+					AlertDialog alert = builder.create();
+
+					alert.show();
+					
 			    	
 
 				}
