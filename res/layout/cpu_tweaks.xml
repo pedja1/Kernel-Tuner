@@ -149,13 +149,13 @@
         android:layout_alignParentLeft="true"
         android:scaleType="fitXY"
         android:src="@drawable/divider_strong_holo" />
-    <CheckBox 
+
+    <CheckBox
         android:id="@+id/cb"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_above="@+id/imageView1"
-        android:text="Lock CPUs"
-        />
+        android:text="@string/link_cpus" />
 
     <LinearLayout
         android:id="@+id/ll1"
