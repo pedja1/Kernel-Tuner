@@ -193,5 +193,6 @@
 	<string name="capacitive_buttons_light_level_0_60_">Capacitive Buttons Light Level(0-60):</string>
 	<string name="color_depth_">Color Depth:</string>
 	<string name="sd_card_cache">SD Card Cache Size:</string>
+	<string name="link_cpus">Link Cores(All frequencies will change together)</string>
 
 </resources>
