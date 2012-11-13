@@ -58,6 +58,7 @@ public class CPUInfo
 	public static String S2W_ALT = "c/sys/android_touch/sweep2wake/s2w_switch";
 	public static String MPDECISION = "/sys/kernel/msm_mpdecision/conf/enabled";
 	public static String BUTTONS_LIGHT = "/sys/devices/platform/leds-pm8058/leds/button-backlight/currents";
+	public static String BUTTONS_LIGHT_2 = "/sys/devices/platform/msm_ssbi.0/pm8921-core/pm8xxx-led/leds/button-backlight/currents";
 	public static String SD_CACHE = "/sys/devices/virtual/bdi/179:0/read_ahead_kb";
 	public static String VSYNC = "/sys/kernel/debug/msm_fb/0/vsync_enable";
 	public static String FCHARGE = "/sys/kernel/fast_charge/force_fast_charge";
@@ -187,6 +188,10 @@ public class CPUInfo
 		{
 			i = true;
 		}
+		else if (new File(BUTTONS_LIGHT_2).exists())
+		{
+			i = true;
+		}
 		return i;
 
 	}
@@ -285,6 +290,59 @@ public class CPUInfo
 			}
 		}
 		return frequencies;
+
+	}
+	
+	public static String leds()
+	{
+		String leds = "";
+
+
+		try
+		{
+
+			File myFile = new File(BUTTONS_LIGHT);
+			FileInputStream fIn = new FileInputStream(myFile);
+
+			BufferedReader myReader = new BufferedReader(
+				new InputStreamReader(fIn));
+			String aDataRow = "";
+			String aBuffer = "";
+			while ((aDataRow = myReader.readLine()) != null)
+			{
+				aBuffer += aDataRow + "\n";
+			}
+			leds = aBuffer.trim();
+
+			myReader.close();
+
+		}
+		catch (Exception e)
+		{
+			try
+			{
+
+				File myFile = new File(BUTTONS_LIGHT_2);
+				FileInputStream fIn = new FileInputStream(myFile);
+
+				BufferedReader myReader = new BufferedReader(
+					new InputStreamReader(fIn));
+				String aDataRow = "";
+				String aBuffer = "";
+				while ((aDataRow = myReader.readLine()) != null)
+				{
+					aBuffer += aDataRow + "\n";
+				}
+				leds = aBuffer.trim();
+
+				myReader.close();
+			}
+			catch (Exception ee)
+			{
+
+			}
+		}
+		return leds;
 
 	}
 

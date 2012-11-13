@@ -25,7 +25,7 @@ SeekBar.OnSeekBarChangeListener
 	public String governorscpu1;
 	public String curentgovernorcpu0;
 	public String curentgovernorcpu1;
-	public String led;
+	public String led = CPUInfo.leds();;
 	SeekBar mSeekBar;
 	TextView progresstext;
 	public String cpu0freqs;
@@ -767,7 +767,21 @@ SeekBar.OnSeekBarChangeListener
 		readSDCache();
 		readIOScheduler();
 		createSpinnerIO();
-		readleds();
+		
+		if(led.equals("")){
+			mSeekBar.setVisibility(View.GONE);
+			btminus.setVisibility(View.GONE);
+			btplus.setVisibility(View.GONE);
+			TextView sb = (TextView) findViewById(R.id.textView9);
+			sb.setVisibility(View.GONE);
+			TextView sb1 = (TextView) findViewById(R.id.progtextView1);
+			sb1.setVisibility(View.GONE);
+			ImageView im = (ImageView) findViewById(R.id.imageView1);
+			im.setVisibility(View.GONE);
+		}
+		else{
+			mSeekBar.setProgress(Integer.parseInt(led));
+		}
 		readLDT();
 		readFastchargeStatus();
 		readVsyncStatus();
@@ -1511,55 +1525,7 @@ SeekBar.OnSeekBarChangeListener
 
 	}
 
-	public void readleds()
-	{
-		try
-		{
-			String aBuffer = "";
-			File myFile = new File(
-				"/sys/devices/platform/leds-pm8058/leds/button-backlight/currents");
-			FileInputStream fIn = new FileInputStream(myFile);
-			BufferedReader myReader = new BufferedReader(new InputStreamReader(
-															 fIn));
-			String aDataRow = "";
-			while ((aDataRow = myReader.readLine()) != null)
-			{
-				aBuffer += aDataRow + "\n";
-			}
-
-			led = aBuffer.trim();
-			myReader.close();
-
-		}
-		catch (Exception e)
-		{
-			led = "err";
-		}
-		try
-		{
-			mSeekBar.setProgress(Integer.parseInt(led));
-			/*
-			 * if (Integer.parseInt(led)<2){ mSeekBar.setProgress(0); } else if
-			 * (Integer.parseInt(led)==2){ mSeekBar.setProgress(1); } else if
-			 * (Integer.parseInt(led)>10){ mSeekBar.setProgress(2); // }
-			 */
-		}
-		catch (Exception e)
-		{
-			// else if(led.equals("err")){
-			mSeekBar.setVisibility(View.GONE);
-			Button btminus = (Button) findViewById(R.id.progbutton2);
-			Button btplus = (Button) findViewById(R.id.progbutton3);
-			btminus.setVisibility(View.GONE);
-			btplus.setVisibility(View.GONE);
-			TextView sb = (TextView) findViewById(R.id.textView9);
-			sb.setVisibility(View.GONE);
-			TextView sb1 = (TextView) findViewById(R.id.progtextView1);
-			sb1.setVisibility(View.GONE);
-			ImageView im = (ImageView) findViewById(R.id.imageView1);
-			im.setVisibility(View.GONE);
-		}
-	}
+	
 	@Override
 	public void onProgressChanged(SeekBar arg0, int progress, boolean arg2)
 	{
