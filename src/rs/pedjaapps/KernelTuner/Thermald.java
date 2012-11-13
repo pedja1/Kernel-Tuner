@@ -106,15 +106,15 @@ public class Thermald extends Activity
 			Thermald.this.data = result;
 			preferences = PreferenceManager.getDefaultSharedPreferences(getBaseContext());
 			SharedPreferences.Editor editor = preferences.edit();
-	 	    editor.putString("p1freq", p1freq);
-	 	    editor.putString("p2freq", p2freq);
-	 	    editor.putString("p3freq", p3freq);
-	 	    editor.putString("p1low", p1low);
-	 	    editor.putString("p1high", p1high);
-	 	    editor.putString("p2low", p2low);
-	 	    editor.putString("p2high", p2high);
-			editor.putString("p3low", p3low);
-		 	editor.putString("p3high", p3high);
+	 	    editor.putString("p1freq", p1freqnew);
+	 	    editor.putString("p2freq", p2freqnew);
+	 	    editor.putString("p3freq", p3freqnew);
+	 	    editor.putString("p1low", p1lownew);
+	 	    editor.putString("p1high", p1highnew);
+	 	    editor.putString("p2low", p2lownew);
+	 	    editor.putString("p2high", p2highnew);
+			editor.putString("p3low", p3lownew);
+		 	editor.putString("p3high", p3highnew);
 
 	 	    editor.commit();
 			Thermald.this.pd.dismiss();
