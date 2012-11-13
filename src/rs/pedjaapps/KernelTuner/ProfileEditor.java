@@ -253,7 +253,7 @@ public class ProfileEditor extends Activity
 			fchargeBox.setVisibility(View.GONE);
 		}
 
-		if (board.equals("shooter") || board.equals("shooteru") || board.equals("pyramid"))
+		if (board.equals("shooter") || board.equals("shooteru") || board.equals("pyramid") || board.equals("tenderloin") )
 		{
 			gpu2ds = new String[] {"Unchanged","160000000", "200000000", "228571000", "266667000"};
 			gpu3ds = new String[]{"Unchanged","200000000", "228571000", "266667000", "300000000", "320000000"};

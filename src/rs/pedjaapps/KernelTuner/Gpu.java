@@ -31,27 +31,14 @@ public class Gpu extends Activity
 	String board = android.os.Build.DEVICE;
 
 
-	public String[] gpu2ds ;//= {"160", "200", "228", "266"};
-	public String[] gpu3ds ;//= {"200", "228", "266", "300", "320"};
+	public String[] gpu2d ;//= {"160", "200", "228", "266"};
+	public String[] gpu3d ;//= {"200", "228", "266", "300", "320"};
 
 	private ProgressDialog pd = null;
 	private Object data = null;
 	public SharedPreferences preferences;
 
-	public String[] gpu2d(String[] gpu2d)
-	{
-		gpu2ds = gpu2d;
-		return gpu2d;
-
-	}
-	public String[] gpu3d(String[] gpu3d)
-	{
-		gpu3ds = gpu3d;
-		return gpu3d;
-
-	}
-
-	private class changegpu extends AsyncTask<String, Void, Object>
+private class changegpu extends AsyncTask<String, Void, Object>
 	{
 
 
@@ -246,15 +233,15 @@ public class Gpu extends Activity
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.gpu);
 		//System.out.println(android.os.Build.BOARD);
-		if (board.equals("shooter") || board.equals("shooteru") || board.equals("pyramid"))
+		if (board.equals("shooter") || board.equals("shooteru") || board.equals("pyramid")|| board.equals("tenderloin"))
 		{
-			gpu2d(new String[]{"160", "200", "228", "266"});
-			gpu3d(new String[]{"200", "228", "266", "300", "320"});
+			gpu2d = new String[]{"160", "200", "228", "266"};
+			gpu3d = new String[]{"200", "228", "266", "300", "320"};
 		}
 		else if (board.equals("evita") || board.equals("ville") || board.equals("jwel"))
 		{
-			gpu2d(new String[]{"266", "228", "200", "160", "96", "27"});
-			gpu3d(new String[]{"400", "320", "300", "266", "228", "200", "177", "27"});
+			gpu2d = new String[]{"266", "228", "200", "160", "96", "27"};
+			gpu3d = new String[]{"400", "320", "300", "266", "228", "200", "177", "27"};
 		}
 
 		readgpu2dcurent();
@@ -315,7 +302,7 @@ public class Gpu extends Activity
 
 
 		final Spinner spinner = (Spinner) findViewById(R.id.spinner2);
-		ArrayAdapter<String> spinnerArrayAdapter = new ArrayAdapter<String>(this,   android.R.layout.simple_spinner_item, gpu2ds);
+		ArrayAdapter<String> spinnerArrayAdapter = new ArrayAdapter<String>(this,   android.R.layout.simple_spinner_item, gpu2d);
 		spinnerArrayAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item); // The drop down vieww
 		spinner.setAdapter(spinnerArrayAdapter);
 
@@ -351,7 +338,7 @@ public class Gpu extends Activity
 
 
 		final Spinner spinner = (Spinner) findViewById(R.id.spinner1);
-		ArrayAdapter<String> spinnerArrayAdapter = new ArrayAdapter<String>(this,   android.R.layout.simple_spinner_item, gpu3ds);
+		ArrayAdapter<String> spinnerArrayAdapter = new ArrayAdapter<String>(this,   android.R.layout.simple_spinner_item, gpu3d);
 		spinnerArrayAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item); // The drop down vieww
 		spinner.setAdapter(spinnerArrayAdapter);
 
