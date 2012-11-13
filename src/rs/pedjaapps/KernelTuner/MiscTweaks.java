@@ -562,7 +562,7 @@ SeekBar.OnSeekBarChangeListener
 				public void onClick(View v)
 				{
 
-					mSeekBar.setProgress(mSeekBar.getProgress() - 5);
+					mSeekBar.setProgress(mSeekBar.getProgress() - 3);
 					new ChangeButtonsLight().execute();
 
 				}
@@ -575,7 +575,7 @@ SeekBar.OnSeekBarChangeListener
 				public void onClick(View v)
 				{
 
-					mSeekBar.setProgress(mSeekBar.getProgress() + 5);
+					mSeekBar.setProgress(mSeekBar.getProgress() + 3);
 					new ChangeButtonsLight().execute();
 
 				}
