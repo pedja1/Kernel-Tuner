@@ -31,8 +31,8 @@ public class Gpu extends Activity
 	String board = android.os.Build.DEVICE;
 
 
-	public String[] gpu2d ;//= {"160", "200", "228", "266"};
-	public String[] gpu3d ;//= {"200", "228", "266", "300", "320"};
+	public String[] gpu2d ;
+	public String[] gpu3d ;
 
 	private ProgressDialog pd = null;
 	private Object data = null;
@@ -45,10 +45,6 @@ private class changegpu extends AsyncTask<String, Void, Object>
 		@Override
 		protected Object doInBackground(String... args)
 		{
-			//Log.i("MyApp", "Background thread starting");
-
-
-
 			Process localProcess;
     		try
 			{
@@ -56,7 +52,6 @@ private class changegpu extends AsyncTask<String, Void, Object>
 
 				DataOutputStream localDataOutputStream = new DataOutputStream(localProcess.getOutputStream());
 				localDataOutputStream.writeBytes("chmod 777 /sys/devices/platform/kgsl-3d0.0/kgsl/kgsl-3d0/max_gpuclk\n");
-				//localDataOutputStream.writeBytes("chmod 777 /sys/devices/platform/kgsl-3d0.0/kgsl/kgsl-3d0/gpuclk\n");
 				if (board.equals("shooter") || board.equals("shooteru") || board.equals("pyramid"))
 				{
 					//3d freqs for shooter,shooteru,pyramid(msm8x60)
@@ -192,13 +187,11 @@ private class changegpu extends AsyncTask<String, Void, Object>
     		}
 			catch (IOException e1)
 			{
-				// TODO Auto-generated catch block
-				e1.printStackTrace();
+				new LogWriter().execute(new String[] {getClass().getName(), e1.getMessage()});
 			}
 			catch (InterruptedException e1)
 			{
-				// TODO Auto-generated catch block
-				e1.printStackTrace();
+				new LogWriter().execute(new String[] {getClass().getName(), e1.getMessage()});
 			}
 
 
@@ -212,11 +205,7 @@ private class changegpu extends AsyncTask<String, Void, Object>
 			SharedPreferences.Editor editor = preferences.edit();
 	  	    editor.putString("gpu3d", String.valueOf(new3d));
 	  	    editor.putString("gpu2d", String.valueOf(new2d));
-			// value to store
 	  	    editor.commit();
-			// Pass the result data back to the main activity
-
-			Gpu.this.data = result;
 
 
 			Gpu.this.pd.dismiss();
@@ -232,7 +221,6 @@ private class changegpu extends AsyncTask<String, Void, Object>
 
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.gpu);
-		//System.out.println(android.os.Build.BOARD);
 		if (board.equals("shooter") || board.equals("shooteru") || board.equals("pyramid")|| board.equals("tenderloin"))
 		{
 			gpu2d = new String[]{"160", "200", "228", "266"};
@@ -256,10 +244,6 @@ private class changegpu extends AsyncTask<String, Void, Object>
 
 		tv5.setText(gpu3dcurent.substring(0, gpu3dcurent.length() - 6) + "Mhz");
 		tv2.setText(gpu2dcurent.substring(0, gpu2dcurent.length() - 6) + "Mhz");
-
-
-		//setprogress2d();
-		//setprogress3d();
 
 		Button apply = (Button)findViewById(R.id.button2);
 
@@ -322,11 +306,8 @@ private class changegpu extends AsyncTask<String, Void, Object>
 				}
 			});
 
-		ArrayAdapter myAdap = (ArrayAdapter) spinner.getAdapter(); //cast to an ArrayAdapter
+		int spinnerPosition = spinnerArrayAdapter.getPosition(gpu2dmax.substring(0, gpu2dmax.length() - 6));
 
-		int spinnerPosition = myAdap.getPosition(gpu2dmax.substring(0, gpu2dmax.length() - 6));
-
-		//set the default according to value
 		spinner.setSelection(spinnerPosition);
 
 	}
@@ -357,11 +338,8 @@ private class changegpu extends AsyncTask<String, Void, Object>
 				}
 			});
 
-		ArrayAdapter myAdap = (ArrayAdapter) spinner.getAdapter(); //cast to an ArrayAdapter
-
-		int spinnerPosition = myAdap.getPosition(gpu3dmax.substring(0, gpu3dmax.length() - 6));
-
-		//set the default according to value
+	
+		int spinnerPosition = spinnerArrayAdapter.getPosition(gpu3dmax.substring(0, gpu3dmax.length() - 6));
 		spinner.setSelection(spinnerPosition);
 
 	}
@@ -393,8 +371,7 @@ private class changegpu extends AsyncTask<String, Void, Object>
 		}
 		catch (Exception e)
 		{
-			Toast.makeText(getBaseContext(), e.getMessage(),
-						   Toast.LENGTH_SHORT).show();
+			new LogWriter().execute(new String[] {getClass().getName(), e.getMessage()});
 
 		}
 	}
@@ -425,7 +402,7 @@ private class changegpu extends AsyncTask<String, Void, Object>
 		}
 		catch (Exception e)
 		{
-
+			new LogWriter().execute(new String[] {getClass().getName(), e.getMessage()});
 		}
 	}
 
@@ -448,18 +425,13 @@ private class changegpu extends AsyncTask<String, Void, Object>
 			}
 
 			gpu3dmax = aBuffer.trim();
-			//Log.d("max gpu 3d clock",gpu3dmax);
-
-
 			createSpinner3D();
 			myReader.close();
-
-
 
 		}
 		catch (Exception e)
 		{
-			//Log.e("max gpu 3d clock","not found");
+			new LogWriter().execute(new String[] {getClass().getName(), e.getMessage()});
 
 		}
 	}
@@ -492,15 +464,9 @@ private class changegpu extends AsyncTask<String, Void, Object>
 		}
 		catch (Exception e)
 		{
-
+			new LogWriter().execute(new String[] {getClass().getName(), e.getMessage()});
 		}
 	}
-
-
-
-
-
-
 
 
 }

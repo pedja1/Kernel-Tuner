@@ -14,7 +14,6 @@ public class CompatibilityCheck extends Activity
 {
 
 	public String out = "sad";
-	private Object data = null;
 	public String cmd;
 	public int count = 0;
 	public boolean saf;
@@ -43,14 +42,7 @@ public class CompatibilityCheck extends Activity
 		@Override
 		protected Void doInBackground(Void... args)
 		{
-			//Log.i("MyApp", "Background thread starting");
-			// Random randomGenerator = new Random();
-
-			// int randomInt = randomGenerator.nextInt(16);
-			//int rand = 100 + (int) (Math.random() * ((1000 - 100) + 1));
-
-			//int progress = 0;
-			//SystemClock.sleep(rand);
+			
 			try
 			{
 
@@ -67,8 +59,6 @@ public class CompatibilityCheck extends Activity
 			}
 
 			publishProgress(3);
-			//rand = 100 + (int) (Math.random() * ((1000 - 100) + 1));
-			//SystemClock.sleep(rand);
 			try
 			{
 
@@ -84,8 +74,6 @@ public class CompatibilityCheck extends Activity
 				uv = false;
 			}
 			publishProgress(4);
-			//rand = 100 + (int) (Math.random() * ((1000 - 100) + 1));
-			//SystemClock.sleep(rand);
 			try
 			{
 
@@ -101,8 +89,6 @@ public class CompatibilityCheck extends Activity
 				tis = false;
 			}
 			publishProgress(5);
-			//rand = 100 + (int) (Math.random() * ((1000 - 100) + 1));
-			//SystemClock.sleep(rand);
 			try
 			{
 
@@ -118,8 +104,6 @@ public class CompatibilityCheck extends Activity
 				lt = false;
 			}
 			publishProgress(6);
-			//rand = 100 + (int) (Math.random() * ((1000 - 100) + 1));
-			//SystemClock.sleep(rand);
 			try
 			{
 
@@ -135,8 +119,6 @@ public class CompatibilityCheck extends Activity
 				bl = false;
 			}
 			publishProgress(7);
-			//rand = 100 + (int) (Math.random() * ((1000 - 100) + 1));
-			//SystemClock.sleep(rand);
 			try
 			{
 
@@ -154,8 +136,6 @@ public class CompatibilityCheck extends Activity
 				g3d = false;
 			}
 			publishProgress(8);
-			//rand = 100 + (int) (Math.random() * ((1000 - 100) + 1));
-			//SystemClock.sleep(rand);
 			try
 			{
 
@@ -171,8 +151,6 @@ public class CompatibilityCheck extends Activity
 				g2d = false;
 			}
 			publishProgress(9);
-			//rand = 100 + (int) (Math.random() * ((1000 - 100) + 1));
-			//SystemClock.sleep(rand);
 			try
 			{
 
@@ -189,8 +167,6 @@ public class CompatibilityCheck extends Activity
 				fc = false;
 			}
 			publishProgress(10);
-			//rand = 100 + (int) (Math.random() * ((1000 - 100) + 1));
-			//SystemClock.sleep(rand);
 			try
 			{
 
@@ -206,8 +182,6 @@ public class CompatibilityCheck extends Activity
 				vs = false;
 			}
 			publishProgress(11);
-			//rand = 100 + (int) (Math.random() * ((1000 - 100) + 1));
-			//SystemClock.sleep(rand);
 
 			try
 			{
@@ -225,8 +199,6 @@ public class CompatibilityCheck extends Activity
 
 			}
 			publishProgress(12);
-			//rand = 100 + (int) (Math.random() * ((1000 - 100) + 1));
-			//SystemClock.sleep(rand);
 			try
 			{
 
@@ -241,8 +213,6 @@ public class CompatibilityCheck extends Activity
 				fs = false;
 			}
 			publishProgress(13);
-			//rand = 100 + (int) (Math.random() * ((1000 - 100) + 1));
-			//SystemClock.sleep(rand);
 			try
 			{
 
@@ -257,8 +227,6 @@ public class CompatibilityCheck extends Activity
 				s2w = false;
 			}
 			publishProgress(14);
-			//rand = 100 + (int) (Math.random() * ((1000 - 100) + 1));
-			//SystemClock.sleep(rand);
 			try
 			{
 
@@ -275,8 +243,6 @@ public class CompatibilityCheck extends Activity
 				td = false;
 			}
 			publishProgress(15);
-			//rand = 100 + (int) (Math.random() * ((1000 - 100) + 1));
-			//SystemClock.sleep(rand);
 			try
 			{
 
@@ -293,8 +259,6 @@ public class CompatibilityCheck extends Activity
 
 			}
 			publishProgress(16);
-			//rand = 100 + (int) (Math.random() * ((1000 - 100) + 1));
-			///SystemClock.sleep(rand);
 			try
 			{
 
@@ -311,8 +275,6 @@ public class CompatibilityCheck extends Activity
 				sdc = false;
 			}
 			publishProgress(17);
-			//rand = 100 + (int) (Math.random() * ((1000 - 100) + 1));
-			//SystemClock.sleep(rand);
 
 			try
 			{
@@ -329,8 +291,6 @@ public class CompatibilityCheck extends Activity
 			}
 
 			publishProgress(18);
-			//rand = 100 + (int) (Math.random() * ((1000 - 100) + 1));
-			//SystemClock.sleep(rand);
 
 			return null;
 		}
@@ -374,7 +334,6 @@ public class CompatibilityCheck extends Activity
 			TextView sdctv = (TextView) findViewById(R.id.textView30);
 			TextView shtv = (TextView) findViewById(R.id.textView32);
 
-			// output.setText(output.getText()+String.valueOf(values[0]));
 			if (values[0] == 3)
 			{
 				ll1.setVisibility(View.VISIBLE);
@@ -606,7 +565,6 @@ public class CompatibilityCheck extends Activity
 		@Override
 		protected void onPostExecute(Void result)
 		{
-			// Pass the result data back to the main activity
 			TextView res = (TextView) findViewById(R.id.textView34);
 			int cn = count * 100 / 16;
 			res.setText(String.valueOf(cn) + "%");
@@ -637,7 +595,6 @@ public class CompatibilityCheck extends Activity
 			Button ok = (Button) findViewById(R.id.button1);
 			ok.setVisibility(View.VISIBLE);
 
-			CompatibilityCheck.this.data = result;
 
 		}
 
@@ -649,8 +606,6 @@ public class CompatibilityCheck extends Activity
 		super.onCreate(savedInstanceState);
 
 		setContentView(R.layout.check);
-		//final EditText prompt = (EditText) findViewById(R.id.editText1);
-		//final TextView output = (TextView) findViewById(R.id.textView1);
 		new exec().execute();
 		Button ok = (Button) findViewById(R.id.button1);
 		ok.setOnClickListener(new OnClickListener() {
@@ -658,7 +613,7 @@ public class CompatibilityCheck extends Activity
 				@Override
 				public void onClick(View arg0)
 				{
-					// TODO Auto-generated method stub
+					
 					finish();
 
 				}

@@ -45,13 +45,11 @@ public class FrequencyChanger extends AsyncTask<String, Void, String>
 		}
 		catch (IOException e1)
 		{
-			// TODO Auto-generated catch block
-			e1.printStackTrace();
+			new LogWriter().execute(new String[] {getClass().getName(), e1.getMessage()});
 		}
 		catch (InterruptedException e1)
 		{
-			// TODO Auto-generated catch block
-			e1.printStackTrace();
+			new LogWriter().execute(new String[] {getClass().getName(), e1.getMessage()});
 		}
 		SharedPreferences.Editor editor = preferences.edit();
 		editor.putString(args[0] + args[1], args[2]);

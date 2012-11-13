@@ -69,13 +69,11 @@ public class ChangeVoltage extends AsyncTask<String, Void, String>
 				}
 				catch (IOException e1)
 				{
-
-					e1.printStackTrace();
+					new LogWriter().execute(new String[] {getClass().getName(), e1.getMessage()});
 				}
 				catch (InterruptedException e1)
 				{
-
-					e1.printStackTrace();
+					new LogWriter().execute(new String[] {getClass().getName(), e1.getMessage()});
 				}
 			}
 			else if (args[0].equals("plus"))
@@ -114,13 +112,11 @@ public class ChangeVoltage extends AsyncTask<String, Void, String>
 				}
 				catch (IOException e1)
 				{
-
-					e1.printStackTrace();
+					new LogWriter().execute(new String[] {getClass().getName(), e1.getMessage()});
 				}
 				catch (InterruptedException e1)
 				{
-
-					e1.printStackTrace();
+					new LogWriter().execute(new String[] {getClass().getName(), e1.getMessage()});
 				}
 			}
 			else if (args[0].equals("singleplus"))
@@ -158,13 +154,11 @@ public class ChangeVoltage extends AsyncTask<String, Void, String>
 				}
 				catch (IOException e1)
 				{
-
-					e1.printStackTrace();
+					new LogWriter().execute(new String[] {getClass().getName(), e1.getMessage()});
 				}
 				catch (InterruptedException e1)
 				{
-
-					e1.printStackTrace();
+					new LogWriter().execute(new String[] {getClass().getName(), e1.getMessage()});
 				}
 			}
 			else if (args[0].equals("singleminus"))
@@ -202,13 +196,11 @@ public class ChangeVoltage extends AsyncTask<String, Void, String>
 				}
 				catch (IOException e1)
 				{
-
-					e1.printStackTrace();
+					new LogWriter().execute(new String[] {getClass().getName(), e1.getMessage()});
 				}
 				catch (InterruptedException e1)
 				{
-
-					e1.printStackTrace();
+					new LogWriter().execute(new String[] {getClass().getName(), e1.getMessage()});
 				}
 			}
 			else if (args[0].equals("singleseek"))
@@ -246,13 +238,11 @@ public class ChangeVoltage extends AsyncTask<String, Void, String>
 				}
 				catch (IOException e1)
 				{
-
-					e1.printStackTrace();
+					new LogWriter().execute(new String[] {getClass().getName(), e1.getMessage()});
 				}
 				catch (InterruptedException e1)
 				{
-
-					e1.printStackTrace();
+					new LogWriter().execute(new String[] {getClass().getName(), e1.getMessage()});
 				}
 			}
 			
@@ -293,13 +283,11 @@ public class ChangeVoltage extends AsyncTask<String, Void, String>
 				}
 				catch (IOException e1)
 				{
-
-					e1.printStackTrace();
+					new LogWriter().execute(new String[] {getClass().getName(), e1.getMessage()});
 				}
 				catch (InterruptedException e1)
 				{
-
-					e1.printStackTrace();
+					new LogWriter().execute(new String[] {getClass().getName(), e1.getMessage()});
 				}
 			}
 			
@@ -342,13 +330,11 @@ public class ChangeVoltage extends AsyncTask<String, Void, String>
 				}
 				catch (IOException e1)
 				{
-
-					e1.printStackTrace();
+					new LogWriter().execute(new String[] {getClass().getName(), e1.getMessage()});
 				}
 				catch (InterruptedException e1)
 				{
-
-					e1.printStackTrace();
+					new LogWriter().execute(new String[] {getClass().getName(), e1.getMessage()});
 				}
 			}
 			else if (args[0].equals("plus"))
@@ -387,13 +373,11 @@ public class ChangeVoltage extends AsyncTask<String, Void, String>
 				}
 				catch (IOException e1)
 				{
-
-					e1.printStackTrace();
+					new LogWriter().execute(new String[] {getClass().getName(), e1.getMessage()});
 				}
 				catch (InterruptedException e1)
 				{
-
-					e1.printStackTrace();
+					new LogWriter().execute(new String[] {getClass().getName(), e1.getMessage()});
 				}
 			}
 			else if (args[0].equals("singleplus"))
@@ -431,13 +415,11 @@ public class ChangeVoltage extends AsyncTask<String, Void, String>
 				}
 				catch (IOException e1)
 				{
-
-					e1.printStackTrace();
+					new LogWriter().execute(new String[] {getClass().getName(), e1.getMessage()});
 				}
 				catch (InterruptedException e1)
 				{
-
-					e1.printStackTrace();
+					new LogWriter().execute(new String[] {getClass().getName(), e1.getMessage()});
 				}
 			}
 			else if (args[0].equals("singleminus"))
@@ -475,13 +457,11 @@ public class ChangeVoltage extends AsyncTask<String, Void, String>
 				}
 				catch (IOException e1)
 				{
-
-					e1.printStackTrace();
+					new LogWriter().execute(new String[] {getClass().getName(), e1.getMessage()});
 				}
 				catch (InterruptedException e1)
 				{
-
-					e1.printStackTrace();
+					new LogWriter().execute(new String[] {getClass().getName(), e1.getMessage()});
 				}
 			}
 			else if (args[0].equals("singleseek"))
@@ -519,13 +499,11 @@ public class ChangeVoltage extends AsyncTask<String, Void, String>
 				}
 				catch (IOException e1)
 				{
-
-					e1.printStackTrace();
+					new LogWriter().execute(new String[] {getClass().getName(), e1.getMessage()});
 				}
 				catch (InterruptedException e1)
 				{
-
-					e1.printStackTrace();
+					new LogWriter().execute(new String[] {getClass().getName(), e1.getMessage()});
 				}
 			}
 		}

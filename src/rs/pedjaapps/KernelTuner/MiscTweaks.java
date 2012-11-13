@@ -5,12 +5,10 @@ import android.content.*;
 import android.os.*;
 import android.preference.*;
 import android.view.*;
-import android.view.View.*;
 import android.widget.*;
 import android.widget.AdapterView.*;
 import com.google.ads.*;
 import java.io.*;
-import java.util.*;
 
 import android.view.View.OnClickListener;
 import java.lang.Process;
@@ -37,27 +35,17 @@ SeekBar.OnSeekBarChangeListener
 	public String fastcharge = " ";
 	public String vsync = " ";
 	public String fc = " ";
-	public String mpdecision = " ";
-	public String mpdecisionidle = " ";
 	public String vs;
 	public String hw;
 	public String backbuf;
-	public String idlefreqs;
-	public String freqselected;
-	public String curentidlefreq;
-	public String mp;
-	public String mpscroff;
 	public String cdepth = " ";
 	public String sdcache;
 	public String schedulers;
 	public String scheduler;
 	public int ledprogress;
-	public List<String> cpu0freqslist;
-	public List<String> cpu1freqslist;
 	public SharedPreferences preferences;
 	ProgressBar prog;
-	private ProgressDialog pd = null;
-	private Object data = null;
+	
 	public String ldt;
 	public String ldtnew;
 	public String s2w;
@@ -73,13 +61,13 @@ SeekBar.OnSeekBarChangeListener
 
 	// EndOfGlobalVariables
 
-	private class colorDepth extends AsyncTask<String, Void, Object>
+	private class ChangeColorDepth extends AsyncTask<String, Void, Object>
 	{
 
 		@Override
 		protected Object doInBackground(String... args)
 		{
-			//Log.i("MyApp", "Backgrond thread starting");
+			
 
 			Process localProcess;
 			try
@@ -100,13 +88,13 @@ SeekBar.OnSeekBarChangeListener
 			}
 			catch (IOException e1)
 			{
-				// TODO Auto-generated catch block
-				e1.printStackTrace();
+				
+				new LogWriter().execute(new String[] {getClass().getName(), e1.getMessage()});
 			}
 			catch (InterruptedException e1)
 			{
-				// TODO Auto-generated catch block
-				e1.printStackTrace();
+			
+				new LogWriter().execute(new String[] {getClass().getName(), e1.getMessage()});
 			}
 
 			return "";
@@ -119,22 +107,20 @@ SeekBar.OnSeekBarChangeListener
 				.getDefaultSharedPreferences(getBaseContext());
 			SharedPreferences.Editor editor = preferences.edit();
 			editor.putString("cdepth", cdepth);
-			// value to store
 			editor.commit();
-			MiscTweaks.this.data = result;
+			
 
 		}
 	}
 
 	
 
-	private class fastcharge extends AsyncTask<String, Void, Object>
+	private class ChangeFastcharge extends AsyncTask<String, Void, Object>
 	{
 
 		@Override
 		protected Object doInBackground(String... args)
 		{
-			//Log.i("MyApp", "Background thread starting");
 
 			Process localProcess;
 			try
@@ -155,36 +141,28 @@ SeekBar.OnSeekBarChangeListener
 			}
 			catch (IOException e1)
 			{
-				// TODO Auto-generated catch block
-				e1.printStackTrace();
+				
+				new LogWriter().execute(new String[] {getClass().getName(), e1.getMessage()});
 			}
 			catch (InterruptedException e1)
 			{
-				// TODO Auto-generated catch block
-				e1.printStackTrace();
+				
+				new LogWriter().execute(new String[] {getClass().getName(), e1.getMessage()});
 			}
 
 			return "";
 		}
 
-		@Override
-		protected void onPostExecute(Object result)
-		{
-			// Pass the result data back to the main activity
-
-			MiscTweaks.this.data = result;
-
-		}
+		
 
 	}
 
-	private class vsync extends AsyncTask<String, Void, Object>
+	private class ChangeVsync extends AsyncTask<String, Void, Object>
 	{
 
 		@Override
 		protected Object doInBackground(String... args)
 		{
-			//Log.i("MyApp", "Background thread starting");
 
 			Process localProcess;
 			try
@@ -213,35 +191,27 @@ SeekBar.OnSeekBarChangeListener
 			}
 			catch (IOException e1)
 			{
-				// TODO Auto-generated catch block
-				e1.printStackTrace();
+				
+				new LogWriter().execute(new String[] {getClass().getName(), e1.getMessage()});
 			}
 			catch (InterruptedException e1)
 			{
-				// TODO Auto-generated catch block
-				e1.printStackTrace();
+				
+				new LogWriter().execute(new String[] {getClass().getName(), e1.getMessage()});
 			}
 
 			return "";
 		}
 
-		@Override
-		protected void onPostExecute(Object result)
-		{
-			// Pass the result data back to the main activity
-
-			MiscTweaks.this.data = result;
-		}
 
 	}
 
-	private class changeled extends AsyncTask<String, Void, Object>
+	private class ChangeButtonsLight extends AsyncTask<String, Void, Object>
 	{
 
 		@Override
 		protected Object doInBackground(String... args)
 		{
-			//Log.i("MyApp", "Background thread starting");
 
 			Process localProcess;
 			try
@@ -264,13 +234,13 @@ SeekBar.OnSeekBarChangeListener
 			}
 			catch (IOException e1)
 			{
-				// TODO Auto-generated catch block
-				e1.printStackTrace();
+				
+				new LogWriter().execute(new String[] {getClass().getName(), e1.getMessage()});
 			}
 			catch (InterruptedException e1)
 			{
-				// TODO Auto-generated catch block
-				e1.printStackTrace();
+				
+				new LogWriter().execute(new String[] {getClass().getName(), e1.getMessage()});
 			}
 
 			return "";
@@ -279,28 +249,21 @@ SeekBar.OnSeekBarChangeListener
 		@Override
 		protected void onPostExecute(Object result)
 		{
-			// Pass the result data back to the main activity
 			preferences = PreferenceManager
 				.getDefaultSharedPreferences(getBaseContext());
 			SharedPreferences.Editor editor = preferences.edit();
 			editor.putString("led", String.valueOf(ledprogress));
-			// value to store
 			editor.commit();
-
-			//System.out.println(ledprogress);
-			MiscTweaks.this.data = result;
-
 		}
 
 	}
 
-	private class applyldt extends AsyncTask<String, Void, Object>
+	private class ChangeNotificationLedTimeout extends AsyncTask<String, Void, Object>
 	{
 
 		@Override
 		protected Object doInBackground(String... args)
 		{
-			//Log.i("MyApp", "Background thread starting");
 
 			Process localProcess;
 			try
@@ -323,13 +286,13 @@ SeekBar.OnSeekBarChangeListener
 			}
 			catch (IOException e1)
 			{
-				// TODO Auto-generated catch block
-				e1.printStackTrace();
+				
+				new LogWriter().execute(new String[] {getClass().getName(), e1.getMessage()});
 			}
 			catch (InterruptedException e1)
 			{
-				// TODO Auto-generated catch block
-				e1.printStackTrace();
+			
+				new LogWriter().execute(new String[] {getClass().getName(), e1.getMessage()});
 			}
 
 			return "";
@@ -338,27 +301,23 @@ SeekBar.OnSeekBarChangeListener
 		@Override
 		protected void onPostExecute(Object result)
 		{
-			// Pass the result data back to the main activity
 			preferences = PreferenceManager
 				.getDefaultSharedPreferences(getBaseContext());
 			SharedPreferences.Editor editor = preferences.edit();
 			editor.putString("ldt", String.valueOf(ldtnew));
-			// value to store
 			editor.commit();
-
-			MiscTweaks.this.data = result;
 
 		}
 
 	}
 
-	private class applys2w extends AsyncTask<String, Void, Object>
+	private class ChangeS2w extends AsyncTask<String, Void, Object>
 	{
 
 		@Override
 		protected Object doInBackground(String... args)
 		{
-			//Log.i("MyApp", "Background thread starting");
+			
 
 			Process localProcess;
 
@@ -392,13 +351,13 @@ SeekBar.OnSeekBarChangeListener
 			}
 			catch (IOException e1)
 			{
-				// TODO Auto-generated catch block
-				e1.printStackTrace();
+			
+				new LogWriter().execute(new String[] {getClass().getName(), e1.getMessage()});
 			}
 			catch (InterruptedException e1)
 			{
-				// TODO Auto-generated catch block
-				e1.printStackTrace();
+			
+				new LogWriter().execute(new String[] {getClass().getName(), e1.getMessage()});
 			}
 
 			return "";
@@ -407,29 +366,25 @@ SeekBar.OnSeekBarChangeListener
 		@Override
 		protected void onPostExecute(Object result)
 		{
-			// Pass the result data back to the main activity
 			preferences = PreferenceManager
 				.getDefaultSharedPreferences(getBaseContext());
 			SharedPreferences.Editor editor = preferences.edit();
 			editor.putString("s2w", s2wnew);
 			editor.putString("s2wStart", s2wStartnew);
 			editor.putString("s2wEnd", s2wEndnew);
-			// value to store
-			editor.commit();
 
-			MiscTweaks.this.data = result;
+			editor.commit();
 
 		}
 
 	}
 
-	private class applyIO extends AsyncTask<String, Void, Object>
+	private class ChangeIO extends AsyncTask<String, Void, Object>
 	{
 
 		@Override
 		protected Object doInBackground(String... args)
 		{
-			//Log.i("MyApp", "Background thread starting");
 			Process localProcess;
 			try
 			{
@@ -465,13 +420,13 @@ SeekBar.OnSeekBarChangeListener
 			}
 			catch (IOException e1)
 			{
-				// TODO Auto-generated catch block
-				e1.printStackTrace();
+				
+				new LogWriter().execute(new String[] {getClass().getName(), e1.getMessage()});
 			}
 			catch (InterruptedException e1)
 			{
-				// TODO Auto-generated catch block
-				e1.printStackTrace();
+				
+				new LogWriter().execute(new String[] {getClass().getName(), e1.getMessage()});
 			}
 
 			return "";
@@ -485,11 +440,7 @@ SeekBar.OnSeekBarChangeListener
 			SharedPreferences.Editor editor = preferences.edit();
 			editor.putString("io", scheduler);
 			editor.putString("sdcache", sdcache);
-			// value to store
 			editor.commit();
-			// Pass the result data back to the main activity
-
-			MiscTweaks.this.data = result;
 
 		}
 
@@ -517,7 +468,7 @@ SeekBar.OnSeekBarChangeListener
 				{
 					EditText sd = (EditText) findViewById(R.id.editText1);
 					sdcache = String.valueOf(sd.getText());
-					new applyIO().execute();
+					new ChangeIO().execute();
 
 					EditText ldttv = (EditText) findViewById(R.id.editText2);
 					RadioButton dva = (RadioButton) findViewById(R.id.radio2);
@@ -525,8 +476,8 @@ SeekBar.OnSeekBarChangeListener
 					{
 						ldtnew = String.valueOf(ldttv.getText());
 					}
-					new applyldt().execute();
-					new applys2w().execute();
+					new ChangeNotificationLedTimeout().execute();
+					new ChangeS2w().execute();
 					finish();
 
 				}
@@ -540,36 +491,32 @@ SeekBar.OnSeekBarChangeListener
 				public void onClick(View v)
 				{
 
-					AlertDialog alertDialog = new AlertDialog.Builder(
-						MiscTweaks.this).create();
+					AlertDialog.Builder builder = new AlertDialog.Builder(
+						MiscTweaks.this);
 
-					// Setting Dialog Title
-					alertDialog.setTitle("Vsync");
+					builder.setTitle("Vsync");
 
-					// Setting Dialog Message
-					alertDialog
+					builder
 						.setMessage("VSYNC is when the GPU will lock refresh rate to that of the LCD screen. "
 									+ "Disabling this will create higher FPS rates, but on some hardware it can distort the display.");
 
-					// Setting Icon to Dialog
-					alertDialog.setIcon(R.drawable.misc);
+					builder.setIcon(R.drawable.misc);
 
-					// Setting OK Button
-					alertDialog.setButton("OK",
+					builder.setPositiveButton("OK",
 						new DialogInterface.OnClickListener() {
 							@Override
 							public void onClick(DialogInterface dialog,
 												int which)
 							{
-								// Write your code here to execute after dialog
-								// closed
+								
 							}
 
 						});
 
-					// Showing Alert Message
-					alertDialog.show();
-					alertDialog.show();
+				
+					AlertDialog alert = builder.create();
+					alert.show();
+					
 				}
 
 			});
@@ -581,35 +528,29 @@ SeekBar.OnSeekBarChangeListener
 				public void onClick(View v)
 				{
 
-					AlertDialog alertDialog = new AlertDialog.Builder(
-						MiscTweaks.this).create();
+					AlertDialog.Builder builder = new AlertDialog.Builder(
+						MiscTweaks.this);
 
-					// Setting Dialog Title
-					alertDialog.setTitle("Fastcharge");
+					builder.setTitle("Fastcharge");
 
-					// Setting Dialog Message
-					alertDialog
+					builder
 						.setMessage("This option will forces AC charging mode when connected to a USB connection");
 
-					// Setting Icon to Dialog
-					alertDialog.setIcon(R.drawable.misc);
+					builder.setIcon(R.drawable.misc);
 
-					// Setting OK Button
-					alertDialog.setButton("OK",
+					builder.setPositiveButton("OK",
 						new DialogInterface.OnClickListener() {
 							@Override
 							public void onClick(DialogInterface dialog,
 												int which)
 							{
-								// Write your code here to execute after dialog
-								// closed
+							
 							}
 
 						});
 
-					// Showing Alert Message
-					alertDialog.show();
-					alertDialog.show();
+					AlertDialog alert = builder.create();
+					alert.show();
 				}
 
 			});
@@ -622,8 +563,7 @@ SeekBar.OnSeekBarChangeListener
 				{
 
 					mSeekBar.setProgress(mSeekBar.getProgress() - 5);
-					new changeled().execute();
-					// Start a new thread that will download all the data
+					new ChangeButtonsLight().execute();
 
 				}
 			});
@@ -636,8 +576,7 @@ SeekBar.OnSeekBarChangeListener
 				{
 
 					mSeekBar.setProgress(mSeekBar.getProgress() + 5);
-					new changeled().execute();
-					// Start a new thread that will download all the data
+					new ChangeButtonsLight().execute();
 
 				}
 			});
@@ -659,8 +598,7 @@ SeekBar.OnSeekBarChangeListener
 					}
 
 					prog.setProgress(prog.getProgress() - 1);
-					new colorDepth().execute();
-					// Start a new thread that will download all the data
+					new ChangeColorDepth().execute();
 
 				}
 			});
@@ -682,8 +620,7 @@ SeekBar.OnSeekBarChangeListener
 						cdepth = "32";
 					}
 					prog.setProgress(prog.getProgress() + 1);
-					new colorDepth().execute();
-					// Start a new thread that will download all the data
+					new ChangeColorDepth().execute();
 
 				}
 			});
@@ -698,26 +635,24 @@ SeekBar.OnSeekBarChangeListener
 					if (fastchargechbx.isChecked())
 					{
 						fc = "1";
-						new fastcharge().execute();
+						new ChangeFastcharge().execute();
 					}
 					else if (!fastchargechbx.isChecked())
 					{
 						fc = "0";
-						new fastcharge().execute();
+						new ChangeFastcharge().execute();
 					}
 					try
 					{
 						preferences = PreferenceManager
 							.getDefaultSharedPreferences(getBaseContext());
 						SharedPreferences.Editor editor = preferences.edit();
-						editor.putString("fastcharge", fc);// value to store
+						editor.putString("fastcharge", fc);
 						editor.commit();
 					}
 					catch (Exception e)
 					{
-						// iscVa2 = "offline";
-						Toast.makeText(getBaseContext(), e.getMessage(),
-									   Toast.LENGTH_SHORT).show();
+						
 					}
 
 				}
@@ -735,14 +670,14 @@ SeekBar.OnSeekBarChangeListener
 						vs = "1";
 						hw = "1";
 						backbuf = "3";
-						new vsync().execute();
+						new ChangeVsync().execute();
 					}
 					else if (!vsynchbx.isChecked())
 					{
 						vs = "0";
 						hw = "0";
 						backbuf = "4";
-						new vsync().execute();
+						new ChangeVsync().execute();
 					}
 					else
 					{
@@ -754,7 +689,6 @@ SeekBar.OnSeekBarChangeListener
 					editor.putString("vsync", vs);
 					editor.putString("hw", hw);
 					editor.putString("backbuf", backbuf);
-					// value to store
 					editor.commit();
 
 				}
@@ -888,7 +822,6 @@ SeekBar.OnSeekBarChangeListener
 		}
 
 		RadioGroup ldtradio = (RadioGroup) findViewById(R.id.radioGroup1);
-		// int selected = ldtradio.getCheckedRadioButtonId();
 		final EditText et = (EditText) findViewById(R.id.editText2);
 		TextView ldttitle = (TextView) findViewById(R.id.textView12);
 		RadioButton nula = (RadioButton) findViewById(R.id.radio0);
@@ -925,15 +858,11 @@ SeekBar.OnSeekBarChangeListener
 		File file = new File(
 			"/sys/kernel/notification_leds/off_timer_multiplier");
 
-		int ldtint;
 		try
 		{
 
 			InputStream fIn = new FileInputStream(file);
-			/*
-			 * try{ ldtint = Integer.parseInt(ldt); } catch(Exception e){
-			 * ldtint=500; }
-			 */
+
 			if (ldt.equals("Infinite"))
 			{
 				nula.setChecked(true);
@@ -1236,10 +1165,7 @@ SeekBar.OnSeekBarChangeListener
 		ArrayAdapter<String> spinnerArrayAdapter = new ArrayAdapter<String>(
 			this, android.R.layout.simple_spinner_item, MyStringAray);
 		spinnerArrayAdapter
-			.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item); // The
-		// drop
-		// down
-		// vieww
+			.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
 		spinner.setAdapter(spinnerArrayAdapter);
 
 		spinner.setOnItemSelectedListener(new OnItemSelectedListener() {
@@ -1263,12 +1189,9 @@ SeekBar.OnSeekBarChangeListener
 				}
 			});
 
-		ArrayAdapter myAdap = (ArrayAdapter) spinner.getAdapter(); // cast to an
-		// ArrayAdapter
+	
 
-		int spinnerPosition = myAdap.getPosition(scheduler);
-
-		// set the default according to value
+		int spinnerPosition = spinnerArrayAdapter .getPosition(scheduler);
 		spinner.setSelection(spinnerPosition);
 
 	}
@@ -1281,10 +1204,7 @@ SeekBar.OnSeekBarChangeListener
 		ArrayAdapter<String> spinnerArrayAdapter = new ArrayAdapter<String>(
 			this, android.R.layout.simple_spinner_item, MyStringAray);
 		spinnerArrayAdapter
-			.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item); // The
-		// drop
-		// down
-		// vieww
+			.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
 		spinner.setAdapter(spinnerArrayAdapter);
 
 		spinner.setOnItemSelectedListener(new OnItemSelectedListener() {
@@ -1308,27 +1228,22 @@ SeekBar.OnSeekBarChangeListener
 				}
 			});
 
-		ArrayAdapter myAdap = (ArrayAdapter) spinner.getAdapter(); // cast to an
-		// ArrayAdapter
+		
 		if (s2w.equals("0"))
 		{
-			int spinnerPosition = myAdap.getPosition("OFF");
+			int spinnerPosition = spinnerArrayAdapter .getPosition("OFF");
 			spinner.setSelection(spinnerPosition);
 		}
 		else if (s2w.equals("1"))
 		{
-			int spinnerPosition = myAdap.getPosition("ON with no backlight");
+			int spinnerPosition = spinnerArrayAdapter .getPosition("ON with no backlight");
 			spinner.setSelection(spinnerPosition);
 		}
 		else if (s2w.equals("2"))
 		{
-			int spinnerPosition = myAdap.getPosition("ON with backlight");
+			int spinnerPosition = spinnerArrayAdapter .getPosition("ON with backlight");
 			spinner.setSelection(spinnerPosition);
 		}
-
-
-		// set the default according to value
-
 
 	}
 
@@ -1340,10 +1255,7 @@ SeekBar.OnSeekBarChangeListener
 		ArrayAdapter<String> spinnerArrayAdapter = new ArrayAdapter<String>(
 			this, android.R.layout.simple_spinner_item, MyStringAray);
 		spinnerArrayAdapter
-			.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item); // The
-		// drop
-		// down
-		// vieww
+			.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
 		spinner.setAdapter(spinnerArrayAdapter);
 
 		spinner.setOnItemSelectedListener(new OnItemSelectedListener() {
@@ -1363,19 +1275,13 @@ SeekBar.OnSeekBarChangeListener
 				@Override
 				public void onNothingSelected(AdapterView<?> parent)
 				{
-					// do nothing
+		
 				}
 			});
 
-		ArrayAdapter myAdap = (ArrayAdapter) spinner.getAdapter(); // cast to an
-		// ArrayAdapter
-
-		int spinnerPosition = myAdap.getPosition(s2wStart);
+	
+		int spinnerPosition = spinnerArrayAdapter .getPosition(s2wStart);
 		spinner.setSelection(spinnerPosition);
-
-
-
-		// set the default according to value
 
 
 	}
@@ -1388,10 +1294,7 @@ SeekBar.OnSeekBarChangeListener
 		ArrayAdapter<String> spinnerArrayAdapter = new ArrayAdapter<String>(
 			this, android.R.layout.simple_spinner_item, MyStringAray);
 		spinnerArrayAdapter
-			.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item); // The
-		// drop
-		// down
-		// vieww
+			.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
 		spinner.setAdapter(spinnerArrayAdapter);
 
 		spinner.setOnItemSelectedListener(new OnItemSelectedListener() {
@@ -1415,15 +1318,9 @@ SeekBar.OnSeekBarChangeListener
 				}
 			});
 
-		ArrayAdapter myAdap = (ArrayAdapter) spinner.getAdapter(); // cast to an
-		// ArrayAdapter
 
-		int spinnerPosition = myAdap.getPosition(s2wEnd);
+		int spinnerPosition = spinnerArrayAdapter.getPosition(s2wEnd);
 		spinner.setSelection(spinnerPosition);
-
-
-
-		// set the default according to value
 
 
 	}
@@ -1447,28 +1344,17 @@ SeekBar.OnSeekBarChangeListener
 
 			schedulers = aBuffer;
 			myReader.close();
-			/*
-			 * String[] schedaray = schedulers.split(" "); int schedlength =
-			 * schedaray.length; List<String> wordList =
-			 * Arrays.asList(schedaray); int index =
-			 * wordList.indexOf(curentfreq); int index2 =
-			 * wordList.indexOf(curentfreqcpu1); scheduler =
-			 */
-			// String between = schedulers.split("]|[")[1];
 			scheduler = schedulers.substring(schedulers.indexOf("[") + 1,
 											 schedulers.indexOf("]"));
 			scheduler.trim();
 			schedulers = schedulers.replace("[", "");
 			schedulers = schedulers.replace("]", "");
-			//System.out.println(scheduler);
-			//System.out.println(schedulers);
 
 		}
 		catch (Exception e)
 		{
 			schedulers = "err";
 			scheduler = "err";
-			//System.out.println(schedulers);
 		}
 
 	}
@@ -1529,32 +1415,25 @@ SeekBar.OnSeekBarChangeListener
 	@Override
 	public void onProgressChanged(SeekBar arg0, int progress, boolean arg2)
 	{
-		// TODO Auto-generated method stub
+
 		ledprogress = progress;
 		TextView perc = (TextView) findViewById(R.id.progtextView1);
 		perc.setText(ledprogress * 100 / 60 + "%");
-		/*
-		 * if (progress == 0){
-		 * 
-		 * new ledoff().execute();
-		 * 
-		 * } else if (progress == 1){ new leddim().execute(); } else if
-		 * (progress == 2){ new ledfull().execute(); }
-		 */
+
 
 	}
 	@Override
 	public void onStartTrackingTouch(SeekBar arg0)
 	{
-		// TODO Auto-generated method stub
+
 	}
 	@Override
 	public void onStopTrackingTouch(SeekBar arg0)
 	{
-		// TODO Auto-generated method stub
+
 		ledprogress = mSeekBar.getProgress();
-		//System.out.println(ledprogress);
-		new changeled().execute();
+
+		new ChangeButtonsLight().execute();
 	}
 
 }

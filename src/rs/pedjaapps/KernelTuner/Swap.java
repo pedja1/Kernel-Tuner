@@ -64,13 +64,11 @@ public class Swap extends Activity
 			}
 			catch (IOException e1)
 			{
-				// TODO Auto-generated catch block
-				e1.printStackTrace();
+				new LogWriter().execute(new String[] {getClass().getName(), e1.getMessage()});
 			}
 			catch (InterruptedException e1)
 			{
-				// TODO Auto-generated catch block
-				e1.printStackTrace();
+				new LogWriter().execute(new String[] {getClass().getName(), e1.getMessage()});
 			}
 
 			return "";
@@ -99,7 +97,6 @@ public class Swap extends Activity
 		@Override
 		protected Object doInBackground(String... args)
 		{
-			//Log.i("MyApp", "Background thread starting");
 
 			Process localProcess;
 			try
@@ -116,13 +113,11 @@ public class Swap extends Activity
 			}
 			catch (IOException e1)
 			{
-				// TODO Auto-generated catch block
-				e1.printStackTrace();
+				new LogWriter().execute(new String[] {getClass().getName(), e1.getMessage()});
 			}
 			catch (InterruptedException e1)
 			{
-				// TODO Auto-generated catch block
-				e1.printStackTrace();
+				new LogWriter().execute(new String[] {getClass().getName(), e1.getMessage()});
 			}
 
 			return "";
@@ -148,8 +143,7 @@ public class Swap extends Activity
 
 		@Override
 		protected Object doInBackground(String... args)
-		{
-			// Log.i("MyApp", "Background thread starting");
+		{;
 
 			Process localProcess;
 			try
@@ -166,13 +160,11 @@ public class Swap extends Activity
 			}
 			catch (IOException e1)
 			{
-				// TODO Auto-generated catch block
-				e1.printStackTrace();
+				new LogWriter().execute(new String[] {getClass().getName(), e1.getMessage()});;
 			}
 			catch (InterruptedException e1)
 			{
-				// TODO Auto-generated catch block
-				e1.printStackTrace();
+				new LogWriter().execute(new String[] {getClass().getName(), e1.getMessage()});
 			}
 
 			return "";
@@ -217,13 +209,11 @@ public class Swap extends Activity
 			}
 			catch (IOException e1)
 			{
-				// TODO Auto-generated catch block
-				e1.printStackTrace();
+				new LogWriter().execute(new String[] {getClass().getName(), e1.getMessage()});
 			}
 			catch (InterruptedException e1)
 			{
-				// TODO Auto-generated catch block
-				e1.printStackTrace();
+				new LogWriter().execute(new String[] {getClass().getName(), e1.getMessage()});;
 			}
 
 			return "";
@@ -527,13 +517,7 @@ public class Swap extends Activity
 				}
 			});
 
-    	/*ArrayAdapter myAdap = (ArrayAdapter) spinner.getAdapter(); //cast to an ArrayAdapter
 
-		 int spinnerPosition = myAdap.getPosition(curentgovernorcpu0);
-
-		 //set the default according to value
-		 spinner.setSelection(spinnerPosition);*/
-    	//
 
     }
 
@@ -562,12 +546,6 @@ public class Swap extends Activity
 					//do nothing
 				}
 			});
-		/*ArrayAdapter myAdap = (ArrayAdapter) spinner.getAdapter(); //cast to an ArrayAdapter
-
-		 int spinnerPosition = myAdap.getPosition(curentminfreqcpu0);
-
-		 //set the default according to value
-		 spinner.setSelection(spinnerPosition);*/
 
 	}
 

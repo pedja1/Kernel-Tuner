@@ -131,13 +131,11 @@ public class Mpdecision extends Activity
 			}
 			catch (IOException e1)
 			{
-  				// TODO Auto-generated catch block
-  				e1.printStackTrace();
+				new LogWriter().execute(new String[] {getClass().getName(), e1.getMessage()});
   			}
 			catch (InterruptedException e1)
 			{
-  				// TODO Auto-generated catch block
-  				e1.printStackTrace();
+				new LogWriter().execute(new String[] {getClass().getName(), e1.getMessage()});
   			}
 
 			return "";

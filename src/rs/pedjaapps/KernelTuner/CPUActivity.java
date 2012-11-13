@@ -155,13 +155,11 @@ public class CPUActivity extends Activity
 				}
 				catch (IOException e1)
 				{
-					// TODO Auto-generated catch block
-					e1.printStackTrace();
+					new LogWriter().execute(new String[] {getClass().getName(), e1.getMessage()});
 				}
 				catch (InterruptedException e1)
 				{
-					// TODO Auto-generated catch block
-					e1.printStackTrace();
+					new LogWriter().execute(new String[] {getClass().getName(), e1.getMessage()});
 				}
 			}
 			else
@@ -198,13 +196,12 @@ public class CPUActivity extends Activity
 				}
 				catch (IOException e)
 				{
-					// TODO Auto-generated catch block
-					e.printStackTrace();
+					new LogWriter().execute(new String[] {getClass().getName(), e.getMessage()});
 				}
 				catch (InterruptedException e)
 				{
-					// TODO Auto-generated catch block
-					e.printStackTrace();
+					new LogWriter().execute(new String[] {getClass().getName(), e.getMessage()});
+					
 				}
 			}
 
@@ -240,8 +237,6 @@ public class CPUActivity extends Activity
 		if (ads == true)
 		{AdView adView = (AdView)this.findViewById(R.id.ad);
 			adView.loadAd(new AdRequest());}
-		//preferences = PreferenceManager.getDefaultSharedPreferences(CPUFragment.this.getActivity());
-
 
 		rlcpu1 = (RelativeLayout)findViewById(R.id.rlcpu1);
 		rlcpu2 = (RelativeLayout)findViewById(R.id.rlcpu2);
@@ -311,7 +306,7 @@ public class CPUActivity extends Activity
 
 			@Override
 			public void onCheckedChanged(CompoundButton arg0, boolean arg1) {
-				// TODO Auto-generated method stub
+				
 				
 					SharedPreferences.Editor editor = sharedPrefs.edit();
 					editor.putBoolean("cpuLock", arg1);
@@ -367,7 +362,7 @@ startCpuLoadThread();
 
 				public void run()
 				{
-					// TODO Auto-generated method stub
+				
 					while (thread)
 					{
 						try
@@ -420,7 +415,7 @@ startCpuLoadThread();
 						}
 						catch (Exception e)
 						{
-							// TODO: handle exception
+							
 						}
 					}
 				}
@@ -450,7 +445,7 @@ startCpuLoadThread();
 	}
 	
 	public void startCpuLoadThread() {
-		// Do something long
+		
 		Runnable runnable = new Runnable() {
 			@Override
 			public void run() {
@@ -467,7 +462,9 @@ startCpuLoadThread();
 
 						try {
 							Thread.sleep(360);
-						} catch (Exception e) {}
+						} catch (Exception e) {
+							new LogWriter().execute(new String[] {getClass().getName(), e.getMessage()});
+						}
 
 						reader.seek(0);
 						load = reader.readLine();
@@ -482,13 +479,13 @@ startCpuLoadThread();
 						fLoad =	 (float)(cpu2 - cpu1) / ((cpu2 + idle2) - (cpu1 + idle1));
 
 					} catch (IOException ex) {
-						ex.printStackTrace();
+						new LogWriter().execute(new String[] {getClass().getName(), ex.getMessage()});
 					}
 					load =(int) (fLoad*100);
 					try {
 						Thread.sleep(1000);
 					} catch (InterruptedException e) {
-						e.printStackTrace();
+						new LogWriter().execute(new String[] {getClass().getName(), e.getMessage()});
 					}
 					mHandler.post(new Runnable() {
 							@Override
@@ -1101,9 +1098,7 @@ startCpuLoadThread();
 		if (frequencies != null && !cpu0MaxFreq.equals("") && !cpu0CurFreq.equals(""))
 		{
 			progCpu0.setMax(frequencies.indexOf(cpu0MaxFreq.trim()) + 1);
-			System.out.println(frequencies.indexOf(cpu0MaxFreq.trim()) + 1);
 			progCpu0.setProgress(frequencies.indexOf(cpu0CurFreq.trim()) + 1);
-			System.out.println(frequencies.indexOf(cpu0CurFreq.trim()) + 1);
 		}
 
 	}
@@ -1164,7 +1159,7 @@ startCpuLoadThread();
 
 	public void populateGovernorSpinners()
 	{
-		//governors for cpu0
+		
 		ArrayAdapter<String> gov0spinnerArrayAdapter = new ArrayAdapter<String>(this,   android.R.layout.simple_spinner_item, CPUInfo.governors());
 		System.out.println(CPUInfo.governors());
 		gov0spinnerArrayAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);

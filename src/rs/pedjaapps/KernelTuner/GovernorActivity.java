@@ -97,8 +97,7 @@ public class GovernorActivity extends Activity
 								}
 								catch (InterruptedException e)
 								{
-									// TODO Auto-generated catch block
-									e.printStackTrace();
+									new LogWriter().execute(new String[] {getClass().getName(), e.getMessage()});
 								}
 								getGovEntries();
 
@@ -208,7 +207,7 @@ public class GovernorActivity extends Activity
 		    		}
 					catch (Exception e)
 					{
-
+						new LogWriter().execute(new String[] {getClass().getName(), e.getMessage()});
 		    		}
 
 				}

@@ -334,6 +334,7 @@ public class KernelTuner extends Activity
 			}
 			catch (Exception e)
 			{
+				new LogWriter().execute(new String[] {getClass().getName(), e.getMessage()});
 			}
 			return null;
 		}
@@ -391,10 +392,12 @@ public class KernelTuner extends Activity
 			}
 			catch (MalformedURLException e)
 			{
+				new LogWriter().execute(new String[] {getClass().getName(), e.getMessage()});
 			}
 			catch (IOException e)
 			{
 				remoteversion = null;
+				new LogWriter().execute(new String[] {getClass().getName(), e.getMessage()});
 			}
 
 			try
@@ -418,10 +421,12 @@ public class KernelTuner extends Activity
 			}
 			catch (MalformedURLException e)
 			{
+				new LogWriter().execute(new String[] {getClass().getName(), e.getMessage()});
 			}
 			catch (IOException e)
 			{
 				changelog = null;
+				new LogWriter().execute(new String[] {getClass().getName(), e.getMessage()});
 			}
 
 
@@ -444,7 +449,7 @@ public class KernelTuner extends Activity
 			}
 			catch (NameNotFoundException e1)
 			{
-				e1.printStackTrace();
+				new LogWriter().execute(new String[] {getClass().getName(), e1.getMessage()});
 			}
 
 			if (remoteversion != null && !remoteversion.equals(version))
@@ -538,13 +543,11 @@ public class KernelTuner extends Activity
 				}
 				catch (IOException e)
 				{
-					// TODO Auto-generated catch block
-					e.printStackTrace();
+					new LogWriter().execute(new String[] {getClass().getName(), e.getMessage()});
 				}
 				catch (InterruptedException e)
 				{
-					// TODO Auto-generated catch block
-					e.printStackTrace();
+					new LogWriter().execute(new String[] {getClass().getName(), e.getMessage()});
 				}
 
 				SharedPreferences.Editor editor = preferences.edit();
@@ -578,13 +581,11 @@ public class KernelTuner extends Activity
 				}
 				catch (IOException e1)
 				{
-					// TODO Auto-generated catch block
-					e1.printStackTrace();
+					new LogWriter().execute(new String[] {getClass().getName(), e1.getMessage()});
 				}
 				catch (InterruptedException e1)
 				{
-					// TODO Auto-generated catch block
-					e1.printStackTrace();
+					new LogWriter().execute(new String[] {getClass().getName(), e1.getMessage()});
 				}
 				SharedPreferences.Editor editor = preferences.edit();
 				editor.putBoolean("cputoggle", true);
@@ -637,13 +638,11 @@ public class KernelTuner extends Activity
 				}
 				catch (IOException e)
 				{
-					// TODO Auto-generated catch block
-					e.printStackTrace();
+					new LogWriter().execute(new String[] {getClass().getName(), e.getMessage()});
 				}
 				catch (InterruptedException e)
 				{
-					// TODO Auto-generated catch block
-					e.printStackTrace();
+					new LogWriter().execute(new String[] {getClass().getName(), e.getMessage()});
 				}
 
 				SharedPreferences.Editor editor = preferences.edit();
@@ -676,13 +675,11 @@ public class KernelTuner extends Activity
 				}
 				catch (IOException e1)
 				{
-					// TODO Auto-generated catch block
-					e1.printStackTrace();
+					new LogWriter().execute(new String[] {getClass().getName(), e1.getMessage()});
 				}
 				catch (InterruptedException e1)
 				{
-					// TODO Auto-generated catch block
-					e1.printStackTrace();
+					new LogWriter().execute(new String[] {getClass().getName(), e1.getMessage()});
 				}
 				SharedPreferences.Editor editor = preferences.edit();
 				editor.putBoolean("cpu2toggle", true);
@@ -735,13 +732,11 @@ public class KernelTuner extends Activity
 				}
 				catch (IOException e)
 				{
-					// TODO Auto-generated catch block
-					e.printStackTrace();
+					new LogWriter().execute(new String[] {getClass().getName(), e.getMessage()});
 				}
 				catch (InterruptedException e)
 				{
-					// TODO Auto-generated catch block
-					e.printStackTrace();
+					new LogWriter().execute(new String[] {getClass().getName(), e.getMessage()});
 				}
 
 				SharedPreferences.Editor editor = preferences.edit();
@@ -774,13 +769,11 @@ public class KernelTuner extends Activity
 				}
 				catch (IOException e1)
 				{
-					// TODO Auto-generated catch block
-					e1.printStackTrace();
+					new LogWriter().execute(new String[] {getClass().getName(), e.getMessage()});
 				}
 				catch (InterruptedException e1)
 				{
-					// TODO Auto-generated catch block
-					e1.printStackTrace();
+					new LogWriter().execute(new String[] {getClass().getName(), e.getMessage()});
 				}
 				SharedPreferences.Editor editor = preferences.edit();
 				editor.putBoolean("cpu3toggle", true);
@@ -824,13 +817,11 @@ public class KernelTuner extends Activity
 			}
 			catch (IOException e1)
 			{
-				// TODO Auto-generated catch block
-				e1.printStackTrace();
+				new LogWriter().execute(new String[] {getClass().getName(), e1.getMessage()});
 			}
 			catch (InterruptedException e1)
 			{
-				// TODO Auto-generated catch block
-				e1.printStackTrace();
+				new LogWriter().execute(new String[] {getClass().getName(), e1.getMessage()});
 			}
 
 			return "";
@@ -874,7 +865,7 @@ public class KernelTuner extends Activity
 			}
 			catch (Exception e)
 			{
-
+				new LogWriter().execute(new String[] {getClass().getName(), e.getMessage()});
 			}
 
 			return "";
@@ -1405,60 +1396,15 @@ public void startCpuLoadThread() {
 			editor.commit();
 		}
 		catch (PackageManager.NameNotFoundException e)
-		{}
+		{
+			new LogWriter().execute(new String[] {getClass().getName(), e.getMessage()});
+		}
 
 
 	}
 
 	
-	/**
-	Animations for textViews
-	*/
-/*	public void battTempWarning()
-	{
-		Animation anim = new AlphaAnimation(0.0f, 1.0f);
-    	anim.setDuration(500); 
-    	anim.setStartOffset(20);
-    	anim.setRepeatMode(Animation.REVERSE);
-    	anim.setRepeatCount(Animation.INFINITE);
-    	batteryTemp.startAnimation(anim);
-
-	}
-	public void battTempWarningStop()
-	{
-		batteryTemp.clearAnimation();
-	}
-
-	public void battLevelWarning()
-	{
-		Animation anim = new AlphaAnimation(0.0f, 1.0f);
-    	anim.setDuration(500); 
-    	anim.setStartOffset(20);
-    	anim.setRepeatMode(Animation.REVERSE);
-    	anim.setRepeatCount(Animation.INFINITE);
-    	batteryLevel.startAnimation(anim);
-
-	}
-	public void battLevelWarningStop()
-	{
-		batteryLevel.clearAnimation();
-	}
-
-	public void cpuTempWarning()
-	{
-		Animation anim = new AlphaAnimation(0.0f, 1.0f);
-    	anim.setDuration(500); 
-    	anim.setStartOffset(20);
-    	anim.setRepeatMode(Animation.REVERSE);
-    	anim.setRepeatCount(Animation.INFINITE);
-    	cputemptxt.startAnimation(anim);
-
-	}
-	public void cpuTempWarningStop()
-	{
-		cputemptxt.clearAnimation();
-	}
-*/
+	
 
 	/**
 	CPU Temperature
@@ -2120,7 +2066,7 @@ public void startCpuLoadThread() {
 		}
 		catch (IOException ioe)
 		{
-			ioe.printStackTrace();
+			new LogWriter().execute(new String[] {getClass().getName(), ioe.getMessage()});
 		}
 		try
 		{ 
@@ -2135,7 +2081,7 @@ public void startCpuLoadThread() {
 		}
 		catch (IOException ioe)
 		{
-			ioe.printStackTrace();
+			new LogWriter().execute(new String[] {getClass().getName(), ioe.getMessage()});
 		}
 		try
 		{ 
@@ -2150,7 +2096,7 @@ public void startCpuLoadThread() {
 		}
 		catch (IOException ioe)
 		{
-			ioe.printStackTrace();
+			new LogWriter().execute(new String[] {getClass().getName(), ioe.getMessage()});
 		}
 	
 		try
@@ -2166,7 +2112,7 @@ public void startCpuLoadThread() {
 		}
 		catch (IOException ioe)
 		{
-			ioe.printStackTrace();
+			new LogWriter().execute(new String[] {getClass().getName(), ioe.getMessage()});
 		} 
 		new Initd().execute(new String[] {"apply"});
 	}

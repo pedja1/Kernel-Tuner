@@ -41,11 +41,11 @@ public class Initd extends AsyncTask<String, Void, String>
 			}
 			catch (IOException e)
 			{
-				e.printStackTrace();
+				new LogWriter().execute(new String[] {getClass().getName(), e.getMessage()});
 			}
 			catch (InterruptedException e)
 			{
-				e.printStackTrace();
+				new LogWriter().execute(new String[] {getClass().getName(), e.getMessage()});
 			}
 		}
 		else if (args[0].equals("rm"))
@@ -60,6 +60,7 @@ public class Initd extends AsyncTask<String, Void, String>
 				localDataOutputStream.writeBytes("rm /system/etc/init.d/99ktcputweaks\n");
 				localDataOutputStream.writeBytes("rm /system/etc/init.d/99ktgputweaks\n");
 				localDataOutputStream.writeBytes("rm /system/etc/init.d/99ktmisctweaks\n");
+				localDataOutputStream.writeBytes("rm /system/etc/init.d/99ktvoltage\n");
 				localDataOutputStream.writeBytes("exit\n");
 				localDataOutputStream.flush();
 				localDataOutputStream.close();
@@ -68,11 +69,11 @@ public class Initd extends AsyncTask<String, Void, String>
 			}
 			catch (IOException e)
 			{
-				e.printStackTrace();
+				new LogWriter().execute(new String[] {getClass().getName(), e.getMessage()});
 			}
 			catch (InterruptedException e)
 			{
-				e.printStackTrace();
+				new LogWriter().execute(new String[] {getClass().getName(), e.getMessage()});
 			}
 		}
 		return "";
