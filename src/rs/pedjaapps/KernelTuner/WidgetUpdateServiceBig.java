@@ -703,8 +703,8 @@ public class WidgetUpdateServiceBig extends Service
 
 
 
-			String timer = sharedPrefs.getString("widget_time", "1800");
-			// System.out.println(timer);
+			String timer = sharedPrefs.getString("widget_time", "30");
+			
 
 			try
 			{
@@ -712,7 +712,7 @@ public class WidgetUpdateServiceBig extends Service
 			}
 			catch (Exception e)
 			{
-				timeint = 1800;
+				timeint = 30;
 			}
 			PendingIntent pendingIntent = PendingIntent.getBroadcast(getApplicationContext(), 0, clickIntent,
 																	 PendingIntent.FLAG_UPDATE_CURRENT);
@@ -720,7 +720,7 @@ public class WidgetUpdateServiceBig extends Service
 			AlarmManager alarmManager = (AlarmManager)getSystemService(ALARM_SERVICE);
 			Calendar calendar = Calendar.getInstance();
 			calendar.setTimeInMillis(System.currentTimeMillis());
-			calendar.add(Calendar.SECOND, timeint);
+			calendar.add(Calendar.SECOND, timeint*60);
 			alarmManager.setRepeating(AlarmManager.RTC_WAKEUP, calendar.getTimeInMillis(), 20 * 1000, pendingIntent);
 
 			appWidgetManager.updateAppWidget(widgetId, remoteViews);
