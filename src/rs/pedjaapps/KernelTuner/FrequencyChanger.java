@@ -36,6 +36,7 @@ public class FrequencyChanger extends AsyncTask<String, Void, String>
 			DataOutputStream localDataOutputStream = new DataOutputStream(localProcess.getOutputStream());
 			localDataOutputStream.writeBytes("chmod 777 /sys/devices/system/cpu/" + args[0] + "/cpufreq/scaling_" + args[1] + "_freq\n");
 			localDataOutputStream.writeBytes("echo " + args[2] + " > /sys/devices/system/cpu/" + args[0] + "/cpufreq/scaling_" + args[1] + "_freq\n");
+			localDataOutputStream.writeBytes("chmod 444 /sys/devices/system/cpu/" + args[0] + "/cpufreq/scaling_" + args[1] + "_freq\n");
 			localDataOutputStream.writeBytes("exit\n");
 			localDataOutputStream.flush();
 			localDataOutputStream.close();
