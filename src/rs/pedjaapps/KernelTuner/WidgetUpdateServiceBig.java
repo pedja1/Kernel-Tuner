@@ -12,14 +12,13 @@ import android.preference.*;
 import android.widget.*;
 import java.io.*;
 import java.util.*;
-import rs.pedjaapps.KernelTuner.*;
 
 import java.lang.Process;
 
 public class WidgetUpdateServiceBig extends Service
 {
 	
-	private static final String LOG = "";
+
 	public String led;
 	public String cpu0curr;
 	public String gov;
@@ -78,12 +77,12 @@ public class WidgetUpdateServiceBig extends Service
 		}
 		catch (IOException e)
 		{
-			// TODO Auto-generated catch block
+			
 			e.printStackTrace();
 		}
 		catch (InterruptedException e)
 		{
-			// TODO Auto-generated catch block
+			
 			e.printStackTrace();
 		}
 	}
@@ -620,9 +619,76 @@ public class WidgetUpdateServiceBig extends Service
 			remoteViews.setTextViewText(R.id.textView14, battperc + "%");
 
 			double battempint = Double.parseDouble(batttemp)/10;
-
+			String cpuTemp = CPUInfo.cpuTemp();
 			SharedPreferences sharedPrefs = PreferenceManager.getDefaultSharedPreferences(this);
 			String tempPref = sharedPrefs.getString("temp", "celsius");
+			if (tempPref.equals("fahrenheit"))
+			{
+				cpuTemp = String.valueOf((int)(Double.parseDouble(cpuTemp) * 1.8) + 32);
+				remoteViews.setTextViewText(R.id.textView27, cpuTemp + "°F");
+				
+		  		int temp = Integer.parseInt(cpuTemp);
+
+		  		if (temp < 113)
+				{
+		  			remoteViews.setTextColor(R.id.textView27, Color.GREEN);
+				}
+				else if (temp >= 113 && temp < 138)
+				{
+					remoteViews.setTextColor(R.id.textView27, Color.YELLOW);
+				}
+
+				else if (temp >= 138)
+				{
+					remoteViews.setTextColor(R.id.textView27, Color.RED);
+
+				}
+			}
+
+			else if (tempPref.equals("celsius"))
+			{
+				remoteViews.setTextViewText(R.id.textView27, cpuTemp + "°C");
+				int temp = Integer.parseInt(cpuTemp);
+				if (temp < 45)
+				{
+					remoteViews.setTextColor(R.id.textView27, Color.GREEN);
+				}
+				else if (temp >= 45 && temp <= 59)
+				{
+					remoteViews.setTextColor(R.id.textView27, Color.YELLOW);
+				}
+
+				else if (temp > 59)
+				{
+					remoteViews.setTextColor(R.id.textView27, Color.RED);
+
+				}
+			}
+			/**
+			If kelvin is selected in settings convert cpu temp to kelvin
+			*/
+			else if (tempPref.equals("kelvin"))
+			{
+				cpuTemp = String.valueOf((int)(Double.parseDouble(cpuTemp) + 273.15));
+				
+				remoteViews.setTextViewText(R.id.textView27, cpuTemp + "°K");
+				
+				int temp = Integer.parseInt(cpuTemp);
+				if (temp < 318)
+				{
+					remoteViews.setTextColor(R.id.textView27, Color.GREEN);
+				}
+				else if (temp >= 318 && temp <= 332)
+				{
+					remoteViews.setTextColor(R.id.textView27, Color.YELLOW);
+				}
+
+				else if (temp > 332)
+				{
+					remoteViews.setTextColor(R.id.textView27, Color.RED);;
+
+				}
+			}
 			if (tempPref.equals("fahrenheit"))
 			{
 				battempint = (battempint * 1.8) + 32;
