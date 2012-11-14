@@ -1931,12 +1931,12 @@ public void startCpuLoadThread() {
 		}
 		if (!thrupmsnew.equals(""))
 		{
-			miscbuilder.append("chmod 777 /sys/kernel/msm_mpdecision/conf/twts_threshold_up" +
+			miscbuilder.append("chmod 777 /sys/kernel/msm_mpdecision/conf/twts_threshold_up\n" +
 							   "echo " + "\"" + thrupmsnew.trim() + "\"" + " > /sys/kernel/msm_mpdecision/conf/twts_threshold_up \n");
 		}
 		if (!thrdownmsnew.equals(""))
 		{
-			miscbuilder.append("chmod 777 /sys/kernel/msm_mpdecision/conf/twts_threshold_down" +
+			miscbuilder.append("chmod 777 /sys/kernel/msm_mpdecision/conf/twts_threshold_down\n" +
 							   "echo " + "\"" + thrdownmsnew.trim() + "\"" + " > /sys/kernel/msm_mpdecision/conf/twts_threshold_down \n\n");
 		}
 		if (!sdcache.equals(""))
