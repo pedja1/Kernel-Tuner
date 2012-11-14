@@ -23,7 +23,8 @@ SeekBar.OnSeekBarChangeListener
 	public String governorscpu1;
 	public String curentgovernorcpu0;
 	public String curentgovernorcpu1;
-	public String led = CPUInfo.leds();;
+	public String led = CPUInfo.leds();
+	public String ledHox;
 	SeekBar mSeekBar;
 	TextView progresstext;
 	public String cpu0freqs;
@@ -220,12 +221,13 @@ SeekBar.OnSeekBarChangeListener
 
 				DataOutputStream localDataOutputStream = new DataOutputStream(
 					localProcess.getOutputStream());
-				localDataOutputStream
-					.writeBytes("chmod 777 /sys/devices/platform/leds-pm8058/leds/button-backlight/currents\n");
-				localDataOutputStream
-					.writeBytes("echo "
-								+ ledprogress
-								+ " > /sys/devices/platform/leds-pm8058/leds/button-backlight/currents\n");
+				localDataOutputStream.writeBytes("chmod 777 /sys/devices/platform/leds-pm8058/leds/button-backlight/currents\n");
+				if(args[0].equals("e3d")){
+				localDataOutputStream.writeBytes("echo " + ledprogress + " > /sys/devices/platform/leds-pm8058/leds/button-backlight/currents\n");
+				}
+				else if(args[0].equals("hox")){
+					localDataOutputStream.writeBytes("echo " + args[1] + " > /sys/devices/platform/msm_ssbi.0/pm8921-core/pm8xxx-led/leds/button-backlight/currents\n");
+				}
 				localDataOutputStream.writeBytes("exit\n");
 				localDataOutputStream.flush();
 				localDataOutputStream.close();
@@ -563,7 +565,7 @@ SeekBar.OnSeekBarChangeListener
 				{
 
 					mSeekBar.setProgress(mSeekBar.getProgress() - 3);
-					new ChangeButtonsLight().execute();
+					new ChangeButtonsLight().execute(new String[] {"e3d"});
 
 				}
 			});
@@ -576,7 +578,7 @@ SeekBar.OnSeekBarChangeListener
 				{
 
 					mSeekBar.setProgress(mSeekBar.getProgress() + 3);
-					new ChangeButtonsLight().execute();
+					new ChangeButtonsLight().execute(new String[] {"e3d"});
 
 				}
 			});
@@ -697,25 +699,77 @@ SeekBar.OnSeekBarChangeListener
 		
 
 			
-		
+		readButtons2();
 		readSDCache();
 		readIOScheduler();
 		createSpinnerIO();
-		
+		TextView sb = (TextView) findViewById(R.id.textView9);
+		TextView sb1 = (TextView) findViewById(R.id.progtextView1);
+		ImageView im = (ImageView) findViewById(R.id.imageView1);
+		RadioGroup buttonsGroup = (RadioGroup)findViewById(R.id.buttonsGroup);
+		RadioButton off = (RadioButton)findViewById(R.id.off);
+		RadioButton dim = (RadioButton)findViewById(R.id.dim);
+		RadioButton bright = (RadioButton)findViewById(R.id.bright);
 		if(led.equals("")){
 			mSeekBar.setVisibility(View.GONE);
 			btminus.setVisibility(View.GONE);
 			btplus.setVisibility(View.GONE);
-			TextView sb = (TextView) findViewById(R.id.textView9);
 			sb.setVisibility(View.GONE);
-			TextView sb1 = (TextView) findViewById(R.id.progtextView1);
 			sb1.setVisibility(View.GONE);
-			ImageView im = (ImageView) findViewById(R.id.imageView1);
 			im.setVisibility(View.GONE);
 		}
 		else{
 			mSeekBar.setProgress(Integer.parseInt(led));
 		}
+		if(new File(CPUInfo.BUTTONS_LIGHT_2).exists()){
+			mSeekBar.setVisibility(View.GONE);
+			btminus.setVisibility(View.GONE);
+			btplus.setVisibility(View.GONE);
+			sb.setVisibility(View.GONE);
+			sb1.setVisibility(View.GONE);
+			im.setVisibility(View.GONE);
+			
+		}
+		else if(new File(CPUInfo.BUTTONS_LIGHT).exists()){
+			buttonsGroup.setVisibility(View.GONE);
+		}
+		if(ledHox.equals("OFF"))
+		{
+			off.setChecked(true);
+		}
+		else if(ledHox.equals("DIM")){
+			dim.setChecked(true);
+		}
+		else if(ledHox.equals("BRIGHT")){
+			bright.setChecked(true);
+		}
+		off.setOnClickListener(new OnClickListener(){
+
+			@Override
+			public void onClick(View arg0) {
+				new ChangeButtonsLight().execute(new String[] {"hox", "OFF"});
+				
+			}
+			
+		});
+		dim.setOnClickListener(new OnClickListener(){
+
+			@Override
+			public void onClick(View arg0) {
+				new ChangeButtonsLight().execute(new String[] {"hox", "DIM"});
+				
+			}
+			
+		});
+		bright.setOnClickListener(new OnClickListener(){
+
+			@Override
+			public void onClick(View arg0) {
+				new ChangeButtonsLight().execute(new String[] {"hox", "BRIGHT"});
+				
+			}
+			
+		});
 		readLDT();
 		readFastchargeStatus();
 		readVsyncStatus();
@@ -1101,6 +1155,35 @@ SeekBar.OnSeekBarChangeListener
 		}
 	}
 
+	public void readButtons2()
+	{
+		try
+		{
+
+			File myFile = new File(
+				"/sys/devices/platform/msm_ssbi.0/pm8921-core/pm8xxx-led/leds/button-backlight/currents");
+			FileInputStream fIn = new FileInputStream(myFile);
+
+			BufferedReader myReader = new BufferedReader(new InputStreamReader(
+															 fIn));
+			String aDataRow = "";
+			String aBuffer = "";
+			while ((aDataRow = myReader.readLine()) != null)
+			{
+				aBuffer += aDataRow + "\n";
+			}
+
+			ledHox = aBuffer.trim();
+			myReader.close();
+
+		}
+		catch (Exception e)
+		{
+
+			ledHox = "266";
+		}
+	}
+	
 	public void readColorDepth()
 	{
 		try
@@ -1433,7 +1516,7 @@ SeekBar.OnSeekBarChangeListener
 
 		ledprogress = mSeekBar.getProgress();
 
-		new ChangeButtonsLight().execute();
+		new ChangeButtonsLight().execute(new String[] {"e3d"});
 	}
 
 }

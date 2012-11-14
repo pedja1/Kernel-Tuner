@@ -197,5 +197,7 @@
 	<string name="unchanged">Unchanged</string>
 	<string name="off">OFF</string>
 	<string name="on">ON</string>
+	<string name="dim">DIM</string>
+	<string name="bright">BRIGHT</string>
 
 </resources>
