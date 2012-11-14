@@ -57,9 +57,18 @@ public class ProfileEditor extends Activity
 	EditText ed3;
 	EditText ed4;
 	EditText name;
-	CheckBox vsyncBox;
-	CheckBox fchargeBox;
+	
+	RadioGroup vsyncGroup;
+	RadioGroup fchargeGroup;
+	RadioButton vsyncUnchanged;
+	RadioButton vsyncOff;
+	RadioButton vsyncOn;
+	RadioButton fchargeUnchanged;
+	RadioButton fchargeOff;
+	RadioButton fchargeOn;
 	DatabaseHandler db;
+	TextView vsyncText;
+	TextView fchargetext;
 	
 	String board = android.os.Build.DEVICE;
 	@Override
@@ -92,10 +101,17 @@ public class ProfileEditor extends Activity
 		ed2  = (EditText)findViewById(R.id.editText1);//mpdec thrs up
 		ed3  = (EditText)findViewById(R.id.editText4);//capacitive lights
 		ed4  = (EditText)findViewById(R.id.editText5);//sd cache
-		vsyncBox = (CheckBox)findViewById(R.id.vsync);
-		fchargeBox = (CheckBox)findViewById(R.id.fcharge);
+		vsyncGroup = (RadioGroup)findViewById(R.id.vsyncGroup);
+		fchargeGroup = (RadioGroup)findViewById(R.id.fchargeGroup);
+		vsyncUnchanged = (RadioButton)findViewById(R.id.vsyncUnchanged);
+		vsyncOff = (RadioButton)findViewById(R.id.vsyncOff);
+		vsyncOn = (RadioButton)findViewById(R.id.vsyncOn);
+		fchargeUnchanged = (RadioButton)findViewById(R.id.fchargeUnchanged);
+		fchargeOff = (RadioButton)findViewById(R.id.fchargeOff);
+		fchargeOn = (RadioButton)findViewById(R.id.fchargeOn);
 		
-
+		vsyncText = (TextView)findViewById(R.id.vsync);
+		fchargetext = (TextView)findViewById(R.id.fcharge);
 	
 		
 		cpu.setOnClickListener(new OnClickListener(){
@@ -220,18 +236,24 @@ public class ProfileEditor extends Activity
 		}
 		if(profileName!=null && !profileName.equals("")){
 			if(profile.getVsync()==0){
-				vsyncBox.setChecked(false);
+				vsyncOff.setChecked(true);
 			}
 			else if(profile.getVsync()==1){
-				vsyncBox.setChecked(true);
+				vsyncOn.setChecked(true);
+			}
+			else{
+				vsyncUnchanged.setChecked(true);
 			}
 		}
 		if(profileName!=null && !profileName.equals("")){
 			if(profile.getFcharge()==0){
-				fchargeBox.setChecked(false);
+				fchargeOff.setChecked(true);
 			}
 			else if(profile.getFcharge()==1){
-				fchargeBox.setChecked(true);
+				fchargeOn.setChecked(true);
+			}
+			else{
+				fchargeUnchanged.setChecked(true);
 			}
 		}
 
@@ -247,10 +269,12 @@ public class ProfileEditor extends Activity
 		}
 
 		if(CPUInfo.vsyncExists()==false){
-			vsyncBox.setVisibility(View.GONE);
+			vsyncGroup.setVisibility(View.GONE);
+			vsyncText.setVisibility(View.GONE);
 		}
 		if(CPUInfo.fchargeExists()==false){
-			fchargeBox.setVisibility(View.GONE);
+			fchargeGroup.setVisibility(View.GONE);
+			fchargetext.setVisibility(View.GONE);
 		}
 
 		if (board.equals("shooter") || board.equals("shooteru") || board.equals("pyramid") || board.equals("tenderloin") )
@@ -872,25 +896,25 @@ public boolean onOptionsItemSelected(MenuItem item) {
 			
 		}
 		else{
-		int vsync;
-		int fcharge;
+		int vsync = -1;
+		int fcharge = -1;
 		int sdcache = 0;
 		try{
 			sdcache = Integer.parseInt(ed4.getText().toString());
 		}catch(NumberFormatException e){
 			
 		}
-		if(vsyncBox.isChecked()){
+		if(vsyncOn.isChecked()){
 			vsync=1;
 		}
-		else{
+		else if(vsyncOff.isChecked()){
 			vsync = 0;
 		}
 		
-		if(fchargeBox.isChecked()){
+		if(fchargeOn.isChecked()){
 			fcharge=1;
 		}
-		else{
+		else if(fchargeOff.isChecked()){
 			fcharge = 0;
 		}
 		mtd = ed1.getText().toString();

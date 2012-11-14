@@ -347,11 +347,9 @@
                 android:id="@+id/editText1"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-               
-                android:ems="4"
-                android:inputType="number" />
-
                 
+                android:hint="@string/unchanged"
+                android:inputType="number" />
 
         </LinearLayout>
         
@@ -371,8 +369,8 @@
                 android:id="@+id/editText2"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                
-                android:ems="4"
+              
+                android:hint="@string/unchanged"
                 android:inputType="number" />
 
         </LinearLayout>
@@ -489,8 +487,10 @@
                 android:id="@+id/editText4"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:ems="4"
+                
+                android:hint="@string/unchanged"
                 android:inputType="number" />
+
         </LinearLayout>
                 <ImageView
         	android:id="@+id/imageView6"
@@ -499,11 +499,37 @@
         	android:scaleType="fitXY"
         	android:src="@drawable/divider_strong_holo" />
         
-               <CheckBox
+               <TextView
                    android:id="@+id/vsync"
                    android:layout_width="match_parent"
                    android:layout_height="wrap_content"
-                   android:text="@string/vsync"/> 
+                   android:text="@string/vsync"/>
+
+               <RadioGroup
+                   android:id="@+id/vsyncGroup"
+                   android:layout_width="match_parent"
+                   android:layout_height="wrap_content"
+                   android:orientation="horizontal" >
+
+                   <RadioButton
+                       android:id="@+id/vsyncUnchanged"
+                       android:layout_width="wrap_content"
+                       android:layout_height="wrap_content"
+                       android:checked="true"
+                       android:text="@string/unchanged" />
+
+                   <RadioButton
+                       android:id="@+id/vsyncOff "
+                       android:layout_width="wrap_content"
+                       android:layout_height="wrap_content"
+                       android:text="@string/off" />
+
+                   <RadioButton
+                       android:id="@+id/vsyncOn"
+                       android:layout_width="wrap_content"
+                       android:layout_height="wrap_content"
+                       android:text="@string/on" />
+               </RadioGroup>
                    
                     <ImageView
         	android:id="@+id/imageView7"
@@ -512,11 +538,37 @@
         	android:scaleType="fitXY"
         	android:src="@drawable/divider_strong_holo" />
         
-               <CheckBox
+              <TextView
                    android:id="@+id/fcharge"
                    android:layout_width="match_parent"
                    android:layout_height="wrap_content"
-                   android:text="@string/fastcharge"/> 
+                   android:text="@string/fastcharge"/>
+
+               <RadioGroup
+                   android:id="@+id/fchargeGroup"
+                   android:layout_width="match_parent"
+                   android:layout_height="wrap_content"
+                   android:orientation="horizontal" >
+
+                   <RadioButton
+                       android:id="@+id/fchargeUnchanged"
+                       android:layout_width="wrap_content"
+                       android:layout_height="wrap_content"
+                       android:checked="true"
+                       android:text="@string/unchanged" />
+
+                   <RadioButton
+                       android:id="@+id/fchargeOff "
+                       android:layout_width="wrap_content"
+                       android:layout_height="wrap_content"
+                       android:text="@string/off" />
+
+                   <RadioButton
+                       android:id="@+id/fchargeOn"
+                       android:layout_width="wrap_content"
+                       android:layout_height="wrap_content"
+                       android:text="@string/on" />
+               </RadioGroup>
                    
                 <ImageView
         	android:id="@+id/imageView8"
@@ -585,13 +637,14 @@
                 android:text="@string/sd_card_cache"
                   android:layout_weight="1" />
 
-            
            <EditText
-                android:id="@+id/editText5"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:ems="6"
-                android:inputType="number" />
+               android:id="@+id/editText5"
+               android:layout_width="wrap_content"
+               android:layout_height="wrap_content"
+               
+               android:hint="@string/unchanged"
+               android:inputType="number" />
+
         </LinearLayout>
         <ImageView
         	android:id="@+id/imageView11"

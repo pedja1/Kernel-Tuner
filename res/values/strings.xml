@@ -16,10 +16,10 @@
     <string name="oc">CPU Tweaks</string>
     <string name="task_manager">Task Manager</string>
     <string name="preferences_boot_settings">Boot Settings</string>
-    <string name="preferences_boot_settings_apply_summary">Setings will be restored after reboot</string>
-    <string name="preferences_boot_settings_apply_title">Restore settings on boot</string>
+    <string name="preferences_boot_settings_apply_summary">Settings will be restored after reboot</string>
+    <string name="preferences_boot_settings_apply_title">Restore Settings After Reboot</string>
     <string name="preferences_widget_settings">Widget Settings</string>
-    <string name="preferences_widget_settings_interval_title">Widget Update Interval(seconds)</string>
+    <string name="preferences_widget_settings_interval_title">Widget Update Interval</string>
     <string name="preferences_widget_settings_interval_summary">Setting to low values will cause your battery to drain faster</string>
     <string name="preferences_misc">Misc</string>
     
@@ -194,5 +194,8 @@
 	<string name="color_depth_">Color Depth:</string>
 	<string name="sd_card_cache">SD Card Cache Size:</string>
 	<string name="link_cpus">Link Cores(All frequencies will change together)</string>
+	<string name="unchanged">Unchanged</string>
+	<string name="off">OFF</string>
+	<string name="on">ON</string>
 
 </resources>
