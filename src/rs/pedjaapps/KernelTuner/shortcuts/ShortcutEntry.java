@@ -1,4 +1,4 @@
-package rs.pedjaapps.KernelTuner;
+package rs.pedjaapps.KernelTuner.shortcuts;
 
 public final class ShortcutEntry
 {

@@ -46,6 +46,7 @@
 			android:name=".Preferences"
 			android:label="@string/title_preferences"
 			android:icon="@drawable/misc"
+			android:exported="true"
 		>
 		</activity>
 
@@ -85,25 +86,25 @@
 				android:name="android.appwidget.provider"
 				android:resource="@xml/widget_provider_4x4" />
 		</receiver>
-		<activity android:name=".Gpu"   android:label="@string/title_gpu" android:theme="@style/Theme.TransparentNoTitle" android:icon="@drawable/gpu"></activity>
-		<activity android:name=".MiscTweaks"  android:label="@string/title_misc" android:icon="@drawable/misc"></activity>
-		<activity android:name=".Mpdecision"  android:label="@string/title_mpdecision" android:icon="@drawable/dual"></activity>
-		<activity android:name=".Thermald"  android:label="@string/title_thermald" android:icon="@drawable/temp"></activity>
+		<activity android:name=".Gpu"  android:exported="true" android:label="@string/title_gpu" android:theme="@style/Theme.TransparentNoTitle" android:icon="@drawable/gpu"></activity>
+		<activity android:name=".MiscTweaks" android:exported="true" android:label="@string/title_misc" android:icon="@drawable/misc"></activity>
+		<activity android:name=".Mpdecision" android:exported="true" android:label="@string/title_mpdecision" android:icon="@drawable/dual"></activity>
+		<activity android:name=".Thermald" android:exported="true" android:label="@string/title_thermald" android:icon="@drawable/temp"></activity>
 
 		<activity android:name=".About"  android:label="@string/title_about" android:icon="@drawable/about"></activity>
 		<activity android:name=".Changelog"  android:label="@string/title_changelog" android:theme="@style/Theme.TransparentDark"  android:icon="@drawable/ic_menu_recent_history"></activity>
 		<activity android:name=".CompatibilityCheck" android:label="@string/title_check" android:theme="@style/Theme.TransparentNoTitle" android:icon="@drawable/ic_menu_help"></activity>
-		<activity android:name=".Profiles" android:label="@string/title_profiles" android:icon="@drawable/ic_menu_cc"  android:theme="@style/Theme.Locale.Dark"></activity>
+		<activity android:name=".Profiles" android:exported="true" android:label="@string/title_profiles" android:icon="@drawable/ic_menu_cc"  android:theme="@style/Theme.Locale.Dark"></activity>
 		<activity android:name=".ProfileEditor" android:label="@string/activity_title_profile_editor" android:icon="@drawable/ic_menu_edit"></activity><!-- android:theme="@android:style/Theme.Holo.Dialog -->
-		<activity android:name=".TaskManagerActivity" android:label="@string/task_manager" android:icon="@drawable/swap" ></activity>
-		<activity android:name=".Swap" android:label="@string/swap" android:icon="@drawable/swap" ></activity>
+		<activity android:name=".Swap" android:exported="true" android:label="@string/swap" android:icon="@drawable/swap" ></activity>
 
-		<activity android:name=".SystemInfo" android:label="@string/info" android:icon="@drawable/ic_menu_info_details" ></activity>
+		<activity android:name=".SystemInfo" android:exported="true" android:label="@string/info" android:icon="@drawable/ic_menu_info_details" ></activity>
 		<activity android:name=".CPUActivity" android:label="@string/title_cpu" android:icon="@drawable/ic_launcher" android:screenOrientation="portrait" android:exported="true" ></activity>
-		<activity android:name=".VoltageActivity" android:label="@string/title_voltage" android:icon="@drawable/voltage"  ></activity>
-		<activity android:name=".TISActivity" android:label="@string/title_tis" android:icon="@drawable/times" ></activity>
-		<activity android:name=".GovernorActivity" android:label="@string/title_governor" android:icon="@drawable/dual" ></activity>
-
+		<activity android:name=".VoltageActivity" android:exported="true" android:label="@string/title_voltage" android:icon="@drawable/voltage"  ></activity>
+		<activity android:name=".TISActivity" android:exported="true" android:label="@string/title_tis" android:icon="@drawable/times" ></activity>
+		<activity android:name=".GovernorActivity" android:label="@string/title_governor" android:icon="@drawable/dual" android:exported="true"></activity>
+		<activity android:name=".Reboot" android:label="Reboot" android:icon="@drawable/ic_launcher" android:exported="true"></activity>
+		
 		<activity
             android:name=".ui.EditActivity"
             android:exported="true"
@@ -147,16 +148,26 @@
 			</intent-filter>
 		</receiver>-->
 		
-		<activity android:name=".Shortcuts" android:label="Kernel Tuner - Shortcuts">
+		<activity android:name=".shortcuts.Shortcuts" android:label="Kernel Tuner - Shortcuts">
             <intent-filter>
 				<action android:name="android.intent.action.CREATE_SHORTCUT" />
 				<category android:name="android.intent.category.DEFAULT" />
             </intent-filter>
 		</activity>
 
-		<activity android:name=".test" android:label="Kernel Tuner - Shortcuts">
-           
-		</activity>
+		<activity android:name=".shortcuts.CPUShortcut" android:label="Kernel Tuner - Shortcuts"></activity>
+		<activity android:name=".shortcuts.GovernorShortcut" android:label="Kernel Tuner - Shortcuts"></activity>
+		<activity android:name=".shortcuts.GPUShortcut" android:label="Kernel Tuner - Shortcuts"></activity>
+		<activity android:name=".shortcuts.InfoShortcut" android:label="Kernel Tuner - Shortcuts"></activity>
+		<activity android:name=".shortcuts.MiscShortcut" android:label="Kernel Tuner - Shortcuts"></activity>
+		<activity android:name=".shortcuts.MpdecisionShortcut" android:label="Kernel Tuner - Shortcuts"></activity>
+		<activity android:name=".shortcuts.ProfilesShortcut" android:label="Kernel Tuner - Shortcuts"></activity>
+		<activity android:name=".shortcuts.RebootShortcut" android:label="Kernel Tuner - Shortcuts"></activity>
+		<activity android:name=".shortcuts.SettingsShortcut" android:label="Kernel Tuner - Shortcuts"></activity>
+		<activity android:name=".shortcuts.SwapShortcut" android:label="Kernel Tuner - Shortcuts"></activity>
+		<activity android:name=".shortcuts.ThermaldShortcut" android:label="Kernel Tuner - Shortcuts"></activity>
+		<activity android:name=".shortcuts.TISShortcut" android:label="Kernel Tuner - Shortcuts"></activity>
+		<activity android:name=".shortcuts.VoltageShortcut" android:label="Kernel Tuner - Shortcuts"></activity>
 		
 		<service android:name=".WidgetUpdateService"></service>
 		<service android:name=".WidgetUpdateServiceBig"></service>

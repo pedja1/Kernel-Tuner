@@ -6,6 +6,7 @@ import android.appwidget.*;
 import android.content.*;
 import android.content.pm.*;
 import android.content.pm.PackageManager.*;
+import android.content.res.AssetManager;
 import android.graphics.*;
 import android.net.*;
 import android.os.*;
@@ -297,7 +298,7 @@ public class KernelTuner extends Activity
 
 	Handler mHandler = new Handler();
 
-
+	SharedPreferences.Editor editor;
 
 	ProgressDialog mProgressDialog;
 	private class DownloadNewVersion extends AsyncTask<String, Integer, String>
@@ -880,8 +881,13 @@ public class KernelTuner extends Activity
 	{
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.main);
-		
-		
+		 preferences = PreferenceManager.getDefaultSharedPreferences(this);
+		 editor = preferences.edit();
+		boolean first = preferences.getBoolean(
+				"first_launch", false);
+		if (first == false) {
+			CopyAssets();
+		}
 		tempLayout = (LinearLayout)findViewById(R.id.test1a);
 		if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.HONEYCOMB)
         {
@@ -2710,6 +2716,46 @@ AlertDialog alert = builder.create();
 		}
 	}
 
+	private void CopyAssets() {
+		AssetManager assetManager = getAssets();
+		String[] files = null;
+		File file;
+		try {
+			files = assetManager.list("");
+		} catch (IOException e) {
+			Log.e("tag", e.getMessage());
+		}
+		for (String filename : files) {
+			InputStream in = null;
+			OutputStream out = null;
+			try {
+				in = assetManager.open(filename);
+				file = new File(this.getFilesDir().getAbsolutePath() + "/"
+						+ filename);
+				out = new FileOutputStream(file);
+				copyFile(in, out);
+				in.close();
+				Runtime.getRuntime().exec("chmod 755 " + file);
+				file.setExecutable(false);
+				in = null;
+				out.flush();
+				out.close();
+				out = null;
+			} catch (Exception e) {
+				Log.e("tag", e.getMessage());
+			}
+		}
+		
+		editor.putBoolean("first_launch", true);
+		editor.commit();
+	}
 
+	private void copyFile(InputStream in, OutputStream out) throws IOException {
+		byte[] buffer = new byte[1024];
+		int read;
+		while ((read = in.read(buffer)) != -1) {
+			out.write(buffer, 0, read);
+		}
+	}
 
 }

@@ -1,6 +1,8 @@
-package rs.pedjaapps.KernelTuner;
+package rs.pedjaapps.KernelTuner.shortcuts;
 
 
+import rs.pedjaapps.KernelTuner.R;
+import rs.pedjaapps.KernelTuner.R.id;
 import android.content.*;
 import android.view.*;
 import android.widget.*;

@@ -1,4 +1,4 @@
-package rs.pedjaapps.KernelTuner;
+package rs.pedjaapps.KernelTuner.shortcuts;
 
 import android.app.*;
 import android.content.*;
@@ -7,6 +7,14 @@ import android.view.*;
 import android.widget.*;
 import android.widget.AdapterView.*;
 import java.util.*;
+
+import rs.pedjaapps.KernelTuner.CPUActivity;
+import rs.pedjaapps.KernelTuner.R;
+import rs.pedjaapps.KernelTuner.R.drawable;
+import rs.pedjaapps.KernelTuner.R.id;
+import rs.pedjaapps.KernelTuner.R.layout;
+import rs.pedjaapps.KernelTuner.R.menu;
+import rs.pedjaapps.KernelTuner.TISActivity;
 
 public class Shortcuts extends Activity
 {
@@ -59,6 +67,21 @@ ListView shortcutListView;
 		R.drawable.swap,
 		R.drawable.info,
 		R.drawable.misc};
+	Class[] classes = {RebootShortcut.class, 
+			RebootShortcut.class, 
+			RebootShortcut.class, 
+			CPUShortcut.class,
+			TISShortcut.class,
+			VoltageShortcut.class,
+			GovernorShortcut.class,
+			MpdecisionShortcut.class,
+			ThermaldShortcut.class,
+			GPUShortcut.class,
+			MiscShortcut.class,
+			ProfilesShortcut.class,
+			SwapShortcut.class,
+			InfoShortcut.class,
+			SettingsShortcut.class};
 
 	@Override
 	public void onCreate(Bundle savedInstanceState)
@@ -81,52 +104,21 @@ ListView shortcutListView;
 				public void onItemClick(AdapterView<?> parent, View view, final int position, long id) 
 				{
 
-				/*	
-*/                 if(position==0){
-	Intent shortcutintent = new Intent("com.android.launcher.action.INSTALL_SHORTCUT");
-	shortcutintent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
-	shortcutintent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
-	//repeat to create is forbidden
-	shortcutintent.putExtra("duplicate", false);
-	//set the name of shortCut
-	shortcutintent.putExtra(Intent.EXTRA_SHORTCUT_NAME, titles[position]);
-	//set icon
-	Parcelable icon = Intent.ShortcutIconResource.fromContext(getApplicationContext(), icons[position]);
-	shortcutintent.putExtra(Intent.EXTRA_SHORTCUT_ICON_RESOURCE, icon);
-	//set the application to lunch when you click the icon
-	shortcutintent.putExtra(Intent.EXTRA_SHORTCUT_INTENT, new Intent(Shortcuts.this , CPUActivity.class));
-	//sendBroadcast,done
-	sendBroadcast(shortcutintent);
-	//Toast.makeText(Shortcuts.this, "Shortcut "+titles[position] + "created", Toast.LENGTH_SHORT);
-				/*	Intent shortcutIntent = new Intent();
-
-					shortcutIntent.setClassName(Shortcuts.this, this.getClass().getName());
-					shortcutIntent.setAction(Intent.ACTION_MAIN);
-					shortcutIntent.addCategory(Intent.CATEGORY_LAUNCHER);      
-					shortcutIntent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
-					shortcutIntent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
-
-				/*	if (toAddress != null) shortcutIntent.putExtra("toAddress", toAddress);
-					if (fromAddress != null) shortcutIntent.putExtra("fromAddress", fromAddress);
-
-					if (toCoords != null) shortcutIntent.putExtra("toCoords", toCoords);
-					if (fromCoords != null) shortcutIntent.putExtra("fromCoords", fromCoords);
-*/
-				/*	Intent intent = new Intent();
-					intent.putExtra(Intent.EXTRA_SHORTCUT_INTENT, shortcutIntent);
-					intent.putExtra(Intent.EXTRA_SHORTCUT_NAME, "name");
-
-//    intent.putExtra(Intent.EXTRA_SHORTCUT_ICON_RESOURCE,
-					//      Intent.ShortcutIconResource.fromContext(context,
-					//        R.drawable.icon));
-
-					intent.setAction("com.android.launcher.action.INSTALL_SHORTCUT");
-					Shortcuts.this.sendBroadcast(intent); 
-				*/	}
-					if(position==1){
-						Intent myIntent = new Intent(Shortcuts.this, test.class);
+					
+                
+						Intent myIntent = new Intent(Shortcuts.this, classes[position]);
+						switch(position){
+						case 0:
+							myIntent.putExtra("reboot", "");
+							break;
+						case 1:
+							myIntent.putExtra("reboot", "recovery");
+							break;
+						case 2:
+							myIntent.putExtra("reboot", "bootloader");
+						}
 						Shortcuts.this.startActivity(myIntent);
-					}
+					
 				} 
 			});
 	}
