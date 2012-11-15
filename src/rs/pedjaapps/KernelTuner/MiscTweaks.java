@@ -733,21 +733,21 @@ SeekBar.OnSeekBarChangeListener
 		else if(new File(CPUInfo.BUTTONS_LIGHT).exists()){
 			buttonsGroup.setVisibility(View.GONE);
 		}
-		if(ledHox.equals("OFF"))
+		if(ledHox.equals("0"))
 		{
 			off.setChecked(true);
 		}
-		else if(ledHox.equals("DIM")){
+		else if(ledHox.equals("1")){
 			dim.setChecked(true);
 		}
-		else if(ledHox.equals("BRIGHT")){
+		else if(ledHox.equals("2")){
 			bright.setChecked(true);
 		}
 		off.setOnClickListener(new OnClickListener(){
 
 			@Override
 			public void onClick(View arg0) {
-				new ChangeButtonsLight().execute(new String[] {"hox", "OFF"});
+				new ChangeButtonsLight().execute(new String[] {"hox", "0"});
 				
 			}
 			
@@ -756,7 +756,7 @@ SeekBar.OnSeekBarChangeListener
 
 			@Override
 			public void onClick(View arg0) {
-				new ChangeButtonsLight().execute(new String[] {"hox", "DIM"});
+				new ChangeButtonsLight().execute(new String[] {"hox", "1"});
 				
 			}
 			
@@ -765,7 +765,7 @@ SeekBar.OnSeekBarChangeListener
 
 			@Override
 			public void onClick(View arg0) {
-				new ChangeButtonsLight().execute(new String[] {"hox", "BRIGHT"});
+				new ChangeButtonsLight().execute(new String[] {"hox", "2"});
 				
 			}
 			
