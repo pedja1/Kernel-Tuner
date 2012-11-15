@@ -1655,7 +1655,7 @@ public void startCpuLoadThread() {
 
 		}
 
-		File file3 = new File("/sys/devices/platform/kgsl-3d0.0/kgsl/kgsl-3d0/gpuclk");
+		File file3 = new File("/sys/devices/platform/kgsl-3d0.0/kgsl/kgsl-3d0/max_gpuclk");
 		try
 		{
 			InputStream fIn = new FileInputStream(file3);
