@@ -17,10 +17,7 @@ public class CPUInfo
 
 
 	public static String CPU0_FREQS = "/sys/devices/system/cpu/cpu0/cpufreq/scaling_available_frequencies";
-	public static String CPU1_FREQS = "/sys/devices/system/cpu/cpu1/cpufreq/scaling_available_frequencies";
-	public static String CPU2_FREQS = "/sys/devices/system/cpu/cpu2/cpufreq/scaling_available_frequencies";
-	public static String CPU3_FREQS = "/sys/devices/system/cpu/cpu3/cpufreq/scaling_available_frequencies";
-
+	
 	public static String CPU0_CURR_FREQ = "/sys/devices/system/cpu/cpu0/cpufreq/scaling_cur_freq";
 	public static String CPU1_CURR_FREQ = "/sys/devices/system/cpu/cpu1/cpufreq/scaling_cur_freq";
 	public static String CPU2_CURR_FREQ = "/sys/devices/system/cpu/cpu2/cpufreq/scaling_cur_freq";
@@ -55,7 +52,7 @@ public class CPUInfo
 	public static String GPU = "/sys/devices/platform/kgsl-3d0.0/kgsl/kgsl-3d0/max_gpuclk";
 	public static String CDEPTH = "/sys/kernel/debug/msm_fb/0/bpp";
 	public static String S2W = "/sys/android_touch/sweep2wake";
-	public static String S2W_ALT = "c/sys/android_touch/sweep2wake/s2w_switch";
+	public static String S2W_ALT = "/sys/android_touch/sweep2wake/s2w_switch";
 	public static String MPDECISION = "/sys/kernel/msm_mpdecision/conf/enabled";
 	public static String BUTTONS_LIGHT = "/sys/devices/platform/leds-pm8058/leds/button-backlight/currents";
 	public static String BUTTONS_LIGHT_2 = "/sys/devices/platform/msm_ssbi.0/pm8921-core/pm8xxx-led/leds/button-backlight/currents";

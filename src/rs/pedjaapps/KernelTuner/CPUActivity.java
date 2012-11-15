@@ -133,6 +133,7 @@ public class CPUActivity extends Activity
 					}
 					if (CPUInfo.cpu2Online() == true)
 					{
+						localDataOutputStream.writeBytes("echo 0 > /sys/kernel/msm_mpdecision/conf/enabled\n");
 						localDataOutputStream.writeBytes("chmod 666 /sys/devices/system/cpu/cpu2/online\n");
 						localDataOutputStream.writeBytes("echo 1 > /sys/devices/system/cpu/cpu2/online\n");
 						localDataOutputStream.writeBytes("chmod 444 /sys/devices/system/cpu/cpu2/online\n");
@@ -140,6 +141,8 @@ public class CPUActivity extends Activity
 					}
 					if (CPUInfo.cpu3Online() == true)
 					{
+						
+						localDataOutputStream.writeBytes("echo 0 > /sys/kernel/msm_mpdecision/conf/enabled\n");
 						localDataOutputStream.writeBytes("chmod 666 /sys/devices/system/cpu/cpu3/online\n");
 						localDataOutputStream.writeBytes("echo 1 > /sys/devices/system/cpu/cpu3/online\n");
 						localDataOutputStream.writeBytes("chmod 444 /sys/devices/system/cpu/cpu3/online\n");
@@ -178,12 +181,14 @@ public class CPUActivity extends Activity
 					}
 					if (CPUInfo.cpu2Online() == true)
 					{
+						localDataOutputStream.writeBytes("echo 1 > /sys/kernel/msm_mpdecision/conf/enabled\n");
 						localDataOutputStream.writeBytes("chmod 777 /sys/devices/system/cpu/cpu2/online\n");
 						localDataOutputStream.writeBytes("echo 0 > /sys/devices/system/cpu/cpu2/online\n");
 						localDataOutputStream.writeBytes("chown system /sys/devices/system/cpu/cpu2/online\n");
 					}
 					if (CPUInfo.cpu3Online() == true)
 					{
+						localDataOutputStream.writeBytes("echo 1 > /sys/kernel/msm_mpdecision/conf/enabled\n");
 						localDataOutputStream.writeBytes("chmod 777 /sys/devices/system/cpu/cpu3/online\n");
 						localDataOutputStream.writeBytes("echo 0 > /sys/devices/system/cpu/cpu3/online\n");
 						localDataOutputStream.writeBytes("chown system /sys/devices/system/cpu/cpu3/online\n");
