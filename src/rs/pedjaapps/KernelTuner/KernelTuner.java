@@ -1803,17 +1803,20 @@ public void startCpuLoadThread() {
 		if (!cpu0gov.equals(""))
 		{
 			cpubuilder.append("chmod 666 /sys/devices/system/cpu/cpu0/cpufreq/scaling_governor \n" +
-							  "echo " + "\"" + cpu0gov + "\"" + " > /sys/devices/system/cpu/cpu0/cpufreq/scaling_governor\n");
+							  "echo " + "\"" + cpu0gov + "\"" + " > /sys/devices/system/cpu/cpu0/cpufreq/scaling_governor\n"+
+							  "chmod 444 /sys/devices/system/cpu/cpu0/cpufreq/scaling_governor \n");
 		}
 		if (!cpu0max.equals(""))
 		{
 			cpubuilder.append("chmod 666 /sys/devices/system/cpu/cpu0/cpufreq/scaling_max_freq \n" +
-							  "echo " + "\"" + cpu0max + "\"" + " > /sys/devices/system/cpu/cpu0/cpufreq/scaling_max_freq \n");
+							  "echo " + "\"" + cpu0max + "\"" + " > /sys/devices/system/cpu/cpu0/cpufreq/scaling_max_freq \n"+
+							  "chmod 444 /sys/devices/system/cpu/cpu0/cpufreq/scaling_max_freq\n" );
 		}
 		if (!cpu0min.equals(""))
 		{
 			cpubuilder.append("chmod 666 /sys/devices/system/cpu/cpu0/cpufreq/scaling_min_freq \n" +
-							  "echo " + "\"" + cpu0min + "\"" + " > /sys/devices/system/cpu/cpu0/cpufreq/scaling_min_freq \n\n");
+							  "echo " + "\"" + cpu0min + "\"" + " > /sys/devices/system/cpu/cpu0/cpufreq/scaling_min_freq \n\n"+
+							  "chmod 444 /sys/devices/system/cpu/cpu0/cpufreq/scaling_min_freq \n");
 		}
 		/**
 		 * cpu1
@@ -1821,17 +1824,20 @@ public void startCpuLoadThread() {
 		if (!cpu1gov.equals(""))
 		{
 			cpubuilder.append("chmod 666 /sys/devices/system/cpu/cpu1/cpufreq/scaling_governor \n" +
-							  "echo " + "\"" + cpu1gov + "\"" + " > /sys/devices/system/cpu/cpu1/cpufreq/scaling_governor\n");
+							  "echo " + "\"" + cpu1gov + "\"" + " > /sys/devices/system/cpu/cpu1/cpufreq/scaling_governor\n"+
+							 "chmod 444 /sys/devices/system/cpu/cpu1/cpufreq/scaling_governor \n" );
 		}
 		if (!cpu1max.equals(""))
 		{
 			cpubuilder.append("chmod 666 /sys/devices/system/cpu/cpu1/cpufreq/scaling_max_freq \n" +
-							  "echo " + "\"" + cpu1max + "\"" + " > /sys/devices/system/cpu/cpu1/cpufreq/scaling_max_freq \n");
+							  "echo " + "\"" + cpu1max + "\"" + " > /sys/devices/system/cpu/cpu1/cpufreq/scaling_max_freq \n"+
+							  "chmod 444 /sys/devices/system/cpu/cpu1/cpufreq/scaling_max_freq \n");
 		}
 		if (!cpu1min.equals(""))
 		{
 			cpubuilder.append("chmod 666 /sys/devices/system/cpu/cpu1/cpufreq/scaling_min_freq \n" +
-							  "echo " + "\"" + cpu1min + "\"" + " > /sys/devices/system/cpu/cpu1/cpufreq/scaling_min_freq \n\n");
+							  "echo " + "\"" + cpu1min + "\"" + " > /sys/devices/system/cpu/cpu1/cpufreq/scaling_min_freq \n"+
+							  "chmod 444 /sys/devices/system/cpu/cpu1/cpufreq/scaling_min_freq \n\n");
 		}
 	
 		/**
@@ -1840,17 +1846,20 @@ public void startCpuLoadThread() {
 		if (!cpu2gov.equals(""))
 		{
 			cpubuilder.append("chmod 666 /sys/devices/system/cpu/cpu2/cpufreq/scaling_governor \n" +
-							  "echo " + "\"" + cpu2gov + "\"" + " > /sys/devices/system/cpu/cpu2/cpufreq/scaling_governor\n");
+							  "echo " + "\"" + cpu2gov + "\"" + " > /sys/devices/system/cpu/cpu2/cpufreq/scaling_governor\n"+
+							  "chmod 444 /sys/devices/system/cpu/cpu2/cpufreq/scaling_governor \n" );
 		}
 		if (!cpu2max.equals(""))
 		{
 			cpubuilder.append("chmod 666 /sys/devices/system/cpu/cpu2/cpufreq/scaling_max_freq \n" +
-							  "echo " + "\"" + cpu2max + "\"" + " > /sys/devices/system/cpu/cpu2/cpufreq/scaling_max_freq \n");
+							  "echo " + "\"" + cpu2max + "\"" + " > /sys/devices/system/cpu/cpu2/cpufreq/scaling_max_freq \n"+
+							  "chmod 444 /sys/devices/system/cpu/cpu2/cpufreq/scaling_max_freq \n");
 		}
 		if (!cpu2min.equals(""))
 		{
 			cpubuilder.append("chmod 666 /sys/devices/system/cpu/cpu2/cpufreq/scaling_min_freq \n" +
-							  "echo " + "\"" + cpu2min + "\"" + " > /sys/devices/system/cpu/cpu2/cpufreq/scaling_min_freq \n\n");
+							  "echo " + "\"" + cpu2min + "\"" + " > /sys/devices/system/cpu/cpu2/cpufreq/scaling_min_freq \n"+
+							  "chmod 444 /sys/devices/system/cpu/cpu2/cpufreq/scaling_min_freq \n\n");
 		}
 		/**
 		 * cpu3
@@ -1859,17 +1868,20 @@ public void startCpuLoadThread() {
 		if (!cpu3gov.equals(""))
 		{
 			cpubuilder.append("chmod 666 /sys/devices/system/cpu/cpu3/cpufreq/scaling_governor \n" +
-							  "echo " + "\"" + cpu3gov + "\"" + " > /sys/devices/system/cpu/cpu3/cpufreq/scaling_governor\n");
+							  "echo " + "\"" + cpu3gov + "\"" + " > /sys/devices/system/cpu/cpu3/cpufreq/scaling_governor\n"+
+							  "chmod 444 /sys/devices/system/cpu/cpu3/cpufreq/scaling_governor \n");
 		}
 		if (!cpu3max.equals(""))
 		{
 			cpubuilder.append("chmod 666 /sys/devices/system/cpu/cpu3/cpufreq/scaling_max_freq \n" +
-							  "echo " + "\"" + cpu3max + "\"" + " > /sys/devices/system/cpu/cpu3/cpufreq/scaling_max_freq \n");
+							  "echo " + "\"" + cpu3max + "\"" + " > /sys/devices/system/cpu/cpu3/cpufreq/scaling_max_freq \n"+
+							  "chmod 444 /sys/devices/system/cpu/cpu3/cpufreq/scaling_max_freq \n");
 		}
 		if (!cpu3min.equals(""))
 		{
 			cpubuilder.append("chmod 666 /sys/devices/system/cpu/cpu3/cpufreq/scaling_min_freq \n" +
-							  "echo " + "\"" + cpu3min + "\"" + " > /sys/devices/system/cpu/cpu3/cpufreq/scaling_min_freq \n\n");
+							  "echo " + "\"" + cpu3min + "\"" + " > /sys/devices/system/cpu/cpu3/cpufreq/scaling_min_freq \n"+
+							  "chmod 444 /sys/devices/system/cpu/cpu3/cpufreq/scaling_min_freq \n\n");
 		}
 		List<String> govSettings = CPUInfo.govSettings();
 		List<String> availableGovs = CPUInfo.availableGovs();

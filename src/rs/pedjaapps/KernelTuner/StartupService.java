@@ -114,26 +114,41 @@ public class StartupService extends Service
 				localDataOutputStream.writeBytes("echo \"" + cpu0gov + "\" > /sys/devices/system/cpu/cpu0/cpufreq/scaling_governor\n");
 				localDataOutputStream.writeBytes("echo \"" + cpu0min + "\" > /sys/devices/system/cpu/cpu0/cpufreq/scaling_min_freq\n");
 				localDataOutputStream.writeBytes("echo \"" + cpu0max + "\" > /sys/devices/system/cpu/cpu0/cpufreq/scaling_max_freq\n");
-				localDataOutputStream.writeBytes("chmod 777 /sys/devices/system/cpu/cpu1/cpufreq/scaling_governor\n");
+				localDataOutputStream.writeBytes("chmod 444 /sys/devices/system/cpu/cpu0/cpufreq/scaling_governor\n");
+				localDataOutputStream.writeBytes("chmod 444 /sys/devices/system/cpu/cpu0/cpufreq/scaling_min_freq\n");
+				localDataOutputStream.writeBytes("chmod 444 /sys/devices/system/cpu/cpu0/cpufreq/scaling_max_freq\n");
+				
+			    localDataOutputStream.writeBytes("chmod 777 /sys/devices/system/cpu/cpu1/cpufreq/scaling_governor\n");
 				localDataOutputStream.writeBytes("chmod 777 /sys/devices/system/cpu/cpu1/cpufreq/scaling_min_freq\n");
 				localDataOutputStream.writeBytes("chmod 777 /sys/devices/system/cpu/cpu1/cpufreq/scaling_max_freq\n");
 				localDataOutputStream.writeBytes("echo \"" + cpu1gov + "\" > /sys/devices/system/cpu/cpu1/cpufreq/scaling_governor\n");
 				localDataOutputStream.writeBytes("echo \"" + cpu1min + "\" > /sys/devices/system/cpu/cpu1/cpufreq/scaling_min_freq\n");
 				localDataOutputStream.writeBytes("echo \"" + cpu1max + "\" > /sys/devices/system/cpu/cpu1/cpufreq/scaling_max_freq\n");
-
+				localDataOutputStream.writeBytes("chmod 444 /sys/devices/system/cpu/cpu1/cpufreq/scaling_governor\n");
+				localDataOutputStream.writeBytes("chmod 444 /sys/devices/system/cpu/cpu1/cpufreq/scaling_min_freq\n");
+				localDataOutputStream.writeBytes("chmod 444 /sys/devices/system/cpu/cpu1/cpufreq/scaling_max_freq\n");
+				
 				localDataOutputStream.writeBytes("chmod 777 /sys/devices/system/cpu/cpu2/cpufreq/scaling_governor\n");
 				localDataOutputStream.writeBytes("chmod 777 /sys/devices/system/cpu/cpu2/cpufreq/scaling_min_freq\n");
 				localDataOutputStream.writeBytes("chmod 777 /sys/devices/system/cpu/cpu2/cpufreq/scaling_max_freq\n");
+				
 				localDataOutputStream.writeBytes("echo \"" + cpu2gov + "\" > /sys/devices/system/cpu/cpu2/cpufreq/scaling_governor\n");
 				localDataOutputStream.writeBytes("echo \"" + cpu2min + "\" > /sys/devices/system/cpu/cpu2/cpufreq/scaling_min_freq\n");
 				localDataOutputStream.writeBytes("echo \"" + cpu2max + "\" > /sys/devices/system/cpu/cpu2/cpufreq/scaling_max_freq\n");
-				localDataOutputStream.writeBytes("chmod 777 /sys/devices/system/cpu/cpu3/cpufreq/scaling_governor\n");
+				localDataOutputStream.writeBytes("chmod 444 /sys/devices/system/cpu/cpu2/cpufreq/scaling_governor\n");
+				localDataOutputStream.writeBytes("chmod 444 /sys/devices/system/cpu/cpu2/cpufreq/scaling_min_freq\n");
+				localDataOutputStream.writeBytes("chmod 444 /sys/devices/system/cpu/cpu2/cpufreq/scaling_max_freq\n");
+				
+		    	localDataOutputStream.writeBytes("chmod 777 /sys/devices/system/cpu/cpu3/cpufreq/scaling_governor\n");
 				localDataOutputStream.writeBytes("chmod 777 /sys/devices/system/cpu/cpu3/cpufreq/scaling_min_freq\n");
 				localDataOutputStream.writeBytes("chmod 777 /sys/devices/system/cpu/cpu3/cpufreq/scaling_max_freq\n");
 				localDataOutputStream.writeBytes("echo \"" + cpu3gov + "\" > /sys/devices/system/cpu/cpu3/cpufreq/scaling_governor\n");
 				localDataOutputStream.writeBytes("echo \"" + cpu3min + "\" > /sys/devices/system/cpu/cpu3/cpufreq/scaling_min_freq\n");
 				localDataOutputStream.writeBytes("echo \"" + cpu3max + "\" > /sys/devices/system/cpu/cpu3/cpufreq/scaling_max_freq\n");
-
+				localDataOutputStream.writeBytes("chmod 444 /sys/devices/system/cpu/cpu3/cpufreq/scaling_governor\n");
+				localDataOutputStream.writeBytes("chmod 444 /sys/devices/system/cpu/cpu3/cpufreq/scaling_min_freq\n");
+				localDataOutputStream.writeBytes("chmod 444 /sys/devices/system/cpu/cpu3/cpufreq/scaling_max_freq\n");
+				
 				localDataOutputStream.writeBytes("chmod 777 /sys/kernel/debug/msm_fb/0/vsync_enable\n");
 				localDataOutputStream.writeBytes("chmod 777 /sys/kernel/debug/msm_fb/0/hw_vsync_mode\n");
 				localDataOutputStream.writeBytes("chmod 777 /sys/kernel/debug/msm_fb/0/backbuff\n");
