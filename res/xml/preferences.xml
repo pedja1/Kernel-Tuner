@@ -8,7 +8,8 @@
             android:entryValues="@array/listReturnValue"
             android:key="boot"
             android:summary="@string/preferences_boot_settings_apply_summary"
-            android:title="@string/preferences_boot_settings_apply_title" android:defaultValue="disable"/>
+            android:title="@string/preferences_boot_settings_apply_title"
+			android:defaultValue="boot"/>
     </PreferenceCategory>
     <PreferenceCategory android:title="@string/preferences_widget_settings" >
         <EditTextPreference
@@ -42,7 +43,7 @@
             android:entryValues="@array/localeValues"
             android:key="loc"
             android:title="Override Language" 
-            android:defaultValue=""/>
+            android:defaultValue="en"/>
          </PreferenceCategory>
 
     
