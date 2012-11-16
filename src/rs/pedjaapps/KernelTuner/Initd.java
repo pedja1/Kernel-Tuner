@@ -23,7 +23,7 @@ public class Initd extends AsyncTask<String, Void, String>
 				localProcess = Runtime.getRuntime().exec("su");
 
 				DataOutputStream localDataOutputStream = new DataOutputStream(localProcess.getOutputStream());
-				localDataOutputStream.writeBytes("busybox mount -o remount,rw /system\n");
+				localDataOutputStream.writeBytes("mount -o remount,rw /system\n");
 				localDataOutputStream.writeBytes("cp /data/data/rs.pedjaapps.KernelTuner/files/99ktcputweaks /system/etc/init.d\n");
 				localDataOutputStream.writeBytes("chmod 777 /system/etc/init.d/99ktcputweaks\n");
 				localDataOutputStream.writeBytes("cp /data/data/rs.pedjaapps.KernelTuner/files/99ktgputweaks /system/etc/init.d\n");
@@ -55,7 +55,7 @@ public class Initd extends AsyncTask<String, Void, String>
 				localProcess = Runtime.getRuntime().exec("su");
 
 				DataOutputStream localDataOutputStream = new DataOutputStream(localProcess.getOutputStream());
-				localDataOutputStream.writeBytes("busybox mount -o remount,rw /system\n");
+				localDataOutputStream.writeBytes("mount -o remount,rw /system\n");
 
 				localDataOutputStream.writeBytes("rm /system/etc/init.d/99ktcputweaks\n");
 				localDataOutputStream.writeBytes("rm /system/etc/init.d/99ktgputweaks\n");
