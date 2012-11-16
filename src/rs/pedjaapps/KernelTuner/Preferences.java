@@ -19,6 +19,7 @@ public class Preferences extends PreferenceActivity
 ListPreference bootPrefList;
 EditTextPreference widgetPref;
 ListPreference tempPrefList;
+ListPreference localePrefList;
 	@SuppressWarnings("deprecation")
 	@Override
 	public void onCreate(Bundle savedInstanceState)
@@ -76,6 +77,24 @@ ListPreference tempPrefList;
             @Override
             public boolean onPreferenceChange(Preference preference, Object newValue) {
             	tempPrefList.setSummary(tempPrefList.getEntries()[tempPrefList.findIndexOfValue(newValue.toString())]);
+                return true;
+            }
+        }); 
+        
+        localePrefList = (ListPreference) findPreference("loc");
+        localePrefList.setDefaultValue(localePrefList.getEntryValues()[0]);
+        String locale = localePrefList.getValue();
+        if (locale == null) {
+        	localePrefList.setValue((String)localePrefList.getEntryValues()[0]);
+        	locale = localePrefList.getValue();
+        }
+        localePrefList.setSummary(localePrefList.getEntries()[localePrefList.findIndexOfValue(locale)]);
+
+
+        localePrefList.setOnPreferenceChangeListener(new OnPreferenceChangeListener() {
+            @Override
+            public boolean onPreferenceChange(Preference preference, Object newValue) {
+            	localePrefList.setSummary(localePrefList.getEntries()[localePrefList.findIndexOfValue(newValue.toString())]);
                 return true;
             }
         }); 

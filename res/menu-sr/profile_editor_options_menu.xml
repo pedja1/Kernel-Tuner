@@ -5,13 +5,13 @@
         android:id="@+id/cancel"
         android:icon="@drawable/ic_menu_dontsave"
         android:showAsAction="ifRoom|withText"
-        android:title="Cancel"/>
+        android:title="Otkaži"/>
     
     <item
         android:id="@+id/save"
         android:icon="@drawable/ic_menu_save"
         android:showAsAction="ifRoom|withText"
-        android:title="Save"/>
+        android:title="Sačuvaj"/>
     
            
  

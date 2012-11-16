@@ -528,7 +528,7 @@
                 android:layout_height="wrap_content"
                 android:layout_weight="1"
                 android:text="@string/cpu0_governor_"
-                android:textSize="15dp" />
+                android:textSize="15sp" />
 
             <Spinner
                 android:id="@+id/spinner3"
@@ -547,7 +547,7 @@
                 android:layout_height="wrap_content"
                 android:layout_weight="1"
                 android:text="@string/cpu1_governor_"
-                android:textSize="15dp" />
+                android:textSize="15sp" />
 
             <Spinner
                 android:id="@+id/spinner1"
@@ -566,7 +566,7 @@
                 android:layout_height="wrap_content"
                 android:layout_weight="1"
                 android:text="@string/cpu2_governor_"
-                android:textSize="15dp" />
+                android:textSize="15sp" />
 
             <Spinner
                 android:id="@+id/spinner2"
@@ -585,7 +585,7 @@
                 android:layout_height="wrap_content"
                 android:layout_weight="1"
                 android:text="@string/cpu3_governor_"
-                android:textSize="15dp" />
+                android:textSize="15sp" />
 
             <Spinner
                 android:id="@+id/spinner4"

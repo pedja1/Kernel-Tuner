@@ -56,11 +56,9 @@ public class GovernorActivity extends Activity
 		}
 		else
 		{
-			TextView tv = (TextView)findViewById(R.id.textView1);
+			TextView tv = (TextView)findViewById(R.id.textView1); 
 			tv.setVisibility(View.VISIBLE);
-			tv.setText("Current Governor(s) doesn't have any settings\n\n" +
-					   "Only following governors can be configured:\n" +
-					   "ondemand, conservative, interactive, xondemand");
+			tv.setText(getResources().getString(R.string.gov_not_supported));
 		}
 		govListView.setOnItemClickListener(new OnItemClickListener() {
 				@Override
@@ -72,7 +70,7 @@ public class GovernorActivity extends Activity
 
 					builder.setTitle(fileList.get(position));
 
-					builder.setMessage("Set new value: ");
+					builder.setMessage(getResources().getString(R.string.gov_new_value));
 
 					builder.setIcon(R.drawable.ic_menu_edit);
 
@@ -83,7 +81,7 @@ public class GovernorActivity extends Activity
 					input.setInputType(InputType.TYPE_CLASS_NUMBER);
 					input.setGravity(Gravity.CENTER_HORIZONTAL);
 
-					builder.setPositiveButton("Apply", new DialogInterface.OnClickListener() {
+					builder.setPositiveButton(getResources().getString(R.string.apply), new DialogInterface.OnClickListener() {
 							@Override
 							public void onClick(DialogInterface dialog, int which)
 							{
@@ -110,7 +108,7 @@ public class GovernorActivity extends Activity
 								govListView.invalidate();
 							}
 						});
-					builder.setNegativeButton("Cancel", new DialogInterface.OnClickListener(){
+					builder.setNegativeButton(getResources().getString(R.string.cancel), new DialogInterface.OnClickListener(){
 
 							@Override
 							public void onClick(DialogInterface arg0, int arg1)

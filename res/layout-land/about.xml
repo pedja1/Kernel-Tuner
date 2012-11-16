@@ -55,16 +55,6 @@
         android:text="@string/about_faq_and_support"
         android:textAppearance="?android:attr/textAppearanceLarge" />
 
-    <TextView
-        android:id="@+id/textView5"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_alignParentLeft="true"
-        android:layout_below="@+id/textView7"
-        android:gravity="center"
-        android:linksClickable="true"
-        android:text="@string/anthrax" />
-
     <ImageView
         android:id="@+id/tux"
         android:layout_width="wrap_content"
@@ -79,7 +69,7 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_alignParentLeft="true"
-        android:layout_below="@+id/textView5"
+        android:layout_below="@+id/textView7"
         android:gravity="center"
         android:linksClickable="true"
         android:text="@string/xda" />

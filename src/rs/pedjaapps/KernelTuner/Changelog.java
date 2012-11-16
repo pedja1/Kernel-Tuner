@@ -4,7 +4,6 @@ import android.app.*;
 import android.content.*;
 import android.os.*;
 import android.webkit.*;
-import rs.pedjaapps.KernelTuner.*;
 
 public class Changelog extends Activity
 {

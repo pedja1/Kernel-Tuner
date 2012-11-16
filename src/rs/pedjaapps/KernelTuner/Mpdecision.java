@@ -192,7 +192,7 @@ public class Mpdecision extends Activity
 				@Override
 				public void onClick(View v)
 				{
-					Mpdecision.this.pd = ProgressDialog.show(Mpdecision.this, "Working..", "Applying settings...", true, false);
+					Mpdecision.this.pd = ProgressDialog.show(Mpdecision.this, null, getResources().getString(R.string.applying_settings), true, true);
 					readEditTexts();
 					new apply().execute();
 

@@ -253,7 +253,7 @@ private class changegpu extends AsyncTask<String, Void, Object>
 				public void onClick(View v)
 				{
 
-					Gpu.this.pd = ProgressDialog.show(Gpu.this, "Working..", "Applying settings...", true, false);
+					Gpu.this.pd = ProgressDialog.show(Gpu.this, null, getResources().getString(R.string.applying_settings), true, false);
 
 					new changegpu().execute();
 

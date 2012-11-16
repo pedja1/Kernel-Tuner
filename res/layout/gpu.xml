@@ -91,7 +91,7 @@
         android:layout_height="wrap_content"
         android:layout_below="@+id/textView4"
         android:layout_centerHorizontal="true"
-        android:text="@string/activity_gpu_n_a"
+        android:text="@string/n_a"
         android:textAppearance="?android:attr/textAppearanceMedium" />
 
     <TextView
@@ -110,7 +110,7 @@
         android:layout_height="wrap_content"
         android:layout_below="@+id/textView6"
         android:layout_centerHorizontal="true"
-        android:text="@string/activity_gpu_n_a"
+        android:text="@string/n_a"
         android:textAppearance="?android:attr/textAppearanceMedium" />
 
 <LinearLayout

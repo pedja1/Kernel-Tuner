@@ -71,35 +71,15 @@ android:gravity="center"
 		android:text="@string/about_faq_and_support"/>
 	
 	<TextView
-        android:id="@+id/textView5"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_below="@+id/textView7"
-		android:layout_marginTop="5dp"
-		android:gravity="center"
-		android:layout_centerHorizontal="true"
-		android:text="@string/anthrax"
-		
-		android:linksClickable="true"
-	
-	/>
-	
-	<TextView
-        android:id="@+id/textView6"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_below="@+id/textView5"
-		android:layout_marginTop="5dp"
-		android:gravity="center"
-		android:layout_centerHorizontal="true"
-		android:text="@string/xda"
-
-		android:linksClickable="true"
-
-	/>
-	
-	
-	
+	    android:id="@+id/textView6"
+	    android:layout_width="wrap_content"
+	    android:layout_height="wrap_content"
+	    android:layout_below="@+id/textView7"
+	    android:layout_centerHorizontal="true"
+	    android:layout_marginTop="5dp"
+	    android:gravity="center"
+	    android:linksClickable="true"
+	    android:text="@string/xda" />
 	
 	<TextView
         android:id="@+id/textView8"

@@ -7,6 +7,7 @@ import android.content.*;
 import android.content.pm.*;
 import android.content.pm.PackageManager.*;
 import android.content.res.AssetManager;
+import android.content.res.Configuration;
 import android.graphics.*;
 import android.net.*;
 import android.os.*;
@@ -344,7 +345,7 @@ public class KernelTuner extends Activity
 		{
 			super.onPreExecute();
 			mProgressDialog = new ProgressDialog(KernelTuner.this);
-			mProgressDialog.setMessage("Downloading Update");
+			mProgressDialog.setMessage(getResources().getString(R.string.downloading_update));
 			mProgressDialog.setIndeterminate(false);
 			mProgressDialog.setMax(100);
 			mProgressDialog.setProgressStyle(ProgressDialog.STYLE_HORIZONTAL);
@@ -458,15 +459,15 @@ public class KernelTuner extends Activity
 				AlertDialog.Builder builder = new AlertDialog.Builder(
                     KernelTuner.this);
 
-				builder.setTitle("Kernel Tuner " + remoteversion + " Available");
+				builder.setTitle("Kernel Tuner " + remoteversion +" "+ getResources().getString(R.string.available));
 
 				WebView cl = new WebView(KernelTuner.this);
 				cl.loadUrl("http://kerneltuner.pedjaapps.in.rs/ktuner/changelog_latest.html");
-				builder.setMessage("Download Now?");
+				builder.setMessage(getResources().getString(R.string.download_now));
 
 				builder.setIcon(R.drawable.ic_menu_recent_history);
 
-				builder.setPositiveButton("Download", new DialogInterface.OnClickListener() {
+				builder.setPositiveButton(getResources().getString(R.string.download), new DialogInterface.OnClickListener() {
 						@Override
 						public void onClick(DialogInterface dialog, int which)
 						{
@@ -478,7 +479,7 @@ public class KernelTuner extends Activity
 
 						}
 					});
-				builder.setNegativeButton("Cancel", new DialogInterface.OnClickListener() {
+				builder.setNegativeButton(getResources().getString(R.string.cancel), new DialogInterface.OnClickListener() {
 						@Override
 						public void onClick(DialogInterface dialog, int which)
 						{
@@ -853,7 +854,7 @@ public class KernelTuner extends Activity
 				localProcess = Runtime.getRuntime().exec("su");
 				DataOutputStream localDataOutputStream = new DataOutputStream(localProcess.getOutputStream());
 				localDataOutputStream.writeBytes("chmod 777 /sys/devices/virtual/thermal/thermal_zone1/mode\n");
-				System.out.println("enabling cpu temp");
+				
 				localDataOutputStream.writeBytes("echo -n enabled > /sys/devices/virtual/thermal/thermal_zone1/mode\n");
 				localDataOutputStream.writeBytes("echo -n enabled > /sys/devices/virtual/thermal/thermal_zone0/mode\n");
 
@@ -862,7 +863,6 @@ public class KernelTuner extends Activity
 				localDataOutputStream.close();
 				localProcess.waitFor();
 				localProcess.destroy();
-				System.out.println("cpu temp enabled");
 			}
 			catch (Exception e)
 			{
@@ -880,15 +880,27 @@ public class KernelTuner extends Activity
 	public void onCreate(Bundle savedInstanceState)
 	{
 		super.onCreate(savedInstanceState);
+		preferences = PreferenceManager.getDefaultSharedPreferences(this);
+		String locale = preferences.getString("loc", "en");
+		Configuration configuration = this.getResources().getConfiguration();
+		  configuration.locale = new Locale(locale);
+		  this.getResources().updateConfiguration(configuration, this.getResources().getDisplayMetrics());
+		
 		setContentView(R.layout.main);
-		 preferences = PreferenceManager.getDefaultSharedPreferences(this);
+		
+		 
 		 editor = preferences.edit();
+		 /**
+		  * Extract assets if first launch*/
 		boolean first = preferences.getBoolean(
 				"first_launch", false);
 		if (first == false) {
 			CopyAssets();
 		}
+		
 		tempLayout = (LinearLayout)findViewById(R.id.test1a);
+		/**
+		 * If api larger than 11 set subtitle*/
 		if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.HONEYCOMB)
         {
 			getActionBar().setSubtitle("Various kernel and system tuning");
@@ -1103,7 +1115,7 @@ public class KernelTuner extends Activity
 				{
 
 
-					KernelTuner.this.pd = ProgressDialog.show(KernelTuner.this, "Working..", "Applying settings...", true, false);
+					KernelTuner.this.pd = ProgressDialog.show(KernelTuner.this, null, getResources().getString(R.string.applying_settings), true, true);
 					new cpu1Toggle().execute();
 
 
@@ -1118,7 +1130,7 @@ public class KernelTuner extends Activity
 				{
 
 
-					KernelTuner.this.pd = ProgressDialog.show(KernelTuner.this, "Working..", "Applying settings...", true, false);
+					KernelTuner.this.pd = ProgressDialog.show(KernelTuner.this, null, getResources().getString(R.string.applying_settings), true, true);
 					new cpu2Toggle().execute();
 
 
@@ -1133,7 +1145,7 @@ public class KernelTuner extends Activity
 				{
 
 
-					KernelTuner.this.pd = ProgressDialog.show(KernelTuner.this, "Working..", "Applying settings...", true, false);
+					KernelTuner.this.pd = ProgressDialog.show(KernelTuner.this, null, getResources().getString(R.string.applying_settings), true, true);
 					new cpu3Toggle().execute();
 
 
@@ -2621,7 +2633,7 @@ public void startCpuLoadThread() {
 		AlertDialog.Builder builder = new AlertDialog.Builder(
                 KernelTuner.this);
 
-builder.setTitle("Dump System information to a file");
+builder.setTitle(getResources().getString(R.string.dump));
 
 LinearLayout ln = new LinearLayout(KernelTuner.this);
 ln.setOrientation(LinearLayout.VERTICAL);
@@ -2637,7 +2649,7 @@ tv2.setTextColor(Color.RED);
 
 builder.setIcon(R.drawable.ic_menu_paste_holo_dark);
 
-builder.setPositiveButton("Proceed", new DialogInterface.OnClickListener() {
+builder.setPositiveButton(getResources().getString(R.string.proceed), new DialogInterface.OnClickListener() {
         @Override
 		public void onClick(DialogInterface dialog, int which) {
 
@@ -2659,19 +2671,19 @@ builder.setPositiveButton("Proceed", new DialogInterface.OnClickListener() {
 		osw.flush();
 		osw.close();
 		
-		mToast = Toast.makeText(KernelTuner.this, "Log writen to: "+myFile.toString(), Toast.LENGTH_LONG);
+		mToast = Toast.makeText(KernelTuner.this, getResources().getString(R.string.log_writen)+myFile.toString(), Toast.LENGTH_LONG);
 		mToast.show();
 	}
 	catch (IOException ioe)
 	{
 		ioe.printStackTrace();
-		mToast = Toast.makeText(KernelTuner.this, "Error while making log file: " + ioe.getMessage() , Toast.LENGTH_LONG);
+		mToast = Toast.makeText(KernelTuner.this, getResources().getString(R.string.log_error) + ioe.getMessage() , Toast.LENGTH_LONG);
 		mToast.show();
 	}
         
         }
 });
-builder.setNegativeButton("Cancel", new DialogInterface.OnClickListener() {
+builder.setNegativeButton(getResources().getString(R.string.cancel), new DialogInterface.OnClickListener() {
     @Override
 	public void onClick(DialogInterface dialog, int which) {
   
@@ -2701,7 +2713,7 @@ AlertDialog alert = builder.create();
 	{
 		if (mLastBackPressTime < java.lang.System.currentTimeMillis() - 4000)
 		{
-			mToast = Toast.makeText(this, "Press back again to exit.", Toast.LENGTH_SHORT);
+			mToast = Toast.makeText(this, getResources().getString(R.string.press_again_to_exit), Toast.LENGTH_SHORT);
 			mToast.show();
 			mLastBackPressTime = java.lang.System.currentTimeMillis();
 		}

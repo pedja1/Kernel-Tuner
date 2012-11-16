@@ -37,6 +37,12 @@
             android:key="update"
             android:summary="@string/preferences_misc_update_summary"
             android:title="@string/preferences_misc_update_title" />
+        <ListPreference
+            android:entries="@array/localeNames"
+            android:entryValues="@array/localeValues"
+            android:key="loc"
+            android:title="Override Language" 
+            android:defaultValue=""/>
          </PreferenceCategory>
 
     

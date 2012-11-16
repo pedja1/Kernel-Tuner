@@ -116,7 +116,21 @@ public class CompatibilityCheck extends Activity
 			}
 			catch (IOException e)
 			{
-				bl = false;
+				try
+				{
+
+					File myFile = new File(
+						"/sys/devices/platform/msm_ssbi.0/pm8921-core/pm8xxx-led/leds/button-backlight/currents");
+					FileInputStream fIn = new FileInputStream(myFile);
+
+					count = count + 1;
+					bl = true;
+				}
+				catch (IOException e1)
+				{
+					bl = false;
+					
+				}
 			}
 			publishProgress(7);
 			try

@@ -53,7 +53,7 @@ public class VoltageActivity extends Activity
 				public void onClick(View arg0)
 				{
 					// TODO Auto-generated method stub
-					VoltageAdapter.pd = ProgressDialog.show(VoltageActivity.this, "Working..", "Loading...", true, false);
+					VoltageAdapter.pd = ProgressDialog.show(VoltageActivity.this, null, getResources().getString(R.string.changing_voltage), true, false);
 					new ChangeVoltage(VoltageActivity.this).execute(new String[] {"minus"});
 
 
@@ -68,7 +68,7 @@ public class VoltageActivity extends Activity
 				public void onClick(View arg0)
 				{
 					// TODO Auto-generated method stub
-					VoltageAdapter.pd = ProgressDialog.show(VoltageActivity.this, "Working..", "Loading...", true, false);
+					VoltageAdapter.pd = ProgressDialog.show(VoltageActivity.this, null, getResources().getString(R.string.changing_voltage), true, false);
 					new ChangeVoltage(VoltageActivity.this).execute(new String[] {"plus"});
 
 
@@ -85,9 +85,9 @@ public class VoltageActivity extends Activity
 					// TODO Auto-generated method stub
 					AlertDialog.Builder builder = new AlertDialog.Builder(arg0.getContext());
 
-					builder.setTitle("Voltage Profile Name:");
+					builder.setTitle(getResources().getString(R.string.voltage_profile_name));
 
-					builder.setMessage("Enter Voltage Profile Name: ");
+					builder.setMessage(getResources().getString(R.string.enter_voltage_profile_name));
 
 					builder.setIcon(R.drawable.ic_menu_cc);
 
@@ -95,7 +95,7 @@ public class VoltageActivity extends Activity
 
 					input.setGravity(Gravity.CENTER_HORIZONTAL);
 					
-					builder.setPositiveButton("Done", new DialogInterface.OnClickListener() {
+					builder.setPositiveButton(getResources().getString(R.string.done), new DialogInterface.OnClickListener() {
 							@Override
 							public void onClick(DialogInterface dialog, int which)
 							{
@@ -114,8 +114,6 @@ public class VoltageActivity extends Activity
 								}
 								freqTemp = freqBuilder.toString();
 								valueTemp = valueBuilder.toString();
-								System.out.println(freqTemp);
-								System.out.println(valueTemp);
 								db.addVoltage(new Voltage(name, freqTemp, 
 										  valueTemp));
 
@@ -146,13 +144,13 @@ public class VoltageActivity extends Activity
 				final CharSequence[] items2;
 				items2 = items.toArray(new String[0]);
 				AlertDialog.Builder builder = new AlertDialog.Builder(arg0.getContext());
-				builder.setTitle("Select Profile");
+				builder.setTitle(getResources().getString(R.string.select_profile));
 				builder.setItems(items2, new DialogInterface.OnClickListener() {
 				    public void onClick(DialogInterface dialog, int item) {
 				    	Voltage voltage = db.getVoltageByName(items2[item].toString()) ;
-				    	VoltageAdapter.pd = ProgressDialog.show(VoltageActivity.this, "Working..", "Loading...", true, false);
+				    	VoltageAdapter.pd = ProgressDialog.show(VoltageActivity.this, null, getResources().getString(R.string.changing_voltage), true, false);
 						new ChangeVoltage(VoltageActivity.this).execute(new String[] {"profile", voltage.getValue()});
-				    	System.out.println(voltage.getValue());
+				    	
 
 				    	
 				    }
@@ -172,15 +170,15 @@ public class VoltageActivity extends Activity
 				{
 					AlertDialog.Builder builder = new AlertDialog.Builder(arg0.getContext());
 
-					builder.setTitle("Clear Voltage Profiles");
+					builder.setTitle(getResources().getString(R.string.clear_voltage_profiles));
 
-					builder.setMessage("Are you sure you want to delete all Voltage Profiles? ");
+					builder.setMessage(getResources().getString(R.string.clear_voltage_profiles_confirm));
 
 					builder.setIcon(R.drawable.ic_menu_delete);
 
 					
 					
-					builder.setPositiveButton("Yes", new DialogInterface.OnClickListener() {
+					builder.setPositiveButton(getResources().getString(R.string.yes), new DialogInterface.OnClickListener() {
 							@Override
 							public void onClick(DialogInterface dialog, int which)
 							{
@@ -192,7 +190,7 @@ public class VoltageActivity extends Activity
 
 							}
 						});
-					builder.setNegativeButton("No", new DialogInterface.OnClickListener() {
+					builder.setNegativeButton(getResources().getString(R.string.no), new DialogInterface.OnClickListener() {
 						@Override
 						public void onClick(DialogInterface dialog, int which)
 						{
@@ -217,7 +215,7 @@ public class VoltageActivity extends Activity
 				@Override
 				public void onClick(View arg0)
 				{
-					// TODO Auto-generated method stub
+					
 					final List<Voltage> voltages = db.getAllVoltages();
 					List<CharSequence> items = new ArrayList<CharSequence>();
 					for(Voltage v : voltages){
@@ -226,7 +224,7 @@ public class VoltageActivity extends Activity
 					final CharSequence[] items2;
 					items2 = items.toArray(new String[0]);
 					AlertDialog.Builder builder = new AlertDialog.Builder(arg0.getContext());
-					builder.setTitle("Select Profile to delete");
+					builder.setTitle(getResources().getString(R.string.select_profile_to_delte));
 					builder.setItems(items2, new DialogInterface.OnClickListener() {
 					    public void onClick(DialogInterface dialog, int item) {
 					    	db.deleteVoltageByName(voltages.get(item));
@@ -269,7 +267,7 @@ public class VoltageActivity extends Activity
 			for (int i= 0; i < voltages.size(); i++)
 			{	    	 
 				entries.add(new VoltageEntry(voltageFreqs.get(i).substring(0, voltageFreqs.get(i).length() - 3) + "Mhz", allVoltages.indexOf(voltages.get(i))));
-				System.out.println(allVoltages.indexOf(voltages.get(i)));
+				
 
 			}	
 
@@ -279,7 +277,7 @@ public class VoltageActivity extends Activity
 			for (int i= 0; i < voltages.size(); i++)
 			{	    	 
 				entries.add(new VoltageEntry(voltageFreqs.get(i) + "Mhz", allVoltagesTegra3.indexOf(voltages.get(i))));
-				System.out.println(allVoltagesTegra3.indexOf(voltages.get(i)));
+				
 
 			}	
 		}

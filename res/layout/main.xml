@@ -6,14 +6,16 @@
     android:layout_width="fill_parent"
     android:layout_height="fill_parent"
     android:orientation="vertical"
-    tools:context=".DualCore" >
+    tools:context=".KernelTuner"
+     >
 
     <ScrollView
         android:id="@+id/scrollView1"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_above="@+id/ly2"
-        android:layout_below="@+id/rl" >
+        android:layout_below="@+id/rl" 
+      >
 
         <LinearLayout
             android:layout_width="match_parent"
@@ -167,7 +169,8 @@
                     android:layout_weight="1"
                     android:drawableTop="@drawable/about"
                     android:gravity="center|center_vertical"
-                    android:text="@string/title_about" />
+                    android:text="@string/title_about"
+                    />
             </LinearLayout>
         </LinearLayout>
 

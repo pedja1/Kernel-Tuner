@@ -360,7 +360,7 @@ catch (InterruptedException e1)
 
 					
 					//cpu0 min
-					if( cpu0min != null && !cpu0min.equals("Unchanged") && !cpu0min.equals("") ){
+					if( cpu0min != null && !cpu0min.equals(getResources().getString(R.string.unchanged)) && !cpu0min.equals("") ){
 						tv1.setText(cpu0min);
 					}
 					else{
@@ -368,7 +368,7 @@ catch (InterruptedException e1)
 					
 					}
 				//cpu0 max
-					if( cpu0max != null && !cpu0max.equals("Unchanged") && !cpu0max.equals("") ){
+					if( cpu0max != null && !cpu0max.equals(getResources().getString(R.string.unchanged)) && !cpu0max.equals("") ){
 						tv2.setText(cpu0max);
 					}
 					else{
@@ -376,7 +376,7 @@ catch (InterruptedException e1)
 
 					}
 					//cpu1min
-					if( cpu1min != null && !cpu1min.equals("Unchanged") && !cpu1min.equals("") ){
+					if( cpu1min != null && !cpu1min.equals(getResources().getString(R.string.unchanged)) && !cpu1min.equals("") ){
 						tv3.setText(cpu1min);
 					}
 					else{
@@ -384,7 +384,7 @@ catch (InterruptedException e1)
 
 					}
 					//cpu1max
-					if( cpu1max != null && !cpu1max.equals("Unchanged") && !cpu1max.equals("") ){
+					if( cpu1max != null && !cpu1max.equals(getResources().getString(R.string.unchanged)) && !cpu1max.equals("") ){
 						tv4.setText(cpu1max);
 					}
 					else{
@@ -392,7 +392,7 @@ catch (InterruptedException e1)
 
 					}
 					//cpu2min
-					if( cpu2min != null && !cpu2min.equals("Unchanged") && !cpu2min.equals("") ){
+					if( cpu2min != null && !cpu2min.equals(getResources().getString(R.string.unchanged)) && !cpu2min.equals("") ){
 						tv5.setText(cpu2min);
 					}
 					else{
@@ -400,7 +400,7 @@ catch (InterruptedException e1)
 
 					}
 					//cpu2max
-					if( cpu2max != null && !cpu2max.equals("Unchanged") && !cpu2max.equals("") ){
+					if( cpu2max != null && !cpu2max.equals(getResources().getString(R.string.unchanged)) && !cpu2max.equals("") ){
 						tv6.setText(cpu2max);
 					}
 					else{
@@ -408,7 +408,7 @@ catch (InterruptedException e1)
 
 					}
 					//cpu3min
-					if( cpu3min != null && !cpu3min.equals("Unchanged") && !cpu3min.equals("") ){
+					if( cpu3min != null && !cpu3min.equals(getResources().getString(R.string.unchanged)) && !cpu3min.equals("") ){
 						tv7.setText(cpu3min);
 					}
 					else{
@@ -416,7 +416,7 @@ catch (InterruptedException e1)
 
 					}
 					//cpu3max
-					if( cpu3max != null && !cpu3max.equals("Unchanged") && !cpu3max.equals("") ){
+					if( cpu3max != null && !cpu3max.equals(getResources().getString(R.string.unchanged)) && !cpu3max.equals("") ){
 						tv8.setText(cpu3max);
 					}
 					else{
@@ -424,7 +424,7 @@ catch (InterruptedException e1)
 
 					}
 					//cpu0governor
-					if( cpu0gov != null && !cpu0gov.equals("Unchanged") && !cpu0gov.equals("") ){
+					if( cpu0gov != null && !cpu0gov.equals(getResources().getString(R.string.unchanged)) && !cpu0gov.equals("") ){
 						tv9.setText(cpu0gov);
 					}
 					else{
@@ -432,7 +432,7 @@ catch (InterruptedException e1)
 
 					}
 					//cpu1governor
-					if( cpu1gov != null && !cpu1gov.equals("Unchanged") && !cpu1gov.equals("") ){
+					if( cpu1gov != null && !cpu1gov.equals(getResources().getString(R.string.unchanged)) && !cpu1gov.equals("") ){
 						tv10.setText(cpu1gov);
 					}
 					else{
@@ -440,7 +440,7 @@ catch (InterruptedException e1)
 
 					}
 					//cpu2governor
-					if( cpu2gov != null && !cpu2gov.equals("Unchanged") && !cpu2gov.equals("") ){
+					if( cpu2gov != null && !cpu2gov.equals(getResources().getString(R.string.unchanged)) && !cpu2gov.equals("") ){
 						tv11.setText(cpu2gov);
 					}
 					else{
@@ -449,7 +449,7 @@ catch (InterruptedException e1)
 					}
 					
 					//cpu3governor
-					if( cpu3gov != null && !cpu3gov.equals("Unchanged") && !cpu3gov.equals("") ){
+					if( cpu3gov != null && !cpu3gov.equals(getResources().getString(R.string.unchanged)) && !cpu3gov.equals("") ){
 						tv12.setText(cpu3gov);
 					}
 					else{
@@ -457,7 +457,7 @@ catch (InterruptedException e1)
 
 					}
 					//voltage
-					if( voltage != null && !voltage.equals("Unchanged") && !voltage.equals("") ){
+					if( voltage != null && !voltage.equals(getResources().getString(R.string.unchanged)) && !voltage.equals("") ){
 						tv13.setText(voltage);
 					}
 					else{
@@ -481,14 +481,14 @@ catch (InterruptedException e1)
 
 					}
 					//gpu2d
-					if( gpu2d != null && !gpu2d.equals("Unchanged") && !gpu2d.equals("") ){
+					if( gpu2d != null && !gpu2d.equals(getResources().getString(R.string.unchanged)) && !gpu2d.equals("") ){
 						tv16.setText(gpu2d);
 					}
 					else{
 						gpu2dll.setVisibility(View.GONE);
 					}
 					//gpu3d
-					if( gpu3d != null && !gpu3d.equals("Unchanged") && !gpu3d.equals("") ){
+					if( gpu3d != null && !gpu3d.equals(getResources().getString(R.string.unchanged)) && !gpu3d.equals("") ){
 						tv17.setText(gpu3d);
 					}
 					else{
@@ -522,14 +522,14 @@ catch (InterruptedException e1)
 						fchargeBox.setVisibility(View.GONE);
 					}
 					//cdepth
-					if( cdepth != null && !cdepth.equals("Unchanged") && !cdepth.equals("") ){
+					if( cdepth != null && !cdepth.equals(getResources().getString(R.string.unchanged)) && !cdepth.equals("") ){
 						tv21.setText(cdepth);
 					}
 					else{
 						cdepthll.setVisibility(View.GONE);
 					}
 					//io
-					if( io != null && !io.equals("Unchanged") && !io.equals("") ){
+					if( io != null && !io.equals(getResources().getString(R.string.unchanged)) && !io.equals("") ){
 						tv22.setText(io);
 					}
 					else{
@@ -558,36 +558,7 @@ catch (InterruptedException e1)
 					}
 					builder.setIcon(R.drawable.ic_menu_cc);
 
-					/*builder.setPositiveButton("Apply", new DialogInterface.OnClickListener() {
-							@Override
-							public void onClick(DialogInterface dialog, int which)
-							{
-								new ProfileApplier(Profiles.this).execute(new String[] {profile.getName()});
-							       
-							}
-						});
-					builder.setNegativeButton("Cancel", new DialogInterface.OnClickListener() {
-							@Override
-							public void onClick(DialogInterface dialog, int which)
-							{
-
-							}
-						});
-					builder.setNeutralButton("Delete", new DialogInterface.OnClickListener() {
-							@Override
-							public void onClick(DialogInterface dialog, int which)
-							{
-								db.deleteProfile(profile);
-								profilesAdapter.clear();
-								for (final ProfilesEntry entry : getProfilesEntries())
-								{
-									profilesAdapter.add(entry);
-								}
-								profilesListView.invalidate();
-								setUI();
-							}
-						});
-					*/
+					
 					builder.setView(view);
 					AlertDialog alert = builder.create();
 
@@ -624,20 +595,14 @@ catch (InterruptedException e1)
 			entries.add(new ProfilesEntry(p.getName(), 0));
 		}
 		
-	//	entries.add(new ProfilesEntry("Battery", 0, 0, 0, 0, 1, 0, 0, 0, 0, 0, 0, 0));
-	//	entries.add(new ProfilesEntry("Performances", 0, 0, 0, 0, 1, 1, 1, 0, 0, 0, 0, 0));
-	//	entries.add(new ProfilesEntry("test", 1, 0, 1, 0, 1, 0, 0, 0, 0, 0, 0, 0));
 
-		
 
 		return entries;
 	}
 
 	@Override
 	public boolean onCreateOptionsMenu(Menu menu) {
-//menu.add(Menu.NONE, 0, 0, "Add ").setIcon(R.drawable.ic_menu_add).setShowAsAction(MenuItem.SHOW_AS_ACTION_IF_ROOM);
-//menu.add(Menu.NONE, 1, 1, "Delete All").setIcon(R.drawable.ic_menu_delete).setShowAsAction(MenuItem.SHOW_AS_ACTION_IF_ROOM);
-		MenuInflater inflater = getMenuInflater();
+	MenuInflater inflater = getMenuInflater();
 		inflater.inflate(R.menu.profiles_options_menu, menu);
 		return super.onCreateOptionsMenu(menu);
 }
@@ -666,13 +631,13 @@ public boolean onOptionsItemSelected(MenuItem item) {
     	AlertDialog.Builder builder = new AlertDialog.Builder(
                 Profiles.this);
 
-			builder.setTitle("Delete all profiles");
+			builder.setTitle(getResources().getString(R.string.delete_all_profiles));
 
-			builder.setMessage("Are you sure you want to delete all profiles?");
+			builder.setMessage(getResources().getString(R.string.delete_all_profiles_confirm));
 
 			builder.setIcon(R.drawable.ic_menu_delete);
 
-			builder.setPositiveButton("Yes, do it.", new DialogInterface.OnClickListener() {
+			builder.setPositiveButton(getResources().getString(R.string.yes), new DialogInterface.OnClickListener() {
 					@Override
 					public void onClick(DialogInterface dialog, int which)
 					{
@@ -694,7 +659,7 @@ public boolean onOptionsItemSelected(MenuItem item) {
 						setUI();
 					}
 				});
-			builder.setNegativeButton("Cancel", new DialogInterface.OnClickListener() {
+			builder.setNegativeButton(getResources().getString(R.string.cancel), new DialogInterface.OnClickListener() {
 					@Override
 					public void onClick(DialogInterface dialog, int which)
 					{
@@ -711,31 +676,31 @@ public boolean onOptionsItemSelected(MenuItem item) {
 	AlertDialog.Builder builder2 = new AlertDialog.Builder(
             Profiles.this);
 
-		builder2.setTitle("Save Current Settings");
+		builder2.setTitle(getResources().getString(R.string.save_current_settings));
 
 		
 
 		builder2.setIcon(R.drawable.ic_menu_save);
 		final EditText ed2 = new EditText(Profiles.this);
 		ed2.setHint("Profile Name");
-		builder2.setPositiveButton("Save", new DialogInterface.OnClickListener() {
+		builder2.setPositiveButton(getResources().getString(R.string.save), new DialogInterface.OnClickListener() {
 				@Override
 				public void onClick(DialogInterface dialog, int which)
 				{
 					if(ed2.getText().toString().length()<1 || ed2.getText().toString().equals(""))
 					{
-						Toast.makeText(getApplicationContext(), "Profile Name cannot be empty!\nPlease enter Profile Name", Toast.LENGTH_LONG).show();
+						Toast.makeText(getApplicationContext(), getResources().getString(R.string.empty_profile_name), Toast.LENGTH_LONG).show();
 						
 					}
 					else{
 					_name = ed2.getText().toString();
-					Profiles.this.pd = ProgressDialog.show(Profiles.this, "Please Wait..",
-								  "Gathering system information...", true, false);
+					Profiles.this.pd = ProgressDialog.show(Profiles.this, null,
+							getResources().getString(R.string.gathering_system_info), true, false);
 					new SaveCurrentAsProfile().execute();
 					}
 				}
 			});
-		builder2.setNegativeButton("Cancel", new DialogInterface.OnClickListener() {
+		builder2.setNegativeButton(getResources().getString(R.string.cancel), new DialogInterface.OnClickListener() {
 				@Override
 				public void onClick(DialogInterface dialog, int which)
 				{
@@ -850,14 +815,14 @@ public boolean onContextItemSelected(MenuItem item) {
 		AlertDialog.Builder builder = new AlertDialog.Builder(
                 Profiles.this);
 
-			builder.setTitle("Copy Profile");
+			builder.setTitle(getResources().getString(R.string.copy_profile));
 
 			
 
 			builder.setIcon(R.drawable.ic_menu_copy);
 			final EditText ed = new EditText(Profiles.this);
-			ed.setHint("Profile Name");
-			builder.setPositiveButton("Copy", new DialogInterface.OnClickListener() {
+			ed.setHint(getResources().getString(R.string.profile_name));
+			builder.setPositiveButton(getResources().getString(R.string.copy), new DialogInterface.OnClickListener() {
 					@Override
 					public void onClick(DialogInterface dialog, int which)
 					{
@@ -931,7 +896,7 @@ public boolean onContextItemSelected(MenuItem item) {
 								setUI();
 					}
 				});
-			builder.setNegativeButton("Cancel", new DialogInterface.OnClickListener() {
+			builder.setNegativeButton(getResources().getString(R.string.cancel), new DialogInterface.OnClickListener() {
 					@Override
 					public void onClick(DialogInterface dialog, int which)
 					{

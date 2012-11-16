@@ -191,22 +191,22 @@ public class ProfileEditor extends Activity
 		Spinner spinner18 = (Spinner)findViewById(R.id.spinner19);
 
 		List<String> freqs = new ArrayList<String>();
-		freqs.add("Unchanged");
+		freqs.add(getResources().getString(R.string.unchanged));
 		freqs.addAll(CPUInfo.frequencies());
 
 
 		List<String> govs = new ArrayList<String>();
-		govs.add("Unchanged");
+		govs.add(getResources().getString(R.string.unchanged));
 		govs.addAll(CPUInfo.governors());
 
 		List<String> schedulers = new ArrayList<String>();
-		schedulers.add("Unchanged");
+		schedulers.add(getResources().getString(R.string.unchanged));
 		schedulers.addAll(CPUInfo.schedulers());
 
 
 		List<String> voltageProfiles = new ArrayList<String>();
 		List<Voltage> voltages = db.getAllVoltages();
-		voltageProfiles.add("Unchanged");
+		voltageProfiles.add(getResources().getString(R.string.unchanged));
 		for(Voltage v : voltages){
 			voltageProfiles.add(v.getName());
 		}
@@ -279,21 +279,21 @@ public class ProfileEditor extends Activity
 
 		if (board.equals("shooter") || board.equals("shooteru") || board.equals("pyramid") || board.equals("tenderloin") )
 		{
-			gpu2ds = new String[] {"Unchanged","160000000", "200000000", "228571000", "266667000"};
-			gpu3ds = new String[]{"Unchanged","200000000", "228571000", "266667000", "300000000", "320000000"};
+			gpu2ds = new String[] {getResources().getString(R.string.unchanged),"160000000", "200000000", "228571000", "266667000"};
+			gpu3ds = new String[]{getResources().getString(R.string.unchanged),"200000000", "228571000", "266667000", "300000000", "320000000"};
 		}
 		else if (board.equals("evita") || board.equals("ville") || board.equals("jwel") || board.equals("jet"))
 		{
-			gpu2ds = new String[]{"Unchanged","266667000", "228571000", "200000000", "160000000", "96000000", "27000000"};
-			gpu3ds = new String[]{"Unchanged","400000000", "320000000", "300000000", "228571000", "266667000", "200000000", "177778000", "27000000"};
+			gpu2ds = new String[]{getResources().getString(R.string.unchanged),"266667000", "228571000", "200000000", "160000000", "96000000", "27000000"};
+			gpu3ds = new String[]{getResources().getString(R.string.unchanged),"400000000", "320000000", "300000000", "228571000", "266667000", "200000000", "177778000", "27000000"};
 		}
 		else{
-			gpu2ds = new String[]{"Unchanged"};
-			gpu3ds = new String[]{"Unchanged"};
+			gpu2ds = new String[]{getResources().getString(R.string.unchanged)};
+			gpu3ds = new String[]{getResources().getString(R.string.unchanged)};
 		}
 
-		String[] cd = {"Unchanged","16","24","32"};
-		String[] sweep2wake = {"Unchanged","OFF","ON with no backlight","ON with backlight"};
+		String[] cd = {getResources().getString(R.string.unchanged),"16","24","32"};
+		String[] sweep2wake = {getResources().getString(R.string.unchanged),"OFF","ON with no backlight","ON with backlight"};
 
 
 		/*if(CPUInfo.cpu0Online()==true)
@@ -892,7 +892,7 @@ public boolean onOptionsItemSelected(MenuItem item) {
     	
 		if(name.getText().toString().length()<1 || name.getText().toString().equals(""))
 		{
-			Toast.makeText(getApplicationContext(), "Profile Name cannot be empty!\nPlease enter Profile Name", Toast.LENGTH_LONG).show();
+			Toast.makeText(getApplicationContext(), getResources().getString(R.string.empty_profile_name), Toast.LENGTH_LONG).show();
 			
 		}
 		else{

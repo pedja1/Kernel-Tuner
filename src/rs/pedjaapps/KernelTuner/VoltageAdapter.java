@@ -62,7 +62,7 @@ public final class VoltageAdapter extends ArrayAdapter<VoltageEntry>
 				public void onStopTrackingTouch(SeekBar seekBar)
 				{
 
-					VoltageAdapter.pd = ProgressDialog.show(VoltageAdapter.this.getContext(), null, "Please wait...\nChanging voltage...", true, false);
+					VoltageAdapter.pd = ProgressDialog.show(VoltageAdapter.this.getContext(), null, VoltageAdapter.this.getContext().getResources().getString(R.string.changing_voltage), true, false);
 					new ChangeVoltage(VoltageAdapter.this.getContext()).execute(new String[] {"singleseek", String.valueOf(allVoltages.get(prog)), voltageFreqs.get(position)});
 				}
 
@@ -97,7 +97,7 @@ public final class VoltageAdapter extends ArrayAdapter<VoltageEntry>
 									{
 										if (Integer.parseInt(input.getText().toString()) >= 700000 && Integer.parseInt(input.getText().toString()) <= 1400000)
 										{
-											VoltageAdapter.pd = ProgressDialog.show(VoltageAdapter.this.getContext(), null, "Please wait...\nChanging voltage...", true, false);
+											VoltageAdapter.pd = ProgressDialog.show(VoltageAdapter.this.getContext(), null, VoltageAdapter.this.getContext().getResources().getString(R.string.changing_voltage), true, false);
 											new ChangeVoltage(VoltageAdapter.this.getContext()).execute(new String[] {"singleseek", input.getText().toString(), voltageFreqs.get(position)});
 										}
 										else
@@ -109,18 +109,18 @@ public final class VoltageAdapter extends ArrayAdapter<VoltageEntry>
 									{
 										if (Integer.parseInt(input.getText().toString()) >= 700 && Integer.parseInt(input.getText().toString()) <= 1400)
 										{
-											VoltageAdapter.pd = ProgressDialog.show(VoltageAdapter.this.getContext(), null, "Please wait...\nChanging voltage...", true, false);
+											VoltageAdapter.pd = ProgressDialog.show(VoltageAdapter.this.getContext(), null, VoltageAdapter.this.getContext().getResources().getString(R.string.changing_voltage), true, false);
 											new ChangeVoltage(VoltageAdapter.this.getContext()).execute(new String[] {"singleseek", input.getText().toString(), voltageFreqs.get(position)});
 										}
 										else
 										{
-											Toast.makeText(VoltageAdapter.this.getContext(), "Value must be between 700 and 1400", Toast.LENGTH_LONG).show();
+											Toast.makeText(VoltageAdapter.this.getContext(), VoltageAdapter.this.getContext().getResources().getString(R.string.voltage_value_out_of_bounds), Toast.LENGTH_LONG).show();
 										}
 									}
 								}
 								else
 								{
-									Toast.makeText(VoltageAdapter.this.getContext(), "Value can't be empty", Toast.LENGTH_LONG).show();
+									Toast.makeText(VoltageAdapter.this.getContext(), VoltageAdapter.this.getContext().getResources().getString(R.string.voltage_value_empty), Toast.LENGTH_LONG).show();
 
 								}
 							}
@@ -128,7 +128,7 @@ public final class VoltageAdapter extends ArrayAdapter<VoltageEntry>
 
 						});
 
-					builder.setNegativeButton("Cancel", new DialogInterface.OnClickListener(){
+					builder.setNegativeButton(VoltageAdapter.this.getContext().getResources().getString(R.string.cancel), new DialogInterface.OnClickListener(){
 
 							@Override
 							public void onClick(DialogInterface dialog, int which)
@@ -150,7 +150,7 @@ public final class VoltageAdapter extends ArrayAdapter<VoltageEntry>
 				@Override
 				public void onClick(View v)
 				{
-					VoltageAdapter.pd = ProgressDialog.show(VoltageAdapter.this.getContext(), null, "Please wait...\nChanging voltage...", true, false);
+					VoltageAdapter.pd = ProgressDialog.show(VoltageAdapter.this.getContext(), null, VoltageAdapter.this.getContext().getResources().getString(R.string.changing_voltage), true, false);
 					new ChangeVoltage(VoltageAdapter.this.getContext()).execute(new String[] {"singleminus", String.valueOf(position)});
 
 				}
@@ -162,7 +162,7 @@ public final class VoltageAdapter extends ArrayAdapter<VoltageEntry>
 				@Override
 				public void onClick(View v)
 				{
-					VoltageAdapter.pd = ProgressDialog.show(VoltageAdapter.this.getContext(), null, "Please wait...\nChanging voltage...", true, false);
+					VoltageAdapter.pd = ProgressDialog.show(VoltageAdapter.this.getContext(), null, VoltageAdapter.this.getContext().getResources().getString(R.string.changing_voltage), true, false);
 					new ChangeVoltage(VoltageAdapter.this.getContext()).execute(new String[] {"singleplus", String.valueOf(position)});
 
 				}

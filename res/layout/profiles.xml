@@ -12,7 +12,9 @@
 		android:layout_height="wrap_content"
 		android:layout_alignParentTop="true"
 		android:layout_alignParentLeft="true"
-		android:layout_above="@+id/ll3"
+	
+    android:animateLayoutChanges="true"
+		
 		>
 		
 	</ListView>
@@ -23,7 +25,7 @@
         android:layout_height="wrap_content"
 		android:layout_centerHorizontal="true"
 		android:layout_centerVertical="true"
-		android:text="There are no profiles."/>
+		android:text="@string/there_are_no_profiles_"/>
 		
 	<LinearLayout
 	    android:id="@+id/ll1"
@@ -36,7 +38,7 @@
 		    android:layout_width="wrap_content"
 		    android:layout_height="wrap_content"
 		    android:layout_gravity="center_vertical"
-		    android:text="Tap " />
+		    android:text="@string/tap_" />
 			
 			<ImageView
 				android:layout_width="wrap_content"
@@ -47,7 +49,7 @@
 		    android:layout_width="wrap_content"
 		    android:layout_height="wrap_content"
 		    android:layout_gravity="center_vertical"
-		    android:text=" to add new profile" />
+		    android:text="@string/_to_add_new_profile" />
 		
 		</LinearLayout>
 		

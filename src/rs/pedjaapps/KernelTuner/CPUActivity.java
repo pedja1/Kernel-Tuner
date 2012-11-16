@@ -108,6 +108,9 @@ public class CPUActivity extends Activity
 	CheckBox cb;
 	boolean cpuLock;
 
+	/**
+	 * AsyncTask class that will enable All CPUs
+	 */
 	private class ToggleCPUs extends AsyncTask<Boolean, Void, Boolean>
 	{
 
@@ -232,12 +235,17 @@ public class CPUActivity extends Activity
 		super.onCreate(savedInstanceState);
 
 		setContentView(R.layout.cpu_tweaks);
-		this.pd = ProgressDialog.show(this, "Working..",
-				  "Enabling all CPUs...\nPlease wait...", true, false);
+		
+		/**
+		 * Show Progress Dialog and execute ToggleCpus class*/
+		CPUActivity.this.pd = ProgressDialog.show(CPUActivity.this, null, 
+				  getResources().getString(R.string.enabling_cpus), true, false);
 		new ToggleCPUs().execute(new Boolean[] {true});
 
 
 		sharedPrefs = PreferenceManager.getDefaultSharedPreferences(this);
+		/**
+		 * Load ads if enabled in settings*/
 		boolean ads = sharedPrefs.getBoolean("ads", true);
 		if (ads == true)
 		{AdView adView = (AdView)this.findViewById(R.id.ad);
@@ -1095,7 +1103,7 @@ startCpuLoadThread();
 		}
 		else
 		{			
-			cpu0prog.setText("offline");
+			cpu0prog.setText(getResources().getString(R.string.offline));
 		}
 		if (frequencies != null && !cpu0MaxFreq.equals("") && !cpu0CurFreq.equals(""))
 		{
@@ -1114,7 +1122,7 @@ startCpuLoadThread();
 		}
 		else
 		{
-			cpu1prog.setText("offline");
+			cpu1prog.setText(getResources().getString(R.string.offline));
 		}
 
 		progCpu1.setMax(frequencies.indexOf(cpu1MaxFreq.trim()) + 1);
@@ -1132,7 +1140,7 @@ startCpuLoadThread();
 		}
 		else
 		{
-			cpu2prog.setText("offline");
+			cpu2prog.setText(getResources().getString(R.string.offline));
 		}
 
 		progCpu2.setMax(frequencies.indexOf(cpu2MaxFreq.trim()) + 1);
@@ -1150,7 +1158,7 @@ startCpuLoadThread();
 		}
 		else
 		{
-			cpu3prog.setText("offline");
+			cpu3prog.setText(getResources().getString(R.string.offline));
 		}
 
 		progCpu3.setMax(frequencies.indexOf(cpu3MaxFreq.trim()) + 1);

@@ -171,7 +171,7 @@ public class Thermald extends Activity
 				@Override
 				public void onClick(View arg0)
 				{
-					Thermald.this.pd = ProgressDialog.show(Thermald.this, "Working..", "Applying settings...", true, false);
+					Thermald.this.pd = ProgressDialog.show(Thermald.this, null, getResources().getString(R.string.applying_settings), true, false);
 					p1lownew = String.valueOf(ed1.getText());
 					p1highnew = String.valueOf(ed2.getText());
 					p2lownew = String.valueOf(ed3.getText());
