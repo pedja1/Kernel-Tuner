@@ -172,6 +172,13 @@
 		<service android:name=".WidgetUpdateService"></service>
 		<service android:name=".WidgetUpdateServiceBig"></service>
 
+		<service android:name=".NotificationService" android:process=":background">
+			<intent-filter>
+				<action
+					android:name="rs.pedjaapps.KernelTuner.NotificationService" />
+			</intent-filter>
+		</service>
+		
 		<activity android:name="com.google.ads.AdActivity"
 			android:configChanges="keyboard|keyboardHidden|orientation|screenLayout|uiMode|screenSize|smallestScreenSize"/>
 	</application>

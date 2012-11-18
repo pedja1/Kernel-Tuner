@@ -1,16 +1,12 @@
 package rs.pedjaapps.KernelTuner;
 
 
-import android.content.SharedPreferences;
+
+import android.content.Intent;
 import android.os.*;
 import android.preference.*;
 import android.preference.Preference.OnPreferenceChangeListener;
-import android.view.ViewGroup.LayoutParams;
-import android.view.Window;
-import android.widget.LinearLayout;
-import android.widget.ListView;
-import android.widget.TextView;
-import rs.pedjaapps.KernelTuner.*;
+
 
 
 public class Preferences extends PreferenceActivity
@@ -20,6 +16,8 @@ ListPreference bootPrefList;
 EditTextPreference widgetPref;
 ListPreference tempPrefList;
 ListPreference localePrefList;
+ListPreference notifPrefList;
+CheckBoxPreference notifBox;
 	@SuppressWarnings("deprecation")
 	@Override
 	public void onCreate(Bundle savedInstanceState)
@@ -98,7 +96,42 @@ ListPreference localePrefList;
                 return true;
             }
         }); 
+        
+        notifPrefList = (ListPreference) findPreference("notif");
+        notifPrefList.setDefaultValue(notifPrefList.getEntryValues()[0]);
+        String notif = notifPrefList.getValue();
+        if (notif == null) {
+        	notifPrefList.setValue((String)notifPrefList.getEntryValues()[0]);
+        	notif = notifPrefList.getValue();
+        }
+        notifPrefList.setSummary(notifPrefList.getEntries()[notifPrefList.findIndexOfValue(notif)]);
+
+
+        notifPrefList.setOnPreferenceChangeListener(new OnPreferenceChangeListener() {
+            @Override
+            public boolean onPreferenceChange(Preference preference, Object newValue) {
+            	notifPrefList.setSummary(notifPrefList.getEntries()[notifPrefList.findIndexOfValue(newValue.toString())]);
+            	stopService(new Intent(Preferences.this, NotificationService.class));
+            	startService(new Intent(Preferences.this, NotificationService.class));
+            	
+                return true;
+            }
+        }); 
 		
+        notifBox = (CheckBoxPreference) findPreference("notificationService");
+        notifBox.setOnPreferenceChangeListener(new OnPreferenceChangeListener() {
+            @Override
+            public boolean onPreferenceChange(Preference preference, Object newValue) {
+            	if(notifBox.isChecked()){
+            		stopService(new Intent(Preferences.this, NotificationService.class));
+                	
+            	}
+            	else if(notifBox.isChecked()==false){
+            	startService(new Intent(Preferences.this, NotificationService.class));
+            	}
+                return true;
+            }
+        }); 
 	}
 
 }

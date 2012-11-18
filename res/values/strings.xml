@@ -23,6 +23,11 @@
     <string name="preferences_widget_settings_interval_summary">Setting to low values will cause your battery to drain faster</string>
     <string name="preferences_misc">Misc</string>
     
+    <string name="preferences_notification_toggle_title">CPU Usage</string>
+    <string name="preferences_notification_toggle_summary">Enable cpu usage info in status bar</string>
+    <string name="preferences_notification">Notifications</string>
+    
+    
     <string name="preferences_misc_ads_title">Show ads on main screen</string>
     <string name="preferences_misc_ads_summary">You need to restart app to stop showing ads</string>
     <string name="preferences_misc_update_title">Auto Update Check</string>

@@ -47,4 +47,17 @@
  <item>sr</item>
 </string-array>
 
+<string-array name="notifNames">
+  <item>Current CPU freqs</item>
+ <item>CPU Load</item>
+ <item>Current CPU freq + CPU Load</item>
+ 
+</string-array>
+<string-array name="notifValues">
+  <item>freq</item>
+  <item>load</item>
+ <item>both</item>
+
+</string-array>
+
 </resources>

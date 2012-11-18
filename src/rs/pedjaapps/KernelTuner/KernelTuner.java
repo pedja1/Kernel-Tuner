@@ -2712,7 +2712,9 @@ AlertDialog alert = builder.create();
 
 
 		if (item.getItemId() == R.id.not) {
-		createNotification();
+			Intent serviceIntent = new Intent();
+			serviceIntent.setAction("rs.pedjaapps.KernelTuner.NotificationService");
+			KernelTuner.this.startService(serviceIntent);
 		}	
 
 
@@ -2784,26 +2786,7 @@ AlertDialog alert = builder.create();
 		}
 	}
 
-	public void createNotification() {
-
-
-		String ns = Context.NOTIFICATION_SERVICE;
-		NotificationManager mNotificationManager = (NotificationManager) getSystemService(ns);
-		int icon = R.drawable.ic_launcher;
-		CharSequence tickerText = "Temperature Warning";
-		long when = System.currentTimeMillis();
-		Notification notification = new Notification(icon, tickerText, when);
-	notification.flags |= Notification.FLAG_ONGOING_EVENT;
-	Context context = getApplicationContext();
-		CharSequence contentTitle = "test";
-		CharSequence contentText = "test";
-		Intent notificationIntent = new Intent(this, KernelTuner.class);
-		PendingIntent contentIntent = PendingIntent.getActivity(this, 0, notificationIntent, 0);
-		notification.setLatestEventInfo(context, contentTitle, contentText, contentIntent);
-		final int HELLO_ID = 1;
-		mNotificationManager.notify(HELLO_ID, notification);
-
-	}
+	
 	
 	
 }
