@@ -70,7 +70,7 @@ public class NotificationService extends Service
 	@Override
     public int onStartCommand(Intent intent, int flags, int startId) {
        	Log.d("rs.pedjaapps.KernelTuner","NotificationService started");
-	  
+       	
        	Runnable runnable = new Runnable() {
 			@Override
 			public void run() {
