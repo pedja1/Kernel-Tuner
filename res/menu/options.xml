@@ -25,4 +25,10 @@
         android:showAsAction="ifRoom|withText"
         android:title="Create Log File"/>
     
+	
+	<item
+        android:id="@+id/not"
+        android:icon="@drawable/ic_menu_paste_holo_dark"
+        android:showAsAction="ifRoom|withText"
+        android:title="Notification Test"/>
 </menu>
