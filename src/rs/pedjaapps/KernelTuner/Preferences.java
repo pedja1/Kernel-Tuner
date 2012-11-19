@@ -2,10 +2,18 @@ package rs.pedjaapps.KernelTuner;
 
 
 
+
+import android.app.ActivityManager;
+import android.app.AlertDialog;
+import android.app.ActivityManager.RunningServiceInfo;
+import android.content.DialogInterface;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.os.*;
 import android.preference.*;
 import android.preference.Preference.OnPreferenceChangeListener;
+import android.preference.Preference.OnPreferenceClickListener;
+import android.webkit.WebView;
 
 
 
@@ -18,6 +26,7 @@ ListPreference tempPrefList;
 ListPreference localePrefList;
 ListPreference notifPrefList;
 CheckBoxPreference notifBox;
+PreferenceScreen notifScreen;
 	@SuppressWarnings("deprecation")
 	@Override
 	public void onCreate(Bundle savedInstanceState)
@@ -111,9 +120,10 @@ CheckBoxPreference notifBox;
             @Override
             public boolean onPreferenceChange(Preference preference, Object newValue) {
             	notifPrefList.setSummary(notifPrefList.getEntries()[notifPrefList.findIndexOfValue(newValue.toString())]);
+            	if(isNotificationServiceRunning()){
             	stopService(new Intent(Preferences.this, NotificationService.class));
             	startService(new Intent(Preferences.this, NotificationService.class));
-            	
+            	}
                 return true;
             }
         }); 
@@ -129,9 +139,54 @@ CheckBoxPreference notifBox;
             	else if(notifBox.isChecked()==false){
             	startService(new Intent(Preferences.this, NotificationService.class));
             	}
+            	
                 return true;
             }
         }); 
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.HONEYCOMB)
+        {
+        	 getActionBar().setSubtitle("Application Preferences");
+        }
+        notifScreen = (PreferenceScreen)findPreference("notificationScreen");
+        notifScreen.setOnPreferenceClickListener(new OnPreferenceClickListener(){
+
+			@Override
+			public boolean onPreferenceClick(Preference arg0) {
+				AlertDialog.Builder builder = new AlertDialog.Builder(
+	                    Preferences.this);
+
+					builder.setMessage(getResources().getString(R.string.notificatio_preferences_warning));
+
+					builder.setIcon(R.drawable.ic_menu_recent_history);
+
+					builder.setPositiveButton(getResources().getString(R.string.ok), new DialogInterface.OnClickListener() {
+							@Override
+							public void onClick(DialogInterface dialog, int which)
+							{
+							
+							}
+						});
+					
+					
+					AlertDialog alert = builder.create();
+
+					alert.show();
+				return false;
+			}
+        	
+        });
+       
 	}
+	
+	private boolean isNotificationServiceRunning() {
+	    ActivityManager manager = (ActivityManager) getSystemService(this.ACTIVITY_SERVICE);
+	    for (RunningServiceInfo service : manager.getRunningServices(Integer.MAX_VALUE)) {
+	        if (NotificationService.class.getName().equals(service.service.getClassName())) {
+	            return true;
+	        }
+	    }
+	    return false;
+	}
+	
 
 }

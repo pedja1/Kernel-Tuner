@@ -24,6 +24,7 @@ import java.net.*;
 import java.util.*;
 import android.app.ActivityManager;
 import android.app.ActivityManager.RunningAppProcessInfo;
+import android.app.ActivityManager.RunningServiceInfo;
 
 import java.lang.Process;
 
@@ -882,6 +883,7 @@ public class KernelTuner extends Activity
 		super.onCreate(savedInstanceState);
 		preferences = PreferenceManager.getDefaultSharedPreferences(this);
 		String locale = preferences.getString("loc", "en");
+		
 		Configuration configuration = this.getResources().getConfiguration();
 		  configuration.locale = new Locale(locale);
 		  this.getResources().updateConfiguration(configuration, this.getResources().getDisplayMetrics());
@@ -1235,6 +1237,13 @@ public class KernelTuner extends Activity
 			});
 
 startCpuLoadThread();
+
+if(preferences.getBoolean("notificationService", false)==true && isNotificationServiceRunning()==false){
+	startService(new Intent(KernelTuner.this, NotificationService.class));
+}
+else if(preferences.getBoolean("notificationService", false)==false && isNotificationServiceRunning()==true){
+	stopService(new Intent(KernelTuner.this, NotificationService.class));
+}
 	}
 
 
@@ -1249,6 +1258,7 @@ startCpuLoadThread();
 	@Override
 	protected void onResume()
 	{
+		System.out.println("ktuner test"+preferences.getString("notif", "freq"));
 		/**
 		Register BroadcastReceiver that will listen for battery changes and update ui
 		*/
@@ -2787,6 +2797,14 @@ AlertDialog alert = builder.create();
 	}
 
 	
-	
+	private boolean isNotificationServiceRunning() {
+	    ActivityManager manager = (ActivityManager) getSystemService(this.ACTIVITY_SERVICE);
+	    for (RunningServiceInfo service : manager.getRunningServices(Integer.MAX_VALUE)) {
+	        if (NotificationService.class.getName().equals(service.service.getClassName())) {
+	            return true;
+	        }
+	    }
+	    return false;
+	}
 	
 }

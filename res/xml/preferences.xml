@@ -48,7 +48,10 @@
 
     <PreferenceCategory android:title="@string/preferences_notification" >
         <PreferenceScreen 
-    android:title="@string/preferences_notification"  >
+    android:title="@string/preferences_notification"
+    android:summary="@string/preferences_notification"
+    android:key="notificationScreen"  >
+    <PreferenceCategory android:title="@string/preferences_cpu" >
      <CheckBoxPreference
             android:defaultValue="false"
             android:key="notificationService"
@@ -60,6 +63,10 @@
             android:key="notif"
             android:title="Items to display in notification" 
             android:defaultValue="freq"/>
+       </PreferenceCategory>
+       <!--  <PreferenceCategory android:title="@string/preferences_memory" >
+           
+           </PreferenceCategory>-->
     </PreferenceScreen>
     
         </PreferenceCategory>

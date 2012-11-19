@@ -36,7 +36,7 @@ public class NotificationService extends Service
 	String items;
 	NotificationManager mNotificationManager;
 	int NOTIFICATION_ID = 1;
-	
+	private final static int PREFERENCES_MODE = Context.MODE_MULTI_PROCESS;
 	
 	@Override
 	public IBinder onBind(Intent intent)
@@ -60,9 +60,8 @@ public class NotificationService extends Service
 	}
 	
 	public void getPrefs(){
-		items = "t";
-		System.out.println(items);
-		sharedPrefs = PreferenceManager.getDefaultSharedPreferences(this);
+		
+		sharedPrefs = this.getSharedPreferences("rs.pedjaapps.KernelTuner_preferences", PREFERENCES_MODE);
 		items = sharedPrefs.getString("notif", "freq");
 		System.out.println(items);
 	}
