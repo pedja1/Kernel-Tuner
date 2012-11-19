@@ -22,7 +22,12 @@
     <string name="preferences_widget_settings_interval_summary">"Ajuste a valores bajos hará que su batería se agotará más rápidamente"</string>
     <string name="preferences_misc">"Varios"</string>
     
-    <string name="preferences_misc_ads_title">"Ver anuncios en la pantalla principal"</string>
+    <string name="preferences_notification_toggle_title">CPU Usage</string>
+    <string name="preferences_notification_toggle_summary">Enable cpu usage info in status bar</string>
+    <string name="preferences_notification">Notifications</string>
+    <string name="preferences_cpu">CPU</string>
+    <string name="preferences_memory">Memory</string>
+<string name="preferences_misc_ads_title">"Ver anuncios en la pantalla principal"</string>
     <string name="preferences_misc_ads_summary">"Es necesario reiniciar la aplicación para dejar de publicar anuncios"</string>
     <string name="preferences_misc_update_title">"Actualización automática Compruebe"</string>
     <string name="preferences_misc_update_summary">"Compruebe si hay actualizaciones cada vez que se inicia la aplicación"</string>
@@ -183,7 +188,6 @@
 		<string name="delete">"Borrar"</string>
 	<string name="plugin_name">"Tuner Kernel - Perfiles"</string>
 	<string name="voltage_profile">"Perfil voltaje"</string>
-	<string name="cpu_">"% CPU:"</string>
 	<string name="gpu_">"GPU:"</string>
 	<string name="other_">"Otras:"</string>
 	<string name="capacitive_buttons_light_level_0_60_">"Botones capacitivos de nivel de luz (0-60):"</string>
@@ -245,5 +249,6 @@
 	<string name="product_">"P"</string>
 	<string name="radio_">"[Radio]"</string>
 	<string name="kernel_">"kernel:"</string>
-
+	<string name="notificatio_preferences_warning">This options are likely to cause higher battery drain. Proceed with caution!</string>
+	
 </resources>

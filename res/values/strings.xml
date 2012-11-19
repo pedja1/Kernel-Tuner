@@ -26,14 +26,17 @@
     <string name="preferences_notification_toggle_title">CPU Usage</string>
     <string name="preferences_notification_toggle_summary">Enable cpu usage info in status bar</string>
     <string name="preferences_notification">Notifications</string>
+    <string name="preferences_cpu">CPU</string>
+    <string name="preferences_memory">Memory</string>
     
+     
     
     <string name="preferences_misc_ads_title">Show ads on main screen</string>
-    <string name="preferences_misc_ads_summary">You need to restart app to stop showing ads</string>
+        <string name="preferences_misc_ads_summary">You need to restart app to stop showing ads</string>
     <string name="preferences_misc_update_title">Auto Update Check</string>
-    <string name="preferences_misc_update_summary">Check for updates every time you start app</string>
+	    <string name="preferences_misc_update_summary">Check for updates every time you start app</string>
     
-    <string name="title_changelog">Changelog</string>   
+      <string name="title_changelog">Changelog</string>
      <string name="title_check">Compatibility Check</string>
  
     <string name="activity_title_profile_editor">Profile Editor</string>
@@ -256,5 +259,6 @@
 	<string name="product_">Product:</string>
 	<string name="radio_">Radio:</string>
 	<string name="kernel_">Kernel:</string>
+	<string name="notificatio_preferences_warning">This options are likely to cause higher battery drain. Proceed with caution!</string>
 
 </resources>

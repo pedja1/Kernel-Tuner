@@ -22,6 +22,11 @@
     <string name="preferences_widget_settings_interval_summary">"Beállítás alacsony értékek hatására az akkumulátor csatorna gyorsabban"</string>
     <string name="preferences_misc">"Egyéb"</string>
     
+    <string name="preferences_notification_toggle_title">CPU Usage</string>
+    <string name="preferences_notification_toggle_summary">Enable cpu usage info in status bar</string>
+    <string name="preferences_notification">Notifications</string>
+    <string name="preferences_cpu">CPU</string>
+    <string name="preferences_memory">Memory</string>
     <string name="preferences_misc_ads_title">"Hirdetések megjelenítése a főképernyőn"</string>
     <string name="preferences_misc_ads_summary">"Újra kell indítani az alkalmazást nem jelenít meg hirdetéseket"</string>
     <string name="preferences_misc_update_title">"Automatikus frissítés ellenőrzése"</string>
@@ -245,5 +250,6 @@
 	<string name="product_">"Termé"</string>
 	<string name="radio_">"Rádió"</string>
 	<string name="kernel_">"Kernel:"</string>
-
+<string name="notificatio_preferences_warning">This options are likely to cause higher battery drain. Proceed with caution!</string>
+	
 </resources>

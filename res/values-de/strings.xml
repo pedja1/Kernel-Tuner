@@ -22,12 +22,18 @@
     <string name="preferences_widget_settings_interval_summary">"Einstellung auf niedrige Werte verursachen Akku schneller leer"</string>
     <string name="preferences_misc">"Verschiedenes"</string>
     
+    <string name="preferences_notification_toggle_title">CPU Usage</string>
+    <string name="preferences_notification_toggle_summary">Enable cpu usage info in status bar</string>
+    <string name="preferences_notification">Notifications</string>
+    <string name="preferences_cpu">CPU</string>
+    <string name="preferences_memory">Memory</string>
+ <string name="title_changelog">"Changelog"</string> 
     <string name="preferences_misc_ads_title">"Anzeigen auf Hauptbildschirm"</string>
     <string name="preferences_misc_ads_summary">"Sie müssen App starten zu stoppen Anzeigenschaltung"</string>
     <string name="preferences_misc_update_title">"Auto Update Check"</string>
     <string name="preferences_misc_update_summary">"Check for updates bei jedem Start app"</string>
     
-    <string name="title_changelog">"Changelog"</string>   
+     
      <string name="title_check">"Kompatibilität prüfen"</string>
  
     <string name="activity_title_profile_editor">"Profil-Editor"</string>
@@ -245,5 +251,6 @@
 	<string name="product_">"Produkt:"</string>
 	<string name="radio_">"Radio"</string>
 	<string name="kernel_">"Kernel:"</string>
-
+	<string name="notificatio_preferences_warning">This options are likely to cause higher battery drain. Proceed with caution!</string>
+	
 </resources>

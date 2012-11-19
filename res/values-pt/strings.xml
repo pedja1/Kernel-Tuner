@@ -22,7 +22,12 @@
     <string name="preferences_widget_settings_interval_summary">"Definir a baixos valores fará com que sua bateria acabe mais rápido"</string>
     <string name="preferences_misc">"[MISC]"</string>
     
-    <string name="preferences_misc_ads_title">"Mostrar anúncios na tela principal"</string>
+    <string name="preferences_notification_toggle_title">CPU Usage</string>
+    <string name="preferences_notification_toggle_summary">Enable cpu usage info in status bar</string>
+    <string name="preferences_notification">Notifications</string>
+    <string name="preferences_cpu">CPU</string>
+    <string name="preferences_memory">Memory</string>
+<string name="preferences_misc_ads_title">"Mostrar anúncios na tela principal"</string>
     <string name="preferences_misc_ads_summary">"Você precisa reiniciar o aplicativo para parar de mostrar anúncios"</string>
     <string name="preferences_misc_update_title">"Auto Update Verifique"</string>
     <string name="preferences_misc_update_summary">"Verificar atualizações a cada vez que você iniciar aplicativo"</string>
@@ -246,5 +251,6 @@
 	<string name="product_">"O desempenho"</string>
 	<string name="radio_">"Rádio "</string>
 	<string name="kernel_">"Kernel:"</string>
-
+<string name="notificatio_preferences_warning">This options are likely to cause higher battery drain. Proceed with caution!</string>
+	
 </resources>

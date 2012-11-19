@@ -3,18 +3,18 @@
 
     <item
         android:id="@+id/apply"
-        android:title="Promeni"/>
+        android:title="Apply"/>
     
             <item
         android:id="@+id/delete"
-        android:title="Obrisi"/>
+        android:title="Delete"/>
             
             <item
         android:id="@+id/edit"
-        android:title="Izmeni"/>
+        android:title="Edit"/>
  
     <item
         android:id="@+id/copy"
-        android:title="Kopiraj"/>
+        android:title="Copy"/>
             
 </menu>

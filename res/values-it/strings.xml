@@ -22,6 +22,11 @@
     <string name="preferences_widget_settings_interval_summary">"L'impostazione di valori bassi causerà la batteria per scaricare più velocemente"</string>
     <string name="preferences_misc">"Vari"</string>
     
+    <string name="preferences_notification_toggle_title">CPU Usage</string>
+    <string name="preferences_notification_toggle_summary">Enable cpu usage info in status bar</string>
+    <string name="preferences_notification">Notifications</string>
+    <string name="preferences_cpu">CPU</string>
+    <string name="preferences_memory">Memory</string>
     <string name="preferences_misc_ads_title">"Mostra annunci su schermata principale"</string>
     <string name="preferences_misc_ads_summary">"È necessario riavviare app per interrompere la visualizzazione degli annunci"</string>
     <string name="preferences_misc_update_title">"Aggiornamento automatico Controllare"</string>
@@ -245,5 +250,6 @@
 	<string name="product_">"Prodotto"</string>
 	<string name="radio_">"Radio:"</string>
 	<string name="kernel_">"Kernel:"</string>
-
+<string name="notificatio_preferences_warning">This options are likely to cause higher battery drain. Proceed with caution!</string>
+	
 </resources>
