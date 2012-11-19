@@ -2718,14 +2718,7 @@ AlertDialog alert = builder.create();
         
     }
 	
-	
 
-
-		if (item.getItemId() == R.id.not) {
-			Intent serviceIntent = new Intent();
-			serviceIntent.setAction("rs.pedjaapps.KernelTuner.NotificationService");
-			KernelTuner.this.startService(serviceIntent);
-		}	
 
 
 		return super.onOptionsItemSelected(item);
