@@ -52,7 +52,9 @@ public class WidgetUpdateServiceBig extends Service
 	public int cf = 0;
 	public String cpu1curr;
 	public int cf2 = 0;
-	public int timeint = 1800;
+	public int timeint = 30;
+	int TEMP_ENABLE = 0;
+	
 
 
 	
@@ -88,6 +90,33 @@ public class WidgetUpdateServiceBig extends Service
 	}
 
 
+	public void enableTemp()
+	{
+		Process localProcess;
+		try
+		{
+			localProcess = Runtime.getRuntime().exec("su");
+
+			DataOutputStream localDataOutputStream = new DataOutputStream(localProcess.getOutputStream());
+			localDataOutputStream.writeBytes("echo -n enabled > /sys/devices/virtual/thermal/thermal_zone1/mode\n");
+			localDataOutputStream.writeBytes("echo -n enabled > /sys/devices/virtual/thermal/thermal_zone0/mode\n");
+			localDataOutputStream.writeBytes("exit\n");
+			localDataOutputStream.flush();
+			localDataOutputStream.close();
+			localProcess.waitFor();
+			localProcess.destroy();
+		}
+		catch (IOException e)
+		{
+			
+			e.printStackTrace();
+		}
+		catch (InterruptedException e)
+		{
+			
+			e.printStackTrace();
+		}
+	}
 
 
 	public void info()
@@ -372,6 +401,11 @@ public class WidgetUpdateServiceBig extends Service
 			
 			mountdebugfs();
 		}
+		if(TEMP_ENABLE==0){
+		enableTemp();
+		TEMP_ENABLE = 1;
+		}
+		
 		info();
 
 		
