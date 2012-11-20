@@ -303,7 +303,7 @@ public class KernelTuner extends Activity
 	SharedPreferences.Editor editor;
 
 	ProgressDialog mProgressDialog;
-	private class DownloadNewVersion extends AsyncTask<String, Integer, String>
+	/*private class DownloadNewVersion extends AsyncTask<String, Integer, String>
 	{
 		@Override
 		protected String doInBackground(String... sUrl)
@@ -369,9 +369,9 @@ public class KernelTuner extends Activity
 			startActivity(intent);
 
 		}
-	}
+	}*/
 
-	class updateCheck extends AsyncTask<String, Void, Object>
+	/*class updateCheck extends AsyncTask<String, Void, Object>
 	{
 
 
@@ -510,7 +510,7 @@ public class KernelTuner extends Activity
 
 		}
 
-	}
+	}*/
 
 	
 
@@ -924,11 +924,11 @@ public class KernelTuner extends Activity
 			new mountDebugFs().execute();
 		}
 		
-		boolean update = sharedPrefs.getBoolean("update", true);
+		/*boolean update = sharedPrefs.getBoolean("update", true);
 		if (update == true)
 		{
 			new updateCheck().execute();
-		}
+		}*/
 		/*
 		Enable temperature monitor
 		*/
