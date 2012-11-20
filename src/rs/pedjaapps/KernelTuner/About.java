@@ -1,11 +1,12 @@
 package rs.pedjaapps.KernelTuner;
 
-import android.app.*;
-import android.content.*;
-import android.content.pm.*;
-import android.os.*;
-import android.text.method.*;
-import android.widget.*;
+import android.app.Activity;
+import android.content.SharedPreferences;
+import android.content.pm.PackageInfo;
+import android.content.pm.PackageManager;
+import android.os.Bundle;
+import android.text.method.LinkMovementMethod;
+import android.widget.TextView;
 
 public class About extends Activity
 {

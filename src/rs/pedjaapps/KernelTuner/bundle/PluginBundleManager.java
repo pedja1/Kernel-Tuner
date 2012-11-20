@@ -12,11 +12,10 @@
 
 package rs.pedjaapps.KernelTuner.bundle;
 
+import rs.pedjaapps.KernelTuner.Constants;
 import android.os.Bundle;
 import android.text.TextUtils;
 import android.util.Log;
-
-import rs.pedjaapps.KernelTuner.Constants;
 
 /**
  * Class for managing the {@link com.twofortyfouram.locale.Intent#EXTRA_BUNDLE} for this plug-in.

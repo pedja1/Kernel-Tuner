@@ -1,19 +1,30 @@
 package rs.pedjaapps.KernelTuner;
 
-import android.app.*;
-import android.content.*;
-import android.os.*;
-import android.preference.*;
-import android.view.*;
-import android.view.View.*;
-import android.widget.*;
-import android.widget.AdapterView.*;
-import com.google.ads.*;
-import java.io.*;
-import rs.pedjaapps.KernelTuner.*;
+import java.io.BufferedReader;
+import java.io.DataOutputStream;
+import java.io.File;
+import java.io.FileInputStream;
+import java.io.IOException;
+import java.io.InputStreamReader;
 
+import android.app.Activity;
+import android.app.ProgressDialog;
+import android.content.SharedPreferences;
+import android.os.AsyncTask;
+import android.os.Bundle;
+import android.preference.PreferenceManager;
+import android.view.View;
 import android.view.View.OnClickListener;
-import java.lang.Process; 
+import android.view.WindowManager;
+import android.widget.AdapterView;
+import android.widget.AdapterView.OnItemSelectedListener;
+import android.widget.ArrayAdapter;
+import android.widget.Button;
+import android.widget.EditText;
+import android.widget.Spinner;
+
+import com.google.ads.AdRequest;
+import com.google.ads.AdView;
 
 public class Thermald extends Activity
 {
@@ -40,7 +51,7 @@ public class Thermald extends Activity
 
 	public SharedPreferences preferences;
 	private ProgressDialog pd = null;
-	private Object data = null;
+	
 
 	private class apply extends AsyncTask<String, Void, Object>
 	{
@@ -103,7 +114,7 @@ public class Thermald extends Activity
 		{
 			// Pass the result data back to the main activity
 
-			Thermald.this.data = result;
+			
 			preferences = PreferenceManager.getDefaultSharedPreferences(getBaseContext());
 			SharedPreferences.Editor editor = preferences.edit();
 	 	    editor.putString("p1freq", p1freqnew);
@@ -226,9 +237,8 @@ public class Thermald extends Activity
 				}
 			});
 
-		ArrayAdapter myAdap = (ArrayAdapter) spinner.getAdapter(); //cast to an ArrayAdapter
-
-		int spinnerPosition = myAdap.getPosition(p1freq);
+		
+		int spinnerPosition = spinnerArrayAdapter.getPosition(p1freq);
 
 		//set the default according to value
 		spinner.setSelection(spinnerPosition);
@@ -259,9 +269,8 @@ public class Thermald extends Activity
 				}
 			});
 
-		ArrayAdapter myAdap = (ArrayAdapter) spinner.getAdapter(); //cast to an ArrayAdapter
-
-		int spinnerPosition = myAdap.getPosition(p2freq);
+		
+		int spinnerPosition = spinnerArrayAdapter.getPosition(p2freq);
 
 		//set the default according to value
 		spinner.setSelection(spinnerPosition);
@@ -292,9 +301,8 @@ public class Thermald extends Activity
 				}
 			});
 
-		ArrayAdapter myAdap = (ArrayAdapter) spinner.getAdapter(); //cast to an ArrayAdapter
-
-		int spinnerPosition = myAdap.getPosition(p3freq);
+		
+		int spinnerPosition = spinnerArrayAdapter.getPosition(p3freq);
 
 		//set the default according to value
 		spinner.setSelection(spinnerPosition);

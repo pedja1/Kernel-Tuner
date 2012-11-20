@@ -1,14 +1,29 @@
 package rs.pedjaapps.KernelTuner;
 
-import android.app.*;
-import android.content.*;
-import android.os.*;
-import android.view.*;
-import android.widget.*;
-import android.widget.AdapterView.*;
-import java.util.*;
+import java.util.ArrayList;
+import java.util.List;
 
+import android.app.Activity;
+import android.content.Intent;
+import android.content.SharedPreferences;
+import android.os.Bundle;
+import android.view.Menu;
+import android.view.MenuInflater;
+import android.view.MenuItem;
+import android.view.View;
 import android.view.View.OnClickListener;
+import android.widget.AdapterView;
+import android.widget.AdapterView.OnItemSelectedListener;
+import android.widget.ArrayAdapter;
+import android.widget.EditText;
+import android.widget.ImageView;
+import android.widget.LinearLayout;
+import android.widget.RadioButton;
+import android.widget.RadioGroup;
+import android.widget.RelativeLayout;
+import android.widget.Spinner;
+import android.widget.TextView;
+import android.widget.Toast;
 
 public class ProfileEditor extends Activity
 {
@@ -304,8 +319,7 @@ public class ProfileEditor extends Activity
 		spinner1.setAdapter(spinnerArrayAdapter);
 
 		if(profileName!=null && !profileName.equals("")){
-			ArrayAdapter<String> spinner1Adap = (ArrayAdapter<String>) spinner1.getAdapter();
-			int spinner1Position = spinner1Adap.getPosition(profile.getCpu0min());
+			int spinner1Position = spinnerArrayAdapter.getPosition(profile.getCpu0min());
 			spinner1.setSelection(spinner1Position);
 		}
 		spinner1.setOnItemSelectedListener(new OnItemSelectedListener() {
@@ -333,8 +347,7 @@ public class ProfileEditor extends Activity
 		spinner2.setAdapter(spinner2ArrayAdapter);
 
 		if(profileName!=null && !profileName.equals("")){
-			ArrayAdapter<String> spinner1Adap = (ArrayAdapter<String>) spinner2.getAdapter();
-			int spinner1Position = spinner1Adap.getPosition(profile.getCpu0max());
+			int spinner1Position = spinner2ArrayAdapter.getPosition(profile.getCpu0max());
 			spinner2.setSelection(spinner1Position);
 		}
 
@@ -359,8 +372,7 @@ public class ProfileEditor extends Activity
 		spinner9.setAdapter(spinner9ArrayAdapter);
 
 		if(profileName!=null && !profileName.equals("")){
-			ArrayAdapter<String> spinner1Adap = (ArrayAdapter<String>) spinner9.getAdapter();
-			int spinner1Position = spinner1Adap.getPosition(profile.getCpu0gov());
+			int spinner1Position = spinner9ArrayAdapter.getPosition(profile.getCpu0gov());
 			spinner9.setSelection(spinner1Position);
 		}
 
@@ -378,16 +390,7 @@ public class ProfileEditor extends Activity
         	        //do nothing
         	    }
         	});
-		/*}
-		 else{
-		 LinearLayout cpu0minll = (LinearLayout)findViewById(R.id.cpu0min);
-		 LinearLayout cpu0maxll = (LinearLayout)findViewById(R.id.cpu0max);
-		 LinearLayout cpu0govll = (LinearLayout)findViewById(R.id.cpu0gov);
-
-		 cpu0minll.setVisibility(View.GONE);
-		 cpu0maxll.setVisibility(View.GONE);
-		 cpu0govll.setVisibility(View.GONE);
-		 }*/
+		
 		if(CPUInfo.cpu1Online()==true)
 		{
 			/**spinner3*/
@@ -396,8 +399,7 @@ public class ProfileEditor extends Activity
 			spinner3.setAdapter(spinner3ArrayAdapter);
 
 			if(profileName!=null && !profileName.equals("")){
-				ArrayAdapter<String> spinner1Adap = (ArrayAdapter<String>) spinner3.getAdapter();
-				int spinner1Position = spinner1Adap.getPosition(profile.getCpu1min());
+				int spinner1Position = spinner3ArrayAdapter.getPosition(profile.getCpu1min());
 				spinner3.setSelection(spinner1Position);
 			}
 
@@ -422,8 +424,7 @@ public class ProfileEditor extends Activity
 			spinner4.setAdapter(spinner4ArrayAdapter);
 
 			if(profileName!=null && !profileName.equals("")){
-				ArrayAdapter<String> spinner1Adap = (ArrayAdapter<String>) spinner4.getAdapter();
-				int spinner1Position = spinner1Adap.getPosition(profile.getCpu1max());
+				int spinner1Position = spinner4ArrayAdapter.getPosition(profile.getCpu1max());
 				spinner4.setSelection(spinner1Position);
 			}
 
@@ -448,8 +449,7 @@ public class ProfileEditor extends Activity
 			spinner12.setAdapter(spinner12ArrayAdapter);
 
 			if(profileName!=null && !profileName.equals("")){
-				ArrayAdapter<String> spinner1Adap = (ArrayAdapter<String>) spinner12.getAdapter();
-				int spinner1Position = spinner1Adap.getPosition(profile.getCpu1gov());
+				int spinner1Position = spinner12ArrayAdapter.getPosition(profile.getCpu1gov());
 				spinner12.setSelection(spinner1Position);
 			}
 
@@ -485,8 +485,7 @@ public class ProfileEditor extends Activity
 			spinner5.setAdapter(spinner5ArrayAdapter);
 
 			if(profileName!=null && !profileName.equals("")){
-				ArrayAdapter<String> spinner1Adap = (ArrayAdapter<String>) spinner5.getAdapter();
-				int spinner1Position = spinner1Adap.getPosition(profile.getCpu2min());
+				int spinner1Position = spinner5ArrayAdapter.getPosition(profile.getCpu2min());
 				spinner5.setSelection(spinner1Position);
 			}
 
@@ -511,8 +510,7 @@ public class ProfileEditor extends Activity
 			spinner6.setAdapter(spinner6ArrayAdapter);
 
 			if(profileName!=null && !profileName.equals("")){
-				ArrayAdapter<String> spinner1Adap = (ArrayAdapter<String>) spinner6.getAdapter();
-				int spinner1Position = spinner1Adap.getPosition(profile.getCpu2max());
+				int spinner1Position = spinner6ArrayAdapter.getPosition(profile.getCpu2max());
 				spinner6.setSelection(spinner1Position);
 			}
 
@@ -537,8 +535,7 @@ public class ProfileEditor extends Activity
 			spinner10.setAdapter(spinner10ArrayAdapter);
 
 			if(profileName!=null && !profileName.equals("")){
-				ArrayAdapter<String> spinner1Adap = (ArrayAdapter<String>) spinner10.getAdapter();
-				int spinner1Position = spinner1Adap.getPosition(profile.getCpu2gov());
+				int spinner1Position = spinner10ArrayAdapter.getPosition(profile.getCpu2gov());
 				spinner10.setSelection(spinner1Position);
 			}
 
@@ -575,8 +572,7 @@ public class ProfileEditor extends Activity
 			spinner7.setAdapter(spinner7ArrayAdapter);
 
 			if(profileName!=null && !profileName.equals("")){
-				ArrayAdapter<String> spinner1Adap = (ArrayAdapter<String>) spinner7.getAdapter();
-				int spinner1Position = spinner1Adap.getPosition(profile.getCpu3min());
+				int spinner1Position = spinner7ArrayAdapter.getPosition(profile.getCpu3min());
 				spinner7.setSelection(spinner1Position);
 			}
 
@@ -601,8 +597,7 @@ public class ProfileEditor extends Activity
 			spinner8.setAdapter(spinner8ArrayAdapter);
 
 			if(profileName!=null && !profileName.equals("")){
-				ArrayAdapter<String> spinner1Adap = (ArrayAdapter<String>) spinner8.getAdapter();
-				int spinner1Position = spinner1Adap.getPosition(profile.getCpu3max());
+				int spinner1Position = spinner8ArrayAdapter.getPosition(profile.getCpu3max());
 				spinner8.setSelection(spinner1Position);
 			}
 
@@ -627,8 +622,7 @@ public class ProfileEditor extends Activity
 			spinner11.setAdapter(spinner11ArrayAdapter);
 
 			if(profileName!=null && !profileName.equals("")){
-				ArrayAdapter<String> spinner1Adap = (ArrayAdapter<String>) spinner11.getAdapter();
-				int spinner1Position = spinner1Adap.getPosition(profile.getCpu3gov());
+				int spinner1Position = spinner11ArrayAdapter.getPosition(profile.getCpu3gov());
 				spinner11.setSelection(spinner1Position);
 			}
 
@@ -664,8 +658,7 @@ public class ProfileEditor extends Activity
 			spinner13.setAdapter(spinner13ArrayAdapter);
 
 			if(profileName!=null && !profileName.equals("")){
-				ArrayAdapter<String> spinner1Adap = (ArrayAdapter<String>) spinner13.getAdapter();
-				int spinner1Position = spinner1Adap.getPosition(profile.getVoltage());
+				int spinner1Position = spinner13ArrayAdapter.getPosition(profile.getVoltage());
 				spinner13.setSelection(spinner1Position);
 			}
 
@@ -697,8 +690,7 @@ public class ProfileEditor extends Activity
 			spinner14.setAdapter(spinner14ArrayAdapter);
 
 			if(profileName!=null && !profileName.equals("")){
-				ArrayAdapter<String> spinner1Adap = (ArrayAdapter<String>) spinner14.getAdapter();
-				int spinner1Position = spinner1Adap.getPosition(profile.getGpu2d());
+				int spinner1Position = spinner14ArrayAdapter.getPosition(profile.getGpu2d());
 				spinner14.setSelection(spinner1Position);
 			}
 
@@ -723,8 +715,7 @@ public class ProfileEditor extends Activity
 			spinner15.setAdapter(spinner15ArrayAdapter);
 
 			if(profileName!=null && !profileName.equals("")){
-				ArrayAdapter<String> spinner1Adap = (ArrayAdapter<String>) spinner15.getAdapter();
-				int spinner1Position = spinner1Adap.getPosition(profile.getGpu3d());
+				int spinner1Position = spinner15ArrayAdapter.getPosition(profile.getGpu3d());
 				spinner15.setSelection(spinner1Position);
 			}
 
@@ -758,8 +749,7 @@ public class ProfileEditor extends Activity
 			spinner16.setAdapter(spinner16ArrayAdapter);
 
 			if(profileName!=null && !profileName.equals("")){
-				ArrayAdapter<String> spinner1Adap = (ArrayAdapter<String>) spinner16.getAdapter();
-				int spinner1Position = spinner1Adap.getPosition(profile.getCdepth());
+				int spinner1Position = spinner16ArrayAdapter.getPosition(profile.getCdepth());
 				spinner16.setSelection(spinner1Position);
 			}
 
@@ -783,14 +773,13 @@ public class ProfileEditor extends Activity
 
 			cdepthll.setVisibility(View.GONE);
 		}
-		/**spinner17*/
+		/**spinner17*/ 
 		ArrayAdapter<String> spinner17ArrayAdapter = new ArrayAdapter<String>(this,   android.R.layout.simple_spinner_item, schedulers);
 		spinner17ArrayAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item); // The drop down vieww
 		spinner17.setAdapter(spinner17ArrayAdapter);
 
 		if(profileName!=null && !profileName.equals("")){
-			ArrayAdapter<String> spinner1Adap = (ArrayAdapter<String>) spinner17.getAdapter();
-			int spinner1Position = spinner1Adap.getPosition(profile.getIoScheduler());
+			int spinner1Position = spinner17ArrayAdapter.getPosition(profile.getIoScheduler());
 			spinner17.setSelection(spinner1Position);
 		}
 
@@ -816,17 +805,16 @@ public class ProfileEditor extends Activity
 			spinner18.setAdapter(spinner18ArrayAdapter);
 
 			if(profileName!=null && !profileName.equals("")){
-				ArrayAdapter<String> spinner1Adap = (ArrayAdapter<String>) spinner18.getAdapter();
 				if(profile.getSweep2wake()==0){
-					int spinner1Position = spinner1Adap.getPosition("OFF");
+					int spinner1Position = spinner18ArrayAdapter.getPosition("OFF");
 					spinner18.setSelection(spinner1Position);
 				}
 				else if(profile.getSweep2wake()==1){
-					int spinner1Position = spinner1Adap.getPosition("ON with no backlight");
+					int spinner1Position = spinner18ArrayAdapter.getPosition("ON with no backlight");
 					spinner18.setSelection(spinner1Position);
 				}
 				else if(profile.getSweep2wake()==1){
-					int spinner1Position = spinner1Adap.getPosition("ON with backlight");
+					int spinner1Position = spinner18ArrayAdapter.getPosition("ON with backlight");
 					spinner18.setSelection(spinner1Position);
 				}
 

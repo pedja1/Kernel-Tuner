@@ -173,7 +173,7 @@
      <string name="set_swappiness">"Establecer swappiness"</string>
      <string name="cpu_load">"CPU de carga:"</string>
      <string name="refresh">"Actualizar"</string>
-     <string name="save">"Guarda"</string>
+     
      <string name="load">"Cargar"</string>
      <string name="thermald">"thermald"</string>
      <string name="profiles">"Profile"</string>
@@ -194,7 +194,7 @@
 	<string name="color_depth_">"Profundidad de color:"</string>
 	<string name="sd_card_cache">"Tarjeta SD Tamaño de caché:"</string>
 	<string name="link_cpus">"Núcleos de enlace (Todas las frecuencias cambiarán juntos)"</string>
-	<string name="unchanged">"sin cambiar"</string>
+	
 	<string name="off">"OFF (desactivado)"</string>
 	<string name="on">"Sobre esta base de un margen previo de -0.025 (equivalente al riesgo relativo de valvulopatia con lorcaserin de 1.5),una tasa en el grupo placebo de 5% y "</string>
 	<string name="dim">"Dim"</string>

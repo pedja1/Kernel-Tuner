@@ -1,15 +1,17 @@
 package rs.pedjaapps.KernelTuner;
 
 
-import android.app.*;
-import android.content.*;
-import android.os.*;
-import android.preference.*;
-import android.util.*;
-import java.io.*;
-import java.util.*;
+import java.io.DataOutputStream;
+import java.io.IOException;
+import java.util.List;
 
-import java.lang.Process;
+import android.app.Service;
+import android.content.Intent;
+import android.content.SharedPreferences;
+import android.os.AsyncTask;
+import android.os.IBinder;
+import android.preference.PreferenceManager;
+import android.util.Log;
 
 public class StartupService extends Service
 {

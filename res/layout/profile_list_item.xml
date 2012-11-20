@@ -18,11 +18,11 @@
 		
 		<TextView
 			android:id="@+id/profile_name"
-			android:layout_width="wrap_content"
+			android:layout_width="0dp"
 			android:layout_height="match_parent"
 			android:text="Battery"
 			android:layout_weight="1"
-			android:textSize="20dp"
+			android:textSize="20sp"
 			
 			 />
 		

@@ -1,20 +1,35 @@
 package rs.pedjaapps.KernelTuner;
 
 
-import android.app.*;
-import android.content.*;
-import android.os.*;
-import android.preference.*;
-import android.view.*;
-import android.widget.*;
-import android.widget.CompoundButton.OnCheckedChangeListener;
-import android.widget.AdapterView.*;
-import android.widget.SeekBar.*;
-import com.google.ads.*;
-import java.io.*;
-import java.util.*;
+import java.io.DataOutputStream;
+import java.io.IOException;
+import java.io.RandomAccessFile;
+import java.util.List;
 
-import java.lang.Process;
+import android.app.Activity;
+import android.app.ProgressDialog;
+import android.content.SharedPreferences;
+import android.os.AsyncTask;
+import android.os.Bundle;
+import android.os.Handler;
+import android.preference.PreferenceManager;
+import android.view.View;
+import android.widget.AdapterView;
+import android.widget.AdapterView.OnItemSelectedListener;
+import android.widget.ArrayAdapter;
+import android.widget.CheckBox;
+import android.widget.CompoundButton;
+import android.widget.CompoundButton.OnCheckedChangeListener;
+import android.widget.ProgressBar;
+import android.widget.RelativeLayout;
+import android.widget.SeekBar;
+import android.widget.SeekBar.OnSeekBarChangeListener;
+import android.widget.Spinner;
+import android.widget.TextView;
+import android.widget.VerticalSeekBar;
+
+import com.google.ads.AdRequest;
+import com.google.ads.AdView;
 
 public class CPUActivity extends Activity
 {
@@ -370,6 +385,7 @@ startCpuLoadThread();
 
 		new Thread(new Runnable() {
 
+				@Override
 				public void run()
 				{
 				
@@ -381,6 +397,7 @@ startCpuLoadThread();
 							mHandler.post(new Runnable() {
 
 
+									@Override
 									public void run()
 									{
 
@@ -1175,8 +1192,8 @@ startCpuLoadThread();
 		gov0spinnerArrayAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
 		gov0spinner.setAdapter(gov0spinnerArrayAdapter);
 
-		ArrayAdapter<String> gov0Adap = (ArrayAdapter<String>) gov0spinner.getAdapter();
-		int gov0spinnerPosition = gov0Adap.getPosition(CPUInfo.cpu0CurGov());
+		
+		int gov0spinnerPosition = gov0spinnerArrayAdapter.getPosition(CPUInfo.cpu0CurGov());
 		gov0spinner.setSelection(gov0spinnerPosition);
 
 		gov0spinner.setOnItemSelectedListener(new OnItemSelectedListener() {
@@ -1203,8 +1220,7 @@ startCpuLoadThread();
 			gov1spinnerArrayAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
 			gov1spinner.setAdapter(gov1spinnerArrayAdapter);
 
-			ArrayAdapter<String> gov1Adap = (ArrayAdapter<String>) gov1spinner.getAdapter();
-			int gov1spinnerPosition = gov1Adap.getPosition(CPUInfo.cpu1CurGov());
+			int gov1spinnerPosition = gov1spinnerArrayAdapter.getPosition(CPUInfo.cpu1CurGov());
 			gov1spinner.setSelection(gov1spinnerPosition);
 
 			gov1spinner.setOnItemSelectedListener(new OnItemSelectedListener() {
@@ -1232,8 +1248,7 @@ startCpuLoadThread();
 			gov2spinnerArrayAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
 			gov2spinner.setAdapter(gov2spinnerArrayAdapter);
 
-			ArrayAdapter<String> gov2Adap = (ArrayAdapter<String>) gov2spinner.getAdapter();
-			int gov2spinnerPosition = gov2Adap.getPosition(CPUInfo.cpu2CurGov());
+			int gov2spinnerPosition = gov2spinnerArrayAdapter.getPosition(CPUInfo.cpu2CurGov());
 			gov2spinner.setSelection(gov2spinnerPosition);
 
 			gov2spinner.setOnItemSelectedListener(new OnItemSelectedListener() {
@@ -1260,8 +1275,7 @@ startCpuLoadThread();
 			gov3spinnerArrayAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
 			gov3spinner.setAdapter(gov3spinnerArrayAdapter);
 
-			ArrayAdapter<String> gov3Adap = (ArrayAdapter<String>) gov3spinner.getAdapter();
-			int gov3spinnerPosition = gov3Adap.getPosition(CPUInfo.cpu3CurGov());
+			int gov3spinnerPosition = gov3spinnerArrayAdapter.getPosition(CPUInfo.cpu3CurGov());
 			gov3spinner.setSelection(gov3spinnerPosition);
 
 			gov3spinner.setOnItemSelectedListener(new OnItemSelectedListener() {

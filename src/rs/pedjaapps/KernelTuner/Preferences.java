@@ -4,16 +4,21 @@ package rs.pedjaapps.KernelTuner;
 
 
 import android.app.ActivityManager;
-import android.app.AlertDialog;
 import android.app.ActivityManager.RunningServiceInfo;
+import android.app.AlertDialog;
+import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
-import android.content.SharedPreferences;
-import android.os.*;
-import android.preference.*;
+import android.os.Build;
+import android.os.Bundle;
+import android.preference.CheckBoxPreference;
+import android.preference.EditTextPreference;
+import android.preference.ListPreference;
+import android.preference.Preference;
 import android.preference.Preference.OnPreferenceChangeListener;
 import android.preference.Preference.OnPreferenceClickListener;
-import android.webkit.WebView;
+import android.preference.PreferenceActivity;
+import android.preference.PreferenceScreen;
 
 
 
@@ -179,7 +184,7 @@ PreferenceScreen notifScreen;
 	}
 	
 	private boolean isNotificationServiceRunning() {
-	    ActivityManager manager = (ActivityManager) getSystemService(this.ACTIVITY_SERVICE);
+	    ActivityManager manager = (ActivityManager) getSystemService(Context.ACTIVITY_SERVICE);
 	    for (RunningServiceInfo service : manager.getRunningServices(Integer.MAX_VALUE)) {
 	        if (NotificationService.class.getName().equals(service.service.getClassName())) {
 	            return true;

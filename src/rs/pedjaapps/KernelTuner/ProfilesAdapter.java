@@ -1,9 +1,13 @@
 package rs.pedjaapps.KernelTuner;
 
 
-import android.content.*;
-import android.view.*;
-import android.widget.*;
+import android.content.Context;
+import android.view.LayoutInflater;
+import android.view.View;
+import android.view.ViewGroup;
+import android.widget.ArrayAdapter;
+import android.widget.ImageView;
+import android.widget.TextView;
 
 public final class ProfilesAdapter extends ArrayAdapter<ProfilesEntry>
 {

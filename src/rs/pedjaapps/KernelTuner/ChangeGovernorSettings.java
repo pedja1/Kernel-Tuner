@@ -1,11 +1,12 @@
 package rs.pedjaapps.KernelTuner;
 
-import android.content.*;
-import android.os.*;
-import android.preference.*;
-import java.io.*;
+import java.io.DataOutputStream;
+import java.io.IOException;
 
-import java.lang.Process;
+import android.content.Context;
+import android.content.SharedPreferences;
+import android.os.AsyncTask;
+import android.preference.PreferenceManager;
 
 
 public class ChangeGovernorSettings extends AsyncTask<String, Void, String>

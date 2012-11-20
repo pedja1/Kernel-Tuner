@@ -1,15 +1,14 @@
 package rs.pedjaapps.KernelTuner;
 
-import android.content.*;
-import android.os.*;
-import android.preference.*;
-import android.view.View;
-import android.widget.Toast;
-
-import java.io.*;
-
-import java.lang.Process;
+import java.io.DataOutputStream;
+import java.io.IOException;
 import java.util.List;
+
+import android.content.Context;
+import android.content.SharedPreferences;
+import android.os.AsyncTask;
+import android.preference.PreferenceManager;
+import android.widget.Toast;
 
 
 public class ProfileApplier extends AsyncTask<String, Void, String>
@@ -66,7 +65,7 @@ public class ProfileApplier extends AsyncTask<String, Void, String>
 
 		 Integer s2w = profile.getSweep2wake();
 		 List<String> voltageFreqs = CPUInfo.voltageFreqs();
-			List<Integer> voltages = CPUInfo.voltages();
+			
 		Process localProcess;
 		try
 		{

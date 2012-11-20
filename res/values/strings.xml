@@ -177,7 +177,6 @@
      <string name="set_swappiness">Set Swappiness</string>
      <string name="cpu_load">CPU Load:</string>
      <string name="refresh">Refresh</string>
-     <string name="save">Save</string>
      <string name="load">Load</string>
      <string name="thermald">thermald</string>
      <string name="profiles">Profiles</string>
@@ -202,7 +201,6 @@
 	<string name="color_depth_">Color Depth:</string>
 	<string name="sd_card_cache">SD Card Cache Size:</string>
 	<string name="link_cpus">Link Cores(All frequencies will change together)</string>
-	<string name="unchanged">Unchanged</string>
 	<string name="off">OFF</string>
 	<string name="on">ON</string>
 	<string name="dim">DIM</string>
@@ -221,7 +219,7 @@
 	<string name="download">Download</string>
 	<string name="dump">Dump System information to a file</string>
 	<string name="proceed">Proceed</string>
-	<string name="log_writen">Log writen to: </string>
+	<string name="log_writen">Log written to: </string>
 	<string name="log_error">Error while making log file: </string>
 	<string name="press_again_to_exit">Press back again to exit.</string>
 	<string name="profile">Profile</string>
@@ -260,5 +258,6 @@
 	<string name="radio_">Radio:</string>
 	<string name="kernel_">Kernel:</string>
 	<string name="notificatio_preferences_warning">This options are likely to cause higher battery drain. Proceed with caution!</string>
+	<string name="select_profile_">Select Profile:</string>
 
 </resources>

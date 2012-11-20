@@ -16,7 +16,6 @@ import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.Handler;
 import android.os.IBinder;
-import android.preference.PreferenceManager;
 import android.util.Log;
 
 
@@ -186,6 +185,7 @@ public class NotificationService extends Service
 		super.onDestroy();
 	}	
 	
+@SuppressWarnings("deprecation")
 public void createNotification(){
 	String ns = Context.NOTIFICATION_SERVICE;
 	mNotificationManager = (NotificationManager) getSystemService(ns);

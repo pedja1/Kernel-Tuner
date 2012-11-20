@@ -173,7 +173,7 @@
      <string name="set_swappiness">"Установить Swappiness"</string>
      <string name="cpu_load">"CPU Load:"</string>
      <string name="refresh">"Обновление "</string>
-     <string name="save">"Сохранить"</string>
+     
      <string name="load">"потребитель"</string>
      <string name="thermald">"thermald"</string>
      <string name="profiles">"Профили"</string>
@@ -195,7 +195,7 @@
 	<string name="color_depth_">"Глубина цвета:"</string>
 	<string name="sd_card_cache">"SD Card Размер кэша:"</string>
 	<string name="link_cpus">"Ссылка сердечников (все частоты будет меняться вместе)"</string>
-	<string name="unchanged">"Без изменений"</string>
+	
 	<string name="off">"ВЫКЛ"</string>
 	<string name="on">"Вкл"</string>
 	<string name="dim">"Тусклы"</string>

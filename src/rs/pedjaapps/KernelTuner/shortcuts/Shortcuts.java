@@ -1,20 +1,19 @@
 package rs.pedjaapps.KernelTuner.shortcuts;
 
-import android.app.*;
-import android.content.*;
-import android.os.*;
-import android.view.*;
-import android.widget.*;
-import android.widget.AdapterView.*;
-import java.util.*;
+import java.util.ArrayList;
+import java.util.List;
 
-import rs.pedjaapps.KernelTuner.CPUActivity;
 import rs.pedjaapps.KernelTuner.R;
-import rs.pedjaapps.KernelTuner.R.drawable;
-import rs.pedjaapps.KernelTuner.R.id;
-import rs.pedjaapps.KernelTuner.R.layout;
-import rs.pedjaapps.KernelTuner.R.menu;
-import rs.pedjaapps.KernelTuner.TISActivity;
+import android.app.Activity;
+import android.content.Intent;
+import android.os.Bundle;
+import android.view.Menu;
+import android.view.MenuInflater;
+import android.view.MenuItem;
+import android.view.View;
+import android.widget.AdapterView;
+import android.widget.AdapterView.OnItemClickListener;
+import android.widget.ListView;
 
 public class Shortcuts extends Activity
 {
@@ -67,7 +66,7 @@ ListView shortcutListView;
 		R.drawable.swap,
 		R.drawable.info,
 		R.drawable.misc};
-	Class[] classes = {RebootShortcut.class, 
+	Class<?>[] classes = {RebootShortcut.class, 
 			RebootShortcut.class, 
 			RebootShortcut.class, 
 			CPUShortcut.class,

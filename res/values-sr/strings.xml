@@ -174,7 +174,7 @@
      <string name="set_swappiness">Postavi Swappiness</string>
      <string name="cpu_load">Opterećenje Procesora:</string>
      <string name="refresh">Osveži</string>
-     <string name="save">Sačuvaj</string>
+     
      <string name="load">Vrati</string>
      <string name="thermald">thermald</string>
      <string name="profiles">Profili</string>
@@ -199,7 +199,7 @@
 	<string name="color_depth_">Color Depth:</string>
 	<string name="sd_card_cache">SD Card Cache Size:</string>
 	<string name="link_cpus">Link Cores(All frequencies will change together)</string>
-	<string name="unchanged">Unchanged</string>
+	
 	<string name="off">OFF</string>
 	<string name="on">ON</string>
 	<string name="dim">DIM</string>

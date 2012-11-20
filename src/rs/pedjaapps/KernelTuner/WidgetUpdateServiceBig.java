@@ -1,19 +1,32 @@
 package rs.pedjaapps.KernelTuner;
 
-import android.annotation.*;
-import android.app.*;
-import android.appwidget.*;
-import android.content.*;
-import android.graphics.*;
-import android.graphics.Bitmap.*;
-import android.graphics.Paint.*;
-import android.os.*;
-import android.preference.*;
-import android.widget.*;
-import java.io.*;
-import java.util.*;
+import java.io.BufferedReader;
+import java.io.DataOutputStream;
+import java.io.File;
+import java.io.FileInputStream;
+import java.io.IOException;
+import java.io.InputStreamReader;
+import java.util.Calendar;
+import java.util.List;
 
-import java.lang.Process;
+import android.annotation.SuppressLint;
+import android.app.AlarmManager;
+import android.app.PendingIntent;
+import android.app.Service;
+import android.appwidget.AppWidgetManager;
+import android.content.Intent;
+import android.content.SharedPreferences;
+import android.graphics.Bitmap;
+import android.graphics.Bitmap.Config;
+import android.graphics.Canvas;
+import android.graphics.Color;
+import android.graphics.Paint;
+import android.graphics.Paint.Style;
+import android.graphics.Rect;
+import android.graphics.RectF;
+import android.os.IBinder;
+import android.preference.PreferenceManager;
+import android.widget.RemoteViews;
 
 public class WidgetUpdateServiceBig extends Service
 {
@@ -375,7 +388,7 @@ public class WidgetUpdateServiceBig extends Service
 
 	@SuppressLint("ParserError")
 	@Override
-	public void onStart(Intent intent, int startId)
+	public int onStartCommand(Intent intent, int flags, int startId)
 	{
 		//Log.i(LOG, "Called");
 		// Create some random data
@@ -386,9 +399,9 @@ public class WidgetUpdateServiceBig extends Service
 		int[] allWidgetIds = intent
 			.getIntArrayExtra(AppWidgetManager.EXTRA_APPWIDGET_IDS);
 
-		ComponentName thisWidget = new ComponentName(getApplicationContext(),
+		/*ComponentName thisWidget = new ComponentName(getApplicationContext(),
 													 AppWidgetBig.class);
-		int[] allWidgetIds2 = appWidgetManager.getAppWidgetIds(thisWidget);
+		int[] allWidgetIds2 = appWidgetManager.getAppWidgetIds(thisWidget);*/
 		//Log.w(LOG, "From Intent" + String.valueOf(allWidgetIds.length));
 		// Log.w(LOG, "Direct" + String.valueOf(allWidgetIds2.length));
 
@@ -827,7 +840,8 @@ public class WidgetUpdateServiceBig extends Service
 		} 
 		stopSelf();
 
-		super.onStart(intent, startId);
+		
+		return START_STICKY;
 	}
 
 	@Override

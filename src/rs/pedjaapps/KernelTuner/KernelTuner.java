@@ -1,32 +1,66 @@
 package rs.pedjaapps.KernelTuner;
 
-import android.annotation.*;
-import android.app.*;
-import android.appwidget.*;
-import android.content.*;
-import android.content.pm.*;
-import android.content.pm.PackageManager.*;
+import java.io.BufferedReader;
+import java.io.DataInputStream;
+import java.io.DataOutputStream;
+import java.io.File;
+import java.io.FileInputStream;
+import java.io.FileNotFoundException;
+import java.io.FileOutputStream;
+import java.io.IOException;
+import java.io.InputStream;
+import java.io.InputStreamReader;
+import java.io.OutputStream;
+import java.io.OutputStreamWriter;
+import java.io.RandomAccessFile;
+import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.Collections;
+import java.util.List;
+import java.util.Locale;
+
+import android.annotation.SuppressLint;
+import android.app.Activity;
+import android.app.ActivityManager;
+import android.app.ActivityManager.RunningServiceInfo;
+import android.app.AlertDialog;
+import android.app.ProgressDialog;
+import android.appwidget.AppWidgetManager;
+import android.content.BroadcastReceiver;
+import android.content.ComponentName;
+import android.content.Context;
+import android.content.DialogInterface;
+import android.content.Intent;
+import android.content.IntentFilter;
+import android.content.SharedPreferences;
+import android.content.pm.PackageInfo;
+import android.content.pm.PackageManager;
 import android.content.res.AssetManager;
 import android.content.res.Configuration;
-import android.graphics.*;
-import android.net.*;
-import android.os.*;
-import android.preference.*;
-import android.util.*;
-import android.view.*;
-import android.view.View.*;
-import android.view.animation.*;
-import android.webkit.*;
-import android.widget.*;
-import com.google.ads.*;
-import java.io.*;
-import java.net.*;
-import java.util.*;
-import android.app.ActivityManager;
-import android.app.ActivityManager.RunningAppProcessInfo;
-import android.app.ActivityManager.RunningServiceInfo;
+import android.graphics.Color;
+import android.os.AsyncTask;
+import android.os.BatteryManager;
+import android.os.Build;
+import android.os.Bundle;
+import android.os.Environment;
+import android.os.Handler;
+import android.preference.PreferenceManager;
+import android.util.Log;
+import android.view.Menu;
+import android.view.MenuInflater;
+import android.view.MenuItem;
+import android.view.View;
+import android.view.View.OnClickListener;
+import android.widget.Button;
+import android.widget.LinearLayout;
+import android.widget.ProgressBar;
+import android.widget.RemoteViews;
+import android.widget.SeekBar;
+import android.widget.TextView;
+import android.widget.Toast;
 
-import java.lang.Process;
+import com.google.ads.AdRequest;
+import com.google.ads.AdView;
 
 
 
@@ -556,7 +590,7 @@ public class KernelTuner extends Activity
 				SharedPreferences.Editor editor = preferences.edit();
 				editor.putBoolean("cputoggle", false);
 				editor.commit();
-
+				fIn.close();
 			}
 
 			catch (FileNotFoundException e)
@@ -593,6 +627,9 @@ public class KernelTuner extends Activity
 				SharedPreferences.Editor editor = preferences.edit();
 				editor.putBoolean("cputoggle", true);
 				editor.commit();
+			} catch (IOException e) {
+				
+				e.printStackTrace();
 			}
 
 			return "";
@@ -615,7 +652,7 @@ public class KernelTuner extends Activity
 		@Override
 		protected Object doInBackground(String... args)
 		{
-			// Log.i("MyApp", "Background thread starting");
+		
 
 			File file = new File(CPU2_CURR_GOV);
 			try
@@ -651,7 +688,7 @@ public class KernelTuner extends Activity
 				SharedPreferences.Editor editor = preferences.edit();
 				editor.putBoolean("cpu2toggle", false);
 				editor.commit();
-
+				fIn.close();
 			}
 
 			catch (FileNotFoundException e)
@@ -687,6 +724,9 @@ public class KernelTuner extends Activity
 				SharedPreferences.Editor editor = preferences.edit();
 				editor.putBoolean("cpu2toggle", true);
 				editor.commit();
+			} catch (IOException e) {
+				
+				new LogWriter().execute(new String[] {getClass().getName(), e.getMessage()});
 			}
 
 			return "";
@@ -745,7 +785,7 @@ public class KernelTuner extends Activity
 				SharedPreferences.Editor editor = preferences.edit();
 				editor.putBoolean("cpu3toggle", false);
 				editor.commit();
-
+				fIn.close();
 			}
 
 			catch (FileNotFoundException e)
@@ -781,6 +821,9 @@ public class KernelTuner extends Activity
 				SharedPreferences.Editor editor = preferences.edit();
 				editor.putBoolean("cpu3toggle", true);
 				editor.commit();
+			} catch (IOException e) {
+				new LogWriter().execute(new String[] {getClass().getName(), e.getMessage()});
+				
 			}
 
 			return "";
@@ -1441,7 +1484,7 @@ public void startCpuLoadThread() {
 	public void cpuTemp()
 	{
 		cputemptxt = (TextView)findViewById(R.id.textView38);
-		TextView cputemptxte = (TextView)findViewById(R.id.textView37);
+		
 
 		try
 		{
@@ -1634,26 +1677,33 @@ public void startCpuLoadThread() {
 		try
 		{
 			InputStream fIn = new FileInputStream(file4);
+			fIn.close();
 		}
 		catch (FileNotFoundException e)
 		{ 
 			try
 			{
 				InputStream fIn = new FileInputStream(file5);
+				fIn.close();
 			}
 			catch (FileNotFoundException e2)
 			{
 				Button cpu = (Button)findViewById(R.id.button2);
 				cpu.setVisibility(View.GONE);
+			} catch (IOException e1) {
+				
 			}
 
 
+		} catch (IOException e) {
+			
 		}
 
 		File file = new File(CPUInfo.VOLTAGE_PATH);
 		try
 		{
 			InputStream fIn = new FileInputStream(file);
+			fIn.close();
 		}
 		catch (FileNotFoundException e)
 		{ 
@@ -1661,62 +1711,79 @@ public void startCpuLoadThread() {
 			try
 			{
 				InputStream fIn = new FileInputStream(file2);
+				fIn.close();
 			}
 			catch (FileNotFoundException ex)
 			{ 
 				Button voltage = (Button)findViewById(R.id.button6);
 				voltage.setVisibility(View.GONE);
 
+			} catch (IOException e1) {
+				
 			}
 
+		} catch (IOException e) {
+			
 		}
 
 		File file2 = new File("/sys/devices/system/cpu/cpu0/cpufreq/stats/time_in_state");
 		try
 		{
 			InputStream fIn = new FileInputStream(file2);
+			fIn.close();
 		}
 		catch (FileNotFoundException e)
 		{ 
 			Button times = (Button)findViewById(R.id.button5);
 			times.setVisibility(View.GONE);
 
+		} catch (IOException e) {
+			
 		}
 
 		File file3 = new File("/sys/devices/platform/kgsl-3d0.0/kgsl/kgsl-3d0/max_gpuclk");
 		try
 		{
 			InputStream fIn = new FileInputStream(file3);
+			fIn.close();
 		}
 		catch (FileNotFoundException e)
 		{ 
 			Button gpu = (Button)findViewById(R.id.button3);
 			gpu.setVisibility(View.GONE);
 
+		} catch (IOException e) {
+			
 		}
 
 		File file6 = new File("/sys/kernel/msm_mpdecision/conf/enabled");
 		try
 		{
 			InputStream fIn = new FileInputStream(file6);
+			fIn.close();
 		}
 		catch (FileNotFoundException e)
 		{ 
 			Button mpdec = (Button)findViewById(R.id.button7);
 			mpdec.setVisibility(View.GONE);
 
+		} catch (IOException e) {
+			
 		}
 
 		File file7 = new File("/sys/kernel/msm_thermal/conf/allowed_low_freq");
 		try
 		{
 			InputStream fIn = new FileInputStream(file7);
+			fIn.close();
 		}
 		catch (FileNotFoundException e)
 		{ 
 			Button td = (Button)findViewById(R.id.button11);
 			td.setVisibility(View.GONE);
 
+		} catch (IOException e) {
+		
 		}
 
 
@@ -1727,6 +1794,7 @@ public void startCpuLoadThread() {
 	/**
 	Create init.d files and export them to private application folder
 	*/
+	@SuppressWarnings("deprecation")
 	public void initdExport()
 	{
 	
@@ -2791,7 +2859,7 @@ AlertDialog alert = builder.create();
 
 	
 	private boolean isNotificationServiceRunning() {
-	    ActivityManager manager = (ActivityManager) getSystemService(this.ACTIVITY_SERVICE);
+	    ActivityManager manager = (ActivityManager) getSystemService(Context.ACTIVITY_SERVICE);
 	    for (RunningServiceInfo service : manager.getRunningServices(Integer.MAX_VALUE)) {
 	        if (NotificationService.class.getName().equals(service.service.getClassName())) {
 	            return true;

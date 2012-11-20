@@ -1,9 +1,9 @@
 package rs.pedjaapps.KernelTuner;
 
-import android.app.*;
-import android.content.*;
-import android.os.*;
-import android.webkit.*;
+import android.app.Activity;
+import android.content.SharedPreferences;
+import android.os.Bundle;
+import android.webkit.WebView;
 
 public class Changelog extends Activity
 {

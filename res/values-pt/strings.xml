@@ -174,7 +174,7 @@
      <string name="set_swappiness">"Definir swappiness"</string>
      <string name="cpu_load">"Carga CPU:"</string>
      <string name="refresh">"Atualizar"</string>
-     <string name="save">"Guardar"</string>
+     
      <string name="load">"Carga"</string>
      <string name="thermald">"thermald"</string>
      <string name="profiles">"Perfis"</string>
@@ -196,7 +196,7 @@
 	<string name="color_depth_">"Profundidade de cor:"</string>
 	<string name="sd_card_cache">"SD tamanho do cache do cartão:"</string>
 	<string name="link_cpus">"Núcleos de link (Todas as frequências vai mudar juntos)"</string>
-	<string name="unchanged">"Inalterado"</string>
+	
 	<string name="off">"OFF"</string>
 	<string name="on">"Ligado"</string>
 	<string name="dim">"*DIM ..."</string>

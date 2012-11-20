@@ -173,7 +173,7 @@
      <string name="set_swappiness">"Állítsa Swappiness"</string>
      <string name="cpu_load">"CPU Load:"</string>
      <string name="refresh">"Frissítés"</string>
-     <string name="save">"Mentés!"</string>
+     
      <string name="load">"Töltés"</string>
      <string name="thermald">"thermald"</string>
      <string name="profiles">"Profilok"</string>
@@ -195,7 +195,7 @@
 	<string name="color_depth_">"Színmélység:"</string>
 	<string name="sd_card_cache">"SD kártya cache méret:"</string>
 	<string name="link_cpus">"Kapcsolat Cores (Minden frekvencia változni fog együtt)"</string>
-	<string name="unchanged">"Változatlan"</string>
+	
 	<string name="off">"Kikapcsolás"</string>
 	<string name="on">"Bekapcsolva"</string>
 	<string name="dim">"DIM"</string>

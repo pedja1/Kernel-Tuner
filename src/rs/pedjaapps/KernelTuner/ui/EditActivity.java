@@ -12,23 +12,32 @@
 
 package rs.pedjaapps.KernelTuner.ui;
 
-import android.annotation.*;
-import android.app.*;
-import android.content.*;
-import android.content.pm.PackageManager.*;
-import android.net.*;
-import android.os.*;
-import android.util.*;
-import android.view.*;
-import android.widget.*;
-import android.widget.AdapterView.*;
-import com.twofortyfouram.locale.*;
-import java.util.*;
-import rs.pedjaapps.KernelTuner.*;
-import rs.pedjaapps.KernelTuner.bundle.*;
+import java.util.ArrayList;
+import java.util.List;
 
-import android.content.Intent;
 import rs.pedjaapps.KernelTuner.Constants;
+import rs.pedjaapps.KernelTuner.DatabaseHandler;
+import rs.pedjaapps.KernelTuner.Profile;
+import rs.pedjaapps.KernelTuner.R;
+import rs.pedjaapps.KernelTuner.bundle.BundleScrubber;
+import rs.pedjaapps.KernelTuner.bundle.PluginBundleManager;
+import android.annotation.TargetApi;
+import android.app.Activity;
+import android.content.Intent;
+import android.content.pm.PackageManager.NameNotFoundException;
+import android.net.Uri;
+import android.os.Build;
+import android.os.Bundle;
+import android.util.Log;
+import android.view.Menu;
+import android.view.MenuItem;
+import android.view.View;
+import android.widget.AdapterView;
+import android.widget.AdapterView.OnItemSelectedListener;
+import android.widget.ArrayAdapter;
+import android.widget.Spinner;
+
+import com.twofortyfouram.locale.BreadCrumber;
 
 /**
  * This is the "Edit" activity for a Locale Plug-in.
@@ -39,7 +48,7 @@ public final class EditActivity extends Activity
     /**
      * Help URL, used for the {@link R.id#twofortyfouram_locale_menu_help} menu item.
      */
-    // TODO: Place your help URL here
+    
     private static final String HELP_URL = "http://kerneltuner.pedjaapps.in.rs/faq"; //$NON-NLS-1$
 
     private String profile;

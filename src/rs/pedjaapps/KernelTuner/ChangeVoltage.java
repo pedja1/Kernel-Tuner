@@ -1,12 +1,14 @@
 package rs.pedjaapps.KernelTuner;
 
-import android.content.*;
-import android.os.*;
-import android.preference.*;
-import java.io.*;
-import java.util.*;
+import java.io.DataOutputStream;
+import java.io.File;
+import java.io.IOException;
+import java.util.List;
 
-import java.lang.Process;
+import android.content.Context;
+import android.content.SharedPreferences;
+import android.os.AsyncTask;
+import android.preference.PreferenceManager;
 
 
 public class ChangeVoltage extends AsyncTask<String, Void, String>

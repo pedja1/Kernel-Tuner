@@ -12,18 +12,17 @@
 
 package rs.pedjaapps.KernelTuner.receiver;
 
+import rs.pedjaapps.KernelTuner.Constants;
+import rs.pedjaapps.KernelTuner.ProfileApplier;
+import rs.pedjaapps.KernelTuner.bundle.BundleScrubber;
+import rs.pedjaapps.KernelTuner.bundle.PluginBundleManager;
+import rs.pedjaapps.KernelTuner.ui.EditActivity;
 import android.content.BroadcastReceiver;
 import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
 import android.util.Log;
 import android.widget.Toast;
-
-import rs.pedjaapps.KernelTuner.Constants;
-import rs.pedjaapps.KernelTuner.ProfileApplier;
-import rs.pedjaapps.KernelTuner.bundle.BundleScrubber;
-import rs.pedjaapps.KernelTuner.bundle.PluginBundleManager;
-import rs.pedjaapps.KernelTuner.ui.EditActivity;
 
 /**
  * This is the "fire" BroadcastReceiver for a Locale Plug-in setting.

@@ -32,7 +32,7 @@
         android:hardwareAccelerated="true"
 		android:theme="@style/Theme.Locale.Dark"
         android:uiOptions="splitActionBarWhenNarrow"
-	>
+		android:allowBackup="true">
 		<activity android:name="rs.pedjaapps.KernelTuner.KernelTuner"
 			android:icon="@drawable/ic_launcher"
 			android:label="@string/app_name"  android:windowSoftInputMode="adjustResize" 
@@ -50,14 +50,14 @@
 		>
 		</activity>
 
-		<receiver android:name="StartupReceiver">
+		<receiver android:name="StartupReceiver" android:exported="false">
 			<intent-filter>
 				<action
 					android:name="android.intent.action.BOOT_COMPLETED" />
 				<category android:name="android.intent.category.HOME" />
 			</intent-filter>
 		</receiver>
-		<service android:name=".StartupService">
+		<service android:name=".StartupService" android:exported="false">
 			<intent-filter>
 				<action
 					android:name="rs.pedjaapps.KernelTuner.StartupService" />
@@ -172,7 +172,7 @@
 		<service android:name=".WidgetUpdateService"></service>
 		<service android:name=".WidgetUpdateServiceBig"></service>
 
-		<service android:name=".NotificationService" android:process=":background">
+		<service android:name=".NotificationService" android:process=":background" android:exported="false">
 			<intent-filter>
 				<action
 					android:name="rs.pedjaapps.KernelTuner.NotificationService" />

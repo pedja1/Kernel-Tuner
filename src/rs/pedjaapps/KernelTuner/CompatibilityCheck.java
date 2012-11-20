@@ -1,14 +1,21 @@
 package rs.pedjaapps.KernelTuner;
 
-import android.app.*;
-import android.content.*;
-import android.graphics.*;
-import android.os.*;
-import android.view.*;
-import android.view.View.*;
-import android.widget.*;
-import java.io.*;
-import rs.pedjaapps.KernelTuner.*;
+import java.io.File;
+import java.io.FileInputStream;
+import java.io.IOException;
+
+import android.app.Activity;
+import android.content.SharedPreferences;
+import android.graphics.Color;
+import android.os.AsyncTask;
+import android.os.Bundle;
+import android.view.View;
+import android.view.View.OnClickListener;
+import android.widget.Button;
+import android.widget.LinearLayout;
+import android.widget.ProgressBar;
+import android.widget.TextView;
+
 
 public class CompatibilityCheck extends Activity
 {
@@ -52,6 +59,7 @@ public class CompatibilityCheck extends Activity
 
 				count = count + 1;
 				saf = true;
+				fIn.close();
 			}
 			catch (IOException e)
 			{
@@ -68,6 +76,7 @@ public class CompatibilityCheck extends Activity
 
 				count = count + 1;
 				uv = true;
+				fIn.close();
 			}
 			catch (IOException e)
 			{
@@ -83,6 +92,7 @@ public class CompatibilityCheck extends Activity
 
 				count = count + 1;
 				tis = true;
+				fIn.close();
 			}
 			catch (IOException e)
 			{
@@ -98,6 +108,7 @@ public class CompatibilityCheck extends Activity
 
 				count = count + 1;
 				lt = true;
+				fIn.close();
 			}
 			catch (IOException e)
 			{
@@ -113,6 +124,7 @@ public class CompatibilityCheck extends Activity
 
 				count = count + 1;
 				bl = true;
+				fIn.close();
 			}
 			catch (IOException e)
 			{
@@ -125,6 +137,7 @@ public class CompatibilityCheck extends Activity
 
 					count = count + 1;
 					bl = true;
+					fIn.close();
 				}
 				catch (IOException e1)
 				{
@@ -142,6 +155,7 @@ public class CompatibilityCheck extends Activity
 
 				count = count + 1;
 				g3d = true;
+				fIn.close();
 
 			}
 			catch (IOException e)
@@ -159,6 +173,7 @@ public class CompatibilityCheck extends Activity
 
 				count = count + 1;
 				g2d = true;
+				fIn.close();
 			}
 			catch (IOException e)
 			{
@@ -174,6 +189,7 @@ public class CompatibilityCheck extends Activity
 
 				count = count + 1;
 				fc = true;
+				fIn.close();
 
 			}
 			catch (IOException e)
@@ -190,6 +206,7 @@ public class CompatibilityCheck extends Activity
 
 				count = count + 1;
 				vs = true;
+				fIn.close();
 			}
 			catch (IOException e)
 			{
@@ -205,6 +222,7 @@ public class CompatibilityCheck extends Activity
 
 				count = count + 1;
 				cd = true;
+				fIn.close();
 
 			}
 			catch (IOException e)
@@ -221,6 +239,7 @@ public class CompatibilityCheck extends Activity
 				FileInputStream fIn = new FileInputStream(myFile);
 				count = count + 1;
 				fs = true;
+				fIn.close();
 			}
 			catch (IOException e)
 			{
@@ -235,6 +254,7 @@ public class CompatibilityCheck extends Activity
 
 				count = count + 1;
 				s2w = true;
+				fIn.close();
 			}
 			catch (IOException e)
 			{
@@ -250,6 +270,7 @@ public class CompatibilityCheck extends Activity
 
 				count = count + 1;
 				td = true;
+				fIn.close();
 			}
 			catch (IOException e)
 			{
@@ -266,6 +287,7 @@ public class CompatibilityCheck extends Activity
 
 				count = count + 1;
 				mp = true;
+				fIn.close();
 			}
 			catch (IOException e)
 			{
@@ -281,6 +303,7 @@ public class CompatibilityCheck extends Activity
 				FileInputStream fIn = new FileInputStream(myFile);
 				count = count + 1;
 				sdc = true;
+				fIn.close();
 
 			}
 			catch (Exception e)
@@ -297,6 +320,7 @@ public class CompatibilityCheck extends Activity
 				FileInputStream fIn = new FileInputStream(myFile);
 				count = count + 1;
 				sh = true;
+				fIn.close();
 
 			}
 			catch (Exception e)
@@ -314,7 +338,7 @@ public class CompatibilityCheck extends Activity
 		{
 
 			super.onProgressUpdate();
-			final TextView output = (TextView) findViewById(R.id.textView1);
+			
 			LinearLayout ll1 = (LinearLayout) findViewById(R.id.ll1);
 			LinearLayout ll2 = (LinearLayout) findViewById(R.id.ll2);
 			LinearLayout ll3 = (LinearLayout) findViewById(R.id.ll3);

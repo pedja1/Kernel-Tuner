@@ -1,13 +1,16 @@
 package rs.pedjaapps.KernelTuner;
 
-import android.appwidget.*;
-import android.content.*;
-import android.os.*;
+import android.appwidget.AppWidgetManager;
+import android.appwidget.AppWidgetProvider;
+import android.content.ComponentName;
+import android.content.Context;
+import android.content.Intent;
+import android.os.Handler;
 
 public class AppWidget extends AppWidgetProvider
 {
 
-	private static final String LOG = "d";
+	
 
 	Handler mHandler = new Handler();
 
@@ -16,12 +19,10 @@ public class AppWidget extends AppWidgetProvider
 						 AppWidgetManager appWidgetManager, int[] appWidgetIds)
 	{
 
-		//Log.w(LOG, "onUpdate method called");
-		// Get all ids
+	
 		ComponentName thisWidget = new ComponentName(context, AppWidget.class);
 		int[] allWidgetIds = appWidgetManager.getAppWidgetIds(thisWidget);
 
-		// Build the intent to call the service
 		final Intent intent = new Intent(context.getApplicationContext(),
 										 WidgetUpdateService.class);
 		intent.putExtra(AppWidgetManager.EXTRA_APPWIDGET_IDS, allWidgetIds);

@@ -1,15 +1,21 @@
 package rs.pedjaapps.KernelTuner;
 
 
-import android.app.*;
-import android.content.*;
-import android.os.*;
-import android.preference.*;
-import android.view.*;
-import android.view.View.*;
-import android.widget.*;
-import com.google.ads.*;
-import java.util.*;
+import java.util.ArrayList;
+import java.util.List;
+
+import android.app.Activity;
+import android.content.SharedPreferences;
+import android.os.Bundle;
+import android.os.SystemClock;
+import android.preference.PreferenceManager;
+import android.view.View;
+import android.view.View.OnClickListener;
+import android.widget.Button;
+import android.widget.ListView;
+
+import com.google.ads.AdRequest;
+import com.google.ads.AdView;
 
 public class TISActivity extends Activity
 {

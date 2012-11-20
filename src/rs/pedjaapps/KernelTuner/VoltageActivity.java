@@ -1,17 +1,25 @@
 package rs.pedjaapps.KernelTuner;
 
-import android.app.*;
-import android.content.*;
-import android.os.*;
-import android.preference.*;
-import android.view.*;
-import android.view.ContextMenu.ContextMenuInfo;
-import android.view.View.*;
-import android.widget.*;
+import java.io.File;
+import java.util.ArrayList;
+import java.util.List;
 
-import com.google.ads.*;
-import java.io.*;
-import java.util.*;
+import android.app.Activity;
+import android.app.AlertDialog;
+import android.app.ProgressDialog;
+import android.content.DialogInterface;
+import android.content.SharedPreferences;
+import android.os.Bundle;
+import android.preference.PreferenceManager;
+import android.view.Gravity;
+import android.view.View;
+import android.view.View.OnClickListener;
+import android.widget.Button;
+import android.widget.EditText;
+import android.widget.ListView;
+
+import com.google.ads.AdRequest;
+import com.google.ads.AdView;
 
 public class VoltageActivity extends Activity
 {
@@ -146,7 +154,8 @@ public class VoltageActivity extends Activity
 				AlertDialog.Builder builder = new AlertDialog.Builder(arg0.getContext());
 				builder.setTitle(getResources().getString(R.string.select_profile));
 				builder.setItems(items2, new DialogInterface.OnClickListener() {
-				    public void onClick(DialogInterface dialog, int item) {
+				    @Override
+					public void onClick(DialogInterface dialog, int item) {
 				    	Voltage voltage = db.getVoltageByName(items2[item].toString()) ;
 				    	VoltageAdapter.pd = ProgressDialog.show(VoltageActivity.this, null, getResources().getString(R.string.changing_voltage), true, false);
 						new ChangeVoltage(VoltageActivity.this).execute(new String[] {"profile", voltage.getValue()});
@@ -226,7 +235,8 @@ public class VoltageActivity extends Activity
 					AlertDialog.Builder builder = new AlertDialog.Builder(arg0.getContext());
 					builder.setTitle(getResources().getString(R.string.select_profile_to_delte));
 					builder.setItems(items2, new DialogInterface.OnClickListener() {
-					    public void onClick(DialogInterface dialog, int item) {
+					    @Override
+						public void onClick(DialogInterface dialog, int item) {
 					    	db.deleteVoltageByName(voltages.get(item));
 					    	
 					    }

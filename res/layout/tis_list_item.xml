@@ -30,7 +30,7 @@
             android:layout_margin="5dp"
             android:layout_weight="1"
             android:text="file"
-            android:textSize="20dp"
+            android:textSize="20sp"
             android:textStyle="bold" />
 
         <TextView
@@ -40,7 +40,7 @@
             android:layout_marginRight="10dp"
             android:text="time"
             android:textColor="#458B00"
-            android:textSize="15dp" />
+            android:textSize="15sp" />
 
         <TextView
             android:id="@+id/percent"
@@ -48,7 +48,7 @@
             android:layout_height="wrap_content"
             android:text="percent"
             android:textColor="#0bd2f6"
-            android:textSize="15dp" />
+            android:textSize="15sp" />
     </LinearLayout>
 
 </RelativeLayout>

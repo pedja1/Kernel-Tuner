@@ -1,10 +1,11 @@
 package rs.pedjaapps.KernelTuner;
 
-import android.app.*;
-import android.content.*;
-import android.os.*;
-import java.io.*;
-import java.lang.Process;
+import java.io.DataOutputStream;
+import java.io.IOException;
+
+import android.app.Activity;
+import android.content.Intent;
+import android.os.Bundle;
 
 
 

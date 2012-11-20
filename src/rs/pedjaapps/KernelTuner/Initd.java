@@ -1,9 +1,9 @@
 package rs.pedjaapps.KernelTuner;
 
-import android.os.*;
-import java.io.*;
+import java.io.DataOutputStream;
+import java.io.IOException;
 
-import java.lang.Process;
+import android.os.AsyncTask;
 
 public class Initd extends AsyncTask<String, Void, String>
 {

@@ -1,18 +1,31 @@
 package rs.pedjaapps.KernelTuner;
 
-import android.app.*;
-import android.content.*;
-import android.os.*;
-import android.preference.*;
-import android.view.*;
-import android.view.View.*;
-import android.widget.*;
-import com.google.ads.*;
-import java.io.*;
-import java.util.*;
-import rs.pedjaapps.KernelTuner.*;
+import java.io.BufferedReader;
+import java.io.DataOutputStream;
+import java.io.File;
+import java.io.FileInputStream;
+import java.io.IOException;
+import java.io.InputStreamReader;
+import java.util.List;
 
-import java.lang.Process; 
+import android.app.Activity;
+import android.app.ProgressDialog;
+import android.content.SharedPreferences;
+import android.os.AsyncTask;
+import android.os.Bundle;
+import android.os.Handler;
+import android.preference.PreferenceManager;
+import android.view.View;
+import android.view.View.OnClickListener;
+import android.view.WindowManager;
+import android.widget.Button;
+import android.widget.EditText;
+import android.widget.ProgressBar;
+import android.widget.SeekBar;
+import android.widget.TextView;
+
+import com.google.ads.AdRequest;
+import com.google.ads.AdView;
 
 public class Mpdecision extends Activity
 {
@@ -73,7 +86,7 @@ public class Mpdecision extends Activity
 	public String scroff_profile;
 
 	private ProgressDialog pd = null;
-	private Object data = null;
+	
 
 	Handler mHandler = new Handler();
 
@@ -146,7 +159,7 @@ public class Mpdecision extends Activity
 		{
 			// Pass the result data back to the main activity
 
-			Mpdecision.this.data = result;
+			
 			preferences = PreferenceManager.getDefaultSharedPreferences(getBaseContext());
 			SharedPreferences.Editor editor = preferences.edit();
 			editor.putString("onoff", onoff);

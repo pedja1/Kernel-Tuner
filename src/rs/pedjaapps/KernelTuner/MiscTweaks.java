@@ -1,17 +1,41 @@
 package rs.pedjaapps.KernelTuner;
 
-import android.app.*;
-import android.content.*;
-import android.os.*;
-import android.preference.*;
-import android.view.*;
-import android.widget.*;
-import android.widget.AdapterView.*;
-import com.google.ads.*;
-import java.io.*;
+import java.io.BufferedReader;
+import java.io.DataOutputStream;
+import java.io.File;
+import java.io.FileInputStream;
+import java.io.FileNotFoundException;
+import java.io.IOException;
+import java.io.InputStream;
+import java.io.InputStreamReader;
 
+import android.app.Activity;
+import android.app.AlertDialog;
+import android.content.DialogInterface;
+import android.content.SharedPreferences;
+import android.os.AsyncTask;
+import android.os.Bundle;
+import android.os.Handler;
+import android.preference.PreferenceManager;
+import android.view.View;
 import android.view.View.OnClickListener;
-import java.lang.Process;
+import android.view.WindowManager;
+import android.widget.AdapterView;
+import android.widget.AdapterView.OnItemSelectedListener;
+import android.widget.ArrayAdapter;
+import android.widget.Button;
+import android.widget.CheckBox;
+import android.widget.EditText;
+import android.widget.ImageView;
+import android.widget.ProgressBar;
+import android.widget.RadioButton;
+import android.widget.RadioGroup;
+import android.widget.SeekBar;
+import android.widget.Spinner;
+import android.widget.TextView;
+
+import com.google.ads.AdRequest;
+import com.google.ads.AdView;
 
 public class MiscTweaks extends Activity implements
 SeekBar.OnSeekBarChangeListener
@@ -947,6 +971,7 @@ SeekBar.OnSeekBarChangeListener
 			{
 				et.setVisibility(View.GONE);
 			}
+			fIn.close();
 
 		}
 		catch (FileNotFoundException e)
@@ -955,6 +980,8 @@ SeekBar.OnSeekBarChangeListener
 			ldttitle.setVisibility(View.GONE);
 			et.setVisibility(View.GONE);
 
+		} catch (IOException e) {
+			
 		}
 
 	}
@@ -973,6 +1000,9 @@ SeekBar.OnSeekBarChangeListener
 		else if (cdepth.equals("32"))
 		{
 			prog.setProgress(2);
+		}
+		if(new File("/sys/kernel/debug/msm_fb/0/bpp").exists()){
+			
 		}
 		else
 		{

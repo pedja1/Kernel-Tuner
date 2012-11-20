@@ -1,11 +1,10 @@
 package rs.pedjaapps.KernelTuner;
 
-import android.content.*;
-import android.os.*;
-import android.preference.*;
-import java.io.*;
+import java.io.DataOutputStream;
+import java.io.IOException;
 
-import java.lang.Process;
+import android.os.AsyncTask;
+import android.os.Environment;
 
 
 public class LogWriter extends AsyncTask<String, Void, String>

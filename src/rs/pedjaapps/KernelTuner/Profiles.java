@@ -1,20 +1,32 @@
 package rs.pedjaapps.KernelTuner;
 
-import android.app.*;
-import android.content.*;
-import android.content.pm.*;
-import android.os.*;
-import android.text.method.*;
-import android.view.*;
-import android.view.ContextMenu.ContextMenuInfo;
-import android.webkit.WebView;
-import android.widget.*;
-import android.widget.AdapterView.*;
-
-import java.io.*;
+import java.io.DataOutputStream;
+import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
-import java.lang.Process;
+
+import android.app.Activity;
+import android.app.AlertDialog;
+import android.app.ProgressDialog;
+import android.content.DialogInterface;
+import android.content.Intent;
+import android.content.SharedPreferences;
+import android.os.AsyncTask;
+import android.os.Bundle;
+import android.view.ContextMenu;
+import android.view.ContextMenu.ContextMenuInfo;
+import android.view.Menu;
+import android.view.MenuInflater;
+import android.view.MenuItem;
+import android.view.View;
+import android.widget.AdapterView;
+import android.widget.AdapterView.AdapterContextMenuInfo;
+import android.widget.AdapterView.OnItemClickListener;
+import android.widget.EditText;
+import android.widget.LinearLayout;
+import android.widget.ListView;
+import android.widget.TextView;
+import android.widget.Toast;
 
 
 
@@ -258,6 +270,7 @@ catch (InterruptedException e1)
 		
 		profilesListView.setOnItemClickListener(new OnItemClickListener(){
 
+				@Override
 				public void onItemClick(AdapterView<?> p1, View p2, int p3, long p4)
 				{
 					AlertDialog.Builder builder = new AlertDialog.Builder(
