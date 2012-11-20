@@ -733,6 +733,15 @@ SeekBar.OnSeekBarChangeListener
 		else if(new File(CPUInfo.BUTTONS_LIGHT).exists()){
 			buttonsGroup.setVisibility(View.GONE);
 		}
+		else{
+			mSeekBar.setVisibility(View.GONE);
+			btminus.setVisibility(View.GONE);
+			btplus.setVisibility(View.GONE);
+			sb.setVisibility(View.GONE);
+			sb1.setVisibility(View.GONE);
+			im.setVisibility(View.GONE);
+			buttonsGroup.setVisibility(View.GONE);
+		}
 		if(ledHox.equals("0"))
 		{
 			off.setChecked(true);
