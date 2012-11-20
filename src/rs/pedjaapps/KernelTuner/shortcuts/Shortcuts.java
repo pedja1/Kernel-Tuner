@@ -52,9 +52,9 @@ ListView shortcutListView;
 		"View System Information",
 		"Change app Settings" };
 
-	int[] icons = {R.drawable.ic_launcher,
-		R.drawable.ic_launcher,
-		R.drawable.ic_launcher,
+	int[] icons = {R.drawable.reboot,
+		R.drawable.reboot,
+		R.drawable.reboot,
 		R.drawable.ic_launcher, 
 		R.drawable.times, 
 		R.drawable.voltage, 
