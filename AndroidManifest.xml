@@ -86,12 +86,12 @@
 				android:name="android.appwidget.provider"
 				android:resource="@xml/widget_provider_4x4" />
 		</receiver>
-		<activity android:name=".Gpu"  android:exported="true" android:label="@string/title_gpu" android:theme="@style/Theme.TransparentNoTitle" android:icon="@drawable/gpu"></activity>
+		<activity android:name=".Gpu"  android:exported="true" android:label="@string/title_gpu" android:theme="@style/Theme.Dialog.NoTitleBar" android:icon="@drawable/gpu"></activity>
 		<activity android:name=".MiscTweaks" android:exported="true" android:label="@string/title_misc" android:icon="@drawable/misc"></activity>
 		<activity android:name=".Mpdecision" android:exported="true" android:label="@string/title_mpdecision" android:icon="@drawable/dual"></activity>
 		<activity android:name=".Thermald" android:exported="true" android:label="@string/title_thermald" android:icon="@drawable/temp"></activity>
 
-		<activity android:name=".About"  android:label="@string/title_about" android:icon="@drawable/about"></activity>
+		<activity android:name=".About"  android:label="@string/title_about" android:icon="@drawable/about" android:theme="@style/Theme.Dialog.NoTitleBar"></activity>
 		<activity android:name=".Changelog"  android:label="@string/title_changelog" android:theme="@style/Theme.TransparentDark"  android:icon="@drawable/ic_menu_recent_history"></activity>
 		<activity android:name=".CompatibilityCheck" android:label="@string/title_check" android:theme="@style/Theme.TransparentNoTitle" android:icon="@drawable/ic_menu_help"></activity>
 		<activity android:name=".Profiles" android:exported="true" android:label="@string/title_profiles" android:icon="@drawable/ic_menu_cc"  android:theme="@style/Theme.Locale.Dark"></activity>
@@ -104,7 +104,7 @@
 		<activity android:name=".TISActivity" android:exported="true" android:label="@string/title_tis" android:icon="@drawable/times" ></activity>
 		<activity android:name=".GovernorActivity" android:label="@string/title_governor" android:icon="@drawable/dual" android:exported="true"></activity>
 		<activity android:name=".Reboot" android:label="Reboot" android:icon="@drawable/ic_launcher" android:exported="true"></activity>
-		<activity android:name=".OOM" android:label="OOM" android:icon="@drawable/swap" android:exported="true" android:theme="@android:style/Theme.Holo.Dialog"></activity>
+		<activity android:name=".OOM" android:label="OOM" android:icon="@drawable/swap" android:exported="true" android:theme="@style/Theme.Dialog.NoTitleBar"></activity>
 		
 		<activity
             android:name=".ui.EditActivity"
