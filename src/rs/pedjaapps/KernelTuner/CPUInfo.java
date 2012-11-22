@@ -65,6 +65,7 @@ public class CPUInfo
 	public static String SD_CACHE = "/sys/devices/virtual/bdi/179:0/read_ahead_kb";
 	public static String VSYNC = "/sys/kernel/debug/msm_fb/0/vsync_enable";
 	public static String FCHARGE = "/sys/kernel/fast_charge/force_fast_charge";
+	public static String OOM = "/sys/module/lowmemorykiller/parameters/minfree";
 	
 	public static boolean cpu0Online()
 	{
@@ -293,6 +294,41 @@ public class CPUInfo
 			}
 		}
 		return frequencies;
+
+	}
+	
+	public static List<String> oom()
+	{
+		List<String> oom = new ArrayList<String>();
+
+
+		try
+		{
+
+			File myFile = new File(OOM);
+			FileInputStream fIn = new FileInputStream(myFile);
+
+			BufferedReader myReader = new BufferedReader(
+				new InputStreamReader(fIn));
+			String aDataRow = "";
+			String aBuffer = "";
+			while ((aDataRow = myReader.readLine()) != null)
+			{
+
+				//frequencies.add(aDataRow.trim());
+				aBuffer += aDataRow + "\n";
+			}
+			oom = Arrays.asList(aBuffer.split(","));
+
+			myReader.close();
+
+		}
+		catch (Exception e)
+		{
+		
+		
+		}
+		return oom;
 
 	}
 	

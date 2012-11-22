@@ -17,7 +17,7 @@ import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Collections;
 import java.util.List;
-import java.util.Locale;
+import java.util.Locale; 
 
 import android.annotation.SuppressLint;
 import android.app.Activity;
@@ -97,23 +97,23 @@ public class KernelTuner extends Activity
 				if (temperature <= 104)
 				{
 					batteryTemp.setTextColor(Color.GREEN);
-					//battTempWarningStop();
+					
 				}
 				else if (temperature > 104 && temperature < 131)
 				{
 					batteryTemp.setTextColor(Color.YELLOW);
-					//battTempWarningStop();
+					
 				}
 				else if (temperature >= 131 && temperature < 140)
 				{
 					batteryTemp.setTextColor(Color.RED);
-					//battTempWarningStop();
+				
 				}
 				else if (temperature >= 140)
 				{
-					// Log.e("Battery warning","start animation");
+					
 					batteryTemp.setTextColor(Color.RED);
-					//battTempWarning();
+					
 
 				}
 			}
@@ -124,23 +124,23 @@ public class KernelTuner extends Activity
 				if (temperature < 45)
 				{
 					batteryTemp.setTextColor(Color.GREEN);
-					//battTempWarningStop();
+					
 				}
 				else if (temperature > 45 && temperature < 55)
 				{
 					batteryTemp.setTextColor(Color.YELLOW);
-					//battTempWarningStop();
+					
 				}
 				else if (temperature >= 55 && temperature < 60)
 				{
 					batteryTemp.setTextColor(Color.RED);
-					//battTempWarningStop();
+					
 				}
 				else if (temperature >= 60)
 				{
-					// Log.e("Battery warning","start animation");
+					
 					batteryTemp.setTextColor(Color.RED);
-					//battTempWarning();
+					
 
 				}
 			}
@@ -151,23 +151,23 @@ public class KernelTuner extends Activity
 				if (temperature < 318.15)
 				{
 					batteryTemp.setTextColor(Color.GREEN);
-					//battTempWarningStop();
+					
 				}
 				else if (temperature > 318.15 && temperature < 328.15)
 				{
 					batteryTemp.setTextColor(Color.YELLOW);
-					//battTempWarningStop();
+				
 				}
 				else if (temperature >= 328.15 && temperature < 333.15)
 				{
 					batteryTemp.setTextColor(Color.RED);
-					//battTempWarningStop();
+					
 				}
 				else if (temperature >= 333.15)
 				{
-					// Log.e("Battery warning","start animation");
+					
 					batteryTemp.setTextColor(Color.RED);
-					//battTempWarning();
+					
 
 				}
 			}
@@ -176,22 +176,22 @@ public class KernelTuner extends Activity
 			if (level < 15 && level >= 5)
 			{
 				batteryLevel.setTextColor(Color.RED);
-				//battLevelWarningStop();
+				
 			}
 			else if (level > 15 && level <= 30)
 			{
 				batteryLevel.setTextColor(Color.YELLOW);
-				//battLevelWarningStop();
+			
 			}
 			else if (level > 30)
 			{
 				batteryLevel.setTextColor(Color.GREEN);
-				//battLevelWarningStop();
+				
 			}
 			else if (level < 5)
 			{
 				batteryLevel.setTextColor(Color.RED);
-				//battLevelWarning();
+				
 
 			}
 	    }
@@ -201,66 +201,25 @@ public class KernelTuner extends Activity
 
 
 	boolean thread = true;
-	public String iscVa = "offline";
-	public String iscVa2 = "offline";
-	public String governors;
-	public String governorscpu1;
-	public String curentgovernorcpu0;
-	public String curentgovernorcpu1;
-	public String curentgovernorcpu2;
-	public String curentgovernorcpu3;
+	public String freqcpu0 = "offline";
+	public String freqcpu1= "offline";
+
 	public String led;
 	SeekBar mSeekBar;
 	TextView progresstext;
-	public String cpu0freqs;
-	public String cpu1freqs;
-	public String cpu2freqs;
-	public String cpu3freqs;
-	public String cpu0max = "        ";
-	public String cpu1max = "        ";
-	public String cpu0min = "        ";
-	public String cpu1min = "        ";
-	public String cpu2max = "        ";
-	public String cpu3max = "        ";
-	public String cpu2min = "        ";
-	public String cpu3min = "        ";
-	public String gpu2d = "        ";
-	public String gpu3d = "       ";
-	public int countcpu0;
-	public int countcpu1;
-	public String vsync = " ";
-	public String fastcharge = " ";
-	public String out;
-	public String cdepth ;
-	public String kernel = "     ";
-	public String remoteversion;
-	public String schedulers;
-	public String scheduler;
-	public String sdcache;
-	public String curentidlefreq;
-	public String delay;
-	public String pause;
-	public String thrupload;
-	public String thrupms;
-	public String thrdownload;
-	public String thrdownms;
-	public boolean cpu1check;
-	public String sdcacheinfo;
-	public String ioschedulerinfo;
-	List<String> list;
-	public String ldt;
-	public String freqcpu2;
-	public String freqcpu3;
+	
+	public String cpu0max = "       ";
+	public String cpu1max = "       ";
+	public String cpu0min = "       ";
+	public String cpu1min = "       ";
+	public String cpu2max = "       ";
+	public String cpu3max = "       ";
+	public String cpu2min = "       ";
+	public String cpu3min = "       ";
 
-	public String p1low;
-	public String p1high;
-	public String p2low;
-	public String p2high;
-	public String p3low;
-	public String p3high;
-	public String p1freq;
-	public String p2freq;
-	public String p3freq;
+	public String freqcpu2 = "offline";
+	public String freqcpu3 = "offline";
+
 
 	float fLoad;
 	
@@ -299,37 +258,21 @@ public class KernelTuner extends Activity
 	public static String CPU2_GOVS = CPUInfo.CPU2_GOVS;
 	public static String CPU3_GOVS = CPUInfo.CPU3_GOVS;
 
-	String mpdec;
+	
+	TextView cpu0prog;
+	TextView cpu1prog;
+	TextView cpu2prog;
+	TextView cpu3prog;
 
-	List<String> frequencies3 = new ArrayList<String>();
-	List<String> frequencies4 = new ArrayList<String>();
-	List<String> frequencies5 = new ArrayList<String>();
-	public String[] delims;
+	ProgressBar cpu0progbar;
+	ProgressBar cpu1progbar;
+	ProgressBar cpu2progbar;
+	ProgressBar cpu3progbar;
 
-	String freqs;
-	List<String> vdd = new ArrayList<String>();
-
-	List<String> frequencies = new ArrayList<String>();
-	List<String> frequencies2 = new ArrayList<String>();
-	List<Integer> perint = new ArrayList<Integer>();
-	String[] freqarray;
-	String[] freqarray2;
-	String[] vddarray;
-
-	public String govs;
-	public String currentscrofffreq;
-	public String currentscroffgov;
-	public String govselected;
-	public String maxfreqselected;
-	public String onoff;
-	public String scroff_profile;
-	public String mpdecisionidle;
-	public String version;
-	public String changelog;
 	public List<String> freqlist;
 	public SharedPreferences preferences;
 	private ProgressDialog pd = null;
-	public String s2w;
+	
 	int load;
 
 	Handler mHandler = new Handler();
@@ -337,217 +280,7 @@ public class KernelTuner extends Activity
 	SharedPreferences.Editor editor;
 
 	ProgressDialog mProgressDialog;
-	/*private class DownloadNewVersion extends AsyncTask<String, Integer, String>
-	{
-		@Override
-		protected String doInBackground(String... sUrl)
-		{
-			try
-			{
-				URL url = new URL(sUrl[0]);
-				URLConnection connection = url.openConnection();
-				connection.connect();
-				// this will be useful so that you can show a typical 0-100% progress bar
-				int fileLength = connection.getContentLength();
-
-				// download the file
-				InputStream input = new BufferedInputStream(url.openStream());
-				OutputStream output = new FileOutputStream(Environment.getExternalStorageDirectory() + "/download/KernelTuner-" + remoteversion + ".apk");
-
-				byte data[] = new byte[1024];
-				long total = 0;
-				int count;
-				while ((count = input.read(data)) != -1)
-				{
-					total += count;
-					// publishing the progress....
-					publishProgress((int) (total * 100 / fileLength));
-					output.write(data, 0, count);
-				}
-
-				output.flush();
-				output.close();
-				input.close();
-			}
-			catch (Exception e)
-			{
-				new LogWriter().execute(new String[] {getClass().getName(), e.getMessage()});
-			}
-			return null;
-		}
-		@Override
-		protected void onPreExecute()
-		{
-			super.onPreExecute();
-			mProgressDialog = new ProgressDialog(KernelTuner.this);
-			mProgressDialog.setMessage(getResources().getString(R.string.downloading_update));
-			mProgressDialog.setIndeterminate(false);
-			mProgressDialog.setMax(100);
-			mProgressDialog.setProgressStyle(ProgressDialog.STYLE_HORIZONTAL);
-			mProgressDialog.show();
-		}
-
-		@Override
-		protected void onProgressUpdate(Integer... progress)
-		{
-			super.onProgressUpdate(progress);
-			mProgressDialog.setProgress(progress[0]);
-
-		}
-		@Override
-		protected void onPostExecute(String result)
-		{
-			mProgressDialog.dismiss();
-			Intent intent = new Intent(Intent.ACTION_VIEW);
-			intent.setDataAndType(Uri.fromFile(new File(Environment.getExternalStorageDirectory() + "/download/" + "KernelTuner-" + remoteversion + ".apk")), "application/vnd.android.package-archive");
-			startActivity(intent);
-
-		}
-	}*/
-
-	/*class updateCheck extends AsyncTask<String, Void, Object>
-	{
-
-
-		@Override
-		protected Object doInBackground(String... args)
-		{
-
-
-
-			try
-			{
-				// Create a URL for the desired page
-				URL url = new URL("http://kerneltuner.pedjaapps.in.rs/ktuner/version");
-
-				// Read all the text returned by the server
-				BufferedReader in = new BufferedReader(new InputStreamReader(url.openStream()));
-
-				remoteversion = in.readLine();
-				in.close();
-
-			}
-			catch (MalformedURLException e)
-			{
-				new LogWriter().execute(new String[] {getClass().getName(), e.getMessage()});
-			}
-			catch (IOException e)
-			{
-				remoteversion = null;
-				new LogWriter().execute(new String[] {getClass().getName(), e.getMessage()});
-			}
-
-			try
-			{
-				// Create a URL for the desired page
-				URL url = new URL("http://kerneltuner.pedjaapps.in.rs/ktuner/changelog");
-
-				// Read all the text returned by the server
-				BufferedReader in = new BufferedReader(new InputStreamReader(url.openStream()));
-				String aDataRow = "";
-				String aBuffer = "";
-				while ((aDataRow = in.readLine()) != null)
-				{
-					aBuffer += aDataRow + "\n";
-				}
-
-				changelog = aBuffer;
-				//	changelog = in.readLine();
-				in.close();
-
-			}
-			catch (MalformedURLException e)
-			{
-				new LogWriter().execute(new String[] {getClass().getName(), e.getMessage()});
-			}
-			catch (IOException e)
-			{
-				changelog = null;
-				new LogWriter().execute(new String[] {getClass().getName(), e.getMessage()});
-			}
-
-
-
-			return "";
-		}
-
-
-
-		@Override
-		protected void onPostExecute(Object result)
-		{
-
-			//KernelTuner.this.pd.dismiss();
-
-			try
-			{
-				PackageInfo	pInfo = getPackageManager().getPackageInfo(getPackageName(), 0);
-				version = pInfo.versionName;
-			}
-			catch (NameNotFoundException e1)
-			{
-				new LogWriter().execute(new String[] {getClass().getName(), e1.getMessage()});
-			}
-
-			if (remoteversion != null && !remoteversion.equals(version))
-			{
-				AlertDialog.Builder builder = new AlertDialog.Builder(
-                    KernelTuner.this);
-
-				builder.setTitle("Kernel Tuner " + remoteversion +" "+ getResources().getString(R.string.available));
-
-				WebView cl = new WebView(KernelTuner.this);
-				cl.loadUrl("http://kerneltuner.pedjaapps.in.rs/ktuner/changelog_latest.html");
-				builder.setMessage(getResources().getString(R.string.download_now));
-
-				builder.setIcon(R.drawable.ic_menu_recent_history);
-
-				builder.setPositiveButton(getResources().getString(R.string.download), new DialogInterface.OnClickListener() {
-						@Override
-						public void onClick(DialogInterface dialog, int which)
-						{
-							//download();
-
-							// execute this when the downloader must be fired
-							DownloadNewVersion downloadNewVersion = new DownloadNewVersion();
-							downloadNewVersion.execute("http://kerneltuner.pedjaapps.in.rs/ktuner/KernelTuner-" + remoteversion + ".php");
-
-						}
-					});
-				builder.setNegativeButton(getResources().getString(R.string.cancel), new DialogInterface.OnClickListener() {
-						@Override
-						public void onClick(DialogInterface dialog, int which)
-						{
-
-						}
-					});
-				builder.setView(cl);
-				AlertDialog alert = builder.create();
-
-				alert.show();
-
-
-			}
-			else if (remoteversion == null)
-			{
-				//Toast.makeText(getApplicationContext(), "Problem connecting to server", Toast.LENGTH_LONG).show();
-				Log.e("Update Check", "problem connecting to update server");
-			}
-			else
-			{
-				//Toast.makeText(getApplicationContext(), "You have the latest version", Toast.LENGTH_LONG).show();
-				Log.d("Update Check", "Latest version already installed");
-			}
-
-
-
-
-		}
-
-	}*/
-
 	
-
 	private class cpu1Toggle extends AsyncTask<String, Void, Object>
 	{
 
@@ -933,6 +666,15 @@ public class KernelTuner extends Activity
 		
 		setContentView(R.layout.main);
 		
+		cpu0prog = (TextView)this.findViewById(R.id.ptextView3);
+		cpu1prog = (TextView)this.findViewById(R.id.ptextView4);
+		cpu2prog = (TextView)this.findViewById(R.id.ptextView7);
+	    cpu3prog = (TextView)this.findViewById(R.id.ptextView8);
+		
+		cpu0progbar = (ProgressBar)findViewById(R.id.progressBar1);
+		cpu1progbar = (ProgressBar)findViewById(R.id.progressBar2);
+		cpu2progbar = (ProgressBar)findViewById(R.id.progressBar3);
+		cpu3progbar = (ProgressBar)findViewById(R.id.progressBar4);
 		 
 		 editor = preferences.edit();
 		 /**
@@ -1209,15 +951,15 @@ public class KernelTuner extends Activity
 
 			});
 
-		Button swap = (Button)this.findViewById(R.id.button13);
-		swap.setOnClickListener(new OnClickListener(){
+		Button oom = (Button)this.findViewById(R.id.button13);
+		oom.setOnClickListener(new OnClickListener(){
 
 				@Override
 				public void onClick(View v)
 				{
 
 
-					Intent myIntent = new Intent(KernelTuner.this, Swap.class);
+					Intent myIntent = new Intent(KernelTuner.this, OOM.class);
 					KernelTuner.this.startActivity(myIntent);
 
 				}
@@ -2246,14 +1988,14 @@ public void startCpuLoadThread() {
 			{
 				aBuffer += aDataRow + "\n";
 			}
-			iscVa = aBuffer;
+			freqcpu0 = aBuffer;
 			myReader.close();
 
 
 		}
 		catch (Exception e)
 		{
-			iscVa = "offline";
+			freqcpu0 = "offline";
 		}
 
 
@@ -2286,13 +2028,13 @@ public void startCpuLoadThread() {
 				aBuffer += aDataRow + "\n";
 			}
 
-			iscVa2 = aBuffer;
+			freqcpu1= aBuffer;
 			myReader.close();
 
 		}
 		catch (Exception e)
 		{
-			iscVa2 = "offline";
+			freqcpu1 = "offline";
 
 		}
 
@@ -2380,89 +2122,6 @@ public void startCpuLoadThread() {
 	}
 
 
-
-	public void readFreqs()
-	{
-
-
-		try
-		{
-
-			File myFile = new File(CPU0_FREQS);
-			FileInputStream fIn = new FileInputStream(myFile);
-			BufferedReader myReader = new BufferedReader(
-				new InputStreamReader(fIn));
-			String aDataRow = "";
-			String aBuffer = "";
-			while ((aDataRow = myReader.readLine()) != null)
-			{
-				aBuffer += aDataRow + "\n";
-			}
-
-			freqs = aBuffer;
-			myReader.close();
-			freqlist = Arrays.asList(freqs.split("\\s"));
-			if (Integer.parseInt(frequencies.get(0)) > Integer.parseInt(frequencies.get(frequencies.size())))
-			{
-				Collections.reverse(freqlist);
-			}
-
-		}
-		catch (Exception e)
-		{
-			try
-			{
-				// Open the file that is the first 
-				// command line parameter
-				FileInputStream fstream = new FileInputStream("/sys/devices/system/cpu/cpu0/cpufreq/stats/time_in_state");
-				// Get the object of DataInputStream
-				DataInputStream in = new DataInputStream(fstream);
-				BufferedReader br = new BufferedReader(new InputStreamReader(in));
-				String strLine;
-				//Read File Line By Line
-
-				while ((strLine = br.readLine()) != null)
-				{
-
-					delims = strLine.split(" ");
-					String freq = delims[0];
-					//freq= 	freq.substring(0, freq.length()-3)+"Mhz";
-
-					frequencies.add(freq);
-
-				}
-				
-				if (frequencies.get(0).length() > frequencies.get(frequencies.size() - 1).length())
-				{
-					Collections.reverse(frequencies);
-				}
-				
-				String[] strarray = frequencies.toArray(new String[0]);
-				frequencies.clear();
-				
-				StringBuilder builder = new StringBuilder();
-				for (String s : strarray)
-				{
-					builder.append(s);
-					builder.append(" ");
-				}
-				freqs = builder.toString();
-
-				freqlist = Arrays.asList(freqs.split("\\s"));
-
-
-
-
-				in.close();
-			}
-			catch (Exception ee)
-			{
-				System.out.println("failed to read frequencies");
-			}
-		}
-
-	}
-
     /**
 	Read max frequency of cpu0
 	*/
@@ -2487,8 +2146,6 @@ public void startCpuLoadThread() {
 
 			cpu0max = aBuffer;
 			myReader.close();
-
-			;
 
 
 		}
@@ -2558,8 +2215,6 @@ public void startCpuLoadThread() {
 			cpu2max = aBuffer;
 			myReader.close();
 
-			;
-
 
 		}
 		catch (Exception e)
@@ -2609,8 +2264,8 @@ public void startCpuLoadThread() {
 	public void cpu0update()
 	{
 
-		TextView cpu0prog = (TextView)this.findViewById(R.id.ptextView3);
-		cpu0prog.setText(iscVa.trim());
+		
+		cpu0prog.setText(freqcpu0.trim());
 	}
 
 	/**
@@ -2620,9 +2275,9 @@ public void startCpuLoadThread() {
 	{
 		if (freqlist != null)
 		{
-			ProgressBar cpu0progbar = (ProgressBar)findViewById(R.id.progressBar1);
+		
 			cpu0progbar.setMax(freqlist.indexOf(cpu0max.trim()) + 1);
-			cpu0progbar.setProgress(freqlist.indexOf(iscVa.trim()) + 1);
+			cpu0progbar.setProgress(freqlist.indexOf(freqcpu0.trim()) + 1);
 		}
 
 	}
@@ -2630,23 +2285,23 @@ public void startCpuLoadThread() {
 	public void cpu1update()
 	{
 
-		TextView cpu1prog = (TextView)this.findViewById(R.id.ptextView4);
-		cpu1prog.setText(iscVa2.trim());
+	
+		cpu1prog.setText(freqcpu1.trim());
 	}
 	public void cpu1progress()
 	{
 		if (freqlist != null)
 		{
-			ProgressBar cpu1progbar = (ProgressBar)findViewById(R.id.progressBar2);
+			
 			cpu1progbar.setMax(freqlist.indexOf(cpu1max.trim()) + 1);
-			cpu1progbar.setProgress(freqlist.indexOf(iscVa2.trim()) + 1);
+			cpu1progbar.setProgress(freqlist.indexOf(freqcpu1.trim()) + 1);
 		}
 	}
 
 	public void cpu2update()
 	{
 
-		TextView cpu2prog = (TextView)this.findViewById(R.id.ptextView7);
+		
 		cpu2prog.setText(freqcpu2.trim());
 	}
 
@@ -2654,7 +2309,7 @@ public void startCpuLoadThread() {
 	{
 		if (freqlist != null)
 		{
-			ProgressBar cpu2progbar = (ProgressBar)findViewById(R.id.progressBar3);
+			
 			cpu2progbar.setMax(freqlist.indexOf(cpu2max.trim()) + 1);
 			cpu2progbar.setProgress(freqlist.indexOf(freqcpu2.trim()) + 1);
 		}
@@ -2663,14 +2318,14 @@ public void startCpuLoadThread() {
 	public void cpu3update()
 	{
 
-		TextView cpu3prog = (TextView)this.findViewById(R.id.ptextView8);
+		
 		cpu3prog.setText(freqcpu3.trim());
 	}
 	public void cpu3progress()
 	{
 		if (freqlist != null)
 		{
-			ProgressBar cpu3progbar = (ProgressBar)findViewById(R.id.progressBar4);
+			
 
 			cpu3progbar.setMax(freqlist.indexOf(cpu3max.trim()) + 1);
 			cpu3progbar.setProgress(freqlist.indexOf(freqcpu3.trim()) + 1);
@@ -2786,7 +2441,10 @@ AlertDialog alert = builder.create();
         
     }
 	
+		if (item.getItemId() == R.id.swap) {
+			startActivity(new Intent(this, Swap.class));
 
+		}	
 
 
 		return super.onOptionsItemSelected(item);

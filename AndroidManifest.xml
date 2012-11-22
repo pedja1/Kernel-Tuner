@@ -104,6 +104,7 @@
 		<activity android:name=".TISActivity" android:exported="true" android:label="@string/title_tis" android:icon="@drawable/times" ></activity>
 		<activity android:name=".GovernorActivity" android:label="@string/title_governor" android:icon="@drawable/dual" android:exported="true"></activity>
 		<activity android:name=".Reboot" android:label="Reboot" android:icon="@drawable/ic_launcher" android:exported="true"></activity>
+		<activity android:name=".OOM" android:label="OOM" android:icon="@drawable/swap" android:exported="true" android:theme="@android:style/Theme.Holo.Dialog"></activity>
 		
 		<activity
             android:name=".ui.EditActivity"

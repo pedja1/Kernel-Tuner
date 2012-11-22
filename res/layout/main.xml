@@ -149,7 +149,7 @@
                     android:layout_weight="1"
                     android:drawableTop="@drawable/swap"
                     android:gravity="center|center_vertical"
-                    android:text="@string/swap" />
+                    android:text="OOM" />
 
                 <Button
                     android:id="@+id/button14"
