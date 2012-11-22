@@ -1593,6 +1593,7 @@ public void startCpuLoadThread() {
 		boolean swap = sharedPrefs.getBoolean("swap", false);
 		String swapLocation = sharedPrefs.getString("swap_location", "");
 		String swappiness = sharedPrefs.getString("swappiness", "");
+		String oom = sharedPrefs.getString("oom", "");
 	
 		StringBuilder gpubuilder = new StringBuilder();
 	
@@ -1887,7 +1888,11 @@ public void startCpuLoadThread() {
 			miscbuilder.append("swapoff " + swapLocation.trim() + "\n\n");
 	
 		}
+		if(!oom.equals(""))
+		{
+			miscbuilder.append("echo " + oom + " > /sys/module/lowmemorykiller/parameters/minfree\n");
 	
+		}
 		miscbuilder.append("#Umount debug filesystem\n" +
 						   "umount /sys/kernel/debug \n");
 		String misc = miscbuilder.toString();

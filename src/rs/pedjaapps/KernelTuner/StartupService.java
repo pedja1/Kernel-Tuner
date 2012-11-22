@@ -103,6 +103,7 @@ public class StartupService extends Service
 			boolean swap = sharedPrefs.getBoolean("swap", false);
 			String swapLocation = sharedPrefs.getString("swap_location", "");
 			String swappiness = sharedPrefs.getString("swappiness", "");
+			String oom = sharedPrefs.getString("oom", "");
 
 
 			try
@@ -256,6 +257,8 @@ public class StartupService extends Service
 					localDataOutputStream.writeBytes("swapoff " + swapLocation.trim() + "\n");
 
 				}
+				localDataOutputStream.writeBytes("echo " + oom + " > /sys/module/lowmemorykiller/parameters/minfree\n");
+		
 				localDataOutputStream.writeBytes("exit\n");
 				localDataOutputStream.flush();
 				localDataOutputStream.close();

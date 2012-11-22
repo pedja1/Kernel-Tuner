@@ -259,5 +259,6 @@
 	<string name="kernel_">Kernel:</string>
 	<string name="notificatio_preferences_warning">This options are likely to cause higher battery drain. Proceed with caution!</string>
 	<string name="select_profile_">Select Profile:</string>
+	<string name="presets">Presets</string>
 
 </resources>
