@@ -23,6 +23,7 @@ public class CPUInfo
 
 
 	public static String CPU0_FREQS = "/sys/devices/system/cpu/cpu0/cpufreq/scaling_available_frequencies";
+	public static String SWAPS = "/proc/swaps";
 	
 	public static String CPU0_CURR_FREQ = "/sys/devices/system/cpu/cpu0/cpufreq/scaling_cur_freq";
 	public static String CPU1_CURR_FREQ = "/sys/devices/system/cpu/cpu1/cpufreq/scaling_cur_freq";
@@ -66,6 +67,40 @@ public class CPUInfo
 	public static String VSYNC = "/sys/kernel/debug/msm_fb/0/vsync_enable";
 	public static String FCHARGE = "/sys/kernel/fast_charge/force_fast_charge";
 	public static String OOM = "/sys/module/lowmemorykiller/parameters/minfree";
+	public static String THERMALD = "/sys/kernel/msm_thermal/conf/allowed_low_freq";
+	
+	public static boolean freqsExists()
+	{
+		boolean i = false;
+		if (new File(CPU0_FREQS).exists())
+		{
+			i = true;
+		}
+		return i;
+
+	}
+	
+	public static boolean thermaldExists()
+	{
+		boolean i = false;
+		if (new File(THERMALD).exists())
+		{
+			i = true;
+		}
+		return i;
+
+	}
+	
+	public static boolean swapsExists()
+	{
+		boolean i = false;
+		if (new File(SWAPS).exists())
+		{
+			i = true;
+		}
+		return i;
+
+	}
 	
 	public static boolean cpu0Online()
 	{
@@ -290,7 +325,7 @@ public class CPUInfo
 			}
 			catch (Exception ee)
 			{
-
+				frequencies.add("0000000");
 			}
 		}
 		return frequencies;

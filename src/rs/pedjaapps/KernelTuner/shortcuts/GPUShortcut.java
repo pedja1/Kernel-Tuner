@@ -1,5 +1,6 @@
 package rs.pedjaapps.KernelTuner.shortcuts;
 
+import rs.pedjaapps.KernelTuner.CPUInfo;
 import rs.pedjaapps.KernelTuner.Gpu;
 import rs.pedjaapps.KernelTuner.R;
 import android.app.Activity;
@@ -14,7 +15,7 @@ public class GPUShortcut extends Activity
 	public void onCreate(Bundle savedInstanceState)
 	{
 		super.onCreate(savedInstanceState);
-		
+		if(CPUInfo.gpuExists()){
 		Intent shortcutintent = new Intent("com.android.launcher.action.INSTALL_SHORTCUT");
 		shortcutintent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
 		shortcutintent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
@@ -31,5 +32,11 @@ public class GPUShortcut extends Activity
 		sendBroadcast(shortcutintent);
 		Toast.makeText(GPUShortcut.this, "Shortcut GPU created", Toast.LENGTH_SHORT).show();
 		finish();
+		}
+		else{
+			Toast.makeText(GPUShortcut.this, "Your kernel doesnt support GPU Overclocking\nShortcut not created", Toast.LENGTH_SHORT).show();
+			finish();
+		}
 	}
+	
 }

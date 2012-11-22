@@ -1,5 +1,6 @@
 package rs.pedjaapps.KernelTuner.shortcuts;
 
+import rs.pedjaapps.KernelTuner.CPUInfo;
 import rs.pedjaapps.KernelTuner.R;
 import rs.pedjaapps.KernelTuner.Thermald;
 import android.app.Activity;
@@ -14,7 +15,7 @@ public class ThermaldShortcut extends Activity
 	public void onCreate(Bundle savedInstanceState)
 	{
 		super.onCreate(savedInstanceState);
-		
+		if(CPUInfo.thermaldExists()){
 		Intent shortcutintent = new Intent("com.android.launcher.action.INSTALL_SHORTCUT");
 		shortcutintent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
 		shortcutintent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
@@ -31,5 +32,10 @@ public class ThermaldShortcut extends Activity
 		sendBroadcast(shortcutintent);
 		Toast.makeText(ThermaldShortcut.this, "Shortcut Thermald created", Toast.LENGTH_SHORT).show();
 		finish();
+		}
+		else{
+			Toast.makeText(ThermaldShortcut.this, "Your kernel doesnt support Thermald\nShortcut not created", Toast.LENGTH_SHORT).show();
+			finish();
+		}
 	}
 }

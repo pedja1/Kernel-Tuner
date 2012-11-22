@@ -1,5 +1,6 @@
 package rs.pedjaapps.KernelTuner.shortcuts;
 
+import rs.pedjaapps.KernelTuner.CPUInfo;
 import rs.pedjaapps.KernelTuner.Mpdecision;
 import rs.pedjaapps.KernelTuner.R;
 import android.app.Activity;
@@ -14,7 +15,7 @@ public class MpdecisionShortcut extends Activity
 	public void onCreate(Bundle savedInstanceState)
 	{
 		super.onCreate(savedInstanceState);
-		
+		if(CPUInfo.mpdecisionExists()){
 		Intent shortcutintent = new Intent("com.android.launcher.action.INSTALL_SHORTCUT");
 		shortcutintent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
 		shortcutintent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
@@ -31,5 +32,10 @@ public class MpdecisionShortcut extends Activity
 		sendBroadcast(shortcutintent);
 		Toast.makeText(MpdecisionShortcut.this, "Shortcut Mpdecision created", Toast.LENGTH_SHORT).show();
 		finish();
+		}
+		else{
+			Toast.makeText(MpdecisionShortcut.this, "Your kernel doesnt support Mpdecision\nShortcut not created", Toast.LENGTH_SHORT).show();
+			finish();
+		}
 	}
 }

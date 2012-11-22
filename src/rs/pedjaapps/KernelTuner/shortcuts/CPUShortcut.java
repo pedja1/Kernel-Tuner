@@ -1,6 +1,7 @@
 package rs.pedjaapps.KernelTuner.shortcuts;
 
 import rs.pedjaapps.KernelTuner.CPUActivity;
+import rs.pedjaapps.KernelTuner.CPUInfo;
 import rs.pedjaapps.KernelTuner.R;
 import android.app.Activity;
 import android.content.Intent;
@@ -14,7 +15,7 @@ public class CPUShortcut extends Activity
 	public void onCreate(Bundle savedInstanceState)
 	{
 		super.onCreate(savedInstanceState);
-		
+		if(CPUInfo.freqsExists() || CPUInfo.TISExists()){
 		Intent shortcutintent = new Intent("com.android.launcher.action.INSTALL_SHORTCUT");
 		shortcutintent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
 		shortcutintent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
@@ -31,5 +32,10 @@ public class CPUShortcut extends Activity
 		sendBroadcast(shortcutintent);
 		Toast.makeText(CPUShortcut.this, "Shortcut CPUTweaks created", Toast.LENGTH_SHORT).show();
 		finish();
+		}
+		else{
+			Toast.makeText(CPUShortcut.this, "Your kernel doesnt support CPU Overclocking\nShortcut not created", Toast.LENGTH_SHORT).show();
+			finish();
+		}
 	}
 }

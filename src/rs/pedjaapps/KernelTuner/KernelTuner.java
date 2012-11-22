@@ -1527,6 +1527,8 @@ public void startCpuLoadThread() {
 		} catch (IOException e) {
 		
 		}
+		
+		
 
 
 
