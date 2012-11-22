@@ -1519,7 +1519,7 @@ public class CPUInfo
 
 	public static String cpuTemp()
 	{
-		String cpuTemp = "";
+		String cpuTemp = "0";
 		try
 		{
 
@@ -1543,6 +1543,7 @@ public class CPUInfo
 		}
 		catch (Exception e2)
 		{
+			cpuTemp = "0";
 		}
 
 		return cpuTemp;
