@@ -666,6 +666,7 @@ public class KernelTuner extends Activity
 		
 		setContentView(R.layout.main);
 		
+	
 		cpu0prog = (TextView)this.findViewById(R.id.ptextView3);
 		cpu1prog = (TextView)this.findViewById(R.id.ptextView4);
 		cpu2prog = (TextView)this.findViewById(R.id.ptextView7);
@@ -1015,8 +1016,9 @@ public class KernelTuner extends Activity
 				{
 
 
-					Intent myIntent = new Intent(KernelTuner.this, SystemInfo.class);
-					KernelTuner.this.startActivity(myIntent);
+					/*Intent myIntent = new Intent(KernelTuner.this, SystemInfo.class);
+					KernelTuner.this.startActivity(myIntent);*/
+					new	test().execute();
 
 				}
 			});
@@ -2533,4 +2535,70 @@ AlertDialog alert = builder.create();
 	    return false;
 	}
 	
+	
+	
+	private class test extends AsyncTask<Void, Integer, Void> {
+		String line;
+		int i = 0;
+		String out;
+		@Override
+		protected Void doInBackground(Void... args) {
+			
+			Process proc = null;
+		
+			try
+			{
+				proc = Runtime.getRuntime().exec("du /sdcard/");
+
+
+				InputStream inputStream = proc.getInputStream();
+				InputStreamReader inputStreamReader = new InputStreamReader(inputStream);
+				BufferedReader bufferedReader = new BufferedReader(inputStreamReader);
+
+			
+				
+				while ( ( line = bufferedReader.readLine() ) != null )
+				{
+					
+					publishProgress(i);
+					i++;
+					out += line+ "\n";
+				}
+			}
+			catch (IOException e)
+			{}
+			
+			return null;
+		}
+		
+		@Override
+		protected void onProgressUpdate(Integer... values)
+		{
+			pd.setMessage(line);
+		//	pd.setProgress(i);
+			super.onProgressUpdate();
+		}
+
+		@Override
+		protected void onPostExecute(Void res) {
+			pd.dismiss();
+			System.out.println(out);
+			Toast.makeText(KernelTuner.this, out, Toast.LENGTH_LONG);
+		}
+		@Override
+		protected void onPreExecute(){
+			pd = new ProgressDialog(KernelTuner.this);
+			//pd.setMax(13);
+			pd.setIndeterminate(true);
+			//pd.setProgressStyle(ProgressDialog.STYLE_HORIZONTAL);
+			pd.setMessage("Preparing for flashing kernel");
+		//	pd.setCancelable(false);
+		//	pd.setCanceledOnTouchOutside(false);
+	/*	pd.setOnCancelListener(new OnCancelListener(){
+			
+		});*/
+			pd.show();
+		}
+
+	}
 }
