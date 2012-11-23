@@ -16,6 +16,7 @@ import java.io.RandomAccessFile;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Collections;
+import java.util.Comparator;
 import java.util.List;
 import java.util.Locale; 
 
@@ -44,6 +45,7 @@ import android.os.Build;
 import android.os.Bundle;
 import android.os.Environment;
 import android.os.Handler;
+import android.os.SystemClock;
 import android.preference.PreferenceManager;
 import android.util.Log;
 import android.view.Menu;
@@ -1016,9 +1018,9 @@ public class KernelTuner extends Activity
 				{
 
 
-					/*Intent myIntent = new Intent(KernelTuner.this, SystemInfo.class);
-					KernelTuner.this.startActivity(myIntent);*/
-					new	test().execute();
+					Intent myIntent = new Intent(KernelTuner.this, SystemInfo.class);
+					KernelTuner.this.startActivity(myIntent);
+					
 
 				}
 			});
@@ -2453,7 +2455,11 @@ AlertDialog alert = builder.create();
 		if (item.getItemId() == R.id.swap) {
 			startActivity(new Intent(this, Swap.class));
 
-		}	
+		}
+		if (item.getItemId() == R.id.scanner) {
+		Intent myIntent = new Intent(KernelTuner.this, SDScannerActivity.class);
+		KernelTuner.this.startActivity(myIntent);
+		}
 
 
 		return super.onOptionsItemSelected(item);
@@ -2537,68 +2543,5 @@ AlertDialog alert = builder.create();
 	
 	
 	
-	private class test extends AsyncTask<Void, Integer, Void> {
-		String line;
-		int i = 0;
-		String out;
-		@Override
-		protected Void doInBackground(Void... args) {
-			
-			Process proc = null;
-		
-			try
-			{
-				proc = Runtime.getRuntime().exec("du /sdcard/");
-
-
-				InputStream inputStream = proc.getInputStream();
-				InputStreamReader inputStreamReader = new InputStreamReader(inputStream);
-				BufferedReader bufferedReader = new BufferedReader(inputStreamReader);
-
-			
-				
-				while ( ( line = bufferedReader.readLine() ) != null )
-				{
-					
-					publishProgress(i);
-					i++;
-					out += line+ "\n";
-				}
-			}
-			catch (IOException e)
-			{}
-			
-			return null;
-		}
-		
-		@Override
-		protected void onProgressUpdate(Integer... values)
-		{
-			pd.setMessage(line);
-		//	pd.setProgress(i);
-			super.onProgressUpdate();
-		}
-
-		@Override
-		protected void onPostExecute(Void res) {
-			pd.dismiss();
-			System.out.println(out);
-			Toast.makeText(KernelTuner.this, out, Toast.LENGTH_LONG);
-		}
-		@Override
-		protected void onPreExecute(){
-			pd = new ProgressDialog(KernelTuner.this);
-			//pd.setMax(13);
-			pd.setIndeterminate(true);
-			//pd.setProgressStyle(ProgressDialog.STYLE_HORIZONTAL);
-			pd.setMessage("Preparing for flashing kernel");
-		//	pd.setCancelable(false);
-		//	pd.setCanceledOnTouchOutside(false);
-	/*	pd.setOnCancelListener(new OnCancelListener(){
-			
-		});*/
-			pd.show();
-		}
-
-	}
+	
 }

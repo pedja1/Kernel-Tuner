@@ -30,5 +30,10 @@
         android:icon="@drawable/swap"
         android:showAsAction="never"
         android:title="Swap"/>
+	
+	<item
+        android:id="@+id/scanner"
+        android:showAsAction="never"
+        android:title="SD Card Scanner"/>
     
 </menu>
