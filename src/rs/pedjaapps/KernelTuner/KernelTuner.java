@@ -1531,7 +1531,7 @@ public void startCpuLoadThread() {
 		} catch (IOException e) {
 		
 		}
-		File file8 = new File("/sys/module/lowmemorykiller/parameters/minfree");
+		File file8 = new File(CPUInfo.OOM);
 		try
 		{
 			InputStream fIn = new FileInputStream(file8);

@@ -3,6 +3,7 @@ package rs.pedjaapps.KernelTuner.shortcuts;
 import java.util.ArrayList;
 import java.util.List;
 
+import rs.pedjaapps.KernelTuner.OOM;
 import rs.pedjaapps.KernelTuner.R;
 import android.app.Activity;
 import android.content.Intent;
@@ -34,7 +35,8 @@ ListView shortcutListView;
 		"Profiles",
 		"Swap",
 		"System Info",
-		"Settings"};
+		"Settings",
+		"OOM"};
 	String[] descs ={"Normal Reboot", 
 		"Reboot device in recovery mode",
 		"Reboot device in bootloader", 
@@ -49,7 +51,8 @@ ListView shortcutListView;
 		"Manage Settings Profiles",
 		"Create and manage Swap",
 		"View System Information",
-		"Change app Settings" };
+		"Change app Settings",
+		"Out Of Memory Settings"};
 
 	int[] icons = {R.drawable.reboot,
 		R.drawable.reboot,
@@ -65,7 +68,8 @@ ListView shortcutListView;
 		R.drawable.profile,
 		R.drawable.swap,
 		R.drawable.info,
-		R.drawable.misc};
+		R.drawable.misc,
+		R.drawable.swap};
 	Class<?>[] classes = {RebootShortcut.class, 
 			RebootShortcut.class, 
 			RebootShortcut.class, 
@@ -80,7 +84,8 @@ ListView shortcutListView;
 			ProfilesShortcut.class,
 			SwapShortcut.class,
 			InfoShortcut.class,
-			SettingsShortcut.class};
+			SettingsShortcut.class,
+			OOM.class};
 
 	@Override
 	public void onCreate(Bundle savedInstanceState)

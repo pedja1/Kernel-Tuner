@@ -80,6 +80,17 @@ public class CPUInfo
 
 	}
 	
+	public static boolean oomExists()
+	{
+		boolean i = false;
+		if (new File(OOM).exists())
+		{
+			i = true;
+		}
+		return i;
+
+	}
+	
 	public static boolean thermaldExists()
 	{
 		boolean i = false;
