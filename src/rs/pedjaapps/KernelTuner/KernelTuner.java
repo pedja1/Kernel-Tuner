@@ -953,7 +953,7 @@ public class KernelTuner extends Activity
 				}
 
 			});
-
+		
 		Button oom = (Button)this.findViewById(R.id.button13);
 		oom.setOnClickListener(new OnClickListener(){
 
@@ -1531,6 +1531,21 @@ public void startCpuLoadThread() {
 		} catch (IOException e) {
 		
 		}
+		File file8 = new File("/sys/module/lowmemorykiller/parameters/minfree");
+		try
+		{
+			InputStream fIn = new FileInputStream(file8);
+			fIn.close();
+		}
+		catch (FileNotFoundException e)
+		{ 
+			Button oom = (Button)this.findViewById(R.id.button13);
+			oom.setVisibility(View.GONE);
+
+		} catch (IOException e) {
+		
+		}
+			
 		
 		
 

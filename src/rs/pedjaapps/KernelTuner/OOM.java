@@ -223,12 +223,18 @@ public class OOM extends Activity {
 	}
 
 	public void updateUI() {
+		try{
 		foreground = Integer.parseInt(oom.get(0).trim()) * 4 / 1024;
 		visible = Integer.parseInt(oom.get(1).trim()) * 4 / 1024;
 		secondary = Integer.parseInt(oom.get(2).trim()) * 4 / 1024;
 		hidden = Integer.parseInt(oom.get(3).trim()) * 4 / 1024;
 		content = Integer.parseInt(oom.get(4).trim()) * 4 / 1024;
 		empty = Integer.parseInt(oom.get(5).trim()) * 4 / 1024;
+		}
+		catch(NumberFormatException e){
+			Toast.makeText(this,  "error: "+e.getMessage(), Toast.LENGTH_LONG).show();
+			finish();
+		}
 		foregroundSeek.setProgress(foreground);
 		visibleSeek.setProgress(visible);
 		secondarySeek.setProgress(secondary);
