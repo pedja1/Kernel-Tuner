@@ -3,18 +3,18 @@ package rs.pedjaapps.KernelTuner;
 
 import android.app.*;
 import android.content.*;
-import android.content.DialogInterface.*;
+import android.content.DialogInterface.OnCancelListener;
 import android.os.*;
 import android.preference.*;
 import android.util.*;
 import android.view.*;
+import android.view.View.OnClickListener;
 import android.widget.*;
 import android.widget.AdapterView.*;
 import com.google.ads.*;
 import java.io.*;
 import java.text.*;
 import java.util.*;
-
 import java.lang.Process;
 
 public class SDScannerActivity extends Activity
@@ -37,8 +37,20 @@ public class SDScannerActivity extends Activity
 		if (ads == true)
 		{AdView adView = (AdView)findViewById(R.id.ad);
 			adView.loadAd(new AdRequest());}
-	//	new ScannSDCard().execute(new String[] {"/sdcard/"});
-	Toast.makeText(this, size(1276), Toast.LENGTH_LONG).show();
+	
+		final EditText path = (EditText)findViewById(R.id.editText1);
+		final EditText depth = (EditText)findViewById(R.id.editText2);
+		final EditText numberOfItems = (EditText)findViewById(R.id.editText3);
+		Button scan = (Button)findViewById(R.id.button2);
+		final LinearLayout l = (LinearLayout)findViewById(R.id.ll);
+		scan.setOnClickListener(new OnClickListener(){
+			@Override
+			public void onClick(View arg0) {
+				new ScannSDCard().execute(new String[] {path.getText().toString(), depth.getText().toString(), numberOfItems.getText().toString()});
+				l.setVisibility(View.GONE);
+			}
+			
+		});
 		sdListView = (ListView) findViewById(R.id.list);
 		sdAdapter = new SDScannerAdapter(this, R.layout.sd_scanner_list_item);
 		sdListView.setAdapter(sdAdapter);
@@ -49,28 +61,18 @@ public class SDScannerActivity extends Activity
 			public void onItemClick(AdapterView<?> arg0, View arg1, int arg2,
 					long arg3) {
 			
-				new ScannSDCard().execute(new String[] {entries.get(arg2).getPath()});
+				//new ScannSDCard().execute(new String[] {entries.get(arg2).getPath()});
 			}
 			
 		});
 		
 	}
 
-	/*private List<SDScannerEntry> getSDScannerEntries()
-	{
 
-		final List<TISEntry> entries = new ArrayList<TISEntry>();
-
-		
-
-
-		return entries;
-	}*/
 
 	private class ScannSDCard extends AsyncTask<String, Integer, Void> {
 		String line;
-		int i = 0;
-		
+		int numberOfItems;
 
 		
 		
@@ -79,10 +81,10 @@ public class SDScannerActivity extends Activity
 		protected Void doInBackground(String... args) {
 			
 			Process proc = null;
-		
+			numberOfItems = Integer.parseInt(args[2]);
 			try
 			{
-				proc = Runtime.getRuntime().exec("du -d 1 "+args[0]);
+				proc = Runtime.getRuntime().exec("du -d "+args[1] + " " +args[0]);
 
 
 				InputStream inputStream = proc.getInputStream();
@@ -90,7 +92,6 @@ public class SDScannerActivity extends Activity
 				BufferedReader bufferedReader = new BufferedReader(inputStreamReader);
 
 			
-				
 				while ( ( line = bufferedReader.readLine() ) != null )
 				{
 
@@ -117,7 +118,7 @@ public class SDScannerActivity extends Activity
 			
 			Collections.sort(entries,new MyComparator());
 			entries.remove(entries.get(0));
-			for(int i = entries.size(); i>20; i--){
+			for(int i = entries.size(); i>numberOfItems; i--){
 				entries.remove(entries.size()-1);
 			}
 				
@@ -176,30 +177,35 @@ public class SDScannerActivity extends Activity
 		
 		DecimalFormat dec = new DecimalFormat("0.00");
 	
-		if (k!=0)
+		if (t>1)
+		{
+	
+			hrSize = dec.format(t).concat("TB");
+		}
+		else if (g>1)
+		{
+			
+			hrSize = dec.format(g).concat("GB");
+		}
+		else if (m>1)
+		{
+		
+			hrSize = dec.format(m).concat("MB");
+		}
+		else if (k>1)
 		{
 	
 			hrSize = dec.format(k).concat("KB");
 
 		}
-	else if (m!=0)
-		{
 		
-			hrSize = dec.format(m).concat("MB");
-		}
-	else if (g!=0)
-		{
-			
-			hrSize = dec.format(g).concat("GB");
-		}
-	else if (t!=0)
-		{
-	
-			hrSize = dec.format(t).concat("TB");
-		}
+		
+		
 		
 		return hrSize;
 		
 	}
 	
+	
+		
 }

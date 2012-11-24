@@ -260,5 +260,11 @@
 	<string name="notificatio_preferences_warning">This options are likely to cause higher battery drain. Proceed with caution!</string>
 	<string name="select_profile_">Select Profile:</string>
 	<string name="presets">Presets</string>
+	<string name="Browse">browse</string>
+	<string name="browse">Browse</string>
+	<string name="scann_depth">Scann Depth(how many subfolders to scann)</string>
+	<string name="number_of_items">Number Of Items To Dysplay</string>
+	<string name="scann">Scann</string>
+	<string name="folder_to_scann">Folder to scann(enter full path)</string>
 
 </resources>
