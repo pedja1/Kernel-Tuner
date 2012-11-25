@@ -28,6 +28,8 @@ public class TISActivity extends Activity
 
 	TISAdapter tisAdapter ;
 	ListView tisListView;
+	ViewGroup header;
+	ViewGroup footer;
 	@Override
 	public void onCreate(Bundle savedInstanceState)
 	{
@@ -44,18 +46,18 @@ public class TISActivity extends Activity
 		tisListView = (ListView) findViewById(R.id.list);
 		tisAdapter = new TISAdapter(this, R.layout.tis_list_item);
 		LayoutInflater inflater = getLayoutInflater();
-		ViewGroup header = (ViewGroup)inflater.inflate(R.layout.tis_header, tisListView, false);
-		ViewGroup footer = (ViewGroup)inflater.inflate(R.layout.tis_footer, tisListView, false);
+		header = (ViewGroup)inflater.inflate(R.layout.tis_header, tisListView, false);
+		footer = (ViewGroup)inflater.inflate(R.layout.tis_footer, tisListView, false);
 		
 		tisListView.addHeaderView(header, null, false);
 		tisListView.addFooterView(footer, null, false);
-		String deepSleep = hrTime(SystemClock.elapsedRealtime() - SystemClock.uptimeMillis());
-		String bootTime = hrTime(SystemClock.elapsedRealtime());
+		String deepSleep = hrTimeSystem(SystemClock.elapsedRealtime() - SystemClock.uptimeMillis());
+		String bootTime = hrTimeSystem(SystemClock.elapsedRealtime());
 		TextView deepSleepText = (TextView)footer.findViewById(R.id.deep_sleep);
 		TextView bootTimeText = (TextView)footer.findViewById(R.id.boot_time);
 		deepSleepText.setText(deepSleep);
 		bootTimeText.setText(bootTime);
-		
+		setDeepSleepAndUptime();
 		tisListView.setAdapter(tisAdapter);
 
 		for (final TISEntry entry : getTISEntries())
@@ -68,6 +70,7 @@ public class TISActivity extends Activity
 				@Override
 				public void onClick(View arg0)
 				{
+					setDeepSleepAndUptime();
 					times = CPUInfo.getTis();
 					tisAdapter.clear();
 					for (final TISEntry entry : getTISEntries())
@@ -82,6 +85,16 @@ public class TISActivity extends Activity
 
 	}
 
+	public void setDeepSleepAndUptime(){
+		String deepSleep = hrTimeSystem(SystemClock.elapsedRealtime() - SystemClock.uptimeMillis());
+		String bootTime = hrTimeSystem(SystemClock.elapsedRealtime());
+		TextView deepSleepText = (TextView)footer.findViewById(R.id.deep_sleep);
+		TextView bootTimeText = (TextView)footer.findViewById(R.id.boot_time);
+		deepSleepText.setText(deepSleep);
+		bootTimeText.setText(bootTime);
+		
+	}
+	
 	private List<TISEntry> getTISEntries()
 	{
 
@@ -109,6 +122,40 @@ public class TISActivity extends Activity
 		String m = String.valueOf((int)((time / (100 * 60)) % 60));
 		String h = String.valueOf((int)((time / (100 * 3600)) % 24));
 		String d = String.valueOf((int)(time / (100 * 60 * 60 * 24)));
+		StringBuilder builder = new StringBuilder();
+		if (!d.equals("0"))
+		{
+			builder.append(d + "d:");
+
+		}
+		if (!h.equals("0"))
+		{
+			builder.append(h + "h:");
+
+		}
+		if (!m.equals("0"))
+		{
+			builder.append(m + "m:");
+
+		}
+
+		builder.append(s + "s");
+
+
+		timeString = builder.toString();
+		return timeString;
+
+
+	}
+	
+	public String hrTimeSystem(long time)
+	{
+		
+		String timeString;
+		String s = String.valueOf((int)((time / 1000) % 60));
+		String m = String.valueOf((int)((time / (1000 * 60)) % 60));
+		String h = String.valueOf((int)((time / (1000 * 3600)) % 24));
+		String d = String.valueOf((int)(time / (1000 * 60 * 60 * 24)));
 		StringBuilder builder = new StringBuilder();
 		if (!d.equals("0"))
 		{

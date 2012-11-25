@@ -5,19 +5,6 @@
     tools:context=".KernelTuner"
     android:layout_width="match_parent"
     android:layout_height="match_parent" >
-
-    <ListView
-		android:id="@+id/list"
-		android:layout_width="match_parent"
-		android:layout_height="wrap_content"
-		android:layout_alignParentTop="true"
-		android:layout_alignParentLeft="true"
-	
-    android:animateLayoutChanges="true"
-		
-		>
-		
-	</ListView>
 		
 		
 	
@@ -37,6 +24,12 @@
             ads:testDevices="TEST_EMULATOR, 3CE20BB714ED336822A2508B26BBC32B" />
     </LinearLayout>
 
+    <LinearLayout android:id="@+id/chart" 
+        android:orientation="horizontal"
+		android:layout_width="fill_parent" 
+		android:layout_height="wrap_content" 
+		android:layout_below="@+id/ll" />
+    
     <LinearLayout
         android:id="@+id/ll"
         android:layout_width="match_parent"

@@ -36,4 +36,5 @@
         android:showAsAction="never"
         android:title="SD Card Scanner"/>
     
+	
 </menu>

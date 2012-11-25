@@ -3,8 +3,8 @@
 	package="rs.pedjaapps.KernelTuner"
 	android:installLocation="internalOnly"
 	xmlns:tools="http://schemas.android.com/tools"
-	android:versionCode="22102012"
-	android:versionName="3.3.1">
+	android:versionCode="25102012"
+	android:versionName="3.3.2">
 
 
 	<uses-sdk android:minSdkVersion="9"
@@ -105,7 +105,7 @@
 		<activity android:name=".GovernorActivity" android:label="@string/title_governor" android:icon="@drawable/dual" android:exported="true"></activity>
 		<activity android:name=".Reboot" android:label="Reboot" android:icon="@drawable/ic_launcher" android:exported="true"></activity>
 		<activity android:name=".OOM" android:label="OOM" android:icon="@drawable/swap" android:exported="true" android:theme="@style/Theme.Dialog.NoTitleBar"></activity>
-		<activity android:name=".SDScannerActivity" android:label="SD Card Analyzer" android:icon="@drawable/swap" android:exported="true"></activity>
+		<activity android:name=".SDScannerActivity" android:label="SD Card Analyzer" android:icon="@drawable/swap" android:exported="true" android:configChanges="keyboardHidden|orientation" android:screenOrientation="portrait"></activity>
 		
 		<activity
             android:name=".ui.EditActivity"

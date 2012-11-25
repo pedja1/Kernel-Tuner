@@ -953,7 +953,7 @@ public class KernelTuner extends Activity
 				}
 
 			});
-		
+
 		Button oom = (Button)this.findViewById(R.id.button13);
 		oom.setOnClickListener(new OnClickListener(){
 
@@ -1531,21 +1531,6 @@ public void startCpuLoadThread() {
 		} catch (IOException e) {
 		
 		}
-		File file8 = new File(CPUInfo.OOM);
-		try
-		{
-			InputStream fIn = new FileInputStream(file8);
-			fIn.close();
-		}
-		catch (FileNotFoundException e)
-		{ 
-			Button oom = (Button)this.findViewById(R.id.button13);
-			oom.setVisibility(View.GONE);
-
-		} catch (IOException e) {
-		
-		}
-			
 		
 		
 
@@ -2475,7 +2460,7 @@ AlertDialog alert = builder.create();
 		Intent myIntent = new Intent(KernelTuner.this, SDScannerActivity.class);
 		KernelTuner.this.startActivity(myIntent);
 		}
-
+		
 
 		return super.onOptionsItemSelected(item);
 	}
