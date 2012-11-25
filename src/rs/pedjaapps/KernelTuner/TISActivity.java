@@ -9,10 +9,13 @@ import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.os.SystemClock;
 import android.preference.PreferenceManager;
+import android.view.LayoutInflater;
 import android.view.View;
 import android.view.View.OnClickListener;
+import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.ListView;
+import android.widget.TextView;
 
 import com.google.ads.AdRequest;
 import com.google.ads.AdView;
@@ -20,6 +23,7 @@ import com.google.ads.AdView;
 public class TISActivity extends Activity
 {
 
+	List<TimesEntry> times = CPUInfo.getTis();
 	
 
 	TISAdapter tisAdapter ;
@@ -39,6 +43,19 @@ public class TISActivity extends Activity
 
 		tisListView = (ListView) findViewById(R.id.list);
 		tisAdapter = new TISAdapter(this, R.layout.tis_list_item);
+		LayoutInflater inflater = getLayoutInflater();
+		ViewGroup header = (ViewGroup)inflater.inflate(R.layout.tis_header, tisListView, false);
+		ViewGroup footer = (ViewGroup)inflater.inflate(R.layout.tis_footer, tisListView, false);
+		
+		tisListView.addHeaderView(header, null, false);
+		tisListView.addFooterView(footer, null, false);
+		String deepSleep = hrTime(SystemClock.elapsedRealtime() - SystemClock.uptimeMillis());
+		String bootTime = hrTime(SystemClock.elapsedRealtime());
+		TextView deepSleepText = (TextView)footer.findViewById(R.id.deep_sleep);
+		TextView bootTimeText = (TextView)footer.findViewById(R.id.boot_time);
+		deepSleepText.setText(deepSleep);
+		bootTimeText.setText(bootTime);
+		
 		tisListView.setAdapter(tisAdapter);
 
 		for (final TISEntry entry : getTISEntries())
@@ -51,6 +68,7 @@ public class TISActivity extends Activity
 				@Override
 				public void onClick(View arg0)
 				{
+					times = CPUInfo.getTis();
 					tisAdapter.clear();
 					for (final TISEntry entry : getTISEntries())
 					{
@@ -68,25 +86,63 @@ public class TISActivity extends Activity
 	{
 
 		final List<TISEntry> entries = new ArrayList<TISEntry>();
-
-		List<String> frequencies = CPUInfo.frequencies();
-		List<String> tisTime = CPUInfo.tisTime();
-		List<String> tisPercent = CPUInfo.tisPercent();
-		long deepSleep = SystemClock.elapsedRealtime() - SystemClock.uptimeMillis();
-
-		String min = String.valueOf((((deepSleep / 1000) / 60) % 60));
-		String sec = String.valueOf(((deepSleep / 1000) % 60));
-		String sat = String.valueOf(((deepSleep / 1000) / 3600));
-		String time = sat + "h:" + min + "m:" + sec + "s";
-		entries.add(new TISEntry("offline", time, String.valueOf(deepSleep * 100 / SystemClock.elapsedRealtime()) + "%", (int)(deepSleep * 100 / SystemClock.elapsedRealtime())));
-
-		for (int i =0; i < frequencies.size(); i++)
+		
+		long totalTime = totalTime();
+		
+		
+		
+		for (TimesEntry t : times)
 		{
-			entries.add(new TISEntry(frequencies.get(i).substring(0, frequencies.get(i).length() - 3) + "Mhz", tisTime.get(i), tisPercent.get(i) + "%", Integer.parseInt(tisPercent.get(i))));
+			entries.add(new TISEntry(String.valueOf(t.getFreq()/1000)+"Mhz", hrTime(t.getTime()), String.valueOf(t.getTime()*100/totalTime) + "%", (int)(t.getTime()*100/totalTime)));
+			System.out.println(hrTime(t.getTime()));
 		}
 
 
 		return entries;
+	}
+	
+	public String hrTime(long time)
+	{
+		
+		String timeString;
+		String s = String.valueOf((int)((time / 100) % 60));
+		String m = String.valueOf((int)((time / (100 * 60)) % 60));
+		String h = String.valueOf((int)((time / (100 * 3600)) % 24));
+		String d = String.valueOf((int)(time / (100 * 60 * 60 * 24)));
+		StringBuilder builder = new StringBuilder();
+		if (!d.equals("0"))
+		{
+			builder.append(d + "d:");
+
+		}
+		if (!h.equals("0"))
+		{
+			builder.append(h + "h:");
+
+		}
+		if (!m.equals("0"))
+		{
+			builder.append(m + "m:");
+
+		}
+
+		builder.append(s + "s");
+
+
+		timeString = builder.toString();
+		return timeString;
+
+
+	}
+	
+	public long totalTime(){
+		long a=0;
+        for (int i =0; i < times.size(); i++)
+        {
+                a = a + times.get(i).getTime();
+        }
+		return a;
+		
 	}
 
 }

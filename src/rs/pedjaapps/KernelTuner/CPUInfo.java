@@ -12,6 +12,7 @@ import java.util.Collections;
 import java.util.List;
 
 import android.os.SystemClock;
+import android.util.Log;
 
 public class CPUInfo
 {
@@ -922,13 +923,9 @@ public class CPUInfo
 	}
 
 
-	public static List<String> tisTime()
+	public static  List<TimesEntry> getTis()
 	{
-		List<String> tisTime = new ArrayList<String>();
-		List<Integer> cpu0Times = new ArrayList<Integer>();
-		List<Integer> cpu1Times = new ArrayList<Integer>();
-		List<Integer> cpu2Times = new ArrayList<Integer>();
-		List<Integer> cpu3Times = new ArrayList<Integer>();
+		List<TimesEntry> times = new ArrayList<TimesEntry>();
 
 		try
 		{
@@ -942,280 +939,22 @@ public class CPUInfo
 			while ((strLine = br.readLine()) != null)
 			{	
 				String[] delims = strLine.split(" ");
-				cpu0Times.add(Integer.parseInt(delims[1]));
+				times.add(new TimesEntry(Integer.parseInt(delims[0]), Long.parseLong(delims[1])));
+				System.out.println(strLine);
 			}
 
 			in.close();
 		}
 		catch (Exception e)
 		{
-			System.err.println("Error: " + e.getMessage());
+			Log.e("Error: " , e.getMessage());
 		}
-		if (cpu1Online() == true)
-		{
-			try
-			{
-
-				FileInputStream fstream = new FileInputStream(TIMES_IN_STATE_CPU1);
-
-				DataInputStream in = new DataInputStream(fstream);
-				BufferedReader br = new BufferedReader(new InputStreamReader(in));
-				String strLine;
-
-				while ((strLine = br.readLine()) != null)
-				{	
-					String[] delims = strLine.split(" ");
-					cpu1Times.add(Integer.parseInt(delims[1]));
-				}
-
-				in.close();
-			}
-			catch (Exception e)
-			{
-				for (int i = 0; i < cpu0Times.size(); i++)
-				{
-					cpu1Times.add(0);
-				}
-			}
-		}
-		else
-		{
-			for (int i = 0; i < cpu0Times.size(); i++)
-			{
-				cpu1Times.add(0);
-			}
-		}
-		if (cpu2Online() == true)
-		{
-			try
-			{
-
-				FileInputStream fstream = new FileInputStream(TIMES_IN_STATE_CPU2);
-
-				DataInputStream in = new DataInputStream(fstream);
-				BufferedReader br = new BufferedReader(new InputStreamReader(in));
-				String strLine;
-
-				while ((strLine = br.readLine()) != null)
-				{	
-					String[] delims = strLine.split(" ");
-					cpu2Times.add(Integer.parseInt(delims[1]));
-				}
-
-				in.close();
-			}
-			catch (Exception e)
-			{
-				for (int i = 0; i < cpu0Times.size(); i++)
-				{
-					cpu2Times.add(0);
-				}
-			}
-		}
-		else
-		{
-			for (int i = 0; i < cpu0Times.size(); i++)
-			{
-				cpu2Times.add(0);
-			}
-		}
-		if (cpu3Online() == true)
-		{
-			try
-			{
-
-				FileInputStream fstream = new FileInputStream(TIMES_IN_STATE_CPU3);
-
-				DataInputStream in = new DataInputStream(fstream);
-				BufferedReader br = new BufferedReader(new InputStreamReader(in));
-				String strLine;
-
-				while ((strLine = br.readLine()) != null)
-				{	
-					String[] delims = strLine.split(" ");
-					cpu3Times.add(Integer.parseInt(delims[1]));
-				}
-
-				in.close();
-			}
-			catch (Exception e)
-			{
-				for (int i = 0; i < cpu0Times.size(); i++)
-				{
-					cpu3Times.add(0);
-				}
-			}
-		}
-		else
-		{
-			for (int i = 0; i < cpu0Times.size(); i++)
-			{
-				cpu3Times.add(0);
-			}
-		}
-
-		for (int i =0; i < cpu0Times.size(); i++)
-		{
-
-			String min = String.valueOf(((((cpu0Times.get(i) + cpu1Times.get(i) + cpu2Times.get(i) + cpu3Times.get(i)) / 100) / 60) % 60));
-			String sec = String.valueOf((((cpu0Times.get(i) + cpu1Times.get(i) + cpu2Times.get(i) + cpu3Times.get(i)) / 100) % 60));
-			String sat = String.valueOf((((cpu0Times.get(i) + cpu1Times.get(i) + cpu2Times.get(i) + cpu3Times.get(i)) / 100) / 3600));
-			String time = sat + "h:" + min + "m:" + sec + "s";
-			tisTime.add(time);
-		}
-		return tisTime;
+		
+		return times;
 
 	}
 
-	public static List<String> tisPercent()
-	{
-		List<String> tisPercent = new ArrayList<String>();
-		List<Integer> cpu0Times = new ArrayList<Integer>();
-		List<Integer> cpu1Times = new ArrayList<Integer>();
-		List<Integer> cpu2Times = new ArrayList<Integer>();
-		List<Integer> cpu3Times = new ArrayList<Integer>();
-		List<Integer> cpuTimes = new ArrayList<Integer>();
-
-		try
-		{
-
-			FileInputStream fstream = new FileInputStream(TIMES_IN_STATE_CPU0);
-
-			DataInputStream in = new DataInputStream(fstream);
-			BufferedReader br = new BufferedReader(new InputStreamReader(in));
-			String strLine;
-
-			while ((strLine = br.readLine()) != null)
-			{	
-				String[] delims = strLine.split(" ");
-				cpu0Times.add(Integer.parseInt(delims[1]));
-			}
-
-			in.close();
-		}
-		catch (Exception e)
-		{
-
-		}
-		if (cpu1Online() == true)
-		{
-			try
-			{
-
-				FileInputStream fstream = new FileInputStream(TIMES_IN_STATE_CPU1);
-
-				DataInputStream in = new DataInputStream(fstream);
-				BufferedReader br = new BufferedReader(new InputStreamReader(in));
-				String strLine;
-
-				while ((strLine = br.readLine()) != null)
-				{	
-					String[] delims = strLine.split(" ");
-					cpu1Times.add(Integer.parseInt(delims[1]));
-				}
-
-				in.close();
-			}
-			catch (Exception e)
-			{
-				for (int i = 0; i < cpu0Times.size(); i++)
-				{
-					cpu1Times.add(0);
-				}
-			}
-		}
-		else
-		{
-			for (int i = 0; i < cpu0Times.size(); i++)
-			{
-				cpu1Times.add(0);
-			}
-		}
-		if (cpu2Online() == true)
-		{
-			try
-			{
-
-				FileInputStream fstream = new FileInputStream(TIMES_IN_STATE_CPU2);
-
-				DataInputStream in = new DataInputStream(fstream);
-				BufferedReader br = new BufferedReader(new InputStreamReader(in));
-				String strLine;
-
-				while ((strLine = br.readLine()) != null)
-				{	
-					String[] delims = strLine.split(" ");
-					cpu2Times.add(Integer.parseInt(delims[1]));
-				}
-
-				in.close();
-			}
-			catch (Exception e)
-			{
-				for (int i = 0; i < cpu0Times.size(); i++)
-				{
-					cpu2Times.add(0);
-				}
-			}
-		}
-		else
-		{
-			for (int i = 0; i < cpu0Times.size(); i++)
-			{
-				cpu2Times.add(0);
-			}
-		}
-		if (cpu3Online() == true)
-		{
-			try
-			{
-
-				FileInputStream fstream = new FileInputStream(TIMES_IN_STATE_CPU3);
-
-				DataInputStream in = new DataInputStream(fstream);
-				BufferedReader br = new BufferedReader(new InputStreamReader(in));
-				String strLine;
-
-				while ((strLine = br.readLine()) != null)
-				{	
-					String[] delims = strLine.split(" ");
-					cpu3Times.add(Integer.parseInt(delims[1]));
-				}
-
-				in.close();
-			}
-			catch (Exception e)
-			{
-				for (int i = 0; i < cpu0Times.size(); i++)
-				{
-					cpu3Times.add(0);
-				}
-			}
-		}
-		else
-		{
-			for (int i = 0; i < cpu0Times.size(); i++)
-			{
-				cpu3Times.add(0);
-			}
-		}
-
-		for (int i =0; i < cpu0Times.size(); i++)
-		{
-			cpuTimes.add((cpu0Times.get(i) + cpu1Times.get(i) + cpu2Times.get(i) + cpu3Times.get(i)));
-
-
-
-		}
-
-		for (int i =0; i < cpuTimes.size(); i++)
-		{
-			tisPercent.add(String.valueOf((cpuTimes.get(i) * 100 / totalTime())));
-		}
-
-		return tisPercent;
-
-	}
+	
 
 	public static List<Integer> voltages()
 	{
@@ -1345,151 +1084,6 @@ public class CPUInfo
 		return allVoltages;
 
 	}
-
-	public static int totalTime()
-	{
-		List<Integer> cpu0Times = new ArrayList<Integer>();
-		List<Integer> cpu1Times = new ArrayList<Integer>();
-		List<Integer> cpu2Times = new ArrayList<Integer>();
-		List<Integer> cpu3Times = new ArrayList<Integer>();
-		List<Integer> cpuTimes = new ArrayList<Integer>();
-
-		try
-		{
-
-			FileInputStream fstream = new FileInputStream(TIMES_IN_STATE_CPU0);
-
-			DataInputStream in = new DataInputStream(fstream);
-			BufferedReader br = new BufferedReader(new InputStreamReader(in));
-			String strLine;
-
-			while ((strLine = br.readLine()) != null)
-			{	
-				String[] delims = strLine.split(" ");
-				cpu0Times.add(Integer.parseInt(delims[1]));
-			}
-
-			in.close();
-		}
-		catch (Exception e)
-		{
-
-		}
-		if (cpu1Online() == true)
-		{
-			try
-			{
-
-				FileInputStream fstream = new FileInputStream(TIMES_IN_STATE_CPU1);
-
-				DataInputStream in = new DataInputStream(fstream);
-				BufferedReader br = new BufferedReader(new InputStreamReader(in));
-				String strLine;
-
-				while ((strLine = br.readLine()) != null)
-				{	
-					String[] delims = strLine.split(" ");
-					cpu1Times.add(Integer.parseInt(delims[1]));
-				}
-
-				in.close();
-			}
-			catch (Exception e)
-			{
-				for (int i = 0; i < cpu0Times.size(); i++)
-				{
-					cpu1Times.add(0);
-				}
-			}
-		}
-		else
-		{
-			for (int i = 0; i < cpu0Times.size(); i++)
-			{
-				cpu1Times.add(0);
-			}
-		}
-		if (cpu2Online() == true)
-		{
-			try
-			{
-
-				FileInputStream fstream = new FileInputStream(TIMES_IN_STATE_CPU2);
-
-				DataInputStream in = new DataInputStream(fstream);
-				BufferedReader br = new BufferedReader(new InputStreamReader(in));
-				String strLine;
-
-				while ((strLine = br.readLine()) != null)
-				{	
-					String[] delims = strLine.split(" ");
-					cpu2Times.add(Integer.parseInt(delims[1]));
-				}
-
-				in.close();
-			}
-			catch (Exception e)
-			{
-				for (int i = 0; i < cpu0Times.size(); i++)
-				{
-					cpu2Times.add(0);
-				}
-			}
-		}
-		else
-		{
-			for (int i = 0; i < cpu0Times.size(); i++)
-			{
-				cpu2Times.add(0);
-			}
-		}
-		if (cpu3Online() == true)
-		{
-			try
-			{
-
-				FileInputStream fstream = new FileInputStream(TIMES_IN_STATE_CPU3);
-
-				DataInputStream in = new DataInputStream(fstream);
-				BufferedReader br = new BufferedReader(new InputStreamReader(in));
-				String strLine;
-
-				while ((strLine = br.readLine()) != null)
-				{	
-					String[] delims = strLine.split(" ");
-					cpu3Times.add(Integer.parseInt(delims[1]));
-				}
-
-				in.close();
-			}
-			catch (Exception e)
-			{
-				for (int i = 0; i < cpu0Times.size(); i++)
-				{
-					cpu3Times.add(0);
-				}
-			}
-		}
-		else
-		{
-			for (int i = 0; i < cpu0Times.size(); i++)
-			{
-				cpu3Times.add(0);
-			}
-		}
-
-		for (int i =0; i < cpu0Times.size(); i++)
-		{
-			cpuTimes.add((cpu0Times.get(i) + cpu1Times.get(i) + cpu2Times.get(i) + cpu3Times.get(i)));
-
-		}
-		int a=0;
-		for (int i =0; i < cpuTimes.size(); i++)
-		{
-			a = a + cpuTimes.get(i);
-		}
-		return a;
-	} 
 
 	public static String uptime()
 	{
@@ -2503,4 +2097,5 @@ public class CPUInfo
 		}
 		return s2w;
 	}
+	
 }
