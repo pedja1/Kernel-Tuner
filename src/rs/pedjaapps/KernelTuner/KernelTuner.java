@@ -1,75 +1,29 @@
 package rs.pedjaapps.KernelTuner;
 
-import java.io.BufferedReader;
-import java.io.DataInputStream;
-import java.io.DataOutputStream;
-import java.io.File;
-import java.io.FileInputStream;
-import java.io.FileNotFoundException;
-import java.io.FileOutputStream;
-import java.io.IOException;
-import java.io.InputStream;
-import java.io.InputStreamReader;
-import java.io.OutputStream;
-import java.io.OutputStreamWriter;
-import java.io.RandomAccessFile;
-import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.Collections;
-import java.util.Comparator;
-import java.util.List;
-import java.util.Locale; 
+import android.annotation.*;
+import android.app.*;
+import android.app.ActivityManager.*;
+import android.appwidget.*;
+import android.content.*;
+import android.content.pm.*;
+import android.content.res.*;
+import android.graphics.*;
+import android.os.*;
+import android.preference.*;
+import android.util.*;
+import android.view.*;
+import android.view.View.*;
+import android.widget.*;
+import com.google.ads.*;
+import java.io.*;
+import java.util.*;
+import android.widget.CompoundButton.OnCheckedChangeListener;
 
-import android.annotation.SuppressLint;
-import android.app.Activity;
-import android.app.ActivityManager;
-import android.app.ActivityManager.RunningServiceInfo;
-import android.app.AlertDialog;
-import android.app.ProgressDialog;
-import android.appwidget.AppWidgetManager;
-import android.content.BroadcastReceiver;
-import android.content.ComponentName;
-import android.content.Context;
-import android.content.DialogInterface;
-import android.content.Intent;
-import android.content.IntentFilter;
-import android.content.SharedPreferences;
-import android.content.pm.PackageInfo;
-import android.content.pm.PackageManager;
-import android.content.res.AssetManager;
-import android.content.res.Configuration;
-import android.graphics.Color;
-import android.graphics.PorterDuffColorFilter;
-import android.os.AsyncTask;
-import android.os.BatteryManager;
-import android.os.Build;
-import android.os.Bundle;
-import android.os.Environment;
-import android.os.Handler;
-import android.os.SystemClock;
-import android.preference.PreferenceManager;
-import android.util.Log;
-import android.view.LayoutInflater;
-import android.view.Menu;
-import android.view.MenuInflater;
-import android.view.MenuItem;
-import android.view.View;
-import android.view.View.OnClickListener;
-import android.widget.Button;
-import android.widget.ImageView;
-import android.widget.LinearLayout;
-import android.widget.ProgressBar;
-import android.widget.RemoteViews;
-import android.widget.SeekBar;
-import android.widget.TextView;
-import android.widget.Toast;
-
-import com.google.ads.AdRequest;
-import com.google.ads.AdView;
+import java.lang.Process;
 
 
 
-//EndImports
+//EndImports 
 
 @SuppressLint("WorldReadableFiles")
 public class KernelTuner extends Activity
@@ -658,7 +612,7 @@ public class KernelTuner extends Activity
 
 
 	}
-
+	boolean first;
 	@Override
 	public void onCreate(Bundle savedInstanceState)
 	{
@@ -686,7 +640,7 @@ public class KernelTuner extends Activity
 		 editor = preferences.edit();
 		 /**
 		  * Extract assets if first launch*/
-		boolean first = preferences.getBoolean(
+		first = preferences.getBoolean(
 				"first_launch", false);
 		if (first == false) {
 			CopyAssets();
@@ -863,19 +817,20 @@ public class KernelTuner extends Activity
 				@Override
 				public void onClick(View v)
 				{
-
-				
+                    String tisChoice = sharedPrefs.getString("tis_open_as", "ask");
+				   if(tisChoice.equals("ask")){
 					AlertDialog.Builder builder = new AlertDialog.Builder(
 		                    KernelTuner.this);
 
 						builder.setTitle("Display As");
-						
+						final SharedPreferences.Editor editor = sharedPrefs.edit();
 						LayoutInflater inflater = (LayoutInflater)KernelTuner.this.getSystemService
 						(Context.LAYOUT_INFLATER_SERVICE);
 						View view = inflater.inflate(R.layout.tis_dialog, null);
 						ImageView list = (ImageView)view.findViewById(R.id.imageView1);
 						ImageView chart = (ImageView)view.findViewById(R.id.imageView2);
-						
+						final CheckBox remember =(CheckBox)view.findViewById(R.id.checkBox1);
+					 
 						list.setOnClickListener(new OnClickListener(){
 
 							@Override
@@ -883,6 +838,10 @@ public class KernelTuner extends Activity
 								
 								Intent myIntent = new Intent(KernelTuner.this, TISActivity.class);
 								KernelTuner.this.startActivity(myIntent);
+								if(remember.isChecked()){
+								editor.putString("tis_open_as","list");
+								editor.commit();
+								}
 								alert.dismiss();
 								
 							}
@@ -896,6 +855,10 @@ public class KernelTuner extends Activity
 								
 								Intent myIntent = new Intent(KernelTuner.this, TISActivityChart.class);
 								KernelTuner.this.startActivity(myIntent);
+								if(remember.isChecked()){
+								editor.putString("tis_open_as","chart");
+								editor.commit();
+								}
 								alert.dismiss();
 								
 							}
@@ -907,6 +870,16 @@ public class KernelTuner extends Activity
 						alert = builder.create();
 
 						alert.show();
+						}
+						else if(tisChoice.equals("list")){
+								Intent myIntent = new Intent(KernelTuner.this, TISActivity.class);
+								KernelTuner.this.startActivity(myIntent);
+						}
+						else if(tisChoice.equals("chart")){
+								Intent myIntent = new Intent(KernelTuner.this, TISActivityChart.class);
+								KernelTuner.this.startActivity(myIntent);
+						}
+						
 						
 
 				}
@@ -1253,6 +1226,10 @@ public void startCpuLoadThread() {
 
 				Intent myIntent = new Intent(KernelTuner.this, Changelog.class);
 				KernelTuner.this.startActivity(myIntent);
+					if (first == true) {
+			            CopyAssets();
+	             	}
+				
 
 			}	
 			SharedPreferences.Editor editor = preferences.edit();

@@ -60,4 +60,17 @@
 
 </string-array>
 
+	<string-array name="tisNames">
+		<item>Always Ask</item>
+		<item>List</item>
+		<item>Chart</item>
+
+		</string-array>
+		<string-array name="tisValues">
+			<item>ask</item>
+			<item>list</item>
+			<item>chart</item>
+
+		</string-array>
+	 
 </resources>

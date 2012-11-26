@@ -24,6 +24,14 @@
             android:key="htc_one_workaround"
             android:summary="@string/preferences_cpu_htcone_summary"
             android:title="@string/preferences_cpu_htcone_title" />
+			
+		  <ListPreference
+			  android:entries="@array/tisNames"
+			  android:entryValues="@array/tisValues"
+			  android:key="tis_open_as"
+			  android:summary=""
+			  android:title="Show Times in State As" 
+			  android:defaultValue="ask"/>
            </PreferenceCategory>
     <PreferenceCategory android:title="@string/preferences_misc" >
           <CheckBoxPreference

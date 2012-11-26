@@ -3,22 +3,12 @@ package rs.pedjaapps.KernelTuner;
 
 
 
-import android.app.ActivityManager;
-import android.app.ActivityManager.RunningServiceInfo;
-import android.app.AlertDialog;
-import android.content.Context;
-import android.content.DialogInterface;
-import android.content.Intent;
-import android.os.Build;
-import android.os.Bundle;
-import android.preference.CheckBoxPreference;
-import android.preference.EditTextPreference;
-import android.preference.ListPreference;
-import android.preference.Preference;
-import android.preference.Preference.OnPreferenceChangeListener;
-import android.preference.Preference.OnPreferenceClickListener;
-import android.preference.PreferenceActivity;
-import android.preference.PreferenceScreen;
+import android.app.*;
+import android.app.ActivityManager.*;
+import android.content.*;
+import android.os.*;
+import android.preference.*;
+import android.preference.Preference.*;
 
 
 
@@ -33,6 +23,7 @@ ListPreference notifPrefList;
 CheckBoxPreference notifBox;
 PreferenceScreen notifScreen;
 CheckBoxPreference htcOneOverride;
+ListPreference tisList;
 	@SuppressWarnings("deprecation")
 	@Override
 	public void onCreate(Bundle savedInstanceState)
@@ -211,6 +202,35 @@ CheckBoxPreference htcOneOverride;
 			}
         	
         });
+		
+		tisList = (ListPreference) findPreference("tis_open_as");
+	//	SharedPreferences prefs = PreferenceManager.getDefaultSharedPreferences(Preferences.this);
+       // final SharedPreferences.Editor editor = prefs.edit();
+		 tisList.setDefaultValue(notifPrefList.getEntryValues()[0]);
+        String tis = tisList.getValue();
+        if (tis == null) {
+        	tisList.setValue((String)tisList.getEntryValues()[0]);
+        	tis = tisList.getValue();
+        }
+        tisList.setSummary(tisList.getEntries()[tisList.findIndexOfValue(tis)]);
+
+        tisList.setOnPreferenceChangeListener(new OnPreferenceChangeListener() {
+				@Override
+				public boolean onPreferenceChange(Preference preference, Object newValue) {
+					tisList.setSummary(tisList.getEntries()[tisList.findIndexOfValue(newValue.toString())]);
+			/*	if(newValue.toString().equals("remember")){
+					editor.putBoolean("tis_remember",true);
+					editor.putString("tis_show_as",newValue.toString());
+					editor.commit();
+				}
+				else{
+					editor.putBoolean("tis_remember", false);
+					editor.commit();
+				}*/
+
+					return true;
+				}
+			}); 
        
 	}
 	
