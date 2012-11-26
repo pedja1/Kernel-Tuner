@@ -163,7 +163,7 @@ public class SDScannerActivity extends Activity
 			 
 			try
 			{
-				proc = Runtime.getRuntime().exec("du -d "+args[1] + args[3] +args[0]);
+				proc = Runtime.getRuntime().exec("/data/data/rs.pedjaapps.KernelTuner/files/du -d "+args[1] + args[3] +args[0]);
 
 
 				InputStream inputStream = proc.getInputStream();
