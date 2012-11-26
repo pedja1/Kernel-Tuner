@@ -39,6 +39,7 @@ import android.content.pm.PackageManager;
 import android.content.res.AssetManager;
 import android.content.res.Configuration;
 import android.graphics.Color;
+import android.graphics.PorterDuffColorFilter;
 import android.os.AsyncTask;
 import android.os.BatteryManager;
 import android.os.Build;
@@ -48,12 +49,14 @@ import android.os.Handler;
 import android.os.SystemClock;
 import android.preference.PreferenceManager;
 import android.util.Log;
+import android.view.LayoutInflater;
 import android.view.Menu;
 import android.view.MenuInflater;
 import android.view.MenuItem;
 import android.view.View;
 import android.view.View.OnClickListener;
 import android.widget.Button;
+import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.ProgressBar;
 import android.widget.RemoteViews;
@@ -81,6 +84,7 @@ public class KernelTuner extends Activity
 	private long mLastBackPressTime = 0;
 	Toast mToast;
 	LinearLayout tempLayout;
+	AlertDialog alert;
 	private BroadcastReceiver mBatInfoReceiver = new BroadcastReceiver(){
 	    @Override
 	    public void onReceive(Context arg0, Intent intent)
@@ -860,12 +864,55 @@ public class KernelTuner extends Activity
 				public void onClick(View v)
 				{
 
-					Intent myIntent = new Intent(KernelTuner.this, TISActivity.class);
-					KernelTuner.this.startActivity(myIntent);
+				
+					AlertDialog.Builder builder = new AlertDialog.Builder(
+		                    KernelTuner.this);
+
+						builder.setTitle("Display As");
+						
+						LayoutInflater inflater = (LayoutInflater)KernelTuner.this.getSystemService
+						(Context.LAYOUT_INFLATER_SERVICE);
+						View view = inflater.inflate(R.layout.tis_dialog, null);
+						ImageView list = (ImageView)view.findViewById(R.id.imageView1);
+						ImageView chart = (ImageView)view.findViewById(R.id.imageView2);
+						
+						list.setOnClickListener(new OnClickListener(){
+
+							@Override
+							public void onClick(View arg0) {
+								
+								Intent myIntent = new Intent(KernelTuner.this, TISActivity.class);
+								KernelTuner.this.startActivity(myIntent);
+								alert.dismiss();
+								
+							}
+							
+						});
+						
+						chart.setOnClickListener(new OnClickListener(){
+
+							@Override
+							public void onClick(View arg0) {
+								
+								Intent myIntent = new Intent(KernelTuner.this, TISActivityChart.class);
+								KernelTuner.this.startActivity(myIntent);
+								alert.dismiss();
+								
+							}
+							
+						});
+						
+						
+						builder.setView(view);
+						alert = builder.create();
+
+						alert.show();
+						
 
 				}
 			});
 
+		
 		Button mpdec = (Button)this.findViewById(R.id.button7);
 		mpdec.setOnClickListener(new OnClickListener(){
 
