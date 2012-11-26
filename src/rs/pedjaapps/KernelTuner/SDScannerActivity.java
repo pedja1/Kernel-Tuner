@@ -152,7 +152,7 @@ public class SDScannerActivity extends Activity
 			numberOfItems = Integer.parseInt(args[2]);
 			try
 			{
-				proc = Runtime.getRuntime().exec("du -d "+args[1] + " " +args[0]);
+				proc = Runtime.getRuntime().exec("du -d "+args[1] + " -a " +args[0]);
 
 
 				InputStream inputStream = proc.getInputStream();

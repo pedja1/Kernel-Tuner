@@ -106,12 +106,20 @@
 
         </LinearLayout>
 
+		<Switch
+            android:id="@+id/switch1"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="Scann Folders Only" />
+			
         <Button
             android:id="@+id/button2"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:text="@string/scann" />
 
+		
+			
     </LinearLayout>
     
 </RelativeLayout>
