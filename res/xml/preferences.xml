@@ -18,6 +18,13 @@
             android:summary="@string/preferences_widget_settings_interval_summary"
             android:title="@string/preferences_widget_settings_interval_title" />
     </PreferenceCategory>
+      <PreferenceCategory android:title="@string/preferences_cpu" >
+           <CheckBoxPreference
+            android:defaultValue="false"
+            android:key="htc_one_workaround"
+            android:summary="@string/preferences_cpu_htcone_summary"
+            android:title="@string/preferences_cpu_htcone_title" />
+           </PreferenceCategory>
     <PreferenceCategory android:title="@string/preferences_misc" >
           <CheckBoxPreference
             android:defaultValue="true"

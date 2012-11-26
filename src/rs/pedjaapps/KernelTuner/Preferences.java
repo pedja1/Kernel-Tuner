@@ -32,6 +32,7 @@ ListPreference localePrefList;
 ListPreference notifPrefList;
 CheckBoxPreference notifBox;
 PreferenceScreen notifScreen;
+CheckBoxPreference htcOneOverride;
 	@SuppressWarnings("deprecation")
 	@Override
 	public void onCreate(Bundle savedInstanceState)
@@ -176,6 +177,36 @@ PreferenceScreen notifScreen;
 					AlertDialog alert = builder.create();
 
 					alert.show();
+				return false;
+			}
+        	
+        });
+        htcOneOverride = (CheckBoxPreference) findPreference("htc_one_workaround");
+        htcOneOverride.setOnPreferenceClickListener(new OnPreferenceClickListener(){
+
+			@Override
+			public boolean onPreferenceClick(Preference arg0) {
+				if(htcOneOverride.isChecked()){
+				AlertDialog.Builder builder = new AlertDialog.Builder(
+	                    Preferences.this);
+
+					builder.setMessage(getResources().getString(R.string.htc_override_preferences_warning));
+
+					builder.setIcon(R.drawable.ic_menu_info_details);
+
+					builder.setPositiveButton(getResources().getString(R.string.ok), new DialogInterface.OnClickListener() {
+							@Override
+							public void onClick(DialogInterface dialog, int which)
+							{
+							
+							}
+						});
+					
+					
+					AlertDialog alert = builder.create();
+
+					alert.show();
+				}
 				return false;
 			}
         	

@@ -257,7 +257,7 @@
 	<string name="product_">Product:</string>
 	<string name="radio_">Radio:</string>
 	<string name="kernel_">Kernel:</string>
-	<string name="notificatio_preferences_warning">This options are likely to cause higher battery drain. Proceed with caution!</string>
+	<string name="notificatio_preferences_warning">This options are likely to cause higher battery drain.\nProceed with caution!</string>
 	<string name="select_profile_">Select Profile:</string>
 	<string name="presets">Presets</string>
 	<string name="time">Time</string>
@@ -270,5 +270,8 @@
         <string name="number_of_items">Number Of Items To Dysplay</string>
         <string name="scann">Scann</string>
         <string name="folder_to_scann">Folder to scann(enter full path)</string>
-
+ <string name="preferences_cpu_htcone_title">Prevent Changes from other apps</string>
+    <string name="preferences_cpu_htcone_summary">Workaround for CPU1 settings not sticking on HTC One devices</string>
+   <string name="htc_override_preferences_warning">This is workaround for HTC One devices which have a problem with CPU1 settings wont stick\n\nUsing this will force all CPUs to stay online\n\nIf you disable CPU1 problem will return</string>
+	
 </resources>

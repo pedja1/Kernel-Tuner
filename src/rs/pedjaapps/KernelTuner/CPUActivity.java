@@ -454,7 +454,9 @@ startCpuLoadThread();
 	public void onDestroy()
 	{
 		thread = false;
+		if(sharedPrefs.getBoolean("htc_one_workaround", true)==false){
 		new ToggleCPUs().execute(new Boolean[] {false});
+		}
 		super.onDestroy();
 	}
 
