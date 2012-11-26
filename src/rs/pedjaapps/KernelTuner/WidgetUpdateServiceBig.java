@@ -407,12 +407,25 @@ public class WidgetUpdateServiceBig extends Service
 
 
 		File file = new File("/sys/kernel/debug");
-		if(file.list().length>0){
+		/*if(file.list().length>0){
 			
 		}
 		else{
 			
 			mountdebugfs();
+		}*/
+		File[] contents = file.listFiles();
+		// the directory file is not really a directory..
+		if (contents == null) {
+
+		}
+		// Folder is empty
+		else if (contents.length == 0) {
+			mountdebugfs();
+		}
+		// Folder contains files
+		else {
+
 		}
 		if(TEMP_ENABLE==0){
 		enableTemp();
