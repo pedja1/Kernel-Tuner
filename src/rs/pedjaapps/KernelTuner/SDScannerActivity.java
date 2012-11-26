@@ -12,6 +12,7 @@ import android.view.*;
 import android.view.View.OnClickListener;
 import android.view.ViewGroup.LayoutParams;
 import android.widget.*;
+import android.widget.CompoundButton.OnCheckedChangeListener;
 
 import com.google.ads.*;
 import java.io.*;
@@ -64,7 +65,8 @@ public class SDScannerActivity extends Activity
 
 	  
 	  LinearLayout chart;
-	  LinearLayout l;
+	  
+	  
 	  @Override
 	  protected void onRestoreInstanceState(Bundle savedState) {
 	    super.onRestoreInstanceState(savedState);
@@ -100,19 +102,20 @@ public class SDScannerActivity extends Activity
 		{AdView adView = (AdView)findViewById(R.id.ad);
 			adView.loadAd(new AdRequest());}
 	
-		final EditText path = (EditText)findViewById(R.id.editText1);
-		final EditText depth = (EditText)findViewById(R.id.editText2);
-		final EditText numberOfItems = (EditText)findViewById(R.id.editText3);
-		Button scan = (Button)findViewById(R.id.button2);
-		l = (LinearLayout)findViewById(R.id.ll);
-		scan.setOnClickListener(new OnClickListener(){
-			@Override
-			public void onClick(View arg0) {
-				new ScannSDCard().execute(new String[] {path.getText().toString(), depth.getText().toString(), numberOfItems.getText().toString()});
-				l.setVisibility(View.GONE);
-			}
-			
-		});
+		Intent intent = getIntent();
+		String path = intent.getStringExtra("path");
+		String depth = intent.getStringExtra("depth");
+		String numberOfItems = intent.getStringExtra("items");
+		String scannType = intent.getStringExtra("scannType");
+		System.out.println(path);
+		System.out.println(depth);
+		System.out.println(numberOfItems);
+		System.out.println(scannType);
+		
+		new ScannSDCard().execute(new String[] {path,
+				depth,
+				numberOfItems,
+				scannType});
 		
 	}
 
@@ -121,6 +124,7 @@ public class SDScannerActivity extends Activity
 	    super.onResume();
 	    if (mChartView == null) {
 	      chart = (LinearLayout) findViewById(R.id.chart);
+	      
 	      mChartView = ChartFactory.getPieChartView(this, mSeries, mRenderer);
 	      mRenderer.setClickEnabled(true);
 	      mRenderer.setSelectableBuffer(10);
@@ -149,10 +153,17 @@ public class SDScannerActivity extends Activity
 		protected Void doInBackground(String... args) {
 			
 			Process proc = null;
+			try{
 			numberOfItems = Integer.parseInt(args[2]);
+			}
+			catch(NumberFormatException e){
+				numberOfItems = 20;
+			}
+			
+			 
 			try
 			{
-				proc = Runtime.getRuntime().exec("du -d "+args[1] + " -a " +args[0]);
+				proc = Runtime.getRuntime().exec("du -d "+args[1] + args[3] +args[0]);
 
 
 				InputStream inputStream = proc.getInputStream();
@@ -186,7 +197,9 @@ public class SDScannerActivity extends Activity
 			pd.dismiss();
 			
 			Collections.sort(entries,new MyComparator());
+			if(entries.isEmpty()==false){
 			entries.remove(entries.get(0));
+			}
 			for(int i = entries.size(); i>numberOfItems; i--){
 				entries.remove(entries.size()-1);
 			}
@@ -276,29 +289,6 @@ public class SDScannerActivity extends Activity
 		
 	}
 	
-	@Override
-	public boolean onCreateOptionsMenu(Menu menu)
-	{
-
-		MenuInflater inflater = getMenuInflater();
-		inflater.inflate(R.menu.sd_scanner_options, menu);
-
-		return true;
-	}
-		
-	@Override
-	public boolean onOptionsItemSelected(MenuItem item)
-	{
-
-		if (item.getItemId() == R.id.new_scann)
-		{
-			entries.clear();
-			mSeries.clear();
-			l.setVisibility(View.VISIBLE);
-			
-		}
-		return super.onOptionsItemSelected(item);
-		
-	}
+	
 	
 }
