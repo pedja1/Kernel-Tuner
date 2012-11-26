@@ -1060,7 +1060,7 @@ else if(preferences.getBoolean("notificationService", false)==false && isNotific
 		*/
 
 		SharedPreferences sharedPrefs = PreferenceManager.getDefaultSharedPreferences(this);
-		String boot = sharedPrefs.getString("boot", "");
+		String boot = sharedPrefs.getString("boot", "init.d");
 		if (boot.equals("init.d"))
 		{
 			initdExport();
@@ -2457,7 +2457,7 @@ AlertDialog alert = builder.create();
 
 		}
 		if (item.getItemId() == R.id.scanner) {
-		Intent myIntent = new Intent(KernelTuner.this, SDScannerActivity.class);
+		Intent myIntent = new Intent(KernelTuner.this, SDScannerConfigActivity.class);
 		KernelTuner.this.startActivity(myIntent);
 		}
 		

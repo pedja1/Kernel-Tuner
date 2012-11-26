@@ -13,7 +13,7 @@ public class StartupReceiver extends BroadcastReceiver
 	{
 
 	SharedPreferences sharedPrefs = PreferenceManager.getDefaultSharedPreferences(context);
-		String applyonboot = sharedPrefs.getString("boot", "");
+		String applyonboot = sharedPrefs.getString("boot", "boot");
 		boolean notificationService = sharedPrefs.getBoolean("notificationService", false);
 		if (applyonboot.equals("boot"))
 		{
