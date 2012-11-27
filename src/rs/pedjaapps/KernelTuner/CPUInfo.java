@@ -362,11 +362,10 @@ public class CPUInfo
 			while ((aDataRow = myReader.readLine()) != null)
 			{
 
-				//frequencies.add(aDataRow.trim());
+				
 				aBuffer += aDataRow + "\n";
 			}
 			oom = Arrays.asList(aBuffer.split(","));
-
 			myReader.close();
 
 		}
