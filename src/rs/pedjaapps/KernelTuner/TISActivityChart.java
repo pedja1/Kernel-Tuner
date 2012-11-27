@@ -109,13 +109,8 @@ public class TISActivityChart extends Activity
 			adView.loadAd(new AdRequest());}
 
 		
-		String deepSleep = hrTimeSystem(SystemClock.elapsedRealtime() - SystemClock.uptimeMillis());
-		String bootTime = hrTimeSystem(SystemClock.elapsedRealtime());
-		//TextView deepSleepText = (TextView)footer.findViewById(R.id.deep_sleep);
-		//TextView bootTimeText = (TextView)footer.findViewById(R.id.boot_time);
-		//deepSleepText.setText(deepSleep);
-		//bootTimeText.setText(bootTime);
-		//setDeepSleepAndUptime();
+		
+		setDeepSleepAndUptime();
 		getTISEntries();
 		
 		Button refresh = (Button)findViewById(R.id.button1);
@@ -159,8 +154,8 @@ public class TISActivityChart extends Activity
 	public void setDeepSleepAndUptime(){
 		String deepSleep = hrTimeSystem(SystemClock.elapsedRealtime() - SystemClock.uptimeMillis());
 		String bootTime = hrTimeSystem(SystemClock.elapsedRealtime());
-		TextView deepSleepText = (TextView)footer.findViewById(R.id.deep_sleep);
-		TextView bootTimeText = (TextView)footer.findViewById(R.id.boot_time);
+		TextView deepSleepText = (TextView)findViewById(R.id.deep_sleep);
+		TextView bootTimeText = (TextView)findViewById(R.id.boot_time);
 		deepSleepText.setText(deepSleep);
 		bootTimeText.setText(bootTime);
 		
@@ -173,10 +168,12 @@ public class TISActivityChart extends Activity
 		
 		long totalTime = totalTime();
 		
-		
+		entries.clear();
+		mSeries.clear();
 		
 		for (TimesEntry t : times)
 		{
+			
 			entries.add(new TISEntry(String.valueOf(t.getFreq()/1000)+"Mhz", hrTime(t.getTime()), String.valueOf(t.getTime()*100/totalTime) + "%", (int)(t.getTime()*100/totalTime)));
 			mSeries.add(String.valueOf(t.getFreq()/1000)+"Mhz(" + hrTime(t.getTime())+")", t.getTime());
 	        SimpleSeriesRenderer renderer = new SimpleSeriesRenderer();
