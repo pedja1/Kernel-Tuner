@@ -18,7 +18,7 @@ public class StartupService extends Service
 	@Override
 	public IBinder onBind(Intent intent)
 	{
-		// TODO Auto-generated method stub
+		
 		return null;
 	}
 
@@ -76,7 +76,7 @@ public class StartupService extends Service
 			String vsync = sharedPrefs.getString("vsync", "");
 			String hw = sharedPrefs.getString("hw", "");
 			String backbuf = sharedPrefs.getString("backbuf", "");
-			String mpscroff = sharedPrefs.getString("mpdecisionscroff", "");
+			
 			String cdepth = sharedPrefs.getString("cdepth", "");
 			String io = sharedPrefs.getString("io", "");
 			String sdcache = sharedPrefs.getString("sdcache", "");
@@ -155,19 +155,23 @@ public class StartupService extends Service
 				localDataOutputStream.writeBytes("chmod 777 /sys/kernel/debug/msm_fb/0/vsync_enable\n");
 				localDataOutputStream.writeBytes("chmod 777 /sys/kernel/debug/msm_fb/0/hw_vsync_mode\n");
 				localDataOutputStream.writeBytes("chmod 777 /sys/kernel/debug/msm_fb/0/backbuff\n");
+				if(!vsync.equals("")){
 				localDataOutputStream.writeBytes("echo " + vsync + " > /sys/kernel/debug/msm_fb/0/vsync_enable\n");
 				localDataOutputStream.writeBytes("echo " + hw + " > /sys/kernel/debug/msm_fb/0/hw_vsync_mode\n");
 				localDataOutputStream.writeBytes("echo " + backbuf + " > /sys/kernel/debug/msm_fb/0/backbuff\n");
-				localDataOutputStream.writeBytes("chmod 777 /sys/kernel/msm_mpdecision/conf/do_scroff_single_core\n");
-				localDataOutputStream.writeBytes("echo " + mpscroff + " > /sys/kernel/msm_mpdecision/conf/scroff_single_core\n");
+				}
 				localDataOutputStream.writeBytes("chmod 777 /sys/kernel/fast_charge/force_fast_charge\n");
 				localDataOutputStream.writeBytes("echo " + fastcharge + " > /sys/kernel/fast_charge/force_fast_charge\n");
 				localDataOutputStream.writeBytes("chmod 777 /sys/kernel/debug/msm_fb/0/bpp\n");
+				if(!cdepth.equals("")){
 				localDataOutputStream.writeBytes("echo " + cdepth + " > /sys/kernel/debug/msm_fb/0/bpp\n");
+				}
+				if(!sdcache.equals("")){
 				localDataOutputStream.writeBytes("chmod 777 /sys/block/mmcblk1/queue/read_ahead_kb\n");
 				localDataOutputStream.writeBytes("chmod 777 /sys/block/mmcblk0/queue/read_ahead_kb\n");
 				localDataOutputStream.writeBytes("echo " + sdcache + " > /sys/block/mmcblk1/queue/read_ahead_kb\n");
 				localDataOutputStream.writeBytes("echo " + sdcache + " > /sys/block/mmcblk0/queue/read_ahead_kb\n");
+				}
 				localDataOutputStream.writeBytes("chmod 777 /sys/block/mmcblk0/queue/scheduler\n");
 				localDataOutputStream.writeBytes("chmod 777 /sys/block/mmcblk1/queue/scheduler\n");
 				localDataOutputStream.writeBytes("echo " + io + " > /sys/block/mmcblk0/queue/scheduler\n");
@@ -216,9 +220,10 @@ public class StartupService extends Service
 				localDataOutputStream.writeBytes("chmod 777 /sys/devices/platform/kgsl-2d1.1/kgsl/kgsl-2d1/max_gpuclk\n");
 				localDataOutputStream.writeBytes("echo " + gpu2d + " > /sys/devices/platform/kgsl-2d0.0/kgsl/kgsl-2d0/gpuclk\n");
 				localDataOutputStream.writeBytes("echo " + gpu2d + " > /sys/devices/platform/kgsl-2d1.1/kgsl/kgsl-2d1/gpuclk\n");
+				if(!led.equals("")){
 				localDataOutputStream.writeBytes("chmod 777 /sys/devices/platform/leds-pm8058/leds/button-backlight/currents\n");
 				localDataOutputStream.writeBytes("echo " + led + " > /sys/devices/platform/leds-pm8058/leds/button-backlight/currents\n");
-
+				}
 
 				for (String s : voltageFreqs)
 				{
