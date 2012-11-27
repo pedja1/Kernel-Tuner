@@ -49,12 +49,7 @@
             android:defaultValue="celsius"/>
         
         
-        <ListPreference
-            android:entries="@array/localeNames"
-            android:entryValues="@array/localeValues"
-            android:key="loc"
-            android:title="Override Language" 
-            android:defaultValue="en"/>
+        
          </PreferenceCategory>
 
     <PreferenceCategory android:title="@string/preferences_notification" >

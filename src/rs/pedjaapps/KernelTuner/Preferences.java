@@ -18,7 +18,6 @@ public class Preferences extends PreferenceActivity
 ListPreference bootPrefList;
 EditTextPreference widgetPref;
 ListPreference tempPrefList;
-ListPreference localePrefList;
 ListPreference notifPrefList;
 CheckBoxPreference notifBox;
 PreferenceScreen notifScreen;
@@ -85,23 +84,7 @@ ListPreference tisList;
             }
         }); 
         
-        localePrefList = (ListPreference) findPreference("loc");
-        localePrefList.setDefaultValue(localePrefList.getEntryValues()[0]);
-        String locale = localePrefList.getValue();
-        if (locale == null) {
-        	localePrefList.setValue((String)localePrefList.getEntryValues()[0]);
-        	locale = localePrefList.getValue();
-        }
-        localePrefList.setSummary(localePrefList.getEntries()[localePrefList.findIndexOfValue(locale)]);
-
-
-        localePrefList.setOnPreferenceChangeListener(new OnPreferenceChangeListener() {
-            @Override
-            public boolean onPreferenceChange(Preference preference, Object newValue) {
-            	localePrefList.setSummary(localePrefList.getEntries()[localePrefList.findIndexOfValue(newValue.toString())]);
-                return true;
-            }
-        }); 
+       
         
         notifPrefList = (ListPreference) findPreference("notif");
         notifPrefList.setDefaultValue(notifPrefList.getEntryValues()[0]);

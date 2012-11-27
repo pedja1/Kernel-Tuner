@@ -618,12 +618,6 @@ public class KernelTuner extends Activity
 	{
 		super.onCreate(savedInstanceState);
 		preferences = PreferenceManager.getDefaultSharedPreferences(this);
-		String locale = preferences.getString("loc", "en");
-		
-		Configuration configuration = this.getResources().getConfiguration();
-		  configuration.locale = new Locale(locale);
-		  this.getResources().updateConfiguration(configuration, this.getResources().getDisplayMetrics());
-		
 		setContentView(R.layout.main);
 		
 	
