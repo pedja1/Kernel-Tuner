@@ -31,7 +31,7 @@
     
      
     
-    <string name="preferences_misc_ads_title">Show ads on main screen</string>
+    <string name="preferences_misc_ads_title">Show ads</string>
         <string name="preferences_misc_ads_summary">You need to restart app to stop showing ads</string>
     <string name="preferences_misc_update_title">Auto Update Check</string>
 	    <string name="preferences_misc_update_summary">Check for updates every time you start app</string>
