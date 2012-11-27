@@ -1942,7 +1942,7 @@ public void startCpuLoadThread() {
 		{ 
 	
 			FileOutputStream fOut = openFileOutput("99ktcputweaks",
-												   MODE_WORLD_READABLE);
+					MODE_PRIVATE);
 			OutputStreamWriter osw = new OutputStreamWriter(fOut); 
 			osw.write(cpu);        
 			osw.flush();
@@ -1957,7 +1957,7 @@ public void startCpuLoadThread() {
 		{ 
 	
 			FileOutputStream fOut = openFileOutput("99ktgputweaks",
-												   MODE_WORLD_READABLE);
+					MODE_PRIVATE);
 			OutputStreamWriter osw = new OutputStreamWriter(fOut); 
 			osw.write(gpu);        
 			osw.flush();
@@ -1972,7 +1972,7 @@ public void startCpuLoadThread() {
 		{ 
 	
 			FileOutputStream fOut = openFileOutput("99ktmisctweaks",
-												   MODE_WORLD_READABLE);
+					MODE_PRIVATE);
 			OutputStreamWriter osw = new OutputStreamWriter(fOut); 
 			osw.write(misc);        
 			osw.flush();
@@ -1988,7 +1988,7 @@ public void startCpuLoadThread() {
 		{ 
 	
 			FileOutputStream fOut = openFileOutput("99ktvoltage",
-												   MODE_WORLD_READABLE);
+												   MODE_PRIVATE);
 			OutputStreamWriter osw = new OutputStreamWriter(fOut); 
 			osw.write(voltage);        
 			osw.flush();
