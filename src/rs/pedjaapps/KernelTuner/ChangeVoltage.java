@@ -33,6 +33,7 @@ public class ChangeVoltage extends AsyncTask<String, Void, String>
 		List<String> voltageFreqs = CPUInfo.voltageFreqs();
 		List<Integer> voltages = CPUInfo.voltages();
 		Process localProcess;
+		System.out.println("ChangeVoltage: Changing voltage");
 		if (new File(CPUInfo.VOLTAGE_PATH).exists())
 		{
 			if (args[0].equals("minus"))

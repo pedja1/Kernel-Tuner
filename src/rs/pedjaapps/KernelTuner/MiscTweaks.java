@@ -110,6 +110,7 @@ SeekBar.OnSeekBarChangeListener
 				localDataOutputStream.close();
 				localProcess.waitFor();
 				localProcess.destroy();
+				System.out.println("MiscTweaks: Changing color depth");
 			}
 			catch (IOException e1)
 			{
@@ -163,6 +164,7 @@ SeekBar.OnSeekBarChangeListener
 				localDataOutputStream.close();
 				localProcess.waitFor();
 				localProcess.destroy();
+				System.out.println("MiscTweaks: Changing fc");
 			}
 			catch (IOException e1)
 			{
@@ -213,6 +215,7 @@ SeekBar.OnSeekBarChangeListener
 				localDataOutputStream.close();
 				localProcess.waitFor();
 				localProcess.destroy();
+				System.out.println("MiscTweaks: Changing vs");
 			}
 			catch (IOException e1)
 			{
@@ -257,6 +260,7 @@ SeekBar.OnSeekBarChangeListener
 				localDataOutputStream.close();
 				localProcess.waitFor();
 				localProcess.destroy();
+				System.out.println("MiscTweaks: Changing buttons backlight");
 			}
 			catch (IOException e1)
 			{
@@ -309,6 +313,7 @@ SeekBar.OnSeekBarChangeListener
 				localDataOutputStream.close();
 				localProcess.waitFor();
 				localProcess.destroy();
+				System.out.println("MiscTweaks: Changing not led timeout");
 			}
 			catch (IOException e1)
 			{
@@ -374,6 +379,7 @@ SeekBar.OnSeekBarChangeListener
 				localDataOutputStream.close();
 				localProcess.waitFor();
 				localProcess.destroy();
+				System.out.println("MiscTweaks: Changing s2w");
 			}
 			catch (IOException e1)
 			{
@@ -443,6 +449,7 @@ SeekBar.OnSeekBarChangeListener
 				localDataOutputStream.close();
 				localProcess.waitFor();
 				localProcess.destroy();
+				System.out.println("MiscTweaks: Changing io");
 			}
 			catch (IOException e1)
 			{

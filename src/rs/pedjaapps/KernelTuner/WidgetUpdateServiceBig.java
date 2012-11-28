@@ -27,6 +27,7 @@ import android.graphics.RectF;
 import android.os.IBinder;
 import android.preference.PreferenceManager;
 import android.widget.RemoteViews;
+import android.widget.Toast;
 
 public class WidgetUpdateServiceBig extends Service
 {
@@ -66,8 +67,40 @@ public class WidgetUpdateServiceBig extends Service
 	public String cpu1curr;
 	public int cf2 = 0;
 	public int timeint = 30;
-	int TEMP_ENABLE = 0;
-	
+	//public boolean enableTmp = true;
+	private boolean enableTmp(){
+		boolean b;
+		try
+		{
+
+			File myFile = new File("/sys/devices/virtual/thermal/thermal_zone1/mode");
+			FileInputStream fIn = new FileInputStream(myFile);
+
+			BufferedReader myReader = new BufferedReader(
+				new InputStreamReader(fIn));
+			String aDataRow = "";
+			String aBuffer = "";
+			while ((aDataRow = myReader.readLine()) != null)
+			{
+				aBuffer += aDataRow + "\n";
+			}
+			myReader.close();
+			if(aBuffer.trim().equals("enabled")){
+				b = false;
+			}
+			else{
+				b=true;
+			}
+			
+			
+
+		}
+		catch (Exception e)
+		{
+			b=true;
+		}
+		return b;
+	}
 
 
 	
@@ -82,8 +115,7 @@ public class WidgetUpdateServiceBig extends Service
 
 			DataOutputStream localDataOutputStream = new DataOutputStream(localProcess.getOutputStream());
 			localDataOutputStream.writeBytes("mount -t debugfs debugfs /sys/kernel/debug\n");
-			localDataOutputStream.writeBytes("echo -n enabled > /sys/devices/virtual/thermal/thermal_zone1/mode\n");
-			localDataOutputStream.writeBytes("echo -n enabled > /sys/devices/virtual/thermal/thermal_zone0/mode\n");
+			//Toast.makeText(WidgetUpdateServiceBig.this, "widget: mounting debugfs", Toast.LENGTH_SHORT).show();
 			localDataOutputStream.writeBytes("exit\n");
 			localDataOutputStream.flush();
 			localDataOutputStream.close();
@@ -113,11 +145,14 @@ public class WidgetUpdateServiceBig extends Service
 			DataOutputStream localDataOutputStream = new DataOutputStream(localProcess.getOutputStream());
 			localDataOutputStream.writeBytes("echo -n enabled > /sys/devices/virtual/thermal/thermal_zone1/mode\n");
 			localDataOutputStream.writeBytes("echo -n enabled > /sys/devices/virtual/thermal/thermal_zone0/mode\n");
+			//Toast.makeText(this, "Widget: Enabling temp monitor"+enableTmp(), Toast.LENGTH_SHORT).show();
+			System.out.println("Widget: Enabling temp monitor");
 			localDataOutputStream.writeBytes("exit\n");
 			localDataOutputStream.flush();
 			localDataOutputStream.close();
 			localProcess.waitFor();
 			localProcess.destroy();
+			
 		}
 		catch (IOException e)
 		{
@@ -427,9 +462,9 @@ public class WidgetUpdateServiceBig extends Service
 		else {
 
 		}
-		if(TEMP_ENABLE==0){
+		if(enableTmp()==true){
 		enableTemp();
-		TEMP_ENABLE = 1;
+		
 		}
 		
 		info();

@@ -75,6 +75,7 @@ public class Swap extends Activity
 				localDataOutputStream.close();
 				localProcess.waitFor();
 				localProcess.destroy();
+				System.out.println("Swap: Deactivating swap");
 			}
 			catch (IOException e1)
 			{
@@ -124,6 +125,7 @@ public class Swap extends Activity
 				localDataOutputStream.close();
 				localProcess.waitFor();
 				localProcess.destroy();
+				System.out.println("Swap: activating swap");
 			}
 			catch (IOException e1)
 			{
@@ -171,6 +173,7 @@ public class Swap extends Activity
 				localDataOutputStream.close();
 				localProcess.waitFor();
 				localProcess.destroy();
+				System.out.println("Swap: sewtting swappiness");
 			}
 			catch (IOException e1)
 			{
@@ -220,6 +223,7 @@ public class Swap extends Activity
 				localDataOutputStream.close();
 				localProcess.waitFor();
 				localProcess.destroy();
+				System.out.println("Swap: creating swap swap");
 			}
 			catch (IOException e1)
 			{

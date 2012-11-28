@@ -56,7 +56,7 @@ private class changegpu extends AsyncTask<String, Void, Object>
     		try
 			{
 				localProcess = Runtime.getRuntime().exec("su");
-
+				System.out.println("GPU: Changing GPU");
 				DataOutputStream localDataOutputStream = new DataOutputStream(localProcess.getOutputStream());
 				localDataOutputStream.writeBytes("chmod 777 /sys/devices/platform/kgsl-3d0.0/kgsl/kgsl-3d0/max_gpuclk\n");
 				if (board.equals("shooter") || board.equals("shooteru") || board.equals("pyramid"))

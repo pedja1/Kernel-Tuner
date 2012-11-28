@@ -96,6 +96,7 @@ public class Thermald extends Activity
 				localDataOutputStream.close();
 				localProcess.waitFor();
 				localProcess.destroy();
+				System.out.println("Thermald: changing thermald");
 	   		}
 			catch (IOException e1)
 			{

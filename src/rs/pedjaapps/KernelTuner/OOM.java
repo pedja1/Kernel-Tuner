@@ -298,6 +298,7 @@ public class OOM extends Activity {
 						+ args[5]);
 				editor.commit();
 				oom = CPUInfo.oom();
+				System.out.println("OOM: Changing oom");
 				
 			} catch (IOException e1) {
 				// TODO Auto-generated catch block

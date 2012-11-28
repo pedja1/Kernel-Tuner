@@ -39,6 +39,39 @@ public class KernelTuner extends Activity
 	Toast mToast;
 	LinearLayout tempLayout;
 	AlertDialog alert;
+	private boolean enableTmp(){
+		boolean b;
+		try
+		{
+
+			File myFile = new File("/sys/devices/virtual/thermal/thermal_zone1/mode");
+			FileInputStream fIn = new FileInputStream(myFile);
+
+			BufferedReader myReader = new BufferedReader(
+				new InputStreamReader(fIn));
+			String aDataRow = "";
+			String aBuffer = "";
+			while ((aDataRow = myReader.readLine()) != null)
+			{
+				aBuffer += aDataRow + "\n";
+			}
+			myReader.close();
+			if(aBuffer.trim().equals("enabled")){
+				b = false;
+			}
+			else{
+				b=true;
+			}
+			
+			
+
+		}
+		catch (Exception e)
+		{
+			b=true;
+		}
+		return b;
+	}
 	private BroadcastReceiver mBatInfoReceiver = new BroadcastReceiver(){
 	    @Override
 	    public void onReceive(Context arg0, Intent intent)
@@ -270,6 +303,7 @@ public class KernelTuner extends Activity
 					localDataOutputStream.close();
 					localProcess.waitFor();
 					localProcess.destroy();
+					System.out.println("KernelTuner: Toggling CPU1");
 				}
 				catch (IOException e)
 				{
@@ -553,6 +587,7 @@ public class KernelTuner extends Activity
 				localDataOutputStream.close();
 				localProcess.waitFor();
 				localProcess.destroy();
+				System.out.println("KernelTuner: mounting debug fs");
 			}
 			catch (IOException e1)
 			{
@@ -594,12 +629,13 @@ public class KernelTuner extends Activity
 				
 				localDataOutputStream.writeBytes("echo -n enabled > /sys/devices/virtual/thermal/thermal_zone1/mode\n");
 				localDataOutputStream.writeBytes("echo -n enabled > /sys/devices/virtual/thermal/thermal_zone0/mode\n");
-
+				//Toast.makeText(KernelTuner.this, "App: Enabling temp monitor", Toast.LENGTH_SHORT).show();
 				localDataOutputStream.writeBytes("exit\n");
 				localDataOutputStream.flush();
 				localDataOutputStream.close();
 				localProcess.waitFor();
 				localProcess.destroy();
+				System.out.println("KernelTuner: enable temp monitor");
 			}
 			catch (Exception e)
 			{
@@ -672,8 +708,9 @@ public class KernelTuner extends Activity
 		/*
 		Enable temperature monitor
 		*/
+		if(enableTmp()==true){
 		new enableTempMonitor().execute();
-		
+		}
 		batteryLevel = (TextView) this.findViewById(R.id.textView42);
 		batteryTemp = (TextView) this.findViewById(R.id.textView40);
 
@@ -1560,7 +1597,7 @@ public void startCpuLoadThread() {
 	/**
 	Create init.d files and export them to private application folder
 	*/
-	@SuppressWarnings("deprecation")
+
 	public void initdExport()
 	{
 	

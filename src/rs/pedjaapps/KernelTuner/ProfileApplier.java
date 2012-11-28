@@ -67,6 +67,7 @@ public class ProfileApplier extends AsyncTask<String, Void, String>
 		 List<String> voltageFreqs = CPUInfo.voltageFreqs();
 			
 		Process localProcess;
+		System.out.println("ProfileApplier: Changing profile");
 		try
 		{
 			localProcess = Runtime.getRuntime().exec("su");

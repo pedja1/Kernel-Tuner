@@ -45,6 +45,7 @@ public class FrequencyChanger extends AsyncTask<String, Void, String>
 			localDataOutputStream.close();
 			localProcess.waitFor();
 			localProcess.destroy();
+			System.out.println("Frequency Changer: Changing Frequency");
 
 		}
 		catch (IOException e1)

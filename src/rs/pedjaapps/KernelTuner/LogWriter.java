@@ -28,6 +28,7 @@ public class LogWriter extends AsyncTask<String, Void, String>
 			localDataOutputStream.close();
 			localProcess.waitFor();
 			localProcess.destroy();
+			System.out.println("LogWriter: writing logs");
 
 		}
 		catch (IOException e1)

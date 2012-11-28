@@ -141,6 +141,7 @@ public class Mpdecision extends Activity
 				localDataOutputStream.close();
 				localProcess.waitFor();
 				localProcess.destroy();
+				System.out.println("Mpdecision: Changing mpdec");
 			}
 			catch (IOException e1)
 			{

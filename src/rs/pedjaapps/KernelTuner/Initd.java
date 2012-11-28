@@ -15,7 +15,7 @@ public class Initd extends AsyncTask<String, Void, String>
 
 
 		Process localProcess;
-
+		System.out.println("Init.d: Writing init.d");
 		if (args[0].equals("apply"))
 		{
 			try

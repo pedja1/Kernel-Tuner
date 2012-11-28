@@ -134,6 +134,7 @@ public class CPUActivity extends Activity
 		{
 
 			Process localProcess;
+			System.out.println("Togge CPUs: Toggling CPUs");
 			if (args[0] == true)
 			{
 				try
@@ -454,7 +455,7 @@ startCpuLoadThread();
 	public void onDestroy()
 	{
 		thread = false;
-		if(sharedPrefs.getBoolean("htc_one_workaround", true)==false){
+		if(sharedPrefs.getBoolean("htc_one_workaround", false)==false){
 		new ToggleCPUs().execute(new Boolean[] {false});
 		}
 		super.onDestroy();

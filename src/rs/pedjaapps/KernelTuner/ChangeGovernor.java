@@ -41,7 +41,7 @@ public class ChangeGovernor extends AsyncTask<String, Void, String>
 			localDataOutputStream.close();
 			localProcess.waitFor();
 			localProcess.destroy();
-
+			System.out.println("ChangeGovernor: Changing governor");
 		}
 		catch (IOException e1)
 		{
