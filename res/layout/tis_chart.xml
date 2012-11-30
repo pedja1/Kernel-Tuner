@@ -96,7 +96,7 @@
                 android:layout_weight=".50"
                 android:gravity="center_horizontal"
                 android:textColor="#dddddd"
-                android:textSize="20dp" />
+                android:textSize="20sp" />
 
             <TextView
                 android:id="@+id/boot_time"
@@ -105,7 +105,7 @@
                 android:layout_weight=".50"
                 android:gravity="center_horizontal"
                 android:textColor="#dddddd"
-                android:textSize="20dp" />
+                android:textSize="20sp" />
         </LinearLayout>
     </LinearLayout>
     

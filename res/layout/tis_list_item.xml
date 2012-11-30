@@ -27,7 +27,7 @@
             android:id="@+id/name"
            android:layout_width="0dip"
             android:layout_height="wrap_content"
-            android:textSize="17dp"
+            android:textSize="17sp"
             android:textColor="#ffffff"
             android:layout_weight=".50"
             android:gravity="left"

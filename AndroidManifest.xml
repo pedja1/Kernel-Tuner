@@ -172,6 +172,7 @@
 		<activity android:name=".shortcuts.ThermaldShortcut" android:label="Kernel Tuner - Shortcuts"></activity>
 		<activity android:name=".shortcuts.TISShortcut" android:label="Kernel Tuner - Shortcuts"></activity>
 		<activity android:name=".shortcuts.VoltageShortcut" android:label="Kernel Tuner - Shortcuts"></activity>
+		<activity android:name=".shortcuts.OOMShortcut" android:label="Kernel Tuner - Shortcuts"></activity>
 		
 		<service android:name=".WidgetUpdateService"></service>
 		<service android:name=".WidgetUpdateServiceBig"></service>

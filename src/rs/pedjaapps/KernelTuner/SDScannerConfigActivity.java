@@ -3,11 +3,9 @@ package rs.pedjaapps.KernelTuner;
 
 import android.app.*;
 import android.content.*;
-import android.content.DialogInterface.OnCancelListener;
 import android.graphics.Color;
 import android.os.*;
 import android.preference.*;
-import android.util.*;
 import android.view.*;
 import android.view.View.OnClickListener;
 import android.view.ViewGroup.LayoutParams;
@@ -21,10 +19,8 @@ import com.google.ads.*;
 
 import de.ankri.views.Switch;
 
-import java.io.*;
 import java.text.*;
 import java.util.*;
-import java.lang.Process;
 
 import org.achartengine.ChartFactory;
 import org.achartengine.GraphicalView;
@@ -115,7 +111,7 @@ public class SDScannerConfigActivity extends Activity
 
 			@Override
 			public void onCheckedChanged(CompoundButton arg0, boolean arg1) {
-				// TODO Auto-generated method stub
+				
 				if(arg0.isChecked()){
 					arg0.setText("Scann Folders+Files");
 				}

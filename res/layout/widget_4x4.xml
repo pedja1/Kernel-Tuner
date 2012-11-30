@@ -286,7 +286,7 @@
 
                     <TextView
                         android:id="@+id/textView5"
-                        android:layout_width="wrap_content"
+                        android:layout_width="0dp"
                         android:layout_height="wrap_content"
                         android:layout_weight="1"
                         android:textColor="#ffffffff"
@@ -446,7 +446,7 @@
                     android:shadowRadius="2.0"
                     android:text="@string/governor_"
                     android:textColor="#ffffffff"
-                    android:textSize="17dp"
+                    android:textSize="17sp"
                     android:typeface="sans" />
 
                 <TextView
@@ -523,7 +523,7 @@
                     android:shadowRadius="2.0"
                     android:text="@string/governor_"
                     android:textColor="#ffffffff"
-                    android:textSize="17dp"
+                    android:textSize="17sp"
                     android:typeface="sans" />
 
                 <TextView

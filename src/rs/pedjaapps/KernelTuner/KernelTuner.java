@@ -17,7 +17,6 @@ import android.widget.*;
 import com.google.ads.*;
 import java.io.*;
 import java.util.*;
-import android.widget.CompoundButton.OnCheckedChangeListener;
 
 import java.lang.Process;
 
@@ -854,7 +853,6 @@ public class KernelTuner extends Activity
 		                    KernelTuner.this);
 
 						builder.setTitle("Display As");
-						final SharedPreferences.Editor editor = sharedPrefs.edit();
 						LayoutInflater inflater = (LayoutInflater)KernelTuner.this.getSystemService
 						(Context.LAYOUT_INFLATER_SERVICE);
 						View view = inflater.inflate(R.layout.tis_dialog, null);
