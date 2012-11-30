@@ -262,8 +262,9 @@ public class StartupService extends Service
 					localDataOutputStream.writeBytes("swapoff " + swapLocation.trim() + "\n");
 
 				}
+				if(!oom.equals("")){
 				localDataOutputStream.writeBytes("echo " + oom + " > /sys/module/lowmemorykiller/parameters/minfree\n");
-		
+				}
 				localDataOutputStream.writeBytes("exit\n");
 				localDataOutputStream.flush();
 				localDataOutputStream.close();
