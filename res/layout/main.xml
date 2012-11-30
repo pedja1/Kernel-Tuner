@@ -14,8 +14,8 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_above="@+id/ly2"
-        android:layout_below="@+id/rl" 
-      >
+        android:layout_below="@+id/rl"
+        android:layout_margin="8dp" >
 
         <LinearLayout
             android:layout_width="match_parent"
@@ -276,6 +276,8 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_below="@+id/test1"
+        android:layout_marginLeft="8dp"
+        android:layout_marginRight="8dp"
         android:layout_marginTop="15dp" >
 
         <TextView

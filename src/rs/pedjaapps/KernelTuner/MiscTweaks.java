@@ -517,78 +517,9 @@ SeekBar.OnSeekBarChangeListener
 
 			});
 
-		Button vsyncexplanation = (Button) findViewById(R.id.button1);
-		vsyncexplanation.setOnClickListener(new OnClickListener() {
+		
 
-				@Override
-				public void onClick(View v)
-				{
-
-					AlertDialog.Builder builder = new AlertDialog.Builder(
-						MiscTweaks.this);
-
-					builder.setTitle("Vsync");
-
-					builder
-						.setMessage("VSYNC is when the GPU will lock refresh rate to that of the LCD screen. "
-									+ "Disabling this will create higher FPS rates, but on some hardware it can distort the display.");
-
-					builder.setIcon(R.drawable.misc);
-
-					builder.setPositiveButton("OK",
-						new DialogInterface.OnClickListener() {
-							@Override
-							public void onClick(DialogInterface dialog,
-												int which)
-							{
-								
-							}
-
-						});
-
-				
-					AlertDialog alert = builder.create();
-					alert.show();
-					
-				}
-
-			});
-
-		Button fastchargeexplanation = (Button) findViewById(R.id.button2);
-		fastchargeexplanation.setOnClickListener(new OnClickListener() {
-
-				@Override
-				public void onClick(View v)
-				{
-
-					AlertDialog.Builder builder = new AlertDialog.Builder(
-						MiscTweaks.this);
-
-					builder.setTitle("Fastcharge");
-
-					builder
-						.setMessage("This option will forces AC charging mode when connected to a USB connection");
-
-					builder.setIcon(R.drawable.misc);
-
-					builder.setPositiveButton("OK",
-						new DialogInterface.OnClickListener() {
-							@Override
-							public void onClick(DialogInterface dialog,
-												int which)
-							{
-							
-							}
-
-						});
-
-					AlertDialog alert = builder.create();
-					alert.show();
-				}
-
-			});
-
-		Button btminus = (Button) findViewById(R.id.progbutton2);
+		ImageView btminus = (ImageView) findViewById(R.id.ImageView1);
 		btminus.setOnClickListener(new OnClickListener() {
 
 				@Override
@@ -601,7 +532,7 @@ SeekBar.OnSeekBarChangeListener
 				}
 			});
 
-		Button btplus = (Button) findViewById(R.id.progbutton3);
+		ImageView btplus = (ImageView) findViewById(R.id.ImageView2);
 		btplus.setOnClickListener(new OnClickListener() {
 
 				@Override
@@ -614,7 +545,7 @@ SeekBar.OnSeekBarChangeListener
 				}
 			});
 
-		Button btminuscdepth = (Button) findViewById(R.id.button3);
+		ImageView btminuscdepth = (ImageView) findViewById(R.id.button3);
 		btminuscdepth.setOnClickListener(new OnClickListener() {
 
 				@Override
@@ -636,7 +567,7 @@ SeekBar.OnSeekBarChangeListener
 				}
 			});
 
-		Button btpluscdepth = (Button) findViewById(R.id.button7);
+		ImageView btpluscdepth = (ImageView) findViewById(R.id.button7);
 		btpluscdepth.setOnClickListener(new OnClickListener() {
 
 				@Override

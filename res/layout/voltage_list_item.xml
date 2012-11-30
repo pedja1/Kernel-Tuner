@@ -22,7 +22,7 @@
                 android:id="@+id/minus"
                 android:layout_width="wrap_content"
                 android:layout_height="match_parent"
-                android:src="@drawable/minus" />
+                android:src="@drawable/button_minus_selector" />
 
             <SeekBar
                 android:id="@+id/seekBar1"
@@ -35,7 +35,7 @@
                 android:id="@+id/plus"
                 android:layout_width="wrap_content"
                 android:layout_height="match_parent"
-                android:src="@drawable/plus" />
+                android:src="@drawable/button_plus_selector" />
 
         </LinearLayout>
 

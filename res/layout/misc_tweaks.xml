@@ -22,30 +22,29 @@
                 android:id="@+id/seekBar1"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
+                android:layout_toLeftOf="@+id/ImageView2"
                 android:layout_below="@+id/textView9"
                 android:layout_marginTop="25dp"
-                android:layout_toLeftOf="@+id/progbutton3"
-                android:layout_toRightOf="@+id/progbutton2"
+                android:layout_toRightOf="@+id/ImageView1"
                 android:max="60" />
 
-            <Button
-                android:id="@+id/progbutton2"
-                style="?android:attr/buttonStyleSmall"
+            <ImageView
+                android:id="@+id/ImageView1"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_alignBottom="@+id/seekBar1"
                 android:layout_alignParentLeft="true"
                 android:layout_alignTop="@+id/seekBar1"
-                android:text="@string/crtica" />
+                android:src="@drawable/button_minus_selector" />
 
-            <Button
-                android:id="@+id/progbutton3"
-                style="?android:attr/buttonStyleSmall"
+            <ImageView
+                android:id="@+id/ImageView2"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_alignBottom="@+id/seekBar1"
                 android:layout_alignParentRight="true"
                 android:layout_alignTop="@+id/seekBar1"
+                android:src="@drawable/button_plus_selector"
                 android:text="@string/plus" />
 
             <TextView
@@ -145,25 +144,6 @@
                 android:layout_below="@+id/textView2"
                 android:text="@string/enable_disable_vsync" />
 
-            <Button
-                android:id="@+id/button1"
-                style="?android:attr/buttonStyleSmall"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_alignBottom="@+id/checkBox2"
-                android:layout_alignParentRight="true"
-                android:text="@string/question_mark" />
-
-            <Button
-                android:id="@+id/button2"
-                style="?android:attr/buttonStyleSmall"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_alignBaseline="@+id/checkBox1"
-                android:layout_alignBottom="@+id/checkBox1"
-                android:layout_alignParentRight="true"
-                android:text="@string/question_mark" />
-
             <ImageView
                 android:id="@+id/imageView3"
                 android:layout_width="match_parent"
@@ -184,24 +164,24 @@
                 android:text="@string/color_depth"
                 android:textAppearance="?android:attr/textAppearanceLarge" />
 
-            <Button
+            <ImageView
                 android:id="@+id/button3"
-                style="?android:attr/buttonStyleSmall"
                 android:layout_width="wrap_content"
-                android:layout_height="50dp"
+                android:layout_height="wrap_content"
                 android:layout_alignBottom="@id/progressBar1"
                 android:layout_alignParentLeft="true"
                 android:layout_marginTop="20dp"
+                android:src="@drawable/button_minus_selector"
                 android:text="@string/crtica" />
 
-            <Button
+            <ImageView
                 android:id="@+id/button7"
-                style="?android:attr/buttonStyleSmall"
                 android:layout_width="wrap_content"
-                android:layout_height="50dp"
+                android:layout_height="wrap_content"
                 android:layout_alignBottom="@id/progressBar1"
                 android:layout_alignParentRight="true"
                 android:layout_marginTop="20dp"
+                android:src="@drawable/button_plus_selector"
                 android:text="@string/plus" />
 
             <ProgressBar
@@ -217,17 +197,6 @@
                 android:progress="1" />
 
             <TextView
-                android:id="@+id/textView6"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_alignBaseline="@+id/button3"
-                android:layout_alignBottom="@+id/button3"
-                android:layout_toRightOf="@+id/button3"
-                android:text="16"
-                android:textAppearance="?android:attr/textAppearanceSmall"
-                android:textColor="#ff0000" />
-
-            <TextView
                 android:id="@+id/textView7"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
@@ -235,16 +204,6 @@
                 android:layout_alignBottom="@+id/textView6"
                 android:layout_centerHorizontal="true"
                 android:text="24"
-                android:textAppearance="?android:attr/textAppearanceSmall" />
-
-            <TextView
-                android:id="@+id/textView8"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_alignBaseline="@+id/button7"
-                android:layout_alignBottom="@+id/button7"
-                android:layout_toLeftOf="@+id/button7"
-                android:text="32"
                 android:textAppearance="?android:attr/textAppearanceSmall" />
 
             <ImageView
@@ -416,6 +375,26 @@
                 android:layout_height="wrap_content"
                 android:layout_below="@+id/textView15"
                 android:text="@string/apply" />
+
+            <TextView
+                android:id="@+id/textView6"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignLeft="@+id/textView12"
+                android:layout_alignTop="@+id/button3"
+                android:text="16"
+                android:textAppearance="?android:attr/textAppearanceSmall"
+                android:textColor="#ff0000" />
+
+            <TextView
+                android:id="@+id/textView8"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignTop="@+id/button7"
+                android:layout_toLeftOf="@+id/button7"
+                android:text="32"
+                android:textAppearance="?android:attr/textAppearanceSmall" />
+
         </RelativeLayout>
        
     </ScrollView>

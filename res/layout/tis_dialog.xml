@@ -23,7 +23,7 @@
                 android:layout_height="wrap_content"
                 android:layout_alignParentTop="true"
                 android:layout_centerHorizontal="true"
-                android:src="@drawable/list" />
+                android:src="@drawable/tis_list_selector" />
 
             <TextView
                 android:id="@+id/textView1"
@@ -45,7 +45,7 @@
                 android:layout_height="wrap_content"
                 android:layout_alignParentTop="true"
                 android:layout_centerHorizontal="true"
-                android:src="@drawable/chart" />
+                android:src="@drawable/tis_chart_selector" />
 
             <TextView
                 android:id="@+id/textView2"
