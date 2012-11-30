@@ -11,10 +11,16 @@ import android.util.*;
 import android.view.*;
 import android.view.View.OnClickListener;
 import android.view.ViewGroup.LayoutParams;
-import android.widget.*;
+import android.widget.Button;
+import android.widget.CompoundButton;
 import android.widget.CompoundButton.OnCheckedChangeListener;
+import android.widget.EditText;
+import android.widget.LinearLayout;
 
 import com.google.ads.*;
+
+import de.ankri.views.Switch;
+
 import java.io.*;
 import java.text.*;
 import java.util.*;
