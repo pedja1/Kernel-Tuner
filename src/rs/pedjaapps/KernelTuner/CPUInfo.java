@@ -1252,12 +1252,13 @@ public class CPUInfo
 			if (gov.exists())
 			{
 				File[] files = gov.listFiles();
-
+				if(files!=null){
 				for (File file : files)
 				{
 
 					govSettings.add(file.getName());
 
+				}
 				}
 			}}
 		return govSettings;

@@ -34,7 +34,7 @@ public class GovernorActivity extends Activity
 	ListView govListView;
 	String[] filesx;
 	List<String> fileList;
-	List<String> availableGovs;
+	List<String> availableGovs = CPUInfo.availableGovs();
 	List<String> govValues;
 	String newvalue;
 	String curfile;
@@ -55,7 +55,6 @@ public class GovernorActivity extends Activity
 		if (ads == true)
 		{AdView adView = (AdView)findViewById(R.id.ad);
 			adView.loadAd(new AdRequest());}
-		scanAvailableGovernors();
 		govListView = (ListView) findViewById(R.id.list);
 		if (!availableGovs.isEmpty())
 		{
@@ -144,27 +143,7 @@ public class GovernorActivity extends Activity
 
 	}
 
-	public void scanAvailableGovernors()
-	{
-		File govs = new File("/sys/devices/system/cpu/cpufreq/");
-		availableGovs = new ArrayList<String>();
-
-
-		if (govs.exists())
-		{
-			File[] files = govs.listFiles();
-
-			for (File file : files)
-			{
-				availableGovs.add(file.getName());
-
-
-			}
-		}
-
-		availableGovs.removeAll(Arrays.asList("vdd_table"));
-
-	}
+	
 
 	private List<GovEntry> getGovEntries()
 	{
@@ -182,7 +161,7 @@ public class GovernorActivity extends Activity
 			if (gov.exists())
 			{
 				File[] files = gov.listFiles();
-
+				if(files!=null){
 				for (File file : files)
 				{
 					temp.add(file.getName());
@@ -222,6 +201,7 @@ public class GovernorActivity extends Activity
 						new LogWriter().execute(new String[] {getClass().getName(), e.getMessage()});
 		    		}
 
+				}
 				}
 
 			}
