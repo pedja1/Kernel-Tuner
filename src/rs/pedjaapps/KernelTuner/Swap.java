@@ -10,8 +10,12 @@ import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 
-import android.app.Activity;
+import com.actionbarsherlock.app.ActionBar;
+import com.actionbarsherlock.app.SherlockActivity;
+
+
 import android.app.ProgressDialog;
+import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.AsyncTask;
 import android.os.Bundle;
@@ -29,7 +33,7 @@ import android.widget.LinearLayout;
 import android.widget.Spinner;
 import android.widget.TextView;
 
-public class Swap extends Activity
+public class Swap extends SherlockActivity
 {
 
 
@@ -260,6 +264,9 @@ public class Swap extends Activity
 		super.onCreate(savedInstanceState);
 
 		setContentView(R.layout.swap);
+		
+		ActionBar actionBar = getSupportActionBar();
+		actionBar.setDisplayHomeAsUpEnabled(true);
 		this.getWindow().setSoftInputMode(WindowManager.LayoutParams.SOFT_INPUT_STATE_ALWAYS_HIDDEN); 
 
 		Button activate = (Button)findViewById(R.id.button1);
@@ -276,7 +283,7 @@ public class Swap extends Activity
 				@Override
 				public void onClick(View arg0)
 				{
-					// TODO Auto-generated method stub
+					
 					Swap.this.pd = ProgressDialog.show(Swap.this, "Please wait...", "Changing Swappiness...", true, false);
 					swappinessSelected = ed.getText().toString();
 					new setSwappiness().execute();
@@ -291,7 +298,7 @@ public class Swap extends Activity
 				@Override
 				public void onClick(View arg0)
 				{
-					// TODO Auto-generated method stub
+					
 					Swap.this.pd = ProgressDialog.show(Swap.this, "Please wait...", "Deactivating swap...", true, false);
 
 					new deactivateSwap().execute();
@@ -304,7 +311,7 @@ public class Swap extends Activity
 				@Override
 				public void onClick(View arg0)
 				{
-					// TODO Auto-generated method stub
+				
 					Swap.this.pd = ProgressDialog.show(Swap.this, "Please wait...", "Activating swap...", true, false);
 
 					new activateSwap().execute();
@@ -317,7 +324,7 @@ public class Swap extends Activity
 				@Override
 				public void onClick(View arg0)
 				{
-					// TODO Auto-generated method stub
+				
 
 					new createSwap().execute();
 				}
@@ -566,6 +573,19 @@ public class Swap extends Activity
 			});
 
 	}
-
+    @Override
+	public boolean onOptionsItemSelected(com.actionbarsherlock.view.MenuItem item) {
+	    switch (item.getItemId()) {
+	        case android.R.id.home:
+	            // app icon in action bar clicked; go home
+	            Intent intent = new Intent(this, KernelTuner.class);
+	            intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
+	            startActivity(intent);
+	            return true;
+	        
+	            
+	    }
+	    return super.onOptionsItemSelected(item);
+	}
 
 }

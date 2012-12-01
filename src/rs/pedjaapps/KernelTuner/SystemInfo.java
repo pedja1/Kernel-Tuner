@@ -7,7 +7,10 @@ import java.io.IOException;
 import java.io.InputStreamReader;
 import java.util.List;
 
-import android.app.Activity;
+import com.actionbarsherlock.app.ActionBar;
+import com.actionbarsherlock.app.SherlockActivity;
+
+import android.content.Intent;
 import android.content.SharedPreferences;
 import android.graphics.Color;
 import android.os.AsyncTask;
@@ -18,7 +21,7 @@ import android.widget.ImageView;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
 
-public class SystemInfo extends Activity
+public class SystemInfo extends SherlockActivity
 {
 	
 	SharedPreferences sharedPrefs;
@@ -1402,6 +1405,9 @@ public class SystemInfo extends Activity
 	{
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.system_info);
+		
+		ActionBar actionBar = getSupportActionBar();
+		actionBar.setDisplayHomeAsUpEnabled(true);
 
 		new info().execute();
 		RelativeLayout cpu = (RelativeLayout)findViewById(R.id.cpu);
@@ -1496,5 +1502,20 @@ public class SystemInfo extends Activity
 				}
 
 			});
+	}
+	
+	@Override
+	public boolean onOptionsItemSelected(com.actionbarsherlock.view.MenuItem item) {
+	    switch (item.getItemId()) {
+	        case android.R.id.home:
+	            // app icon in action bar clicked; go home
+	            Intent intent = new Intent(this, KernelTuner.class);
+	            intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
+	            startActivity(intent);
+	            return true;
+	        
+	            
+	    }
+	    return super.onOptionsItemSelected(item);
 	}
 }

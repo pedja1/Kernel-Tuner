@@ -34,6 +34,7 @@
 	<item
         android:id="@+id/scanner"
         android:showAsAction="never"
+        android:icon="@drawable/sd"
         android:title="SD Card Scanner"/>
     
 	

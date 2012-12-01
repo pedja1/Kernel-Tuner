@@ -5,6 +5,10 @@ import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
 
+import com.actionbarsherlock.app.ActionBar;
+import com.actionbarsherlock.app.SherlockActivity;
+import com.actionbarsherlock.view.MenuInflater;
+
 import android.app.Activity;
 import android.app.AlertDialog;
 import android.app.ProgressDialog;
@@ -16,7 +20,6 @@ import android.os.Bundle;
 import android.view.ContextMenu;
 import android.view.ContextMenu.ContextMenuInfo;
 import android.view.Menu;
-import android.view.MenuInflater;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.AdapterView;
@@ -30,7 +33,7 @@ import android.widget.Toast;
 
 
 
-public class Profiles extends Activity
+public class Profiles extends SherlockActivity
 {
 	 String _cpu0max;
 	 String _cpu1max;
@@ -252,7 +255,8 @@ catch (InterruptedException e1)
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.profiles);
 
-		
+		ActionBar actionBar = getSupportActionBar();
+		actionBar.setDisplayHomeAsUpEnabled(true);
 		
 		db = new DatabaseHandler(this);
 		profiles = db.getAllProfiles();
@@ -614,22 +618,18 @@ catch (InterruptedException e1)
 	}
 
 	@Override
-	public boolean onCreateOptionsMenu(Menu menu) {
-	MenuInflater inflater = getMenuInflater();
+	public boolean onCreateOptionsMenu(com.actionbarsherlock.view.Menu menu) {
+	MenuInflater inflater = getSupportMenuInflater();
 		inflater.inflate(R.menu.profiles_options_menu, menu);
 		return super.onCreateOptionsMenu(menu);
 }
-@Override
-public boolean onPrepareOptionsMenu (Menu menu) {
 
-return true;
-}
 
 
 
 
 @Override
-public boolean onOptionsItemSelected(MenuItem item) {
+public boolean onOptionsItemSelected(com.actionbarsherlock.view.MenuItem item) {
 
 	if (item.getItemId() == R.id.add)
 	{
@@ -724,6 +724,14 @@ public boolean onOptionsItemSelected(MenuItem item) {
 		AlertDialog alert2 = builder2.create();
 
 		alert2.show();
+		
+		if(item.getItemId() == android.R.id.home) {
+       
+            // app icon in action bar clicked; go home
+            Intent intent = new Intent(this, KernelTuner.class);
+            intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
+            startActivity(intent);  
+		}
 }
 
 return super.onOptionsItemSelected(item);
@@ -789,7 +797,7 @@ public void onCreateContextMenu(ContextMenu menu, View v,
 	final Profile profile = profiles.get(info.position);
     menu.setHeaderTitle(profile.getName());
     menu.setHeaderIcon(R.drawable.ic_menu_cc);
-    MenuInflater inflater = getMenuInflater();
+    android.view.MenuInflater inflater = getMenuInflater();
     inflater.inflate(R.menu.profiles_context_menu, menu);
 }
 

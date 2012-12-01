@@ -6,12 +6,12 @@ import java.io.File;
 import java.io.FileInputStream;
 import java.io.InputStreamReader;
 import java.util.ArrayList;
-import java.util.Arrays;
+
 import java.util.List;
 
-import android.app.Activity;
 import android.app.AlertDialog;
 import android.content.DialogInterface;
+import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.preference.PreferenceManager;
@@ -24,10 +24,12 @@ import android.widget.EditText;
 import android.widget.ListView;
 import android.widget.TextView;
 
+import com.actionbarsherlock.app.ActionBar;
+import com.actionbarsherlock.app.SherlockActivity;
 import com.google.ads.AdRequest;
 import com.google.ads.AdView;
 
-public class GovernorActivity extends Activity
+public class GovernorActivity extends SherlockActivity
 {
 
 	GovernorSettingsAdapter govAdapter ;
@@ -49,6 +51,8 @@ public class GovernorActivity extends Activity
 		super.onCreate(savedInstanceState);
 
 		setContentView(R.layout.governor_settings);
+		ActionBar actionBar = getSupportActionBar();
+		actionBar.setDisplayHomeAsUpEnabled(true);
 
 		SharedPreferences sharedPrefs = PreferenceManager.getDefaultSharedPreferences(this);
 		boolean ads = sharedPrefs.getBoolean("ads", true);
@@ -126,7 +130,7 @@ public class GovernorActivity extends Activity
 							@Override
 							public void onClick(DialogInterface arg0, int arg1)
 							{
-								// TODO Auto-generated method stub
+								
 
 							}
 
@@ -213,5 +217,20 @@ public class GovernorActivity extends Activity
 
 
 		return entries;
+	}
+	
+	@Override
+	public boolean onOptionsItemSelected(com.actionbarsherlock.view.MenuItem item) {
+	    switch (item.getItemId()) {
+	        case android.R.id.home:
+	            // app icon in action bar clicked; go home
+	            Intent intent = new Intent(this, KernelTuner.class);
+	            intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
+	            startActivity(intent);
+	            return true;
+	        
+	            
+	    }
+	    return super.onOptionsItemSelected(item);
 	}
 }

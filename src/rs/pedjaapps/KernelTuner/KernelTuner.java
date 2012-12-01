@@ -1,7 +1,9 @@
 package rs.pedjaapps.KernelTuner;
 
 import android.annotation.*;
-import android.app.*;
+import android.app.ActivityManager;
+import android.app.AlertDialog;
+import android.app.ProgressDialog;
 import android.app.ActivityManager.*;
 import android.appwidget.*;
 import android.content.*;
@@ -11,9 +13,14 @@ import android.graphics.*;
 import android.os.*;
 import android.preference.*;
 import android.util.*;
-import android.view.*;
+import android.view.LayoutInflater;
+import android.view.View;
 import android.view.View.*;
 import android.widget.*;
+
+import com.actionbarsherlock.app.ActionBar;
+import com.actionbarsherlock.app.SherlockActivity;
+import com.actionbarsherlock.view.MenuInflater;
 import com.google.ads.*;
 import java.io.*;
 import java.util.*;
@@ -25,7 +32,7 @@ import java.lang.Process;
 //EndImports 
 
 @SuppressLint("WorldReadableFiles")
-public class KernelTuner extends Activity
+public class KernelTuner extends SherlockActivity
 {
 
 	private TextView batteryLevel;
@@ -676,12 +683,12 @@ public class KernelTuner extends Activity
 		}
 		
 		tempLayout = (LinearLayout)findViewById(R.id.test1a);
-		/**
-		 * If api larger than 11 set subtitle*/
-		if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.HONEYCOMB)
-        {
-			getActionBar().setSubtitle("Various kernel and system tuning");
-        }
+		
+			ActionBar actionBar = getSupportActionBar();
+		
+			actionBar.setSubtitle("Various kernel and system tuning");
+			actionBar.setHomeButtonEnabled(false);
+        
 		
 		
 		sharedPrefs = PreferenceManager.getDefaultSharedPreferences(this);
@@ -2400,25 +2407,20 @@ public void startCpuLoadThread() {
 
 
 	@Override
-	public boolean onCreateOptionsMenu(Menu menu)
+	public boolean onCreateOptionsMenu(com.actionbarsherlock.view.Menu menu)
 	{
 
-		MenuInflater inflater = getMenuInflater();
+		MenuInflater inflater = getSupportMenuInflater();
 		inflater.inflate(R.menu.options, menu);
 
 		return true;
 	}
-	@Override
-	public boolean onPrepareOptionsMenu(Menu menu)
-	{
-
-		return true;
-	}
+	
 
 
 
 	@Override
-	public boolean onOptionsItemSelected(MenuItem item)
+	public boolean onOptionsItemSelected(com.actionbarsherlock.view.MenuItem item)
 	{
 
 		if (item.getItemId() == R.id.settings)

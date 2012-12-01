@@ -4,24 +4,29 @@ package rs.pedjaapps.KernelTuner;
 import java.util.ArrayList;
 import java.util.List;
 
-import android.app.Activity;
+
+import android.content.Intent;
 import android.content.SharedPreferences;
+
 import android.os.Bundle;
 import android.os.SystemClock;
 import android.preference.PreferenceManager;
 import android.view.LayoutInflater;
+
 import android.view.View;
 import android.view.View.OnClickListener;
 import android.view.ViewGroup;
+import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.ListView;
 import android.widget.TextView;
 
+
+import com.actionbarsherlock.app.ActionBar;
+import com.actionbarsherlock.app.SherlockActivity;
 import com.google.ads.AdRequest;
 import com.google.ads.AdView;
-
-public class TISActivity extends Activity
-{
+public class TISActivity extends SherlockActivity {
 
 	List<TimesEntry> times = CPUInfo.getTis();
 	
@@ -30,6 +35,8 @@ public class TISActivity extends Activity
 	ListView tisListView;
 	ViewGroup header;
 	ViewGroup footer;
+	ActionBar actionBar;
+	ArrayAdapter<String> navigationAdapter;
 	@Override
 	public void onCreate(Bundle savedInstanceState)
 	{
@@ -37,6 +44,11 @@ public class TISActivity extends Activity
 
 		setContentView(R.layout.times_in_state);
 
+		
+			actionBar = getSupportActionBar();
+			actionBar.setDisplayHomeAsUpEnabled(true);
+        
+		
 		SharedPreferences sharedPrefs = PreferenceManager.getDefaultSharedPreferences(this);
 		boolean ads = sharedPrefs.getBoolean("ads", true);
 		if (ads == true)
@@ -191,5 +203,22 @@ public class TISActivity extends Activity
 		return a;
 		
 	}
+	
+	@Override
+	public boolean onOptionsItemSelected(com.actionbarsherlock.view.MenuItem item) {
+	    switch (item.getItemId()) {
+	        case android.R.id.home:
+	            // app icon in action bar clicked; go home
+	            Intent intent = new Intent(this, KernelTuner.class);
+	            intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
+	            startActivity(intent);
+	            return true;
+	        
+	            
+	    }
+	    return super.onOptionsItemSelected(item);
+	}
+	
+	
 
 }

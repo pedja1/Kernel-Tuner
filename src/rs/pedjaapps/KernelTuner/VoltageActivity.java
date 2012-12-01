@@ -4,10 +4,11 @@ import java.io.File;
 import java.util.ArrayList;
 import java.util.List;
 
-import android.app.Activity;
+
 import android.app.AlertDialog;
 import android.app.ProgressDialog;
 import android.content.DialogInterface;
+import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.preference.PreferenceManager;
@@ -18,10 +19,12 @@ import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ListView;
 
+import com.actionbarsherlock.app.ActionBar;
+import com.actionbarsherlock.app.SherlockActivity;
 import com.google.ads.AdRequest;
 import com.google.ads.AdView;
 
-public class VoltageActivity extends Activity
+public class VoltageActivity extends SherlockActivity
 {
 
 	static VoltageAdapter voltageAdapter ;
@@ -36,6 +39,9 @@ public class VoltageActivity extends Activity
 		super.onCreate(savedInstanceState);
 
 		setContentView(R.layout.voltage);
+		
+		ActionBar actionBar = getSupportActionBar();
+		actionBar.setDisplayHomeAsUpEnabled(true);
 
 		SharedPreferences sharedPrefs = PreferenceManager.getDefaultSharedPreferences(this);
 		boolean ads = sharedPrefs.getBoolean("ads", true);
@@ -60,7 +66,7 @@ public class VoltageActivity extends Activity
 				@Override
 				public void onClick(View arg0)
 				{
-					// TODO Auto-generated method stub
+					
 					VoltageAdapter.pd = ProgressDialog.show(VoltageActivity.this, null, getResources().getString(R.string.changing_voltage), true, false);
 					new ChangeVoltage(VoltageActivity.this).execute(new String[] {"minus"});
 
@@ -75,7 +81,7 @@ public class VoltageActivity extends Activity
 				@Override
 				public void onClick(View arg0)
 				{
-					// TODO Auto-generated method stub
+					
 					VoltageAdapter.pd = ProgressDialog.show(VoltageActivity.this, null, getResources().getString(R.string.changing_voltage), true, false);
 					new ChangeVoltage(VoltageActivity.this).execute(new String[] {"plus"});
 
@@ -90,7 +96,7 @@ public class VoltageActivity extends Activity
 				@Override
 				public void onClick(View arg0)
 				{
-					// TODO Auto-generated method stub
+					
 					AlertDialog.Builder builder = new AlertDialog.Builder(arg0.getContext());
 
 					builder.setTitle(getResources().getString(R.string.voltage_profile_name));
@@ -294,5 +300,19 @@ public class VoltageActivity extends Activity
 		return entries;
 	}
 	
+	@Override
+	public boolean onOptionsItemSelected(com.actionbarsherlock.view.MenuItem item) {
+	    switch (item.getItemId()) {
+	        case android.R.id.home:
+	            // app icon in action bar clicked; go home
+	            Intent intent = new Intent(this, KernelTuner.class);
+	            intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
+	            startActivity(intent);
+	            return true;
+	        
+	            
+	    }
+	    return super.onOptionsItemSelected(item);
+	}
 		
 }

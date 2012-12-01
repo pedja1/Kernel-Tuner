@@ -3,6 +3,8 @@ package rs.pedjaapps.KernelTuner;
 
 
 
+import com.actionbarsherlock.app.SherlockPreferenceActivity;
+import com.actionbarsherlock.app.ActionBar;
 import android.app.*;
 import android.app.ActivityManager.*;
 import android.content.*;
@@ -12,7 +14,7 @@ import android.preference.Preference.*;
 
 
 
-public class Preferences extends PreferenceActivity
+public class Preferences extends SherlockPreferenceActivity
 {
 
 ListPreference bootPrefList;
@@ -29,7 +31,11 @@ ListPreference tisList;
 	{        
 		super.onCreate(savedInstanceState);
 
-		addPreferencesFromResource(R.xml.preferences);        
+		addPreferencesFromResource(R.xml.preferences); 
+		
+		ActionBar actionBar = getSupportActionBar();
+		actionBar.setDisplayHomeAsUpEnabled(true);
+		
 		bootPrefList = (ListPreference) findPreference("boot");
         bootPrefList.setDefaultValue(bootPrefList.getEntryValues()[0]);
         String boot = bootPrefList.getValue();
@@ -227,5 +233,19 @@ ListPreference tisList;
 	    return false;
 	}
 	
-
+	@Override
+	public boolean onOptionsItemSelected(com.actionbarsherlock.view.MenuItem item) {
+	    switch (item.getItemId()) {
+	        case android.R.id.home:
+	            // app icon in action bar clicked; go home
+	            Intent intent = new Intent(this, KernelTuner.class);
+	            intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
+	            startActivity(intent);
+	            return true;
+	        
+	            
+	    }
+	    return super.onOptionsItemSelected(item);
+	}
+	
 }

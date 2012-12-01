@@ -150,7 +150,7 @@ public class CompatibilityCheck extends Activity
 			{
 
 				File myFile = new File(
-					"/sys/devices/platform/kgsl-3d0.0/kgsl/kgsl-3d0/gpuclk");
+					"/sys/devices/platform/kgsl-3d0.0/kgsl/kgsl-3d0/max_gpuclk");
 				FileInputStream fIn = new FileInputStream(myFile);
 
 				count = count + 1;
@@ -168,7 +168,7 @@ public class CompatibilityCheck extends Activity
 			{
 
 				File myFile = new File(
-					"/sys/devices/platform/kgsl-2d0.0/kgsl/kgsl-2d0/gpuclk");
+					"/sys/devices/platform/kgsl-2d0.0/kgsl/kgsl-2d0/max_gpuclk");
 				FileInputStream fIn = new FileInputStream(myFile);
 
 				count = count + 1;

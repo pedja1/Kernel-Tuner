@@ -1,7 +1,7 @@
 package rs.pedjaapps.KernelTuner;
 
 
-import android.app.*;
+
 import android.content.*;
 import android.graphics.Color;
 import android.os.*;
@@ -15,6 +15,8 @@ import android.widget.CompoundButton.OnCheckedChangeListener;
 import android.widget.EditText;
 import android.widget.LinearLayout;
 
+import com.actionbarsherlock.app.SherlockActivity;
+import com.actionbarsherlock.app.ActionBar;
 import com.google.ads.*;
 
 import de.ankri.views.Switch;
@@ -29,7 +31,7 @@ import org.achartengine.model.SeriesSelection;
 import org.achartengine.renderer.DefaultRenderer;
 import org.achartengine.renderer.SimpleSeriesRenderer;
 
-public class SDScannerConfigActivity extends Activity
+public class SDScannerConfigActivity extends SherlockActivity
 {
 
 	
@@ -76,6 +78,9 @@ public class SDScannerConfigActivity extends Activity
 		super.onCreate(savedInstanceState);
 
 		setContentView(R.layout.sd_scanner_config);
+		
+		ActionBar actionBar = getSupportActionBar();
+		actionBar.setDisplayHomeAsUpEnabled(true);
 		mRenderer.setApplyBackgroundColor(true);
 	    mRenderer.setBackgroundColor(Color.argb(100, 50, 50, 50));
 	    mRenderer.setChartTitleTextSize(20);
@@ -250,6 +255,19 @@ public class SDScannerConfigActivity extends Activity
 		
 	}
 	
-	
+	@Override
+	public boolean onOptionsItemSelected(com.actionbarsherlock.view.MenuItem item) {
+	    switch (item.getItemId()) {
+	        case android.R.id.home:
+	            // app icon in action bar clicked; go home
+	            Intent intent = new Intent(this, KernelTuner.class);
+	            intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
+	            startActivity(intent);
+	            return true;
+	        
+	            
+	    }
+	    return super.onOptionsItemSelected(item);
+	}
 	
 }

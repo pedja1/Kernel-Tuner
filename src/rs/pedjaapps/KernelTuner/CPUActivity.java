@@ -6,8 +6,9 @@ import java.io.IOException;
 import java.io.RandomAccessFile;
 import java.util.List;
 
-import android.app.Activity;
+
 import android.app.ProgressDialog;
+import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.AsyncTask;
 import android.os.Bundle;
@@ -28,10 +29,12 @@ import android.widget.Spinner;
 import android.widget.TextView;
 import android.widget.VerticalSeekBar;
 
+import com.actionbarsherlock.app.ActionBar;
+import com.actionbarsherlock.app.SherlockActivity;
 import com.google.ads.AdRequest;
 import com.google.ads.AdView;
 
-public class CPUActivity extends Activity
+public class CPUActivity extends SherlockActivity
 {
 
 	boolean thread = true;
@@ -254,6 +257,8 @@ public class CPUActivity extends Activity
 		
 		/**
 		 * Show Progress Dialog and execute ToggleCpus class*/
+		ActionBar actionBar = getSupportActionBar();
+		actionBar.setDisplayHomeAsUpEnabled(true);
 		CPUActivity.this.pd = ProgressDialog.show(CPUActivity.this, null, 
 				  getResources().getString(R.string.enabling_cpus), true, false);
 		new ToggleCPUs().execute(new Boolean[] {true});
@@ -1301,5 +1306,19 @@ startCpuLoadThread();
 		}
 	}
 
+	@Override
+	public boolean onOptionsItemSelected(com.actionbarsherlock.view.MenuItem item) {
+	    switch (item.getItemId()) {
+	        case android.R.id.home:
+	            // app icon in action bar clicked; go home
+	            Intent intent = new Intent(this, KernelTuner.class);
+	            intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
+	            startActivity(intent);
+	            return true;
+	        
+	            
+	    }
+	    return super.onOptionsItemSelected(item);
+	}
 
 }

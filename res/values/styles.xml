@@ -35,4 +35,8 @@
 		<item name="android:backgroundDimEnabled">true</item>
 	<!--	<item name="android:background">@drawable/lcd_background_grey</item>-->
 	</style>
+	<style name="SwitchCompatAndSherlock" parent="Theme.Sherlock">
+    <item name="switchStyle">@style/switch_dark</item>
+    <item name="textAppearance">@style/TextAppearance</item>
+</style>
 </resources>
