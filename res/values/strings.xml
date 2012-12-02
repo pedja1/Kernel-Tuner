@@ -43,7 +43,8 @@
     <string name="anthrax"><a href="http://anthrax&#8211;kernels.us/forum/showthread.php?t=574">anthrax&#8211;kernels.us</a></string>
     <string name="xda"><a href="http://forum.xda&#8211;developers.com/showthread.php?t=1719934">xda&#8211;developers.com</a></string>
     <string name="official"><a href="http://kerneltuner.pedjaapps.in.rs/">Official Website</a></string>
-
+<string name="mail"><a href="mailto:predragcokulov@gmail.com">Send me Mail</a></string>
+    
     <color name="green">#00ff00</color>
 
     <string name="copyright_cokulov_predrag_2012">Copyright © Čokulov Predrag 2012</string>
