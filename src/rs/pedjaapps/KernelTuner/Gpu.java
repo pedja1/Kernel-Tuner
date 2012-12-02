@@ -141,6 +141,10 @@ private class changegpu extends AsyncTask<String, Void, Object>
 					{
 						new3d = 400000000;
 					}
+					else if (selected2d.equals("512"))
+					{
+						new2d = 512000000;
+					}
 
 					//2d freqs for evita
 					if (selected2d.equals("27"))
@@ -167,6 +171,10 @@ private class changegpu extends AsyncTask<String, Void, Object>
 					else if (selected2d.equals("266"))
 					{
 						new2d = 266667000;
+					}
+					else if (selected2d.equals("320"))
+					{
+						new2d = 320000000;
 					}
 
 
@@ -235,8 +243,8 @@ private class changegpu extends AsyncTask<String, Void, Object>
 		}
 		else if (board.equals("evita") || board.equals("ville") || board.equals("jewel"))
 		{
-			gpu2d = new String[]{"266", "228", "200", "160", "96", "27"};
-			gpu3d = new String[]{"400", "320", "300", "266", "228", "200", "177", "27"};
+			gpu2d = new String[]{"320", "266", "228", "200", "160", "96", "27"};
+			gpu3d = new String[]{"512", "400", "320", "300", "266", "228", "200", "177", "27"};
 		}
 
 		readgpu2dcurent();
