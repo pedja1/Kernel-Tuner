@@ -1,10 +1,10 @@
-<?xml version="1.0" encoding="UTF-8"?><classpath>
-<classpathentry kind="con" path="com.android.ide.eclipse.adt.ANDROID_FRAMEWORK"/>
-<classpathentry kind="con" path="com.android.ide.eclipse.adt.LIBRARIES"/>
-<classpathentry kind="lib" path="libs/GoogleAdMobAdsSdk.jar"/>
-<classpathentry kind="lib" path="libs/achartengine-1.0.0.jar"/>
-<classpathentry kind="src" path="gen"/>
-<classpathentry kind="src" path="src"/>
-<classpathentry kind="output" path="bin/classes"/>
-<classpathentry kind="lib" path="/mnt/sdcard/AppProjects/JakeWharton-ActionBarSherlock-e5c2d1c/library/libs/android-support-v4.jar"/>
+<?xml version="1.0" encoding="UTF-8"?>
+<classpath>
+	<classpathentry kind="con" path="com.android.ide.eclipse.adt.ANDROID_FRAMEWORK"/>
+	<classpathentry kind="con" path="com.android.ide.eclipse.adt.LIBRARIES"/>
+	<classpathentry kind="lib" path="libs/GoogleAdMobAdsSdk.jar"/>
+	<classpathentry kind="lib" path="libs/achartengine-1.0.0.jar"/>
+	<classpathentry kind="src" path="gen"/>
+	<classpathentry kind="src" path="src"/>
+	<classpathentry kind="output" path="bin/classes"/>
 </classpath>

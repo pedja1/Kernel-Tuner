@@ -20,7 +20,9 @@ import android.widget.*;
 
 import com.actionbarsherlock.app.ActionBar;
 import com.actionbarsherlock.app.SherlockActivity;
+import com.actionbarsherlock.view.Menu;
 import com.actionbarsherlock.view.MenuInflater;
+import com.actionbarsherlock.view.MenuItem;
 import com.google.ads.*;
 import java.io.*;
 import java.util.*;
@@ -2407,7 +2409,7 @@ public void startCpuLoadThread() {
 
 
 	@Override
-	public boolean onCreateOptionsMenu(com.actionbarsherlock.view.Menu menu)
+	public boolean onCreateOptionsMenu(Menu menu)
 	{
 
 		MenuInflater inflater = getSupportMenuInflater();
@@ -2420,7 +2422,7 @@ public void startCpuLoadThread() {
 
 
 	@Override
-	public boolean onOptionsItemSelected(com.actionbarsherlock.view.MenuItem item)
+	public boolean onOptionsItemSelected(MenuItem item)
 	{
 
 		if (item.getItemId() == R.id.settings)
