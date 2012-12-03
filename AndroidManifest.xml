@@ -35,7 +35,9 @@
 		android:allowBackup="true">
 		<activity android:name="rs.pedjaapps.KernelTuner.KernelTuner"
 			android:icon="@drawable/ic_launcher"
-			android:label="@string/app_name"  android:windowSoftInputMode="adjustResize" 
+			android:label="@string/app_name" 
+			android:windowSoftInputMode="adjustResize" 
+			android:theme="@style/Theme.Sherlock"
 		>
 			<intent-filter>
 				<action android:name="android.intent.action.MAIN" />

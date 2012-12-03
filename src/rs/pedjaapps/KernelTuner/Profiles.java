@@ -725,12 +725,13 @@ public boolean onOptionsItemSelected(com.actionbarsherlock.view.MenuItem item) {
 
 		alert2.show();
 		
-		if(item.getItemId() == android.R.id.home) {
-       
+		switch(item.getItemId()) {
+       case android.R.id.home:
             // app icon in action bar clicked; go home
             Intent intent = new Intent(this, KernelTuner.class);
             intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
             startActivity(intent);  
+			return true;
 		}
 }
 
