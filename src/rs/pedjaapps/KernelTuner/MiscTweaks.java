@@ -799,7 +799,6 @@ SeekBar.OnSeekBarChangeListener
 	{
 
 		CheckBox fc = (CheckBox) findViewById(R.id.checkBox1);
-		Button bt = (Button) findViewById(R.id.button2);
 		TextView tv = (TextView) findViewById(R.id.textView1);
 		if (fastcharge.equals("0"))
 		{
@@ -812,14 +811,14 @@ SeekBar.OnSeekBarChangeListener
 		else
 		{
 			fc.setVisibility(View.GONE);
-			bt.setVisibility(View.GONE);
+			
 			tv.setVisibility(View.GONE);
 			ImageView im = (ImageView) findViewById(R.id.imageView2);
 			im.setVisibility(View.GONE);
 		}
 
 		CheckBox vs = (CheckBox) findViewById(R.id.checkBox2);
-		Button bt2 = (Button) findViewById(R.id.button1);
+		
 		TextView tv2 = (TextView) findViewById(R.id.textView2);
 
 		if (vsync.equals("1"))
@@ -833,7 +832,6 @@ SeekBar.OnSeekBarChangeListener
 		else
 		{
 			vs.setVisibility(View.GONE);
-			bt2.setVisibility(View.GONE);
 			tv2.setVisibility(View.GONE);
 			ImageView im = (ImageView) findViewById(R.id.imageView3);
 			im.setVisibility(View.GONE);
