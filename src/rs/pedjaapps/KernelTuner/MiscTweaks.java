@@ -947,8 +947,8 @@ SeekBar.OnSeekBarChangeListener
 		}
 		else
 		{
-			Button btpluscdepth = (Button) findViewById(R.id.button7);
-			Button btminuscdepth = (Button) findViewById(R.id.button3);
+			ImageView btpluscdepth = (ImageView) findViewById(R.id.button7);
+			ImageView btminuscdepth = (ImageView) findViewById(R.id.button3);
 			TextView tv = (TextView) findViewById(R.id.textView5);
 			TextView tv2 = (TextView) findViewById(R.id.textView6);
 			TextView tv3 = (TextView) findViewById(R.id.textView7);
