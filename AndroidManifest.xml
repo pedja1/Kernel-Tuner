@@ -3,8 +3,8 @@
 	package="rs.pedjaapps.KernelTuner"
 	android:installLocation="internalOnly"
 	xmlns:tools="http://schemas.android.com/tools"
-	android:versionCode="103122012"
-	android:versionName="3.3.4">
+	android:versionCode="104122012"
+	android:versionName="3.3.4.1">
 
 
 	<uses-sdk android:minSdkVersion="9"

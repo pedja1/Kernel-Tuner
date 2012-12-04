@@ -34,7 +34,7 @@ import java.lang.Process;
 //EndImports 
 
 @SuppressLint("WorldReadableFiles")
-public class KernelTuner extends SherlockActivity
+public class KernelTuner extends SherlockActivity 
 {
 
 	private TextView batteryLevel;
@@ -811,7 +811,9 @@ public class KernelTuner extends SherlockActivity
 			/**
 			Declare buttons and set onClickListener for each
 			*/
+		
 			
+		
 		Button gpu = (Button)findViewById(R.id.button3);
 		gpu.setOnClickListener(new OnClickListener(){
 
@@ -824,6 +826,17 @@ public class KernelTuner extends SherlockActivity
 				}
 
 			});
+		gpu.setOnLongClickListener(new OnLongClickListener(){
+
+			@Override
+			public boolean onLongClick(View arg0) {
+				
+				
+				
+				return true;
+			}
+			
+		});
 
 		Button voltage = (Button)findViewById(R.id.button6);
 		voltage.setOnClickListener(new OnClickListener(){

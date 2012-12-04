@@ -241,7 +241,7 @@ private class changegpu extends AsyncTask<String, Void, Object>
 			gpu2d = new String[]{"160", "200", "228", "266"};
 			gpu3d = new String[]{"200", "228", "266", "300", "320"};
 		}
-		else if (board.equals("evita") || board.equals("ville") || board.equals("jewel"))
+		else if (board.equals("evita") || board.equals("ville") || board.equals("jewel") || board.equals("d2spr"))
 		{
 			gpu2d = new String[]{"320", "266", "228", "200", "160", "96", "27"};
 			gpu3d = new String[]{"512", "400", "320", "300", "266", "228", "200", "177", "27"};
