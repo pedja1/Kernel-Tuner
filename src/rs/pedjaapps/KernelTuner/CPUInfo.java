@@ -69,6 +69,7 @@ public class CPUInfo
 	public static String FCHARGE = "/sys/kernel/fast_charge/force_fast_charge";
 	public static String OOM = "/sys/module/lowmemorykiller/parameters/minfree";
 	public static String THERMALD = "/sys/kernel/msm_thermal/conf/allowed_low_freq";
+	public static String SCHEDULER = "/sys/block/mmcblk0/queue/scheduler";
 	
 	public static boolean freqsExists()
 	{
@@ -1726,7 +1727,7 @@ public class CPUInfo
 		try
 		{
 
-			File myFile = new File("/sys/block/mmcblk0/queue/scheduler");
+			File myFile = new File(SCHEDULER);
 			FileInputStream fIn = new FileInputStream(myFile);
 
 			BufferedReader myReader = new BufferedReader(new InputStreamReader(
@@ -1987,7 +1988,7 @@ public class CPUInfo
 		try
 		{
 
-			File myFile = new File("/sys/block/mmcblk0/queue/scheduler");
+			File myFile = new File(SCHEDULER);
 			FileInputStream fIn = new FileInputStream(myFile);
 
 			BufferedReader myReader = new BufferedReader(
@@ -2019,7 +2020,7 @@ public class CPUInfo
 		try
 		{
 
-			File myFile = new File("/sys/devices/virtual/bdi/179:0/read_ahead_kb");
+			File myFile = new File(SD_CACHE);
 			FileInputStream fIn = new FileInputStream(myFile);
 
 			BufferedReader myReader = new BufferedReader(

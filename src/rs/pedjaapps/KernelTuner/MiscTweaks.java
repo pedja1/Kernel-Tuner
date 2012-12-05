@@ -8,6 +8,7 @@ import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.io.InputStream;
 import java.io.InputStreamReader;
+import java.util.List;
 
 import android.content.Intent;
 import android.content.SharedPreferences;
@@ -25,20 +26,25 @@ import android.widget.Button;
 import android.widget.CheckBox;
 import android.widget.EditText;
 import android.widget.ImageView;
+import android.widget.LinearLayout;
 import android.widget.ProgressBar;
 import android.widget.RadioButton;
 import android.widget.RadioGroup;
 import android.widget.SeekBar;
+import android.widget.SeekBar.OnSeekBarChangeListener;
 import android.widget.Spinner;
 import android.widget.TextView;
 
 import com.actionbarsherlock.app.ActionBar;
 import com.actionbarsherlock.app.SherlockActivity;
+import com.actionbarsherlock.view.Menu;
+import com.actionbarsherlock.view.MenuInflater;
 import com.google.ads.AdRequest;
 import com.google.ads.AdView;
 
-public class MiscTweaks extends SherlockActivity implements
-SeekBar.OnSeekBarChangeListener
+import de.ankri.views.Switch;
+
+public class MiscTweaks extends SherlockActivity
 {
 
 	public String iscVa = "";
@@ -64,9 +70,9 @@ SeekBar.OnSeekBarChangeListener
 	public String hw;
 	public String backbuf;
 	public String cdepth = " ";
-	public String sdcache;
-	public String schedulers;
-	public String scheduler;
+	public Integer sdcache = CPUInfo.sdCache();
+	private  List<String> schedulers = CPUInfo.schedulers();
+	public String scheduler = CPUInfo.scheduler();
 	public int ledprogress;
 	public SharedPreferences preferences;
 	ProgressBar prog;
@@ -81,10 +87,15 @@ SeekBar.OnSeekBarChangeListener
 	public String s2wEnd;
 	public String s2wStartnew;
 	public String s2wEndnew;
+	private LinearLayout sdcacheLayout;
+	private LinearLayout ioSchedulerLayout;
+	private ImageView ioDivider;
+	private ImageView s2wDivider1;
+	private ImageView s2wDivider2;
 
 	Handler mHandler = new Handler();
 
-	// EndOfGlobalVariables
+	
 
 	private class ChangeColorDepth extends AsyncTask<String, Void, Object>
 	{
@@ -472,7 +483,7 @@ SeekBar.OnSeekBarChangeListener
 				.getDefaultSharedPreferences(getBaseContext());
 			SharedPreferences.Editor editor = preferences.edit();
 			editor.putString("io", scheduler);
-			editor.putString("sdcache", sdcache);
+			editor.putString("sdcache", String.valueOf(sdcache));
 			editor.commit();
 
 		}
@@ -485,7 +496,12 @@ SeekBar.OnSeekBarChangeListener
 
 		setContentView(R.layout.misc_tweaks);
 		
-
+		sdcacheLayout = (LinearLayout)findViewById(R.id.sdcache_layout);
+		ioSchedulerLayout = (LinearLayout)findViewById(R.id.io_scheduler_layout);
+		ioDivider = (ImageView)findViewById(R.id.io_divider);
+		s2wDivider1 = (ImageView)findViewById(R.id.s2w_divider1);
+		s2wDivider2 = (ImageView)findViewById(R.id.s2w_divider2);
+		
 		ActionBar actionBar = getSupportActionBar();
 		actionBar.setDisplayHomeAsUpEnabled(true);
 		
@@ -496,31 +512,33 @@ SeekBar.OnSeekBarChangeListener
 			adView.loadAd(new AdRequest());}
 		this.getWindow().setSoftInputMode(WindowManager.LayoutParams.SOFT_INPUT_STATE_ALWAYS_HIDDEN); 
 		mSeekBar = (SeekBar) findViewById(R.id.seekBar1);
-		mSeekBar.setOnSeekBarChangeListener(this);
+		mSeekBar.setOnSeekBarChangeListener(new OnSeekBarChangeListener(){
+			@Override
+			public void onProgressChanged(SeekBar arg0, int progress, boolean arg2)
+			{
 
-		Button apply = (Button)findViewById(R.id.apply);
-		apply.setOnClickListener(new OnClickListener(){
+				ledprogress = progress;
+				TextView perc = (TextView) findViewById(R.id.progtextView1);
+				perc.setText(ledprogress * 100 / 60 + "%");
 
-				@Override
-				public void onClick(View arg0)
-				{
-					EditText sd = (EditText) findViewById(R.id.editText1);
-					sdcache = String.valueOf(sd.getText());
-					new ChangeIO().execute();
 
-					EditText ldttv = (EditText) findViewById(R.id.editText2);
-					RadioButton dva = (RadioButton) findViewById(R.id.radio2);
-					if (dva.isChecked())
-					{
-						ldtnew = String.valueOf(ldttv.getText());
-					}
-					new ChangeNotificationLedTimeout().execute();
-					new ChangeS2w().execute();
-					finish();
+			}
+			@Override
+			public void onStartTrackingTouch(SeekBar arg0)
+			{
 
-				}
+			}
+			@Override
+			public void onStopTrackingTouch(SeekBar arg0)
+			{
 
-			});
+				ledprogress = mSeekBar.getProgress();
+
+				new ChangeButtonsLight().execute(new String[] {"e3d"});
+			}
+		});
+
+		
 
 		
 
@@ -550,51 +568,9 @@ SeekBar.OnSeekBarChangeListener
 				}
 			});
 
-		ImageView btminuscdepth = (ImageView) findViewById(R.id.button3);
-		btminuscdepth.setOnClickListener(new OnClickListener() {
+		
 
-				@Override
-				public void onClick(View v)
-				{
-					prog = (ProgressBar) findViewById(R.id.progressBar1);
-					if (prog.getProgress() == 2)
-					{
-						cdepth = "24";
-					}
-					else if (prog.getProgress() == 1)
-					{
-						cdepth = "16";
-					}
-
-					prog.setProgress(prog.getProgress() - 1);
-					new ChangeColorDepth().execute();
-
-				}
-			});
-
-		ImageView btpluscdepth = (ImageView) findViewById(R.id.button7);
-		btpluscdepth.setOnClickListener(new OnClickListener() {
-
-				@Override
-				public void onClick(View v)
-				{
-
-					prog = (ProgressBar) findViewById(R.id.progressBar1);
-					if (prog.getProgress() == 0)
-					{
-						cdepth = "24";
-					}
-					else if (prog.getProgress() == 1)
-					{
-						cdepth = "32";
-					}
-					prog.setProgress(prog.getProgress() + 1);
-					new ChangeColorDepth().execute();
-
-				}
-			});
-
-		final CheckBox fastchargechbx = (CheckBox) findViewById(R.id.checkBox1);
+		final Switch fastchargechbx = (Switch) findViewById(R.id.fcharge_switch);
 		fastchargechbx.setOnClickListener(new OnClickListener() {
 
 				@Override
@@ -627,7 +603,7 @@ SeekBar.OnSeekBarChangeListener
 				}
 			});
 
-		final CheckBox vsynchbx = (CheckBox) findViewById(R.id.checkBox2);
+		final Switch vsynchbx = (Switch) findViewById(R.id.vsync_switch);
 		vsynchbx.setOnClickListener(new OnClickListener() {
 
 				@Override
@@ -667,9 +643,17 @@ SeekBar.OnSeekBarChangeListener
 
 			
 		readButtons2();
-		readSDCache();
-		readIOScheduler();
-		createSpinnerIO();
+		
+		
+		if (schedulers.isEmpty())
+		{
+			ioSchedulerLayout.setVisibility(View.GONE);
+			ioDivider.setVisibility(View.GONE);
+		}
+		else{
+			createSpinnerIO();
+		}
+		
 		TextView sb = (TextView) findViewById(R.id.textView9);
 		TextView sb1 = (TextView) findViewById(R.id.progtextView1);
 		ImageView im = (ImageView) findViewById(R.id.imageView1);
@@ -752,7 +736,7 @@ SeekBar.OnSeekBarChangeListener
 		setCheckBoxes();
 
 		readColorDepth();
-		setColorDepth();
+		//setColorDepth();
 		readS2W();
 		createSpinnerS2W();
 		if (new File("/sys/android_touch/sweep2wake_buttons").exists())
@@ -798,7 +782,7 @@ SeekBar.OnSeekBarChangeListener
 	public void setCheckBoxes()
 	{
 
-		CheckBox fc = (CheckBox) findViewById(R.id.checkBox1);
+		Switch fc = (Switch) findViewById(R.id.fcharge_switch);
 		TextView tv = (TextView) findViewById(R.id.textView1);
 		if (fastcharge.equals("0"))
 		{
@@ -817,7 +801,7 @@ SeekBar.OnSeekBarChangeListener
 			im.setVisibility(View.GONE);
 		}
 
-		CheckBox vs = (CheckBox) findViewById(R.id.checkBox2);
+		Switch vs = (Switch) findViewById(R.id.vsync_switch);
 		
 		TextView tv2 = (TextView) findViewById(R.id.textView2);
 
@@ -836,20 +820,18 @@ SeekBar.OnSeekBarChangeListener
 			ImageView im = (ImageView) findViewById(R.id.imageView3);
 			im.setVisibility(View.GONE);
 		}
-		if (!sdcache.equals("err"))
+		if (sdcache!=null)
 		{
 			EditText sd = (EditText) findViewById(R.id.editText1);
-			sd.setText(sdcache);
+			sd.setText(String.valueOf(sdcache));
 		}
-		else
-		{
-			EditText sd = (EditText) findViewById(R.id.editText1);
-			TextView sdtxt = (TextView) findViewById(R.id.textView11);
-			sd.setVisibility(View.GONE);
-			sdtxt.setVisibility(View.GONE);
+		if(!CPUInfo.sdcacheExists()){
+			sdcacheLayout.setVisibility(View.GONE);
+			ioDivider.setVisibility(View.GONE);
 		}
+		
 
-		RadioGroup ldtradio = (RadioGroup) findViewById(R.id.radioGroup1);
+		/*RadioGroup ldtradio = (RadioGroup) findViewById(R.id.radioGroup1);
 		final EditText et = (EditText) findViewById(R.id.editText2);
 		TextView ldttitle = (TextView) findViewById(R.id.textView12);
 		RadioButton nula = (RadioButton) findViewById(R.id.radio0);
@@ -923,11 +905,11 @@ SeekBar.OnSeekBarChangeListener
 
 		} catch (IOException e) {
 			
-		}
+		}*/
 
 	}
 
-	public void setColorDepth()
+	/*public void setColorDepth()
 	{
 		prog = (ProgressBar) findViewById(R.id.progressBar1);
 		if (cdepth.equals("16"))
@@ -966,7 +948,7 @@ SeekBar.OnSeekBarChangeListener
 			im.setVisibility(View.GONE);
 
 		}
-	}
+	}*/
 
 	public void readS2W()
 	{
@@ -1191,42 +1173,13 @@ SeekBar.OnSeekBarChangeListener
 		}
 	}
 
-	public void readSDCache()
-	{
-		try
-		{
-
-			File myFile = new File(
-				"/sys/devices/virtual/bdi/179:0/read_ahead_kb");
-			FileInputStream fIn = new FileInputStream(myFile);
-
-			BufferedReader myReader = new BufferedReader(new InputStreamReader(
-															 fIn));
-			String aDataRow = "";
-			String aBuffer = "";
-			while ((aDataRow = myReader.readLine()) != null)
-			{
-				aBuffer += aDataRow + "\n";
-			}
-
-			sdcache = aBuffer.trim();
-			myReader.close();
-
-		}
-		catch (Exception e)
-		{
-			sdcache = "err";
-
-		}
-	}
-
 	public void createSpinnerIO()
 	{
-		String[] MyStringAray = schedulers.split("\\s");
+		
 
 		final Spinner spinner = (Spinner) findViewById(R.id.spinner1);
 		ArrayAdapter<String> spinnerArrayAdapter = new ArrayAdapter<String>(
-			this, android.R.layout.simple_spinner_item, MyStringAray);
+			this, android.R.layout.simple_spinner_item, schedulers);
 		spinnerArrayAdapter
 			.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
 		spinner.setAdapter(spinnerArrayAdapter);
@@ -1237,13 +1190,7 @@ SeekBar.OnSeekBarChangeListener
 										   int pos, long id)
 				{
 					scheduler = parent.getItemAtPosition(pos).toString();
-					if (scheduler == "err")
-					{
-						Spinner spinner = (Spinner) findViewById(R.id.spinner1);
-						TextView iotxt = (TextView) findViewById(R.id.textView10);
-						spinner.setVisibility(View.GONE);
-						iotxt.setVisibility(View.GONE);
-					}
+					
 				}
 				@Override
 				public void onNothingSelected(AdapterView<?> parent)
@@ -1388,40 +1335,6 @@ SeekBar.OnSeekBarChangeListener
 
 	}
 
-	public void readIOScheduler()
-	{
-		try
-		{
-
-			File myFile = new File("/sys/block/mmcblk0/queue/scheduler");
-			FileInputStream fIn = new FileInputStream(myFile);
-
-			BufferedReader myReader = new BufferedReader(new InputStreamReader(
-															 fIn));
-			String aDataRow = "";
-			String aBuffer = "";
-			while ((aDataRow = myReader.readLine()) != null)
-			{
-				aBuffer += aDataRow + "\n";
-			}
-
-			schedulers = aBuffer;
-			myReader.close();
-			scheduler = schedulers.substring(schedulers.indexOf("[") + 1,
-											 schedulers.indexOf("]"));
-			scheduler.trim();
-			schedulers = schedulers.replace("[", "");
-			schedulers = schedulers.replace("]", "");
-
-		}
-		catch (Exception e)
-		{
-			schedulers = "err";
-			scheduler = "err";
-		}
-
-	}
-
 	public void readFastchargeStatus()
 	{
 		try
@@ -1475,30 +1388,13 @@ SeekBar.OnSeekBarChangeListener
 	}
 
 	
-	@Override
-	public void onProgressChanged(SeekBar arg0, int progress, boolean arg2)
-	{
-
-		ledprogress = progress;
-		TextView perc = (TextView) findViewById(R.id.progtextView1);
-		perc.setText(ledprogress * 100 / 60 + "%");
-
-
-	}
-	@Override
-	public void onStartTrackingTouch(SeekBar arg0)
-	{
-
-	}
-	@Override
-	public void onStopTrackingTouch(SeekBar arg0)
-	{
-
-		ledprogress = mSeekBar.getProgress();
-
-		new ChangeButtonsLight().execute(new String[] {"e3d"});
-	}
 	
+	@Override
+	public boolean onCreateOptionsMenu(Menu menu) {
+		MenuInflater inflater = getSupportMenuInflater();
+		inflater.inflate(R.menu.misc_tweaks_options_menu, menu);
+		return super.onCreateOptionsMenu(menu);
+}
 	@Override
 	public boolean onOptionsItemSelected(com.actionbarsherlock.view.MenuItem item) {
 	    switch (item.getItemId()) {
@@ -1508,10 +1404,32 @@ SeekBar.OnSeekBarChangeListener
 	            intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
 	            startActivity(intent);
 	            return true;
+	        case R.id.apply:
+	        	apply();
+	        	return true;
+	        case R.id.cancel:
+	        	finish();
+	        	return true;
 	        
 	            
 	    }
 	    return super.onOptionsItemSelected(item);
+	}
+	
+	public void apply(){
+		EditText sd = (EditText) findViewById(R.id.editText1);
+		sdcache = Integer.parseInt(sd.getText().toString());
+		new ChangeIO().execute();
+
+		/*EditText ldttv = (EditText) findViewById(R.id.editText2);
+		RadioButton dva = (RadioButton) findViewById(R.id.radio2);
+		if (dva.isChecked())
+		{
+			ldtnew = String.valueOf(ldttv.getText());
+		}
+		new ChangeNotificationLedTimeout().execute();*/
+		new ChangeS2w().execute();
+		finish();
 	}
 
 }
