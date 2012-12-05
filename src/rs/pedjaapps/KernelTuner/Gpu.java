@@ -59,7 +59,7 @@ private class changegpu extends AsyncTask<String, Void, Object>
 				System.out.println("GPU: Changing GPU");
 				DataOutputStream localDataOutputStream = new DataOutputStream(localProcess.getOutputStream());
 				localDataOutputStream.writeBytes("chmod 777 /sys/devices/platform/kgsl-3d0.0/kgsl/kgsl-3d0/max_gpuclk\n");
-				if (board.equals("shooter") || board.equals("shooteru") || board.equals("pyramid"))
+				if (board.equals("shooter") || board.equals("shooteru") || board.equals("pyramid") || board.equals("tenderloin"))
 				{
 					//3d freqs for shooter,shooteru,pyramid(msm8x60)
 					if (selected3d.equals("200"))
@@ -106,7 +106,7 @@ private class changegpu extends AsyncTask<String, Void, Object>
 					}
 				}
 				//freqs for one s and one xl
-				else if (board.equals("evita") || board.equals("ville") || board.equals("jwel"))
+				else if (board.equals("evita") || board.equals("ville") || board.equals("jewel") || board.equals("d2spr"))
 				{
 					// 3d freqs for evita
 					if (selected3d.equals("27"))
