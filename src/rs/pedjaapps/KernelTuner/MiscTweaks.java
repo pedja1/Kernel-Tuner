@@ -4,26 +4,30 @@ import java.io.BufferedReader;
 import java.io.DataOutputStream;
 import java.io.File;
 import java.io.FileInputStream;
-import java.io.FileNotFoundException;
+
 import java.io.IOException;
-import java.io.InputStream;
+
 import java.io.InputStreamReader;
 import java.util.List;
 
+import android.app.AlertDialog;
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.AsyncTask;
 import android.os.Bundle;
 import android.os.Handler;
 import android.preference.PreferenceManager;
+import android.text.InputType;
+import android.view.Gravity;
+import android.view.MotionEvent;
 import android.view.View;
 import android.view.View.OnClickListener;
+import android.view.View.OnTouchListener;
 import android.view.WindowManager;
 import android.widget.AdapterView;
 import android.widget.AdapterView.OnItemSelectedListener;
 import android.widget.ArrayAdapter;
-import android.widget.Button;
-import android.widget.CheckBox;
 import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
@@ -47,38 +51,29 @@ import de.ankri.views.Switch;
 public class MiscTweaks extends SherlockActivity
 {
 
-	public String iscVa = "";
-	public String iscVa2 = "offline";
-	public String governors;
-	public String governorscpu1;
-	public String curentgovernorcpu0;
-	public String curentgovernorcpu1;
 	public String led = CPUInfo.leds();
 	public String ledHox;
 	SeekBar mSeekBar;
 	TextView progresstext;
-	public String cpu0freqs;
-	public String cpu1freqs;
-	public String cpu0max;
-	public String cpu1max;
-	public int countcpu0;
-	public int countcpu1;
-	public String fastcharge = " ";
-	public String vsync = " ";
+	
+	
 	public String fc = " ";
+	private int fastcharge = CPUInfo.fcharge();
+	private int vsync = CPUInfo.vsync();
 	public String vs;
 	public String hw;
 	public String backbuf;
-	public String cdepth = " ";
+	public String cdepth = CPUInfo.cDepth();
 	public Integer sdcache = CPUInfo.sdCache();
 	private  List<String> schedulers = CPUInfo.schedulers();
 	public String scheduler = CPUInfo.scheduler();
 	public int ledprogress;
 	public SharedPreferences preferences;
 	ProgressBar prog;
+	boolean userSelect = false;
 	
-	public String ldt;
-	public String ldtnew;
+	public String nlt;
+	
 	public String s2w;
 	public String s2wnew;
 	public boolean s2wmethod;
@@ -90,18 +85,47 @@ public class MiscTweaks extends SherlockActivity
 	private LinearLayout sdcacheLayout;
 	private LinearLayout ioSchedulerLayout;
 	private ImageView ioDivider;
+	private RadioGroup cdRadio;
+	private RadioButton rb16;
+	private RadioButton rb24;
+	private RadioButton rb32;
+	private ImageView cdHeadImage;
+	private TextView cdHead;
+	private ImageView fchargeHeadImage;
+	private TextView fchargeHead;
+	private LinearLayout fchargeLayout;
+	private Switch fchargeSwitch;
+	
+	private ImageView vsyncHeadImage;
+	private TextView vsyncHead;
+	private LinearLayout vsyncLayout;
+	private Switch vsyncSwitch;
+	
+	private ImageView nltHeadImage;
+	private TextView nltHead;
+	private LinearLayout nltLayout;
+	
+	private LinearLayout s2wLayout;
+	
+	private LinearLayout s2wLayoutStart;
+	private LinearLayout s2wLayoutEnd;
+	
+	private ImageView s2wHeadImage;
 	private ImageView s2wDivider1;
 	private ImageView s2wDivider2;
+	
+	private TextView s2wHead;
+	
 
 	Handler mHandler = new Handler();
 
 	
 
-	private class ChangeColorDepth extends AsyncTask<String, Void, Object>
+	private class ChangeColorDepth extends AsyncTask<String, Void, String>
 	{
 
 		@Override
-		protected Object doInBackground(String... args)
+		protected String doInBackground(String... args)
 		{
 			
 
@@ -114,7 +138,7 @@ public class MiscTweaks extends SherlockActivity
 					localProcess.getOutputStream());
 				localDataOutputStream
 					.writeBytes("chmod 777 /sys/kernel/debug/msm_fb/0/bpp\n");
-				localDataOutputStream.writeBytes("echo " + cdepth
+				localDataOutputStream.writeBytes("echo " + args[0]
 												 + " > /sys/kernel/debug/msm_fb/0/bpp\n");
 				localDataOutputStream.writeBytes("exit\n");
 				localDataOutputStream.flush();
@@ -134,16 +158,16 @@ public class MiscTweaks extends SherlockActivity
 				new LogWriter().execute(new String[] {getClass().getName(), e1.getMessage()});
 			}
 
-			return "";
+			return args[0];
 		}
 
 		@Override
-		protected void onPostExecute(Object result)
+		protected void onPostExecute(String result)
 		{
 			preferences = PreferenceManager
 				.getDefaultSharedPreferences(getBaseContext());
 			SharedPreferences.Editor editor = preferences.edit();
-			editor.putString("cdepth", cdepth);
+			editor.putString("cdepth", result);
 			editor.commit();
 			
 
@@ -299,11 +323,11 @@ public class MiscTweaks extends SherlockActivity
 
 	}
 
-	private class ChangeNotificationLedTimeout extends AsyncTask<String, Void, Object>
+	private class ChangeNotificationLedTimeout extends AsyncTask<String, Void, String>
 	{
 
 		@Override
-		protected Object doInBackground(String... args)
+		protected String doInBackground(String... args)
 		{
 
 			Process localProcess;
@@ -317,7 +341,7 @@ public class MiscTweaks extends SherlockActivity
 					.writeBytes("chmod 777 /sys/kernel/notification_leds/off_timer_multiplier\n");
 				localDataOutputStream
 					.writeBytes("echo "
-								+ ldtnew
+								+ args[0]
 								+ " > /sys/kernel/notification_leds/off_timer_multiplier\n");
 				localDataOutputStream.writeBytes("exit\n");
 				localDataOutputStream.flush();
@@ -341,12 +365,12 @@ public class MiscTweaks extends SherlockActivity
 		}
 
 		@Override
-		protected void onPostExecute(Object result)
+		protected void onPostExecute(String result)
 		{
 			preferences = PreferenceManager
 				.getDefaultSharedPreferences(getBaseContext());
 			SharedPreferences.Editor editor = preferences.edit();
-			editor.putString("ldt", String.valueOf(ldtnew));
+			editor.putString("ldt", result);
 			editor.commit();
 
 		}
@@ -499,8 +523,39 @@ public class MiscTweaks extends SherlockActivity
 		sdcacheLayout = (LinearLayout)findViewById(R.id.sdcache_layout);
 		ioSchedulerLayout = (LinearLayout)findViewById(R.id.io_scheduler_layout);
 		ioDivider = (ImageView)findViewById(R.id.io_divider);
+		
+		
+		cdRadio = (RadioGroup) findViewById(R.id.cdGroup);
+		rb16 = (RadioButton) findViewById(R.id.rb16);
+		rb24 = (RadioButton) findViewById(R.id.rb24);
+		rb32 = (RadioButton) findViewById(R.id.rb32);
+		
+		cdHeadImage = (ImageView)findViewById(R.id.cd_head_image);
+		cdHead = (TextView)findViewById(R.id.cd_head);
+		
+		fchargeLayout = (LinearLayout)findViewById(R.id.fcharge_layout);
+		fchargeHead = (TextView)findViewById(R.id.fastcharge_head);
+		fchargeHeadImage = (ImageView)findViewById(R.id.fastcharge_head_image);
+		fchargeSwitch = (Switch) findViewById(R.id.fcharge_switch);
+		
+		vsyncLayout = (LinearLayout)findViewById(R.id.vsync_layout);
+		vsyncHead = (TextView)findViewById(R.id.vsync_head);
+		vsyncHeadImage = (ImageView)findViewById(R.id.vsync_head_image);
+		vsyncSwitch = (Switch) findViewById(R.id.vsync_switch);
+		
+		nltLayout = (LinearLayout)findViewById(R.id.nlt_layout);
+		nltHead = (TextView)findViewById(R.id.nlt_head);
+		nltHeadImage = (ImageView)findViewById(R.id.nlt_head_image);
+		
+		s2wLayout = (LinearLayout)findViewById(R.id.s2w_layout);
+		s2wLayoutStart = (LinearLayout)findViewById(R.id.s2w_layout_start);
+		s2wLayoutEnd = (LinearLayout)findViewById(R.id.s2w_layout_end);
+		
+		s2wHeadImage = (ImageView)findViewById(R.id.s2w_head_image);
 		s2wDivider1 = (ImageView)findViewById(R.id.s2w_divider1);
 		s2wDivider2 = (ImageView)findViewById(R.id.s2w_divider2);
+		
+		s2wHead = (TextView)findViewById(R.id.s2w_head);
 		
 		ActionBar actionBar = getSupportActionBar();
 		actionBar.setDisplayHomeAsUpEnabled(true);
@@ -654,9 +709,9 @@ public class MiscTweaks extends SherlockActivity
 			createSpinnerIO();
 		}
 		
-		TextView sb = (TextView) findViewById(R.id.textView9);
+		TextView backlightHead = (TextView) findViewById(R.id.backlight_head);
 		TextView sb1 = (TextView) findViewById(R.id.progtextView1);
-		ImageView im = (ImageView) findViewById(R.id.imageView1);
+		ImageView im = (ImageView) findViewById(R.id.backlight_head_image);
 		RadioGroup buttonsGroup = (RadioGroup)findViewById(R.id.buttonsGroup);
 		RadioButton off = (RadioButton)findViewById(R.id.off);
 		RadioButton dim = (RadioButton)findViewById(R.id.dim);
@@ -665,7 +720,7 @@ public class MiscTweaks extends SherlockActivity
 			mSeekBar.setVisibility(View.GONE);
 			btminus.setVisibility(View.GONE);
 			btplus.setVisibility(View.GONE);
-			sb.setVisibility(View.GONE);
+			backlightHead.setVisibility(View.GONE);
 			sb1.setVisibility(View.GONE);
 			im.setVisibility(View.GONE);
 		}
@@ -676,7 +731,7 @@ public class MiscTweaks extends SherlockActivity
 			mSeekBar.setVisibility(View.GONE);
 			btminus.setVisibility(View.GONE);
 			btplus.setVisibility(View.GONE);
-			sb.setVisibility(View.GONE);
+			backlightHead.setVisibility(View.GONE);
 			sb1.setVisibility(View.GONE);
 			im.setVisibility(View.GONE);
 			
@@ -688,7 +743,7 @@ public class MiscTweaks extends SherlockActivity
 			mSeekBar.setVisibility(View.GONE);
 			btminus.setVisibility(View.GONE);
 			btplus.setVisibility(View.GONE);
-			sb.setVisibility(View.GONE);
+			backlightHead.setVisibility(View.GONE);
 			sb1.setVisibility(View.GONE);
 			im.setVisibility(View.GONE);
 			buttonsGroup.setVisibility(View.GONE);
@@ -730,32 +785,12 @@ public class MiscTweaks extends SherlockActivity
 			}
 			
 		});
-		readLDT();
-		readFastchargeStatus();
-		readVsyncStatus();
+		
 		setCheckBoxes();
-
-		readColorDepth();
-		//setColorDepth();
-		readS2W();
-		createSpinnerS2W();
-		if (new File("/sys/android_touch/sweep2wake_buttons").exists())
-		{
-			createSpinnerS2WEnd();
-			createSpinnerS2WStart();
-		}
-		else
-		{
-			TextView tv = (TextView) findViewById(R.id.textView14);
-			TextView tv2 = (TextView) findViewById(R.id.textView15);
-			Spinner sp = (Spinner)findViewById(R.id.spinner3);
-			Spinner sp2 = (Spinner)findViewById(R.id.spinner4);
-			tv.setVisibility(View.GONE);
-			tv2.setVisibility(View.GONE);
-			sp.setVisibility(View.GONE);
-			sp2.setVisibility(View.GONE);
-
-		}
+		
+		
+			
+		
 
 
 	}
@@ -782,44 +817,37 @@ public class MiscTweaks extends SherlockActivity
 	public void setCheckBoxes()
 	{
 
-		Switch fc = (Switch) findViewById(R.id.fcharge_switch);
-		TextView tv = (TextView) findViewById(R.id.textView1);
-		if (fastcharge.equals("0"))
-		{
-			fc.setChecked(false);
-		}
-		else if (fastcharge.equals("1"))
-		{
-			fc.setChecked(true);
-		}
-		else
-		{
-			fc.setVisibility(View.GONE);
-			
-			tv.setVisibility(View.GONE);
-			ImageView im = (ImageView) findViewById(R.id.imageView2);
-			im.setVisibility(View.GONE);
-		}
-
-		Switch vs = (Switch) findViewById(R.id.vsync_switch);
 		
-		TextView tv2 = (TextView) findViewById(R.id.textView2);
+		if(!CPUInfo.fchargeExists()){
+			fchargeHead.setVisibility(View.GONE);
+			fchargeHeadImage.setVisibility(View.GONE);
+			fchargeLayout.setVisibility(View.GONE);
+		}
+		if (fastcharge==0)
+		{
+			fchargeSwitch.setChecked(false);
+		}
+		else if (fastcharge==1)
+		{
+			fchargeSwitch.setChecked(true);
+		}
+		
 
-		if (vsync.equals("1"))
-		{
-			vs.setChecked(true);
+		if(!CPUInfo.vsyncExists()){
+			vsyncHead.setVisibility(View.GONE);
+			vsyncHeadImage.setVisibility(View.GONE);
+			vsyncLayout.setVisibility(View.GONE);
 		}
-		else if (vsync.equals("0"))
+
+		if (vsync==1)
 		{
-			vs.setChecked(false);
+			vsyncSwitch.setChecked(true);
 		}
-		else
+		else if (vsync==0)
 		{
-			vs.setVisibility(View.GONE);
-			tv2.setVisibility(View.GONE);
-			ImageView im = (ImageView) findViewById(R.id.imageView3);
-			im.setVisibility(View.GONE);
+			vsyncSwitch.setChecked(false);
 		}
+		
 		if (sdcache!=null)
 		{
 			EditText sd = (EditText) findViewById(R.id.editText1);
@@ -831,124 +859,84 @@ public class MiscTweaks extends SherlockActivity
 		}
 		
 
-		/*RadioGroup ldtradio = (RadioGroup) findViewById(R.id.radioGroup1);
-		final EditText et = (EditText) findViewById(R.id.editText2);
-		TextView ldttitle = (TextView) findViewById(R.id.textView12);
-		RadioButton nula = (RadioButton) findViewById(R.id.radio0);
-		RadioButton jedan = (RadioButton) findViewById(R.id.radio1);
-		RadioButton dva = (RadioButton) findViewById(R.id.radio2);
-		nula.setOnClickListener(new OnClickListener() {
+		
+		rb16.setOnClickListener(new OnClickListener() {
 				@Override
 				public void onClick(View p1)
 				{
-					et.setVisibility(View.GONE);
-					ldtnew = "0";
+					new ChangeColorDepth().execute(new String[] {"16"});
 				}
 
 			});
 
-		jedan.setOnClickListener(new OnClickListener() {
+		rb24.setOnClickListener(new OnClickListener() {
 				@Override
 				public void onClick(View p1)
 				{
-					et.setVisibility(View.GONE);
-					ldtnew = "1";
+					new ChangeColorDepth().execute(new String[] {"24"});
 				}
 
 			});
 
-		dva.setOnClickListener(new OnClickListener() {
+		rb32.setOnClickListener(new OnClickListener() {
 				@Override
 				public void onClick(View p1)
 				{
-					et.setVisibility(View.VISIBLE);
+					new ChangeColorDepth().execute(new String[] {"32"});
 				}
 
 			});
-		File file = new File(
-			"/sys/kernel/notification_leds/off_timer_multiplier");
-
-		try
-		{
-
-			InputStream fIn = new FileInputStream(file);
-
-			if (ldt.equals("Infinite"))
-			{
-				nula.setChecked(true);
+		if(CPUInfo.cdExists()){
+			if(cdepth.equals("16")){
+				rb16.setChecked(true);
 			}
-			else if (ldt.equals("As requested by process"))
-			{
-				jedan.setChecked(true);
+			if(cdepth.equals("24")){
+				rb24.setChecked(true);
 			}
-			else
-			{
-				dva.setChecked(true);
-				et.setText(ldt);
+			if(cdepth.equals("32")){
+				rb32.setChecked(true);
 			}
-			if (dva.isChecked())
-			{
-				et.setVisibility(View.VISIBLE);
-			}
-			else
-			{
-				et.setVisibility(View.GONE);
-			}
-			fIn.close();
-
 		}
-		catch (FileNotFoundException e)
-		{
-			ldtradio.setVisibility(View.GONE);
-			ldttitle.setVisibility(View.GONE);
-			et.setVisibility(View.GONE);
-
-		} catch (IOException e) {
+		else{
+			cdHeadImage.setVisibility(View.GONE);
+			cdHead.setVisibility(View.GONE);
+			cdRadio.setVisibility(View.GONE);
+		}
+		if(new File("/sys/kernel/notification_leds/off_timer_multiplier").exists()){
+			readNLT();
+			createNLT();
+		}
+		else{
+			nltHead.setVisibility(View.GONE);
+			nltHeadImage.setVisibility(View.GONE);
+			nltLayout.setVisibility(View.GONE);
+		}
+		
+		if(new File("/sys/android_touch/sweep2wake").exists() || new File("/sys/android_touch/sweep2wake/s2w_switch").exists()){
 			
-		}*/
+			readS2W();
+			createSpinnerS2W();
+			
+		}
+		else{
+			s2wHead.setVisibility(View.GONE);
+			s2wHeadImage.setVisibility(View.GONE);
+			s2wLayout.setVisibility(View.GONE);
+		}
+		if(new File("/sys/android_touch/sweep2wake_buttons").exists()){
+			createSpinnerS2WEnd();
+			createSpinnerS2WStart();
+		}
+		else{
+			s2wDivider1.setVisibility(View.GONE);
+			s2wDivider2.setVisibility(View.GONE);
+			s2wLayoutStart.setVisibility(View.GONE);
+			s2wLayoutEnd.setVisibility(View.GONE);
+		}
 
 	}
 
-	/*public void setColorDepth()
-	{
-		prog = (ProgressBar) findViewById(R.id.progressBar1);
-		if (cdepth.equals("16"))
-		{
-			prog.setProgress(0);
-		}
-		else if (cdepth.equals("24"))
-		{
-			prog.setProgress(1);
-		}
-		else if (cdepth.equals("32"))
-		{
-			prog.setProgress(2);
-		}
-		if(new File("/sys/kernel/debug/msm_fb/0/bpp").exists()){
-			
-		}
-		else
-		{
-			ImageView btpluscdepth = (ImageView) findViewById(R.id.button7);
-			ImageView btminuscdepth = (ImageView) findViewById(R.id.button3);
-			TextView tv = (TextView) findViewById(R.id.textView5);
-			TextView tv2 = (TextView) findViewById(R.id.textView6);
-			TextView tv3 = (TextView) findViewById(R.id.textView7);
-			TextView tv4 = (TextView) findViewById(R.id.textView8);
-			ProgressBar pb = (ProgressBar) findViewById(R.id.progressBar1);
-			ImageView im = (ImageView) findViewById(R.id.imageView4);
-			btpluscdepth.setVisibility(View.GONE);
-			pb.setVisibility(View.GONE);
-			btminuscdepth.setVisibility(View.GONE);
-			tv2.setVisibility(View.GONE);
-			tv3.setVisibility(View.GONE);
-			tv4.setVisibility(View.GONE);
-
-			tv.setVisibility(View.GONE);
-			im.setVisibility(View.GONE);
-
-		}
-	}*/
+	
 
 	public void readS2W()
 	{
@@ -995,16 +983,6 @@ public class MiscTweaks extends SherlockActivity
 
 				s2w = aBuffer.trim();
 				s2wmethod = false;
-				Spinner spinner = (Spinner) findViewById(R.id.spinner3);
-				TextView s2wtxt = (TextView) findViewById(R.id.textView14);
-				spinner.setVisibility(View.GONE);
-				s2wtxt.setVisibility(View.GONE);
-				Spinner spinner2 = (Spinner) findViewById(R.id.spinner4);
-				TextView s2wtxt2 = (TextView) findViewById(R.id.textView15);
-				ImageView img = (ImageView) findViewById(R.id.imageView6);
-				img.setVisibility(View.GONE);
-				spinner2.setVisibility(View.GONE);
-				s2wtxt2.setVisibility(View.GONE);
 				myReader.close();
 
 			}
@@ -1088,7 +1066,7 @@ public class MiscTweaks extends SherlockActivity
 		}
 	}
 
-	public void readLDT()
+	public void readNLT()
 	{
 		try
 		{
@@ -1106,14 +1084,14 @@ public class MiscTweaks extends SherlockActivity
 				aBuffer += aDataRow + "\n";
 			}
 
-			ldt = aBuffer.trim();
+			nlt = aBuffer.trim();
 			myReader.close();
 
 		}
 		catch (Exception e)
 		{
 
-			ldt = "266";
+			nlt = "266";
 		}
 	}
 
@@ -1146,32 +1124,7 @@ public class MiscTweaks extends SherlockActivity
 		}
 	}
 	
-	public void readColorDepth()
-	{
-		try
-		{
-
-			File myFile = new File("/sys/kernel/debug/msm_fb/0/bpp");
-			FileInputStream fIn = new FileInputStream(myFile);
-
-			BufferedReader myReader = new BufferedReader(new InputStreamReader(
-															 fIn));
-			String aDataRow = "";
-			String aBuffer = "";
-			while ((aDataRow = myReader.readLine()) != null)
-			{
-				aBuffer += aDataRow + "\n";
-			}
-
-			cdepth = aBuffer.trim();
-			myReader.close();
-
-		}
-		catch (Exception e)
-		{
-
-		}
-	}
+	
 
 	public void createSpinnerIO()
 	{
@@ -1335,55 +1288,93 @@ public class MiscTweaks extends SherlockActivity
 
 	}
 
-	public void readFastchargeStatus()
+	
+
+	public void createNLT()
 	{
-		try
-		{
-			String aBuffer = "";
-			File myFile = new File("/sys/kernel/fast_charge/force_fast_charge");
-			FileInputStream fIn = new FileInputStream(myFile);
-			BufferedReader myReader = new BufferedReader(new InputStreamReader(
-															 fIn));
-			String aDataRow = "";
-			while ((aDataRow = myReader.readLine()) != null)
-			{
-				aBuffer += aDataRow + "\n";
+		String[] MyStringAray = {"Never", "App Default", "Custom"};
+
+		final Spinner spinner = (Spinner) findViewById(R.id.spinner_nlt);
+		ArrayAdapter<String> spinnerArrayAdapter = new ArrayAdapter<String>(
+			this, android.R.layout.simple_spinner_item, MyStringAray);
+		spinnerArrayAdapter
+			.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
+		spinner.setAdapter(spinnerArrayAdapter);
+			
+		spinner.setOnTouchListener(new OnTouchListener(){
+
+			@Override
+			public boolean onTouch(View arg0, MotionEvent arg1) {
+			userSelect=true;
+				return false;
 			}
+			
+		});
+		
+		spinner.setOnItemSelectedListener(new OnItemSelectedListener() {
+				@Override
+				public void onItemSelected(AdapterView<?> parent, View view,
+										   int pos, long id)
+				{
+					if(pos<2){
+						new ChangeNotificationLedTimeout().execute(new String[] {String.valueOf(pos)});
+						}
+						else{
+							if(userSelect){
+							AlertDialog.Builder builder = new AlertDialog.Builder(MiscTweaks.this);
 
-			fastcharge = aBuffer.trim();
-			myReader.close();
+							builder.setTitle("Notification LED Timeout");
 
-		}
-		catch (Exception e)
+							builder.setMessage("Set custom multiplier");
+
+							builder.setIcon(R.drawable.ic_menu_cc);
+
+							final EditText input = new EditText(MiscTweaks.this);
+							
+							input.setGravity(Gravity.CENTER_HORIZONTAL);
+							input.setInputType(InputType.TYPE_NUMBER_FLAG_SIGNED);
+							
+							builder.setPositiveButton(getResources().getString(R.string.done), new DialogInterface.OnClickListener() {
+									@Override
+									public void onClick(DialogInterface dialog, int which)
+									{
+										new ChangeNotificationLedTimeout().execute(new String[] {input.getText().toString()});
+										
+									}
+								});
+							builder.setView(input);
+
+							AlertDialog alert = builder.create();
+
+							alert.show();
+							}
+						}
+				}
+				@Override
+				public void onNothingSelected(AdapterView<?> parent)
+				{
+					// do nothing
+				}
+			});
+
+
+		if (nlt.equals("Infinite"))
 		{
-
+			spinner.setSelection(0);
+			userSelect=false;
 		}
-
-	}
-
-	public void readVsyncStatus()
-	{
-		try
+		else if (nlt.equals("As requested by process"))
 		{
-			String aBuffer = "";
-			File myFile = new File("/sys/kernel/debug/msm_fb/0/vsync_enable");
-			FileInputStream fIn = new FileInputStream(myFile);
-			BufferedReader myReader = new BufferedReader(new InputStreamReader(
-															 fIn));
-			String aDataRow = "";
-			while ((aDataRow = myReader.readLine()) != null)
-			{
-				aBuffer += aDataRow + "\n";
-			}
-
-			vsync = aBuffer.trim();
-			myReader.close();
-
+			spinner.setSelection(1);
+			userSelect=false;
 		}
-		catch (Exception e)
+		else
 		{
-
+			spinner.setSelection(2);
+			userSelect=false;
 		}
+		
+
 
 	}
 
@@ -1420,14 +1411,6 @@ public class MiscTweaks extends SherlockActivity
 		EditText sd = (EditText) findViewById(R.id.editText1);
 		sdcache = Integer.parseInt(sd.getText().toString());
 		new ChangeIO().execute();
-
-		/*EditText ldttv = (EditText) findViewById(R.id.editText2);
-		RadioButton dva = (RadioButton) findViewById(R.id.radio2);
-		if (dva.isChecked())
-		{
-			ldtnew = String.valueOf(ldttv.getText());
-		}
-		new ChangeNotificationLedTimeout().execute();*/
 		new ChangeS2w().execute();
 		finish();
 	}

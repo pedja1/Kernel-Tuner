@@ -1907,7 +1907,7 @@ public class CPUInfo
 		try
 		{
     		String aBuffer = "";
-			File myFile = new File("/sys/kernel/fast_charge/force_fast_charge");
+			File myFile = new File(FCHARGE);
 			FileInputStream fIn = new FileInputStream(myFile);
 			BufferedReader myReader = new BufferedReader(
 				new InputStreamReader(fIn));
@@ -1933,7 +1933,7 @@ public class CPUInfo
 		try
 		{
     		String aBuffer = "";
-			File myFile = new File("/sys/kernel/debug/msm_fb/0/vsync_enable");
+			File myFile = new File(VSYNC);
 			FileInputStream fIn = new FileInputStream(myFile);
 			BufferedReader myReader = new BufferedReader(
 				new InputStreamReader(fIn));
@@ -1959,7 +1959,7 @@ public class CPUInfo
 		try
 		{
 
-			File myFile = new File("/sys/kernel/debug/msm_fb/0/bpp");
+			File myFile = new File(CDEPTH);
 			FileInputStream fIn = new FileInputStream(myFile);
 
 			BufferedReader myReader = new BufferedReader(
