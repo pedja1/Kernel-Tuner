@@ -38,7 +38,7 @@ public class SystemInfo extends SherlockActivity
 	public String cpu2min = "        ";
 	public String cpu3min = "        ";
 	public String gpu2d = "        ";
-	public String gpu3d = "       ";
+	public String gpu3d = "        ";
 	public int countcpu0;
 	public int countcpu1;
 	public String vsync = " ";
