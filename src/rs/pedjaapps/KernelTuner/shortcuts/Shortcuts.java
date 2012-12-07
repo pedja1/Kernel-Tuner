@@ -85,7 +85,7 @@ ListView shortcutListView;
                         SwapShortcut.class,
                         InfoShortcut.class,
                         SettingsShortcut.class,
-                        OOM.class};
+                        OOMShortcut.class};
 
         @Override
         public void onCreate(Bundle savedInstanceState)
