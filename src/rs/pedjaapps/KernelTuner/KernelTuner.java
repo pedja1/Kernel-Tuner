@@ -701,18 +701,15 @@ public class KernelTuner extends SherlockActivity
 		
 		if(file.exists() && file.list().length>0){
 			
-			System.out.println("Mounting debug fs");
+			System.out.println("Debug fs already mounted");
 		}
 		else{
-			System.out.println("Debug fs already mounted");
+			
+			System.out.println("Mounting debug fs");
 			new mountDebugFs().execute();
 		}
 		
-		/*boolean update = sharedPrefs.getBoolean("update", true);
-		if (update == true)
-		{
-			new updateCheck().execute();
-		}*/
+	
 		/*
 		Enable temperature monitor
 		*/
@@ -1673,7 +1670,8 @@ public void startCpuLoadThread() {
 		String swapLocation = sharedPrefs.getString("swap_location", "");
 		String swappiness = sharedPrefs.getString("swappiness", "");
 		String oom = sharedPrefs.getString("oom", "");
-	
+		String otg = sharedPrefs.getString("otg", "");
+		
 		StringBuilder gpubuilder = new StringBuilder();
 	
 		gpubuilder.append("#!/system/bin/sh");
@@ -1971,6 +1969,11 @@ public void startCpuLoadThread() {
 		{
 			miscbuilder.append("echo " + oom + " > /sys/module/lowmemorykiller/parameters/minfree\n");
 	
+		}
+		if(!otg.equals(""))
+		{
+			miscbuilder.append("echo " + otg + " > /sys/kernel/debug/msm_otg/mode\n");
+			miscbuilder.append("echo " + otg + " > /sys/kernel/debug/otg/mode\n");
 		}
 		miscbuilder.append("#Umount debug filesystem\n" +
 						   "umount /sys/kernel/debug \n");

@@ -28,6 +28,8 @@ import android.view.WindowManager;
 import android.widget.AdapterView;
 import android.widget.AdapterView.OnItemSelectedListener;
 import android.widget.ArrayAdapter;
+import android.widget.CompoundButton;
+import android.widget.CompoundButton.OnCheckedChangeListener;
 import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
@@ -51,37 +53,36 @@ import de.ankri.views.Switch;
 public class MiscTweaks extends SherlockActivity
 {
 
-	public String led = CPUInfo.leds();
-	public String ledHox;
-	SeekBar mSeekBar;
-	TextView progresstext;
+	private String led = CPUInfo.leds();
+	private String ledHox;
+	private SeekBar mSeekBar;
 	
 	
-	public String fc = " ";
+	private String fc = " ";
 	private int fastcharge = CPUInfo.fcharge();
 	private int vsync = CPUInfo.vsync();
-	public String vs;
-	public String hw;
-	public String backbuf;
-	public String cdepth = CPUInfo.cDepth();
-	public Integer sdcache = CPUInfo.sdCache();
+	private String vs;
+	private String hw;
+	private String backbuf;
+	private String cdepth = CPUInfo.cDepth();
+	private Integer sdcache = CPUInfo.sdCache();
 	private  List<String> schedulers = CPUInfo.schedulers();
-	public String scheduler = CPUInfo.scheduler();
-	public int ledprogress;
-	public SharedPreferences preferences;
-	ProgressBar prog;
-	boolean userSelect = false;
+	private String scheduler = CPUInfo.scheduler();
+	private int ledprogress;
+	private SharedPreferences preferences;
+	private ProgressBar prog;
+	private boolean userSelect = false;
 	
-	public String nlt;
+	private String nlt;
 	
-	public String s2w;
-	public String s2wnew;
-	public boolean s2wmethod;
-	public String s2wButtons;
-	public String s2wStart;
-	public String s2wEnd;
-	public String s2wStartnew;
-	public String s2wEndnew;
+	private String s2w;
+	private String s2wnew;
+	private boolean s2wmethod;
+	private String s2wButtons;
+	private String s2wStart;
+	private String s2wEnd;
+	private String s2wStartnew;
+	private String s2wEndnew;
 	private LinearLayout sdcacheLayout;
 	private LinearLayout ioSchedulerLayout;
 	private ImageView ioDivider;
@@ -116,8 +117,15 @@ public class MiscTweaks extends SherlockActivity
 	
 	private TextView s2wHead;
 	
+	private ImageView otgHeadImage;
+	private TextView otgHead;
+	private LinearLayout otgLayout;
+	private Switch otgSwitch;
+	
+	private String otg = CPUInfo.readOTG();
+	
 
-	Handler mHandler = new Handler();
+	private Handler mHandler = new Handler();
 
 	
 
@@ -174,6 +182,58 @@ public class MiscTweaks extends SherlockActivity
 		}
 	}
 
+	private class ChangeOTG extends AsyncTask<String, Void, String>
+	{
+
+		@Override
+		protected String doInBackground(String... args)
+		{
+			
+
+			Process localProcess;
+			try
+			{
+				localProcess = Runtime.getRuntime().exec("su");
+
+				DataOutputStream localDataOutputStream = new DataOutputStream(
+					localProcess.getOutputStream());
+				localDataOutputStream.writeBytes("chmod 777 /sys/kernel/debug/msm_otg/mode\n");
+				localDataOutputStream.writeBytes("chmod 777 /sys/kernel/debug/otg/mode\n");
+				localDataOutputStream.writeBytes("echo " + args[0]+ " > /sys/kernel/debug/otg/mode\n");
+				localDataOutputStream.writeBytes("echo " + args[0]+ " > /sys/kernel/debug/msm_otg/mode\n");
+				localDataOutputStream.writeBytes("exit\n");
+				localDataOutputStream.flush();
+				localDataOutputStream.close();
+				localProcess.waitFor();
+				localProcess.destroy();
+				
+			}
+			catch (IOException e1)
+			{
+				
+				new LogWriter().execute(new String[] {getClass().getName(), e1.getMessage()});
+			}
+			catch (InterruptedException e1)
+			{
+			
+				new LogWriter().execute(new String[] {getClass().getName(), e1.getMessage()});
+			}
+
+			return args[0];
+		}
+
+		@Override
+		protected void onPostExecute(String result)
+		{
+			preferences = PreferenceManager
+				.getDefaultSharedPreferences(getBaseContext());
+			SharedPreferences.Editor editor = preferences.edit();
+			editor.putString("otg_mode", result);
+			editor.commit();
+			
+
+		}
+	}
 	
 
 	private class ChangeFastcharge extends AsyncTask<String, Void, Object>
@@ -519,7 +579,8 @@ public class MiscTweaks extends SherlockActivity
 		super.onCreate(savedInstanceState);
 
 		setContentView(R.layout.misc_tweaks);
-		
+		this.getWindow().setSoftInputMode(WindowManager.LayoutParams.SOFT_INPUT_STATE_ALWAYS_HIDDEN); 
+
 		sdcacheLayout = (LinearLayout)findViewById(R.id.sdcache_layout);
 		ioSchedulerLayout = (LinearLayout)findViewById(R.id.io_scheduler_layout);
 		ioDivider = (ImageView)findViewById(R.id.io_divider);
@@ -556,6 +617,11 @@ public class MiscTweaks extends SherlockActivity
 		s2wDivider2 = (ImageView)findViewById(R.id.s2w_divider2);
 		
 		s2wHead = (TextView)findViewById(R.id.s2w_head);
+		
+		otgHeadImage = (ImageView)findViewById(R.id.otg_head_image);
+		otgHead = (TextView)findViewById(R.id.otg_head);
+		otgLayout = (LinearLayout)findViewById(R.id.otg_layout);
+		otgSwitch = (Switch)findViewById(R.id.otg_switch);
 		
 		ActionBar actionBar = getSupportActionBar();
 		actionBar.setDisplayHomeAsUpEnabled(true);
@@ -626,63 +692,57 @@ public class MiscTweaks extends SherlockActivity
 		
 
 		final Switch fastchargechbx = (Switch) findViewById(R.id.fcharge_switch);
-		fastchargechbx.setOnClickListener(new OnClickListener() {
+		fastchargechbx.setOnCheckedChangeListener(new OnCheckedChangeListener() {
+
+				
 
 				@Override
-				public void onClick(View v)
-				{
-
-					if (fastchargechbx.isChecked())
+				public void onCheckedChanged(CompoundButton buttonView,
+						boolean isChecked) {
+					if (isChecked)
 					{
 						fc = "1";
 						new ChangeFastcharge().execute();
 					}
-					else if (!fastchargechbx.isChecked())
+					else
 					{
 						fc = "0";
 						new ChangeFastcharge().execute();
 					}
-					try
-					{
+					
 						preferences = PreferenceManager
 							.getDefaultSharedPreferences(getBaseContext());
 						SharedPreferences.Editor editor = preferences.edit();
 						editor.putString("fastcharge", fc);
 						editor.commit();
-					}
-					catch (Exception e)
-					{
-						
-					}
-
+					
+					
 				}
 			});
 
 		final Switch vsynchbx = (Switch) findViewById(R.id.vsync_switch);
-		vsynchbx.setOnClickListener(new OnClickListener() {
+		vsynchbx.setOnCheckedChangeListener(new OnCheckedChangeListener() {
+
+				
 
 				@Override
-				public void onClick(View v)
-				{
-
-					if (vsynchbx.isChecked())
+				public void onCheckedChanged(CompoundButton buttonView,
+						boolean isChecked) {
+					if (isChecked)
 					{
 						vs = "1";
 						hw = "1";
 						backbuf = "3";
 						new ChangeVsync().execute();
 					}
-					else if (!vsynchbx.isChecked())
+					else
 					{
 						vs = "0";
 						hw = "0";
 						backbuf = "4";
 						new ChangeVsync().execute();
 					}
-					else
-					{
-
-					}
+					
 					preferences = PreferenceManager
 						.getDefaultSharedPreferences(getBaseContext());
 					SharedPreferences.Editor editor = preferences.edit();
@@ -690,7 +750,7 @@ public class MiscTweaks extends SherlockActivity
 					editor.putString("hw", hw);
 					editor.putString("backbuf", backbuf);
 					editor.commit();
-
+					
 				}
 			});
 
@@ -932,6 +992,36 @@ public class MiscTweaks extends SherlockActivity
 			s2wDivider2.setVisibility(View.GONE);
 			s2wLayoutStart.setVisibility(View.GONE);
 			s2wLayoutEnd.setVisibility(View.GONE);
+		}
+		
+		if(CPUInfo.otgExists()){
+			if(otg.equals("host")){
+				otgSwitch.setChecked(true);
+			}
+			else{
+				otgSwitch.setChecked(false);
+			}
+			otgSwitch.setOnCheckedChangeListener(new OnCheckedChangeListener(){
+
+				
+
+				@Override
+				public void onCheckedChanged(CompoundButton arg0, boolean isChecked) {
+					if(isChecked){
+						new ChangeOTG().execute(new String[] {"host"});
+					}
+					else{
+						new ChangeOTG().execute(new String[] {"peripheral"});
+					}
+					
+				}
+				
+			});
+		}
+		else{
+			otgHead.setVisibility(View.GONE);
+			otgHeadImage.setVisibility(View.GONE);
+			otgLayout.setVisibility(View.GONE);
 		}
 
 	}

@@ -104,6 +104,7 @@ public class StartupService extends Service
 			String swapLocation = sharedPrefs.getString("swap_location", "");
 			String swappiness = sharedPrefs.getString("swappiness", "");
 			String oom = sharedPrefs.getString("oom", "");
+			String otg = sharedPrefs.getString("otg", "");
 
 
 			try
@@ -264,6 +265,11 @@ public class StartupService extends Service
 				}
 				if(!oom.equals("")){
 				localDataOutputStream.writeBytes("echo " + oom + " > /sys/module/lowmemorykiller/parameters/minfree\n");
+				}
+				if(!otg.equals("")){
+					localDataOutputStream.writeBytes("echo " + otg + " > /sys/kernel/debug/msm_otg/mode\n");
+					localDataOutputStream.writeBytes("echo " + otg + " > /sys/kernel/debug/otg/mode\n");
+						
 				}
 				localDataOutputStream.writeBytes("exit\n");
 				localDataOutputStream.flush();

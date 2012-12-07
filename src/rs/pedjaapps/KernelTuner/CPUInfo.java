@@ -70,7 +70,8 @@ public class CPUInfo
 	public static String OOM = "/sys/module/lowmemorykiller/parameters/minfree";
 	public static String THERMALD = "/sys/kernel/msm_thermal/conf/allowed_low_freq";
 	public static String SCHEDULER = "/sys/block/mmcblk0/queue/scheduler";
-	
+	public static String OTG = "/sys/kernel/debug/msm_otg/mode";
+	public static String OTG_2= "/sys/kernel/debug/otg/mode";
 	public static boolean freqsExists()
 	{
 		boolean i = false;
@@ -189,6 +190,21 @@ public class CPUInfo
 			i = true;
 		}
 		else if (new File(VOLTAGE_PATH_TEGRA_3).exists())
+		{
+			i = true;
+		}
+		return i;
+
+	}
+	
+	public static boolean otgExists()
+	{
+		boolean i = false;
+		if (new File(OTG).exists())
+		{
+			i = true;
+		}
+		else if (new File(OTG_2).exists())
 		{
 			i = true;
 		}
@@ -2097,6 +2113,59 @@ public class CPUInfo
 			}
 		}
 		return s2w;
+	}
+	
+	public static String readOTG(){
+		String otg = "";
+		try
+		{
+
+			File myFile = new File(OTG);
+			FileInputStream fIn = new FileInputStream(myFile);
+
+			BufferedReader myReader = new BufferedReader(new InputStreamReader(
+															 fIn));
+			String aDataRow = "";
+			String aBuffer = "";
+			while ((aDataRow = myReader.readLine()) != null)
+			{
+				aBuffer += aDataRow + "\n";
+			}
+
+			otg = aBuffer.trim();
+
+			myReader.close();
+
+		}
+		catch (Exception e)
+		{
+
+			try
+			{
+
+				File myFile = new File(OTG_2);
+				FileInputStream fIn = new FileInputStream(myFile);
+
+				BufferedReader myReader = new BufferedReader(new InputStreamReader(
+																 fIn));
+				String aDataRow = "";
+				String aBuffer = "";
+				while ((aDataRow = myReader.readLine()) != null)
+				{
+					aBuffer += aDataRow + "\n";
+				}
+
+				otg = aBuffer.trim();
+
+				myReader.close();
+
+			}
+			catch (Exception e2)
+			{
+
+			}
+		}
+		return otg;
 	}
 	
 }

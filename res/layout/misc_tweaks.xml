@@ -217,13 +217,68 @@
                     android:layout_alignParentLeft="true"
                     android:layout_gravity="center_vertical" />
             </LinearLayout>
+            
+            <TextView
+                android:id="@+id/otg_head"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_below="@id/vsync_layout"
+                android:layout_marginTop="5dp"
+                android:text="OTG"
+                android:textAppearance="?android:attr/textAppearanceMedium" />
+
+            <ImageView
+                android:id="@+id/otg_head_image"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_alignParentLeft="true"
+                android:layout_below="@+id/otg_head"
+                android:layout_marginBottom="8dp"
+                android:scaleType="fitXY"
+                android:src="@drawable/divider_strong_holo" />
+
+            <LinearLayout
+                android:id="@+id/otg_layout"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_alignParentLeft="true"
+                android:layout_below="@+id/otg_head_image"
+                android:layout_marginLeft="5dp"
+                android:layout_marginRight="5dp" >
+
+                <LinearLayout
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:orientation="vertical" >
+
+                    <TextView
+                        android:id="@+id/textView2"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="USB OTG"
+                        android:textAppearance="?android:attr/textAppearanceMedium" />
+
+                    <TextView
+                        android:id="@+id/textView3"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="Enable OTG support with standard USB cable" />
+                </LinearLayout>
+
+                <de.ankri.views.Switch
+                    android:id="@+id/otg_switch"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center_vertical" />
+            </LinearLayout>
 
             <TextView
                 android:id="@+id/cd_head"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_alignParentLeft="true"
-                android:layout_below="@+id/vsync_layout"
+                android:layout_below="@+id/otg_layout"
                 android:layout_marginTop="8dp"
                 android:text="COLOR DEPTH"
                 android:textAppearance="?android:attr/textAppearanceMedium" />
@@ -569,6 +624,8 @@
                         android:layout_height="wrap_content" />
                 </LinearLayout>
             </LinearLayout>
+            
+            
            
         </RelativeLayout>
     </ScrollView>
