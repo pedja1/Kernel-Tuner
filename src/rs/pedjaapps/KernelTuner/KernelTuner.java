@@ -36,7 +36,8 @@ import java.lang.Process;
 @SuppressLint("WorldReadableFiles")
 public class KernelTuner extends SherlockActivity 
 {
-
+	private List<CPUInfo.FreqsEntry> freqEntries = CPUInfo.frequencies();
+	private List<String> freqNames = new ArrayList<String>();
 	private TextView batteryLevel;
 	private TextView batteryTemp;
 	private TextView cputemptxt;
@@ -270,7 +271,7 @@ public class KernelTuner extends SherlockActivity
 	ProgressBar cpu2progbar;
 	ProgressBar cpu3progbar;
 
-	public List<String> freqlist;
+	public List<String> freqlist = new ArrayList<String>();
 	public SharedPreferences preferences;
 	private ProgressDialog pd = null;
 	
@@ -742,7 +743,12 @@ public class KernelTuner extends SherlockActivity
 		Read all available frequency steps
 		*/
 		
-		freqlist = CPUInfo.frequencies();
+		for(CPUInfo.FreqsEntry f: freqEntries){
+			freqlist.add(String.valueOf(f.getFreq()));
+		}
+		for(CPUInfo.FreqsEntry f: freqEntries){
+			freqNames.add(f.getFreqName());
+		}
 		initialCheck();
 
 		/***

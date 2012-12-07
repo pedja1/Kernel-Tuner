@@ -6,6 +6,7 @@ import java.io.File;
 import java.io.FileInputStream;
 import java.io.IOException;
 import java.io.InputStreamReader;
+import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.List;
 
@@ -27,12 +28,13 @@ import android.graphics.RectF;
 import android.os.IBinder;
 import android.preference.PreferenceManager;
 import android.widget.RemoteViews;
-import android.widget.Toast;
+
 
 public class WidgetUpdateServiceBig extends Service
 {
 	
-
+	private List<CPUInfo.FreqsEntry> freqEntries = CPUInfo.frequencies();
+	private List<String> freqNames = new ArrayList<String>();
 	public String led;
 	public String cpu0curr;
 	public String gov;
@@ -61,7 +63,7 @@ public class WidgetUpdateServiceBig extends Service
 	public String battcurrent;
 	public String batthealth;
 	public String battcap;
-	public List<String> frequencies;
+	public List<String> frequencies = new ArrayList<String>();
 	public int angle;
 	public int cf = 0;
 	public String cpu1curr;
@@ -183,7 +185,12 @@ public class WidgetUpdateServiceBig extends Service
 		fastcharge = String.valueOf(CPUInfo.fcharge());
 		vsync = String.valueOf(CPUInfo.vsync());
 		cdepth = CPUInfo.cDepth();
-		frequencies = CPUInfo.frequencies();
+		for(CPUInfo.FreqsEntry f: freqEntries){
+			frequencies.add(String.valueOf(f.getFreq()));
+		}
+		for(CPUInfo.FreqsEntry f: freqEntries){
+			freqNames.add(f.getFreqName());
+		}
 		cpu0curr = CPUInfo.cpu0CurFreq();
 		cpu1curr = CPUInfo.cpu1CurFreq();
 		upTime = CPUInfo.uptime();

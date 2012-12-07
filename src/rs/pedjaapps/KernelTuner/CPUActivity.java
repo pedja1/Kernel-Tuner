@@ -4,6 +4,7 @@ package rs.pedjaapps.KernelTuner;
 import java.io.DataOutputStream;
 import java.io.IOException;
 import java.io.RandomAccessFile;
+import java.util.ArrayList;
 import java.util.List;
 
 
@@ -37,6 +38,7 @@ import com.google.ads.AdView;
 public class CPUActivity extends SherlockActivity
 {
 
+	private List<CPUInfo.FreqsEntry> freqEntries = CPUInfo.frequencies();
 	boolean thread = true;
 	Handler mHandler = new Handler();
 	TextView cpu0prog;
@@ -47,7 +49,8 @@ public class CPUActivity extends SherlockActivity
 	ProgressBar progCpu2;
 	TextView cpu3prog;
 	ProgressBar progCpu3;
-	List<String> frequencies;
+	List<String> frequencies = new ArrayList<String>();
+	List<String> freqNames = new ArrayList<String>();
 	String cpu0MaxFreq ;
 	String cpu0CurFreq ;
 	String cpu1MaxFreq ;
@@ -137,7 +140,7 @@ public class CPUActivity extends SherlockActivity
 		{
 
 			Process localProcess;
-			System.out.println("Togge CPUs: Toggling CPUs");
+			//System.out.println("Togge CPUs: Toggling CPUs");
 			if (args[0] == true)
 			{
 				try
@@ -386,7 +389,13 @@ startCpuLoadThread();
 	public void onResume()
 	{
 		tempUnit = sharedPrefs.getString("temp", "celsius");
-		frequencies = CPUInfo.frequencies();
+		/*for(CPUInfo.FreqsEntry f: freqEntries){
+			frequencies.add(f.getFreq());
+		}
+		for(CPUInfo.FreqsEntry f: freqEntries){
+			freqNames.add(f.getFreqName());
+		}*/
+		
 		thread = true;
 
 		new Thread(new Runnable() {
@@ -541,8 +550,15 @@ startCpuLoadThread();
 	public void updateUI()
 	{
 		
-
-		frequencies = CPUInfo.frequencies();
+		
+		for(CPUInfo.FreqsEntry f: freqEntries){
+			frequencies.add(String.valueOf(f.getFreq()));
+		}
+		for(CPUInfo.FreqsEntry f: freqEntries){
+			freqNames.add(f.getFreqName());
+		}
+		System.out.println(frequencies);
+		//System.out.println(freqNames);
 		cpu0MinFreq = CPUInfo.cpu0MinFreq();
 		cpu1MinFreq = CPUInfo.cpu1MinFreq();
 		cpu2MinFreq = CPUInfo.cpu2MinFreq();
@@ -571,6 +587,8 @@ startCpuLoadThread();
 		cpu0minSeek.setMax(frequencies.size() - 1);
 		cpu0maxSeek.setMax(frequencies.size() - 1);
 		cpu0minSeek.setProgress(frequencies.indexOf(cpu0MinFreq));
+		System.out.println(frequencies.indexOf(cpu0MinFreq));
+		System.out.println(cpu0MinFreq);
 		cpu0maxSeek.setProgress(frequencies.indexOf(cpu0MaxFreq));
 		cpu0minSeek.setOnSeekBarChangeListener(new OnSeekBarChangeListener(){
 				int prog;
@@ -591,7 +609,7 @@ startCpuLoadThread();
 							}
 					}
 
-					cpu0min.setText(frequencies.get(progress).substring(0, frequencies.get(progress).length() - 3) + "Mhz");
+					cpu0min.setText(freqNames.get(progress));
 
 
 				}
@@ -613,16 +631,16 @@ startCpuLoadThread();
 					else
 					{
 						
-						new FrequencyChanger(CPUActivity.this).execute(new String[] {"cpu0","min", frequencies.get(prog)});
+						new FrequencyChanger(CPUActivity.this).execute(new String[] {"cpu0","min", String.valueOf(frequencies.get(prog))});
 						if(cb.isChecked()){
 							if(cpu1Online){
-							new FrequencyChanger(CPUActivity.this).execute(new String[] {"cpu1","min", frequencies.get(prog)});
+							new FrequencyChanger(CPUActivity.this).execute(new String[] {"cpu1","min", String.valueOf(frequencies.get(prog))});
 							}
 							if(cpu2Online){
-								new FrequencyChanger(CPUActivity.this).execute(new String[] {"cpu2","min", frequencies.get(prog)});
+								new FrequencyChanger(CPUActivity.this).execute(new String[] {"cpu2","min", String.valueOf(frequencies.get(prog))});
 								}
 							if(cpu3Online){
-								new FrequencyChanger(CPUActivity.this).execute(new String[] {"cpu3","min", frequencies.get(prog)});
+								new FrequencyChanger(CPUActivity.this).execute(new String[] {"cpu3","min", String.valueOf(frequencies.get(prog))});
 								}
 							
 						}
@@ -652,7 +670,7 @@ startCpuLoadThread();
 							}
 					}
 
-					cpu0max.setText(frequencies.get(progress).substring(0, frequencies.get(progress).length() - 3) + "Mhz");
+					cpu0max.setText(freqNames.get(progress));
 
 
 				}
@@ -674,16 +692,16 @@ startCpuLoadThread();
 					}
 					else
 					{
-						new FrequencyChanger(CPUActivity.this).execute(new String[] {"cpu0","max", frequencies.get(prog)});
+						new FrequencyChanger(CPUActivity.this).execute(new String[] {"cpu0","max", String.valueOf(frequencies.get(prog))});
 						if(cb.isChecked()){
 							if(cpu1Online){
-							new FrequencyChanger(CPUActivity.this).execute(new String[] {"cpu1","max", frequencies.get(prog)});
+							new FrequencyChanger(CPUActivity.this).execute(new String[] {"cpu1","max", String.valueOf(frequencies.get(prog))});
 							}
 							if(cpu2Online){
-								new FrequencyChanger(CPUActivity.this).execute(new String[] {"cpu2","max", frequencies.get(prog)});
+								new FrequencyChanger(CPUActivity.this).execute(new String[] {"cpu2","max", String.valueOf(frequencies.get(prog))});
 								}
 							if(cpu3Online){
-								new FrequencyChanger(CPUActivity.this).execute(new String[] {"cpu3","max", frequencies.get(prog)});
+								new FrequencyChanger(CPUActivity.this).execute(new String[] {"cpu3","max", String.valueOf(frequencies.get(prog))});
 								}
 						}
 					}
@@ -719,7 +737,7 @@ startCpuLoadThread();
 								}
 						}
 						
-						cpu1min.setText(frequencies.get(progress).substring(0, frequencies.get(progress).length() - 3) + "Mhz");
+						cpu1min.setText(freqNames.get(progress));
 
 
 					}
@@ -742,16 +760,16 @@ startCpuLoadThread();
 						}
 						else
 						{
-							new FrequencyChanger(CPUActivity.this).execute(new String[] {"cpu1","min", frequencies.get(prog)});
+							new FrequencyChanger(CPUActivity.this).execute(new String[] {"cpu1","min", String.valueOf(frequencies.get(prog))});
 							if(cb.isChecked()){
 								if(cpu0Online){
-								new FrequencyChanger(CPUActivity.this).execute(new String[] {"cpu0","min", frequencies.get(prog)});
+								new FrequencyChanger(CPUActivity.this).execute(new String[] {"cpu0","min", String.valueOf(frequencies.get(prog))});
 								}
 								if(cpu2Online){
-									new FrequencyChanger(CPUActivity.this).execute(new String[] {"cpu2","min", frequencies.get(prog)});
+									new FrequencyChanger(CPUActivity.this).execute(new String[] {"cpu2","min", String.valueOf(frequencies.get(prog))});
 									}
 								if(cpu3Online){
-									new FrequencyChanger(CPUActivity.this).execute(new String[] {"cpu3","min", frequencies.get(prog)});
+									new FrequencyChanger(CPUActivity.this).execute(new String[] {"cpu3","min", String.valueOf(frequencies.get(prog))});
 									}
 							}
 						}
@@ -780,7 +798,7 @@ startCpuLoadThread();
 								}
 						}
 						
-						cpu1max.setText(frequencies.get(progress).substring(0, frequencies.get(progress).length() - 3) + "Mhz");
+						cpu1max.setText(freqNames.get(progress));
 
 
 					}
@@ -802,16 +820,16 @@ startCpuLoadThread();
 						}
 						else
 						{
-							new FrequencyChanger(CPUActivity.this).execute(new String[] {"cpu1","max", frequencies.get(prog)});
+							new FrequencyChanger(CPUActivity.this).execute(new String[] {"cpu1","max", String.valueOf(frequencies.get(prog))});
 							if(cb.isChecked()){
 								if(cpu0Online){
-								new FrequencyChanger(CPUActivity.this).execute(new String[] {"cpu0","max", frequencies.get(prog)});
+								new FrequencyChanger(CPUActivity.this).execute(new String[] {"cpu0","max", String.valueOf(frequencies.get(prog))});
 								}
 								if(cpu2Online){
-									new FrequencyChanger(CPUActivity.this).execute(new String[] {"cpu2","max", frequencies.get(prog)});
+									new FrequencyChanger(CPUActivity.this).execute(new String[] {"cpu2","max", String.valueOf(frequencies.get(prog))});
 									}
 								if(cpu3Online){
-									new FrequencyChanger(CPUActivity.this).execute(new String[] {"cpu3","max", frequencies.get(prog)});
+									new FrequencyChanger(CPUActivity.this).execute(new String[] {"cpu3","max", String.valueOf(frequencies.get(prog))});
 									}
 							}
 						}
@@ -848,7 +866,7 @@ startCpuLoadThread();
 								}
 						}
 						
-						cpu2min.setText(frequencies.get(progress).substring(0, frequencies.get(progress).length() - 3) + "Mhz");
+						cpu2min.setText(freqNames.get(progress));
 
 
 					}
@@ -871,17 +889,17 @@ startCpuLoadThread();
 						}
 						else
 						{
-							new FrequencyChanger(CPUActivity.this).execute(new String[] {"cpu2","min", frequencies.get(prog)});
+							new FrequencyChanger(CPUActivity.this).execute(new String[] {"cpu2","min", String.valueOf(frequencies.get(prog))});
 
 							if(cb.isChecked()){
 								if(cpu0Online){
-								new FrequencyChanger(CPUActivity.this).execute(new String[] {"cpu0","min", frequencies.get(prog)});
+								new FrequencyChanger(CPUActivity.this).execute(new String[] {"cpu0","min", String.valueOf(frequencies.get(prog))});
 								}
 								if(cpu1Online){
-									new FrequencyChanger(CPUActivity.this).execute(new String[] {"cpu1","min", frequencies.get(prog)});
+									new FrequencyChanger(CPUActivity.this).execute(new String[] {"cpu1","min", String.valueOf(frequencies.get(prog))});
 									}
 								if(cpu3Online){
-									new FrequencyChanger(CPUActivity.this).execute(new String[] {"cpu3","min", frequencies.get(prog)});
+									new FrequencyChanger(CPUActivity.this).execute(new String[] {"cpu3","min", String.valueOf(frequencies.get(prog))});
 									}
 							}
 						}
@@ -910,7 +928,7 @@ startCpuLoadThread();
 								}
 						}
 						
-						cpu2max.setText(frequencies.get(progress).substring(0, frequencies.get(progress).length() - 3) + "Mhz");
+						cpu2max.setText(freqNames.get(progress));
 
 
 					}
@@ -932,16 +950,16 @@ startCpuLoadThread();
 						}
 						else
 						{
-							new FrequencyChanger(CPUActivity.this).execute(new String[] {"cpu2","max", frequencies.get(prog)});
+							new FrequencyChanger(CPUActivity.this).execute(new String[] {"cpu2","max", String.valueOf(frequencies.get(prog))});
 							if(cb.isChecked()){
 								if(cpu0Online){
-								new FrequencyChanger(CPUActivity.this).execute(new String[] {"cpu0","max", frequencies.get(prog)});
+								new FrequencyChanger(CPUActivity.this).execute(new String[] {"cpu0","max", String.valueOf(frequencies.get(prog))});
 								}
 								if(cpu1Online){
-									new FrequencyChanger(CPUActivity.this).execute(new String[] {"cpu1","max", frequencies.get(prog)});
+									new FrequencyChanger(CPUActivity.this).execute(new String[] {"cpu1","max", String.valueOf(frequencies.get(prog))});
 									}
 								if(cpu3Online){
-									new FrequencyChanger(CPUActivity.this).execute(new String[] {"cpu3","max", frequencies.get(prog)});
+									new FrequencyChanger(CPUActivity.this).execute(new String[] {"cpu3","max", String.valueOf(frequencies.get(prog))});
 									}
 							}
 						}
@@ -977,7 +995,7 @@ startCpuLoadThread();
 								}
 						}
 						
-						cpu3min.setText(frequencies.get(progress).substring(0, frequencies.get(progress).length() - 3) + "Mhz");
+						cpu3min.setText(freqNames.get(progress));
 
 
 					}
@@ -1000,16 +1018,16 @@ startCpuLoadThread();
 						}
 						else
 						{
-							new FrequencyChanger(CPUActivity.this).execute(new String[] {"cpu3","min", frequencies.get(prog)});
+							new FrequencyChanger(CPUActivity.this).execute(new String[] {"cpu3","min", String.valueOf(frequencies.get(prog))});
 							if(cb.isChecked()){
 								if(cpu0Online){
-								new FrequencyChanger(CPUActivity.this).execute(new String[] {"cpu0","max", frequencies.get(prog)});
+								new FrequencyChanger(CPUActivity.this).execute(new String[] {"cpu0","max", String.valueOf(frequencies.get(prog))});
 								}
 								if(cpu1Online){
-									new FrequencyChanger(CPUActivity.this).execute(new String[] {"cpu1","min", frequencies.get(prog)});
+									new FrequencyChanger(CPUActivity.this).execute(new String[] {"cpu1","min", String.valueOf(frequencies.get(prog))});
 									}
 								if(cpu2Online){
-									new FrequencyChanger(CPUActivity.this).execute(new String[] {"cpu2","min", frequencies.get(prog)});
+									new FrequencyChanger(CPUActivity.this).execute(new String[] {"cpu2","min", String.valueOf(frequencies.get(prog))});
 									}
 							}
 						}
@@ -1038,7 +1056,7 @@ startCpuLoadThread();
 								}
 						}
 						
-						cpu3max.setText(frequencies.get(progress).substring(0, frequencies.get(progress).length() - 3) + "Mhz");
+						cpu3max.setText(freqNames.get(progress));
 
 
 					}
@@ -1060,16 +1078,16 @@ startCpuLoadThread();
 						}
 						else
 						{
-							new FrequencyChanger(CPUActivity.this).execute(new String[] {"cpu3","max", frequencies.get(prog)});
+							new FrequencyChanger(CPUActivity.this).execute(new String[] {"cpu3","max", String.valueOf(frequencies.get(prog))});
 							if(cb.isChecked()){
 								if(cpu0Online){
-								new FrequencyChanger(CPUActivity.this).execute(new String[] {"cpu0","max", frequencies.get(prog)});
+								new FrequencyChanger(CPUActivity.this).execute(new String[] {"cpu0","max", String.valueOf(frequencies.get(prog))});
 								}
 								if(cpu1Online){
-									new FrequencyChanger(CPUActivity.this).execute(new String[] {"cpu1","max", frequencies.get(prog)});
+									new FrequencyChanger(CPUActivity.this).execute(new String[] {"cpu1","max", String.valueOf(frequencies.get(prog))});
 									}
 								if(cpu2Online){
-									new FrequencyChanger(CPUActivity.this).execute(new String[] {"cpu2","max", frequencies.get(prog)});
+									new FrequencyChanger(CPUActivity.this).execute(new String[] {"cpu2","max", String.valueOf(frequencies.get(prog))});
 									}
 							}
 						}
@@ -1196,7 +1214,7 @@ startCpuLoadThread();
 	{
 		
 		ArrayAdapter<String> gov0spinnerArrayAdapter = new ArrayAdapter<String>(this,   android.R.layout.simple_spinner_item, CPUInfo.governors());
-		System.out.println(CPUInfo.governors());
+		//System.out.println(CPUInfo.governors());
 		gov0spinnerArrayAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
 		gov0spinner.setAdapter(gov0spinnerArrayAdapter);
 

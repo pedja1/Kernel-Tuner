@@ -9,7 +9,10 @@ import java.io.InputStreamReader;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Collections;
+import java.util.Comparator;
 import java.util.List;
+
+import rs.pedjaapps.KernelTuner.SDScannerActivity.MyComparator;
 
 import android.os.SystemClock;
 import android.util.Log;
@@ -297,11 +300,11 @@ public class CPUInfo
 
 	}
 
-	public static List<String> frequencies()
+	public static List<FreqsEntry> frequencies()
 	{
+		
+		List<FreqsEntry> entries = new ArrayList<FreqsEntry>();
 		List<String> frequencies = new ArrayList<String>();
-
-
 		try
 		{
 
@@ -314,12 +317,13 @@ public class CPUInfo
 			String aBuffer = "";
 			while ((aDataRow = myReader.readLine()) != null)
 			{
-
-				//frequencies.add(aDataRow.trim());
 				aBuffer += aDataRow + "\n";
 			}
 			frequencies = Arrays.asList(aBuffer.split("\\s"));
-
+			for(String s: frequencies){
+				entries.add(new FreqsEntry(s.trim().substring(0, s.trim().length()-3)+"MHz", Integer.parseInt(s.trim())));
+ 				
+			}
 			myReader.close();
 
 		}
@@ -340,24 +344,26 @@ public class CPUInfo
 
 	 				String[] delims = strLine.split(" ");
 	 				String freq = delims[0];
-	 				frequencies.add(freq);
+	 				//frequencies.add(freq);
+	 				entries.add(new FreqsEntry(freq.trim().substring(0, freq.trim().length()-3)+"MHz", Integer.parseInt(freq.trim())));
+	 				
 
 	 			}
 
-	 			if (frequencies.get(0).length() > frequencies.get(frequencies.size() - 1).length())
-				{
-	 				Collections.reverse(frequencies);
-	 			}
+	 			
+	 				Collections.sort(entries,new MyComparator());
+	 			
 
 
 	 			in.close();
 			}
 			catch (Exception ee)
 			{
-				frequencies.add("0000000");
+				entries.add(new FreqsEntry("", 0));
+ 				
 			}
 		}
-		return frequencies;
+		return entries;
 
 	}
 	
@@ -2167,5 +2173,39 @@ public class CPUInfo
 		}
 		return otg;
 	}
+	
+	public static final class FreqsEntry
+	{
+
+		private final String freqName;
+		private final int freq;
+		
+
+
+		public FreqsEntry(final String freqName, 
+				final int freq)
+		{
+			this.freqName = freqName;
+			this.freq = freq;
+		}
+
+
+		public String getFreqName()
+		{
+			return freqName;
+		}
+
+
+		public int getFreq(){
+			return freq;
+		}
+
+	}
+
+	static class MyComparator implements Comparator<FreqsEntry>{
+		  public int compare(FreqsEntry ob1, FreqsEntry ob2){
+		   return ob1.getFreq() - ob2.getFreq() ;
+		  }
+		}
 	
 }

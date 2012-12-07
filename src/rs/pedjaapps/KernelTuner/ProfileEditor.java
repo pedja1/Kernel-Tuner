@@ -8,7 +8,7 @@ import com.actionbarsherlock.view.Menu;
 import com.actionbarsherlock.view.MenuInflater;
 import com.actionbarsherlock.view.MenuItem;
 
-import android.app.Activity;
+
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.Bundle;
@@ -31,7 +31,8 @@ public class ProfileEditor extends SherlockActivity
 {
 	
 	
-
+	private List<CPUInfo.FreqsEntry> freqEntries = CPUInfo.frequencies();
+	private List<String> freqNames = new ArrayList<String>();
 	String freqs;
 	String govs;
 	String cpu0min;
@@ -209,7 +210,12 @@ public class ProfileEditor extends SherlockActivity
 
 		List<String> freqs = new ArrayList<String>();
 		freqs.add(getResources().getString(R.string.unchanged));
-		freqs.addAll(CPUInfo.frequencies());
+		for(CPUInfo.FreqsEntry f: freqEntries){
+			freqs.add(String.valueOf(f.getFreq()));
+		}
+		for(CPUInfo.FreqsEntry f: freqEntries){
+			freqNames.add(f.getFreqName());
+		}
 
 
 		List<String> govs = new ArrayList<String>();

@@ -6,6 +6,9 @@ import java.io.File;
 import java.io.FileInputStream;
 import java.io.IOException;
 import java.io.InputStreamReader;
+import java.util.ArrayList;
+import java.util.List;
+
 
 import android.app.ProgressDialog;
 import android.content.Intent;
@@ -14,24 +17,26 @@ import android.os.AsyncTask;
 import android.os.Bundle;
 import android.preference.PreferenceManager;
 import android.view.View;
-import android.view.View.OnClickListener;
 import android.view.WindowManager;
 import android.widget.AdapterView;
 import android.widget.AdapterView.OnItemSelectedListener;
 import android.widget.ArrayAdapter;
-import android.widget.Button;
 import android.widget.EditText;
 import android.widget.Spinner;
 
 import com.actionbarsherlock.app.ActionBar;
 import com.actionbarsherlock.app.SherlockActivity;
+import com.actionbarsherlock.view.Menu;
+import com.actionbarsherlock.view.MenuInflater;
 import com.google.ads.AdRequest;
 import com.google.ads.AdView;
 
 public class Thermald extends SherlockActivity
 {
 
-	public String freqs;
+	private List<CPUInfo.FreqsEntry> freqEntries = CPUInfo.frequencies();
+	private List<String> freqs = new ArrayList<String>();
+	private List<String> freqNames = new ArrayList<String>();
 	public String p1freq;
 	public String p2freq;
 	public String p3freq;
@@ -50,6 +55,14 @@ public class Thermald extends SherlockActivity
 	public String p2highnew;
 	public String p3lownew;
 	public String p3highnew;
+	
+	private EditText ed1;
+	private EditText ed2;
+	private EditText ed3;
+	private EditText ed4;
+	private EditText ed5;
+	private EditText ed6;
+	
 
 	public SharedPreferences preferences;
 	private ProgressDialog pd = null;
@@ -62,7 +75,7 @@ public class Thermald extends SherlockActivity
 		@Override
 		protected Object doInBackground(String... args)
 		{
-			//Log.i("MyApp", "Background thread starting");
+			
 
 
 
@@ -149,6 +162,12 @@ public class Thermald extends SherlockActivity
 
 		setContentView(R.layout.thermald);
 		
+		for(CPUInfo.FreqsEntry f: freqEntries){
+			freqs.add(String.valueOf(f.getFreq()));
+		}
+		for(CPUInfo.FreqsEntry f: freqEntries){
+			freqNames.add(f.getFreqName());
+		}
 		ActionBar actionBar = getSupportActionBar();
 		actionBar.setDisplayHomeAsUpEnabled(true);
 		SharedPreferences sharedPrefs = PreferenceManager.getDefaultSharedPreferences(this);
@@ -156,7 +175,7 @@ public class Thermald extends SherlockActivity
 		if (ads == true)
 		{AdView adView = (AdView)findViewById(R.id.ad);
 			adView.loadAd(new AdRequest());}
-		readFreqs();
+		
 		readCurrentPhase1();
 		readCurrentPhase2();
 		readCurrentPhase3();
@@ -167,12 +186,12 @@ public class Thermald extends SherlockActivity
 		readP3Low();
 		readP3High();
 
-		final EditText ed1 = (EditText)findViewById(R.id.editText1);
-		final EditText ed2 = (EditText)findViewById(R.id.editText2);
-		final EditText ed3 = (EditText)findViewById(R.id.editText3);
-		final EditText ed4 = (EditText)findViewById(R.id.editText4);
-		final EditText ed5 = (EditText)findViewById(R.id.editText5);
-		final EditText ed6 = (EditText)findViewById(R.id.editText6);
+		  ed1 = (EditText)findViewById(R.id.editText1);
+		  ed2 = (EditText)findViewById(R.id.editText2);
+		 ed3 = (EditText)findViewById(R.id.editText3);
+		ed4 = (EditText)findViewById(R.id.editText4);
+		 ed5 = (EditText)findViewById(R.id.editText5);
+		 ed6 = (EditText)findViewById(R.id.editText6);
 		ed1.setText(p1low);
 		ed2.setText(p1high);
 		ed3.setText(p2low);
@@ -183,23 +202,7 @@ public class Thermald extends SherlockActivity
 		createSpinnerp2();
 		createSpinnerp3();
 
-		Button apply = (Button)findViewById(R.id.button1);
-		apply.setOnClickListener(new OnClickListener(){
-				@Override
-				public void onClick(View arg0)
-				{
-					Thermald.this.pd = ProgressDialog.show(Thermald.this, null, getResources().getString(R.string.applying_settings), true, false);
-					p1lownew = String.valueOf(ed1.getText());
-					p1highnew = String.valueOf(ed2.getText());
-					p2lownew = String.valueOf(ed3.getText());
-					p2highnew = String.valueOf(ed4.getText());
-					p3lownew = String.valueOf(ed5.getText());
-					p3highnew = String.valueOf(ed6.getText());
-					new apply().execute();
-
-				}
-
-			});
+		
 	}
 
 
@@ -221,10 +224,10 @@ public class Thermald extends SherlockActivity
 
 	public void createSpinnerp1()
 	{
-		String[] MyStringAray = freqs.split("\\s");
+		
 
 		final Spinner spinner = (Spinner) findViewById(R.id.spinner1);
-		ArrayAdapter<String> spinnerArrayAdapter = new ArrayAdapter<String>(this,   android.R.layout.simple_spinner_item, MyStringAray);
+		ArrayAdapter<String> spinnerArrayAdapter = new ArrayAdapter<String>(this,   android.R.layout.simple_spinner_item, freqNames);
 		spinnerArrayAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item); // The drop down vieww
 		spinner.setAdapter(spinnerArrayAdapter);
 
@@ -232,7 +235,7 @@ public class Thermald extends SherlockActivity
 				@Override
 				public void onItemSelected(AdapterView<?> parent, View view, int pos, long id)
 				{
-					p1freqnew = parent.getItemAtPosition(pos).toString();
+					p1freqnew = String.valueOf(freqs.get(pos));
 
 				}
 
@@ -244,7 +247,7 @@ public class Thermald extends SherlockActivity
 			});
 
 		
-		int spinnerPosition = spinnerArrayAdapter.getPosition(p1freq);
+		int spinnerPosition = spinnerArrayAdapter.getPosition(freqNames.get(freqs.indexOf(p1freq)));
 
 		//set the default according to value
 		spinner.setSelection(spinnerPosition);
@@ -253,10 +256,10 @@ public class Thermald extends SherlockActivity
 
 	public void createSpinnerp2()
 	{
-		String[] MyStringAray = freqs.split("\\s");
+		
 
 		final Spinner spinner = (Spinner) findViewById(R.id.spinner2);
-		ArrayAdapter<String> spinnerArrayAdapter = new ArrayAdapter<String>(this,   android.R.layout.simple_spinner_item, MyStringAray);
+		ArrayAdapter<String> spinnerArrayAdapter = new ArrayAdapter<String>(this,   android.R.layout.simple_spinner_item, freqNames);
 		spinnerArrayAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item); // The drop down vieww
 		spinner.setAdapter(spinnerArrayAdapter);
 
@@ -264,7 +267,7 @@ public class Thermald extends SherlockActivity
 				@Override
 				public void onItemSelected(AdapterView<?> parent, View view, int pos, long id)
 				{
-					p2freqnew = parent.getItemAtPosition(pos).toString();
+					p2freqnew = String.valueOf(freqs.get(pos));
 
 				}
 
@@ -276,7 +279,7 @@ public class Thermald extends SherlockActivity
 			});
 
 		
-		int spinnerPosition = spinnerArrayAdapter.getPosition(p2freq);
+		int spinnerPosition = spinnerArrayAdapter.getPosition(freqNames.get(freqs.indexOf(p2freq)));
 
 		//set the default according to value
 		spinner.setSelection(spinnerPosition);
@@ -285,10 +288,10 @@ public class Thermald extends SherlockActivity
 
 	public void createSpinnerp3()
 	{
-		String[] MyStringAray = freqs.split("\\s");
+
 
 		final Spinner spinner = (Spinner) findViewById(R.id.spinner3);
-		ArrayAdapter<String> spinnerArrayAdapter = new ArrayAdapter<String>(this,   android.R.layout.simple_spinner_item, MyStringAray);
+		ArrayAdapter<String> spinnerArrayAdapter = new ArrayAdapter<String>(this,   android.R.layout.simple_spinner_item, freqNames);
 		spinnerArrayAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item); // The drop down vieww
 		spinner.setAdapter(spinnerArrayAdapter);
 
@@ -296,7 +299,7 @@ public class Thermald extends SherlockActivity
 				@Override
 				public void onItemSelected(AdapterView<?> parent, View view, int pos, long id)
 				{
-					p3freqnew = parent.getItemAtPosition(pos).toString();
+					p3freqnew = String.valueOf(freqs.get(pos));
 
 				}
 
@@ -308,40 +311,14 @@ public class Thermald extends SherlockActivity
 			});
 
 		
-		int spinnerPosition = spinnerArrayAdapter.getPosition(p3freq);
+		int spinnerPosition = spinnerArrayAdapter.getPosition(freqNames.get(freqs.indexOf(p3freq)));
 
 		//set the default according to value
 		spinner.setSelection(spinnerPosition);
 
 	}
 
-	public void readFreqs()
-	{
-		try
-		{
-
-			File myFile = new File("/sys/devices/system/cpu/cpu0/cpufreq/scaling_available_frequencies");
-			FileInputStream fIn = new FileInputStream(myFile);
-
-			BufferedReader myReader = new BufferedReader(
-				new InputStreamReader(fIn));
-			String aDataRow = "";
-			String aBuffer = "";
-			while ((aDataRow = myReader.readLine()) != null)
-			{
-				aBuffer += aDataRow + "\n";
-			}
-
-			freqs = aBuffer;
-			myReader.close();
-
-		}
-		catch (Exception e)
-		{
-
-
-		}
-	}
+	
 
 	public void readCurrentPhase1()
 	{
@@ -594,18 +571,41 @@ public class Thermald extends SherlockActivity
 	}
 	
 	@Override
+	public boolean onCreateOptionsMenu(Menu menu) {
+		MenuInflater inflater = getSupportMenuInflater();
+		inflater.inflate(R.menu.misc_tweaks_options_menu, menu);
+		return super.onCreateOptionsMenu(menu);
+}
+	@Override
 	public boolean onOptionsItemSelected(com.actionbarsherlock.view.MenuItem item) {
 	    switch (item.getItemId()) {
 	        case android.R.id.home:
-	            // app icon in action bar clicked; go home
+	           
 	            Intent intent = new Intent(this, KernelTuner.class);
 	            intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
 	            startActivity(intent);
 	            return true;
+	        case R.id.apply:
+	        	apply();
+	        	return true;
+	        case R.id.cancel:
+	        	finish();
+	        	return true;
 	        
 	            
 	    }
 	    return super.onOptionsItemSelected(item);
+	}
+	
+	public void apply(){
+		Thermald.this.pd = ProgressDialog.show(Thermald.this, null, getResources().getString(R.string.applying_settings), true, false);
+		p1lownew = String.valueOf(ed1.getText());
+		p1highnew = String.valueOf(ed2.getText());
+		p2lownew = String.valueOf(ed3.getText());
+		p2highnew = String.valueOf(ed4.getText());
+		p3lownew = String.valueOf(ed5.getText());
+		p3highnew = String.valueOf(ed6.getText());
+		new apply().execute();
 	}
 
 }

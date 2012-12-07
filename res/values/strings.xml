@@ -144,12 +144,12 @@
     <string name="done">Done</string>
     <string name="profile_">Profile:</string>
     <string name="create_profile_from_current_settings">Create profile from current settings</string>
-    <string name="phase1_low">Phase1&#8211;Low</string>
+    <string name="phase1_low">Threshold &#8211; Low</string>
     <string name="max_frequency_">Max Frequency:</string>
     <string name="low_range_temperature_">Low range temperature:</string>
     <string name="high_range_temperature_">High range temperature:</string>
-    <string name="phase2_medium">Phase2&#8211;Medium</string>
-    <string name="phase3_high">Phase3&#8211;High</string>
+    <string name="phase2_medium">Threshold &#8211; Medium</string>
+    <string name="phase3_high">Threshold &#8211; High</string>
     <string name="frequency_">Frequency:</string>
     <string name="all_p12_5mv">All +12.5mV</string>
     <string name="all_m12_5mv">All &#8211;12.5mV</string>
