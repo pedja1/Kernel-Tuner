@@ -3,6 +3,7 @@ package rs.pedjaapps.KernelTuner;
 import java.io.DataOutputStream;
 import java.io.File;
 import java.io.IOException;
+import java.util.ArrayList;
 import java.util.List;
 
 import android.content.Context;
@@ -30,8 +31,17 @@ public class ChangeVoltage extends AsyncTask<String, Void, String>
 	protected String doInBackground(String... args)
 	{
 
-		List<String> voltageFreqs = CPUInfo.voltageFreqs();
-		List<Integer> voltages = CPUInfo.voltages();
+		List<CPUInfo.VoltageList> voltageList = CPUInfo.voltages();
+		List<Integer> voltages = new ArrayList<Integer>();
+		List<String> voltageFreqs =  new ArrayList<String>();
+		
+		for(CPUInfo.VoltageList v: voltageList){
+			voltageFreqs.add((v.getFreq()));
+		}
+		for(CPUInfo.VoltageList v: voltageList){
+			voltages.add(v.getVoltage());
+		}
+		
 		Process localProcess;
 		System.out.println("ChangeVoltage: Changing voltage");
 		if (new File(CPUInfo.VOLTAGE_PATH).exists())

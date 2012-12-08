@@ -2,6 +2,7 @@ package rs.pedjaapps.KernelTuner;
 
 
 import java.io.File;
+import java.util.ArrayList;
 import java.util.List;
 
 import android.app.AlertDialog;
@@ -27,6 +28,10 @@ public final class VoltageAdapter extends ArrayAdapter<VoltageEntry>
 
 	static ProgressDialog pd = null;
 	private final int voltageItemLayoutResource;
+	List<CPUInfo.VoltageList> voltageList = CPUInfo.voltages();
+	static List<Integer> voltages = new ArrayList<Integer>();
+	static List<String> voltageFreqs =  new ArrayList<String>();
+	static List<String> voltageFreqNames =  new ArrayList<String>();
 
 	public VoltageAdapter(final Context context, final int voltageItemLayoutResource)
 	{
@@ -41,12 +46,18 @@ public final class VoltageAdapter extends ArrayAdapter<VoltageEntry>
 		final View view = getWorkingView(convertView);
 		final ViewHolder viewHolder = getViewHolder(view);
 		final VoltageEntry entry = getItem(position);
-		final List<Integer> allVoltages = CPUInfo.allVoltages();
-		final List<String> voltageFreqs = CPUInfo.voltageFreqs();
-		final List<Integer> voltages = CPUInfo.voltages();
+		for(CPUInfo.VoltageList v: voltageList){
+			voltageFreqs.add((v.getFreq()));
+		}
+		for(CPUInfo.VoltageList v: voltageList){
+			voltages.add(v.getVoltage());
+		}
+		for(CPUInfo.VoltageList v: voltageList){
+			voltageFreqNames.add(v.getFreqName());
+		}
 
-		viewHolder.voltageSeekBarView.setMax(56);
-		viewHolder.voltageSeekBarView.setProgress(entry.getVoltage());
+		viewHolder.voltageSeekBarView.setMax(700000);
+		viewHolder.voltageSeekBarView.setProgress(entry.getVoltage()-700000);
 
 		viewHolder.voltageSeekBarView.setOnSeekBarChangeListener(new OnSeekBarChangeListener(){
 
@@ -59,7 +70,7 @@ public final class VoltageAdapter extends ArrayAdapter<VoltageEntry>
 											  boolean fromUser)
 				{
 					prog = progress;
-					viewHolder.buttonView.setText(String.valueOf(allVoltages.get(progress) / 1000) + "mV");
+					viewHolder.buttonView.setText(String.valueOf((progress+700000) / 1000) + "mV");
 
 				}
 
@@ -73,12 +84,12 @@ public final class VoltageAdapter extends ArrayAdapter<VoltageEntry>
 				{
 
 					VoltageAdapter.pd = ProgressDialog.show(VoltageAdapter.this.getContext(), null, VoltageAdapter.this.getContext().getResources().getString(R.string.changing_voltage), true, false);
-					new ChangeVoltage(VoltageAdapter.this.getContext()).execute(new String[] {"singleseek", String.valueOf(allVoltages.get(prog)), voltageFreqs.get(position)});
+					new ChangeVoltage(VoltageAdapter.this.getContext()).execute(new String[] {"singleseek", String.valueOf(prog+700000), voltageFreqs.get(position)});
 				}
 
 			});
 
-		viewHolder.buttonView.setText(String.valueOf(allVoltages.get(entry.getVoltage()) / 1000) + "mV");
+		viewHolder.buttonView.setText(String.valueOf((entry.getVoltage()) / 1000) + "mV");
 
 		viewHolder.buttonView.setOnClickListener(new OnClickListener(){
 

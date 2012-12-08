@@ -31,6 +31,10 @@ public class VoltageActivity extends SherlockActivity
 	ListView voltageListView;
 	static ProgressDialog pd = null;
 	DatabaseHandler db;
+	
+	static List<Integer> voltages = new ArrayList<Integer>();
+	static List<String> voltageFreqs =  new ArrayList<String>();
+	static List<String> voltageFreqNames =  new ArrayList<String>();
 	public static final String ARG_SECTION_NUMBER = "section_number";
 
 	@Override
@@ -39,6 +43,10 @@ public class VoltageActivity extends SherlockActivity
 		super.onCreate(savedInstanceState);
 
 		setContentView(R.layout.voltage);
+		
+		
+		
+		
 		
 		ActionBar actionBar = getSupportActionBar();
 		actionBar.setDisplayHomeAsUpEnabled(true);
@@ -114,17 +122,16 @@ public class VoltageActivity extends SherlockActivity
 							public void onClick(DialogInterface dialog, int which)
 							{
 								String name = String.valueOf(input.getText());
-								List<String> freqs = CPUInfo.voltageFreqs();
-								List<Integer> values = CPUInfo.voltages();
+								
 								String freqTemp;
 								String valueTemp;
 								StringBuilder freqBuilder  = new StringBuilder();
 								StringBuilder valueBuilder  = new StringBuilder();
-								for (String s : freqs){
+								for (String s : voltageFreqs){
 									freqBuilder.append(s+" ");
 								}
-								for (int i=0; i<values.size(); i++){
-									valueBuilder.append(String.valueOf(values.get(i))+" ");
+								for (int i=0; i<voltages.size(); i++){
+									valueBuilder.append(String.valueOf(voltages.get(i))+" ");
 								}
 								freqTemp = freqBuilder.toString();
 								valueTemp = valueBuilder.toString();
@@ -273,16 +280,34 @@ public class VoltageActivity extends SherlockActivity
 
 
 
-		List<Integer> allVoltages = CPUInfo.allVoltages();
+		/*List<Integer> allVoltages = CPUInfo.allVoltages();
 		List<Integer> allVoltagesTegra3 = CPUInfo.allVoltagesTegra3();
-		List<Integer> voltages = CPUInfo.voltages();
-		List<String> voltageFreqs = CPUInfo.voltageFreqs();
+		*/
+		List<CPUInfo.VoltageList> voltageList = CPUInfo.voltages();
+		if(voltageFreqs.isEmpty()==false){
+			voltageFreqs.clear();
+		}
+		if(voltages.isEmpty()==false){
+			voltages.clear();
+		}
+		if(voltageFreqNames.isEmpty()==false){
+			voltageFreqNames.clear();
+		}
+		for(CPUInfo.VoltageList v: voltageList){
+			voltageFreqs.add((v.getFreq()));
+		}
+		for(CPUInfo.VoltageList v: voltageList){
+			voltages.add(v.getVoltage());
+		}
+		for(CPUInfo.VoltageList v: voltageList){
+			voltageFreqNames.add(v.getFreqName());
+		}
 
 		if (new File(CPUInfo.VOLTAGE_PATH).exists())
 		{
 			for (int i= 0; i < voltages.size(); i++)
 			{	    	 
-				entries.add(new VoltageEntry(voltageFreqs.get(i).substring(0, voltageFreqs.get(i).length() - 3) + "Mhz", allVoltages.indexOf(voltages.get(i))));
+				entries.add(new VoltageEntry(voltageFreqNames.get(i), voltages.get(i)));
 				
 
 			}	
@@ -292,7 +317,7 @@ public class VoltageActivity extends SherlockActivity
 		{
 			for (int i= 0; i < voltages.size(); i++)
 			{	    	 
-				entries.add(new VoltageEntry(voltageFreqs.get(i) + "Mhz", allVoltagesTegra3.indexOf(voltages.get(i))));
+				entries.add(new VoltageEntry(voltageFreqNames.get(i), voltages.get(i)));
 				
 
 			}	

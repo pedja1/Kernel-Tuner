@@ -12,7 +12,6 @@ import java.util.Collections;
 import java.util.Comparator;
 import java.util.List;
 
-import rs.pedjaapps.KernelTuner.SDScannerActivity.MyComparator;
 
 import android.os.SystemClock;
 import android.util.Log;
@@ -978,10 +977,12 @@ public class CPUInfo
 
 	
 
-	public static List<Integer> voltages()
+	public static List<VoltageList> voltages()
 	{
-		List<Integer> voltages = new ArrayList<Integer>();
-
+		List<VoltageList> voltages = new ArrayList<VoltageList>();
+		if(voltages.isEmpty()==false){
+			voltages.clear();
+		}
 		try
 		{
 
@@ -994,8 +995,9 @@ public class CPUInfo
 			while ((strLine = br.readLine()) != null)
 			{
 
-				voltages.add(Integer.parseInt(strLine.substring(9,
-																strLine.length() - 0).trim()));
+				voltages.add(new VoltageList(strLine.substring(0,strLine.length() - 10).trim(),
+											 strLine.substring(0,strLine.length() - 13).trim()+"MHz", 
+											 Integer.parseInt(strLine.substring(9,strLine.length() - 0).trim())));
 			}
 
 			in.close();
@@ -1014,7 +1016,11 @@ public class CPUInfo
 				while ((strLine = br.readLine()) != null)
 				{	
 					String[] delims = strLine.split(" ");
-					voltages.add(Integer.parseInt(delims[1]));
+					//voltages.add(Integer.parseInt(delims[1]));
+					voltages.add(new VoltageList(delims[0],
+							 					 delims[0].substring(0,delims[0].length() - 4).trim()+"MHz", 
+							 					 Integer.parseInt(delims[1])));
+
 				}
 
 				in.close();
@@ -1029,7 +1035,7 @@ public class CPUInfo
 
 	}
 
-	public static List<String> voltageFreqs()
+	/*public static List<String> voltageFreqs()
 	{
 		List<String> voltageFreqs = new ArrayList<String>();
 
@@ -1080,10 +1086,10 @@ public class CPUInfo
 		System.out.println(voltageFreqs);
 		return voltageFreqs;
 
-	}
+	}*/
 
 
-	public static List<Integer> allVoltages()
+	/*public static List<Integer> allVoltages()
 	{
 		List<Integer> allVoltages = new ArrayList<Integer>();
 
@@ -1105,7 +1111,7 @@ public class CPUInfo
 		}
 		return allVoltages;
 
-	}
+	}*/
 
 	public static String uptime()
 	{
@@ -2198,6 +2204,41 @@ public class CPUInfo
 
 		public int getFreq(){
 			return freq;
+		}
+
+	}
+	
+	public static final class VoltageList
+	{
+
+		private final String freq;
+		private final String freqName;
+		private final int voltage;
+		
+
+
+		public VoltageList(final String freq, final String freqName,
+				final int voltage)
+		{
+			this.freq = freq;
+			this.freqName = freqName;
+			this.voltage = voltage;
+		}
+
+
+		public String getFreq()
+		{
+			return freq;
+		}
+		
+		public String getFreqName()
+		{
+			return freqName;
+		}
+
+
+		public int getVoltage(){
+			return voltage;
 		}
 
 	}
