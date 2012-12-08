@@ -63,7 +63,7 @@
             </LinearLayout>
 
             <ImageView
-                android:id="@+id/io_divider"
+                
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginBottom="8dp"
@@ -108,12 +108,12 @@
                 <TextView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="°C"
+                    android:text="@string/celsius_unit"
                     android:textAppearance="?android:attr/textAppearanceMedium" />
             </LinearLayout>
 
             <ImageView
-                android:id="@+id/io_divider"
+                
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginBottom="8dp"
@@ -158,7 +158,7 @@
                 <TextView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="°C"
+                    android:text="@string/celsius_unit"
                     android:textAppearance="?android:attr/textAppearanceMedium"/>
             </LinearLayout>
 
@@ -209,7 +209,7 @@
             </LinearLayout>
 
             <ImageView
-                android:id="@+id/io_divider"
+               
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginBottom="8dp"
@@ -254,12 +254,12 @@
                 <TextView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="°C"
+                    android:text="@string/celsius_unit"
                     android:textAppearance="?android:attr/textAppearanceMedium"/>
             </LinearLayout>
 
             <ImageView
-                android:id="@+id/io_divider"
+                
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginBottom="8dp"
@@ -304,7 +304,7 @@
                 <TextView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="°C"
+                    android:text="@string/celsius_unit"
                     android:textAppearance="?android:attr/textAppearanceMedium"/>
             </LinearLayout>
 
@@ -355,7 +355,7 @@
             </LinearLayout>
 
             <ImageView
-                android:id="@+id/io_divider"
+               
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginBottom="8dp"
@@ -399,12 +399,12 @@
                 <TextView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="°C"
+                    android:text="@string/celsius_unit"
                     android:textAppearance="?android:attr/textAppearanceMedium"/>
             </LinearLayout>
 
             <ImageView
-                android:id="@+id/io_divider"
+              
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginBottom="8dp"
@@ -448,7 +448,7 @@
                 <TextView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="°C"
+                    android:text="@string/celsius_unit"
                     android:textAppearance="?android:attr/textAppearanceMedium"/>
             </LinearLayout>
         </LinearLayout>
