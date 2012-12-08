@@ -411,7 +411,7 @@
             android:layout_height="wrap_content" >
             
              <TextView
-                android:id="@+id/textView16"
+                
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 android:text="@string/gpu2d_max_freq_"
@@ -583,7 +583,7 @@
             android:layout_height="wrap_content" >
             
              <TextView
-                android:id="@+id/textView18"
+                
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 android:text="@string/color_depth_"

@@ -38,6 +38,8 @@ public class KernelTuner extends SherlockActivity
 {
 	private List<CPUInfo.FreqsEntry> freqEntries = CPUInfo.frequencies();
 	private List<String> freqNames = new ArrayList<String>();
+	private List<CPUInfo.VoltageList> voltageFreqs = CPUInfo.voltages();
+	private List<String> voltages = new ArrayList<String>();
 	private TextView batteryLevel;
 	private TextView batteryTemp;
 	private TextView cputemptxt;
@@ -749,6 +751,11 @@ public class KernelTuner extends SherlockActivity
 		for(CPUInfo.FreqsEntry f: freqEntries){
 			freqNames.add(f.getFreqName());
 		}
+		
+		for(CPUInfo.VoltageList v: voltageFreqs){
+			voltages.add(String.valueOf(v.getFreq()));
+		}
+		
 		initialCheck();
 
 		/***
@@ -1678,6 +1685,11 @@ public void startCpuLoadThread() {
 		String oom = sharedPrefs.getString("oom", "");
 		String otg = sharedPrefs.getString("otg", "");
 		
+		String idle_freq = sharedPrefs.getString("idle_freq", "");
+		String scroff = sharedPrefs.getString("scroff", "");
+		String scroff_single = sharedPrefs.getString("scroff_single", "");
+
+		
 		StringBuilder gpubuilder = new StringBuilder();
 	
 		gpubuilder.append("#!/system/bin/sh");
@@ -1953,11 +1965,22 @@ public void startCpuLoadThread() {
 			miscbuilder.append("chmod 777 /sys/kernel/msm_thermal/conf/allowed_high_low\n" +
 							   "echo " + "\"" + p3low.trim() +  "\"" + " > /sys/kernel/msm_thermal/conf/allowed_high_low\n");
 		}
+		
 		if (!p3high.trim().equals(""))
 		{
 			miscbuilder.append("chmod 777 /sys/kernel/msm_thermal/conf/allowed_high_high\n" +
-							   "echo " + "\"" + p3high.trim() +  "\"" + " > /sys/kernel/msm_thermal/conf/allowed_high_high\n\n");
+							   "echo " + "\"" + p3high.trim() +  "\"" + " > /sys/kernel/msm_thermal/conf/allowed_high_high\n");
 		}
+		
+		if(!idle_freq.equals("")){
+			miscbuilder.append("echo " + idle_freq + " > /sys/kernel/msm_mpdecision/conf/idle_freq\n");
+			}
+			if(!scroff.equals("")){
+			miscbuilder.append("echo " + scroff + " > /sys/kernel/msm_mpdecision/conf/scroff_freq\n");
+			}
+			if(!scroff_single.equals("")){
+			miscbuilder.append("echo " + scroff_single + " > /sys/kernel/msm_mpdecision/conf/scroff_single_core\n\n");
+			}
 		if (swap == true)
 		{
 			miscbuilder.append("echo " + swappiness + " > /proc/sys/vm/swappiness\n"
@@ -1989,7 +2012,7 @@ public void startCpuLoadThread() {
 	
 		StringBuilder voltagebuilder = new StringBuilder();
 		voltagebuilder.append("#!/system/bin/sh \n");
-		for (String s : CPUInfo.voltageFreqs())
+		for (String s : voltages)
 		{
 			String temp = sharedPrefs.getString("voltage_" + s, "");
 		    if (!temp.equals(""))

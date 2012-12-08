@@ -8,7 +8,7 @@
     <string name="title_misc">Misc Tweaks</string>
     <string name="title_profiles">Profiles</string>
     <string name="title_mpdecision">Mpdecision</string>
-    <string name="title_thermald">Thermald</string>
+    <string name="title_thermald">Thermal</string>
     <string name="title_about">About</string>
     <string name="title_info">System Info</string>
     <string name="title_preferences">Settings</string>
@@ -49,9 +49,6 @@
 
     <string name="copyright_cokulov_predrag_2012">Copyright © Čokulov Predrag 2012</string>
     <string name="about_faq_and_support">FAQ and Support:</string>
-    <string name="activity_anthrax_button_thermald">thermald</string>
-    <string name="activity_anthrax_button_mpdecision">mpdecision</string>
-    <string name="activity_anthrax_button_other">Other</string>
     <string name="activity_check_scaling_available_frequencies">scaling_available_frequencies…</string>
     <string name="activity_check_undervolting_">Undervolting…</string>
     <string name="activity_check_time_in_state_">Time in State…</string>
@@ -64,7 +61,7 @@
     <string name="activity_check_color_depth_">Color Depth…</string>
     <string name="activity_check_f_sync_">f/sync…</string>
     <string name="activity_check_sweep2wake_">Sweep2Wake…</string>
-    <string name="activity_check_thermald_">Thermald…</string>
+    <string name="activity_check_thermald_">Thermal…</string>
     <string name="activity_check_mpdecision_">Mpdecision…</string>
     <string name="activity_check_sdcache_">sdcache&#8230;.</string>
     <string name="activity_check_io_scheduler_">IO Scheduler…</string>
@@ -114,7 +111,7 @@
     <string name="plus">+</string>
     <string name="fastcharge">Fastcharge</string>
     <string name="enable_disable_fastcharge_mod">Enable/Disable Fastcharge Mod</string>
-    <string name="vsync">Vsync:</string>
+    <string name="vsync">Vsync</string>
     <string name="enable_disable_vsync">Enable/Disable Vsync</string>
     <string name="question_mark">\?</string>
     <string name="color_depth">Color Depth:</string>
@@ -128,7 +125,7 @@
     <string name="s2w_start_button_">S2W Start Button;</string>
     <string name="s2w_end_button_">S2W End Button:</string>
     <string name="apply">Apply</string>
-    <string name="mpdecision">mpdecision</string>
+    <string name="mpdecision">Mpdecision</string>
     <string name="service_start_delay_">Service start delay:</string>
     <string name="sleep_time_">Sleep time:</string>
     <string name="up_threshold_load_">Up threshold(load):</string>
@@ -139,8 +136,8 @@
     <string name="min">min</string>
      <string name="profile_name">Profile Name</string>
     <string name="number_of_active_cores_">Number of active Cores:</string>
-    <string name="mpdecision_threshold_up_">mpdecision threshold up:</string>
-    <string name="mpdecision_threshold_down_">mpdecision threshold down:</string>
+    <string name="mpdecision_threshold_up_">Mpdecision threshold up:</string>
+    <string name="mpdecision_threshold_down_">Mpdecision threshold down:</string>
     <string name="done">Done</string>
     <string name="profile_">Profile:</string>
     <string name="create_profile_from_current_settings">Create profile from current settings</string>
@@ -179,7 +176,7 @@
      <string name="cpu_load">CPU Load:</string>
      <string name="refresh">Refresh</string>
      <string name="load">Load</string>
-     <string name="thermald">thermald</string>
+     <string name="thermald">Thermal</string>
      <string name="profiles">Profiles</string>
      <string name="swap">Swap</string>
      <string name="info">System Info</string>
@@ -277,5 +274,14 @@
    <string name="List">List</string>
    <string name="chart">Chart</string>
    <string name="remember">Remember Choice</string>
+   <string name="head_capacitive_buttons_backlight">CAPACITIVE BUTTONS BACKLIGHT</string>
+   <string name="celsius_unit">°C</string>
+   <string name="head_fastcharge">FASTCHARGE</string>
+   <string name="toggle_fastcharge_mode">Toggle fastcharge mode</string>
+   <string name="head_vsync">VSYNC</string>
+   <string name="toggle_vsync">Toggle vsync</string>
+   <string name="head_otg">OTG</string>
+   <string name="usb_otg">USB OTG</string>
+   <string name="enable_otg_support_with_standard_usb_cable">Enable OTG support with standard USB cable</string>
 	
 </resources>

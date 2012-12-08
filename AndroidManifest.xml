@@ -91,7 +91,7 @@
 		</receiver>
 		<activity android:name=".Gpu"  android:exported="true" android:label="@string/title_gpu" android:theme="@style/Theme.Dialog.NoTitleBar" android:icon="@drawable/gpu"></activity>
 		<activity android:name=".MiscTweaks" android:exported="true" android:label="@string/title_misc" android:icon="@drawable/misc" android:theme="@style/SwitchCompatAndSherlock"></activity>
-		<activity android:name=".Mpdecision" android:exported="true" android:label="@string/title_mpdecision" android:icon="@drawable/dual"></activity>
+		<activity android:name=".Mpdecision" android:exported="true" android:label="@string/title_mpdecision" android:icon="@drawable/dual" android:theme="@style/SwitchCompatAndSherlock"></activity>
 		<activity android:name=".Thermald" android:exported="true" android:label="@string/title_thermald" android:icon="@drawable/temp"></activity>
 
 		<activity android:name=".About"  android:label="@string/title_about" android:icon="@drawable/about" android:theme="@style/Theme.Dialog.NoTitleBar"></activity>

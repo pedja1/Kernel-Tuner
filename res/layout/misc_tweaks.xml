@@ -55,14 +55,14 @@
                 android:layout_height="wrap_content"
                 android:layout_below="@+id/backlight_head"
                 android:layout_centerHorizontal="true"
-                android:text="level" />
+                android:text="@string/n_a" />
 
             <TextView
                 android:id="@+id/backlight_head"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_alignParentLeft="true"
-                android:text="CAPACITIVE BUTTONS BACKLIGHT"
+                android:text="@string/head_capacitive_buttons_backlight"
                 android:textAppearance="?android:attr/textAppearanceMedium" />
 
             <ImageView
@@ -110,7 +110,7 @@
                 android:layout_height="wrap_content"
                 android:layout_below="@id/buttonsGroup"
                 android:layout_marginTop="5dp"
-                android:text="FASTCHARGE"
+                android:text="@string/head_fastcharge"
                 android:textAppearance="?android:attr/textAppearanceMedium" />
 
             <ImageView
@@ -133,31 +133,30 @@
                 android:layout_marginRight="5dp" >
 
                 <LinearLayout
-                    android:layout_width="wrap_content"
+                    android:layout_width="0dp"
                     android:layout_height="wrap_content"
                     android:layout_weight="1"
                     android:orientation="vertical" >
 
                     <TextView
-                        android:id="@+id/textView2"
+                       
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:text="Fastcharge"
+                        android:text="@string/fastcharge"
                         android:textAppearance="?android:attr/textAppearanceMedium" />
 
                     <TextView
-                        android:id="@+id/textView3"
+                        
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:text="Toggle fastcharge mode" />
+                        android:text="@string/toggle_fastcharge_mode" />
                 </LinearLayout>
 
                 <de.ankri.views.Switch
                     android:id="@+id/fcharge_switch"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:layout_alignParentLeft="true"
-                    android:layout_below="@+id/imageView1"
+                   
                     android:layout_gravity="center_vertical" />
             </LinearLayout>
 
@@ -167,7 +166,7 @@
                 android:layout_height="wrap_content"
                 android:layout_below="@+id/fcharge_layout"
                 android:layout_marginTop="8dp"
-                android:text="VSYNC"
+                android:text="@string/head_vsync"
                 android:textAppearance="?android:attr/textAppearanceMedium" />
 
             <ImageView
@@ -191,30 +190,29 @@
                 android:layout_marginRight="5dp" >
 
                 <LinearLayout
-                    android:layout_width="wrap_content"
+                    android:layout_width="0dp"
                     android:layout_height="wrap_content"
                     android:layout_weight="1"
                     android:orientation="vertical" >
 
                     <TextView
-                        android:id="@+id/textView2"
+                        
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:text="Vsync"
+                        android:text="@string/vsync"
                         android:textAppearance="?android:attr/textAppearanceMedium" />
 
                     <TextView
-                        android:id="@+id/textView3"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:text="Toggle vsync" />
+                        android:text="@string/toggle_vsync" />
                 </LinearLayout>
 
                 <de.ankri.views.Switch
                     android:id="@+id/vsync_switch"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:layout_alignParentLeft="true"
+                   
                     android:layout_gravity="center_vertical" />
             </LinearLayout>
             
@@ -224,7 +222,7 @@
                 android:layout_height="wrap_content"
                 android:layout_below="@id/vsync_layout"
                 android:layout_marginTop="5dp"
-                android:text="OTG"
+                android:text="@string/head_otg"
                 android:textAppearance="?android:attr/textAppearanceMedium" />
 
             <ImageView
@@ -247,7 +245,7 @@
                 android:layout_marginRight="5dp" >
 
                 <LinearLayout
-                    android:layout_width="wrap_content"
+                    android:layout_width="0dp"
                     android:layout_height="wrap_content"
                     android:layout_weight="1"
                     android:orientation="vertical" >
@@ -256,14 +254,14 @@
                         android:id="@+id/textView2"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:text="USB OTG"
+                        android:text="@string/usb_otg"
                         android:textAppearance="?android:attr/textAppearanceMedium" />
 
                     <TextView
                         android:id="@+id/textView3"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:text="Enable OTG support with standard USB cable" />
+                        android:text="@string/enable_otg_support_with_standard_usb_cable" />
                 </LinearLayout>
 
                 <de.ankri.views.Switch
@@ -359,20 +357,20 @@
                 android:layout_height="wrap_content">
 
                     <LinearLayout
-                    android:layout_width="wrap_content"
+                    android:layout_width="0dp"
                     android:layout_height="wrap_content"
                     android:layout_weight="1"
                     android:orientation="vertical" >
 
                     <TextView
-                        android:id="@+id/textView2"
+                        
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:text="IO Scheduler"
                         android:textAppearance="?android:attr/textAppearanceMedium" />
 
                     <TextView
-                        android:id="@+id/textView3"
+                        
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:text="Set IO Scheduler" />
@@ -401,20 +399,20 @@
                 android:layout_height="wrap_content">
 
                     <LinearLayout
-                    android:layout_width="wrap_content"
+                    android:layout_width="0dp"
                     android:layout_height="wrap_content"
                     android:layout_weight="1"
                     android:orientation="vertical" >
 
                     <TextView
-                        android:id="@+id/textView2"
+                      
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:text="SD Card Cache Size"
                         android:textAppearance="?android:attr/textAppearanceMedium" />
 
                     <TextView
-                        android:id="@+id/textView3"
+                       
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:text="Change SD Card Cache Size" />
@@ -454,20 +452,20 @@
                  android:layout_below="@+id/nlt_head_image">
 
                     <LinearLayout
-                    android:layout_width="wrap_content"
+                    android:layout_width="0dp"
                     android:layout_height="wrap_content"
                     android:layout_weight="1"
                     android:orientation="vertical" >
 
                     <TextView
-                        android:id="@+id/textView2"
+                      
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:text="Notificatio LED Timeout"
                         android:textAppearance="?android:attr/textAppearanceMedium" />
 
                     <TextView
-                        android:id="@+id/textView3"
+                        
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:text="Set timeout for LED Notifications" />
@@ -517,20 +515,20 @@
                 android:layout_height="wrap_content">
 
                     <LinearLayout
-                    android:layout_width="wrap_content"
+                    android:layout_width="0dp"
                     android:layout_height="wrap_content"
                     android:layout_weight="1"
                     android:orientation="vertical" >
 
                     <TextView
-                        android:id="@+id/textView2"
+                        
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:text="Sweep2Wake"
                         android:textAppearance="?android:attr/textAppearanceMedium" />
 
                     <TextView
-                        android:id="@+id/textView3"
+                        
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:text="Toggle sweep2wake" />
@@ -559,20 +557,20 @@
                 android:layout_height="wrap_content">
 
                     <LinearLayout
-                    android:layout_width="wrap_content"
+                    android:layout_width="0dp"
                     android:layout_height="wrap_content"
                     android:layout_weight="1"
                     android:orientation="vertical" >
 
                     <TextView
-                        android:id="@+id/textView2"
+                        
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:text="Start Button"
                         android:textAppearance="?android:attr/textAppearanceMedium" />
 
                     <TextView
-                        android:id="@+id/textView3"
+                        
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:text="Start button for swipe gesture" />
@@ -600,20 +598,20 @@
                 android:layout_height="wrap_content">
 
                     <LinearLayout
-                    android:layout_width="wrap_content"
+                    android:layout_width="0dp"
                     android:layout_height="wrap_content"
                     android:layout_weight="1"
                     android:orientation="vertical" >
 
                     <TextView
-                        android:id="@+id/textView2"
+                    
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:text="End Button"
                         android:textAppearance="?android:attr/textAppearanceMedium" />
 
                     <TextView
-                        android:id="@+id/textView3"
+                        
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:text="End button for swipe gesture" />

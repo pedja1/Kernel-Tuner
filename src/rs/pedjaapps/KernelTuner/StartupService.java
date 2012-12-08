@@ -3,6 +3,7 @@ package rs.pedjaapps.KernelTuner;
 
 import java.io.DataOutputStream;
 import java.io.IOException;
+import java.util.ArrayList;
 import java.util.List;
 
 import android.app.Service;
@@ -22,7 +23,8 @@ public class StartupService extends Service
 		return null;
 	}
 
-	List<String> voltageFreqs = CPUInfo.voltageFreqs();
+	
+	
 
 	SharedPreferences sharedPrefs;
 	@Override
@@ -55,6 +57,14 @@ public class StartupService extends Service
 		@Override
 		protected String doInBackground(String... args)
 		{
+			List<CPUInfo.VoltageList> voltageList = CPUInfo.voltages();
+			
+			List<String> voltageFreqs =  new ArrayList<String>();
+			
+			for(CPUInfo.VoltageList v: voltageList){
+				voltageFreqs.add((v.getFreq()));
+			}
+			
 
 			Process localProcess;
 			String gpu3d = sharedPrefs.getString("gpu3d", "");
@@ -105,6 +115,10 @@ public class StartupService extends Service
 			String swappiness = sharedPrefs.getString("swappiness", "");
 			String oom = sharedPrefs.getString("oom", "");
 			String otg = sharedPrefs.getString("otg", "");
+			
+			String idle_freq = sharedPrefs.getString("idle_freq", "");
+			String scroff = sharedPrefs.getString("scroff", "");
+			String scroff_single = sharedPrefs.getString("scroff_single", "");
 
 
 			try
@@ -270,6 +284,15 @@ public class StartupService extends Service
 					localDataOutputStream.writeBytes("echo " + otg + " > /sys/kernel/debug/msm_otg/mode\n");
 					localDataOutputStream.writeBytes("echo " + otg + " > /sys/kernel/debug/otg/mode\n");
 						
+				}
+				if(!idle_freq.equals("")){
+				localDataOutputStream.writeBytes("echo " + idle_freq + " > /sys/kernel/msm_mpdecision/conf/idle_freq\n");
+				}
+				if(!scroff.equals("")){
+				localDataOutputStream.writeBytes("echo " + scroff + " > /sys/kernel/msm_mpdecision/conf/scroff_freq\n");
+				}
+				if(!scroff_single.equals("")){
+				localDataOutputStream.writeBytes("echo " + scroff_single + " > /sys/kernel/msm_mpdecision/conf/scroff_single_core\n");
 				}
 				localDataOutputStream.writeBytes("exit\n");
 				localDataOutputStream.flush();

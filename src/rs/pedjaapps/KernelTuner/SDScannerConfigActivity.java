@@ -130,7 +130,7 @@ public class SDScannerConfigActivity extends SherlockActivity
 		final EditText path = (EditText)findViewById(R.id.editText1);
 		final EditText depth = (EditText)findViewById(R.id.editText2);
 		final EditText numberOfItems = (EditText)findViewById(R.id.editText3);
-		path.setText(sharedPrefs.getString("SDScanner_path", "/sdcard/"));
+		path.setText(sharedPrefs.getString("SDScanner_path", Environment.getExternalStorageDirectory().getPath()));
 		depth.setText(sharedPrefs.getString("SDScanner_depth", "1"));
 		numberOfItems.setText(sharedPrefs.getString("SDScanner_items", "20"));
 		if(sharedPrefs.getBoolean("SDScanner_scann_type", false)){

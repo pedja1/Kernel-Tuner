@@ -2,6 +2,7 @@ package rs.pedjaapps.KernelTuner;
 
 import java.io.DataOutputStream;
 import java.io.IOException;
+import java.util.ArrayList;
 import java.util.List;
 
 import android.content.Context;
@@ -64,7 +65,15 @@ public class ProfileApplier extends AsyncTask<String, Void, String>
 		 Integer sdcache = profile.getSdcache();
 
 		 Integer s2w = profile.getSweep2wake();
-		 List<String> voltageFreqs = CPUInfo.voltageFreqs();
+		 List<CPUInfo.VoltageList> voltageList = CPUInfo.voltages();
+			
+			List<String> voltageFreqs =  new ArrayList<String>();
+			
+			for(CPUInfo.VoltageList v: voltageList){
+				voltageFreqs.add((v.getFreq()));
+			}
+			
+		
 			
 		Process localProcess;
 		System.out.println("ProfileApplier: Changing profile");
