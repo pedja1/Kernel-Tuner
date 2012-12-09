@@ -43,7 +43,7 @@ public class Mpdecision extends SherlockActivity
 
 	
 	private List<CPUInfo.FreqsEntry> freqEntries = CPUInfo.frequencies();
-	private List<String> freqs = new ArrayList<String>();
+	private List<Integer> freqs = new ArrayList<Integer>();
 	private List<String> freqNames = new ArrayList<String>();
 	
 	private String mpscroff;
@@ -66,8 +66,8 @@ public class Mpdecision extends SherlockActivity
 	private String scroff;
 	private String scroff_single;
 	
-	private String idleNew;
-	private String scroffNew;
+	private int idleNew;
+	private int scroffNew;
 	private String scroff_singleNew;
 	
 	private Switch mp_switch;
@@ -145,11 +145,12 @@ public class Mpdecision extends SherlockActivity
 			editor.putString("thrdownloadnew", thrdownloadnew);
 			editor.putString("thrupmsnew", thrupmsnew);
 			editor.putString("thrdownmsnew", thrdownmsnew);
-			editor.putString("idle_freq", idleNew);
-			editor.putString("scroff", scroffNew);
+			editor.putString("idle_freq", String.valueOf(idleNew));
+			editor.putString("scroff", String.valueOf(scroffNew));
 			editor.putString("scroff_single", scroff_singleNew);
 			editor.commit();
 			Mpdecision.this.pd.dismiss();
+			finish();
 
 		}
 
@@ -170,7 +171,7 @@ public class Mpdecision extends SherlockActivity
 		scroffSpinner =(Spinner)findViewById(R.id.spinner2);
 		
 		for(CPUInfo.FreqsEntry f: freqEntries){
-			freqs.add(String.valueOf(f.getFreq()));
+			freqs.add(f.getFreq());
 		}
 		for(CPUInfo.FreqsEntry f: freqEntries){
 			freqNames.add(f.getFreqName());
@@ -260,7 +261,7 @@ public class Mpdecision extends SherlockActivity
 				@Override
 				public void onItemSelected(AdapterView<?> parent, View view, int pos, long id)
 				{
-					scroffNew = String.valueOf(freqs.get(pos));
+					scroffNew = freqs.get(pos)+1;
 
 				}
 
@@ -271,17 +272,21 @@ public class Mpdecision extends SherlockActivity
 				}
 			});
 
-		
-		int scroffPosition = freqsArrayAdapter.getPosition(freqNames.get(freqs.indexOf(scroff)));
+		try{
+		int scroffPosition = freqsArrayAdapter.getPosition(freqNames.get(freqs.indexOf(Integer.parseInt(scroff))));
 		scroffSpinner.setSelection(scroffPosition);
-		
+		}
+		catch(Exception e){
+			System.out.println(e.getMessage());;
+		}
 		idleSpinner.setAdapter(freqsArrayAdapter);
 
 		idleSpinner.setOnItemSelectedListener(new OnItemSelectedListener() {
 				@Override
 				public void onItemSelected(AdapterView<?> parent, View view, int pos, long id)
 				{
-					idleNew = String.valueOf(freqs.get(pos));
+					idleNew = freqs.get(pos)+1;
+					System.out.println(idleNew);
 
 				}
 
@@ -292,10 +297,14 @@ public class Mpdecision extends SherlockActivity
 				}
 			});
 
-		
-		int idlePosition = freqsArrayAdapter.getPosition(freqNames.get(freqs.indexOf(idle)));
+		try{
+		int idlePosition = freqsArrayAdapter.getPosition(freqNames.get(freqs.indexOf(Integer.parseInt(idle))));
 		idleSpinner.setSelection(idlePosition);
-
+		}
+		catch(Exception e){
+			//idleSpinner.set
+			System.out.println(e.getMessage());
+		}
 	
 	}
 
