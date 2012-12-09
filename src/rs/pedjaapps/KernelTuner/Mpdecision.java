@@ -277,7 +277,7 @@ public class Mpdecision extends SherlockActivity
 		scroffSpinner.setSelection(scroffPosition);
 		}
 		catch(Exception e){
-			System.out.println(e.getMessage());;
+			System.out.println("err"+e.getMessage());;
 		}
 		idleSpinner.setAdapter(freqsArrayAdapter);
 
@@ -303,8 +303,9 @@ public class Mpdecision extends SherlockActivity
 		}
 		catch(Exception e){
 			//idleSpinner.set
-			System.out.println(e.getMessage());
+			System.out.println("err"+e.getMessage());
 		}
+		
 	
 	}
 
@@ -357,7 +358,7 @@ public class Mpdecision extends SherlockActivity
 			delay = "err";
 			EditText ed=(EditText)findViewById(R.id.ed1);
 
-			ed.setFocusable(false);
+			ed.setEnabled(false);
 		}
 
 
@@ -385,7 +386,7 @@ public class Mpdecision extends SherlockActivity
 			pause = "err";
 			EditText ed=(EditText)findViewById(R.id.ed2);
 
-			ed.setFocusable(false);
+			ed.setEnabled(false);
 
 		}
 
@@ -413,7 +414,7 @@ public class Mpdecision extends SherlockActivity
 			thrupload = "err";
 			EditText ed=(EditText)findViewById(R.id.ed3);
 
-			ed.setFocusable(false);
+			ed.setEnabled(false);
 		}
 
 		try
@@ -440,7 +441,7 @@ public class Mpdecision extends SherlockActivity
 			thrupms = "err";
 			EditText ed=(EditText)findViewById(R.id.ed4);
 
-			ed.setFocusable(false);
+			ed.setEnabled(false);
 		}
 
 	    try
@@ -467,7 +468,7 @@ public class Mpdecision extends SherlockActivity
 			thrdownms = "err";
 			EditText ed=(EditText)findViewById(R.id.ed5);
 
-			ed.setFocusable(false);
+			ed.setEnabled(false);
 		}
 
 		try
@@ -494,7 +495,7 @@ public class Mpdecision extends SherlockActivity
 			thrdownload = "err";
 			EditText ed=(EditText)findViewById(R.id.ed6);
 
-			ed.setFocusable(false);
+			ed.setEnabled(false);
 		}
 
 		try
@@ -521,7 +522,7 @@ public class Mpdecision extends SherlockActivity
 			idle = "err";
 			
 
-			idleSpinner.setFocusable(false);
+			idleSpinner.setEnabled(false);
 		}
 		
 		try
@@ -548,7 +549,7 @@ public class Mpdecision extends SherlockActivity
 			scroff= "err";
 			
 
-			scroffSpinner.setFocusable(false);
+			scroffSpinner.setEnabled(false);
 		}
 		
 		try
@@ -575,7 +576,7 @@ public class Mpdecision extends SherlockActivity
 			scroff_single = "err";
 			
 
-			mp_switch.setFocusable(false);
+			mp_switch.setEnabled(false);
 		}
 		
 	}

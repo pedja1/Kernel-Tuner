@@ -1503,8 +1503,8 @@ public void startCpuLoadThread() {
 		/**
 		Check for certain files in sysfs and if they doesnt exists hide depending views
 		*/
-		File file4 = new File("/sys/devices/system/cpu/cpu0/cpufreq/scaling_available_frequencies");
-		File file5 = new File("/sys/devices/system/cpu/cpu0/cpufreq/stats/time_in_state");
+		File file4 = new File(CPUInfo.CPU0_FREQS);
+		File file5 = new File(CPUInfo.TIMES_IN_STATE_CPU0);
 		try
 		{
 			InputStream fIn = new FileInputStream(file4);
@@ -1557,7 +1557,7 @@ public void startCpuLoadThread() {
 			
 		}
 
-		File file2 = new File("/sys/devices/system/cpu/cpu0/cpufreq/stats/time_in_state");
+		File file2 = new File(CPUInfo.TIMES_IN_STATE_CPU0);
 		try
 		{
 			InputStream fIn = new FileInputStream(file2);
@@ -1572,7 +1572,7 @@ public void startCpuLoadThread() {
 			
 		}
 
-		File file3 = new File("/sys/devices/platform/kgsl-3d0.0/kgsl/kgsl-3d0/max_gpuclk");
+		File file3 = new File(CPUInfo.GPU);
 		try
 		{
 			InputStream fIn = new FileInputStream(file3);
@@ -1587,7 +1587,7 @@ public void startCpuLoadThread() {
 			
 		}
 
-		File file6 = new File("/sys/kernel/msm_mpdecision/conf/enabled");
+		File file6 = new File(CPUInfo.MPDECISION);
 		try
 		{
 			InputStream fIn = new FileInputStream(file6);
@@ -1602,7 +1602,7 @@ public void startCpuLoadThread() {
 			
 		}
 
-		File file7 = new File("/sys/kernel/msm_thermal/conf/allowed_low_freq");
+		File file7 = new File(CPUInfo.THERMALD);
 		try
 		{
 			InputStream fIn = new FileInputStream(file7);

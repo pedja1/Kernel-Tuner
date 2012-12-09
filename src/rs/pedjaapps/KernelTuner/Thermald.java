@@ -246,12 +246,16 @@ public class Thermald extends SherlockActivity
 				}
 			});
 
-		
+		try{
 		int spinnerPosition = spinnerArrayAdapter.getPosition(freqNames.get(freqs.indexOf(p1freq)));
 
 		//set the default according to value
 		spinner.setSelection(spinnerPosition);
-
+	}
+	catch(Exception e){
+		//idleSpinner.set
+		System.out.println("err"+e.getMessage());
+	}
 	}
 
 	public void createSpinnerp2()
@@ -278,12 +282,16 @@ public class Thermald extends SherlockActivity
 				}
 			});
 
-		
+		try{
 		int spinnerPosition = spinnerArrayAdapter.getPosition(freqNames.get(freqs.indexOf(p2freq)));
 
 		//set the default according to value
 		spinner.setSelection(spinnerPosition);
-
+	}
+	catch(Exception e){
+		//idleSpinner.set
+		System.out.println("err"+e.getMessage());
+	}
 	}
 
 	public void createSpinnerp3()
@@ -310,12 +318,16 @@ public class Thermald extends SherlockActivity
 				}
 			});
 
-		
+		try{
 		int spinnerPosition = spinnerArrayAdapter.getPosition(freqNames.get(freqs.indexOf(p3freq)));
 
 		//set the default according to value
 		spinner.setSelection(spinnerPosition);
-
+	}
+	catch(Exception e){
+		//idleSpinner.set
+		System.out.println("err"+e.getMessage());
+	}
 	}
 
 	
