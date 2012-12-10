@@ -449,6 +449,80 @@ public class OOM extends Activity {
 					"49152",
 					"65536" });
 			return true;
+		case R.id._256_multitasking:
+			new setOOM().execute(new String[] {
+					"2048",
+					"3072",
+					"5632",
+					"6144",
+					"6656",
+					"7168" });
+			return true;
+		case R.id._256_balanced:
+			new setOOM().execute(new String[] {
+					"2048",
+					"3072",
+					"6656",
+					"7168",
+					"7680",
+					"8192" });
+			return true;
+		case R.id._256_aggressive:
+			new setOOM().execute(new String[] {
+					"2048",
+					"3072",
+					"7168",
+					"7680",
+					"8960",
+					"12800" });
+			return true;
+			//512
+		case R.id._512_multitasking:
+			new setOOM().execute(new String[] {
+					"2048",
+					"3584",
+					"10240",
+					"12800",
+					"15360",
+					"19200" });
+			return true;
+		case R.id._512_balanced:
+			new setOOM().execute(new String[] {
+					"2048",
+					"3584",
+					"14080",
+					"17920",
+					"21760",
+					"25600" });
+			return true;
+		case R.id._512_aggressive:
+			new setOOM().execute(new String[] {
+					"2048",
+					"3584",
+					"19200",
+					"23040",
+					"24320",
+					"32000" });
+			return true;
+			
+		case R.id._768_aggressive:
+			new setOOM().execute(new String[] {
+					"2048",
+					"4096",
+					"38400",
+					"42240",
+					"46080",
+					"51200" });
+			return true;
+		case R.id._1000_aggressive:
+			new setOOM().execute(new String[] {
+					"2048",
+					"4096",
+					"51200",
+					"56320",
+					"61440",
+					"65536" });
+			return true;
 
 		}
 		return false;
