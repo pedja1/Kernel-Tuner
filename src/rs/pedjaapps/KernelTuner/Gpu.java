@@ -7,7 +7,10 @@ import java.io.FileInputStream;
 import java.io.IOException;
 import java.io.InputStreamReader;
 
-import android.app.Activity;
+import com.actionbarsherlock.app.SherlockActivity;
+
+
+
 import android.app.ProgressDialog;
 import android.content.SharedPreferences;
 import android.os.AsyncTask;
@@ -22,7 +25,7 @@ import android.widget.Button;
 import android.widget.Spinner;
 import android.widget.TextView;
 
-public class Gpu extends Activity
+public class Gpu extends SherlockActivity
 {
 
 	public String gpu2dcurent;
@@ -44,6 +47,7 @@ public class Gpu extends Activity
 
 	private ProgressDialog pd = null;
 	public SharedPreferences preferences;
+	
 
 private class changegpu extends AsyncTask<String, Void, Object>
 	{
@@ -235,6 +239,7 @@ private class changegpu extends AsyncTask<String, Void, Object>
 	{
 
 		super.onCreate(savedInstanceState);
+		   
 		setContentView(R.layout.gpu);
 		if (board.equals("shooter") || board.equals("shooteru") || board.equals("pyramid")|| board.equals("tenderloin"))
 		{
@@ -260,36 +265,28 @@ private class changegpu extends AsyncTask<String, Void, Object>
 		tv5.setText(gpu3dcurent.substring(0, gpu3dcurent.length() - 6) + "Mhz");
 		tv2.setText(gpu2dcurent.substring(0, gpu2dcurent.length() - 6) + "Mhz");
 
-		Button apply = (Button)findViewById(R.id.button2);
-
+		Button apply = (Button)findViewById(R.id.apply);
+		Button cancel = (Button)findViewById(R.id.cancel);
 		apply.setOnClickListener(new OnClickListener(){
 
-				@Override
-				public void onClick(View v)
-				{
-
-					Gpu.this.pd = ProgressDialog.show(Gpu.this, null, getResources().getString(R.string.applying_settings), true, false);
-
-					new changegpu().execute();
-
-
-
-				}
-			});
-
-		Button cancel = (Button)findViewById(R.id.button1);
-
+			@Override
+			public void onClick(View arg0) {
+				Gpu.this.pd = ProgressDialog.show(Gpu.this, null, getResources().getString(R.string.applying_settings), true, false);
+				new changegpu().execute();
+				
+			}
+			
+		});
 		cancel.setOnClickListener(new OnClickListener(){
 
-				@Override
-				public void onClick(View v)
-				{
+			@Override
+			public void onClick(View arg0) {
+			finish();
+			}
+			
+		});
 
-					Gpu.this.finish();
-
-
-				}
-			});
+		
 
 
 
@@ -482,6 +479,5 @@ private class changegpu extends AsyncTask<String, Void, Object>
 			new LogWriter().execute(new String[] {getClass().getName(), e.getMessage()});
 		}
 	}
-
 
 }
