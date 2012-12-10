@@ -1,10 +1,13 @@
 package rs.pedjaapps.KernelTuner;
 
 import android.app.*;
+import android.content.DialogInterface;
 import android.content.SharedPreferences;
 import android.os.*;
 import android.preference.PreferenceManager;
+import android.text.InputType;
 import android.view.ContextMenu;
+import android.view.Gravity;
 import android.view.MenuInflater;
 import android.view.MenuItem;
 import android.view.View;
@@ -26,12 +29,12 @@ public class OOM extends Activity {
 	SeekBar hiddenSeek;
 	SeekBar contentSeek;
 	SeekBar emptySeek;
-	TextView foregroundText;
-	TextView visibleText;
-	TextView secondaryText;
-	TextView hiddenText;
-	TextView contentText;
-	TextView emptyText;
+	Button foregroundText;
+	Button visibleText;
+	Button secondaryText;
+	Button hiddenText;
+	Button contentText;
+	Button emptyText;
 
 	int foreground;
 	int visible;
@@ -50,17 +53,17 @@ public class OOM extends Activity {
 		
 
 		foregroundSeek = (SeekBar) findViewById(R.id.foregroundSeek);
-		foregroundText = (TextView) findViewById(R.id.foregroundTest);
+		foregroundText = (Button) findViewById(R.id.foregroundTest);
 		visibleSeek = (SeekBar) findViewById(R.id.visibleSeek);
-		visibleText = (TextView) findViewById(R.id.visibleText);
+		visibleText = (Button) findViewById(R.id.visibleText);
 		secondarySeek = (SeekBar) findViewById(R.id.secondarySeek);
-		secondaryText = (TextView) findViewById(R.id.secondaryText);
+		secondaryText = (Button) findViewById(R.id.secondaryText);
 		hiddenSeek = (SeekBar) findViewById(R.id.hiddenSeek);
-		hiddenText = (TextView) findViewById(R.id.hiddenText);
+		hiddenText = (Button) findViewById(R.id.hiddenText);
 		contentSeek = (SeekBar) findViewById(R.id.contentSeek);
-		contentText = (TextView) findViewById(R.id.contentText);
+		contentText = (Button) findViewById(R.id.contentText);
 		emptySeek = (SeekBar) findViewById(R.id.emptySeek);
-		emptyText = (TextView) findViewById(R.id.emptyText);
+		emptyText = (Button) findViewById(R.id.emptyText);
 
 		updateUI();
 
@@ -77,6 +80,54 @@ public class OOM extends Activity {
 			
 		});
 		
+		foregroundText.setOnClickListener(new OnClickListener(){
+
+			@Override
+			public void onClick(View arg0) {
+				Dialog("Foreground Application", String.valueOf(foreground), 0);
+			}
+			
+		});
+		visibleText.setOnClickListener(new OnClickListener(){
+
+			@Override
+			public void onClick(View arg0) {
+				Dialog("Visible Application", String.valueOf(foreground), 1);
+			}
+			
+		});
+		secondaryText.setOnClickListener(new OnClickListener(){
+
+			@Override
+			public void onClick(View arg0) {
+				Dialog("Secondary Server", String.valueOf(foreground), 2);
+			}
+			
+		});
+		hiddenText.setOnClickListener(new OnClickListener(){
+
+			@Override
+			public void onClick(View arg0) {
+				Dialog("Hidden Application", String.valueOf(foreground), 3);
+			}
+			
+		});
+		contentText.setOnClickListener(new OnClickListener(){
+
+			@Override
+			public void onClick(View arg0) {
+				Dialog("Content Provider", String.valueOf(foreground), 4);
+			}
+			
+		});
+		emptyText.setOnClickListener(new OnClickListener(){
+
+			@Override
+			public void onClick(View arg0) {
+				Dialog("Empty Application", String.valueOf(foreground), 5);
+			}
+			
+		});
 		
 		
 		foregroundSeek
@@ -94,12 +145,12 @@ public class OOM extends Activity {
 
 					public void onStopTrackingTouch(SeekBar p1) {
 						new setOOM().execute(new String[] {
-								foregroundProgress(foregroundSeek.getProgress()),
-								visibleProgress(visibleSeek.getProgress()),
-								secondaryProgress(secondarySeek.getProgress()),
-								hiddenProgress(hiddenSeek.getProgress()),
-								contentProgress(contentSeek.getProgress()),
-								emptyProgress(emptySeek.getProgress()) });
+								mbToPages(foregroundSeek.getProgress()),
+								mbToPages(visibleSeek.getProgress()),
+								mbToPages(secondarySeek.getProgress()),
+								mbToPages(hiddenSeek.getProgress()),
+								mbToPages(contentSeek.getProgress()),
+								mbToPages(emptySeek.getProgress()) });
 
 					}
 
@@ -118,12 +169,12 @@ public class OOM extends Activity {
 
 			public void onStopTrackingTouch(SeekBar p1) {
 				new setOOM().execute(new String[] {
-						foregroundProgress(foregroundSeek.getProgress()),
-						visibleProgress(visibleSeek.getProgress()),
-						secondaryProgress(secondarySeek.getProgress()),
-						hiddenProgress(hiddenSeek.getProgress()),
-						contentProgress(contentSeek.getProgress()),
-						emptyProgress(emptySeek.getProgress()) });
+						mbToPages(foregroundSeek.getProgress()),
+						mbToPages(visibleSeek.getProgress()),
+						mbToPages(secondarySeek.getProgress()),
+						mbToPages(hiddenSeek.getProgress()),
+						mbToPages(contentSeek.getProgress()),
+						mbToPages(emptySeek.getProgress()) });
 			}
 
 		});
@@ -141,12 +192,12 @@ public class OOM extends Activity {
 
 			public void onStopTrackingTouch(SeekBar p1) {
 				new setOOM().execute(new String[] {
-						foregroundProgress(foregroundSeek.getProgress()),
-						visibleProgress(visibleSeek.getProgress()),
-						secondaryProgress(secondarySeek.getProgress()),
-						hiddenProgress(hiddenSeek.getProgress()),
-						contentProgress(contentSeek.getProgress()),
-						emptyProgress(emptySeek.getProgress()) });
+						mbToPages(foregroundSeek.getProgress()),
+						mbToPages(visibleSeek.getProgress()),
+						mbToPages(secondarySeek.getProgress()),
+						mbToPages(hiddenSeek.getProgress()),
+						mbToPages(contentSeek.getProgress()),
+						mbToPages(emptySeek.getProgress()) });
 			}
 
 		});
@@ -164,12 +215,12 @@ public class OOM extends Activity {
 
 			public void onStopTrackingTouch(SeekBar p1) {
 				new setOOM().execute(new String[] {
-						foregroundProgress(foregroundSeek.getProgress()),
-						visibleProgress(visibleSeek.getProgress()),
-						secondaryProgress(secondarySeek.getProgress()),
-						hiddenProgress(hiddenSeek.getProgress()),
-						contentProgress(contentSeek.getProgress()),
-						emptyProgress(emptySeek.getProgress()) });
+						mbToPages(foregroundSeek.getProgress()),
+						mbToPages(visibleSeek.getProgress()),
+						mbToPages(secondarySeek.getProgress()),
+						mbToPages(hiddenSeek.getProgress()),
+						mbToPages(contentSeek.getProgress()),
+						mbToPages(emptySeek.getProgress()) });
 			}
 
 		});
@@ -187,12 +238,12 @@ public class OOM extends Activity {
 
 			public void onStopTrackingTouch(SeekBar p1) {
 				new setOOM().execute(new String[] {
-						foregroundProgress(foregroundSeek.getProgress()),
-						visibleProgress(visibleSeek.getProgress()),
-						secondaryProgress(secondarySeek.getProgress()),
-						hiddenProgress(hiddenSeek.getProgress()),
-						contentProgress(contentSeek.getProgress()),
-						emptyProgress(emptySeek.getProgress()) });
+						mbToPages(foregroundSeek.getProgress()),
+						mbToPages(visibleSeek.getProgress()),
+						mbToPages(secondarySeek.getProgress()),
+						mbToPages(hiddenSeek.getProgress()),
+						mbToPages(contentSeek.getProgress()),
+						mbToPages(emptySeek.getProgress()) });
 			}
 
 		});
@@ -210,12 +261,12 @@ public class OOM extends Activity {
 
 			public void onStopTrackingTouch(SeekBar p1) {
 				new setOOM().execute(new String[] {
-						foregroundProgress(foregroundSeek.getProgress()),
-						visibleProgress(visibleSeek.getProgress()),
-						secondaryProgress(secondarySeek.getProgress()),
-						hiddenProgress(hiddenSeek.getProgress()),
-						contentProgress(contentSeek.getProgress()),
-						emptyProgress(emptySeek.getProgress()) });
+						mbToPages(foregroundSeek.getProgress()),
+						mbToPages(visibleSeek.getProgress()),
+						mbToPages(secondarySeek.getProgress()),
+						mbToPages(hiddenSeek.getProgress()),
+						mbToPages(contentSeek.getProgress()),
+						mbToPages(emptySeek.getProgress()) });
 			}
 
 		});
@@ -301,10 +352,10 @@ public class OOM extends Activity {
 				System.out.println("OOM: Changing oom");
 				
 			} catch (IOException e1) {
-				// TODO Auto-generated catch block
+				
 				e1.printStackTrace();
 			} catch (InterruptedException e1) {
-				// TODO Auto-generated catch block
+				
 				e1.printStackTrace();
 			}
 			
@@ -330,35 +381,11 @@ public class OOM extends Activity {
 
 	}
 
-	public String foregroundProgress(int progress) {
+	public String mbToPages(int progress) {
 		String prog = String.valueOf(progress * 1024 / 4);
 		return prog;
 	}
 
-	public String visibleProgress(int progress) {
-		String prog = String.valueOf(progress * 1024 / 4);
-		return prog;
-	}
-
-	public String secondaryProgress(int progress) {
-		String prog = String.valueOf(progress * 1024 / 4);
-		return prog;
-	}
-
-	public String hiddenProgress(int progress) {
-		String prog = String.valueOf(progress * 1024 / 4);
-		return prog;
-	}
-
-	public String contentProgress(int progress) {
-		String prog = String.valueOf(progress * 1024 / 4);
-		return prog;
-	}
-
-	public String emptyProgress(int progress) {
-		String prog = String.valueOf(progress * 1024 / 4);
-		return prog;
-	}
 
 	@Override
 	public void onCreateContextMenu(ContextMenu menu, View v,
@@ -425,6 +452,106 @@ public class OOM extends Activity {
 
 		}
 		return false;
+	}
+	
+	public void Dialog(String dialogTitle, String currentValue, final int option){
+		AlertDialog.Builder builder = new AlertDialog.Builder(this);
+
+		builder.setTitle(dialogTitle);
+
+		builder.setMessage(getResources().getString(R.string.gov_new_value));
+
+		builder.setIcon(R.drawable.ic_menu_edit);
+
+
+		final EditText input = new EditText(this);
+		input.setHint(currentValue);
+		input.selectAll();
+		input.setInputType(InputType.TYPE_CLASS_NUMBER);
+		input.setGravity(Gravity.CENTER_HORIZONTAL);
+
+		builder.setPositiveButton(getResources().getString(R.string.apply), new DialogInterface.OnClickListener() {
+				@Override
+				public void onClick(DialogInterface dialog, int which)
+				{
+					switch(option){
+					case 0:
+						new setOOM().execute(new String[] {
+								mbToPages(Integer.parseInt(input.getText().toString())),
+								mbToPages(visibleSeek.getProgress()),
+								mbToPages(secondarySeek.getProgress()),
+								mbToPages(hiddenSeek.getProgress()),
+								mbToPages(contentSeek.getProgress()),
+								mbToPages(emptySeek.getProgress()) });
+						break;
+					case 1:
+						new setOOM().execute(new String[] {
+								mbToPages(foregroundSeek.getProgress()),
+								mbToPages(Integer.parseInt(input.getText().toString())),
+								mbToPages(secondarySeek.getProgress()),
+								mbToPages(hiddenSeek.getProgress()),
+								mbToPages(contentSeek.getProgress()),
+								mbToPages(emptySeek.getProgress()) });
+						break;
+					case 2:
+						new setOOM().execute(new String[] {
+								mbToPages(foregroundSeek.getProgress()),
+								mbToPages(visibleSeek.getProgress()),
+								mbToPages(Integer.parseInt(input.getText().toString())),
+								mbToPages(hiddenSeek.getProgress()),
+								mbToPages(contentSeek.getProgress()),
+								mbToPages(emptySeek.getProgress()) });
+						break;
+					case 3:
+						new setOOM().execute(new String[] {
+								mbToPages(foregroundSeek.getProgress()),
+								mbToPages(visibleSeek.getProgress()),
+								mbToPages(secondarySeek.getProgress()),
+								mbToPages(Integer.parseInt(input.getText().toString())),
+								mbToPages(contentSeek.getProgress()),
+								mbToPages(emptySeek.getProgress()) });
+						break;
+					case 4:
+						new setOOM().execute(new String[] {
+								mbToPages(foregroundSeek.getProgress()),
+								mbToPages(visibleSeek.getProgress()),
+								mbToPages(secondarySeek.getProgress()),
+								mbToPages(hiddenSeek.getProgress()),
+								mbToPages(Integer.parseInt(input.getText().toString())),
+								mbToPages(emptySeek.getProgress()) });
+						break;
+					case 5:
+						new setOOM().execute(new String[] {
+								mbToPages(foregroundSeek.getProgress()),
+								mbToPages(visibleSeek.getProgress()),
+								mbToPages(secondarySeek.getProgress()),
+								mbToPages(hiddenSeek.getProgress()),
+								mbToPages(contentSeek.getProgress()),
+								mbToPages(Integer.parseInt(input.getText().toString())) });
+						break;
+						
+					}
+					
+
+					
+					
+				}
+			});
+		builder.setNegativeButton(getResources().getString(R.string.cancel), new DialogInterface.OnClickListener(){
+
+				@Override
+				public void onClick(DialogInterface arg0, int arg1)
+				{
+					
+
+				}
+
+			});
+		builder.setView(input);
+
+		AlertDialog alert = builder.create();
+
+		alert.show();
 	}
 
 }

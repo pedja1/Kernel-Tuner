@@ -4,7 +4,9 @@
     xmlns:ads="http://schemas.android.com/apk/lib/com.google.ads"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
-    android:layout_margin="15dp"
+    android:layout_marginTop="15dp"
+    android:layout_marginRight="15dp"
+    android:layout_marginLeft="15dp"
     tools:context=".KernelTuner" >
 
 	<ScrollView
@@ -27,10 +29,7 @@
 				android:text="Foreground Application"
 				 />
 
-			<LinearLayout
-				android:layout_width="match_parent"
-				android:layout_height="wrap_content"
-				android:orientation="vertical" >
+			
 
 				<LinearLayout
 					android:layout_width="match_parent"
@@ -43,13 +42,13 @@
 						android:layout_weight="1"
 						android:max="256"	 />
 
-					<TextView
+					<Button
 						android:id="@+id/foregroundTest"
 						android:layout_width="wrap_content"
 						android:layout_height="wrap_content" 
 						android:text="test"/>
 
-				</LinearLayout>
+				
 
 			</LinearLayout>
 
@@ -59,10 +58,7 @@
 				android:text="Visible Application"
 				 />
 
-			<LinearLayout
-				android:layout_width="match_parent"
-				android:layout_height="wrap_content"
-				android:orientation="vertical" >
+			
 
 				<LinearLayout
 					android:layout_width="match_parent"
@@ -75,12 +71,12 @@
 						android:layout_weight="1"
 						android:max="256" />
 
-					<TextView
+					<Button
 						android:id="@+id/visibleText"
 						android:layout_width="wrap_content"
 						android:layout_height="wrap_content" />
 
-				</LinearLayout>
+				
 
 			</LinearLayout>
 
@@ -90,10 +86,7 @@
 				android:text="Secondary Server"
 				 />
 
-			<LinearLayout
-				android:layout_width="match_parent"
-				android:layout_height="wrap_content"
-				android:orientation="vertical" >
+			
 
 				<LinearLayout
 					android:layout_width="match_parent"
@@ -106,12 +99,12 @@
 						android:layout_weight="1"
 						android:max="256"/>
 
-					<TextView
+					<Button
 						android:id="@+id/secondaryText"
 						android:layout_width="wrap_content"
 						android:layout_height="wrap_content" />
 
-				</LinearLayout>
+			
 
 			</LinearLayout>
 			
@@ -121,10 +114,7 @@
 				android:text="Hidden Application"
 			/>
 
-			<LinearLayout
-				android:layout_width="match_parent"
-				android:layout_height="wrap_content"
-				android:orientation="vertical" >
+		
 
 				<LinearLayout
 					android:layout_width="match_parent"
@@ -137,12 +127,12 @@
 						android:layout_weight="1"
 						android:max="256"	/>
 
-					<TextView
+					<Button
 						android:id="@+id/hiddenText"
 						android:layout_width="wrap_content"
 						android:layout_height="wrap_content" />
 
-				</LinearLayout>
+				
 
 			</LinearLayout>
 			
@@ -152,10 +142,7 @@
 				android:text="Content Provider"
 			/>
 
-			<LinearLayout
-				android:layout_width="match_parent"
-				android:layout_height="wrap_content"
-				android:orientation="vertical" >
+			
 
 				<LinearLayout
 					android:layout_width="match_parent"
@@ -168,12 +155,12 @@
 						android:layout_weight="1"
 						android:max="256"/>
 
-					<TextView
+					<Button
 						android:id="@+id/contentText"
 						android:layout_width="wrap_content"
 						android:layout_height="wrap_content" />
 
-				</LinearLayout>
+				
 
 			</LinearLayout>
 			
@@ -183,10 +170,7 @@
 				android:text="Empty Application"
 				 />
 
-			<LinearLayout
-				android:layout_width="match_parent"
-				android:layout_height="wrap_content"
-				android:orientation="vertical" >
+			
 
 				<LinearLayout
 					android:layout_width="match_parent"
@@ -199,20 +183,29 @@
 						android:layout_weight="1"
 						android:max="256"	 />
 
-					<TextView
+					<Button
 						android:id="@+id/emptyText"
 						android:layout_width="wrap_content"
 						android:layout_height="wrap_content" />
 
-				</LinearLayout>
+				
 
 			</LinearLayout>
 			
+				<ImageView
+                android:id="@+id/divider"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"  
+                android:scaleType="fitXY"
+                android:layout_below="@+id/textView7"
+                android:src="@drawable/divider_horizontal_bright" />
+				
 			<Button
 			    android:id="@+id/button1"
 			    android:layout_width="match_parent"
 			    android:layout_height="wrap_content"
-			    android:text="@string/presets" />
+			    android:text="@string/presets" 
+			    style="?android:attr/buttonBarButtonStyle"/>
 
 		</LinearLayout>
 	</ScrollView>
