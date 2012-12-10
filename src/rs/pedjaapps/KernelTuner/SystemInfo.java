@@ -5,13 +5,9 @@ import java.io.File;
 import java.io.FileInputStream;
 import java.io.IOException;
 import java.io.InputStreamReader;
-import java.util.List;
-
 import com.actionbarsherlock.app.ActionBar;
 import com.actionbarsherlock.app.SherlockActivity;
-
 import android.content.Intent;
-import android.content.SharedPreferences;
 import android.graphics.Color;
 import android.os.AsyncTask;
 import android.os.Bundle;
@@ -24,99 +20,50 @@ import android.widget.TextView;
 public class SystemInfo extends SherlockActivity
 {
 	
-	SharedPreferences sharedPrefs;
-	public String cpu0freqs;
-	public String cpu1freqs;
-	public String cpu2freqs;
-	public String cpu3freqs;
-	public String cpu0max = "        ";
-	public String cpu1max = "        ";
-	public String cpu0min = "        ";
-	public String cpu1min = "        ";
-	public String cpu2max = "        ";
-	public String cpu3max = "        ";
-	public String cpu2min = "        ";
-	public String cpu3min = "        ";
-	public String gpu2d = "        ";
-	public String gpu3d = "        ";
-	public int countcpu0;
-	public int countcpu1;
-	public String vsync = " ";
-	public String fastcharge = " ";
-	public String out;
-	public String cdepth ;
-	public String kernel = "     ";
-	public String remoteversion;
-	public String schedulers;
-	public String scheduler;
-	public String sdcache;
-	public String curentidlefreq;
-	public String delay;
-	public String pause;
-	public String thrupload;
-	public String thrupms;
-	public String thrdownload;
-	public String thrdownms;
-	public boolean cpu1check;
-	public String sdcacheinfo;
-	public String ioschedulerinfo;
-	List<String> list;
-	public String ldt;
-	public String freqcpu2;
-	public String freqcpu3;
-
-	public String p1low;
-	public String p1high;
-	public String p2low;
-	public String p2high;
-	public String p3low;
-	public String p3high;
-	public String p1freq;
-	public String p2freq;
-	public String p3freq;
-	public String curentgovernorcpu0;
-	public String curentgovernorcpu1;
-	public String curentgovernorcpu2;
-	public String curentgovernorcpu3;
-	public String led;
-	public String mpdec;
-	public String s2w;
-	String cpu_info;
-	public static String cpu0online = "/sys/devices/system/cpu/cpu0/online"; 
-	public static String cpu1online = "/sys/devices/system/cpu/cpu1/online"; 
-	public static String cpu2online = "/sys/devices/system/cpu/cpu2/online"; 
-	public static String cpu3online = "/sys/devices/system/cpu/cpu3/online"; 
+	
+	private Integer cpu0max;
+	private Integer cpu1max;
+	private Integer cpu0min;
+	private Integer cpu1min;
+	private Integer cpu2max;
+	private Integer cpu3max;
+	private Integer cpu2min;
+	private Integer cpu3min;
+	private Integer gpu2d;
+	private Integer gpu3d;
+	private String vsync;
+	private String fastcharge;
+	private String cdepth ;
+	private String kernel;
+	private String schedulers;
+	private String scheduler;
+	private String sdcache;;
+	private String curentgovernorcpu0;
+	private String curentgovernorcpu1;
+	private String curentgovernorcpu2;
+	private String curentgovernorcpu3;
+	private String led;
+	private String mpdec;
+	private String s2w;
+	private String cpu_info;
+	
 
 
-	public static String CPU0_FREQS = "/sys/devices/system/cpu/cpu0/cpufreq/scaling_available_frequencies";
-	public static String CPU1_FREQS = "/sys/devices/system/cpu/cpu1/cpufreq/scaling_available_frequencies";
-	public static String CPU2_FREQS = "/sys/devices/system/cpu/cpu2/cpufreq/scaling_available_frequencies";
-	public static String CPU3_FREQS = "/sys/devices/system/cpu/cpu3/cpufreq/scaling_available_frequencies";
+	private static String CPU0_MAX_FREQ = "/sys/devices/system/cpu/cpu0/cpufreq/scaling_max_freq";
+	private static String CPU1_MAX_FREQ = "/sys/devices/system/cpu/cpu1/cpufreq/scaling_max_freq";
+	private static String CPU2_MAX_FREQ = "/sys/devices/system/cpu/cpu2/cpufreq/scaling_max_freq";
+	private static String CPU3_MAX_FREQ = "/sys/devices/system/cpu/cpu3/cpufreq/scaling_max_freq";
 
-	public static String CPU0_CURR_FREQ = "/sys/devices/system/cpu/cpu0/cpufreq/scaling_cur_freq";
-	public static String CPU1_CURR_FREQ = "/sys/devices/system/cpu/cpu1/cpufreq/scaling_cur_freq";
-	public static String CPU2_CURR_FREQ = "/sys/devices/system/cpu/cpu2/cpufreq/scaling_cur_freq";
-	public static String CPU3_CURR_FREQ = "/sys/devices/system/cpu/cpu3/cpufreq/scaling_cur_freq";
+	private static String CPU0_MIN_FREQ = "/sys/devices/system/cpu/cpu0/cpufreq/scaling_min_freq";
+	private static String CPU1_MIN_FREQ = "/sys/devices/system/cpu/cpu1/cpufreq/scaling_min_freq";
+	private static String CPU2_MIN_FREQ = "/sys/devices/system/cpu/cpu2/cpufreq/scaling_min_freq";
+	private static String CPU3_MIN_FREQ = "/sys/devices/system/cpu/cpu3/cpufreq/scaling_min_freq";
 
-	public static String CPU0_MAX_FREQ = "/sys/devices/system/cpu/cpu0/cpufreq/scaling_max_freq";
-	public static String CPU1_MAX_FREQ = "/sys/devices/system/cpu/cpu1/cpufreq/scaling_max_freq";
-	public static String CPU2_MAX_FREQ = "/sys/devices/system/cpu/cpu2/cpufreq/scaling_max_freq";
-	public static String CPU3_MAX_FREQ = "/sys/devices/system/cpu/cpu3/cpufreq/scaling_max_freq";
+	private static String CPU0_CURR_GOV = "/sys/devices/system/cpu/cpu0/cpufreq/scaling_governor";
+	private static String CPU1_CURR_GOV = "/sys/devices/system/cpu/cpu1/cpufreq/scaling_governor";
+	private static String CPU2_CURR_GOV = "/sys/devices/system/cpu/cpu2/cpufreq/scaling_governor";
+	private static String CPU3_CURR_GOV = "/sys/devices/system/cpu/cpu3/cpufreq/scaling_governor";
 
-	public static String CPU0_MIN_FREQ = "/sys/devices/system/cpu/cpu0/cpufreq/scaling_min_freq";
-	public static String CPU1_MIN_FREQ = "/sys/devices/system/cpu/cpu1/cpufreq/scaling_min_freq";
-	public static String CPU2_MIN_FREQ = "/sys/devices/system/cpu/cpu2/cpufreq/scaling_min_freq";
-	public static String CPU3_MIN_FREQ = "/sys/devices/system/cpu/cpu3/cpufreq/scaling_min_freq";
-
-	public static String CPU0_CURR_GOV = "/sys/devices/system/cpu/cpu0/cpufreq/scaling_governor";
-	public static String CPU1_CURR_GOV = "/sys/devices/system/cpu/cpu1/cpufreq/scaling_governor";
-	public static String CPU2_CURR_GOV = "/sys/devices/system/cpu/cpu2/cpufreq/scaling_governor";
-	public static String CPU3_CURR_GOV = "/sys/devices/system/cpu/cpu3/cpufreq/scaling_governor";
-
-	public static String CPU0_GOVS = "/sys/devices/system/cpu/cpu0/cpufreq/scaling_available_governor";
-	public static String CPU1_GOVS = "/sys/devices/system/cpu/cpu1/cpufreq/scaling_available_governor";
-	public static String CPU2_GOVS = "/sys/devices/system/cpu/cpu2/cpufreq/scaling_available_governor";
-	public static String CPU3_GOVS = "/sys/devices/system/cpu/cpu3/cpufreq/scaling_available_governor";
 
 	private class info extends AsyncTask<String, Void, Object>
 	{
@@ -163,13 +110,13 @@ public class SystemInfo extends SherlockActivity
 					aBuffer += aDataRow + "\n";
 				}
 
-				cpu0min = aBuffer.trim();
+				cpu0min = Integer.parseInt(aBuffer.trim());
 				myReader.close();
 
 			}
 			catch (Exception e)
 			{
-				cpu0min = "err";
+				
 			}
 
 
@@ -187,13 +134,13 @@ public class SystemInfo extends SherlockActivity
 					aBuffer += aDataRow + "\n";
 				}
 
-				cpu0max = aBuffer.trim();
+				cpu0max = Integer.parseInt(aBuffer.trim());
 				myReader.close();
 
 			}
 			catch (Exception e)
 			{
-				cpu0max = "err";
+			
 			}
 
 			try
@@ -211,13 +158,13 @@ public class SystemInfo extends SherlockActivity
 					aBuffer += aDataRow + "\n";
 				}
 
-				cpu1min = aBuffer.trim();
+				cpu1min = Integer.parseInt(aBuffer.trim());
 				myReader.close();
 
 			}
 			catch (Exception e)
 			{
-				cpu1min = "err";
+				
 			}
 
 			try
@@ -234,13 +181,13 @@ public class SystemInfo extends SherlockActivity
 					aBuffer += aDataRow + "\n";
 				}
 
-				cpu1max = aBuffer.trim();
+				cpu1max = Integer.parseInt(aBuffer.trim());
 				myReader.close();
 
 			}
 			catch (Exception e)
 			{
-				cpu1max = "err";
+				
 			}
 
 			try
@@ -305,13 +252,13 @@ public class SystemInfo extends SherlockActivity
 					aBuffer += aDataRow + "\n";
 				}
 
-				cpu2min = aBuffer.trim();
+				cpu2min = Integer.parseInt(aBuffer.trim());
 				myReader.close();
 
 			}
 			catch (Exception e)
 			{
-				cpu2min = "err";
+				
 			}
 
 			try
@@ -328,13 +275,13 @@ public class SystemInfo extends SherlockActivity
 					aBuffer += aDataRow + "\n";
 				}
 
-				cpu2max = aBuffer.trim();
+				cpu2max = Integer.parseInt(aBuffer.trim());
 				myReader.close();
 
 			}
 			catch (Exception e)
 			{
-				cpu2max = "err";
+				
 			}
 
 			try
@@ -352,13 +299,13 @@ public class SystemInfo extends SherlockActivity
 					aBuffer += aDataRow + "\n";
 				}
 
-				cpu3min = aBuffer.trim();
+				cpu3min = Integer.parseInt(aBuffer.trim());
 				myReader.close();
 
 			}
 			catch (Exception e)
 			{
-				cpu3min = "err";
+				
 			}
 
 			try
@@ -375,13 +322,13 @@ public class SystemInfo extends SherlockActivity
 					aBuffer += aDataRow + "\n";
 				}
 
-				cpu3max = aBuffer.trim();
+				cpu3max = Integer.parseInt(aBuffer.trim());
 				myReader.close();
 
 			}
 			catch (Exception e)
 			{
-				cpu3max = "err";
+				
 			}
 
 			try
@@ -469,7 +416,7 @@ public class SystemInfo extends SherlockActivity
 					aBuffer += aDataRow + "\n";
 				}
 
-				gpu3d = aBuffer.trim();
+				gpu3d = Integer.parseInt(aBuffer.trim());
 				myReader.close();
 
 
@@ -477,8 +424,7 @@ public class SystemInfo extends SherlockActivity
 			}
 			catch (Exception e)
 			{
-				gpu3d = "err";
-
+				
 			}
 
 			try
@@ -495,14 +441,14 @@ public class SystemInfo extends SherlockActivity
 					aBuffer += aDataRow + "\n";
 				}
 
-				gpu2d = aBuffer.trim();
+				gpu2d = Integer.parseInt(aBuffer.trim());
 
 				myReader.close();
 
 			}
 			catch (Exception e)
 			{
-				gpu2d = "err";
+				
 			}
 
 			try
@@ -683,255 +629,9 @@ public class SystemInfo extends SherlockActivity
 
 
 
-			try
-			{
+			
 
-				File myFile = new File("/sys/kernel/notification_leds/off_timer_multiplier");
-				FileInputStream fIn = new FileInputStream(myFile);
-
-				BufferedReader myReader = new BufferedReader(
-					new InputStreamReader(fIn));
-				String aDataRow = "";
-				String aBuffer = "";
-				while ((aDataRow = myReader.readLine()) != null)
-				{
-					aBuffer += aDataRow + "\n";
-				}
-
-				ldt = aBuffer.trim();
-				myReader.close();
-
-			}
-			catch (Exception e)
-			{
-
-				ldt = "266";
-			}
-
-			try
-			{
-
-				File myFile = new File("/sys/kernel/msm_thermal/conf/allowed_low_freq");
-				FileInputStream fIn = new FileInputStream(myFile);
-
-				BufferedReader myReader = new BufferedReader(
-					new InputStreamReader(fIn));
-				String aDataRow = "";
-				String aBuffer = "";
-				while ((aDataRow = myReader.readLine()) != null)
-				{
-					aBuffer += aDataRow + "\n";
-				}
-
-				p1freq = aBuffer.trim();
-				myReader.close();
-
-			}
-			catch (Exception e)
-			{
-
-
-			}
-
-			try
-			{
-
-				File myFile = new File("/sys/kernel/msm_thermal/conf/allowed_mid_freq");
-				FileInputStream fIn = new FileInputStream(myFile);
-
-				BufferedReader myReader = new BufferedReader(
-					new InputStreamReader(fIn));
-				String aDataRow = "";
-				String aBuffer = "";
-				while ((aDataRow = myReader.readLine()) != null)
-				{
-					aBuffer += aDataRow + "\n";
-				}
-
-				p2freq = aBuffer.trim();
-				myReader.close();
-
-			}
-			catch (Exception e)
-			{
-
-
-			}
-
-			try
-			{
-
-				File myFile = new File("/sys/kernel/msm_thermal/conf/allowed_max_freq");
-				FileInputStream fIn = new FileInputStream(myFile);
-
-				BufferedReader myReader = new BufferedReader(
-					new InputStreamReader(fIn));
-				String aDataRow = "";
-				String aBuffer = "";
-				while ((aDataRow = myReader.readLine()) != null)
-				{
-					aBuffer += aDataRow + "\n";
-				}
-
-				p3freq = aBuffer.trim();
-				myReader.close();
-
-			}
-			catch (Exception e)
-			{
-
-
-			}
-
-			try
-			{
-
-				File myFile = new File("/sys/kernel/msm_thermal/conf/allowed_max_freq");
-				FileInputStream fIn = new FileInputStream(myFile);
-
-				BufferedReader myReader = new BufferedReader(
-					new InputStreamReader(fIn));
-				String aDataRow = "";
-				String aBuffer = "";
-				while ((aDataRow = myReader.readLine()) != null)
-				{
-					aBuffer += aDataRow + "\n";
-				}
-
-				p3freq = aBuffer.trim();
-				myReader.close();
-
-			}
-			catch (Exception e)
-			{
-
-
-			}
-
-			try
-			{
-
-				File myFile = new File("/sys/kernel/msm_thermal/conf/allowed_low_high");
-				FileInputStream fIn = new FileInputStream(myFile);
-
-				BufferedReader myReader = new BufferedReader(
-					new InputStreamReader(fIn));
-				String aDataRow = "";
-				String aBuffer = "";
-				while ((aDataRow = myReader.readLine()) != null)
-				{
-					aBuffer += aDataRow + "\n";
-				}
-
-				p1high = aBuffer;
-				myReader.close();
-
-			}
-			catch (Exception e)
-			{
-
-
-			}
-			try
-			{
-
-				File myFile = new File("/sys/kernel/msm_thermal/conf/allowed_mid_low");
-				FileInputStream fIn = new FileInputStream(myFile);
-
-				BufferedReader myReader = new BufferedReader(
-					new InputStreamReader(fIn));
-				String aDataRow = "";
-				String aBuffer = "";
-				while ((aDataRow = myReader.readLine()) != null)
-				{
-					aBuffer += aDataRow + "\n";
-				}
-
-				p2low = aBuffer;
-				myReader.close();
-
-			}
-			catch (Exception e)
-			{
-
-
-			}
-
-			try
-			{
-
-				File myFile = new File("/sys/kernel/msm_thermal/conf/allowed_mid_high");
-				FileInputStream fIn = new FileInputStream(myFile);
-
-				BufferedReader myReader = new BufferedReader(
-					new InputStreamReader(fIn));
-				String aDataRow = "";
-				String aBuffer = "";
-				while ((aDataRow = myReader.readLine()) != null)
-				{
-					aBuffer += aDataRow + "\n";
-				}
-
-				p2high = aBuffer;
-				myReader.close();
-
-			}
-			catch (Exception e)
-			{
-
-
-			}
-
-			try
-			{
-
-				File myFile = new File("/sys/kernel/msm_thermal/conf/allowed_max_low");
-				FileInputStream fIn = new FileInputStream(myFile);
-
-				BufferedReader myReader = new BufferedReader(
-					new InputStreamReader(fIn));
-				String aDataRow = "";
-				String aBuffer = "";
-				while ((aDataRow = myReader.readLine()) != null)
-				{
-					aBuffer += aDataRow + "\n";
-				}
-
-				p3low = aBuffer;
-				myReader.close();
-
-			}
-			catch (Exception e)
-			{
-
-
-			}
-
-			try
-			{
-
-				File myFile = new File("/sys/kernel/msm_thermal/conf/allowed_max_high");
-				FileInputStream fIn = new FileInputStream(myFile);
-
-				BufferedReader myReader = new BufferedReader(
-					new InputStreamReader(fIn));
-				String aDataRow = "";
-				String aBuffer = "";
-				while ((aDataRow = myReader.readLine()) != null)
-				{
-					aBuffer += aDataRow + "\n";
-				}
-
-				p3high = aBuffer;
-				myReader.close();
-
-			}
-			catch (Exception e)
-			{
-
-
-			}
-
+			
 			try
 			{
 
@@ -998,9 +698,9 @@ public class SystemInfo extends SherlockActivity
 			System.out.println("0");
 			TextView cpu0mintxt = (TextView)findViewById(R.id.textView11);
 			TextView cpu0mintxte = (TextView)findViewById(R.id.textView2);
-			if (!cpu0min.equals("err"))
+			if (cpu0min!=null)
 			{
-				cpu0mintxt.setText(cpu0min.substring(0, cpu0min.length() - 3) + "Mhz");
+				cpu0mintxt.setText(String.valueOf(cpu0min/1000)+"MHz");
 				cpu0mintxt.setVisibility(View.VISIBLE);
 				cpu0mintxte.setVisibility(View.VISIBLE);
 			}
@@ -1009,12 +709,12 @@ public class SystemInfo extends SherlockActivity
 				cpu0mintxt.setVisibility(View.GONE);
 				cpu0mintxte.setVisibility(View.GONE);
 			}
-			System.out.println("1");
+			
 			TextView cpu0maxtxt = (TextView)findViewById(R.id.textView12);
 			TextView cpu0maxtxte = (TextView)findViewById(R.id.textView3);
-			if (!cpu0max.equals("err"))
+			if (cpu0max!=null)
 			{
-				cpu0maxtxt.setText(cpu0max.substring(0, cpu0max.length() - 3) + "Mhz");
+				cpu0maxtxt.setText(String.valueOf(cpu0max/1000)+"MHz");
 				cpu0maxtxt.setVisibility(View.VISIBLE);
 				cpu0maxtxte.setVisibility(View.VISIBLE);
 			}
@@ -1023,12 +723,12 @@ public class SystemInfo extends SherlockActivity
 				cpu0maxtxt.setVisibility(View.GONE);
 				cpu0maxtxte.setVisibility(View.GONE);
 			}
-			System.out.println("2");
+			
 			TextView cpu1mintxt = (TextView)findViewById(R.id.textView13);
 			TextView cpu1mintxte = (TextView)findViewById(R.id.textView4);
-			if (!cpu1min.equals("err"))
+			if (cpu1min!=null)
 			{
-				cpu1mintxt.setText(cpu1min.substring(0, cpu1min.length() - 3) + "Mhz");
+				cpu1mintxt.setText(String.valueOf(cpu1min/1000)+"MHz");
 				cpu1mintxt.setVisibility(View.VISIBLE);
 				cpu1mintxte.setVisibility(View.VISIBLE);
 			}
@@ -1037,12 +737,12 @@ public class SystemInfo extends SherlockActivity
 				cpu1mintxt.setVisibility(View.GONE);
 				cpu1mintxte.setVisibility(View.GONE);
 			}
-			System.out.println("3");
+			
 			TextView cpu1maxtxt = (TextView)findViewById(R.id.textView14);
 			TextView cpu1maxtxte = (TextView)findViewById(R.id.textView5);
-			if (!cpu1max.equals("err"))
+			if (cpu1max!=null)
 			{
-				cpu1maxtxt.setText(cpu1max.substring(0, cpu1max.length() - 3) + "Mhz");
+				cpu1maxtxt.setText(String.valueOf(cpu1max/1000)+"MHz");
 				cpu1maxtxt.setVisibility(View.VISIBLE);
 				cpu1maxtxte.setVisibility(View.VISIBLE);
 			}
@@ -1051,7 +751,7 @@ public class SystemInfo extends SherlockActivity
 				cpu1maxtxt.setVisibility(View.GONE);
 				cpu1maxtxte.setVisibility(View.GONE);
 			}
-			System.out.println("4");
+			
 			TextView cpu0gov = (TextView)findViewById(R.id.textView15);
 			TextView cpu0gove = (TextView)findViewById(R.id.textView20);
 
@@ -1080,12 +780,12 @@ public class SystemInfo extends SherlockActivity
         		cpu1gov.setVisibility(View.GONE);
         		cpu1gove.setVisibility(View.GONE);
         	}
-			System.out.println("6");
+			
 			TextView cpu2mintxt = (TextView)findViewById(R.id.cpu2min);
 			TextView cpu2mintxte = (TextView)findViewById(R.id.textView256);
-			if (!cpu2min.equals("err"))
+			if (cpu2min!=null)
 			{
-				cpu2mintxt.setText(cpu2min.substring(0, cpu2min.length() - 3) + "Mhz");
+				cpu2mintxt.setText(String.valueOf(cpu2min/1000)+"MHz");
 				cpu2mintxt.setVisibility(View.VISIBLE);
 				cpu2mintxte.setVisibility(View.VISIBLE);
 			}
@@ -1094,12 +794,12 @@ public class SystemInfo extends SherlockActivity
 				cpu2mintxt.setVisibility(View.GONE);
 				cpu2mintxte.setVisibility(View.GONE);
 			}
-			System.out.println("7");
+			
 			TextView cpu2maxtxt = (TextView)findViewById(R.id.cpu2max);
 			TextView cpu2maxtxte = (TextView)findViewById(R.id.textView300);
-			if (!cpu2max.equals("err"))
+			if (cpu2max!=null)
 			{
-				cpu2maxtxt.setText(cpu2max.substring(0, cpu2max.length() - 3) + "Mhz");
+				cpu2maxtxt.setText(String.valueOf(cpu2max/1000)+"MHz");
 				cpu2maxtxt.setVisibility(View.VISIBLE);
 				cpu2maxtxte.setVisibility(View.VISIBLE);
 			}
@@ -1108,12 +808,12 @@ public class SystemInfo extends SherlockActivity
 				cpu2maxtxt.setVisibility(View.GONE);
 				cpu2maxtxte.setVisibility(View.GONE);
 			}
-			System.out.println("8");
+			
 			TextView cpu3mintxt = (TextView)findViewById(R.id.cpu3min);
 			TextView cpu3mintxte = (TextView)findViewById(R.id.textView46);
-			if (!cpu3min.equals("err"))
+			if (cpu3min!=null)
 			{
-				cpu3mintxt.setText(cpu3min.substring(0, cpu3min.length() - 3) + "Mhz");
+				cpu3mintxt.setText(String.valueOf(cpu3min/1000)+"MHz");
 				cpu3mintxt.setVisibility(View.VISIBLE);
 				cpu3mintxte.setVisibility(View.VISIBLE);
 			}
@@ -1125,9 +825,9 @@ public class SystemInfo extends SherlockActivity
 			System.out.println("9");
 			TextView cpu3maxtxt = (TextView)findViewById(R.id.cpu3max);
 			TextView cpu3maxtxte = (TextView)findViewById(R.id.textView56);
-			if (!cpu3max.equals("err"))
+			if (cpu3max!=null)
 			{
-				cpu3maxtxt.setText(cpu3max.substring(0, cpu3max.length() - 3) + "Mhz");
+				cpu3maxtxt.setText(String.valueOf(cpu3max/1000)+"MHz");
 				cpu3maxtxt.setVisibility(View.VISIBLE);
 				cpu3maxtxte.setVisibility(View.VISIBLE);
 			}
@@ -1136,7 +836,7 @@ public class SystemInfo extends SherlockActivity
 				cpu3maxtxt.setVisibility(View.GONE);
 				cpu3maxtxte.setVisibility(View.GONE);
 			}
-			System.out.println("10");
+			
 			TextView cpu2gov = (TextView)findViewById(R.id.cpu2gov);
 			TextView cpu2gove = (TextView)findViewById(R.id.textView201);
 
@@ -1165,7 +865,7 @@ public class SystemInfo extends SherlockActivity
         		cpu3gov.setVisibility(View.GONE);
         		cpu3gove.setVisibility(View.GONE);
         	}
-			System.out.println("12");
+			
 			TextView ledlight = (TextView)findViewById(R.id.textView16);
 			TextView ledlighte = (TextView)findViewById(R.id.textView7);
 
@@ -1173,24 +873,23 @@ public class SystemInfo extends SherlockActivity
 			{
 
 				ledlight.setText(Integer.parseInt(led) * 100 / 60 + "%");
-				//ledlight.setTextColor(Color.RED);
 				ledlight.setVisibility(View.VISIBLE);
 				ledlighte.setVisibility(View.VISIBLE);
 
 			}
 			catch (Exception e)
 			{
-				//	else if(led.equals("UNSUPPORTED")){
+				
 				ledlight.setVisibility(View.GONE);
 				ledlighte.setVisibility(View.GONE);
-				//	}
+				
 			}
 			System.out.println("13");
 			TextView gpu2dtxt = (TextView)findViewById(R.id.textView17);
 			TextView gpu2dtxte = (TextView)findViewById(R.id.textView8);
-			if (!gpu2d.equals("err"))
+			if (gpu2d!=null)
 			{
-				gpu2dtxt.setText(gpu2d.substring(0, gpu2d.length() - 6) + "Mhz");
+				gpu2dtxt.setText(String.valueOf(gpu2d/1000000)+"MHz");
 				gpu2dtxt.setVisibility(View.VISIBLE);
 				gpu2dtxte.setVisibility(View.VISIBLE);
 			}
@@ -1199,12 +898,12 @@ public class SystemInfo extends SherlockActivity
 				gpu2dtxt.setVisibility(View.GONE);
 				gpu2dtxte.setVisibility(View.GONE);
 			}
-			System.out.println("14");
+			
 			TextView gpu3dtxt = (TextView)findViewById(R.id.textView18);
 			TextView gpu3dtxte = (TextView)findViewById(R.id.textView9);
-			if (!gpu3d.equals("err"))
+			if (gpu3d!=null)
 			{
-				gpu3dtxt.setText(gpu3d.substring(0, gpu3d.length() - 6) + "Mhz");
+				gpu3dtxt.setText(String.valueOf(gpu3d/1000000)+"MHz");
 				gpu3dtxt.setVisibility(View.VISIBLE);
 				gpu3dtxte.setVisibility(View.VISIBLE);
 			}
@@ -1213,7 +912,7 @@ public class SystemInfo extends SherlockActivity
 				gpu3dtxt.setVisibility(View.GONE);
 				gpu3dtxte.setVisibility(View.GONE);
 			}
-			System.out.println("15");
+			
 			TextView fastchargetxt = (TextView)findViewById(R.id.textView22);
 			TextView fastchargetxte = (TextView)findViewById(R.id.textView6);
 			if (fastcharge.equals("1"))
@@ -1235,7 +934,7 @@ public class SystemInfo extends SherlockActivity
 				fastchargetxt.setVisibility(View.GONE);
 				fastchargetxte.setVisibility(View.GONE);
 			}
-			System.out.println("16");
+		
 			TextView vsynctxt = (TextView)findViewById(R.id.textView19);
 			TextView vsynctxte = (TextView)findViewById(R.id.textView10);
 			if (vsync.equals("1"))
@@ -1257,7 +956,7 @@ public class SystemInfo extends SherlockActivity
 				vsynctxt.setVisibility(View.GONE);
 				vsynctxte.setVisibility(View.GONE);
 			}
-			System.out.println("17");
+			
 			TextView cdepthtxt = (TextView)findViewById(R.id.textView25);
 			TextView cdepthtxte = (TextView)findViewById(R.id.textView24);
 			if (cdepth.equals("16"))
@@ -1285,10 +984,10 @@ public class SystemInfo extends SherlockActivity
 			{	cdepthtxt.setVisibility(View.GONE);
 				cdepthtxte.setVisibility(View.GONE);
 			}
-			System.out.println("18");
+			
 			TextView kinfo = (TextView)findViewById(R.id.textView26);
 			kinfo.setText(kernel);
-			System.out.println("19");
+			
 			TextView sdcachetxt = (TextView)findViewById(R.id.textView34);
 			TextView sdcachetxte = (TextView)findViewById(R.id.textView33);
 			TextView ioschedulertxt = (TextView)findViewById(R.id.textView32);
@@ -1304,7 +1003,7 @@ public class SystemInfo extends SherlockActivity
 				sdcachetxt.setVisibility(View.VISIBLE);
 				sdcachetxte.setVisibility(View.VISIBLE);
 			}
-			System.out.println("20");
+			
 			if (scheduler.equals("err"))
 			{
 				ioschedulertxt.setVisibility(View.GONE);
@@ -1316,7 +1015,7 @@ public class SystemInfo extends SherlockActivity
 				ioschedulertxt.setVisibility(View.VISIBLE);
 	    		ioschedulertxte.setVisibility(View.VISIBLE);
 			}
-			System.out.println("21");
+			
 			TextView s2wtxt = (TextView)findViewById(R.id.textView36);
 			TextView s2wtxte = (TextView)findViewById(R.id.textView35);
 			if (s2w.equals("1"))
@@ -1345,7 +1044,7 @@ public class SystemInfo extends SherlockActivity
 				s2wtxt.setVisibility(View.GONE);
 				s2wtxte.setVisibility(View.GONE);
 			}
-			System.out.println("22");
+		
 			TextView mpdectxt = (TextView)findViewById(R.id.mpdecValue);
 			TextView mpdectxte = (TextView)findViewById(R.id.mpdecText);
 			if (mpdec.equals("0"))
