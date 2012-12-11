@@ -1,141 +1,38 @@
 package rs.pedjaapps.KernelTuner;
 
-import java.io.BufferedReader;
-import java.io.File;
-import java.io.FileInputStream;
-import java.io.IOException;
-import java.io.InputStreamReader;
-import java.io.RandomAccessFile;
-import java.text.DecimalFormat;
-import java.util.ArrayList;
-import java.util.List;
+import android.app.*;
+import android.app.ActivityManager.*;
+import android.content.*;
+import android.content.pm.ApplicationInfo;
+import android.content.pm.PackageInfo;
+import android.content.pm.PackageManager;
+import android.graphics.*;
+import android.hardware.Sensor;
+import android.hardware.SensorEvent;
+import android.hardware.SensorEventListener;
+import android.hardware.SensorManager;
+import android.os.*;
+import android.preference.*;
+import android.util.DisplayMetrics;
+import android.view.*;
+import android.widget.*;
+import android.widget.RadioGroup.OnCheckedChangeListener;
 
-import com.actionbarsherlock.app.ActionBar;
-import com.actionbarsherlock.app.SherlockFragmentActivity;
+import com.actionbarsherlock.app.*;
+import java.io.*;
+import java.text.*;
+import java.util.*;
 
-import android.app.ActivityManager;
-import android.app.ActivityManager.MemoryInfo;
-import android.app.ProgressDialog;
-import android.content.SharedPreferences;
-import android.graphics.Color;
-import android.os.AsyncTask;
-import android.os.Bundle;
-import android.os.Environment;
-import android.os.StatFs;
-import android.preference.PreferenceManager;
+import javax.microedition.khronos.opengles.GL10;
+
+
+
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentTransaction;
-import android.view.Gravity;
-import android.view.LayoutInflater;
-import android.view.View;
-import android.view.ViewGroup;
-import android.widget.ProgressBar;
-import android.widget.TextView;
+import com.actionbarsherlock.app.ActionBar;
 
 /*
- @Override
- public void onCreate(Bundle savedInstanceState)
- {
- super.onCreate(savedInstanceState);
- setContentView(R.layout.system_info);
-
- ActionBar actionBar = getSupportActionBar();
- actionBar.setDisplayHomeAsUpEnabled(true);
-
- new info().execute();
- RelativeLayout cpu = (RelativeLayout)findViewById(R.id.cpu);
- final RelativeLayout cpuInfo = (RelativeLayout)findViewById(R.id.cpu_info);
- final ImageView cpuImg = (ImageView)findViewById(R.id.cpu_img);
-
- RelativeLayout other = (RelativeLayout)findViewById(R.id.other);
- final RelativeLayout otherInfo = (RelativeLayout)findViewById(R.id.other_info);
- final ImageView otherImg = (ImageView)findViewById(R.id.other_img);
-
- RelativeLayout kernel = (RelativeLayout)findViewById(R.id.kernel);
- final RelativeLayout kernelInfo = (RelativeLayout)findViewById(R.id.kernel_info);
- final ImageView kernelImg = (ImageView)findViewById(R.id.kernel_img);
-
- RelativeLayout device = (RelativeLayout)findViewById(R.id.device);
- final RelativeLayout deviceInfo = (RelativeLayout)findViewById(R.id.device_info);
- final ImageView deviceImg = (ImageView)findViewById(R.id.device_img);
-
-
- cpu.setOnClickListener(new OnClickListener(){
-
- @Override
- public void onClick(View arg0)
- {
- if (cpuInfo.getVisibility() == View.VISIBLE)
- {
- cpuInfo.setVisibility(View.GONE);
- cpuImg.setImageResource(R.drawable.arrow_right);
- }
- else if (cpuInfo.getVisibility() == View.GONE)
- {
- cpuInfo.setVisibility(View.VISIBLE);
- cpuImg.setImageResource(R.drawable.arrow_down);
- }
- }
-
- });
-
- device.setOnClickListener(new OnClickListener(){
-
- @Override
- public void onClick(View arg0)
- {
- if (deviceInfo.getVisibility() == View.VISIBLE)
- {
- deviceInfo.setVisibility(View.GONE);
- deviceImg.setImageResource(R.drawable.arrow_right);
- }
- else if (deviceInfo.getVisibility() == View.GONE)
- {
- deviceInfo.setVisibility(View.VISIBLE);
- deviceImg.setImageResource(R.drawable.arrow_down);
- }
- }
-
- });
-
- kernel.setOnClickListener(new OnClickListener(){
-
- @Override
- public void onClick(View arg0)
- {
- if (kernelInfo.getVisibility() == View.VISIBLE)
- {
- kernelInfo.setVisibility(View.GONE);
- kernelImg.setImageResource(R.drawable.arrow_right);
- }
- else if (kernelInfo.getVisibility() == View.GONE)
- {
- kernelInfo.setVisibility(View.VISIBLE);
- kernelImg.setImageResource(R.drawable.arrow_down);
- }
- }
-
- });
-
- other.setOnClickListener(new OnClickListener(){
-
- @Override
- public void onClick(View arg0)
- {
- if (otherInfo.getVisibility() == View.VISIBLE)
- {
- otherInfo.setVisibility(View.GONE);
- otherImg.setImageResource(R.drawable.arrow_right);
- }
- else if (otherInfo.getVisibility() == View.GONE)
- {
- otherInfo.setVisibility(View.VISIBLE);
- otherImg.setImageResource(R.drawable.arrow_down);
- }
- }
-
- });
- }
+ 
 
  @Override
  public boolean onOptionsItemSelected(com.actionbarsherlock.view.MenuItem item) {
@@ -155,14 +52,7 @@ import android.widget.TextView;
 public class SystemInfo extends SherlockFragmentActivity implements
 		ActionBar.TabListener {
 
-	private Integer cpu0max;
-	private Integer cpu1max;
-	private Integer cpu0min;
-	private Integer cpu1min;
-	private Integer cpu2max;
-	private Integer cpu3max;
-	private Integer cpu2min;
-	private Integer cpu3min;
+	
 	private Integer gpu2d;
 	private Integer gpu3d;
 	private String vsync;
@@ -172,48 +62,143 @@ public class SystemInfo extends SherlockFragmentActivity implements
 	private String schedulers;
 	private String scheduler;
 	private String sdcache;;
-	private String curentgovernorcpu0;
-	private String curentgovernorcpu1;
-	private String curentgovernorcpu2;
-	private String curentgovernorcpu3;
 	private String led;
-	private String mpdec;
+	private Integer mpdec;
 	private String s2w;
 	private String cpu_info;
 	private ProgressDialog pd;
 
-	private static String CPU0_MAX_FREQ = "/sys/devices/system/cpu/cpu0/cpufreq/scaling_max_freq";
-	private static String CPU1_MAX_FREQ = "/sys/devices/system/cpu/cpu1/cpufreq/scaling_max_freq";
-	private static String CPU2_MAX_FREQ = "/sys/devices/system/cpu/cpu2/cpufreq/scaling_max_freq";
-	private static String CPU3_MAX_FREQ = "/sys/devices/system/cpu/cpu3/cpufreq/scaling_max_freq";
-
-	private static String CPU0_MIN_FREQ = "/sys/devices/system/cpu/cpu0/cpufreq/scaling_min_freq";
-	private static String CPU1_MIN_FREQ = "/sys/devices/system/cpu/cpu1/cpufreq/scaling_min_freq";
-	private static String CPU2_MIN_FREQ = "/sys/devices/system/cpu/cpu2/cpufreq/scaling_min_freq";
-	private static String CPU3_MIN_FREQ = "/sys/devices/system/cpu/cpu3/cpufreq/scaling_min_freq";
-
-	private static String CPU0_CURR_GOV = "/sys/devices/system/cpu/cpu0/cpufreq/scaling_governor";
-	private static String CPU1_CURR_GOV = "/sys/devices/system/cpu/cpu1/cpufreq/scaling_governor";
-	private static String CPU2_CURR_GOV = "/sys/devices/system/cpu/cpu2/cpufreq/scaling_governor";
-	private static String CPU3_CURR_GOV = "/sys/devices/system/cpu/cpu3/cpufreq/scaling_governor";
-	private String battcap;
+	
 	private static Integer battperc;
-	private String charge;
+	
 	private static Double batttemp;
-	private String battvol;
-	private String batttech;
+	
 	private static String battcurrent;
-	private String batthealth;
+	
 	private SharedPreferences prefs;
 	private static String tempPref;
+	private List<CPUInfo.FreqsEntry> freqEntries;
+	private List<String> freqs = new ArrayList<String>();
+	private List<CPUInfo.VoltageList> voltEntries;
+	private List<Integer> voltages = new ArrayList<Integer>();
+	private List<String> voltFreq = new ArrayList<String>();
+	private String governors;
+	private String androidVersion;
+	private Integer apiLevel;
+	private String cpuAbi;
+	private String manufacturer;
+	private String bootloader;
+	private String hardware;
+	private String radio;
+	private String board;
+	private String brand;
+	private String device;
+	private String display;
+	private String fingerprint;
+	private String host;
+	private String id;
+	private String model;
+	private String product;
+	private String tags;
+	private String type;
+	private String user;
+	private List<PackageInfo> userApps = new ArrayList<PackageInfo>();
+	private List<PackageInfo> systemApps = new ArrayList<PackageInfo>();
+	private Integer numberOfInstalledApps;
+	private Integer numberOfSystemApps;
+	private String screenRezolution;
+	private String screenRefreshRate;
+	private String screenDensity;
+	private String screenPpi;
+	TextView oriHead,accHead,magHead,ligHead,proxHead,presHead,tempHead, gyroHead, gravHead, humHead, oriAccu,accAccu,magAccu,ligAccu,proxAccu,presAccu,tempAccu, gyroAccu, gravAccu, humAccu,tv_orientationA,tv_orientationB,tv_orientationC,tv_accelA,tv_accelB,tv_accelC,tv_magneticA,tv_magneticB,tv_magneticC,tv_lightA,tv_proxA,tv_presA,tv_tempA,tv_gravityA,tv_gravityB,tv_gravityC, tv_gyroscopeA,tv_gyroscopeB,tv_gyroscopeC, tv_humidity_A;
+	ProgressBar pb_orientationA,pb_orientationB,pb_orientationC,pb_accelA,pb_accelB,pb_accelC,pb_magneticA,pb_magneticB,pb_magneticC,pb_lightA,pb_proxA,pb_presA,pb_tempA,pb_gravityA,pb_gravityB,pb_gravityC, pb_gyroscopeA,pb_gyroscopeB,pb_gyroscopeC, pb_humidity_A;
+	LinearLayout oriLayout, accLayout, magLayout, ligLayout, proxLayout, tempLayout, presLayout;
+	SensorManager m_sensormgr;
+	List<Sensor> m_sensorlist;
+	static final int FLOATTOINTPRECISION = 100;
+	private RadioGroup radioGroup;
+	
 	
 	private class info extends AsyncTask<String, Void, Object> {
 
-		
+		 private boolean isSystemPackage(PackageInfo pkgInfo) {
+	            return ((pkgInfo.applicationInfo.flags & ApplicationInfo.FLAG_SYSTEM) != 0) ? true
+	                    : false;
+	        }
 
 		@Override
 		protected Object doInBackground(String... args) {
 
+			freqEntries = CPUInfo.frequencies();
+			voltEntries = CPUInfo.voltages();
+			for(CPUInfo.FreqsEntry f : freqEntries){
+				freqs.add(f.getFreqName());
+			}
+			for(CPUInfo.VoltageList v : voltEntries){
+				voltFreq.add(v.getFreqName());
+			}
+			for(CPUInfo.VoltageList v : voltEntries){
+				voltages.add(v.getVoltage());
+			}
+			
+			List<String> govs = CPUInfo.governors();
+			StringBuilder builder = new StringBuilder();
+			for(String s: govs){
+				builder.append(s+", ");
+			}
+			governors=builder.toString();
+			androidVersion = Build.VERSION.RELEASE;
+			apiLevel = Build.VERSION.SDK_INT;
+			cpuAbi = android.os.Build.CPU_ABI;
+			manufacturer = android.os.Build.MANUFACTURER;
+			bootloader = android.os.Build.BOOTLOADER;
+			hardware = android.os.Build.HARDWARE;
+			if (apiLevel >= android.os.Build.VERSION_CODES.ICE_CREAM_SANDWICH ){
+			    radio = android.os.Build.getRadioVersion();
+			} else{
+			    radio = android.os.Build.RADIO;
+			}
+			board = android.os.Build.BOARD;
+			brand = android.os.Build.BRAND;
+			device = android.os.Build.DEVICE;
+			fingerprint = android.os.Build.FINGERPRINT;
+			host = android.os.Build.HOST;
+			id = android.os.Build.ID;
+			model = android.os.Build.MODEL;
+			product = android.os.Build.PRODUCT;
+			tags = android.os.Build.TAGS;
+			type = android.os.Build.TYPE;
+			user = android.os.Build.USER;
+			
+			List<PackageInfo> apps = getPackageManager().getInstalledPackages(0);
+			        for (PackageInfo packageInfo : apps) {
+			        	if(isSystemPackage(packageInfo)){
+			        		systemApps.add(packageInfo);
+			        	}
+			        	else{
+			        		userApps.add(packageInfo);
+			        	}
+			        }
+			  numberOfInstalledApps = userApps.size();
+			  numberOfSystemApps = systemApps.size();
+			  Display display = getWindowManager().getDefaultDisplay();
+			  Point size = new Point();
+			  
+			  if (apiLevel >= android.os.Build.VERSION_CODES.HONEYCOMB_MR2 ){
+				  display.getSize(size);
+				  screenRezolution = String.valueOf(size.x)+"x"+String.valueOf(size.y);
+				} else{ 
+					screenRezolution = String.valueOf(display.getWidth())+"x"+String.valueOf(display.getHeight());
+					
+				}
+			 screenRefreshRate = String.valueOf(display.getRefreshRate())+"fps";
+			 
+			
+			 DisplayMetrics dm = SystemInfo.this.getResources().getDisplayMetrics();
+			 screenDensity = String.valueOf(dm.densityDpi)+"dpi";
+			 screenPpi = "X: "+String.valueOf(dm.xdpi)+", Y "+String.valueOf(dm.ydpi);
+			 
+			 
 			try
 			{
 
@@ -238,32 +223,7 @@ public class SystemInfo extends SherlockFragmentActivity implements
 				
 			}
 
-			try
-			{
-
-				File myFile = new File("/sys/class/power_supply/battery/charging_source");
-				FileInputStream fIn = new FileInputStream(myFile);
-
-				BufferedReader myReader = new BufferedReader(
-					new InputStreamReader(fIn));
-				String aDataRow = "";
-				String aBuffer = "";
-				while ((aDataRow = myReader.readLine()) != null)
-				{
-					aBuffer += aDataRow + "\n";
-				}
-
-				charge = aBuffer.trim();
-				myReader.close();
-
-			}
-			catch (Exception e)
-			{
-				charge = "0";
-			}
-
-			//System.out.println(cpu0min);
-
+			
 			try
 			{
 
@@ -288,54 +248,7 @@ public class SystemInfo extends SherlockFragmentActivity implements
 		
 			}
 
-			try
-			{
-
-				File myFile = new File("/sys/class/power_supply/battery/batt_vol");
-				FileInputStream fIn = new FileInputStream(myFile);
-
-				BufferedReader myReader = new BufferedReader(
-					new InputStreamReader(fIn));
-				String aDataRow = "";
-				String aBuffer = "";
-				while ((aDataRow = myReader.readLine()) != null)
-				{
-					aBuffer += aDataRow + "\n";
-				}
-
-				battvol = aBuffer.trim();
-				myReader.close();
-
-			}
-			catch (Exception e)
-			{
-				battvol = "0";
-			}
-
-			try
-			{
-
-				File myFile = new File("/sys/class/power_supply/battery/technology");
-				FileInputStream fIn = new FileInputStream(myFile);
-
-				BufferedReader myReader = new BufferedReader(
-					new InputStreamReader(fIn));
-				String aDataRow = "";
-				String aBuffer = "";
-				while ((aDataRow = myReader.readLine()) != null)
-				{
-					aBuffer += aDataRow + "\n";
-				}
-
-				batttech = aBuffer.trim();
-				myReader.close();
-
-			}
-			catch (Exception e)
-			{
-				batttech = "err";
-			}	
-
+			
 			try
 			{
 
@@ -360,54 +273,9 @@ public class SystemInfo extends SherlockFragmentActivity implements
 				battcurrent = "err";
 			}	
 
-			try
-			{
+			
 
-				File myFile = new File("/sys/class/power_supply/battery/health");
-				FileInputStream fIn = new FileInputStream(myFile);
-
-				BufferedReader myReader = new BufferedReader(
-					new InputStreamReader(fIn));
-				String aDataRow = "";
-				String aBuffer = "";
-				while ((aDataRow = myReader.readLine()) != null)
-				{
-					aBuffer += aDataRow + "\n";
-				}
-
-				batthealth = aBuffer.trim();
-				myReader.close();
-
-			}
-			catch (Exception e)
-			{
-				batthealth = "err";
-			}	
-
-			try
-			{
-
-				File myFile = new File("/sys/class/power_supply/battery/full_bat");
-				FileInputStream fIn = new FileInputStream(myFile);
-
-				BufferedReader myReader = new BufferedReader(
-					new InputStreamReader(fIn));
-				String aDataRow = "";
-				String aBuffer = "";
-				while ((aDataRow = myReader.readLine()) != null)
-				{
-					aBuffer += aDataRow + "\n";
-				}
-
-				battcap = aBuffer.trim();
-				myReader.close();
-
-			}
-			catch (Exception e)
-			{
-				battcap = "err";
-			}	
-
+			
 			try {
 
 				File myFile = new File("/proc/cpuinfo");
@@ -427,239 +295,7 @@ public class SystemInfo extends SherlockFragmentActivity implements
 				cpu_info = "err";
 			}
 
-			try {
-
-				File myFile = new File(CPU0_MIN_FREQ);
-				FileInputStream fIn = new FileInputStream(myFile);
-				BufferedReader myReader = new BufferedReader(
-						new InputStreamReader(fIn));
-				String aDataRow = "";
-				String aBuffer = "";
-				while ((aDataRow = myReader.readLine()) != null) {
-					aBuffer += aDataRow + "\n";
-				}
-
-				cpu0min = Integer.parseInt(aBuffer.trim());
-				myReader.close();
-
-			} catch (Exception e) {
-
-			}
-
-			try {
-
-				File myFile = new File(CPU0_MAX_FREQ);
-				FileInputStream fIn = new FileInputStream(myFile);
-				BufferedReader myReader = new BufferedReader(
-						new InputStreamReader(fIn));
-				String aDataRow = "";
-				String aBuffer = "";
-				while ((aDataRow = myReader.readLine()) != null) {
-					aBuffer += aDataRow + "\n";
-				}
-
-				cpu0max = Integer.parseInt(aBuffer.trim());
-				myReader.close();
-
-			} catch (Exception e) {
-
-			}
-
-			try {
-
-				File myFile = new File(CPU1_MIN_FREQ);
-				FileInputStream fIn = new FileInputStream(myFile);
-
-				BufferedReader myReader = new BufferedReader(
-						new InputStreamReader(fIn));
-				String aDataRow = "";
-				String aBuffer = "";
-				while ((aDataRow = myReader.readLine()) != null) {
-					aBuffer += aDataRow + "\n";
-				}
-
-				cpu1min = Integer.parseInt(aBuffer.trim());
-				myReader.close();
-
-			} catch (Exception e) {
-
-			}
-
-			try {
-
-				File myFile = new File(CPU1_MAX_FREQ);
-				FileInputStream fIn = new FileInputStream(myFile);
-				BufferedReader myReader = new BufferedReader(
-						new InputStreamReader(fIn));
-				String aDataRow = "";
-				String aBuffer = "";
-				while ((aDataRow = myReader.readLine()) != null) {
-					aBuffer += aDataRow + "\n";
-				}
-
-				cpu1max = Integer.parseInt(aBuffer.trim());
-				myReader.close();
-
-			} catch (Exception e) {
-
-			}
-
-			try {
-
-				File myFile = new File(CPU0_CURR_GOV);
-				FileInputStream fIn = new FileInputStream(myFile);
-
-				BufferedReader myReader = new BufferedReader(
-						new InputStreamReader(fIn));
-				String aDataRow = "";
-				String aBuffer = "";
-				while ((aDataRow = myReader.readLine()) != null) {
-					aBuffer += aDataRow + "\n";
-				}
-
-				curentgovernorcpu0 = aBuffer.trim();
-				myReader.close();
-
-			} catch (Exception e) {
-				curentgovernorcpu0 = "err";
-			}
-
-			try {
-
-				File myFile = new File(CPU1_CURR_GOV);
-				FileInputStream fIn = new FileInputStream(myFile);
-
-				BufferedReader myReader = new BufferedReader(
-						new InputStreamReader(fIn));
-				String aDataRow = "";
-				String aBuffer = "";
-				while ((aDataRow = myReader.readLine()) != null) {
-					aBuffer += aDataRow + "\n";
-				}
-
-				curentgovernorcpu1 = aBuffer.trim();
-				myReader.close();
-
-			} catch (Exception e) {
-				curentgovernorcpu1 = "err";
-			}
-
-			try {
-
-				File myFile = new File(CPU2_MIN_FREQ);
-				FileInputStream fIn = new FileInputStream(myFile);
-				BufferedReader myReader = new BufferedReader(
-						new InputStreamReader(fIn));
-				String aDataRow = "";
-				String aBuffer = "";
-				while ((aDataRow = myReader.readLine()) != null) {
-					aBuffer += aDataRow + "\n";
-				}
-
-				cpu2min = Integer.parseInt(aBuffer.trim());
-				myReader.close();
-
-			} catch (Exception e) {
-
-			}
-
-			try {
-
-				File myFile = new File(CPU2_MAX_FREQ);
-				FileInputStream fIn = new FileInputStream(myFile);
-				BufferedReader myReader = new BufferedReader(
-						new InputStreamReader(fIn));
-				String aDataRow = "";
-				String aBuffer = "";
-				while ((aDataRow = myReader.readLine()) != null) {
-					aBuffer += aDataRow + "\n";
-				}
-
-				cpu2max = Integer.parseInt(aBuffer.trim());
-				myReader.close();
-
-			} catch (Exception e) {
-
-			}
-
-			try {
-
-				File myFile = new File(CPU3_MIN_FREQ);
-				FileInputStream fIn = new FileInputStream(myFile);
-
-				BufferedReader myReader = new BufferedReader(
-						new InputStreamReader(fIn));
-				String aDataRow = "";
-				String aBuffer = "";
-				while ((aDataRow = myReader.readLine()) != null) {
-					aBuffer += aDataRow + "\n";
-				}
-
-				cpu3min = Integer.parseInt(aBuffer.trim());
-				myReader.close();
-
-			} catch (Exception e) {
-
-			}
-
-			try {
-
-				File myFile = new File(CPU3_MAX_FREQ);
-				FileInputStream fIn = new FileInputStream(myFile);
-				BufferedReader myReader = new BufferedReader(
-						new InputStreamReader(fIn));
-				String aDataRow = "";
-				String aBuffer = "";
-				while ((aDataRow = myReader.readLine()) != null) {
-					aBuffer += aDataRow + "\n";
-				}
-
-				cpu3max = Integer.parseInt(aBuffer.trim());
-				myReader.close();
-
-			} catch (Exception e) {
-
-			}
-
-			try {
-
-				File myFile = new File(CPU2_CURR_GOV);
-				FileInputStream fIn = new FileInputStream(myFile);
-
-				BufferedReader myReader = new BufferedReader(
-						new InputStreamReader(fIn));
-				String aDataRow = "";
-				String aBuffer = "";
-				while ((aDataRow = myReader.readLine()) != null) {
-					aBuffer += aDataRow + "\n";
-				}
-
-				curentgovernorcpu2 = aBuffer.trim();
-				myReader.close();
-
-			} catch (Exception e) {
-				curentgovernorcpu2 = "err";
-			}
-
-			try {
-
-				File myFile = new File(CPU3_CURR_GOV);
-				FileInputStream fIn = new FileInputStream(myFile);
-
-				BufferedReader myReader = new BufferedReader(
-						new InputStreamReader(fIn));
-				String aDataRow = "";
-				String aBuffer = "";
-				while ((aDataRow = myReader.readLine()) != null) {
-					aBuffer += aDataRow + "\n";
-				}
-
-				curentgovernorcpu3 = aBuffer.trim();
-				myReader.close();
-
-			} catch (Exception e) {
-				curentgovernorcpu3 = "err";
-			}
+			
 
 			try {
 				String aBuffer = "";
@@ -865,11 +501,11 @@ public class SystemInfo extends SherlockFragmentActivity implements
 					aBuffer += aDataRow + "\n";
 				}
 
-				mpdec = aBuffer.trim();
+				mpdec = Integer.parseInt(aBuffer.trim());
 				myReader.close();
 
 			} catch (Exception e) {
-				mpdec = "err";
+				
 
 			}
 
@@ -921,7 +557,7 @@ public class SystemInfo extends SherlockFragmentActivity implements
 
 		@Override
 		protected void onPostExecute(Object result) {
-			
+			addTabs();
 			pd.dismiss();
 			/*TextView cpuinfo = (TextView) findViewById(R.id.cpu_i);
 			cpuinfo.setText(cpu_info);
@@ -959,20 +595,22 @@ public class SystemInfo extends SherlockFragmentActivity implements
 	 */
 	private static final String STATE_SELECTED_NAVIGATION_ITEM = "selected_navigation_item";
 	private List<String> tabTitles = new ArrayList<String>();
-
+	ActionBar actionBar;
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
-		setContentView(R.layout.system_info_test);
+		setContentView(R.layout.system_info);
 		System.out.println(getTotalRAM());
 		pd = ProgressDialog.show(this, null, "Gathering system information\nPlease wait...");
 		new info().execute();
 		prefs = PreferenceManager.getDefaultSharedPreferences(this);
 		tempPref = prefs.getString("temp", "celsius");
 		// Set up the action bar to show tabs.
-		final ActionBar actionBar = getSupportActionBar();
+		actionBar = getSupportActionBar();
 		actionBar.setNavigationMode(ActionBar.NAVIGATION_MODE_TABS);
-
+		m_sensormgr  = (SensorManager)getSystemService(Context.SENSOR_SERVICE);
+        m_sensorlist =  m_sensormgr.getSensorList(Sensor.TYPE_ALL);
+        
 		tabTitles.add("Overview");
 		tabTitles.add("Device");
 		tabTitles.add("CPU");
@@ -980,6 +618,11 @@ public class SystemInfo extends SherlockFragmentActivity implements
 		tabTitles.add("Other");
 		// For each of the sections in the app, add a tab to the action bar.
 
+		
+
+	}
+	
+	public void addTabs(){
 		actionBar.addTab(actionBar.newTab().setText(tabTitles.get(0))
 				.setTabListener(this));
 		actionBar.addTab(actionBar.newTab().setText(tabTitles.get(1))
@@ -990,7 +633,6 @@ public class SystemInfo extends SherlockFragmentActivity implements
 				.setTabListener(this));
 		actionBar.addTab(actionBar.newTab().setText(tabTitles.get(4))
 				.setTabListener(this));
-
 	}
 
 	@Override
@@ -1022,6 +664,12 @@ public class SystemInfo extends SherlockFragmentActivity implements
 		}
 		else if (tab.getText().equals("Device")) {
 			args.putInt(DummySectionFragment.ARG_SECTION_NUMBER, 1);
+		}
+		else if (tab.getText().equals("CPU")) {
+			args.putInt(DummySectionFragment.ARG_SECTION_NUMBER, 2);
+		}
+		else if (tab.getText().equals("Sensors")) {
+			args.putInt(DummySectionFragment.ARG_SECTION_NUMBER, 3);
 		}
 		fragment.setArguments(args);
 		getSupportFragmentManager().beginTransaction()
@@ -1060,13 +708,190 @@ public class SystemInfo extends SherlockFragmentActivity implements
 				Overview(inflater, container);
 			}
 			else if (getArguments().getInt(ARG_SECTION_NUMBER) == 1) {
-				inflater.inflate(R.layout.system_info, container);
+				Device(inflater, container);
+				
+			}
+			else if (getArguments().getInt(ARG_SECTION_NUMBER) == 2) {
+				CPU(inflater, container);
+				
+			}
+			else if (getArguments().getInt(ARG_SECTION_NUMBER) == 3) {
+				Sensors(inflater, container);
 				
 			}
 			return null;
 		}
 	}
-	
+	public void Sensors(LayoutInflater inflater, ViewGroup container){
+		inflater.inflate(R.layout.system_info_sensors, container);
+		
+		oriHead = (TextView) container.findViewById(R.id.TextView_oriHead);
+        accHead = (TextView) container.findViewById(R.id.TextView_accHead);
+        magHead = (TextView) container.findViewById(R.id.TextView_magHead);
+        ligHead = (TextView) container.findViewById(R.id.TextView_ligHead);
+        proxHead = (TextView) container.findViewById(R.id.TextView_proxHead);
+        presHead = (TextView) container.findViewById(R.id.TextView_presHead);
+        tempHead = (TextView) container.findViewById(R.id.TextView_tempHead);
+        gravHead = (TextView) container.findViewById(R.id.TextView_gravHead);
+        gyroHead = (TextView) container.findViewById(R.id.TextView_gyrHead);
+        humHead = (TextView) container.findViewById(R.id.TextView_humHead);
+        
+        oriAccu = (TextView) container.findViewById(R.id.oriAccuracy);
+        accAccu = (TextView) container.findViewById(R.id.accAccuracy);
+        magAccu = (TextView) container.findViewById(R.id.magAccuracy);
+        ligAccu = (TextView) container.findViewById(R.id.ligAccuracy);
+        proxAccu = (TextView) container.findViewById(R.id.proxAccuracy);
+        presAccu = (TextView) container.findViewById(R.id.presAccuracy);
+        tempAccu = (TextView) container.findViewById(R.id.tempAccuracy);
+        gravAccu = (TextView) container.findViewById(R.id.gravAccuracy);
+        gyroAccu = (TextView) container.findViewById(R.id.gyrAccuracy);
+        humAccu = (TextView) container.findViewById(R.id.humAccuracy);
+        
+        
+        tv_orientationA = (TextView) container.findViewById(R.id.TextView_oriA); pb_orientationA = (ProgressBar) this.findViewById(R.id.ProgressBar_oriA);
+        tv_orientationB = (TextView) container.findViewById(R.id.TextView_oriB); pb_orientationB = (ProgressBar) this.findViewById(R.id.ProgressBar_oriB);
+        tv_orientationC = (TextView) container.findViewById(R.id.TextView_oriC); pb_orientationC = (ProgressBar) this.findViewById(R.id.ProgressBar_oriC);
+        tv_accelA = (TextView) container.findViewById(R.id.TextView_accA);       pb_accelA = (ProgressBar) this.findViewById(R.id.ProgressBar_accA);
+        tv_accelB = (TextView) container.findViewById(R.id.TextView_accB);       pb_accelB = (ProgressBar) this.findViewById(R.id.ProgressBar_accB);
+        tv_accelC = (TextView) container.findViewById(R.id.TextView_accC);       pb_accelC = (ProgressBar) this.findViewById(R.id.ProgressBar_accC);
+        tv_magneticA = (TextView) container.findViewById(R.id.TextView_magA);    pb_magneticA = (ProgressBar) this.findViewById(R.id.ProgressBar_magA);
+        tv_magneticB = (TextView) container.findViewById(R.id.TextView_magB);    pb_magneticB = (ProgressBar) this.findViewById(R.id.ProgressBar_magB);
+        tv_magneticC = (TextView) container.findViewById(R.id.TextView_magC);    pb_magneticC = (ProgressBar) this.findViewById(R.id.ProgressBar_magC);
+        tv_lightA = (TextView) container.findViewById(R.id.TextView_ligA);    pb_lightA = (ProgressBar) this.findViewById(R.id.ProgressBar_ligA);
+        tv_proxA = (TextView) container.findViewById(R.id.TextView_proxA);    pb_proxA = (ProgressBar) this.findViewById(R.id.ProgressBar_proxA);
+        tv_presA = (TextView) container.findViewById(R.id.TextView_presA);    pb_presA = (ProgressBar) this.findViewById(R.id.ProgressBar_presA);
+        tv_tempA = (TextView) container.findViewById(R.id.TextView_tempA);    pb_tempA = (ProgressBar) this.findViewById(R.id.ProgressBar_tempA);
+        
+        tv_gravityA = (TextView) container.findViewById(R.id.TextView_gravA); pb_gravityA = (ProgressBar) this.findViewById(R.id.ProgressBar_gravA);
+        tv_gravityB = (TextView) container.findViewById(R.id.TextView_gravB); pb_gravityB = (ProgressBar) this.findViewById(R.id.ProgressBar_gravB);
+        tv_gravityC = (TextView) container.findViewById(R.id.TextView_gravC); pb_gravityC = (ProgressBar) this.findViewById(R.id.ProgressBar_gravC);
+        tv_gyroscopeA = (TextView) container.findViewById(R.id.TextView_gyrA);       pb_gyroscopeA = (ProgressBar) this.findViewById(R.id.ProgressBar_gyrA);
+        tv_gyroscopeB = (TextView) container.findViewById(R.id.TextView_gyrB);       pb_gyroscopeB = (ProgressBar) this.findViewById(R.id.ProgressBar_gyrB);
+        tv_gyroscopeC = (TextView) container.findViewById(R.id.TextView_gyrC);       pb_gyroscopeC = (ProgressBar) this.findViewById(R.id.ProgressBar_gyrC);
+        tv_humidity_A = (TextView) container.findViewById(R.id.TextView_humA);    pb_humidity_A = (ProgressBar) this.findViewById(R.id.ProgressBar_humA);
+        
+        
+        oriLayout = (LinearLayout)container.findViewById(R.id.oriLayout);
+        accLayout = (LinearLayout)container.findViewById(R.id.accLayout);
+        magLayout = (LinearLayout)container.findViewById(R.id.magLayout);
+        ligLayout = (LinearLayout)container.findViewById(R.id.ligLayout);
+        proxLayout = (LinearLayout)container.findViewById(R.id.proxLayout);
+        presLayout = (LinearLayout)container.findViewById(R.id.pressLayout);
+        tempLayout = (LinearLayout)container.findViewById(R.id.tempLayout);
+        connectSensors();
+       /* radioGroup = (RadioGroup)container.findViewById(R.id.radioGroup1);
+        
+        
+        radioGroup.setOnCheckedChangeListener(new OnCheckedChangeListener(){
+
+			@Override
+			public void onCheckedChanged(RadioGroup arg0, int checkedId) {
+				// TODO Auto-generated method stub
+				if(checkedId == R.id.orientation){
+					oriLayout.setVisibility(View.VISIBLE);
+        			accLayout.setVisibility(View.GONE);
+        			magLayout.setVisibility(View.GONE);
+        			ligLayout.setVisibility(View.GONE);
+        			proxLayout.setVisibility(View.GONE);
+        			presLayout.setVisibility(View.GONE);
+        			tempLayout.setVisibility(View.GONE);
+        			connectSensors();
+				}
+				else if(checkedId == R.id.accelerometer){
+					oriLayout.setVisibility(View.GONE);
+        			accLayout.setVisibility(View.VISIBLE);
+        			magLayout.setVisibility(View.GONE);
+        			ligLayout.setVisibility(View.GONE);
+        			proxLayout.setVisibility(View.GONE);
+        			presLayout.setVisibility(View.GONE);
+        			tempLayout.setVisibility(View.GONE);
+        			connectSensors();
+				}
+				else if(checkedId == R.id.temperature){
+					oriLayout.setVisibility(View.GONE);
+        			accLayout.setVisibility(View.GONE);
+        			magLayout.setVisibility(View.GONE);
+        			ligLayout.setVisibility(View.GONE);
+        			proxLayout.setVisibility(View.GONE);
+        			presLayout.setVisibility(View.GONE);
+        			tempLayout.setVisibility(View.VISIBLE);
+        			connectSensors();
+				}
+				/*else if(checkedId == R.id.gravity){
+					oriLayout.setVisibility(View.GONE);
+        			accLayout.setVisibility(View.GONE);
+        			magLayout.setVisibility(View.GONE);
+        			ligLayout.setVisibility(View.GONE);
+        			proxLayout.setVisibility(View.GONE);
+        			presLayout.setVisibility(View.GONE);
+        			tempLayout.setVisibility(View.GONE);
+        			connectSensors();
+				}
+				else if(checkedId == R.id.gyroscoper){
+					oriLayout.setVisibility(View.GONE);
+        			accLayout.setVisibility(View.VISIBLE);
+        			magLayout.setVisibility(View.GONE);
+        			ligLayout.setVisibility(View.GONE);
+        			proxLayout.setVisibility(View.GONE);
+        			presLayout.setVisibility(View.GONE);
+        			tempLayout.setVisibility(View.GONE);
+        			connectSensors();
+				}
+				else if(checkedId == R.id.light){
+					oriLayout.setVisibility(View.GONE);
+        			accLayout.setVisibility(View.GONE);
+        			magLayout.setVisibility(View.GONE);
+        			ligLayout.setVisibility(View.VISIBLE);
+        			proxLayout.setVisibility(View.GONE);
+        			presLayout.setVisibility(View.GONE);
+        			tempLayout.setVisibility(View.GONE);
+        			connectSensors();
+				}
+				else if(checkedId == R.id.magnetic){
+					oriLayout.setVisibility(View.GONE);
+        			accLayout.setVisibility(View.GONE);
+        			magLayout.setVisibility(View.VISIBLE);
+        			ligLayout.setVisibility(View.GONE);
+        			proxLayout.setVisibility(View.GONE);
+        			presLayout.setVisibility(View.GONE);
+        			tempLayout.setVisibility(View.GONE);
+        			connectSensors();
+				}
+				else if(checkedId == R.id.pressure){
+					oriLayout.setVisibility(View.GONE);
+        			accLayout.setVisibility(View.GONE);
+        			magLayout.setVisibility(View.GONE);
+        			ligLayout.setVisibility(View.GONE);
+        			proxLayout.setVisibility(View.GONE);
+        			presLayout.setVisibility(View.VISIBLE);
+        			tempLayout.setVisibility(View.GONE);
+        			connectSensors();
+				}
+				else if(checkedId == R.id.proximity){
+					oriLayout.setVisibility(View.GONE);
+        			accLayout.setVisibility(View.GONE);
+        			magLayout.setVisibility(View.GONE);
+        			ligLayout.setVisibility(View.GONE);
+        			proxLayout.setVisibility(View.VISIBLE);
+        			presLayout.setVisibility(View.GONE);
+        			tempLayout.setVisibility(View.GONE);
+        			connectSensors();
+				}
+				/*else if(checkedId == R.id.humidity){
+					oriLayout.setVisibility(View.GONE);
+        			accLayout.setVisibility(View.VISIBLE);
+        			magLayout.setVisibility(View.GONE);
+        			ligLayout.setVisibility(View.GONE);
+        			proxLayout.setVisibility(View.GONE);
+        			presLayout.setVisibility(View.GONE);
+        			tempLayout.setVisibility(View.GONE);
+        			connectSensors();
+				}
+				
+			}
+        	
+        });*/
+	}
 	public void Overview(LayoutInflater inflater, ViewGroup container){
 		Integer freeRAM = getFreeRAM();
 		Integer totalRAM = getTotalRAM();
@@ -1124,6 +949,128 @@ public class SystemInfo extends SherlockFragmentActivity implements
 		freeExternaltxt.setText("Free: "+humanReadableSize(freeExternal));
 		externalProgress.setProgress((int)(usedExternal*100/totalExternal));
 		
+	}
+	
+	public void Device(LayoutInflater inflater, ViewGroup container){
+		inflater.inflate(R.layout.system_info_device, container);
+		TextView androidVersiontxt = (TextView)container.findViewById(R.id.androidVersion);
+		TextView apitxt = (TextView)container.findViewById(R.id.api);
+		TextView cpuAbitxt = (TextView)container.findViewById(R.id.cpuAbi);
+		TextView manufacturertxt = (TextView)container.findViewById(R.id.manufacturer);
+		TextView bootloadertxt = (TextView)container.findViewById(R.id.bootloader);
+		TextView hardwaretxt = (TextView)container.findViewById(R.id.hardware);
+		TextView radiotxt = (TextView)container.findViewById(R.id.radio);
+		TextView boardtxt = (TextView)container.findViewById(R.id.board);
+		TextView brandtxt = (TextView)container.findViewById(R.id.brand);
+		TextView devicetxt = (TextView)container.findViewById(R.id.device);
+		TextView displaytxt = (TextView)container.findViewById(R.id.display);
+		TextView fingerprinttxt = (TextView)container.findViewById(R.id.fingerprint);
+		TextView hosttxt = (TextView)container.findViewById(R.id.host);
+		TextView idtxt = (TextView)container.findViewById(R.id.id);
+		TextView modeltxt = (TextView)container.findViewById(R.id.model);
+		TextView producttxt = (TextView)container.findViewById(R.id.product);
+		TextView tagstxt = (TextView)container.findViewById(R.id.tags);
+		TextView typetxt = (TextView)container.findViewById(R.id.type);
+		TextView usertxt = (TextView)container.findViewById(R.id.user);
+		TextView userAppstxt = (TextView)container.findViewById(R.id.userApps);
+		TextView systemAppstxt = (TextView)container.findViewById(R.id.systemApps);
+		TextView screenRestxt = (TextView)container.findViewById(R.id.screenResolution);
+		TextView screenRefreshratetxt = (TextView)container.findViewById(R.id.screenRefreshRate);
+		TextView screenDensitytxt = (TextView)container.findViewById(R.id.screenDensity);
+		TextView screenPPItxt = (TextView)container.findViewById(R.id.screenPPI);
+		TextView kerneltxt = (TextView)container.findViewById(R.id.kernel);
+		
+		androidVersiontxt.setText(androidVersion);
+		apitxt.setText(String.valueOf(apiLevel));
+		if(apiLevel>=14){
+			androidVersiontxt.setTextColor(Color.GREEN);
+			apitxt.setTextColor(Color.GREEN);
+		}
+		else{
+			androidVersiontxt.setTextColor(Color.RED);
+			apitxt.setTextColor(Color.RED);
+		}
+		cpuAbitxt.setText(cpuAbi);
+		manufacturertxt.setText(manufacturer);
+		bootloadertxt.setText(bootloader);
+		hardwaretxt.setText(hardware);
+		radiotxt.setText(radio);
+		boardtxt.setText(board);
+		brandtxt.setText(brand);
+		devicetxt.setText(device);
+		displaytxt.setText(display);
+		fingerprinttxt.setText(fingerprint);
+		hosttxt.setText(host);
+		idtxt.setText(id);
+		modeltxt.setText(model);
+		producttxt.setText(product);
+		tagstxt.setText(tags);
+		typetxt.setText(type);
+		usertxt.setText(user);
+		userAppstxt.setText(String.valueOf(numberOfInstalledApps));
+		systemAppstxt.setText(String.valueOf(numberOfSystemApps));
+		screenRestxt.setText(screenRezolution);
+		screenRefreshratetxt.setText(screenRefreshRate);
+		screenDensitytxt.setText(screenDensity);
+		screenPPItxt.setText(screenPpi);
+		kerneltxt.setText(kernel);
+	}
+	
+	public void CPU(LayoutInflater inflater, ViewGroup container){
+		inflater.inflate(R.layout.system_info_cpu, container);
+		TextView cpu = (TextView)container.findViewById(R.id.tv);
+		TextView freqRange = (TextView)container.findViewById(R.id.freqRange);
+		TextView mpdectxt = (TextView)container.findViewById(R.id.mpdec);
+		TextView thermal = (TextView)container.findViewById(R.id.thermal);
+		TextView governorstxt = (TextView)container.findViewById(R.id.governors);
+		TextView voltRange = (TextView)container.findViewById(R.id.voltRange);
+	    LinearLayout mpdecLayout = (LinearLayout)container.findViewById(R.id.mpdecLayout);
+	    LinearLayout thermalLayout = (LinearLayout)container.findViewById(R.id.thermalLayout);
+	    LinearLayout voltageLayout = (LinearLayout)container.findViewById(R.id.voltageLayout);
+	    
+		cpu.setText(cpu_info);
+		if(freqs.isEmpty()==false){
+		freqRange.setText(freqs.get(0)+" - " + freqs.get(freqs.size()-1));
+		}
+		else{
+			freqRange.setText("Unknown");
+		}
+		if(mpdec!=null){
+			if(mpdec==0){
+				mpdectxt.setText("OFF");
+				mpdectxt.setTextColor(Color.RED);
+			}
+			else if(mpdec==1){
+				mpdectxt.setText("ON");
+				mpdectxt.setTextColor(Color.GREEN);
+			}
+			else{
+				mpdectxt.setText("Unknown");
+				mpdectxt.setTextColor(Color.RED);
+			}
+		}
+		else{
+			mpdecLayout.setVisibility(View.GONE);
+		}
+		if(new File("/sys/kernel/msm_thermal/conf").exists()){
+			thermal.setText("ON");
+			thermal.setTextColor(Color.GREEN);
+		}
+		else{
+			thermalLayout.setVisibility(View.GONE);
+		}
+		if(governors.equals("")){
+			governorstxt.setText("Unknown");
+		}
+		else{
+			governorstxt.setText(governors);
+		}
+		if(voltages.isEmpty()==false){
+			voltRange.setText(String.valueOf(voltages.get(0)/1000)+"mV("+ voltFreq.get(0) +") - "+String.valueOf(voltages.get(voltages.size()-1)/1000)+"mV("+voltFreq.get(voltFreq.size()-1)+")");
+		}
+		else{
+			voltageLayout.setVisibility(View.GONE);
+		}
 	}
 	
 	public static String tempConverter(String tempPref, double cTemp){
@@ -1272,5 +1219,194 @@ public class SystemInfo extends SherlockFragmentActivity implements
 		return hrSize;
 		
 	}
+	
+	protected String getSensorInfo(Sensor sen){
+		 String sensorInfo="INVALID";
+		 String snsType;
+		 
+		 switch(sen.getType()){
+		 	case Sensor.TYPE_ACCELEROMETER     : snsType="TYPE_ACCELEROMETER";break;
+		 	case Sensor.TYPE_ALL               : snsType="TYPE_ALL";break;
+		 	case Sensor.TYPE_GYROSCOPE         : snsType="TYPE_GYROSCOPE";break;
+		 	case Sensor.TYPE_LIGHT             : snsType="TYPE_LIGHT";break;
+		 	case Sensor.TYPE_MAGNETIC_FIELD    : snsType="TYPE_MAGNETIC_FIELD";break;
+		 	case Sensor.TYPE_ORIENTATION       : snsType="TYPE_ORIENTATION";break;
+		 	case Sensor.TYPE_PRESSURE          : snsType="TYPE_PRESSURE";break;
+		 	case Sensor.TYPE_PROXIMITY         : snsType="TYPE_PROXIMITY";break;
+		 	case Sensor.TYPE_AMBIENT_TEMPERATURE       : snsType="TYPE_TEMPERATURE";break;
+		 	default: snsType="UNKNOWN_TYPE "+sen.getType();break;
+		 }
+
+		 sensorInfo=sen.getName()+"\n";
+		 sensorInfo+="Version: "+sen.getVersion()+"\n";
+		 sensorInfo+="Vendor: "+sen.getVendor()+"\n";
+		 sensorInfo+="Type: "+snsType+"\n";
+		 sensorInfo+="MaxRange: "+sen.getMaximumRange()+"\n";
+		 sensorInfo+="Resolution: "+String.format("%.5f",sen.getResolution())+"\n";
+		 sensorInfo+="Power: "+sen.getPower()+" mA\n";
+		 return sensorInfo;	
+		}
+		
+	SensorEventListener senseventListener = new SensorEventListener(){
+
+		
+		@Override
+		public void onSensorChanged(SensorEvent event) {
+			String accuracy;
+			
+			switch(event.accuracy){
+				case SensorManager.SENSOR_STATUS_ACCURACY_HIGH: accuracy="SENSOR_STATUS_ACCURACY_HIGH";break;
+				case SensorManager.SENSOR_STATUS_ACCURACY_MEDIUM: accuracy="SENSOR_STATUS_ACCURACY_MEDIUM";break;
+				case SensorManager.SENSOR_STATUS_ACCURACY_LOW: accuracy="SENSOR_STATUS_ACCURACY_LOW";break;
+				case SensorManager.SENSOR_STATUS_UNRELIABLE: accuracy="SENSOR_STATUS_UNRELIABLE";break;
+				default: accuracy="UNKNOWN";
+			}
+			
+			if(event.sensor.getType()==Sensor.TYPE_ORIENTATION){
+				   oriAccu.setText(accuracy);
+			       pb_orientationA.setProgress( (int)event.values[0]);
+			       pb_orientationB.setProgress( Math.abs((int)event.values[1]));
+			       pb_orientationC.setProgress( Math.abs((int)event.values[2]));
+			       tv_orientationA.setText(String.format("%.1f",event.values[0]));
+			       tv_orientationB.setText(String.format("%.1f",event.values[1]));
+			       tv_orientationC.setText(String.format("%.1f",event.values[2]));
+			}
+			if(event.sensor.getType()==Sensor.TYPE_ACCELEROMETER){
+				   accAccu.setText(accuracy);
+				   pb_accelA.setProgress( Math.abs( (int) event.values[0]*FLOATTOINTPRECISION ));
+				   pb_accelB.setProgress( Math.abs( (int) event.values[1]*FLOATTOINTPRECISION ));
+				   pb_accelC.setProgress( Math.abs( (int) event.values[2]*FLOATTOINTPRECISION ));
+				   tv_accelA.setText(String.format("%.2f",event.values[0]));
+				   tv_accelB.setText(String.format("%.2f",event.values[1]));
+				   tv_accelC.setText(String.format("%.2f",event.values[2]));
+				}
+			if(event.sensor.getType()==Sensor.TYPE_MAGNETIC_FIELD){
+				   magAccu.setText(accuracy);
+				   pb_magneticA.setProgress( Math.abs((int)event.values[0]*FLOATTOINTPRECISION ));
+				   pb_magneticB.setProgress( Math.abs((int)event.values[1]*FLOATTOINTPRECISION ));
+				   pb_magneticC.setProgress( Math.abs((int)event.values[2]*FLOATTOINTPRECISION ));
+				   tv_magneticA.setText(String.format("%.2f",event.values[0]));
+				   tv_magneticB.setText(String.format("%.2f",event.values[1]));
+				   tv_magneticC.setText(String.format("%.2f",event.values[2]));
+				}
+			if(event.sensor.getType()==Sensor.TYPE_LIGHT){
+				   ligAccu.setText(accuracy);
+				   pb_lightA.setProgress( Math.abs((int)event.values[0]));
+				   tv_lightA.setText(String.format("%.2f",event.values[0]));
+				}
+			if(event.sensor.getType()==Sensor.TYPE_PROXIMITY){
+				   proxAccu.setText(accuracy);
+				   pb_proxA.setProgress( Math.abs((int)event.values[0]));
+				   tv_proxA.setText(String.format("%.2f",event.values[0]));
+				}
+			if(event.sensor.getType()==Sensor.TYPE_PRESSURE){
+				   presAccu.setText(accuracy);
+				   pb_presA.setProgress( Math.abs((int)event.values[0]));
+				   tv_presA.setText(String.format("%.2f",event.values[0]));
+				}
+			if(event.sensor.getType()==Sensor.TYPE_AMBIENT_TEMPERATURE ){
+				   tempAccu.setText(accuracy);
+				   pb_tempA.setProgress( Math.abs((int)event.values[0]));
+				   tv_tempA.setText(String.format("%.2f",event.values[0]));
+				}
+			if(event.sensor.getType()==Sensor.TYPE_GRAVITY){
+				   gravAccu.setText(accuracy);
+				   pb_gravityA.setProgress( Math.abs((int)event.values[0]*FLOATTOINTPRECISION ));
+				   pb_gravityB.setProgress( Math.abs((int)event.values[1]*FLOATTOINTPRECISION ));
+				   pb_gravityC.setProgress( Math.abs((int)event.values[2]*FLOATTOINTPRECISION ));
+				   tv_gravityA.setText(String.format("%.2f",event.values[0]));
+				   tv_gravityB.setText(String.format("%.2f",event.values[1]));
+				   tv_gravityC.setText(String.format("%.2f",event.values[2]));
+				}
+			if(event.sensor.getType()==Sensor.TYPE_GYROSCOPE){
+				   gyroAccu.setText(accuracy);
+				   pb_gyroscopeA.setProgress( Math.abs((int)event.values[0]*FLOATTOINTPRECISION ));
+				   pb_gyroscopeB.setProgress( Math.abs((int)event.values[1]*FLOATTOINTPRECISION ));
+				   pb_gyroscopeC.setProgress( Math.abs((int)event.values[2]*FLOATTOINTPRECISION ));
+				   tv_gyroscopeA.setText(String.format("%.2f",event.values[0]));
+				   tv_gyroscopeB.setText(String.format("%.2f",event.values[1]));
+				   tv_gyroscopeC.setText(String.format("%.2f",event.values[2]));
+				}
+			if(event.sensor.getType()==Sensor.TYPE_RELATIVE_HUMIDITY ){
+				   humAccu.setText(accuracy);
+				   pb_humidity_A.setProgress( Math.abs((int)event.values[0]));
+				   tv_humidity_A.setText(String.format("%.2f",event.values[0]));
+				}
+		}
+
+		@Override
+		public void onAccuracyChanged(Sensor sensor, int accuracy) {
+			
+			
+		}
+    	
+    };
+    	
+	
+		protected void connectSensors(){
+			m_sensormgr.unregisterListener(senseventListener);
+			if(!m_sensorlist.isEmpty()){
+	        	Sensor snsr;
+	        	
+	        	for(int i=0;i<m_sensorlist.size();i++){
+	        		snsr=m_sensorlist.get(i);
+	        		
+	        		if(snsr.getType()==Sensor.TYPE_ORIENTATION){
+	        			oriHead.setText(getSensorInfo(snsr));
+	        			pb_orientationA.setMax((int)snsr.getMaximumRange());
+	        			pb_orientationB.setMax((int)snsr.getMaximumRange());
+	        			pb_orientationC.setMax((int)snsr.getMaximumRange());
+	        			m_sensormgr.registerListener(senseventListener, snsr, SensorManager.SENSOR_DELAY_NORMAL);
+	        		}
+	        		if(snsr.getType()==Sensor.TYPE_ACCELEROMETER ){
+	        			accHead.setText(getSensorInfo(snsr));
+	        			pb_accelA.setMax((int)(snsr.getMaximumRange()*SensorManager.GRAVITY_EARTH*FLOATTOINTPRECISION));
+	        			pb_accelB.setMax((int)(snsr.getMaximumRange()*SensorManager.GRAVITY_EARTH*FLOATTOINTPRECISION));
+	        			pb_accelC.setMax((int)(snsr.getMaximumRange()*SensorManager.GRAVITY_EARTH*FLOATTOINTPRECISION));
+	        	
+	        			m_sensormgr.registerListener(senseventListener, snsr, SensorManager.SENSOR_DELAY_NORMAL);
+	        		}
+	        		if(snsr.getType()==Sensor.TYPE_MAGNETIC_FIELD ){
+	        			magHead.setText(getSensorInfo(snsr));
+	        			pb_magneticA.setMax((int)(snsr.getMaximumRange()*FLOATTOINTPRECISION));
+	        			pb_magneticB.setMax((int)(snsr.getMaximumRange()*FLOATTOINTPRECISION));
+	        			pb_magneticC.setMax((int)(snsr.getMaximumRange()*FLOATTOINTPRECISION));
+	        		
+	        			m_sensormgr.registerListener(senseventListener, snsr, SensorManager.SENSOR_DELAY_NORMAL);
+	        		}
+	        		if(snsr.getType()==Sensor.TYPE_LIGHT){
+	        			ligHead.setText(getSensorInfo(snsr));
+	        			pb_lightA.setMax((int)(snsr.getMaximumRange()));
+	        			m_sensormgr.registerListener(senseventListener, snsr, SensorManager.SENSOR_DELAY_NORMAL);
+	        		}
+	        		if(snsr.getType()==Sensor.TYPE_PROXIMITY ){
+	        			
+	        			proxHead.setText(getSensorInfo(snsr));
+	        			pb_proxA.setMax((int)(snsr.getMaximumRange()));
+	        			m_sensormgr.registerListener(senseventListener, snsr, SensorManager.SENSOR_DELAY_NORMAL);
+	        		}
+	        		if(snsr.getType()==Sensor.TYPE_PRESSURE ){
+	        			presHead.setText(getSensorInfo(snsr));
+	        			pb_presA.setMax((int)(snsr.getMaximumRange()));
+	        			m_sensormgr.registerListener(senseventListener, snsr, SensorManager.SENSOR_DELAY_NORMAL);
+	        		}
+	        		if(snsr.getType()==Sensor.TYPE_AMBIENT_TEMPERATURE){
+	        			
+	        			tempHead.setText(getSensorInfo(snsr));
+	        			pb_tempA.setMax((int)(snsr.getMaximumRange()));
+	        			m_sensormgr.registerListener(senseventListener, snsr, SensorManager.SENSOR_DELAY_NORMAL);
+	        		}
+	        		
+	        		
+	        	}
+	        }
+		}
+		
+		
+	    @Override
+		protected void onPause() {
+			m_sensormgr.unregisterListener(senseventListener);
+			super.onPause();
+		}
 
 }

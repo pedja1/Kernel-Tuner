@@ -1,0 +1,519 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+
+   
+    <ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+        android:id="@+id/scrollView2"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentTop="true" >
+
+		<LinearLayout
+			android:layout_width="match_parent"
+			android:layout_height="wrap_content"
+			android:orientation="vertical">
+			
+			<LinearLayout
+				
+				android:layout_width="match_parent"
+				android:layout_height="wrap_content"
+				>
+				
+				<TextView
+					
+					android:layout_width="wrap_content"
+					android:layout_height="wrap_content"
+					android:text="Android Version: "/>
+			
+			<TextView
+				android:id="@+id/androidVersion"
+				android:layout_width="wrap_content"
+				android:layout_height="wrap_content"
+				android:layout_marginLeft="5dp"/>
+
+			</LinearLayout>
+			<LinearLayout
+				
+				android:layout_width="match_parent"
+				android:layout_height="wrap_content"
+				>
+				
+				<TextView
+					
+					android:layout_width="wrap_content"
+					android:layout_height="wrap_content"
+					android:text="API Level: "/>
+			<TextView
+				android:id="@+id/api"
+				android:layout_width="wrap_content"
+				android:layout_height="wrap_content"
+				android:layout_marginLeft="5dp"/>
+				
+			</LinearLayout>
+
+			<LinearLayout
+				
+				android:layout_width="match_parent"
+				android:layout_height="wrap_content"
+			>
+
+				<TextView
+
+					android:layout_width="wrap_content"
+					android:layout_height="wrap_content"
+					android:text="CPU ABI: "/>
+			
+			<TextView
+				android:id="@+id/cpuAbi"
+				android:layout_width="wrap_content"
+				android:layout_height="wrap_content"
+				android:layout_marginLeft="5dp"/>
+				
+			</LinearLayout>
+			
+			<LinearLayout
+
+				android:layout_width="match_parent"
+				android:layout_height="wrap_content"
+			>
+
+				<TextView
+
+					android:layout_width="wrap_content"
+					android:layout_height="wrap_content"
+					android:text="Manufacturer: "/>
+			
+			<TextView
+				android:id="@+id/manufacturer"
+				android:layout_width="wrap_content"
+				android:layout_height="wrap_content"
+				android:layout_marginLeft="5dp"/>
+				
+			</LinearLayout>
+			
+			<LinearLayout
+				
+				android:layout_width="match_parent"
+				android:layout_height="wrap_content"
+			>
+
+				<TextView
+
+					android:layout_width="wrap_content"
+					android:layout_height="wrap_content"
+					android:text="Bootloader: "/>
+			
+			<TextView
+				android:id="@+id/bootloader"
+				android:layout_width="wrap_content"
+				android:layout_height="wrap_content"
+				android:layout_marginLeft="5dp"/>
+			</LinearLayout>
+			
+			<LinearLayout
+				
+				android:layout_width="match_parent"
+				android:layout_height="wrap_content"
+			>
+
+				<TextView
+
+					android:layout_width="wrap_content"
+					android:layout_height="wrap_content"
+					android:text="Hardware: "/>
+			
+			<TextView
+				android:id="@+id/hardware"
+				android:layout_width="wrap_content"
+				android:layout_height="wrap_content"
+				android:layout_marginLeft="5dp"/>
+			</LinearLayout>
+			
+			<LinearLayout
+				
+				android:layout_width="match_parent"
+				android:layout_height="wrap_content"
+			>
+
+				<TextView
+
+					android:layout_width="wrap_content"
+					android:layout_height="wrap_content"
+					android:text="Radio: "/>
+			
+			<TextView
+				android:id="@+id/radio"
+				android:layout_width="wrap_content"
+				android:layout_height="wrap_content"
+				android:layout_marginLeft="5dp"/>
+			</LinearLayout>
+			
+			<LinearLayout
+				
+				android:layout_width="match_parent"
+				android:layout_height="wrap_content"
+			>
+
+				<TextView
+
+					android:layout_width="wrap_content"
+					android:layout_height="wrap_content"
+					android:text="Board: "/>
+			
+			<TextView
+				android:id="@+id/board"
+				android:layout_width="wrap_content"
+				android:layout_height="wrap_content"
+				android:layout_marginLeft="5dp"/>
+			</LinearLayout>
+			
+			<LinearLayout
+				
+				android:layout_width="match_parent"
+				android:layout_height="wrap_content"
+			>
+
+				<TextView
+
+					android:layout_width="wrap_content"
+					android:layout_height="wrap_content"
+					android:text="Brand:"/>
+			
+			<TextView
+				android:id="@+id/brand"
+				android:layout_width="wrap_content"
+				android:layout_height="wrap_content"
+				android:layout_marginLeft="5dp"/>
+			</LinearLayout>
+			
+			<LinearLayout
+				
+				android:layout_width="match_parent"
+				android:layout_height="wrap_content"
+			>
+
+				<TextView
+
+					android:layout_width="wrap_content"
+					android:layout_height="wrap_content"
+					android:text="Device: "/>
+			
+			<TextView
+				android:id="@+id/device"
+				android:layout_width="wrap_content"
+				android:layout_height="wrap_content"
+				android:layout_marginLeft="5dp"/>
+			</LinearLayout>
+			
+			<LinearLayout
+				
+				android:layout_width="match_parent"
+				android:layout_height="wrap_content"
+			>
+
+				<TextView
+
+					android:layout_width="wrap_content"
+					android:layout_height="wrap_content"
+					android:text="Dysplay: "/>
+			
+			<TextView
+				android:id="@+id/display"
+				android:layout_width="wrap_content"
+				android:layout_height="wrap_content"
+				android:layout_marginLeft="5dp"/>
+			</LinearLayout>
+			
+			<LinearLayout
+				
+				android:layout_width="match_parent"
+				android:layout_height="wrap_content"
+			>
+
+				<TextView
+
+					android:layout_width="wrap_content"
+					android:layout_height="wrap_content"
+					android:text="Fingerprint:"/>
+			
+			<TextView
+				android:id="@+id/fingerprint"
+				android:layout_width="wrap_content"
+				android:layout_height="wrap_content"
+				android:layout_marginLeft="5dp"/>
+			</LinearLayout>
+			
+			<LinearLayout
+				
+				android:layout_width="match_parent"
+				android:layout_height="wrap_content"
+			>
+
+				<TextView
+
+					android:layout_width="wrap_content"
+					android:layout_height="wrap_content"
+					android:text="Host:"/>
+			
+			<TextView
+				android:id="@+id/host"
+				android:layout_width="wrap_content"
+				android:layout_height="wrap_content"
+				android:layout_marginLeft="5dp"/>
+			</LinearLayout>
+			
+			<LinearLayout
+				
+				android:layout_width="match_parent"
+				android:layout_height="wrap_content"
+			>
+
+				<TextView
+
+					android:layout_width="wrap_content"
+					android:layout_height="wrap_content"
+					android:text="ID:"/>
+			
+			<TextView
+				android:id="@+id/id"
+				android:layout_width="wrap_content"
+				android:layout_height="wrap_content"
+				android:layout_marginLeft="5dp"/>
+			</LinearLayout>
+			
+			<LinearLayout
+				
+				android:layout_width="match_parent"
+				android:layout_height="wrap_content"
+			>
+
+				<TextView
+
+					android:layout_width="wrap_content"
+					android:layout_height="wrap_content"
+					android:text="Model: "/>
+			
+			<TextView
+				android:id="@+id/model"
+				android:layout_width="wrap_content"
+				android:layout_height="wrap_content"
+				android:layout_marginLeft="5dp"/>
+			</LinearLayout>
+			
+			<LinearLayout
+				
+				android:layout_width="match_parent"
+				android:layout_height="wrap_content"
+			>
+
+				<TextView
+
+					android:layout_width="wrap_content"
+					android:layout_height="wrap_content"
+					android:text="Product: "/>
+			
+			<TextView
+				android:id="@+id/product"
+				android:layout_width="wrap_content"
+				android:layout_height="wrap_content"
+				android:layout_marginLeft="5dp"/>
+			</LinearLayout>
+			
+			<LinearLayout
+				
+				android:layout_width="match_parent"
+				android:layout_height="wrap_content"
+			>
+
+				<TextView
+
+					android:layout_width="wrap_content"
+					android:layout_height="wrap_content"
+					android:text="Tags:"/>
+			
+			<TextView
+				android:id="@+id/tags"
+				android:layout_width="wrap_content"
+				android:layout_height="wrap_content"
+				android:layout_marginLeft="5dp"/>
+			</LinearLayout>
+			
+			<LinearLayout
+				
+				android:layout_width="match_parent"
+				android:layout_height="wrap_content"
+			>
+
+				<TextView
+
+					android:layout_width="wrap_content"
+					android:layout_height="wrap_content"
+					android:text="Type:"/>
+			
+			<TextView
+				android:id="@+id/type"
+				android:layout_width="wrap_content"
+				android:layout_height="wrap_content"
+				android:layout_marginLeft="5dp"/>
+			</LinearLayout>
+			
+			<LinearLayout
+				
+				android:layout_width="match_parent"
+				android:layout_height="wrap_content"
+			>
+
+				<TextView
+
+					android:layout_width="wrap_content"
+					android:layout_height="wrap_content"
+					android:text="User:"/>
+			
+			<TextView
+				android:id="@+id/user"
+				android:layout_width="wrap_content"
+				android:layout_height="wrap_content"
+				android:layout_marginLeft="5dp"/>
+			</LinearLayout>
+			
+			<ImageView
+                android:id="@+id/fastcharge_head_image"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:scaleType="fitXY"
+                android:src="@drawable/divider_strong_holo" />
+			
+			<LinearLayout
+				
+				android:layout_width="match_parent"
+				android:layout_height="wrap_content"
+			>
+
+				<TextView
+
+					android:layout_width="wrap_content"
+					android:layout_height="wrap_content"
+					android:text="Installed Applications:"/>
+			
+			<TextView
+				android:id="@+id/userApps"
+				android:layout_width="wrap_content"
+				android:layout_height="wrap_content"
+				android:layout_marginLeft="5dp"/>
+			</LinearLayout>
+			
+			<LinearLayout
+				
+				android:layout_width="match_parent"
+				android:layout_height="wrap_content"
+			>
+
+				<TextView
+
+					android:layout_width="wrap_content"
+					android:layout_height="wrap_content"
+					android:text="System Applications:"/>
+			
+			<TextView
+				android:id="@+id/systemApps"
+				android:layout_width="wrap_content"
+				android:layout_height="wrap_content"
+				android:layout_marginLeft="5dp"/>
+			</LinearLayout>
+			<ImageView
+                android:id="@+id/fastcharge_head_image"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:scaleType="fitXY"
+                android:src="@drawable/divider_strong_holo" />
+			<LinearLayout
+				
+				android:layout_width="match_parent"
+				android:layout_height="wrap_content"
+			>
+
+				<TextView
+
+					android:layout_width="wrap_content"
+					android:layout_height="wrap_content"
+					android:text="Screen Resoulution:"/>
+			
+			<TextView
+				android:id="@+id/screenResolution"
+				android:layout_width="wrap_content"
+				android:layout_height="wrap_content"
+				android:layout_marginLeft="5dp"/>
+			</LinearLayout>
+			
+			<LinearLayout
+				
+				android:layout_width="match_parent"
+				android:layout_height="wrap_content"
+			>
+
+				<TextView
+
+					android:layout_width="wrap_content"
+					android:layout_height="wrap_content"
+					android:text="Screen Refresh Rate:"/>
+			
+			<TextView
+				android:id="@+id/screenRefreshRate"
+				android:layout_width="wrap_content"
+				android:layout_height="wrap_content"
+				android:layout_marginLeft="5dp"/>
+			</LinearLayout>
+			
+			<LinearLayout
+				
+				android:layout_width="match_parent"
+				android:layout_height="wrap_content"
+			>
+
+				<TextView
+
+					android:layout_width="wrap_content"
+					android:layout_height="wrap_content"
+					android:text="Screen Density:"/>
+			
+			<TextView
+				android:id="@+id/screenDensity"
+				android:layout_width="wrap_content"
+				android:layout_height="wrap_content"
+				android:layout_marginLeft="5dp"/>
+			</LinearLayout>
+			
+			<LinearLayout
+				
+				android:layout_width="match_parent"
+				android:layout_height="wrap_content"
+			>
+
+				<TextView
+
+					android:layout_width="wrap_content"
+					android:layout_height="wrap_content"
+					android:text="Screen PPI"/>
+			
+			<TextView
+				android:id="@+id/screenPPI"
+				android:layout_width="wrap_content"
+				android:layout_height="wrap_content"
+				android:layout_marginLeft="5dp"/>
+			</LinearLayout>
+			<ImageView
+                android:id="@+id/fastcharge_head_image"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:scaleType="fitXY"
+                android:src="@drawable/divider_strong_holo" />
+			<TextView
+				android:id="@+id/kernel"
+				android:layout_width="match_parent"
+				android:layout_height="wrap_content"
+				/>
+			
+		</LinearLayout>
+		
+	</ScrollView>

@@ -1,0 +1,970 @@
+<?xml version="1.0" encoding="utf-8"?>
+<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+    android:id="@+id/scrollView2"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:layout_alignParentLeft="true"
+    android:layout_alignParentTop="true" >
+
+    <!--
+        <HorizontalScrollView
+            android:id="@+id/horizontalScrollView1"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_weight="1" >
+
+            <RadioGroup
+                android:id="@+id/radioGroup1"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:orientation="horizontal" >
+
+                <RadioButton
+                    android:id="@+id/orientation"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:checked="true"
+                    android:text="Orientation" />
+
+                <RadioButton
+                    android:id="@+id/accelerometer"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="Accelerometer" />
+
+                <RadioButton
+                    android:id="@+id/temperature"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="Temperature" />
+
+                <RadioButton
+                    android:id="@+id/gravity"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="Gravity" />
+
+                <RadioButton
+                    android:id="@+id/gyroscoper"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="Gyroscoper" />
+
+                <RadioButton
+                    android:id="@+id/light"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="Light" />
+
+                <RadioButton
+                    android:id="@+id/magnetic"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="Magnetic" />
+
+                <RadioButton
+                    android:id="@+id/pressure"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="Pressure" />
+
+                <RadioButton
+                    android:id="@+id/proximity"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="Proximity" />
+
+                <RadioButton
+                    android:id="@+id/humidity"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="Humidity" />
+            </RadioGroup>
+        </HorizontalScrollView>
+    -->
+
+
+    <!--
+        <LinearLayout
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent"
+            android:layout_margin="2dp"
+            android:layout_weight="1"
+            android:orientation="vertical" >
+
+            <TextView
+                android:id="@+id/textView5"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="ORIENTATION"
+                android:textAppearance="?android:attr/textAppearanceLarge" />
+
+            <TextView
+                android:id="@+id/textView2"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="TextView" />
+
+            <TextView
+                android:id="@+id/textView1"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="TextView" />
+
+            <LinearLayout
+                android:id="@+id/LinearLayout2"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content" >
+
+                <TextView
+                    android:id="@+id/textView7"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="TextView" />
+
+                <ProgressBar
+                    android:id="@+id/progressBar1"
+                    style="?android:attr/progressBarStyleHorizontal"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content" />
+            </LinearLayout>
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content" >
+
+                <TextView
+                    android:id="@+id/textView8"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="TextView" />
+
+                <ProgressBar
+                    android:id="@+id/progressBar2"
+                    style="?android:attr/progressBarStyleHorizontal"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content" />
+            </LinearLayout>
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content" >
+
+                <TextView
+                    android:id="@+id/textView9"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="TextView" />
+
+                <ProgressBar
+                    android:id="@+id/progressBar3"
+                    style="?android:attr/progressBarStyleHorizontal"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content" />
+            </LinearLayout>
+        </LinearLayout>
+        
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content" >
+
+            <ToggleButton
+                android:id="@+id/orientationToggle"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:textOff="Orientation"
+                android:textOn="Orientation" />
+
+            <ToggleButton
+                android:id="@+id/accelerationToggle"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:textOff="Acceleration"
+                android:textOn="Acceleration"/>
+            <ToggleButton
+                android:id="@+id/magneticToggle"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:textOff="Magnetic"
+                android:textOn="Magnetic" />
+            <ToggleButton
+                android:id="@+id/lightToggle"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Light" />
+            <ToggleButton
+                android:id="@+id/proximityToggle"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Proximity" />
+            <ToggleButton
+                android:id="@+id/humidityToggle"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Humidity" />
+            <ToggleButton
+                android:id="@+id/pressureToggle"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Pressure" />
+            <ToggleButton
+                android:id="@+id/temperatureToggle"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Temperature" />
+            <ToggleButton
+                android:id="@+id/gravityToggle"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Gravity" />
+            <ToggleButton
+                android:id="@+id/gyroscopeToggle"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Gyroscope" />
+
+        </LinearLayout>
+    -->
+
+    <LinearLayout
+        android:id="@+id/LinearLayout1"
+        android:layout_width="fill_parent"
+        android:layout_height="fill_parent"
+        android:orientation="vertical" >
+
+        
+
+        <TextView
+            android:id="@+id/textView1"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="ORIENTATION"
+            android:textAppearance="?android:attr/textAppearanceMedium" />
+
+        <ImageView
+            android:id="@+id/backlight_head_image"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_alignParentLeft="true"
+            android:layout_below="@+id/backlight_head"
+            android:layout_marginBottom="8dp"
+            android:scaleType="fitXY"
+            android:src="@drawable/divider_strong_holo" />
+
+        <LinearLayout
+            android:id="@+id/oriLayout"
+            android:layout_width="fill_parent"
+            android:layout_height="fill_parent"
+            android:orientation="vertical"
+            android:layout_marginRight="5dp"
+             android:layout_marginLeft="5dp" >
+
+            <TextView
+                android:id="@+id/TextView_oriHead"
+                android:layout_width="fill_parent"
+                android:layout_height="wrap_content"
+                android:text="No Sensor found" />
+
+            <TextView
+                android:id="@+id/oriAccuracy"
+                android:layout_width="fill_parent"
+                android:layout_height="wrap_content" >
+            </TextView>
+
+            <LinearLayout
+                android:id="@+id/LinearLayout05"
+                android:layout_width="fill_parent"
+                android:layout_height="wrap_content" >
+
+                <TextView
+                    android:id="@+id/TextView_oriA"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:width="60px" />
+
+                <ProgressBar
+                    android:id="@+id/ProgressBar_oriA"
+                    style="?android:attr/progressBarStyleHorizontal"
+                    android:layout_width="fill_parent"
+                    android:layout_height="wrap_content" />
+            </LinearLayout>
+
+            <LinearLayout
+                android:id="@+id/LinearLayout06"
+                android:layout_width="fill_parent"
+                android:layout_height="wrap_content" >
+
+                <TextView
+                    android:id="@+id/TextView_oriB"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:width="60px" />
+
+                <ProgressBar
+                    android:id="@+id/ProgressBar_oriB"
+                    style="?android:attr/progressBarStyleHorizontal"
+                    android:layout_width="fill_parent"
+                    android:layout_height="wrap_content" />
+            </LinearLayout>
+
+            <LinearLayout
+                android:id="@+id/LinearLayout07"
+                android:layout_width="fill_parent"
+                android:layout_height="wrap_content" >
+
+                <TextView
+                    android:id="@+id/TextView_oriC"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:width="60px" />
+
+                <ProgressBar
+                    android:id="@+id/ProgressBar_oriC"
+                    style="?android:attr/progressBarStyleHorizontal"
+                    android:layout_width="fill_parent"
+                    android:layout_height="wrap_content" />
+            </LinearLayout>
+        </LinearLayout>
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="ACCELERATION"
+            android:layout_marginTop="8dp"
+            android:textAppearance="?android:attr/textAppearanceMedium" />
+
+        <ImageView
+            android:id="@+id/backlight_head_image"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_alignParentLeft="true"
+            android:layout_below="@+id/backlight_head"
+            android:layout_marginBottom="8dp"
+            android:scaleType="fitXY"
+            android:src="@drawable/divider_strong_holo" />
+        
+        <LinearLayout
+            android:id="@+id/accLayout"
+            android:layout_width="fill_parent"
+            android:layout_height="fill_parent"
+            android:orientation="vertical"
+            android:layout_marginRight="5dp"
+             android:layout_marginLeft="5dp" >
+
+            <TextView
+                android:id="@+id/TextView_accHead"
+                android:layout_width="fill_parent"
+                android:layout_height="wrap_content"
+                android:text="No Sensor found" />
+
+            <TextView
+                android:id="@+id/accAccuracy"
+                android:layout_width="fill_parent"
+                android:layout_height="wrap_content" >
+            </TextView>
+
+            <LinearLayout
+                android:id="@+id/LinearLayout08"
+                android:layout_width="fill_parent"
+                android:layout_height="wrap_content" >
+
+                <TextView
+                    android:id="@+id/TextView_accA"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:width="60px" />
+
+                <ProgressBar
+                    android:id="@+id/ProgressBar_accA"
+                    style="?android:attr/progressBarStyleHorizontal"
+                    android:layout_width="fill_parent"
+                    android:layout_height="wrap_content" />
+            </LinearLayout>
+
+            <LinearLayout
+                android:id="@+id/LinearLayout09"
+                android:layout_width="fill_parent"
+                android:layout_height="wrap_content" >
+
+                <TextView
+                    android:id="@+id/TextView_accB"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:width="60px" />
+
+                <ProgressBar
+                    android:id="@+id/ProgressBar_accB"
+                    style="?android:attr/progressBarStyleHorizontal"
+                    android:layout_width="fill_parent"
+                    android:layout_height="wrap_content" />
+            </LinearLayout>
+
+            <LinearLayout
+                android:id="@+id/LinearLayout10"
+                android:layout_width="fill_parent"
+                android:layout_height="wrap_content" >
+
+                <TextView
+                    android:id="@+id/TextView_accC"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:width="60px" />
+
+                <ProgressBar
+                    android:id="@+id/ProgressBar_accC"
+                    style="?android:attr/progressBarStyleHorizontal"
+                    android:layout_width="fill_parent"
+                    android:layout_height="wrap_content" />
+            </LinearLayout>
+        </LinearLayout>
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="MAGNETIC"
+            android:layout_marginTop="8dp"
+            android:textAppearance="?android:attr/textAppearanceMedium" />
+
+        <ImageView
+            android:id="@+id/backlight_head_image"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_alignParentLeft="true"
+            android:layout_below="@+id/backlight_head"
+            android:layout_marginBottom="8dp"
+            android:scaleType="fitXY"
+            android:src="@drawable/divider_strong_holo" />
+        
+        <LinearLayout
+            android:id="@+id/magLayout"
+            android:layout_width="fill_parent"
+            android:layout_height="fill_parent"
+            android:orientation="vertical"
+            android:layout_marginRight="5dp"
+             android:layout_marginLeft="5dp" >
+
+            <TextView
+                android:id="@+id/TextView_magHead"
+                android:layout_width="fill_parent"
+                android:layout_height="wrap_content"
+                android:text="No Sensor found" />
+
+            <TextView
+                android:id="@+id/magAccuracy"
+                android:layout_width="fill_parent"
+                android:layout_height="wrap_content" >
+            </TextView>
+
+            <LinearLayout
+                android:id="@+id/LinearLayout11"
+                android:layout_width="fill_parent"
+                android:layout_height="wrap_content" >
+
+                <TextView
+                    android:id="@+id/TextView_magA"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:width="60px" />
+
+                <ProgressBar
+                    android:id="@+id/ProgressBar_magA"
+                    style="?android:attr/progressBarStyleHorizontal"
+                    android:layout_width="fill_parent"
+                    android:layout_height="wrap_content" />
+            </LinearLayout>
+
+            <LinearLayout
+                android:id="@+id/LinearLayout12"
+                android:layout_width="fill_parent"
+                android:layout_height="wrap_content" >
+
+                <TextView
+                    android:id="@+id/TextView_magB"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:width="60px" />
+
+                <ProgressBar
+                    android:id="@+id/ProgressBar_magB"
+                    style="?android:attr/progressBarStyleHorizontal"
+                    android:layout_width="fill_parent"
+                    android:layout_height="wrap_content" />
+            </LinearLayout>
+
+            <LinearLayout
+                android:id="@+id/LinearLayout13"
+                android:layout_width="fill_parent"
+                android:layout_height="wrap_content" >
+
+                <TextView
+                    android:id="@+id/TextView_magC"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:width="60px" />
+
+                <ProgressBar
+                    android:id="@+id/ProgressBar_magC"
+                    style="?android:attr/progressBarStyleHorizontal"
+                    android:layout_width="fill_parent"
+                    android:layout_height="wrap_content" />
+            </LinearLayout>
+        </LinearLayout>
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="LIGHT"
+            android:layout_marginTop="8dp"
+            android:textAppearance="?android:attr/textAppearanceMedium" />
+
+        <ImageView
+            android:id="@+id/backlight_head_image"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="8dp"
+            android:scaleType="fitXY"
+            android:src="@drawable/divider_strong_holo" />
+        
+        <LinearLayout
+            android:id="@+id/ligLayout"
+            android:layout_width="fill_parent"
+            android:layout_height="fill_parent"
+            android:orientation="vertical"
+            android:layout_marginRight="5dp"
+             android:layout_marginLeft="5dp" >
+
+            <TextView
+                android:id="@+id/TextView_ligHead"
+                android:layout_width="fill_parent"
+                android:layout_height="wrap_content"
+                android:text="No Sensor found" />
+
+            <TextView
+                android:id="@+id/ligAccuracy"
+                android:layout_width="fill_parent"
+                android:layout_height="wrap_content" >
+            </TextView>
+
+            <LinearLayout
+                android:id="@+id/LinearLayoutLightBar"
+                android:layout_width="fill_parent"
+                android:layout_height="wrap_content" >
+
+                <TextView
+                    android:id="@+id/TextView_ligA"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:width="50px" />
+
+                <ProgressBar
+                    android:id="@+id/ProgressBar_ligA"
+                    style="?android:attr/progressBarStyleHorizontal"
+                    android:layout_width="fill_parent"
+                    android:layout_height="wrap_content" />
+            </LinearLayout>
+        </LinearLayout>
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="PROXIMITY"
+            android:layout_marginTop="8dp"
+            android:textAppearance="?android:attr/textAppearanceMedium" />
+
+        <ImageView
+            android:id="@+id/backlight_head_image"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="8dp"
+            android:scaleType="fitXY"
+            android:src="@drawable/divider_strong_holo" />
+        
+        <LinearLayout
+            android:id="@+id/proxLayout"
+            android:layout_width="fill_parent"
+            android:layout_height="fill_parent"
+            android:orientation="vertical"
+            android:layout_marginRight="5dp"
+             android:layout_marginLeft="5dp" >
+
+            <TextView
+                android:id="@+id/TextView_proxHead"
+                android:layout_width="fill_parent"
+                android:layout_height="wrap_content"
+                android:text="No Sensor found" />
+
+            <TextView
+                android:id="@+id/proxAccuracy"
+                android:layout_width="fill_parent"
+                android:layout_height="wrap_content" >
+            </TextView>
+
+            <LinearLayout
+                android:id="@+id/LinearLayoutProxBar"
+                android:layout_width="fill_parent"
+                android:layout_height="wrap_content" >
+
+                <TextView
+                    android:id="@+id/TextView_proxA"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:width="50px" />
+
+                <ProgressBar
+                    android:id="@+id/ProgressBar_proxA"
+                    style="?android:attr/progressBarStyleHorizontal"
+                    android:layout_width="fill_parent"
+                    android:layout_height="wrap_content" />
+            </LinearLayout>
+        </LinearLayout>
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="PRESSURE"
+            android:layout_marginTop="8dp"
+            android:textAppearance="?android:attr/textAppearanceMedium" />
+
+        <ImageView
+            android:id="@+id/backlight_head_image"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="8dp"
+            android:scaleType="fitXY"
+            android:src="@drawable/divider_strong_holo" />
+        
+        <LinearLayout
+            android:id="@+id/pressLayout"
+            android:layout_width="fill_parent"
+            android:layout_height="fill_parent"
+            android:orientation="vertical"
+            android:layout_marginRight="5dp"
+             android:layout_marginLeft="5dp" >
+
+            <TextView
+                android:id="@+id/TextView_presHead"
+                android:layout_width="fill_parent"
+                android:layout_height="wrap_content"
+                android:text="No Sensor found" />
+
+            <TextView
+                android:id="@+id/presAccuracy"
+                android:layout_width="fill_parent"
+                android:layout_height="wrap_content" >
+            </TextView>
+
+            <LinearLayout
+                android:id="@+id/LinearLayoutPresBar"
+                android:layout_width="fill_parent"
+                android:layout_height="wrap_content" >
+
+                <TextView
+                    android:id="@+id/TextView_presA"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:width="50px" />
+
+                <ProgressBar
+                    android:id="@+id/ProgressBar_presA"
+                    style="?android:attr/progressBarStyleHorizontal"
+                    android:layout_width="fill_parent"
+                    android:layout_height="wrap_content" />
+            </LinearLayout>
+        </LinearLayout>
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="TEMPERATURE"
+            android:layout_marginTop="8dp"
+            android:textAppearance="?android:attr/textAppearanceMedium" />
+
+        <ImageView
+            android:id="@+id/backlight_head_image"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="8dp"
+            android:scaleType="fitXY"
+            android:src="@drawable/divider_strong_holo" />
+        
+        <LinearLayout
+            android:id="@+id/tempLayout"
+            android:layout_width="fill_parent"
+            android:layout_height="fill_parent"
+            android:orientation="vertical"
+            android:layout_marginRight="5dp"
+             android:layout_marginLeft="5dp" >
+
+            <TextView
+                android:id="@+id/TextView_tempHead"
+                android:layout_width="fill_parent"
+                android:layout_height="wrap_content"
+                android:text="No Sensor found" />
+
+            <TextView
+                android:id="@+id/tempAccuracy"
+                android:layout_width="fill_parent"
+                android:layout_height="wrap_content" >
+            </TextView>
+
+            <LinearLayout
+                android:id="@+id/LinearLayoutTempBar"
+                android:layout_width="fill_parent"
+                android:layout_height="wrap_content" >
+
+                <TextView
+                    android:id="@+id/TextView_tempA"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:width="50px" />
+
+                <ProgressBar
+                    android:id="@+id/ProgressBar_tempA"
+                    style="?android:attr/progressBarStyleHorizontal"
+                    android:layout_width="fill_parent"
+                    android:layout_height="wrap_content" />
+            </LinearLayout>
+        </LinearLayout>
+        
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="GRAVITY"
+            android:layout_marginTop="8dp"
+            android:textAppearance="?android:attr/textAppearanceMedium" />
+
+        <ImageView
+            android:id="@+id/backlight_head_image"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_alignParentLeft="true"
+            android:layout_below="@+id/backlight_head"
+            android:layout_marginBottom="8dp"
+            android:scaleType="fitXY"
+            android:src="@drawable/divider_strong_holo" />
+        
+        <LinearLayout
+            android:id="@+id/gravLayout"
+            android:layout_width="fill_parent"
+            android:layout_height="fill_parent"
+            android:orientation="vertical"
+            android:layout_marginRight="5dp"
+             android:layout_marginLeft="5dp" >
+
+            <TextView
+                android:id="@+id/TextView_gravHead"
+                android:layout_width="fill_parent"
+                android:layout_height="wrap_content"
+                android:text="No Sensor found" />
+
+            <TextView
+                android:id="@+id/gravAccuracy"
+                android:layout_width="fill_parent"
+                android:layout_height="wrap_content" >
+            </TextView>
+
+            <LinearLayout
+                
+                android:layout_width="fill_parent"
+                android:layout_height="wrap_content" >
+
+                <TextView
+                    android:id="@+id/TextView_gravA"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:width="60px" />
+
+                <ProgressBar
+                    android:id="@+id/ProgressBar_gravA"
+                    style="?android:attr/progressBarStyleHorizontal"
+                    android:layout_width="fill_parent"
+                    android:layout_height="wrap_content" />
+            </LinearLayout>
+
+            <LinearLayout
+                android:id="@+id/LinearLayout12"
+                android:layout_width="fill_parent"
+                android:layout_height="wrap_content" >
+
+                <TextView
+                    android:id="@+id/TextView_gravB"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:width="60px" />
+
+                <ProgressBar
+                    android:id="@+id/ProgressBar_gravB"
+                    style="?android:attr/progressBarStyleHorizontal"
+                    android:layout_width="fill_parent"
+                    android:layout_height="wrap_content" />
+            </LinearLayout>
+
+            <LinearLayout
+                android:id="@+id/LinearLayout13"
+                android:layout_width="fill_parent"
+                android:layout_height="wrap_content" >
+
+                <TextView
+                    android:id="@+id/TextView_gravC"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:width="60px" />
+
+                <ProgressBar
+                    android:id="@+id/ProgressBar_gravC"
+                    style="?android:attr/progressBarStyleHorizontal"
+                    android:layout_width="fill_parent"
+                    android:layout_height="wrap_content" />
+            </LinearLayout>
+        </LinearLayout>
+        
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="GYROSCOPE"
+            android:layout_marginTop="8dp"
+            android:textAppearance="?android:attr/textAppearanceMedium" />
+
+        <ImageView
+            android:id="@+id/backlight_head_image"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_alignParentLeft="true"
+            android:layout_below="@+id/backlight_head"
+            android:layout_marginBottom="8dp"
+            android:scaleType="fitXY"
+            android:src="@drawable/divider_strong_holo" />
+        
+        <LinearLayout
+            android:id="@+id/gyrLayout"
+            android:layout_width="fill_parent"
+            android:layout_height="fill_parent"
+            android:orientation="vertical"
+            android:layout_marginRight="5dp"
+             android:layout_marginLeft="5dp" >
+
+            <TextView
+                android:id="@+id/TextView_gyrHead"
+                android:layout_width="fill_parent"
+                android:layout_height="wrap_content"
+                android:text="No Sensor found" />
+
+            <TextView
+                android:id="@+id/gyrAccuracy"
+                android:layout_width="fill_parent"
+                android:layout_height="wrap_content" >
+            </TextView>
+
+            <LinearLayout
+                android:id="@+id/LinearLayout11"
+                android:layout_width="fill_parent"
+                android:layout_height="wrap_content" >
+
+                <TextView
+                    android:id="@+id/TextView_gyrA"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:width="60px" />
+
+                <ProgressBar
+                    android:id="@+id/ProgressBar_gyrA"
+                    style="?android:attr/progressBarStyleHorizontal"
+                    android:layout_width="fill_parent"
+                    android:layout_height="wrap_content" />
+            </LinearLayout>
+
+            <LinearLayout
+                android:id="@+id/LinearLayout12"
+                android:layout_width="fill_parent"
+                android:layout_height="wrap_content" >
+
+                <TextView
+                    android:id="@+id/TextView_gyrB"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:width="60px" />
+
+                <ProgressBar
+                    android:id="@+id/ProgressBar_gyrB"
+                    style="?android:attr/progressBarStyleHorizontal"
+                    android:layout_width="fill_parent"
+                    android:layout_height="wrap_content" />
+            </LinearLayout>
+
+            <LinearLayout
+                android:id="@+id/LinearLayout13"
+                android:layout_width="fill_parent"
+                android:layout_height="wrap_content" >
+
+                <TextView
+                    android:id="@+id/TextView_gyrC"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:width="60px" />
+
+                <ProgressBar
+                    android:id="@+id/ProgressBar_gyrC"
+                    style="?android:attr/progressBarStyleHorizontal"
+                    android:layout_width="fill_parent"
+                    android:layout_height="wrap_content" />
+            </LinearLayout>
+        </LinearLayout>
+        
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="RELATIVE HUMIDITY"
+            android:layout_marginTop="8dp"
+            android:textAppearance="?android:attr/textAppearanceMedium" />
+
+        <ImageView
+            android:id="@+id/backlight_head_image"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="8dp"
+            android:scaleType="fitXY"
+            android:src="@drawable/divider_strong_holo" />
+        
+        <LinearLayout
+            android:id="@+id/humLayout"
+            android:layout_width="fill_parent"
+            android:layout_height="fill_parent"
+            android:orientation="vertical"
+            android:layout_marginRight="5dp"
+             android:layout_marginLeft="5dp" >
+
+            <TextView
+                android:id="@+id/TextView_humHead"
+                android:layout_width="fill_parent"
+                android:layout_height="wrap_content"
+                android:text="No Sensor found" />
+
+            <TextView
+                android:id="@+id/humAccuracy"
+                android:layout_width="fill_parent"
+                android:layout_height="wrap_content" >
+            </TextView>
+
+            <LinearLayout
+                android:id="@+id/LinearLayouthumBar"
+                android:layout_width="fill_parent"
+                android:layout_height="wrap_content" >
+
+                <TextView
+                    android:id="@+id/TextView_humA"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:width="50px" />
+
+                <ProgressBar
+                    android:id="@+id/ProgressBar_humA"
+                    style="?android:attr/progressBarStyleHorizontal"
+                    android:layout_width="fill_parent"
+                    android:layout_height="wrap_content" />
+            </LinearLayout>
+        </LinearLayout>
+        
+    </LinearLayout>
+
+</ScrollView>
