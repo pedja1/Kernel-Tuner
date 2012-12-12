@@ -1,11 +1,12 @@
 package rs.pedjaapps.KernelTuner;
 
 import java.io.BufferedReader;
-import java.io.DataOutputStream;
 import java.io.File;
 import java.io.FileInputStream;
 import java.io.IOException;
+import java.io.InputStream;
 import java.io.InputStreamReader;
+import java.io.OutputStream;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -16,6 +17,7 @@ import android.content.SharedPreferences;
 import android.os.AsyncTask;
 import android.os.Bundle;
 import android.preference.PreferenceManager;
+import android.util.Log;
 import android.view.View;
 import android.view.WindowManager;
 import android.widget.AdapterView;
@@ -75,52 +77,52 @@ public class Thermald extends SherlockActivity
 		@Override
 		protected Object doInBackground(String... args)
 		{
-			
+			try {
+	            String line;
+	            Process process = Runtime.getRuntime().exec("su");
+	            OutputStream stdin = process.getOutputStream();
+	            InputStream stderr = process.getErrorStream();
+	            InputStream stdout = process.getInputStream();
+
+	            stdin.write(("chmod 777 /sys/kernel/msm_thermal/conf/allowed_low_freq\n").getBytes());
+				stdin.write(("chmod 777 /sys/kernel/msm_thermal/conf/allowed_mid_freq\n").getBytes());
+				stdin.write(("chmod 777 /sys/kernel/msm_thermal/conf/allowed_max_freq\n").getBytes());
+				stdin.write(("chmod 777 /sys/kernel/msm_thermal/conf/allowed_low_low\n").getBytes());
+				stdin.write(("chmod 777 /sys/kernel/msm_thermal/conf/allowed_low_high\n").getBytes());
+				stdin.write(("chmod 777 /sys/kernel/msm_thermal/conf/allowed_mid_low\n").getBytes());
+				stdin.write(("chmod 777 /sys/kernel/msm_thermal/conf/allowed_mid_high\n").getBytes());
+				stdin.write(("chmod 777 /sys/kernel/msm_thermal/conf/allowed_max_low\n").getBytes());
+				stdin.write(("chmod 777 /sys/kernel/msm_thermal/conf/allowed_max_high\n").getBytes());
 
 
+				stdin.write(("echo " + p1freqnew + " > /sys/kernel/msm_thermal/conf/allowed_low_freq\n").getBytes());
+				stdin.write(("echo " + p2freqnew + " > /sys/kernel/msm_thermal/conf/allowed_mid_freq\n").getBytes());
+				stdin.write(("echo " + p3freqnew + " > /sys/kernel/msm_thermal/conf/allowed_max_freq\n").getBytes());
+				stdin.write(("echo " + p1lownew + " > /sys/kernel/msm_thermal/conf/allowed_low_low\n").getBytes());
+				stdin.write(("echo " + p1highnew + " > /sys/kernel/msm_thermal/conf/allowed_low_high\n").getBytes());
+				stdin.write(("echo " + p2lownew + " > /sys/kernel/msm_thermal/conf/allowed_mid_low\n").getBytes());
+				stdin.write(("echo " + p2highnew + " > /sys/kernel/msm_thermal/conf/allowed_mid_high\n").getBytes());
+				stdin.write(("echo " + p3lownew + " > /sys/kernel/msm_thermal/conf/allowed_max_low\n").getBytes());
+				stdin.write(("echo " + p3highnew + " > /sys/kernel/msm_thermal/conf/allowed_max_high\n").getBytes());
 
-			Process localProcess;
-	   		try
-			{
-				localProcess = Runtime.getRuntime().exec("su");
+	            stdin.flush();
 
-				DataOutputStream localDataOutputStream = new DataOutputStream(localProcess.getOutputStream());
-				localDataOutputStream.writeBytes("chmod 777 /sys/kernel/msm_thermal/conf/allowed_low_freq\n");
-				localDataOutputStream.writeBytes("chmod 777 /sys/kernel/msm_thermal/conf/allowed_mid_freq\n");
-				localDataOutputStream.writeBytes("chmod 777 /sys/kernel/msm_thermal/conf/allowed_max_freq\n");
-				localDataOutputStream.writeBytes("chmod 777 /sys/kernel/msm_thermal/conf/allowed_low_low\n");
-				localDataOutputStream.writeBytes("chmod 777 /sys/kernel/msm_thermal/conf/allowed_low_high\n");
-				localDataOutputStream.writeBytes("chmod 777 /sys/kernel/msm_thermal/conf/allowed_mid_low\n");
-				localDataOutputStream.writeBytes("chmod 777 /sys/kernel/msm_thermal/conf/allowed_mid_high\n");
-				localDataOutputStream.writeBytes("chmod 777 /sys/kernel/msm_thermal/conf/allowed_max_low\n");
-				localDataOutputStream.writeBytes("chmod 777 /sys/kernel/msm_thermal/conf/allowed_max_high\n");
+	            stdin.close();
+	            BufferedReader brCleanUp =
+	                    new BufferedReader(new InputStreamReader(stdout));
+	            while ((line = brCleanUp.readLine()) != null) {
+	                Log.d("[KernelTuner Thermal Output]", line);
+	            }
+	            brCleanUp.close();
+	            brCleanUp =
+	                    new BufferedReader(new InputStreamReader(stderr));
+	            while ((line = brCleanUp.readLine()) != null) {
+	            	Log.e("[KernelTuner Thermal Error]", line);
+	            }
+	            brCleanUp.close();
 
-
-				localDataOutputStream.writeBytes("echo " + p1freqnew + " > /sys/kernel/msm_thermal/conf/allowed_low_freq\n");
-				localDataOutputStream.writeBytes("echo " + p2freqnew + " > /sys/kernel/msm_thermal/conf/allowed_mid_freq\n");
-				localDataOutputStream.writeBytes("echo " + p3freqnew + " > /sys/kernel/msm_thermal/conf/allowed_max_freq\n");
-				localDataOutputStream.writeBytes("echo " + p1lownew + " > /sys/kernel/msm_thermal/conf/allowed_low_low\n");
-				localDataOutputStream.writeBytes("echo " + p1highnew + " > /sys/kernel/msm_thermal/conf/allowed_low_high\n");
-				localDataOutputStream.writeBytes("echo " + p2lownew + " > /sys/kernel/msm_thermal/conf/allowed_mid_low\n");
-				localDataOutputStream.writeBytes("echo " + p2highnew + " > /sys/kernel/msm_thermal/conf/allowed_mid_high\n");
-				localDataOutputStream.writeBytes("echo " + p3lownew + " > /sys/kernel/msm_thermal/conf/allowed_max_low\n");
-				localDataOutputStream.writeBytes("echo " + p3highnew + " > /sys/kernel/msm_thermal/conf/allowed_max_high\n");
-
-				localDataOutputStream.writeBytes("exit\n");
-				localDataOutputStream.flush();
-				localDataOutputStream.close();
-				localProcess.waitFor();
-				localProcess.destroy();
-				System.out.println("Thermald: changing thermald");
-	   		}
-			catch (IOException e1)
-			{
-				new LogWriter().execute(new String[] {getClass().getName(), e1.getMessage()});
-			}
-			catch (InterruptedException e1)
-			{
-				new LogWriter().execute(new String[] {getClass().getName(), e1.getMessage()});
-			}
+	        } catch (IOException ex) {
+	        }
 
 			return "";
 		}

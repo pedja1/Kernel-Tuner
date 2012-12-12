@@ -5,7 +5,9 @@ import java.io.DataOutputStream;
 import java.io.File;
 import java.io.FileInputStream;
 import java.io.IOException;
+import java.io.InputStream;
 import java.io.InputStreamReader;
+import java.io.OutputStream;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
@@ -21,6 +23,7 @@ import android.os.AsyncTask;
 import android.os.Bundle;
 import android.os.Environment;
 import android.preference.PreferenceManager;
+import android.util.Log;
 import android.view.View;
 import android.view.View.OnClickListener;
 import android.view.WindowManager;
@@ -65,30 +68,34 @@ public class Swap extends SherlockActivity
 		@Override
 		protected Object doInBackground(String... args)
 		{
-			// Log.i("MyApp", "Background thread starting");
+			
+			try {
+	            String line;
+	            Process process = Runtime.getRuntime().exec("su");
+	            OutputStream stdin = process.getOutputStream();
+	            InputStream stderr = process.getErrorStream();
+	            InputStream stdout = process.getInputStream();
 
-			Process localProcess;
-			try
-			{
-				localProcess = Runtime.getRuntime().exec("su");
+	            stdin.write(("swapoff " + swapLocationCurrent.trim() + "\n").getBytes());
+	            
+	            stdin.flush();
 
-          		DataOutputStream localDataOutputStream = new DataOutputStream(localProcess.getOutputStream());
-				localDataOutputStream.writeBytes("swapoff " + swapLocationCurrent.trim() + "\n");
-				localDataOutputStream.writeBytes("exit\n");
-				localDataOutputStream.flush();
-				localDataOutputStream.close();
-				localProcess.waitFor();
-				localProcess.destroy();
-				System.out.println("Swap: Deactivating swap");
-			}
-			catch (IOException e1)
-			{
-				new LogWriter().execute(new String[] {getClass().getName(), e1.getMessage()});
-			}
-			catch (InterruptedException e1)
-			{
-				new LogWriter().execute(new String[] {getClass().getName(), e1.getMessage()});
-			}
+	            stdin.close();
+	            BufferedReader brCleanUp =
+	                    new BufferedReader(new InputStreamReader(stdout));
+	            while ((line = brCleanUp.readLine()) != null) {
+	                Log.d("[KernelTuner Swap Output]", line);
+	            }
+	            brCleanUp.close();
+	            brCleanUp =
+	                    new BufferedReader(new InputStreamReader(stderr));
+	            while ((line = brCleanUp.readLine()) != null) {
+	            	Log.e("[KernelTuner Swap Error]", line);
+	            }
+	            brCleanUp.close();
+
+	        } catch (IOException ex) {
+	        }
 
 			return "";
 		}
@@ -117,28 +124,33 @@ public class Swap extends SherlockActivity
 		protected Object doInBackground(String... args)
 		{
 
-			Process localProcess;
-			try
-			{
-				localProcess = Runtime.getRuntime().exec("su");
+			try {
+	            String line;
+	            Process process = Runtime.getRuntime().exec("su");
+	            OutputStream stdin = process.getOutputStream();
+	            InputStream stderr = process.getErrorStream();
+	            InputStream stdout = process.getInputStream();
 
-				DataOutputStream localDataOutputStream = new DataOutputStream(localProcess.getOutputStream());
-				localDataOutputStream.writeBytes("swapon " + swapLocationSelected.trim() + "/swap" + "\n");
-				localDataOutputStream.writeBytes("exit\n");
-				localDataOutputStream.flush();
-				localDataOutputStream.close();
-				localProcess.waitFor();
-				localProcess.destroy();
-				System.out.println("Swap: activating swap");
-			}
-			catch (IOException e1)
-			{
-				new LogWriter().execute(new String[] {getClass().getName(), e1.getMessage()});
-			}
-			catch (InterruptedException e1)
-			{
-				new LogWriter().execute(new String[] {getClass().getName(), e1.getMessage()});
-			}
+	            stdin.write(("swapon " + swapLocationSelected.trim() + "/swap" + "\n").getBytes());
+	            
+	            stdin.flush();
+
+	            stdin.close();
+	            BufferedReader brCleanUp =
+	                    new BufferedReader(new InputStreamReader(stdout));
+	            while ((line = brCleanUp.readLine()) != null) {
+	                Log.d("[KernelTuner Swap Output]", line);
+	            }
+	            brCleanUp.close();
+	            brCleanUp =
+	                    new BufferedReader(new InputStreamReader(stderr));
+	            while ((line = brCleanUp.readLine()) != null) {
+	            	Log.e("[KernelTuner Swap Error]", line);
+	            }
+	            brCleanUp.close();
+
+	        } catch (IOException ex) {
+	        }
 
 			return "";
 		}
@@ -163,30 +175,35 @@ public class Swap extends SherlockActivity
 
 		@Override
 		protected Object doInBackground(String... args)
-		{;
+		{
 
-			Process localProcess;
-			try
-			{
-				localProcess = Runtime.getRuntime().exec("su");
+			try {
+	            String line;
+	            Process process = Runtime.getRuntime().exec("su");
+	            OutputStream stdin = process.getOutputStream();
+	            InputStream stderr = process.getErrorStream();
+	            InputStream stdout = process.getInputStream();
 
-				DataOutputStream localDataOutputStream = new DataOutputStream(localProcess.getOutputStream());
-				localDataOutputStream.writeBytes("echo " + swappinessSelected + " > /proc/sys/vm/swappiness\n");
-				localDataOutputStream.writeBytes("exit\n");
-				localDataOutputStream.flush();
-				localDataOutputStream.close();
-				localProcess.waitFor();
-				localProcess.destroy();
-				System.out.println("Swap: sewtting swappiness");
-			}
-			catch (IOException e1)
-			{
-				new LogWriter().execute(new String[] {getClass().getName(), e1.getMessage()});;
-			}
-			catch (InterruptedException e1)
-			{
-				new LogWriter().execute(new String[] {getClass().getName(), e1.getMessage()});
-			}
+	            stdin.write(("echo " + swappinessSelected + " > /proc/sys/vm/swappiness\n").getBytes());
+	            
+	            stdin.flush();
+
+	            stdin.close();
+	            BufferedReader brCleanUp =
+	                    new BufferedReader(new InputStreamReader(stdout));
+	            while ((line = brCleanUp.readLine()) != null) {
+	                Log.d("[KernelTuner Swap Output]", line);
+	            }
+	            brCleanUp.close();
+	            brCleanUp =
+	                    new BufferedReader(new InputStreamReader(stderr));
+	            while ((line = brCleanUp.readLine()) != null) {
+	            	Log.e("[KernelTuner Swap Error]", line);
+	            }
+	            brCleanUp.close();
+
+	        } catch (IOException ex) {
+	        }
 
 			return "";
 		}
@@ -211,32 +228,35 @@ public class Swap extends SherlockActivity
 		@Override
 		protected Object doInBackground(String... args)
 		{
-			//Log.i("MyApp", "Background thread starting");
 
+			try {
+	            String line;
+	            Process process = Runtime.getRuntime().exec("su");
+	            OutputStream stdin = process.getOutputStream();
+	            InputStream stderr = process.getErrorStream();
+	            InputStream stdout = process.getInputStream();
 
-			Process localProcess;
-			try
-			{
-				localProcess = Runtime.getRuntime().exec("su");
+	            stdin.write(("busybox dd if=/dev/zero of=" + swapLocationSelected.trim() + "/swap bs=1k count=" + swapSizeSelected + "\n").getBytes());
+	            stdin.write(("mkswap " + swapLocationSelected.trim() + "swap\n").getBytes());
+	            
+	            stdin.flush();
 
-				DataOutputStream localDataOutputStream = new DataOutputStream(localProcess.getOutputStream());
-				localDataOutputStream.writeBytes("busybox dd if=/dev/zero of=" + swapLocationSelected.trim() + "/swap bs=1k count=" + swapSizeSelected + "\n");
-				localDataOutputStream.writeBytes("mkswap " + swapLocationSelected.trim() + "swap\n");
-				localDataOutputStream.writeBytes("exit\n");
-				localDataOutputStream.flush();
-				localDataOutputStream.close();
-				localProcess.waitFor();
-				localProcess.destroy();
-				System.out.println("Swap: creating swap swap");
-			}
-			catch (IOException e1)
-			{
-				new LogWriter().execute(new String[] {getClass().getName(), e1.getMessage()});
-			}
-			catch (InterruptedException e1)
-			{
-				new LogWriter().execute(new String[] {getClass().getName(), e1.getMessage()});;
-			}
+	            stdin.close();
+	            BufferedReader brCleanUp =
+	                    new BufferedReader(new InputStreamReader(stdout));
+	            while ((line = brCleanUp.readLine()) != null) {
+	                Log.d("[KernelTuner Swap Output]", line);
+	            }
+	            brCleanUp.close();
+	            brCleanUp =
+	                    new BufferedReader(new InputStreamReader(stderr));
+	            while ((line = brCleanUp.readLine()) != null) {
+	            	Log.e("[KernelTuner Swap Error]", line);
+	            }
+	            brCleanUp.close();
+
+	        } catch (IOException ex) {
+	        }
 
 			return "";
 		}

@@ -25,6 +25,8 @@ CheckBoxPreference notifBox;
 PreferenceScreen notifScreen;
 CheckBoxPreference htcOneOverride;
 ListPreference tisList;
+CheckBoxPreference resetApp;
+
 	@SuppressWarnings("deprecation")
 	@Override
 	public void onCreate(Bundle savedInstanceState)
@@ -171,6 +173,37 @@ ListPreference tisList;
 	                    Preferences.this);
 
 					builder.setMessage(getResources().getString(R.string.htc_override_preferences_warning));
+
+					builder.setIcon(R.drawable.ic_menu_info_details);
+
+					builder.setPositiveButton(getResources().getString(R.string.ok), new DialogInterface.OnClickListener() {
+							@Override
+							public void onClick(DialogInterface dialog, int which)
+							{
+							
+							}
+						});
+					
+					
+					AlertDialog alert = builder.create();
+
+					alert.show();
+				}
+				return false;
+			}
+        	
+        });
+        
+        resetApp = (CheckBoxPreference) findPreference("reset");
+        resetApp.setOnPreferenceClickListener(new OnPreferenceClickListener(){
+
+			@Override
+			public boolean onPreferenceClick(Preference arg0) {
+				if(resetApp.isChecked()){
+				AlertDialog.Builder builder = new AlertDialog.Builder(
+	                    Preferences.this);
+
+					builder.setMessage("This will not work if init.d is selected for restoring settings after reboot.\n\n init.d scripts are executed before this application can start");
 
 					builder.setIcon(R.drawable.ic_menu_info_details);
 

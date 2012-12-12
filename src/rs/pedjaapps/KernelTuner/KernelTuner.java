@@ -1,6 +1,5 @@
 package rs.pedjaapps.KernelTuner;
 
-import android.annotation.*;
 import android.app.ActivityManager;
 import android.app.AlertDialog;
 import android.app.ProgressDialog;
@@ -33,7 +32,7 @@ import java.lang.Process;
 
 //EndImports 
 
-@SuppressLint("WorldReadableFiles")
+
 public class KernelTuner extends SherlockActivity 
 {
 	private List<CPUInfo.FreqsEntry> freqEntries = CPUInfo.frequencies();
@@ -299,7 +298,7 @@ public class KernelTuner extends SherlockActivity
 
 				InputStream fIn = new FileInputStream(file);
 
-				Process localProcess;
+				/*Process localProcess;
 				try
 				{
 					localProcess = Runtime.getRuntime().exec("su");
@@ -323,7 +322,37 @@ public class KernelTuner extends SherlockActivity
 				catch (InterruptedException e)
 				{
 					new LogWriter().execute(new String[] {getClass().getName(), e.getMessage()});
-				}
+				}*/
+				try {
+		            String line;
+		            Process process = Runtime.getRuntime().exec("su");
+		            OutputStream stdin = process.getOutputStream();
+		            InputStream stderr = process.getErrorStream();
+		            InputStream stdout = process.getInputStream();
+
+		            stdin.write(("echo 1 > /sys/kernel/msm_mpdecision/conf/enabled\n").getBytes());
+		            stdin.write(("chmod 777 /sys/devices/system/cpu/cpu1/online\n").getBytes());
+		            stdin.write(("echo 0 > /sys/devices/system/cpu/cpu1/online\n").getBytes());
+		            stdin.write(("chown system /sys/devices/system/cpu/cpu1/online\n").getBytes());
+					
+		            stdin.flush();
+
+		            stdin.close();
+		            BufferedReader brCleanUp =
+		                    new BufferedReader(new InputStreamReader(stdout));
+		            while ((line = brCleanUp.readLine()) != null) {
+		                Log.d("[KernelTuner ToggleCPU Output]", line);
+		            }
+		            brCleanUp.close();
+		            brCleanUp =
+		                    new BufferedReader(new InputStreamReader(stderr));
+		            while ((line = brCleanUp.readLine()) != null) {
+		            	Log.e("[KernelTuner ToggleCPU Error]", line);
+		            }
+		            brCleanUp.close();
+
+		        } catch (IOException ex) {
+		        }
 
 				SharedPreferences.Editor editor = preferences.edit();
 				editor.putBoolean("cputoggle", false);
@@ -336,32 +365,37 @@ public class KernelTuner extends SherlockActivity
 				//enable cpu1
 
 
-				Process localProcess;
-				try
-				{
-					localProcess = Runtime.getRuntime().exec("su");
+				try {
+		            String line;
+		            Process process = Runtime.getRuntime().exec("su");
+		            OutputStream stdin = process.getOutputStream();
+		            InputStream stderr = process.getErrorStream();
+		            InputStream stdout = process.getInputStream();
 
-					DataOutputStream localDataOutputStream = new DataOutputStream(localProcess.getOutputStream());
-					localDataOutputStream.writeBytes("echo 0 > /sys/kernel/msm_mpdecision/conf/enabled\n");
-					localDataOutputStream.writeBytes("chmod 666 " + cpu1online + "\n");
-					localDataOutputStream.writeBytes("echo 1 > " + cpu1online + "\n");
-					localDataOutputStream.writeBytes("chmod 444 " + cpu1online + "\n");
-					localDataOutputStream.writeBytes("chown system " + cpu1online + "\n");
+		            stdin.write(("echo 0 > /sys/kernel/msm_mpdecision/conf/enabled\n").getBytes());
+		            stdin.write(("chmod 666 /sys/devices/system/cpu/cpu1/online\n").getBytes());
+		            stdin.write(("echo 1 > /sys/devices/system/cpu/cpu1/online\n").getBytes());
+		            stdin.write(("chmod 444 /sys/devices/system/cpu/cpu1/online\n").getBytes());
+		            stdin.write(("chown system /sys/devices/system/cpu/cpu1/online\n").getBytes());
+					
+		            stdin.flush();
 
-					localDataOutputStream.writeBytes("exit\n");
-					localDataOutputStream.flush();
-					localDataOutputStream.close();
-					localProcess.waitFor();
-					localProcess.destroy();
-				}
-				catch (IOException e1)
-				{
-					new LogWriter().execute(new String[] {getClass().getName(), e1.getMessage()});
-				}
-				catch (InterruptedException e1)
-				{
-					new LogWriter().execute(new String[] {getClass().getName(), e1.getMessage()});
-				}
+		            stdin.close();
+		            BufferedReader brCleanUp =
+		                    new BufferedReader(new InputStreamReader(stdout));
+		            while ((line = brCleanUp.readLine()) != null) {
+		                Log.d("[KernelTuner ToggleCPU Output]", line);
+		            }
+		            brCleanUp.close();
+		            brCleanUp =
+		                    new BufferedReader(new InputStreamReader(stderr));
+		            while ((line = brCleanUp.readLine()) != null) {
+		            	Log.e("[KernelTuner ToggleCPU Error]", line);
+		            }
+		            brCleanUp.close();
+
+		        } catch (IOException ex) {
+		        }
 				SharedPreferences.Editor editor = preferences.edit();
 				editor.putBoolean("cputoggle", true);
 				editor.commit();
@@ -398,30 +432,36 @@ public class KernelTuner extends SherlockActivity
 
 				InputStream fIn = new FileInputStream(file);
 
-				Process localProcess;
-				try
-				{
-					localProcess = Runtime.getRuntime().exec("su");
+				try {
+		            String line;
+		            Process process = Runtime.getRuntime().exec("su");
+		            OutputStream stdin = process.getOutputStream();
+		            InputStream stderr = process.getErrorStream();
+		            InputStream stdout = process.getInputStream();
 
-					DataOutputStream localDataOutputStream = new DataOutputStream(localProcess.getOutputStream());
-					localDataOutputStream.writeBytes("echo 1 > /sys/kernel/msm_mpdecision/conf/enabled\n");
-					localDataOutputStream.writeBytes("chmod 777 " + cpu2online + "\n");
-					localDataOutputStream.writeBytes("echo 0 > " + cpu2online + "\n");
-					localDataOutputStream.writeBytes("chown system " + cpu2online + "\n"); 
-					localDataOutputStream.writeBytes("exit\n");
-					localDataOutputStream.flush();
-					localDataOutputStream.close();
-					localProcess.waitFor();
-					localProcess.destroy();
-				}
-				catch (IOException e)
-				{
-					new LogWriter().execute(new String[] {getClass().getName(), e.getMessage()});
-				}
-				catch (InterruptedException e)
-				{
-					new LogWriter().execute(new String[] {getClass().getName(), e.getMessage()});
-				}
+		            stdin.write(("echo 1 > /sys/kernel/msm_mpdecision/conf/enabled\n").getBytes());
+		            stdin.write(("chmod 777 /sys/devices/system/cpu/cpu2/online\n").getBytes());
+		            stdin.write(("echo 0 > /sys/devices/system/cpu/cpu2/online\n").getBytes());
+		            stdin.write(("chown system /sys/devices/system/cpu/cpu2/online\n").getBytes());
+					
+		            stdin.flush();
+
+		            stdin.close();
+		            BufferedReader brCleanUp =
+		                    new BufferedReader(new InputStreamReader(stdout));
+		            while ((line = brCleanUp.readLine()) != null) {
+		                Log.d("[KernelTuner ToggleCPU Output]", line);
+		            }
+		            brCleanUp.close();
+		            brCleanUp =
+		                    new BufferedReader(new InputStreamReader(stderr));
+		            while ((line = brCleanUp.readLine()) != null) {
+		            	Log.e("[KernelTuner ToggleCPU Error]", line);
+		            }
+		            brCleanUp.close();
+
+		        } catch (IOException ex) {
+		        }
 
 				SharedPreferences.Editor editor = preferences.edit();
 				editor.putBoolean("cpu2toggle", false);
@@ -434,38 +474,43 @@ public class KernelTuner extends SherlockActivity
 				//enable cpu1
 
 
-				Process localProcess;
-				try
-				{
-					localProcess = Runtime.getRuntime().exec("su");
+				try {
+		            String line;
+		            Process process = Runtime.getRuntime().exec("su");
+		            OutputStream stdin = process.getOutputStream();
+		            InputStream stderr = process.getErrorStream();
+		            InputStream stdout = process.getInputStream();
 
-					DataOutputStream localDataOutputStream = new DataOutputStream(localProcess.getOutputStream());
-					localDataOutputStream.writeBytes("echo 0 > /sys/kernel/msm_mpdecision/conf/enabled\n");
-					localDataOutputStream.writeBytes("chmod 666 " + cpu2online + "\n");
-					localDataOutputStream.writeBytes("echo 1 > " + cpu2online + "\n");
-					localDataOutputStream.writeBytes("chmod 444 " + cpu2online + "\n");
-					localDataOutputStream.writeBytes("chown system " + cpu2online + "\n");
-					localDataOutputStream.writeBytes("exit\n");
-					localDataOutputStream.flush();
-					localDataOutputStream.close();
-					localProcess.waitFor();
-					localProcess.destroy();
-				}
-				catch (IOException e1)
-				{
-					new LogWriter().execute(new String[] {getClass().getName(), e1.getMessage()});
-				}
-				catch (InterruptedException e1)
-				{
-					new LogWriter().execute(new String[] {getClass().getName(), e1.getMessage()});
-				}
+		            stdin.write(("echo 0 > /sys/kernel/msm_mpdecision/conf/enabled\n").getBytes());
+		            stdin.write(("chmod 666 /sys/devices/system/cpu/cpu2/online\n").getBytes());
+		            stdin.write(("echo 1 > /sys/devices/system/cpu/cpu2/online\n").getBytes());
+		            stdin.write(("chmod 444 /sys/devices/system/cpu/cpu2/online\n").getBytes());
+		            stdin.write(("chown system /sys/devices/system/cpu/cpu2/online\n").getBytes());
+					
+		            stdin.flush();
+
+		            stdin.close();
+		            BufferedReader brCleanUp =
+		                    new BufferedReader(new InputStreamReader(stdout));
+		            while ((line = brCleanUp.readLine()) != null) {
+		                Log.d("[KernelTuner ToggleCPU Output]", line);
+		            }
+		            brCleanUp.close();
+		            brCleanUp =
+		                    new BufferedReader(new InputStreamReader(stderr));
+		            while ((line = brCleanUp.readLine()) != null) {
+		            	Log.e("[KernelTuner ToggleCPU Error]", line);
+		            }
+		            brCleanUp.close();
+
+		        } catch (IOException ex) {
+		        }
 				SharedPreferences.Editor editor = preferences.edit();
 				editor.putBoolean("cpu2toggle", true);
 				editor.commit();
 			} catch (IOException e) {
 				
-				new LogWriter().execute(new String[] {getClass().getName(), e.getMessage()});
-			}
+				}
 
 			return "";
 		}
@@ -495,30 +540,36 @@ public class KernelTuner extends SherlockActivity
 
 				InputStream fIn = new FileInputStream(file);
 
-				Process localProcess;
-				try
-				{
-					localProcess = Runtime.getRuntime().exec("su");
+				try {
+		            String line;
+		            Process process = Runtime.getRuntime().exec("su");
+		            OutputStream stdin = process.getOutputStream();
+		            InputStream stderr = process.getErrorStream();
+		            InputStream stdout = process.getInputStream();
 
-					DataOutputStream localDataOutputStream = new DataOutputStream(localProcess.getOutputStream());
-					localDataOutputStream.writeBytes("echo 1 > /sys/kernel/msm_mpdecision/conf/enabled\n");
-					localDataOutputStream.writeBytes("chmod 777 " + cpu3online + "\n");
-					localDataOutputStream.writeBytes("echo 0 > " + cpu3online + "\n");
-					localDataOutputStream.writeBytes("chown system " + cpu3online + "\n");
-					localDataOutputStream.writeBytes("exit\n");
-					localDataOutputStream.flush();
-					localDataOutputStream.close();
-					localProcess.waitFor();
-					localProcess.destroy();
-				}
-				catch (IOException e)
-				{
-					new LogWriter().execute(new String[] {getClass().getName(), e.getMessage()});
-				}
-				catch (InterruptedException e)
-				{
-					new LogWriter().execute(new String[] {getClass().getName(), e.getMessage()});
-				}
+		            stdin.write(("echo 1 > /sys/kernel/msm_mpdecision/conf/enabled\n").getBytes());
+		            stdin.write(("chmod 777 /sys/devices/system/cpu/cpu3/online\n").getBytes());
+		            stdin.write(("echo 0 > /sys/devices/system/cpu/cpu3/online\n").getBytes());
+		            stdin.write(("chown system /sys/devices/system/cpu/cpu3/online\n").getBytes());
+					
+		            stdin.flush();
+
+		            stdin.close();
+		            BufferedReader brCleanUp =
+		                    new BufferedReader(new InputStreamReader(stdout));
+		            while ((line = brCleanUp.readLine()) != null) {
+		                Log.d("[KernelTuner ToggleCPU Output]", line);
+		            }
+		            brCleanUp.close();
+		            brCleanUp =
+		                    new BufferedReader(new InputStreamReader(stderr));
+		            while ((line = brCleanUp.readLine()) != null) {
+		            	Log.e("[KernelTuner ToggleCPU Error]", line);
+		            }
+		            brCleanUp.close();
+
+		        } catch (IOException ex) {
+		        }
 
 				SharedPreferences.Editor editor = preferences.edit();
 				editor.putBoolean("cpu3toggle", false);
@@ -531,36 +582,41 @@ public class KernelTuner extends SherlockActivity
 				//enable cpu1
 
 
-				Process localProcess;
-				try
-				{
-					localProcess = Runtime.getRuntime().exec("su");
+				try {
+		            String line;
+		            Process process = Runtime.getRuntime().exec("su");
+		            OutputStream stdin = process.getOutputStream();
+		            InputStream stderr = process.getErrorStream();
+		            InputStream stdout = process.getInputStream();
 
-					DataOutputStream localDataOutputStream = new DataOutputStream(localProcess.getOutputStream());
-					localDataOutputStream.writeBytes("echo 0 > /sys/kernel/msm_mpdecision/conf/enabled\n");
-					localDataOutputStream.writeBytes("chmod 666 " + cpu3online + "\n");
-					localDataOutputStream.writeBytes("echo 1 > " + cpu3online + "\n");
-					localDataOutputStream.writeBytes("chmod 444 " + cpu3online + "\n");
-					localDataOutputStream.writeBytes("chown system " + cpu3online + "\n");
-					localDataOutputStream.writeBytes("exit\n");
-					localDataOutputStream.flush();
-					localDataOutputStream.close();
-					localProcess.waitFor();
-					localProcess.destroy();
-				}
-				catch (IOException e1)
-				{
-					new LogWriter().execute(new String[] {getClass().getName(), e.getMessage()});
-				}
-				catch (InterruptedException e1)
-				{
-					new LogWriter().execute(new String[] {getClass().getName(), e.getMessage()});
-				}
+		            stdin.write(("echo 0 > /sys/kernel/msm_mpdecision/conf/enabled\n").getBytes());
+		            stdin.write(("chmod 666 /sys/devices/system/cpu/cpu3/online\n").getBytes());
+		            stdin.write(("echo 1 > /sys/devices/system/cpu/cpu3/online\n").getBytes());
+		            stdin.write(("chmod 444 /sys/devices/system/cpu/cpu3/online\n").getBytes());
+		            stdin.write(("chown system /sys/devices/system/cpu/cpu3/online\n").getBytes());
+					
+		            stdin.flush();
+
+		            stdin.close();
+		            BufferedReader brCleanUp =
+		                    new BufferedReader(new InputStreamReader(stdout));
+		            while ((line = brCleanUp.readLine()) != null) {
+		                Log.d("[KernelTuner ToggleCPU Output]", line);
+		            }
+		            brCleanUp.close();
+		            brCleanUp =
+		                    new BufferedReader(new InputStreamReader(stderr));
+		            while ((line = brCleanUp.readLine()) != null) {
+		            	Log.e("[KernelTuner ToggleCPU Error]", line);
+		            }
+		            brCleanUp.close();
+
+		        } catch (IOException ex) {
+		        }
 				SharedPreferences.Editor editor = preferences.edit();
 				editor.putBoolean("cpu3toggle", true);
 				editor.commit();
 			} catch (IOException e) {
-				new LogWriter().execute(new String[] {getClass().getName(), e.getMessage()});
 				
 			}
 
@@ -582,33 +638,34 @@ public class KernelTuner extends SherlockActivity
 		@Override
 		protected Object doInBackground(String... args)
 		{
-			//Log.i("MyApp", "Background thread starting");
+			
+			try {
+	            String line;
+	            Process process = Runtime.getRuntime().exec("su");
+	            OutputStream stdin = process.getOutputStream();
+	            InputStream stderr = process.getErrorStream();
+	            InputStream stdout = process.getInputStream();
 
-			Process localProcess;
-			try
-			{
-				localProcess = Runtime.getRuntime().exec("su");
+	            stdin.write(("mount -t debugfs debugfs /sys/kernel/debug\n").getBytes());
+	           
+	            stdin.flush();
 
-				DataOutputStream localDataOutputStream = new DataOutputStream(
-					localProcess.getOutputStream());
-				localDataOutputStream
-					.writeBytes("mount -t debugfs debugfs /sys/kernel/debug\n");
-				localDataOutputStream.writeBytes("exit\n");
-				localDataOutputStream.flush();
-				localDataOutputStream.close();
-				localProcess.waitFor();
-				localProcess.destroy();
-				System.out.println("KernelTuner: mounting debug fs");
-			}
-			catch (IOException e1)
-			{
-				new LogWriter().execute(new String[] {getClass().getName(), e1.getMessage()});
-			}
-			catch (InterruptedException e1)
-			{
-				new LogWriter().execute(new String[] {getClass().getName(), e1.getMessage()});
-			}
+	            stdin.close();
+	            BufferedReader brCleanUp =
+	                    new BufferedReader(new InputStreamReader(stdout));
+	            while ((line = brCleanUp.readLine()) != null) {
+	                Log.d("[KernelTuner MountDebugFs Output]", line);
+	            }
+	            brCleanUp.close();
+	            brCleanUp =
+	                    new BufferedReader(new InputStreamReader(stderr));
+	            while ((line = brCleanUp.readLine()) != null) {
+	            	Log.e("[KernelTuner MountDebugFs Error]", line);
+	            }
+	            brCleanUp.close();
 
+	        } catch (IOException ex) {
+	        }
 			return "";
 		}
 
@@ -631,27 +688,37 @@ public class KernelTuner extends SherlockActivity
 		protected Object doInBackground(String... args)
 		{
 
-			Process localProcess;
-			try
-			{
-				localProcess = Runtime.getRuntime().exec("su");
-				DataOutputStream localDataOutputStream = new DataOutputStream(localProcess.getOutputStream());
-				localDataOutputStream.writeBytes("chmod 777 /sys/devices/virtual/thermal/thermal_zone1/mode\n");
-				
-				localDataOutputStream.writeBytes("echo -n enabled > /sys/devices/virtual/thermal/thermal_zone1/mode\n");
-				localDataOutputStream.writeBytes("echo -n enabled > /sys/devices/virtual/thermal/thermal_zone0/mode\n");
-				//Toast.makeText(KernelTuner.this, "App: Enabling temp monitor", Toast.LENGTH_SHORT).show();
-				localDataOutputStream.writeBytes("exit\n");
-				localDataOutputStream.flush();
-				localDataOutputStream.close();
-				localProcess.waitFor();
-				localProcess.destroy();
-				System.out.println("KernelTuner: enable temp monitor");
-			}
-			catch (Exception e)
-			{
-				new LogWriter().execute(new String[] {getClass().getName(), e.getMessage()});
-			}
+			
+			try {
+	            String line;
+	            Process process = Runtime.getRuntime().exec("su");
+	            OutputStream stdin = process.getOutputStream();
+	            InputStream stderr = process.getErrorStream();
+	            InputStream stdout = process.getInputStream();
+
+	            stdin.write(("chmod 777 /sys/devices/virtual/thermal/thermal_zone1/mode\n").getBytes());
+	            stdin.write(("chmod 777 /sys/devices/virtual/thermal/thermal_zone0/mode\n").getBytes());
+	            stdin.write(("echo -n enabled > /sys/devices/virtual/thermal/thermal_zone1/mode\n").getBytes());
+	            stdin.write(("echo -n enabled > /sys/devices/virtual/thermal/thermal_zone0/mode\n").getBytes());
+		           
+	            stdin.flush();
+
+	            stdin.close();
+	            BufferedReader brCleanUp =
+	                    new BufferedReader(new InputStreamReader(stdout));
+	            while ((line = brCleanUp.readLine()) != null) {
+	                Log.d("[KernelTuner EnableTempMonitor Output]", line);
+	            }
+	            brCleanUp.close();
+	            brCleanUp =
+	                    new BufferedReader(new InputStreamReader(stderr));
+	            while ((line = brCleanUp.readLine()) != null) {
+	            	Log.e("[KernelTuner EnableTempMonitor Error]", line);
+	            }
+	            brCleanUp.close();
+
+	        } catch (IOException ex) {
+	        }
 
 			return "";
 		}
@@ -735,7 +802,11 @@ public class KernelTuner extends SherlockActivity
 		if (ads == true)
 		{AdView adView = (AdView)this.findViewById(R.id.ad);
 			adView.loadAd(new AdRequest());}
-
+		
+		//SharedPreferences.Editor editor = sharedPrefs.edit(); 
+		editor.putString("kernel", CPUInfo.kernel());
+		editor.commit();
+		
         /**
 		Show changelog if application updated
 		*/
@@ -1299,8 +1370,7 @@ public void startCpuLoadThread() {
 		}
 		catch (PackageManager.NameNotFoundException e)
 		{
-			new LogWriter().execute(new String[] {getClass().getName(), e.getMessage()});
-		}
+			}
 
 
 	}
@@ -2034,8 +2104,7 @@ public void startCpuLoadThread() {
 		}
 		catch (IOException ioe)
 		{
-			new LogWriter().execute(new String[] {getClass().getName(), ioe.getMessage()});
-		}
+			}
 		try
 		{ 
 	
@@ -2049,8 +2118,7 @@ public void startCpuLoadThread() {
 		}
 		catch (IOException ioe)
 		{
-			new LogWriter().execute(new String[] {getClass().getName(), ioe.getMessage()});
-		}
+			}
 		try
 		{ 
 	
@@ -2064,8 +2132,7 @@ public void startCpuLoadThread() {
 		}
 		catch (IOException ioe)
 		{
-			new LogWriter().execute(new String[] {getClass().getName(), ioe.getMessage()});
-		}
+			}
 	
 		try
 		{ 
@@ -2080,8 +2147,7 @@ public void startCpuLoadThread() {
 		}
 		catch (IOException ioe)
 		{
-			new LogWriter().execute(new String[] {getClass().getName(), ioe.getMessage()});
-		} 
+			} 
 		new Initd().execute(new String[] {"apply"});
 	}
 

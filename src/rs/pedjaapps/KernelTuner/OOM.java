@@ -6,6 +6,7 @@ import android.content.SharedPreferences;
 import android.os.*;
 import android.preference.PreferenceManager;
 import android.text.InputType;
+import android.util.Log;
 import android.view.ContextMenu;
 import android.view.Gravity;
 import android.view.MenuInflater;
@@ -16,8 +17,11 @@ import android.view.View.OnClickListener;
 import android.widget.*;
 import android.widget.SeekBar.OnSeekBarChangeListener;
 
-import java.io.DataOutputStream;
+import java.io.BufferedReader;
 import java.io.IOException;
+import java.io.InputStream;
+import java.io.InputStreamReader;
+import java.io.OutputStream;
 import java.util.*;
 import java.lang.Process;
 
@@ -309,7 +313,7 @@ public class OOM extends Activity {
 
 		@Override
 		protected Object doInBackground(String... args) {
-			Process localProcess;
+		/*	Process localProcess;
 			try {
 				localProcess = Runtime.getRuntime().exec("su");
 
@@ -334,7 +338,54 @@ public class OOM extends Activity {
 				localDataOutputStream.close();
 				localProcess.waitFor();
 				localProcess.destroy();
-				SharedPreferences preferences = PreferenceManager.getDefaultSharedPreferences(getBaseContext());
+				
+				System.out.println("OOM: Changing oom");
+				
+			} catch (IOException e1) {
+				
+				e1.printStackTrace();
+			} catch (InterruptedException e1) {
+				
+				e1.printStackTrace();
+			}*/
+			
+			try {
+	            String line;
+	            Process process = Runtime.getRuntime().exec("su");
+	            OutputStream stdin = process.getOutputStream();
+	            InputStream stderr = process.getErrorStream();
+	            InputStream stdout = process.getInputStream();
+
+	            stdin.write(("echo "
+						+ args[0]
+						+ ","
+						+ args[1]
+						+ ","
+						+ args[2]
+						+ ","
+						+ args[3]
+						+ ","
+						+ args[4]
+						+ ","
+						+ args[5]
+						+ " > /sys/module/lowmemorykiller/parameters/minfree\n").getBytes());
+		
+	            stdin.flush();
+
+	            stdin.close();
+	            BufferedReader brCleanUp =
+	                    new BufferedReader(new InputStreamReader(stdout));
+	            while ((line = brCleanUp.readLine()) != null) {
+	                Log.d("[KernelTuner ChangeGovernor Output]", line);
+	            }
+	            brCleanUp.close();
+	            brCleanUp =
+	                    new BufferedReader(new InputStreamReader(stderr));
+	            while ((line = brCleanUp.readLine()) != null) {
+	            	Log.e("[KernelTuner ChangeGovernor Error]", line);
+	            }
+	            brCleanUp.close();
+	            SharedPreferences preferences = PreferenceManager.getDefaultSharedPreferences(getBaseContext());
 				SharedPreferences.Editor editor = preferences.edit();
 				editor.putString("oom", args[0]
 						+ ","
@@ -349,16 +400,8 @@ public class OOM extends Activity {
 						+ args[5]);
 				editor.commit();
 				oom = CPUInfo.oom();
-				System.out.println("OOM: Changing oom");
-				
-			} catch (IOException e1) {
-				
-				e1.printStackTrace();
-			} catch (InterruptedException e1) {
-				
-				e1.printStackTrace();
-			}
-			
+	        } catch (IOException ex) {
+	        }
 			
 			return "";
 		}

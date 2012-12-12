@@ -1,9 +1,14 @@
 package rs.pedjaapps.KernelTuner;
 
+import java.io.BufferedReader;
 import java.io.DataOutputStream;
 import java.io.IOException;
+import java.io.InputStream;
+import java.io.InputStreamReader;
+import java.io.OutputStream;
 
 import android.os.AsyncTask;
+import android.util.Log;
 
 public class Initd extends AsyncTask<String, Void, String>
 {
@@ -18,64 +23,75 @@ public class Initd extends AsyncTask<String, Void, String>
 		System.out.println("Init.d: Writing init.d");
 		if (args[0].equals("apply"))
 		{
-			try
-			{
-				localProcess = Runtime.getRuntime().exec("su");
-				System.out.println("Exporting init.d scripts");
-				DataOutputStream localDataOutputStream = new DataOutputStream(localProcess.getOutputStream());
-				localDataOutputStream.writeBytes("mount -o remount,rw /system\n");
-				localDataOutputStream.writeBytes("/data/data/rs.pedjaapps.KernelTuner/files/cp /data/data/rs.pedjaapps.KernelTuner/files/99ktcputweaks /system/etc/init.d\n");
-				localDataOutputStream.writeBytes("chmod 777 /system/etc/init.d/99ktcputweaks\n");
-				localDataOutputStream.writeBytes("/data/data/rs.pedjaapps.KernelTuner/files/cp /data/data/rs.pedjaapps.KernelTuner/files/99ktgputweaks /system/etc/init.d\n");
-				localDataOutputStream.writeBytes("chmod 777 /system/etc/init.d/99ktgputweaks\n");
-				localDataOutputStream.writeBytes("/data/data/rs.pedjaapps.KernelTuner/files/cp /data/data/rs.pedjaapps.KernelTuner/files/99ktmisctweaks /system/etc/init.d\n");
-				localDataOutputStream.writeBytes("chmod 777 /system/etc/init.d/99ktmisctweaks\n");
-				localDataOutputStream.writeBytes("/data/data/rs.pedjaapps.KernelTuner/files/cp /data/data/rs.pedjaapps.KernelTuner/files/99ktvoltage /system/etc/init.d\n");
-				localDataOutputStream.writeBytes("chmod 777 /system/etc/init.d/99ktvoltage\n");
+			try {
+	            String line;
+	            Process process = Runtime.getRuntime().exec("su");
+	            OutputStream stdin = process.getOutputStream();
+	            InputStream stderr = process.getErrorStream();
+	            InputStream stdout = process.getInputStream();
 
-				localDataOutputStream.writeBytes("exit\n");
-				localDataOutputStream.flush();
-				localDataOutputStream.close();
-				localProcess.waitFor();
-				localProcess.destroy();
-				System.out.println("Exporting init.d scripts finished");
-			}
-			catch (IOException e)
-			{
-				new LogWriter().execute(new String[] {getClass().getName(), e.getMessage()});
-			}
-			catch (InterruptedException e)
-			{
-				new LogWriter().execute(new String[] {getClass().getName(), e.getMessage()});
-			}
+	            stdin.write(("mount -o remount,rw /system\n").getBytes());
+	            stdin.write(("/data/data/rs.pedjaapps.KernelTuner/files/cp /data/data/rs.pedjaapps.KernelTuner/files/99ktcputweaks /system/etc/init.d\n").getBytes());
+	            stdin.write(("chmod 777 /system/etc/init.d/99ktcputweaks\n").getBytes());
+	            stdin.write(("/data/data/rs.pedjaapps.KernelTuner/files/cp /data/data/rs.pedjaapps.KernelTuner/files/99ktgputweaks /system/etc/init.d\n").getBytes());
+	            stdin.write(("chmod 777 /system/etc/init.d/99ktgputweaks\n").getBytes());
+	            stdin.write(("/data/data/rs.pedjaapps.KernelTuner/files/cp /data/data/rs.pedjaapps.KernelTuner/files/99ktmisctweaks /system/etc/init.d\n").getBytes());
+	            stdin.write(("chmod 777 /system/etc/init.d/99ktmisctweaks\n").getBytes());
+	            stdin.write(("/data/data/rs.pedjaapps.KernelTuner/files/cp /data/data/rs.pedjaapps.KernelTuner/files/99ktvoltage /system/etc/init.d\n").getBytes());
+	            stdin.write(("chmod 777 /system/etc/init.d/99ktvoltage\n").getBytes());
+	            
+	            stdin.flush();
+
+	            stdin.close();
+	            BufferedReader brCleanUp =
+	                    new BufferedReader(new InputStreamReader(stdout));
+	            while ((line = brCleanUp.readLine()) != null) {
+	                Log.d("[KernelTuner Init.d Output]", line);
+	            }
+	            brCleanUp.close();
+	            brCleanUp =
+	                    new BufferedReader(new InputStreamReader(stderr));
+	            while ((line = brCleanUp.readLine()) != null) {
+	            	Log.e("[KernelTuner Init.d Error]", line);
+	            }
+	            brCleanUp.close();
+
+	        } catch (IOException ex) {
+	        }
 		}
 		else if (args[0].equals("rm"))
 		{
-			try
-			{
-				localProcess = Runtime.getRuntime().exec("su");
+			try {
+	            String line;
+	            Process process = Runtime.getRuntime().exec("su");
+	            OutputStream stdin = process.getOutputStream();
+	            InputStream stderr = process.getErrorStream();
+	            InputStream stdout = process.getInputStream();
 
-				DataOutputStream localDataOutputStream = new DataOutputStream(localProcess.getOutputStream());
-				localDataOutputStream.writeBytes("mount -o remount,rw /system\n");
+	            stdin.write(("mount -o remount,rw /system\n").getBytes());
+	            stdin.write(("rm /system/etc/init.d/99ktcputweaks\n").getBytes());
+	            stdin.write(("rm /system/etc/init.d/99ktgputweaks\n").getBytes());
+	            stdin.write(("rm /system/etc/init.d/99ktmisctweaks\n").getBytes());
+	            stdin.write(("rm /system/etc/init.d/99ktvoltage\n").getBytes());
+	            
+	            stdin.flush();
 
-				localDataOutputStream.writeBytes("rm /system/etc/init.d/99ktcputweaks\n");
-				localDataOutputStream.writeBytes("rm /system/etc/init.d/99ktgputweaks\n");
-				localDataOutputStream.writeBytes("rm /system/etc/init.d/99ktmisctweaks\n");
-				localDataOutputStream.writeBytes("rm /system/etc/init.d/99ktvoltage\n");
-				localDataOutputStream.writeBytes("exit\n");
-				localDataOutputStream.flush();
-				localDataOutputStream.close();
-				localProcess.waitFor();
-				localProcess.destroy();
-			}
-			catch (IOException e)
-			{
-				new LogWriter().execute(new String[] {getClass().getName(), e.getMessage()});
-			}
-			catch (InterruptedException e)
-			{
-				new LogWriter().execute(new String[] {getClass().getName(), e.getMessage()});
-			}
+	            stdin.close();
+	            BufferedReader brCleanUp =
+	                    new BufferedReader(new InputStreamReader(stdout));
+	            while ((line = brCleanUp.readLine()) != null) {
+	                Log.d("[KernelTuner Init.d Output]", line);
+	            }
+	            brCleanUp.close();
+	            brCleanUp =
+	                    new BufferedReader(new InputStreamReader(stderr));
+	            while ((line = brCleanUp.readLine()) != null) {
+	            	Log.e("[KernelTuner Init.d Error]", line);
+	            }
+	            brCleanUp.close();
+
+	        } catch (IOException ex) {
+	        }
 		}
 		return "";
 	}

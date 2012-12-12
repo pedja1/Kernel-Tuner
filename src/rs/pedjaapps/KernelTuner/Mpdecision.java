@@ -1,11 +1,12 @@
 package rs.pedjaapps.KernelTuner;
 
 import java.io.BufferedReader;
-import java.io.DataOutputStream;
 import java.io.File;
 import java.io.FileInputStream;
 import java.io.IOException;
+import java.io.InputStream;
 import java.io.InputStreamReader;
+import java.io.OutputStream;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -18,6 +19,7 @@ import android.content.SharedPreferences;
 import android.os.AsyncTask;
 import android.os.Bundle;
 import android.preference.PreferenceManager;
+import android.util.Log;
 import android.view.View;
 import android.view.WindowManager;
 import android.widget.CompoundButton;
@@ -86,49 +88,55 @@ public class Mpdecision extends SherlockActivity
 		protected Object doInBackground(String... args)
 		{
 
-			Process localProcess;
-			try
-			{
-  				localProcess = Runtime.getRuntime().exec("su");
+			
+			 try {
+		            String line;
+		            Process process = Runtime.getRuntime().exec("su");
+		            OutputStream stdin = process.getOutputStream();
+		            InputStream stderr = process.getErrorStream();
+		            InputStream stdout = process.getInputStream();
 
-				DataOutputStream localDataOutputStream = new DataOutputStream(localProcess.getOutputStream());
-				localDataOutputStream.writeBytes("chmod 777 /sys/kernel/msm_mpdecision/conf/scroff_single_core\n");
-				localDataOutputStream.writeBytes("chmod 777 /sys/kernel/msm_mpdecision/conf/scroff_freq\n");
-				localDataOutputStream.writeBytes("chmod 777 /sys/kernel/msm_mpdecision/conf/idle_freq\n");
-				localDataOutputStream.writeBytes("chmod 777 /sys/kernel/msm_mpdecision/conf/dealy\n");
-				localDataOutputStream.writeBytes("chmod 777 /sys/kernel/msm_mpdecision/conf/pause\n");
-				localDataOutputStream.writeBytes("chmod 777 /sys/kernel/msm_mpdecision/conf/nwns_threshold_up\n");
-				localDataOutputStream.writeBytes("chmod 777 /sys/kernel/msm_mpdecision/conf/twts_threshold_up\n");
-				localDataOutputStream.writeBytes("chmod 777 /sys/kernel/msm_mpdecision/conf/nwns_threshold_down\n");
-				localDataOutputStream.writeBytes("chmod 777 /sys/kernel/msm_mpdecision/conf/twts_threshold_down\n");
+		            stdin.write(("chmod 777 /sys/kernel/msm_mpdecision/conf/scroff_single_core\n").getBytes());
+					stdin.write(("chmod 777 /sys/kernel/msm_mpdecision/conf/scroff_freq\n").getBytes());
+					stdin.write(("chmod 777 /sys/kernel/msm_mpdecision/conf/idle_freq\n").getBytes());
+					stdin.write(("chmod 777 /sys/kernel/msm_mpdecision/conf/dealy\n").getBytes());
+					stdin.write(("chmod 777 /sys/kernel/msm_mpdecision/conf/pause\n").getBytes());
+					stdin.write(("chmod 777 /sys/kernel/msm_mpdecision/conf/nwns_threshold_up\n").getBytes());
+					stdin.write(("chmod 777 /sys/kernel/msm_mpdecision/conf/twts_threshold_up\n").getBytes());
+					stdin.write(("chmod 777 /sys/kernel/msm_mpdecision/conf/nwns_threshold_down\n").getBytes());
+					stdin.write(("chmod 777 /sys/kernel/msm_mpdecision/conf/twts_threshold_down\n").getBytes());
 
-				localDataOutputStream.writeBytes("echo " + mpscroff + " > /sys/kernel/msm_mpdecision/conf/do_scroff_single_core\n");
-				localDataOutputStream.writeBytes("echo " + onoff + " > /sys/kernel/msm_mpdecision/conf/scroff_profile\n");
-				localDataOutputStream.writeBytes("echo " + delaynew + " > /sys/kernel/msm_mpdecision/conf/delay\n");
-				localDataOutputStream.writeBytes("echo " + pausenew + " > /sys/kernel/msm_mpdecision/conf/pause\n");
-				localDataOutputStream.writeBytes("echo " + thruploadnew + " > /sys/kernel/msm_mpdecision/conf/nwns_threshold_up\n");
-				localDataOutputStream.writeBytes("echo " + thrdownloadnew + " > /sys/kernel/msm_mpdecision/conf/nwns_threshold_down\n");
-				localDataOutputStream.writeBytes("echo " + thrupmsnew + " > /sys/kernel/msm_mpdecision/conf/twts_threshold_up\n");
-				localDataOutputStream.writeBytes("echo " + thrdownmsnew + " > /sys/kernel/msm_mpdecision/conf/twts_threshold_down\n");
-				localDataOutputStream.writeBytes("echo " + idleNew + " > /sys/kernel/msm_mpdecision/conf/idle_freq\n");
-				localDataOutputStream.writeBytes("echo " + scroffNew + " > /sys/kernel/msm_mpdecision/conf/scroff_freq\n");
-				localDataOutputStream.writeBytes("echo " + scroff_singleNew + " > /sys/kernel/msm_mpdecision/conf/scroff_single_core\n");
-				 
-				localDataOutputStream.writeBytes("exit\n");
-				localDataOutputStream.flush();
-				localDataOutputStream.close();
-				localProcess.waitFor();
-				localProcess.destroy();
-				System.out.println("Mpdecision: Changing mpdec");
-			}
-			catch (IOException e1)
-			{
-				new LogWriter().execute(new String[] {getClass().getName(), e1.getMessage()});
-  			}
-			catch (InterruptedException e1)
-			{
-				new LogWriter().execute(new String[] {getClass().getName(), e1.getMessage()});
-  			}
+					stdin.write(("echo " + mpscroff + " > /sys/kernel/msm_mpdecision/conf/do_scroff_single_core\n").getBytes());
+					stdin.write(("echo " + onoff + " > /sys/kernel/msm_mpdecision/conf/scroff_profile\n").getBytes());
+					stdin.write(("echo " + delaynew + " > /sys/kernel/msm_mpdecision/conf/delay\n").getBytes());
+					stdin.write(("echo " + pausenew + " > /sys/kernel/msm_mpdecision/conf/pause\n").getBytes());
+					stdin.write(("echo " + thruploadnew + " > /sys/kernel/msm_mpdecision/conf/nwns_threshold_up\n").getBytes());
+					stdin.write(("echo " + thrdownloadnew + " > /sys/kernel/msm_mpdecision/conf/nwns_threshold_down\n").getBytes());
+					stdin.write(("echo " + thrupmsnew + " > /sys/kernel/msm_mpdecision/conf/twts_threshold_up\n").getBytes());
+					stdin.write(("echo " + thrdownmsnew + " > /sys/kernel/msm_mpdecision/conf/twts_threshold_down\n").getBytes());
+					stdin.write(("echo " + idleNew + " > /sys/kernel/msm_mpdecision/conf/idle_freq\n").getBytes());
+					stdin.write(("echo " + scroffNew + " > /sys/kernel/msm_mpdecision/conf/scroff_freq\n").getBytes());
+					stdin.write(("echo " + scroff_singleNew + " > /sys/kernel/msm_mpdecision/conf/scroff_single_core\n").getBytes());
+					 
+		            
+		            stdin.flush();
+
+		            stdin.close();
+		            BufferedReader brCleanUp =
+		                    new BufferedReader(new InputStreamReader(stdout));
+		            while ((line = brCleanUp.readLine()) != null) {
+		                Log.d("[KernelTuner ChangeGovernor Output]", line);
+		            }
+		            brCleanUp.close();
+		            brCleanUp =
+		                    new BufferedReader(new InputStreamReader(stderr));
+		            while ((line = brCleanUp.readLine()) != null) {
+		            	Log.e("[KernelTuner ChangeGovernor Error]", line);
+		            }
+		            brCleanUp.close();
+
+		        } catch (IOException ex) {
+		        }
 
 			return "";
 		}

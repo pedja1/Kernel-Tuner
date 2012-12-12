@@ -112,7 +112,6 @@ public class GovernorActivity extends SherlockActivity
 								}
 								catch (InterruptedException e)
 								{
-									new LogWriter().execute(new String[] {getClass().getName(), e.getMessage()});
 								}
 								getGovEntries();
 
@@ -202,8 +201,7 @@ public class GovernorActivity extends SherlockActivity
 		    		}
 					catch (Exception e)
 					{
-						new LogWriter().execute(new String[] {getClass().getName(), e.getMessage()});
-		    		}
+						}
 
 				}
 				}

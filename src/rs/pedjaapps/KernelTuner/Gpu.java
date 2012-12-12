@@ -1,11 +1,12 @@
 package rs.pedjaapps.KernelTuner;
 
 import java.io.BufferedReader;
-import java.io.DataOutputStream;
 import java.io.File;
 import java.io.FileInputStream;
 import java.io.IOException;
+import java.io.InputStream;
 import java.io.InputStreamReader;
+import java.io.OutputStream;
 
 import com.actionbarsherlock.app.SherlockActivity;
 
@@ -16,6 +17,7 @@ import android.content.SharedPreferences;
 import android.os.AsyncTask;
 import android.os.Bundle;
 import android.preference.PreferenceManager;
+import android.util.Log;
 import android.view.View;
 import android.view.View.OnClickListener;
 import android.widget.AdapterView;
@@ -56,14 +58,7 @@ private class changegpu extends AsyncTask<String, Void, Object>
 		@Override
 		protected Object doInBackground(String... args)
 		{
-			Process localProcess;
-    		try
-			{
-				localProcess = Runtime.getRuntime().exec("su");
-				System.out.println("GPU: Changing GPU");
-				DataOutputStream localDataOutputStream = new DataOutputStream(localProcess.getOutputStream());
-				localDataOutputStream.writeBytes("chmod 777 /sys/devices/platform/kgsl-3d0.0/kgsl/kgsl-3d0/max_gpuclk\n");
-				if (board.equals("shooter") || board.equals("shooteru") || board.equals("pyramid") || board.equals("tenderloin"))
+			if (board.equals("shooter") || board.equals("shooteru") || board.equals("pyramid") || board.equals("tenderloin"))
 				{
 					//3d freqs for shooter,shooteru,pyramid(msm8x60)
 					if (selected3d.equals("200"))
@@ -184,34 +179,40 @@ private class changegpu extends AsyncTask<String, Void, Object>
 
 
 				}
-				localDataOutputStream.writeBytes("echo " + new3d + " > /sys/devices/platform/kgsl-3d0.0/kgsl/kgsl-3d0/max_gpuclk\n");
+				try {
+		            String line;
+		            Process process = Runtime.getRuntime().exec("su");
+		            OutputStream stdin = process.getOutputStream();
+		            InputStream stderr = process.getErrorStream();
+		            InputStream stdout = process.getInputStream();
 
-				localDataOutputStream.writeBytes("chmod 777 /sys/devices/platform/kgsl-2d1.1/kgsl/kgsl-2d1/max_gpuclk\n");
-				localDataOutputStream.writeBytes("chmod 777 /sys/devices/platform/kgsl-2d0.0/kgsl/kgsl-2d0/max_gpuclk\n");
+		            stdin.write(("chmod 777 /sys/devices/platform/kgsl-3d0.0/kgsl/kgsl-3d0/max_gpuclk\n").getBytes());
+		            stdin.write(("chmod 777 /sys/devices/platform/kgsl-2d1.1/kgsl/kgsl-2d1/max_gpuclk\n").getBytes());
+		            stdin.write(("chmod 777 /sys/devices/platform/kgsl-2d0.0/kgsl/kgsl-2d0/max_gpuclk\n").getBytes());
+		            
+		            stdin.write(("echo " + new3d + " > /sys/devices/platform/kgsl-3d0.0/kgsl/kgsl-3d0/max_gpuclk\n").getBytes());
+		            stdin.write(("echo " + new2d + " > /sys/devices/platform/kgsl-2d0.0/kgsl/kgsl-2d0/max_gpuclk\n").getBytes());
+		            stdin.write(("echo " + new2d + " > /sys/devices/platform/kgsl-2d1.1/kgsl/kgsl-2d1/max_gpuclk\n").getBytes());
+		            
+		            stdin.flush();
 
+		            stdin.close();
+		            BufferedReader brCleanUp =
+		                    new BufferedReader(new InputStreamReader(stdout));
+		            while ((line = brCleanUp.readLine()) != null) {
+		                Log.d("[KernelTuner GPU Output]", line);
+		            }
+		            brCleanUp.close();
+		            brCleanUp =
+		                    new BufferedReader(new InputStreamReader(stderr));
+		            while ((line = brCleanUp.readLine()) != null) {
+		            	Log.e("[KernelTuner GPU Error]", line);
+		            }
+		            brCleanUp.close();
 
-
-
-				localDataOutputStream.writeBytes("echo " + new2d + " > /sys/devices/platform/kgsl-2d0.0/kgsl/kgsl-2d0/max_gpuclk\n");
-				localDataOutputStream.writeBytes("echo " + new2d + " > /sys/devices/platform/kgsl-2d1.1/kgsl/kgsl-2d1/max_gpuclk\n");   
-
-
-
-
-				localDataOutputStream.writeBytes("exit\n");
-				localDataOutputStream.flush();
-				localDataOutputStream.close();
-				localProcess.waitFor();
-				localProcess.destroy();
-    		}
-			catch (IOException e1)
-			{
-				new LogWriter().execute(new String[] {getClass().getName(), e1.getMessage()});
-			}
-			catch (InterruptedException e1)
-			{
-				new LogWriter().execute(new String[] {getClass().getName(), e1.getMessage()});
-			}
+		        } catch (IOException ex) {
+		        }
+				
 
 
 			return "";
@@ -383,9 +384,7 @@ private class changegpu extends AsyncTask<String, Void, Object>
 		}
 		catch (Exception e)
 		{
-			new LogWriter().execute(new String[] {getClass().getName(), e.getMessage()});
-
-		}
+			}
 	}
 
 	public void readgpu2dcurent()
@@ -414,8 +413,7 @@ private class changegpu extends AsyncTask<String, Void, Object>
 		}
 		catch (Exception e)
 		{
-			new LogWriter().execute(new String[] {getClass().getName(), e.getMessage()});
-		}
+			}
 	}
 
 
@@ -443,9 +441,7 @@ private class changegpu extends AsyncTask<String, Void, Object>
 		}
 		catch (Exception e)
 		{
-			new LogWriter().execute(new String[] {getClass().getName(), e.getMessage()});
-
-		}
+			}
 	}
 
 	public void readgpu2dmax()
@@ -476,8 +472,7 @@ private class changegpu extends AsyncTask<String, Void, Object>
 		}
 		catch (Exception e)
 		{
-			new LogWriter().execute(new String[] {getClass().getName(), e.getMessage()});
-		}
+				}
 	}
 
 }

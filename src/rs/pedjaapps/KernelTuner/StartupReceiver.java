@@ -8,13 +8,30 @@ import android.preference.PreferenceManager;
 
 public class StartupReceiver extends BroadcastReceiver
 {
+	SharedPreferences sharedPrefs;
+	private boolean isNewKernel(){
+		boolean newKernel = false;
+		String savedKernel = sharedPrefs.getString("kernel", "");
+		if(!savedKernel.equals("")){
+			if(!(savedKernel.equals(CPUInfo.kernel()))){
+				
+			}
+		}
+		return newKernel;
+	}
 	@Override
 	public void onReceive(Context context, Intent intent)
 	{
 
-	SharedPreferences sharedPrefs = PreferenceManager.getDefaultSharedPreferences(context);
+	sharedPrefs = PreferenceManager.getDefaultSharedPreferences(context);
 		String applyonboot = sharedPrefs.getString("boot", "boot");
+		boolean resetPref = sharedPrefs.getBoolean("reset", false);
 		boolean notificationService = sharedPrefs.getBoolean("notificationService", false);
+		if(isNewKernel() && resetPref){
+			AppReset reset = new AppReset(context);
+			reset.reset();
+		}
+		else{
 		if (applyonboot.equals("boot"))
 		{
 
@@ -23,7 +40,7 @@ public class StartupReceiver extends BroadcastReceiver
 			context.startService(serviceIntent);
 
 		}
-		
+		}
 		if (notificationService==true)
 		{
 

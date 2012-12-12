@@ -1,11 +1,12 @@
 package rs.pedjaapps.KernelTuner;
 
 import java.io.BufferedReader;
-import java.io.DataOutputStream;
 import java.io.File;
 import java.io.FileInputStream;
 import java.io.IOException;
+import java.io.InputStream;
 import java.io.InputStreamReader;
+import java.io.OutputStream;
 import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.List;
@@ -27,6 +28,7 @@ import android.graphics.Rect;
 import android.graphics.RectF;
 import android.os.IBinder;
 import android.preference.PreferenceManager;
+import android.util.Log;
 import android.widget.RemoteViews;
 
 
@@ -110,62 +112,69 @@ public class WidgetUpdateServiceBig extends Service
 
 	public void mountdebugfs()
 	{
-		Process localProcess;
-		try
-		{
-			localProcess = Runtime.getRuntime().exec("su");
+		try {
+            String line;
+            Process process = Runtime.getRuntime().exec("su");
+            OutputStream stdin = process.getOutputStream();
+            InputStream stderr = process.getErrorStream();
+            InputStream stdout = process.getInputStream();
 
-			DataOutputStream localDataOutputStream = new DataOutputStream(localProcess.getOutputStream());
-			localDataOutputStream.writeBytes("mount -t debugfs debugfs /sys/kernel/debug\n");
-			//Toast.makeText(WidgetUpdateServiceBig.this, "widget: mounting debugfs", Toast.LENGTH_SHORT).show();
-			localDataOutputStream.writeBytes("exit\n");
-			localDataOutputStream.flush();
-			localDataOutputStream.close();
-			localProcess.waitFor();
-			localProcess.destroy();
-		}
-		catch (IOException e)
-		{
-			
-			e.printStackTrace();
-		}
-		catch (InterruptedException e)
-		{
-			
-			e.printStackTrace();
-		}
+            stdin.write(("mount -t debugfs debugfs /sys/kernel/debug\n").getBytes());
+           
+            stdin.flush();
+
+            stdin.close();
+            BufferedReader brCleanUp =
+                    new BufferedReader(new InputStreamReader(stdout));
+            while ((line = brCleanUp.readLine()) != null) {
+                Log.d("[KernelTuner Widget Output]", line);
+            }
+            brCleanUp.close();
+            brCleanUp =
+                    new BufferedReader(new InputStreamReader(stderr));
+            while ((line = brCleanUp.readLine()) != null) {
+            	Log.e("[KernelTuner Widget Error]", line);
+            }
+            brCleanUp.close();
+
+        } catch (IOException ex) {
+        }
 	}
 
 
 	public void enableTemp()
 	{
-		Process localProcess;
-		try
-		{
-			localProcess = Runtime.getRuntime().exec("su");
+		try {
+            String line;
+            Process process = Runtime.getRuntime().exec("su");
+            OutputStream stdin = process.getOutputStream();
+            InputStream stderr = process.getErrorStream();
+            InputStream stdout = process.getInputStream();
 
-			DataOutputStream localDataOutputStream = new DataOutputStream(localProcess.getOutputStream());
-			localDataOutputStream.writeBytes("echo -n enabled > /sys/devices/virtual/thermal/thermal_zone1/mode\n");
-			localDataOutputStream.writeBytes("echo -n enabled > /sys/devices/virtual/thermal/thermal_zone0/mode\n");
-			//Toast.makeText(this, "Widget: Enabling temp monitor"+enableTmp(), Toast.LENGTH_SHORT).show();
-			System.out.println("Widget: Enabling temp monitor");
-			localDataOutputStream.writeBytes("exit\n");
-			localDataOutputStream.flush();
-			localDataOutputStream.close();
-			localProcess.waitFor();
-			localProcess.destroy();
-			
-		}
-		catch (IOException e)
-		{
-			
-			e.printStackTrace();
-		}
-		catch (InterruptedException e)
-		{
-			
-			e.printStackTrace();
-		}
+            stdin.write(("chmod 777 /sys/devices/virtual/thermal/thermal_zone1/mode\n").getBytes());
+            stdin.write(("chmod 777 /sys/devices/virtual/thermal/thermal_zone0/mode\n").getBytes());
+            stdin.write(("echo -n enabled > /sys/devices/virtual/thermal/thermal_zone1/mode\n").getBytes());
+            stdin.write(("echo -n enabled > /sys/devices/virtual/thermal/thermal_zone0/mode\n").getBytes());
+	           
+            stdin.flush();
+
+            stdin.close();
+            BufferedReader brCleanUp =
+                    new BufferedReader(new InputStreamReader(stdout));
+            while ((line = brCleanUp.readLine()) != null) {
+                Log.d("[KernelTuner EnableTempMonitor Output]", line);
+            }
+            brCleanUp.close();
+            brCleanUp =
+                    new BufferedReader(new InputStreamReader(stderr));
+            while ((line = brCleanUp.readLine()) != null) {
+            	Log.e("[KernelTuner EnableTempMonitor Error]", line);
+            }
+            brCleanUp.close();
+
+        } catch (IOException ex) {
+        }
+
 	}
 
 

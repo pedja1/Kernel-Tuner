@@ -48,7 +48,11 @@
             android:title="Temperature Unit" 
             android:defaultValue="celsius"/>
         
-        
+        <CheckBoxPreference
+            android:defaultValue="false"
+            android:key="reset"
+            android:summary="Reset all settings after flashing new kernel"
+            android:title="Reset App after flashing new kernel" />
         
          </PreferenceCategory>
 

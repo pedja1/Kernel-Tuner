@@ -2166,6 +2166,29 @@ public class CPUInfo
 		}
 
 	}
+	
+	public static String kernel(){
+		String kernel = "";
+		try {
+
+			File myFile = new File("/proc/version");
+			FileInputStream fIn = new FileInputStream(myFile);
+			BufferedReader myReader = new BufferedReader(
+					new InputStreamReader(fIn));
+			String aDataRow = "";
+			String aBuffer = "";
+			while ((aDataRow = myReader.readLine()) != null) {
+				aBuffer += aDataRow + "\n";
+			}
+
+			kernel = aBuffer.trim();
+			myReader.close();
+
+		} catch (Exception e) {
+
+		}
+		return kernel;
+	}
 
 	static class MyComparator implements Comparator<FreqsEntry>{
 		  public int compare(FreqsEntry ob1, FreqsEntry ob2){

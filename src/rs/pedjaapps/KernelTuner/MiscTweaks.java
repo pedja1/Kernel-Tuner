@@ -1,9 +1,10 @@
 package rs.pedjaapps.KernelTuner;
 
 import java.io.BufferedReader;
-import java.io.DataOutputStream;
 import java.io.File;
 import java.io.FileInputStream;
+import java.io.InputStream;
+import java.io.OutputStream;
 
 import java.io.IOException;
 
@@ -16,9 +17,9 @@ import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.AsyncTask;
 import android.os.Bundle;
-import android.os.Handler;
 import android.preference.PreferenceManager;
 import android.text.InputType;
+import android.util.Log;
 import android.view.Gravity;
 import android.view.MotionEvent;
 import android.view.View;
@@ -33,7 +34,6 @@ import android.widget.CompoundButton.OnCheckedChangeListener;
 import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
-import android.widget.ProgressBar;
 import android.widget.RadioButton;
 import android.widget.RadioGroup;
 import android.widget.SeekBar;
@@ -70,7 +70,6 @@ public class MiscTweaks extends SherlockActivity
 	private String scheduler = CPUInfo.scheduler();
 	private int ledprogress;
 	private SharedPreferences preferences;
-	private ProgressBar prog;
 	private boolean userSelect = false;
 	
 	private String nlt;
@@ -123,9 +122,6 @@ public class MiscTweaks extends SherlockActivity
 	private Switch otgSwitch;
 	
 	private String otg = CPUInfo.readOTG();
-	
-
-	private Handler mHandler = new Handler();
 
 	
 
@@ -135,36 +131,35 @@ public class MiscTweaks extends SherlockActivity
 		@Override
 		protected String doInBackground(String... args)
 		{
-			
 
-			Process localProcess;
-			try
-			{
-				localProcess = Runtime.getRuntime().exec("su");
+			try {
+	            String line;
+	            Process process = Runtime.getRuntime().exec("su");
+	            OutputStream stdin = process.getOutputStream();
+	            InputStream stderr = process.getErrorStream();
+	            InputStream stdout = process.getInputStream();
 
-				DataOutputStream localDataOutputStream = new DataOutputStream(
-					localProcess.getOutputStream());
-				localDataOutputStream
-					.writeBytes("chmod 777 /sys/kernel/debug/msm_fb/0/bpp\n");
-				localDataOutputStream.writeBytes("echo " + args[0]
-												 + " > /sys/kernel/debug/msm_fb/0/bpp\n");
-				localDataOutputStream.writeBytes("exit\n");
-				localDataOutputStream.flush();
-				localDataOutputStream.close();
-				localProcess.waitFor();
-				localProcess.destroy();
-				System.out.println("MiscTweaks: Changing color depth");
-			}
-			catch (IOException e1)
-			{
-				
-				new LogWriter().execute(new String[] {getClass().getName(), e1.getMessage()});
-			}
-			catch (InterruptedException e1)
-			{
-			
-				new LogWriter().execute(new String[] {getClass().getName(), e1.getMessage()});
-			}
+	            stdin.write(("chmod 777 /sys/kernel/debug/msm_fb/0/bpp\n").getBytes());
+	            stdin.write(("echo " + args[0] + " > /sys/kernel/debug/msm_fb/0/bpp\n").getBytes());
+	            
+	            stdin.flush();
+
+	            stdin.close();
+	            BufferedReader brCleanUp =
+	                    new BufferedReader(new InputStreamReader(stdout));
+	            while ((line = brCleanUp.readLine()) != null) {
+	                Log.d("[KernelTuner MiscTweaks Output]", line);
+	            }
+	            brCleanUp.close();
+	            brCleanUp =
+	                    new BufferedReader(new InputStreamReader(stderr));
+	            while ((line = brCleanUp.readLine()) != null) {
+	            	Log.e("[KernelTuner MiscTweaks Error]", line);
+	            }
+	            brCleanUp.close();
+
+	        } catch (IOException ex) {
+	        }
 
 			return args[0];
 		}
@@ -188,36 +183,37 @@ public class MiscTweaks extends SherlockActivity
 		@Override
 		protected String doInBackground(String... args)
 		{
-			
+		
+			try {
+	            String line;
+	            Process process = Runtime.getRuntime().exec("su");
+	            OutputStream stdin = process.getOutputStream();
+	            InputStream stderr = process.getErrorStream();
+	            InputStream stdout = process.getInputStream();
 
-			Process localProcess;
-			try
-			{
-				localProcess = Runtime.getRuntime().exec("su");
+	            stdin.write(("chmod 777 /sys/kernel/debug/msm_otg/mode\n").getBytes());
+	            stdin.write(("chmod 777 /sys/kernel/debug/otg/mode\n").getBytes());
+	            stdin.write(("echo " + args[0]+ " > /sys/kernel/debug/otg/mode\n").getBytes());
+	            stdin.write(("echo " + args[0]+ " > /sys/kernel/debug/msm_otg/mode\n").getBytes());
+	            
+	            stdin.flush();
 
-				DataOutputStream localDataOutputStream = new DataOutputStream(
-					localProcess.getOutputStream());
-				localDataOutputStream.writeBytes("chmod 777 /sys/kernel/debug/msm_otg/mode\n");
-				localDataOutputStream.writeBytes("chmod 777 /sys/kernel/debug/otg/mode\n");
-				localDataOutputStream.writeBytes("echo " + args[0]+ " > /sys/kernel/debug/otg/mode\n");
-				localDataOutputStream.writeBytes("echo " + args[0]+ " > /sys/kernel/debug/msm_otg/mode\n");
-				localDataOutputStream.writeBytes("exit\n");
-				localDataOutputStream.flush();
-				localDataOutputStream.close();
-				localProcess.waitFor();
-				localProcess.destroy();
-				
-			}
-			catch (IOException e1)
-			{
-				
-				new LogWriter().execute(new String[] {getClass().getName(), e1.getMessage()});
-			}
-			catch (InterruptedException e1)
-			{
-			
-				new LogWriter().execute(new String[] {getClass().getName(), e1.getMessage()});
-			}
+	            stdin.close();
+	            BufferedReader brCleanUp =
+	                    new BufferedReader(new InputStreamReader(stdout));
+	            while ((line = brCleanUp.readLine()) != null) {
+	                Log.d("[KernelTuner MiscTweaks Output]", line);
+	            }
+	            brCleanUp.close();
+	            brCleanUp =
+	                    new BufferedReader(new InputStreamReader(stderr));
+	            while ((line = brCleanUp.readLine()) != null) {
+	            	Log.e("[KernelTuner MiscTweaks Error]", line);
+	            }
+	            brCleanUp.close();
+
+	        } catch (IOException ex) {
+	        }
 
 			return args[0];
 		}
@@ -242,40 +238,49 @@ public class MiscTweaks extends SherlockActivity
 		@Override
 		protected Object doInBackground(String... args)
 		{
+			
+			try {
+	            String line;
+	            Process process = Runtime.getRuntime().exec("su");
+	            OutputStream stdin = process.getOutputStream();
+	            InputStream stderr = process.getErrorStream();
+	            InputStream stdout = process.getInputStream();
 
-			Process localProcess;
-			try
-			{
-				localProcess = Runtime.getRuntime().exec("su");
+	            stdin.write(("chmod 777 /sys/kernel/fast_charge/force_fast_charge\n").getBytes());
+	            stdin.write(("echo " + fc + " > /sys/kernel/fast_charge/force_fast_charge\n").getBytes());
+	            
+	            stdin.flush();
 
-				DataOutputStream localDataOutputStream = new DataOutputStream(
-					localProcess.getOutputStream());
-				localDataOutputStream
-					.writeBytes("chmod 777 /sys/kernel/fast_charge/force_fast_charge\n");
-				localDataOutputStream.writeBytes("echo " + fc
-												 + " > /sys/kernel/fast_charge/force_fast_charge\n");
-				localDataOutputStream.writeBytes("exit\n");
-				localDataOutputStream.flush();
-				localDataOutputStream.close();
-				localProcess.waitFor();
-				localProcess.destroy();
-				System.out.println("MiscTweaks: Changing fc");
-			}
-			catch (IOException e1)
-			{
-				
-				new LogWriter().execute(new String[] {getClass().getName(), e1.getMessage()});
-			}
-			catch (InterruptedException e1)
-			{
-				
-				new LogWriter().execute(new String[] {getClass().getName(), e1.getMessage()});
-			}
+	            stdin.close();
+	            BufferedReader brCleanUp =
+	                    new BufferedReader(new InputStreamReader(stdout));
+	            while ((line = brCleanUp.readLine()) != null) {
+	                Log.d("[KernelTuner MiscTweaks Output]", line);
+	            }
+	            brCleanUp.close();
+	            brCleanUp =
+	                    new BufferedReader(new InputStreamReader(stderr));
+	            while ((line = brCleanUp.readLine()) != null) {
+	            	Log.e("[KernelTuner MiscTweaks Error]", line);
+	            }
+	            brCleanUp.close();
+
+	        } catch (IOException ex) {
+	        }
+			
 
 			return "";
 		}
 
-		
+		@Override
+		protected void onPostExecute(Object result)
+		{
+			preferences = PreferenceManager
+				.getDefaultSharedPreferences(getBaseContext());
+			SharedPreferences.Editor editor = preferences.edit();
+			editor.putString("fastcharge", fc);
+			editor.commit();
+		}
 
 	}
 
@@ -285,47 +290,54 @@ public class MiscTweaks extends SherlockActivity
 		@Override
 		protected Object doInBackground(String... args)
 		{
+			try {
+	            String line;
+	            Process process = Runtime.getRuntime().exec("su");
+	            OutputStream stdin = process.getOutputStream();
+	            InputStream stderr = process.getErrorStream();
+	            InputStream stdout = process.getInputStream();
 
-			Process localProcess;
-			try
-			{
-				localProcess = Runtime.getRuntime().exec("su");
+	            stdin.write(("chmod 777 /sys/kernel/debug/msm_fb/0/vsync_enable\n").getBytes());
+	            stdin.write(("chmod 777 /sys/kernel/debug/msm_fb/0/hw_vsync_mode\n").getBytes());
+	            stdin.write(("chmod 777 /sys/kernel/debug/msm_fb/0/backbuff\n").getBytes());
+		           stdin.write(("echo " + vs+ " > /sys/kernel/debug/msm_fb/0/vsync_enable\n").getBytes());
+	            stdin.write(("echo " + hw+ " > /sys/kernel/debug/msm_fb/0/hw_vsync_mode\n").getBytes());
+	            stdin.write(("echo " + backbuf+ " > /sys/kernel/debug/msm_fb/0/backbuff\n").getBytes());
+	            
+	            stdin.flush();
 
-				DataOutputStream localDataOutputStream = new DataOutputStream(
-					localProcess.getOutputStream());
-				localDataOutputStream
-					.writeBytes("chmod 777 /sys/kernel/debug/msm_fb/0/vsync_enable\n");
-				localDataOutputStream
-					.writeBytes("chmod 777 /sys/kernel/debug/msm_fb/0/hw_vsync_mode\n");
-				localDataOutputStream
-					.writeBytes("chmod 777 /sys/kernel/debug/msm_fb/0/backbuff\n");
-				localDataOutputStream.writeBytes("echo " + vs
-												 + " > /sys/kernel/debug/msm_fb/0/vsync_enable\n");
-				localDataOutputStream.writeBytes("echo " + hw
-												 + " > /sys/kernel/debug/msm_fb/0/hw_vsync_mode\n");
-				localDataOutputStream.writeBytes("echo " + backbuf
-												 + " > /sys/kernel/debug/msm_fb/0/backbuff\n");
-				localDataOutputStream.writeBytes("exit\n");
-				localDataOutputStream.flush();
-				localDataOutputStream.close();
-				localProcess.waitFor();
-				localProcess.destroy();
-				System.out.println("MiscTweaks: Changing vs");
-			}
-			catch (IOException e1)
-			{
-				
-				new LogWriter().execute(new String[] {getClass().getName(), e1.getMessage()});
-			}
-			catch (InterruptedException e1)
-			{
-				
-				new LogWriter().execute(new String[] {getClass().getName(), e1.getMessage()});
-			}
+	            stdin.close();
+	            BufferedReader brCleanUp =
+	                    new BufferedReader(new InputStreamReader(stdout));
+	            while ((line = brCleanUp.readLine()) != null) {
+	                Log.d("[KernelTuner MiscTweaks Output]", line);
+	            }
+	            brCleanUp.close();
+	            brCleanUp =
+	                    new BufferedReader(new InputStreamReader(stderr));
+	            while ((line = brCleanUp.readLine()) != null) {
+	            	Log.e("[KernelTuner MiscTweaks Error]", line);
+	            }
+	            brCleanUp.close();
+
+	        } catch (IOException ex) {
+	        }
+
 
 			return "";
 		}
 
+		@Override
+		protected void onPostExecute(Object result)
+		{
+			preferences = PreferenceManager
+				.getDefaultSharedPreferences(getBaseContext());
+			SharedPreferences.Editor editor = preferences.edit();
+			editor.putString("vsync",vs);
+			editor.putString("hw",hw);
+			editor.putString("backbuf",backbuf);
+			editor.commit();
+		}
 
 	}
 
@@ -336,37 +348,41 @@ public class MiscTweaks extends SherlockActivity
 		protected Object doInBackground(String... args)
 		{
 
-			Process localProcess;
-			try
-			{
-				localProcess = Runtime.getRuntime().exec("su");
+			try {
+	            String line;
+	            Process process = Runtime.getRuntime().exec("su");
+	            OutputStream stdin = process.getOutputStream();
+	            InputStream stderr = process.getErrorStream();
+	            InputStream stdout = process.getInputStream();
 
-				DataOutputStream localDataOutputStream = new DataOutputStream(
-					localProcess.getOutputStream());
-				localDataOutputStream.writeBytes("chmod 777 /sys/devices/platform/leds-pm8058/leds/button-backlight/currents\n");
-				if(args[0].equals("e3d")){
-				localDataOutputStream.writeBytes("echo " + ledprogress + " > /sys/devices/platform/leds-pm8058/leds/button-backlight/currents\n");
-				}
-				else if(args[0].equals("hox")){
-					localDataOutputStream.writeBytes("echo " + args[1] + " > /sys/devices/platform/msm_ssbi.0/pm8921-core/pm8xxx-led/leds/button-backlight/currents\n");
-				}
-				localDataOutputStream.writeBytes("exit\n");
-				localDataOutputStream.flush();
-				localDataOutputStream.close();
-				localProcess.waitFor();
-				localProcess.destroy();
-				System.out.println("MiscTweaks: Changing buttons backlight");
-			}
-			catch (IOException e1)
-			{
-				
-				new LogWriter().execute(new String[] {getClass().getName(), e1.getMessage()});
-			}
-			catch (InterruptedException e1)
-			{
-				
-				new LogWriter().execute(new String[] {getClass().getName(), e1.getMessage()});
-			}
+	            stdin.write(("chmod 777 /sys/devices/platform/leds-pm8058/leds/button-backlight/currents\n").getBytes());
+	            stdin.write(("chmod 777 /sys/devices/platform/msm_ssbi.0/pm8921-core/pm8xxx-led/leds/button-backlight/currents\n").getBytes());
+	            if(args[0].equals("e3d")){
+					stdin.write(("echo " + ledprogress + " > /sys/devices/platform/leds-pm8058/leds/button-backlight/currents\n").getBytes());
+					}
+					else if(args[0].equals("hox")){
+						stdin.write(("echo " + args[1] + " > /sys/devices/platform/msm_ssbi.0/pm8921-core/pm8xxx-led/leds/button-backlight/currents\n").getBytes());
+					}
+	           
+	            stdin.flush();
+
+	            stdin.close();
+	            BufferedReader brCleanUp =
+	                    new BufferedReader(new InputStreamReader(stdout));
+	            while ((line = brCleanUp.readLine()) != null) {
+	                Log.d("[KernelTuner MiscTweaks Output]", line);
+	            }
+	            brCleanUp.close();
+	            brCleanUp =
+	                    new BufferedReader(new InputStreamReader(stderr));
+	            while ((line = brCleanUp.readLine()) != null) {
+	            	Log.e("[KernelTuner MiscTweaks Error]", line);
+	            }
+	            brCleanUp.close();
+
+	        } catch (IOException ex) {
+	        }
+			
 
 			return "";
 		}
@@ -390,36 +406,34 @@ public class MiscTweaks extends SherlockActivity
 		protected String doInBackground(String... args)
 		{
 
-			Process localProcess;
-			try
-			{
-				localProcess = Runtime.getRuntime().exec("su");
+			try {
+	            String line;
+	            Process process = Runtime.getRuntime().exec("su");
+	            OutputStream stdin = process.getOutputStream();
+	            InputStream stderr = process.getErrorStream();
+	            InputStream stdout = process.getInputStream();
 
-				DataOutputStream localDataOutputStream = new DataOutputStream(
-					localProcess.getOutputStream());
-				localDataOutputStream
-					.writeBytes("chmod 777 /sys/kernel/notification_leds/off_timer_multiplier\n");
-				localDataOutputStream
-					.writeBytes("echo "
-								+ args[0]
-								+ " > /sys/kernel/notification_leds/off_timer_multiplier\n");
-				localDataOutputStream.writeBytes("exit\n");
-				localDataOutputStream.flush();
-				localDataOutputStream.close();
-				localProcess.waitFor();
-				localProcess.destroy();
-				System.out.println("MiscTweaks: Changing not led timeout");
-			}
-			catch (IOException e1)
-			{
-				
-				new LogWriter().execute(new String[] {getClass().getName(), e1.getMessage()});
-			}
-			catch (InterruptedException e1)
-			{
-			
-				new LogWriter().execute(new String[] {getClass().getName(), e1.getMessage()});
-			}
+	            stdin.write(("chmod 777 /sys/kernel/notification_leds/off_timer_multiplier\n").getBytes());
+	            stdin.write(("echo "+ args[0] + " > /sys/kernel/notification_leds/off_timer_multiplier\n").getBytes());
+	            
+	            stdin.flush();
+
+	            stdin.close();
+	            BufferedReader brCleanUp =
+	                    new BufferedReader(new InputStreamReader(stdout));
+	            while ((line = brCleanUp.readLine()) != null) {
+	                Log.d("[KernelTuner MiscTweaks Output]", line);
+	            }
+	            brCleanUp.close();
+	            brCleanUp =
+	                    new BufferedReader(new InputStreamReader(stderr));
+	            while ((line = brCleanUp.readLine()) != null) {
+	            	Log.e("[KernelTuner MiscTweaks Error]", line);
+	            }
+	            brCleanUp.close();
+
+	        } catch (IOException ex) {
+	        }
 
 			return "";
 		}
@@ -443,49 +457,48 @@ public class MiscTweaks extends SherlockActivity
 		@Override
 		protected Object doInBackground(String... args)
 		{
-			
+			try {
+	            String line;
+	            Process process = Runtime.getRuntime().exec("su");
+	            OutputStream stdin = process.getOutputStream();
+	            InputStream stderr = process.getErrorStream();
+	            InputStream stdout = process.getInputStream();
 
-			Process localProcess;
-
-			try
-			{
-				localProcess = Runtime.getRuntime().exec("su");
-
-				DataOutputStream localDataOutputStream = new DataOutputStream(
-					localProcess.getOutputStream());
-				if (s2wmethod == true)
+	            if (s2wmethod == true)
 				{
-					localDataOutputStream.writeBytes("chmod 777 /sys/android_touch/sweep2wake\n");
-					localDataOutputStream.writeBytes("echo " + s2wnew + " > /sys/android_touch/sweep2wake\n");
-					localDataOutputStream.writeBytes("chmod 777 /sys/android_touch/sweep2wake_startbutton\n");
-					localDataOutputStream.writeBytes("echo " + s2wStartnew + " > /sys/android_touch/sweep2wake_startbutton\n");
-					localDataOutputStream.writeBytes("chmod 777 /sys/android_touch/sweep2wake_endbutton\n");
-					localDataOutputStream.writeBytes("echo " + s2wEndnew + " > /sys/android_touch/sweep2wake_endbutton\n");
+	            	stdin.write(("chmod 777 /sys/android_touch/sweep2wake\n").getBytes());
+	            	stdin.write(("echo " + s2wnew + " > /sys/android_touch/sweep2wake\n").getBytes());
+	            	stdin.write(("chmod 777 /sys/android_touch/sweep2wake_startbutton\n").getBytes());
+	            	stdin.write(("echo " + s2wStartnew + " > /sys/android_touch/sweep2wake_startbutton\n").getBytes());
+	            	stdin.write(("chmod 777 /sys/android_touch/sweep2wake_endbutton\n").getBytes());
+	            	stdin.write(("echo " + s2wEndnew + " > /sys/android_touch/sweep2wake_endbutton\n").getBytes());
 
 				}
 				else
 				{
-					localDataOutputStream.writeBytes("chmod 777 /sys/android_touch/sweep2wake/s2w_switch\n");
-					localDataOutputStream.writeBytes("echo " + s2wnew + " > /sys/android_touch/sweep2wake/s2w_switch\n");
+					stdin.write(("chmod 777 /sys/android_touch/sweep2wake/s2w_switch\n").getBytes());
+					stdin.write(("echo " + s2wnew + " > /sys/android_touch/sweep2wake/s2w_switch\n").getBytes());
 
 				}
-				localDataOutputStream.writeBytes("exit\n");
-				localDataOutputStream.flush();
-				localDataOutputStream.close();
-				localProcess.waitFor();
-				localProcess.destroy();
-				System.out.println("MiscTweaks: Changing s2w");
-			}
-			catch (IOException e1)
-			{
-			
-				new LogWriter().execute(new String[] {getClass().getName(), e1.getMessage()});
-			}
-			catch (InterruptedException e1)
-			{
-			
-				new LogWriter().execute(new String[] {getClass().getName(), e1.getMessage()});
-			}
+	            stdin.flush();
+
+	            stdin.close();
+	            BufferedReader brCleanUp =
+	                    new BufferedReader(new InputStreamReader(stdout));
+	            while ((line = brCleanUp.readLine()) != null) {
+	                Log.d("[KernelTuner MiscTweaks Output]", line);
+	            }
+	            brCleanUp.close();
+	            brCleanUp =
+	                    new BufferedReader(new InputStreamReader(stderr));
+	            while ((line = brCleanUp.readLine()) != null) {
+	            	Log.e("[KernelTuner MiscTweaks Error]", line);
+	            }
+	            brCleanUp.close();
+
+	        } catch (IOException ex) {
+	        }
+
 
 			return "";
 		}
@@ -512,50 +525,44 @@ public class MiscTweaks extends SherlockActivity
 		@Override
 		protected Object doInBackground(String... args)
 		{
-			Process localProcess;
-			try
-			{
-				localProcess = Runtime.getRuntime().exec("su");
+			
+			try {
+	            String line;
+	            Process process = Runtime.getRuntime().exec("su");
+	            OutputStream stdin = process.getOutputStream();
+	            InputStream stderr = process.getErrorStream();
+	            InputStream stdout = process.getInputStream();
 
-				DataOutputStream localDataOutputStream = new DataOutputStream(
-					localProcess.getOutputStream());
-				localDataOutputStream
-					.writeBytes("chmod 777 /sys/block/mmcblk1/queue/read_ahead_kb\n");
-				localDataOutputStream
-					.writeBytes("chmod 777 /sys/block/mmcblk2/queue/read_ahead_kb\n");
-				localDataOutputStream
-					.writeBytes("chmod 777 /sys/devices/virtual/bdi/179:0/read_ahead_kb\n");
-				localDataOutputStream.writeBytes("echo " + sdcache
-												 + " > /sys/block/mmcblk1/queue/read_ahead_kb\n");
-				localDataOutputStream.writeBytes("echo " + sdcache
-												 + " > /sys/block/mmcblk0/queue/read_ahead_kb\n");
-				localDataOutputStream.writeBytes("echo " + sdcache
-												 + " > /sys/devices/virtual/bdi/179:0/read_ahead_kb\n");
-				localDataOutputStream
-					.writeBytes("chmod 777 /sys/block/mmcblk0/queue/scheduler\n");
-				localDataOutputStream
-					.writeBytes("chmod 777 /sys/block/mmcblk1/queue/scheduler\n");
-				localDataOutputStream.writeBytes("echo " + scheduler
-												 + " > /sys/block/mmcblk0/queue/scheduler\n");
-				localDataOutputStream.writeBytes("echo " + scheduler
-												 + " > /sys/block/mmcblk1/queue/scheduler\n");
-				localDataOutputStream.writeBytes("exit\n");
-				localDataOutputStream.flush();
-				localDataOutputStream.close();
-				localProcess.waitFor();
-				localProcess.destroy();
-				System.out.println("MiscTweaks: Changing io");
-			}
-			catch (IOException e1)
-			{
-				
-				new LogWriter().execute(new String[] {getClass().getName(), e1.getMessage()});
-			}
-			catch (InterruptedException e1)
-			{
-				
-				new LogWriter().execute(new String[] {getClass().getName(), e1.getMessage()});
-			}
+	            stdin.write(("chmod 777 /sys/block/mmcblk1/queue/read_ahead_kb\n").getBytes());
+	            stdin.write(("chmod 777 /sys/block/mmcblk2/queue/read_ahead_kb\n").getBytes());
+	            stdin.write(("chmod 777 /sys/devices/virtual/bdi/179:0/read_ahead_kb\n").getBytes());
+	            stdin.write(("echo " + sdcache + " > /sys/block/mmcblk1/queue/read_ahead_kb\n").getBytes());
+	            stdin.write(("echo " + sdcache + " > /sys/block/mmcblk0/queue/read_ahead_kb\n").getBytes());
+	            stdin.write(("echo " + sdcache + " > /sys/devices/virtual/bdi/179:0/read_ahead_kb\n").getBytes());
+	            stdin.write(("chmod 777 /sys/block/mmcblk0/queue/scheduler\n").getBytes());
+	            stdin.write(("chmod 777 /sys/block/mmcblk1/queue/scheduler\n").getBytes());
+	            stdin.write(("echo " + scheduler + " > /sys/block/mmcblk0/queue/scheduler\n").getBytes());
+	            stdin.write(("echo " + scheduler+ " > /sys/block/mmcblk1/queue/scheduler\n").getBytes());
+			
+	            stdin.flush();
+
+	            stdin.close();
+	            BufferedReader brCleanUp =
+	                    new BufferedReader(new InputStreamReader(stdout));
+	            while ((line = brCleanUp.readLine()) != null) {
+	                Log.d("[KernelTuner MiscTweaks Output]", line);
+	            }
+	            brCleanUp.close();
+	            brCleanUp =
+	                    new BufferedReader(new InputStreamReader(stderr));
+	            while ((line = brCleanUp.readLine()) != null) {
+	            	Log.e("[KernelTuner MiscTweaks Error]", line);
+	            }
+	            brCleanUp.close();
+
+	        } catch (IOException ex) {
+	        }
+			
 
 			return "";
 		}

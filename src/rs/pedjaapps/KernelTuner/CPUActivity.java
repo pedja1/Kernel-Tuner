@@ -1,8 +1,11 @@
 package rs.pedjaapps.KernelTuner;
 
 
-import java.io.DataOutputStream;
+import java.io.BufferedReader;
 import java.io.IOException;
+import java.io.InputStream;
+import java.io.InputStreamReader;
+import java.io.OutputStream;
 import java.io.RandomAccessFile;
 import java.util.ArrayList;
 import java.util.List;
@@ -15,6 +18,7 @@ import android.os.AsyncTask;
 import android.os.Bundle;
 import android.os.Handler;
 import android.preference.PreferenceManager;
+import android.util.Log;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.AdapterView.OnItemSelectedListener;
@@ -138,101 +142,114 @@ public class CPUActivity extends SherlockActivity
 		@Override
 		protected Boolean doInBackground(Boolean... args)
 		{
-
-			Process localProcess;
-			//System.out.println("Togge CPUs: Toggling CPUs");
 			if (args[0] == true)
 			{
-				try
-				{
-					localProcess = Runtime.getRuntime().exec("su");
+				try {
+		            String line;
+		            Process process = Runtime.getRuntime().exec("su");
+		            OutputStream stdin = process.getOutputStream();
+		            InputStream stderr = process.getErrorStream();
+		            InputStream stdout = process.getInputStream();
 
-					DataOutputStream localDataOutputStream = new DataOutputStream(localProcess.getOutputStream());
-					if (CPUInfo.cpu1Online() == true)
+		            if (CPUInfo.cpu1Online() == true)
 					{
-						localDataOutputStream.writeBytes("echo 0 > /sys/kernel/msm_mpdecision/conf/enabled\n");
-						localDataOutputStream.writeBytes("chmod 666 /sys/devices/system/cpu/cpu1/online\n");
-						localDataOutputStream.writeBytes("echo 1 > /sys/devices/system/cpu/cpu1/online\n");
-						localDataOutputStream.writeBytes("chmod 444 /sys/devices/system/cpu/cpu1/online\n");
-						localDataOutputStream.writeBytes("chown system /sys/devices/system/cpu/cpu1/online\n");
+		            stdin.write(("echo 0 > /sys/kernel/msm_mpdecision/conf/enabled\n").getBytes());
+		            stdin.write(("chmod 666 /sys/devices/system/cpu/cpu1/online\n").getBytes());
+		            stdin.write(("echo 1 > /sys/devices/system/cpu/cpu1/online\n").getBytes());
+		            stdin.write(("chmod 444 /sys/devices/system/cpu/cpu1/online\n").getBytes());
+		            stdin.write(("chown system /sys/devices/system/cpu/cpu1/online\n").getBytes());
+					
 					}
-					if (CPUInfo.cpu2Online() == true)
+		            if (CPUInfo.cpu2Online() == true)
 					{
-						localDataOutputStream.writeBytes("echo 0 > /sys/kernel/msm_mpdecision/conf/enabled\n");
-						localDataOutputStream.writeBytes("chmod 666 /sys/devices/system/cpu/cpu2/online\n");
-						localDataOutputStream.writeBytes("echo 1 > /sys/devices/system/cpu/cpu2/online\n");
-						localDataOutputStream.writeBytes("chmod 444 /sys/devices/system/cpu/cpu2/online\n");
-						localDataOutputStream.writeBytes("chown system /sys/devices/system/cpu/cpu2/online\n");
+		            stdin.write(("echo 0 > /sys/kernel/msm_mpdecision/conf/enabled\n").getBytes());
+		            stdin.write(("chmod 666 /sys/devices/system/cpu/cpu2/online\n").getBytes());
+		            stdin.write(("echo 1 > /sys/devices/system/cpu/cpu2/online\n").getBytes());
+		            stdin.write(("chmod 444 /sys/devices/system/cpu/cpu2/online\n").getBytes());
+		            stdin.write(("chown system /sys/devices/system/cpu/cpu2/online\n").getBytes());
+					
 					}
-					if (CPUInfo.cpu3Online() == true)
+		            if (CPUInfo.cpu3Online() == true)
 					{
-						
-						localDataOutputStream.writeBytes("echo 0 > /sys/kernel/msm_mpdecision/conf/enabled\n");
-						localDataOutputStream.writeBytes("chmod 666 /sys/devices/system/cpu/cpu3/online\n");
-						localDataOutputStream.writeBytes("echo 1 > /sys/devices/system/cpu/cpu3/online\n");
-						localDataOutputStream.writeBytes("chmod 444 /sys/devices/system/cpu/cpu3/online\n");
-						localDataOutputStream.writeBytes("chown system /sys/devices/system/cpu/cpu3/online\n");
+		            stdin.write(("echo 0 > /sys/kernel/msm_mpdecision/conf/enabled\n").getBytes());
+		            stdin.write(("chmod 666 /sys/devices/system/cpu/cpu3/online\n").getBytes());
+		            stdin.write(("echo 1 > /sys/devices/system/cpu/cpu3/online\n").getBytes());
+		            stdin.write(("chmod 444 /sys/devices/system/cpu/cpu3/online\n").getBytes());
+		            stdin.write(("chown system /sys/devices/system/cpu/cpu3/online\n").getBytes());
+					
 					}
+		            stdin.flush();
 
-					localDataOutputStream.writeBytes("exit\n");
-					localDataOutputStream.flush();
-					localDataOutputStream.close();
-					localProcess.waitFor();
-					localProcess.destroy();
+		            stdin.close();
+		            BufferedReader brCleanUp =
+		                    new BufferedReader(new InputStreamReader(stdout));
+		            while ((line = brCleanUp.readLine()) != null) {
+		                Log.d("[KernelTuner ToggleCPUs Output]", line);
+		            }
+		            brCleanUp.close();
+		            brCleanUp =
+		                    new BufferedReader(new InputStreamReader(stderr));
+		            while ((line = brCleanUp.readLine()) != null) {
+		            	Log.e("[KernelTuner ToggleCPUs Error]", line);
+		            }
+		            brCleanUp.close();
 
-				}
-				catch (IOException e1)
-				{
-					new LogWriter().execute(new String[] {getClass().getName(), e1.getMessage()});
-				}
-				catch (InterruptedException e1)
-				{
-					new LogWriter().execute(new String[] {getClass().getName(), e1.getMessage()});
-				}
+		        } catch (IOException ex) {
+		        }
+				
 			}
 			else
 			{
-				try
-				{
-					localProcess = Runtime.getRuntime().exec("su");
+				
+				try {
+		            String line;
+		            Process process = Runtime.getRuntime().exec("su");
+		            OutputStream stdin = process.getOutputStream();
+		            InputStream stderr = process.getErrorStream();
+		            InputStream stdout = process.getInputStream();
 
-					DataOutputStream localDataOutputStream = new DataOutputStream(localProcess.getOutputStream());
-					if (CPUInfo.cpu1Online() == true)
+		            if (CPUInfo.cpu1Online() == true)
 					{
-						localDataOutputStream.writeBytes("echo 1 > /sys/kernel/msm_mpdecision/conf/enabled\n");
-						localDataOutputStream.writeBytes("chmod 777 /sys/devices/system/cpu/cpu1/online\n");
-						localDataOutputStream.writeBytes("echo 0 > /sys/devices/system/cpu/cpu1/online\n");
-						localDataOutputStream.writeBytes("chown system /sys/devices/system/cpu/cpu1/online\n");
-					}
-					if (CPUInfo.cpu2Online() == true)
-					{
-						localDataOutputStream.writeBytes("echo 1 > /sys/kernel/msm_mpdecision/conf/enabled\n");
-						localDataOutputStream.writeBytes("chmod 777 /sys/devices/system/cpu/cpu2/online\n");
-						localDataOutputStream.writeBytes("echo 0 > /sys/devices/system/cpu/cpu2/online\n");
-						localDataOutputStream.writeBytes("chown system /sys/devices/system/cpu/cpu2/online\n");
-					}
-					if (CPUInfo.cpu3Online() == true)
-					{
-						localDataOutputStream.writeBytes("echo 1 > /sys/kernel/msm_mpdecision/conf/enabled\n");
-						localDataOutputStream.writeBytes("chmod 777 /sys/devices/system/cpu/cpu3/online\n");
-						localDataOutputStream.writeBytes("echo 0 > /sys/devices/system/cpu/cpu3/online\n");
-						localDataOutputStream.writeBytes("chown system /sys/devices/system/cpu/cpu3/online\n");
-					}
-					localDataOutputStream.writeBytes("exit\n");
-					localDataOutputStream.flush();
-					localDataOutputStream.close();
-					localProcess.waitFor();
-					localProcess.destroy();
-				}
-				catch (IOException e)
-				{
-					new LogWriter().execute(new String[] {getClass().getName(), e.getMessage()});
-				}
-				catch (InterruptedException e)
-				{
-					new LogWriter().execute(new String[] {getClass().getName(), e.getMessage()});
+		            stdin.write(("echo 1 > /sys/kernel/msm_mpdecision/conf/enabled\n").getBytes());
+		            stdin.write(("chmod 777 /sys/devices/system/cpu/cpu1/online\n").getBytes());
+		            stdin.write(("echo 0 > /sys/devices/system/cpu/cpu1/online\n").getBytes());
+		            stdin.write(("chown system /sys/devices/system/cpu/cpu1/online\n").getBytes());
 					
-				}
+					}
+		            if (CPUInfo.cpu2Online() == true)
+					{
+		            	stdin.write(("echo 1 > /sys/kernel/msm_mpdecision/conf/enabled\n").getBytes());
+			            stdin.write(("chmod 777 /sys/devices/system/cpu/cpu2/online\n").getBytes());
+			            stdin.write(("echo 0 > /sys/devices/system/cpu/cpu2/online\n").getBytes());
+			            stdin.write(("chown system /sys/devices/system/cpu/cpu2/online\n").getBytes());
+							
+					}
+		            if (CPUInfo.cpu3Online() == true)
+					{
+		            	stdin.write(("echo 1 > /sys/kernel/msm_mpdecision/conf/enabled\n").getBytes());
+			            stdin.write(("chmod 777 /sys/devices/system/cpu/cpu3/online\n").getBytes());
+			            stdin.write(("echo 0 > /sys/devices/system/cpu/cpu3/online\n").getBytes());
+			            stdin.write(("chown system /sys/devices/system/cpu/cpu3/online\n").getBytes());
+						
+					}
+		            stdin.flush();
+
+		            stdin.close();
+		            BufferedReader brCleanUp =
+		                    new BufferedReader(new InputStreamReader(stdout));
+		            while ((line = brCleanUp.readLine()) != null) {
+		                Log.d("[KernelTuner ToggleCPUs Output]", line);
+		            }
+		            brCleanUp.close();
+		            brCleanUp =
+		                    new BufferedReader(new InputStreamReader(stderr));
+		            while ((line = brCleanUp.readLine()) != null) {
+		            	Log.e("[KernelTuner ToggleCPUs Error]", line);
+		            }
+		            brCleanUp.close();
+
+		        } catch (IOException ex) {
+		        }
 			}
 
 			return args[0];
@@ -507,8 +524,7 @@ startCpuLoadThread();
 						try {
 							Thread.sleep(360);
 						} catch (Exception e) {
-							new LogWriter().execute(new String[] {getClass().getName(), e.getMessage()});
-						}
+							}
 
 						reader.seek(0);
 						load = reader.readLine();
@@ -523,13 +539,11 @@ startCpuLoadThread();
 						fLoad =	 (float)(cpu2 - cpu1) / ((cpu2 + idle2) - (cpu1 + idle1));
 
 					} catch (IOException ex) {
-						new LogWriter().execute(new String[] {getClass().getName(), ex.getMessage()});
-					}
+							}
 					load =(int) (fLoad*100);
 					try {
 						Thread.sleep(1000);
 					} catch (InterruptedException e) {
-						new LogWriter().execute(new String[] {getClass().getName(), e.getMessage()});
 					}
 					mHandler.post(new Runnable() {
 							@Override
