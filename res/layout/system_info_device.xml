@@ -508,6 +508,146 @@
                 android:layout_height="wrap_content"
                 android:scaleType="fitXY"
                 android:src="@drawable/divider_strong_holo" />
+			<LinearLayout
+				android:id="@+id/gpu2dLayout"
+				android:layout_width="match_parent"
+				android:layout_height="wrap_content"
+				>
+				
+				<TextView
+					
+					android:layout_width="wrap_content"
+					android:layout_height="wrap_content"
+					android:text="GPU 2D Frequency: "/>
+			
+			<TextView
+				android:id="@+id/gpu2d"
+				android:layout_width="wrap_content"
+				android:layout_height="wrap_content"
+				android:layout_marginLeft="5dp"/>
+
+			</LinearLayout>
+			<LinearLayout
+				android:id="@+id/gpu3dLayout"
+				android:layout_width="match_parent"
+				android:layout_height="wrap_content"
+				>
+				
+				<TextView
+					
+					android:layout_width="wrap_content"
+					android:layout_height="wrap_content"
+					android:text="GPU 3D Frequency: "/>
+			<TextView
+				android:id="@+id/gpu3d"
+				android:layout_width="wrap_content"
+				android:layout_height="wrap_content"
+				android:layout_marginLeft="5dp"/>
+				
+			</LinearLayout>
+
+			<LinearLayout
+				android:id="@+id/vsyncLayout"
+				android:layout_width="match_parent"
+				android:layout_height="wrap_content"
+			>
+
+				<TextView
+
+					android:layout_width="wrap_content"
+					android:layout_height="wrap_content"
+					android:text="Vsync: "/>
+			
+			<TextView
+				android:id="@+id/vsync"
+				android:layout_width="wrap_content"
+				android:layout_height="wrap_content"
+				android:layout_marginLeft="5dp"/>
+				
+			</LinearLayout>
+			
+			<LinearLayout
+				android:id="@+id/fastchargeLayout"
+				android:layout_width="match_parent"
+				android:layout_height="wrap_content"
+			>
+
+				<TextView
+
+					android:layout_width="wrap_content"
+					android:layout_height="wrap_content"
+					android:text="Fastcharge: "/>
+			
+			<TextView
+				android:id="@+id/fastcharge"
+				android:layout_width="wrap_content"
+				android:layout_height="wrap_content"
+				android:layout_marginLeft="5dp"/>
+				
+			</LinearLayout>
+			
+			<LinearLayout
+				android:id="@+id/cdepthLayout"
+				android:layout_width="match_parent"
+				android:layout_height="wrap_content"
+			>
+
+				<TextView
+
+					android:layout_width="wrap_content"
+					android:layout_height="wrap_content"
+					android:text="Color Depth: "/>
+			
+			<TextView
+				android:id="@+id/cdepth"
+				android:layout_width="wrap_content"
+				android:layout_height="wrap_content"
+				android:layout_marginLeft="5dp"/>
+			</LinearLayout>
+			
+			<LinearLayout
+				android:id="@+id/schedulersLayout"
+				android:layout_width="match_parent"
+				android:layout_height="wrap_content"
+			>
+
+				<TextView
+
+					android:layout_width="wrap_content"
+					android:layout_height="wrap_content"
+					android:text="Schedulers:"/>
+			
+			<TextView
+				android:id="@+id/schedulers"
+				android:layout_width="wrap_content"
+				android:layout_height="wrap_content"
+				android:layout_marginLeft="5dp"/>
+			</LinearLayout>
+			
+			<LinearLayout
+				android:id="@+id/s2wLayout"
+				android:layout_width="match_parent"
+				android:layout_height="wrap_content"
+			>
+
+				<TextView
+
+					android:layout_width="wrap_content"
+					android:layout_height="wrap_content"
+					android:text="Sweep2Wake:"/>
+			
+			<TextView
+				android:id="@+id/s2w"
+				android:layout_width="wrap_content"
+				android:layout_height="wrap_content"
+				android:layout_marginLeft="5dp"/>
+			</LinearLayout>
+				<ImageView
+                android:id="@+id/fastcharge_head_image"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:scaleType="fitXY"
+                android:src="@drawable/divider_strong_holo" />
 			<TextView
 				android:id="@+id/kernel"
 				android:layout_width="match_parent"

@@ -5,7 +5,6 @@ import android.app.ActivityManager.*;
 import android.content.*;
 import android.content.pm.ApplicationInfo;
 import android.content.pm.PackageInfo;
-import android.content.pm.PackageManager;
 import android.graphics.*;
 import android.hardware.Sensor;
 import android.hardware.SensorEvent;
@@ -16,65 +15,38 @@ import android.preference.*;
 import android.util.DisplayMetrics;
 import android.view.*;
 import android.widget.*;
-import android.widget.RadioGroup.OnCheckedChangeListener;
 
 import com.actionbarsherlock.app.*;
 import java.io.*;
 import java.text.*;
 import java.util.*;
 
-import javax.microedition.khronos.opengles.GL10;
-
-
-
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentTransaction;
 import com.actionbarsherlock.app.ActionBar;
 
-/*
- 
-
- @Override
- public boolean onOptionsItemSelected(com.actionbarsherlock.view.MenuItem item) {
- switch (item.getItemId()) {
- case android.R.id.home:
- // app icon in action bar clicked; go home
- Intent intent = new Intent(this, KernelTuner.class);
- intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
- startActivity(intent);
- return true;
-
-
- }
- return super.onOptionsItemSelected(item);
- }
- }*/
 public class SystemInfo extends SherlockFragmentActivity implements
 		ActionBar.TabListener {
 
-	
 	private Integer gpu2d;
 	private Integer gpu3d;
-	private String vsync;
-	private String fastcharge;
-	private String cdepth;
+	private Integer vsync;
+	private Integer fastcharge;
+	private Integer cdepth;
 	private String kernel;
 	private String schedulers;
 	private String scheduler;
-	private String sdcache;;
-	private String led;
 	private Integer mpdec;
-	private String s2w;
+	private Integer s2w;
 	private String cpu_info;
 	private ProgressDialog pd;
 
-	
 	private static Integer battperc;
-	
+
 	private static Double batttemp;
-	
+
 	private static String battcurrent;
-	
+
 	private SharedPreferences prefs;
 	private static String tempPref;
 	private List<CPUInfo.FreqsEntry> freqEntries;
@@ -110,53 +82,66 @@ public class SystemInfo extends SherlockFragmentActivity implements
 	private String screenRefreshRate;
 	private String screenDensity;
 	private String screenPpi;
-	TextView oriHead,accHead,magHead,ligHead,proxHead,presHead,tempHead, gyroHead, gravHead, humHead, oriAccu,accAccu,magAccu,ligAccu,proxAccu,presAccu,tempAccu, gyroAccu, gravAccu, humAccu,tv_orientationA,tv_orientationB,tv_orientationC,tv_accelA,tv_accelB,tv_accelC,tv_magneticA,tv_magneticB,tv_magneticC,tv_lightA,tv_proxA,tv_presA,tv_tempA,tv_gravityA,tv_gravityB,tv_gravityC, tv_gyroscopeA,tv_gyroscopeB,tv_gyroscopeC, tv_humidity_A;
-	ProgressBar pb_orientationA,pb_orientationB,pb_orientationC,pb_accelA,pb_accelB,pb_accelC,pb_magneticA,pb_magneticB,pb_magneticC,pb_lightA,pb_proxA,pb_presA,pb_tempA,pb_gravityA,pb_gravityB,pb_gravityC, pb_gyroscopeA,pb_gyroscopeB,pb_gyroscopeC, pb_humidity_A;
-	LinearLayout oriLayout, accLayout, magLayout, ligLayout, proxLayout, tempLayout, presLayout;
+	TextView oriHead, accHead, magHead, ligHead, proxHead, presHead, tempHead,
+			gyroHead, gravHead, humHead, oriAccu, accAccu, magAccu, ligAccu,
+			proxAccu, presAccu, tempAccu, gyroAccu, gravAccu, humAccu,
+			tv_orientationA, tv_orientationB, tv_orientationC, tv_accelA,
+			tv_accelB, tv_accelC, tv_magneticA, tv_magneticB, tv_magneticC,
+			tv_lightA, tv_proxA, tv_presA, tv_tempA, tv_gravityA, tv_gravityB,
+			tv_gravityC, tv_gyroscopeA, tv_gyroscopeB, tv_gyroscopeC,
+			tv_humidity_A;
+	ProgressBar pb_orientationA, pb_orientationB, pb_orientationC, pb_accelA,
+			pb_accelB, pb_accelC, pb_magneticA, pb_magneticB, pb_magneticC,
+			pb_lightA, pb_proxA, pb_presA, pb_tempA, pb_gravityA, pb_gravityB,
+			pb_gravityC, pb_gyroscopeA, pb_gyroscopeB, pb_gyroscopeC,
+			pb_humidity_A;
+	LinearLayout oriLayout, accLayout, magLayout, ligLayout, proxLayout,
+			tempLayout, presLayout;
 	SensorManager m_sensormgr;
 	List<Sensor> m_sensorlist;
 	static final int FLOATTOINTPRECISION = 100;
-	private RadioGroup radioGroup;
-	
-	
+
+	Boolean isSDPresent;
+
 	private class info extends AsyncTask<String, Void, Object> {
 
-		 private boolean isSystemPackage(PackageInfo pkgInfo) {
-	            return ((pkgInfo.applicationInfo.flags & ApplicationInfo.FLAG_SYSTEM) != 0) ? true
-	                    : false;
-	        }
+		private boolean isSystemPackage(PackageInfo pkgInfo) {
+			return ((pkgInfo.applicationInfo.flags & ApplicationInfo.FLAG_SYSTEM) != 0) ? true
+					: false;
+		}
 
 		@Override
 		protected Object doInBackground(String... args) {
-
+			isSDPresent = android.os.Environment.getExternalStorageState()
+					.equals(android.os.Environment.MEDIA_MOUNTED);
 			freqEntries = CPUInfo.frequencies();
 			voltEntries = CPUInfo.voltages();
-			for(CPUInfo.FreqsEntry f : freqEntries){
+			for (CPUInfo.FreqsEntry f : freqEntries) {
 				freqs.add(f.getFreqName());
 			}
-			for(CPUInfo.VoltageList v : voltEntries){
+			for (CPUInfo.VoltageList v : voltEntries) {
 				voltFreq.add(v.getFreqName());
 			}
-			for(CPUInfo.VoltageList v : voltEntries){
+			for (CPUInfo.VoltageList v : voltEntries) {
 				voltages.add(v.getVoltage());
 			}
-			
+
 			List<String> govs = CPUInfo.governors();
 			StringBuilder builder = new StringBuilder();
-			for(String s: govs){
-				builder.append(s+", ");
+			for (String s : govs) {
+				builder.append(s + ", ");
 			}
-			governors=builder.toString();
+			governors = builder.toString();
 			androidVersion = Build.VERSION.RELEASE;
 			apiLevel = Build.VERSION.SDK_INT;
 			cpuAbi = android.os.Build.CPU_ABI;
 			manufacturer = android.os.Build.MANUFACTURER;
 			bootloader = android.os.Build.BOOTLOADER;
 			hardware = android.os.Build.HARDWARE;
-			if (apiLevel >= android.os.Build.VERSION_CODES.ICE_CREAM_SANDWICH ){
-			    radio = android.os.Build.getRadioVersion();
-			} else{
-			    radio = android.os.Build.RADIO;
+			if (apiLevel >= android.os.Build.VERSION_CODES.ICE_CREAM_SANDWICH) {
+				radio = android.os.Build.getRadioVersion();
+			} else {
+				radio = android.os.Build.RADIO;
 			}
 			board = android.os.Build.BOARD;
 			brand = android.os.Build.BRAND;
@@ -169,113 +154,102 @@ public class SystemInfo extends SherlockFragmentActivity implements
 			tags = android.os.Build.TAGS;
 			type = android.os.Build.TYPE;
 			user = android.os.Build.USER;
-			
-			List<PackageInfo> apps = getPackageManager().getInstalledPackages(0);
-			        for (PackageInfo packageInfo : apps) {
-			        	if(isSystemPackage(packageInfo)){
-			        		systemApps.add(packageInfo);
-			        	}
-			        	else{
-			        		userApps.add(packageInfo);
-			        	}
-			        }
-			  numberOfInstalledApps = userApps.size();
-			  numberOfSystemApps = systemApps.size();
-			  Display display = getWindowManager().getDefaultDisplay();
-			  Point size = new Point();
-			  
-			  if (apiLevel >= android.os.Build.VERSION_CODES.HONEYCOMB_MR2 ){
-				  display.getSize(size);
-				  screenRezolution = String.valueOf(size.x)+"x"+String.valueOf(size.y);
-				} else{ 
-					screenRezolution = String.valueOf(display.getWidth())+"x"+String.valueOf(display.getHeight());
-					
-				}
-			 screenRefreshRate = String.valueOf(display.getRefreshRate())+"fps";
-			 
-			
-			 DisplayMetrics dm = SystemInfo.this.getResources().getDisplayMetrics();
-			 screenDensity = String.valueOf(dm.densityDpi)+"dpi";
-			 screenPpi = "X: "+String.valueOf(dm.xdpi)+", Y "+String.valueOf(dm.ydpi);
-			 
-			 
-			try
-			{
 
-				File myFile = new File("/sys/class/power_supply/battery/capacity");
+			List<PackageInfo> apps = getPackageManager()
+					.getInstalledPackages(0);
+			for (PackageInfo packageInfo : apps) {
+				if (isSystemPackage(packageInfo)) {
+					systemApps.add(packageInfo);
+				} else {
+					userApps.add(packageInfo);
+				}
+			}
+			numberOfInstalledApps = userApps.size();
+			numberOfSystemApps = systemApps.size();
+			Display display = getWindowManager().getDefaultDisplay();
+			Point size = new Point();
+
+			if (apiLevel >= android.os.Build.VERSION_CODES.HONEYCOMB_MR2) {
+				display.getSize(size);
+				screenRezolution = String.valueOf(size.x) + "x"
+						+ String.valueOf(size.y);
+			} else {
+				screenRezolution = String.valueOf(display.getWidth()) + "x"
+						+ String.valueOf(display.getHeight());
+
+			}
+			screenRefreshRate = String.valueOf(display.getRefreshRate())
+					+ "fps";
+
+			DisplayMetrics dm = SystemInfo.this.getResources()
+					.getDisplayMetrics();
+			screenDensity = String.valueOf(dm.densityDpi) + "dpi";
+			screenPpi = "X: " + String.valueOf(dm.xdpi) + ", Y "
+					+ String.valueOf(dm.ydpi);
+
+			try {
+
+				File myFile = new File(
+						"/sys/class/power_supply/battery/capacity");
 				FileInputStream fIn = new FileInputStream(myFile);
 
 				BufferedReader myReader = new BufferedReader(
-					new InputStreamReader(fIn));
+						new InputStreamReader(fIn));
 				String aDataRow = "";
 				String aBuffer = "";
-				while ((aDataRow = myReader.readLine()) != null)
-				{
+				while ((aDataRow = myReader.readLine()) != null) {
 					aBuffer += aDataRow + "\n";
 				}
 
 				battperc = Integer.parseInt(aBuffer.trim());
 				myReader.close();
 
-			}
-			catch (Exception e)
-			{
-				
+			} catch (Exception e) {
+
 			}
 
-			
-			try
-			{
+			try {
 
-				File myFile = new File("/sys/class/power_supply/battery/batt_temp");
+				File myFile = new File(
+						"/sys/class/power_supply/battery/batt_temp");
 				FileInputStream fIn = new FileInputStream(myFile);
 
 				BufferedReader myReader = new BufferedReader(
-					new InputStreamReader(fIn));
+						new InputStreamReader(fIn));
 				String aDataRow = "";
 				String aBuffer = "";
-				while ((aDataRow = myReader.readLine()) != null)
-				{
+				while ((aDataRow = myReader.readLine()) != null) {
 					aBuffer += aDataRow + "\n";
 				}
 
-				batttemp = Double.parseDouble(aBuffer.trim())/10;
+				batttemp = Double.parseDouble(aBuffer.trim()) / 10;
 				myReader.close();
 
-			}
-			catch (Exception e)
-			{
-		
+			} catch (Exception e) {
+
 			}
 
-			
-			try
-			{
+			try {
 
-				File myFile = new File("/sys/class/power_supply/battery/batt_current");
+				File myFile = new File(
+						"/sys/class/power_supply/battery/batt_current");
 				FileInputStream fIn = new FileInputStream(myFile);
 
 				BufferedReader myReader = new BufferedReader(
-					new InputStreamReader(fIn));
+						new InputStreamReader(fIn));
 				String aDataRow = "";
 				String aBuffer = "";
-				while ((aDataRow = myReader.readLine()) != null)
-				{
+				while ((aDataRow = myReader.readLine()) != null) {
 					aBuffer += aDataRow + "\n";
 				}
 
 				battcurrent = aBuffer.trim();
 				myReader.close();
 
-			}
-			catch (Exception e)
-			{
+			} catch (Exception e) {
 				battcurrent = "err";
-			}	
+			}
 
-			
-
-			
 			try {
 
 				File myFile = new File("/proc/cpuinfo");
@@ -296,25 +270,6 @@ public class SystemInfo extends SherlockFragmentActivity implements
 			}
 
 			
-
-			try {
-				String aBuffer = "";
-				File myFile = new File(
-						"/sys/devices/platform/leds-pm8058/leds/button-backlight/currents");
-				FileInputStream fIn = new FileInputStream(myFile);
-				BufferedReader myReader = new BufferedReader(
-						new InputStreamReader(fIn));
-				String aDataRow = "";
-				while ((aDataRow = myReader.readLine()) != null) {
-					aBuffer += aDataRow + "\n";
-				}
-
-				led = aBuffer.trim();
-				myReader.close();
-
-			} catch (Exception e) {
-				led = "err";
-			}
 
 			try {
 
@@ -370,11 +325,11 @@ public class SystemInfo extends SherlockFragmentActivity implements
 					aBuffer += aDataRow + "\n";
 				}
 
-				fastcharge = aBuffer.trim();
+				fastcharge = Integer.parseInt(aBuffer.trim());
 				myReader.close();
 
 			} catch (Exception e) {
-				fastcharge = "err";
+				
 			}
 
 			try {
@@ -389,11 +344,11 @@ public class SystemInfo extends SherlockFragmentActivity implements
 					aBuffer += aDataRow + "\n";
 				}
 
-				vsync = aBuffer.trim();
+				vsync = Integer.parseInt(aBuffer.trim());
 				myReader.close();
 
 			} catch (Exception e) {
-				vsync = "err";
+				
 			}
 
 			try {
@@ -409,13 +364,12 @@ public class SystemInfo extends SherlockFragmentActivity implements
 					aBuffer += aDataRow + "\n";
 				}
 
-				cdepth = aBuffer.trim();
+				cdepth = Integer.parseInt(aBuffer.trim());
 				myReader.close();
-				// Log.d("done",cdepth);
+				
 
 			} catch (IOException e) {
-				cdepth = "err";
-				;
+				
 			}
 
 			try {
@@ -465,27 +419,7 @@ public class SystemInfo extends SherlockFragmentActivity implements
 				scheduler = "err";
 			}
 
-			try {
-
-				File myFile = new File(
-						"/sys/devices/virtual/bdi/179:0/read_ahead_kb");
-				FileInputStream fIn = new FileInputStream(myFile);
-
-				BufferedReader myReader = new BufferedReader(
-						new InputStreamReader(fIn));
-				String aDataRow = "";
-				String aBuffer = "";
-				while ((aDataRow = myReader.readLine()) != null) {
-					aBuffer += aDataRow + "\n";
-				}
-
-				sdcache = aBuffer.trim();
-				myReader.close();
-
-			} catch (Exception e) {
-				sdcache = "err";
-
-			}
+			
 
 			try {
 
@@ -505,7 +439,6 @@ public class SystemInfo extends SherlockFragmentActivity implements
 				myReader.close();
 
 			} catch (Exception e) {
-				
 
 			}
 
@@ -522,7 +455,7 @@ public class SystemInfo extends SherlockFragmentActivity implements
 					aBuffer += aDataRow + "\n";
 				}
 
-				s2w = aBuffer.trim();
+				s2w = Integer.parseInt(aBuffer.trim());
 
 				myReader.close();
 
@@ -542,13 +475,13 @@ public class SystemInfo extends SherlockFragmentActivity implements
 						aBuffer += aDataRow + "\n";
 					}
 
-					s2w = aBuffer.trim();
+					s2w = Integer.parseInt(aBuffer.trim());
 
 					myReader.close();
 
 				} catch (Exception e2) {
 
-					s2w = "err";
+					
 				}
 			}
 
@@ -559,32 +492,31 @@ public class SystemInfo extends SherlockFragmentActivity implements
 		protected void onPostExecute(Object result) {
 			addTabs();
 			pd.dismiss();
-			/*TextView cpuinfo = (TextView) findViewById(R.id.cpu_i);
-			cpuinfo.setText(cpu_info);
-			TextView board = (TextView) findViewById(R.id.board);
-			TextView device = (TextView) findViewById(R.id.deviceTxt);
-			TextView display = (TextView) findViewById(R.id.display);
-			TextView bootloader = (TextView) findViewById(R.id.bootloader);
-			TextView brand = (TextView) findViewById(R.id.brand);
-			TextView hardware = (TextView) findViewById(R.id.hardware);
-			TextView manufacturer = (TextView) findViewById(R.id.manufacturer);
-			TextView model = (TextView) findViewById(R.id.model);
-			TextView product = (TextView) findViewById(R.id.product);
-			TextView radio = (TextView) findViewById(R.id.radio);
-			board.setText(android.os.Build.BOARD);
-			device.setText(android.os.Build.DEVICE);
-			display.setText(android.os.Build.DISPLAY);
-			bootloader.setText(android.os.Build.BOOTLOADER);
-			brand.setText(android.os.Build.BRAND);
-			hardware.setText(android.os.Build.HARDWARE);
-			manufacturer.setText(android.os.Build.MANUFACTURER);
-			model.setText(android.os.Build.MODEL);
-			product.setText(android.os.Build.PRODUCT);
-			if (android.os.Build.VERSION.SDK_INT > 10) {
-				if (android.os.Build.getRadioVersion() != null) {
-					radio.setText(android.os.Build.getRadioVersion());
-				}
-			}*/
+			/*
+			 * TextView cpuinfo = (TextView) findViewById(R.id.cpu_i);
+			 * cpuinfo.setText(cpu_info); TextView board = (TextView)
+			 * findViewById(R.id.board); TextView device = (TextView)
+			 * findViewById(R.id.deviceTxt); TextView display = (TextView)
+			 * findViewById(R.id.display); TextView bootloader = (TextView)
+			 * findViewById(R.id.bootloader); TextView brand = (TextView)
+			 * findViewById(R.id.brand); TextView hardware = (TextView)
+			 * findViewById(R.id.hardware); TextView manufacturer = (TextView)
+			 * findViewById(R.id.manufacturer); TextView model = (TextView)
+			 * findViewById(R.id.model); TextView product = (TextView)
+			 * findViewById(R.id.product); TextView radio = (TextView)
+			 * findViewById(R.id.radio); board.setText(android.os.Build.BOARD);
+			 * device.setText(android.os.Build.DEVICE);
+			 * display.setText(android.os.Build.DISPLAY);
+			 * bootloader.setText(android.os.Build.BOOTLOADER);
+			 * brand.setText(android.os.Build.BRAND);
+			 * hardware.setText(android.os.Build.HARDWARE);
+			 * manufacturer.setText(android.os.Build.MANUFACTURER);
+			 * model.setText(android.os.Build.MODEL);
+			 * product.setText(android.os.Build.PRODUCT); if
+			 * (android.os.Build.VERSION.SDK_INT > 10) { if
+			 * (android.os.Build.getRadioVersion() != null) {
+			 * radio.setText(android.os.Build.getRadioVersion()); } }
+			 */
 		}
 
 	}
@@ -596,33 +528,33 @@ public class SystemInfo extends SherlockFragmentActivity implements
 	private static final String STATE_SELECTED_NAVIGATION_ITEM = "selected_navigation_item";
 	private List<String> tabTitles = new ArrayList<String>();
 	ActionBar actionBar;
+
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.system_info);
 		System.out.println(getTotalRAM());
-		pd = ProgressDialog.show(this, null, "Gathering system information\nPlease wait...");
+		pd = ProgressDialog.show(this, null,
+				"Gathering system information\nPlease wait...");
 		new info().execute();
 		prefs = PreferenceManager.getDefaultSharedPreferences(this);
 		tempPref = prefs.getString("temp", "celsius");
 		// Set up the action bar to show tabs.
 		actionBar = getSupportActionBar();
 		actionBar.setNavigationMode(ActionBar.NAVIGATION_MODE_TABS);
-		m_sensormgr  = (SensorManager)getSystemService(Context.SENSOR_SERVICE);
-        m_sensorlist =  m_sensormgr.getSensorList(Sensor.TYPE_ALL);
-        
+		m_sensormgr = (SensorManager) getSystemService(Context.SENSOR_SERVICE);
+		m_sensorlist = m_sensormgr.getSensorList(Sensor.TYPE_ALL);
+
 		tabTitles.add("Overview");
 		tabTitles.add("Device");
 		tabTitles.add("CPU");
 		tabTitles.add("Sensors");
-		tabTitles.add("Other");
+		
 		// For each of the sections in the app, add a tab to the action bar.
 
-		
-
 	}
-	
-	public void addTabs(){
+
+	public void addTabs() {
 		actionBar.addTab(actionBar.newTab().setText(tabTitles.get(0))
 				.setTabListener(this));
 		actionBar.addTab(actionBar.newTab().setText(tabTitles.get(1))
@@ -631,8 +563,7 @@ public class SystemInfo extends SherlockFragmentActivity implements
 				.setTabListener(this));
 		actionBar.addTab(actionBar.newTab().setText(tabTitles.get(3))
 				.setTabListener(this));
-		actionBar.addTab(actionBar.newTab().setText(tabTitles.get(4))
-				.setTabListener(this));
+		
 	}
 
 	@Override
@@ -661,14 +592,11 @@ public class SystemInfo extends SherlockFragmentActivity implements
 		Bundle args = new Bundle();
 		if (tab.getText().equals("Overview")) {
 			args.putInt(DummySectionFragment.ARG_SECTION_NUMBER, 0);
-		}
-		else if (tab.getText().equals("Device")) {
+		} else if (tab.getText().equals("Device")) {
 			args.putInt(DummySectionFragment.ARG_SECTION_NUMBER, 1);
-		}
-		else if (tab.getText().equals("CPU")) {
+		} else if (tab.getText().equals("CPU")) {
 			args.putInt(DummySectionFragment.ARG_SECTION_NUMBER, 2);
-		}
-		else if (tab.getText().equals("Sensors")) {
+		} else if (tab.getText().equals("Sensors")) {
 			args.putInt(DummySectionFragment.ARG_SECTION_NUMBER, 3);
 		}
 		fragment.setArguments(args);
@@ -706,287 +634,287 @@ public class SystemInfo extends SherlockFragmentActivity implements
 			container.removeAllViews();
 			if (getArguments().getInt(ARG_SECTION_NUMBER) == 0) {
 				Overview(inflater, container);
-			}
-			else if (getArguments().getInt(ARG_SECTION_NUMBER) == 1) {
+			} else if (getArguments().getInt(ARG_SECTION_NUMBER) == 1) {
 				Device(inflater, container);
-				
-			}
-			else if (getArguments().getInt(ARG_SECTION_NUMBER) == 2) {
+
+			} else if (getArguments().getInt(ARG_SECTION_NUMBER) == 2) {
 				CPU(inflater, container);
-				
-			}
-			else if (getArguments().getInt(ARG_SECTION_NUMBER) == 3) {
+
+			} else if (getArguments().getInt(ARG_SECTION_NUMBER) == 3) {
 				Sensors(inflater, container);
-				
 			}
 			return null;
 		}
 	}
-	public void Sensors(LayoutInflater inflater, ViewGroup container){
-		inflater.inflate(R.layout.system_info_sensors, container);
-		
-		oriHead = (TextView) container.findViewById(R.id.TextView_oriHead);
-        accHead = (TextView) container.findViewById(R.id.TextView_accHead);
-        magHead = (TextView) container.findViewById(R.id.TextView_magHead);
-        ligHead = (TextView) container.findViewById(R.id.TextView_ligHead);
-        proxHead = (TextView) container.findViewById(R.id.TextView_proxHead);
-        presHead = (TextView) container.findViewById(R.id.TextView_presHead);
-        tempHead = (TextView) container.findViewById(R.id.TextView_tempHead);
-        gravHead = (TextView) container.findViewById(R.id.TextView_gravHead);
-        gyroHead = (TextView) container.findViewById(R.id.TextView_gyrHead);
-        humHead = (TextView) container.findViewById(R.id.TextView_humHead);
-        
-        oriAccu = (TextView) container.findViewById(R.id.oriAccuracy);
-        accAccu = (TextView) container.findViewById(R.id.accAccuracy);
-        magAccu = (TextView) container.findViewById(R.id.magAccuracy);
-        ligAccu = (TextView) container.findViewById(R.id.ligAccuracy);
-        proxAccu = (TextView) container.findViewById(R.id.proxAccuracy);
-        presAccu = (TextView) container.findViewById(R.id.presAccuracy);
-        tempAccu = (TextView) container.findViewById(R.id.tempAccuracy);
-        gravAccu = (TextView) container.findViewById(R.id.gravAccuracy);
-        gyroAccu = (TextView) container.findViewById(R.id.gyrAccuracy);
-        humAccu = (TextView) container.findViewById(R.id.humAccuracy);
-        
-        
-        tv_orientationA = (TextView) container.findViewById(R.id.TextView_oriA); pb_orientationA = (ProgressBar) this.findViewById(R.id.ProgressBar_oriA);
-        tv_orientationB = (TextView) container.findViewById(R.id.TextView_oriB); pb_orientationB = (ProgressBar) this.findViewById(R.id.ProgressBar_oriB);
-        tv_orientationC = (TextView) container.findViewById(R.id.TextView_oriC); pb_orientationC = (ProgressBar) this.findViewById(R.id.ProgressBar_oriC);
-        tv_accelA = (TextView) container.findViewById(R.id.TextView_accA);       pb_accelA = (ProgressBar) this.findViewById(R.id.ProgressBar_accA);
-        tv_accelB = (TextView) container.findViewById(R.id.TextView_accB);       pb_accelB = (ProgressBar) this.findViewById(R.id.ProgressBar_accB);
-        tv_accelC = (TextView) container.findViewById(R.id.TextView_accC);       pb_accelC = (ProgressBar) this.findViewById(R.id.ProgressBar_accC);
-        tv_magneticA = (TextView) container.findViewById(R.id.TextView_magA);    pb_magneticA = (ProgressBar) this.findViewById(R.id.ProgressBar_magA);
-        tv_magneticB = (TextView) container.findViewById(R.id.TextView_magB);    pb_magneticB = (ProgressBar) this.findViewById(R.id.ProgressBar_magB);
-        tv_magneticC = (TextView) container.findViewById(R.id.TextView_magC);    pb_magneticC = (ProgressBar) this.findViewById(R.id.ProgressBar_magC);
-        tv_lightA = (TextView) container.findViewById(R.id.TextView_ligA);    pb_lightA = (ProgressBar) this.findViewById(R.id.ProgressBar_ligA);
-        tv_proxA = (TextView) container.findViewById(R.id.TextView_proxA);    pb_proxA = (ProgressBar) this.findViewById(R.id.ProgressBar_proxA);
-        tv_presA = (TextView) container.findViewById(R.id.TextView_presA);    pb_presA = (ProgressBar) this.findViewById(R.id.ProgressBar_presA);
-        tv_tempA = (TextView) container.findViewById(R.id.TextView_tempA);    pb_tempA = (ProgressBar) this.findViewById(R.id.ProgressBar_tempA);
-        
-        tv_gravityA = (TextView) container.findViewById(R.id.TextView_gravA); pb_gravityA = (ProgressBar) this.findViewById(R.id.ProgressBar_gravA);
-        tv_gravityB = (TextView) container.findViewById(R.id.TextView_gravB); pb_gravityB = (ProgressBar) this.findViewById(R.id.ProgressBar_gravB);
-        tv_gravityC = (TextView) container.findViewById(R.id.TextView_gravC); pb_gravityC = (ProgressBar) this.findViewById(R.id.ProgressBar_gravC);
-        tv_gyroscopeA = (TextView) container.findViewById(R.id.TextView_gyrA);       pb_gyroscopeA = (ProgressBar) this.findViewById(R.id.ProgressBar_gyrA);
-        tv_gyroscopeB = (TextView) container.findViewById(R.id.TextView_gyrB);       pb_gyroscopeB = (ProgressBar) this.findViewById(R.id.ProgressBar_gyrB);
-        tv_gyroscopeC = (TextView) container.findViewById(R.id.TextView_gyrC);       pb_gyroscopeC = (ProgressBar) this.findViewById(R.id.ProgressBar_gyrC);
-        tv_humidity_A = (TextView) container.findViewById(R.id.TextView_humA);    pb_humidity_A = (ProgressBar) this.findViewById(R.id.ProgressBar_humA);
-        
-        
-        oriLayout = (LinearLayout)container.findViewById(R.id.oriLayout);
-        accLayout = (LinearLayout)container.findViewById(R.id.accLayout);
-        magLayout = (LinearLayout)container.findViewById(R.id.magLayout);
-        ligLayout = (LinearLayout)container.findViewById(R.id.ligLayout);
-        proxLayout = (LinearLayout)container.findViewById(R.id.proxLayout);
-        presLayout = (LinearLayout)container.findViewById(R.id.pressLayout);
-        tempLayout = (LinearLayout)container.findViewById(R.id.tempLayout);
-        connectSensors();
-       /* radioGroup = (RadioGroup)container.findViewById(R.id.radioGroup1);
-        
-        
-        radioGroup.setOnCheckedChangeListener(new OnCheckedChangeListener(){
 
-			@Override
-			public void onCheckedChanged(RadioGroup arg0, int checkedId) {
-				// TODO Auto-generated method stub
-				if(checkedId == R.id.orientation){
-					oriLayout.setVisibility(View.VISIBLE);
-        			accLayout.setVisibility(View.GONE);
-        			magLayout.setVisibility(View.GONE);
-        			ligLayout.setVisibility(View.GONE);
-        			proxLayout.setVisibility(View.GONE);
-        			presLayout.setVisibility(View.GONE);
-        			tempLayout.setVisibility(View.GONE);
-        			connectSensors();
-				}
-				else if(checkedId == R.id.accelerometer){
-					oriLayout.setVisibility(View.GONE);
-        			accLayout.setVisibility(View.VISIBLE);
-        			magLayout.setVisibility(View.GONE);
-        			ligLayout.setVisibility(View.GONE);
-        			proxLayout.setVisibility(View.GONE);
-        			presLayout.setVisibility(View.GONE);
-        			tempLayout.setVisibility(View.GONE);
-        			connectSensors();
-				}
-				else if(checkedId == R.id.temperature){
-					oriLayout.setVisibility(View.GONE);
-        			accLayout.setVisibility(View.GONE);
-        			magLayout.setVisibility(View.GONE);
-        			ligLayout.setVisibility(View.GONE);
-        			proxLayout.setVisibility(View.GONE);
-        			presLayout.setVisibility(View.GONE);
-        			tempLayout.setVisibility(View.VISIBLE);
-        			connectSensors();
-				}
-				/*else if(checkedId == R.id.gravity){
-					oriLayout.setVisibility(View.GONE);
-        			accLayout.setVisibility(View.GONE);
-        			magLayout.setVisibility(View.GONE);
-        			ligLayout.setVisibility(View.GONE);
-        			proxLayout.setVisibility(View.GONE);
-        			presLayout.setVisibility(View.GONE);
-        			tempLayout.setVisibility(View.GONE);
-        			connectSensors();
-				}
-				else if(checkedId == R.id.gyroscoper){
-					oriLayout.setVisibility(View.GONE);
-        			accLayout.setVisibility(View.VISIBLE);
-        			magLayout.setVisibility(View.GONE);
-        			ligLayout.setVisibility(View.GONE);
-        			proxLayout.setVisibility(View.GONE);
-        			presLayout.setVisibility(View.GONE);
-        			tempLayout.setVisibility(View.GONE);
-        			connectSensors();
-				}
-				else if(checkedId == R.id.light){
-					oriLayout.setVisibility(View.GONE);
-        			accLayout.setVisibility(View.GONE);
-        			magLayout.setVisibility(View.GONE);
-        			ligLayout.setVisibility(View.VISIBLE);
-        			proxLayout.setVisibility(View.GONE);
-        			presLayout.setVisibility(View.GONE);
-        			tempLayout.setVisibility(View.GONE);
-        			connectSensors();
-				}
-				else if(checkedId == R.id.magnetic){
-					oriLayout.setVisibility(View.GONE);
-        			accLayout.setVisibility(View.GONE);
-        			magLayout.setVisibility(View.VISIBLE);
-        			ligLayout.setVisibility(View.GONE);
-        			proxLayout.setVisibility(View.GONE);
-        			presLayout.setVisibility(View.GONE);
-        			tempLayout.setVisibility(View.GONE);
-        			connectSensors();
-				}
-				else if(checkedId == R.id.pressure){
-					oriLayout.setVisibility(View.GONE);
-        			accLayout.setVisibility(View.GONE);
-        			magLayout.setVisibility(View.GONE);
-        			ligLayout.setVisibility(View.GONE);
-        			proxLayout.setVisibility(View.GONE);
-        			presLayout.setVisibility(View.VISIBLE);
-        			tempLayout.setVisibility(View.GONE);
-        			connectSensors();
-				}
-				else if(checkedId == R.id.proximity){
-					oriLayout.setVisibility(View.GONE);
-        			accLayout.setVisibility(View.GONE);
-        			magLayout.setVisibility(View.GONE);
-        			ligLayout.setVisibility(View.GONE);
-        			proxLayout.setVisibility(View.VISIBLE);
-        			presLayout.setVisibility(View.GONE);
-        			tempLayout.setVisibility(View.GONE);
-        			connectSensors();
-				}
-				/*else if(checkedId == R.id.humidity){
-					oriLayout.setVisibility(View.GONE);
-        			accLayout.setVisibility(View.VISIBLE);
-        			magLayout.setVisibility(View.GONE);
-        			ligLayout.setVisibility(View.GONE);
-        			proxLayout.setVisibility(View.GONE);
-        			presLayout.setVisibility(View.GONE);
-        			tempLayout.setVisibility(View.GONE);
-        			connectSensors();
-				}
-				
-			}
-        	
-        });*/
+	public void Sensors(LayoutInflater inflater, ViewGroup container) {
+		inflater.inflate(R.layout.system_info_sensors, container);
+
+		oriHead = (TextView) container.findViewById(R.id.TextView_oriHead);
+		accHead = (TextView) container.findViewById(R.id.TextView_accHead);
+		magHead = (TextView) container.findViewById(R.id.TextView_magHead);
+		ligHead = (TextView) container.findViewById(R.id.TextView_ligHead);
+		proxHead = (TextView) container.findViewById(R.id.TextView_proxHead);
+		presHead = (TextView) container.findViewById(R.id.TextView_presHead);
+		tempHead = (TextView) container.findViewById(R.id.TextView_tempHead);
+		gravHead = (TextView) container.findViewById(R.id.TextView_gravHead);
+		gyroHead = (TextView) container.findViewById(R.id.TextView_gyrHead);
+		humHead = (TextView) container.findViewById(R.id.TextView_humHead);
+
+		oriAccu = (TextView) container.findViewById(R.id.oriAccuracy);
+		accAccu = (TextView) container.findViewById(R.id.accAccuracy);
+		magAccu = (TextView) container.findViewById(R.id.magAccuracy);
+		ligAccu = (TextView) container.findViewById(R.id.ligAccuracy);
+		proxAccu = (TextView) container.findViewById(R.id.proxAccuracy);
+		presAccu = (TextView) container.findViewById(R.id.presAccuracy);
+		tempAccu = (TextView) container.findViewById(R.id.tempAccuracy);
+		gravAccu = (TextView) container.findViewById(R.id.gravAccuracy);
+		gyroAccu = (TextView) container.findViewById(R.id.gyrAccuracy);
+		humAccu = (TextView) container.findViewById(R.id.humAccuracy);
+
+		tv_orientationA = (TextView) container.findViewById(R.id.TextView_oriA);
+		pb_orientationA = (ProgressBar) this
+				.findViewById(R.id.ProgressBar_oriA);
+		tv_orientationB = (TextView) container.findViewById(R.id.TextView_oriB);
+		pb_orientationB = (ProgressBar) this
+				.findViewById(R.id.ProgressBar_oriB);
+		tv_orientationC = (TextView) container.findViewById(R.id.TextView_oriC);
+		pb_orientationC = (ProgressBar) this
+				.findViewById(R.id.ProgressBar_oriC);
+		tv_accelA = (TextView) container.findViewById(R.id.TextView_accA);
+		pb_accelA = (ProgressBar) this.findViewById(R.id.ProgressBar_accA);
+		tv_accelB = (TextView) container.findViewById(R.id.TextView_accB);
+		pb_accelB = (ProgressBar) this.findViewById(R.id.ProgressBar_accB);
+		tv_accelC = (TextView) container.findViewById(R.id.TextView_accC);
+		pb_accelC = (ProgressBar) this.findViewById(R.id.ProgressBar_accC);
+		tv_magneticA = (TextView) container.findViewById(R.id.TextView_magA);
+		pb_magneticA = (ProgressBar) this.findViewById(R.id.ProgressBar_magA);
+		tv_magneticB = (TextView) container.findViewById(R.id.TextView_magB);
+		pb_magneticB = (ProgressBar) this.findViewById(R.id.ProgressBar_magB);
+		tv_magneticC = (TextView) container.findViewById(R.id.TextView_magC);
+		pb_magneticC = (ProgressBar) this.findViewById(R.id.ProgressBar_magC);
+		tv_lightA = (TextView) container.findViewById(R.id.TextView_ligA);
+		pb_lightA = (ProgressBar) this.findViewById(R.id.ProgressBar_ligA);
+		tv_proxA = (TextView) container.findViewById(R.id.TextView_proxA);
+		pb_proxA = (ProgressBar) this.findViewById(R.id.ProgressBar_proxA);
+		tv_presA = (TextView) container.findViewById(R.id.TextView_presA);
+		pb_presA = (ProgressBar) this.findViewById(R.id.ProgressBar_presA);
+		tv_tempA = (TextView) container.findViewById(R.id.TextView_tempA);
+		pb_tempA = (ProgressBar) this.findViewById(R.id.ProgressBar_tempA);
+
+		tv_gravityA = (TextView) container.findViewById(R.id.TextView_gravA);
+		pb_gravityA = (ProgressBar) this.findViewById(R.id.ProgressBar_gravA);
+		tv_gravityB = (TextView) container.findViewById(R.id.TextView_gravB);
+		pb_gravityB = (ProgressBar) this.findViewById(R.id.ProgressBar_gravB);
+		tv_gravityC = (TextView) container.findViewById(R.id.TextView_gravC);
+		pb_gravityC = (ProgressBar) this.findViewById(R.id.ProgressBar_gravC);
+		tv_gyroscopeA = (TextView) container.findViewById(R.id.TextView_gyrA);
+		pb_gyroscopeA = (ProgressBar) this.findViewById(R.id.ProgressBar_gyrA);
+		tv_gyroscopeB = (TextView) container.findViewById(R.id.TextView_gyrB);
+		pb_gyroscopeB = (ProgressBar) this.findViewById(R.id.ProgressBar_gyrB);
+		tv_gyroscopeC = (TextView) container.findViewById(R.id.TextView_gyrC);
+		pb_gyroscopeC = (ProgressBar) this.findViewById(R.id.ProgressBar_gyrC);
+		tv_humidity_A = (TextView) container.findViewById(R.id.TextView_humA);
+		pb_humidity_A = (ProgressBar) this.findViewById(R.id.ProgressBar_humA);
+
+		oriLayout = (LinearLayout) container.findViewById(R.id.oriLayout);
+		accLayout = (LinearLayout) container.findViewById(R.id.accLayout);
+		magLayout = (LinearLayout) container.findViewById(R.id.magLayout);
+		ligLayout = (LinearLayout) container.findViewById(R.id.ligLayout);
+		proxLayout = (LinearLayout) container.findViewById(R.id.proxLayout);
+		presLayout = (LinearLayout) container.findViewById(R.id.pressLayout);
+		tempLayout = (LinearLayout) container.findViewById(R.id.tempLayout);
+		connectSensors();
+
 	}
-	public void Overview(LayoutInflater inflater, ViewGroup container){
+
+	public void Overview(LayoutInflater inflater, ViewGroup container) {
 		Integer freeRAM = getFreeRAM();
 		Integer totalRAM = getTotalRAM();
-		Integer usedRAM = getTotalRAM()- getFreeRAM();
-		long freeInternal =  getAvailableSpaceInBytesOnInternalStorage();
-		long usedInternal =  getUsedSpaceInBytesOnInternalStorage();
+		Integer usedRAM = getTotalRAM() - getFreeRAM();
+		long freeInternal = getAvailableSpaceInBytesOnInternalStorage();
+		long usedInternal = getUsedSpaceInBytesOnInternalStorage();
 		long totalInternal = getTotalSpaceInBytesOnInternalStorage();
-		long freeExternal =  getAvailableSpaceInBytesOnExternalStorage();
-		long usedExternal =  getUsedSpaceInBytesOnExternalStorage();
+		long freeExternal = getAvailableSpaceInBytesOnExternalStorage();
+		long usedExternal = getUsedSpaceInBytesOnExternalStorage();
 		long totalExternal = getTotalSpaceInBytesOnExternalStorage();
-		
+
 		inflater.inflate(R.layout.system_info_overview, container);
-		TextView level = (TextView)container.findViewById(R.id.textView1);
-		ProgressBar levelProgress = (ProgressBar)container.findViewById(R.id.progressBar1);
-		TextView temp = (TextView)container.findViewById(R.id.textView3);
-		TextView drain = (TextView)container.findViewById(R.id.textView5);
-		TextView totalRAMtxt = (TextView)container.findViewById(R.id.textView7);
-		TextView freeRAMtxt = (TextView)container.findViewById(R.id.textView8);
-		ProgressBar ramProgress = (ProgressBar)container.findViewById(R.id.progressBar2);
-		TextView totalInternaltxt = (TextView)container.findViewById(R.id.textView10);
-		TextView freeInternaltxt = (TextView)container.findViewById(R.id.textView11);
-		ProgressBar internalProgress = (ProgressBar)container.findViewById(R.id.progressBar3);
-		TextView totalExternaltxt = (TextView)container.findViewById(R.id.textView13);
-		TextView freeExternaltxt = (TextView)container.findViewById(R.id.textView14);
-		ProgressBar externalProgress = (ProgressBar)container.findViewById(R.id.progressBar4);
-		
-		if(battperc!=null){
-		level.setText("Level: "+String.valueOf(battperc)+"%");
-		levelProgress.setProgress(battperc);
-		}
-		else{
+		TextView level = (TextView) container.findViewById(R.id.textView1);
+		ProgressBar levelProgress = (ProgressBar) container
+				.findViewById(R.id.progressBar1);
+		TextView temp = (TextView) container.findViewById(R.id.textView3);
+		TextView drain = (TextView) container.findViewById(R.id.textView5);
+		TextView totalRAMtxt = (TextView) container
+				.findViewById(R.id.textView7);
+		TextView freeRAMtxt = (TextView) container.findViewById(R.id.textView8);
+		ProgressBar ramProgress = (ProgressBar) container
+				.findViewById(R.id.progressBar2);
+		TextView totalInternaltxt = (TextView) container
+				.findViewById(R.id.textView10);
+		TextView freeInternaltxt = (TextView) container
+				.findViewById(R.id.textView11);
+		ProgressBar internalProgress = (ProgressBar) container
+				.findViewById(R.id.progressBar3);
+		TextView totalExternaltxt = (TextView) container
+				.findViewById(R.id.textView13);
+		TextView freeExternaltxt = (TextView) container
+				.findViewById(R.id.textView14);
+		ProgressBar externalProgress = (ProgressBar) container
+				.findViewById(R.id.progressBar4);
+		TextView Externaltxt = (TextView) container
+				.findViewById(R.id.textView12);
+
+		if (battperc != null) {
+			level.setText("Level: " + String.valueOf(battperc) + "%");
+			levelProgress.setProgress(battperc);
+		} else {
 			level.setText("Unknown");
 		}
-		if(batttemp!=null){
-		temp.setText(tempConverter(tempPref, batttemp));
-		}
-		else{
+		if (batttemp != null) {
+			temp.setText(tempConverter(tempPref, batttemp));
+		} else {
 			temp.setText("Unknown");
 		}
-		if(!battcurrent.equals("err")){
-		drain.setText(battcurrent+"mAh");
-		}
-		else{
+		if (!battcurrent.equals("err")) {
+			drain.setText(battcurrent + "mAh");
+		} else {
 			drain.setText("Unknown");
 		}
-		totalRAMtxt.setText("Total: "+String.valueOf(totalRAM)+"MB");
-		freeRAMtxt.setText("Free: "+String.valueOf(freeRAM)+"MB");
-		ramProgress.setProgress(usedRAM*100/totalRAM);
-		
-		totalInternaltxt.setText("Total: "+humanReadableSize(totalInternal));
-		freeInternaltxt.setText("Free: "+humanReadableSize(freeInternal));
-		internalProgress.setProgress((int)(usedInternal*100/totalInternal));
-		
-		totalExternaltxt.setText("Total: "+humanReadableSize(totalExternal));
-		freeExternaltxt.setText("Free: "+humanReadableSize(freeExternal));
-		externalProgress.setProgress((int)(usedExternal*100/totalExternal));
-		
+		totalRAMtxt.setText("Total: " + String.valueOf(totalRAM) + "MB");
+		freeRAMtxt.setText("Free: " + String.valueOf(freeRAM) + "MB");
+		ramProgress.setProgress(usedRAM * 100 / totalRAM);
+
+		totalInternaltxt.setText("Total: " + humanReadableSize(totalInternal));
+		freeInternaltxt.setText("Free: " + humanReadableSize(freeInternal));
+		internalProgress
+				.setProgress((int) (usedInternal * 100 / totalInternal));
+		if (isSDPresent) {
+			totalExternaltxt.setText("Total: "
+					+ humanReadableSize(totalExternal));
+			freeExternaltxt.setText("Free: " + humanReadableSize(freeExternal));
+			externalProgress
+					.setProgress((int) (usedExternal * 100 / totalExternal));
+		} else {
+			Externaltxt.setText("External Storage not present");
+			totalExternaltxt.setVisibility(View.GONE);
+			freeExternaltxt.setVisibility(View.GONE);
+			externalProgress.setVisibility(View.GONE);
+		}
 	}
-	
-	public void Device(LayoutInflater inflater, ViewGroup container){
+
+	public void Device(LayoutInflater inflater, ViewGroup container) {
 		inflater.inflate(R.layout.system_info_device, container);
-		TextView androidVersiontxt = (TextView)container.findViewById(R.id.androidVersion);
-		TextView apitxt = (TextView)container.findViewById(R.id.api);
-		TextView cpuAbitxt = (TextView)container.findViewById(R.id.cpuAbi);
-		TextView manufacturertxt = (TextView)container.findViewById(R.id.manufacturer);
-		TextView bootloadertxt = (TextView)container.findViewById(R.id.bootloader);
-		TextView hardwaretxt = (TextView)container.findViewById(R.id.hardware);
-		TextView radiotxt = (TextView)container.findViewById(R.id.radio);
-		TextView boardtxt = (TextView)container.findViewById(R.id.board);
-		TextView brandtxt = (TextView)container.findViewById(R.id.brand);
-		TextView devicetxt = (TextView)container.findViewById(R.id.device);
-		TextView displaytxt = (TextView)container.findViewById(R.id.display);
-		TextView fingerprinttxt = (TextView)container.findViewById(R.id.fingerprint);
-		TextView hosttxt = (TextView)container.findViewById(R.id.host);
-		TextView idtxt = (TextView)container.findViewById(R.id.id);
-		TextView modeltxt = (TextView)container.findViewById(R.id.model);
-		TextView producttxt = (TextView)container.findViewById(R.id.product);
-		TextView tagstxt = (TextView)container.findViewById(R.id.tags);
-		TextView typetxt = (TextView)container.findViewById(R.id.type);
-		TextView usertxt = (TextView)container.findViewById(R.id.user);
-		TextView userAppstxt = (TextView)container.findViewById(R.id.userApps);
-		TextView systemAppstxt = (TextView)container.findViewById(R.id.systemApps);
-		TextView screenRestxt = (TextView)container.findViewById(R.id.screenResolution);
-		TextView screenRefreshratetxt = (TextView)container.findViewById(R.id.screenRefreshRate);
-		TextView screenDensitytxt = (TextView)container.findViewById(R.id.screenDensity);
-		TextView screenPPItxt = (TextView)container.findViewById(R.id.screenPPI);
-		TextView kerneltxt = (TextView)container.findViewById(R.id.kernel);
-		
-		androidVersiontxt.setText(androidVersion);
-		apitxt.setText(String.valueOf(apiLevel));
-		if(apiLevel>=14){
-			androidVersiontxt.setTextColor(Color.GREEN);
-			apitxt.setTextColor(Color.GREEN);
+		TextView androidVersiontxt = (TextView) container
+				.findViewById(R.id.androidVersion);
+		TextView apitxt = (TextView) container.findViewById(R.id.api);
+		TextView cpuAbitxt = (TextView) container.findViewById(R.id.cpuAbi);
+		TextView manufacturertxt = (TextView) container
+				.findViewById(R.id.manufacturer);
+		TextView bootloadertxt = (TextView) container
+				.findViewById(R.id.bootloader);
+		TextView hardwaretxt = (TextView) container.findViewById(R.id.hardware);
+		TextView radiotxt = (TextView) container.findViewById(R.id.radio);
+		TextView boardtxt = (TextView) container.findViewById(R.id.board);
+		TextView brandtxt = (TextView) container.findViewById(R.id.brand);
+		TextView devicetxt = (TextView) container.findViewById(R.id.device);
+		TextView displaytxt = (TextView) container.findViewById(R.id.display);
+		TextView fingerprinttxt = (TextView) container
+				.findViewById(R.id.fingerprint);
+		TextView hosttxt = (TextView) container.findViewById(R.id.host);
+		TextView idtxt = (TextView) container.findViewById(R.id.id);
+		TextView modeltxt = (TextView) container.findViewById(R.id.model);
+		TextView producttxt = (TextView) container.findViewById(R.id.product);
+		TextView tagstxt = (TextView) container.findViewById(R.id.tags);
+		TextView typetxt = (TextView) container.findViewById(R.id.type);
+		TextView usertxt = (TextView) container.findViewById(R.id.user);
+		TextView userAppstxt = (TextView) container.findViewById(R.id.userApps);
+		TextView systemAppstxt = (TextView) container
+				.findViewById(R.id.systemApps);
+		TextView screenRestxt = (TextView) container
+				.findViewById(R.id.screenResolution);
+		TextView screenRefreshratetxt = (TextView) container
+				.findViewById(R.id.screenRefreshRate);
+		TextView screenDensitytxt = (TextView) container
+				.findViewById(R.id.screenDensity);
+		TextView screenPPItxt = (TextView) container
+				.findViewById(R.id.screenPPI);
+		TextView kerneltxt = (TextView) container.findViewById(R.id.kernel);
+		TextView gpu2dtxt = (TextView) container.findViewById(R.id.gpu2d);
+		TextView gpu3dtxt = (TextView) container.findViewById(R.id.gpu3d);
+		TextView vsynctxt = (TextView) container.findViewById(R.id.vsync);
+		TextView fastchargetxt = (TextView) container.findViewById(R.id.fastcharge);
+		TextView colorDepthtxt = (TextView) container.findViewById(R.id.cdepth);
+		TextView schedulerstxt = (TextView) container.findViewById(R.id.schedulers);
+		TextView s2wtxt = (TextView) container.findViewById(R.id.s2w);
+		if(gpu2d!=null){
+			gpu2dtxt.setText(String.valueOf(gpu2d/1000000)+"MHz");
 		}
 		else{
+			gpu2dtxt.setText("Unknown");
+		}
+		if(gpu3d!=null){
+			gpu3dtxt.setText(String.valueOf(gpu3d/1000000)+"MHz");
+		}
+		else{
+			gpu3dtxt.setText("Unknown");
+		}
+		if(vsync!=null){
+			if(vsync==0){
+			vsynctxt.setText("OFF");
+			vsynctxt.setTextColor(Color.RED);
+			}
+			else if(vsync==1){
+				vsynctxt.setText("ON");
+				vsynctxt.setTextColor(Color.GREEN);
+			}
+			else{
+				vsynctxt.setText("Unknown");
+			}
+		}
+		else{
+			vsynctxt.setText("Unknown");
+		}
+		if(fastcharge!=null){
+			if(fastcharge==0){
+				fastchargetxt.setText("OFF");
+				fastchargetxt.setTextColor(Color.RED);
+			}
+			else if(fastcharge==1){
+				fastchargetxt.setText("ON");
+				fastchargetxt.setTextColor(Color.GREEN);
+			}
+			else{
+				fastchargetxt.setText("Unknown");
+			}
+		}
+		else{
+			fastchargetxt.setText("Unknown");
+		}
+		if(cdepth!=null){
+			colorDepthtxt.setText(String.valueOf(cdepth)+"-bit");
+		}
+		else{
+			colorDepthtxt.setText("Unknown");
+		}
+		schedulerstxt.setText(schedulers);
+		if(s2w!=null){
+			if(s2w==0){
+			s2wtxt.setText("OFF");
+			}
+			else{
+				s2wtxt.setText("ON");
+			}
+		}
+		else{
+			s2wtxt.setText("Unknown");
+		}
+		androidVersiontxt.setText(androidVersion);
+		apitxt.setText(String.valueOf(apiLevel));
+		if (apiLevel >= 14) {
+			androidVersiontxt.setTextColor(Color.GREEN);
+			apitxt.setTextColor(Color.GREEN);
+		} else {
 			androidVersiontxt.setTextColor(Color.RED);
 			apitxt.setTextColor(Color.RED);
 		}
@@ -1015,398 +943,460 @@ public class SystemInfo extends SherlockFragmentActivity implements
 		screenPPItxt.setText(screenPpi);
 		kerneltxt.setText(kernel);
 	}
-	
-	public void CPU(LayoutInflater inflater, ViewGroup container){
+
+	public void CPU(LayoutInflater inflater, ViewGroup container) {
 		inflater.inflate(R.layout.system_info_cpu, container);
-		TextView cpu = (TextView)container.findViewById(R.id.tv);
-		TextView freqRange = (TextView)container.findViewById(R.id.freqRange);
-		TextView mpdectxt = (TextView)container.findViewById(R.id.mpdec);
-		TextView thermal = (TextView)container.findViewById(R.id.thermal);
-		TextView governorstxt = (TextView)container.findViewById(R.id.governors);
-		TextView voltRange = (TextView)container.findViewById(R.id.voltRange);
-	    LinearLayout mpdecLayout = (LinearLayout)container.findViewById(R.id.mpdecLayout);
-	    LinearLayout thermalLayout = (LinearLayout)container.findViewById(R.id.thermalLayout);
-	    LinearLayout voltageLayout = (LinearLayout)container.findViewById(R.id.voltageLayout);
-	    
+		TextView cpu = (TextView) container.findViewById(R.id.tv);
+		TextView freqRange = (TextView) container.findViewById(R.id.freqRange);
+		TextView mpdectxt = (TextView) container.findViewById(R.id.mpdec);
+		TextView thermal = (TextView) container.findViewById(R.id.thermal);
+		TextView governorstxt = (TextView) container
+				.findViewById(R.id.governors);
+		TextView voltRange = (TextView) container.findViewById(R.id.voltRange);
+		LinearLayout mpdecLayout = (LinearLayout) container
+				.findViewById(R.id.mpdecLayout);
+		LinearLayout thermalLayout = (LinearLayout) container
+				.findViewById(R.id.thermalLayout);
+		LinearLayout voltageLayout = (LinearLayout) container
+				.findViewById(R.id.voltageLayout);
+
 		cpu.setText(cpu_info);
-		if(freqs.isEmpty()==false){
-		freqRange.setText(freqs.get(0)+" - " + freqs.get(freqs.size()-1));
-		}
-		else{
+		if (freqs.isEmpty() == false) {
+			freqRange.setText(freqs.get(0) + " - "
+					+ freqs.get(freqs.size() - 1));
+		} else {
 			freqRange.setText("Unknown");
 		}
-		if(mpdec!=null){
-			if(mpdec==0){
+		if (mpdec != null) {
+			if (mpdec == 0) {
 				mpdectxt.setText("OFF");
 				mpdectxt.setTextColor(Color.RED);
-			}
-			else if(mpdec==1){
+			} else if (mpdec == 1) {
 				mpdectxt.setText("ON");
 				mpdectxt.setTextColor(Color.GREEN);
-			}
-			else{
+			} else {
 				mpdectxt.setText("Unknown");
 				mpdectxt.setTextColor(Color.RED);
 			}
-		}
-		else{
+		} else {
 			mpdecLayout.setVisibility(View.GONE);
 		}
-		if(new File("/sys/kernel/msm_thermal/conf").exists()){
+		if (new File("/sys/kernel/msm_thermal/conf").exists()) {
 			thermal.setText("ON");
 			thermal.setTextColor(Color.GREEN);
-		}
-		else{
+		} else {
 			thermalLayout.setVisibility(View.GONE);
 		}
-		if(governors.equals("")){
+		if (governors.equals("")) {
 			governorstxt.setText("Unknown");
-		}
-		else{
+		} else {
 			governorstxt.setText(governors);
 		}
-		if(voltages.isEmpty()==false){
-			voltRange.setText(String.valueOf(voltages.get(0)/1000)+"mV("+ voltFreq.get(0) +") - "+String.valueOf(voltages.get(voltages.size()-1)/1000)+"mV("+voltFreq.get(voltFreq.size()-1)+")");
-		}
-		else{
+		if (voltages.isEmpty() == false) {
+			voltRange.setText(String.valueOf(voltages.get(0) / 1000) + "mV("
+					+ voltFreq.get(0) + ") - "
+					+ String.valueOf(voltages.get(voltages.size() - 1) / 1000)
+					+ "mV(" + voltFreq.get(voltFreq.size() - 1) + ")");
+		} else {
 			voltageLayout.setVisibility(View.GONE);
 		}
 	}
+
 	
-	public static String tempConverter(String tempPref, double cTemp){
+
+	public static String tempConverter(String tempPref, double cTemp) {
 		String tempNew = "";
 		/**
-		 * cTemp = temperature in celsius
-		 * tempPreff = string from shared preferences with value fahrenheit, celsius or kelvin
-		*/
-		if (tempPref.equals("fahrenheit"))
-		{
-			tempNew = String.valueOf((cTemp * 1.8) + 32)+"°F";
-			
-			
-		}
-		else if (tempPref.equals("celsius"))
-		{
-			tempNew = String.valueOf(cTemp)+"°C";
-			
-		}
-		else if (tempPref.equals("kelvin"))
-		{
-			
-			 tempNew = String.valueOf(cTemp+273.15)+"°C";
-			
+		 * cTemp = temperature in celsius tempPreff = string from shared
+		 * preferences with value fahrenheit, celsius or kelvin
+		 */
+		if (tempPref.equals("fahrenheit")) {
+			tempNew = String.valueOf((cTemp * 1.8) + 32) + "°F";
+
+		} else if (tempPref.equals("celsius")) {
+			tempNew = String.valueOf(cTemp) + "°C";
+
+		} else if (tempPref.equals("kelvin")) {
+
+			tempNew = String.valueOf(cTemp + 273.15) + "°C";
+
 		}
 		return tempNew;
 	}
-	
+
 	public static Integer getTotalRAM() {
-	    RandomAccessFile reader = null;
-	    String load = null;
-	    Integer mem = null;
-	    try {
-	        reader = new RandomAccessFile("/proc/meminfo", "r");
-	        load = reader.readLine();
-	        mem= Integer.parseInt(load.substring(load.indexOf(":")+1, load.lastIndexOf(" ")).trim())/1024;
-	    } catch (IOException ex) {
-	        ex.printStackTrace();
-	    } finally {
-	       try {
-			reader.close();
-		} catch (IOException e) {
-			
-			e.printStackTrace();
+		RandomAccessFile reader = null;
+		String load = null;
+		Integer mem = null;
+		try {
+			reader = new RandomAccessFile("/proc/meminfo", "r");
+			load = reader.readLine();
+			mem = Integer.parseInt(load.substring(load.indexOf(":") + 1,
+					load.lastIndexOf(" ")).trim()) / 1024;
+		} catch (IOException ex) {
+			ex.printStackTrace();
+		} finally {
+			try {
+				reader.close();
+			} catch (IOException e) {
+
+				e.printStackTrace();
+			}
 		}
-	    }
-	    return mem;
+		return mem;
 	}
-	
-	public Integer getFreeRAM(){
+
+	public Integer getFreeRAM() {
 		MemoryInfo mi = new MemoryInfo();
 		ActivityManager activityManager = (ActivityManager) getSystemService(ACTIVITY_SERVICE);
 		activityManager.getMemoryInfo(mi);
 		Integer mem = (int) (mi.availMem / 1048576L);
 		return mem;
-		
+
 	}
-	
+
 	public static long getAvailableSpaceInBytesOnInternalStorage() {
-	    long availableSpace = -1L;
-	    StatFs stat = new StatFs(Environment.getDataDirectory().getPath());
-	    availableSpace = (long) stat.getAvailableBlocks() * (long) stat.getBlockSize();
+		long availableSpace = -1L;
+		StatFs stat = new StatFs(Environment.getDataDirectory().getPath());
+		availableSpace = (long) stat.getAvailableBlocks()
+				* (long) stat.getBlockSize();
 
-	    return availableSpace;
+		return availableSpace;
 	}
-	
+
 	public static long getUsedSpaceInBytesOnInternalStorage() {
-	    long usedSpace = -1L;
-	    StatFs stat = new StatFs(Environment.getDataDirectory().getPath());
-	    usedSpace = ((long) stat.getBlockCount() - stat.getAvailableBlocks()) * (long) stat.getBlockSize();
+		long usedSpace = -1L;
+		StatFs stat = new StatFs(Environment.getDataDirectory().getPath());
+		usedSpace = ((long) stat.getBlockCount() - stat.getAvailableBlocks())
+				* (long) stat.getBlockSize();
 
-	    return usedSpace;
+		return usedSpace;
 	}
-	
+
 	public static long getTotalSpaceInBytesOnInternalStorage() {
-	    long usedSpace = -1L;
-	    StatFs stat = new StatFs(Environment.getDataDirectory().getPath());
-	    usedSpace = ((long) stat.getBlockCount()) * (long) stat.getBlockSize();
+		long usedSpace = -1L;
+		StatFs stat = new StatFs(Environment.getDataDirectory().getPath());
+		usedSpace = ((long) stat.getBlockCount()) * (long) stat.getBlockSize();
 
-	    return usedSpace;
+		return usedSpace;
 	}
-	
+
 	public static long getAvailableSpaceInBytesOnExternalStorage() {
-	    long availableSpace = -1L;
-	    StatFs stat = new StatFs(Environment.getExternalStorageDirectory().getPath());
-	    availableSpace = (long) stat.getAvailableBlocks() * (long) stat.getBlockSize();
+		long availableSpace = -1L;
+		StatFs stat = new StatFs(Environment.getExternalStorageDirectory()
+				.getPath());
+		availableSpace = (long) stat.getAvailableBlocks()
+				* (long) stat.getBlockSize();
 
-	    return availableSpace;
+		return availableSpace;
 	}
-	
+
 	public static long getUsedSpaceInBytesOnExternalStorage() {
-	    long usedSpace = -1L;
-	    StatFs stat = new StatFs(Environment.getExternalStorageDirectory().getPath());
-	    usedSpace = ((long) stat.getBlockCount() - stat.getAvailableBlocks()) * (long) stat.getBlockSize();
+		long usedSpace = -1L;
+		StatFs stat = new StatFs(Environment.getExternalStorageDirectory()
+				.getPath());
+		usedSpace = ((long) stat.getBlockCount() - stat.getAvailableBlocks())
+				* (long) stat.getBlockSize();
 
-	    return usedSpace;
+		return usedSpace;
 	}
-	
+
 	public static long getTotalSpaceInBytesOnExternalStorage() {
-	    long usedSpace = -1L;
-	    StatFs stat = new StatFs(Environment.getExternalStorageDirectory().getPath());
-	    usedSpace = ((long) stat.getBlockCount()) * (long) stat.getBlockSize();
+		long usedSpace = -1L;
+		StatFs stat = new StatFs(Environment.getExternalStorageDirectory()
+				.getPath());
+		usedSpace = ((long) stat.getBlockCount()) * (long) stat.getBlockSize();
 
-	    return usedSpace;
+		return usedSpace;
 	}
 
-	public String humanReadableSize(long size){
+	public String humanReadableSize(long size) {
 		String hrSize = "";
-		
+
 		long b = size;
-		double k = size/1024.0;
-		double m = size/1048576.0;
-		double g = size/1073741824.0;
-		double t = size/1099511627776.0;
-		
+		double k = size / 1024.0;
+		double m = size / 1048576.0;
+		double g = size / 1073741824.0;
+		double t = size / 1099511627776.0;
+
 		DecimalFormat dec = new DecimalFormat("0.00");
-	
-		if (t>1)
-		{
-	
+
+		if (t > 1) {
+
 			hrSize = dec.format(t).concat("TB");
-		}
-		else if (g>1)
-		{
-			
+		} else if (g > 1) {
+
 			hrSize = dec.format(g).concat("GB");
-		}
-		else if (m>1)
-		{
-		
+		} else if (m > 1) {
+
 			hrSize = dec.format(m).concat("MB");
-		}
-		else if (k>1)
-		{
-	
+		} else if (k > 1) {
+
 			hrSize = dec.format(k).concat("KB");
 
-		}
-		else if(b>1){
+		} else if (b > 1) {
 			hrSize = dec.format(b).concat("B");
 		}
-		
-		
-		
-		
+
 		return hrSize;
-		
+
 	}
-	
-	protected String getSensorInfo(Sensor sen){
-		 String sensorInfo="INVALID";
-		 String snsType;
-		 
-		 switch(sen.getType()){
-		 	case Sensor.TYPE_ACCELEROMETER     : snsType="TYPE_ACCELEROMETER";break;
-		 	case Sensor.TYPE_ALL               : snsType="TYPE_ALL";break;
-		 	case Sensor.TYPE_GYROSCOPE         : snsType="TYPE_GYROSCOPE";break;
-		 	case Sensor.TYPE_LIGHT             : snsType="TYPE_LIGHT";break;
-		 	case Sensor.TYPE_MAGNETIC_FIELD    : snsType="TYPE_MAGNETIC_FIELD";break;
-		 	case Sensor.TYPE_ORIENTATION       : snsType="TYPE_ORIENTATION";break;
-		 	case Sensor.TYPE_PRESSURE          : snsType="TYPE_PRESSURE";break;
-		 	case Sensor.TYPE_PROXIMITY         : snsType="TYPE_PROXIMITY";break;
-		 	case Sensor.TYPE_AMBIENT_TEMPERATURE       : snsType="TYPE_TEMPERATURE";break;
-		 	default: snsType="UNKNOWN_TYPE "+sen.getType();break;
-		 }
 
-		 sensorInfo=sen.getName()+"\n";
-		 sensorInfo+="Version: "+sen.getVersion()+"\n";
-		 sensorInfo+="Vendor: "+sen.getVendor()+"\n";
-		 sensorInfo+="Type: "+snsType+"\n";
-		 sensorInfo+="MaxRange: "+sen.getMaximumRange()+"\n";
-		 sensorInfo+="Resolution: "+String.format("%.5f",sen.getResolution())+"\n";
-		 sensorInfo+="Power: "+sen.getPower()+" mA\n";
-		 return sensorInfo;	
+	protected String getSensorInfo(Sensor sen) {
+		String sensorInfo = "INVALID";
+		String snsType;
+
+		switch (sen.getType()) {
+		case Sensor.TYPE_ACCELEROMETER:
+			snsType = "TYPE_ACCELEROMETER";
+			break;
+		case Sensor.TYPE_ALL:
+			snsType = "TYPE_ALL";
+			break;
+		case Sensor.TYPE_GYROSCOPE:
+			snsType = "TYPE_GYROSCOPE";
+			break;
+		case Sensor.TYPE_LIGHT:
+			snsType = "TYPE_LIGHT";
+			break;
+		case Sensor.TYPE_MAGNETIC_FIELD:
+			snsType = "TYPE_MAGNETIC_FIELD";
+			break;
+		case Sensor.TYPE_ORIENTATION:
+			snsType = "TYPE_ORIENTATION";
+			break;
+		case Sensor.TYPE_PRESSURE:
+			snsType = "TYPE_PRESSURE";
+			break;
+		case Sensor.TYPE_PROXIMITY:
+			snsType = "TYPE_PROXIMITY";
+			break;
+		case Sensor.TYPE_AMBIENT_TEMPERATURE:
+			snsType = "TYPE_TEMPERATURE";
+			break;
+		default:
+			snsType = "UNKNOWN_TYPE " + sen.getType();
+			break;
 		}
-		
-	SensorEventListener senseventListener = new SensorEventListener(){
 
-		
+		sensorInfo = sen.getName() + "\n";
+		sensorInfo += "Version: " + sen.getVersion() + "\n";
+		sensorInfo += "Vendor: " + sen.getVendor() + "\n";
+		sensorInfo += "Type: " + snsType + "\n";
+		sensorInfo += "MaxRange: " + sen.getMaximumRange() + "\n";
+		sensorInfo += "Resolution: "
+				+ String.format("%.5f", sen.getResolution()) + "\n";
+		sensorInfo += "Power: " + sen.getPower() + " mA\n";
+		return sensorInfo;
+	}
+
+	SensorEventListener senseventListener = new SensorEventListener() {
+
 		@Override
 		public void onSensorChanged(SensorEvent event) {
 			String accuracy;
-			
-			switch(event.accuracy){
-				case SensorManager.SENSOR_STATUS_ACCURACY_HIGH: accuracy="SENSOR_STATUS_ACCURACY_HIGH";break;
-				case SensorManager.SENSOR_STATUS_ACCURACY_MEDIUM: accuracy="SENSOR_STATUS_ACCURACY_MEDIUM";break;
-				case SensorManager.SENSOR_STATUS_ACCURACY_LOW: accuracy="SENSOR_STATUS_ACCURACY_LOW";break;
-				case SensorManager.SENSOR_STATUS_UNRELIABLE: accuracy="SENSOR_STATUS_UNRELIABLE";break;
-				default: accuracy="UNKNOWN";
+
+			switch (event.accuracy) {
+			case SensorManager.SENSOR_STATUS_ACCURACY_HIGH:
+				accuracy = "SENSOR_STATUS_ACCURACY_HIGH";
+				break;
+			case SensorManager.SENSOR_STATUS_ACCURACY_MEDIUM:
+				accuracy = "SENSOR_STATUS_ACCURACY_MEDIUM";
+				break;
+			case SensorManager.SENSOR_STATUS_ACCURACY_LOW:
+				accuracy = "SENSOR_STATUS_ACCURACY_LOW";
+				break;
+			case SensorManager.SENSOR_STATUS_UNRELIABLE:
+				accuracy = "SENSOR_STATUS_UNRELIABLE";
+				break;
+			default:
+				accuracy = "UNKNOWN";
 			}
-			
-			if(event.sensor.getType()==Sensor.TYPE_ORIENTATION){
-				   oriAccu.setText(accuracy);
-			       pb_orientationA.setProgress( (int)event.values[0]);
-			       pb_orientationB.setProgress( Math.abs((int)event.values[1]));
-			       pb_orientationC.setProgress( Math.abs((int)event.values[2]));
-			       tv_orientationA.setText(String.format("%.1f",event.values[0]));
-			       tv_orientationB.setText(String.format("%.1f",event.values[1]));
-			       tv_orientationC.setText(String.format("%.1f",event.values[2]));
+
+			if (event.sensor.getType() == Sensor.TYPE_ORIENTATION) {
+				oriAccu.setText(accuracy);
+				pb_orientationA.setProgress((int) event.values[0]);
+				pb_orientationB.setProgress(Math.abs((int) event.values[1]));
+				pb_orientationC.setProgress(Math.abs((int) event.values[2]));
+				tv_orientationA.setText(String.format("%.1f", event.values[0]));
+				tv_orientationB.setText(String.format("%.1f", event.values[1]));
+				tv_orientationC.setText(String.format("%.1f", event.values[2]));
 			}
-			if(event.sensor.getType()==Sensor.TYPE_ACCELEROMETER){
-				   accAccu.setText(accuracy);
-				   pb_accelA.setProgress( Math.abs( (int) event.values[0]*FLOATTOINTPRECISION ));
-				   pb_accelB.setProgress( Math.abs( (int) event.values[1]*FLOATTOINTPRECISION ));
-				   pb_accelC.setProgress( Math.abs( (int) event.values[2]*FLOATTOINTPRECISION ));
-				   tv_accelA.setText(String.format("%.2f",event.values[0]));
-				   tv_accelB.setText(String.format("%.2f",event.values[1]));
-				   tv_accelC.setText(String.format("%.2f",event.values[2]));
-				}
-			if(event.sensor.getType()==Sensor.TYPE_MAGNETIC_FIELD){
-				   magAccu.setText(accuracy);
-				   pb_magneticA.setProgress( Math.abs((int)event.values[0]*FLOATTOINTPRECISION ));
-				   pb_magneticB.setProgress( Math.abs((int)event.values[1]*FLOATTOINTPRECISION ));
-				   pb_magneticC.setProgress( Math.abs((int)event.values[2]*FLOATTOINTPRECISION ));
-				   tv_magneticA.setText(String.format("%.2f",event.values[0]));
-				   tv_magneticB.setText(String.format("%.2f",event.values[1]));
-				   tv_magneticC.setText(String.format("%.2f",event.values[2]));
-				}
-			if(event.sensor.getType()==Sensor.TYPE_LIGHT){
-				   ligAccu.setText(accuracy);
-				   pb_lightA.setProgress( Math.abs((int)event.values[0]));
-				   tv_lightA.setText(String.format("%.2f",event.values[0]));
-				}
-			if(event.sensor.getType()==Sensor.TYPE_PROXIMITY){
-				   proxAccu.setText(accuracy);
-				   pb_proxA.setProgress( Math.abs((int)event.values[0]));
-				   tv_proxA.setText(String.format("%.2f",event.values[0]));
-				}
-			if(event.sensor.getType()==Sensor.TYPE_PRESSURE){
-				   presAccu.setText(accuracy);
-				   pb_presA.setProgress( Math.abs((int)event.values[0]));
-				   tv_presA.setText(String.format("%.2f",event.values[0]));
-				}
-			if(event.sensor.getType()==Sensor.TYPE_AMBIENT_TEMPERATURE ){
-				   tempAccu.setText(accuracy);
-				   pb_tempA.setProgress( Math.abs((int)event.values[0]));
-				   tv_tempA.setText(String.format("%.2f",event.values[0]));
-				}
-			if(event.sensor.getType()==Sensor.TYPE_GRAVITY){
-				   gravAccu.setText(accuracy);
-				   pb_gravityA.setProgress( Math.abs((int)event.values[0]*FLOATTOINTPRECISION ));
-				   pb_gravityB.setProgress( Math.abs((int)event.values[1]*FLOATTOINTPRECISION ));
-				   pb_gravityC.setProgress( Math.abs((int)event.values[2]*FLOATTOINTPRECISION ));
-				   tv_gravityA.setText(String.format("%.2f",event.values[0]));
-				   tv_gravityB.setText(String.format("%.2f",event.values[1]));
-				   tv_gravityC.setText(String.format("%.2f",event.values[2]));
-				}
-			if(event.sensor.getType()==Sensor.TYPE_GYROSCOPE){
-				   gyroAccu.setText(accuracy);
-				   pb_gyroscopeA.setProgress( Math.abs((int)event.values[0]*FLOATTOINTPRECISION ));
-				   pb_gyroscopeB.setProgress( Math.abs((int)event.values[1]*FLOATTOINTPRECISION ));
-				   pb_gyroscopeC.setProgress( Math.abs((int)event.values[2]*FLOATTOINTPRECISION ));
-				   tv_gyroscopeA.setText(String.format("%.2f",event.values[0]));
-				   tv_gyroscopeB.setText(String.format("%.2f",event.values[1]));
-				   tv_gyroscopeC.setText(String.format("%.2f",event.values[2]));
-				}
-			if(event.sensor.getType()==Sensor.TYPE_RELATIVE_HUMIDITY ){
-				   humAccu.setText(accuracy);
-				   pb_humidity_A.setProgress( Math.abs((int)event.values[0]));
-				   tv_humidity_A.setText(String.format("%.2f",event.values[0]));
-				}
+			if (event.sensor.getType() == Sensor.TYPE_ACCELEROMETER) {
+				accAccu.setText(accuracy);
+				pb_accelA.setProgress(Math.abs((int) event.values[0]
+						* FLOATTOINTPRECISION));
+				pb_accelB.setProgress(Math.abs((int) event.values[1]
+						* FLOATTOINTPRECISION));
+				pb_accelC.setProgress(Math.abs((int) event.values[2]
+						* FLOATTOINTPRECISION));
+				tv_accelA.setText(String.format("%.2f", event.values[0]));
+				tv_accelB.setText(String.format("%.2f", event.values[1]));
+				tv_accelC.setText(String.format("%.2f", event.values[2]));
+			}
+			if (event.sensor.getType() == Sensor.TYPE_MAGNETIC_FIELD) {
+				magAccu.setText(accuracy);
+				pb_magneticA.setProgress(Math.abs((int) event.values[0]
+						* FLOATTOINTPRECISION));
+				pb_magneticB.setProgress(Math.abs((int) event.values[1]
+						* FLOATTOINTPRECISION));
+				pb_magneticC.setProgress(Math.abs((int) event.values[2]
+						* FLOATTOINTPRECISION));
+				tv_magneticA.setText(String.format("%.2f", event.values[0]));
+				tv_magneticB.setText(String.format("%.2f", event.values[1]));
+				tv_magneticC.setText(String.format("%.2f", event.values[2]));
+			}
+			if (event.sensor.getType() == Sensor.TYPE_LIGHT) {
+				ligAccu.setText(accuracy);
+				pb_lightA.setProgress(Math.abs((int) event.values[0]));
+				tv_lightA.setText(String.format("%.2f", event.values[0]));
+			}
+			if (event.sensor.getType() == Sensor.TYPE_PROXIMITY) {
+				proxAccu.setText(accuracy);
+				pb_proxA.setProgress(Math.abs((int) event.values[0]));
+				tv_proxA.setText(String.format("%.2f", event.values[0]));
+			}
+			if (event.sensor.getType() == Sensor.TYPE_PRESSURE) {
+				presAccu.setText(accuracy);
+				pb_presA.setProgress(Math.abs((int) event.values[0]));
+				tv_presA.setText(String.format("%.2f", event.values[0]));
+			}
+			if (event.sensor.getType() == Sensor.TYPE_AMBIENT_TEMPERATURE) {
+				tempAccu.setText(accuracy);
+				pb_tempA.setProgress(Math.abs((int) event.values[0]));
+				tv_tempA.setText(String.format("%.2f", event.values[0]));
+			}
+			if (event.sensor.getType() == Sensor.TYPE_GRAVITY) {
+				gravAccu.setText(accuracy);
+				pb_gravityA.setProgress(Math.abs((int) event.values[0]
+						* FLOATTOINTPRECISION));
+				pb_gravityB.setProgress(Math.abs((int) event.values[1]
+						* FLOATTOINTPRECISION));
+				pb_gravityC.setProgress(Math.abs((int) event.values[2]
+						* FLOATTOINTPRECISION));
+				tv_gravityA.setText(String.format("%.2f", event.values[0]));
+				tv_gravityB.setText(String.format("%.2f", event.values[1]));
+				tv_gravityC.setText(String.format("%.2f", event.values[2]));
+			}
+			if (event.sensor.getType() == Sensor.TYPE_GYROSCOPE) {
+				gyroAccu.setText(accuracy);
+				pb_gyroscopeA.setProgress(Math.abs((int) event.values[0]
+						* FLOATTOINTPRECISION));
+				pb_gyroscopeB.setProgress(Math.abs((int) event.values[1]
+						* FLOATTOINTPRECISION));
+				pb_gyroscopeC.setProgress(Math.abs((int) event.values[2]
+						* FLOATTOINTPRECISION));
+				tv_gyroscopeA.setText(String.format("%.2f", event.values[0]));
+				tv_gyroscopeB.setText(String.format("%.2f", event.values[1]));
+				tv_gyroscopeC.setText(String.format("%.2f", event.values[2]));
+			}
+			if (event.sensor.getType() == Sensor.TYPE_RELATIVE_HUMIDITY) {
+				humAccu.setText(accuracy);
+				pb_humidity_A.setProgress(Math.abs((int) event.values[0]));
+				tv_humidity_A.setText(String.format("%.2f", event.values[0]));
+			}
 		}
 
 		@Override
 		public void onAccuracyChanged(Sensor sensor, int accuracy) {
-			
-			
+
 		}
-    	
-    };
-    	
-	
-		protected void connectSensors(){
-			m_sensormgr.unregisterListener(senseventListener);
-			if(!m_sensorlist.isEmpty()){
-	        	Sensor snsr;
-	        	
-	        	for(int i=0;i<m_sensorlist.size();i++){
-	        		snsr=m_sensorlist.get(i);
-	        		
-	        		if(snsr.getType()==Sensor.TYPE_ORIENTATION){
-	        			oriHead.setText(getSensorInfo(snsr));
-	        			pb_orientationA.setMax((int)snsr.getMaximumRange());
-	        			pb_orientationB.setMax((int)snsr.getMaximumRange());
-	        			pb_orientationC.setMax((int)snsr.getMaximumRange());
-	        			m_sensormgr.registerListener(senseventListener, snsr, SensorManager.SENSOR_DELAY_NORMAL);
-	        		}
-	        		if(snsr.getType()==Sensor.TYPE_ACCELEROMETER ){
-	        			accHead.setText(getSensorInfo(snsr));
-	        			pb_accelA.setMax((int)(snsr.getMaximumRange()*SensorManager.GRAVITY_EARTH*FLOATTOINTPRECISION));
-	        			pb_accelB.setMax((int)(snsr.getMaximumRange()*SensorManager.GRAVITY_EARTH*FLOATTOINTPRECISION));
-	        			pb_accelC.setMax((int)(snsr.getMaximumRange()*SensorManager.GRAVITY_EARTH*FLOATTOINTPRECISION));
-	        	
-	        			m_sensormgr.registerListener(senseventListener, snsr, SensorManager.SENSOR_DELAY_NORMAL);
-	        		}
-	        		if(snsr.getType()==Sensor.TYPE_MAGNETIC_FIELD ){
-	        			magHead.setText(getSensorInfo(snsr));
-	        			pb_magneticA.setMax((int)(snsr.getMaximumRange()*FLOATTOINTPRECISION));
-	        			pb_magneticB.setMax((int)(snsr.getMaximumRange()*FLOATTOINTPRECISION));
-	        			pb_magneticC.setMax((int)(snsr.getMaximumRange()*FLOATTOINTPRECISION));
-	        		
-	        			m_sensormgr.registerListener(senseventListener, snsr, SensorManager.SENSOR_DELAY_NORMAL);
-	        		}
-	        		if(snsr.getType()==Sensor.TYPE_LIGHT){
-	        			ligHead.setText(getSensorInfo(snsr));
-	        			pb_lightA.setMax((int)(snsr.getMaximumRange()));
-	        			m_sensormgr.registerListener(senseventListener, snsr, SensorManager.SENSOR_DELAY_NORMAL);
-	        		}
-	        		if(snsr.getType()==Sensor.TYPE_PROXIMITY ){
-	        			
-	        			proxHead.setText(getSensorInfo(snsr));
-	        			pb_proxA.setMax((int)(snsr.getMaximumRange()));
-	        			m_sensormgr.registerListener(senseventListener, snsr, SensorManager.SENSOR_DELAY_NORMAL);
-	        		}
-	        		if(snsr.getType()==Sensor.TYPE_PRESSURE ){
-	        			presHead.setText(getSensorInfo(snsr));
-	        			pb_presA.setMax((int)(snsr.getMaximumRange()));
-	        			m_sensormgr.registerListener(senseventListener, snsr, SensorManager.SENSOR_DELAY_NORMAL);
-	        		}
-	        		if(snsr.getType()==Sensor.TYPE_AMBIENT_TEMPERATURE){
-	        			
-	        			tempHead.setText(getSensorInfo(snsr));
-	        			pb_tempA.setMax((int)(snsr.getMaximumRange()));
-	        			m_sensormgr.registerListener(senseventListener, snsr, SensorManager.SENSOR_DELAY_NORMAL);
-	        		}
-	        		
-	        		
-	        	}
-	        }
+
+	};
+
+	protected void connectSensors() {
+		m_sensormgr.unregisterListener(senseventListener);
+		if (!m_sensorlist.isEmpty()) {
+			Sensor snsr;
+
+			for (int i = 0; i < m_sensorlist.size(); i++) {
+				snsr = m_sensorlist.get(i);
+
+				if (snsr.getType() == Sensor.TYPE_ORIENTATION) {
+					oriHead.setText(getSensorInfo(snsr));
+					pb_orientationA.setMax((int) snsr.getMaximumRange());
+					pb_orientationB.setMax((int) snsr.getMaximumRange());
+					pb_orientationC.setMax((int) snsr.getMaximumRange());
+					m_sensormgr.registerListener(senseventListener, snsr,
+							SensorManager.SENSOR_DELAY_NORMAL);
+				}
+				if (snsr.getType() == Sensor.TYPE_ACCELEROMETER) {
+					accHead.setText(getSensorInfo(snsr));
+					pb_accelA
+							.setMax((int) (snsr.getMaximumRange()
+									* SensorManager.GRAVITY_EARTH * FLOATTOINTPRECISION));
+					pb_accelB
+							.setMax((int) (snsr.getMaximumRange()
+									* SensorManager.GRAVITY_EARTH * FLOATTOINTPRECISION));
+					pb_accelC
+							.setMax((int) (snsr.getMaximumRange()
+									* SensorManager.GRAVITY_EARTH * FLOATTOINTPRECISION));
+
+					m_sensormgr.registerListener(senseventListener, snsr,
+							SensorManager.SENSOR_DELAY_NORMAL);
+				}
+				if (snsr.getType() == Sensor.TYPE_MAGNETIC_FIELD) {
+					magHead.setText(getSensorInfo(snsr));
+					pb_magneticA
+							.setMax((int) (snsr.getMaximumRange() * FLOATTOINTPRECISION));
+					pb_magneticB
+							.setMax((int) (snsr.getMaximumRange() * FLOATTOINTPRECISION));
+					pb_magneticC
+							.setMax((int) (snsr.getMaximumRange() * FLOATTOINTPRECISION));
+
+					m_sensormgr.registerListener(senseventListener, snsr,
+							SensorManager.SENSOR_DELAY_NORMAL);
+				}
+				if (snsr.getType() == Sensor.TYPE_LIGHT) {
+					ligHead.setText(getSensorInfo(snsr));
+					pb_lightA.setMax((int) (snsr.getMaximumRange()));
+					m_sensormgr.registerListener(senseventListener, snsr,
+							SensorManager.SENSOR_DELAY_NORMAL);
+				}
+				if (snsr.getType() == Sensor.TYPE_PROXIMITY) {
+
+					proxHead.setText(getSensorInfo(snsr));
+					pb_proxA.setMax((int) (snsr.getMaximumRange()));
+					m_sensormgr.registerListener(senseventListener, snsr,
+							SensorManager.SENSOR_DELAY_NORMAL);
+				}
+				if (snsr.getType() == Sensor.TYPE_PRESSURE) {
+					presHead.setText(getSensorInfo(snsr));
+					pb_presA.setMax((int) (snsr.getMaximumRange()));
+					m_sensormgr.registerListener(senseventListener, snsr,
+							SensorManager.SENSOR_DELAY_NORMAL);
+				}
+				if (snsr.getType() == Sensor.TYPE_AMBIENT_TEMPERATURE) {
+
+					tempHead.setText(getSensorInfo(snsr));
+					pb_tempA.setMax((int) (snsr.getMaximumRange()));
+					m_sensormgr.registerListener(senseventListener, snsr,
+							SensorManager.SENSOR_DELAY_NORMAL);
+				}
+
+			}
 		}
-		
-		
-	    @Override
-		protected void onPause() {
-			m_sensormgr.unregisterListener(senseventListener);
-			super.onPause();
+	}
+
+	@Override
+	protected void onPause() {
+		m_sensormgr.unregisterListener(senseventListener);
+		super.onPause();
+	}
+
+	@Override
+	public boolean onOptionsItemSelected(
+			com.actionbarsherlock.view.MenuItem item) {
+		switch (item.getItemId()) {
+		case android.R.id.home:
+			// app icon in action bar clicked; go home
+			Intent intent = new Intent(this, KernelTuner.class);
+			intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
+			startActivity(intent);
+			return true;
+
 		}
+		return super.onOptionsItemSelected(item);
+	}
 
 }
