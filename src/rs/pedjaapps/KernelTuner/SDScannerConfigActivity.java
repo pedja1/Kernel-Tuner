@@ -11,6 +11,7 @@ import android.view.View.OnClickListener;
 import android.view.ViewGroup.LayoutParams;
 import android.widget.Button;
 import android.widget.CompoundButton;
+import android.widget.Toast;
 import android.widget.CompoundButton.OnCheckedChangeListener;
 import android.widget.EditText;
 import android.widget.LinearLayout;
@@ -77,6 +78,11 @@ public class SDScannerConfigActivity extends SherlockActivity
 	{
 		super.onCreate(savedInstanceState);
 
+		boolean isSDPresent = android.os.Environment.getExternalStorageState().equals(android.os.Environment.MEDIA_MOUNTED);
+		if(isSDPresent==false){
+			finish();
+			Toast.makeText(this, "External Storage not mounted", Toast.LENGTH_LONG).show();
+		}
 		setContentView(R.layout.sd_scanner_config);
 		
 		ActionBar actionBar = getSupportActionBar();
