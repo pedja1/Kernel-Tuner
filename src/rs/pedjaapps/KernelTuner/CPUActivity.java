@@ -43,95 +43,95 @@ public class CPUActivity extends SherlockActivity
 {
 
 	private List<CPUInfo.FreqsEntry> freqEntries = CPUInfo.frequencies();
-	boolean thread = true;
-	Handler mHandler = new Handler();
-	TextView cpu0prog;
-	ProgressBar progCpu0;
-	TextView cpu1prog;
-	ProgressBar progCpu1;
-	TextView cpu2prog;
-	ProgressBar progCpu2;
-	TextView cpu3prog;
-	ProgressBar progCpu3;
-	List<String> frequencies = new ArrayList<String>();
-	List<String> freqNames = new ArrayList<String>();
-	String cpu0MaxFreq ;
-	String cpu0CurFreq ;
-	String cpu1MaxFreq ;
-	String cpu1CurFreq ;
-	String cpu2MaxFreq ;
-	String cpu2CurFreq ;
-	String cpu3MaxFreq ;
-	String cpu3CurFreq ;
-	Spinner gov0spinner;
-	Spinner gov1spinner;
-	Spinner gov2spinner;
-	Spinner gov3spinner;
+	private boolean thread = true;
+	private Handler mHandler = new Handler();
+	private TextView cpu0prog;
+	private ProgressBar progCpu0;
+	private TextView cpu1prog;
+	private ProgressBar progCpu1;
+	private TextView cpu2prog;
+	private ProgressBar progCpu2;
+	private TextView cpu3prog;
+	private ProgressBar progCpu3;
+	private List<String> frequencies = new ArrayList<String>();
+	private List<String> freqNames = new ArrayList<String>();
+	private String cpu0MaxFreq ;
+	private String cpu0CurFreq ;
+	private String cpu1MaxFreq ;
+	private String cpu1CurFreq ;
+	private String cpu2MaxFreq ;
+	private String cpu2CurFreq ;
+	private String cpu3MaxFreq ;
+	private String cpu3CurFreq ;
+	private Spinner gov0spinner;
+	private Spinner gov1spinner;
+	private Spinner gov2spinner;
+	private Spinner gov3spinner;
 
-	String cpu0MinFreq ;
-	String cpu1MinFreq ;
-	String cpu2MinFreq ;
-	String cpu3MinFreq ;
+	private String cpu0MinFreq ;
+	private String cpu1MinFreq ;
+	private String cpu2MinFreq ;
+	private String cpu3MinFreq ;
 
-	VerticalSeekBar cpu0minSeek;
-	VerticalSeekBar cpu0maxSeek;
-	VerticalSeekBar cpu1minSeek;
-	VerticalSeekBar cpu1maxSeek;
-	VerticalSeekBar cpu2minSeek;
-	VerticalSeekBar cpu2maxSeek;
-	VerticalSeekBar cpu3minSeek;
-	VerticalSeekBar cpu3maxSeek;
+	private VerticalSeekBar cpu0minSeek;
+	private VerticalSeekBar cpu0maxSeek;
+	private VerticalSeekBar cpu1minSeek;
+	private VerticalSeekBar cpu1maxSeek;
+	private VerticalSeekBar cpu2minSeek;
+	private VerticalSeekBar cpu2maxSeek;
+	private VerticalSeekBar cpu3minSeek;
+	private VerticalSeekBar cpu3maxSeek;
 
-	boolean cpu0Online = CPUInfo.cpu0Online();
-	boolean cpu1Online = CPUInfo.cpu1Online();
-	boolean cpu2Online = CPUInfo.cpu2Online();
-	boolean cpu3Online = CPUInfo.cpu3Online();
+	private boolean cpu0Online = CPUInfo.cpu0Online();
+	private boolean cpu1Online = CPUInfo.cpu1Online();
+	private boolean cpu2Online = CPUInfo.cpu2Online();
+	private boolean cpu3Online = CPUInfo.cpu3Online();
 
-	RelativeLayout rlcpu1;
-	RelativeLayout rlcpu2;
-	RelativeLayout rlcpu3;
+	private RelativeLayout rlcpu1;
+	private RelativeLayout rlcpu2;
+	private RelativeLayout rlcpu3;
 
-	TextView curFreq0;
-	TextView curFreq1;
-	TextView curFreq2;
-	TextView curFreq3;
-
-	TextView cpu0txt;
-	TextView cpu1txt;
-	TextView cpu2txt;
-	TextView cpu3txt;
-
-	TextView cpu1govtxt;
-	TextView cpu2govtxt;
-	TextView cpu3govtxt;
-
-	TextView cpu0min;
-	TextView cpu0max;
-	TextView cpu1min;
-	TextView cpu1max;
-	TextView cpu2min;
-	TextView cpu2max;
-	TextView cpu3min;
-	TextView cpu3max;
-
-	ProgressBar cpuLoad;
-	TextView cpuLoadTxt;
-
-	TextView uptime;
-	TextView deepSleep;
-	TextView temp;
 	
-	int load;
-	float fLoad;
+	private TextView curFreq1;
+	private TextView curFreq2;
+	private TextView curFreq3;
 
-	String tempUnit;
-
-	ProgressDialog pd;	
 	
-	SharedPreferences sharedPrefs;
+	private TextView cpu1txt;
+	private TextView cpu2txt;
+	private TextView cpu3txt;
 
-	CheckBox cb;
-	boolean cpuLock;
+	private TextView cpu1govtxt;
+	private TextView cpu2govtxt;
+	private TextView cpu3govtxt;
+
+	private TextView cpu0min;
+	private TextView cpu0max;
+	private TextView cpu1min;
+	private TextView cpu1max;
+	private TextView cpu2min;
+	private TextView cpu2max;
+	private TextView cpu3min;
+	private TextView cpu3max;
+
+	private ProgressBar cpuLoad;
+	private TextView cpuLoadTxt;
+
+	private TextView uptime;
+	private TextView deepSleep;
+	private TextView temp;
+	
+	private int load;
+	private float fLoad;
+
+	private String tempUnit;
+
+	private ProgressDialog pd;	
+	
+	private SharedPreferences sharedPrefs;
+
+	private CheckBox cb;
+	private boolean cpuLock;
 
 	/**
 	 * AsyncTask class that will enable All CPUs
@@ -300,7 +300,7 @@ public class CPUActivity extends SherlockActivity
 		deepSleep = (TextView)findViewById(R.id.textView30);
 		temp = (TextView)findViewById(R.id.textView32);
 
-		curFreq0 = (TextView)findViewById(R.id.ptextView3);
+		
 		curFreq1 = (TextView)findViewById(R.id.ptextView4);
 		curFreq2 = (TextView)findViewById(R.id.ptextView7);
 		curFreq3 = (TextView)findViewById(R.id.ptextView8);
@@ -310,7 +310,7 @@ public class CPUActivity extends SherlockActivity
 		progCpu2 = (ProgressBar)findViewById(R.id.progressBar3);
 		progCpu3 = (ProgressBar)findViewById(R.id.progressBar4);
 
-		cpu0txt = (TextView)findViewById(R.id.ptextView1);
+		
 		cpu1txt = (TextView)findViewById(R.id.ptextView2);
 		cpu2txt = (TextView)findViewById(R.id.ptextView5);
 		cpu3txt = (TextView)findViewById(R.id.ptextView6);
@@ -500,12 +500,12 @@ startCpuLoadThread();
 		super.onStop();
 	}
 
-	public void setCpuLoad(){
+	private void setCpuLoad(){
 		cpuLoad.setProgress(load);
 		cpuLoadTxt.setText(String.valueOf(load) + "%");
 	}
 	
-	public void startCpuLoadThread() {
+	private void startCpuLoadThread() {
 		
 		Runnable runnable = new Runnable() {
 			@Override
@@ -561,7 +561,7 @@ startCpuLoadThread();
 	
 
 	
-	public void updateUI()
+	private void updateUI()
 	{
 		
 		
@@ -1119,7 +1119,7 @@ startCpuLoadThread();
 		populateGovernorSpinners();
 	}
 
-	public void cpuInfo()
+	private void cpuInfo()
 	{
 		uptime.setText(CPUInfo.uptime());
 		deepSleep.setText(CPUInfo.deepSleep());
@@ -1130,7 +1130,7 @@ startCpuLoadThread();
 
 	
 
-	public void cpuTemp()
+	private void cpuTemp()
 	{
 
 		if (tempUnit.equals("celsius"))
@@ -1151,7 +1151,7 @@ startCpuLoadThread();
 
 	}
 
-	public void updateCpu0()
+	private void updateCpu0()
 	{
 
 		if (!cpu0CurFreq.equals("offline"))
@@ -1170,7 +1170,7 @@ startCpuLoadThread();
 
 	}
 
-	public void updateCpu1()
+	private void updateCpu1()
 	{
 
 		if (!cpu1CurFreq.equals("offline"))
@@ -1188,7 +1188,7 @@ startCpuLoadThread();
 
 	}
 
-	public void updateCpu2()
+	private void updateCpu2()
 	{
 
 		if (!cpu2CurFreq.equals("offline"))
@@ -1206,7 +1206,7 @@ startCpuLoadThread();
 
 	}
 
-	public void updateCpu3()
+	private void updateCpu3()
 	{
 
 		if (!cpu3CurFreq.equals("offline"))
@@ -1224,7 +1224,7 @@ startCpuLoadThread();
 
 	}
 
-	public void populateGovernorSpinners()
+	private void populateGovernorSpinners()
 	{
 		
 		ArrayAdapter<String> gov0spinnerArrayAdapter = new ArrayAdapter<String>(this,   android.R.layout.simple_spinner_item, CPUInfo.governors());

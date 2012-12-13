@@ -7,7 +7,6 @@ import java.util.List;
 import org.achartengine.ChartFactory;
 import org.achartengine.GraphicalView;
 import org.achartengine.model.CategorySeries;
-import org.achartengine.model.SeriesSelection;
 import org.achartengine.renderer.DefaultRenderer;
 import org.achartengine.renderer.SimpleSeriesRenderer;
 
@@ -22,7 +21,6 @@ import android.preference.PreferenceManager;
 import android.view.View;
 import android.view.View.OnClickListener;
 import android.view.ViewGroup.LayoutParams;
-import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.LinearLayout;
 
@@ -36,12 +34,10 @@ import com.google.ads.AdView;
 public class TISActivityChart extends SherlockActivity
 {
 
-	List<TimesEntry> times = CPUInfo.getTis();
+	private List<TimesEntry> times = CPUInfo.getTis();
 	
 
 	
-	ViewGroup header;
-	ViewGroup footer;
 	public static final String TYPE = "type";
 
 	  private static int[] COLORS = new int[] {Color.parseColor("#FF0000"), 
@@ -73,7 +69,7 @@ public class TISActivityChart extends SherlockActivity
 	  private GraphicalView mChartView;
 
 	  
-	  LinearLayout chart;
+	  private LinearLayout chart;
 	  
 	  
 	  @Override
@@ -145,8 +141,7 @@ public class TISActivityChart extends SherlockActivity
 	      mChartView.setOnClickListener(new View.OnClickListener() {
 	          @Override
 	          public void onClick(View v) {
-	            SeriesSelection seriesSelection = mChartView.getCurrentSeriesAndPoint();
-	            
+	       
 	          }
 	        });
 	      chart.addView(mChartView, new LayoutParams(LayoutParams.MATCH_PARENT,
@@ -156,7 +151,7 @@ public class TISActivityChart extends SherlockActivity
 	    }
 	  }
 
-	public void setDeepSleepAndUptime(){
+	private void setDeepSleepAndUptime(){
 		String deepSleep = hrTimeSystem(SystemClock.elapsedRealtime() - SystemClock.uptimeMillis());
 		String bootTime = hrTimeSystem(SystemClock.elapsedRealtime());
 		TextView deepSleepText = (TextView)findViewById(R.id.deep_sleep);
@@ -193,7 +188,7 @@ public class TISActivityChart extends SherlockActivity
 		return entries;
 	}
 	
-	public String hrTime(long time)
+	private String hrTime(long time)
 	{
 		
 		String timeString;
@@ -227,7 +222,7 @@ public class TISActivityChart extends SherlockActivity
 
 	}
 	
-	public String hrTimeSystem(long time)
+	private String hrTimeSystem(long time)
 	{
 		
 		String timeString;
@@ -261,7 +256,7 @@ public class TISActivityChart extends SherlockActivity
 
 	}
 	
-	public long totalTime(){
+	private long totalTime(){
 		long a=0;
         for (int i =0; i < times.size(); i++)
         {

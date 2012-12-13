@@ -37,41 +37,30 @@ public class WidgetUpdateServiceBig extends Service
 	
 	private List<CPUInfo.FreqsEntry> freqEntries = CPUInfo.frequencies();
 	private List<String> freqNames = new ArrayList<String>();
-	public String led;
-	public String cpu0curr;
-	public String gov;
-	public String cpu0gov;
-	public String cpu1gov;
-	public String cpu0max = "        ";
-	public String cpu1max = "        ";
-	public String cpu0min = "     7   ";
-	public String cpu1min = "        ";
-	public String gpu2d = "        ";
-	public String gpu3d = "        ";
-	public int countcpu0;
-	public int countcpu1;
-	public String vsync = " ";
-	public String fastcharge = " ";
-	public String out;
-	public String cdepth = " ";
-	public String kernel = "     ";
-	public String deepSleep;
-	public String upTime;
-	public String charge;
-	public String battperc;
-	public String batttemp;
-	public String battvol;
-	public String batttech;
-	public String battcurrent;
-	public String batthealth;
-	public String battcap;
-	public List<String> frequencies = new ArrayList<String>();
-	public int angle;
-	public int cf = 0;
-	public String cpu1curr;
-	public int cf2 = 0;
-	public int timeint = 30;
-	//public boolean enableTmp = true;
+	private String led;
+	private String cpu0curr;
+	private String cpu0gov;
+	private String cpu1gov;
+	private String vsync = " ";
+	private String fastcharge = " ";
+	
+	private String cdepth = " ";
+	private String kernel = "     ";
+	private String deepSleep;
+	private String upTime;
+	private String charge;
+	private String battperc;
+	private String batttemp;
+	private String battvol;
+	private String batttech;
+	private String battcurrent;
+	private String batthealth;
+	private String battcap;
+	private List<String> frequencies = new ArrayList<String>();
+	private int cf = 0;
+	private String cpu1curr;
+	private int cf2 = 0;
+	private int timeint = 30;
 	private boolean enableTmp(){
 		boolean b;
 		try
@@ -110,7 +99,7 @@ public class WidgetUpdateServiceBig extends Service
 	
 	
 
-	public void mountdebugfs()
+	private void mountdebugfs()
 	{
 		try {
             String line;
@@ -142,7 +131,7 @@ public class WidgetUpdateServiceBig extends Service
 	}
 
 
-	public void enableTemp()
+	private void enableTemp()
 	{
 		try {
             String line;
@@ -178,19 +167,15 @@ public class WidgetUpdateServiceBig extends Service
 	}
 
 
-	public void info()
+	private void info()
 	{
 
 
-		cpu0min = CPUInfo.cpu0MinFreq();
-		cpu0max = CPUInfo.cpu0MaxFreq();
-		cpu1min = CPUInfo.cpu1MinFreq();
-		cpu1max = CPUInfo.cpu1MaxFreq();
+		
 		cpu0gov = CPUInfo.cpu0CurGov();
 		cpu1gov = CPUInfo.cpu1CurGov();
 		led = CPUInfo.cbb();
-		gpu2d = CPUInfo.gpu2d();
-		gpu3d = CPUInfo.gpu3d();
+		
 		fastcharge = String.valueOf(CPUInfo.fcharge());
 		vsync = String.valueOf(CPUInfo.vsync());
 		cdepth = CPUInfo.cDepth();
@@ -434,7 +419,7 @@ public class WidgetUpdateServiceBig extends Service
 
 		cf = index * 100 / freqslength + 4;
 		cf2 = index2 * 100 / freqslength + 4;
-		//System.out.println(angle);
+		
 	}
 
 	@SuppressLint("ParserError")
@@ -450,21 +435,10 @@ public class WidgetUpdateServiceBig extends Service
 		int[] allWidgetIds = intent
 			.getIntArrayExtra(AppWidgetManager.EXTRA_APPWIDGET_IDS);
 
-		/*ComponentName thisWidget = new ComponentName(getApplicationContext(),
-													 AppWidgetBig.class);
-		int[] allWidgetIds2 = appWidgetManager.getAppWidgetIds(thisWidget);*/
-		//Log.w(LOG, "From Intent" + String.valueOf(allWidgetIds.length));
-		// Log.w(LOG, "Direct" + String.valueOf(allWidgetIds2.length));
-
+		
 
 		File file = new File("/sys/kernel/debug");
-		/*if(file.list().length>0){
-			
-		}
-		else{
-			
-			mountdebugfs();
-		}*/
+		
 		File[] contents = file.listFiles();
 		// the directory file is not really a directory..
 		if (contents == null) {

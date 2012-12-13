@@ -27,28 +27,28 @@ import java.lang.Process;
 
 public class OOM extends Activity {
 
-	SeekBar foregroundSeek;
-	SeekBar visibleSeek;
-	SeekBar secondarySeek;
-	SeekBar hiddenSeek;
-	SeekBar contentSeek;
-	SeekBar emptySeek;
-	Button foregroundText;
-	Button visibleText;
-	Button secondaryText;
-	Button hiddenText;
-	Button contentText;
-	Button emptyText;
+	private SeekBar foregroundSeek;
+	private SeekBar visibleSeek;
+	private SeekBar secondarySeek;
+	private SeekBar hiddenSeek;
+	private SeekBar contentSeek;
+	private SeekBar emptySeek;
+	private Button foregroundText;
+	private Button visibleText;
+	private Button secondaryText;
+	private Button hiddenText;
+	private Button contentText;
+	private Button emptyText;
 
-	int foreground;
-	int visible;
-	int secondary;
-	int hidden;
-	int content;
-	int empty;
-	List<String> oom;
+	private int foreground;
+	private int visible;
+	private int secondary;
+	private int hidden;
+	private int content;
+	private int empty;
+	private List<String> oom;
 
-	ProgressDialog pd;
+	private ProgressDialog pd;
 
 	public void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
@@ -313,42 +313,7 @@ public class OOM extends Activity {
 
 		@Override
 		protected Object doInBackground(String... args) {
-		/*	Process localProcess;
-			try {
-				localProcess = Runtime.getRuntime().exec("su");
-
-				DataOutputStream localDataOutputStream = new DataOutputStream(
-						localProcess.getOutputStream());
-				localDataOutputStream
-						.writeBytes("echo "
-								+ args[0]
-								+ ","
-								+ args[1]
-								+ ","
-								+ args[2]
-								+ ","
-								+ args[3]
-								+ ","
-								+ args[4]
-								+ ","
-								+ args[5]
-								+ " > /sys/module/lowmemorykiller/parameters/minfree\n");
-				localDataOutputStream.writeBytes("exit\n");
-				localDataOutputStream.flush();
-				localDataOutputStream.close();
-				localProcess.waitFor();
-				localProcess.destroy();
-				
-				System.out.println("OOM: Changing oom");
-				
-			} catch (IOException e1) {
-				
-				e1.printStackTrace();
-			} catch (InterruptedException e1) {
-				
-				e1.printStackTrace();
-			}*/
-			
+		
 			try {
 	            String line;
 	            Process process = Runtime.getRuntime().exec("su");
@@ -424,7 +389,7 @@ public class OOM extends Activity {
 
 	}
 
-	public String mbToPages(int progress) {
+	private String mbToPages(int progress) {
 		String prog = String.valueOf(progress * 1024 / 4);
 		return prog;
 	}
@@ -571,7 +536,7 @@ public class OOM extends Activity {
 		return false;
 	}
 	
-	public void Dialog(String dialogTitle, String currentValue, final int option){
+	private  void Dialog(String dialogTitle, String currentValue, final int option){
 		AlertDialog.Builder builder = new AlertDialog.Builder(this);
 
 		builder.setTitle(dialogTitle);

@@ -39,24 +39,24 @@ public class Thermald extends SherlockActivity
 	private List<CPUInfo.FreqsEntry> freqEntries = CPUInfo.frequencies();
 	private List<String> freqs = new ArrayList<String>();
 	private List<String> freqNames = new ArrayList<String>();
-	public String p1freq;
-	public String p2freq;
-	public String p3freq;
-	public String p1freqnew;
-	public String p2freqnew;
-	public String p3freqnew;
-	public String p1low;
-	public String p1high;
-	public String p2low;
-	public String p2high;
-	public String p3low;
-	public String p3high;
-	public String p1lownew;
-	public String p1highnew;
-	public String p2lownew;
-	public String p2highnew;
-	public String p3lownew;
-	public String p3highnew;
+	private String p1freq;
+	private String p2freq;
+	private String p3freq;
+	private String p1freqnew;
+	private String p2freqnew;
+	private String p3freqnew;
+	private String p1low;
+	private String p1high;
+	private String p2low;
+	private String p2high;
+	private String p3low;
+	private String p3high;
+	private String p1lownew;
+	private String p1highnew;
+	private String p2lownew;
+	private String p2highnew;
+	private String p3lownew;
+	private String p3highnew;
 	
 	private EditText ed1;
 	private EditText ed2;
@@ -66,7 +66,7 @@ public class Thermald extends SherlockActivity
 	private EditText ed6;
 	
 
-	public SharedPreferences preferences;
+	private SharedPreferences preferences;
 	private ProgressDialog pd = null;
 	
 
@@ -224,7 +224,7 @@ public class Thermald extends SherlockActivity
 
 	}
 
-	public void createSpinnerp1()
+	private void createSpinnerp1()
 	{
 		
 
@@ -260,7 +260,7 @@ public class Thermald extends SherlockActivity
 	}
 	}
 
-	public void createSpinnerp2()
+	private void createSpinnerp2()
 	{
 		
 
@@ -296,7 +296,7 @@ public class Thermald extends SherlockActivity
 	}
 	}
 
-	public void createSpinnerp3()
+	private void createSpinnerp3()
 	{
 
 
@@ -334,7 +334,7 @@ public class Thermald extends SherlockActivity
 
 	
 
-	public void readCurrentPhase1()
+	private void readCurrentPhase1()
 	{
 		try
 		{
@@ -362,7 +362,7 @@ public class Thermald extends SherlockActivity
 		}
 	}
 
-	public void readCurrentPhase2()
+	private void readCurrentPhase2()
 	{
 		try
 		{
@@ -390,7 +390,7 @@ public class Thermald extends SherlockActivity
 		}
 	}
 
-	public void readCurrentPhase3()
+	private void readCurrentPhase3()
 	{
 		try
 		{
@@ -417,7 +417,7 @@ public class Thermald extends SherlockActivity
 
 		}
 	}
-	public void readP1Low()
+	private void readP1Low()
 	{
 		try
 		{
@@ -445,7 +445,7 @@ public class Thermald extends SherlockActivity
 		}
 	}
 
-	public void readP1High()
+	private void readP1High()
 	{
 		try
 		{
@@ -472,7 +472,7 @@ public class Thermald extends SherlockActivity
 
 		}
 	}
-	public void readP2Low()
+	private void readP2Low()
 	{
 		try
 		{
@@ -500,7 +500,7 @@ public class Thermald extends SherlockActivity
 		}
 	}
 
-	public void readP2High()
+	private void readP2High()
 	{
 		try
 		{
@@ -528,7 +528,7 @@ public class Thermald extends SherlockActivity
 		}
 	}
 
-	public void readP3Low()
+	private void readP3Low()
 	{
 		try
 		{
@@ -556,7 +556,7 @@ public class Thermald extends SherlockActivity
 		}
 	}
 
-	public void readP3High()
+	private void readP3High()
 	{
 		try
 		{
@@ -611,7 +611,7 @@ public class Thermald extends SherlockActivity
 	    return super.onOptionsItemSelected(item);
 	}
 	
-	public void apply(){
+	private void apply(){
 		Thermald.this.pd = ProgressDialog.show(Thermald.this, null, getResources().getString(R.string.applying_settings), true, false);
 		p1lownew = String.valueOf(ed1.getText());
 		p1highnew = String.valueOf(ed2.getText());

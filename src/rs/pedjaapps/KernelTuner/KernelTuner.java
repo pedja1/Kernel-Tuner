@@ -42,13 +42,11 @@ public class KernelTuner extends SherlockActivity
 	private TextView batteryLevel;
 	private TextView batteryTemp;
 	private TextView cputemptxt;
-	public SharedPreferences sharedPrefs;
-	String tempPref;
-	boolean tempMonitor;
+	private String tempPref;
 	private long mLastBackPressTime = 0;
-	Toast mToast;
-	LinearLayout tempLayout;
-	AlertDialog alert;
+	private Toast mToast;
+	private LinearLayout tempLayout;
+	private AlertDialog alert;
 	private boolean enableTmp(){
 		boolean b;
 		try
@@ -203,86 +201,67 @@ public class KernelTuner extends SherlockActivity
 
 
 
-	boolean thread = true;
-	public String freqcpu0 = "offline";
-	public String freqcpu1= "offline";
+	private boolean thread = true;
+	private String freqcpu0 = "offline";
+	private String freqcpu1= "offline";
 
-	public String led;
-	SeekBar mSeekBar;
-	TextView progresstext;
 	
-	public String cpu0max = "       ";
-	public String cpu1max = "       ";
-	public String cpu0min = "       ";
-	public String cpu1min = "       ";
-	public String cpu2max = "       ";
-	public String cpu3max = "       ";
-	public String cpu2min = "       ";
-	public String cpu3min = "       ";
+	private String cpu0max = "       ";
+	private String cpu1max = "       ";
+	private String cpu2max = "       ";
+	private String cpu3max = "       ";
 
-	public String freqcpu2 = "offline";
-	public String freqcpu3 = "offline";
+	private String freqcpu2 = "offline";
+	private String freqcpu3 = "offline";
 
 
-	float fLoad;
+	private float fLoad;
 	
-	public String cputemp;
+	private String cputemp;
+ 
+	private static String cpu1online = CPUInfo.cpu1online; 
+	private static String cpu2online = CPUInfo.cpu2online; 
+	private static String cpu3online = CPUInfo.cpu3online; 
 
-	public static String cpu0online = CPUInfo.cpu0online; 
-	public static String cpu1online = CPUInfo.cpu1online; 
-	public static String cpu2online = CPUInfo.cpu2online; 
-	public static String cpu3online = CPUInfo.cpu3online; 
 
 
-	public static String CPU0_FREQS = CPUInfo.CPU0_FREQS;
 
-	public static String CPU0_CURR_FREQ = CPUInfo.CPU0_CURR_FREQ;
-	public static String CPU1_CURR_FREQ = CPUInfo.CPU1_CURR_FREQ;
-	public static String CPU2_CURR_FREQ = CPUInfo.CPU2_CURR_FREQ;
-	public static String CPU3_CURR_FREQ = CPUInfo.CPU3_CURR_FREQ;
+	private static String CPU0_CURR_FREQ = CPUInfo.CPU0_CURR_FREQ;
+	private static String CPU1_CURR_FREQ = CPUInfo.CPU1_CURR_FREQ;
+	private static String CPU2_CURR_FREQ = CPUInfo.CPU2_CURR_FREQ;
+	private static String CPU3_CURR_FREQ = CPUInfo.CPU3_CURR_FREQ;
 
-	public static String CPU0_MAX_FREQ = CPUInfo.CPU0_MAX_FREQ;
-	public static String CPU1_MAX_FREQ = CPUInfo.CPU1_MAX_FREQ;
-	public static String CPU2_MAX_FREQ = CPUInfo.CPU2_MAX_FREQ;
-	public static String CPU3_MAX_FREQ = CPUInfo.CPU3_MAX_FREQ;
+	private static String CPU0_MAX_FREQ = CPUInfo.CPU0_MAX_FREQ;
+	private static String CPU1_MAX_FREQ = CPUInfo.CPU1_MAX_FREQ;
+	private static String CPU2_MAX_FREQ = CPUInfo.CPU2_MAX_FREQ;
+	private static String CPU3_MAX_FREQ = CPUInfo.CPU3_MAX_FREQ;
 
-	public static String CPU0_MIN_FREQ = CPUInfo.CPU0_MIN_FREQ;
-	public static String CPU1_MIN_FREQ = CPUInfo.CPU1_MIN_FREQ;
-	public static String CPU2_MIN_FREQ = CPUInfo.CPU2_MIN_FREQ;
-	public static String CPU3_MIN_FREQ = CPUInfo.CPU3_MIN_FREQ;
 
-	public static String CPU0_CURR_GOV = CPUInfo.CPU0_CURR_GOV;
 	public static String CPU1_CURR_GOV = CPUInfo.CPU1_CURR_GOV;
-	public static String CPU2_CURR_GOV = CPUInfo.CPU2_CURR_GOV;
-	public static String CPU3_CURR_GOV = CPUInfo.CPU3_CURR_GOV;
+	private static String CPU2_CURR_GOV = CPUInfo.CPU2_CURR_GOV;
+	private static String CPU3_CURR_GOV = CPUInfo.CPU3_CURR_GOV;
 
-	public static String CPU0_GOVS = CPUInfo.CPU0_GOVS;
-	public static String CPU1_GOVS = CPUInfo.CPU1_GOVS;
-	public static String CPU2_GOVS = CPUInfo.CPU2_GOVS;
-	public static String CPU3_GOVS = CPUInfo.CPU3_GOVS;
 
 	
-	TextView cpu0prog;
-	TextView cpu1prog;
-	TextView cpu2prog;
-	TextView cpu3prog;
+	private TextView cpu0prog;
+	private TextView cpu1prog;
+	private TextView cpu2prog;
+	private TextView cpu3prog;
 
-	ProgressBar cpu0progbar;
-	ProgressBar cpu1progbar;
-	ProgressBar cpu2progbar;
-	ProgressBar cpu3progbar;
+	private ProgressBar cpu0progbar;
+	private ProgressBar cpu1progbar;
+	private ProgressBar cpu2progbar;
+	private ProgressBar cpu3progbar;
 
-	public List<String> freqlist = new ArrayList<String>();
-	public SharedPreferences preferences;
+	private List<String> freqlist = new ArrayList<String>();
+	private SharedPreferences preferences;
 	private ProgressDialog pd = null;
 	
-	int load;
+	private int load;
 
-	Handler mHandler = new Handler();
+	private Handler mHandler = new Handler();
 
-	SharedPreferences.Editor editor;
-
-	ProgressDialog mProgressDialog;
+	private SharedPreferences.Editor editor;
 	
 	private class cpu1Toggle extends AsyncTask<String, Void, Object>
 	{
@@ -297,32 +276,7 @@ public class KernelTuner extends SherlockActivity
 			{
 
 				InputStream fIn = new FileInputStream(file);
-
-				/*Process localProcess;
-				try
-				{
-					localProcess = Runtime.getRuntime().exec("su");
-
-					DataOutputStream localDataOutputStream = new DataOutputStream(localProcess.getOutputStream());
-					localDataOutputStream.writeBytes("echo 1 > /sys/kernel/msm_mpdecision/conf/enabled\n");
-					localDataOutputStream.writeBytes("chmod 777 " + cpu1online + "\n");
-					localDataOutputStream.writeBytes("echo 0 > " + cpu1online + "\n");
-					localDataOutputStream.writeBytes("chown system " + cpu1online + "\n");
-					localDataOutputStream.writeBytes("exit\n");
-					localDataOutputStream.flush();
-					localDataOutputStream.close();
-					localProcess.waitFor();
-					localProcess.destroy();
-					System.out.println("KernelTuner: Toggling CPU1");
-				}
-				catch (IOException e)
-				{
-					new LogWriter().execute(new String[] {getClass().getName(), e.getMessage()});
-				}
-				catch (InterruptedException e)
-				{
-					new LogWriter().execute(new String[] {getClass().getName(), e.getMessage()});
-				}*/
+	
 				try {
 		            String line;
 		            Process process = Runtime.getRuntime().exec("su");
@@ -532,7 +486,6 @@ public class KernelTuner extends SherlockActivity
 		@Override
 		protected Object doInBackground(String... args)
 		{
-			//Log.i("MyApp", "Background thread starting");
 
 			File file = new File(CPU3_CURR_GOV);
 			try
@@ -674,8 +627,6 @@ public class KernelTuner extends SherlockActivity
 		{
 			
 
-			//KernelTuner.this.pd.dismiss();
-
 		}
 
 	}
@@ -732,6 +683,7 @@ public class KernelTuner extends SherlockActivity
 	{
 		super.onCreate(savedInstanceState);
 		preferences = PreferenceManager.getDefaultSharedPreferences(this);
+		editor = preferences.edit();
 		setContentView(R.layout.main);
 		
 	
@@ -745,7 +697,7 @@ public class KernelTuner extends SherlockActivity
 		cpu2progbar = (ProgressBar)findViewById(R.id.progressBar3);
 		cpu3progbar = (ProgressBar)findViewById(R.id.progressBar4);
 		 
-		 editor = preferences.edit();
+		
 		 /**
 		  * Extract assets if first launch*/
 		first = preferences.getBoolean(
@@ -761,9 +713,6 @@ public class KernelTuner extends SherlockActivity
 			actionBar.setSubtitle("Various kernel and system tuning");
 			actionBar.setHomeButtonEnabled(false);
         
-		
-		
-		sharedPrefs = PreferenceManager.getDefaultSharedPreferences(this);
 		/**
 		If auto update check is enabled check for updates
 		*/
@@ -792,13 +741,13 @@ public class KernelTuner extends SherlockActivity
 		/**
 		Get temperature unit from preferences
 		*/
-		tempPref = sharedPrefs.getString("temp", "celsius");
+		tempPref = preferences.getString("temp", "celsius");
 
 
 		/*
 		Load ads if not disabled
 		*/
-		boolean ads = sharedPrefs.getBoolean("ads", true);
+		boolean ads = preferences.getBoolean("ads", true);
 		if (ads == true)
 		{AdView adView = (AdView)this.findViewById(R.id.ad);
 			adView.loadAd(new AdRequest());}
@@ -950,7 +899,7 @@ public class KernelTuner extends SherlockActivity
 				@Override
 				public void onClick(View v)
 				{
-                    String tisChoice = sharedPrefs.getString("tis_open_as", "ask");
+                    String tisChoice = preferences.getString("tis_open_as", "ask");
 				   if(tisChoice.equals("ask")){
 					AlertDialog.Builder builder = new AlertDialog.Builder(
 		                    KernelTuner.this);
@@ -1199,7 +1148,7 @@ else if(preferences.getBoolean("notificationService", false)==false && isNotific
 	@Override
 	protected void onResume()
 	{
-		System.out.println("ktuner test"+preferences.getString("notif", "freq"));
+		
 		/**
 		Register BroadcastReceiver that will listen for battery changes and update ui
 		*/
@@ -1278,7 +1227,7 @@ else if(preferences.getBoolean("notificationService", false)==false && isNotific
 
 	}
 
-	public void setCpuLoad(){
+	private void setCpuLoad(){
 		TextView cpuLoadTxt = (TextView)findViewById(R.id.textView1);
 
 		ProgressBar cpuLoad = (ProgressBar)findViewById(R.id.progressBar5);
@@ -1288,7 +1237,7 @@ else if(preferences.getBoolean("notificationService", false)==false && isNotific
 	}
 	
 	
-public void startCpuLoadThread() {
+private void startCpuLoadThread() {
 		// Do something long
 		Runnable runnable = new Runnable() {
 			@Override
@@ -1344,7 +1293,7 @@ public void startCpuLoadThread() {
 	}
 	
 	
-	public void changelog()
+	private void changelog()
 	{
 		preferences = PreferenceManager.getDefaultSharedPreferences(getBaseContext());
 		String versionpref = preferences.getString("version", "");
@@ -1382,7 +1331,7 @@ public void startCpuLoadThread() {
 	CPU Temperature
 	*/
 
-	public void cpuTemp()
+	private void cpuTemp()
 	{
 		cputemptxt = (TextView)findViewById(R.id.textView38);
 		
@@ -1497,7 +1446,7 @@ public void startCpuLoadThread() {
 		}
 	}
 
-	public void initialCheck()
+	private void initialCheck()
 	{
 
 		/**
@@ -1698,7 +1647,7 @@ public void startCpuLoadThread() {
 	Create init.d files and export them to private application folder
 	*/
 
-	public void initdExport()
+	private void initdExport()
 	{
 	
 		SharedPreferences sharedPrefs = PreferenceManager.getDefaultSharedPreferences(this);
@@ -2155,7 +2104,7 @@ public void startCpuLoadThread() {
 	/**
 	Read current cpu0 frequency
 	*/
-	public void ReadCPU0Clock()
+	private void ReadCPU0Clock()
 	{
 
 
@@ -2191,7 +2140,7 @@ public void startCpuLoadThread() {
 	/**
 	 Read current cpu1 frequency
 	 */
-	public void ReadCPU1Clock()
+	private void ReadCPU1Clock()
 	{
 
 
@@ -2231,7 +2180,7 @@ public void startCpuLoadThread() {
 	/**
 	 Read current cpu2 frequency
 	 */
-	public void ReadCPU2Clock()
+	private void ReadCPU2Clock()
 	{
 
 
@@ -2268,7 +2217,7 @@ public void startCpuLoadThread() {
 	/**
 	 Read current cpu3 frequency
 	 */
-	public void ReadCPU3Clock()
+	private void ReadCPU3Clock()
 	{
 
 
@@ -2309,7 +2258,7 @@ public void startCpuLoadThread() {
     /**
 	Read max frequency of cpu0
 	*/
-	public void ReadCPU0maxfreq()
+	private void ReadCPU0maxfreq()
 	{
 
 
@@ -2342,7 +2291,7 @@ public void startCpuLoadThread() {
 	/**
 	 Read max frequency of cpu1
 	 */
-	public void ReadCPU1maxfreq()
+	private void ReadCPU1maxfreq()
 	{
 
 
@@ -2377,7 +2326,7 @@ public void startCpuLoadThread() {
 	/**
 	 Read max frequency of cpu2
 	 */
-	public void ReadCPU2maxfreq()
+	private void ReadCPU2maxfreq()
 	{
 
 
@@ -2411,7 +2360,7 @@ public void startCpuLoadThread() {
 	/**
 	 Read max frequency of cpu1
 	 */
-	public void ReadCPU3maxfreq()
+	private void ReadCPU3maxfreq()
 	{
 
 
@@ -2445,7 +2394,7 @@ public void startCpuLoadThread() {
 	/**
 	Update UI with current frequency
 	*/
-	public void cpu0update()
+	private void cpu0update()
 	{
 
 		
@@ -2455,7 +2404,7 @@ public void startCpuLoadThread() {
 	/**
 	Set Progress of progressBar
 	*/
-	public void cpu0progress()
+	private void cpu0progress()
 	{
 		if (freqlist != null)
 		{
@@ -2466,13 +2415,13 @@ public void startCpuLoadThread() {
 
 	}
 
-	public void cpu1update()
+	private void cpu1update()
 	{
 
 	
 		cpu1prog.setText(freqcpu1.trim());
 	}
-	public void cpu1progress()
+	private void cpu1progress()
 	{
 		if (freqlist != null)
 		{
@@ -2482,14 +2431,14 @@ public void startCpuLoadThread() {
 		}
 	}
 
-	public void cpu2update()
+	private void cpu2update()
 	{
 
 		
 		cpu2prog.setText(freqcpu2.trim());
 	}
 
-	public void cpu2progress()
+	private void cpu2progress()
 	{
 		if (freqlist != null)
 		{
@@ -2499,13 +2448,13 @@ public void startCpuLoadThread() {
 		}
 	}
 
-	public void cpu3update()
+	private void cpu3update()
 	{
 
 		
 		cpu3prog.setText(freqcpu3.trim());
 	}
-	public void cpu3progress()
+	private void cpu3progress()
 	{
 		if (freqlist != null)
 		{

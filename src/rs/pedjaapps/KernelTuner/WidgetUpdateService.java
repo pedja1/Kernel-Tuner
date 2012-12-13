@@ -21,17 +21,13 @@ import android.widget.RemoteViews;
 public class WidgetUpdateService extends Service
 {
 	
-	public String led;
-	public String fastcharge;
-	public String vsync;
-	public String cdepth;
-	public String curentfreq;
-	public String gov;
-	public String battperc;
-	public String charge;
-	public int timeint;
+	private String curentfreq;
+	private String gov;
+	private String battperc;
+	private String charge;
+	private int timeint;
 
-	public void read()
+	private void read()
 	{
 
 		try
@@ -143,12 +139,6 @@ public class WidgetUpdateService extends Service
 
 		int[] allWidgetIds = intent
 			.getIntArrayExtra(AppWidgetManager.EXTRA_APPWIDGET_IDS);
-
-		//ComponentName thisWidget = new ComponentName(getApplicationContext(),
-												//	 AppWidget.class);
-		//int[] allWidgetIds2 = appWidgetManager.getAppWidgetIds(thisWidget);
-		// Log.w(LOG, "From Intent" + String.valueOf(allWidgetIds.length));
-		//Log.w(LOG, "Direct" + String.valueOf(allWidgetIds2.length));
 
 		read();
 

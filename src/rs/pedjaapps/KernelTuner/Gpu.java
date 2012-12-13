@@ -30,25 +30,25 @@ import android.widget.TextView;
 public class Gpu extends SherlockActivity
 {
 
-	public String gpu2dcurent;
-	public String gpu3dcurent ;
-	public String gpu2dmax;
-	public String gpu3dmax;
-	public String selected2d;
+	private String gpu2dcurent;
+	private String gpu3dcurent ;
+	private String gpu2dmax;
+	private String gpu3dmax;
+	private String selected2d;
 
-	public String selected3d;
+	private String selected3d;
 
-	public int new3d;
-	public int new2d;
+	private int new3d;
+	private int new2d;
 
-	String board = android.os.Build.DEVICE;
+	private String board = android.os.Build.DEVICE;
 
 
-	public String[] gpu2d ;
-	public String[] gpu3d ;
+	private String[] gpu2d ;
+	private String[] gpu3d ;
 
 	private ProgressDialog pd = null;
-	public SharedPreferences preferences;
+	private SharedPreferences preferences;
 	
 
 private class changegpu extends AsyncTask<String, Void, Object>
@@ -294,7 +294,7 @@ private class changegpu extends AsyncTask<String, Void, Object>
 
 	}
 
-	public void createSpinner2D()
+    private void createSpinner2D()
 	{
 
 
@@ -327,7 +327,7 @@ private class changegpu extends AsyncTask<String, Void, Object>
 
 
 
-	public void createSpinner3D()
+    private void createSpinner3D()
 	{
 
 
@@ -358,7 +358,7 @@ private class changegpu extends AsyncTask<String, Void, Object>
 	}
 
 
-	public void readgpu3dcurent()
+    private void readgpu3dcurent()
 	{
 		try
 		{
@@ -387,7 +387,7 @@ private class changegpu extends AsyncTask<String, Void, Object>
 			}
 	}
 
-	public void readgpu2dcurent()
+    private void readgpu2dcurent()
 	{
 		try
 		{
@@ -417,7 +417,7 @@ private class changegpu extends AsyncTask<String, Void, Object>
 	}
 
 
-	public void readgpu3dmax()
+    private void readgpu3dmax()
 	{
 		try
 		{
@@ -444,7 +444,7 @@ private class changegpu extends AsyncTask<String, Void, Object>
 			}
 	}
 
-	public void readgpu2dmax()
+    private void readgpu2dmax()
 	{
 		try
 		{

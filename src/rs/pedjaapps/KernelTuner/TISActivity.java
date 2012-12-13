@@ -16,7 +16,6 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.View.OnClickListener;
 import android.view.ViewGroup;
-import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.ListView;
 import android.widget.TextView;
@@ -28,15 +27,14 @@ import com.google.ads.AdRequest;
 import com.google.ads.AdView;
 public class TISActivity extends SherlockActivity {
 
-	List<TimesEntry> times = CPUInfo.getTis();
+	private List<TimesEntry> times = CPUInfo.getTis();
 	
 
-	TISAdapter tisAdapter ;
-	ListView tisListView;
-	ViewGroup header;
-	ViewGroup footer;
-	ActionBar actionBar;
-	ArrayAdapter<String> navigationAdapter;
+	private TISAdapter tisAdapter ;
+	private ListView tisListView;
+	private ViewGroup header;
+	private ViewGroup footer;
+	private ActionBar actionBar;
 	@Override
 	public void onCreate(Bundle savedInstanceState)
 	{
@@ -97,7 +95,7 @@ public class TISActivity extends SherlockActivity {
 
 	}
 
-	public void setDeepSleepAndUptime(){
+	private void setDeepSleepAndUptime(){
 		String deepSleep = hrTimeSystem(SystemClock.elapsedRealtime() - SystemClock.uptimeMillis());
 		String bootTime = hrTimeSystem(SystemClock.elapsedRealtime());
 		TextView deepSleepText = (TextView)footer.findViewById(R.id.deep_sleep);
@@ -126,7 +124,7 @@ public class TISActivity extends SherlockActivity {
 		return entries;
 	}
 	
-	public String hrTime(long time)
+	private  String hrTime(long time)
 	{
 		
 		String timeString;
@@ -160,7 +158,7 @@ public class TISActivity extends SherlockActivity {
 
 	}
 	
-	public String hrTimeSystem(long time)
+	private String hrTimeSystem(long time)
 	{
 		
 		String timeString;
@@ -194,7 +192,7 @@ public class TISActivity extends SherlockActivity {
 
 	}
 	
-	public long totalTime(){
+	private long totalTime(){
 		long a=0;
         for (int i =0; i < times.size(); i++)
         {

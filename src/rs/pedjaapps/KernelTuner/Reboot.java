@@ -15,7 +15,7 @@ import android.util.Log;
 
 public class Reboot extends Activity
 {
-	String reboot;
+	private String reboot;
 	
 
 	@Override
@@ -25,27 +25,7 @@ public class Reboot extends Activity
 		Intent intent = getIntent();
 		reboot = intent.getExtras().getString("reboot");
 		
-		/*Process localProcess;
-		try
-		{
-			localProcess = Runtime.getRuntime().exec("su");
-
-			DataOutputStream localDataOutputStream = new DataOutputStream(localProcess.getOutputStream());
-			localDataOutputStream.writeBytes("/data/data/rs.pedjaapps.KernelTuner/files/reboot " + reboot + "\n");
-			localDataOutputStream.writeBytes("exit\n");
-			localDataOutputStream.flush();
-			localDataOutputStream.close();
-			localProcess.waitFor();
-			localProcess.destroy();
-		}
-		catch (IOException e)
-		{
-			new LogWriter().execute(new String[] {getClass().getName(), e.getMessage()});
-		}
-		catch (InterruptedException e)
-		{
-			new LogWriter().execute(new String[] {getClass().getName(), e.getMessage()});
-		}*/
+		
 		try {
             String line;
             Process process = Runtime.getRuntime().exec("su");

@@ -10,7 +10,6 @@ import com.actionbarsherlock.view.MenuItem;
 
 
 import android.content.Intent;
-import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.view.View;
 import android.view.View.OnClickListener;
@@ -33,62 +32,59 @@ public class ProfileEditor extends SherlockActivity
 	
 	private List<CPUInfo.FreqsEntry> freqEntries = CPUInfo.frequencies();
 	private List<String> freqNames = new ArrayList<String>();
-	String freqs;
-	String govs;
-	String cpu0min;
-	String cpu0max; 
-	String cpu1min;
-	String cpu1max;
+	private String cpu0min;
+	private String cpu0max; 
+	private String cpu1min;
+	private String cpu1max;
 
-	String cpu2min;
-	String cpu2max; 
-	String cpu3min;
-	String cpu3max;
-	String cpu0gov;
-	String cpu1gov;
+	private String cpu2min;
+	private String cpu2max; 
+	private String cpu3min;
+	private String cpu3max;
+	private String cpu0gov;
+	private String cpu1gov;
 
-	String cpu2gov;
-	String cpu3gov;
-	String gpu2d;
-	String gpu3d;
+	private String cpu2gov;
+	private String cpu3gov;
+	private String gpu2d;
+	private String gpu3d;
 
-	String mtu;
-	String mtd;
-	String Name;
-	String voltage;
-	String scheduler;
-	String cdepth;
+	private String mtu;
+	private String mtd;
+	private String Name;
+	private String voltage;
+	private String scheduler;
+	private String cdepth;
 	
-	String profileName;
-	Profile profile;
-	SharedPreferences sharedPrefs;
+	private String profileName;
+	private Profile profile;
 	
 	public String[] gpu2ds ;
 	public String[] gpu3ds ;
 
-	int s2w;
+	private int s2w;
 
 	
 	
-	EditText ed1;
-	EditText ed2;
-	EditText ed3;
-	EditText ed4;
-	EditText name;
+	private EditText ed1;
+	private EditText ed2;
+	private EditText ed3;
+	private EditText ed4;
+	private EditText name;
 	
-	RadioGroup vsyncGroup;
-	RadioGroup fchargeGroup;
-	RadioButton vsyncUnchanged;
-	RadioButton vsyncOff;
-	RadioButton vsyncOn;
-	RadioButton fchargeUnchanged;
-	RadioButton fchargeOff;
-	RadioButton fchargeOn;
-	DatabaseHandler db;
-	TextView vsyncText;
-	TextView fchargetext;
+	private RadioGroup vsyncGroup;
+	private RadioGroup fchargeGroup;
+	private RadioButton vsyncUnchanged;
+	private RadioButton vsyncOff;
+	private RadioButton vsyncOn;
+	private RadioButton fchargeUnchanged;
+	private RadioButton fchargeOff;
+	private RadioButton fchargeOn;
+	private DatabaseHandler db;
+	private TextView vsyncText;
+	private TextView fchargetext;
 	
-	String board = android.os.Build.DEVICE;
+	private String board = android.os.Build.DEVICE;
 	@Override
 	public void onCreate(Bundle savedInstanceState)
 	{

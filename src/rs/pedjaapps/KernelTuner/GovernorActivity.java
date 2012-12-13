@@ -32,18 +32,13 @@ import com.google.ads.AdView;
 public class GovernorActivity extends SherlockActivity
 {
 
-	GovernorSettingsAdapter govAdapter ;
-	ListView govListView;
-	String[] filesx;
-	List<String> fileList;
-	List<String> availableGovs = CPUInfo.availableGovs();
-	List<String> govValues;
-	String newvalue;
-	String curfile;
-	String governor = "xondemand";
-	List<String> governors;
-	List<String> temp;
-	public static final String ARG_SECTION_NUMBER = "section_number";
+	private GovernorSettingsAdapter govAdapter ;
+	private ListView govListView;
+	private List<String> fileList;
+	private List<String> availableGovs = CPUInfo.availableGovs();
+	private List<String> govValues;
+	private List<String> governors;
+	private List<String> temp;
 
 	@Override
 	public void onCreate(Bundle savedInstanceState)
@@ -102,8 +97,7 @@ public class GovernorActivity extends SherlockActivity
 							@Override
 							public void onClick(DialogInterface dialog, int which)
 							{
-								newvalue = String.valueOf(input.getText());
-								curfile = fileList.get(position);
+								
 								new ChangeGovernorSettings(GovernorActivity.this).execute(new String[] {String.valueOf(input.getText()), fileList.get(position), governors.get(position)});
 
 								try

@@ -1,7 +1,6 @@
 package rs.pedjaapps.KernelTuner;
 
 import java.io.BufferedReader;
-import java.io.DataOutputStream;
 import java.io.File;
 import java.io.FileInputStream;
 import java.io.IOException;
@@ -41,25 +40,19 @@ public class Swap extends SherlockActivity
 
 
 	private ProgressDialog pd = null;
-	String[] swapSize = {"64","128","256","512","758","1024"};
-    String[] swapLocation = {"/data/",String.valueOf(Environment.getExternalStorageDirectory()) + "/"};
-    String[] swappiness = {"10","20","30","40","50","60","70","80","90","100"};
+	private String[] swapSize = {"64","128","256","512","758","1024"};
+	private String[] swapLocation = {"/data/",String.valueOf(Environment.getExternalStorageDirectory()) + "/"};
 
-    int swapSizeSelected;
-    String swapLocationSelected;
-    String swappinessSelected;
-    String swaps;
-    String swaps2;
-    String currentSwappiness;
-    String swapLocationCurrent;
+	private int swapSizeSelected;
+	private String swapLocationSelected;
+	private String swappinessSelected;
+	private String swaps;
+	private  String currentSwappiness;
+	private String swapLocationCurrent;
     public SharedPreferences preferences;
 
-    List<String> swapsList = new ArrayList<String>();
-    List<String> temp = new ArrayList<String>();
-
-
-
-
+    private List<String> swapsList = new ArrayList<String>();
+    private List<String> temp = new ArrayList<String>();
 
 	private class deactivateSwap extends AsyncTask<String, Void, Object>
 	{
@@ -353,7 +346,7 @@ public class Swap extends SherlockActivity
 
     }
 
-	public void updateUI()
+	private  void updateUI()
 	{
 		currentSwappiness();
 		spinnerSwapSize();
@@ -471,7 +464,7 @@ public class Swap extends SherlockActivity
     	}
 	} 
 
-	public void currentSwappiness()
+	private void currentSwappiness()
 	{
 
 
@@ -538,7 +531,7 @@ public class Swap extends SherlockActivity
 
 	}
 
-    public void spinnerSwapSize()
+	private void spinnerSwapSize()
 	{
 
 
@@ -566,7 +559,7 @@ public class Swap extends SherlockActivity
 
     }
 
-    public void spinnerSwapLocation()
+	private void spinnerSwapLocation()
 	{
 
 

@@ -5,14 +5,9 @@ import android.appwidget.AppWidgetProvider;
 import android.content.ComponentName;
 import android.content.Context;
 import android.content.Intent;
-import android.os.Handler;
 
 public class AppWidget extends AppWidgetProvider
 {
-
-	
-
-	Handler mHandler = new Handler();
 
 	@Override
 	public void onUpdate(final Context context,

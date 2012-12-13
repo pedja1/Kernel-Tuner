@@ -20,25 +20,23 @@ import android.widget.TextView;
 public class CompatibilityCheck extends Activity
 {
 
-	public String out = "sad";
-	public String cmd;
-	public int count = 0;
-	public boolean saf;
-	public boolean mp;
-	public boolean td;
-	public boolean vs;
-	public boolean fs;
-	public boolean fc;
-	public boolean tis;
-	public boolean uv;
-	public boolean cd;
-	public boolean lt;
-	public boolean bl;
-	public boolean g3d;
-	public boolean g2d;
-	public boolean s2w;
-	public boolean sdc;
-	public boolean sh;
+	private int count = 0;
+	private boolean saf;
+	private boolean mp;
+	private boolean td;
+	private boolean vs;
+	private boolean fs;
+	private boolean fc;
+	private boolean tis;
+	private boolean uv;
+	private boolean cd;
+	private boolean lt;
+	private boolean bl;
+	private boolean g3d;
+	private boolean g2d;
+	private boolean s2w;
+	private boolean sdc;
+	private boolean sh;
 
 	SharedPreferences sharedPrefs;
 

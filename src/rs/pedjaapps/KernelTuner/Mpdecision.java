@@ -215,7 +215,7 @@ public class Mpdecision extends SherlockActivity
 	}
 
 
-	public void setCheckBoxes()
+	private void setCheckBoxes()
 	{
 
 
@@ -317,7 +317,7 @@ public class Mpdecision extends SherlockActivity
 	
 	}
 
-	public void readEditTexts()
+	private void readEditTexts()
 	{
 		EditText del=(EditText)findViewById(R.id.ed1);
 		EditText pause=(EditText)findViewById(R.id.ed2);
@@ -340,7 +340,7 @@ public class Mpdecision extends SherlockActivity
 
 
 
-	public void readMpdec()
+	private void readMpdec()
 	{
 		try
 		{
@@ -616,7 +616,7 @@ public class Mpdecision extends SherlockActivity
 	    return super.onOptionsItemSelected(item);
 	}
 	
-	public void apply(){
+	private void apply(){
 		Mpdecision.this.pd = ProgressDialog.show(Mpdecision.this, null, getResources().getString(R.string.applying_settings), true, true);
 		readEditTexts();
 		new apply().execute();

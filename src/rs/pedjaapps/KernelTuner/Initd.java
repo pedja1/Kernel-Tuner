@@ -1,7 +1,6 @@
 package rs.pedjaapps.KernelTuner;
 
 import java.io.BufferedReader;
-import java.io.DataOutputStream;
 import java.io.IOException;
 import java.io.InputStream;
 import java.io.InputStreamReader;
@@ -18,11 +17,10 @@ public class Initd extends AsyncTask<String, Void, String>
 	protected String doInBackground(String... args)
 	{
 
-
-		Process localProcess;
-		System.out.println("Init.d: Writing init.d");
+		
 		if (args[0].equals("apply"))
 		{
+			System.out.println("Init.d: Writing init.d");
 			try {
 	            String line;
 	            Process process = Runtime.getRuntime().exec("su");
@@ -61,6 +59,7 @@ public class Initd extends AsyncTask<String, Void, String>
 		}
 		else if (args[0].equals("rm"))
 		{
+			System.out.println("Init.d: Deleting init.d");
 			try {
 	            String line;
 	            Process process = Runtime.getRuntime().exec("su");

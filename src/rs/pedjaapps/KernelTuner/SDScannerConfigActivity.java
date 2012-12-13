@@ -23,12 +23,10 @@ import com.google.ads.*;
 import de.ankri.views.Switch;
 
 import java.text.*;
-import java.util.*;
 
 import org.achartengine.ChartFactory;
 import org.achartengine.GraphicalView;
 import org.achartengine.model.CategorySeries;
-import org.achartengine.model.SeriesSelection;
 import org.achartengine.renderer.DefaultRenderer;
 import org.achartengine.renderer.SimpleSeriesRenderer;
 
@@ -37,10 +35,8 @@ public class SDScannerConfigActivity extends SherlockActivity
 
 	
 	
-	List<SDScannerEntry> entries = new ArrayList<SDScannerEntry>();
 	
-	  LinearLayout l;
-	  Switch sw;
+	private Switch sw;
 	  public static final String TYPE = "type";
 
 	  private static int[] COLORS = new int[] {Color.RED, 
@@ -146,7 +142,6 @@ public class SDScannerConfigActivity extends SherlockActivity
 			sw.setChecked(false);
 		}
 		Button scan = (Button)findViewById(R.id.button2);
-		l = (LinearLayout)findViewById(R.id.ll);
 		scan.setOnClickListener(new OnClickListener(){
 			@Override
 			public void onClick(View arg0) {
@@ -190,8 +185,7 @@ public class SDScannerConfigActivity extends SherlockActivity
 		      mChartView.setOnClickListener(new View.OnClickListener() {
 		          @Override
 		          public void onClick(View v) {
-		            SeriesSelection seriesSelection = mChartView.getCurrentSeriesAndPoint();
-		            
+		       
 		          }
 		        });
 		      chart.addView(mChartView, new LayoutParams(LayoutParams.MATCH_PARENT,

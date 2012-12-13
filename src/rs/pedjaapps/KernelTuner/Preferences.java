@@ -17,15 +17,15 @@ import android.preference.Preference.*;
 public class Preferences extends SherlockPreferenceActivity
 {
 
-ListPreference bootPrefList;
-EditTextPreference widgetPref;
-ListPreference tempPrefList;
-ListPreference notifPrefList;
-CheckBoxPreference notifBox;
-PreferenceScreen notifScreen;
-CheckBoxPreference htcOneOverride;
-ListPreference tisList;
-CheckBoxPreference resetApp;
+	private ListPreference bootPrefList;
+	private EditTextPreference widgetPref;
+	private ListPreference tempPrefList;
+	private ListPreference notifPrefList;
+	private CheckBoxPreference notifBox;
+	private PreferenceScreen notifScreen;
+	private CheckBoxPreference htcOneOverride;
+	private ListPreference tisList;
+	private CheckBoxPreference resetApp;
 
 	@SuppressWarnings("deprecation")
 	@Override

@@ -881,7 +881,7 @@ public class MiscTweaks extends SherlockActivity
 
 	}
 
-	public void setCheckBoxes()
+	private void setCheckBoxes()
 	{
 
 		
@@ -1035,7 +1035,7 @@ public class MiscTweaks extends SherlockActivity
 
 	
 
-	public void readS2W()
+	private void readS2W()
 	{
 		try
 		{
@@ -1163,7 +1163,7 @@ public class MiscTweaks extends SherlockActivity
 		}
 	}
 
-	public void readNLT()
+	private void readNLT()
 	{
 		try
 		{
@@ -1192,7 +1192,7 @@ public class MiscTweaks extends SherlockActivity
 		}
 	}
 
-	public void readButtons2()
+	private void readButtons2()
 	{
 		try
 		{
@@ -1223,7 +1223,7 @@ public class MiscTweaks extends SherlockActivity
 	
 	
 
-	public void createSpinnerIO()
+	private void createSpinnerIO()
 	{
 		
 
@@ -1256,7 +1256,7 @@ public class MiscTweaks extends SherlockActivity
 
 	}
 
-	public void createSpinnerS2W()
+	private void createSpinnerS2W()
 	{
 		String[] MyStringAray = {"OFF","ON with no backlight","ON with backlight"};
 
@@ -1307,7 +1307,7 @@ public class MiscTweaks extends SherlockActivity
 
 	}
 
-	public void createSpinnerS2WStart()
+	private void createSpinnerS2WStart()
 	{
 		String[] MyStringAray = s2wButtons.split("\\s");
 
@@ -1346,7 +1346,7 @@ public class MiscTweaks extends SherlockActivity
 
 	}
 
-	public void createSpinnerS2WEnd()
+	private void createSpinnerS2WEnd()
 	{
 		String[] MyStringAray = s2wButtons.split("\\s");
 
@@ -1387,7 +1387,7 @@ public class MiscTweaks extends SherlockActivity
 
 	
 
-	public void createNLT()
+	private void createNLT()
 	{
 		String[] MyStringAray = {"Never", "App Default", "Custom"};
 
@@ -1504,7 +1504,7 @@ public class MiscTweaks extends SherlockActivity
 	    return super.onOptionsItemSelected(item);
 	}
 	
-	public void apply(){
+	private void apply(){
 		EditText sd = (EditText) findViewById(R.id.editText1);
 		sdcache = Integer.parseInt(sd.getText().toString());
 		new ChangeIO().execute();

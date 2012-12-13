@@ -26,7 +26,6 @@ import java.lang.Process;
 import org.achartengine.ChartFactory;
 import org.achartengine.GraphicalView;
 import org.achartengine.model.CategorySeries;
-import org.achartengine.model.SeriesSelection;
 import org.achartengine.renderer.DefaultRenderer;
 import org.achartengine.renderer.SimpleSeriesRenderer;
 
@@ -34,8 +33,8 @@ public class SDScannerActivity extends SherlockActivity
 {
 
 	
-	ProgressDialog pd;
-	List<SDScannerEntry> entries = new ArrayList<SDScannerEntry>();
+	private ProgressDialog pd;
+	private List<SDScannerEntry> entries = new ArrayList<SDScannerEntry>();
 	public static final String TYPE = "type";
 
 	  private static int[] COLORS = new int[] {Color.parseColor("#FF0000"), 
@@ -136,8 +135,7 @@ public class SDScannerActivity extends SherlockActivity
 	      mChartView.setOnClickListener(new View.OnClickListener() {
 	          @Override
 	          public void onClick(View v) {
-	            SeriesSelection seriesSelection = mChartView.getCurrentSeriesAndPoint();
-	            
+
 	          }
 	        });
 	      chart.addView(mChartView, new LayoutParams(LayoutParams.MATCH_PARENT,
@@ -256,7 +254,7 @@ public class SDScannerActivity extends SherlockActivity
 	  }
 	}
 	
-	public String size(int size){
+	private String size(int size){
 		String hrSize = "";
 		int k = size;
 		double m = size/1024.0;

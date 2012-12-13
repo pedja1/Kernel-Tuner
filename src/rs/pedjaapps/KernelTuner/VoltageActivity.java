@@ -27,15 +27,13 @@ import com.google.ads.AdView;
 public class VoltageActivity extends SherlockActivity
 {
 
-	static VoltageAdapter voltageAdapter ;
-	ListView voltageListView;
-	static ProgressDialog pd = null;
-	DatabaseHandler db;
+	private static VoltageAdapter voltageAdapter ;
+	private ListView voltageListView;
+	private DatabaseHandler db;
 	
-	static List<Integer> voltages = new ArrayList<Integer>();
-	static List<String> voltageFreqs =  new ArrayList<String>();
-	static List<String> voltageFreqNames =  new ArrayList<String>();
-	public static final String ARG_SECTION_NUMBER = "section_number";
+	private static List<Integer> voltages = new ArrayList<Integer>();
+	private static List<String> voltageFreqs =  new ArrayList<String>();
+	private static List<String> voltageFreqNames =  new ArrayList<String>();
 
 	@Override
 	public void onCreate(Bundle savedInstanceState)
@@ -278,11 +276,6 @@ public class VoltageActivity extends SherlockActivity
 
 		final List<VoltageEntry> entries = new ArrayList<VoltageEntry>();
 
-
-
-		/*List<Integer> allVoltages = CPUInfo.allVoltages();
-		List<Integer> allVoltagesTegra3 = CPUInfo.allVoltagesTegra3();
-		*/
 		List<CPUInfo.VoltageList> voltageList = CPUInfo.voltages();
 		if(voltageFreqs.isEmpty()==false){
 			voltageFreqs.clear();

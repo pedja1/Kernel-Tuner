@@ -11,13 +11,10 @@ import com.actionbarsherlock.view.Menu;
 import com.actionbarsherlock.view.MenuInflater;
 import com.actionbarsherlock.view.MenuItem;
 
-
-import android.app.Activity;
 import android.app.AlertDialog;
 import android.app.ProgressDialog;
 import android.content.DialogInterface;
 import android.content.Intent;
-import android.content.SharedPreferences;
 import android.os.AsyncTask;
 import android.os.Bundle;
 import android.view.ContextMenu;
@@ -36,32 +33,32 @@ import android.widget.Toast;
 
 public class Profiles extends SherlockActivity
 {
-	 String _cpu0max;
-	 String _cpu1max;
-	 String _cpu0min;
-	 String _cpu1min;
-	 String _cpu2max;
-	 String _cpu3max;
-	 String _cpu2min;
-	 String _cpu3min;
-	 String _cpu0gov;
-	 String _cpu1gov;
-	 String _cpu2gov;
-	 String _cpu3gov;
-	 String _mpup;
-	 String _mpdown;
-	 String _gpu2d;
-	 String _gpu3d;
-	 String _cbb;
-	 int _fcharge;
-	 int _vsync;
-	 String _cdepth;
-	 String _scheduler;
-	 int _sdcache ;
-	 int _s2w;
-	 String _name;
+	private String _cpu0max;
+	private String _cpu1max;
+	private String _cpu0min;
+	private String _cpu1min;
+	private String _cpu2max;
+	private String _cpu3max;
+	private String _cpu2min;
+	private String _cpu3min;
+	private String _cpu0gov;
+	private String _cpu1gov;
+	private  String _cpu2gov;
+	private String _cpu3gov;
+	private String _mpup;
+	private String _mpdown;
+	private String _gpu2d;
+	private String _gpu3d;
+	private  String _cbb;
+	private  int _fcharge;
+	private int _vsync;
+	private String _cdepth;
+	private  String _scheduler;
+	private  int _sdcache ;
+	private int _s2w;
+	private String _name;
 	 
-	ProgressDialog pd;
+	private ProgressDialog pd;
 	 
 	private class SaveCurrentAsProfile extends AsyncTask<String, Void, Object>
 	{
@@ -106,12 +103,11 @@ public class Profiles extends SherlockActivity
 			}
 			catch (IOException e1)
 			{
-				// TODO Auto-generated catch block
+				
 				e1.printStackTrace();
 			}
 			catch (InterruptedException e1)
 			{
-				// TODO Auto-generated catch block
 				e1.printStackTrace();
 			}
 						
@@ -178,12 +174,10 @@ try{
 }
 catch (IOException e1)
 {
-	// TODO Auto-generated catch block
 	e1.printStackTrace();
 }
 catch (InterruptedException e1)
 {
-	// TODO Auto-generated catch block
 	e1.printStackTrace();
 }
 
@@ -244,11 +238,10 @@ catch (InterruptedException e1)
 
 	}
 
-	SharedPreferences sharedPrefs;
-	DatabaseHandler db;
-	ProfilesAdapter profilesAdapter ;
-	ListView profilesListView;
-	List<Profile> profiles;
+	private DatabaseHandler db;
+	private ProfilesAdapter profilesAdapter ;
+	private ListView profilesListView;
+	private List<Profile> profiles;
 	private static final int GET_CODE = 0;
 	@Override
 	public void onCreate(Bundle savedInstanceState)
@@ -590,7 +583,7 @@ catch (InterruptedException e1)
 		
 	}
 	
-	public void setUI(){
+	private  void setUI(){
 		TextView tv1 = (TextView)findViewById(R.id.tv1);
 		LinearLayout ll = (LinearLayout)findViewById(R.id.ll1);
 		if(profilesAdapter.isEmpty()==false){
