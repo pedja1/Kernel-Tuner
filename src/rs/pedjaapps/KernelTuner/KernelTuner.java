@@ -749,9 +749,11 @@ public class KernelTuner extends SherlockActivity
 					{
 						if(cb.isChecked()){
 						editor.putBoolean("rootCheckAtStartup", false);
+						editor.commit();
 						}
 						else{
 							editor.putBoolean("rootCheckAtStartup", true);
+							editor.commit();
 						}
 					}
 				});
@@ -783,6 +785,9 @@ public class KernelTuner extends SherlockActivity
 		preferences = PreferenceManager.getDefaultSharedPreferences(this);
 		editor = preferences.edit();
 		setContentView(R.layout.main);
+		
+		
+		
 		if(preferences.getBoolean("rootCheckAtStartup", true)){
 		pd = new ProgressDialog(this);
 		pd.setMessage("Checking Root Access\nPlease wait...");
