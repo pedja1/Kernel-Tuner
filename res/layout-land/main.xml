@@ -122,7 +122,7 @@
             android:layout_weight="1"
             android:drawableTop="@drawable/swap"
             android:gravity="center|center_vertical"
-            android:text="OOM" />
+            android:text="@string/oom" />
 
         <Button
             android:id="@+id/button14"
@@ -155,7 +155,7 @@
         android:layout_alignParentTop="true"
         android:orientation="horizontal" android:baselineAligned="false">
 
-        <LinearLayout
+        <RelativeLayout
             android:id="@+id/test1a"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
@@ -165,25 +165,24 @@
             
             <TextView
                 android:id="@+id/textView37"
-                android:layout_width="0dp"
+                android:layout_width="wrap_content"
                 android:layout_height="wrap_content"           
                 android:text="@string/activity_main_cpu_temp_"
-                android:layout_weight="1"
+                
                 android:textColor="#FFFFFF" />
 
             <TextView
                 android:id="@+id/textView38"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                
-               
+                android:layout_alignParentRight="true"
                 android:text="@string/n_a" />
             
-        </LinearLayout>
+        </RelativeLayout>
         
          
 
-        <LinearLayout
+        <RelativeLayout
             android:id="@+id/test1b"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
@@ -192,22 +191,21 @@
              >
             <TextView
                 android:id="@+id/textView39"
-                android:layout_width="0dp"
+                android:layout_width="wrap_content"
                 android:layout_height="wrap_content"           
                 android:text="@string/activity_main__battery_temp_"
-                android:layout_weight="1" 
+                 
                  android:textColor="#FFFFFF" />
 
             <TextView
                 android:id="@+id/textView40"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                
-               
-                android:text="@string/crtica" />
-        </LinearLayout>
+                android:layout_alignParentRight="true"
+                android:text="@string/n_a" />
+        </RelativeLayout>
  
-        <LinearLayout
+        <RelativeLayout
             android:id="@+id/test1c"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
@@ -216,20 +214,19 @@
               >
             <TextView
                 android:id="@+id/textView41"
-                android:layout_width="0dp"
+                android:layout_width="wrap_content"
                 android:layout_height="wrap_content"           
                 android:text="@string/activity_main__battery_level_"
-                android:layout_weight="1"
+                
                  android:textColor="#FFFFFF"  />
 
             <TextView
                 android:id="@+id/textView42"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                
-                
-                android:text="@string/crtica" />
-        </LinearLayout>
+                android:layout_alignParentRight="true"
+                android:text="@string/n_a" />
+        </RelativeLayout>
     </LinearLayout>
 
     <RelativeLayout

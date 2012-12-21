@@ -128,7 +128,8 @@ public class VoltageActivity extends SherlockActivity
 								for (String s : voltageFreqs){
 									freqBuilder.append(s+" ");
 								}
-								for (int i=0; i<voltages.size(); i++){
+								int voltagesSize = voltages.size();
+								for (int i=0; i<voltagesSize; i++){
 									valueBuilder.append(String.valueOf(voltages.get(i))+" ");
 								}
 								freqTemp = freqBuilder.toString();
@@ -204,7 +205,8 @@ public class VoltageActivity extends SherlockActivity
 							{
 								
 								List<Voltage> voltages = db.getAllVoltages();
-								for(int i =0; i<voltages.size(); i++){
+								int voltagesSize = voltages.size();
+								for(int i =0; i<voltagesSize; i++){
 									db.deleteVoltageByName(voltages.get(i));
 								}
 
@@ -298,7 +300,8 @@ public class VoltageActivity extends SherlockActivity
 
 		if (new File(CPUInfo.VOLTAGE_PATH).exists())
 		{
-			for (int i= 0; i < voltages.size(); i++)
+			int voltagesSize = voltages.size();
+			for (int i= 0; i < voltagesSize; i++)
 			{	    	 
 				entries.add(new VoltageEntry(voltageFreqNames.get(i), voltages.get(i)));
 				
@@ -308,7 +311,8 @@ public class VoltageActivity extends SherlockActivity
 		}
 		else if (new File(CPUInfo.VOLTAGE_PATH_TEGRA_3).exists())
 		{
-			for (int i= 0; i < voltages.size(); i++)
+			int voltagesSize = voltages.size();
+			for (int i= 0; i < voltagesSize; i++)
 			{	    	 
 				entries.add(new VoltageEntry(voltageFreqNames.get(i), voltages.get(i)));
 				

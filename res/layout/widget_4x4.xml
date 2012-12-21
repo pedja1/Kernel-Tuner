@@ -12,25 +12,27 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_above="@+id/miscToggles"
-        android:scaleType="fitXY"
         android:layout_marginLeft="3dp"
-                android:layout_marginRight="3dp"
-        android:src="@drawable/divider_strong_holo" />
+        android:layout_marginRight="3dp"
+        android:scaleType="fitXY"
+        android:src="@drawable/divider_strong_holo" 
+        android:contentDescription="@string/divider"/>
 
     <LinearLayout
+        android:id="@+id/up"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_above="@+id/imageView1"
         android:layout_alignParentTop="true" >
 
-        <LinearLayout
-            android:id="@+id/LinearLayout1"
+        <RelativeLayout
+            android:id="@+id/batteryLayout"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:layout_weight="1"
-            android:orientation="vertical" >
+            android:layout_weight="1" >
 
             <RelativeLayout
+                android:id="@+id/batteryLevelLayout"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content" >
 
@@ -40,7 +42,7 @@
                     android:layout_height="wrap_content"
                     android:layout_marginLeft="10dp"
                     android:layout_marginTop="10dp"
-                    android:src="@drawable/battery_charge_usb" />
+                    android:src="@drawable/battery_charge_usb" android:contentDescription="@string/battery_icon"/>
 
                 <ProgressBar
                     android:id="@+id/progressBar1"
@@ -66,36 +68,37 @@
                     android:text="@string/n_a"
                     android:textColor="#ffffffff"
                     android:typeface="sans" />
-
             </RelativeLayout>
 
             <ImageView
                 android:id="@+id/imageView8"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-               android:layout_marginLeft="3dp"
+                android:layout_below="@+id/batteryLevelLayout"
+                android:layout_marginLeft="3dp"
                 android:layout_marginRight="3dp"
                 android:scaleType="fitXY"
-                android:src="@drawable/divider_strong_holo" />
+                android:src="@drawable/divider_strong_holo"
+                android:contentDescription="@string/divider" />
 
-            <LinearLayout
-                android:id="@+id/LinearLayout1"
+            <RelativeLayout
+                android:id="@+id/batteryStatLayout"
                 android:layout_width="match_parent"
                 android:layout_height="0dp"
-                android:layout_weight="1"
-                android:orientation="vertical" >
+                android:layout_above="@+id/imageView9"
+                android:layout_below="@+id/imageView8" >
 
-                <LinearLayout
+                <RelativeLayout
+                    android:id="@+id/RelativeLayout1"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content" >
 
                     <TextView
                         android:id="@+id/textView15"
-                        android:layout_width="0dp"
+                        android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_marginLeft="3dp"
                         android:layout_marginTop="10dp"
-                        android:layout_weight="1"
                         android:shadowColor="#00000000"
                         android:shadowDx="1.0"
                         android:shadowDy="1.0"
@@ -106,10 +109,11 @@
 
                     <TextView
                         android:id="@+id/textView20"
-                        android:layout_marginTop="10dp"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
+                        android:layout_alignParentRight="true"
                         android:layout_marginRight="3dp"
+                        android:layout_marginTop="10dp"
                         android:shadowColor="#00000000"
                         android:shadowDx="1.0"
                         android:shadowDy="1.0"
@@ -117,15 +121,17 @@
                         android:text="@string/n_a"
                         android:textColor="#ffffffff"
                         android:typeface="sans" />
-                </LinearLayout>
+                </RelativeLayout>
 
-                <LinearLayout
+                <RelativeLayout
+                    android:id="@+id/LinearLayout2"
                     android:layout_width="match_parent"
-                    android:layout_height="wrap_content" >
+                    android:layout_height="wrap_content"
+                    android:layout_below="@+id/RelativeLayout1" >
 
                     <TextView
                         android:id="@+id/textView16"
-                        android:layout_width="0dp"
+                        android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_marginLeft="3dp"
                         android:shadowColor="#00000000"
@@ -134,13 +140,13 @@
                         android:shadowRadius="2.0"
                         android:text="@string/voltage_"
                         android:textColor="#ffffffff"
-                        android:typeface="sans"
-                        android:layout_weight="1" />
+                        android:typeface="sans" />
 
                     <TextView
                         android:id="@+id/textView21"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
+                        android:layout_alignParentRight="true"
                         android:layout_marginRight="3dp"
                         android:shadowColor="#00000000"
                         android:shadowDx="1.0"
@@ -149,15 +155,17 @@
                         android:text="@string/n_a"
                         android:textColor="#ffffffff"
                         android:typeface="sans" />
-                </LinearLayout>
+                </RelativeLayout>
 
-                <LinearLayout
+                <RelativeLayout
+                    android:id="@+id/LinearLayout3"
                     android:layout_width="match_parent"
-                    android:layout_height="wrap_content" >
+                    android:layout_height="wrap_content"
+                    android:layout_below="@+id/LinearLayout2" >
 
                     <TextView
                         android:id="@+id/textView17"
-                        android:layout_width="0dp"
+                        android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_marginLeft="3dp"
                         android:shadowColor="#00000000"
@@ -166,13 +174,13 @@
                         android:shadowRadius="2.0"
                         android:text="@string/technology_"
                         android:textColor="#ffffffff"
-                        android:typeface="sans" 
-                        android:layout_weight="1"/>
+                        android:typeface="sans" />
 
                     <TextView
                         android:id="@+id/textView22"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
+                        android:layout_alignParentRight="true"
                         android:layout_marginRight="3dp"
                         android:shadowColor="#00000000"
                         android:shadowDx="1.0"
@@ -181,15 +189,17 @@
                         android:text="@string/n_a"
                         android:textColor="#ffffffff"
                         android:typeface="sans" />
-                </LinearLayout>
+                </RelativeLayout>
 
-                <LinearLayout
+                <RelativeLayout
+                    android:id="@+id/LinearLayout4"
                     android:layout_width="match_parent"
-                    android:layout_height="wrap_content" >
+                    android:layout_height="wrap_content"
+                    android:layout_below="@+id/LinearLayout3" >
 
                     <TextView
                         android:id="@+id/textView18"
-                        android:layout_width="0dp"
+                        android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_marginLeft="3dp"
                         android:shadowColor="#00000000"
@@ -198,13 +208,13 @@
                         android:shadowRadius="2.0"
                         android:text="@string/drain_charge_"
                         android:textColor="#ffffffff"
-                        android:typeface="sans"
-                        android:layout_weight="1" />
+                        android:typeface="sans" />
 
                     <TextView
                         android:id="@+id/textView23"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
+                        android:layout_alignParentRight="true"
                         android:layout_marginRight="3dp"
                         android:shadowColor="#00000000"
                         android:shadowDx="1.0"
@@ -213,15 +223,17 @@
                         android:text="@string/n_a"
                         android:textColor="#ffffffff"
                         android:typeface="sans" />
-                </LinearLayout>
+                </RelativeLayout>
 
-                <LinearLayout
+                <RelativeLayout
+                    android:id="@+id/LinearLayout5"
                     android:layout_width="match_parent"
-                    android:layout_height="wrap_content" >
+                    android:layout_height="wrap_content"
+                    android:layout_below="@+id/LinearLayout4" >
 
                     <TextView
                         android:id="@+id/textView19"
-                        android:layout_width="0dp"
+                        android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_marginLeft="3dp"
                         android:shadowColor="#00000000"
@@ -230,13 +242,13 @@
                         android:shadowRadius="2.0"
                         android:text="@string/health_"
                         android:textColor="#ffffffff"
-                        android:typeface="sans"
-                        android:layout_weight="1" />
+                        android:typeface="sans" />
 
                     <TextView
                         android:id="@+id/textView24"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
+                        android:layout_alignParentRight="true"
                         android:layout_marginRight="3dp"
                         android:shadowColor="#00000000"
                         android:shadowDx="1.0"
@@ -245,15 +257,17 @@
                         android:text="@string/n_a"
                         android:textColor="#ffffffff"
                         android:typeface="sans" />
-                </LinearLayout>
+                </RelativeLayout>
 
-                <LinearLayout
+                <RelativeLayout
+                    android:id="@+id/LinearLayout6"
                     android:layout_width="match_parent"
-                    android:layout_height="wrap_content" >
+                    android:layout_height="wrap_content"
+                    android:layout_below="@+id/LinearLayout5" >
 
                     <TextView
                         android:id="@+id/textView25"
-                        android:layout_width="0dp"
+                        android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_marginLeft="3dp"
                         android:shadowColor="#00000000"
@@ -262,13 +276,13 @@
                         android:shadowRadius="2.0"
                         android:text="@string/capacity_"
                         android:textColor="#ffffffff"
-                        android:typeface="sans"
-                        android:layout_weight="1" />
+                        android:typeface="sans" />
 
                     <TextView
                         android:id="@+id/textView26"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
+                        android:layout_alignParentRight="true"
                         android:layout_marginRight="3dp"
                         android:shadowColor="#00000000"
                         android:shadowDx="1.0"
@@ -277,44 +291,47 @@
                         android:text="@string/n_a"
                         android:textColor="#ffffffff"
                         android:typeface="sans" />
-                </LinearLayout>
+                </RelativeLayout>
 
-                <LinearLayout
+                <RelativeLayout
+                    android:id="@+id/LinearLayout7"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
+                    android:layout_below="@+id/LinearLayout6"
                     android:layout_marginTop="20dp" >
 
                     <TextView
                         android:id="@+id/textView5"
-                        android:layout_width="0dp"
+                        android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:layout_weight="1"
-                        android:textColor="#ffffffff"
-                        android:text="@string/activity_main_cpu_temp_" />
+                        android:text="@string/activity_main_cpu_temp_"
+                        android:textColor="#ffffffff" />
 
                     <TextView
                         android:id="@+id/textView27"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
+                        android:layout_alignParentRight="true"
                         android:text="@string/n_a" />
-
-                </LinearLayout>
-
-            </LinearLayout>
+                </RelativeLayout>
+            </RelativeLayout>
 
             <ImageView
                 android:id="@+id/imageView9"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                
+                android:layout_above="@+id/timesLayout"
                 android:layout_marginLeft="3dp"
                 android:layout_marginRight="3dp"
                 android:scaleType="fitXY"
-                android:src="@drawable/divider_strong_holo" />
+                android:src="@drawable/divider_strong_holo"
+                android:contentDescription="@string/divider" />
 
             <LinearLayout
+                android:id="@+id/timesLayout"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
+                android:layout_alignParentBottom="true"
                 android:orientation="vertical" >
 
                 <TextView
@@ -368,39 +385,37 @@
                     android:text="@string/n_a"
                     android:textColor="#ffffffff"
                     android:typeface="sans" />
-
             </LinearLayout>
-
-        </LinearLayout>
+        </RelativeLayout>
 
         <ImageView
-        android:id="@+id/imageView18"
-        android:layout_width="wrap_content"
-        android:layout_height="match_parent"
-    	android:layout_marginLeft="3dp"
-        android:layout_marginRight="3dp"
-        android:scaleType="fitXY"
-        android:src="@drawable/divider_strong_holo" />
-        
-        <LinearLayout
-            android:id="@+id/LinearLayout1"
+            
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent"
+            android:layout_marginLeft="3dp"
+            android:layout_marginRight="3dp"
+            android:scaleType="fitXY"
+            android:src="@drawable/divider_strong_holo"
+            android:contentDescription="@string/divider" />
+
+        <RelativeLayout
+            android:id="@+id/cpuLayout"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:layout_weight="0.8" android:baselineAligned="false">
+            android:layout_weight="0.8" >
 
-            <LinearLayout
-                android:id="@+id/LinearLayout1"
-                android:layout_width="match_parent"
+            <RelativeLayout
+                android:id="@+id/cpu0Layout"
+                android:layout_width="wrap_content"
                 android:layout_height="match_parent"
-                android:layout_weight="1"
-                android:orientation="vertical" >
+                android:layout_alignParentLeft="true"
+                android:layout_alignRight="@+id/textView28" >
 
                 <TextView
                     android:id="@+id/textView6"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:layout_gravity="center_horizontal"
-                    android:layout_weight="1"
+                    android:layout_centerHorizontal="true"
                     android:shadowColor="#00000000"
                     android:shadowDx="1.0"
                     android:shadowDy="1.0"
@@ -414,17 +429,19 @@
                     android:id="@+id/imageView7"
                     android:layout_width="wrap_content"
                     android:layout_height="100dp"
-                    android:layout_gravity="center_horizontal"
+                    android:layout_below="@+id/textView6"
+                    android:layout_centerHorizontal="true"
                     android:layout_marginTop="7dp"
-                    android:layout_weight="1"
-                    android:src="@drawable/red" />
+                    android:src="@drawable/red"
+                    android:contentDescription="@string/divider" />
 
                 <TextView
                     android:id="@+id/freq0"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:layout_gravity="center_horizontal"
-                    android:layout_weight="1"
+                    android:layout_below="@+id/imageView7"
+                    android:layout_centerHorizontal="true"
+                    android:layout_marginTop="10dp"
                     android:shadowColor="#00000000"
                     android:shadowDx="1.0"
                     android:shadowDy="1.0"
@@ -437,9 +454,9 @@
                     android:id="@+id/textView8"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:layout_gravity="center_horizontal"
+                    android:layout_above="@+id/textView9"
+                    android:layout_centerHorizontal="true"
                     android:layout_marginTop="30dp"
-                    android:layout_weight="1"
                     android:shadowColor="#00000000"
                     android:shadowDx="1.0"
                     android:shadowDy="1.0"
@@ -453,9 +470,9 @@
                     android:id="@+id/textView9"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:layout_gravity="center_horizontal"
+                    android:layout_alignParentBottom="true"
+                    android:layout_centerHorizontal="true"
                     android:layout_marginTop="15dp"
-                    android:layout_weight="1"
                     android:shadowColor="#00000000"
                     android:shadowDx="1.0"
                     android:shadowDy="1.0"
@@ -463,21 +480,20 @@
                     android:text="@string/n_a"
                     android:textColor="#ffffffff"
                     android:typeface="sans" />
-            </LinearLayout>
+            </RelativeLayout>
 
-            <LinearLayout
-                android:id="@+id/LinearLayout1"
-                android:layout_width="match_parent"
+            <RelativeLayout
+                android:id="@+id/cpu1Layout"
+                android:layout_width="wrap_content"
                 android:layout_height="match_parent"
-                android:layout_weight="1"
-                android:orientation="vertical" >
+                android:layout_alignLeft="@+id/textView28"
+                android:layout_alignParentRight="true" >
 
                 <TextView
                     android:id="@+id/textView7"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:layout_gravity="center_horizontal"
-                    android:layout_weight="1"
+                    android:layout_centerHorizontal="true"
                     android:shadowColor="#00000000"
                     android:shadowDx="1.0"
                     android:shadowDy="1.0"
@@ -491,17 +507,19 @@
                     android:id="@+id/ImageView01"
                     android:layout_width="wrap_content"
                     android:layout_height="100dp"
-                    android:layout_gravity="center_horizontal"
+                    android:layout_below="@+id/textView7"
+                    android:layout_centerHorizontal="true"
                     android:layout_marginTop="7dp"
-                    android:layout_weight="1"
-                    android:src="@drawable/red" />
+                    android:src="@drawable/red"
+                    android:contentDescription="@string/dot" />
 
                 <TextView
                     android:id="@+id/freq1"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:layout_gravity="center_horizontal"
-                    android:layout_weight="1"
+                    android:layout_below="@+id/ImageView01"
+                    android:layout_centerHorizontal="true"
+                    android:layout_marginTop="10dp"
                     android:shadowColor="#00000000"
                     android:shadowDx="1.0"
                     android:shadowDy="1.0"
@@ -514,9 +532,9 @@
                     android:id="@+id/TextView01"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:layout_gravity="center_horizontal"
+                    android:layout_above="@+id/TextView02"
+                    android:layout_centerHorizontal="true"
                     android:layout_marginTop="30dp"
-                    android:layout_weight="1"
                     android:shadowColor="#00000000"
                     android:shadowDx="1.0"
                     android:shadowDy="1.0"
@@ -530,9 +548,9 @@
                     android:id="@+id/TextView02"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:layout_gravity="center_horizontal"
+                    android:layout_alignParentBottom="true"
+                    android:layout_centerHorizontal="true"
                     android:layout_marginTop="15dp"
-                    android:layout_weight="1"
                     android:shadowColor="#00000000"
                     android:shadowDx="1.0"
                     android:shadowDy="1.0"
@@ -540,8 +558,15 @@
                     android:text="@string/n_a"
                     android:textColor="#ffffffff"
                     android:typeface="sans" />
-            </LinearLayout>
-        </LinearLayout>
+            </RelativeLayout>
+
+            <TextView
+                android:id="@+id/textView28"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_centerHorizontal="true" />
+
+        </RelativeLayout>
     </LinearLayout>
 
     <LinearLayout
@@ -582,15 +607,17 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_gravity="center_horizontal"
-                android:src="@drawable/green" />
+                android:src="@drawable/green"
+                android:contentDescription="@string/dot" />
         </LinearLayout>
 
         <ImageView
-            android:id="@+id/imageView5"
+            
             android:layout_width="wrap_content"
             android:layout_height="match_parent"
             android:scaleType="fitXY"
-            android:src="@drawable/divider_strong_holo" />
+            android:src="@drawable/divider_strong_holo" 
+            android:contentDescription="@string/divider"/>
 
         <LinearLayout
             android:id="@+id/left"
@@ -618,15 +645,17 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_gravity="center_horizontal"
-                android:src="@drawable/green" />
+                android:src="@drawable/green"
+                android:contentDescription="@string/dot" />
         </LinearLayout>
 
         <ImageView
-            android:id="@+id/imageView6"
+            
             android:layout_width="wrap_content"
             android:layout_height="match_parent"
             android:scaleType="fitXY"
-            android:src="@drawable/divider_strong_holo" />
+            android:src="@drawable/divider_strong_holo"
+            android:contentDescription="@string/divider" />
 
         <LinearLayout
             android:id="@+id/right"
@@ -654,15 +683,17 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_gravity="center_horizontal"
-                android:src="@drawable/green" />
+                android:src="@drawable/green" 
+                android:contentDescription="@string/dot"/>
         </LinearLayout>
 
         <ImageView
-            android:id="@+id/imageView7"
+            
             android:layout_width="wrap_content"
             android:layout_height="match_parent"
             android:scaleType="fitXY"
-            android:src="@drawable/divider_strong_holo" />
+            android:src="@drawable/divider_strong_holo" 
+            android:contentDescription="@string/divider"/>
 
         <LinearLayout
             android:id="@+id/inerright"
@@ -690,7 +721,8 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_gravity="center_horizontal"
-                android:src="@drawable/green" />
+                android:src="@drawable/green"
+                android:contentDescription="@string/dot" />
         </LinearLayout>
     </LinearLayout>
 
@@ -706,11 +738,12 @@
         android:paddingLeft="1.0dip" >
 
         <ImageView
-            android:id="@+id/imageView8"
+            
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:scaleType="fitXY"
-            android:src="@drawable/divider_strong_holo" />
+            android:src="@drawable/divider_strong_holo"
+            android:contentDescription="@string/divider" />
 
         <TextView
             android:id="@+id/textView1k"
@@ -731,7 +764,8 @@
             android:layout_height="wrap_content"
             android:layout_below="@+id/textView1"
             android:scaleType="fitXY"
-            android:src="@drawable/divider_strong_holo" />
+            android:src="@drawable/divider_strong_holo"
+            android:contentDescription="@string/divider" />
     </RelativeLayout>
 
 </RelativeLayout>

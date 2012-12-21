@@ -34,33 +34,7 @@ public class FrequencyChanger extends AsyncTask<String, Void, String>
 	{
 
 
-		/*Process localProcess;
-		try
-		{
-			localProcess = Runtime.getRuntime().exec("su");
-
-			DataOutputStream localDataOutputStream = new DataOutputStream(localProcess.getOutputStream());
-			localDataOutputStream.writeBytes("chmod 777 /sys/devices/system/cpu/" + args[0] + "/cpufreq/scaling_" + args[1] + "_freq\n");
-			localDataOutputStream.writeBytes("echo " + args[2] + " > /sys/devices/system/cpu/" + args[0] + "/cpufreq/scaling_" + args[1] + "_freq\n");
-			localDataOutputStream.writeBytes("chmod 444 /sys/devices/system/cpu/" + args[0] + "/cpufreq/scaling_" + args[1] + "_freq\n");
-			localDataOutputStream.writeBytes("chown system /sys/devices/system/cpu/" + args[0] + "/cpufreq/scaling_" + args[1] + "_freq\n");
-			
-	     	localDataOutputStream.writeBytes("exit\n");
-			localDataOutputStream.flush();
-			localDataOutputStream.close();
-			localProcess.waitFor();
-			localProcess.destroy();
-			System.out.println("Frequency Changer: Changing Frequency");
-
-		}
-		catch (IOException e1)
-		{
-			new LogWriter().execute(new String[] {getClass().getName(), e1.getMessage()});
-		}
-		catch (InterruptedException e1)
-		{
-			new LogWriter().execute(new String[] {getClass().getName(), e1.getMessage()});
-		}*/
+		
 		try {
             String line;
             Process process = Runtime.getRuntime().exec("su");

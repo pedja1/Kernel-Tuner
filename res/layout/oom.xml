@@ -197,7 +197,6 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"  
                 android:scaleType="fitXY"
-                android:layout_below="@+id/textView7"
                 android:src="@drawable/divider_horizontal_bright" />
 				
 			<Button

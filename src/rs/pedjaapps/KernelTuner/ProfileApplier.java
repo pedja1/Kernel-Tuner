@@ -220,8 +220,8 @@ public class ProfileApplier extends AsyncTask<String, Void, String>
 			
 		
 		stdin.write(("chmod 777 /sys/devices/system/cpu/cpufreq/vdd_table/vdd_levels\n").getBytes());
-
-		for (int i = 0; i < voltageFreqs.size(); i++)
+		int voltageFreqsSize = voltageFreqs.size();
+		for (int i = 0; i < voltageFreqsSize; i++)
 		{
 			//int volt = voltages.get(i) + 12500;
 			

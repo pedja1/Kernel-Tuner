@@ -422,7 +422,7 @@
 				android:layout_marginLeft="5dp"/>
 			</LinearLayout>
 			<ImageView
-                android:id="@+id/fastcharge_head_image"
+                
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:scaleType="fitXY"
@@ -503,7 +503,7 @@
 				android:layout_marginLeft="5dp"/>
 			</LinearLayout>
 			<ImageView
-                android:id="@+id/fastcharge_head_image"
+                
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:scaleType="fitXY"
@@ -643,7 +643,7 @@
 				android:layout_marginLeft="5dp"/>
 			</LinearLayout>
 				<ImageView
-                android:id="@+id/fastcharge_head_image"
+                
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:scaleType="fitXY"

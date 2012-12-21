@@ -166,8 +166,8 @@ public class GovernorActivity extends SherlockActivity
 
 				}
 
-
-				for (int i = 0; i < temp.size(); i++)
+				int tempSize = temp.size();
+				for (int i = 0; i < tempSize; i++)
 				{
 
 					try

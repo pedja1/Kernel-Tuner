@@ -49,7 +49,7 @@ public class KernelTuner extends SherlockActivity
 	private String tempPref;
 	private long mLastBackPressTime = 0;
 	private Toast mToast;
-	private LinearLayout tempLayout;
+	private RelativeLayout tempLayout;
 	private AlertDialog alert;
 	private boolean enableTmp(){
 		boolean b;
@@ -816,7 +816,7 @@ public class KernelTuner extends SherlockActivity
 			CopyAssets();
 		}
 		
-		tempLayout = (LinearLayout)findViewById(R.id.test1a);
+		tempLayout = (RelativeLayout)findViewById(R.id.test1a);
 		
 			ActionBar actionBar = getSupportActionBar();
 		

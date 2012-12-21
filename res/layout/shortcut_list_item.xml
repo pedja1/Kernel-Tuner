@@ -1,13 +1,7 @@
-<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    android:layout_width="fill_parent"
-    android:layout_height="fill_parent" >
-
-    <LinearLayout
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
         android:id="@+id/ll"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_alignParentLeft="true"
-        android:layout_alignParentTop="false"
          >
 
 		<ImageView
@@ -17,7 +11,7 @@
 			android:src="@drawable/ic_launcher"
 			/>
 		
-        <LinearLayout
+        <RelativeLayout
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_weight="1" 
@@ -26,24 +20,19 @@
             <TextView
                 android:id="@+id/title"
                 android:layout_width="wrap_content"
-                android:layout_height="0dp"
-                android:text="title"
-				android:layout_weight="1" 
+                android:layout_height="wrap_content"
+                android:layout_alignParentTop="true"
 				android:textAppearance="?android:attr/textAppearanceLarge"	/>
 
 			<TextView
 				android:id="@+id/description"
 				android:layout_width="wrap_content"
-				android:layout_height="match_parent"
-				android:text="description"
+				android:layout_height="wrap_content"
+				android:layout_below="@+id/title"
 				 />
 
-        </LinearLayout>
+        </RelativeLayout>
 
       
 
     </LinearLayout>
-
-    
-
-</RelativeLayout>

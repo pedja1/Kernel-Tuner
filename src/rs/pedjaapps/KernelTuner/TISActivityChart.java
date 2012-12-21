@@ -258,7 +258,8 @@ public class TISActivityChart extends SherlockActivity
 	
 	private long totalTime(){
 		long a=0;
-        for (int i =0; i < times.size(); i++)
+		int timesSize = times.size();
+        for (int i =0; i < timesSize; i++)
         {
                 a = a + times.get(i).getTime();
         }

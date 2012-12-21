@@ -129,7 +129,7 @@
         android:layout_above="@+id/ll2"
         android:layout_alignParentLeft="true"
         android:scaleType="fitXY"
-        android:src="@drawable/divider_strong_holo" />
+        android:src="@drawable/divider_strong_holo" android:contentDescription="@string/divider"/>
 
     <ImageView
         android:id="@+id/imageView2"
@@ -139,7 +139,8 @@
         android:layout_alignParentLeft="true"
         android:scaleType="fitXY"
         android:layout_marginTop="25dp"
-        android:src="@drawable/divider_strong_holo" />
+        android:src="@drawable/divider_strong_holo"
+        android:contentDescription="@string/divider" />
     
     <ImageView
         android:id="@+id/imageView3"
@@ -148,7 +149,8 @@
         android:layout_above="@+id/cb"
         android:layout_alignParentLeft="true"
         android:scaleType="fitXY"
-        android:src="@drawable/divider_strong_holo" />
+        android:src="@drawable/divider_strong_holo"
+        android:contentDescription="@string/divider" />
 
     <CheckBox
         android:id="@+id/cb"
@@ -185,7 +187,7 @@
                 android:layout_below="@+id/textView1" 
                 android:baselineAligned="false">
 
-                <LinearLayout
+                <RelativeLayout
                     android:layout_width="wrap_content"
                     android:layout_height="match_parent"
                     android:layout_weight="1"
@@ -195,27 +197,30 @@
                         android:id="@+id/textView5"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:layout_gravity="center"
+                        android:layout_alignParentTop="true"
+                        android:layout_centerHorizontal="true"
                         android:text="@string/min" />
 
                     <TextView
                         android:id="@+id/textView6"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:layout_gravity="center"
-                        android:text="n/a" />
+                        android:layout_below="@+id/textView5"
+                        
+                        android:layout_centerHorizontal="true"
+                        android:text="@string/n_a" />
                     
                     <android.widget.VerticalSeekBar
                         android:id="@+id/cpu0MinSeekbar"
                         android:layout_width="wrap_content"
-                        android:layout_height="0dp"
-                        android:layout_gravity="center"
-                        android:layout_weight="1" />
-
+                        android:layout_height="wrap_content"
+                        android:layout_alignParentBottom="true"
+                        android:layout_below="@+id/textView6"
+                        android:layout_centerHorizontal="true" />
                    
-                </LinearLayout>
+                </RelativeLayout>
 
-                <LinearLayout
+                <RelativeLayout
                     android:layout_width="wrap_content"
                     android:layout_height="match_parent"
                     android:layout_weight="1"
@@ -225,25 +230,29 @@
                         android:id="@+id/textView7"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:layout_gravity="center"
-                        android:text="@string/max" />
+                        android:text="@string/max"
+                        android:layout_alignParentTop="true"
+                        android:layout_centerHorizontal="true" />
 
                     <TextView
                         android:id="@+id/textView8"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:layout_gravity="center"
-                        android:text="n/a" />
+                        android:text="@string/n_a" 
+                        android:layout_below="@+id/textView7"
+                        android:layout_centerHorizontal="true"/>
                     
                     <android.widget.VerticalSeekBar
                         android:id="@+id/cpu0MaxSeekbar"
                         android:layout_width="wrap_content"
-                        android:layout_height="0dp"
-                        android:layout_gravity="center"
-                        android:layout_weight="1" />
+                        android:layout_height="wrap_content"
+                        android:layout_alignParentBottom="true"
+                        android:layout_below="@+id/textView8"
+                        android:layout_centerHorizontal="true"
+                         />
 
                     
-                </LinearLayout>
+                </RelativeLayout>
             </LinearLayout>
         </RelativeLayout>
 
@@ -266,7 +275,7 @@
                 android:layout_below="@+id/textView9" 
                 android:baselineAligned="false">
 
-                <LinearLayout
+                <RelativeLayout
                     android:layout_width="wrap_content"
                     android:layout_height="match_parent"
                     android:layout_weight="1"
@@ -276,27 +285,30 @@
                         android:id="@+id/textView10"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:layout_gravity="center"
-                        android:text="@string/min" />
+                        android:text="@string/min"
+                        android:layout_alignParentTop="true"
+                        android:layout_centerHorizontal="true" />
 
                     <TextView
                         android:id="@+id/textView11"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:layout_gravity="center"
-                        android:text="n/a" />
+                        android:text="@string/n_a"
+                        android:layout_below="@+id/textView10"
+                        android:layout_centerHorizontal="true" />
                     
                     <android.widget.VerticalSeekBar
                         android:id="@+id/cpu1MinSeekbar"
                         android:layout_width="wrap_content"
-                        android:layout_height="0dp"
-                        android:layout_gravity="center"
-                        android:layout_weight="1" />
+                        android:layout_height="wrap_content"
+                        android:layout_alignParentBottom="true"
+                        android:layout_below="@+id/textView11"
+                        android:layout_centerHorizontal="true" />
 
                     
-                </LinearLayout>
+                </RelativeLayout>
 
-                <LinearLayout
+                <RelativeLayout
                     android:layout_width="wrap_content"
                     android:layout_height="match_parent"
                     android:layout_weight="1"
@@ -306,25 +318,28 @@
                         android:id="@+id/textView12"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:layout_gravity="center"
-                        android:text="@string/max" />
+                        android:text="@string/max" 
+                        android:layout_alignParentTop="true"
+                        android:layout_centerHorizontal="true"/>
 
                     <TextView
                         android:id="@+id/textView13"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:layout_gravity="center"
-                        android:text="n/a" />
+                        android:text="@string/n_a"
+                        android:layout_below="@+id/textView12"
+                        android:layout_centerHorizontal="true" />
                     
                     <android.widget.VerticalSeekBar
                         android:id="@+id/cpu1MaxSeekbar"
                         android:layout_width="wrap_content"
-                        android:layout_height="0dp"
-                        android:layout_gravity="center"
-                        android:layout_weight="1" />
+                        android:layout_height="wrap_content"
+                        android:layout_alignParentBottom="true"
+                        android:layout_below="@+id/textView13"
+                        android:layout_centerHorizontal="true" />
 
                     
-                </LinearLayout>
+                </RelativeLayout>
             </LinearLayout>
         </RelativeLayout>
 
@@ -347,7 +362,7 @@
                 android:layout_height="match_parent"
                 android:layout_below="@+id/textView14" android:baselineAligned="false">
 
-                <LinearLayout
+                <RelativeLayout
                     android:layout_width="wrap_content"
                     android:layout_height="match_parent"
                     android:layout_weight="1"
@@ -357,27 +372,30 @@
                         android:id="@+id/textView15"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:layout_gravity="center"
-                        android:text="@string/min" />
+                        android:text="@string/min"
+                        android:layout_alignParentTop="true"
+                        android:layout_centerHorizontal="true" />
 
                     <TextView
                         android:id="@+id/textView16"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:layout_gravity="center"
-                        android:text="n/a" />
+                        android:text="@string/n_a"
+                        android:layout_below="@+id/textView15"
+                        android:layout_centerHorizontal="true" />
                     
                     <android.widget.VerticalSeekBar
                         android:id="@+id/cpu2MinSeekbar"
                         android:layout_width="wrap_content"
-                        android:layout_height="0dp"
-                        android:layout_gravity="center"
-                        android:layout_weight="1" />
+                        android:layout_height="wrap_content"
+                        android:layout_alignParentBottom="true"
+                        android:layout_below="@+id/textView16"
+                        android:layout_centerHorizontal="true" />
 
                    
-                </LinearLayout>
+                </RelativeLayout>
 
-                <LinearLayout
+                <RelativeLayout
                     android:layout_width="wrap_content"
                     android:layout_height="match_parent"
                     android:layout_weight="1"
@@ -387,25 +405,28 @@
                         android:id="@+id/textView17"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:layout_gravity="center"
-                        android:text="@string/max" />
+                        android:text="@string/max"
+                        android:layout_alignParentTop="true"
+                        android:layout_centerHorizontal="true" />
 
                     <TextView
                         android:id="@+id/textView18"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:layout_gravity="center"
-                        android:text="n/a" />
+                        android:text="@string/n_a"
+                        android:layout_below="@+id/textView17"
+                        android:layout_centerHorizontal="true" />
                     
                     <android.widget.VerticalSeekBar
                         android:id="@+id/cpu2MaxSeekbar"
                         android:layout_width="wrap_content"
-                        android:layout_height="0dp"
-                        android:layout_gravity="center"
-                        android:layout_weight="1" />
+                        android:layout_height="wrap_content"
+                        android:layout_alignParentBottom="true"
+                        android:layout_below="@+id/textView18"
+                        android:layout_centerHorizontal="true" />
 
                     
-                </LinearLayout>
+                </RelativeLayout>
             </LinearLayout>
         </RelativeLayout>
 
@@ -428,7 +449,7 @@
                 android:layout_height="match_parent"
                 android:layout_below="@+id/textView19" android:baselineAligned="false">
 
-                <LinearLayout
+                <RelativeLayout
                     android:layout_width="wrap_content"
                     android:layout_height="match_parent"
                     android:layout_weight="1"
@@ -438,27 +459,30 @@
                         android:id="@+id/textView20"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:layout_gravity="center"
-                        android:text="@string/min" />
+                        android:text="@string/min"
+                        android:layout_alignParentTop="true"
+                        android:layout_centerHorizontal="true" />
 
                     <TextView
                         android:id="@+id/textView21"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:layout_gravity="center"
-                        android:text="n/a" />
+                        android:text="@string/n_a"
+                        android:layout_below="@+id/textView20"
+                        android:layout_centerHorizontal="true" />
                     
                     <android.widget.VerticalSeekBar
                         android:id="@+id/cpu3MinSeekbar"
                         android:layout_width="wrap_content"
-                        android:layout_height="0dp"
-                        android:layout_gravity="center"
-                        android:layout_weight="1" />
+                        android:layout_height="wrap_content"
+                        android:layout_alignParentBottom="true"
+                        android:layout_below="@+id/textView21"
+                        android:layout_centerHorizontal="true" />
 
                     
-                </LinearLayout>
+                </RelativeLayout>
 
-                <LinearLayout
+                <RelativeLayout
                     android:layout_width="wrap_content"
                     android:layout_height="match_parent"
                     android:layout_weight="1"
@@ -468,25 +492,28 @@
                         android:id="@+id/textView22"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:layout_gravity="center"
-                        android:text="@string/max" />
+                        android:text="@string/max"
+                        android:layout_alignParentTop="true"
+                        android:layout_centerHorizontal="true" />
 
                     <TextView
                         android:id="@+id/textView23"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:layout_gravity="center"
-                        android:text="n/a" />
+                        android:text="@string/n_a"
+                        android:layout_below="@+id/textView22"
+                        android:layout_centerHorizontal="true" />
                     
                     <android.widget.VerticalSeekBar
                         android:id="@+id/cpu3MaxSeekbar"
                         android:layout_width="wrap_content"
-                        android:layout_height="0dp"
-                        android:layout_gravity="center"
-                        android:layout_weight="1" />
+                        android:layout_height="wrap_content"
+                        android:layout_alignParentBottom="true"
+                        android:layout_below="@+id/textView23"
+                        android:layout_centerHorizontal="true" />
 
                     
-                </LinearLayout>
+                </RelativeLayout>
             </LinearLayout>
         </RelativeLayout>
     </LinearLayout>
@@ -617,7 +644,7 @@
         android:layout_height="wrap_content"
         android:layout_alignParentTop="true"
         android:layout_centerHorizontal="true"
-        android:text="n/a" />
+        android:text="@string/n_a" />
 
     <LinearLayout
         android:id="@+id/linearLayout1"
@@ -644,7 +671,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginLeft="10dp"
-                android:text="n/a" />
+                android:text="@string/n_a" />
 
         </LinearLayout>
 
@@ -663,7 +690,7 @@
                 android:id="@+id/textView30"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="n/a" />
+                android:text="@string/n_a" />
         </LinearLayout>
 
         <LinearLayout
@@ -681,7 +708,7 @@
                 android:id="@+id/textView32"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="n/a" />
+                android:text="@string/n_a" />
         </LinearLayout>
     </LinearLayout>
 

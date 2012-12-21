@@ -48,7 +48,7 @@
             android:layout_alignParentTop="true"
             android:layout_centerHorizontal="true"
             android:layout_marginTop="15dp"
-            android:src="@drawable/battery_full" />
+            android:src="@drawable/battery_full" android:contentDescription="@string/battery_icon"/>
 
 
 
@@ -73,7 +73,6 @@
             android:layout_below="@+id/progressBar1"
             android:layout_centerHorizontal="true"
             android:gravity="center|center_horizontal"
-            android:text="55000"
             android:textAppearance="?android:attr/textAppearanceSmall" />
 
     </RelativeLayout>
@@ -113,7 +112,7 @@
             android:shadowDx="1.0"
             android:shadowDy="1.0"
             android:shadowRadius="2.0"
-            android:text="1180Mhz"
+            
             android:textColor="#ffffffff"
             android:typeface="sans" />
 
@@ -142,7 +141,7 @@
             android:shadowDx="1.0"
             android:shadowDy="1.0"
             android:shadowRadius="2.0"
-            android:text="ondemand"
+            
             android:textColor="#ffffffff"
             android:typeface="sans" />
 

@@ -40,8 +40,8 @@ public class Swap extends SherlockActivity
 
 
 	private ProgressDialog pd = null;
-	private String[] swapSize = {"64","128","256","512","758","1024"};
-	private String[] swapLocation = {"/data/",String.valueOf(Environment.getExternalStorageDirectory()) + "/"};
+	private static final String[] swapSize = {"64","128","256","512","758","1024"};
+	private static final String[] swapLocation = {"/data/",String.valueOf(Environment.getExternalStorageDirectory()) + "/"};
 
 	private int swapSizeSelected;
 	private String swapLocationSelected;

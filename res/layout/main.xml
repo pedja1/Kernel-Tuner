@@ -151,7 +151,7 @@
                     android:layout_weight="1"
                     android:drawableTop="@drawable/swap"
                     android:gravity="center|center_vertical"
-                    android:text="OOM" />
+                    android:text="@string/oom" />
 
                 <Button
                     android:id="@+id/button14"
@@ -176,14 +176,6 @@
         </LinearLayout>
     </ScrollView>
 
-    <!--
-         <ImageView
-        android:id="@+id/imageView1"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_centerHorizontal="true"
-        android:src="@android:drawable/alert_dark_frame" />
-    -->
 
     <LinearLayout
         android:id="@+id/test1"
@@ -193,7 +185,7 @@
         android:baselineAligned="false"
         android:orientation="horizontal" >
 
-        <LinearLayout
+        <RelativeLayout
             android:id="@+id/test1a"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
@@ -202,9 +194,9 @@
 
             <TextView
                 android:id="@+id/textView37"
-                android:layout_width="0dp"
+                android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_weight="1"
+               
                 android:text="@string/activity_main_cpu_temp_"
                 android:textColor="#FFFFFF" />
 
@@ -212,10 +204,11 @@
                 android:id="@+id/textView38"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="@string/n_a" />
-        </LinearLayout>
+                android:text="@string/n_a" 
+                android:layout_alignParentRight="true"/>
+        </RelativeLayout>
 
-        <LinearLayout
+        <RelativeLayout
             android:id="@+id/test1b"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
@@ -224,9 +217,8 @@
 
             <TextView
                 android:id="@+id/textView39"
-                android:layout_width="0dp"
+                android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_weight="1"
                 android:text="@string/activity_main__battery_temp_"
                 android:textColor="#FFFFFF" />
 
@@ -234,21 +226,21 @@
                 android:id="@+id/textView40"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="@string/crtica" />
-        </LinearLayout>
+                android:text="@string/n_a" 
+                android:layout_alignParentRight="true"/>
+        </RelativeLayout>
 
-        <LinearLayout
+        <RelativeLayout
             android:id="@+id/test1c"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_weight="1"
-            android:orientation="horizontal" >
+             >
 
             <TextView
                 android:id="@+id/textView41"
-                android:layout_width="0dp"
+                android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_weight="1"
                 android:text="@string/activity_main__battery_level_"
                 android:textColor="#FFFFFF" />
 
@@ -256,8 +248,10 @@
                 android:id="@+id/textView42"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="@string/crtica" />
-        </LinearLayout>
+                android:layout_alignParentRight="true"
+                android:text="@string/n_a" />
+
+        </RelativeLayout>
     </LinearLayout>
 
     <RelativeLayout

@@ -283,5 +283,35 @@
    <string name="head_otg">OTG</string>
    <string name="usb_otg">USB OTG</string>
    <string name="enable_otg_support_with_standard_usb_cable">Enable OTG support with standard USB cable</string>
+   <string name="no_sensor_found">No Sensor found</string>
+   <string name="divider">divider</string>
+   <string name="oom">OOM</string>
+   <string name="google_play_store">Google Play Store</string>
+   <string name="follow_me_">Follow me:</string>
+   <string name="faq_and_support_">FAQ and Support:</string>
+   <string name="contack_me_">Contack Me:</string>
+   <string name="icon_credits">Application icon designed by vault1965</string>
+   <string name="google_play_link">Google Play Link</string>
+   <string name="facebook_link">Facebook Link</string>
+   <string name="twitter_link">Twitter Link</string>
+   <string name="google_plus_link">Google Plus Link</string>
+   <string name="xda_link">XDA Link</string>
+   <string name="anthrax_link">Anthrax Link</string>
+   <string name="kt_link">KT Link</string>
+   <string name="version_n_a">version: n/a</string>
+   <string name="nula">0</string>
+   <string name="color_depth_header">COLOR DEPTH</string>
+   <string name="_16_bit">16-bit</string>
+   <string name="percent">%</string>
+   <string name="button_minus">Button Minus</string>
+   <string name="button_plus">Button Plus</string>
+   <string name="battery_icon">Battery Icon</string>
+   <string name="dot">Dot</string>
+   <string name="_24_bit">24-bit</string>
+   <string name="_32_bit">32-bit</string>
+   <string name="io_and_sd_card">IO AND SD CARD</string>
+   <string name="io_scheduler">IO Scheduler</string>
+   <string name="set_io_scheduler">Set IO Scheduler</string>
+   <string name="sd_card_cache_size">SD Card Cache Size</string>
 	
 </resources>

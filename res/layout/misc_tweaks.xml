@@ -278,7 +278,7 @@
                 android:layout_alignParentLeft="true"
                 android:layout_below="@+id/otg_layout"
                 android:layout_marginTop="8dp"
-                android:text="COLOR DEPTH"
+                android:text="@string/color_depth_header"
                 android:textAppearance="?android:attr/textAppearanceMedium" />
 
             <ImageView
@@ -307,19 +307,19 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:checked="true"
-                    android:text="16-bit" />
+                    android:text="@string/_16_bit" />
 
                 <RadioButton
                     android:id="@+id/rb24"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="24-bit" />
+                    android:text="@string/_24_bit" />
 
                 <RadioButton
                     android:id="@+id/rb32"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="32-bit" />
+                    android:text="@string/_32_bit" />
             </RadioGroup>
 
             <TextView
@@ -328,7 +328,7 @@
                 android:layout_height="wrap_content"
                 android:layout_below="@+id/cdGroup"
                 android:layout_marginTop="8dp"
-                android:text="IO AND SD CARD"
+                android:text="@string/io_and_sd_card"
                 android:textAppearance="?android:attr/textAppearanceMedium" />
 
             <ImageView
@@ -366,14 +366,14 @@
                         
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:text="IO Scheduler"
+                        android:text="@string/io_scheduler"
                         android:textAppearance="?android:attr/textAppearanceMedium" />
 
                     <TextView
                         
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:text="Set IO Scheduler" />
+                        android:text="@string/set_io_scheduler" />
                 </LinearLayout>
                     <Spinner
                         android:id="@+id/spinner1"
@@ -408,7 +408,7 @@
                       
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:text="SD Card Cache Size"
+                        android:text="@string/sd_card_cache_size"
                         android:textAppearance="?android:attr/textAppearanceMedium" />
 
                     <TextView

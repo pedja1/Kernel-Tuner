@@ -26,15 +26,15 @@ public class NotificationService extends Service
 {
 	private boolean thread;
 	private Handler mHandler = new Handler();
-	private String CPU0_CURR_FREQ = "/sys/devices/system/cpu/cpu0/cpufreq/scaling_cur_freq";
+	private static final String CPU0_CURR_FREQ = "/sys/devices/system/cpu/cpu0/cpufreq/scaling_cur_freq";
 	private String cpu0freq;
-	private String CPU1_CURR_FREQ = "/sys/devices/system/cpu/cpu1/cpufreq/scaling_cur_freq";
+	private static final String  CPU1_CURR_FREQ = "/sys/devices/system/cpu/cpu1/cpufreq/scaling_cur_freq";
 	private String cpu1freq;
 	private float fLoad;
 	private int load;
 	private String items;
 	private NotificationManager mNotificationManager;
-	private int NOTIFICATION_ID = 1;
+	private static final int NOTIFICATION_ID = 1;
 	private final static int PREFERENCES_MODE = Context.MODE_MULTI_PROCESS;
 	
 	@Override

@@ -1308,8 +1308,8 @@ public class SystemInfo extends SherlockFragmentActivity implements
 		m_sensormgr.unregisterListener(senseventListener);
 		if (!m_sensorlist.isEmpty()) {
 			Sensor snsr;
-
-			for (int i = 0; i < m_sensorlist.size(); i++) {
+			int m_sensorListSize = m_sensorlist.size();
+			for (int i = 0; i < m_sensorListSize; i++) {
 				snsr = m_sensorlist.get(i);
 
 				if (snsr.getType() == Sensor.TYPE_ORIENTATION) {

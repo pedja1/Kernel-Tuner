@@ -120,7 +120,7 @@
                 android:layout_height="wrap_content"  
                 android:scaleType="fitXY"
                 android:layout_below="@+id/textView7"
-                android:src="@drawable/divider_horizontal_bright" />
+                android:src="@drawable/divider_horizontal_bright" android:contentDescription="@string/divider"/>
     <LinearLayout
     android:id="@+id/buttonHolder"
     android:layout_width="match_parent"

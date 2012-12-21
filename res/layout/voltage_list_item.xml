@@ -13,7 +13,7 @@
         android:layout_alignParentTop="false"
         android:layout_below="@+id/textView1" >
 
-        <LinearLayout
+        <RelativeLayout
             android:layout_width="0dp"
             android:layout_height="match_parent"
             android:layout_weight="1" >
@@ -22,22 +22,27 @@
                 android:id="@+id/minus"
                 android:layout_width="wrap_content"
                 android:layout_height="match_parent"
-                android:src="@drawable/button_minus_selector" />
+                android:src="@drawable/button_minus_selector"
+                android:layout_centerVertical="true" android:contentDescription="@string/button_minus"/>
 
             <SeekBar
                 android:id="@+id/seekBar1"
-                android:layout_width="0dp"
+                android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_gravity="center"
-                android:layout_weight="1" />
+                android:layout_toRightOf="@+id/minus"
+                android:layout_toLeftOf="@+id/plus" 
+                android:layout_centerVertical="true"/>
 
             <ImageView
                 android:id="@+id/plus"
                 android:layout_width="wrap_content"
                 android:layout_height="match_parent"
-                android:src="@drawable/button_plus_selector" />
+                android:src="@drawable/button_plus_selector" 
+                android:layout_alignParentRight="true"
+                android:layout_centerVertical="true"
+                android:contentDescription="@string/button_plus"/>
 
-        </LinearLayout>
+        </RelativeLayout>
 
         <Button
             android:id="@+id/button1"

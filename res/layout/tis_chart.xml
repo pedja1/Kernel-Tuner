@@ -51,12 +51,7 @@
         android:layout_alignParentLeft="true"
         android:orientation="vertical" >
 
-        <LinearLayout
-            android:id="@+id/ll"
-            android:layout_width="fill_parent"
-            android:layout_height="wrap_content"
-            android:background="@color/grey"
-            android:orientation="vertical" >
+        
 
             <LinearLayout
                 android:id="@+id/ll1"
@@ -64,7 +59,8 @@
                 android:layout_height="wrap_content"
                 android:orientation="horizontal"
                 android:paddingLeft="5dp"
-                android:paddingRight="5dp" >
+                android:paddingRight="5dp"
+                android:background="@color/grey" >
 
                 <TextView
                     android:id="@+id/deep_sleep_txt"
@@ -82,7 +78,7 @@
                     android:gravity="center_horizontal"
                     android:text="@string/boot_time" />
             </LinearLayout>
-        </LinearLayout>
+        
 
         <LinearLayout
             android:layout_width="fill_parent"
