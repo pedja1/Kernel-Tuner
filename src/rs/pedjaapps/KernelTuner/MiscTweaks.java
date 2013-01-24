@@ -53,6 +53,8 @@ import de.ankri.views.Switch;
 public class MiscTweaks extends SherlockActivity
 {
 
+	RootProcess mRootProcess;
+	Process process;
 	private String led = CPUInfo.leds();
 	private String ledHox;
 	private SeekBar mSeekBar;
@@ -134,7 +136,7 @@ public class MiscTweaks extends SherlockActivity
 
 			try {
 	            String line;
-	            Process process = Runtime.getRuntime().exec("su");
+	            
 	            OutputStream stdin = process.getOutputStream();
 	            InputStream stderr = process.getErrorStream();
 	            InputStream stdout = process.getInputStream();
@@ -186,7 +188,7 @@ public class MiscTweaks extends SherlockActivity
 		
 			try {
 	            String line;
-	            Process process = Runtime.getRuntime().exec("su");
+	            
 	            OutputStream stdin = process.getOutputStream();
 	            InputStream stderr = process.getErrorStream();
 	            InputStream stdout = process.getInputStream();
@@ -241,7 +243,7 @@ public class MiscTweaks extends SherlockActivity
 			
 			try {
 	            String line;
-	            Process process = Runtime.getRuntime().exec("su");
+	            
 	            OutputStream stdin = process.getOutputStream();
 	            InputStream stderr = process.getErrorStream();
 	            InputStream stdout = process.getInputStream();
@@ -292,7 +294,7 @@ public class MiscTweaks extends SherlockActivity
 		{
 			try {
 	            String line;
-	            Process process = Runtime.getRuntime().exec("su");
+	            
 	            OutputStream stdin = process.getOutputStream();
 	            InputStream stderr = process.getErrorStream();
 	            InputStream stdout = process.getInputStream();
@@ -350,7 +352,7 @@ public class MiscTweaks extends SherlockActivity
 
 			try {
 	            String line;
-	            Process process = Runtime.getRuntime().exec("su");
+	            
 	            OutputStream stdin = process.getOutputStream();
 	            InputStream stderr = process.getErrorStream();
 	            InputStream stdout = process.getInputStream();
@@ -408,7 +410,7 @@ public class MiscTweaks extends SherlockActivity
 
 			try {
 	            String line;
-	            Process process = Runtime.getRuntime().exec("su");
+	            
 	            OutputStream stdin = process.getOutputStream();
 	            InputStream stderr = process.getErrorStream();
 	            InputStream stdout = process.getInputStream();
@@ -459,7 +461,7 @@ public class MiscTweaks extends SherlockActivity
 		{
 			try {
 	            String line;
-	            Process process = Runtime.getRuntime().exec("su");
+	            
 	            OutputStream stdin = process.getOutputStream();
 	            InputStream stderr = process.getErrorStream();
 	            InputStream stdout = process.getInputStream();
@@ -497,6 +499,8 @@ public class MiscTweaks extends SherlockActivity
 	            brCleanUp.close();
 
 	        } catch (IOException ex) {
+	        	Log.d("[KernelTuner MiscTweaks Error]", ""+ex.getMessage());
+	 	       
 	        }
 
 
@@ -528,11 +532,13 @@ public class MiscTweaks extends SherlockActivity
 			
 			try {
 	            String line;
-	            Process process = Runtime.getRuntime().exec("su");
+	            
 	            OutputStream stdin = process.getOutputStream();
+	            System.out.println("1dsafdsfdsfds");
 	            InputStream stderr = process.getErrorStream();
+	            System.out.println("2dsafdsfdsfds");
 	            InputStream stdout = process.getInputStream();
-
+	            System.out.println("3dsafdsfdsfds");
 	            stdin.write(("chmod 777 /sys/block/mmcblk1/queue/read_ahead_kb\n").getBytes());
 	            stdin.write(("chmod 777 /sys/block/mmcblk2/queue/read_ahead_kb\n").getBytes());
 	            stdin.write(("chmod 777 /sys/devices/virtual/bdi/179:0/read_ahead_kb\n").getBytes());
@@ -561,6 +567,7 @@ public class MiscTweaks extends SherlockActivity
 	            brCleanUp.close();
 
 	        } catch (IOException ex) {
+	        	Log.d("[KernelTuner MiscTweaks Error]", ""+ex.getMessage());
 	        }
 			
 
@@ -585,6 +592,9 @@ public class MiscTweaks extends SherlockActivity
 	{
 		super.onCreate(savedInstanceState);
 
+		
+		process = RootProcess.getProcess();
+		System.out.println(process);
 		setContentView(R.layout.misc_tweaks);
 		this.getWindow().setSoftInputMode(WindowManager.LayoutParams.SOFT_INPUT_STATE_ALWAYS_HIDDEN); 
 
