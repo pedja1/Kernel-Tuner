@@ -49,6 +49,7 @@ import com.google.ads.AdRequest;
 import com.google.ads.AdView;
 
 import de.ankri.views.Switch;
+import com.deaux.fan.FanView;
 
 public class MiscTweaks extends SherlockActivity
 {
@@ -587,6 +588,7 @@ public class MiscTweaks extends SherlockActivity
 		}
 
 	}
+	FanView fan;
 	@Override
 	public void onCreate(Bundle savedInstanceState)
 	{
@@ -595,7 +597,11 @@ public class MiscTweaks extends SherlockActivity
 		
 		process = RootProcess.getProcess();
 		System.out.println(process);
-		setContentView(R.layout.misc_tweaks);
+		setContentView(R.layout.fan);
+		
+		fan = (FanView) findViewById(R.id.fan_view);
+		fan.setViews(R.layout.misc_tweaks, R.layout.side_list);
+		
 		this.getWindow().setSoftInputMode(WindowManager.LayoutParams.SOFT_INPUT_STATE_ALWAYS_HIDDEN); 
 
 		sdcacheLayout = (LinearLayout)findViewById(R.id.sdcache_layout);
@@ -1498,9 +1504,11 @@ public class MiscTweaks extends SherlockActivity
 	    switch (item.getItemId()) {
 	        case android.R.id.home:
 	            // app icon in action bar clicked; go home
-	            Intent intent = new Intent(this, KernelTuner.class);
+	         /*   Intent intent = new Intent(this, KernelTuner.class);
 	            intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
-	            startActivity(intent);
+	            startActivity(intent);*/
+				fan.showMenu();
+				
 	            return true;
 	        case R.id.apply:
 	        	apply();

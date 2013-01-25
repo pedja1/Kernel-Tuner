@@ -37,7 +37,7 @@ public class FrequencyChanger extends AsyncTask<String, Void, String>
 		
 		try {
             String line;
-            Process process = Runtime.getRuntime().exec("su");
+            Process process = RootProcess.getProcess();
             OutputStream stdin = process.getOutputStream();
             InputStream stderr = process.getErrorStream();
             InputStream stdout = process.getInputStream();

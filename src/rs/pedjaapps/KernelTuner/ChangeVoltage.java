@@ -21,6 +21,7 @@ public class ChangeVoltage extends AsyncTask<String, Void, String>
 
 	Context context;
 
+	Process process = RootProcess.getProcess();
 	public ChangeVoltage(Context context)
 	{
 		this.context = context;
@@ -55,7 +56,7 @@ public class ChangeVoltage extends AsyncTask<String, Void, String>
 				
 				try {
 		            String line;
-		            Process process = Runtime.getRuntime().exec("su");
+		            
 		            OutputStream stdin = process.getOutputStream();
 		            InputStream stderr = process.getErrorStream();
 		            InputStream stdout = process.getInputStream();
@@ -102,7 +103,7 @@ public class ChangeVoltage extends AsyncTask<String, Void, String>
 			{
 				try {
 		            String line;
-		            Process process = Runtime.getRuntime().exec("su");
+		           
 		            OutputStream stdin = process.getOutputStream();
 		            InputStream stderr = process.getErrorStream();
 		            InputStream stdout = process.getInputStream();
@@ -150,7 +151,7 @@ public class ChangeVoltage extends AsyncTask<String, Void, String>
 				
 				try {
 		            String line;
-		            Process process = Runtime.getRuntime().exec("su");
+		           
 		            OutputStream stdin = process.getOutputStream();
 		            InputStream stderr = process.getErrorStream();
 		            InputStream stdout = process.getInputStream();
@@ -195,7 +196,7 @@ public class ChangeVoltage extends AsyncTask<String, Void, String>
 			{
 				try {
 		            String line;
-		            Process process = Runtime.getRuntime().exec("su");
+		           
 		            OutputStream stdin = process.getOutputStream();
 		            InputStream stderr = process.getErrorStream();
 		            InputStream stdout = process.getInputStream();
@@ -241,7 +242,7 @@ public class ChangeVoltage extends AsyncTask<String, Void, String>
 				
 				try {
 		            String line;
-		            Process process = Runtime.getRuntime().exec("su");
+		           
 		            OutputStream stdin = process.getOutputStream();
 		            InputStream stderr = process.getErrorStream();
 		            InputStream stdout = process.getInputStream();
@@ -290,7 +291,7 @@ public class ChangeVoltage extends AsyncTask<String, Void, String>
 				
 				try {
 		            String line;
-		            Process process = Runtime.getRuntime().exec("su");
+		          
 		            OutputStream stdin = process.getOutputStream();
 		            InputStream stderr = process.getErrorStream();
 		            InputStream stdout = process.getInputStream();
@@ -342,7 +343,7 @@ public class ChangeVoltage extends AsyncTask<String, Void, String>
 				
 				try {
 		            String line;
-		            Process process = Runtime.getRuntime().exec("su");
+		           
 		            OutputStream stdin = process.getOutputStream();
 		            InputStream stderr = process.getErrorStream();
 		            InputStream stdout = process.getInputStream();
@@ -389,7 +390,7 @@ public class ChangeVoltage extends AsyncTask<String, Void, String>
 			{
 				try {
 		            String line;
-		            Process process = Runtime.getRuntime().exec("su");
+		          
 		            OutputStream stdin = process.getOutputStream();
 		            InputStream stderr = process.getErrorStream();
 		            InputStream stdout = process.getInputStream();
@@ -437,7 +438,7 @@ public class ChangeVoltage extends AsyncTask<String, Void, String>
 				
 				try {
 		            String line;
-		            Process process = Runtime.getRuntime().exec("su");
+		          
 		            OutputStream stdin = process.getOutputStream();
 		            InputStream stderr = process.getErrorStream();
 		            InputStream stdout = process.getInputStream();
@@ -482,7 +483,7 @@ public class ChangeVoltage extends AsyncTask<String, Void, String>
 			{
 				try {
 		            String line;
-		            Process process = Runtime.getRuntime().exec("su");
+		           
 		            OutputStream stdin = process.getOutputStream();
 		            InputStream stderr = process.getErrorStream();
 		            InputStream stdout = process.getInputStream();
@@ -528,7 +529,7 @@ public class ChangeVoltage extends AsyncTask<String, Void, String>
 				
 				try {
 		            String line;
-		            Process process = Runtime.getRuntime().exec("su");
+		          
 		            OutputStream stdin = process.getOutputStream();
 		            InputStream stderr = process.getErrorStream();
 		            InputStream stdout = process.getInputStream();
@@ -577,7 +578,7 @@ public class ChangeVoltage extends AsyncTask<String, Void, String>
 				
 				try {
 		            String line;
-		            Process process = Runtime.getRuntime().exec("su");
+		           
 		            OutputStream stdin = process.getOutputStream();
 		            InputStream stderr = process.getErrorStream();
 		            InputStream stdout = process.getInputStream();

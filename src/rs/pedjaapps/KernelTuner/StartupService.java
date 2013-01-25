@@ -123,7 +123,8 @@ public class StartupService extends Service
 
 			try {
 	            String line;
-	            Process process = Runtime.getRuntime().exec("su");
+			RootProcess	mRootProcess = new RootProcess("su");
+	            Process process = mRootProcess.getProcess();
 	            OutputStream stdin = process.getOutputStream();
 	            InputStream stderr = process.getErrorStream();
 	            InputStream stdout = process.getInputStream();
