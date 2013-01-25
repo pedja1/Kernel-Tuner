@@ -100,7 +100,7 @@ public final class VoltageAdapter extends ArrayAdapter<VoltageEntry>
 					AlertDialog.Builder builder = new AlertDialog.Builder(view.getContext());
 					builder.setTitle(voltageFreqs.get(position).substring(0, voltageFreqs.get(position).length() - 3) + "Mhz");
 					builder.setMessage("Set new value: ");
-					builder.setIcon(R.drawable.ic_menu_edit);
+					builder.setIcon(R.drawable.edit_dark);
 
 					final EditText input = new EditText(view.getContext());              
 					input.setHint(voltages.get(position).toString());

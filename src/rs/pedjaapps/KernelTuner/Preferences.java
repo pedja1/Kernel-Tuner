@@ -3,6 +3,7 @@ package rs.pedjaapps.KernelTuner;
 
 
 
+
 import com.actionbarsherlock.app.SherlockPreferenceActivity;
 import com.actionbarsherlock.app.ActionBar;
 import android.app.*;
@@ -26,17 +27,51 @@ public class Preferences extends SherlockPreferenceActivity
 	private CheckBoxPreference htcOneOverride;
 	private ListPreference tisList;
 	private CheckBoxPreference resetApp;
+	private ListPreference themePrefList;
 
 	@SuppressWarnings("deprecation")
 	@Override
 	public void onCreate(Bundle savedInstanceState)
 	{        
+		SharedPreferences sharedPrefs = PreferenceManager
+				.getDefaultSharedPreferences(this);
+		String them = sharedPrefs.getString("theme", "light");
+		
+			if(them.equals("light")){
+				setTheme(R.style.Theme_Sherlock_Light);
+			}
+			else if(them.equals("dark")){
+				setTheme(R.style.Theme_Sherlock);
+				
+			}
+			else if(them.equals("light_dark_action_bar")){
+				setTheme(R.style.Theme_Sherlock_Light_DarkActionBar);
+				
+			}
 		super.onCreate(savedInstanceState);
 
 		addPreferencesFromResource(R.xml.preferences); 
 		
 		ActionBar actionBar = getSupportActionBar();
 		actionBar.setDisplayHomeAsUpEnabled(true);
+		
+		themePrefList = (ListPreference) findPreference("theme");
+        themePrefList.setDefaultValue(themePrefList.getEntryValues()[0]);
+        String theme = themePrefList.getValue();
+        if (theme == null) {
+            themePrefList.setValue((String)themePrefList.getEntryValues()[0]);
+            theme = themePrefList.getValue();
+        }
+        themePrefList.setSummary(themePrefList.getEntries()[themePrefList.findIndexOfValue(theme)]);
+
+
+        themePrefList.setOnPreferenceChangeListener(new OnPreferenceChangeListener() {
+            @Override
+            public boolean onPreferenceChange(Preference preference, Object newValue) {
+                themePrefList.setSummary(themePrefList.getEntries()[themePrefList.findIndexOfValue(newValue.toString())]);
+                return true;
+            }
+        }); 
 		
 		bootPrefList = (ListPreference) findPreference("boot");
         bootPrefList.setDefaultValue(bootPrefList.getEntryValues()[0]);

@@ -10,13 +10,16 @@ import com.actionbarsherlock.app.SherlockActivity;
 import com.actionbarsherlock.view.Menu;
 import com.actionbarsherlock.view.MenuInflater;
 import com.actionbarsherlock.view.MenuItem;
+import com.slidingmenu.lib.SlidingMenu;
 
 import android.app.AlertDialog;
 import android.app.ProgressDialog;
 import android.content.DialogInterface;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.os.AsyncTask;
 import android.os.Bundle;
+import android.preference.PreferenceManager;
 import android.view.ContextMenu;
 import android.view.ContextMenu.ContextMenuInfo;
 import android.view.View;
@@ -24,6 +27,8 @@ import android.widget.AdapterView;
 import android.widget.AdapterView.AdapterContextMenuInfo;
 import android.widget.AdapterView.OnItemClickListener;
 import android.widget.EditText;
+import android.widget.GridView;
+import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.ListView;
 import android.widget.TextView;
@@ -243,12 +248,63 @@ catch (InterruptedException e1)
 	private ListView profilesListView;
 	private List<Profile> profiles;
 	private static final int GET_CODE = 0;
+	String theme;
+	boolean isLight;
 	@Override
 	public void onCreate(Bundle savedInstanceState)
 	{
+		SharedPreferences preferences = PreferenceManager.getDefaultSharedPreferences(this);
+		
+		theme = preferences.getString("theme", "light");
+		
+		if(theme.equals("light")){
+			setTheme(R.style.IndicatorLight);
+			isLight = true;
+		}
+		else if(theme.equals("dark")){
+			setTheme(R.style.IndicatorDark);
+			isLight = false;
+		}
+		else if(theme.equals("light_dark_action_bar")){
+			setTheme(R.style.IndicatorLightDark);
+			isLight = true;
+		}
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.profiles);
+		final SlidingMenu menu = new SlidingMenu(this);
+		menu.setTouchModeAbove(SlidingMenu.TOUCHMODE_FULLSCREEN);
+		menu.setShadowWidthRes(R.dimen.shadow_width);
+		menu.setShadowDrawable(R.drawable.shadow);
+		menu.setBehindOffsetRes(R.dimen.slidingmenu_offset);
+		menu.setFadeDegree(0.35f);
+		menu.attachToActivity(this, SlidingMenu.SLIDING_WINDOW);
+		menu.setMenu(R.layout.side);
+		
+		GridView sideView = (GridView) menu.findViewById(R.id.grid);
+		SideMenuAdapter sideAdapter = new SideMenuAdapter(this, R.layout.side_item);
+		System.out.println("check "+sideView+" "+sideAdapter);
+		sideView.setAdapter(sideAdapter);
 
+		
+		sideView.setOnItemClickListener(new OnItemClickListener(){
+
+			@Override
+			public void onItemClick(AdapterView<?> arg0, View arg1, int position,
+					long arg3) {
+				List<SideMenuEntry> entries =  SideItems.getEntries();
+				Intent intent = new Intent();
+				intent.setClass(Profiles.this, entries.get(position).getActivity());
+				startActivity(intent);
+				menu.showContent();
+			}
+			
+		});
+		List<SideMenuEntry> entries =  SideItems.getEntries();
+		for(SideMenuEntry e: entries){
+			sideAdapter.add(e);
+		}
+		ImageView add = (ImageView)findViewById(R.id.add);
+		add.setImageResource(isLight ? R.drawable.add_light : R.drawable.add_dark);
 		ActionBar actionBar = getSupportActionBar();
 		actionBar.setDisplayHomeAsUpEnabled(true);
 		
@@ -613,8 +669,29 @@ catch (InterruptedException e1)
 
 	@Override
 	public boolean onCreateOptionsMenu(Menu menu) {
-	MenuInflater inflater = getSupportMenuInflater();
-		inflater.inflate(R.menu.profiles_options_menu, menu);
+	//MenuInflater inflater = getSupportMenuInflater();
+		//inflater.inflate(R.menu.profiles_options_menu, menu);
+		if(theme.equals("light")){
+			isLight = true;
+			}
+			else if(theme.equals("dark")){
+				isLight = false;
+			}
+			else if(theme.equals("light_dark_action_bar")){
+				isLight = false;
+			}
+		menu.add(1, 1, 1, "Add")
+        .setIcon(isLight ? R.drawable.add_light : R.drawable.add_dark)
+        .setShowAsAction(MenuItem.SHOW_AS_ACTION_IF_ROOM | MenuItem.SHOW_AS_ACTION_WITH_TEXT);
+		
+		menu.add(2, 2, 2, "Delete All")
+        .setIcon(isLight ? R.drawable.delete_light : R.drawable.delete_dark)
+        .setShowAsAction(MenuItem.SHOW_AS_ACTION_IF_ROOM | MenuItem.SHOW_AS_ACTION_WITH_TEXT);
+		
+		menu.add(3, 3, 3, "Save")
+        .setIcon(isLight ? R.drawable.apply_light : R.drawable.apply_dark)
+        .setShowAsAction(MenuItem.SHOW_AS_ACTION_IF_ROOM | MenuItem.SHOW_AS_ACTION_WITH_TEXT);
+		
 		return super.onCreateOptionsMenu(menu);
 }
 
@@ -625,7 +702,7 @@ catch (InterruptedException e1)
 @Override
 public boolean onOptionsItemSelected(MenuItem item) {
 
-	if (item.getItemId() == R.id.add)
+	if (item.getItemId() == 1)
 	{
     	Intent intent = new Intent();
         intent.setClass(this,ProfileEditor.class);
@@ -633,16 +710,25 @@ public boolean onOptionsItemSelected(MenuItem item) {
         startActivityForResult(intent,GET_CODE);
 	}	
 		
-	if (item.getItemId() == R.id.delete_all)
+	if (item.getItemId() == 2)
 	{
     	AlertDialog.Builder builder = new AlertDialog.Builder(
                 Profiles.this);
 
+    	if(theme.equals("light")){
+			isLight = true;
+			}
+			else if(theme.equals("dark")){
+				isLight = false;
+			}
+			else if(theme.equals("light_dark_action_bar")){
+				isLight = true;
+			}
 			builder.setTitle(getResources().getString(R.string.delete_all_profiles));
 
 			builder.setMessage(getResources().getString(R.string.delete_all_profiles_confirm));
 
-			builder.setIcon(R.drawable.ic_menu_delete);
+			builder.setIcon(isLight ? R.drawable.delete_light : R.drawable.delete_dark);
 
 			builder.setPositiveButton(getResources().getString(R.string.yes), new DialogInterface.OnClickListener() {
 					@Override
@@ -678,16 +764,24 @@ public boolean onOptionsItemSelected(MenuItem item) {
 			alert.show();
 	}
 	
-	if (item.getItemId() == R.id.save)
+	if (item.getItemId() == 3)
 	{
 	AlertDialog.Builder builder2 = new AlertDialog.Builder(
             Profiles.this);
 
 		builder2.setTitle(getResources().getString(R.string.save_current_settings));
 
-		
+		if(theme.equals("light")){
+			isLight = true;
+			}
+			else if(theme.equals("dark")){
+				isLight = false;
+			}
+			else if(theme.equals("light_dark_action_bar")){
+				isLight = true;
+			}
 
-		builder2.setIcon(R.drawable.ic_menu_save);
+		builder2.setIcon(isLight ? R.drawable.save_light : R.drawable.save_dark);
 		final EditText ed2 = new EditText(Profiles.this);
 		ed2.setHint("Profile Name");
 		builder2.setPositiveButton(getResources().getString(R.string.save), new DialogInterface.OnClickListener() {
@@ -830,9 +924,17 @@ public boolean onContextItemSelected(android.view.MenuItem item) {
 
 			builder.setTitle(getResources().getString(R.string.copy_profile));
 
-			
+			if(theme.equals("light")){
+				isLight = true;
+				}
+				else if(theme.equals("dark")){
+					isLight = false;
+				}
+				else if(theme.equals("light_dark_action_bar")){
+					isLight = true;
+				}
 
-			builder.setIcon(R.drawable.ic_menu_copy);
+			builder.setIcon(isLight ? R.drawable.copy_light : R.drawable.copy_dark);
 			final EditText ed = new EditText(Profiles.this);
 			ed.setHint(getResources().getString(R.string.profile_name));
 			builder.setPositiveButton(getResources().getString(R.string.copy), new DialogInterface.OnClickListener() {

@@ -23,7 +23,7 @@ public class Initd extends AsyncTask<String, Void, String>
 			System.out.println("Init.d: Writing init.d");
 			try {
 	            String line;
-	            Process process = RootProcess.getProcess();
+	            Process process = Runtime.getRuntime().exec("su");
 	            OutputStream stdin = process.getOutputStream();
 	            InputStream stderr = process.getErrorStream();
 	            InputStream stdout = process.getInputStream();
@@ -62,7 +62,7 @@ public class Initd extends AsyncTask<String, Void, String>
 			System.out.println("Init.d: Deleting init.d");
 			try {
 	            String line;
-	            Process process = RootProcess.getProcess();
+	            Process process = Runtime.getRuntime().exec("su");
 	            OutputStream stdin = process.getOutputStream();
 	            InputStream stderr = process.getErrorStream();
 	            InputStream stdout = process.getInputStream();

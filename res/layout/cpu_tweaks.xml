@@ -541,7 +541,7 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_above="@+id/ly3"
-        android:background="@drawable/background_dark_sharp_edges"
+       
         android:orientation="vertical" >
 
         <LinearLayout

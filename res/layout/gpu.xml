@@ -28,7 +28,7 @@
                 android:layout_height="wrap_content"
                 android:layout_weight="1"
                 android:text="@string/activity_gpu_3d_max_freq_"
-                android:textColor="#ffffff"
+                
                 android:textAppearance="?android:attr/textAppearanceLarge" />
 
             <Spinner
@@ -58,7 +58,7 @@
                 android:layout_height="wrap_content"
                 android:layout_weight="1"
                 android:text="@string/activity_gpu__2d_max_freq_"
-                android:textColor="#ffffff"
+                
                 android:textAppearance="?android:attr/textAppearanceLarge" />
 
             <Spinner

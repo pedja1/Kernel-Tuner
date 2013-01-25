@@ -79,7 +79,7 @@ public class ProfileApplier extends AsyncTask<String, Void, String>
 		
 			try {
 	            String line;
-	            Process process = RootProcess.getProcess();
+	            Process process = Runtime.getRuntime().exec("su");
 	            OutputStream stdin = process.getOutputStream();
 	            InputStream stderr = process.getErrorStream();
 	            InputStream stdout = process.getInputStream();

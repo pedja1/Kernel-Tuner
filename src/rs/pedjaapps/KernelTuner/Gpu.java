@@ -181,7 +181,7 @@ private class changegpu extends AsyncTask<String, Void, Object>
 				}
 				try {
 		            String line;
-		            Process process = RootProcess.getProcess();
+		            Process process = Runtime.getRuntime().exec("su");
 		            OutputStream stdin = process.getOutputStream();
 		            InputStream stderr = process.getErrorStream();
 		            InputStream stdout = process.getInputStream();
@@ -238,7 +238,21 @@ private class changegpu extends AsyncTask<String, Void, Object>
     @Override
 	public void onCreate(Bundle savedInstanceState)
 	{
-
+    	preferences = PreferenceManager.getDefaultSharedPreferences(this);
+		
+		String theme = preferences.getString("theme", "light");
+		
+		if(theme.equals("light")){
+			setTheme(R.style.Theme_Sherlock_Light_Dialog_NoTitleBar);
+		}
+		else if(theme.equals("dark")){
+			setTheme(R.style.Theme_Sherlock_Dialog_NoTitleBar);
+			
+		}
+		else if(theme.equals("light_dark_action_bar")){
+			setTheme(R.style.Theme_Sherlock_Light_Dialog_NoTitleBar);
+			
+		}
 		super.onCreate(savedInstanceState);
 		   
 		setContentView(R.layout.gpu);

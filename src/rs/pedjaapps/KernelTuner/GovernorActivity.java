@@ -21,6 +21,7 @@ import android.view.View;
 import android.widget.AdapterView;
 import android.widget.AdapterView.OnItemClickListener;
 import android.widget.EditText;
+import android.widget.GridView;
 import android.widget.ListView;
 import android.widget.TextView;
 
@@ -28,6 +29,7 @@ import com.actionbarsherlock.app.ActionBar;
 import com.actionbarsherlock.app.SherlockActivity;
 import com.google.ads.AdRequest;
 import com.google.ads.AdView;
+import com.slidingmenu.lib.SlidingMenu;
 
 public class GovernorActivity extends SherlockActivity
 {
@@ -39,13 +41,63 @@ public class GovernorActivity extends SherlockActivity
 	private List<String> govValues;
 	private List<String> governors;
 	private List<String> temp;
-
+	boolean isLight;
 	@Override
 	public void onCreate(Bundle savedInstanceState)
 	{
+		SharedPreferences preferences = PreferenceManager.getDefaultSharedPreferences(this);
+		
+		String theme = preferences.getString("theme", "light");
+		
+		if(theme.equals("light")){
+			setTheme(R.style.IndicatorLight);
+			isLight = true;
+		}
+		else if(theme.equals("dark")){
+			setTheme(R.style.IndicatorDark);
+			isLight = false;
+			
+		}
+		else if(theme.equals("light_dark_action_bar")){
+			setTheme(R.style.IndicatorLightDark);
+			isLight = true;
+			
+		}
 		super.onCreate(savedInstanceState);
 
 		setContentView(R.layout.governor_settings);
+		final SlidingMenu menu = new SlidingMenu(this);
+		menu.setTouchModeAbove(SlidingMenu.TOUCHMODE_FULLSCREEN);
+		menu.setShadowWidthRes(R.dimen.shadow_width);
+		menu.setShadowDrawable(R.drawable.shadow);
+		menu.setBehindOffsetRes(R.dimen.slidingmenu_offset);
+		menu.setFadeDegree(0.35f);
+		menu.attachToActivity(this, SlidingMenu.SLIDING_WINDOW);
+		menu.setMenu(R.layout.side);
+		
+		GridView sideView = (GridView) menu.findViewById(R.id.grid);
+		SideMenuAdapter sideAdapter = new SideMenuAdapter(this, R.layout.side_item);
+		System.out.println("check "+sideView+" "+sideAdapter);
+		sideView.setAdapter(sideAdapter);
+
+		
+		sideView.setOnItemClickListener(new OnItemClickListener(){
+
+			@Override
+			public void onItemClick(AdapterView<?> arg0, View arg1, int position,
+					long arg3) {
+				List<SideMenuEntry> entries =  SideItems.getEntries();
+				Intent intent = new Intent();
+				intent.setClass(GovernorActivity.this, entries.get(position).getActivity());
+				startActivity(intent);
+				menu.showContent();
+			}
+			
+		});
+		List<SideMenuEntry> entries =  SideItems.getEntries();
+		for(SideMenuEntry e: entries){
+			sideAdapter.add(e);
+		}
 		ActionBar actionBar = getSupportActionBar();
 		actionBar.setDisplayHomeAsUpEnabled(true);
 
@@ -84,7 +136,7 @@ public class GovernorActivity extends SherlockActivity
 
 					builder.setMessage(getResources().getString(R.string.gov_new_value));
 
-					builder.setIcon(R.drawable.ic_menu_edit);
+					builder.setIcon(isLight ? R.drawable.edit_light: R.drawable.edit_dark);
 
 
 					final EditText input = new EditText(view.getContext());

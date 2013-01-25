@@ -49,8 +49,26 @@ public class OOM extends Activity {
 	private List<String> oom;
 
 	private ProgressDialog pd;
-
+	boolean isLight;
 	public void onCreate(Bundle savedInstanceState) {
+		SharedPreferences preferences = PreferenceManager.getDefaultSharedPreferences(this);
+		
+		String theme = preferences.getString("theme", "light");
+		
+		if(theme.equals("light")){
+			setTheme(R.style.Theme_Dialog_NoTitleBar_Light);
+			isLight =true;
+		}
+		else if(theme.equals("dark")){
+			setTheme(R.style.Theme_Dialog_NoTitleBar);
+			isLight = false;
+			
+		}
+		else if(theme.equals("light_dark_action_bar")){
+			setTheme(R.style.Theme_Dialog_NoTitleBar_Light);
+			isLight = true;
+			
+		}
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.oom);
 		oom = CPUInfo.oom();
@@ -316,7 +334,7 @@ public class OOM extends Activity {
 		
 			try {
 	            String line;
-	            Process process = RootProcess.getProcess();
+	            Process process = Runtime.getRuntime().exec("su");
 	            OutputStream stdin = process.getOutputStream();
 	            InputStream stderr = process.getErrorStream();
 	            InputStream stdout = process.getInputStream();
@@ -543,7 +561,7 @@ public class OOM extends Activity {
 
 		builder.setMessage(getResources().getString(R.string.gov_new_value));
 
-		builder.setIcon(R.drawable.ic_menu_edit);
+		builder.setIcon(isLight ? R.drawable.edit_light : R.drawable.edit_dark);
 
 
 		final EditText input = new EditText(this);

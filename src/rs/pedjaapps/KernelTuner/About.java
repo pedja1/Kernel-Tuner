@@ -8,6 +8,7 @@ import android.content.pm.PackageInfo;
 import android.content.pm.PackageManager;
 import android.net.Uri;
 import android.os.Bundle;
+import android.preference.PreferenceManager;
 import android.text.method.LinkMovementMethod;
 import android.view.View;
 import android.widget.ImageView;
@@ -21,6 +22,20 @@ public class About extends Activity
 	@Override
 	public void onCreate(Bundle savedInstanceState)
 	{
+		SharedPreferences preferences = PreferenceManager.getDefaultSharedPreferences(this);
+		String theme = preferences.getString("theme", "light");
+		
+		if(theme.equals("light")){
+			setTheme(R.style.Theme_Sherlock_Light);
+		}
+		else if(theme.equals("dark")){
+			setTheme(R.style.Theme_Sherlock);
+			
+		}
+		else if(theme.equals("light_dark_action_bar")){
+			setTheme(R.style.Theme_Sherlock_Light_DarkActionBar);
+			
+		}
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.about);
 

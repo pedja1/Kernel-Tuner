@@ -1,5 +1,17 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
+    <string-array name="theme_entry">
+        <item>Light Theme</item>
+        <item>Light Theme with dark action bar</item>
+        <item>Dark Theme</item>  
+    </string-array>
+
+    <string-array name="theme_values">
+        <item>light</item>
+        <item>light_dark_action_bar</item>
+        <item>dark</item>  
+    </string-array>
+    
 <string-array name="listDisplayWord" >
  <item>On Boot Completed</item>
  <item>init.d script</item>

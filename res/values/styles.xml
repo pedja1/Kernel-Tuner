@@ -27,14 +27,19 @@
 		<item name="android:backgroundDimEnabled">false</item>
 		<!--	<item name="android:background">@drawable/lcd_background_grey</item>-->
 	</style>
-	<style name="Theme.Dialog.NoTitleBar" parent="android:Theme.Holo.Dialog">
-		
+	<style name="Theme.Dialog.NoTitleBar" parent="android:Theme.Holo.Dialog">	
 		<item name="android:windowContentOverlay">@null</item>
 		<item name="android:windowNoTitle">true</item>
 		<item name="android:windowIsFloating">true</item>
 		<item name="android:backgroundDimEnabled">true</item>
-	<!--	<item name="android:background">@drawable/lcd_background_grey</item>-->
 	</style>
+	<style name="Theme.Dialog.NoTitleBar.Light" parent="android:Theme.Holo.Light.Dialog">	
+		<item name="android:windowContentOverlay">@null</item>
+		<item name="android:windowNoTitle">true</item>
+		<item name="android:windowIsFloating">true</item>
+		<item name="android:backgroundDimEnabled">true</item>
+	</style>
+	
 	<style name="Theme.Sherlock.Dialog.NoTitleBar" parent="Theme.Sherlock.Dialog">
 		
 		<item name="android:windowContentOverlay">@null</item>
@@ -43,9 +48,55 @@
 		<item name="android:backgroundDimEnabled">true</item>
 		<item name="android:windowActionModeOverlay">true</item>
 		<item name="android:windowSoftInputMode">stateAlwaysHidden</item>
+		
 </style>
+
+	<style name="Theme.Sherlock.Light.Dialog.NoTitleBar" parent="Theme.Sherlock.Light.Dialog">
+		
+		<item name="android:windowContentOverlay">@null</item>
+		<item name="android:windowNoTitle">true</item>
+		<item name="android:windowIsFloating">true</item>
+		<item name="android:backgroundDimEnabled">true</item>
+		<item name="android:windowActionModeOverlay">true</item>
+		<item name="android:windowSoftInputMode">stateAlwaysHidden</item>
+		
+</style>
+	
+	
 	<style name="SwitchCompatAndSherlock" parent="Theme.Sherlock">
     <item name="switchStyle">@style/switch_dark</item>
     <item name="textAppearance">@style/TextAppearance</item>
+     <item name="homeAsUpIndicator">@drawable/indicator</item>
+        <item name="android:homeAsUpIndicator">@drawable/indicator</item>
 </style>
+
+	
+	<style name="SwitchCompatAndSherlockLight" parent="Theme.Sherlock.Light">
+    <item name="switchStyle">@style/switch_dark</item>
+    <item name="textAppearance">@style/TextAppearance</item>
+     <item name="homeAsUpIndicator">@drawable/indicator</item>
+        <item name="android:homeAsUpIndicator">@drawable/indicator</item>
+</style>
+
+	
+	<style name="SwitchCompatAndSherlockLightDark" parent="Theme.Sherlock.Light.DarkActionBar">
+    <item name="switchStyle">@style/switch_dark</item>
+    <item name="textAppearance">@style/TextAppearance</item>
+     <item name="homeAsUpIndicator">@drawable/indicator</item>
+        <item name="android:homeAsUpIndicator">@drawable/indicator</item>
+</style>
+	
+	<style name="IndicatorLight" parent="Theme.Sherlock.Light">
+        <item name="homeAsUpIndicator">@drawable/indicator</item>
+        <item name="android:homeAsUpIndicator">@drawable/indicator</item>
+    </style>
+    <style name="IndicatorDark" parent="Theme.Sherlock">
+        <item name="homeAsUpIndicator">@drawable/indicator</item>
+        <item name="android:homeAsUpIndicator">@drawable/indicator</item>
+    </style>
+    
+    <style name="IndicatorLightDark" parent="Theme.Sherlock.Light.DarkActionBar">
+        <item name="homeAsUpIndicator">@drawable/indicator</item>
+        <item name="android:homeAsUpIndicator">@drawable/indicator</item>
+    </style>
 </resources>

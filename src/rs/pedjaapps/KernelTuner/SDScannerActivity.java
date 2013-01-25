@@ -87,6 +87,21 @@ public class SDScannerActivity extends SherlockActivity
 	@Override
 	public void onCreate(Bundle savedInstanceState)
 	{
+		SharedPreferences preferences = PreferenceManager.getDefaultSharedPreferences(this);
+		
+		String theme = preferences.getString("theme", "light");
+		
+		if(theme.equals("light")){
+			setTheme(R.style.IndicatorLight);
+		}
+		else if(theme.equals("dark")){
+			setTheme(R.style.IndicatorDark);
+			
+		}
+		else if(theme.equals("light_dark_action_bar")){
+			setTheme(R.style.IndicatorLightDark);
+			
+		}
 		super.onCreate(savedInstanceState);
 
 		setContentView(R.layout.sd_scanner);
@@ -100,8 +115,7 @@ public class SDScannerActivity extends SherlockActivity
 	    mRenderer.setMargins(new int[] { 20, 30, 15, 0 });
 	    mRenderer.setZoomButtonsVisible(false);
 	    mRenderer.setStartAngle(90);
-		SharedPreferences sharedPrefs = PreferenceManager.getDefaultSharedPreferences(this);
-		boolean ads = sharedPrefs.getBoolean("ads", true);
+		boolean ads = preferences.getBoolean("ads", true);
 		if (ads == true)
 		{AdView adView = (AdView)findViewById(R.id.ad);
 			adView.loadAd(new AdRequest());}

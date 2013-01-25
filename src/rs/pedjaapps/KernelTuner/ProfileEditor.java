@@ -10,7 +10,9 @@ import com.actionbarsherlock.view.MenuItem;
 
 
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.os.Bundle;
+import android.preference.PreferenceManager;
 import android.view.View;
 import android.view.View.OnClickListener;
 import android.widget.AdapterView;
@@ -88,6 +90,21 @@ public class ProfileEditor extends SherlockActivity
 	@Override
 	public void onCreate(Bundle savedInstanceState)
 	{
+		SharedPreferences preferences = PreferenceManager.getDefaultSharedPreferences(this);
+		
+		String theme = preferences.getString("theme", "light");
+		
+		if(theme.equals("light")){
+			setTheme(R.style.Theme_Sherlock_Light);
+		}
+		else if(theme.equals("dark")){
+			setTheme(R.style.Theme_Sherlock);
+			
+		}
+		else if(theme.equals("light_dark_action_bar")){
+			setTheme(R.style.Theme_Sherlock_Light_DarkActionBar);
+			
+		}
 		super.onCreate(savedInstanceState);
 
 		setContentView(R.layout.profile_editor);
@@ -870,11 +887,7 @@ public class ProfileEditor extends SherlockActivity
 		inflater.inflate(R.menu.profile_editor_options_menu, menu);
 		return super.onCreateOptionsMenu(menu);
 }
-@Override
-public boolean onPrepareOptionsMenu (Menu menu) {
 
-return true;
-}
 
 @Override
 public boolean onOptionsItemSelected(MenuItem item) {

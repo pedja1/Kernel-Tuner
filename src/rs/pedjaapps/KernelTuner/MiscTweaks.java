@@ -27,11 +27,13 @@ import android.view.View.OnClickListener;
 import android.view.View.OnTouchListener;
 import android.view.WindowManager;
 import android.widget.AdapterView;
+import android.widget.AdapterView.OnItemClickListener;
 import android.widget.AdapterView.OnItemSelectedListener;
 import android.widget.ArrayAdapter;
 import android.widget.CompoundButton;
 import android.widget.CompoundButton.OnCheckedChangeListener;
 import android.widget.EditText;
+import android.widget.GridView;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.RadioButton;
@@ -47,15 +49,15 @@ import com.actionbarsherlock.view.Menu;
 import com.actionbarsherlock.view.MenuInflater;
 import com.google.ads.AdRequest;
 import com.google.ads.AdView;
+import com.slidingmenu.lib.SlidingMenu;
 
 import de.ankri.views.Switch;
-import com.deaux.fan.FanView;
 
 public class MiscTweaks extends SherlockActivity
 {
 
-	RootProcess mRootProcess;
-	Process process;
+	
+	
 	private String led = CPUInfo.leds();
 	private String ledHox;
 	private SeekBar mSeekBar;
@@ -137,7 +139,7 @@ public class MiscTweaks extends SherlockActivity
 
 			try {
 	            String line;
-	            
+	            Process process = Runtime.getRuntime().exec("su");
 	            OutputStream stdin = process.getOutputStream();
 	            InputStream stderr = process.getErrorStream();
 	            InputStream stdout = process.getInputStream();
@@ -189,7 +191,7 @@ public class MiscTweaks extends SherlockActivity
 		
 			try {
 	            String line;
-	            
+	            Process process = Runtime.getRuntime().exec("su");
 	            OutputStream stdin = process.getOutputStream();
 	            InputStream stderr = process.getErrorStream();
 	            InputStream stdout = process.getInputStream();
@@ -244,7 +246,7 @@ public class MiscTweaks extends SherlockActivity
 			
 			try {
 	            String line;
-	            
+	            Process process = Runtime.getRuntime().exec("su");
 	            OutputStream stdin = process.getOutputStream();
 	            InputStream stderr = process.getErrorStream();
 	            InputStream stdout = process.getInputStream();
@@ -295,7 +297,7 @@ public class MiscTweaks extends SherlockActivity
 		{
 			try {
 	            String line;
-	            
+	            Process process = Runtime.getRuntime().exec("su");
 	            OutputStream stdin = process.getOutputStream();
 	            InputStream stderr = process.getErrorStream();
 	            InputStream stdout = process.getInputStream();
@@ -353,7 +355,7 @@ public class MiscTweaks extends SherlockActivity
 
 			try {
 	            String line;
-	            
+	            Process process = Runtime.getRuntime().exec("su");
 	            OutputStream stdin = process.getOutputStream();
 	            InputStream stderr = process.getErrorStream();
 	            InputStream stdout = process.getInputStream();
@@ -411,7 +413,7 @@ public class MiscTweaks extends SherlockActivity
 
 			try {
 	            String line;
-	            
+	            Process process = Runtime.getRuntime().exec("su");
 	            OutputStream stdin = process.getOutputStream();
 	            InputStream stderr = process.getErrorStream();
 	            InputStream stdout = process.getInputStream();
@@ -462,7 +464,7 @@ public class MiscTweaks extends SherlockActivity
 		{
 			try {
 	            String line;
-	            
+	            Process process = Runtime.getRuntime().exec("su");
 	            OutputStream stdin = process.getOutputStream();
 	            InputStream stderr = process.getErrorStream();
 	            InputStream stdout = process.getInputStream();
@@ -533,7 +535,7 @@ public class MiscTweaks extends SherlockActivity
 			
 			try {
 	            String line;
-	            
+	            Process process = Runtime.getRuntime().exec("su");
 	            OutputStream stdin = process.getOutputStream();
 	            System.out.println("1dsafdsfdsfds");
 	            InputStream stderr = process.getErrorStream();
@@ -588,19 +590,60 @@ public class MiscTweaks extends SherlockActivity
 		}
 
 	}
-	FanView fan;
+	SlidingMenu menu;
 	@Override
 	public void onCreate(Bundle savedInstanceState)
 	{
+		preferences = PreferenceManager.getDefaultSharedPreferences(this);
+		
+		String theme = preferences.getString("theme", "light");
+		
+		if(theme.equals("light")){
+			setTheme(R.style.SwitchCompatAndSherlockLight);
+		}
+		else if(theme.equals("dark")){
+			setTheme(R.style.SwitchCompatAndSherlock);
+			
+		}
+		else if(theme.equals("light_dark_action_bar")){
+			setTheme(R.style.SwitchCompatAndSherlockLightDark);
+			
+		}
 		super.onCreate(savedInstanceState);
+		setContentView(R.layout.misc_tweaks);
+		
+		menu = new SlidingMenu(this);
+		menu.setTouchModeAbove(SlidingMenu.TOUCHMODE_FULLSCREEN);
+		menu.setShadowWidthRes(R.dimen.shadow_width);
+		menu.setShadowDrawable(R.drawable.shadow);
+		menu.setBehindOffsetRes(R.dimen.slidingmenu_offset);
+		menu.setFadeDegree(0.35f);
+		menu.attachToActivity(this, SlidingMenu.SLIDING_WINDOW);
+		menu.setMenu(R.layout.side);
+		
+		GridView sideView = (GridView) menu.findViewById(R.id.grid);
+		SideMenuAdapter sideAdapter = new SideMenuAdapter(this, R.layout.side_item);
+		System.out.println("check "+sideView+" "+sideAdapter);
+		sideView.setAdapter(sideAdapter);
 
 		
-		process = RootProcess.getProcess();
-		System.out.println(process);
-		setContentView(R.layout.fan);
-		
-		fan = (FanView) findViewById(R.id.fan_view);
-		fan.setViews(R.layout.misc_tweaks, R.layout.side_list);
+		sideView.setOnItemClickListener(new OnItemClickListener(){
+
+			@Override
+			public void onItemClick(AdapterView<?> arg0, View arg1, int position,
+					long arg3) {
+				List<SideMenuEntry> entries =  SideItems.getEntries();
+				Intent intent = new Intent();
+				intent.setClass(MiscTweaks.this, entries.get(position).getActivity());
+				startActivity(intent);
+				menu.showContent();
+			}
+			
+		});
+		List<SideMenuEntry> entries =  SideItems.getEntries();
+		for(SideMenuEntry e: entries){
+			sideAdapter.add(e);
+		}
 		
 		this.getWindow().setSoftInputMode(WindowManager.LayoutParams.SOFT_INPUT_STATE_ALWAYS_HIDDEN); 
 
@@ -649,8 +692,7 @@ public class MiscTweaks extends SherlockActivity
 		ActionBar actionBar = getSupportActionBar();
 		actionBar.setDisplayHomeAsUpEnabled(true);
 		
-		SharedPreferences sharedPrefs = PreferenceManager.getDefaultSharedPreferences(this);
-		boolean ads = sharedPrefs.getBoolean("ads", true);
+		boolean ads = preferences.getBoolean("ads", true);
 		if (ads == true)
 		{AdView adView = (AdView)findViewById(R.id.ad);
 			adView.loadAd(new AdRequest());}
@@ -877,6 +919,8 @@ public class MiscTweaks extends SherlockActivity
 
 
 	}
+	
+	
 	@Override
 	public void onPause()
 	{
@@ -1504,10 +1548,10 @@ public class MiscTweaks extends SherlockActivity
 	    switch (item.getItemId()) {
 	        case android.R.id.home:
 	            // app icon in action bar clicked; go home
-	         /*   Intent intent = new Intent(this, KernelTuner.class);
+	            Intent intent = new Intent(this, KernelTuner.class);
 	            intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
-	            startActivity(intent);*/
-				fan.showMenu();
+	            startActivity(intent);
+				
 				
 	            return true;
 	        case R.id.apply:

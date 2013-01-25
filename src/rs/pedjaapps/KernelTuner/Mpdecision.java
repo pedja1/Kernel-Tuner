@@ -23,11 +23,13 @@ import android.util.Log;
 import android.view.View;
 import android.view.WindowManager;
 import android.widget.CompoundButton;
+import android.widget.AdapterView.OnItemClickListener;
 import android.widget.AdapterView.OnItemSelectedListener;
 import android.widget.CompoundButton.OnCheckedChangeListener;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.EditText;
+import android.widget.GridView;
 import android.widget.Spinner;
 
 
@@ -37,6 +39,7 @@ import com.actionbarsherlock.view.Menu;
 import com.actionbarsherlock.view.MenuInflater;
 import com.google.ads.AdRequest;
 import com.google.ads.AdView;
+import com.slidingmenu.lib.SlidingMenu;
 
 import de.ankri.views.Switch;
 
@@ -91,7 +94,7 @@ public class Mpdecision extends SherlockActivity
 			
 			 try {
 		            String line;
-				 Process process = RootProcess.getProcess();
+		            Process process = Runtime.getRuntime().exec("su");
 		            OutputStream stdin = process.getOutputStream();
 		            InputStream stderr = process.getErrorStream();
 		            InputStream stdout = process.getInputStream();
@@ -169,10 +172,57 @@ public class Mpdecision extends SherlockActivity
 	@Override
 	public void onCreate(Bundle savedInstanceState)
 	{
-
+		preferences = PreferenceManager.getDefaultSharedPreferences(this);
+		
+		String theme = preferences.getString("theme", "light");
+		
+		if(theme.equals("light")){
+			setTheme(R.style.SwitchCompatAndSherlockLight);
+		}
+		else if(theme.equals("dark")){
+			setTheme(R.style.SwitchCompatAndSherlock);
+			
+		}
+		else if(theme.equals("light_dark_action_bar")){
+			setTheme(R.style.SwitchCompatAndSherlockLightDark);
+			
+		}
 		super.onCreate(savedInstanceState);
 
 		setContentView(R.layout.mpdecision);
+		
+		final SlidingMenu menu = new SlidingMenu(this);
+		menu.setTouchModeAbove(SlidingMenu.TOUCHMODE_FULLSCREEN);
+		menu.setShadowWidthRes(R.dimen.shadow_width);
+		menu.setShadowDrawable(R.drawable.shadow);
+		menu.setBehindOffsetRes(R.dimen.slidingmenu_offset);
+		menu.setFadeDegree(0.35f);
+		menu.attachToActivity(this, SlidingMenu.SLIDING_WINDOW);
+		menu.setMenu(R.layout.side);
+		
+		GridView sideView = (GridView) menu.findViewById(R.id.grid);
+		SideMenuAdapter sideAdapter = new SideMenuAdapter(this, R.layout.side_item);
+		System.out.println("check "+sideView+" "+sideAdapter);
+		sideView.setAdapter(sideAdapter);
+
+		
+		sideView.setOnItemClickListener(new OnItemClickListener(){
+
+			@Override
+			public void onItemClick(AdapterView<?> arg0, View arg1, int position,
+					long arg3) {
+				List<SideMenuEntry> entries =  SideItems.getEntries();
+				Intent intent = new Intent();
+				intent.setClass(Mpdecision.this, entries.get(position).getActivity());
+				startActivity(intent);
+				menu.showContent();
+			}
+			
+		});
+		List<SideMenuEntry> entries =  SideItems.getEntries();
+		for(SideMenuEntry e: entries){
+			sideAdapter.add(e);
+		}
 		
 		mp_switch = (Switch)findViewById(R.id.mp_switch);
 		idleSpinner =(Spinner)findViewById(R.id.spinner1);
@@ -187,8 +237,7 @@ public class Mpdecision extends SherlockActivity
 		
 		ActionBar actionBar = getSupportActionBar();
 		actionBar.setDisplayHomeAsUpEnabled(true);
-		SharedPreferences sharedPrefs = PreferenceManager.getDefaultSharedPreferences(this);
-		boolean ads = sharedPrefs.getBoolean("ads", true);
+		boolean ads = preferences.getBoolean("ads", true);
 		if (ads == true)
 		{AdView adView = (AdView)findViewById(R.id.ad);
 			adView.loadAd(new AdRequest());}

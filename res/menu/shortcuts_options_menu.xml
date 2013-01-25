@@ -5,7 +5,6 @@
 
     <item
         android:id="@+id/done"
-        android:icon="@drawable/ic_menu_save"
         android:showAsAction="ifRoom|withText"
         android:title="Done"/>
 

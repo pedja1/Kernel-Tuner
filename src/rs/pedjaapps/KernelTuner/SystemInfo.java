@@ -15,6 +15,7 @@ import android.preference.*;
 import android.util.DisplayMetrics;
 import android.view.*;
 import android.widget.*;
+import android.widget.AdapterView.OnItemClickListener;
 
 import com.actionbarsherlock.app.*;
 import java.io.*;
@@ -24,6 +25,7 @@ import java.util.*;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentTransaction;
 import com.actionbarsherlock.app.ActionBar;
+import com.slidingmenu.lib.SlidingMenu;
 
 public class SystemInfo extends SherlockFragmentActivity implements
 		ActionBar.TabListener {
@@ -531,8 +533,55 @@ public class SystemInfo extends SherlockFragmentActivity implements
 
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
+		SharedPreferences preferences = PreferenceManager.getDefaultSharedPreferences(this);
+	
+		String theme = preferences.getString("theme", "light");
+		
+		if(theme.equals("light")){
+			setTheme(R.style.IndicatorLight);
+		}
+		else if(theme.equals("dark")){
+			setTheme(R.style.IndicatorDark);;
+			
+		}
+		else if(theme.equals("light_dark_action_bar")){
+			setTheme(R.style.IndicatorLightDark);
+			
+		}
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.system_info);
+		final SlidingMenu menu = new SlidingMenu(this);
+		menu.setTouchModeAbove(SlidingMenu.TOUCHMODE_FULLSCREEN);
+		menu.setShadowWidthRes(R.dimen.shadow_width);
+		menu.setShadowDrawable(R.drawable.shadow);
+		menu.setBehindOffsetRes(R.dimen.slidingmenu_offset);
+		menu.setFadeDegree(0.35f);
+		menu.attachToActivity(this, SlidingMenu.SLIDING_WINDOW);
+		menu.setMenu(R.layout.side);
+		
+		GridView sideView = (GridView) menu.findViewById(R.id.grid);
+		SideMenuAdapter sideAdapter = new SideMenuAdapter(this, R.layout.side_item);
+		System.out.println("check "+sideView+" "+sideAdapter);
+		sideView.setAdapter(sideAdapter);
+
+		
+		sideView.setOnItemClickListener(new OnItemClickListener(){
+
+			@Override
+			public void onItemClick(AdapterView<?> arg0, View arg1, int position,
+					long arg3) {
+				List<SideMenuEntry> entries =  SideItems.getEntries();
+				Intent intent = new Intent();
+				intent.setClass(SystemInfo.this, entries.get(position).getActivity());
+				startActivity(intent);
+				menu.showContent();
+			}
+			
+		});
+		List<SideMenuEntry> entries =  SideItems.getEntries();
+		for(SideMenuEntry e: entries){
+			sideAdapter.add(e);
+		}
 		System.out.println(getTotalRAM());
 		pd = ProgressDialog.show(this, null,
 				"Gathering system information\nPlease wait...");
@@ -542,6 +591,7 @@ public class SystemInfo extends SherlockFragmentActivity implements
 		// Set up the action bar to show tabs.
 		actionBar = getSupportActionBar();
 		actionBar.setNavigationMode(ActionBar.NAVIGATION_MODE_TABS);
+		actionBar.setHomeButtonEnabled(true);
 		m_sensormgr = (SensorManager) getSystemService(Context.SENSOR_SERVICE);
 		m_sensorlist = m_sensormgr.getSensorList(Sensor.TYPE_ALL);
 
