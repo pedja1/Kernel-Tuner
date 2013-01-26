@@ -31,7 +31,7 @@ import java.util.*;
 import java.lang.Process;
 
 public class KernelTuner extends SherlockActivity {
-	
+
 	private List<CPUInfo.VoltageList> voltageFreqs = CPUInfo.voltages();
 	private List<String> voltages = new ArrayList<String>();
 	private TextView batteryLevel;
@@ -42,7 +42,7 @@ public class KernelTuner extends SherlockActivity {
 	private Toast mToast;
 	private RelativeLayout tempLayout;
 	private AlertDialog alert;
-	
+
 	private boolean enableTmp() {
 		boolean b;
 		try {
@@ -172,7 +172,7 @@ public class KernelTuner extends SherlockActivity {
 			try {
 
 				InputStream fIn = new FileInputStream(file);
-				
+
 				try {
 					String line;
 					process = Runtime.getRuntime().exec("su");
@@ -204,14 +204,13 @@ public class KernelTuner extends SherlockActivity {
 						Log.e("[KernelTuner ToggleCPU Error]", line);
 					}
 					brCleanUp.close();
-					if(process!=null){
+					if (process != null) {
 						process.getErrorStream().close();
 						process.getInputStream().close();
 						process.getOutputStream().close();
-						}
-				} 
-				catch(IOException e){
-					
+					}
+				} catch (IOException e) {
+
 				}
 
 				SharedPreferences.Editor editor = preferences.edit();
@@ -533,7 +532,7 @@ public class KernelTuner extends SherlockActivity {
 				Log.e("Interupted Kernel Tuner", "" + e.getMessage());
 			} catch (IOException e) {
 				Log.e("IO Kernel Tuner", "" + e.getMessage());
-			} 
+			}
 
 			return "";
 		}
@@ -589,93 +588,118 @@ public class KernelTuner extends SherlockActivity {
 
 	}
 
-	
-	  private class CheckRoot extends AsyncTask<Void, Void, Void> {
-	  
-	 
-	  private boolean suAvailable = false; private String suVersion = null;
-	  private String suVersionInternal = null; private List<String> suResult =
-	  null;
-	  
-	  
-	  
-	  
-	  
-	  @Override protected Void doInBackground(Void... params) {  suAvailable = Shell.SU.available(); if (suAvailable) {
-	  suVersion = Shell.SU.version(false); suVersionInternal =
-	  Shell.SU.version(true); suResult = Shell.SU.run(new String[] { "id",
-	  "ls -l /" }); }
-	  
-	  
-	 return null; }
-	  
-	  @Override protected void onPostExecute(Void result) { pd.dismiss();
-	  
-	   StringBuilder sb = (new StringBuilder()).
-	  append("Root? ").append(suAvailable ? "Yes" : "No").append((char)10).
-	  append("Version: ").append(suVersion == null ? "N/A" :
-	  suVersion).append((char)10).
-	  append("Version (internal): ").append(suVersionInternal == null ? "N/A" :
-	  suVersionInternal).append((char)10). append((char)10); if (suResult !=
-	  null) { for (String line : suResult) { sb.append(line).append((char)10);
-	  } } AlertDialog.Builder builder = new
-	  AlertDialog.Builder(KernelTuner.this);
-	  
-	  builder.setTitle("Root Check");
-	  
-	  if(suAvailable){ builder.setMessage(sb.toString()); } else{
-	  builder.setMessage
-	  ("Root not available.\nThis application will not work properly.");
-	  
-	  } //builder.setIcon(R.drawable.ic_menu_edit);
-	  
-	  
-	  final CheckBox cb = new CheckBox(KernelTuner.this);
-	  cb.setText("Check for root at startup"); cb.setChecked(true);
-	  builder.setPositiveButton("OK", new DialogInterface.OnClickListener() {
-	  
-	  @Override public void onClick(DialogInterface dialog, int which) {
-	  if(cb.isChecked()){ editor.putBoolean("rootCheckAtStartup", true);
-	  editor.commit(); } else{ editor.putBoolean("rootCheckAtStartup", false);
-	  editor.commit(); } } }); builder.setNegativeButton("Exit", new
-	  DialogInterface.OnClickListener(){
-	  
-	  @Override public void onClick(DialogInterface arg0, int arg1) { finish();
-	  
-	  }
-	  
-	 }); builder.setView(cb);
-	  
-	  AlertDialog alert = builder.create(); alert.setCancelable(false);
-	  alert.setCanceledOnTouchOutside(false);
-	  
-	  alert.show(); } }
-	 
+	private class CheckRoot extends AsyncTask<Void, Void, Void> {
+
+		private boolean suAvailable = false;
+		private String suVersion = null;
+		private String suVersionInternal = null;
+		private List<String> suResult = null;
+
+		@Override
+		protected Void doInBackground(Void... params) {
+			suAvailable = Shell.SU.available();
+			if (suAvailable) {
+				suVersion = Shell.SU.version(false);
+				suVersionInternal = Shell.SU.version(true);
+				suResult = Shell.SU.run(new String[] { "id", "ls -l /" });
+			}
+
+			return null;
+		}
+
+		@Override
+		protected void onPostExecute(Void result) {
+			pd.dismiss();
+
+			StringBuilder sb = (new StringBuilder())
+					.append("Root? ")
+					.append(suAvailable ? "Yes" : "No")
+					.append((char) 10)
+					.append("Version: ")
+					.append(suVersion == null ? "N/A" : suVersion)
+					.append((char) 10)
+					.append("Version (internal): ")
+					.append(suVersionInternal == null ? "N/A"
+							: suVersionInternal).append((char) 10)
+					.append((char) 10);
+			/*if (suResult != null) {
+				for (String line : suResult) {
+					sb.append(line).append((char) 10);
+				}
+			}*/
+			AlertDialog.Builder builder = new AlertDialog.Builder(
+					KernelTuner.this);
+
+			builder.setTitle("Root Check");
+
+			if (suAvailable) {
+				builder.setMessage(sb.toString());
+			} else {
+				builder.setMessage("Root not available.\nThis application will not work properly.");
+
+			} // builder.setIcon(R.drawable.ic_menu_edit);
+
+			final CheckBox cb = new CheckBox(KernelTuner.this);
+			cb.setText("Check for root at startup");
+			cb.setChecked(true);
+			builder.setPositiveButton("OK",
+					new DialogInterface.OnClickListener() {
+
+						@Override
+						public void onClick(DialogInterface dialog, int which) {
+							if (cb.isChecked()) {
+								editor.putBoolean("rootCheckAtStartup", true);
+								editor.commit();
+							} else {
+								editor.putBoolean("rootCheckAtStartup", false);
+								editor.commit();
+							}
+						}
+					});
+			builder.setNegativeButton("Exit",
+					new DialogInterface.OnClickListener() {
+
+						@Override
+						public void onClick(DialogInterface arg0, int arg1) {
+							finish();
+
+						}
+
+					});
+			builder.setView(cb);
+
+			AlertDialog alert = builder.create();
+			alert.setCancelable(false);
+			alert.setCanceledOnTouchOutside(false);
+
+			alert.show();
+		}
+	}
+
 	boolean first;
 	boolean isLight;
 	String theme;
+
 	@Override
 	public void onCreate(Bundle savedInstanceState) {
 		preferences = PreferenceManager.getDefaultSharedPreferences(this);
 		editor = preferences.edit();
 		theme = preferences.getString("theme", "light");
-		
-		if(theme.equals("light")){
+
+		if (theme.equals("light")) {
 			setTheme(R.style.Theme_Sherlock_Light);
-		}
-		else if(theme.equals("dark")){
+		} else if (theme.equals("dark")) {
 			setTheme(R.style.Theme_Sherlock);
-			
-		}
-		else if(theme.equals("light_dark_action_bar")){
+
+		} else if (theme.equals("light_dark_action_bar")) {
 			setTheme(R.style.Theme_Sherlock_Light_DarkActionBar);
-			
+
 		}
 		super.onCreate(savedInstanceState);
-		
+
 		setContentView(R.layout.main);
-		
-		if(preferences.getBoolean("rootCheckAtStartup", true)){
+
+		if (preferences.getBoolean("rootCheckAtStartup", true)) {
 			pd = new ProgressDialog(this);
 			pd.setMessage("Checking Root Access\nPlease wait...");
 			pd.setCancelable(false);
@@ -685,8 +709,6 @@ public class KernelTuner extends SherlockActivity {
 			new CheckRoot().execute();
 		}
 
-
-		
 		/**
 		 * Get temperature unit from preferences
 		 */
@@ -1051,14 +1073,8 @@ public class KernelTuner extends SherlockActivity {
 				&& isNotificationServiceRunning() == true) {
 			stopService(new Intent(KernelTuner.this, NotificationService.class));
 		}
-	
-		
 
 	}
-
-	
-
-	
 
 	@Override
 	public void onPause() {
@@ -1074,7 +1090,7 @@ public class KernelTuner extends SherlockActivity {
 		 * Register BroadcastReceiver that will listen for battery changes and
 		 * update ui
 		 */
-		
+
 		this.registerReceiver(this.mBatInfoReceiver, new IntentFilter(
 				Intent.ACTION_BATTERY_CHANGED));
 
@@ -1091,7 +1107,7 @@ public class KernelTuner extends SherlockActivity {
 		} else {
 			new Initd().execute(new String[] { "rm" });
 		}
-		
+
 		super.onResume();
 
 	}
@@ -1115,7 +1131,6 @@ public class KernelTuner extends SherlockActivity {
 	@Override
 	public void onDestroy() {
 
-		
 		/**
 		 * set thread false so that cpu info thread stop repeating
 		 */
@@ -1276,7 +1291,7 @@ public class KernelTuner extends SherlockActivity {
 	}
 
 	private void initialCheck() {
-		if(SideItems.entries.isEmpty()==false){
+		if (SideItems.entries.isEmpty() == false) {
 			SideItems.entries.clear();
 		}
 		/**
@@ -1324,7 +1339,8 @@ public class KernelTuner extends SherlockActivity {
 			try {
 				InputStream fIn = new FileInputStream(file5);
 				fIn.close();
-				SideItems.addEntry(R.drawable.cpu_side, "CPU", CPUActivity.class);
+				SideItems.addEntry(R.drawable.cpu_side, "CPU",
+						CPUActivity.class);
 			} catch (FileNotFoundException e2) {
 				Button cpu = (Button) findViewById(R.id.button2);
 				cpu.setVisibility(View.GONE);
@@ -1340,15 +1356,17 @@ public class KernelTuner extends SherlockActivity {
 		try {
 			InputStream fIn = new FileInputStream(file);
 			fIn.close();
-			SideItems.addEntry(R.drawable.voltage_side, "Voltage", VoltageActivity.class);
-			
+			SideItems.addEntry(R.drawable.voltage_side, "Voltage",
+					VoltageActivity.class);
+
 		} catch (FileNotFoundException e) {
 			File file2 = new File(CPUInfo.VOLTAGE_PATH_TEGRA_3);
 			try {
 				InputStream fIn = new FileInputStream(file2);
 				fIn.close();
-				SideItems.addEntry(R.drawable.voltage_side, "Voltage", VoltageActivity.class);
-				
+				SideItems.addEntry(R.drawable.voltage_side, "Voltage",
+						VoltageActivity.class);
+
 			} catch (FileNotFoundException ex) {
 				Button voltage = (Button) findViewById(R.id.button6);
 				voltage.setVisibility(View.GONE);
@@ -1365,8 +1383,9 @@ public class KernelTuner extends SherlockActivity {
 		try {
 			InputStream fIn = new FileInputStream(file2);
 			fIn.close();
-			SideItems.addEntry(R.drawable.times_side, "Times in State", TISActivity.class);
-			
+			SideItems.addEntry(R.drawable.times_side, "Times in State",
+					TISActivity.class);
+
 		} catch (FileNotFoundException e) {
 			Button times = (Button) findViewById(R.id.button5);
 			times.setVisibility(View.GONE);
@@ -1375,14 +1394,16 @@ public class KernelTuner extends SherlockActivity {
 
 		}
 
-		SideItems.addEntry(R.drawable.dual_side, "Governor", GovernorActivity.class);
-		
+		SideItems.addEntry(R.drawable.dual_side, "Governor",
+				GovernorActivity.class);
+
 		File file6 = new File(CPUInfo.MPDECISION);
 		try {
 			InputStream fIn = new FileInputStream(file6);
 			fIn.close();
-			SideItems.addEntry(R.drawable.dual_side, "MP-Decision", Mpdecision.class);
-			
+			SideItems.addEntry(R.drawable.dual_side, "MP-Decision",
+					Mpdecision.class);
+
 		} catch (FileNotFoundException e) {
 			Button mpdec = (Button) findViewById(R.id.button7);
 			mpdec.setVisibility(View.GONE);
@@ -1396,7 +1417,7 @@ public class KernelTuner extends SherlockActivity {
 			InputStream fIn = new FileInputStream(file7);
 			fIn.close();
 			SideItems.addEntry(R.drawable.temp_side, "Thermal", Thermald.class);
-			
+
 		} catch (FileNotFoundException e) {
 			Button td = (Button) findViewById(R.id.button11);
 			td.setVisibility(View.GONE);
@@ -1405,13 +1426,12 @@ public class KernelTuner extends SherlockActivity {
 
 		}
 
-		
 		File file3 = new File(CPUInfo.GPU);
 		try {
 			InputStream fIn = new FileInputStream(file3);
 			fIn.close();
 			SideItems.addEntry(R.drawable.gpu_side, "GPU", Gpu.class);
-			
+
 		} catch (FileNotFoundException e) {
 			Button gpu = (Button) findViewById(R.id.button3);
 			gpu.setVisibility(View.GONE);
@@ -1420,22 +1440,19 @@ public class KernelTuner extends SherlockActivity {
 
 		}
 
-		SideItems.addEntry(R.drawable.misc_side, "Misc Tweaks", MiscTweaks.class);
+		SideItems.addEntry(R.drawable.misc_side, "Misc Tweaks",
+				MiscTweaks.class);
 		SideItems.addEntry(R.drawable.profile_side, "Profiles", Profiles.class);
 		SideItems.addEntry(R.drawable.swap_side, "OOM", OOM.class);
 		SideItems.addEntry(R.drawable.swap_side, "Swap", Swap.class);
-		SideItems.addEntry(R.drawable.sd_side, "SD Analyzer", SDScannerConfigActivity.class);
-		SideItems.addEntry(R.drawable.info_side, "System Info", SystemInfo.class);
-		//SideItems.addEntry(R.drawable.about_side, "About", About.class);
-		SideItems.addEntry(R.drawable.settings_side, "Settings", Preferences.class);
-		
-		
-		
-		
-		
-		
-		
-		
+		SideItems.addEntry(R.drawable.sd_side, "SD Analyzer",
+				SDScannerConfigActivity.class);
+		SideItems.addEntry(R.drawable.info_side, "System Info",
+				SystemInfo.class);
+		// SideItems.addEntry(R.drawable.about_side, "About", About.class);
+		SideItems.addEntry(R.drawable.settings_side, "Settings",
+				Preferences.class);
+
 	}
 
 	/**
@@ -2042,28 +2059,30 @@ public class KernelTuner extends SherlockActivity {
 	@Override
 	public boolean onCreateOptionsMenu(Menu menu) {
 
-		//MenuInflater inflater = getSupportMenuInflater();
-		//inflater.inflate(R.menu.options, menu);
-		if(theme.equals("light")){
+		// MenuInflater inflater = getSupportMenuInflater();
+		// inflater.inflate(R.menu.options, menu);
+		if (theme.equals("light")) {
 			isLight = true;
-			}
-			else if(theme.equals("dark")){
-				isLight = false;
-			}
-			else if(theme.equals("light_dark_action_bar")){
-				isLight = false;
-			}
+		} else if (theme.equals("dark")) {
+			isLight = false;
+		} else if (theme.equals("light_dark_action_bar")) {
+			isLight = false;
+		}
 		menu.add(1, 1, 1, "Settings")
-        .setIcon(isLight ? R.drawable.settings_light : R.drawable.settings_dark)
-        .setShowAsAction(MenuItem.SHOW_AS_ACTION_IF_ROOM | MenuItem.SHOW_AS_ACTION_WITH_TEXT);
-		menu.add(2, 2, 2, "Compatibility Check")
-		.setShowAsAction(MenuItem.SHOW_AS_ACTION_NEVER);
-		menu.add(3, 3, 3, "Dump Application/System Log")
-		.setShowAsAction(MenuItem.SHOW_AS_ACTION_NEVER);
+				.setIcon(
+						isLight ? R.drawable.settings_light
+								: R.drawable.settings_dark)
+				.setShowAsAction(
+						MenuItem.SHOW_AS_ACTION_IF_ROOM
+								| MenuItem.SHOW_AS_ACTION_WITH_TEXT);
+		menu.add(2, 2, 2, "Compatibility Check").setShowAsAction(
+				MenuItem.SHOW_AS_ACTION_NEVER);
+		menu.add(3, 3, 3, "Dump Application/System Log").setShowAsAction(
+				MenuItem.SHOW_AS_ACTION_NEVER);
 		menu.add(4, 4, 4, "Swap")
-		.setShowAsAction(MenuItem.SHOW_AS_ACTION_NEVER);
-		menu.add(5, 5, 5, "SD Card Analyzer")
-		.setShowAsAction(MenuItem.SHOW_AS_ACTION_NEVER);
+				.setShowAsAction(MenuItem.SHOW_AS_ACTION_NEVER);
+		menu.add(5, 5, 5, "SD Card Analyzer").setShowAsAction(
+				MenuItem.SHOW_AS_ACTION_NEVER);
 
 		return true;
 	}
@@ -2075,7 +2094,6 @@ public class KernelTuner extends SherlockActivity {
 			startActivity(new Intent(this, Preferences.class));
 
 		}
-		
 
 		if (item.getItemId() == 2) {
 			startActivity(new Intent(this, CompatibilityCheck.class));
@@ -2164,7 +2182,7 @@ public class KernelTuner extends SherlockActivity {
 
 		}
 
-		if (item.getItemId() ==4) {
+		if (item.getItemId() == 4) {
 			startActivity(new Intent(this, Swap.class));
 
 		}
