@@ -23,7 +23,7 @@ import com.actionbarsherlock.view.Menu;
 import com.actionbarsherlock.view.MenuItem;
 import com.google.ads.*;
 
-import eu.chainfire.libsuperuser.Shell;
+//import eu.chainfire.libsuperuser.Shell;
 
 import java.io.*;
 import java.util.*;
@@ -632,7 +632,7 @@ public class KernelTuner extends SherlockActivity {
 
 	}
 
-	private class CheckRoot extends AsyncTask<Void, Void, Void> {
+	/*private class CheckRoot extends AsyncTask<Void, Void, Void> {
 
 		private boolean suAvailable = false;
 		private String suVersion = null;
@@ -666,11 +666,11 @@ public class KernelTuner extends SherlockActivity {
 					.append(suVersionInternal == null ? "N/A"
 							: suVersionInternal).append((char) 10)
 					.append((char) 10);
-			/*if (suResult != null) {
+			if (suResult != null) {
 				for (String line : suResult) {
 					sb.append(line).append((char) 10);
 				}
-			}*/
+			}
 			AlertDialog.Builder builder = new AlertDialog.Builder(
 					KernelTuner.this);
 
@@ -718,7 +718,7 @@ public class KernelTuner extends SherlockActivity {
 
 			alert.show();
 		}
-	}
+	}*/
 
 	boolean first;
 	boolean isLight;
@@ -743,7 +743,7 @@ public class KernelTuner extends SherlockActivity {
 
 		setContentView(R.layout.main);
 
-		if (preferences.getBoolean("rootCheckAtStartup", true)) {
+		/*if (preferences.getBoolean("rootCheckAtStartup", true)) {
 			pd = new ProgressDialog(this);
 			pd.setMessage("Checking Root Access\nPlease wait...");
 			pd.setCancelable(false);
@@ -751,7 +751,7 @@ public class KernelTuner extends SherlockActivity {
 			pd.setIndeterminate(true);
 			pd.show();
 			new CheckRoot().execute();
-		}
+		}*/
 		cpu0prog = (TextView)this.findViewById(R.id.ptextView3);
 		cpu1prog = (TextView)this.findViewById(R.id.ptextView4);
 		cpu2prog = (TextView)this.findViewById(R.id.ptextView7);
