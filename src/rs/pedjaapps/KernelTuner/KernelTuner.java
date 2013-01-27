@@ -32,6 +32,8 @@ import java.lang.Process;
 
 public class KernelTuner extends SherlockActivity {
 
+	private List<CPUInfo.FreqsEntry> freqEntries = CPUInfo.frequencies();
+	private List<String> freqNames = new ArrayList<String>();
 	private List<CPUInfo.VoltageList> voltageFreqs = CPUInfo.voltages();
 	private List<String> voltages = new ArrayList<String>();
 	private TextView batteryLevel;
@@ -151,13 +153,55 @@ public class KernelTuner extends SherlockActivity {
 	};
 
 	private boolean thread = true;
-	private String cputemp;
+	private String freqcpu0 = "offline";
+	private String freqcpu1= "offline";
 
+	
+	private String cpu0max = "       ";
+	private String cpu1max = "       ";
+	private String cpu2max = "       ";
+	private String cpu3max = "       ";
+
+	private String freqcpu2 = "offline";
+	private String freqcpu3 = "offline";
+
+
+	private float fLoad;
+	private String cputemp;
+	private static String cpu1online = CPUInfo.cpu1online; 
+	private static String cpu2online = CPUInfo.cpu2online; 
+	private static String cpu3online = CPUInfo.cpu3online; 
+
+
+
+
+	private static String CPU0_CURR_FREQ = CPUInfo.CPU0_CURR_FREQ;
+	private static String CPU1_CURR_FREQ = CPUInfo.CPU1_CURR_FREQ;
+	private static String CPU2_CURR_FREQ = CPUInfo.CPU2_CURR_FREQ;
+	private static String CPU3_CURR_FREQ = CPUInfo.CPU3_CURR_FREQ;
+
+	private static String CPU0_MAX_FREQ = CPUInfo.CPU0_MAX_FREQ;
+	private static String CPU1_MAX_FREQ = CPUInfo.CPU1_MAX_FREQ;
+	private static String CPU2_MAX_FREQ = CPUInfo.CPU2_MAX_FREQ;
+	private static String CPU3_MAX_FREQ = CPUInfo.CPU3_MAX_FREQ;
 	public static String CPU1_CURR_GOV = CPUInfo.CPU1_CURR_GOV;
 	private static String CPU2_CURR_GOV = CPUInfo.CPU2_CURR_GOV;
 	private static String CPU3_CURR_GOV = CPUInfo.CPU3_CURR_GOV;
+	private TextView cpu0prog;
+	private TextView cpu1prog;
+	private TextView cpu2prog;
+	private TextView cpu3prog;
+
+	private ProgressBar cpu0progbar;
+	private ProgressBar cpu1progbar;
+	private ProgressBar cpu2progbar;
+	private ProgressBar cpu3progbar;
+
+	private List<String> freqlist = new ArrayList<String>();
 	private SharedPreferences preferences;
 	private ProgressDialog pd = null;
+	
+	private int load;
 
 	private Handler mHandler = new Handler();
 
@@ -708,7 +752,15 @@ public class KernelTuner extends SherlockActivity {
 			pd.show();
 			new CheckRoot().execute();
 		}
-
+		cpu0prog = (TextView)this.findViewById(R.id.ptextView3);
+		cpu1prog = (TextView)this.findViewById(R.id.ptextView4);
+		cpu2prog = (TextView)this.findViewById(R.id.ptextView7);
+	    cpu3prog = (TextView)this.findViewById(R.id.ptextView8);
+		
+		cpu0progbar = (ProgressBar)findViewById(R.id.progressBar1);
+		cpu1progbar = (ProgressBar)findViewById(R.id.progressBar2);
+		cpu2progbar = (ProgressBar)findViewById(R.id.progressBar3);
+		cpu3progbar = (ProgressBar)findViewById(R.id.progressBar4);
 		/**
 		 * Get temperature unit from preferences
 		 */
@@ -768,6 +820,12 @@ public class KernelTuner extends SherlockActivity {
 		 * Read all available frequency steps
 		 */
 
+		for(CPUInfo.FreqsEntry f: freqEntries){
+			freqlist.add(String.valueOf(f.getFreq()));
+		}
+		for(CPUInfo.FreqsEntry f: freqEntries){
+			freqNames.add(f.getFreqName());
+		}
 		for (CPUInfo.VoltageList v : voltageFreqs) {
 			voltages.add(String.valueOf(v.getFreq()));
 		}
@@ -789,9 +847,35 @@ public class KernelTuner extends SherlockActivity {
 							@Override
 							public void run() {
 
-								cpuTemp();
+										ReadCPU0Clock();
+										ReadCPU0maxfreq();
+										cpuTemp();
+									
+										
+										if (new File(cpu1online).exists())
+										{
 
-							}
+
+											ReadCPU1Clock();
+											ReadCPU1maxfreq();
+
+										}
+										if (new File(cpu2online).exists())
+										{
+											ReadCPU2Clock();
+											ReadCPU2maxfreq();
+
+
+										}
+										if (new File(cpu3online).exists())
+										{
+											ReadCPU3Clock();
+											ReadCPU3maxfreq();
+
+										}
+
+
+									}
 						});
 					} catch (Exception e) {
 
@@ -1066,6 +1150,7 @@ public class KernelTuner extends SherlockActivity {
 			}
 		});
 
+startCpuLoadThread();
 		if (preferences.getBoolean("notificationService", false) == true
 				&& isNotificationServiceRunning() == false) {
 			startService(new Intent(KernelTuner.this, NotificationService.class));
@@ -1164,6 +1249,70 @@ public class KernelTuner extends SherlockActivity {
 
 	}
 
+	private void setCpuLoad(){
+		TextView cpuLoadTxt = (TextView)findViewById(R.id.textView1);
+
+		ProgressBar cpuLoad = (ProgressBar)findViewById(R.id.progressBar5);
+		cpuLoad.setProgress(load);
+		cpuLoadTxt.setText(String.valueOf(load) + "%");
+		
+	}
+	
+	
+private void startCpuLoadThread() {
+		// Do something long
+		Runnable runnable = new Runnable() {
+			@Override
+			public void run() {
+				while(thread) {
+					try {
+						RandomAccessFile reader = new RandomAccessFile("/proc/stat", "r");
+						String load = reader.readLine();
+
+						String[] toks = load.split(" ");
+
+						long idle1 = Long.parseLong(toks[5]);
+						long cpu1 = Long.parseLong(toks[2]) + Long.parseLong(toks[3]) + Long.parseLong(toks[4])
+							+ Long.parseLong(toks[6]) + Long.parseLong(toks[7]) + Long.parseLong(toks[8]);
+
+						try {
+							Thread.sleep(360);
+						} catch (Exception e) {}
+
+						reader.seek(0);
+						load = reader.readLine();
+						reader.close();
+
+						toks = load.split(" ");
+
+						long idle2 = Long.parseLong(toks[5]);
+						long cpu2 = Long.parseLong(toks[2]) + Long.parseLong(toks[3]) + Long.parseLong(toks[4])
+							+ Long.parseLong(toks[6]) + Long.parseLong(toks[7]) + Long.parseLong(toks[8]);
+
+						fLoad =	 (float)(cpu2 - cpu1) / ((cpu2 + idle2) - (cpu1 + idle1));
+
+					} catch (IOException ex) {
+						ex.printStackTrace();
+					}
+					load =(int) (fLoad*100);
+					try {
+						Thread.sleep(1000);
+					} catch (InterruptedException e) {
+						e.printStackTrace();
+					}
+					mHandler.post(new Runnable() {
+							@Override
+							public void run() {
+							
+								setCpuLoad();
+								//	progress.setProgress(value);
+							}
+						});
+				}
+			}
+		};
+		new Thread(runnable).start();
+	}
 	private void changelog() {
 		preferences = PreferenceManager
 				.getDefaultSharedPreferences(getBaseContext());
@@ -1300,29 +1449,62 @@ public class KernelTuner extends SherlockActivity {
 		if (CPUInfo.cpu1Online() == true) {
 			Button b2 = (Button) findViewById(R.id.button1);
 			b2.setVisibility(View.VISIBLE);
+			ProgressBar cpu1progbar = (ProgressBar)findViewById(R.id.progressBar2);
+			cpu1progbar.setVisibility(View.VISIBLE);
+			TextView tv1 = (TextView) findViewById(R.id.ptextView2);
+			tv1.setVisibility(View.VISIBLE);
+			TextView tv4 = (TextView) findViewById(R.id.ptextView4);
+			tv4.setVisibility(View.VISIBLE);
 
 		} else {
 			Button b2 = (Button) findViewById(R.id.button1);
 			b2.setVisibility(View.GONE);
-
+			ProgressBar cpu1progbar = (ProgressBar)findViewById(R.id.progressBar2);
+			cpu1progbar.setVisibility(View.GONE);
+			TextView tv1 = (TextView) findViewById(R.id.ptextView2);
+			tv1.setVisibility(View.GONE);
+			TextView tv4 = (TextView) findViewById(R.id.ptextView4);
+			tv4.setVisibility(View.GONE);
 		}
 		if (CPUInfo.cpu2Online() == true) {
 			Button b3 = (Button) findViewById(R.id.button8);
 			b3.setVisibility(View.VISIBLE);
+			ProgressBar cpu1progbar = (ProgressBar)findViewById(R.id.progressBar3);
+			cpu1progbar.setVisibility(View.VISIBLE);
+			TextView tv1 = (TextView) findViewById(R.id.ptextView5);
+			tv1.setVisibility(View.VISIBLE);
+			TextView tv4 = (TextView) findViewById(R.id.ptextView7);
+			tv4.setVisibility(View.VISIBLE);
 
 		} else {
 			Button b3 = (Button) findViewById(R.id.button8);
 			b3.setVisibility(View.GONE);
-
+			ProgressBar cpu1progbar = (ProgressBar)findViewById(R.id.progressBar3);
+			cpu1progbar.setVisibility(View.GONE);
+			TextView tv1 = (TextView) findViewById(R.id.ptextView5);
+			tv1.setVisibility(View.GONE);
+			TextView tv4 = (TextView) findViewById(R.id.ptextView7);
+			tv4.setVisibility(View.GONE);
 		}
 		if (CPUInfo.cpu3Online() == true) {
 			Button b4 = (Button) findViewById(R.id.button9);
 			b4.setVisibility(View.VISIBLE);
+			ProgressBar cpu1progbar = (ProgressBar)findViewById(R.id.progressBar4);
+			cpu1progbar.setVisibility(View.VISIBLE);
+			TextView tv1 = (TextView) findViewById(R.id.ptextView6);
+			tv1.setVisibility(View.VISIBLE);
+			TextView tv4 = (TextView) findViewById(R.id.ptextView8);
+			tv4.setVisibility(View.VISIBLE);
 
 		} else {
 			Button b4 = (Button) findViewById(R.id.button9);
 			b4.setVisibility(View.GONE);
-
+			ProgressBar cpu1progbar = (ProgressBar)findViewById(R.id.progressBar4);
+			cpu1progbar.setVisibility(View.GONE);
+			TextView tv1 = (TextView) findViewById(R.id.ptextView6);
+			tv1.setVisibility(View.GONE);
+			TextView tv4 = (TextView) findViewById(R.id.ptextView8);
+			tv4.setVisibility(View.GONE);
 		}
 
 		/**
@@ -2056,6 +2238,369 @@ public class KernelTuner extends SherlockActivity {
 		new Initd().execute(new String[] { "apply" });
 	}
 
+	/**
+	Read current cpu0 frequency
+	*/
+	private void ReadCPU0Clock()
+	{
+
+
+		try
+		{
+
+			File myFile = new File(CPU0_CURR_FREQ);
+			FileInputStream fIn = new FileInputStream(myFile);
+			BufferedReader myReader = new BufferedReader(
+				new InputStreamReader(fIn));
+			String aDataRow = "";
+			String aBuffer = "";
+			while ((aDataRow = myReader.readLine()) != null)
+			{
+				aBuffer += aDataRow + "\n";
+			}
+			freqcpu0 = aBuffer;
+			myReader.close();
+
+
+		}
+		catch (Exception e)
+		{
+			freqcpu0 = "offline";
+		}
+
+
+		cpu0progress();
+		cpu0update();
+
+	}
+
+	/**
+	 Read current cpu1 frequency
+	 */
+	private void ReadCPU1Clock()
+	{
+
+
+		try
+		{
+
+			File myFile = new File(CPU1_CURR_FREQ);
+			FileInputStream fIn = new FileInputStream(myFile);
+
+
+
+			BufferedReader myReader = new BufferedReader(
+				new InputStreamReader(fIn));
+			String aDataRow = "";
+			String aBuffer = "";
+			while ((aDataRow = myReader.readLine()) != null)
+			{
+				aBuffer += aDataRow + "\n";
+			}
+
+			freqcpu1= aBuffer;
+			myReader.close();
+
+		}
+		catch (Exception e)
+		{
+			freqcpu1 = "offline";
+
+		}
+
+
+		cpu1progress();
+		cpu1update();
+
+	}
+
+	/**
+	 Read current cpu2 frequency
+	 */
+	private void ReadCPU2Clock()
+	{
+
+
+		try
+		{
+
+			File myFile = new File(CPU2_CURR_FREQ);
+			FileInputStream fIn = new FileInputStream(myFile);
+			BufferedReader myReader = new BufferedReader(
+				new InputStreamReader(fIn));
+			String aDataRow = "";
+			String aBuffer = "";
+			while ((aDataRow = myReader.readLine()) != null)
+			{
+				aBuffer += aDataRow + "\n";
+			}
+			freqcpu2 = aBuffer;
+			myReader.close();
+
+
+		}
+		catch (Exception e)
+		{
+			freqcpu2 = "offline";
+		}
+
+
+		cpu2progress();
+		cpu2update();
+
+	}
+
+
+	/**
+	 Read current cpu3 frequency
+	 */
+	private void ReadCPU3Clock()
+	{
+
+
+		try
+		{
+
+			File myFile = new File(CPU3_CURR_FREQ);
+			FileInputStream fIn = new FileInputStream(myFile);
+
+
+
+			BufferedReader myReader = new BufferedReader(
+				new InputStreamReader(fIn));
+			String aDataRow = "";
+			String aBuffer = "";
+			while ((aDataRow = myReader.readLine()) != null)
+			{
+				aBuffer += aDataRow + "\n";
+			}
+
+			freqcpu3 = aBuffer;
+			myReader.close();
+
+		}
+		catch (Exception e)
+		{
+			freqcpu3 = "offline";
+
+		}
+
+
+		cpu3progress();
+		cpu3update();
+
+	}
+
+
+    /**
+	Read max frequency of cpu0
+	*/
+	private void ReadCPU0maxfreq()
+	{
+
+
+		try
+		{
+
+			File myFile = new File(CPU0_MAX_FREQ);
+			FileInputStream fIn = new FileInputStream(myFile);
+			BufferedReader myReader = new BufferedReader(
+				new InputStreamReader(fIn));
+			String aDataRow = "";
+			String aBuffer = "";
+			while ((aDataRow = myReader.readLine()) != null)
+			{
+				aBuffer += aDataRow + "\n";
+			}
+
+
+			cpu0max = aBuffer;
+			myReader.close();
+
+
+		}
+		catch (Exception e)
+		{
+
+		}
+
+	}
+	/**
+	 Read max frequency of cpu1
+	 */
+	private void ReadCPU1maxfreq()
+	{
+
+
+		try
+		{
+
+			File myFile = new File(CPU1_MAX_FREQ);
+			FileInputStream fIn = new FileInputStream(myFile);
+			BufferedReader myReader = new BufferedReader(
+				new InputStreamReader(fIn));
+			String aDataRow = "";
+			String aBuffer = "";
+			while ((aDataRow = myReader.readLine()) != null)
+			{
+				aBuffer += aDataRow + "\n";
+			}
+
+
+			cpu1max = aBuffer;
+			myReader.close();
+
+			;
+
+
+		}
+		catch (Exception e)
+		{
+
+		}
+
+	}
+	/**
+	 Read max frequency of cpu2
+	 */
+	private void ReadCPU2maxfreq()
+	{
+
+
+		try
+		{
+
+			File myFile = new File(CPU2_MAX_FREQ);
+			FileInputStream fIn = new FileInputStream(myFile);
+			BufferedReader myReader = new BufferedReader(
+				new InputStreamReader(fIn));
+			String aDataRow = "";
+			String aBuffer = "";
+			while ((aDataRow = myReader.readLine()) != null)
+			{
+				aBuffer += aDataRow + "\n";
+			}
+
+
+			cpu2max = aBuffer;
+			myReader.close();
+
+
+		}
+		catch (Exception e)
+		{
+
+		}
+
+	}
+
+	/**
+	 Read max frequency of cpu1
+	 */
+	private void ReadCPU3maxfreq()
+	{
+
+
+		try
+		{
+
+			File myFile = new File(CPU3_MAX_FREQ);
+			FileInputStream fIn = new FileInputStream(myFile);
+			BufferedReader myReader = new BufferedReader(
+				new InputStreamReader(fIn));
+			String aDataRow = "";
+			String aBuffer = "";
+			while ((aDataRow = myReader.readLine()) != null)
+			{
+				aBuffer += aDataRow + "\n";
+			}
+
+
+			cpu3max = aBuffer;
+			myReader.close();
+
+
+		}
+		catch (Exception e)
+		{
+
+		}
+
+	}
+
+	/**
+	Update UI with current frequency
+	*/
+	private void cpu0update()
+	{
+
+		
+		cpu0prog.setText(freqcpu0.trim());
+	}
+
+	/**
+	Set Progress of progressBar
+	*/
+	private void cpu0progress()
+	{
+		if (freqlist != null)
+		{
+		
+			cpu0progbar.setMax(freqlist.indexOf(cpu0max.trim()) + 1);
+			cpu0progbar.setProgress(freqlist.indexOf(freqcpu0.trim()) + 1);
+		}
+
+	}
+
+	private void cpu1update()
+	{
+
+	
+		cpu1prog.setText(freqcpu1.trim());
+	}
+	private void cpu1progress()
+	{
+		if (freqlist != null)
+		{
+			
+			cpu1progbar.setMax(freqlist.indexOf(cpu1max.trim()) + 1);
+			cpu1progbar.setProgress(freqlist.indexOf(freqcpu1.trim()) + 1);
+		}
+	}
+
+	private void cpu2update()
+	{
+
+		
+		cpu2prog.setText(freqcpu2.trim());
+	}
+
+	private void cpu2progress()
+	{
+		if (freqlist != null)
+		{
+			
+			cpu2progbar.setMax(freqlist.indexOf(cpu2max.trim()) + 1);
+			cpu2progbar.setProgress(freqlist.indexOf(freqcpu2.trim()) + 1);
+		}
+	}
+
+	private void cpu3update()
+	{
+
+		
+		cpu3prog.setText(freqcpu3.trim());
+	}
+	private void cpu3progress()
+	{
+		if (freqlist != null)
+		{
+			
+
+			cpu3progbar.setMax(freqlist.indexOf(cpu3max.trim()) + 1);
+			cpu3progbar.setProgress(freqlist.indexOf(freqcpu3.trim()) + 1);
+		}
+	}
 	@Override
 	public boolean onCreateOptionsMenu(Menu menu) {
 

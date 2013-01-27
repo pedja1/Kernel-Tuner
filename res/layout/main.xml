@@ -87,7 +87,7 @@
         </RelativeLayout>
     </LinearLayout>
 
-    <!--  <RelativeLayout
+      <RelativeLayout
         android:id="@+id/rl"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
@@ -131,8 +131,7 @@
             android:layout_alignParentTop="false"
             android:layout_below="@+id/cpuLoad"
             android:layout_centerHorizontal="true"
-            android:text="@string/offline"
-            android:textColor="#ffffffff" />
+            android:text="@string/offline" />
 
         <ProgressBar
             android:id="@+id/progressBar2"
@@ -150,8 +149,7 @@
             android:layout_height="wrap_content"
             android:layout_alignLeft="@+id/ptextView3"
             android:layout_below="@+id/progressBar1"
-            android:text="@string/offline"
-            android:textColor="#ffffffff" />
+            android:text="@string/offline" />
 
         <TextView
             android:id="@+id/ptextView5"
@@ -195,8 +193,7 @@
             android:layout_height="wrap_content"
             android:layout_below="@+id/ptextView2"
             android:layout_centerHorizontal="true"
-            android:text="@string/offline"
-            android:textColor="#ffffffff" />
+            android:text="@string/offline" />
 
         <TextView
             android:id="@+id/ptextView8"
@@ -204,8 +201,7 @@
             android:layout_height="wrap_content"
             android:layout_below="@+id/ptextView7"
             android:layout_centerHorizontal="true"
-            android:text="@string/offline"
-            android:textColor="#ffffffff" />
+            android:text="@string/offline" />
 
         <TextView
             android:id="@+id/cpuLoad"
@@ -228,9 +224,8 @@
             android:layout_height="wrap_content"
             android:layout_alignParentTop="true"
             android:layout_centerHorizontal="true"
-            android:text="@string/n_a"
-            android:textColor="#ffffffff" />
-    </RelativeLayout>-->
+            android:text="@string/n_a" />
+    </RelativeLayout>
 
     
     <LinearLayout
@@ -284,7 +279,7 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_above="@+id/ly2"
-        android:layout_below="@+id/test1"
+        android:layout_below="@+id/rl"
         android:layout_margin="8dp" >
 
         <LinearLayout
