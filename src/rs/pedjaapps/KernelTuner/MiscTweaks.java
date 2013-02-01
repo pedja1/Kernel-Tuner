@@ -398,7 +398,7 @@ public class MiscTweaks extends SherlockActivity
 			preferences = PreferenceManager
 				.getDefaultSharedPreferences(getBaseContext());
 			SharedPreferences.Editor editor = preferences.edit();
-			editor.putString("led", String.valueOf(ledprogress));
+			editor.putString("led", ledprogress+"");
 			editor.commit();
 		}
 
@@ -584,7 +584,7 @@ public class MiscTweaks extends SherlockActivity
 				.getDefaultSharedPreferences(getBaseContext());
 			SharedPreferences.Editor editor = preferences.edit();
 			editor.putString("io", scheduler);
-			editor.putString("sdcache", String.valueOf(sdcache));
+			editor.putString("sdcache", sdcache+"");
 			editor.commit();
 
 		}
@@ -978,7 +978,7 @@ public class MiscTweaks extends SherlockActivity
 		if (sdcache!=null)
 		{
 			EditText sd = (EditText) findViewById(R.id.editText1);
-			sd.setText(String.valueOf(sdcache));
+			sd.setText(sdcache+"");
 		}
 		if(!CPUInfo.sdcacheExists()){
 			sdcacheLayout.setVisibility(View.GONE);
@@ -1332,7 +1332,7 @@ public class MiscTweaks extends SherlockActivity
 				public void onItemSelected(AdapterView<?> parent, View view,
 										   int pos, long id)
 				{
-					s2wnew = String.valueOf(pos);
+					s2wnew = pos+"";
 					if (s2w == "err")
 					{
 						Spinner spinner = (Spinner) findViewById(R.id.spinner2);
@@ -1474,7 +1474,7 @@ public class MiscTweaks extends SherlockActivity
 										   int pos, long id)
 				{
 					if(pos<2){
-						new ChangeNotificationLedTimeout().execute(new String[] {String.valueOf(pos)});
+						new ChangeNotificationLedTimeout().execute(new String[] {pos+""});
 						}
 						else{
 							if(userSelect){

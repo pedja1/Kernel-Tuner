@@ -83,7 +83,7 @@ public class KernelTuner extends SherlockActivity {
 
 			if (tempPref.equals("fahrenheit")) {
 				temperature = (temperature * 1.8) + 32;
-				batteryTemp.setText(String.valueOf((int) temperature) + "°F");
+				batteryTemp.setText(((int) temperature) + "°F");
 				if (temperature <= 104) {
 					batteryTemp.setTextColor(Color.GREEN);
 
@@ -101,7 +101,7 @@ public class KernelTuner extends SherlockActivity {
 			}
 
 			else if (tempPref.equals("celsius")) {
-				batteryTemp.setText(String.valueOf(temperature) + "°C");
+				batteryTemp.setText(temperature + "°C");
 				if (temperature < 45) {
 					batteryTemp.setTextColor(Color.GREEN);
 
@@ -118,7 +118,7 @@ public class KernelTuner extends SherlockActivity {
 				}
 			} else if (tempPref.equals("kelvin")) {
 				temperature = temperature + 273.15;
-				batteryTemp.setText(String.valueOf(temperature) + "°K");
+				batteryTemp.setText(temperature + "°K");
 				if (temperature < 318.15) {
 					batteryTemp.setTextColor(Color.GREEN);
 
@@ -135,7 +135,7 @@ public class KernelTuner extends SherlockActivity {
 				}
 			}
 			// /F = (C x 1.8) + 32
-			batteryLevel.setText(String.valueOf(level) + "%");
+			batteryLevel.setText(level + "%");
 			if (level < 15 && level >= 5) {
 				batteryLevel.setTextColor(Color.RED);
 
@@ -821,13 +821,13 @@ public class KernelTuner extends SherlockActivity {
 		 */
 
 		for(CPUInfo.FreqsEntry f: freqEntries){
-			freqlist.add(String.valueOf(f.getFreq()));
+			freqlist.add(f.getFreq()+"");
 		}
 		for(CPUInfo.FreqsEntry f: freqEntries){
 			freqNames.add(f.getFreqName());
 		}
 		for (CPUInfo.VoltageList v : voltageFreqs) {
-			voltages.add(String.valueOf(v.getFreq()));
+			voltages.add(v.getFreq()+"");
 		}
 
 		initialCheck();
@@ -1254,7 +1254,8 @@ startCpuLoadThread();
 
 		ProgressBar cpuLoad = (ProgressBar)findViewById(R.id.progressBar5);
 		cpuLoad.setProgress(load);
-		cpuLoadTxt.setText(String.valueOf(load) + "%");
+		cpuLoadTxt.setText(load
+		+ "%");
 		
 	}
 	

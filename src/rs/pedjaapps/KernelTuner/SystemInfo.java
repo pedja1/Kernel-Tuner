@@ -173,21 +173,21 @@ public class SystemInfo extends SherlockFragmentActivity implements
 
 			if (apiLevel >= android.os.Build.VERSION_CODES.HONEYCOMB_MR2) {
 				display.getSize(size);
-				screenRezolution = String.valueOf(size.x) + "x"
-						+ String.valueOf(size.y);
+				screenRezolution = size.x + "x"
+						+ size.y;
 			} else {
-				screenRezolution = String.valueOf(display.getWidth()) + "x"
-						+ String.valueOf(display.getHeight());
+				screenRezolution = display.getWidth() + "x"
+						+ display.getHeight();
 
 			}
-			screenRefreshRate = String.valueOf(display.getRefreshRate())
+			screenRefreshRate = display.getRefreshRate()
 					+ "fps";
 
 			DisplayMetrics dm = SystemInfo.this.getResources()
 					.getDisplayMetrics();
-			screenDensity = String.valueOf(dm.densityDpi) + "dpi";
-			screenPpi = "X: " + String.valueOf(dm.xdpi) + ", Y "
-					+ String.valueOf(dm.ydpi);
+			screenDensity = dm.densityDpi + "dpi";
+			screenPpi = "X: " + dm.xdpi + ", Y "
+					+ dm.ydpi;
 
 			try {
 
@@ -816,7 +816,7 @@ public class SystemInfo extends SherlockFragmentActivity implements
 				.findViewById(R.id.textView12);
 
 		if (battperc != null) {
-			level.setText("Level: " + String.valueOf(battperc) + "%");
+			level.setText("Level: " + battperc + "%");
 			levelProgress.setProgress(battperc);
 		} else {
 			level.setText("Unknown");
@@ -831,8 +831,8 @@ public class SystemInfo extends SherlockFragmentActivity implements
 		} else {
 			drain.setText("Unknown");
 		}
-		totalRAMtxt.setText("Total: " + String.valueOf(totalRAM) + "MB");
-		freeRAMtxt.setText("Free: " + String.valueOf(freeRAM) + "MB");
+		totalRAMtxt.setText("Total: " + totalRAM + "MB");
+		freeRAMtxt.setText("Free: " +freeRAM + "MB");
 		ramProgress.setProgress(usedRAM * 100 / totalRAM);
 
 		totalInternaltxt.setText("Total: " + humanReadableSize(totalInternal));
@@ -898,13 +898,13 @@ public class SystemInfo extends SherlockFragmentActivity implements
 		TextView schedulerstxt = (TextView) container.findViewById(R.id.schedulers);
 		TextView s2wtxt = (TextView) container.findViewById(R.id.s2w);
 		if(gpu2d!=null){
-			gpu2dtxt.setText(String.valueOf(gpu2d/1000000)+"MHz");
+			gpu2dtxt.setText((gpu2d/1000000)+"MHz");
 		}
 		else{
 			gpu2dtxt.setText("Unknown");
 		}
 		if(gpu3d!=null){
-			gpu3dtxt.setText(String.valueOf(gpu3d/1000000)+"MHz");
+			gpu3dtxt.setText((gpu3d/1000000)+"MHz");
 		}
 		else{
 			gpu3dtxt.setText("Unknown");
@@ -942,7 +942,7 @@ public class SystemInfo extends SherlockFragmentActivity implements
 			fastchargetxt.setText("Unknown");
 		}
 		if(cdepth!=null){
-			colorDepthtxt.setText(String.valueOf(cdepth)+"-bit");
+			colorDepthtxt.setText(cdepth+"-bit");
 		}
 		else{
 			colorDepthtxt.setText("Unknown");
@@ -960,7 +960,7 @@ public class SystemInfo extends SherlockFragmentActivity implements
 			s2wtxt.setText("Unknown");
 		}
 		androidVersiontxt.setText(androidVersion);
-		apitxt.setText(String.valueOf(apiLevel));
+		apitxt.setText(apiLevel+"");
 		if (apiLevel >= 14) {
 			androidVersiontxt.setTextColor(Color.GREEN);
 			apitxt.setTextColor(Color.GREEN);
@@ -985,8 +985,8 @@ public class SystemInfo extends SherlockFragmentActivity implements
 		tagstxt.setText(tags);
 		typetxt.setText(type);
 		usertxt.setText(user);
-		userAppstxt.setText(String.valueOf(numberOfInstalledApps));
-		systemAppstxt.setText(String.valueOf(numberOfSystemApps));
+		userAppstxt.setText(numberOfInstalledApps+"");
+		systemAppstxt.setText(numberOfSystemApps+"");
 		screenRestxt.setText(screenRezolution);
 		screenRefreshratetxt.setText(screenRefreshRate);
 		screenDensitytxt.setText(screenDensity);
@@ -1043,9 +1043,9 @@ public class SystemInfo extends SherlockFragmentActivity implements
 			governorstxt.setText(governors);
 		}
 		if (voltages.isEmpty() == false) {
-			voltRange.setText(String.valueOf(voltages.get(0) / 1000) + "mV("
+			voltRange.setText((voltages.get(0) / 1000) + "mV("
 					+ voltFreq.get(0) + ") - "
-					+ String.valueOf(voltages.get(voltages.size() - 1) / 1000)
+					+ (voltages.get(voltages.size() - 1) / 1000)
 					+ "mV(" + voltFreq.get(voltFreq.size() - 1) + ")");
 		} else {
 			voltageLayout.setVisibility(View.GONE);
@@ -1061,14 +1061,14 @@ public class SystemInfo extends SherlockFragmentActivity implements
 		 * preferences with value fahrenheit, celsius or kelvin
 		 */
 		if (tempPref.equals("fahrenheit")) {
-			tempNew = String.valueOf((cTemp * 1.8) + 32) + "°F";
+			tempNew = ((cTemp * 1.8) + 32) + "°F";
 
 		} else if (tempPref.equals("celsius")) {
-			tempNew = String.valueOf(cTemp) + "°C";
+			tempNew = cTemp + "°C";
 
 		} else if (tempPref.equals("kelvin")) {
 
-			tempNew = String.valueOf(cTemp + 273.15) + "°C";
+			tempNew = (cTemp + 273.15) + "°C";
 
 		}
 		return tempNew;

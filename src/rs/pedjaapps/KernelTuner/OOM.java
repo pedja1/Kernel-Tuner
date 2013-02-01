@@ -106,7 +106,7 @@ public class OOM extends Activity {
 
 			@Override
 			public void onClick(View arg0) {
-				Dialog("Foreground Application", String.valueOf(foreground), 0);
+				Dialog("Foreground Application", foreground+"", 0);
 			}
 			
 		});
@@ -114,7 +114,7 @@ public class OOM extends Activity {
 
 			@Override
 			public void onClick(View arg0) {
-				Dialog("Visible Application", String.valueOf(foreground), 1);
+				Dialog("Visible Application", foreground+"", 1);
 			}
 			
 		});
@@ -122,7 +122,7 @@ public class OOM extends Activity {
 
 			@Override
 			public void onClick(View arg0) {
-				Dialog("Secondary Server", String.valueOf(foreground), 2);
+				Dialog("Secondary Server", foreground+"", 2);
 			}
 			
 		});
@@ -130,7 +130,7 @@ public class OOM extends Activity {
 
 			@Override
 			public void onClick(View arg0) {
-				Dialog("Hidden Application", String.valueOf(foreground), 3);
+				Dialog("Hidden Application", foreground+"", 3);
 			}
 			
 		});
@@ -138,7 +138,7 @@ public class OOM extends Activity {
 
 			@Override
 			public void onClick(View arg0) {
-				Dialog("Content Provider", String.valueOf(foreground), 4);
+				Dialog("Content Provider", foreground+"", 4);
 			}
 			
 		});
@@ -146,7 +146,7 @@ public class OOM extends Activity {
 
 			@Override
 			public void onClick(View arg0) {
-				Dialog("Empty Application", String.valueOf(foreground), 5);
+				Dialog("Empty Application", foreground+"", 5);
 			}
 			
 		});
@@ -157,7 +157,7 @@ public class OOM extends Activity {
 
 					public void onProgressChanged(SeekBar p1, int pos,
 							boolean p3) {
-						foregroundText.setText(String.valueOf(pos) + "MB");
+						foregroundText.setText(pos + "MB");
 
 					}
 
@@ -181,7 +181,7 @@ public class OOM extends Activity {
 		visibleSeek.setOnSeekBarChangeListener(new OnSeekBarChangeListener() {
 
 			public void onProgressChanged(SeekBar p1, int pos, boolean p3) {
-				visibleText.setText(String.valueOf(pos) + "MB");
+				visibleText.setText(pos + "MB");
 
 			}
 
@@ -204,7 +204,7 @@ public class OOM extends Activity {
 		secondarySeek.setOnSeekBarChangeListener(new OnSeekBarChangeListener() {
 
 			public void onProgressChanged(SeekBar p1, int pos, boolean p3) {
-				secondaryText.setText(String.valueOf(pos) + "MB");
+				secondaryText.setText(pos + "MB");
 
 			}
 
@@ -227,7 +227,7 @@ public class OOM extends Activity {
 		hiddenSeek.setOnSeekBarChangeListener(new OnSeekBarChangeListener() {
 
 			public void onProgressChanged(SeekBar p1, int pos, boolean p3) {
-				hiddenText.setText(String.valueOf(pos) + "MB");
+				hiddenText.setText(pos + "MB");
 
 			}
 
@@ -250,7 +250,7 @@ public class OOM extends Activity {
 		contentSeek.setOnSeekBarChangeListener(new OnSeekBarChangeListener() {
 
 			public void onProgressChanged(SeekBar p1, int pos, boolean p3) {
-				contentText.setText(String.valueOf(pos) + "MB");
+				contentText.setText(pos + "MB");
 
 			}
 
@@ -273,7 +273,7 @@ public class OOM extends Activity {
 		emptySeek.setOnSeekBarChangeListener(new OnSeekBarChangeListener() {
 
 			public void onProgressChanged(SeekBar p1, int pos, boolean p3) {
-				emptyText.setText(String.valueOf(pos) + "MB");
+				emptyText.setText(pos + "MB");
 
 			}
 
@@ -319,12 +319,12 @@ public class OOM extends Activity {
 		contentSeek.setProgress(content);
 		emptySeek.setProgress(empty);
 
-		foregroundText.setText(String.valueOf(foreground) + "MB");
-		visibleText.setText(String.valueOf(visible) + "MB");
-		secondaryText.setText(String.valueOf(secondary) + "MB");
-		hiddenText.setText(String.valueOf(hidden) + "MB");
-		contentText.setText(String.valueOf(content) + "MB");
-		emptyText.setText(String.valueOf(empty) + "MB");
+		foregroundText.setText(foreground + "MB");
+		visibleText.setText(visible + "MB");
+		secondaryText.setText(secondary + "MB");
+		hiddenText.setText(hidden + "MB");
+		contentText.setText(content + "MB");
+		emptyText.setText(empty + "MB");
 	}
 
 	private class setOOM extends AsyncTask<String, Void, Object> {
@@ -408,7 +408,8 @@ public class OOM extends Activity {
 	}
 
 	private String mbToPages(int progress) {
-		String prog = String.valueOf(progress * 1024 / 4);
+		String prog = (progress * 1024 / 4)+""
+		;
 		return prog;
 	}
 

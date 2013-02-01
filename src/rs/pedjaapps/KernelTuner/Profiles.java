@@ -604,7 +604,7 @@ catch (InterruptedException e1)
 					}
 					//sd
 					if( sdcache != null && sdcache!=0){
-						tv23.setText(String.valueOf(sdcache));
+						tv23.setText(sdcache+"");
 					}
 					else{
 						sdll.setVisibility(View.GONE);

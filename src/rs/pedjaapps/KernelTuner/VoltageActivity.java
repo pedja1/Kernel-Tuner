@@ -170,7 +170,7 @@ boolean isLight;
 							@Override
 							public void onClick(DialogInterface dialog, int which)
 							{
-								String name = String.valueOf(input.getText());
+								String name = input.getText().toString();
 								
 								String freqTemp;
 								String valueTemp;
@@ -181,7 +181,7 @@ boolean isLight;
 								}
 								int voltagesSize = voltages.size();
 								for (int i=0; i<voltagesSize; i++){
-									valueBuilder.append(String.valueOf(voltages.get(i))+" ");
+									valueBuilder.append(voltages.get(i)+" ");
 								}
 								freqTemp = freqBuilder.toString();
 								valueTemp = valueBuilder.toString();

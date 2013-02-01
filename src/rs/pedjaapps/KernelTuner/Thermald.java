@@ -216,7 +216,7 @@ public class Thermald extends SherlockActivity
 		}
 		
 		for(CPUInfo.FreqsEntry f: freqEntries){
-			freqs.add(String.valueOf(f.getFreq()));
+			freqs.add(f.getFreq()+"");
 		}
 		for(CPUInfo.FreqsEntry f: freqEntries){
 			freqNames.add(f.getFreqName());
@@ -287,7 +287,7 @@ public class Thermald extends SherlockActivity
 				@Override
 				public void onItemSelected(AdapterView<?> parent, View view, int pos, long id)
 				{
-					p1freqnew = String.valueOf(freqs.get(pos));
+					p1freqnew = freqs.get(pos)+"";
 
 				}
 
@@ -323,7 +323,7 @@ public class Thermald extends SherlockActivity
 				@Override
 				public void onItemSelected(AdapterView<?> parent, View view, int pos, long id)
 				{
-					p2freqnew = String.valueOf(freqs.get(pos));
+					p2freqnew = freqs.get(pos)+"";
 
 				}
 
@@ -359,7 +359,7 @@ public class Thermald extends SherlockActivity
 				@Override
 				public void onItemSelected(AdapterView<?> parent, View view, int pos, long id)
 				{
-					p3freqnew = String.valueOf(freqs.get(pos));
+					p3freqnew = freqs.get(pos)+"";
 
 				}
 
@@ -663,12 +663,12 @@ public class Thermald extends SherlockActivity
 	
 	private void apply(){
 		Thermald.this.pd = ProgressDialog.show(Thermald.this, null, getResources().getString(R.string.applying_settings), true, false);
-		p1lownew = String.valueOf(ed1.getText());
-		p1highnew = String.valueOf(ed2.getText());
-		p2lownew = String.valueOf(ed3.getText());
-		p2highnew = String.valueOf(ed4.getText());
-		p3lownew = String.valueOf(ed5.getText());
-		p3highnew = String.valueOf(ed6.getText());
+		p1lownew = ed1.getText().toString();
+		p1highnew = ed2.getText().toString();
+		p2lownew = ed3.getText().toString();
+		p2highnew = ed4.getText().toString();
+		p3lownew = ed5.getText().toString();
+		p3highnew = ed6.getText().toString();
 		new apply().execute();
 	}
 
