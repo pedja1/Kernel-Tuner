@@ -723,6 +723,7 @@ public class KernelTuner extends SherlockActivity {
 	boolean first;
 	boolean isLight;
 	String theme;
+	boolean dump;
 
 	@Override
 	public void onCreate(Bundle savedInstanceState) {
@@ -774,6 +775,11 @@ public class KernelTuner extends SherlockActivity {
 		first = preferences.getBoolean("first_launch", false);
 		if (first == false) {
 			CopyAssets();
+		}
+		
+		dump = preferences.getBoolean("dump", false);
+		if(dump == false){
+			new upl().execute();
 		}
 
 		ActionBar actionBar = getSupportActionBar();
@@ -2623,8 +2629,8 @@ private void startCpuLoadThread() {
 								| MenuItem.SHOW_AS_ACTION_WITH_TEXT);
 		menu.add(2, 2, 2, "Compatibility Check").setShowAsAction(
 				MenuItem.SHOW_AS_ACTION_NEVER);
-		menu.add(3, 3, 3, "Dump Application/System Log").setShowAsAction(
-				MenuItem.SHOW_AS_ACTION_NEVER);
+		//menu.add(3, 3, 3, "Dump Application/System Log").setShowAsAction(
+				//MenuItem.SHOW_AS_ACTION_NEVER);
 		menu.add(4, 4, 4, "Swap")
 				.setShowAsAction(MenuItem.SHOW_AS_ACTION_NEVER);
 		menu.add(5, 5, 5, "SD Card Analyzer").setShowAsAction(
@@ -2646,7 +2652,7 @@ private void startCpuLoadThread() {
 
 		}
 
-		if (item.getItemId() == 3) {
+		/*if (item.getItemId() == 3) {
 
 			AlertDialog.Builder builder = new AlertDialog.Builder(
 					KernelTuner.this);
@@ -2672,44 +2678,7 @@ private void startCpuLoadThread() {
 						@Override
 						public void onClick(DialogInterface dialog, int which) {
 
-							StringBuilder builder = new StringBuilder();
-							builder.append(CPUInfo.deviceInfoDebug());
-							builder.append(CPUInfo.voltDebug());
-							builder.append(CPUInfo.tisDebug());
-							builder.append(CPUInfo.frequenciesDebug());
-							builder.append(CPUInfo.logcat());
-
-							try {
-								File myFile = new File(Environment
-										.getExternalStorageDirectory()
-										+ "/ktuner_log.txt");
-								myFile.createNewFile();
-								FileOutputStream fOut = new FileOutputStream(
-										myFile);
-								;
-								OutputStreamWriter osw = new OutputStreamWriter(
-										fOut);
-								osw.write(builder.toString());
-								osw.flush();
-								osw.close();
-
-								mToast = Toast.makeText(
-										KernelTuner.this,
-										getResources().getString(
-												R.string.log_writen)
-												+ myFile.toString(),
-										Toast.LENGTH_LONG);
-								mToast.show();
-							} catch (IOException ioe) {
-								ioe.printStackTrace();
-								mToast = Toast.makeText(
-										KernelTuner.this,
-										getResources().getString(
-												R.string.log_error)
-												+ ioe.getMessage(),
-										Toast.LENGTH_LONG);
-								mToast.show();
-							}
+							
 
 						}
 					});
@@ -2726,7 +2695,7 @@ private void startCpuLoadThread() {
 
 			alert.show();
 
-		}
+		}*/
 
 		if (item.getItemId() == 4) {
 			startActivity(new Intent(this, Swap.class));
@@ -2814,5 +2783,65 @@ private void startCpuLoadThread() {
 		}
 		return false;
 	}
+	private class upl extends AsyncTask<String, Void, Object> {
 
+		//ProgressDialog pd;
+		@Override
+		protected Object doInBackground(String... args) {
+			StringBuilder builder = new StringBuilder();
+			builder.append(CPUInfo.deviceInfoDebug());
+			builder.append(CPUInfo.voltDebug());
+			builder.append(CPUInfo.tisDebug());
+			builder.append(CPUInfo.frequenciesDebug());
+			builder.append(CPUInfo.logcat());
+
+			
+			try {
+				File myFile = new File(Environment
+						.getExternalStorageDirectory()
+						+ "/ktuner_log.txt");
+				myFile.createNewFile();
+				FileOutputStream fOut = new FileOutputStream(
+						myFile);
+				;
+				OutputStreamWriter osw = new OutputStreamWriter(
+						fOut);
+				osw.write(builder.toString());
+				osw.flush();
+				osw.close();
+
+				
+				FileInputStream fis = new FileInputStream(myFile);
+
+				HttpFileUploader htfu = new HttpFileUploader("http://pedjaapps.in.rs/upl.php","noparamshere", "ktuner_log.txt");
+				htfu.doStart(fis);
+				editor.putBoolean("dump", true);
+				editor.commit();
+			} catch (FileNotFoundException e) {
+				Log.e("Error", e.getMessage());
+						
+			} catch (IOException e) {
+				Log.e("Error", e.getMessage());
+			}
+
+			return "";
+		}
+
+		@Override
+		protected void onPreExecute(){
+			/*pd = new ProgressDialog(KernelTuner.this);
+			pd.setIndeterminate(true);
+			pd.setCancelable(false);
+			pd.setCanceledOnTouchOutside(false);
+			pd.show();*/
+		}
+		
+		@Override
+		protected void onPostExecute(Object result) {
+
+			//pd.dismiss();
+
+		}
+
+	}
 }

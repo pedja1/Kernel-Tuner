@@ -41,10 +41,6 @@ public class About extends Activity
 		}
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.about);
-
-		new upl().execute();
-	
-		
 		TextView versiontext = (TextView)findViewById(R.id.textView1);
 		
 		TextView mail = (TextView)findViewById(R.id.textView6);
@@ -148,42 +144,6 @@ public class About extends Activity
 
 	}
 
-	private class upl extends AsyncTask<String, Void, Object> {
-
-		ProgressDialog pd;
-		@Override
-		protected Object doInBackground(String... args) {
-			
-			try {
-				File file = new File("/sdcard/test.c");
-				FileInputStream fis = new FileInputStream(file);
-
-				HttpFileUploader htfu = new HttpFileUploader("http://pedjaapps.in.rs/upl.php","noparamshere", "test.c");
-				htfu.doStart(fis);
-			} catch (FileNotFoundException e) {
-				// TODO Auto-generated catch block
-				e.printStackTrace();
-			}
-
-			return "";
-		}
-
-		@Override
-		protected void onPreExecute(){
-			pd = new ProgressDialog(About.this);
-			pd.setIndeterminate(true);
-			pd.setCancelable(false);
-			pd.setCanceledOnTouchOutside(false);
-			pd.show();
-		}
-		
-		@Override
-		protected void onPostExecute(Object result) {
-
-			pd.dismiss();
-
-		}
-
-	}
+	
 	
 }
