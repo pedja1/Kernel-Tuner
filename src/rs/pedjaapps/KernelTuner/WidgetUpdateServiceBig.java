@@ -176,11 +176,11 @@ public class WidgetUpdateServiceBig extends Service
 		cpu1gov = CPUInfo.cpu1CurGov();
 		led = CPUInfo.cbb();
 		
-		fastcharge = String.valueOf(CPUInfo.fcharge());
-		vsync = String.valueOf(CPUInfo.vsync());
+		fastcharge = ""+CPUInfo.fcharge();
+		vsync = ""+CPUInfo.vsync();
 		cdepth = CPUInfo.cDepth();
 		for(CPUInfo.FreqsEntry f: freqEntries){
-			frequencies.add(String.valueOf(f.getFreq()));
+			frequencies.add(""+f.getFreq());
 		}
 		for(CPUInfo.FreqsEntry f: freqEntries){
 			freqNames.add(f.getFreqName());
@@ -709,7 +709,7 @@ public class WidgetUpdateServiceBig extends Service
 			String tempPref = sharedPrefs.getString("temp", "celsius");
 			if (tempPref.equals("fahrenheit"))
 			{
-				cpuTemp = String.valueOf((int)(Double.parseDouble(cpuTemp) * 1.8) + 32);
+				cpuTemp = ""+((int)(Double.parseDouble(cpuTemp) * 1.8) + 32);
 				remoteViews.setTextViewText(R.id.textView27, cpuTemp + "°F");
 				
 		  		int temp = Integer.parseInt(cpuTemp);
@@ -754,7 +754,7 @@ public class WidgetUpdateServiceBig extends Service
 			*/
 			else if (tempPref.equals("kelvin"))
 			{
-				cpuTemp = String.valueOf((int)(Double.parseDouble(cpuTemp) + 273.15));
+				cpuTemp = ""+((int)(Double.parseDouble(cpuTemp) + 273.15));
 				
 				remoteViews.setTextViewText(R.id.textView27, cpuTemp + "°K");
 				
@@ -777,7 +777,7 @@ public class WidgetUpdateServiceBig extends Service
 			if (tempPref.equals("fahrenheit"))
 			{
 				battempint = (battempint * 1.8) + 32;
-				remoteViews.setTextViewText(R.id.textView20, String.valueOf((int)battempint) + "°F");
+				remoteViews.setTextViewText(R.id.textView20, ((int)battempint) + "°F");
 				if (battempint <= 104)
 				{
 					remoteViews.setTextColor(R.id.textView20, Color.GREEN);
@@ -795,7 +795,7 @@ public class WidgetUpdateServiceBig extends Service
 			}
 			else if (tempPref.equals("celsius"))
 			{
-				remoteViews.setTextViewText(R.id.textView20, String.valueOf((int)battempint) + "°C");
+				remoteViews.setTextViewText(R.id.textView20, ((int)battempint) + "°C");
 				if (battempint <= 45)
 				{
 					remoteViews.setTextColor(R.id.textView20, Color.GREEN);
@@ -814,7 +814,7 @@ public class WidgetUpdateServiceBig extends Service
 			else if (tempPref.equals("kelvin"))
 			{
 				battempint = battempint + 273.15;
-				remoteViews.setTextViewText(R.id.textView20, String.valueOf((int)battempint) + "°K");
+				remoteViews.setTextViewText(R.id.textView20, ((int)battempint) + "°K");
 				if (battempint <= 318.15)
 				{
 					remoteViews.setTextColor(R.id.textView20, Color.GREEN);

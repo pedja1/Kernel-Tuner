@@ -150,7 +150,7 @@ public class GovernorActivity extends SherlockActivity
 							public void onClick(DialogInterface dialog, int which)
 							{
 								
-								new ChangeGovernorSettings(GovernorActivity.this).execute(new String[] {String.valueOf(input.getText()), fileList.get(position), governors.get(position)});
+								new ChangeGovernorSettings(GovernorActivity.this).execute(new String[] {input.getText()+"", fileList.get(position), governors.get(position)});
 
 								try
 								{

@@ -223,8 +223,8 @@ public class TISActivityChart extends SherlockActivity
 		for (TimesEntry t : times)
 		{
 			
-			entries.add(new TISEntry(String.valueOf(t.getFreq()/1000)+"Mhz", hrTime(t.getTime()), String.valueOf(t.getTime()*100/totalTime) + "%", (int)(t.getTime()*100/totalTime)));
-			mSeries.add(String.valueOf(t.getFreq()/1000)+"Mhz(" + hrTime(t.getTime())+")", t.getTime());
+			entries.add(new TISEntry((t.getFreq()/1000)+"Mhz", hrTime(t.getTime()), (t.getTime()*100/totalTime) + "%", (int)(t.getTime()*100/totalTime)));
+			mSeries.add((t.getFreq()/1000)+"Mhz(" + hrTime(t.getTime())+")", t.getTime());
 	        SimpleSeriesRenderer renderer = new SimpleSeriesRenderer();
 	        renderer.setColor(COLORS[(mSeries.getItemCount() - 1) % COLORS.length]);
 	        mRenderer.addSeriesRenderer(renderer);
@@ -241,10 +241,10 @@ public class TISActivityChart extends SherlockActivity
 	{
 		
 		String timeString;
-		String s = String.valueOf((int)((time / 100) % 60));
-		String m = String.valueOf((int)((time / (100 * 60)) % 60));
-		String h = String.valueOf((int)((time / (100 * 3600)) % 24));
-		String d = String.valueOf((int)(time / (100 * 60 * 60 * 24)));
+		String s = ""+((int)((time / 100) % 60));
+		String m = ""+((int)((time / (100 * 60)) % 60));
+		String h = ""+((int)((time / (100 * 3600)) % 24));
+		String d = ""+((int)(time / (100 * 60 * 60 * 24)));
 		StringBuilder builder = new StringBuilder();
 		if (!d.equals("0"))
 		{
@@ -275,10 +275,10 @@ public class TISActivityChart extends SherlockActivity
 	{
 		
 		String timeString;
-		String s = String.valueOf((int)((time / 1000) % 60));
-		String m = String.valueOf((int)((time / (1000 * 60)) % 60));
-		String h = String.valueOf((int)((time / (1000 * 3600)) % 24));
-		String d = String.valueOf((int)(time / (1000 * 60 * 60 * 24)));
+		String s = ""+((int)((time / 1000) % 60));
+		String m = ""+((int)((time / (1000 * 60)) % 60));
+		String h = ""+((int)((time / (1000 * 3600)) % 24));
+		String d = ""+((int)(time / (1000 * 60 * 60 * 24)));
 		StringBuilder builder = new StringBuilder();
 		if (!d.equals("0"))
 		{

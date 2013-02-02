@@ -156,8 +156,8 @@ public class Mpdecision extends SherlockActivity
 			editor.putString("thrdownloadnew", thrdownloadnew);
 			editor.putString("thrupmsnew", thrupmsnew);
 			editor.putString("thrdownmsnew", thrdownmsnew);
-			editor.putString("idle_freq", String.valueOf(idleNew));
-			editor.putString("scroff", String.valueOf(scroffNew));
+			editor.putString("idle_freq", idleNew+"");
+			editor.putString("scroff", scroffNew+"");
 			editor.putString("scroff_single", scroff_singleNew);
 			editor.commit();
 			Mpdecision.this.pd.dismiss();
@@ -375,12 +375,12 @@ public class Mpdecision extends SherlockActivity
 		EditText thrdownloadtext=(EditText)findViewById(R.id.ed5);
 		EditText thrdownmstext=(EditText)findViewById(R.id.ed6);
 
-		delaynew = String.valueOf(del.getText());
-		pausenew = String.valueOf(pause.getText());
-		thruploadnew = String.valueOf(thruploadtext.getText());
-		thrupmsnew = String.valueOf(thrupmstext.getText());
-		thrdownloadnew = String.valueOf(thrdownloadtext.getText());
-		thrdownmsnew = String.valueOf(thrdownmstext.getText());
+		delaynew = del.getText().toString();
+		pausenew = pause.getText().toString();
+		thruploadnew = thruploadtext.getText().toString();
+		thrupmsnew = thrupmstext.getText().toString();
+		thrdownloadnew = thrdownloadtext.getText().toString();
+		thrdownmsnew = thrdownmstext.getText().toString();
 
 
 

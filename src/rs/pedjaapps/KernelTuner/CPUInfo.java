@@ -1044,10 +1044,10 @@ public class CPUInfo
 		int time =(int) SystemClock.elapsedRealtime();
 
 
-		String s = String.valueOf((int)((time / 1000) % 60));
-		String m = String.valueOf((int)((time / (1000 * 60)) % 60));
-		String h = String.valueOf((int)((time / (1000 * 3600)) % 24));
-		String d = String.valueOf((int)(time / (1000 * 60 * 60 * 24)));
+		String s = ((int)((time / 1000) % 60))+"";
+		String m = ((int)((time / (1000 * 60)) % 60))+"";
+		String h = ((int)((time / (1000 * 3600)) % 24))+"";
+		String d = ((int)(time / (1000 * 60 * 60 * 24)))+"";
 		StringBuilder builder = new StringBuilder();
 		if (!d.equals("0"))
 		{
@@ -1080,10 +1080,10 @@ public class CPUInfo
 
 		int time =(int) (SystemClock.elapsedRealtime() - SystemClock.uptimeMillis());
 
-		String s = String.valueOf((int)((time / 1000) % 60));
-	    String m = String.valueOf((int)((time / (1000 * 60)) % 60));
-		String h = String.valueOf((int)((time / (1000 * 3600)) % 24));
-		String d = String.valueOf((int)(time / (1000 * 60 * 60 * 24)));
+		String s = ((int)((time / 1000) % 60))+"";
+	    String m = ((int)((time / (1000 * 60)) % 60))+"";
+		String h = ((int)((time / (1000 * 3600)) % 24))+"";
+		String d = ((int)(time / (1000 * 60 * 60 * 24)))+"";
 		StringBuilder builder = new StringBuilder();
 		if (!d.equals("0"))
 		{
@@ -1601,8 +1601,8 @@ public class CPUInfo
 		builder.append("DEVICE INFORMATION\n\n");
 		builder.append("Device: "+android.os.Build.DEVICE+"\n");
 		builder.append("Model: "+android.os.Build.MODEL+"\n");
-		builder.append("Free Memory: "+String.valueOf(Runtime.getRuntime().freeMemory())+"\n");
-		builder.append("Total Memory: "+String.valueOf(Runtime.getRuntime().totalMemory())+"\n");
+		builder.append("Free Memory: "+Runtime.getRuntime().freeMemory()+"\n");
+		builder.append("Total Memory: "+Runtime.getRuntime().totalMemory()+"\n");
 		if(cpu3Online()){
 			builder.append("Total Number of Cores: 4\n");
 		}
@@ -1615,7 +1615,8 @@ public class CPUInfo
 		else{
 			builder.append("Unable to detect number of cpu cores\n");
 		}
-		builder.append("Number of Active Cores: "+String.valueOf(Runtime.getRuntime().availableProcessors())+"\n\n\n");
+		builder.append("Number of Active Cores: "+Runtime.getRuntime().availableProcessors()
+		+"\n\n\n");
 		try
 		{
 			File myFile = new File(paths.get(0));

@@ -224,7 +224,7 @@ public class ProfileEditor extends SherlockActivity
 		List<String> freqs = new ArrayList<String>();
 		freqs.add(getResources().getString(R.string.unchanged));
 		for(CPUInfo.FreqsEntry f: freqEntries){
-			freqs.add(String.valueOf(f.getFreq()));
+			freqs.add(f.getFreq()+"");
 		}
 		for(CPUInfo.FreqsEntry f: freqEntries){
 			freqNames.add(f.getFreqName());
@@ -268,7 +268,7 @@ public class ProfileEditor extends SherlockActivity
 			ed3.setText(profile.getButtonsLight());
 		}
 		if(profileName!=null && !profileName.equals("")){
-			ed4.setText(String.valueOf(profile.getSdcache()));
+			ed4.setText(profile.getSdcache()+"");
 		}
 		if(profileName!=null && !profileName.equals("")){
 			if(profile.getVsync()==0){

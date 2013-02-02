@@ -30,10 +30,10 @@ import android.widget.TextView;
 public class Gpu extends SherlockActivity
 {
 
-	private String gpu2dcurent;
-	private String gpu3dcurent ;
-	private String gpu2dmax;
-	private String gpu3dmax;
+	private int gpu2dcurent;
+	private int gpu3dcurent ;
+	private int gpu2dmax;
+	private int gpu3dmax;
 	private String selected2d;
 
 	private String selected3d;
@@ -223,8 +223,8 @@ private class changegpu extends AsyncTask<String, Void, Object>
 		{
 			preferences = PreferenceManager.getDefaultSharedPreferences(getBaseContext());
 			SharedPreferences.Editor editor = preferences.edit();
-	  	    editor.putString("gpu3d", String.valueOf(new3d));
-	  	    editor.putString("gpu2d", String.valueOf(new2d));
+	  	    editor.putString("gpu3d", new3d+"");
+	  	    editor.putString("gpu2d", new2d+"");
 	  	    editor.commit();
 
 
@@ -277,8 +277,8 @@ private class changegpu extends AsyncTask<String, Void, Object>
 		TextView tv5 = (TextView)findViewById(R.id.textView5);
 		TextView tv2 = (TextView)findViewById(R.id.textView7);
 
-		tv5.setText(gpu3dcurent.substring(0, gpu3dcurent.length() - 6) + "Mhz");
-		tv2.setText(gpu2dcurent.substring(0, gpu2dcurent.length() - 6) + "Mhz");
+		tv5.setText((gpu3dcurent/1000000) + "Mhz");
+		tv2.setText((gpu2dcurent/1000000) + "Mhz");
 
 		Button apply = (Button)findViewById(R.id.apply);
 		Button cancel = (Button)findViewById(R.id.cancel);
@@ -333,7 +333,7 @@ private class changegpu extends AsyncTask<String, Void, Object>
 				}
 			});
 
-		int spinnerPosition = spinnerArrayAdapter.getPosition(gpu2dmax.substring(0, gpu2dmax.length() - 6));
+		int spinnerPosition = spinnerArrayAdapter.getPosition(""+(gpu2dmax/1000000));
 
 		spinner.setSelection(spinnerPosition);
 
@@ -366,7 +366,7 @@ private class changegpu extends AsyncTask<String, Void, Object>
 			});
 
 	
-		int spinnerPosition = spinnerArrayAdapter.getPosition(gpu3dmax.substring(0, gpu3dmax.length() - 6));
+		int spinnerPosition = spinnerArrayAdapter.getPosition(""+(gpu3dmax/1000000));
 		spinner.setSelection(spinnerPosition);
 
 	}
@@ -389,7 +389,7 @@ private class changegpu extends AsyncTask<String, Void, Object>
 				aBuffer += aDataRow + "\n";
 			}
 
-			gpu3dcurent = aBuffer.trim();
+			gpu3dcurent = Integer.parseInt(aBuffer.trim());
 
 			myReader.close();
 
@@ -398,6 +398,7 @@ private class changegpu extends AsyncTask<String, Void, Object>
 		}
 		catch (Exception e)
 		{
+			
 			}
 	}
 
@@ -417,7 +418,7 @@ private class changegpu extends AsyncTask<String, Void, Object>
 				aBuffer += aDataRow + "\n";
 			}
 
-			gpu2dcurent = aBuffer.trim();
+			gpu2dcurent = Integer.parseInt(aBuffer.trim());
 
 			myReader.close();
 
@@ -448,7 +449,7 @@ private class changegpu extends AsyncTask<String, Void, Object>
 				aBuffer += aDataRow + "\n";
 			}
 
-			gpu3dmax = aBuffer.trim();
+			gpu3dmax = Integer.parseInt(aBuffer.trim());
 			createSpinner3D();
 			myReader.close();
 
@@ -474,7 +475,7 @@ private class changegpu extends AsyncTask<String, Void, Object>
 				aBuffer += aDataRow + "\n";
 			}
 
-			gpu2dmax = aBuffer.trim();
+			gpu2dmax = Integer.parseInt(aBuffer.trim());
 
 			createSpinner2D();
 
