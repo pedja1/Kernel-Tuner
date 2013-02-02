@@ -180,8 +180,9 @@ public class NotificationService extends Service
 		thread=false;
 		Log.d("rs.pedjaapps.KernelTuner","NotificationService destroyed");
 		items = null;
+		if(mNotificationManager!=null){
 		mNotificationManager.cancel(NOTIFICATION_ID);
-	
+		}
 		super.onDestroy();
 	}	
 	
