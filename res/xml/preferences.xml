@@ -123,5 +123,14 @@
                      />
 
         </PreferenceScreen>
+		
+	<PreferenceScreen
+		android:title="Backup And Restore"
+		android:summary=""
+		android:icon="@android:drawable/ic_menu_save">
+
+		<intent android:action="rs.pedjaapps.KernelTuner.BackupRestore"
+		/>
+</PreferenceScreen>
     
 </PreferenceScreen>

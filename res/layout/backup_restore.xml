@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:id="@+id/LinearLayout1"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+	android:orientation="vertical">
+	
+	<TextView
+		android:id="@+id/notice"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+		android:text="Backup all application data to external storage.\n\nNote: All existing data will be wiped before restore."
+	/>
+	
+	<Button
+		android:id="@+id/backup"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+		android:text="Backup"
+		/>
+	<Button
+		android:id="@+id/restore"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+		android:text="Restore"
+	/>
+</LinearLayout>
