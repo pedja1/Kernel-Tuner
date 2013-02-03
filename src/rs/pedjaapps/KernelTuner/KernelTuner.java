@@ -2265,7 +2265,7 @@ private void startCpuLoadThread() {
 			{
 				aBuffer += aDataRow + "\n";
 			}
-			freqcpu0 = aBuffer;
+			freqcpu0 = aBuffer.trim();
 			myReader.close();
 
 
@@ -2305,7 +2305,7 @@ private void startCpuLoadThread() {
 				aBuffer += aDataRow + "\n";
 			}
 
-			freqcpu1= aBuffer;
+			freqcpu1= aBuffer.trim();
 			myReader.close();
 
 		}
@@ -2341,7 +2341,7 @@ private void startCpuLoadThread() {
 			{
 				aBuffer += aDataRow + "\n";
 			}
-			freqcpu2 = aBuffer;
+			freqcpu2 = aBuffer.trim();
 			myReader.close();
 
 
@@ -2382,7 +2382,7 @@ private void startCpuLoadThread() {
 				aBuffer += aDataRow + "\n";
 			}
 
-			freqcpu3 = aBuffer;
+			freqcpu3 = aBuffer.trim();
 			myReader.close();
 
 		}
@@ -2541,8 +2541,12 @@ private void startCpuLoadThread() {
 	private void cpu0update()
 	{
 
-		
-		cpu0prog.setText(freqcpu0.trim());
+		if(!freqcpu0.equals("offline")){
+		cpu0prog.setText(freqcpu0.trim().substring(0, freqcpu0.length()-3)+"MHz");
+		}
+		else{
+			cpu0prog.setText("offline");
+		}
 	}
 
 	/**
@@ -2562,8 +2566,12 @@ private void startCpuLoadThread() {
 	private void cpu1update()
 	{
 
-	
-		cpu1prog.setText(freqcpu1.trim());
+		if(!freqcpu1.equals("offline")){
+			cpu1prog.setText(freqcpu1.trim().substring(0, freqcpu1.length()-3)+"MHz");
+			}
+			else{
+				cpu1prog.setText("offline");
+			}
 	}
 	private void cpu1progress()
 	{
@@ -2577,9 +2585,12 @@ private void startCpuLoadThread() {
 
 	private void cpu2update()
 	{
-
-		
-		cpu2prog.setText(freqcpu2.trim());
+		if(!freqcpu2.equals("offline")){
+			cpu2prog.setText(freqcpu2.trim().substring(0, freqcpu2.length()-3)+"MHz");
+			}
+			else{
+				cpu2prog.setText("offline");
+			}
 	}
 
 	private void cpu2progress()
@@ -2595,9 +2606,13 @@ private void startCpuLoadThread() {
 	private void cpu3update()
 	{
 
-		
-		cpu3prog.setText(freqcpu3.trim());
-	}
+		if(!freqcpu3.equals("offline")){
+			cpu3prog.setText(freqcpu3.trim().substring(0, freqcpu3.length()-3)+"MHz");
+			}
+			else{
+				cpu3prog.setText("offline");
+			}
+		}
 	private void cpu3progress()
 	{
 		if (freqlist != null)
