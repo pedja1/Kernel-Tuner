@@ -50,6 +50,11 @@ public class BackupRestore extends SherlockActivity {
 		@Override
 		protected String doInBackground(String... args) {
 			
+			
+		      File ktDir = new File(Environment.getExternalStorageDirectory() + "/KernelTuner");
+		      if(ktDir.exists()==false){
+		      ktDir.mkdir();
+		      }
 			publishProgress(0);
 			backupUserPrefs(BackupRestore.this);
 			publishProgress(1);
