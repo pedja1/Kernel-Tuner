@@ -1116,7 +1116,7 @@ public class MiscTweaks extends SherlockActivity
 			s2w = aBuffer.trim();
 			s2wmethod = true;
 			myReader.close();
-
+			fIn.close();
 
 		}
 		catch (Exception e)
@@ -1141,7 +1141,7 @@ public class MiscTweaks extends SherlockActivity
 				s2w = aBuffer.trim();
 				s2wmethod = false;
 				myReader.close();
-
+				fIn.close();
 			}
 			catch (Exception e2)
 			{
@@ -1168,6 +1168,7 @@ public class MiscTweaks extends SherlockActivity
 			s2wButtons = aBuffer.trim();
 
 			myReader.close();
+			fIn.close();
 		}
 		catch (IOException e)
 		{
@@ -1192,6 +1193,7 @@ public class MiscTweaks extends SherlockActivity
 			s2wStart = aBuffer.trim();
 
 			myReader.close();
+			fIn.close();
 		}
 		catch (IOException e)
 		{
@@ -1216,6 +1218,7 @@ public class MiscTweaks extends SherlockActivity
 			s2wEnd = aBuffer.trim();
 
 			myReader.close();
+			fIn.close();
 		}
 		catch (IOException e)
 		{
@@ -1243,7 +1246,7 @@ public class MiscTweaks extends SherlockActivity
 
 			nlt = aBuffer.trim();
 			myReader.close();
-
+			fIn.close();
 		}
 		catch (Exception e)
 		{
@@ -1272,7 +1275,7 @@ public class MiscTweaks extends SherlockActivity
 
 			ledHox = aBuffer.trim();
 			myReader.close();
-
+			fIn.close();
 		}
 		catch (Exception e)
 		{

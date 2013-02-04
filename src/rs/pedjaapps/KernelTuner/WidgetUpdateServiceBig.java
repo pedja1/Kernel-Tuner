@@ -78,6 +78,7 @@ public class WidgetUpdateServiceBig extends Service
 				aBuffer += aDataRow + "\n";
 			}
 			myReader.close();
+			fIn.close();
 			if(aBuffer.trim().equals("enabled")){
 				b = false;
 			}
@@ -207,7 +208,7 @@ public class WidgetUpdateServiceBig extends Service
 
 			kernel = aBuffer.trim();
 			myReader.close();
-
+			fIn.close();
 		}
 		catch (Exception e)
 		{
@@ -233,7 +234,7 @@ public class WidgetUpdateServiceBig extends Service
 
 			battperc = aBuffer.trim();
 			myReader.close();
-
+			fIn.close();
 		}
 		catch (Exception e)
 		{
@@ -257,7 +258,7 @@ public class WidgetUpdateServiceBig extends Service
 
 			charge = aBuffer.trim();
 			myReader.close();
-
+			fIn.close();
 		}
 		catch (Exception e)
 		{
@@ -283,7 +284,7 @@ public class WidgetUpdateServiceBig extends Service
 
 			batttemp = aBuffer.trim();
 			myReader.close();
-
+			fIn.close();
 		}
 		catch (Exception e)
 		{
@@ -307,7 +308,7 @@ public class WidgetUpdateServiceBig extends Service
 
 			battvol = aBuffer.trim();
 			myReader.close();
-
+			fIn.close();
 		}
 		catch (Exception e)
 		{
@@ -331,7 +332,7 @@ public class WidgetUpdateServiceBig extends Service
 
 			batttech = aBuffer.trim();
 			myReader.close();
-
+			fIn.close();
 		}
 		catch (Exception e)
 		{
@@ -355,7 +356,7 @@ public class WidgetUpdateServiceBig extends Service
 
 			battcurrent = aBuffer.trim();
 			myReader.close();
-
+			fIn.close();
 		}
 		catch (Exception e)
 		{
@@ -379,7 +380,7 @@ public class WidgetUpdateServiceBig extends Service
 
 			batthealth = aBuffer.trim();
 			myReader.close();
-
+			fIn.close();
 		}
 		catch (Exception e)
 		{
@@ -403,7 +404,7 @@ public class WidgetUpdateServiceBig extends Service
 
 			battcap = aBuffer.trim();
 			myReader.close();
-
+			fIn.close();
 		}
 		catch (Exception e)
 		{

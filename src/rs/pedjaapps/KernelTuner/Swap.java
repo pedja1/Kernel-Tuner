@@ -537,7 +537,7 @@ public class Swap extends SherlockActivity
 
     		currentSwappiness = aBuffer.trim();
     		myReader.close();
-
+    		fIn.close();
     	}
 		catch (Exception e)
 		{
@@ -572,7 +572,7 @@ public class Swap extends SherlockActivity
     		swaps = aBuffer.trim();
 
     		myReader.close();
-
+    		fIn.close();
     	}
 		catch (Exception e)
 		{

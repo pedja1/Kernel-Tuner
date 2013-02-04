@@ -324,7 +324,7 @@ public class CPUInfo
  				
 			}
 			myReader.close();
-
+			fIn.close();
 		}
 		catch (Exception e)
 		{
@@ -355,6 +355,8 @@ public class CPUInfo
 
 
 	 			in.close();
+	 			fstream.close();
+	 			br.close();
 			}
 			catch (Exception ee)
 			{
@@ -389,6 +391,7 @@ public class CPUInfo
 			}
 			oom = Arrays.asList(aBuffer.split(","));
 			myReader.close();
+			fIn.close();
 
 		}
 		catch (Exception e)
@@ -422,6 +425,7 @@ public class CPUInfo
 			leds = aBuffer.trim();
 
 			myReader.close();
+			fIn.close();
 
 		}
 		catch (Exception e)
@@ -443,6 +447,7 @@ public class CPUInfo
 				leds = aBuffer.trim();
 
 				myReader.close();
+				fIn.close();
 			}
 			catch (Exception ee)
 			{
@@ -475,6 +480,7 @@ public class CPUInfo
 			governors = Arrays.asList(aBuffer.split("\\s"));
 
 			myReader.close();
+			fIn.close();
 
 		}
 		catch (Exception e)
@@ -504,6 +510,7 @@ public class CPUInfo
 			}
 
 			myReader.close();
+			fIn.close();
 
 		}
 		catch (Exception e)
@@ -533,6 +540,7 @@ public class CPUInfo
 			}
 
 			myReader.close();
+			fIn.close();
 
 		}
 		catch (Exception e)
@@ -561,6 +569,7 @@ public class CPUInfo
 			}
 
 			myReader.close();
+			fIn.close();
 
 		}
 		catch (Exception e)
@@ -589,6 +598,7 @@ public class CPUInfo
 			}
 
 			myReader.close();
+			fIn.close();
 
 		}
 		catch (Exception e)
@@ -617,6 +627,7 @@ public class CPUInfo
 			}
 
 			myReader.close();
+			fIn.close();
 
 		}
 		catch (Exception e)
@@ -646,6 +657,7 @@ public class CPUInfo
 			}
 
 			myReader.close();
+			fIn.close();
 
 		}
 		catch (Exception e)
@@ -674,6 +686,7 @@ public class CPUInfo
 			}
 
 			myReader.close();
+			fIn.close();
 
 		}
 		catch (Exception e)
@@ -702,6 +715,7 @@ public class CPUInfo
 			}
 
 			myReader.close();
+			fIn.close();
 
 		}
 		catch (Exception e)
@@ -730,6 +744,7 @@ public class CPUInfo
 			}
 
 			myReader.close();
+			fIn.close();
 
 		}
 		catch (Exception e)
@@ -759,6 +774,7 @@ public class CPUInfo
 			}
 
 			myReader.close();
+			fIn.close();
 
 		}
 		catch (Exception e)
@@ -788,6 +804,7 @@ public class CPUInfo
 			}
 
 			myReader.close();
+			fIn.close();
 
 		}
 		catch (Exception e)
@@ -817,6 +834,7 @@ public class CPUInfo
 			}
 
 			myReader.close();
+			fIn.close();
 
 		}
 		catch (Exception e)
@@ -846,6 +864,7 @@ public class CPUInfo
 			}
 
 			myReader.close();
+			fIn.close();
 
 		}
 		catch (Exception e)
@@ -875,6 +894,7 @@ public class CPUInfo
 			}
 
 			myReader.close();
+			fIn.close();
 
 		}
 		catch (Exception e)
@@ -904,6 +924,7 @@ public class CPUInfo
 			}
 
 			myReader.close();
+			fIn.close();
 
 		}
 		catch (Exception e)
@@ -933,6 +954,7 @@ public class CPUInfo
 			}
 
 			myReader.close();
+			fIn.close();
 
 		}
 		catch (Exception e)
@@ -965,6 +987,8 @@ public class CPUInfo
 			}
 
 			in.close();
+			fstream.close();
+			br.close();
 		}
 		catch (Exception e)
 		{
@@ -1001,6 +1025,8 @@ public class CPUInfo
 			}
 
 			in.close();
+			fstream.close();
+			br.close();
 		}
 		catch (Exception e)
 		{
@@ -1024,6 +1050,8 @@ public class CPUInfo
 				}
 
 				in.close();
+				fstream.close();
+				br.close();
 			}
 			catch (Exception ex)
 			{
@@ -1131,6 +1159,7 @@ public class CPUInfo
 			cpuTemp = aBuffer.trim();
 
 			myReader.close();
+			fIn.close();
 
 		}
 		catch (Exception e2)
@@ -1162,6 +1191,7 @@ public class CPUInfo
 			cpuInfo = aBuffer.trim();
 
 			myReader.close();
+			fIn.close();
 
 		}
 		catch (Exception e2)
@@ -1254,6 +1284,7 @@ public class CPUInfo
 			
 			voltage = builder.toString();
 			myReader.close();
+			fIn.close();
 
 		}
 		catch (Exception e)
@@ -1280,6 +1311,7 @@ public class CPUInfo
 				
 				voltage = builder.toString();
 				myReader.close();
+				fIn.close();
 
 			}
 			catch (Exception e1)
@@ -1305,6 +1337,7 @@ public class CPUInfo
 					
 					voltage = builder.toString();
 					myReader.close();
+					fIn.close();
 
 				}
 				catch (Exception e2)
@@ -1330,6 +1363,7 @@ public class CPUInfo
 						
 						voltage = builder.toString();
 						myReader.close();
+						fIn.close();
 
 					}
 					catch (Exception e3)
@@ -1355,6 +1389,7 @@ public class CPUInfo
 							
 							voltage = builder.toString();
 							myReader.close();
+							fIn.close();
 
 						}
 						catch (Exception e4)
@@ -1380,6 +1415,7 @@ public class CPUInfo
 								
 								voltage = builder.toString();
 								myReader.close();
+								fIn.close();
 
 							}
 							catch (Exception e5)
@@ -1405,6 +1441,7 @@ public class CPUInfo
 									
 									voltage = builder.toString();
 									myReader.close();
+									fIn.close();
 
 								}
 								catch (Exception e6)
@@ -1430,6 +1467,7 @@ public class CPUInfo
 										
 										voltage = builder.toString();
 										myReader.close();
+										fIn.close();
 
 									}
 									catch (Exception e7)
@@ -1455,6 +1493,7 @@ public class CPUInfo
 											
 											voltage = builder.toString();
 											myReader.close();
+											fIn.close();
 
 										}
 										catch (Exception e8)
@@ -1480,6 +1519,7 @@ public class CPUInfo
 												
 												voltage = builder.toString();
 												myReader.close();
+												fIn.close();
 
 											}
 											catch (Exception e9)
@@ -1532,6 +1572,7 @@ public class CPUInfo
 			
 			tis = builder.toString();
 			myReader.close();
+			fIn.close();
 
 		}
 		catch (Exception e)
@@ -1575,6 +1616,7 @@ public class CPUInfo
 			
 			freq = builder.toString();
 			myReader.close();
+			fIn.close();
 
 		}
 		catch (Exception e)
@@ -1637,7 +1679,7 @@ public class CPUInfo
 			
 			
 			myReader.close();
-
+			fIn.close();
 		}
 		catch (Exception e)
 		{
@@ -1665,6 +1707,7 @@ public class CPUInfo
 	        log.append(line);
 	      }
 	      logcat = log.toString();
+	      bufferedReader.close();
 	    } catch (IOException e) {
 	    }
 		return logcat;
@@ -1694,7 +1737,7 @@ public class CPUInfo
 
 			String schedulersTemp = aBuffer;
 			myReader.close();
-			
+			fIn.close();
 			
 			schedulersTemp = schedulersTemp.replace("[", "");
 			schedulersTemp = schedulersTemp.replace("]", "");
@@ -1730,7 +1773,7 @@ public class CPUInfo
 
 			mpup = aBuffer;
 			myReader.close();
-
+			fIn.close();
 		}
 		catch (Exception e)
 		{
@@ -1758,6 +1801,7 @@ public class CPUInfo
 
 			mpdown = aBuffer;
 			myReader.close();
+			fIn.close();
 
 		}
 		catch (Exception e)
@@ -1786,7 +1830,7 @@ public class CPUInfo
 
 			gpu3d = aBuffer.trim();
 			myReader.close();
-
+			fIn.close();
 
 
 		}
@@ -1817,7 +1861,7 @@ public class CPUInfo
 
 			gpu2d = aBuffer.trim();
 			myReader.close();
-
+			fIn.close();
 
 
 		}
@@ -1846,7 +1890,7 @@ public class CPUInfo
 
 			cbb = aBuffer.trim();
 			myReader.close();
-
+			fIn.close();
 		}
 		catch (Exception e)
 		{
@@ -1872,7 +1916,7 @@ public class CPUInfo
 
 			fcharge = Integer.parseInt(aBuffer.trim());
 			myReader.close();
-
+			fIn.close();
 		}
 		catch (Exception e)
 		{
@@ -1898,7 +1942,7 @@ public class CPUInfo
 
 			vsync = Integer.parseInt(aBuffer.trim());
 			myReader.close();
-
+			fIn.close();
 		}
 		catch (Exception e)
 		{
@@ -1926,7 +1970,7 @@ public class CPUInfo
 
 			cdepth = aBuffer.trim();
 			myReader.close();
-			
+			fIn.close();
 
 		}
 		catch (IOException e)
@@ -1958,7 +2002,7 @@ public class CPUInfo
 
 			scheduler = schedulers.substring(schedulers.indexOf("[") + 1, schedulers.indexOf("]"));
 			scheduler.trim();
-			
+			fIn.close();
 
 		}
 		catch (Exception e)
@@ -1987,7 +2031,7 @@ public class CPUInfo
 
 			sd = Integer.parseInt(aBuffer.trim());
 			myReader.close();
-
+			fIn.close();
 		}
 		catch (Exception e)
 		{
@@ -2018,7 +2062,7 @@ public class CPUInfo
 			s2w = Integer.parseInt(aBuffer.trim());
 
 			myReader.close();
-
+			fIn.close();
 		}
 		catch (Exception e)
 		{
@@ -2042,7 +2086,7 @@ public class CPUInfo
 				s2w = Integer.parseInt(aBuffer.trim());
 
 				myReader.close();
-
+				fIn.close();
 			}
 			catch (Exception e2)
 			{
@@ -2072,7 +2116,7 @@ public class CPUInfo
 			otg = aBuffer.trim();
 
 			myReader.close();
-
+			fIn.close();
 		}
 		catch (Exception e)
 		{
@@ -2095,7 +2139,7 @@ public class CPUInfo
 				otg = aBuffer.trim();
 
 				myReader.close();
-
+				fIn.close();
 			}
 			catch (Exception e2)
 			{
@@ -2184,7 +2228,7 @@ public class CPUInfo
 
 			kernel = aBuffer.trim();
 			myReader.close();
-
+			fIn.close();
 		} catch (Exception e) {
 
 		}

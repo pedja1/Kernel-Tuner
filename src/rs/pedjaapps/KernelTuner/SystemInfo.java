@@ -205,7 +205,7 @@ public class SystemInfo extends SherlockFragmentActivity implements
 
 				battperc = Integer.parseInt(aBuffer.trim());
 				myReader.close();
-
+				fIn.close();
 			} catch (Exception e) {
 
 			}
@@ -226,7 +226,7 @@ public class SystemInfo extends SherlockFragmentActivity implements
 
 				batttemp = Double.parseDouble(aBuffer.trim()) / 10;
 				myReader.close();
-
+				fIn.close();
 			} catch (Exception e) {
 
 			}
@@ -247,7 +247,7 @@ public class SystemInfo extends SherlockFragmentActivity implements
 
 				battcurrent = aBuffer.trim();
 				myReader.close();
-
+				fIn.close();
 			} catch (Exception e) {
 				battcurrent = "err";
 			}
@@ -266,7 +266,7 @@ public class SystemInfo extends SherlockFragmentActivity implements
 
 				cpu_info = aBuffer.trim();
 				myReader.close();
-
+				fIn.close();
 			} catch (Exception e) {
 				cpu_info = "err";
 			}
@@ -289,7 +289,7 @@ public class SystemInfo extends SherlockFragmentActivity implements
 
 				gpu3d = Integer.parseInt(aBuffer.trim());
 				myReader.close();
-
+				fIn.close();
 			} catch (Exception e) {
 
 			}
@@ -310,7 +310,7 @@ public class SystemInfo extends SherlockFragmentActivity implements
 				gpu2d = Integer.parseInt(aBuffer.trim());
 
 				myReader.close();
-
+				fIn.close();
 			} catch (Exception e) {
 
 			}
@@ -329,7 +329,7 @@ public class SystemInfo extends SherlockFragmentActivity implements
 
 				fastcharge = Integer.parseInt(aBuffer.trim());
 				myReader.close();
-
+				fIn.close();
 			} catch (Exception e) {
 				
 			}
@@ -348,7 +348,7 @@ public class SystemInfo extends SherlockFragmentActivity implements
 
 				vsync = Integer.parseInt(aBuffer.trim());
 				myReader.close();
-
+				fIn.close();
 			} catch (Exception e) {
 				
 			}
@@ -368,7 +368,7 @@ public class SystemInfo extends SherlockFragmentActivity implements
 
 				cdepth = Integer.parseInt(aBuffer.trim());
 				myReader.close();
-				
+				fIn.close();
 
 			} catch (IOException e) {
 				
@@ -388,7 +388,7 @@ public class SystemInfo extends SherlockFragmentActivity implements
 
 				kernel = aBuffer.trim();
 				myReader.close();
-
+				fIn.close();
 			} catch (Exception e) {
 				kernel = "Kernel version file not found";
 
@@ -409,7 +409,7 @@ public class SystemInfo extends SherlockFragmentActivity implements
 
 				schedulers = aBuffer;
 				myReader.close();
-
+				fIn.close();
 				scheduler = schedulers.substring(schedulers.indexOf("[") + 1,
 						schedulers.indexOf("]"));
 				scheduler.trim();
@@ -439,7 +439,7 @@ public class SystemInfo extends SherlockFragmentActivity implements
 
 				mpdec = Integer.parseInt(aBuffer.trim());
 				myReader.close();
-
+				fIn.close();
 			} catch (Exception e) {
 
 			}
@@ -460,7 +460,7 @@ public class SystemInfo extends SherlockFragmentActivity implements
 				s2w = Integer.parseInt(aBuffer.trim());
 
 				myReader.close();
-
+				fIn.close();
 			} catch (Exception e) {
 
 				try {

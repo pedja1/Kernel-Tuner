@@ -47,7 +47,7 @@ public class WidgetUpdateService extends Service
 
 			curentfreq = aBuffer;
 			myReader.close();
-
+			fIn.close();
 		}
 		catch (Exception e)
 		{
@@ -71,7 +71,7 @@ public class WidgetUpdateService extends Service
 
 			gov = aBuffer.trim();
 			myReader.close();
-
+			fIn.close();
 		}
 		catch (Exception e)
 		{
@@ -95,7 +95,7 @@ public class WidgetUpdateService extends Service
 
 			battperc = aBuffer.trim();
 			myReader.close();
-
+			fIn.close();
 		}
 		catch (Exception e)
 		{
@@ -119,7 +119,7 @@ public class WidgetUpdateService extends Service
 
 			charge = aBuffer.trim();
 			myReader.close();
-
+			fIn.close();
 		}
 		catch (Exception e)
 		{

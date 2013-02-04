@@ -408,7 +408,7 @@ public class Mpdecision extends SherlockActivity
 
 			delay = aBuffer;
 			myReader.close();
-
+			fIn.close();
 		}
 		catch (Exception e)
 		{
@@ -436,7 +436,7 @@ public class Mpdecision extends SherlockActivity
 
 			pause = aBuffer;
 			myReader.close();
-
+			fIn.close();
 		}
 		catch (Exception e)
 		{
@@ -464,7 +464,7 @@ public class Mpdecision extends SherlockActivity
 
 			thrupload = aBuffer;
 			myReader.close();
-
+			fIn.close();
 		}
 		catch (Exception e)
 		{
@@ -491,7 +491,7 @@ public class Mpdecision extends SherlockActivity
 
 			thrupms = aBuffer;
 			myReader.close();
-
+			fIn.close();
 		}
 		catch (Exception e)
 		{
@@ -518,7 +518,7 @@ public class Mpdecision extends SherlockActivity
 
 			thrdownms = aBuffer;
 			myReader.close();
-
+			fIn.close();
 		}
 		catch (Exception e)
 		{
@@ -545,7 +545,7 @@ public class Mpdecision extends SherlockActivity
 
 			thrdownload = aBuffer;
 			myReader.close();
-
+			fIn.close();
 		}
 		catch (Exception e)
 		{
@@ -572,7 +572,7 @@ public class Mpdecision extends SherlockActivity
 
 			idle = aBuffer.trim();
 			myReader.close();
-
+			fIn.close();
 		}
 		catch (Exception e)
 		{
@@ -599,7 +599,7 @@ public class Mpdecision extends SherlockActivity
 
 			scroff = aBuffer.trim();
 			myReader.close();
-
+			fIn.close();
 		}
 		catch (Exception e)
 		{
@@ -626,7 +626,7 @@ public class Mpdecision extends SherlockActivity
 
 			scroff_single= aBuffer.trim();
 			myReader.close();
-
+			fIn.close();
 		}
 		catch (Exception e)
 		{

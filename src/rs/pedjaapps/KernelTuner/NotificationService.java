@@ -91,7 +91,7 @@ public class NotificationService extends Service
 						}
 						cpu0freq = aBuffer.trim().substring(0, aBuffer.trim().length()-3)+"Mhz";
 						myReader.close();
-
+						fIn.close();
 
 					}
 					catch (Exception e)
@@ -113,7 +113,7 @@ public class NotificationService extends Service
 						}
 						cpu1freq = aBuffer.trim().substring(0, aBuffer.trim().length()-3)+"Mhz";
 						myReader.close();
-
+						fIn.close();
 
 					}
 					catch (Exception e)

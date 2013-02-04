@@ -403,7 +403,7 @@ public class Thermald extends SherlockActivity
 
 			p1freq = aBuffer.trim();
 			myReader.close();
-
+			fIn.close();
 		}
 		catch (Exception e)
 		{
@@ -431,7 +431,7 @@ public class Thermald extends SherlockActivity
 
 			p2freq = aBuffer.trim();
 			myReader.close();
-
+			fIn.close();
 		}
 		catch (Exception e)
 		{
@@ -459,7 +459,7 @@ public class Thermald extends SherlockActivity
 
 			p3freq = aBuffer.trim();
 			myReader.close();
-
+			fIn.close();
 		}
 		catch (Exception e)
 		{
@@ -486,7 +486,7 @@ public class Thermald extends SherlockActivity
 
 			p1low = aBuffer.trim();
 			myReader.close();
-
+			fIn.close();
 		}
 		catch (Exception e)
 		{
@@ -514,7 +514,7 @@ public class Thermald extends SherlockActivity
 
 			p1high = aBuffer;
 			myReader.close();
-
+			fIn.close();
 		}
 		catch (Exception e)
 		{
@@ -541,7 +541,7 @@ public class Thermald extends SherlockActivity
 
 			p2low = aBuffer;
 			myReader.close();
-
+			fIn.close();
 		}
 		catch (Exception e)
 		{
@@ -569,7 +569,7 @@ public class Thermald extends SherlockActivity
 
 			p2high = aBuffer;
 			myReader.close();
-
+			fIn.close();
 		}
 		catch (Exception e)
 		{
@@ -597,7 +597,7 @@ public class Thermald extends SherlockActivity
 
 			p3low = aBuffer;
 			myReader.close();
-
+			fIn.close();
 		}
 		catch (Exception e)
 		{
@@ -625,7 +625,7 @@ public class Thermald extends SherlockActivity
 
 			p3high = aBuffer;
 			myReader.close();
-
+			fIn.close();
 		}
 		catch (Exception e)
 		{

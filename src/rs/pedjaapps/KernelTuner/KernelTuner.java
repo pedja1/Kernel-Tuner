@@ -61,6 +61,7 @@ public class KernelTuner extends SherlockActivity {
 				aBuffer += aDataRow + "\n";
 			}
 			myReader.close();
+			fIn.close();
 			if (aBuffer.trim().equals("enabled")) {
 				b = false;
 			} else {
@@ -632,93 +633,6 @@ public class KernelTuner extends SherlockActivity {
 
 	}
 
-	/*private class CheckRoot extends AsyncTask<Void, Void, Void> {
-
-		private boolean suAvailable = false;
-		private String suVersion = null;
-		private String suVersionInternal = null;
-		private List<String> suResult = null;
-
-		@Override
-		protected Void doInBackground(Void... params) {
-			suAvailable = Shell.SU.available();
-			if (suAvailable) {
-				suVersion = Shell.SU.version(false);
-				suVersionInternal = Shell.SU.version(true);
-				suResult = Shell.SU.run(new String[] { "id", "ls -l /" });
-			}
-
-			return null;
-		}
-
-		@Override
-		protected void onPostExecute(Void result) {
-			pd.dismiss();
-
-			StringBuilder sb = (new StringBuilder())
-					.append("Root? ")
-					.append(suAvailable ? "Yes" : "No")
-					.append((char) 10)
-					.append("Version: ")
-					.append(suVersion == null ? "N/A" : suVersion)
-					.append((char) 10)
-					.append("Version (internal): ")
-					.append(suVersionInternal == null ? "N/A"
-							: suVersionInternal).append((char) 10)
-					.append((char) 10);
-			if (suResult != null) {
-				for (String line : suResult) {
-					sb.append(line).append((char) 10);
-				}
-			}
-			AlertDialog.Builder builder = new AlertDialog.Builder(
-					KernelTuner.this);
-
-			builder.setTitle("Root Check");
-
-			if (suAvailable) {
-				builder.setMessage(sb.toString());
-			} else {
-				builder.setMessage("Root not available.\nThis application will not work properly.");
-
-			} // builder.setIcon(R.drawable.ic_menu_edit);
-
-			final CheckBox cb = new CheckBox(KernelTuner.this);
-			cb.setText("Check for root at startup");
-			cb.setChecked(true);
-			builder.setPositiveButton("OK",
-					new DialogInterface.OnClickListener() {
-
-						@Override
-						public void onClick(DialogInterface dialog, int which) {
-							if (cb.isChecked()) {
-								editor.putBoolean("rootCheckAtStartup", true);
-								editor.commit();
-							} else {
-								editor.putBoolean("rootCheckAtStartup", false);
-								editor.commit();
-							}
-						}
-					});
-			builder.setNegativeButton("Exit",
-					new DialogInterface.OnClickListener() {
-
-						@Override
-						public void onClick(DialogInterface arg0, int arg1) {
-							finish();
-
-						}
-
-					});
-			builder.setView(cb);
-
-			AlertDialog alert = builder.create();
-			alert.setCancelable(false);
-			alert.setCanceledOnTouchOutside(false);
-
-			alert.show();
-		}
-	}*/
 
 	boolean first;
 	boolean isLight;
@@ -744,15 +658,6 @@ public class KernelTuner extends SherlockActivity {
 
 		setContentView(R.layout.main);
 
-		/*if (preferences.getBoolean("rootCheckAtStartup", true)) {
-			pd = new ProgressDialog(this);
-			pd.setMessage("Checking Root Access\nPlease wait...");
-			pd.setCancelable(false);
-			pd.setCanceledOnTouchOutside(false);
-			pd.setIndeterminate(true);
-			pd.show();
-			new CheckRoot().execute();
-		}*/
 		cpu0prog = (TextView)this.findViewById(R.id.ptextView3);
 		cpu1prog = (TextView)this.findViewById(R.id.ptextView4);
 		cpu2prog = (TextView)this.findViewById(R.id.ptextView7);
@@ -1438,6 +1343,7 @@ private void startCpuLoadThread() {
 			}
 
 			myReader.close();
+			fIn.close();
 
 		} catch (Exception e2) {
 
@@ -2267,7 +2173,7 @@ private void startCpuLoadThread() {
 			}
 			freqcpu0 = aBuffer.trim();
 			myReader.close();
-
+			fIn.close();
 
 		}
 		catch (Exception e)
@@ -2307,7 +2213,7 @@ private void startCpuLoadThread() {
 
 			freqcpu1= aBuffer.trim();
 			myReader.close();
-
+			fIn.close();
 		}
 		catch (Exception e)
 		{
@@ -2343,7 +2249,7 @@ private void startCpuLoadThread() {
 			}
 			freqcpu2 = aBuffer.trim();
 			myReader.close();
-
+			fIn.close();
 
 		}
 		catch (Exception e)
@@ -2384,7 +2290,7 @@ private void startCpuLoadThread() {
 
 			freqcpu3 = aBuffer.trim();
 			myReader.close();
-
+			fIn.close();
 		}
 		catch (Exception e)
 		{
@@ -2423,7 +2329,7 @@ private void startCpuLoadThread() {
 
 			cpu0max = aBuffer;
 			myReader.close();
-
+			fIn.close();
 
 		}
 		catch (Exception e)
@@ -2456,8 +2362,8 @@ private void startCpuLoadThread() {
 
 			cpu1max = aBuffer;
 			myReader.close();
-
-			;
+			fIn.close();
+			
 
 
 		}
@@ -2491,7 +2397,7 @@ private void startCpuLoadThread() {
 
 			cpu2max = aBuffer;
 			myReader.close();
-
+			fIn.close();
 
 		}
 		catch (Exception e)
@@ -2525,7 +2431,7 @@ private void startCpuLoadThread() {
 
 			cpu3max = aBuffer;
 			myReader.close();
-
+			fIn.close();
 
 		}
 		catch (Exception e)
@@ -2667,50 +2573,7 @@ private void startCpuLoadThread() {
 
 		}
 
-		/*if (item.getItemId() == 3) {
-
-			AlertDialog.Builder builder = new AlertDialog.Builder(
-					KernelTuner.this);
-
-			builder.setTitle(getResources().getString(R.string.dump));
-
-			LinearLayout ln = new LinearLayout(KernelTuner.this);
-			ln.setOrientation(LinearLayout.VERTICAL);
-			TextView tv = new TextView(KernelTuner.this);
-			TextView tv2 = new TextView(KernelTuner.this);
-			ln.addView(tv);
-			ln.addView(tv2);
-
-			tv.setText(R.string.system_dump_text1);
-			tv2.setText(R.string.system_dump_text2);
-			tv2.setTextColor(Color.RED);
-
-			builder.setIcon(R.drawable.copy_dark);
-
-			builder.setPositiveButton(getResources()
-					.getString(R.string.proceed),
-					new DialogInterface.OnClickListener() {
-						@Override
-						public void onClick(DialogInterface dialog, int which) {
-
-							
-
-						}
-					});
-			builder.setNegativeButton(
-					getResources().getString(R.string.cancel),
-					new DialogInterface.OnClickListener() {
-						@Override
-						public void onClick(DialogInterface dialog, int which) {
-
-						}
-					});
-			builder.setView(ln);
-			AlertDialog alert = builder.create();
-
-			alert.show();
-
-		}*/
+		
 
 		if (item.getItemId() == 4) {
 			startActivity(new Intent(this, Swap.class));
@@ -2832,6 +2695,9 @@ private void startCpuLoadThread() {
 				htfu.doStart(fis);
 				editor.putBoolean("dump", true);
 				editor.commit();
+				fOut.close();
+				osw.close();
+				fis.close();
 			} catch (FileNotFoundException e) {
 				Log.e("Error", e.getMessage());
 						
@@ -2843,19 +2709,11 @@ private void startCpuLoadThread() {
 		}
 
 		@Override
-		protected void onPreExecute(){
-			/*pd = new ProgressDialog(KernelTuner.this);
-			pd.setIndeterminate(true);
-			pd.setCancelable(false);
-			pd.setCanceledOnTouchOutside(false);
-			pd.show();*/
+		protected void onPreExecute(){	
 		}
 		
 		@Override
 		protected void onPostExecute(Object result) {
-
-			//pd.dismiss();
-
 		}
 
 	}
