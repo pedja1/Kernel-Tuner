@@ -643,7 +643,7 @@ public class CompatibilityCheck extends Activity
 
 		setContentView(R.layout.check);
 		new exec().execute();
-		Button ok = (Button) findViewById(R.id.button1);
+		final Button ok = (Button) findViewById(R.id.button1);
 		ok.setOnClickListener(new OnClickListener() {
 
 				@Override

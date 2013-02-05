@@ -47,7 +47,7 @@ public class CPUActivity extends SherlockActivity
 
 	private List<CPUInfo.FreqsEntry> freqEntries = CPUInfo.frequencies();
 	private boolean thread = true;
-	private Handler mHandler = new Handler();
+	final private Handler mHandler = new Handler();
 	private TextView cpu0prog;
 	private ProgressBar progCpu0;
 	private TextView cpu1prog;
@@ -550,12 +550,12 @@ startCpuLoadThread();
 		super.onStop();
 	}
 
-	private void setCpuLoad(){
+	private final void setCpuLoad(){
 		cpuLoad.setProgress(load);
 		cpuLoadTxt.setText(load + "%");
 	}
 	
-	private void startCpuLoadThread() {
+	private final void startCpuLoadThread() {
 		
 		Runnable runnable = new Runnable() {
 			@Override
@@ -611,7 +611,7 @@ startCpuLoadThread();
 	
 
 	
-	private void updateUI()
+	private final void updateUI()
 	{
 		
 		
@@ -621,8 +621,7 @@ startCpuLoadThread();
 		for(CPUInfo.FreqsEntry f: freqEntries){
 			freqNames.add(f.getFreqName());
 		}
-		System.out.println(frequencies);
-		//System.out.println(freqNames);
+		
 		cpu0MinFreq = CPUInfo.cpu0MinFreq();
 		cpu1MinFreq = CPUInfo.cpu1MinFreq();
 		cpu2MinFreq = CPUInfo.cpu2MinFreq();
@@ -1170,7 +1169,7 @@ startCpuLoadThread();
 		populateGovernorSpinners();
 	}
 
-	private void cpuInfo()
+	private final void cpuInfo()
 	{
 		uptime.setText(CPUInfo.uptime());
 		deepSleep.setText(CPUInfo.deepSleep());
@@ -1181,7 +1180,7 @@ startCpuLoadThread();
 
 	
 
-	private void cpuTemp()
+	private final void cpuTemp()
 	{
 
 		if (tempUnit.equals("celsius"))
@@ -1202,7 +1201,7 @@ startCpuLoadThread();
 
 	}
 
-	private void updateCpu0()
+	private final void updateCpu0()
 	{
 
 		if (!cpu0CurFreq.equals("offline"))
@@ -1221,7 +1220,7 @@ startCpuLoadThread();
 
 	}
 
-	private void updateCpu1()
+	private final void updateCpu1()
 	{
 
 		if (!cpu1CurFreq.equals("offline"))
@@ -1239,7 +1238,7 @@ startCpuLoadThread();
 
 	}
 
-	private void updateCpu2()
+	private final void updateCpu2()
 	{
 
 		if (!cpu2CurFreq.equals("offline"))
@@ -1257,7 +1256,7 @@ startCpuLoadThread();
 
 	}
 
-	private void updateCpu3()
+	private final void updateCpu3()
 	{
 
 		if (!cpu3CurFreq.equals("offline"))
@@ -1275,7 +1274,7 @@ startCpuLoadThread();
 
 	}
 
-	private void populateGovernorSpinners()
+	private final void populateGovernorSpinners()
 	{
 		
 		ArrayAdapter<String> gov0spinnerArrayAdapter = new ArrayAdapter<String>(this,   android.R.layout.simple_spinner_item, CPUInfo.governors());

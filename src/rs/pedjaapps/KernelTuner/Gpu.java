@@ -41,7 +41,7 @@ public class Gpu extends SherlockActivity
 	private int new3d;
 	private int new2d;
 
-	private String board = android.os.Build.DEVICE;
+	private static final String board = android.os.Build.DEVICE;
 
 
 	private String[] gpu2d ;
@@ -308,7 +308,7 @@ private class changegpu extends AsyncTask<String, Void, Object>
 
 	}
 
-    private void createSpinner2D()
+    private final void createSpinner2D()
 	{
 
 
@@ -341,7 +341,7 @@ private class changegpu extends AsyncTask<String, Void, Object>
 
 
 
-    private void createSpinner3D()
+    private final void createSpinner3D()
 	{
 
 
@@ -372,7 +372,7 @@ private class changegpu extends AsyncTask<String, Void, Object>
 	}
 
 
-    private void readgpu3dcurent()
+    private final void readgpu3dcurent()
 	{
 		try
 		{
@@ -402,7 +402,7 @@ private class changegpu extends AsyncTask<String, Void, Object>
 			}
 	}
 
-    private void readgpu2dcurent()
+    private final void readgpu2dcurent()
 	{
 		try
 		{
@@ -432,7 +432,7 @@ private class changegpu extends AsyncTask<String, Void, Object>
 	}
 
 
-    private void readgpu3dmax()
+    private final void readgpu3dmax()
 	{
 		try
 		{
@@ -459,7 +459,7 @@ private class changegpu extends AsyncTask<String, Void, Object>
 			}
 	}
 
-    private void readgpu2dmax()
+    private final void readgpu2dmax()
 	{
 		try
 		{

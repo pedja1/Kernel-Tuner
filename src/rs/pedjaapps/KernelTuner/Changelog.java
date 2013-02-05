@@ -7,9 +7,6 @@ import android.webkit.WebView;
 
 public class Changelog extends Activity
 {
-
-	SharedPreferences sharedPrefs;
-
 	@Override
 	public void onCreate(Bundle savedInstanceState)
 	{

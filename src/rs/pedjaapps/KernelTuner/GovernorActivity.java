@@ -194,7 +194,7 @@ public class GovernorActivity extends SherlockActivity
 
 	
 
-	private List<GovEntry> getGovEntries()
+	private final List<GovEntry> getGovEntries()
 	{
 
 		final List<GovEntry> entries = new ArrayList<GovEntry>();

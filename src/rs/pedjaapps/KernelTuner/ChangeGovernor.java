@@ -16,7 +16,7 @@ import android.util.Log;
 public class ChangeGovernor extends AsyncTask<String, Void, String>
 {
 
-	Context context;
+	final Context context;
 
 	public ChangeGovernor(Context context)
 	{
@@ -26,7 +26,7 @@ public class ChangeGovernor extends AsyncTask<String, Void, String>
 	}
 
 
-	SharedPreferences preferences;
+	final SharedPreferences preferences;
 	
 	@Override
 	protected String doInBackground(String... args)

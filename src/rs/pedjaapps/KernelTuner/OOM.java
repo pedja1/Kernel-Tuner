@@ -295,7 +295,7 @@ public class OOM extends Activity {
 
 	}
 
-	public void updateUI() {
+	public final void updateUI() {
 		try{
 		foreground = Integer.parseInt(oom.get(0).trim()) * 4 / 1024;
 		visible = Integer.parseInt(oom.get(1).trim()) * 4 / 1024;
@@ -555,7 +555,7 @@ public class OOM extends Activity {
 		return false;
 	}
 	
-	private  void Dialog(String dialogTitle, String currentValue, final int option){
+	private final void Dialog(String dialogTitle, String currentValue, final int option){
 		AlertDialog.Builder builder = new AlertDialog.Builder(this);
 
 		builder.setTitle(dialogTitle);

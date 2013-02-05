@@ -12,9 +12,9 @@ import android.preference.PreferenceManager;
 public class AppReset
 {
 
-	Context context;
-	SharedPreferences sharedPrefs;
-	SharedPreferences.Editor editor;
+	final Context context;
+	final SharedPreferences sharedPrefs;
+	final SharedPreferences.Editor editor;
 	public AppReset(Context context)
 	{
 		this.context = context;
@@ -24,7 +24,7 @@ public class AppReset
 
 	
 	
-	public void reset(){
+	final public void reset(){
 		
 		List<CPUInfo.VoltageList> voltageList = CPUInfo.voltages();
 		

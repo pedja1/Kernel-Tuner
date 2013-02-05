@@ -627,6 +627,7 @@ public class MiscTweaks extends SherlockActivity
 		sideView.setAdapter(sideAdapter);
 
 		
+		
 		sideView.setOnItemClickListener(new OnItemClickListener(){
 
 			@Override
@@ -941,7 +942,7 @@ public class MiscTweaks extends SherlockActivity
 
 	}
 
-	private void setCheckBoxes()
+	private final void setCheckBoxes()
 	{
 
 		
@@ -1095,7 +1096,7 @@ public class MiscTweaks extends SherlockActivity
 
 	
 
-	private void readS2W()
+	private final void readS2W()
 	{
 		try
 		{
@@ -1226,7 +1227,7 @@ public class MiscTweaks extends SherlockActivity
 		}
 	}
 
-	private void readNLT()
+	private final void readNLT()
 	{
 		try
 		{
@@ -1255,7 +1256,7 @@ public class MiscTweaks extends SherlockActivity
 		}
 	}
 
-	private void readButtons2()
+	private final void readButtons2()
 	{
 		try
 		{
@@ -1286,7 +1287,7 @@ public class MiscTweaks extends SherlockActivity
 	
 	
 
-	private void createSpinnerIO()
+	private final void createSpinnerIO()
 	{
 		
 
@@ -1319,7 +1320,7 @@ public class MiscTweaks extends SherlockActivity
 
 	}
 
-	private void createSpinnerS2W()
+	private final void createSpinnerS2W()
 	{
 		String[] MyStringAray = {"OFF","ON with no backlight","ON with backlight"};
 
@@ -1370,7 +1371,7 @@ public class MiscTweaks extends SherlockActivity
 
 	}
 
-	private void createSpinnerS2WStart()
+	private final void createSpinnerS2WStart()
 	{
 		String[] MyStringAray = s2wButtons.split("\\s");
 
@@ -1409,7 +1410,7 @@ public class MiscTweaks extends SherlockActivity
 
 	}
 
-	private void createSpinnerS2WEnd()
+	private final void createSpinnerS2WEnd()
 	{
 		String[] MyStringAray = s2wButtons.split("\\s");
 
@@ -1450,7 +1451,7 @@ public class MiscTweaks extends SherlockActivity
 
 	
 
-	private void createNLT()
+	private final void createNLT()
 	{
 		String[] MyStringAray = {"Never", "App Default", "Custom"};
 
@@ -1569,7 +1570,7 @@ public class MiscTweaks extends SherlockActivity
 	    return super.onOptionsItemSelected(item);
 	}
 	
-	private void apply(){
+	private final void apply(){
 		EditText sd = (EditText) findViewById(R.id.editText1);
 		sdcache = Integer.parseInt(sd.getText().toString());
 		new ChangeIO().execute();

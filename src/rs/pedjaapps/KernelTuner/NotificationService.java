@@ -25,7 +25,7 @@ import android.util.Log;
 public class NotificationService extends Service
 {
 	private boolean thread;
-	private Handler mHandler = new Handler();
+	private final Handler mHandler = new Handler();
 	private static final String CPU0_CURR_FREQ = "/sys/devices/system/cpu/cpu0/cpufreq/scaling_cur_freq";
 	private String cpu0freq;
 	private static final String  CPU1_CURR_FREQ = "/sys/devices/system/cpu/cpu1/cpufreq/scaling_cur_freq";
@@ -58,7 +58,7 @@ public class NotificationService extends Service
 
 	}
 	
-	private  void getPrefs(){
+	private  final void getPrefs(){
 		
 		sharedPrefs = this.getSharedPreferences("rs.pedjaapps.KernelTuner_preferences", PREFERENCES_MODE);
 		items = sharedPrefs.getString("notif", "freq");

@@ -274,7 +274,7 @@ public class Thermald extends SherlockActivity
 
 	}
 
-	private void createSpinnerp1()
+	private final void createSpinnerp1()
 	{
 		
 
@@ -310,7 +310,7 @@ public class Thermald extends SherlockActivity
 	}
 	}
 
-	private void createSpinnerp2()
+	private final void createSpinnerp2()
 	{
 		
 
@@ -346,7 +346,7 @@ public class Thermald extends SherlockActivity
 	}
 	}
 
-	private void createSpinnerp3()
+	private final void createSpinnerp3()
 	{
 
 
@@ -384,7 +384,7 @@ public class Thermald extends SherlockActivity
 
 	
 
-	private void readCurrentPhase1()
+	private final void readCurrentPhase1()
 	{
 		try
 		{
@@ -412,7 +412,7 @@ public class Thermald extends SherlockActivity
 		}
 	}
 
-	private void readCurrentPhase2()
+	private final void readCurrentPhase2()
 	{
 		try
 		{
@@ -440,7 +440,7 @@ public class Thermald extends SherlockActivity
 		}
 	}
 
-	private void readCurrentPhase3()
+	private final void readCurrentPhase3()
 	{
 		try
 		{
@@ -467,7 +467,7 @@ public class Thermald extends SherlockActivity
 
 		}
 	}
-	private void readP1Low()
+	private final void readP1Low()
 	{
 		try
 		{
@@ -495,7 +495,7 @@ public class Thermald extends SherlockActivity
 		}
 	}
 
-	private void readP1High()
+	private final void readP1High()
 	{
 		try
 		{
@@ -522,7 +522,7 @@ public class Thermald extends SherlockActivity
 
 		}
 	}
-	private void readP2Low()
+	private final void readP2Low()
 	{
 		try
 		{
@@ -550,7 +550,7 @@ public class Thermald extends SherlockActivity
 		}
 	}
 
-	private void readP2High()
+	private final void readP2High()
 	{
 		try
 		{
@@ -578,7 +578,7 @@ public class Thermald extends SherlockActivity
 		}
 	}
 
-	private void readP3Low()
+	private final void readP3Low()
 	{
 		try
 		{
@@ -606,7 +606,7 @@ public class Thermald extends SherlockActivity
 		}
 	}
 
-	private void readP3High()
+	private final void readP3High()
 	{
 		try
 		{
@@ -661,7 +661,7 @@ public class Thermald extends SherlockActivity
 	    return super.onOptionsItemSelected(item);
 	}
 	
-	private void apply(){
+	private final void apply(){
 		Thermald.this.pd = ProgressDialog.show(Thermald.this, null, getResources().getString(R.string.applying_settings), true, false);
 		p1lownew = ed1.getText().toString();
 		p1highnew = ed2.getText().toString();

@@ -28,7 +28,7 @@ public class FrequencyChanger extends AsyncTask<String, Void, String>
 	}
 	
 
-	SharedPreferences preferences;
+	final SharedPreferences preferences;
 	@Override
 	protected String doInBackground(String... args)
 	{

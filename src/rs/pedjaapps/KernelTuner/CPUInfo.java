@@ -19,62 +19,62 @@ import android.util.Log;
 public class CPUInfo
 {
 
-	public static String cpu0online = "/sys/devices/system/cpu/cpu0/online"; 
-	public static String cpu1online = "/sys/devices/system/cpu/cpu1/online"; 
-	public static String cpu2online = "/sys/devices/system/cpu/cpu2/online"; 
-	public static String cpu3online = "/sys/devices/system/cpu/cpu3/online"; 
+	public static final String cpu0online = "/sys/devices/system/cpu/cpu0/online"; 
+	public static final String cpu1online = "/sys/devices/system/cpu/cpu1/online"; 
+	public static final String cpu2online = "/sys/devices/system/cpu/cpu2/online"; 
+	public static final String cpu3online = "/sys/devices/system/cpu/cpu3/online"; 
 
 
-	public static String CPU0_FREQS = "/sys/devices/system/cpu/cpu0/cpufreq/scaling_available_frequencies";
-	public static String SWAPS = "/proc/swaps";
+	public static final String CPU0_FREQS = "/sys/devices/system/cpu/cpu0/cpufreq/scaling_available_frequencies";
+	public static final String SWAPS = "/proc/swaps";
 	
-	public static String CPU0_CURR_FREQ = "/sys/devices/system/cpu/cpu0/cpufreq/scaling_cur_freq";
-	public static String CPU1_CURR_FREQ = "/sys/devices/system/cpu/cpu1/cpufreq/scaling_cur_freq";
-	public static String CPU2_CURR_FREQ = "/sys/devices/system/cpu/cpu2/cpufreq/scaling_cur_freq";
-	public static String CPU3_CURR_FREQ = "/sys/devices/system/cpu/cpu3/cpufreq/scaling_cur_freq";
+	public static final String CPU0_CURR_FREQ = "/sys/devices/system/cpu/cpu0/cpufreq/scaling_cur_freq";
+	public static final String CPU1_CURR_FREQ = "/sys/devices/system/cpu/cpu1/cpufreq/scaling_cur_freq";
+	public static final String CPU2_CURR_FREQ = "/sys/devices/system/cpu/cpu2/cpufreq/scaling_cur_freq";
+	public static final String CPU3_CURR_FREQ = "/sys/devices/system/cpu/cpu3/cpufreq/scaling_cur_freq";
 
-	public static String CPU0_MAX_FREQ = "/sys/devices/system/cpu/cpu0/cpufreq/scaling_max_freq";
-	public static String CPU1_MAX_FREQ = "/sys/devices/system/cpu/cpu1/cpufreq/scaling_max_freq";
-	public static String CPU2_MAX_FREQ = "/sys/devices/system/cpu/cpu2/cpufreq/scaling_max_freq";
-	public static String CPU3_MAX_FREQ = "/sys/devices/system/cpu/cpu3/cpufreq/scaling_max_freq";
+	public static final String CPU0_MAX_FREQ = "/sys/devices/system/cpu/cpu0/cpufreq/scaling_max_freq";
+	public static final String CPU1_MAX_FREQ = "/sys/devices/system/cpu/cpu1/cpufreq/scaling_max_freq";
+	public static final String CPU2_MAX_FREQ = "/sys/devices/system/cpu/cpu2/cpufreq/scaling_max_freq";
+	public static final String CPU3_MAX_FREQ = "/sys/devices/system/cpu/cpu3/cpufreq/scaling_max_freq";
 
-	public static String CPU0_MIN_FREQ = "/sys/devices/system/cpu/cpu0/cpufreq/scaling_min_freq";
-	public static String CPU1_MIN_FREQ = "/sys/devices/system/cpu/cpu1/cpufreq/scaling_min_freq";
-	public static String CPU2_MIN_FREQ = "/sys/devices/system/cpu/cpu2/cpufreq/scaling_min_freq";
-	public static String CPU3_MIN_FREQ = "/sys/devices/system/cpu/cpu3/cpufreq/scaling_min_freq";
+	public static final String CPU0_MIN_FREQ = "/sys/devices/system/cpu/cpu0/cpufreq/scaling_min_freq";
+	public static final String CPU1_MIN_FREQ = "/sys/devices/system/cpu/cpu1/cpufreq/scaling_min_freq";
+	public static final String CPU2_MIN_FREQ = "/sys/devices/system/cpu/cpu2/cpufreq/scaling_min_freq";
+	public static final String CPU3_MIN_FREQ = "/sys/devices/system/cpu/cpu3/cpufreq/scaling_min_freq";
 
-	public static String CPU0_CURR_GOV = "/sys/devices/system/cpu/cpu0/cpufreq/scaling_governor";
-	public static String CPU1_CURR_GOV = "/sys/devices/system/cpu/cpu1/cpufreq/scaling_governor";
-	public static String CPU2_CURR_GOV = "/sys/devices/system/cpu/cpu2/cpufreq/scaling_governor";
-	public static String CPU3_CURR_GOV = "/sys/devices/system/cpu/cpu3/cpufreq/scaling_governor";
+	public static final String CPU0_CURR_GOV = "/sys/devices/system/cpu/cpu0/cpufreq/scaling_governor";
+	public static final String CPU1_CURR_GOV = "/sys/devices/system/cpu/cpu1/cpufreq/scaling_governor";
+	public static final String CPU2_CURR_GOV = "/sys/devices/system/cpu/cpu2/cpufreq/scaling_governor";
+	public static final String CPU3_CURR_GOV = "/sys/devices/system/cpu/cpu3/cpufreq/scaling_governor";
 
-	public static String CPU0_GOVS = "/sys/devices/system/cpu/cpu0/cpufreq/scaling_available_governors";
-	public static String CPU1_GOVS = "/sys/devices/system/cpu/cpu1/cpufreq/scaling_available_governors";
-	public static String CPU2_GOVS = "/sys/devices/system/cpu/cpu2/cpufreq/scaling_available_governors";
-	public static String CPU3_GOVS = "/sys/devices/system/cpu/cpu3/cpufreq/scaling_available_governors";
-	public static String TIMES_IN_STATE_CPU0 = "/sys/devices/system/cpu/cpu0/cpufreq/stats/time_in_state";
-	public static String TIMES_IN_STATE_CPU1 = "/sys/devices/system/cpu/cpu1/cpufreq/stats/time_in_state";
-	public static String TIMES_IN_STATE_CPU2 = "/sys/devices/system/cpu/cpu2/cpufreq/stats/time_in_state";
-	public static String TIMES_IN_STATE_CPU3 = "/sys/devices/system/cpu/cpu3/cpufreq/stats/time_in_state";
+	public static final String CPU0_GOVS = "/sys/devices/system/cpu/cpu0/cpufreq/scaling_available_governors";
+	public static final String CPU1_GOVS = "/sys/devices/system/cpu/cpu1/cpufreq/scaling_available_governors";
+	public static final String CPU2_GOVS = "/sys/devices/system/cpu/cpu2/cpufreq/scaling_available_governors";
+	public static final String CPU3_GOVS = "/sys/devices/system/cpu/cpu3/cpufreq/scaling_available_governors";
+	public static final String TIMES_IN_STATE_CPU0 = "/sys/devices/system/cpu/cpu0/cpufreq/stats/time_in_state";
+	public static final String TIMES_IN_STATE_CPU1 = "/sys/devices/system/cpu/cpu1/cpufreq/stats/time_in_state";
+	public static final String TIMES_IN_STATE_CPU2 = "/sys/devices/system/cpu/cpu2/cpufreq/stats/time_in_state";
+	public static final String TIMES_IN_STATE_CPU3 = "/sys/devices/system/cpu/cpu3/cpufreq/stats/time_in_state";
 
-	public static String VOLTAGE_PATH = "/sys/devices/system/cpu/cpufreq/vdd_table/vdd_levels";
-	public static String VOLTAGE_PATH_TEGRA_3 = "/sys/devices/system/cpu/cpu0/cpufreq/UV_mV_table";
-	public static String GPU = "/sys/devices/platform/kgsl-3d0.0/kgsl/kgsl-3d0/max_gpuclk";
-	public static String CDEPTH = "/sys/kernel/debug/msm_fb/0/bpp";
-	public static String S2W = "/sys/android_touch/sweep2wake";
-	public static String S2W_ALT = "/sys/android_touch/sweep2wake/s2w_switch";
-	public static String MPDECISION = "/sys/kernel/msm_mpdecision/conf/enabled";
-	public static String BUTTONS_LIGHT = "/sys/devices/platform/leds-pm8058/leds/button-backlight/currents";
-	public static String BUTTONS_LIGHT_2 = "/sys/devices/platform/msm_ssbi.0/pm8921-core/pm8xxx-led/leds/button-backlight/currents";
-	public static String SD_CACHE = "/sys/devices/virtual/bdi/179:0/read_ahead_kb";
-	public static String VSYNC = "/sys/kernel/debug/msm_fb/0/vsync_enable";
-	public static String FCHARGE = "/sys/kernel/fast_charge/force_fast_charge";
-	public static String OOM = "/sys/module/lowmemorykiller/parameters/minfree";
-	public static String THERMALD = "/sys/kernel/msm_thermal/conf/allowed_low_freq";
-	public static String SCHEDULER = "/sys/block/mmcblk0/queue/scheduler";
-	public static String OTG = "/sys/kernel/debug/msm_otg/mode";
-	public static String OTG_2= "/sys/kernel/debug/otg/mode";
-	public static boolean freqsExists()
+	public static final String VOLTAGE_PATH = "/sys/devices/system/cpu/cpufreq/vdd_table/vdd_levels";
+	public static final String VOLTAGE_PATH_TEGRA_3 = "/sys/devices/system/cpu/cpu0/cpufreq/UV_mV_table";
+	public static final String GPU = "/sys/devices/platform/kgsl-3d0.0/kgsl/kgsl-3d0/max_gpuclk";
+	public static final String CDEPTH = "/sys/kernel/debug/msm_fb/0/bpp";
+	public static final String S2W = "/sys/android_touch/sweep2wake";
+	public static final String S2W_ALT = "/sys/android_touch/sweep2wake/s2w_switch";
+	public static final String MPDECISION = "/sys/kernel/msm_mpdecision/conf/enabled";
+	public static final String BUTTONS_LIGHT = "/sys/devices/platform/leds-pm8058/leds/button-backlight/currents";
+	public static final String BUTTONS_LIGHT_2 = "/sys/devices/platform/msm_ssbi.0/pm8921-core/pm8xxx-led/leds/button-backlight/currents";
+	public static final String SD_CACHE = "/sys/devices/virtual/bdi/179:0/read_ahead_kb";
+	public static final String VSYNC = "/sys/kernel/debug/msm_fb/0/vsync_enable";
+	public static final String FCHARGE = "/sys/kernel/fast_charge/force_fast_charge";
+	public static final String OOM = "/sys/module/lowmemorykiller/parameters/minfree";
+	public static final String THERMALD = "/sys/kernel/msm_thermal/conf/allowed_low_freq";
+	public static final String SCHEDULER = "/sys/block/mmcblk0/queue/scheduler";
+	public static final String OTG = "/sys/kernel/debug/msm_otg/mode";
+	public static final String OTG_2= "/sys/kernel/debug/otg/mode";
+	public static final boolean freqsExists()
 	{
 		boolean i = false;
 		if (new File(CPU0_FREQS).exists())
@@ -85,7 +85,7 @@ public class CPUInfo
 
 	}
 	
-	public static boolean oomExists()
+	public static final boolean oomExists()
 	{
 		boolean i = false;
 		if (new File(OOM).exists())
@@ -96,7 +96,7 @@ public class CPUInfo
 
 	}
 	
-	public static boolean thermaldExists()
+	public static final boolean thermaldExists()
 	{
 		boolean i = false;
 		if (new File(THERMALD).exists())
@@ -107,7 +107,7 @@ public class CPUInfo
 
 	}
 	
-	public static boolean swapsExists()
+	public static final boolean swapsExists()
 	{
 		boolean i = false;
 		if (new File(SWAPS).exists())
@@ -118,7 +118,7 @@ public class CPUInfo
 
 	}
 	
-	public static boolean cpu0Online()
+	public static final boolean cpu0Online()
 	{
 		boolean i = false;
 		if (new File(cpu0online).exists())
@@ -129,7 +129,7 @@ public class CPUInfo
 
 	}
 
-	public static boolean cpu1Online()
+	public static final boolean cpu1Online()
 	{
 		boolean i = false;
 		if (new File(cpu1online).exists())
@@ -140,7 +140,7 @@ public class CPUInfo
 
 	}
 
-	public static boolean cpu2Online()
+	public static final boolean cpu2Online()
 	{
 		boolean i = false;
 		if (new File(cpu2online).exists())
@@ -151,7 +151,7 @@ public class CPUInfo
 
 	}
 
-	public static boolean cpu3Online()
+	public static final boolean cpu3Online()
 	{
 		boolean i = false;
 		if (new File(cpu3online).exists())
@@ -162,7 +162,7 @@ public class CPUInfo
 
 	}
 	
-	public static boolean gpuExists()
+	public static final boolean gpuExists()
 	{
 		boolean i = false;
 		if (new File(GPU).exists())
@@ -173,7 +173,7 @@ public class CPUInfo
 
 	}
 	
-	public static boolean cdExists()
+	public static final boolean cdExists()
 	{
 		boolean i = false;
 		if (new File(CDEPTH).exists())
@@ -184,7 +184,7 @@ public class CPUInfo
 
 	}
 
-	public static boolean voltageExists()
+	public static final boolean voltageExists()
 	{
 		boolean i = false;
 		if (new File(VOLTAGE_PATH).exists())
@@ -199,7 +199,7 @@ public class CPUInfo
 
 	}
 	
-	public static boolean otgExists()
+	public static final boolean otgExists()
 	{
 		boolean i = false;
 		if (new File(OTG).exists())
@@ -214,7 +214,7 @@ public class CPUInfo
 
 	}
 
-	public static boolean s2wExists()
+	public static final boolean s2wExists()
 	{
 		boolean i = false;
 		if (new File(S2W).exists())
@@ -229,7 +229,7 @@ public class CPUInfo
 
 	}
 	
-	public static boolean TISExists()
+	public static final boolean TISExists()
 	{
 		boolean i = false;
 		if (new File(TIMES_IN_STATE_CPU0).exists())
@@ -240,7 +240,7 @@ public class CPUInfo
 
 	}
 	
-	public static boolean mpdecisionExists()
+	public static final boolean mpdecisionExists()
 	{
 		boolean i = false;
 		if (new File(MPDECISION).exists())
@@ -251,7 +251,7 @@ public class CPUInfo
 
 	}
 	
-	public static boolean buttonsExists()
+	public static final boolean buttonsExists()
 	{
 		boolean i = false;
 		if (new File(BUTTONS_LIGHT).exists())
@@ -266,7 +266,7 @@ public class CPUInfo
 
 	}
 	
-	public static boolean sdcacheExists()
+	public static final boolean sdcacheExists()
 	{
 		boolean i = false;
 		if (new File(SD_CACHE).exists())
@@ -277,7 +277,7 @@ public class CPUInfo
 
 	}
 	
-	public static boolean vsyncExists()
+	public static final boolean vsyncExists()
 	{
 		boolean i = false;
 		if (new File(VSYNC).exists())
@@ -288,7 +288,7 @@ public class CPUInfo
 
 	}
 	
-	public static boolean fchargeExists()
+	public static final boolean fchargeExists()
 	{
 		boolean i = false;
 		if (new File(FCHARGE).exists())
@@ -299,7 +299,7 @@ public class CPUInfo
 
 	}
 
-	public static List<FreqsEntry> frequencies()
+	public static final List<FreqsEntry> frequencies()
 	{
 		
 		List<FreqsEntry> entries = new ArrayList<FreqsEntry>();
@@ -368,7 +368,7 @@ public class CPUInfo
 
 	}
 	
-	public static List<String> oom()
+	public static final List<String> oom()
 	{
 		List<String> oom = new ArrayList<String>();
 
@@ -403,7 +403,7 @@ public class CPUInfo
 
 	}
 	
-	public static String leds()
+	public static final String leds()
 	{
 		String leds = "";
 
@@ -458,7 +458,7 @@ public class CPUInfo
 
 	}
 
-	public static List<String> governors()
+	public static final List<String> governors()
 	{
 		List<String> governors = new ArrayList<String>();
 
@@ -491,7 +491,7 @@ public class CPUInfo
 
 	}
 
-	public static String cpu0MinFreq()
+	public static final String cpu0MinFreq()
 	{
 		String aBuffer = "offline";
 		try
@@ -521,7 +521,7 @@ public class CPUInfo
 
 	}
 
-	public static String cpu0MaxFreq()
+	public static final String cpu0MaxFreq()
 	{
 		String aBuffer = "offline";
 		try
@@ -550,7 +550,7 @@ public class CPUInfo
 
 	}
 
-	public static String cpu1MinFreq()
+	public static final String cpu1MinFreq()
 	{
 		String aBuffer = "offline";
 		try
@@ -579,7 +579,7 @@ public class CPUInfo
 
 	}
 
-	public static String cpu1MaxFreq()
+	public static final String cpu1MaxFreq()
 	{
 		String aBuffer = "offline";
 		try
@@ -608,7 +608,7 @@ public class CPUInfo
 
 	}
 
-	public static String cpu2MinFreq()
+	public static final String cpu2MinFreq()
 	{
 		String aBuffer = "offline";
 		try
@@ -638,7 +638,7 @@ public class CPUInfo
 
 	}
 
-	public static String cpu2MaxFreq()
+	public static final String cpu2MaxFreq()
 	{
 		String aBuffer = "offline";
 		try
@@ -667,7 +667,7 @@ public class CPUInfo
 
 	}
 
-	public static String cpu3MinFreq()
+	public static final String cpu3MinFreq()
 	{
 		String aBuffer = "offline";
 		try
@@ -696,7 +696,7 @@ public class CPUInfo
 
 	}
 
-	public static String cpu3MaxFreq()
+	public static final String cpu3MaxFreq()
 	{
 		String aBuffer = "offline";
 		try
@@ -725,7 +725,7 @@ public class CPUInfo
 
 	}
 
-	public static String cpu0CurFreq()
+	public static final String cpu0CurFreq()
 	{
 		String aBuffer = "offline";
 		try
@@ -755,7 +755,7 @@ public class CPUInfo
 
 	}
 
-	public static String cpu1CurFreq()
+	public static final String cpu1CurFreq()
 	{
 		String aBuffer = "offline";
 		try
@@ -785,7 +785,7 @@ public class CPUInfo
 
 	}
 
-	public static String cpu2CurFreq()
+	public static final String cpu2CurFreq()
 	{
 		String aBuffer = "offline";
 		try
@@ -815,7 +815,7 @@ public class CPUInfo
 
 	}
 
-	public static String cpu3CurFreq()
+	public static final String cpu3CurFreq()
 	{
 		String aBuffer = "offline";
 		try
@@ -845,7 +845,7 @@ public class CPUInfo
 
 	}
 
-	public static String cpu0CurGov()
+	public static final String cpu0CurGov()
 	{
 		String aBuffer = "offline";
 		try
@@ -875,7 +875,7 @@ public class CPUInfo
 
 	}
 
-	public static String cpu1CurGov()
+	public static final String cpu1CurGov()
 	{
 		String aBuffer = "offline";
 		try
@@ -905,7 +905,7 @@ public class CPUInfo
 
 	}
 
-	public static String cpu2CurGov()
+	public static final String cpu2CurGov()
 	{
 		String aBuffer = "offline";
 		try
@@ -935,7 +935,7 @@ public class CPUInfo
 
 	}
 
-	public static String cpu3CurGov()
+	public static final String cpu3CurGov()
 	{
 		String aBuffer = "offline";
 		try
@@ -966,7 +966,7 @@ public class CPUInfo
 	}
 
 
-	public static  List<TimesEntry> getTis()
+	public static  final List<TimesEntry> getTis()
 	{
 		List<TimesEntry> times = new ArrayList<TimesEntry>();
 
@@ -1001,7 +1001,7 @@ public class CPUInfo
 
 	
 
-	public static List<VoltageList> voltages()
+	public static final List<VoltageList> voltages()
 	{
 		List<VoltageList> voltages = new ArrayList<VoltageList>();
 		if(voltages.isEmpty()==false){
@@ -1065,7 +1065,7 @@ public class CPUInfo
 
 	
 
-	public static String uptime()
+	public static final String uptime()
 	{
 		String uptime;
 
@@ -1102,7 +1102,7 @@ public class CPUInfo
 
 
 	}
-	public static String deepSleep()
+	public static final String deepSleep()
 	{
 		String deepSleep;
 
@@ -1137,7 +1137,7 @@ public class CPUInfo
 		return deepSleep;
 	}
 
-	public static String cpuTemp()
+	public static final String cpuTemp()
 	{
 		String cpuTemp = "0";
 		try
@@ -1170,7 +1170,7 @@ public class CPUInfo
 		return cpuTemp;
 	}
 
-	public static String cpuInfo()
+	public static final String cpuInfo()
 	{
 		String cpuInfo = "";
 		try
@@ -1200,7 +1200,7 @@ public class CPUInfo
 		return cpuInfo;
 	}
 
-	public static List<String> availableGovs()
+	public static final List<String> availableGovs()
 	{
 		File govs = new File("/sys/devices/system/cpu/cpufreq/");
 		List<String> availableGovs = new ArrayList<String>();
@@ -1223,7 +1223,7 @@ public class CPUInfo
 
 	}
 
-	public static List<String> govSettings()
+	public static final List<String> govSettings()
 	{
 
 		List<String> govSettings = new ArrayList<String>();
@@ -1247,7 +1247,7 @@ public class CPUInfo
 		return govSettings;
 		}
 
-	public static String voltDebug(){
+	public static final String voltDebug(){
 		String voltage = "";
 		String div = "####################";
 		List<String> paths = new ArrayList<String>();
@@ -1544,7 +1544,7 @@ public class CPUInfo
 		return voltage;
 	}
 	
-	public static String tisDebug(){
+	public static final String tisDebug(){
 		String tis = "";
 		String div = "####################";
 		List<String> paths = new ArrayList<String>();
@@ -1588,7 +1588,7 @@ public class CPUInfo
 	return tis;
 		}
 	
-	public static String frequenciesDebug(){
+	public static final String frequenciesDebug(){
 		String freq = "";
 		String div = "####################";
 		List<String> paths = new ArrayList<String>();
@@ -1632,7 +1632,7 @@ public class CPUInfo
 	return freq;
 		}
 	
-	public static String deviceInfoDebug(){
+	public static final String deviceInfoDebug(){
 		String freq = "";
 		String div = "####################";
 		List<String> paths = new ArrayList<String>();
@@ -1694,7 +1694,7 @@ public class CPUInfo
 	return freq;
 		}
 	
-	public static String logcat(){
+	public static final String logcat(){
 		String logcat = "";
 		try{
 		 Process process = Runtime.getRuntime().exec("logcat -d rs.pedjaapps.KernelTuner:V *:S");
@@ -1715,7 +1715,7 @@ public class CPUInfo
 	
 	
 
-	public static List<String> schedulers()
+	public static final List<String> schedulers()
 	{
 
 		List<String> schedulers = new ArrayList<String>();
@@ -1754,7 +1754,7 @@ public class CPUInfo
 		return schedulers;
 		}
 	
-	public static String mpup(){
+	public static final String mpup(){
 		String mpup = "";
 		try
 		{
@@ -1782,7 +1782,7 @@ public class CPUInfo
 		return mpup;
 	}
 	
-	public static String mpdown(){
+	public static final String mpdown(){
 		String mpdown = "";
 		try
 		{
@@ -1811,7 +1811,7 @@ public class CPUInfo
 		return mpdown;
 	}
 	
-	public static String gpu3d(){
+	public static final String gpu3d(){
 		String gpu3d = "";
 		try
 		{
@@ -1842,7 +1842,7 @@ public class CPUInfo
 		return gpu3d;
 	}
 	
-	public static String gpu2d(){
+	public static final String gpu2d(){
 		String gpu2d = "";
 		try
 		{
@@ -1873,7 +1873,7 @@ public class CPUInfo
 		return gpu2d;
 	}
 	
-	public static String cbb(){
+	public static final String cbb(){
 		String cbb = "";
 		try
 		{
@@ -1899,7 +1899,7 @@ public class CPUInfo
 		return cbb;
 	}
 	
-	public static int fcharge(){
+	public static final int fcharge(){
 		int fcharge = 0;
 		try
 		{
@@ -1925,7 +1925,7 @@ public class CPUInfo
 		return fcharge;
 	}
 	
-	public static int vsync(){
+	public static final int vsync(){
 		int vsync = 0;
 		try
 		{
@@ -1951,7 +1951,7 @@ public class CPUInfo
 		return vsync;
 	}
 	
-	public static String cDepth(){
+	public static final String cDepth(){
 		String cdepth = "";
 		try
 		{
@@ -1980,7 +1980,7 @@ public class CPUInfo
 		return cdepth;
 	}
 	
-	public static String scheduler(){
+	public static final String scheduler(){
 		String scheduler = "";
 		try
 		{
@@ -2012,7 +2012,7 @@ public class CPUInfo
 		return scheduler;
 	}
 	
-	public static int sdCache(){
+	public static final int sdCache(){
 		int sd = 0;
 		try
 		{
@@ -2041,7 +2041,7 @@ public class CPUInfo
 		return sd;
 	}
 	
-	public static int s2w(){
+	public static final int s2w(){
 		int s2w = 0;
 		try
 		{
@@ -2096,7 +2096,7 @@ public class CPUInfo
 		return s2w;
 	}
 	
-	public static String readOTG(){
+	public static final String readOTG(){
 		String otg = "";
 		try
 		{
@@ -2212,7 +2212,7 @@ public class CPUInfo
 
 	}
 	
-	public static String kernel(){
+	public static final String kernel(){
 		String kernel = "";
 		try {
 

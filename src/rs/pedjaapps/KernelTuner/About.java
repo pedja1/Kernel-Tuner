@@ -20,7 +20,7 @@ import android.app.*;
 public class About extends Activity
 {
 	
-	SharedPreferences sharedPrefs;
+	
 
 	@Override
 	public void onCreate(Bundle savedInstanceState)
@@ -41,16 +41,16 @@ public class About extends Activity
 		}
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.about);
-		TextView versiontext = (TextView)findViewById(R.id.textView1);
+	final TextView versiontext = (TextView)findViewById(R.id.textView1);
 		
-		TextView mail = (TextView)findViewById(R.id.textView6);
-		ImageView gp = (ImageView)findViewById(R.id.imageView1);
-		ImageView fb = (ImageView)findViewById(R.id.imageView2);
-		ImageView tw = (ImageView)findViewById(R.id.imageView3);
-		ImageView gpl = (ImageView)findViewById(R.id.imageView4);
-		ImageView xda = (ImageView)findViewById(R.id.imageView5);
-		ImageView anthrax = (ImageView)findViewById(R.id.imageView6);
-		ImageView kt = (ImageView)findViewById(R.id.imageView7);
+		final TextView mail = (TextView)findViewById(R.id.textView6);
+		final ImageView gp = (ImageView)findViewById(R.id.imageView1);
+		final ImageView fb = (ImageView)findViewById(R.id.imageView2);
+		final ImageView tw = (ImageView)findViewById(R.id.imageView3);
+		final ImageView gpl = (ImageView)findViewById(R.id.imageView4);
+		final ImageView xda = (ImageView)findViewById(R.id.imageView5);
+		final ImageView anthrax = (ImageView)findViewById(R.id.imageView6);
+		final ImageView kt = (ImageView)findViewById(R.id.imageView7);
 		
 		gp.setOnClickListener(new View.OnClickListener(){
 		    public void onClick(View v){

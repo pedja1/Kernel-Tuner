@@ -23,8 +23,6 @@ import com.actionbarsherlock.view.Menu;
 import com.actionbarsherlock.view.MenuItem;
 import com.google.ads.*;
 
-//import eu.chainfire.libsuperuser.Shell;
-
 import java.io.*;
 import java.util.*;
 
@@ -45,7 +43,7 @@ public class KernelTuner extends SherlockActivity {
 	private RelativeLayout tempLayout;
 	private AlertDialog alert;
 
-	private boolean enableTmp() {
+	private final boolean enableTmp() {
 		boolean b;
 		try {
 
@@ -176,18 +174,18 @@ public class KernelTuner extends SherlockActivity {
 
 
 
-	private static String CPU0_CURR_FREQ = CPUInfo.CPU0_CURR_FREQ;
-	private static String CPU1_CURR_FREQ = CPUInfo.CPU1_CURR_FREQ;
-	private static String CPU2_CURR_FREQ = CPUInfo.CPU2_CURR_FREQ;
-	private static String CPU3_CURR_FREQ = CPUInfo.CPU3_CURR_FREQ;
+	private static final String CPU0_CURR_FREQ = CPUInfo.CPU0_CURR_FREQ;
+	private static final String CPU1_CURR_FREQ = CPUInfo.CPU1_CURR_FREQ;
+	private static final String CPU2_CURR_FREQ = CPUInfo.CPU2_CURR_FREQ;
+	private static final String CPU3_CURR_FREQ = CPUInfo.CPU3_CURR_FREQ;
 
-	private static String CPU0_MAX_FREQ = CPUInfo.CPU0_MAX_FREQ;
-	private static String CPU1_MAX_FREQ = CPUInfo.CPU1_MAX_FREQ;
-	private static String CPU2_MAX_FREQ = CPUInfo.CPU2_MAX_FREQ;
-	private static String CPU3_MAX_FREQ = CPUInfo.CPU3_MAX_FREQ;
-	public static String CPU1_CURR_GOV = CPUInfo.CPU1_CURR_GOV;
-	private static String CPU2_CURR_GOV = CPUInfo.CPU2_CURR_GOV;
-	private static String CPU3_CURR_GOV = CPUInfo.CPU3_CURR_GOV;
+	private static final String CPU0_MAX_FREQ = CPUInfo.CPU0_MAX_FREQ;
+	private static final String CPU1_MAX_FREQ = CPUInfo.CPU1_MAX_FREQ;
+	private static final String CPU2_MAX_FREQ = CPUInfo.CPU2_MAX_FREQ;
+	private static final String CPU3_MAX_FREQ = CPUInfo.CPU3_MAX_FREQ;
+	private static final String CPU1_CURR_GOV = CPUInfo.CPU1_CURR_GOV;
+	private static final String CPU2_CURR_GOV = CPUInfo.CPU2_CURR_GOV;
+	private static final String CPU3_CURR_GOV = CPUInfo.CPU3_CURR_GOV;
 	private TextView cpu0prog;
 	private TextView cpu1prog;
 	private TextView cpu2prog;
@@ -204,7 +202,7 @@ public class KernelTuner extends SherlockActivity {
 	
 	private int load;
 
-	private Handler mHandler = new Handler();
+	private final Handler mHandler = new Handler();
 
 	private SharedPreferences.Editor editor;
 
@@ -641,6 +639,9 @@ public class KernelTuner extends SherlockActivity {
 
 	@Override
 	public void onCreate(Bundle savedInstanceState) {
+		StrictMode.setThreadPolicy(new StrictMode.ThreadPolicy.Builder().detectAll().build());
+         StrictMode.setVmPolicy(new StrictMode.VmPolicy.Builder()
+                 .detectAll().build());
 		preferences = PreferenceManager.getDefaultSharedPreferences(this);
 		editor = preferences.edit();
 		theme = preferences.getString("theme", "light");
@@ -1095,9 +1096,8 @@ startCpuLoadThread();
 		 * else remove them
 		 */
 
-		SharedPreferences sharedPrefs = PreferenceManager
-				.getDefaultSharedPreferences(this);
-		String boot = sharedPrefs.getString("boot", "init.d");
+		
+		String boot = preferences.getString("boot", "init.d");
 		if (boot.equals("init.d")) {
 			initdExport();
 		} else {
@@ -1160,18 +1160,18 @@ startCpuLoadThread();
 
 	}
 
-	private void setCpuLoad(){
+	private final void setCpuLoad(){
 		TextView cpuLoadTxt = (TextView)findViewById(R.id.textView1);
 
 		ProgressBar cpuLoad = (ProgressBar)findViewById(R.id.progressBar5);
 		cpuLoad.setProgress(load);
-		cpuLoadTxt.setText(load
-		+ "%");
+		
+		cpuLoadTxt.setText(new StringBuilder().append(load).append("%"));
 		
 	}
 	
 	
-private void startCpuLoadThread() {
+private final void startCpuLoadThread() {
 		// Do something long
 		Runnable runnable = new Runnable() {
 			@Override
@@ -1225,9 +1225,8 @@ private void startCpuLoadThread() {
 		};
 		new Thread(runnable).start();
 	}
-	private void changelog() {
-		preferences = PreferenceManager
-				.getDefaultSharedPreferences(getBaseContext());
+	private final void changelog() {
+		
 		String versionpref = preferences.getString("version", "");
 
 		try {
@@ -1243,7 +1242,7 @@ private void startCpuLoadThread() {
 				}
 
 			}
-			SharedPreferences.Editor editor = preferences.edit();
+			
 			editor.putString("version", version);
 			editor.commit();
 		} catch (PackageManager.NameNotFoundException e) {
@@ -1255,7 +1254,7 @@ private void startCpuLoadThread() {
 	 * CPU Temperature
 	 */
 
-	private void cpuTemp() {
+	private final void cpuTemp() {
 		cputemptxt = (TextView) findViewById(R.id.textView38);
 
 		try {
@@ -1352,7 +1351,7 @@ private void startCpuLoadThread() {
 		}
 	}
 
-	private void initialCheck() {
+	private final void initialCheck() {
 		if (SideItems.entries.isEmpty() == false) {
 			SideItems.entries.clear();
 		}
@@ -1554,7 +1553,7 @@ private void startCpuLoadThread() {
 	 * Create init.d files and export them to private application folder
 	 */
 
-	private void initdExport() {
+	private final void initdExport() {
 
 		SharedPreferences sharedPrefs = PreferenceManager
 				.getDefaultSharedPreferences(this);
@@ -2154,7 +2153,7 @@ private void startCpuLoadThread() {
 	/**
 	Read current cpu0 frequency
 	*/
-	private void ReadCPU0Clock()
+	private final void ReadCPU0Clock()
 	{
 
 
@@ -2182,7 +2181,7 @@ private void startCpuLoadThread() {
 		}
 
 
-		cpu0progress();
+		
 		cpu0update();
 
 	}
@@ -2190,7 +2189,7 @@ private void startCpuLoadThread() {
 	/**
 	 Read current cpu1 frequency
 	 */
-	private void ReadCPU1Clock()
+	private final void ReadCPU1Clock()
 	{
 
 
@@ -2222,7 +2221,7 @@ private void startCpuLoadThread() {
 		}
 
 
-		cpu1progress();
+		
 		cpu1update();
 
 	}
@@ -2230,7 +2229,7 @@ private void startCpuLoadThread() {
 	/**
 	 Read current cpu2 frequency
 	 */
-	private void ReadCPU2Clock()
+	private final void ReadCPU2Clock()
 	{
 
 
@@ -2258,7 +2257,7 @@ private void startCpuLoadThread() {
 		}
 
 
-		cpu2progress();
+		
 		cpu2update();
 
 	}
@@ -2267,7 +2266,7 @@ private void startCpuLoadThread() {
 	/**
 	 Read current cpu3 frequency
 	 */
-	private void ReadCPU3Clock()
+	private final void ReadCPU3Clock()
 	{
 
 
@@ -2299,7 +2298,7 @@ private void startCpuLoadThread() {
 		}
 
 
-		cpu3progress();
+		
 		cpu3update();
 
 	}
@@ -2308,7 +2307,7 @@ private void startCpuLoadThread() {
     /**
 	Read max frequency of cpu0
 	*/
-	private void ReadCPU0maxfreq()
+	private final void ReadCPU0maxfreq()
 	{
 
 
@@ -2341,7 +2340,7 @@ private void startCpuLoadThread() {
 	/**
 	 Read max frequency of cpu1
 	 */
-	private void ReadCPU1maxfreq()
+	private final void ReadCPU1maxfreq()
 	{
 
 
@@ -2376,7 +2375,7 @@ private void startCpuLoadThread() {
 	/**
 	 Read max frequency of cpu2
 	 */
-	private void ReadCPU2maxfreq()
+	private final void ReadCPU2maxfreq()
 	{
 
 
@@ -2410,7 +2409,7 @@ private void startCpuLoadThread() {
 	/**
 	 Read max frequency of cpu1
 	 */
-	private void ReadCPU3maxfreq()
+	private final void ReadCPU3maxfreq()
 	{
 
 
@@ -2444,7 +2443,7 @@ private void startCpuLoadThread() {
 	/**
 	Update UI with current frequency
 	*/
-	private void cpu0update()
+	private final void cpu0update()
 	{
 
 		if(!freqcpu0.equals("offline")){
@@ -2453,23 +2452,16 @@ private void startCpuLoadThread() {
 		else{
 			cpu0prog.setText("offline");
 		}
-	}
-
-	/**
-	Set Progress of progressBar
-	*/
-	private void cpu0progress()
-	{
-		if (freqlist != null)
+			if (freqlist != null)
 		{
 		
 			cpu0progbar.setMax(freqlist.indexOf(cpu0max.trim()) + 1);
 			cpu0progbar.setProgress(freqlist.indexOf(freqcpu0.trim()) + 1);
 		}
-
 	}
 
-	private void cpu1update()
+
+	private final void cpu1update()
 	{
 
 		if(!freqcpu1.equals("offline")){
@@ -2478,18 +2470,16 @@ private void startCpuLoadThread() {
 			else{
 				cpu1prog.setText("offline");
 			}
-	}
-	private void cpu1progress()
-	{
 		if (freqlist != null)
 		{
-			
+
 			cpu1progbar.setMax(freqlist.indexOf(cpu1max.trim()) + 1);
 			cpu1progbar.setProgress(freqlist.indexOf(freqcpu1.trim()) + 1);
 		}
 	}
+	
 
-	private void cpu2update()
+	private final void cpu2update()
 	{
 		if(!freqcpu2.equals("offline")){
 			cpu2prog.setText(freqcpu2.trim().substring(0, freqcpu2.length()-3)+"MHz");
@@ -2497,19 +2487,16 @@ private void startCpuLoadThread() {
 			else{
 				cpu2prog.setText("offline");
 			}
-	}
-
-	private void cpu2progress()
-	{
-		if (freqlist != null)
+			if (freqlist != null)
 		{
 			
 			cpu2progbar.setMax(freqlist.indexOf(cpu2max.trim()) + 1);
 			cpu2progbar.setProgress(freqlist.indexOf(freqcpu2.trim()) + 1);
-		}
+		} 
 	}
 
-	private void cpu3update()
+
+	private final void cpu3update()
 	{
 
 		if(!freqcpu3.equals("offline")){
@@ -2518,10 +2505,8 @@ private void startCpuLoadThread() {
 			else{
 				cpu3prog.setText("offline");
 			}
-		}
-	private void cpu3progress()
-	{
-		if (freqlist != null)
+			
+				if (freqlist != null)
 		{
 			
 
@@ -2529,6 +2514,7 @@ private void startCpuLoadThread() {
 			cpu3progbar.setProgress(freqlist.indexOf(freqcpu3.trim()) + 1);
 		}
 	}
+	
 	@Override
 	public boolean onCreateOptionsMenu(Menu menu) {
 
@@ -2608,7 +2594,7 @@ private void startCpuLoadThread() {
 		}
 	}
 
-	private void CopyAssets() {
+	private final void CopyAssets() {
 		AssetManager assetManager = getAssets();
 		String[] files = null;
 		File file;
@@ -2642,7 +2628,7 @@ private void startCpuLoadThread() {
 		editor.commit();
 	}
 
-	private void copyFile(InputStream in, OutputStream out) throws IOException {
+	private final void copyFile(InputStream in, OutputStream out) throws IOException {
 		byte[] buffer = new byte[1024];
 		int read;
 		while ((read = in.read(buffer)) != -1) {
