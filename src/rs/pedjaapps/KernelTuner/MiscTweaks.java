@@ -537,11 +537,8 @@ public class MiscTweaks extends SherlockActivity
 	            String line;
 	            Process process = Runtime.getRuntime().exec("su");
 	            OutputStream stdin = process.getOutputStream();
-	            System.out.println("1dsafdsfdsfds");
 	            InputStream stderr = process.getErrorStream();
-	            System.out.println("2dsafdsfdsfds");
 	            InputStream stdout = process.getInputStream();
-	            System.out.println("3dsafdsfdsfds");
 	            stdin.write(("chmod 777 /sys/block/mmcblk1/queue/read_ahead_kb\n").getBytes());
 	            stdin.write(("chmod 777 /sys/block/mmcblk2/queue/read_ahead_kb\n").getBytes());
 	            stdin.write(("chmod 777 /sys/devices/virtual/bdi/179:0/read_ahead_kb\n").getBytes());

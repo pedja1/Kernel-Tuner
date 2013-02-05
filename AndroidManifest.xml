@@ -187,6 +187,14 @@
             android:screenOrientation="portrait"
             android:theme="@style/IndicatorLight" >
         </activity>
+         <activity
+            android:name=".CPUActivityOld"
+            android:exported="true"
+            android:icon="@drawable/ic_launcher"
+            android:label="@string/title_cpu"
+            android:screenOrientation="portrait"
+            android:theme="@style/IndicatorLight" >
+        </activity>
         <activity
             android:name=".VoltageActivity"
             android:exported="true"

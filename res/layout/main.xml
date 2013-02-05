@@ -417,6 +417,16 @@
                     android:text="@string/oom" />
 
                 <Button
+                    android:id="@+id/button15"
+                    style="?android:attr/buttonStyleSmall"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:layout_weight="1"
+                    android:drawableTop="@drawable/sd"
+                    android:gravity="center|center_vertical"
+                    android:text="SD Tweaks" />
+
+                <Button
                     android:id="@+id/button14"
                     style="?android:attr/buttonStyleSmall"
                     android:layout_width="match_parent"
@@ -425,16 +435,6 @@
                     android:drawableTop="@drawable/info"
                     android:gravity="center|center_vertical"
                     android:text="@string/info" />
-
-                <Button
-                    android:id="@+id/button15"
-                    style="?android:attr/buttonStyleSmall"
-                    android:layout_width="match_parent"
-                    android:layout_height="match_parent"
-                    android:layout_weight="1"
-                    android:drawableTop="@drawable/about"
-                    android:gravity="center|center_vertical"
-                    android:text="@string/title_about" />
             </LinearLayout>
         </LinearLayout>
     </ScrollView>

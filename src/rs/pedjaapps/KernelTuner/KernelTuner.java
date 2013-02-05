@@ -42,6 +42,7 @@ public class KernelTuner extends SherlockActivity {
 	private Toast mToast;
 	private RelativeLayout tempLayout;
 	private AlertDialog alert;
+	private String tmp;
 
 	private final boolean enableTmp() {
 		boolean b;
@@ -166,24 +167,10 @@ public class KernelTuner extends SherlockActivity {
 
 
 	private float fLoad;
-	private String cputemp;
 	private static String cpu1online = CPUInfo.cpu1online; 
 	private static String cpu2online = CPUInfo.cpu2online; 
 	private static String cpu3online = CPUInfo.cpu3online; 
-
-
-
-
-	private static final String CPU0_CURR_FREQ = CPUInfo.CPU0_CURR_FREQ;
-	private static final String CPU1_CURR_FREQ = CPUInfo.CPU1_CURR_FREQ;
-	private static final String CPU2_CURR_FREQ = CPUInfo.CPU2_CURR_FREQ;
-	private static final String CPU3_CURR_FREQ = CPUInfo.CPU3_CURR_FREQ;
-
-	private static final String CPU0_MAX_FREQ = CPUInfo.CPU0_MAX_FREQ;
-	private static final String CPU1_MAX_FREQ = CPUInfo.CPU1_MAX_FREQ;
-	private static final String CPU2_MAX_FREQ = CPUInfo.CPU2_MAX_FREQ;
-	private static final String CPU3_MAX_FREQ = CPUInfo.CPU3_MAX_FREQ;
-	private static final String CPU1_CURR_GOV = CPUInfo.CPU1_CURR_GOV;
+private static final String CPU1_CURR_GOV = CPUInfo.CPU1_CURR_GOV;
 	private static final String CPU2_CURR_GOV = CPUInfo.CPU2_CURR_GOV;
 	private static final String CPU3_CURR_GOV = CPUInfo.CPU3_CURR_GOV;
 	private TextView cpu0prog;
@@ -639,9 +626,9 @@ public class KernelTuner extends SherlockActivity {
 
 	@Override
 	public void onCreate(Bundle savedInstanceState) {
-		StrictMode.setThreadPolicy(new StrictMode.ThreadPolicy.Builder().detectAll().build());
+		/*StrictMode.setThreadPolicy(new StrictMode.ThreadPolicy.Builder().detectAll().build());
          StrictMode.setVmPolicy(new StrictMode.VmPolicy.Builder()
-                 .detectAll().build());
+                 .detectAll().build());*/
 		preferences = PreferenceManager.getDefaultSharedPreferences(this);
 		editor = preferences.edit();
 		theme = preferences.getString("theme", "light");
@@ -697,10 +684,7 @@ public class KernelTuner extends SherlockActivity {
 
 		if (file.exists() && file.list().length > 0) {
 
-			System.out.println("Debug fs already mounted");
 		} else {
-
-			System.out.println("Mounting debug fs");
 			new mountDebugFs().execute();
 		}
 
@@ -733,17 +717,17 @@ public class KernelTuner extends SherlockActivity {
 		 */
 
 		for(CPUInfo.FreqsEntry f: freqEntries){
-			freqlist.add(f.getFreq()+"");
+			freqlist.add(new StringBuilder().append(f.getFreq()).toString());
 		}
 		for(CPUInfo.FreqsEntry f: freqEntries){
 			freqNames.add(f.getFreqName());
 		}
 		for (CPUInfo.VoltageList v : voltageFreqs) {
-			voltages.add(v.getFreq()+"");
+			voltages.add(new StringBuilder().append(v.getFreq()).toString());
 		}
 
 		initialCheck();
-
+		
 		/***
 		 * Create new thread that will loop and show current frequency for each
 		 * core
@@ -754,35 +738,49 @@ public class KernelTuner extends SherlockActivity {
 				while (thread) {
 					try {
 						Thread.sleep(1000);
+						freqcpu0 = CPUInfo.cpu0CurFreq();
+						cpu0max = CPUInfo.cpu0MaxFreq();
+						tmp = CPUInfo.cpuTemp();
+						
+						if (CPUInfo.cpu1Online() == true)
+						{
+							freqcpu1 = CPUInfo.cpu1CurFreq();
+							cpu1max = CPUInfo.cpu1MaxFreq();
+						}
+						if (CPUInfo.cpu2Online() == true)
+						{
+							freqcpu2 = CPUInfo.cpu2CurFreq();
+							cpu2max = CPUInfo.cpu2MaxFreq();
+						}
+						if (CPUInfo.cpu3Online() == true)
+						{
+							freqcpu3 = CPUInfo.cpu3CurFreq();
+							cpu3max = CPUInfo.cpu3MaxFreq();
+
+						}
 						mHandler.post(new Runnable() {
 
 							@Override
 							public void run() {
 
-										ReadCPU0Clock();
-										ReadCPU0maxfreq();
-										cpuTemp();
-									
+										
+										cpuTemp(tmp);
+										cpu0update();
 										
 										if (new File(cpu1online).exists())
 										{
-
-
-											ReadCPU1Clock();
-											ReadCPU1maxfreq();
+											cpu1update();
 
 										}
 										if (new File(cpu2online).exists())
 										{
-											ReadCPU2Clock();
-											ReadCPU2maxfreq();
-
+											
+											cpu2update();
 
 										}
 										if (new File(cpu3online).exists())
 										{
-											ReadCPU3Clock();
-											ReadCPU3maxfreq();
+											cpu3update();
 
 										}
 
@@ -841,7 +839,7 @@ public class KernelTuner extends SherlockActivity {
 			public void onClick(View v) {
 
 				Intent myIntent = new Intent(KernelTuner.this,
-						CPUActivity.class);
+						CPUActivityOld.class);
 				KernelTuner.this.startActivity(myIntent);
 			}
 		});
@@ -1038,13 +1036,13 @@ public class KernelTuner extends SherlockActivity {
 			}
 		});
 
-		Button about = (Button) this.findViewById(R.id.button15);
-		about.setOnClickListener(new OnClickListener() {
+		Button sd = (Button) this.findViewById(R.id.button15);
+		sd.setOnClickListener(new OnClickListener() {
 
 			@Override
 			public void onClick(View v) {
 
-				Intent myIntent = new Intent(KernelTuner.this, About.class);
+				Intent myIntent = new Intent(KernelTuner.this, SDScannerConfigActivity.class);
 				KernelTuner.this.startActivity(myIntent);
 
 			}
@@ -1168,6 +1166,7 @@ startCpuLoadThread();
 		
 		cpuLoadTxt.setText(new StringBuilder().append(load).append("%"));
 		
+		
 	}
 	
 	
@@ -1254,29 +1253,18 @@ private final void startCpuLoadThread() {
 	 * CPU Temperature
 	 */
 
-	private final void cpuTemp() {
+	private final void cpuTemp(String cputemp) {
 		cputemptxt = (TextView) findViewById(R.id.textView38);
 
-		try {
-
-			File myFile = new File("/sys/class/thermal/thermal_zone1/temp");
-			FileInputStream fIn = new FileInputStream(myFile);
-
-			BufferedReader myReader = new BufferedReader(new InputStreamReader(
-					fIn));
-			String aDataRow = "";
-			String aBuffer = "";
-			while ((aDataRow = myReader.readLine()) != null) {
-				aBuffer += aDataRow + "\n";
-			}
-
-			cputemp = aBuffer.trim();
+		
 			tempLayout.setVisibility(View.VISIBLE);
 
 			/**
 			 * If fahrenheit is selected in settings, convert temp to
 			 * fahreinheit
 			 */
+			if(!cputemp.equals("") || cputemp.length()!=0)
+			{
 			if (tempPref.equals("fahrenheit")) {
 				cputemp = String
 						.valueOf((int) (Double.parseDouble(cputemp) * 1.8) + 32);
@@ -1323,32 +1311,24 @@ private final void startCpuLoadThread() {
 						.valueOf((int) (Double.parseDouble(cputemp) + 273.15));
 
 				cputemptxt.setText(cputemp + "°K");
-				System.out.println(cputemp);
 				int temp = Integer.parseInt(cputemp);
-				System.out.println("temp int" + temp);
 				if (temp < 318) {
 					cputemptxt.setTextColor(Color.GREEN);
-					// cpuTempWarningStop();
 				} else if (temp >= 318 && temp <= 332) {
 					cputemptxt.setTextColor(Color.YELLOW);
-					// cpuTempWarningStop();
 				}
 
 				else if (temp > 332) {
-					// cpuTempWarning();
 					cputemptxt.setTextColor(Color.RED);
 
 				}
 			}
 
-			myReader.close();
-			fIn.close();
-
-		} catch (Exception e2) {
-
+			}
+			else{
 			tempLayout.setVisibility(View.GONE);
-
-		}
+			}
+		
 	}
 
 	private final void initialCheck() {
@@ -1619,27 +1599,28 @@ private final void startCpuLoadThread() {
 		gpubuilder.append("\n");
 		if (!gpu3d.equals("")) {
 			gpubuilder
-					.append("echo "
-							+ "\""
-							+ gpu3d
-							+ "\""
-							+ " > /sys/devices/platform/kgsl-3d0.0/kgsl/kgsl-3d0/max_gpuclk");
-			gpubuilder.append("\n");
+					.append("echo ")
+					.append("\"")
+					.append(gpu3d)
+					.append("\"")
+					.append(" > /sys/devices/platform/kgsl-3d0.0/kgsl/kgsl-3d0/max_gpuclk")
+					.append("\n");
+			
 		}
 		if (!gpu2d.equals("")) {
 			gpubuilder
-					.append("echo "
-							+ "\""
-							+ gpu2d
-							+ "\""
-							+ " > /sys/devices/platform/kgsl-2d0.0/kgsl/kgsl-2d0/max_gpuclk");
+					.append("echo ")
+					.append("\"")
+					.append(gpu2d)
+					.append("\"")
+					.append(" > /sys/devices/platform/kgsl-2d0.0/kgsl/kgsl-2d0/max_gpuclk");
 			gpubuilder.append("\n");
 			gpubuilder
-					.append("echo "
-							+ "\""
-							+ gpu2d
-							+ "\""
-							+ " > /sys/devices/platform/kgsl-2d1.1/kgsl/kgsl-2d1/max_gpuclk");
+					.append("echo ").append(
+							 "\"").append(
+							 gpu2d).append(
+							 "\"").append(
+							 " > /sys/devices/platform/kgsl-2d1.1/kgsl/kgsl-2d1/max_gpuclk");
 			gpubuilder.append("\n");
 
 		}
@@ -1655,66 +1636,66 @@ private final void startCpuLoadThread() {
 		 * */
 		if (!cpu0gov.equals("")) {
 			cpubuilder
-					.append("chmod 666 /sys/devices/system/cpu/cpu0/cpufreq/scaling_governor \n"
-							+ "echo "
-							+ "\""
-							+ cpu0gov
-							+ "\""
-							+ " > /sys/devices/system/cpu/cpu0/cpufreq/scaling_governor\n"
-							+ "chmod 444 /sys/devices/system/cpu/cpu0/cpufreq/scaling_governor \n");
+					.append("chmod 666 /sys/devices/system/cpu/cpu0/cpufreq/scaling_governor \n").append(
+							 "echo ").append(
+							 "\"").append(
+							 cpu0gov).append(
+							 "\"").append(
+							 " > /sys/devices/system/cpu/cpu0/cpufreq/scaling_governor\n").append(
+							 "chmod 444 /sys/devices/system/cpu/cpu0/cpufreq/scaling_governor \n");
 		}
 		if (!cpu0max.equals("")) {
 			cpubuilder
-					.append("chmod 666 /sys/devices/system/cpu/cpu0/cpufreq/scaling_max_freq \n"
-							+ "echo "
-							+ "\""
-							+ cpu0max
-							+ "\""
-							+ " > /sys/devices/system/cpu/cpu0/cpufreq/scaling_max_freq \n"
-							+ "chmod 444 /sys/devices/system/cpu/cpu0/cpufreq/scaling_max_freq\n");
+					.append("chmod 666 /sys/devices/system/cpu/cpu0/cpufreq/scaling_max_freq \n").append(
+							 "echo ").append(
+							 "\"").append(
+							 cpu0max).append(
+							 "\"").append(
+							" > /sys/devices/system/cpu/cpu0/cpufreq/scaling_max_freq \n").append(
+							 "chmod 444 /sys/devices/system/cpu/cpu0/cpufreq/scaling_max_freq\n");
 		}
 		if (!cpu0min.equals("")) {
 			cpubuilder
-					.append("chmod 666 /sys/devices/system/cpu/cpu0/cpufreq/scaling_min_freq \n"
-							+ "echo "
-							+ "\""
-							+ cpu0min
-							+ "\""
-							+ " > /sys/devices/system/cpu/cpu0/cpufreq/scaling_min_freq \n\n"
-							+ "chmod 444 /sys/devices/system/cpu/cpu0/cpufreq/scaling_min_freq \n");
+					.append("chmod 666 /sys/devices/system/cpu/cpu0/cpufreq/scaling_min_freq \n").append(
+							 "echo ").append(
+							 "\"").append(
+							 cpu0min).append(
+							 "\"").append(
+							 " > /sys/devices/system/cpu/cpu0/cpufreq/scaling_min_freq \n\n").append(
+							 "chmod 444 /sys/devices/system/cpu/cpu0/cpufreq/scaling_min_freq \n");
 		}
 		/**
 		 * cpu1
 		 * */
 		if (!cpu1gov.equals("")) {
 			cpubuilder
-					.append("chmod 666 /sys/devices/system/cpu/cpu1/cpufreq/scaling_governor \n"
-							+ "echo "
-							+ "\""
-							+ cpu1gov
-							+ "\""
-							+ " > /sys/devices/system/cpu/cpu1/cpufreq/scaling_governor\n"
-							+ "chmod 444 /sys/devices/system/cpu/cpu1/cpufreq/scaling_governor \n");
+					.append("chmod 666 /sys/devices/system/cpu/cpu1/cpufreq/scaling_governor \n").append(
+							 "echo ").append(
+							 "\"").append(
+							 cpu1gov).append(
+							 "\"").append(
+							 " > /sys/devices/system/cpu/cpu1/cpufreq/scaling_governor\n").append(
+							 "chmod 444 /sys/devices/system/cpu/cpu1/cpufreq/scaling_governor \n");
 		}
 		if (!cpu1max.equals("")) {
 			cpubuilder
-					.append("chmod 666 /sys/devices/system/cpu/cpu1/cpufreq/scaling_max_freq \n"
-							+ "echo "
-							+ "\""
-							+ cpu1max
-							+ "\""
-							+ " > /sys/devices/system/cpu/cpu1/cpufreq/scaling_max_freq \n"
-							+ "chmod 444 /sys/devices/system/cpu/cpu1/cpufreq/scaling_max_freq \n");
+					.append("chmod 666 /sys/devices/system/cpu/cpu1/cpufreq/scaling_max_freq \n").append(
+							 "echo ").append(
+							 "\"").append(
+							 cpu1max).append(
+							 "\"").append(
+							 " > /sys/devices/system/cpu/cpu1/cpufreq/scaling_max_freq \n").append(
+							 "chmod 444 /sys/devices/system/cpu/cpu1/cpufreq/scaling_max_freq \n");
 		}
 		if (!cpu1min.equals("")) {
 			cpubuilder
-					.append("chmod 666 /sys/devices/system/cpu/cpu1/cpufreq/scaling_min_freq \n"
-							+ "echo "
-							+ "\""
-							+ cpu1min
-							+ "\""
-							+ " > /sys/devices/system/cpu/cpu1/cpufreq/scaling_min_freq \n"
-							+ "chmod 444 /sys/devices/system/cpu/cpu1/cpufreq/scaling_min_freq \n\n");
+					.append("chmod 666 /sys/devices/system/cpu/cpu1/cpufreq/scaling_min_freq \n").append(
+							"echo ").append(
+							"\"").append(
+							 cpu1min).append(
+							 "\"").append(
+							 " > /sys/devices/system/cpu/cpu1/cpufreq/scaling_min_freq \n").append(
+							"chmod 444 /sys/devices/system/cpu/cpu1/cpufreq/scaling_min_freq \n\n");
 		}
 
 		/**
@@ -1722,33 +1703,33 @@ private final void startCpuLoadThread() {
 		 * */
 		if (!cpu2gov.equals("")) {
 			cpubuilder
-					.append("chmod 666 /sys/devices/system/cpu/cpu2/cpufreq/scaling_governor \n"
-							+ "echo "
-							+ "\""
-							+ cpu2gov
-							+ "\""
-							+ " > /sys/devices/system/cpu/cpu2/cpufreq/scaling_governor\n"
-							+ "chmod 444 /sys/devices/system/cpu/cpu2/cpufreq/scaling_governor \n");
+					.append("chmod 666 /sys/devices/system/cpu/cpu2/cpufreq/scaling_governor \n").append(
+							 "echo ").append(
+							 "\"").append(
+							 cpu2gov).append(
+						 "\"").append(
+							 " > /sys/devices/system/cpu/cpu2/cpufreq/scaling_governor\n").append(
+							 "chmod 444 /sys/devices/system/cpu/cpu2/cpufreq/scaling_governor \n");
 		}
 		if (!cpu2max.equals("")) {
 			cpubuilder
-					.append("chmod 666 /sys/devices/system/cpu/cpu2/cpufreq/scaling_max_freq \n"
-							+ "echo "
-							+ "\""
-							+ cpu2max
-							+ "\""
-							+ " > /sys/devices/system/cpu/cpu2/cpufreq/scaling_max_freq \n"
-							+ "chmod 444 /sys/devices/system/cpu/cpu2/cpufreq/scaling_max_freq \n");
+					.append("chmod 666 /sys/devices/system/cpu/cpu2/cpufreq/scaling_max_freq \n").append(
+							 "echo ").append(
+							 "\"").append(
+							cpu2max).append(
+							 "\"").append(
+							 " > /sys/devices/system/cpu/cpu2/cpufreq/scaling_max_freq \n").append(
+							 "chmod 444 /sys/devices/system/cpu/cpu2/cpufreq/scaling_max_freq \n");
 		}
 		if (!cpu2min.equals("")) {
 			cpubuilder
-					.append("chmod 666 /sys/devices/system/cpu/cpu2/cpufreq/scaling_min_freq \n"
-							+ "echo "
-							+ "\""
-							+ cpu2min
-							+ "\""
-							+ " > /sys/devices/system/cpu/cpu2/cpufreq/scaling_min_freq \n"
-							+ "chmod 444 /sys/devices/system/cpu/cpu2/cpufreq/scaling_min_freq \n\n");
+					.append("chmod 666 /sys/devices/system/cpu/cpu2/cpufreq/scaling_min_freq \n").append(
+							 "echo ").append(
+							 "\"").append(
+							 cpu2min).append(
+						 "\"").append(
+							 " > /sys/devices/system/cpu/cpu2/cpufreq/scaling_min_freq \n").append(
+							 "chmod 444 /sys/devices/system/cpu/cpu2/cpufreq/scaling_min_freq \n\n");
 		}
 		/**
 		 * cpu3
@@ -1756,33 +1737,33 @@ private final void startCpuLoadThread() {
 
 		if (!cpu3gov.equals("")) {
 			cpubuilder
-					.append("chmod 666 /sys/devices/system/cpu/cpu3/cpufreq/scaling_governor \n"
-							+ "echo "
-							+ "\""
-							+ cpu3gov
-							+ "\""
-							+ " > /sys/devices/system/cpu/cpu3/cpufreq/scaling_governor\n"
-							+ "chmod 444 /sys/devices/system/cpu/cpu3/cpufreq/scaling_governor \n");
+					.append("chmod 666 /sys/devices/system/cpu/cpu3/cpufreq/scaling_governor \n").append(
+							 "echo ").append(
+							 "\"").append(
+							 cpu3gov).append(
+							 "\"").append(
+							 " > /sys/devices/system/cpu/cpu3/cpufreq/scaling_governor\n").append(
+							 "chmod 444 /sys/devices/system/cpu/cpu3/cpufreq/scaling_governor \n");
 		}
 		if (!cpu3max.equals("")) {
 			cpubuilder
-					.append("chmod 666 /sys/devices/system/cpu/cpu3/cpufreq/scaling_max_freq \n"
-							+ "echo "
-							+ "\""
-							+ cpu3max
-							+ "\""
-							+ " > /sys/devices/system/cpu/cpu3/cpufreq/scaling_max_freq \n"
-							+ "chmod 444 /sys/devices/system/cpu/cpu3/cpufreq/scaling_max_freq \n");
+					.append("chmod 666 /sys/devices/system/cpu/cpu3/cpufreq/scaling_max_freq \n").append(
+							 "echo ").append(
+							 "\"").append(
+							 cpu3max).append(
+							"\"").append(
+							 " > /sys/devices/system/cpu/cpu3/cpufreq/scaling_max_freq \n").append(
+							 "chmod 444 /sys/devices/system/cpu/cpu3/cpufreq/scaling_max_freq \n");
 		}
 		if (!cpu3min.equals("")) {
 			cpubuilder
-					.append("chmod 666 /sys/devices/system/cpu/cpu3/cpufreq/scaling_min_freq \n"
-							+ "echo "
-							+ "\""
-							+ cpu3min
-							+ "\""
-							+ " > /sys/devices/system/cpu/cpu3/cpufreq/scaling_min_freq \n"
-							+ "chmod 444 /sys/devices/system/cpu/cpu3/cpufreq/scaling_min_freq \n\n");
+					.append("chmod 666 /sys/devices/system/cpu/cpu3/cpufreq/scaling_min_freq \n").append(
+							 "echo ").append(
+							 "\"").append(
+							 cpu3min).append(
+							 "\"").append(
+						 " > /sys/devices/system/cpu/cpu3/cpufreq/scaling_min_freq \n").append(
+							 "chmod 444 /sys/devices/system/cpu/cpu3/cpufreq/scaling_min_freq \n\n");
 		}
 		List<String> govSettings = CPUInfo.govSettings();
 		List<String> availableGovs = CPUInfo.availableGovs();
@@ -1793,11 +1774,10 @@ private final void startCpuLoadThread() {
 
 				if (!temp.equals("")) {
 					cpubuilder
-							.append("chmod 777 /sys/devices/system/cpu/cpufreq/"
-									+ s + "/" + st + "\n");
-					cpubuilder.append("echo " + "\"" + temp + "\""
-							+ " > /sys/devices/system/cpu/cpufreq/" + s + "/"
-							+ st + "\n");
+							.append("chmod 777 /sys/devices/system/cpu/cpufreq/")
+							.append(s).append( "/").append(st).append("\n");
+					cpubuilder.append("echo ").append("\"").append(temp).append("\"").append(
+							 " > /sys/devices/system/cpu/cpufreq/").append(s).append("/").append(st).append("\n");
 
 				}
 			}
@@ -1806,15 +1786,9 @@ private final void startCpuLoadThread() {
 
 		StringBuilder miscbuilder = new StringBuilder();
 
-		miscbuilder.append("#!/system/bin/sh \n\n"
-				+ "#mount debug filesystem\n"
-				+ "mount -t debugfs debugfs /sys/kernel/debug \n\n");
+		miscbuilder.append("#!/system/bin/sh \n\n#mount debug filesystem\nmount -t debugfs debugfs /sys/kernel/debug \n\n");
 		if (!vsync.equals("")) {
-			miscbuilder.append("#vsync\n"
-					+ "chmod 777 /sys/kernel/debug/msm_fb/0/vsync_enable \n"
-					+ "chmod 777 /sys/kernel/debug/msm_fb/0/hw_vsync_mode \n"
-					+ "chmod 777 /sys/kernel/debug/msm_fb/0/backbuff \n"
-					+ "echo " + "\"" + vsync + "\""
+			miscbuilder.append("#vsync\nchmod 777 /sys/kernel/debug/msm_fb/0/vsync_enable \nchmod 777 /sys/kernel/debug/msm_fb/0/hw_vsync_mode \nchmod 777 /sys/kernel/debug/msm_fb/0/backbuff \necho " + "\"" + vsync + "\""
 					+ " > /sys/kernel/debug/msm_fb/0/vsync_enable \n" + "echo "
 					+ "\"" + hw + "\""
 					+ " > /sys/kernel/debug/msm_fb/0/hw_vsync_mode \n"
@@ -2150,296 +2124,7 @@ private final void startCpuLoadThread() {
 		new Initd().execute(new String[] { "apply" });
 	}
 
-	/**
-	Read current cpu0 frequency
-	*/
-	private final void ReadCPU0Clock()
-	{
-
-
-		try
-		{
-
-			File myFile = new File(CPU0_CURR_FREQ);
-			FileInputStream fIn = new FileInputStream(myFile);
-			BufferedReader myReader = new BufferedReader(
-				new InputStreamReader(fIn));
-			String aDataRow = "";
-			String aBuffer = "";
-			while ((aDataRow = myReader.readLine()) != null)
-			{
-				aBuffer += aDataRow + "\n";
-			}
-			freqcpu0 = aBuffer.trim();
-			myReader.close();
-			fIn.close();
-
-		}
-		catch (Exception e)
-		{
-			freqcpu0 = "offline";
-		}
-
-
-		
-		cpu0update();
-
-	}
-
-	/**
-	 Read current cpu1 frequency
-	 */
-	private final void ReadCPU1Clock()
-	{
-
-
-		try
-		{
-
-			File myFile = new File(CPU1_CURR_FREQ);
-			FileInputStream fIn = new FileInputStream(myFile);
-
-
-
-			BufferedReader myReader = new BufferedReader(
-				new InputStreamReader(fIn));
-			String aDataRow = "";
-			String aBuffer = "";
-			while ((aDataRow = myReader.readLine()) != null)
-			{
-				aBuffer += aDataRow + "\n";
-			}
-
-			freqcpu1= aBuffer.trim();
-			myReader.close();
-			fIn.close();
-		}
-		catch (Exception e)
-		{
-			freqcpu1 = "offline";
-
-		}
-
-
-		
-		cpu1update();
-
-	}
-
-	/**
-	 Read current cpu2 frequency
-	 */
-	private final void ReadCPU2Clock()
-	{
-
-
-		try
-		{
-
-			File myFile = new File(CPU2_CURR_FREQ);
-			FileInputStream fIn = new FileInputStream(myFile);
-			BufferedReader myReader = new BufferedReader(
-				new InputStreamReader(fIn));
-			String aDataRow = "";
-			String aBuffer = "";
-			while ((aDataRow = myReader.readLine()) != null)
-			{
-				aBuffer += aDataRow + "\n";
-			}
-			freqcpu2 = aBuffer.trim();
-			myReader.close();
-			fIn.close();
-
-		}
-		catch (Exception e)
-		{
-			freqcpu2 = "offline";
-		}
-
-
-		
-		cpu2update();
-
-	}
-
-
-	/**
-	 Read current cpu3 frequency
-	 */
-	private final void ReadCPU3Clock()
-	{
-
-
-		try
-		{
-
-			File myFile = new File(CPU3_CURR_FREQ);
-			FileInputStream fIn = new FileInputStream(myFile);
-
-
-
-			BufferedReader myReader = new BufferedReader(
-				new InputStreamReader(fIn));
-			String aDataRow = "";
-			String aBuffer = "";
-			while ((aDataRow = myReader.readLine()) != null)
-			{
-				aBuffer += aDataRow + "\n";
-			}
-
-			freqcpu3 = aBuffer.trim();
-			myReader.close();
-			fIn.close();
-		}
-		catch (Exception e)
-		{
-			freqcpu3 = "offline";
-
-		}
-
-
-		
-		cpu3update();
-
-	}
-
-
-    /**
-	Read max frequency of cpu0
-	*/
-	private final void ReadCPU0maxfreq()
-	{
-
-
-		try
-		{
-
-			File myFile = new File(CPU0_MAX_FREQ);
-			FileInputStream fIn = new FileInputStream(myFile);
-			BufferedReader myReader = new BufferedReader(
-				new InputStreamReader(fIn));
-			String aDataRow = "";
-			String aBuffer = "";
-			while ((aDataRow = myReader.readLine()) != null)
-			{
-				aBuffer += aDataRow + "\n";
-			}
-
-
-			cpu0max = aBuffer;
-			myReader.close();
-			fIn.close();
-
-		}
-		catch (Exception e)
-		{
-
-		}
-
-	}
-	/**
-	 Read max frequency of cpu1
-	 */
-	private final void ReadCPU1maxfreq()
-	{
-
-
-		try
-		{
-
-			File myFile = new File(CPU1_MAX_FREQ);
-			FileInputStream fIn = new FileInputStream(myFile);
-			BufferedReader myReader = new BufferedReader(
-				new InputStreamReader(fIn));
-			String aDataRow = "";
-			String aBuffer = "";
-			while ((aDataRow = myReader.readLine()) != null)
-			{
-				aBuffer += aDataRow + "\n";
-			}
-
-
-			cpu1max = aBuffer;
-			myReader.close();
-			fIn.close();
-			
-
-
-		}
-		catch (Exception e)
-		{
-
-		}
-
-	}
-	/**
-	 Read max frequency of cpu2
-	 */
-	private final void ReadCPU2maxfreq()
-	{
-
-
-		try
-		{
-
-			File myFile = new File(CPU2_MAX_FREQ);
-			FileInputStream fIn = new FileInputStream(myFile);
-			BufferedReader myReader = new BufferedReader(
-				new InputStreamReader(fIn));
-			String aDataRow = "";
-			String aBuffer = "";
-			while ((aDataRow = myReader.readLine()) != null)
-			{
-				aBuffer += aDataRow + "\n";
-			}
-
-
-			cpu2max = aBuffer;
-			myReader.close();
-			fIn.close();
-
-		}
-		catch (Exception e)
-		{
-
-		}
-
-	}
-
-	/**
-	 Read max frequency of cpu1
-	 */
-	private final void ReadCPU3maxfreq()
-	{
-
-
-		try
-		{
-
-			File myFile = new File(CPU3_MAX_FREQ);
-			FileInputStream fIn = new FileInputStream(myFile);
-			BufferedReader myReader = new BufferedReader(
-				new InputStreamReader(fIn));
-			String aDataRow = "";
-			String aBuffer = "";
-			while ((aDataRow = myReader.readLine()) != null)
-			{
-				aBuffer += aDataRow + "\n";
-			}
-
-
-			cpu3max = aBuffer;
-			myReader.close();
-			fIn.close();
-
-		}
-		catch (Exception e)
-		{
-
-		}
-
-	}
-
+	
 	/**
 	Update UI with current frequency
 	*/
@@ -2540,8 +2225,8 @@ private final void startCpuLoadThread() {
 				//MenuItem.SHOW_AS_ACTION_NEVER);
 		menu.add(4, 4, 4, "Swap")
 				.setShowAsAction(MenuItem.SHOW_AS_ACTION_NEVER);
-		menu.add(5, 5, 5, "SD Card Analyzer").setShowAsAction(
-				MenuItem.SHOW_AS_ACTION_NEVER);
+		/*menu.add(5, 5, 5, "SD Card Analyzer").setShowAsAction(
+				MenuItem.SHOW_AS_ACTION_NEVER);*/
 
 		return true;
 	}
@@ -2565,11 +2250,11 @@ private final void startCpuLoadThread() {
 			startActivity(new Intent(this, Swap.class));
 
 		}
-		if (item.getItemId() == 5) {
+		/*if (item.getItemId() == 5) {
 			Intent myIntent = new Intent(KernelTuner.this,
 					SDScannerConfigActivity.class);
 			KernelTuner.this.startActivity(myIntent);
-		}
+		}*/
 
 		return super.onOptionsItemSelected(item);
 	}
