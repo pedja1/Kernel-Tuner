@@ -19,8 +19,7 @@
     </uses-permission>
     <uses-permission android:name="android.permission.READ_LOGS" />
     <uses-permission android:name="com.android.launcher.permission.INSTALL_SHORTCUT" />
- <uses-permission android:name="android.permission.PROCESS_OUTGOING_CALLS"/>
-    
+   
     <application
         android:allowBackup="true"
         android:icon="@drawable/ic_launcher"
@@ -71,7 +70,7 @@
             android:label="Kernel Tuner 2x1" >
             <intent-filter>
                 <action android:name="android.appwidget.action.APPWIDGET_UPDATE" />
-                <action android:name="rs.pedjaapps.KernelTuner.AppWidget.ACTION_CLICK" />
+                <action android:name="rs.pedjaapps.KernelTuner.receiver.AppWidget.ACTION_CLICK" />
             </intent-filter>
 
             <meta-data
@@ -84,7 +83,7 @@
             android:label="Kernel Tuner 4x4" >
             <intent-filter>
                 <action android:name="android.appwidget.action.APPWIDGET_UPDATE" />
-                <action android:name="rs.pedjaapps.KernelTuner.AppWidget.ACTION_CLICK" />
+                <action android:name="rs.pedjaapps.KernelTuner.receiver.AppWidgetBig.ACTION_CLICK" />
             </intent-filter>
 
             <meta-data
@@ -344,12 +343,12 @@
             android:label="Kernel Tuner - Shortcuts" >
         </activity>
 
-        <service android:name=".WidgetUpdateService" >
+        <service android:name=".services.WidgetUpdateService" >
         </service>
-        <service android:name=".WidgetUpdateServiceBig" >
+        <service android:name=".services.WidgetUpdateServiceBig" >
         </service>
         <service
-            android:name="services.NotificationService"
+            android:name=".services.NotificationService"
             android:exported="false"
             android:process=":background" >
             <intent-filter>

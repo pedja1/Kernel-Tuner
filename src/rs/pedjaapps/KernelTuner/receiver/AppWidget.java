@@ -2,7 +2,6 @@ package rs.pedjaapps.KernelTuner.receiver;
 
 import android.appwidget.*;
 import android.content.*;
-import rs.pedjaapps.KernelTuner.*;
 import rs.pedjaapps.KernelTuner.services.*;
 
 public class AppWidget extends AppWidgetProvider
@@ -13,7 +12,7 @@ public class AppWidget extends AppWidgetProvider
 						 AppWidgetManager appWidgetManager, int[] appWidgetIds)
 	{
 
-	
+	System.out.println("widget small");
 		ComponentName thisWidget = new ComponentName(context, AppWidget.class);
 		int[] allWidgetIds = appWidgetManager.getAppWidgetIds(thisWidget);
 

@@ -5,7 +5,6 @@ import android.app.*;
 import android.appwidget.*;
 import android.content.*;
 import android.graphics.*;
-import android.graphics.Bitmap.*;
 import android.graphics.Paint.*;
 import android.os.*;
 import android.preference.*;

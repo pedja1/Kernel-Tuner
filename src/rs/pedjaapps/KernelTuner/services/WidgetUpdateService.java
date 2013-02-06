@@ -23,7 +23,7 @@ public class WidgetUpdateService extends Service
 
 	private void read()
 	{
-
+		System.out.println("widget service");
 		try
 		{
 
