@@ -9,12 +9,10 @@ import android.view.*;
 import android.widget.*;
 import android.widget.AdapterView.*;
 import com.actionbarsherlock.app.*;
-import com.actionbarsherlock.view.*;
 import com.google.ads.*;
 import com.slidingmenu.lib.*;
 import java.io.*;
 import java.util.*;
-import rs.pedjaapps.KernelTuner.*;
 import rs.pedjaapps.KernelTuner.entry.*;
 import rs.pedjaapps.KernelTuner.helpers.*;
 
@@ -124,7 +122,6 @@ public class Thermald extends SherlockActivity
 			// Pass the result data back to the main activity
 
 			
-			preferences = PreferenceManager.getDefaultSharedPreferences(getBaseContext());
 			SharedPreferences.Editor editor = preferences.edit();
 	 	    editor.putString("p1freq", p1freqnew);
 	 	    editor.putString("p2freq", p2freqnew);
@@ -148,7 +145,7 @@ public class Thermald extends SherlockActivity
 	@Override
 	public void onCreate(Bundle savedInstanceState)
 	{
-		SharedPreferences preferences = PreferenceManager.getDefaultSharedPreferences(this);
+		preferences = PreferenceManager.getDefaultSharedPreferences(this);
 		
 		String theme = preferences.getString("theme", "light");
 		
@@ -181,7 +178,6 @@ public class Thermald extends SherlockActivity
 		
 		GridView sideView = (GridView) menu.findViewById(R.id.grid);
 		SideMenuAdapter sideAdapter = new SideMenuAdapter(this, R.layout.side_item);
-		System.out.println("check "+sideView+" "+sideAdapter);
 		sideView.setAdapter(sideAdapter);
 
 		
@@ -215,7 +211,7 @@ public class Thermald extends SherlockActivity
 		if (ads == true)
 		{AdView adView = (AdView)findViewById(R.id.ad);
 			adView.loadAd(new AdRequest());}
-		
+		System.out.println(""+convertTempBack("56"));
 		readCurrentPhase1();
 		readCurrentPhase2();
 		readCurrentPhase3();
@@ -241,8 +237,21 @@ public class Thermald extends SherlockActivity
 		createSpinnerp1();
 		createSpinnerp2();
 		createSpinnerp3();
-
 		
+		String tempPref = preferences.getString("temp", "celsius");
+		int[] ids = {R.id.c1, R.id.c2, R.id.c3, R.id.c4, R.id.c5, R.id.c6};
+		if(tempPref.equals("fahrenheit")){
+			for(int i : ids){
+				TextView tv = (TextView)findViewById(i);
+				tv.setText("°F");
+			}
+		}
+		if(tempPref.equals("kelvin")){
+			for(int i : ids){
+				TextView tv = (TextView)findViewById(i);
+				tv.setText("°K");
+			}
+		}
 	}
 
 
@@ -472,7 +481,7 @@ public class Thermald extends SherlockActivity
 				aBuffer += aDataRow + "\n";
 			}
 
-			p1low = aBuffer.trim();
+			p1low = convertTemp(aBuffer.trim());
 			myReader.close();
 			fIn.close();
 		}
@@ -500,7 +509,7 @@ public class Thermald extends SherlockActivity
 				aBuffer += aDataRow + "\n";
 			}
 
-			p1high = aBuffer;
+			p1high = convertTemp(aBuffer.trim());
 			myReader.close();
 			fIn.close();
 		}
@@ -527,7 +536,7 @@ public class Thermald extends SherlockActivity
 				aBuffer += aDataRow + "\n";
 			}
 
-			p2low = aBuffer;
+			p2low = convertTemp(aBuffer.trim());
 			myReader.close();
 			fIn.close();
 		}
@@ -555,7 +564,7 @@ public class Thermald extends SherlockActivity
 				aBuffer += aDataRow + "\n";
 			}
 
-			p2high = aBuffer;
+			p2high = convertTemp(aBuffer.trim());
 			myReader.close();
 			fIn.close();
 		}
@@ -583,7 +592,7 @@ public class Thermald extends SherlockActivity
 				aBuffer += aDataRow + "\n";
 			}
 
-			p3low = aBuffer;
+			p3low = convertTemp(aBuffer.trim());
 			myReader.close();
 			fIn.close();
 		}
@@ -611,7 +620,7 @@ public class Thermald extends SherlockActivity
 				aBuffer += aDataRow + "\n";
 			}
 
-			p3high = aBuffer;
+			p3high = convertTemp(aBuffer.trim());
 			myReader.close();
 			fIn.close();
 		}
@@ -621,7 +630,61 @@ public class Thermald extends SherlockActivity
 
 		}
 	}
+	private String convertTemp(String temp)
+	{
+		String tempUnit = preferences.getString("temp", "celsius");
+		if (tempUnit.equals("celsius"))
+		{
+			return temp;
+		}
+		else if (tempUnit.equals("fahrenheit"))
+		{
+			if (!temp.equals(""))
+			{
+				return ((int)(Double.parseDouble(temp) * 1.8 + 32)) + "";
+			}
+			else{
+				return "";
+			}
+		}
+		else if (tempUnit.equals("kelvin"))
+		{
+			return ((int)(Double.parseDouble(temp) + 273.15)) + "";
+		}
+		else{
+			return "";
+		}
+		
+
+	}
 	
+	private String convertTempBack(String temp)
+	{
+		String tempUnit = preferences.getString("temp", "celsius");
+		if (tempUnit.equals("celsius"))
+		{
+			return temp;
+		}
+		else if (tempUnit.equals("fahrenheit"))
+		{
+			if (!temp.equals(""))
+			{
+				return ((int)((Double.parseDouble(temp)-32)/1.8)) + "";
+			}
+			else{
+				return "";
+			}
+		}
+		else if (tempUnit.equals("kelvin"))
+		{
+			return ((int)(Double.parseDouble(temp) - 273.15)) + "";
+		}
+		else{
+			return "";
+		}
+		
+
+	}
 	@Override
 	public boolean onCreateOptionsMenu(Menu menu) {
 		MenuInflater inflater = getSupportMenuInflater();
@@ -651,12 +714,12 @@ public class Thermald extends SherlockActivity
 	
 	private final void apply(){
 		Thermald.this.pd = ProgressDialog.show(Thermald.this, null, getResources().getString(R.string.applying_settings), true, false);
-		p1lownew = ed1.getText().toString();
-		p1highnew = ed2.getText().toString();
-		p2lownew = ed3.getText().toString();
-		p2highnew = ed4.getText().toString();
-		p3lownew = ed5.getText().toString();
-		p3highnew = ed6.getText().toString();
+		p1lownew = convertTempBack(ed1.getText().toString());
+		p1highnew = convertTempBack(ed2.getText().toString());
+		p2lownew = convertTempBack(ed3.getText().toString());
+		p2highnew = convertTempBack(ed4.getText().toString());
+		p3lownew = convertTempBack(ed5.getText().toString());
+		p3highnew = convertTempBack(ed6.getText().toString());
 		new apply().execute();
 	}
 
