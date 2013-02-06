@@ -32,7 +32,7 @@ import java.lang.Process;
 public class KernelTuner extends SherlockActivity {
 
 	private List<CPUInfo.FreqsEntry> freqEntries = CPUInfo.frequencies();
-	private List<String> freqNames = new ArrayList<String>();
+	//private List<String> freqNames = new ArrayList<String>();
 	private List<CPUInfo.VoltageList> voltageFreqs = CPUInfo.voltages();
 	private List<String> voltages = new ArrayList<String>();
 	private TextView batteryLevel;
@@ -168,12 +168,6 @@ public class KernelTuner extends SherlockActivity {
 
 
 	private float fLoad;
-	private static String cpu1online = CPUInfo.cpu1online; 
-	private static String cpu2online = CPUInfo.cpu2online; 
-	private static String cpu3online = CPUInfo.cpu3online; 
-private static final String CPU1_CURR_GOV = CPUInfo.CPU1_CURR_GOV;
-	private static final String CPU2_CURR_GOV = CPUInfo.CPU2_CURR_GOV;
-	private static final String CPU3_CURR_GOV = CPUInfo.CPU3_CURR_GOV;
 	private TextView cpu0prog;
 	private TextView cpu1prog;
 	private TextView cpu2prog;
@@ -199,7 +193,7 @@ private static final String CPU1_CURR_GOV = CPUInfo.CPU1_CURR_GOV;
 		@Override
 		protected Object doInBackground(String... args) {
 			Process process;
-			File file = new File(CPU1_CURR_GOV);
+			File file = new File(CPUInfo.CPU1_CURR_GOV);
 			try {
 
 				InputStream fIn = new FileInputStream(file);
@@ -314,7 +308,7 @@ private static final String CPU1_CURR_GOV = CPUInfo.CPU1_CURR_GOV;
 		@Override
 		protected Object doInBackground(String... args) {
 			Process process;
-			File file = new File(CPU2_CURR_GOV);
+			File file = new File(CPUInfo.CPU2_CURR_GOV);
 			try {
 
 				InputStream fIn = new FileInputStream(file);
@@ -423,7 +417,7 @@ private static final String CPU1_CURR_GOV = CPUInfo.CPU1_CURR_GOV;
 		@Override
 		protected Object doInBackground(String... args) {
 			Process process;
-			File file = new File(CPU3_CURR_GOV);
+			File file = new File(CPUInfo.CPU3_CURR_GOV);
 			try {
 
 				InputStream fIn = new FileInputStream(file);
@@ -672,10 +666,10 @@ private static final String CPU1_CURR_GOV = CPUInfo.CPU1_CURR_GOV;
 			CopyAssets();
 		}
 		
-		dump = preferences.getBoolean("dump", false);
+		/*dump = preferences.getBoolean("dump", false);
 		if(dump == false){
 			new upl().execute();
-		}
+		}*/
 
 		ActionBar actionBar = getSupportActionBar();
 
@@ -721,9 +715,9 @@ private static final String CPU1_CURR_GOV = CPUInfo.CPU1_CURR_GOV;
 		for(CPUInfo.FreqsEntry f: freqEntries){
 			freqlist.add(new StringBuilder().append(f.getFreq()).toString());
 		}
-		for(CPUInfo.FreqsEntry f: freqEntries){
+		/*for(CPUInfo.FreqsEntry f: freqEntries){
 			freqNames.add(f.getFreqName());
-		}
+		}*/
 		for (CPUInfo.VoltageList v : voltageFreqs) {
 			voltages.add(new StringBuilder().append(v.getFreq()).toString());
 		}
@@ -769,18 +763,18 @@ private static final String CPU1_CURR_GOV = CPUInfo.CPU1_CURR_GOV;
 										cpuTemp(tmp);
 										cpu0update();
 										
-										if (new File(cpu1online).exists())
+										if (CPUInfo.cpu1Online())
 										{
 											cpu1update();
 
 										}
-										if (new File(cpu2online).exists())
+										if (CPUInfo.cpu2Online())
 										{
 											
 											cpu2update();
 
 										}
-										if (new File(cpu3online).exists())
+										if (CPUInfo.cpu3Online())
 										{
 											cpu3update();
 
@@ -2213,8 +2207,6 @@ private void startCpuLoadThread() {
 	@Override
 	public boolean onCreateOptionsMenu(Menu menu) {
 
-		// MenuInflater inflater = getSupportMenuInflater();
-		// inflater.inflate(R.menu.options, menu);
 		if (theme.equals("light")) {
 			isLight = true;
 		} else if (theme.equals("dark")) {
@@ -2231,12 +2223,8 @@ private void startCpuLoadThread() {
 								| MenuItem.SHOW_AS_ACTION_WITH_TEXT);
 		menu.add(2, 2, 2, "Compatibility Check").setShowAsAction(
 				MenuItem.SHOW_AS_ACTION_NEVER);
-		//menu.add(3, 3, 3, "Dump Application/System Log").setShowAsAction(
-				//MenuItem.SHOW_AS_ACTION_NEVER);
 		menu.add(4, 4, 4, "Swap")
 				.setShowAsAction(MenuItem.SHOW_AS_ACTION_NEVER);
-		/*menu.add(5, 5, 5, "SD Card Analyzer").setShowAsAction(
-				MenuItem.SHOW_AS_ACTION_NEVER);*/
 
 		return true;
 	}
@@ -2246,26 +2234,13 @@ private void startCpuLoadThread() {
 
 		if (item.getItemId() == 1) {
 			startActivity(new Intent(this, Preferences.class));
-
 		}
-
-		if (item.getItemId() == 2) {
+		else if (item.getItemId() == 2) {
 			startActivity(new Intent(this, CompatibilityCheck.class));
-
 		}
-
-		
-
-		if (item.getItemId() == 4) {
+		else if (item.getItemId() == 4) {
 			startActivity(new Intent(this, Swap.class));
-
 		}
-		/*if (item.getItemId() == 5) {
-			Intent myIntent = new Intent(KernelTuner.this,
-					SDScannerConfigActivity.class);
-			KernelTuner.this.startActivity(myIntent);
-		}*/
-
 		return super.onOptionsItemSelected(item);
 	}
 

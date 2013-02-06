@@ -6,7 +6,6 @@ import android.os.*;
 import android.preference.*;
 import android.util.*;
 import android.view.*;
-import android.view.View.*;
 import android.widget.*;
 import android.widget.AdapterView.*;
 import com.actionbarsherlock.app.*;
@@ -28,13 +27,11 @@ public class Gpu extends SherlockActivity
 
 	private String selected3d;
 
-	private int new3d;
-	private int new2d;
 
 	private static final String board = android.os.Build.DEVICE;
 
 
-	private List<Integer> gpu2d;
+	private List<String> gpu2d;
 	private List<String> gpu3d;
 	private List<String> gpu2dHr;
 	private List<String> gpu3dHr;
@@ -46,132 +43,9 @@ public class Gpu extends SherlockActivity
 
 private class changegpu extends AsyncTask<String, Void, Object>
 	{
-
-
 		@Override
 		protected Object doInBackground(String... args)
 		{
-			if (board.equals("shooter") || board.equals("shooteru") || board.equals("pyramid") || board.equals("tenderloin"))
-				{
-					//3d freqs for shooter,shooteru,pyramid(msm8x60)
-					if (selected3d.equals("200"))
-					{
-						new3d = 200000000;
-					}
-					else if (selected3d.equals("228"))
-					{
-						new3d = 228571000;
-					}
-					else if (selected3d.equals("266"))
-					{
-						new3d = 266667000;
-					}
-					else if (selected3d.equals("300"))
-					{
-						new3d = 300000000;
-					}
-					else if (selected3d.equals("320"))
-					{
-						new3d = 320000000;
-					}
-
-					//2d freqs for shooter,shooteru,pyramid(msm8x60)
-					if (selected2d.equals("160"))
-					{
-						new2d = 160000000;
-
-					}
-					else if (selected2d.equals("200"))
-					{
-						new2d = 200000000;
-						//System.out.println("new clock = " +new2d);
-					}
-					else if (selected2d.equals("228"))
-					{
-						new2d = 228571000;
-						//System.out.println("new clock = " +new2d);
-					}
-					else if (selected2d.equals("266"))
-					{
-						new2d = 266667000;
-						//System.out.println("new clock = " +new2d);
-					}
-				}
-				//freqs for one s and one xl
-				else if (board.equals("evita") || board.equals("ville") || board.equals("jewel") || board.equals("d2spr"))
-				{
-					// 3d freqs for evita
-					if (selected3d.equals("27"))
-					{
-						new3d = 27000000;
-					}
-					else if (selected3d.equals("177"))
-					{
-						new3d = 177778000;
-					}
-					else if (selected3d.equals("200"))
-					{
-						new3d = 200000000;
-					}
-					else if (selected3d.equals("228"))
-					{
-						new3d = 228571000;
-					}
-					else if (selected3d.equals("266"))
-					{
-						new3d = 266667000;
-					}
-					else if (selected3d.equals("300"))
-					{
-						new3d = 300000000;
-					}
-					else if (selected3d.equals("320"))
-					{
-						new3d = 320000000;
-					}
-					else if (selected3d.equals("400"))
-					{
-						new3d = 400000000;
-					}
-					else if (selected2d.equals("512"))
-					{
-						new2d = 512000000;
-					}
-
-					//2d freqs for evita
-					if (selected2d.equals("27"))
-					{
-						new2d = 27000000;
-
-					}
-					else if (selected2d.equals("96"))
-					{
-						new2d = 96000000;
-					}
-					else if (selected2d.equals("160"))
-					{
-						new2d = 160000000;
-					}
-					else if (selected2d.equals("200"))
-					{
-						new2d = 200000000;
-					}
-					else if (selected2d.equals("228"))
-					{
-						new2d = 228571000;
-					}
-					else if (selected2d.equals("266"))
-					{
-						new2d = 266667000;
-					}
-					else if (selected2d.equals("320"))
-					{
-						new2d = 320000000;
-					}
-
-
-
-				}
 				try {
 		            String line;
 		            Process process = Runtime.getRuntime().exec("su");
@@ -183,9 +57,9 @@ private class changegpu extends AsyncTask<String, Void, Object>
 		            stdin.write(("chmod 777 /sys/devices/platform/kgsl-2d1.1/kgsl/kgsl-2d1/max_gpuclk\n").getBytes());
 		            stdin.write(("chmod 777 /sys/devices/platform/kgsl-2d0.0/kgsl/kgsl-2d0/max_gpuclk\n").getBytes());
 		            
-		            stdin.write(("echo " + new3d + " > /sys/devices/platform/kgsl-3d0.0/kgsl/kgsl-3d0/max_gpuclk\n").getBytes());
-		            stdin.write(("echo " + new2d + " > /sys/devices/platform/kgsl-2d0.0/kgsl/kgsl-2d0/max_gpuclk\n").getBytes());
-		            stdin.write(("echo " + new2d + " > /sys/devices/platform/kgsl-2d1.1/kgsl/kgsl-2d1/max_gpuclk\n").getBytes());
+		            stdin.write(("echo " + selected3d + " > /sys/devices/platform/kgsl-3d0.0/kgsl/kgsl-3d0/max_gpuclk\n").getBytes());
+		            stdin.write(("echo " + selected2d + " > /sys/devices/platform/kgsl-2d0.0/kgsl/kgsl-2d0/max_gpuclk\n").getBytes());
+		            stdin.write(("echo " + selected2d + " > /sys/devices/platform/kgsl-2d1.1/kgsl/kgsl-2d1/max_gpuclk\n").getBytes());
 		            
 		            stdin.flush();
 
@@ -216,8 +90,8 @@ private class changegpu extends AsyncTask<String, Void, Object>
 		{
 			preferences = PreferenceManager.getDefaultSharedPreferences(getBaseContext());
 			SharedPreferences.Editor editor = preferences.edit();
-	  	    editor.putString("gpu3d", new3d+"");
-	  	    editor.putString("gpu2d", new2d+"");
+	  	    editor.putString("gpu3d", selected3d+"");
+	  	    editor.putString("gpu2d", selected2d+"");
 	  	    editor.commit();
 
 
@@ -253,15 +127,15 @@ private class changegpu extends AsyncTask<String, Void, Object>
 		{
 			gpu2dHr = Arrays.asList(new String[]{"160Mhz", "200Mhz", "228Mhz", "266Mhz"});
 			gpu3dHr = Arrays.asList(new String[]{"200Mhz", "228Mhz", "266Mhz", "300Mhz", "320Mhz"});
-			gpu2d = Arrays.asList(new int[]{160000000, 200000000, 228571000, 266666000});
-			gpu3d = Arrays.asList(new String[]{"200000000", "228571000", "266666000", "300000000", "320000000"});
+			gpu2d = Arrays.asList(new String[]{"160000000", "200000000", "228571000", "266667000"});
+			gpu3d = Arrays.asList(new String[]{"200000000", "228571000", "266667000", "300000000", "320000000"});
 		}
 		else if (board.equals("evita") || board.equals("ville") || board.equals("jewel") || board.equals("d2spr"))
 		{
 			gpu2dHr = Arrays.asList(new String[]{"320Mhz", "266Mhz", "228Mhz", "200Mhz", "160Mhz", "96Mhz", "27Mhz"});
 			gpu3dHr = Arrays.asList(new String[]{"512Mhz", "400Mhz", "320Mhz", "300Mhz", "266Mhz", "228Mhz", "200Mhz", "177Mhz", "27Mhz"});
-		//	gpu2d = Arrays.asList(new []{"320000000", "266666000", "228571000", "200000000", "160000000", "96000000", "27000000"});
-			gpu3d = Arrays.asList(new String[]{"512000000", "400000000", "320000000", "300000000", "266666000", "228571000", "200000000", "177778000", "27000000"});
+			gpu2d = Arrays.asList(new String[]{"320000000", "266667000", "228571000", "200000000", "160000000", "96000000", "27000000"});
+			gpu3d = Arrays.asList(new String[]{"512000000", "400000000", "320000000", "300000000", "266667000", "228571000", "200000000", "177778000", "27000000"});
 		}
 
 		gpu2dmax = readFile("/sys/devices/platform/kgsl-2d0.0/kgsl/kgsl-2d0/max_gpuclk");
@@ -271,7 +145,7 @@ private class changegpu extends AsyncTask<String, Void, Object>
 		
 		createSpinners();
 	
-
+		
 		TextView tv5 = (TextView)findViewById(R.id.textView5);
 		TextView tv2 = (TextView)findViewById(R.id.textView7);
 
@@ -306,11 +180,11 @@ private class changegpu extends AsyncTask<String, Void, Object>
 
 	}
 
-    private final void createSpinners()
+    private void createSpinners()
 	{
 
 
-		final Spinner d2Spinner = (Spinner) findViewById(R.id.spinner2);
+		Spinner d2Spinner = (Spinner) findViewById(R.id.spinner2);
 		ArrayAdapter<String> d2Adapter = new ArrayAdapter<String>(this,   android.R.layout.simple_spinner_item, gpu2dHr);
 		d2Adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item); // The drop down vieww
 		d2Spinner.setAdapter(d2Adapter);
@@ -320,8 +194,7 @@ private class changegpu extends AsyncTask<String, Void, Object>
 				@Override
 				public void onItemSelected(AdapterView<?> parent, View view, int pos, long id)
 				{
-					selected2d = parent.getItemAtPosition(gpu2d.indexOf(gpu2dHr.get(pos))).toString();
-
+					selected2d = gpu2d.get(pos);
 				}
 
 				@Override
@@ -330,12 +203,11 @@ private class changegpu extends AsyncTask<String, Void, Object>
 					//do nothing
 				}
 			});
-
-		int d2Position = d2Adapter.getPosition(gpu2dHr.get(gpu2d.indexOf(gpu2dmax)));
+		int d2Position = d2Adapter.getPosition(gpu2dHr.get(gpu2d.indexOf(gpu2dmax+"")));
 
 		d2Spinner.setSelection(d2Position);
 
-		final Spinner d3Spinner = (Spinner) findViewById(R.id.spinner1);
+		Spinner d3Spinner = (Spinner) findViewById(R.id.spinner1);
 		ArrayAdapter<String> d3Adapter = new ArrayAdapter<String>(this,   android.R.layout.simple_spinner_item, gpu3dHr);
 		d3Adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item); // The drop down vieww
 		d3Spinner.setAdapter(d3Adapter);
@@ -344,8 +216,7 @@ private class changegpu extends AsyncTask<String, Void, Object>
 				@Override
 				public void onItemSelected(AdapterView<?> parent, View view, int pos, long id)
 				{
-					selected3d = parent.getItemAtPosition(gpu3d.indexOf(gpu3dHr.get(pos))).toString();
-
+					selected3d = gpu3d.get(pos);
 				}
 
 				@Override

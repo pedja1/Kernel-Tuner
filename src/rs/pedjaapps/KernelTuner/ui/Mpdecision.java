@@ -186,7 +186,6 @@ public class Mpdecision extends SherlockActivity
 		
 		GridView sideView = (GridView) menu.findViewById(R.id.grid);
 		SideMenuAdapter sideAdapter = new SideMenuAdapter(this, R.layout.side_item);
-		System.out.println("check "+sideView+" "+sideAdapter);
 		sideView.setAdapter(sideAdapter);
 
 		
