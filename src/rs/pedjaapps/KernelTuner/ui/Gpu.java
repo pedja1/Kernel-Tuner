@@ -11,6 +11,7 @@ import android.widget.*;
 import android.widget.AdapterView.*;
 import com.actionbarsherlock.app.*;
 import java.io.*;
+import java.util.*;
 import rs.pedjaapps.KernelTuner.*;
 
 import android.view.View.OnClickListener;
@@ -33,8 +34,11 @@ public class Gpu extends SherlockActivity
 	private static final String board = android.os.Build.DEVICE;
 
 
-	private String[] gpu2d ;
-	private String[] gpu3d ;
+	private List<Integer> gpu2d;
+	private List<String> gpu3d;
+	private List<String> gpu2dHr;
+	private List<String> gpu3dHr;
+	
 
 	private ProgressDialog pd = null;
 	private SharedPreferences preferences;
@@ -247,21 +251,26 @@ private class changegpu extends AsyncTask<String, Void, Object>
 		setContentView(R.layout.gpu);
 		if (board.equals("shooter") || board.equals("shooteru") || board.equals("pyramid")|| board.equals("tenderloin"))
 		{
-			gpu2d = new String[]{"160", "200", "228", "266"};
-			gpu3d = new String[]{"200", "228", "266", "300", "320"};
+			gpu2dHr = Arrays.asList(new String[]{"160Mhz", "200Mhz", "228Mhz", "266Mhz"});
+			gpu3dHr = Arrays.asList(new String[]{"200Mhz", "228Mhz", "266Mhz", "300Mhz", "320Mhz"});
+			gpu2d = Arrays.asList(new int[]{160000000, 200000000, 228571000, 266666000});
+			gpu3d = Arrays.asList(new String[]{"200000000", "228571000", "266666000", "300000000", "320000000"});
 		}
 		else if (board.equals("evita") || board.equals("ville") || board.equals("jewel") || board.equals("d2spr"))
 		{
-			gpu2d = new String[]{"320", "266", "228", "200", "160", "96", "27"};
-			gpu3d = new String[]{"512", "400", "320", "300", "266", "228", "200", "177", "27"};
+			gpu2dHr = Arrays.asList(new String[]{"320Mhz", "266Mhz", "228Mhz", "200Mhz", "160Mhz", "96Mhz", "27Mhz"});
+			gpu3dHr = Arrays.asList(new String[]{"512Mhz", "400Mhz", "320Mhz", "300Mhz", "266Mhz", "228Mhz", "200Mhz", "177Mhz", "27Mhz"});
+		//	gpu2d = Arrays.asList(new []{"320000000", "266666000", "228571000", "200000000", "160000000", "96000000", "27000000"});
+			gpu3d = Arrays.asList(new String[]{"512000000", "400000000", "320000000", "300000000", "266666000", "228571000", "200000000", "177778000", "27000000"});
 		}
 
-		readgpu2dcurent();
-
-		readgpu3dcurent();
-		readgpu2dmax();
-
-		readgpu3dmax();
+		gpu2dmax = readFile("/sys/devices/platform/kgsl-2d0.0/kgsl/kgsl-2d0/max_gpuclk");
+		gpu3dmax = readFile("/sys/devices/platform/kgsl-3d0.0/kgsl/kgsl-3d0/max_gpuclk");
+		gpu2dcurent = readFile("/sys/devices/platform/kgsl-2d0.0/kgsl/kgsl-2d0/gpuclk");
+		gpu3dcurent = readFile("/sys/devices/platform/kgsl-3d0.0/kgsl/kgsl-3d0/gpuclk");
+		
+		createSpinners();
+	
 
 		TextView tv5 = (TextView)findViewById(R.id.textView5);
 		TextView tv2 = (TextView)findViewById(R.id.textView7);
@@ -297,21 +306,21 @@ private class changegpu extends AsyncTask<String, Void, Object>
 
 	}
 
-    private final void createSpinner2D()
+    private final void createSpinners()
 	{
 
 
-		final Spinner spinner = (Spinner) findViewById(R.id.spinner2);
-		ArrayAdapter<String> spinnerArrayAdapter = new ArrayAdapter<String>(this,   android.R.layout.simple_spinner_item, gpu2d);
-		spinnerArrayAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item); // The drop down vieww
-		spinner.setAdapter(spinnerArrayAdapter);
+		final Spinner d2Spinner = (Spinner) findViewById(R.id.spinner2);
+		ArrayAdapter<String> d2Adapter = new ArrayAdapter<String>(this,   android.R.layout.simple_spinner_item, gpu2dHr);
+		d2Adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item); // The drop down vieww
+		d2Spinner.setAdapter(d2Adapter);
 
-		spinner.setOnItemSelectedListener(new OnItemSelectedListener() {
+		d2Spinner.setOnItemSelectedListener(new OnItemSelectedListener() {
 
 				@Override
 				public void onItemSelected(AdapterView<?> parent, View view, int pos, long id)
 				{
-					selected2d = parent.getItemAtPosition(pos).toString();
+					selected2d = parent.getItemAtPosition(gpu2d.indexOf(gpu2dHr.get(pos))).toString();
 
 				}
 
@@ -322,28 +331,20 @@ private class changegpu extends AsyncTask<String, Void, Object>
 				}
 			});
 
-		int spinnerPosition = spinnerArrayAdapter.getPosition(""+(gpu2dmax/1000000));
+		int d2Position = d2Adapter.getPosition(gpu2dHr.get(gpu2d.indexOf(gpu2dmax)));
 
-		spinner.setSelection(spinnerPosition);
+		d2Spinner.setSelection(d2Position);
 
-	}
+		final Spinner d3Spinner = (Spinner) findViewById(R.id.spinner1);
+		ArrayAdapter<String> d3Adapter = new ArrayAdapter<String>(this,   android.R.layout.simple_spinner_item, gpu3dHr);
+		d3Adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item); // The drop down vieww
+		d3Spinner.setAdapter(d3Adapter);
 
-
-
-    private final void createSpinner3D()
-	{
-
-
-		final Spinner spinner = (Spinner) findViewById(R.id.spinner1);
-		ArrayAdapter<String> spinnerArrayAdapter = new ArrayAdapter<String>(this,   android.R.layout.simple_spinner_item, gpu3d);
-		spinnerArrayAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item); // The drop down vieww
-		spinner.setAdapter(spinnerArrayAdapter);
-
-		spinner.setOnItemSelectedListener(new OnItemSelectedListener() {
+		d3Spinner.setOnItemSelectedListener(new OnItemSelectedListener() {
 				@Override
 				public void onItemSelected(AdapterView<?> parent, View view, int pos, long id)
 				{
-					selected3d = parent.getItemAtPosition(pos).toString();
+					selected3d = parent.getItemAtPosition(gpu3d.indexOf(gpu3dHr.get(pos))).toString();
 
 				}
 
@@ -354,49 +355,20 @@ private class changegpu extends AsyncTask<String, Void, Object>
 				}
 			});
 
-	
-		int spinnerPosition = spinnerArrayAdapter.getPosition(""+(gpu3dmax/1000000));
-		spinner.setSelection(spinnerPosition);
 
+		int d3Position = d3Adapter.getPosition(gpu3dHr.get(gpu3d.indexOf(gpu3dmax+"")));
+		d3Spinner.setSelection(d3Position);
+		
 	}
 
+    
 
-    private final void readgpu3dcurent()
+    private Integer readFile(String path)
 	{
 		try
 		{
 
-			File myFile = new File("/sys/devices/platform/kgsl-3d0.0/kgsl/kgsl-3d0/gpuclk");
-			FileInputStream fIn = new FileInputStream(myFile);
-
-			BufferedReader myReader = new BufferedReader(
-				new InputStreamReader(fIn));
-			String aDataRow = "";
-			String aBuffer = "";
-			while ((aDataRow = myReader.readLine()) != null)
-			{
-				aBuffer += aDataRow + "\n";
-			}
-
-			gpu3dcurent = Integer.parseInt(aBuffer.trim());
-
-			myReader.close();
-
-
-
-		}
-		catch (Exception e)
-		{
-			
-			}
-	}
-
-    private final void readgpu2dcurent()
-	{
-		try
-		{
-
-			File myFile = new File("/sys/devices/platform/kgsl-2d0.0/kgsl/kgsl-2d0/gpuclk");
+			File myFile = new File(path/*"/sys/devices/platform/kgsl-2d0.0/kgsl/kgsl-2d0/max_gpuclk"*/);
 			FileInputStream fIn = new FileInputStream(myFile);
 			BufferedReader myReader = new BufferedReader(
 				new InputStreamReader(fIn));
@@ -406,76 +378,15 @@ private class changegpu extends AsyncTask<String, Void, Object>
 			{
 				aBuffer += aDataRow + "\n";
 			}
-
-			gpu2dcurent = Integer.parseInt(aBuffer.trim());
-
 			myReader.close();
-
+			return Integer.parseInt(aBuffer.trim());
 
 
 
 		}
 		catch (Exception e)
 		{
-			}
-	}
-
-
-    private final void readgpu3dmax()
-	{
-		try
-		{
-
-			File myFile = new File("/sys/devices/platform/kgsl-3d0.0/kgsl/kgsl-3d0/max_gpuclk");
-			FileInputStream fIn = new FileInputStream(myFile);
-
-			BufferedReader myReader = new BufferedReader(
-				new InputStreamReader(fIn));
-			String aDataRow = "";
-			String aBuffer = "";
-			while ((aDataRow = myReader.readLine()) != null)
-			{
-				aBuffer += aDataRow + "\n";
-			}
-
-			gpu3dmax = Integer.parseInt(aBuffer.trim());
-			createSpinner3D();
-			myReader.close();
-
-		}
-		catch (Exception e)
-		{
-			}
-	}
-
-    private final void readgpu2dmax()
-	{
-		try
-		{
-
-			File myFile = new File("/sys/devices/platform/kgsl-2d0.0/kgsl/kgsl-2d0/max_gpuclk");
-			FileInputStream fIn = new FileInputStream(myFile);
-			BufferedReader myReader = new BufferedReader(
-				new InputStreamReader(fIn));
-			String aDataRow = "";
-			String aBuffer = "";
-			while ((aDataRow = myReader.readLine()) != null)
-			{
-				aBuffer += aDataRow + "\n";
-			}
-
-			gpu2dmax = Integer.parseInt(aBuffer.trim());
-
-			createSpinner2D();
-
-			myReader.close();
-
-
-
-
-		}
-		catch (Exception e)
-		{
+			return 0;
 				}
 	}
 

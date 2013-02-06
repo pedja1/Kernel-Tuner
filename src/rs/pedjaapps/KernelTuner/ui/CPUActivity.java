@@ -1277,13 +1277,13 @@ startCpuLoadThread();
 	private final void populateGovernorSpinners()
 	{
 		
-		ArrayAdapter<String> gov0spinnerArrayAdapter = new ArrayAdapter<String>(this,   android.R.layout.simple_spinner_item, CPUInfo.governors());
-		
-		gov0spinnerArrayAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
-		gov0spinner.setAdapter(gov0spinnerArrayAdapter);
+		ArrayAdapter<String> govAdapter = new ArrayAdapter<String>(this,   android.R.layout.simple_spinner_item, CPUInfo.governors());
+		govAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
+	
+    	gov0spinner.setAdapter(govAdapter);
 
 		
-		int gov0spinnerPosition = gov0spinnerArrayAdapter.getPosition(CPUInfo.cpu0CurGov());
+		int gov0spinnerPosition = govAdapter.getPosition(CPUInfo.cpu0CurGov());
 		gov0spinner.setSelection(gov0spinnerPosition);
 
 		gov0spinner.setOnItemSelectedListener(new OnItemSelectedListener() {
@@ -1306,11 +1306,9 @@ startCpuLoadThread();
 		//govrnors for cpu1
 		if (cpu0Online == true)
 		{
-			ArrayAdapter<String> gov1spinnerArrayAdapter = new ArrayAdapter<String>(this,   android.R.layout.simple_spinner_item, CPUInfo.governors());
-			gov1spinnerArrayAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
-			gov1spinner.setAdapter(gov1spinnerArrayAdapter);
+			gov1spinner.setAdapter(govAdapter);
 
-			int gov1spinnerPosition = gov1spinnerArrayAdapter.getPosition(CPUInfo.cpu1CurGov());
+			int gov1spinnerPosition = govAdapter.getPosition(CPUInfo.cpu1CurGov());
 			gov1spinner.setSelection(gov1spinnerPosition);
 
 			gov1spinner.setOnItemSelectedListener(new OnItemSelectedListener() {
@@ -1334,11 +1332,9 @@ startCpuLoadThread();
 		//cpu2 governors
 		if (cpu2Online == true)
 		{
-			ArrayAdapter<String> gov2spinnerArrayAdapter = new ArrayAdapter<String>(this,   android.R.layout.simple_spinner_item, CPUInfo.governors());
-			gov2spinnerArrayAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
-			gov2spinner.setAdapter(gov2spinnerArrayAdapter);
+			gov2spinner.setAdapter(govAdapter);
 
-			int gov2spinnerPosition = gov2spinnerArrayAdapter.getPosition(CPUInfo.cpu2CurGov());
+			int gov2spinnerPosition = govAdapter.getPosition(CPUInfo.cpu2CurGov());
 			gov2spinner.setSelection(gov2spinnerPosition);
 
 			gov2spinner.setOnItemSelectedListener(new OnItemSelectedListener() {
@@ -1361,11 +1357,9 @@ startCpuLoadThread();
 		if (cpu3Online == true)
 		{
 			//cpu3 governors
-			ArrayAdapter<String> gov3spinnerArrayAdapter = new ArrayAdapter<String>(this,   android.R.layout.simple_spinner_item, CPUInfo.governors());
-			gov3spinnerArrayAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
-			gov3spinner.setAdapter(gov3spinnerArrayAdapter);
+			gov3spinner.setAdapter(govAdapter);
 
-			int gov3spinnerPosition = gov3spinnerArrayAdapter.getPosition(CPUInfo.cpu3CurGov());
+			int gov3spinnerPosition = govAdapter.getPosition(CPUInfo.cpu3CurGov());
 			gov3spinner.setSelection(gov3spinnerPosition);
 
 			gov3spinner.setOnItemSelectedListener(new OnItemSelectedListener() {

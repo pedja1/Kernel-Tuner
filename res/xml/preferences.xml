@@ -114,7 +114,7 @@
 		android:summary=""
 		android:icon="@drawable/save">
 
-		<intent android:action="rs.pedjaapps.KernelTuner.BackupRestore"
+		<intent android:action="rs.pedjaapps.KernelTuner.ui.BackupRestore"
 		/>
 </PreferenceScreen>
         

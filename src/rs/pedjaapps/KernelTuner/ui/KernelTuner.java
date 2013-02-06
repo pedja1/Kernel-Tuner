@@ -2141,7 +2141,7 @@ private void startCpuLoadThread() {
 	private void cpu0update()
 	{
 
-		if(!freqcpu0.equals("offline")){
+		if(!freqcpu0.equals("offline") && freqcpu0.length()!=0){
 		cpu0prog.setText(freqcpu0.trim().substring(0, freqcpu0.length()-3)+"MHz");
 		}
 		else{
@@ -2159,7 +2159,7 @@ private void startCpuLoadThread() {
 	private void cpu1update()
 	{
 
-		if(!freqcpu1.equals("offline")){
+		if(!freqcpu1.equals("offline") && freqcpu1.length()!=0){
 			cpu1prog.setText(freqcpu1.trim().substring(0, freqcpu1.length()-3)+"MHz");
 			}
 			else{
@@ -2176,7 +2176,7 @@ private void startCpuLoadThread() {
 
 	private void cpu2update()
 	{
-		if(!freqcpu2.equals("offline")){
+		if(!freqcpu2.equals("offline") && freqcpu2.length()!=0){
 			cpu2prog.setText(freqcpu2.trim().substring(0, freqcpu2.length()-3)+"MHz");
 			}
 			else{
@@ -2194,7 +2194,7 @@ private void startCpuLoadThread() {
 	private void cpu3update()
 	{
 
-		if(!freqcpu3.equals("offline")){
+		if(!freqcpu3.equals("offline") && freqcpu3.length()!=0){
 			cpu3prog.setText(freqcpu3.trim().substring(0, freqcpu3.length()-3)+"MHz");
 			}
 			else{
