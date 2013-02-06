@@ -193,7 +193,8 @@
             android:icon="@drawable/ic_launcher"
             android:label="@string/title_cpu"
             android:screenOrientation="portrait"
-            android:theme="@style/IndicatorLight" >
+            android:theme="@style/Theme.Sherlock.Light.Dialog.NoTitleBar" >
+         
         </activity>
         <activity
             android:name=".ui.VoltageActivity"

@@ -31,6 +31,7 @@ public class Preferences extends SherlockPreferenceActivity
 	private ListPreference tisList;
 	private CheckBoxPreference resetApp;
 	private ListPreference themePrefList;
+	private ListPreference cpuList;
 
 	@SuppressWarnings("deprecation")
 	@Override
@@ -41,14 +42,14 @@ public class Preferences extends SherlockPreferenceActivity
 		String them = sharedPrefs.getString("theme", "light");
 		
 			if(them.equals("light")){
-				setTheme(R.style.Theme_Sherlock_Light);
+				setTheme(R.style.IndicatorLight);
 			}
 			else if(them.equals("dark")){
-				setTheme(R.style.Theme_Sherlock);
+				setTheme(R.style.IndicatorDark);
 				
 			}
 			else if(them.equals("light_dark_action_bar")){
-				setTheme(R.style.Theme_Sherlock_Light_DarkActionBar);
+				setTheme(R.style.IndicatorLightDark);
 				
 			}
 		super.onCreate(savedInstanceState);
@@ -264,9 +265,7 @@ public class Preferences extends SherlockPreferenceActivity
         });
 		
 		tisList = (ListPreference) findPreference("tis_open_as");
-	//	SharedPreferences prefs = PreferenceManager.getDefaultSharedPreferences(Preferences.this);
-       // final SharedPreferences.Editor editor = prefs.edit();
-		 tisList.setDefaultValue(notifPrefList.getEntryValues()[0]);
+		tisList.setDefaultValue(notifPrefList.getEntryValues()[0]);
         String tis = tisList.getValue();
         if (tis == null) {
         	tisList.setValue((String)tisList.getEntryValues()[0]);
@@ -278,15 +277,24 @@ public class Preferences extends SherlockPreferenceActivity
 				@Override
 				public boolean onPreferenceChange(Preference preference, Object newValue) {
 					tisList.setSummary(tisList.getEntries()[tisList.findIndexOfValue(newValue.toString())]);
-			/*	if(newValue.toString().equals("remember")){
-					editor.putBoolean("tis_remember",true);
-					editor.putString("tis_show_as",newValue.toString());
-					editor.commit();
+
+					return true;
 				}
-				else{
-					editor.putBoolean("tis_remember", false);
-					editor.commit();
-				}*/
+			}); 
+        
+        cpuList = (ListPreference) findPreference("show_cpu_as");
+		cpuList.setDefaultValue(cpuList.getEntryValues()[0]);
+        String cpu = cpuList.getValue();
+        if (cpu == null) {
+        	cpuList.setValue((String)cpuList.getEntryValues()[0]);
+        	cpu = cpuList.getValue();
+        }
+        cpuList.setSummary(cpuList.getEntries()[cpuList.findIndexOfValue(cpu)]);
+
+        cpuList.setOnPreferenceChangeListener(new OnPreferenceChangeListener() {
+				@Override
+				public boolean onPreferenceChange(Preference preference, Object newValue) {
+					cpuList.setSummary(cpuList.getEntries()[cpuList.findIndexOfValue(newValue.toString())]);
 
 					return true;
 				}

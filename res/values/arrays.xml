@@ -60,5 +60,16 @@
 			<item>chart</item>
 
 		</string-array>
+		
+		<string-array name="cpuNames">
+		<item>Full</item>
+		<item>Minimal</item>
+
+		</string-array>
+		<string-array name="cpuValues">
+			<item>full</item>
+			<item>minimal</item>
+
+		</string-array>
 	 
 </resources>

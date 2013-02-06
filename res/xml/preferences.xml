@@ -85,7 +85,14 @@
 			  android:title="Show Times in State As" 
 			  android:defaultValue="ask"/>
            
-    
+    		<ListPreference
+			  android:entries="@array/cpuNames"
+			  android:entryValues="@array/cpuValues"
+			  android:key="show_cpu_as"
+			  android:summary=""
+			  android:title="CPU Tweaks Layout" 
+			  android:defaultValue="full"/>
+		  
           <CheckBoxPreference
             android:defaultValue="true"
             android:key="ads"

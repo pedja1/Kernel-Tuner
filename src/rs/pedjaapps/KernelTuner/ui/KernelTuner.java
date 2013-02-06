@@ -14,7 +14,6 @@ import android.view.*;
 import android.view.View.*;
 import android.widget.*;
 import com.actionbarsherlock.app.*;
-import com.actionbarsherlock.view.*;
 import com.google.ads.*;
 import java.io.*;
 import java.util.*;
@@ -24,7 +23,6 @@ import rs.pedjaapps.KernelTuner.helpers.*;
 import rs.pedjaapps.KernelTuner.receiver.*;
 import rs.pedjaapps.KernelTuner.services.*;
 import rs.pedjaapps.KernelTuner.tools.*;
-import rs.pedjaapps.KernelTuner.ui.*;
 
 import com.actionbarsherlock.app.ActionBar;
 import com.actionbarsherlock.view.Menu;
@@ -842,8 +840,16 @@ private static final String CPU1_CURR_GOV = CPUInfo.CPU1_CURR_GOV;
 			@Override
 			public void onClick(View v) {
 
-				Intent myIntent = new Intent(KernelTuner.this,
-						CPUActivityOld.class);
+				String cpu = preferences.getString("show_cpu_as", "full");
+				Intent myIntent = null;
+				if(cpu.equals("full")){
+				myIntent = new Intent(KernelTuner.this,
+						CPUActivity.class);
+				}
+				else if(cpu.equals("minimal")){
+					myIntent = new Intent(KernelTuner.this,
+							CPUActivityOld.class);
+				}
 				KernelTuner.this.startActivity(myIntent);
 			}
 		});

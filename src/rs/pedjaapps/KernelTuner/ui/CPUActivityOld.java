@@ -6,65 +6,39 @@ import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.AsyncTask;
 import android.os.Bundle;
-import android.os.Handler;
-import android.os.StrictMode;
 import android.preference.PreferenceManager;
 import android.util.Log;
 import android.view.View;
 import android.widget.AdapterView;
-import android.widget.AdapterView.OnItemClickListener;
 import android.widget.AdapterView.OnItemSelectedListener;
 import android.widget.ArrayAdapter;
-import android.widget.GridView;
 import android.widget.LinearLayout;
-import android.widget.ProgressBar;
 import android.widget.Spinner;
 import android.widget.TextView;
-import com.actionbarsherlock.app.ActionBar;
 import com.actionbarsherlock.app.SherlockActivity;
-import com.google.ads.AdRequest;
-import com.google.ads.AdView;
-import com.slidingmenu.lib.SlidingMenu;
 import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStream;
 import java.io.InputStreamReader;
 import java.io.OutputStream;
-import java.io.RandomAccessFile;
 import java.util.ArrayList;
 import java.util.List;
 import rs.pedjaapps.KernelTuner.ui.KernelTuner;
 import rs.pedjaapps.KernelTuner.R;
-import rs.pedjaapps.KernelTuner.entry.SideItems;
-import rs.pedjaapps.KernelTuner.entry.SideMenuEntry;
 import rs.pedjaapps.KernelTuner.helpers.CPUInfo;
-import rs.pedjaapps.KernelTuner.helpers.SideMenuAdapter;
 import rs.pedjaapps.KernelTuner.tools.ChangeGovernor;
+import rs.pedjaapps.KernelTuner.tools.FrequencyChanger;
 
 public class CPUActivityOld extends SherlockActivity
 {
 
 	private  List<CPUInfo.FreqsEntry> freqEntries = CPUInfo.frequencies();
-	private boolean thread = true;
-	private  Handler mHandler;
-	private TextView cpu0prog;
-	private ProgressBar progCpu0;
-	private TextView cpu1prog;
-	private ProgressBar progCpu1;
-	private TextView cpu2prog;
-	private ProgressBar progCpu2;
-	private TextView cpu3prog;
-	private ProgressBar progCpu3;
 	private  List<String> frequencies = new ArrayList<String>();
 	private  List<String> freqNames = new ArrayList<String>();
 	private String cpu0MaxFreq ;
-	private String cpu0CurFreq ;
 	private String cpu1MaxFreq ;
-	private String cpu1CurFreq ;
 	private String cpu2MaxFreq ;
-	private String cpu2CurFreq ;
 	private String cpu3MaxFreq ;
-	private String cpu3CurFreq ;
 	private Spinner gov0spinner;
 	private Spinner gov1spinner;
 	private Spinner gov2spinner;
@@ -96,34 +70,11 @@ public class CPUActivityOld extends SherlockActivity
 	private LinearLayout rlcpu3;
 
 	
-	private TextView curFreq1;
-	private TextView curFreq2;
-	private TextView curFreq3;
-
 	
-	private TextView cpu1txt;
-	private TextView cpu2txt;
-	private TextView cpu3txt;
 
 	private TextView cpu1govtxt;
 	private TextView cpu2govtxt;
 	private TextView cpu3govtxt;
-
-	private ProgressBar cpuLoad;
-	private TextView cpuLoadTxt;
-
-	private TextView uptime;
-	private TextView deepSleep;
-	private TextView temp;
-	
-	private String tmp;
-	private String upt;
-	private String ds;
-	
-	//private int load;
-	private float fLoad;
-
-	private String tempUnit;
 
 	private ProgressDialog pd;	
 	
@@ -269,99 +220,32 @@ public class CPUActivityOld extends SherlockActivity
 	@Override
 	public void onCreate(Bundle savedInstanceState)
 	{
-		StrictMode.setThreadPolicy(new StrictMode.ThreadPolicy.Builder().detectAll().build());
-        StrictMode.setVmPolicy(new StrictMode.VmPolicy.Builder()
-                .detectAll().build());
+		
 		sharedPrefs = PreferenceManager.getDefaultSharedPreferences(this);
 		
 		final String theme = sharedPrefs.getString("theme", "light");
 		
 		if(theme.equals("light")){
-			setTheme(R.style.IndicatorLight);
+			setTheme(R.style.Theme_Sherlock_Light_Dialog_NoTitleBar);
 		}
 		else if(theme.equals("dark")){
-			setTheme(R.style.IndicatorDark);
+			setTheme(R.style.Theme_Sherlock_Dialog_NoTitleBar);
 			
 		}
 		else if(theme.equals("light_dark_action_bar")){
-			setTheme(R.style.IndicatorLightDark);
+			setTheme(R.style.Theme_Sherlock_Light_Dialog_NoTitleBar);
 			
 		}
 		super.onCreate(savedInstanceState);
 
 		setContentView(R.layout.cpu_tweaks_old);
-		mHandler = new Handler();
-		final SlidingMenu menu = new SlidingMenu(this);
-		menu.setTouchModeAbove(SlidingMenu.TOUCHMODE_FULLSCREEN);
-		menu.setShadowWidthRes(R.dimen.shadow_width);
-		menu.setShadowDrawable(R.drawable.shadow);
-		menu.setBehindOffsetRes(R.dimen.slidingmenu_offset);
-		menu.setFadeDegree(0.35f);
-		menu.attachToActivity(this, SlidingMenu.SLIDING_WINDOW);
-		menu.setMenu(R.layout.side);
 		
-		final GridView sideView = (GridView) menu.findViewById(R.id.grid);
-		SideMenuAdapter sideAdapter = new SideMenuAdapter(this, R.layout.side_item);
-		
-		sideView.setAdapter(sideAdapter);
-
-		
-		sideView.setOnItemClickListener(new OnItemClickListener(){
-
-			@Override
-			public void onItemClick(AdapterView<?> arg0, View arg1, int position,
-					long arg3) {
-				List<SideMenuEntry> entries =  SideItems.getEntries();
-				Intent intent = new Intent();
-				intent.setClass(CPUActivityOld.this, entries.get(position).getActivity());
-				startActivity(intent);
-				menu.showContent();
-			}
-			
-		});
-		List<SideMenuEntry> entries =  SideItems.getEntries();
-		for(SideMenuEntry e: entries){
-			sideAdapter.add(e);
-		}
-		
-		/**
-		 * Show Progress Dialog and execute ToggleCpus class*/
-		final ActionBar actionBar = getSupportActionBar();
-		actionBar.setDisplayHomeAsUpEnabled(true);
 		CPUActivityOld.this.pd = ProgressDialog.show(CPUActivityOld.this, null, 
 				  getResources().getString(R.string.enabling_cpus), true, false);
 		new ToggleCPUs().execute(new Boolean[] {true});
-
-
-		/**
-		 * Load ads if enabled in settings*/
-		final boolean ads = sharedPrefs.getBoolean("ads", true);
-		if (ads == true)
-		{AdView adView = (AdView)this.findViewById(R.id.ad);
-			adView.loadAd(new AdRequest());}
-
 		rlcpu1 = (LinearLayout)findViewById(R.id.cpu1lay);
 		rlcpu2 = (LinearLayout)findViewById(R.id.cpu2lay);
 		rlcpu3 = (LinearLayout)findViewById(R.id.cpu3lay);
-
-		uptime = (TextView)findViewById(R.id.textView28);
-		deepSleep = (TextView)findViewById(R.id.textView30);
-		temp = (TextView)findViewById(R.id.textView32);
-
-		
-		curFreq1 = (TextView)findViewById(R.id.ptextView4);
-		curFreq2 = (TextView)findViewById(R.id.ptextView7);
-		curFreq3 = (TextView)findViewById(R.id.ptextView8);
-
-		progCpu0 = (ProgressBar)findViewById(R.id.progressBar1);
-		progCpu1 = (ProgressBar)findViewById(R.id.progressBar2);
-		progCpu2 = (ProgressBar)findViewById(R.id.progressBar3);
-		progCpu3 = (ProgressBar)findViewById(R.id.progressBar4);
-
-		
-		cpu1txt = (TextView)findViewById(R.id.ptextView2);
-		cpu2txt = (TextView)findViewById(R.id.ptextView5);
-		cpu3txt = (TextView)findViewById(R.id.ptextView6);
 
 		cpu1govtxt = (TextView)findViewById(R.id.textView4);
 		cpu2govtxt = (TextView)findViewById(R.id.textView3);
@@ -382,25 +266,11 @@ public class CPUActivityOld extends SherlockActivity
 		cpu2MaxSpinner = (Spinner)findViewById(R.id.spinner10);
 		cpu3MaxSpinner = (Spinner)findViewById(R.id.spinner12);
 
-		cpu0prog = (TextView)findViewById(R.id.ptextView3);
-		cpu1prog = (TextView)findViewById(R.id.ptextView4);
-		cpu2prog = (TextView)findViewById(R.id.ptextView7);
-		cpu3prog = (TextView)findViewById(R.id.ptextView8);
-
-
-		
-		cpuLoadTxt = (TextView)findViewById(R.id.textView26);
-
-		cpuLoad = (ProgressBar)findViewById(R.id.progressBar5);
-		
 		
 		
 		if (cpu1Online == false)
 		{
 			rlcpu1.setVisibility(View.GONE);
-			curFreq1.setVisibility(View.GONE);
-			progCpu1.setVisibility(View.GONE);
-			cpu1txt.setVisibility(View.GONE);
 			cpu1govtxt.setVisibility(View.GONE);
 			gov1spinner.setVisibility(View.GONE);
 			
@@ -408,114 +278,28 @@ public class CPUActivityOld extends SherlockActivity
 		if (cpu2Online == false)
 		{
 			rlcpu2.setVisibility(View.GONE);
-
-			curFreq2.setVisibility(View.GONE);
-			progCpu2.setVisibility(View.GONE);
-			cpu2txt.setVisibility(View.GONE);
 			cpu2govtxt.setVisibility(View.GONE);
 			gov2spinner.setVisibility(View.GONE);
 		}
 		if (cpu3Online == false)
 		{
 			rlcpu3.setVisibility(View.GONE);
-
-			curFreq3.setVisibility(View.GONE);
-			progCpu3.setVisibility(View.GONE);
-			cpu3txt.setVisibility(View.GONE);
 			cpu3govtxt.setVisibility(View.GONE);
 			gov3spinner.setVisibility(View.GONE);
 		}
-
-startCpuLoadThread();
 
 
 	}
 	@Override
 	public void onResume()
 	{
-		tempUnit = sharedPrefs.getString("temp", "celsius");
-		/*for(CPUInfo.FreqsEntry f: freqEntries){
-			frequencies.add(f.getFreq());
-		}
-		for(CPUInfo.FreqsEntry f: freqEntries){
-			freqNames.add(f.getFreqName());
-		}*/
 		
-		thread = true;
-
-		new Thread(new Runnable() {
-
-				@Override
-				public void run()
-				{
-				
-					while (thread)
-					{
-						try
-						{
-							Thread.sleep(1000);
-							cpu0CurFreq = CPUInfo.cpu0CurFreq();
-							cpu0MaxFreq = CPUInfo.cpu0MaxFreq();
-							tmp = CPUInfo.cpuTemp();
-							upt = CPUInfo.uptime();
-							ds = CPUInfo.deepSleep();
-							if (cpu1Online == true)
-							{
-								cpu1CurFreq = CPUInfo.cpu1CurFreq();
-								cpu1MaxFreq = CPUInfo.cpu1MaxFreq();
-							}
-							if (cpu2Online == true)
-							{
-								cpu2CurFreq = CPUInfo.cpu2CurFreq();
-								cpu2MaxFreq = CPUInfo.cpu2MaxFreq();
-							}
-							if (cpu3Online == true)
-							{
-								cpu3CurFreq = CPUInfo.cpu3CurFreq();
-								cpu3MaxFreq = CPUInfo.cpu3MaxFreq();
-
-							}
-							mHandler.post(new Runnable() {
-
-
-									@Override
-									public void run()
-									{
-
-										updateCpu0();
-										cpuInfo(upt, ds);
-										cpuTemp(tmp);
-
-										if (cpu1Online == true)
-										{
-											updateCpu1();
-										}
-										if (cpu2Online == true)
-										{		
-											updateCpu2();
-										}
-										if (cpu3Online == true)
-										{
-											updateCpu3();
-										}
-
-									}
-								});
-						}
-						catch (Exception e)
-						{
-							
-						}
-					}
-				}
-			}).start();
 
 		super.onResume();
 	}
 	@Override
 	public void onDestroy()
 	{
-		thread = false;
 		if(sharedPrefs.getBoolean("htc_one_workaround", false)==false){
 		new ToggleCPUs().execute(new Boolean[] {false});
 		}
@@ -525,68 +309,11 @@ startCpuLoadThread();
 	@Override
 	public void onStop()
 	{
-		thread = false;
-
+		
 		super.onStop();
 	}
 
-	private void setCpuLoad(int load){
-		cpuLoad.setProgress(load);
-		cpuLoadTxt.setText(load+"%");
-	}
 	
-	private void startCpuLoadThread() {
-		
-		Runnable runnable = new Runnable() {
-			@Override
-			public void run() {
-				while(thread) {
-					try {
-						RandomAccessFile reader = new RandomAccessFile("/proc/stat", "r");
-						String load = reader.readLine();
-
-						String[] toks = load.split(" ");
-
-						long idle1 = Long.parseLong(toks[5]);
-						long cpu1 = Long.parseLong(toks[2]) + Long.parseLong(toks[3]) + Long.parseLong(toks[4])
-							+ Long.parseLong(toks[6]) + Long.parseLong(toks[7]) + Long.parseLong(toks[8]);
-
-						try {
-							Thread.sleep(360);
-						} catch (Exception e) {
-							}
-
-						reader.seek(0);
-						load = reader.readLine();
-						reader.close();
-
-						toks = load.split(" ");
-
-						long idle2 = Long.parseLong(toks[5]);
-						long cpu2 = Long.parseLong(toks[2]) + Long.parseLong(toks[3]) + Long.parseLong(toks[4])
-							+ Long.parseLong(toks[6]) + Long.parseLong(toks[7]) + Long.parseLong(toks[8]);
-
-						fLoad =	 (float)(cpu2 - cpu1) / ((cpu2 + idle2) - (cpu1 + idle1));
-
-					} catch (IOException ex) {
-							}
-					final int load =(int) (fLoad*100);
-					try {
-						Thread.sleep(1000);
-					} catch (InterruptedException e) {
-					}
-					mHandler.post(new Runnable() {
-							@Override
-							public void run() {
-							
-								setCpuLoad(load);
-							}
-						});
-				}
-			}
-		};
-		new Thread(runnable).start();
-	}
 	
 
 	
@@ -646,8 +373,8 @@ startCpuLoadThread();
 				@Override
 				public void onItemSelected(AdapterView<?> parent, View view, int pos, long id)
 				{
-					//new ChangeGovernor(CPUActivity.this).execute(new String[] {"cpu1",parent.getItemAtPosition(pos).toString()});
-
+					new FrequencyChanger(CPUActivityOld.this).execute(new String[] {"cpu0","min", frequencies.get(pos)+""});
+					
 				}
 
 				@Override
@@ -660,8 +387,7 @@ startCpuLoadThread();
 				@Override
 				public void onItemSelected(AdapterView<?> parent, View view, int pos, long id)
 				{
-					//new ChangeGovernor(CPUActivity.this).execute(new String[] {"cpu1",parent.getItemAtPosition(pos).toString()});
-
+					new FrequencyChanger(CPUActivityOld.this).execute(new String[] {"cpu0","max", frequencies.get(pos)+""});
 				}
 
 				@Override
@@ -675,7 +401,7 @@ startCpuLoadThread();
 	private void cpu1Spinner(){
 		cpu1MinSpinner.setAdapter(mhzAdapter);
 		cpu1MaxSpinner.setAdapter(mhzAdapter);
-		int cpu1MinPosition = mhzAdapter.getPosition(freqNames.get(frequencies.indexOf(cpu0MinFreq)));
+		int cpu1MinPosition = mhzAdapter.getPosition(freqNames.get(frequencies.indexOf(cpu1MinFreq)));
 		int cpu1MaxPosition = mhzAdapter.getPosition(freqNames.get(frequencies.indexOf(cpu1MaxFreq)));
 		cpu1MinSpinner.setSelection(cpu1MinPosition);
 		cpu1MaxSpinner.setSelection(cpu1MaxPosition);
@@ -683,8 +409,7 @@ startCpuLoadThread();
 				@Override
 				public void onItemSelected(AdapterView<?> parent, View view, int pos, long id)
 				{
-					//new ChangeGovernor(CPUActivity.this).execute(new String[] {"cpu1",parent.getItemAtPosition(pos).toString()});
-
+					new FrequencyChanger(CPUActivityOld.this).execute(new String[] {"cpu1","min", frequencies.get(pos)+""});
 				}
 
 				@Override
@@ -697,8 +422,7 @@ startCpuLoadThread();
 				@Override
 				public void onItemSelected(AdapterView<?> parent, View view, int pos, long id)
 				{
-					//new ChangeGovernor(CPUActivity.this).execute(new String[] {"cpu1",parent.getItemAtPosition(pos).toString()});
-
+					new FrequencyChanger(CPUActivityOld.this).execute(new String[] {"cpu1","max", frequencies.get(pos)+""});
 				}
 
 				@Override
@@ -712,7 +436,7 @@ startCpuLoadThread();
 	public void cpu2Spinner(){
 		cpu2MinSpinner.setAdapter(mhzAdapter);
 		cpu2MaxSpinner.setAdapter(mhzAdapter);
-		int cpu2MinPosition = mhzAdapter.getPosition(freqNames.get(frequencies.indexOf(cpu0MinFreq)));
+		int cpu2MinPosition = mhzAdapter.getPosition(freqNames.get(frequencies.indexOf(cpu2MinFreq)));
 		int cpu2MaxPosition = mhzAdapter.getPosition(freqNames.get(frequencies.indexOf(cpu2MaxFreq)));
 		cpu2MinSpinner.setSelection(cpu2MinPosition);
 		cpu2MaxSpinner.setSelection(cpu2MaxPosition);
@@ -720,8 +444,7 @@ startCpuLoadThread();
 				@Override
 				public void onItemSelected(AdapterView<?> parent, View view, int pos, long id)
 				{
-					//new ChangeGovernor(CPUActivity.this).execute(new String[] {"cpu1",parent.getItemAtPosition(pos).toString()});
-
+					new FrequencyChanger(CPUActivityOld.this).execute(new String[] {"cpu2","min", frequencies.get(pos)+""});
 				}
 
 				@Override
@@ -734,8 +457,7 @@ startCpuLoadThread();
 				@Override
 				public void onItemSelected(AdapterView<?> parent, View view, int pos, long id)
 				{
-					//new ChangeGovernor(CPUActivity.this).execute(new String[] {"cpu1",parent.getItemAtPosition(pos).toString()});
-
+					new FrequencyChanger(CPUActivityOld.this).execute(new String[] {"cpu2","max", frequencies.get(pos)+""});
 				}
 
 				@Override
@@ -749,7 +471,7 @@ startCpuLoadThread();
 	private void cpu3Spinner(){
 		cpu3MinSpinner.setAdapter(mhzAdapter);
 		cpu3MaxSpinner.setAdapter(mhzAdapter);
-		int cpu3MinPosition = mhzAdapter.getPosition(freqNames.get(frequencies.indexOf(cpu0MinFreq)));
+		int cpu3MinPosition = mhzAdapter.getPosition(freqNames.get(frequencies.indexOf(cpu3MinFreq)));
 		int cpu3MaxPosition = mhzAdapter.getPosition(freqNames.get(frequencies.indexOf(cpu3MaxFreq)));
 		cpu3MinSpinner.setSelection(cpu3MinPosition);
 		cpu3MaxSpinner.setSelection(cpu3MaxPosition);
@@ -757,8 +479,7 @@ startCpuLoadThread();
 				@Override
 				public void onItemSelected(AdapterView<?> parent, View view, int pos, long id)
 				{
-					//new ChangeGovernor(CPUActivity.this).execute(new String[] {"cpu1",parent.getItemAtPosition(pos).toString()});
-
+					new FrequencyChanger(CPUActivityOld.this).execute(new String[] {"cpu3","min", frequencies.get(pos)+""});
 				}
 
 				@Override
@@ -771,8 +492,7 @@ startCpuLoadThread();
 				@Override
 				public void onItemSelected(AdapterView<?> parent, View view, int pos, long id)
 				{
-					//new ChangeGovernor(CPUActivity.this).execute(new String[] {"cpu1",parent.getItemAtPosition(pos).toString()});
-
+					new FrequencyChanger(CPUActivityOld.this).execute(new String[] {"cpu3","max", frequencies.get(pos)+""});
 				}
 
 				@Override
@@ -783,111 +503,7 @@ startCpuLoadThread();
 			});	
 	}
 	
-	private final void cpuInfo(String upt, String ds)
-	{
-		uptime.setText(upt);
-		deepSleep.setText(ds);
-
-	}
-
-
-
 	
-
-	private final void cpuTemp(String tmp)
-	{
-
-		if (tempUnit.equals("celsius"))
-		{
-			temp.setText(tmp + "°C");
-		}
-		else if (tempUnit.equals("fahrenheit"))
-		{
-			if (!tmp.equals(""))
-			{
-				temp.setText(Double.parseDouble(tmp) * 1.8 + 32 + "°F");
-			}
-		}
-		else if (tempUnit.equals("kelvin"))
-		{
-			temp.setText(Double.parseDouble(tmp) + 273.15 + "°K");
-		}
-
-	}
-
-	private final void updateCpu0()
-	{
-
-		if (!cpu0CurFreq.equals("offline"))
-		{
-			cpu0prog.setText(cpu0CurFreq.substring(0, cpu0CurFreq.length() - 3) + "Mhz");
-		}
-		else
-		{			
-			cpu0prog.setText(getResources().getString(R.string.offline));
-		}
-		if (frequencies != null && !cpu0MaxFreq.equals("") && !cpu0CurFreq.equals(""))
-		{
-			progCpu0.setMax(frequencies.indexOf(cpu0MaxFreq.trim()) + 1);
-			progCpu0.setProgress(frequencies.indexOf(cpu0CurFreq.trim()) + 1);
-		}
-
-	}
-
-	private final void updateCpu1()
-	{
-
-		if (!cpu1CurFreq.equals("offline"))
-		{
-			cpu1prog.setText(cpu1CurFreq.substring(0, cpu1CurFreq.length() - 3) + "Mhz");
-		}
-		else
-		{
-			cpu1prog.setText(getResources().getString(R.string.offline));
-		}
-
-		progCpu1.setMax(frequencies.indexOf(cpu1MaxFreq.trim()) + 1);
-		progCpu1.setProgress(frequencies.indexOf(cpu1CurFreq.trim()) + 1);
-
-
-	}
-
-	private final void updateCpu2()
-	{
-
-		if (!cpu2CurFreq.equals("offline"))
-		{
-			cpu2prog.setText(cpu2CurFreq.substring(0, cpu2CurFreq.length() - 3) + "Mhz");
-		}
-		else
-		{
-			cpu2prog.setText(getResources().getString(R.string.offline));
-		}
-
-		progCpu2.setMax(frequencies.indexOf(cpu2MaxFreq.trim()) + 1);
-		progCpu2.setProgress(frequencies.indexOf(cpu2CurFreq.trim()) + 1);
-
-
-	}
-
-	private final void updateCpu3()
-	{
-
-		if (!cpu3CurFreq.equals("offline"))
-		{
-			cpu3prog.setText(cpu3CurFreq.substring(0, cpu3CurFreq.length() - 3) + "Mhz");
-		}
-		else
-		{
-			cpu3prog.setText(getResources().getString(R.string.offline));
-		}
-
-		progCpu3.setMax(frequencies.indexOf(cpu3MaxFreq.trim()) + 1);
-		progCpu3.setProgress(frequencies.indexOf(cpu3CurFreq.trim()) + 1);
-
-
-	}
-
 	private final void populateGovernorSpinners()
 	{
 		
