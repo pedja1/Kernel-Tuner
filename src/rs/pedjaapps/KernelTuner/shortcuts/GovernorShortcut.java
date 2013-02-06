@@ -1,6 +1,6 @@
 package rs.pedjaapps.KernelTuner.shortcuts;
 
-import rs.pedjaapps.KernelTuner.GovernorActivity;
+import rs.pedjaapps.KernelTuner.ui.GovernorActivity;
 import rs.pedjaapps.KernelTuner.R;
 import android.app.Activity;
 import android.content.Intent;

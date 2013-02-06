@@ -1,7 +1,7 @@
 package rs.pedjaapps.KernelTuner.shortcuts;
 
 import rs.pedjaapps.KernelTuner.R;
-import rs.pedjaapps.KernelTuner.SystemInfo;
+import rs.pedjaapps.KernelTuner.ui.SystemInfo;
 import android.app.Activity;
 import android.content.Intent;
 import android.os.Bundle;

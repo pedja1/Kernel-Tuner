@@ -1,13 +1,13 @@
 package rs.pedjaapps.KernelTuner.shortcuts;
 
-import rs.pedjaapps.KernelTuner.CPUActivity;
-import rs.pedjaapps.KernelTuner.CPUInfo;
+import rs.pedjaapps.KernelTuner.ui.CPUActivity;
 import rs.pedjaapps.KernelTuner.R;
 import android.app.Activity;
 import android.content.Intent;
 import android.os.Bundle;
 import android.os.Parcelable;
 import android.widget.Toast;
+import rs.pedjaapps.KernelTuner.helpers.*;
 
 public class CPUShortcut extends Activity
 {

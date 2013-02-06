@@ -13,7 +13,7 @@
 package rs.pedjaapps.KernelTuner.receiver;
 
 import rs.pedjaapps.KernelTuner.Constants;
-import rs.pedjaapps.KernelTuner.ProfileApplier;
+import rs.pedjaapps.KernelTuner.tools.ProfileApplier;
 import rs.pedjaapps.KernelTuner.bundle.BundleScrubber;
 import rs.pedjaapps.KernelTuner.bundle.PluginBundleManager;
 import rs.pedjaapps.KernelTuner.ui.EditActivity;

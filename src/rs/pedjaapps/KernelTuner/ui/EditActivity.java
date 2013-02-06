@@ -16,8 +16,8 @@ import java.util.ArrayList;
 import java.util.List;
 
 import rs.pedjaapps.KernelTuner.Constants;
-import rs.pedjaapps.KernelTuner.DatabaseHandler;
-import rs.pedjaapps.KernelTuner.Profile;
+import rs.pedjaapps.KernelTuner.helpers.DatabaseHandler;
+import rs.pedjaapps.KernelTuner.entry.Profile;
 import rs.pedjaapps.KernelTuner.R;
 import rs.pedjaapps.KernelTuner.bundle.BundleScrubber;
 import rs.pedjaapps.KernelTuner.bundle.PluginBundleManager;

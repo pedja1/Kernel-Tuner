@@ -29,7 +29,7 @@
 
         <!-- android:hardwareAccelerated="true" -->
         <activity
-            android:name="rs.pedjaapps.KernelTuner.KernelTuner"
+            android:name=".ui.KernelTuner"
             android:icon="@drawable/ic_launcher"
             android:label="@string/app_name"
             android:windowSoftInputMode="adjustResize" >
@@ -40,7 +40,7 @@
             </intent-filter>
         </activity>
         <activity
-            android:name=".Preferences"
+            android:name=".ui.Preferences"
             android:exported="true"
             android:icon="@drawable/settings"
             android:label="@string/title_preferences"
@@ -48,7 +48,7 @@
         </activity>
 
         <receiver
-            android:name="StartupReceiver"
+            android:name=".receiver.StartupReceiver"
             android:exported="false" >
             <intent-filter>
                 <action android:name="android.intent.action.BOOT_COMPLETED" />
@@ -58,7 +58,7 @@
         </receiver>
 
         <service
-            android:name=".StartupService"
+            android:name=".services.StartupService"
             android:exported="false" >
             <intent-filter>
                 <action android:name="rs.pedjaapps.KernelTuner.StartupService" />
@@ -66,7 +66,7 @@
         </service>
 
         <receiver
-            android:name=".AppWidget"
+            android:name=".receiver.AppWidget"
             android:icon="@drawable/ic_launcher"
             android:label="Kernel Tuner 2x1" >
             <intent-filter>
@@ -79,7 +79,7 @@
                 android:resource="@xml/widget_provider_2x1" />
         </receiver>
         <receiver
-            android:name=".AppWidgetBig"
+            android:name=".receiver.AppWidgetBig"
             android:icon="@drawable/ic_launcher"
             android:label="Kernel Tuner 4x4" >
             <intent-filter>
@@ -93,14 +93,14 @@
         </receiver>
 
         <activity
-            android:name=".Gpu"
+            android:name=".ui.Gpu"
             android:exported="true"
             android:icon="@drawable/gpu"
             android:label="@string/title_gpu"
             android:theme="@style/Theme.Sherlock.Light.Dialog.NoTitleBar" >
         </activity>
         <activity
-            android:name=".MiscTweaks"
+            android:name=".ui.MiscTweaks"
             android:exported="true"
             android:icon="@drawable/misc"
             android:label="@string/title_misc"
@@ -108,7 +108,7 @@
             android:theme="@style/SwitchCompatAndSherlockLight" >
         </activity>
         <activity
-            android:name=".Mpdecision"
+            android:name=".ui.Mpdecision"
             android:exported="true"
             android:icon="@drawable/dual"
             android:label="@string/title_mpdecision"
@@ -116,7 +116,7 @@
             android:theme="@style/SwitchCompatAndSherlockLight" >
         </activity>
         <activity
-            android:name=".Thermald"
+            android:name=".ui.Thermald"
             android:exported="true"
             android:icon="@drawable/temp"
             android:uiOptions="splitActionBarWhenNarrow"
@@ -124,7 +124,7 @@
             android:theme="@style/IndicatorLight" >
         </activity>
         <activity
-            android:name=".About"
+            android:name=".ui.About"
             android:icon="@drawable/about"
             android:label="@string/title_about"
             android:theme="@style/Theme.Sherlock.Light.Dialog.NoTitleBar" >
@@ -135,7 +135,7 @@
             </intent-filter>
         </activity>
         <activity
-            android:name=".Changelog"
+            android:name=".ui.Changelog"
             android:icon="@drawable/ic_menu_recent_history"
             android:label="@string/title_changelog"
             android:theme="@style/Theme.TransparentDark" >
@@ -146,12 +146,12 @@
             </intent-filter>
         </activity>
         <activity
-            android:name=".CompatibilityCheck"
+            android:name=".ui.CompatibilityCheck"
             android:label="@string/title_check"
             android:theme="@style/Theme.TransparentNoTitle" >
         </activity>
         <activity
-            android:name=".Profiles"
+            android:name=".ui.Profiles"
             android:exported="true"
             android:icon="@drawable/ic_menu_cc"
             android:uiOptions="splitActionBarWhenNarrow"
@@ -159,28 +159,28 @@
             android:theme="@style/IndicatorLight" >
         </activity>
         <activity
-            android:name=".ProfileEditor"
+            android:name=".ui.ProfileEditor"
             android:icon="@drawable/edit_dark"
             android:uiOptions="splitActionBarWhenNarrow"
             android:label="@string/activity_title_profile_editor"
             android:theme="@style/IndicatorLight" >
         </activity>
         <activity
-            android:name=".Swap"
+            android:name=".ui.Swap"
             android:exported="true"
             android:icon="@drawable/swap"
             android:label="@string/swap"
             android:theme="@style/IndicatorLight" >
         </activity>
         <activity
-            android:name=".SystemInfo"
+            android:name=".ui.SystemInfo"
             android:exported="true"
             android:icon="@drawable/ic_menu_info_details"
             android:label="@string/info"
             android:theme="@style/IndicatorLight" >
         </activity>
         <activity
-            android:name=".CPUActivity"
+            android:name=".ui.CPUActivity"
             android:exported="true"
             android:icon="@drawable/ic_launcher"
             android:label="@string/title_cpu"
@@ -188,7 +188,7 @@
             android:theme="@style/IndicatorLight" >
         </activity>
          <activity
-            android:name=".CPUActivityOld"
+            android:name=".ui.CPUActivityOld"
             android:exported="true"
             android:icon="@drawable/ic_launcher"
             android:label="@string/title_cpu"
@@ -196,41 +196,41 @@
             android:theme="@style/IndicatorLight" >
         </activity>
         <activity
-            android:name=".VoltageActivity"
+            android:name=".ui.VoltageActivity"
             android:exported="true"
             android:icon="@drawable/voltage"
             android:label="@string/title_voltage"
             android:theme="@style/IndicatorLight" >
         </activity>
         <activity
-            android:name=".TISActivity"
+            android:name=".ui.TISActivity"
             android:exported="true"
             android:icon="@drawable/times"
             android:label="@string/title_tis"
             android:theme="@style/IndicatorLight" >
         </activity>
         <activity
-            android:name=".GovernorActivity"
+            android:name=".ui.GovernorActivity"
             android:exported="true"
             android:icon="@drawable/dual"
             android:label="@string/title_governor"
             android:theme="@style/IndicatorLight" >
         </activity>
         <activity
-            android:name=".Reboot"
+            android:name=".ui.Reboot"
             android:exported="true"
             android:icon="@drawable/ic_launcher"
             android:label="Reboot" >
         </activity>
         <activity
-            android:name=".OOM"
+            android:name=".ui.OOM"
             android:exported="true"
             android:icon="@drawable/swap"
             android:label="OOM"
             android:theme="@style/Theme.Dialog.NoTitleBar.Light" >
         </activity>
         <activity
-            android:name=".SDScannerActivity"
+            android:name=".ui.SDScannerActivity"
             android:configChanges="keyboardHidden|orientation"
             android:exported="true"
             android:icon="@drawable/sd"
@@ -239,7 +239,7 @@
             android:theme="@style/IndicatorLight" >
         </activity>
         <activity
-            android:name=".SDScannerConfigActivity"
+            android:name=".ui.SDScannerConfigActivity"
             android:configChanges="keyboardHidden|orientation"
             android:exported="true"
             android:icon="@drawable/sd"
@@ -248,14 +248,14 @@
             android:theme="@style/SwitchCompatAndSherlockLight" >
         </activity>
         <activity
-            android:name=".TISActivityChart"
+            android:name=".ui.TISActivityChart"
             android:exported="true"
             android:icon="@drawable/times"
             android:label="@string/title_tis"
             android:theme="@style/IndicatorLight" >
         </activity>
         <activity
-            android:name=".ui.EditActivity"
+            android:name=".ui.ui.EditActivity"
             android:exported="true"
             android:icon="@drawable/ic_locale_plugin"
             android:label="@string/plugin_name"
@@ -349,7 +349,7 @@
         <service android:name=".WidgetUpdateServiceBig" >
         </service>
         <service
-            android:name=".NotificationService"
+            android:name="services.NotificationService"
             android:exported="false"
             android:process=":background" >
             <intent-filter>
@@ -359,11 +359,11 @@
 
 
 		<activity
-            android:name="rs.pedjaapps.KernelTuner.BackupRestore"
+            android:name="rs.pedjaapps.KernelTuner.ui.BackupRestore"
             android:label="Backup/Restore"
             android:theme="@style/Theme.Sherlock.Light" >
 			<intent-filter>
-				<action android:name="rs.pedjaapps.KernelTuner.BackupRestore" />
+				<action android:name="rs.pedjaapps.KernelTuner.ui.BackupRestore" />
 				<category android:name="android.intent.category.DEFAULT" />
 			</intent-filter>
         </activity>

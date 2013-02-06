@@ -1,8 +1,8 @@
 package rs.pedjaapps.KernelTuner.shortcuts;
 
-import rs.pedjaapps.KernelTuner.CPUInfo;
+import rs.pedjaapps.KernelTuner.helpers.CPUInfo;
 import rs.pedjaapps.KernelTuner.R;
-import rs.pedjaapps.KernelTuner.Thermald;
+import rs.pedjaapps.KernelTuner.ui.Thermald;
 import android.app.Activity;
 import android.content.Intent;
 import android.os.Bundle;

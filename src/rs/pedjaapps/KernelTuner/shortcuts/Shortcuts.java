@@ -3,7 +3,7 @@ package rs.pedjaapps.KernelTuner.shortcuts;
 import java.util.ArrayList;
 import java.util.List;
 
-import rs.pedjaapps.KernelTuner.OOM;
+import rs.pedjaapps.KernelTuner.ui.OOM;
 import rs.pedjaapps.KernelTuner.R;
 import android.app.Activity;
 import android.content.Intent;

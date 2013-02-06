@@ -1,6 +1,6 @@
 package rs.pedjaapps.KernelTuner.shortcuts;
 
-import rs.pedjaapps.KernelTuner.MiscTweaks;
+import rs.pedjaapps.KernelTuner.ui.MiscTweaks;
 import rs.pedjaapps.KernelTuner.R;
 import android.app.Activity;
 import android.content.Intent;
