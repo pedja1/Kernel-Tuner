@@ -625,34 +625,16 @@ startCpuLoadThread();
 		}
 		
 		cpu0MinFreq = CPUInfo.cpu0MinFreq();
-		cpu1MinFreq = CPUInfo.cpu1MinFreq();
-		cpu2MinFreq = CPUInfo.cpu2MinFreq();
-		cpu3MinFreq = CPUInfo.cpu3MinFreq();
 		cpu0MaxFreq = CPUInfo.cpu0MaxFreq();
-		cpu1MaxFreq = CPUInfo.cpu1MaxFreq();
-		cpu2MaxFreq = CPUInfo.cpu2MaxFreq();
-		cpu3MaxFreq = CPUInfo.cpu3MaxFreq();
 		cpu0min.setText(cpu0MinFreq.substring(0, cpu0MinFreq.length() - 3) + "Mhz");
 		cpu0max.setText(cpu0MaxFreq.substring(0, cpu0MaxFreq.length() - 3) + "Mhz");
-		cpu1min.setText(cpu1MinFreq.substring(0, cpu1MinFreq.length() - 3) + "Mhz");
-		cpu1max.setText(cpu1MaxFreq.substring(0, cpu1MaxFreq.length() - 3) + "Mhz");
-		cpu2min.setText(cpu2MinFreq.substring(0, cpu2MinFreq.length() - 3) + "Mhz");
-		cpu2max.setText(cpu2MaxFreq.substring(0, cpu2MaxFreq.length() - 3) + "Mhz");
-		cpu3min.setText(cpu3MinFreq.substring(0, cpu3MinFreq.length() - 3) + "Mhz");
-		cpu3max.setText(cpu3MaxFreq.substring(0, cpu3MaxFreq.length() - 3) + "Mhz");
-		
 		cpu0maxSeek = (VerticalSeekBar)findViewById(R.id.cpu0MaxSeekbar);
 		cpu0minSeek = (VerticalSeekBar)findViewById(R.id.cpu0MinSeekbar);
-		cpu1maxSeek = (VerticalSeekBar)findViewById(R.id.cpu1MaxSeekbar);
-		cpu1minSeek = (VerticalSeekBar)findViewById(R.id.cpu1MinSeekbar);
-		cpu2minSeek = (VerticalSeekBar)findViewById(R.id.cpu2MinSeekbar);
-		cpu2maxSeek = (VerticalSeekBar)findViewById(R.id.cpu2MaxSeekbar);
-		cpu3minSeek = (VerticalSeekBar)findViewById(R.id.cpu3MinSeekbar);
-		cpu3maxSeek = (VerticalSeekBar)findViewById(R.id.cpu3MaxSeekbar);
 		cpu0minSeek.setMax(frequencies.size() - 1);
 		cpu0maxSeek.setMax(frequencies.size() - 1);
 		cpu0minSeek.setProgress(frequencies.indexOf(cpu0MinFreq));
 		cpu0maxSeek.setProgress(frequencies.indexOf(cpu0MaxFreq));
+		final int size = freqNames.size();
 		cpu0minSeek.setOnSeekBarChangeListener(new OnSeekBarChangeListener(){
 				int prog;
 				@Override
@@ -672,8 +654,9 @@ startCpuLoadThread();
 							}
 					}
 
+					if(size>progress){
 					cpu0min.setText(freqNames.get(progress));
-
+					}
 
 				}
 
@@ -732,9 +715,9 @@ startCpuLoadThread();
 							cpu3maxSeek.setProgressAndThumb(progress);
 							}
 					}
-
+					if(size>progress){
 					cpu0max.setText(freqNames.get(progress));
-
+					}
 
 				}
 
@@ -775,6 +758,12 @@ startCpuLoadThread();
 			});
 		if (cpu1Online == true)
 		{
+			cpu1MinFreq = CPUInfo.cpu1MinFreq();
+			cpu1MaxFreq = CPUInfo.cpu1MaxFreq();
+			cpu1min.setText(cpu1MinFreq.substring(0, cpu1MinFreq.length() - 3) + "Mhz");
+			cpu1max.setText(cpu1MaxFreq.substring(0, cpu1MaxFreq.length() - 3) + "Mhz");
+			cpu1maxSeek = (VerticalSeekBar)findViewById(R.id.cpu1MaxSeekbar);
+			cpu1minSeek = (VerticalSeekBar)findViewById(R.id.cpu1MinSeekbar);
 			
 			cpu1minSeek.setMax(frequencies.size() - 1);
 			cpu1maxSeek.setMax(frequencies.size() - 1);
@@ -799,9 +788,9 @@ startCpuLoadThread();
 								cpu3minSeek.setProgressAndThumb(progress);
 								}
 						}
-						
+						if(size>progress){
 						cpu1min.setText(freqNames.get(progress));
-
+						}
 
 					}
 
@@ -860,9 +849,9 @@ startCpuLoadThread();
 								cpu3maxSeek.setProgressAndThumb(progress);
 								}
 						}
-						
+						if(size>progress){
 						cpu1max.setText(freqNames.get(progress));
-
+						}
 
 					}
 
@@ -905,6 +894,13 @@ startCpuLoadThread();
 		}
 		if (cpu2Online == true)
 		{
+			cpu2MinFreq = CPUInfo.cpu2MinFreq();
+			cpu2MaxFreq = CPUInfo.cpu2MaxFreq();
+			cpu2min.setText(cpu2MinFreq.substring(0, cpu2MinFreq.length() - 3) + "Mhz");
+			cpu2max.setText(cpu2MaxFreq.substring(0, cpu2MaxFreq.length() - 3) + "Mhz");
+			cpu2minSeek = (VerticalSeekBar)findViewById(R.id.cpu2MinSeekbar);
+			cpu2maxSeek = (VerticalSeekBar)findViewById(R.id.cpu2MaxSeekbar);
+			
 			cpu2minSeek.setMax(frequencies.size() - 1);
 			cpu2maxSeek.setMax(frequencies.size() - 1);
 			cpu2minSeek.setProgress(frequencies.indexOf(cpu2MinFreq));
@@ -928,9 +924,9 @@ startCpuLoadThread();
 								cpu3minSeek.setProgressAndThumb(progress);
 								}
 						}
-						
+						if(size>progress){
 						cpu2min.setText(freqNames.get(progress));
-
+						}
 
 					}
 
@@ -990,9 +986,9 @@ startCpuLoadThread();
 								cpu3maxSeek.setProgressAndThumb(progress);
 								}
 						}
-						
+						if(size>progress){
 						cpu2max.setText(freqNames.get(progress));
-
+						}
 
 					}
 
@@ -1034,6 +1030,12 @@ startCpuLoadThread();
 		}
 		if (cpu3Online == true)
 		{
+			cpu3MinFreq = CPUInfo.cpu3MinFreq();
+			cpu3MaxFreq = CPUInfo.cpu3MaxFreq();
+			cpu3min.setText(cpu3MinFreq.substring(0, cpu3MinFreq.length() - 3) + "Mhz");
+			cpu3max.setText(cpu3MaxFreq.substring(0, cpu3MaxFreq.length() - 3) + "Mhz");
+			cpu3minSeek = (VerticalSeekBar)findViewById(R.id.cpu3MinSeekbar);
+			cpu3maxSeek = (VerticalSeekBar)findViewById(R.id.cpu3MaxSeekbar);
 			cpu3minSeek.setMax(frequencies.size() - 1);
 			cpu3maxSeek.setMax(frequencies.size() - 1);
 			cpu3minSeek.setProgress(frequencies.indexOf(cpu3MinFreq));
@@ -1057,9 +1059,9 @@ startCpuLoadThread();
 								cpu2minSeek.setProgressAndThumb(progress);
 								}
 						}
-						
+						if(size>progress){
 						cpu3min.setText(freqNames.get(progress));
-
+						}
 
 					}
 
@@ -1119,9 +1121,9 @@ startCpuLoadThread();
 								cpu2maxSeek.setProgressAndThumb(progress);
 								}
 						}
-						
+						if(size>progress){
 						cpu3max.setText(freqNames.get(progress));
-
+						}
 
 					}
 
