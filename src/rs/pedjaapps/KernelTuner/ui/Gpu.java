@@ -36,6 +36,8 @@ public class Gpu extends SherlockActivity
 	private List<String> gpu2dHr;
 	private List<String> gpu3dHr;
 	
+	Spinner d2Spinner;
+	Spinner d3Spinner;
 
 	private ProgressDialog pd = null;
 	private SharedPreferences preferences;
@@ -123,27 +125,38 @@ private class changegpu extends AsyncTask<String, Void, Object>
 		super.onCreate(savedInstanceState);
 		   
 		setContentView(R.layout.gpu);
-		if (board.equals("shooter") || board.equals("shooteru") || board.equals("pyramid")|| board.equals("tenderloin"))
+			Button apply = (Button)findViewById(R.id.apply);
+		d2Spinner = (Spinner) findViewById(R.id.spinner2);
+		 d3Spinner = (Spinner) findViewById(R.id.spinner1);
+		gpu2dmax = readFile("/sys/devices/platform/kgsl-2d0.0/kgsl/kgsl-2d0/max_gpuclk");
+		gpu3dmax = readFile("/sys/devices/platform/kgsl-3d0.0/kgsl/kgsl-3d0/max_gpuclk");
+		gpu2dcurent = readFile("/sys/devices/platform/kgsl-2d0.0/kgsl/kgsl-2d0/gpuclk");
+		gpu3dcurent = readFile("/sys/devices/platform/kgsl-3d0.0/kgsl/kgsl-3d0/gpuclk");
+		if (board.equals("shooter") || board.equals("shooteru") || board.equals("pyramid") || board.equals("tenderloin")  || board.equals("vigor")  || board.equals("raider"))
 		{
 			gpu2dHr = Arrays.asList(new String[]{"160Mhz", "200Mhz", "228Mhz", "266Mhz"});
 			gpu3dHr = Arrays.asList(new String[]{"200Mhz", "228Mhz", "266Mhz", "300Mhz", "320Mhz"});
 			gpu2d = Arrays.asList(new String[]{"160000000", "200000000", "228571000", "266667000"});
 			gpu3d = Arrays.asList(new String[]{"200000000", "228571000", "266667000", "300000000", "320000000"});
+				createSpinners();
 		}
-		else if (board.equals("evita") || board.equals("ville") || board.equals("jewel") || board.equals("d2spr"))
+		else if (board.equals("evita") || board.equals("ville") || board.equals("jewel") || board.equals("d2spr") || board.equals("d2tmo"))
 		{
 			gpu2dHr = Arrays.asList(new String[]{"320Mhz", "266Mhz", "228Mhz", "200Mhz", "160Mhz", "96Mhz", "27Mhz"});
 			gpu3dHr = Arrays.asList(new String[]{"512Mhz", "400Mhz", "320Mhz", "300Mhz", "266Mhz", "228Mhz", "200Mhz", "177Mhz", "27Mhz"});
 			gpu2d = Arrays.asList(new String[]{"320000000", "266667000", "228571000", "200000000", "160000000", "96000000", "27000000"});
 			gpu3d = Arrays.asList(new String[]{"512000000", "400000000", "320000000", "300000000", "266667000", "228571000", "200000000", "177778000", "27000000"});
+			createSpinners();
+		}
+		else{
+			d2Spinner.setEnabled(false);
+			d3Spinner.setEnabled(false);
+			apply.setEnabled(false);
 		}
 
-		gpu2dmax = readFile("/sys/devices/platform/kgsl-2d0.0/kgsl/kgsl-2d0/max_gpuclk");
-		gpu3dmax = readFile("/sys/devices/platform/kgsl-3d0.0/kgsl/kgsl-3d0/max_gpuclk");
-		gpu2dcurent = readFile("/sys/devices/platform/kgsl-2d0.0/kgsl/kgsl-2d0/gpuclk");
-		gpu3dcurent = readFile("/sys/devices/platform/kgsl-3d0.0/kgsl/kgsl-3d0/gpuclk");
+	
 		
-		createSpinners();
+	
 	
 		
 		TextView tv5 = (TextView)findViewById(R.id.textView5);
@@ -152,7 +165,7 @@ private class changegpu extends AsyncTask<String, Void, Object>
 		tv5.setText((gpu3dcurent/1000000) + "Mhz");
 		tv2.setText((gpu2dcurent/1000000) + "Mhz");
 
-		Button apply = (Button)findViewById(R.id.apply);
+	
 		Button cancel = (Button)findViewById(R.id.cancel);
 		apply.setOnClickListener(new OnClickListener(){
 
@@ -184,7 +197,7 @@ private class changegpu extends AsyncTask<String, Void, Object>
 	{
 
 
-		Spinner d2Spinner = (Spinner) findViewById(R.id.spinner2);
+	
 		ArrayAdapter<String> d2Adapter = new ArrayAdapter<String>(this,   android.R.layout.simple_spinner_item, gpu2dHr);
 		d2Adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item); // The drop down vieww
 		d2Spinner.setAdapter(d2Adapter);
@@ -203,11 +216,14 @@ private class changegpu extends AsyncTask<String, Void, Object>
 					//do nothing
 				}
 			});
-		int d2Position = d2Adapter.getPosition(gpu2dHr.get(gpu2d.indexOf(gpu2dmax+"")));
-
+		
+		int p = gpu2d.indexOf(gpu2dmax+"");
+	//	Toast.makeText(Gpu.this, gpu2dmax+" "+p, Toast.LENGTH_LONG).show();
+		if(p != -1){
+		int d2Position = d2Adapter.getPosition(gpu2dHr.get(p));
 		d2Spinner.setSelection(d2Position);
-
-		Spinner d3Spinner = (Spinner) findViewById(R.id.spinner1);
+        }
+	
 		ArrayAdapter<String> d3Adapter = new ArrayAdapter<String>(this,   android.R.layout.simple_spinner_item, gpu3dHr);
 		d3Adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item); // The drop down vieww
 		d3Spinner.setAdapter(d3Adapter);
@@ -225,11 +241,12 @@ private class changegpu extends AsyncTask<String, Void, Object>
 					//do nothing
 				}
 			});
-
-
-		int d3Position = d3Adapter.getPosition(gpu3dHr.get(gpu3d.indexOf(gpu3dmax+"")));
+       
+		int p1 = gpu3d.indexOf(gpu3dmax+"");
+		if(p1 != -1){
+		int d3Position = d3Adapter.getPosition(gpu3dHr.get(p1));
 		d3Spinner.setSelection(d3Position);
-		
+		}
 	}
 
     
