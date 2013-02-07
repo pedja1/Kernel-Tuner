@@ -5,7 +5,6 @@ import android.app.*;
 import android.content.*;
 import android.text.*;
 import android.view.*;
-import android.view.View.*;
 import android.widget.*;
 import android.widget.SeekBar.*;
 import java.io.*;

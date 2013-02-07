@@ -1,6 +1,5 @@
 package rs.pedjaapps.KernelTuner.helpers;
 
-import java.io.DataInputStream;
 import java.io.DataOutputStream;
 import java.io.FileInputStream;
 import java.io.IOException;

@@ -2,7 +2,6 @@ package rs.pedjaapps.KernelTuner.entry;
 
 import java.util.ArrayList;
 import java.util.List;
-import rs.pedjaapps.KernelTuner.*;
 
 public class SideItems {
 
