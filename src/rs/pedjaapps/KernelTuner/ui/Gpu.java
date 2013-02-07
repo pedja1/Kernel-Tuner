@@ -132,7 +132,9 @@ private class changegpu extends AsyncTask<String, Void, Object>
 		gpu3dmax = readFile("/sys/devices/platform/kgsl-3d0.0/kgsl/kgsl-3d0/max_gpuclk");
 		gpu2dcurent = readFile("/sys/devices/platform/kgsl-2d0.0/kgsl/kgsl-2d0/gpuclk");
 		gpu3dcurent = readFile("/sys/devices/platform/kgsl-3d0.0/kgsl/kgsl-3d0/gpuclk");
-		if (board.equals("shooter") || board.equals("shooteru") || board.equals("pyramid") || board.equals("tenderloin")  || board.equals("vigor")  || board.equals("raider"))
+		List<String> adreno220 = Arrays.asList(new String[] {"shooter", "shooteru", "pyramid", "tenderloin", "vigor", "rider", "nozomi", "LT26i", "hikari", "doubleshot", "su640","SHV-E160S" ,"SHV-E160L", "SHV-E120L", "holiday"});
+		List<String> adreno225 = Arrays.asList(new String[] {"evita", "ville", "jewel", "d2spr", "d2tmo" });
+		if (adreno220.contains(board)/*board.equals("shooter") || board.equals("shooteru") || board.equals("pyramid") || board.equals("tenderloin") || board.equals("vigor") || board.equals("raider") || board.equals("nozomi") || board.equals("LT26i") || board.equals("hikari")*/)
 		{
 			gpu2dHr = Arrays.asList(new String[]{"160Mhz", "200Mhz", "228Mhz", "266Mhz"});
 			gpu3dHr = Arrays.asList(new String[]{"200Mhz", "228Mhz", "266Mhz", "300Mhz", "320Mhz"});
@@ -140,7 +142,7 @@ private class changegpu extends AsyncTask<String, Void, Object>
 			gpu3d = Arrays.asList(new String[]{"200000000", "228571000", "266667000", "300000000", "320000000"});
 				createSpinners();
 		}
-		else if (board.equals("evita") || board.equals("ville") || board.equals("jewel") || board.equals("d2spr") || board.equals("d2tmo"))
+		else if (adreno225.contains(board))
 		{
 			gpu2dHr = Arrays.asList(new String[]{"320Mhz", "266Mhz", "228Mhz", "200Mhz", "160Mhz", "96Mhz", "27Mhz"});
 			gpu3dHr = Arrays.asList(new String[]{"512Mhz", "400Mhz", "320Mhz", "300Mhz", "266Mhz", "228Mhz", "200Mhz", "177Mhz", "27Mhz"});
@@ -154,7 +156,6 @@ private class changegpu extends AsyncTask<String, Void, Object>
 			apply.setEnabled(false);
 		}
 
-	
 		
 	
 	
