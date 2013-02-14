@@ -492,33 +492,9 @@ public class SystemInfo extends SherlockFragmentActivity implements
 
 		@Override
 		protected void onPostExecute(Object result) {
-			addTabs();
+		addTabs();
 			pd.dismiss();
-			/*
-			 * TextView cpuinfo = (TextView) findViewById(R.id.cpu_i);
-			 * cpuinfo.setText(cpu_info); TextView board = (TextView)
-			 * findViewById(R.id.board); TextView device = (TextView)
-			 * findViewById(R.id.deviceTxt); TextView display = (TextView)
-			 * findViewById(R.id.display); TextView bootloader = (TextView)
-			 * findViewById(R.id.bootloader); TextView brand = (TextView)
-			 * findViewById(R.id.brand); TextView hardware = (TextView)
-			 * findViewById(R.id.hardware); TextView manufacturer = (TextView)
-			 * findViewById(R.id.manufacturer); TextView model = (TextView)
-			 * findViewById(R.id.model); TextView product = (TextView)
-			 * findViewById(R.id.product); TextView radio = (TextView)
-			 * findViewById(R.id.radio); board.setText(android.os.Build.BOARD);
-			 * device.setText(android.os.Build.DEVICE);
-			 * display.setText(android.os.Build.DISPLAY);
-			 * bootloader.setText(android.os.Build.BOOTLOADER);
-			 * brand.setText(android.os.Build.BRAND);
-			 * hardware.setText(android.os.Build.HARDWARE);
-			 * manufacturer.setText(android.os.Build.MANUFACTURER);
-			 * model.setText(android.os.Build.MODEL);
-			 * product.setText(android.os.Build.PRODUCT); if
-			 * (android.os.Build.VERSION.SDK_INT > 10) { if
-			 * (android.os.Build.getRadioVersion() != null) {
-			 * radio.setText(android.os.Build.getRadioVersion()); } }
-			 */
+		
 		}
 
 	}
@@ -561,7 +537,6 @@ public class SystemInfo extends SherlockFragmentActivity implements
 		
 		GridView sideView = (GridView) menu.findViewById(R.id.grid);
 		SideMenuAdapter sideAdapter = new SideMenuAdapter(this, R.layout.side_item);
-		System.out.println("check "+sideView+" "+sideAdapter);
 		sideView.setAdapter(sideAdapter);
 
 		
@@ -582,7 +557,7 @@ public class SystemInfo extends SherlockFragmentActivity implements
 		for(SideMenuEntry e: entries){
 			sideAdapter.add(e);
 		}
-		System.out.println(getTotalRAM());
+	
 		pd = ProgressDialog.show(this, null,
 				"Gathering system information\nPlease wait...");
 		new info().execute();
@@ -599,7 +574,7 @@ public class SystemInfo extends SherlockFragmentActivity implements
 		tabTitles.add("Device");
 		tabTitles.add("CPU");
 		tabTitles.add("Sensors");
-		
+		//	addTabs();
 		// For each of the sections in the app, add a tab to the action bar.
 
 	}
@@ -619,9 +594,11 @@ public class SystemInfo extends SherlockFragmentActivity implements
 	@Override
 	public void onRestoreInstanceState(Bundle savedInstanceState) {
 		// Restore the previously serialized current tab position.
-		if (savedInstanceState.containsKey(STATE_SELECTED_NAVIGATION_ITEM)) {
+		if (savedInstanceState.containsKey(STATE_SELECTED_NAVIGATION_ITEM))
+	{
 			getSupportActionBar().setSelectedNavigationItem(
 					savedInstanceState.getInt(STATE_SELECTED_NAVIGATION_ITEM));
+				System.out.println("tab count restore"+getSupportActionBar().getNavigationItemCount());
 		}
 	}
 
@@ -630,6 +607,9 @@ public class SystemInfo extends SherlockFragmentActivity implements
 		// Serialize the current tab position.
 		outState.putInt(STATE_SELECTED_NAVIGATION_ITEM, getSupportActionBar()
 				.getSelectedNavigationIndex());
+		System.out.println("rotation save state" + getSupportActionBar()
+						   .getSelectedNavigationIndex());
+					System.out.println("tab count save"+getSupportActionBar().getNavigationItemCount());	   
 	}
 
 	@Override
@@ -800,10 +780,8 @@ public class SystemInfo extends SherlockFragmentActivity implements
 		TextView freeRAMtxt = (TextView) container.findViewById(R.id.textView8);
 		ProgressBar ramProgress = (ProgressBar) container
 				.findViewById(R.id.progressBar2);
-		TextView totalInternaltxt = (TextView) container
-				.findViewById(R.id.textView10);
-		TextView freeInternaltxt = (TextView) container
-				.findViewById(R.id.textView11);
+		TextView totalInternaltxt = (TextView) container.findViewById(R.id.textView10);
+		TextView freeInternaltxt = (TextView) container.findViewById(R.id.textView11);
 		ProgressBar internalProgress = (ProgressBar) container
 				.findViewById(R.id.progressBar3);
 		TextView totalExternaltxt = (TextView) container
