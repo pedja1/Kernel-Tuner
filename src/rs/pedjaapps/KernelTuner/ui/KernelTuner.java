@@ -12,6 +12,8 @@ import android.preference.*;
 import android.util.*;
 import android.view.*;
 import android.view.View.*;
+import android.view.animation.Animation;
+import android.view.animation.AnimationUtils;
 import android.widget.*;
 import com.actionbarsherlock.app.*;
 import com.google.ads.*;
@@ -42,6 +44,7 @@ public class KernelTuner extends SherlockActivity {
 	private RelativeLayout tempLayout;
 	private AlertDialog alert;
 	private String tmp;
+	int i = 0;
 
 	private final boolean enableTmp() {
 		boolean b;
@@ -616,6 +619,9 @@ public class KernelTuner extends SherlockActivity {
 	boolean isLight;
 	String theme;
 	boolean dump;
+	Button[] buttons;
+	Animation l2r;
+	
 
 	@Override
 	public void onCreate(Bundle savedInstanceState) {
@@ -791,11 +797,13 @@ public class KernelTuner extends SherlockActivity {
 			}
 		}).start();
 
+		
 		/**
 		 * Declare buttons and set onClickListener for each
 		 */
-
+		l2r = AnimationUtils.loadAnimation(this, R.anim.animation_l2r);
 		Button gpu = (Button) findViewById(R.id.button3);
+		
 		gpu.setOnClickListener(new OnClickListener() {
 
 			@Override
@@ -830,6 +838,7 @@ public class KernelTuner extends SherlockActivity {
 		});
 
 		Button cpu = (Button) this.findViewById(R.id.button2);
+		
 		cpu.setOnClickListener(new OnClickListener() {
 
 			@Override
@@ -935,8 +944,8 @@ public class KernelTuner extends SherlockActivity {
 			}
 		});
 
-		Button buttongpu = (Button) this.findViewById(R.id.button4);
-		buttongpu.setOnClickListener(new OnClickListener() {
+		Button misc = (Button) this.findViewById(R.id.button4);
+		misc.setOnClickListener(new OnClickListener() {
 
 			@Override
 			public void onClick(View v) {
@@ -1065,6 +1074,52 @@ public class KernelTuner extends SherlockActivity {
 			}
 		});
 
+		//buttons = new Button[] {cpu, tis, voltage, governor, mpdec, thermald,
+				//gpu, misc, profiles, oom, sd, sys};
+		/*for(int i =0; i<buttons.length; i++){
+			buttons[i].startAnimation(l2r);
+		}*/
+		
+
+		
+	/*	mHandler.postDelayed(new Runnable(){
+		    @Override
+		    public void run(){
+		    	buttons[0].startAnimation(l2r);
+		    }
+		}, 500);
+		mHandler.postDelayed(new Runnable(){
+		    @Override
+		    public void run(){
+		    	buttons[1].startAnimation(l2r);
+		    }
+		}, 1000);*/
+		
+		//cpu.startAnimation(l2r);
+		/*final Timer timer = new Timer();
+		
+		timer.scheduleAtFixedRate(new TimerTask() {
+			
+			@Override
+			  public void run() {
+				runOnUiThread(new Runnable() {
+
+				    @Override
+				    public void run() {
+				    	if(buttons.length>i){
+				    	buttons[i].startAnimation(l2r);
+						 i++;
+				    	}
+				    	else{
+				    		timer.cancel();
+				    	}
+				    }
+				     
+				});
+				 
+			  }
+			  }, 0, 500);*/
+		
 startCpuLoadThread();
 		if (preferences.getBoolean("notificationService", false) == true
 				&& isNotificationServiceRunning() == false) {
@@ -1075,7 +1130,7 @@ startCpuLoadThread();
 		}
 
 	}
-
+	
 	@Override
 	public void onPause() {
 
