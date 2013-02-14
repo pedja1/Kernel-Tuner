@@ -1,5 +1,6 @@
 package rs.pedjaapps.KernelTuner.ui;
 
+import android.annotation.SuppressLint;
 import android.app.*;
 import android.app.ActivityManager.*;
 import android.content.*;
@@ -8,18 +9,13 @@ import android.graphics.*;
 import android.hardware.*;
 import android.os.*;
 import android.preference.*;
-import android.support.v4.app.*;
 import android.util.*;
 import android.view.*;
 import android.widget.*;
-import android.widget.AdapterView.*;
 import com.actionbarsherlock.app.*;
-import com.slidingmenu.lib.*;
 import java.io.*;
 import java.text.*;
 import java.util.*;
-import rs.pedjaapps.KernelTuner.*;
-import rs.pedjaapps.KernelTuner.entry.*;
 import rs.pedjaapps.KernelTuner.helpers.*;
 
 import android.support.v4.app.Fragment;
@@ -493,7 +489,8 @@ public class SystemInfo extends SherlockFragmentActivity implements
 		@Override
 		protected void onPostExecute(Object result) {
 		addTabs();
-			pd.dismiss();
+		
+		pd.dismiss();
 		
 		}
 
@@ -503,7 +500,6 @@ public class SystemInfo extends SherlockFragmentActivity implements
 	 * The serialization (saved instance state) Bundle key representing the
 	 * current tab position.
 	 */
-	private static final String STATE_SELECTED_NAVIGATION_ITEM = "selected_navigation_item";
 	private List<String> tabTitles = new ArrayList<String>();
 	ActionBar actionBar;
 
@@ -526,38 +522,6 @@ public class SystemInfo extends SherlockFragmentActivity implements
 		}
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.system_info);
-		final SlidingMenu menu = new SlidingMenu(this);
-		menu.setTouchModeAbove(SlidingMenu.TOUCHMODE_FULLSCREEN);
-		menu.setShadowWidthRes(R.dimen.shadow_width);
-		menu.setShadowDrawable(R.drawable.shadow);
-		menu.setBehindOffsetRes(R.dimen.slidingmenu_offset);
-		menu.setFadeDegree(0.35f);
-		menu.attachToActivity(this, SlidingMenu.SLIDING_WINDOW);
-		menu.setMenu(R.layout.side);
-		
-		GridView sideView = (GridView) menu.findViewById(R.id.grid);
-		SideMenuAdapter sideAdapter = new SideMenuAdapter(this, R.layout.side_item);
-		sideView.setAdapter(sideAdapter);
-
-		
-		sideView.setOnItemClickListener(new OnItemClickListener(){
-
-			@Override
-			public void onItemClick(AdapterView<?> arg0, View arg1, int position,
-					long arg3) {
-				List<SideMenuEntry> entries =  SideItems.getEntries();
-				Intent intent = new Intent();
-				intent.setClass(SystemInfo.this, entries.get(position).getActivity());
-				startActivity(intent);
-				menu.showContent();
-			}
-			
-		});
-		List<SideMenuEntry> entries =  SideItems.getEntries();
-		for(SideMenuEntry e: entries){
-			sideAdapter.add(e);
-		}
-	
 		pd = ProgressDialog.show(this, null,
 				"Gathering system information\nPlease wait...");
 		new info().execute();
@@ -574,7 +538,6 @@ public class SystemInfo extends SherlockFragmentActivity implements
 		tabTitles.add("Device");
 		tabTitles.add("CPU");
 		tabTitles.add("Sensors");
-		//	addTabs();
 		// For each of the sections in the app, add a tab to the action bar.
 
 	}
@@ -594,22 +557,20 @@ public class SystemInfo extends SherlockFragmentActivity implements
 	@Override
 	public void onRestoreInstanceState(Bundle savedInstanceState) {
 		// Restore the previously serialized current tab position.
-		if (savedInstanceState.containsKey(STATE_SELECTED_NAVIGATION_ITEM))
+		/*if (savedInstanceState.containsKey(STATE_SELECTED_NAVIGATION_ITEM))
 	{
 			getSupportActionBar().setSelectedNavigationItem(
 					savedInstanceState.getInt(STATE_SELECTED_NAVIGATION_ITEM));
 				System.out.println("tab count restore"+getSupportActionBar().getNavigationItemCount());
-		}
+		}*/
 	}
 
 	@Override
 	public void onSaveInstanceState(Bundle outState) {
 		// Serialize the current tab position.
-		outState.putInt(STATE_SELECTED_NAVIGATION_ITEM, getSupportActionBar()
+		outState.putInt("tr", getSupportActionBar()
 				.getSelectedNavigationIndex());
-		System.out.println("rotation save state" + getSupportActionBar()
-						   .getSelectedNavigationIndex());
-					System.out.println("tab count save"+getSupportActionBar().getNavigationItemCount());	   
+		
 	}
 
 	@Override
@@ -632,6 +593,7 @@ public class SystemInfo extends SherlockFragmentActivity implements
 		fragment.setArguments(args);
 		getSupportFragmentManager().beginTransaction()
 				.replace(R.id.container, fragment).commit();
+		
 	}
 
 	@Override
@@ -648,6 +610,8 @@ public class SystemInfo extends SherlockFragmentActivity implements
 	 * A dummy fragment representing a section of the app, but that simply
 	 * displays dummy text.
 	 */
+	
+	@SuppressLint("ValidFragment")
 	public class DummySectionFragment extends Fragment {
 		/**
 		 * The fragment argument representing the section number for this
@@ -655,6 +619,7 @@ public class SystemInfo extends SherlockFragmentActivity implements
 		 */
 		public static final String ARG_SECTION_NUMBER = "section_number";
 
+		
 		public DummySectionFragment() {
 		}
 

@@ -13,14 +13,12 @@ import android.view.View;
 import android.widget.AdapterView;
 import android.widget.AdapterView.OnItemClickListener;
 import android.widget.EditText;
-import android.widget.GridView;
 import android.widget.ListView;
 import android.widget.TextView;
 import com.actionbarsherlock.app.ActionBar;
 import com.actionbarsherlock.app.SherlockActivity;
 import com.google.ads.AdRequest;
 import com.google.ads.AdView;
-import com.slidingmenu.lib.SlidingMenu;
 import java.io.BufferedReader;
 import java.io.File;
 import java.io.FileInputStream;
@@ -30,11 +28,8 @@ import java.util.List;
 import rs.pedjaapps.KernelTuner.ui.KernelTuner;
 import rs.pedjaapps.KernelTuner.R;
 import rs.pedjaapps.KernelTuner.entry.GovEntry;
-import rs.pedjaapps.KernelTuner.entry.SideItems;
-import rs.pedjaapps.KernelTuner.entry.SideMenuEntry;
 import rs.pedjaapps.KernelTuner.helpers.CPUInfo;
 import rs.pedjaapps.KernelTuner.helpers.GovernorSettingsAdapter;
-import rs.pedjaapps.KernelTuner.helpers.SideMenuAdapter;
 import rs.pedjaapps.KernelTuner.tools.ChangeGovernorSettings;
 
 public class GovernorActivity extends SherlockActivity
@@ -43,7 +38,7 @@ public class GovernorActivity extends SherlockActivity
 	private GovernorSettingsAdapter govAdapter ;
 	private ListView govListView;
 	private List<String> fileList;
-	private List<String> availableGovs = CPUInfo.availableGovs();
+	private List<String> availableGovs;
 	private List<String> govValues;
 	private List<String> governors;
 	private List<String> temp;
@@ -51,6 +46,7 @@ public class GovernorActivity extends SherlockActivity
 	@Override
 	public void onCreate(Bundle savedInstanceState)
 	{
+		availableGovs = CPUInfo.availableGovs();
 		SharedPreferences preferences = PreferenceManager.getDefaultSharedPreferences(this);
 		
 		String theme = preferences.getString("theme", "light");
@@ -72,38 +68,7 @@ public class GovernorActivity extends SherlockActivity
 		super.onCreate(savedInstanceState);
 
 		setContentView(R.layout.governor_settings);
-		final SlidingMenu menu = new SlidingMenu(this);
-		menu.setTouchModeAbove(SlidingMenu.TOUCHMODE_FULLSCREEN);
-		menu.setShadowWidthRes(R.dimen.shadow_width);
-		menu.setShadowDrawable(R.drawable.shadow);
-		menu.setBehindOffsetRes(R.dimen.slidingmenu_offset);
-		menu.setFadeDegree(0.35f);
-		menu.attachToActivity(this, SlidingMenu.SLIDING_WINDOW);
-		menu.setMenu(R.layout.side);
 		
-		GridView sideView = (GridView) menu.findViewById(R.id.grid);
-		SideMenuAdapter sideAdapter = new SideMenuAdapter(this, R.layout.side_item);
-		System.out.println("check "+sideView+" "+sideAdapter);
-		sideView.setAdapter(sideAdapter);
-
-		
-		sideView.setOnItemClickListener(new OnItemClickListener(){
-
-			@Override
-			public void onItemClick(AdapterView<?> arg0, View arg1, int position,
-					long arg3) {
-				List<SideMenuEntry> entries =  SideItems.getEntries();
-				Intent intent = new Intent();
-				intent.setClass(GovernorActivity.this, entries.get(position).getActivity());
-				startActivity(intent);
-				menu.showContent();
-			}
-			
-		});
-		List<SideMenuEntry> entries =  SideItems.getEntries();
-		for(SideMenuEntry e: entries){
-			sideAdapter.add(e);
-		}
 		ActionBar actionBar = getSupportActionBar();
 		actionBar.setDisplayHomeAsUpEnabled(true);
 

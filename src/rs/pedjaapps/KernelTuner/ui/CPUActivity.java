@@ -12,7 +12,6 @@ import android.os.Handler;
 import android.preference.PreferenceManager;
 import android.util.Log;
 import android.view.View;
-import android.widget.AdapterView.OnItemClickListener;
 import android.widget.AdapterView.OnItemSelectedListener;
 import android.widget.CompoundButton.OnCheckedChangeListener;
 import android.widget.SeekBar.OnSeekBarChangeListener;
@@ -20,7 +19,6 @@ import com.actionbarsherlock.app.ActionBar;
 import com.actionbarsherlock.app.SherlockActivity;
 import com.google.ads.AdRequest;
 import com.google.ads.AdView;
-import com.slidingmenu.lib.SlidingMenu;
 import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStream;
@@ -31,19 +29,16 @@ import java.util.ArrayList;
 import java.util.List;
 import rs.pedjaapps.KernelTuner.ui.KernelTuner;
 import rs.pedjaapps.KernelTuner.R;
-import rs.pedjaapps.KernelTuner.entry.SideItems;
-import rs.pedjaapps.KernelTuner.entry.SideMenuEntry;
 import rs.pedjaapps.KernelTuner.helpers.CPUInfo;
-import rs.pedjaapps.KernelTuner.helpers.SideMenuAdapter;
 import rs.pedjaapps.KernelTuner.tools.ChangeGovernor;
 import rs.pedjaapps.KernelTuner.tools.FrequencyChanger;
 
 public class CPUActivity extends SherlockActivity
 {
 
-	private  List<CPUInfo.FreqsEntry> freqEntries = CPUInfo.frequencies();
+	private  List<CPUInfo.FreqsEntry> freqEntries;
 	private boolean thread = true;
-	final private  Handler mHandler = new Handler();
+	private  Handler mHandler;
 	private TextView cpu0prog;
 	private ProgressBar progCpu0;
 	private TextView cpu1prog;
@@ -81,21 +76,15 @@ public class CPUActivity extends SherlockActivity
 	private VerticalSeekBar cpu3minSeek;
 	private VerticalSeekBar cpu3maxSeek;
 
-	private final boolean cpu0Online = CPUInfo.cpu0Online();
-	private final boolean cpu1Online = CPUInfo.cpu1Online();
-	private final boolean cpu2Online = CPUInfo.cpu2Online();
-	private final boolean cpu3Online = CPUInfo.cpu3Online();
+	private boolean cpu0Online;
+	private boolean cpu1Online;
+	private boolean cpu2Online;
+	private boolean cpu3Online;
 
 	private RelativeLayout rlcpu1;
 	private RelativeLayout rlcpu2;
 	private RelativeLayout rlcpu3;
 
-	
-	private TextView curFreq1;
-	private TextView curFreq2;
-	private TextView curFreq3;
-
-	
 	private TextView cpu1txt;
 	private TextView cpu2txt;
 	private TextView cpu3txt;
@@ -145,6 +134,17 @@ public class CPUActivity extends SherlockActivity
 		@Override
 		protected Boolean doInBackground(Boolean... args)
 		{
+			freqEntries = CPUInfo.frequencies();
+			for(CPUInfo.FreqsEntry f: freqEntries){
+				frequencies.add(f.getFreq()+"");
+			}
+			for(CPUInfo.FreqsEntry f: freqEntries){
+				freqNames.add(f.getFreqName());
+			}
+			cpu0Online = CPUInfo.cpu0Online();
+			cpu1Online = CPUInfo.cpu1Online();
+			cpu2Online = CPUInfo.cpu2Online();
+			cpu3Online = CPUInfo.cpu3Online();
 			if (args[0] == true)
 			{
 				try {
@@ -274,6 +274,7 @@ public class CPUActivity extends SherlockActivity
 	@Override
 	public void onCreate(Bundle savedInstanceState)
 	{
+		mHandler = new Handler();
 		sharedPrefs = PreferenceManager.getDefaultSharedPreferences(this);
 		
 		final String theme = sharedPrefs.getString("theme", "light");
@@ -292,40 +293,6 @@ public class CPUActivity extends SherlockActivity
 		super.onCreate(savedInstanceState);
 
 		setContentView(R.layout.cpu_tweaks);
-		
-		final SlidingMenu menu = new SlidingMenu(this);
-		menu.setTouchModeAbove(SlidingMenu.TOUCHMODE_FULLSCREEN);
-		menu.setShadowWidthRes(R.dimen.shadow_width);
-		menu.setShadowDrawable(R.drawable.shadow);
-		menu.setBehindOffsetRes(R.dimen.slidingmenu_offset);
-		menu.setFadeDegree(0.35f);
-		menu.attachToActivity(this, SlidingMenu.SLIDING_WINDOW);
-		menu.setMenu(R.layout.side);
-		
-		final GridView sideView = (GridView) menu.findViewById(R.id.grid);
-		SideMenuAdapter sideAdapter = new SideMenuAdapter(this, R.layout.side_item);
-		
-		sideView.setAdapter(sideAdapter);
-
-		
-		sideView.setOnItemClickListener(new OnItemClickListener(){
-
-			@Override
-			public void onItemClick(AdapterView<?> arg0, View arg1, int position,
-					long arg3) {
-				List<SideMenuEntry> entries =  SideItems.getEntries();
-				Intent intent = new Intent();
-				intent.setClass(CPUActivity.this, entries.get(position).getActivity());
-				startActivity(intent);
-				menu.showContent();
-			}
-			
-		});
-		List<SideMenuEntry> entries =  SideItems.getEntries();
-		for(SideMenuEntry e: entries){
-			sideAdapter.add(e);
-		}
-		
 		/**
 		 * Show Progress Dialog and execute ToggleCpus class*/
 		final ActionBar actionBar = getSupportActionBar();
@@ -349,11 +316,6 @@ public class CPUActivity extends SherlockActivity
 		uptime = (TextView)findViewById(R.id.textView28);
 		deepSleep = (TextView)findViewById(R.id.textView30);
 		temp = (TextView)findViewById(R.id.textView32);
-
-		
-		curFreq1 = (TextView)findViewById(R.id.ptextView4);
-		curFreq2 = (TextView)findViewById(R.id.ptextView7);
-		curFreq3 = (TextView)findViewById(R.id.ptextView8);
 
 		progCpu0 = (ProgressBar)findViewById(R.id.progressBar1);
 		progCpu1 = (ProgressBar)findViewById(R.id.progressBar2);
@@ -416,37 +378,7 @@ public class CPUActivity extends SherlockActivity
 			}
 			
 		});
-		if (cpu1Online == false)
-		{
-			rlcpu1.setVisibility(View.GONE);
-			cb.setVisibility(View.GONE);
-			curFreq1.setVisibility(View.GONE);
-			progCpu1.setVisibility(View.GONE);
-			cpu1txt.setVisibility(View.GONE);
-			cpu1govtxt.setVisibility(View.GONE);
-			gov1spinner.setVisibility(View.GONE);
-			
-		}
-		if (cpu2Online == false)
-		{
-			rlcpu2.setVisibility(View.GONE);
-
-			curFreq2.setVisibility(View.GONE);
-			progCpu2.setVisibility(View.GONE);
-			cpu2txt.setVisibility(View.GONE);
-			cpu2govtxt.setVisibility(View.GONE);
-			gov2spinner.setVisibility(View.GONE);
-		}
-		if (cpu3Online == false)
-		{
-			rlcpu3.setVisibility(View.GONE);
-
-			curFreq3.setVisibility(View.GONE);
-			progCpu3.setVisibility(View.GONE);
-			cpu3txt.setVisibility(View.GONE);
-			cpu3govtxt.setVisibility(View.GONE);
-			gov3spinner.setVisibility(View.GONE);
-		}
+		
 
 startCpuLoadThread();
 
@@ -456,12 +388,6 @@ startCpuLoadThread();
 	public void onResume()
 	{
 		tempUnit = sharedPrefs.getString("temp", "celsius");
-		/*for(CPUInfo.FreqsEntry f: freqEntries){
-			frequencies.add(f.getFreq());
-		}
-		for(CPUInfo.FreqsEntry f: freqEntries){
-			freqNames.add(f.getFreqName());
-		}*/
 		
 		thread = true;
 
@@ -617,11 +543,36 @@ startCpuLoadThread();
 	{
 		
 		
-		for(CPUInfo.FreqsEntry f: freqEntries){
-			frequencies.add(f.getFreq()+"");
+		if (cpu1Online == false)
+		{
+			rlcpu1.setVisibility(View.GONE);
+			cb.setVisibility(View.GONE);
+			cpu1prog.setVisibility(View.GONE);
+			progCpu1.setVisibility(View.GONE);
+			cpu1txt.setVisibility(View.GONE);
+			cpu1govtxt.setVisibility(View.GONE);
+			gov1spinner.setVisibility(View.GONE);
+			
 		}
-		for(CPUInfo.FreqsEntry f: freqEntries){
-			freqNames.add(f.getFreqName());
+		if (cpu2Online == false)
+		{
+			rlcpu2.setVisibility(View.GONE);
+
+			cpu2prog.setVisibility(View.GONE);
+			progCpu2.setVisibility(View.GONE);
+			cpu2txt.setVisibility(View.GONE);
+			cpu2govtxt.setVisibility(View.GONE);
+			gov2spinner.setVisibility(View.GONE);
+		}
+		if (cpu3Online == false)
+		{
+			rlcpu3.setVisibility(View.GONE);
+
+			cpu3prog.setVisibility(View.GONE);
+			progCpu3.setVisibility(View.GONE);
+			cpu3txt.setVisibility(View.GONE);
+			cpu3govtxt.setVisibility(View.GONE);
+			gov3spinner.setVisibility(View.GONE);
 		}
 		
 		cpu0MinFreq = CPUInfo.cpu0MinFreq();

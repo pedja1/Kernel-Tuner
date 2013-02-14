@@ -10,10 +10,8 @@ import android.widget.*;
 import android.widget.AdapterView.*;
 import com.actionbarsherlock.app.*;
 import com.google.ads.*;
-import com.slidingmenu.lib.*;
 import java.io.*;
 import java.util.*;
-import rs.pedjaapps.KernelTuner.entry.*;
 import rs.pedjaapps.KernelTuner.helpers.*;
 
 import com.actionbarsherlock.app.ActionBar;
@@ -25,7 +23,7 @@ import rs.pedjaapps.KernelTuner.R;
 public class Thermald extends SherlockActivity
 {
 
-	private List<CPUInfo.FreqsEntry> freqEntries = CPUInfo.frequencies();
+	private List<CPUInfo.FreqsEntry> freqEntries;
 	private List<String> freqs = new ArrayList<String>();
 	private List<String> freqNames = new ArrayList<String>();
 	private String p1freq;
@@ -166,39 +164,7 @@ public class Thermald extends SherlockActivity
 
 
 		setContentView(R.layout.thermald);
-		
-		final SlidingMenu menu = new SlidingMenu(this);
-		menu.setTouchModeAbove(SlidingMenu.TOUCHMODE_FULLSCREEN);
-		menu.setShadowWidthRes(R.dimen.shadow_width);
-		menu.setShadowDrawable(R.drawable.shadow);
-		menu.setBehindOffsetRes(R.dimen.slidingmenu_offset);
-		menu.setFadeDegree(0.35f);
-		menu.attachToActivity(this, SlidingMenu.SLIDING_WINDOW);
-		menu.setMenu(R.layout.side);
-		
-		GridView sideView = (GridView) menu.findViewById(R.id.grid);
-		SideMenuAdapter sideAdapter = new SideMenuAdapter(this, R.layout.side_item);
-		sideView.setAdapter(sideAdapter);
-
-		
-		sideView.setOnItemClickListener(new OnItemClickListener(){
-
-			@Override
-			public void onItemClick(AdapterView<?> arg0, View arg1, int position,
-					long arg3) {
-				List<SideMenuEntry> entries =  SideItems.getEntries();
-				Intent intent = new Intent();
-				intent.setClass(Thermald.this, entries.get(position).getActivity());
-				startActivity(intent);
-				menu.showContent();
-			}
-			
-		});
-		List<SideMenuEntry> entries =  SideItems.getEntries();
-		for(SideMenuEntry e: entries){
-			sideAdapter.add(e);
-		}
-		
+		freqEntries = CPUInfo.frequencies();
 		for(CPUInfo.FreqsEntry f: freqEntries){
 			freqs.add(f.getFreq()+"");
 		}

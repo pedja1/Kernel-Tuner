@@ -18,7 +18,6 @@ import com.google.ads.*;
 import java.io.*;
 import java.util.*;
 import rs.pedjaapps.KernelTuner.*;
-import rs.pedjaapps.KernelTuner.entry.*;
 import rs.pedjaapps.KernelTuner.helpers.*;
 import rs.pedjaapps.KernelTuner.receiver.*;
 import rs.pedjaapps.KernelTuner.services.*;
@@ -31,9 +30,8 @@ import java.lang.Process;
 
 public class KernelTuner extends SherlockActivity {
 
-	private List<CPUInfo.FreqsEntry> freqEntries = CPUInfo.frequencies();
-	//private List<String> freqNames = new ArrayList<String>();
-	private List<CPUInfo.VoltageList> voltageFreqs = CPUInfo.voltages();
+	private List<CPUInfo.FreqsEntry> freqEntries;
+	private List<CPUInfo.VoltageList> voltageFreqs;
 	private List<String> voltages = new ArrayList<String>();
 	private TextView batteryLevel;
 	private TextView batteryTemp;
@@ -624,6 +622,9 @@ public class KernelTuner extends SherlockActivity {
 		/*StrictMode.setThreadPolicy(new StrictMode.ThreadPolicy.Builder().detectAll().build());
          StrictMode.setVmPolicy(new StrictMode.VmPolicy.Builder()
                  .detectAll().build());*/
+
+		freqEntries = CPUInfo.frequencies();
+		voltageFreqs = CPUInfo.voltages();
 		preferences = PreferenceManager.getDefaultSharedPreferences(this);
 		editor = preferences.edit();
 		theme = preferences.getString("theme", "light");
@@ -1336,9 +1337,7 @@ private void startCpuLoadThread() {
 	}
 
 	private void initialCheck() {
-		if (SideItems.entries.isEmpty() == false) {
-			SideItems.entries.clear();
-		}
+		
 		/**
 		 * Show/hide certain Views depending on number of cpus
 		 */
@@ -1412,13 +1411,10 @@ private void startCpuLoadThread() {
 		try {
 			InputStream fIn = new FileInputStream(file4);
 			fIn.close();
-			SideItems.addEntry(R.drawable.cpu_side, "CPU", CPUActivity.class);
-		} catch (FileNotFoundException e) {
+			} catch (FileNotFoundException e) {
 			try {
 				InputStream fIn = new FileInputStream(file5);
 				fIn.close();
-				SideItems.addEntry(R.drawable.cpu_side, "CPU",
-						CPUActivity.class);
 			} catch (FileNotFoundException e2) {
 				Button cpu = (Button) findViewById(R.id.button2);
 				cpu.setVisibility(View.GONE);
@@ -1434,16 +1430,12 @@ private void startCpuLoadThread() {
 		try {
 			InputStream fIn = new FileInputStream(file);
 			fIn.close();
-			SideItems.addEntry(R.drawable.voltage_side, "Voltage",
-					VoltageActivity.class);
 
 		} catch (FileNotFoundException e) {
 			File file2 = new File(CPUInfo.VOLTAGE_PATH_TEGRA_3);
 			try {
 				InputStream fIn = new FileInputStream(file2);
 				fIn.close();
-				SideItems.addEntry(R.drawable.voltage_side, "Voltage",
-						VoltageActivity.class);
 
 			} catch (FileNotFoundException ex) {
 				Button voltage = (Button) findViewById(R.id.button6);
@@ -1461,8 +1453,6 @@ private void startCpuLoadThread() {
 		try {
 			InputStream fIn = new FileInputStream(file2);
 			fIn.close();
-			SideItems.addEntry(R.drawable.times_side, "Times in State",
-					TISActivity.class);
 
 		} catch (FileNotFoundException e) {
 			Button times = (Button) findViewById(R.id.button5);
@@ -1472,15 +1462,11 @@ private void startCpuLoadThread() {
 
 		}
 
-		SideItems.addEntry(R.drawable.dual_side, "Governor",
-				GovernorActivity.class);
 
 		File file6 = new File(CPUInfo.MPDECISION);
 		try {
 			InputStream fIn = new FileInputStream(file6);
 			fIn.close();
-			SideItems.addEntry(R.drawable.dual_side, "MP-Decision",
-					Mpdecision.class);
 
 		} catch (FileNotFoundException e) {
 			Button mpdec = (Button) findViewById(R.id.button7);
@@ -1494,8 +1480,7 @@ private void startCpuLoadThread() {
 		try {
 			InputStream fIn = new FileInputStream(file7);
 			fIn.close();
-			SideItems.addEntry(R.drawable.temp_side, "Thermal", Thermald.class);
-
+			
 		} catch (FileNotFoundException e) {
 			Button td = (Button) findViewById(R.id.button11);
 			td.setVisibility(View.GONE);
@@ -1508,8 +1493,7 @@ private void startCpuLoadThread() {
 		try {
 			InputStream fIn = new FileInputStream(file3);
 			fIn.close();
-			SideItems.addEntry(R.drawable.gpu_side, "GPU", Gpu.class);
-
+			
 		} catch (FileNotFoundException e) {
 			Button gpu = (Button) findViewById(R.id.button3);
 			gpu.setVisibility(View.GONE);
@@ -1518,18 +1502,7 @@ private void startCpuLoadThread() {
 
 		}
 
-		SideItems.addEntry(R.drawable.misc_side, "Misc Tweaks",
-				MiscTweaks.class);
-		SideItems.addEntry(R.drawable.profile_side, "Profiles", Profiles.class);
-		SideItems.addEntry(R.drawable.swap_side, "OOM", OOM.class);
-		SideItems.addEntry(R.drawable.swap_side, "Swap", Swap.class);
-		SideItems.addEntry(R.drawable.sd_side, "SD Analyzer",
-				SDScannerConfigActivity.class);
-		SideItems.addEntry(R.drawable.info_side, "System Info",
-				SystemInfo.class);
-		// SideItems.addEntry(R.drawable.about_side, "About", About.class);
-		SideItems.addEntry(R.drawable.settings_side, "Settings",
-				Preferences.class);
+		
 
 	}
 
@@ -2317,60 +2290,5 @@ private void startCpuLoadThread() {
 		}
 		return false;
 	}
-	private class upl extends AsyncTask<String, Void, Object> {
-
-		//ProgressDialog pd;
-		@Override
-		protected Object doInBackground(String... args) {
-			StringBuilder builder = new StringBuilder();
-			builder.append(CPUInfo.deviceInfoDebug());
-			builder.append(CPUInfo.voltDebug());
-			builder.append(CPUInfo.tisDebug());
-			builder.append(CPUInfo.frequenciesDebug());
-			builder.append(CPUInfo.logcat());
-
-			
-			try {
-				File myFile = new File(Environment
-						.getExternalStorageDirectory()
-						+ "/ktuner_log.txt");
-				myFile.createNewFile();
-				FileOutputStream fOut = new FileOutputStream(
-						myFile);
-				;
-				OutputStreamWriter osw = new OutputStreamWriter(
-						fOut);
-				osw.write(builder.toString());
-				osw.flush();
-				osw.close();
-
-				
-				FileInputStream fis = new FileInputStream(myFile);
-
-				HttpFileUploader htfu = new HttpFileUploader("http://pedjaapps.in.rs/upl.php","noparamshere", "ktuner_log.txt");
-				htfu.doStart(fis);
-				editor.putBoolean("dump", true);
-				editor.commit();
-				fOut.close();
-				osw.close();
-				fis.close();
-			} catch (FileNotFoundException e) {
-				Log.e("Error", e.getMessage());
-						
-			} catch (IOException e) {
-				Log.e("Error", e.getMessage());
-			}
-
-			return "";
-		}
-
-		@Override
-		protected void onPreExecute(){	
-		}
-		
-		@Override
-		protected void onPostExecute(Object result) {
-		}
-
-	}
+	
 }

@@ -28,7 +28,7 @@ public class Gpu extends SherlockActivity
 	private String selected3d;
 
 
-	private static final String board = android.os.Build.DEVICE;
+	private static String board;
 
 
 	private List<String> gpu2d;
@@ -107,6 +107,7 @@ private class changegpu extends AsyncTask<String, Void, Object>
     @Override
 	public void onCreate(Bundle savedInstanceState)
 	{
+    	board = android.os.Build.DEVICE;
     	preferences = PreferenceManager.getDefaultSharedPreferences(this);
 		
 		String theme = preferences.getString("theme", "light");

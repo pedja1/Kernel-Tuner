@@ -5,15 +5,11 @@ import android.content.*;
 import android.os.*;
 import android.preference.*;
 import android.view.*;
-import android.view.View.*;
 import android.widget.*;
-import android.widget.AdapterView.*;
 import com.actionbarsherlock.app.*;
 import com.google.ads.*;
-import com.slidingmenu.lib.*;
 import java.io.*;
 import java.util.*;
-import rs.pedjaapps.KernelTuner.*;
 import rs.pedjaapps.KernelTuner.entry.*;
 import rs.pedjaapps.KernelTuner.helpers.*;
 import rs.pedjaapps.KernelTuner.tools.*;
@@ -55,40 +51,6 @@ boolean isLight;
 		super.onCreate(savedInstanceState);
 
 		setContentView(R.layout.voltage);
-		
-		final SlidingMenu menu = new SlidingMenu(this);
-		menu.setTouchModeAbove(SlidingMenu.TOUCHMODE_FULLSCREEN);
-		menu.setShadowWidthRes(R.dimen.shadow_width);
-		menu.setShadowDrawable(R.drawable.shadow);
-		menu.setBehindOffsetRes(R.dimen.slidingmenu_offset);
-		menu.setFadeDegree(0.35f);
-		menu.attachToActivity(this, SlidingMenu.SLIDING_WINDOW);
-		menu.setMenu(R.layout.side);
-		
-		GridView sideView = (GridView) menu.findViewById(R.id.grid);
-		SideMenuAdapter sideAdapter = new SideMenuAdapter(this, R.layout.side_item);
-		System.out.println("check "+sideView+" "+sideAdapter);
-		sideView.setAdapter(sideAdapter);
-
-		
-		sideView.setOnItemClickListener(new OnItemClickListener(){
-
-			@Override
-			public void onItemClick(AdapterView<?> arg0, View arg1, int position,
-					long arg3) {
-				List<SideMenuEntry> entries =  SideItems.getEntries();
-				Intent intent = new Intent();
-				intent.setClass(VoltageActivity.this, entries.get(position).getActivity());
-				startActivity(intent);
-				menu.showContent();
-			}
-			
-		});
-		List<SideMenuEntry> entries =  SideItems.getEntries();
-		for(SideMenuEntry e: entries){
-			sideAdapter.add(e);
-		}
-		
 		
 		
 		ActionBar actionBar = getSupportActionBar();

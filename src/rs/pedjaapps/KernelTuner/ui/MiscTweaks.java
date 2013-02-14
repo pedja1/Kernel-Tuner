@@ -13,10 +13,8 @@ import android.widget.CompoundButton.*;
 import android.widget.SeekBar.*;
 import com.actionbarsherlock.app.*;
 import com.google.ads.*;
-import com.slidingmenu.lib.*;
 import java.io.*;
 import java.util.*;
-import rs.pedjaapps.KernelTuner.entry.*;
 import rs.pedjaapps.KernelTuner.helpers.*;
 
 import android.view.View.OnClickListener;
@@ -30,20 +28,20 @@ import rs.pedjaapps.KernelTuner.R;
 
 public class MiscTweaks extends SherlockActivity {
 
-	private String led = CPUInfo.leds();
+	private String led;
 	private String ledHox;
 	private SeekBar mSeekBar;
 
 	private String fc = " ";
-	private int fastcharge = CPUInfo.fcharge();
-	private int vsync = CPUInfo.vsync();
+	private int fastcharge;
+	private int vsync;
 	private String vs;
 	private String hw;
 	private String backbuf;
-	private String cdepth = CPUInfo.cDepth();
-	private Integer sdcache = CPUInfo.sdCache();
-	private List<String> schedulers = CPUInfo.schedulers();
-	private String scheduler = CPUInfo.scheduler();
+	private String cdepth;
+	private Integer sdcache ;
+	private List<String> schedulers ;
+	private String scheduler;
 	private int ledprogress;
 	private SharedPreferences preferences;
 	private boolean userSelect = false;
@@ -96,9 +94,42 @@ public class MiscTweaks extends SherlockActivity {
 	private TextView otgHead;
 	private LinearLayout otgLayout;
 	private Switch otgSwitch;
+	private ProgressDialog pd;
+	private String otg;
 
-	private String otg = CPUInfo.readOTG();
+	private class LoadInfo extends AsyncTask<String, Void, String> {
 
+		@Override
+		protected String doInBackground(String... args) {
+			otg = CPUInfo.readOTG();
+			cdepth = CPUInfo.cDepth();
+			sdcache = CPUInfo.sdCache();
+			schedulers = CPUInfo.schedulers();
+			scheduler = CPUInfo.scheduler();
+			led = CPUInfo.leds();
+			fastcharge = CPUInfo.fcharge();
+			vsync = CPUInfo.vsync();
+			ledHox = readFile("/sys/devices/platform/msm_ssbi.0/pm8921-core/pm8xxx-led/leds/button-backlight/currents");
+			return "";
+		}
+
+		@Override
+		protected void onPreExecute(){
+			pd = new ProgressDialog(MiscTweaks.this);
+			pd.setMessage("Wait a sec...");
+			pd.setIndeterminate(true);
+			pd.setCancelable(false);
+			pd.setCanceledOnTouchOutside(false);
+			pd.show();
+		}
+		@Override
+		protected void onPostExecute(String result) {
+			pd.dismiss();
+			setUI();
+
+		}
+	}
+	
 	private class ChangeColorDepth extends AsyncTask<String, Void, String> {
 
 		@Override
@@ -552,7 +583,7 @@ public class MiscTweaks extends SherlockActivity {
 
 	}
 
-	SlidingMenu menu;
+	
 
 	@Override
 	public void onCreate(Bundle savedInstanceState) {
@@ -572,38 +603,7 @@ public class MiscTweaks extends SherlockActivity {
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.misc_tweaks);
 
-		menu = new SlidingMenu(this);
-		menu.setTouchModeAbove(SlidingMenu.TOUCHMODE_FULLSCREEN);
-		menu.setShadowWidthRes(R.dimen.shadow_width);
-		menu.setShadowDrawable(R.drawable.shadow);
-		menu.setBehindOffsetRes(R.dimen.slidingmenu_offset);
-		menu.setFadeDegree(0.35f);
-		menu.attachToActivity(this, SlidingMenu.SLIDING_WINDOW);
-		menu.setMenu(R.layout.side);
-
-		GridView sideView = (GridView) menu.findViewById(R.id.grid);
-		SideMenuAdapter sideAdapter = new SideMenuAdapter(this,
-				R.layout.side_item);
-		sideView.setAdapter(sideAdapter);
-
-		sideView.setOnItemClickListener(new OnItemClickListener() {
-
-			@Override
-			public void onItemClick(AdapterView<?> arg0, View arg1,
-					int position, long arg3) {
-				List<SideMenuEntry> entries = SideItems.getEntries();
-				Intent intent = new Intent();
-				intent.setClass(MiscTweaks.this, entries.get(position)
-						.getActivity());
-				startActivity(intent);
-				menu.showContent();
-			}
-
-		});
-		List<SideMenuEntry> entries = SideItems.getEntries();
-		for (SideMenuEntry e : entries) {
-			sideAdapter.add(e);
-		}
+		new LoadInfo().execute();
 
 		this.getWindow().setSoftInputMode(
 				WindowManager.LayoutParams.SOFT_INPUT_STATE_ALWAYS_HIDDEN);
@@ -659,6 +659,11 @@ public class MiscTweaks extends SherlockActivity {
 		}
 		this.getWindow().setSoftInputMode(
 				WindowManager.LayoutParams.SOFT_INPUT_STATE_ALWAYS_HIDDEN);
+		
+
+	}
+
+	private void setUI(){
 		mSeekBar = (SeekBar) findViewById(R.id.seekBar1);
 		mSeekBar.setOnSeekBarChangeListener(new OnSeekBarChangeListener() {
 			@Override
@@ -762,8 +767,7 @@ public class MiscTweaks extends SherlockActivity {
 			}
 		});
 
-		ledHox = readFile("/sys/devices/platform/msm_ssbi.0/pm8921-core/pm8xxx-led/leds/button-backlight/currents");
-
+		
 		if (schedulers.isEmpty()) {
 			ioSchedulerLayout.setVisibility(View.GONE);
 			ioDivider.setVisibility(View.GONE);
@@ -843,9 +847,7 @@ public class MiscTweaks extends SherlockActivity {
 		});
 
 		setCheckBoxes();
-
 	}
-
 	@Override
 	public void onPause() {
 		super.onPause();

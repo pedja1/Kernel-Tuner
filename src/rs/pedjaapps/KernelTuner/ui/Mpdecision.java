@@ -10,14 +10,9 @@ import android.widget.*;
 import android.widget.AdapterView.*;
 import android.widget.CompoundButton.*;
 import com.actionbarsherlock.app.*;
-import com.actionbarsherlock.view.*;
 import com.google.ads.*;
-import com.slidingmenu.lib.*;
-import de.ankri.views.*;
 import java.io.*;
 import java.util.*;
-import rs.pedjaapps.KernelTuner.*;
-import rs.pedjaapps.KernelTuner.entry.*;
 import rs.pedjaapps.KernelTuner.helpers.*;
 
 import com.actionbarsherlock.app.ActionBar;
@@ -31,7 +26,7 @@ public class Mpdecision extends SherlockActivity
 {
 
 	
-	private List<CPUInfo.FreqsEntry> freqEntries = CPUInfo.frequencies();
+	private List<CPUInfo.FreqsEntry> freqEntries;
 	private List<Integer> freqs = new ArrayList<Integer>();
 	private List<String> freqNames = new ArrayList<String>();
 	
@@ -175,42 +170,11 @@ public class Mpdecision extends SherlockActivity
 
 		setContentView(R.layout.mpdecision);
 		
-		final SlidingMenu menu = new SlidingMenu(this);
-		menu.setTouchModeAbove(SlidingMenu.TOUCHMODE_FULLSCREEN);
-		menu.setShadowWidthRes(R.dimen.shadow_width);
-		menu.setShadowDrawable(R.drawable.shadow);
-		menu.setBehindOffsetRes(R.dimen.slidingmenu_offset);
-		menu.setFadeDegree(0.35f);
-		menu.attachToActivity(this, SlidingMenu.SLIDING_WINDOW);
-		menu.setMenu(R.layout.side);
-		
-		GridView sideView = (GridView) menu.findViewById(R.id.grid);
-		SideMenuAdapter sideAdapter = new SideMenuAdapter(this, R.layout.side_item);
-		sideView.setAdapter(sideAdapter);
-
-		
-		sideView.setOnItemClickListener(new OnItemClickListener(){
-
-			@Override
-			public void onItemClick(AdapterView<?> arg0, View arg1, int position,
-					long arg3) {
-				List<SideMenuEntry> entries =  SideItems.getEntries();
-				Intent intent = new Intent();
-				intent.setClass(Mpdecision.this, entries.get(position).getActivity());
-				startActivity(intent);
-				menu.showContent();
-			}
-			
-		});
-		List<SideMenuEntry> entries =  SideItems.getEntries();
-		for(SideMenuEntry e: entries){
-			sideAdapter.add(e);
-		}
 		
 		mp_switch = (Switch)findViewById(R.id.mp_switch);
 		idleSpinner =(Spinner)findViewById(R.id.spinner1);
 		scroffSpinner =(Spinner)findViewById(R.id.spinner2);
-		
+		freqEntries = CPUInfo.frequencies();
 		for(CPUInfo.FreqsEntry f: freqEntries){
 			freqs.add(f.getFreq());
 		}

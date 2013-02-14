@@ -32,7 +32,7 @@ import rs.pedjaapps.KernelTuner.tools.FrequencyChanger;
 public class CPUActivityOld extends SherlockActivity
 {
 
-	private  List<CPUInfo.FreqsEntry> freqEntries = CPUInfo.frequencies();
+	private  List<CPUInfo.FreqsEntry> freqEntries;
 	private  List<String> frequencies = new ArrayList<String>();
 	private  List<String> freqNames = new ArrayList<String>();
 	private String cpu0MaxFreq ;
@@ -60,10 +60,10 @@ public class CPUActivityOld extends SherlockActivity
 	private String cpu3MinFreq ;
 
 
-	private final boolean cpu0Online = CPUInfo.cpu0Online();
-	private final boolean cpu1Online = CPUInfo.cpu1Online();
-	private final boolean cpu2Online = CPUInfo.cpu2Online();
-	private final boolean cpu3Online = CPUInfo.cpu3Online();
+	private boolean cpu0Online;
+	private boolean cpu1Online;
+	private boolean cpu2Online;
+	private boolean cpu3Online;
 
 	private LinearLayout rlcpu1;
 	private LinearLayout rlcpu2;
@@ -87,10 +87,23 @@ public class CPUActivityOld extends SherlockActivity
 	 */
 	private final class ToggleCPUs extends AsyncTask<Boolean, Void, Boolean>
 	{
-
+		
 		@Override
 		protected Boolean doInBackground(Boolean... args)
 		{
+			freqEntries = CPUInfo.frequencies();
+			cpu0Online = CPUInfo.cpu0Online();
+			cpu1Online = CPUInfo.cpu1Online();
+			cpu2Online = CPUInfo.cpu2Online();
+			cpu3Online = CPUInfo.cpu3Online();
+			for(CPUInfo.FreqsEntry f: freqEntries){
+				frequencies.add(f.getFreq()+"");
+			}
+			for(CPUInfo.FreqsEntry f: freqEntries){
+				freqNames.add(f.getFreqName());
+			}
+			
+			
 			if (args[0] == true)
 			{
 				try {
@@ -200,7 +213,14 @@ public class CPUActivityOld extends SherlockActivity
 		        } catch (IOException ex) {
 		        }
 			}
-
+			cpu0MinFreq = CPUInfo.cpu0MinFreq();
+			cpu1MinFreq = CPUInfo.cpu1MinFreq();
+			cpu2MinFreq = CPUInfo.cpu2MinFreq();
+			cpu3MinFreq = CPUInfo.cpu3MinFreq();
+			cpu0MaxFreq = CPUInfo.cpu0MaxFreq();
+			cpu1MaxFreq = CPUInfo.cpu1MaxFreq();
+			cpu2MaxFreq = CPUInfo.cpu2MaxFreq();
+			cpu3MaxFreq = CPUInfo.cpu3MaxFreq();
 			return args[0];
 		}
 
@@ -268,25 +288,7 @@ public class CPUActivityOld extends SherlockActivity
 
 		
 		
-		if (cpu1Online == false)
-		{
-			rlcpu1.setVisibility(View.GONE);
-			cpu1govtxt.setVisibility(View.GONE);
-			gov1spinner.setVisibility(View.GONE);
-			
-		}
-		if (cpu2Online == false)
-		{
-			rlcpu2.setVisibility(View.GONE);
-			cpu2govtxt.setVisibility(View.GONE);
-			gov2spinner.setVisibility(View.GONE);
-		}
-		if (cpu3Online == false)
-		{
-			rlcpu3.setVisibility(View.GONE);
-			cpu3govtxt.setVisibility(View.GONE);
-			gov3spinner.setVisibility(View.GONE);
-		}
+		
 
 
 	}
@@ -319,23 +321,27 @@ public class CPUActivityOld extends SherlockActivity
 	
 	private final void updateUI()
 	{
-		
-		
-		for(CPUInfo.FreqsEntry f: freqEntries){
-			frequencies.add(f.getFreq()+"");
+		if (cpu1Online == false)
+		{
+			rlcpu1.setVisibility(View.GONE);
+			cpu1govtxt.setVisibility(View.GONE);
+			gov1spinner.setVisibility(View.GONE);
+			
 		}
-		for(CPUInfo.FreqsEntry f: freqEntries){
-			freqNames.add(f.getFreqName());
+		if (cpu2Online == false)
+		{
+			rlcpu2.setVisibility(View.GONE);
+			cpu2govtxt.setVisibility(View.GONE);
+			gov2spinner.setVisibility(View.GONE);
+		}
+		if (cpu3Online == false)
+		{
+			rlcpu3.setVisibility(View.GONE);
+			cpu3govtxt.setVisibility(View.GONE);
+			gov3spinner.setVisibility(View.GONE);
 		}
 		
-		cpu0MinFreq = CPUInfo.cpu0MinFreq();
-		cpu1MinFreq = CPUInfo.cpu1MinFreq();
-		cpu2MinFreq = CPUInfo.cpu2MinFreq();
-		cpu3MinFreq = CPUInfo.cpu3MinFreq();
-		cpu0MaxFreq = CPUInfo.cpu0MaxFreq();
-		cpu1MaxFreq = CPUInfo.cpu1MaxFreq();
-		cpu2MaxFreq = CPUInfo.cpu2MaxFreq();
-		cpu3MaxFreq = CPUInfo.cpu3MaxFreq();
+		
 		
 
 		 mhzAdapter = new ArrayAdapter<String>(this,   android.R.layout.simple_spinner_item, freqNames);
@@ -401,6 +407,7 @@ public class CPUActivityOld extends SherlockActivity
 	private void cpu1Spinner(){
 		cpu1MinSpinner.setAdapter(mhzAdapter);
 		cpu1MaxSpinner.setAdapter(mhzAdapter);
+		System.out.println(cpu1MinFreq+"df");
 		int cpu1MinPosition = mhzAdapter.getPosition(freqNames.get(frequencies.indexOf(cpu1MinFreq)));
 		int cpu1MaxPosition = mhzAdapter.getPosition(freqNames.get(frequencies.indexOf(cpu1MaxFreq)));
 		cpu1MinSpinner.setSelection(cpu1MinPosition);
