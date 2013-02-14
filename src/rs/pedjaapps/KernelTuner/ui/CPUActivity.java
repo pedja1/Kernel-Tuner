@@ -1206,7 +1206,7 @@ startCpuLoadThread();
 	private final void updateCpu0()
 	{
 
-		if (!cpu0CurFreq.equals("offline"))
+		if (!cpu0CurFreq.equals("offline") && cpu0CurFreq.length()!=0)
 		{
 			cpu0prog.setText(cpu0CurFreq.substring(0, cpu0CurFreq.length() - 3) + "Mhz");
 		}
@@ -1225,7 +1225,7 @@ startCpuLoadThread();
 	private final void updateCpu1()
 	{
 
-		if (!cpu1CurFreq.equals("offline"))
+		if (!cpu1CurFreq.equals("offline") && cpu0CurFreq.length()!=0)
 		{
 			cpu1prog.setText(cpu1CurFreq.substring(0, cpu1CurFreq.length() - 3) + "Mhz");
 		}
@@ -1243,7 +1243,7 @@ startCpuLoadThread();
 	private final void updateCpu2()
 	{
 
-		if (!cpu2CurFreq.equals("offline"))
+		if (!cpu2CurFreq.equals("offline") && cpu0CurFreq.length()!=0)
 		{
 			cpu2prog.setText(cpu2CurFreq.substring(0, cpu2CurFreq.length() - 3) + "Mhz");
 		}
@@ -1261,7 +1261,7 @@ startCpuLoadThread();
 	private final void updateCpu3()
 	{
 
-		if (!cpu3CurFreq.equals("offline"))
+		if (!cpu3CurFreq.equals("offline") && cpu0CurFreq.length()!=0)
 		{
 			cpu3prog.setText(cpu3CurFreq.substring(0, cpu3CurFreq.length() - 3) + "Mhz");
 		}
