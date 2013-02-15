@@ -18,10 +18,9 @@
 */
 package rs.pedjaapps.KernelTuner.entry;
 
+
 public class Profile
 {
-
-	//private variables
     int _id;
     String _Name;
     String _cpu0min;
@@ -47,7 +46,6 @@ public class Profile
     String _colorDepth;
     String _IOScheduler;
     int _sdCache;
-    
     int _sweep2wake;
    
     
@@ -59,6 +57,7 @@ public class Profile
 
     }
     // constructor
+    
     public Profile(int id, String Name, 
     				
     				String cpu0min, 
@@ -179,7 +178,7 @@ public class Profile
 		   this._sweep2wake = sweep2wake;
       
     }
-    // getting ID
+   
     public int getID()
 	{
         return this._id;

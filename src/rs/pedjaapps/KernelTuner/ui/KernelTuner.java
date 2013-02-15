@@ -30,8 +30,6 @@ import android.preference.*;
 import android.util.*;
 import android.view.*;
 import android.view.View.*;
-import android.view.animation.Animation;
-import android.view.animation.AnimationUtils;
 import android.widget.*;
 import com.actionbarsherlock.app.*;
 import com.google.ads.*;
@@ -638,7 +636,6 @@ public class KernelTuner extends SherlockActivity {
 	String theme;
 	boolean dump;
 	Button[] buttons;
-	Animation l2r;
 	
 
 	@Override
@@ -1247,6 +1244,9 @@ startCpuLoadThread();
 	}
 	
 	
+/**
+ * Start new thread that will get cpu load and update UI
+ */
 private void startCpuLoadThread() {
 		// Do something long
 		Runnable runnable = new Runnable() {
@@ -1301,6 +1301,8 @@ private void startCpuLoadThread() {
 		};
 		new Thread(runnable).start();
 	}
+	/**
+	 * Display changelog if version is higher than one stored on shared preferences than store curent version*/
 	private void changelog() {
 		
 		String versionpref = preferences.getString("version", "");

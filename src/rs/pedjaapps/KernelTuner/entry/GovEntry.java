@@ -25,7 +25,9 @@ public final class GovEntry
 	private final String value;
 
 
-
+	/**
+	 * @param name Governor setting name(eg. sampling_rate)
+	 * @param value Governor setting value(eg. 1000)*/
 	public GovEntry(final String name, final String value)
 	{
 		this.name = name;
@@ -34,13 +36,15 @@ public final class GovEntry
 
 	}
 
-
+	/**
+	 * @return Governor setting name(eg. sampling_rate)*/
 	public String getName()
 	{
 		return name;
 	}
 	
-
+	/**
+	 * @return Governor setting value(eg. 1000)*/
 	public String getValue()
 	{
 		return value;
