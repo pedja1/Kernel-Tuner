@@ -63,7 +63,7 @@
 </style>
 	
 	
-	<!--<style name="SwitchCompatAndSherlock" parent="Theme.Sherlock">
+	<style name="SwitchCompatAndSherlock" parent="Theme.Sherlock">
     <item name="switchStyle">@style/switch_dark</item>
     <item name="textAppearance">@style/TextAppearance</item>
      <item name="homeAsUpIndicator">@drawable/indicator</item>
@@ -72,7 +72,7 @@
 
 	
 	<style name="SwitchCompatAndSherlockLight" parent="Theme.Sherlock.Light">
-    <item name="switchStyle">@style/switch_dark</item>
+    <item name="switchStyle">@style/switch_light</item>
     <item name="textAppearance">@style/TextAppearance</item>
      <item name="homeAsUpIndicator">@drawable/indicator</item>
         <item name="android:homeAsUpIndicator">@drawable/indicator</item>
@@ -80,11 +80,11 @@
 
 	
 	<style name="SwitchCompatAndSherlockLightDark" parent="Theme.Sherlock.Light.DarkActionBar">
-    <item name="switchStyle">@style/switch_dark</item>
+    <item name="switchStyle">@style/switch_light</item>
     <item name="textAppearance">@style/TextAppearance</item>
      <item name="homeAsUpIndicator">@drawable/indicator</item>
         <item name="android:homeAsUpIndicator">@drawable/indicator</item>
-</style>-->
+</style>
 	
 	<style name="IndicatorLight" parent="Theme.Sherlock.Light">
         <item name="homeAsUpIndicator">@drawable/indicator</item>

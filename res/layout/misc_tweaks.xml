@@ -152,7 +152,7 @@
                         android:text="@string/toggle_fastcharge_mode" />
                 </LinearLayout>
 
-                <Switch
+                <de.ankri.views.Switch
                     android:id="@+id/fcharge_switch"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
@@ -208,7 +208,7 @@
                         android:text="@string/toggle_vsync" />
                 </LinearLayout>
 
-                <Switch
+                <de.ankri.views.Switch
                     android:id="@+id/vsync_switch"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
@@ -264,7 +264,7 @@
                         android:text="@string/enable_otg_support_with_standard_usb_cable" />
                 </LinearLayout>
 
-                <Switch
+                <de.ankri.views.Switch
                     android:id="@+id/otg_switch"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"

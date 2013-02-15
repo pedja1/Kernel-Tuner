@@ -1,3 +1,21 @@
+/*
+* This file is part of the Kernel Tuner.
+*
+* Copyright Predrag Čokulov <predragcokulov@gmail.com>
+*
+* Kernel Tuner is free software: you can redistribute it and/or modify
+* it under the terms of the GNU General Public License as published by
+* the Free Software Foundation, either version 3 of the License, or
+* (at your option) any later version.
+*
+* Kernel Tuner is distributed in the hope that it will be useful,
+* but WITHOUT ANY WARRANTY; without even the implied warranty of
+* MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the
+* GNU General Public License for more details.
+*
+* You should have received a copy of the GNU General Public License
+* along with Kernel Tuner. If not, see <http://www.gnu.org/licenses/>.
+*/
 package rs.pedjaapps.KernelTuner.ui;
 
 import android.app.*;
@@ -7,7 +25,17 @@ import android.preference.*;
 import android.text.*;
 import android.util.*;
 import android.view.*;
-import android.widget.*;
+import android.widget.AdapterView;
+import android.widget.ArrayAdapter;
+import android.widget.CompoundButton;
+import android.widget.EditText;
+import android.widget.ImageView;
+import android.widget.LinearLayout;
+import android.widget.RadioButton;
+import android.widget.RadioGroup;
+import android.widget.SeekBar;
+import android.widget.Spinner;
+import android.widget.TextView;
 import android.widget.AdapterView.*;
 import android.widget.CompoundButton.*;
 import android.widget.SeekBar.*;
@@ -22,6 +50,9 @@ import android.view.View.OnTouchListener;
 import com.actionbarsherlock.app.ActionBar;
 import com.actionbarsherlock.view.Menu;
 import com.actionbarsherlock.view.MenuInflater;
+
+import de.ankri.views.Switch;
+
 import java.lang.Process;
 import rs.pedjaapps.KernelTuner.R;
 
@@ -591,12 +622,12 @@ public class MiscTweaks extends SherlockActivity {
 		String theme = preferences.getString("theme", "light");
 
 		if (theme.equals("light")) {
-			setTheme(R.style.IndicatorLight);
+			setTheme(R.style.SwitchCompatAndSherlockLight);
 		} else if (theme.equals("dark")) {
-			setTheme(R.style.IndicatorDark);
+			setTheme(R.style.SwitchCompatAndSherlock);
 
 		} else if (theme.equals("light_dark_action_bar")) {
-			setTheme(R.style.IndicatorLightDark);
+			setTheme(R.style.SwitchCompatAndSherlockLightDark);
 
 		}
 		super.onCreate(savedInstanceState);

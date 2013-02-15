@@ -1,9 +1,39 @@
+/*
+* This file is part of the Kernel Tuner.
+*
+* Copyright Predrag Čokulov <predragcokulov@gmail.com>
+*
+* Kernel Tuner is free software: you can redistribute it and/or modify
+* it under the terms of the GNU General Public License as published by
+* the Free Software Foundation, either version 3 of the License, or
+* (at your option) any later version.
+*
+* Kernel Tuner is distributed in the hope that it will be useful,
+* but WITHOUT ANY WARRANTY; without even the implied warranty of
+* MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the
+* GNU General Public License for more details.
+*
+* You should have received a copy of the GNU General Public License
+* along with Kernel Tuner. If not, see <http://www.gnu.org/licenses/>.
+*/
 package rs.pedjaapps.KernelTuner.ui;
 
+import java.io.BufferedReader;
+import java.io.IOException;
+import java.io.InputStream;
+import java.io.InputStreamReader;
+import java.io.OutputStream;
+import java.io.RandomAccessFile;
+import java.util.ArrayList;
+import java.util.List;
 
-import java.io.*;
-import org.holoeverywhere.widget.*;
+import android.widget.VerticalSeekBar;
 
+import rs.pedjaapps.KernelTuner.R;
+import rs.pedjaapps.KernelTuner.helpers.CPUInfo;
+import rs.pedjaapps.KernelTuner.tools.ChangeGovernor;
+import rs.pedjaapps.KernelTuner.tools.FrequencyChanger;
+import android.app.ProgressDialog;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.AsyncTask;
@@ -12,27 +42,18 @@ import android.os.Handler;
 import android.preference.PreferenceManager;
 import android.util.Log;
 import android.view.View;
-import android.widget.CompoundButton;
+import android.widget.AdapterView.OnItemSelectedListener;
 import android.widget.CompoundButton.OnCheckedChangeListener;
-import android.widget.RelativeLayout;
-import android.widget.VerticalSeekBar.OnSeekBarChangeListener;
-import android.widget.VerticalSeekBar;
+import android.widget.SeekBar.OnSeekBarChangeListener;
+import android.widget.*;
+
 import com.actionbarsherlock.app.ActionBar;
 import com.actionbarsherlock.app.SherlockActivity;
 import com.google.ads.AdRequest;
 import com.google.ads.AdView;
-import java.util.ArrayList;
-import java.util.List;
-import org.holoeverywhere.ArrayAdapter;
-import org.holoeverywhere.app.ProgressDialog;
-import org.holoeverywhere.widget.AdapterView.OnItemSelectedListener;
-import rs.pedjaapps.KernelTuner.R;
-import rs.pedjaapps.KernelTuner.helpers.CPUInfo;
-import rs.pedjaapps.KernelTuner.tools.ChangeGovernor;
-import rs.pedjaapps.KernelTuner.tools.FrequencyChanger;
-import rs.pedjaapps.KernelTuner.ui.CPUActivity;
-import rs.pedjaapps.KernelTuner.ui.KernelTuner;
-import android.widget.SeekBar;
+
+
+
 
 public class CPUActivity extends SherlockActivity
 {
@@ -649,6 +670,8 @@ startCpuLoadThread();
 
 
 				}
+
+				
 
 			});
 		cpu0maxSeek.setOnSeekBarChangeListener(new OnSeekBarChangeListener(){
