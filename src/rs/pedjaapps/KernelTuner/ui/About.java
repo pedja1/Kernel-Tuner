@@ -1,19 +1,20 @@
 package rs.pedjaapps.KernelTuner.ui;
 
+import android.content.*;
+import android.content.pm.*;
+import android.net.*;
+import android.os.*;
+import android.preference.*;
+import android.text.method.*;
+import android.view.*;
+import android.widget.*;
+import org.holoeverywhere.app.*;
+import org.holoeverywhere.widget.*;
 
-import android.app.Activity;
-import android.content.Intent;
-import android.content.SharedPreferences;
-import android.content.pm.PackageInfo;
-import android.content.pm.PackageManager;
-import android.net.Uri;
-import android.os.Bundle;
-import android.preference.PreferenceManager;
-import android.text.method.LinkMovementMethod;
-import android.view.View;
-import android.widget.ImageView;
-import android.widget.TextView;
+import org.holoeverywhere.widget.TextView;
 import rs.pedjaapps.KernelTuner.R;
+
+
 
 public class About extends Activity
 {

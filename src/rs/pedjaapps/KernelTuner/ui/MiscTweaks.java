@@ -22,7 +22,6 @@ import android.view.View.OnTouchListener;
 import com.actionbarsherlock.app.ActionBar;
 import com.actionbarsherlock.view.Menu;
 import com.actionbarsherlock.view.MenuInflater;
-import de.ankri.views.Switch;
 import java.lang.Process;
 import rs.pedjaapps.KernelTuner.R;
 
@@ -592,12 +591,12 @@ public class MiscTweaks extends SherlockActivity {
 		String theme = preferences.getString("theme", "light");
 
 		if (theme.equals("light")) {
-			setTheme(R.style.SwitchCompatAndSherlockLight);
+			setTheme(R.style.IndicatorLight);
 		} else if (theme.equals("dark")) {
-			setTheme(R.style.SwitchCompatAndSherlock);
+			setTheme(R.style.IndicatorDark);
 
 		} else if (theme.equals("light_dark_action_bar")) {
-			setTheme(R.style.SwitchCompatAndSherlockLightDark);
+			setTheme(R.style.IndicatorLightDark);
 
 		}
 		super.onCreate(savedInstanceState);

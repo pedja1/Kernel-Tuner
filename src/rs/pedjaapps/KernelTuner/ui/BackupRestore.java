@@ -1,40 +1,36 @@
 package rs.pedjaapps.KernelTuner.ui;
 
-import android.app.AlertDialog;
-import android.app.ProgressDialog;
+
+
+import java.io.*;
 import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.SharedPreferences;
-import android.content.SharedPreferences.Editor;
 import android.os.AsyncTask;
 import android.os.Bundle;
 import android.os.Environment;
 import android.preference.PreferenceManager;
 import android.view.View;
-import android.view.View.OnClickListener;
-import android.widget.Button;
-import android.widget.Toast;
 import com.actionbarsherlock.app.ActionBar;
 import com.actionbarsherlock.app.SherlockActivity;
-import java.io.File;
-import java.io.FileInputStream;
-import java.io.FileNotFoundException;
-import java.io.FileOutputStream;
-import java.io.IOException;
-import java.io.InputStream;
 import java.nio.channels.FileChannel;
 import javax.xml.parsers.DocumentBuilder;
 import javax.xml.parsers.DocumentBuilderFactory;
 import javax.xml.parsers.ParserConfigurationException;
+import org.holoeverywhere.app.AlertDialog;
+import org.holoeverywhere.app.ProgressDialog;
+import org.holoeverywhere.widget.Button;
+import org.holoeverywhere.widget.Toast;
 import org.w3c.dom.Document;
 import org.w3c.dom.Element;
 import org.w3c.dom.Node;
 import org.xml.sax.SAXException;
-import rs.pedjaapps.KernelTuner.ui.KernelTuner;
+import rs.pedjaapps.KernelTuner.ui.BackupRestore;
 import rs.pedjaapps.KernelTuner.R;
 
-public class BackupRestore extends SherlockActivity {
+public class BackupRestore extends SherlockActivity
+ {
 
 	
 	private String prefBackupMessage;
@@ -163,7 +159,7 @@ public class BackupRestore extends SherlockActivity {
 		Button backup = (Button) findViewById(R.id.backup);
 		Button restore = (Button) findViewById(R.id.restore);
 
-		backup.setOnClickListener(new OnClickListener() {
+		backup.setOnClickListener(new View.OnClickListener() {
 
 			@Override
 			public void onClick(View arg0) {
@@ -180,7 +176,7 @@ public class BackupRestore extends SherlockActivity {
 
 		});
 
-		restore.setOnClickListener(new OnClickListener() {
+		restore.setOnClickListener(new View.OnClickListener() {
 
 			@Override
 			public void onClick(View arg0) {
@@ -313,7 +309,7 @@ public class BackupRestore extends SherlockActivity {
 		    SharedPreferences sharedPreferences = PreferenceManager
 		        .getDefaultSharedPreferences(context);
 		    
-		    Editor editor = sharedPreferences.edit();
+		    SharedPreferences.Editor editor = sharedPreferences.edit();
 		      
 		    InputStream inputStream = new FileInputStream(backupFile);
 

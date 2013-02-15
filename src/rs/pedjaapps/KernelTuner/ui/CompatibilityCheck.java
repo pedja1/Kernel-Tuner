@@ -1,19 +1,18 @@
 package rs.pedjaapps.KernelTuner.ui;
 
-import android.app.Activity;
 import android.content.SharedPreferences;
 import android.graphics.Color;
 import android.os.AsyncTask;
 import android.os.Bundle;
 import android.view.View;
-import android.view.View.OnClickListener;
-import android.widget.Button;
-import android.widget.LinearLayout;
-import android.widget.ProgressBar;
-import android.widget.TextView;
 import java.io.File;
 import java.io.FileInputStream;
 import java.io.IOException;
+import org.holoeverywhere.app.Activity;
+import org.holoeverywhere.widget.Button;
+import org.holoeverywhere.widget.LinearLayout;
+import org.holoeverywhere.widget.ProgressBar;
+import org.holoeverywhere.widget.TextView;
 import rs.pedjaapps.KernelTuner.R;
 
 
@@ -644,7 +643,7 @@ public class CompatibilityCheck extends Activity
 		setContentView(R.layout.check);
 		new exec().execute();
 		final Button ok = (Button) findViewById(R.id.button1);
-		ok.setOnClickListener(new OnClickListener() {
+		ok.setOnClickListener(new View.OnClickListener() {
 
 				@Override
 				public void onClick(View arg0)

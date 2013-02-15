@@ -103,7 +103,7 @@
             android:exported="true"
             android:icon="@drawable/misc"
             android:label="@string/title_misc"
-            android:theme="@style/SwitchCompatAndSherlockLight"
+            android:theme="@style/IndicatorLight"
             android:uiOptions="splitActionBarWhenNarrow" >
         </activity>
         <activity
@@ -111,7 +111,7 @@
             android:exported="true"
             android:icon="@drawable/dual"
             android:label="@string/title_mpdecision"
-            android:theme="@style/SwitchCompatAndSherlockLight"
+            android:theme="@style/IndicatorLight"
             android:uiOptions="splitActionBarWhenNarrow" >
         </activity>
         <activity
@@ -244,7 +244,7 @@
             android:icon="@drawable/sd"
             android:label="SD Card Analyzer"
             android:screenOrientation="portrait"
-            android:theme="@style/SwitchCompatAndSherlockLight" >
+            android:theme="@style/IndicatorLight" >
         </activity>
         <activity
             android:name=".ui.TISActivityChart"

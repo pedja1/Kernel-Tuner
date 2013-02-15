@@ -1,9 +1,9 @@
 package rs.pedjaapps.KernelTuner.ui;
 
 
-import android.widget.*;
+import java.io.*;
+import org.holoeverywhere.widget.*;
 
-import android.app.ProgressDialog;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.AsyncTask;
@@ -12,26 +12,27 @@ import android.os.Handler;
 import android.preference.PreferenceManager;
 import android.util.Log;
 import android.view.View;
-import android.widget.AdapterView.OnItemSelectedListener;
+import android.widget.CompoundButton;
 import android.widget.CompoundButton.OnCheckedChangeListener;
-import android.widget.SeekBar.OnSeekBarChangeListener;
+import android.widget.RelativeLayout;
+import android.widget.VerticalSeekBar.OnSeekBarChangeListener;
+import android.widget.VerticalSeekBar;
 import com.actionbarsherlock.app.ActionBar;
 import com.actionbarsherlock.app.SherlockActivity;
 import com.google.ads.AdRequest;
 import com.google.ads.AdView;
-import java.io.BufferedReader;
-import java.io.IOException;
-import java.io.InputStream;
-import java.io.InputStreamReader;
-import java.io.OutputStream;
-import java.io.RandomAccessFile;
 import java.util.ArrayList;
 import java.util.List;
-import rs.pedjaapps.KernelTuner.ui.KernelTuner;
+import org.holoeverywhere.ArrayAdapter;
+import org.holoeverywhere.app.ProgressDialog;
+import org.holoeverywhere.widget.AdapterView.OnItemSelectedListener;
 import rs.pedjaapps.KernelTuner.R;
 import rs.pedjaapps.KernelTuner.helpers.CPUInfo;
 import rs.pedjaapps.KernelTuner.tools.ChangeGovernor;
 import rs.pedjaapps.KernelTuner.tools.FrequencyChanger;
+import rs.pedjaapps.KernelTuner.ui.CPUActivity;
+import rs.pedjaapps.KernelTuner.ui.KernelTuner;
+import android.widget.SeekBar;
 
 public class CPUActivity extends SherlockActivity
 {
@@ -587,6 +588,9 @@ startCpuLoadThread();
 		cpu0maxSeek.setProgress(frequencies.indexOf(cpu0MaxFreq));
 		final int size = freqNames.size();
 		cpu0minSeek.setOnSeekBarChangeListener(new OnSeekBarChangeListener(){
+
+				
+
 				int prog;
 				@Override
 				public void onProgressChanged(SeekBar seekBar, int progress,
@@ -1240,6 +1244,7 @@ startCpuLoadThread();
 		gov0spinner.setSelection(gov0spinnerPosition);
 
 		gov0spinner.setOnItemSelectedListener(new OnItemSelectedListener() {
+				
 				@Override
 				public void onItemSelected(AdapterView<?> parent, View view, int pos, long id)
 				{

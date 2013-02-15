@@ -2,24 +2,35 @@ package rs.pedjaapps.KernelTuner.ui;
 
 
 
-import android.content.*;
-import android.graphics.*;
-import android.os.*;
-import android.preference.*;
-import android.view.*;
-import android.widget.*;
-import android.widget.CompoundButton.*;
-import com.actionbarsherlock.app.*;
-import com.google.ads.*;
-import java.text.*;
-import org.achartengine.*;
-import org.achartengine.model.*;
-import org.achartengine.renderer.*;
-
-import android.view.View.OnClickListener;
+import android.content.Intent;
+import android.content.SharedPreferences;
+import android.graphics.Color;
+import android.os.Bundle;
+import android.os.Environment;
+import android.os.StatFs;
+import android.preference.PreferenceManager;
+import android.view.View;
 import android.view.ViewGroup.LayoutParams;
-import de.ankri.views.Switch;
+import android.widget.CompoundButton;
+import android.widget.CompoundButton.OnCheckedChangeListener;
+import com.actionbarsherlock.app.ActionBar;
+import com.actionbarsherlock.app.SherlockActivity;
+import com.google.ads.AdRequest;
+import com.google.ads.AdView;
+import java.text.DecimalFormat;
+import org.achartengine.ChartFactory;
+import org.achartengine.GraphicalView;
+import org.achartengine.model.CategorySeries;
+import org.achartengine.renderer.DefaultRenderer;
+import org.achartengine.renderer.SimpleSeriesRenderer;
+import org.holoeverywhere.widget.Button;
+import org.holoeverywhere.widget.EditText;
+import org.holoeverywhere.widget.LinearLayout;
+import org.holoeverywhere.widget.Switch;
+import org.holoeverywhere.widget.Toast;
 import rs.pedjaapps.KernelTuner.R;
+import rs.pedjaapps.KernelTuner.ui.SDScannerActivity;
+import rs.pedjaapps.KernelTuner.ui.SDScannerConfigActivity;
 
 public class SDScannerConfigActivity extends SherlockActivity
 {
@@ -68,14 +79,14 @@ public class SDScannerConfigActivity extends SherlockActivity
 		String theme = preferences.getString("theme", "light");
 		
 		if(theme.equals("light")){
-			setTheme(R.style.SwitchCompatAndSherlockLight);
+			setTheme(R.style.IndicatorLight);
 		}
 		else if(theme.equals("dark")){
-			setTheme(R.style.SwitchCompatAndSherlock);
+			setTheme(R.style.IndicatorDark);
 			
 		}
 		else if(theme.equals("light_dark_action_bar")){
-			setTheme(R.style.SwitchCompatAndSherlockLightDark);
+			setTheme(R.style.IndicatorLightDark);
 			
 		}
 		super.onCreate(savedInstanceState);
@@ -146,7 +157,7 @@ public class SDScannerConfigActivity extends SherlockActivity
 			sw.setChecked(false);
 		}
 		Button scan = (Button)findViewById(R.id.button2);
-		scan.setOnClickListener(new OnClickListener(){
+		scan.setOnClickListener(new View.OnClickListener(){
 			@Override
 			public void onClick(View arg0) {
 				String scannType = " ";
