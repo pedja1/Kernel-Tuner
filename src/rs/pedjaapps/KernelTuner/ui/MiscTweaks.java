@@ -461,7 +461,7 @@ public class MiscTweaks extends SherlockActivity {
 			} catch (IOException ex) {
 			}
 
-			return "";
+			return args[0];
 		}
 
 		@Override

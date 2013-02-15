@@ -1384,13 +1384,44 @@ public class SystemInfo extends SherlockFragmentActivity implements
 					m_sensormgr.registerListener(senseventListener, snsr,
 							SensorManager.SENSOR_DELAY_NORMAL);
 				}
+				if (snsr.getType() == Sensor.TYPE_GYROSCOPE) {
+					gyroHead.setText(getSensorInfo(snsr));
+					pb_gyroscopeA
+						.setMax((int) (snsr.getMaximumRange() * FLOATTOINTPRECISION));
+					pb_gyroscopeB
+						.setMax((int) (snsr.getMaximumRange() * FLOATTOINTPRECISION));
+					pb_gyroscopeC
+						.setMax((int) (snsr.getMaximumRange() * FLOATTOINTPRECISION));
+
+					m_sensormgr.registerListener(senseventListener, snsr,
+												 SensorManager.SENSOR_DELAY_NORMAL);
+				}
+				if (snsr.getType() == Sensor.TYPE_GRAVITY) {
+					gravHead.setText(getSensorInfo(snsr));
+					pb_gravityA
+						.setMax((int) (snsr.getMaximumRange() * SensorManager.GRAVITY_EARTH * FLOATTOINTPRECISION));
+					pb_gravityB
+						.setMax((int) (snsr.getMaximumRange() * SensorManager.GRAVITY_EARTH * FLOATTOINTPRECISION));
+					pb_gravityC
+						.setMax((int) (snsr.getMaximumRange() * SensorManager.GRAVITY_EARTH * FLOATTOINTPRECISION));
+
+					m_sensormgr.registerListener(senseventListener, snsr,
+												 SensorManager.SENSOR_DELAY_NORMAL);
+				}
+				if (snsr.getType() == Sensor.TYPE_RELATIVE_HUMIDITY) {
+
+					humHead.setText(getSensorInfo(snsr));
+					pb_humidity_A.setMax((int) (snsr.getMaximumRange()));
+					m_sensormgr.registerListener(senseventListener, snsr,
+												 SensorManager.SENSOR_DELAY_NORMAL);
+				}
 
 			}
 		}
 	}
 
 	@Override
-	protected void onPause() {
+	protected void onDestroy() {
 		m_sensormgr.unregisterListener(senseventListener);
 		super.onPause();
 	}
