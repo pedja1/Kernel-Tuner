@@ -819,7 +819,6 @@ public class KernelTuner extends SherlockActivity {
 		/**
 		 * Declare buttons and set onClickListener for each
 		 */
-		l2r = AnimationUtils.loadAnimation(this, R.anim.animation_l2r);
 		Button gpu = (Button) findViewById(R.id.button3);
 		
 		gpu.setOnClickListener(new OnClickListener() {
