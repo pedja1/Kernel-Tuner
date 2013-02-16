@@ -255,7 +255,7 @@
             android:theme="@style/IndicatorLight" >
         </activity>
         <activity
-            android:name=".ui.ui.EditActivity"
+            android:name=".ui.EditActivity"
             android:exported="true"
             android:icon="@drawable/ic_locale_plugin"
             android:label="@string/plugin_name"
