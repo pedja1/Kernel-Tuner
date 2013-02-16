@@ -153,6 +153,7 @@ private class changegpu extends AsyncTask<String, Void, Object>
 		gpu3dcurent = readFile("/sys/devices/platform/kgsl-3d0.0/kgsl/kgsl-3d0/gpuclk");
 		List<String> adreno220 = Arrays.asList(new String[] {"shooter", "shooteru", "pyramid", "tenderloin", "vigor", "rider", "nozomi", "LT26i", "hikari", "doubleshot", "su640","SHV-E160S" ,"SHV-E160L", "SHV-E120L", "holiday"});
 		List<String> adreno225 = Arrays.asList(new String[] {"evita", "ville", "jewel", "d2spr", "d2tmo" });
+		List<String> adreno320 = Arrays.asList(new String[]{"mako","dlx"});
 		if (adreno220.contains(board)/*board.equals("shooter") || board.equals("shooteru") || board.equals("pyramid") || board.equals("tenderloin") || board.equals("vigor") || board.equals("raider") || board.equals("nozomi") || board.equals("LT26i") || board.equals("hikari")*/)
 		{
 			gpu2dHr = Arrays.asList(new String[]{"160Mhz", "200Mhz", "228Mhz", "266Mhz"});
@@ -167,6 +168,59 @@ private class changegpu extends AsyncTask<String, Void, Object>
 			gpu3dHr = Arrays.asList(new String[]{"512Mhz", "400Mhz", "320Mhz", "300Mhz", "266Mhz", "228Mhz", "200Mhz", "177Mhz", "27Mhz"});
 			gpu2d = Arrays.asList(new String[]{"320000000", "266667000", "228571000", "200000000", "160000000", "96000000", "27000000"});
 			gpu3d = Arrays.asList(new String[]{"512000000", "400000000", "320000000", "300000000", "266667000", "228571000", "200000000", "177778000", "27000000"});
+			createSpinners();
+		}
+		else if (adreno320.contains(board))
+		{
+			gpu2dHr = Arrays.asList(new String[]{"27Mhz", "48Mhz", "55Mhz", "64Mhz", 
+					 "76Mhz", 
+					 "96Mhz",
+					"128Mhz", 
+					"145Mhz", 
+					"160Mhz", 
+					"177Mhz", 
+					"200Mhz",
+					"266Mhz",
+					"300Mhz"});
+			gpu3dHr = Arrays.asList(new String[]{"27Mhz","48Mhz","54Mhz","64Mhz","76Mhz","96Mhz","128Mhz","145Mhz",
+					"160Mhz",
+					"177Mhz",
+					"200Mhz",
+					"228Mhz",
+					"266Mhz",
+					"300Mhz",
+					"320Mhz",
+					"400Mhz",
+					"450Mhz",
+					"500Mhz"});
+			gpu2d = Arrays.asList(new String[]{"27000000", "48000000", "54857000", "64000000", 
+					 "76800000", 
+					 "96000000",
+					"128000000", 
+					"145455000", 
+					"160000000", 
+					"177778000", 
+					"200000000",
+					"266667000",
+					"300000000"});
+			gpu3d = Arrays.asList(new String[]{"27000000",
+					"48000000",
+					"54857000",
+					"64000000",
+					"76800000",
+					"96000000",
+					"128000000",
+					"145455000",
+					"160000000",
+					"177778000",
+					"200000000",
+					"228571000",
+					"266667000",
+					"300000000",
+					"320000000",
+					"400000000",
+					"450000000",
+					"500000000"});
 			createSpinners();
 		}
 		else{
