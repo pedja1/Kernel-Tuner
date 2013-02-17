@@ -789,6 +789,16 @@ public class SystemInfo extends SherlockFragmentActivity implements
 		}
 		if (!battcurrent.equals("err")) {
 			drain.setText(battcurrent + "mAh");
+			if (battcurrent.substring(0, 1).equals("-"))
+			{
+				
+			drain.setTextColor(Color.RED);
+			}
+			else
+			{
+				drain.setText("+"+battcurrent + "mAh");
+			drain.setTextColor(Color.GREEN);
+			}
 		} else {
 			drain.setText("Unknown");
 		}
