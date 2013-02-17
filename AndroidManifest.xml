@@ -255,6 +255,12 @@
             android:theme="@style/IndicatorLight" >
         </activity>
         <activity
+            android:name=".ui.FMActivity"
+            android:icon="@drawable/folder"
+            android:theme="@style/IndicatorLight"
+            android:uiOptions="splitActionBarWhenNarrow" >
+        </activity>
+        <activity
             android:name=".ui.EditActivity"
             android:exported="true"
             android:icon="@drawable/ic_locale_plugin"
@@ -280,7 +286,8 @@
 
         <activity
             android:name=".shortcuts.Shortcuts"
-            android:label="Kernel Tuner - Shortcuts" >
+            android:label="Kernel Tuner - Shortcuts"
+            android:uiOptions="splitActionBarWhenNarrow" >
             <intent-filter>
                 <action android:name="android.intent.action.CREATE_SHORTCUT" />
 

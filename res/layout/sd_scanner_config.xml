@@ -54,20 +54,17 @@
             android:layout_height="wrap_content" >
 
             <TextView
-                android:id="@+id/textView1"
+                android:id="@+id/path"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 android:layout_weight="1"
-                android:text="@string/folder_to_scann" />
+                android:text="path" />
 
-            <EditText
-                android:id="@+id/editText1"
+            <Button 
+                android:id="@+id/browse"
+                android:text="Browse"
                 android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:inputType="text">
-
-                <requestFocus />
-            </EditText>
+                android:layout_height="wrap_content"/>
         </LinearLayout>
 
         <LinearLayout

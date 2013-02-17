@@ -57,10 +57,13 @@ public class SDScannerConfigActivity extends SherlockActivity
 	
 	
 	private Switch sw;
+	private static final int GET_CODE = 0;
 	  public static final String TYPE = "type";
 
 	  private static int[] COLORS = new int[] {Color.RED, 
 		  Color.GREEN};
+	  
+	  String pt;
 
 	  private CategorySeries mSeries = new CategorySeries("");
 
@@ -70,7 +73,7 @@ public class SDScannerConfigActivity extends SherlockActivity
 
 	  private GraphicalView mChartView;
 
-	  
+	  TextView path;
 	  LinearLayout chart;
 	  
 	  @Override
@@ -130,7 +133,6 @@ public class SDScannerConfigActivity extends SherlockActivity
 		if (ads == true)
 		{AdView adView = (AdView)findViewById(R.id.ad);
 			adView.loadAd(new AdRequest());}
-	System.out.println(humanRadableSize(getAvailableSpaceInBytes()));
 	mSeries.add("Used: "   + humanRadableSize(getUsedSpaceInBytes()), getUsedSpaceInBytes());
 	SimpleSeriesRenderer renderer2 = new SimpleSeriesRenderer();
     renderer2.setColor(COLORS[(mSeries.getItemCount() - 1) % COLORS.length]);
@@ -162,10 +164,11 @@ public class SDScannerConfigActivity extends SherlockActivity
 			
 		});
 		
-		final EditText path = (EditText)findViewById(R.id.editText1);
+		path = (TextView)findViewById(R.id.path);
 		final EditText depth = (EditText)findViewById(R.id.editText2);
 		final EditText numberOfItems = (EditText)findViewById(R.id.editText3);
 		path.setText(preferences.getString("SDScanner_path", Environment.getExternalStorageDirectory().getPath()));
+		pt = preferences.getString("SDScanner_path", Environment.getExternalStorageDirectory().getPath());
 		depth.setText(preferences.getString("SDScanner_depth", "1"));
 		numberOfItems.setText(preferences.getString("SDScanner_items", "20"));
 		if(preferences.getBoolean("SDScanner_scann_type", false)){
@@ -187,7 +190,7 @@ public class SDScannerConfigActivity extends SherlockActivity
 					editor.putBoolean("SDScanner_scann_type", false);
 				}
 				Intent intent = new Intent();
-				intent.putExtra("path", path.getText().toString());
+				intent.putExtra("path", pt);
 				intent.putExtra("depth", depth.getText().toString());
 				intent.putExtra("items", numberOfItems.getText().toString());
 				intent.putExtra("scannType", scannType);
@@ -202,6 +205,15 @@ public class SDScannerConfigActivity extends SherlockActivity
 				
 			}
 			
+		});
+		
+		((Button)findViewById(R.id.browse)).setOnClickListener(new View.OnClickListener() {
+			
+			@Override
+			public void onClick(View arg0) {
+				startActivityForResult(new Intent(SDScannerConfigActivity.this, FMActivity.class), GET_CODE);
+				
+			}
 		});
 		
 	}
@@ -302,5 +314,18 @@ public class SDScannerConfigActivity extends SherlockActivity
 	    }
 	    return super.onOptionsItemSelected(item);
 	}
+	
+	@Override
+	protected void onActivityResult(int requestCode, int resultCode, Intent data) {
+	  super.onActivityResult(requestCode, resultCode, data);
+	  
+	  if (requestCode == GET_CODE){
+	   if (resultCode == RESULT_OK) {
+		   pt = data.getStringExtra("path");
+		   path.setText(pt);
+	   }
+	   
+	  }
+	 }
 	
 }

@@ -140,10 +140,6 @@ public class SDScannerActivity extends SherlockActivity
 		String depth = intent.getStringExtra("depth");
 		String numberOfItems = intent.getStringExtra("items");
 		String scannType = intent.getStringExtra("scannType");
-		System.out.println(path);
-		System.out.println(depth);
-		System.out.println(numberOfItems);
-		System.out.println(scannType);
 		
 		new ScannSDCard().execute(new String[] {path,
 				depth,
@@ -195,7 +191,7 @@ public class SDScannerActivity extends SherlockActivity
 			 
 			try
 			{
-				proc = Runtime.getRuntime().exec("/data/data/rs.pedjaapps.KernelTuner/files/du -d "+args[1] + args[3] +args[0]);
+				proc = Runtime.getRuntime().exec(getFilesDir().getPath()+"/du -d "+args[1] + args[3] +args[0]);
 
 
 				InputStream inputStream = proc.getInputStream();
