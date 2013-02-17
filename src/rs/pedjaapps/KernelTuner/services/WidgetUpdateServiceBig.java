@@ -178,7 +178,7 @@ public class WidgetUpdateServiceBig extends Service
 	{
 
 
-		
+		System.out.println("widget service big");
 		cpu0gov = CPUInfo.cpu0CurGov();
 		cpu1gov = CPUInfo.cpu1CurGov();
 		led = CPUInfo.cbb();
@@ -879,7 +879,7 @@ public class WidgetUpdateServiceBig extends Service
 			Calendar calendar = Calendar.getInstance();
 			calendar.setTimeInMillis(System.currentTimeMillis());
 			calendar.add(Calendar.SECOND, timeint*60);
-			alarmManager.setRepeating(AlarmManager.RTC_WAKEUP, calendar.getTimeInMillis(), 20 * 1000, pendingIntent);
+			alarmManager.setRepeating(AlarmManager.RTC_WAKEUP, calendar.getTimeInMillis(), calendar.getTimeInMillis(), pendingIntent);
 
 			appWidgetManager.updateAppWidget(widgetId, remoteViews);
 		} 

@@ -2,7 +2,7 @@
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:id="@+id/widget_layout"
     android:layout_width="match_parent"
-    android:layout_height="match_parent"
+    android:layout_height="wrap_content"
     android:background="@drawable/lcd_background_grey"
     android:paddingBottom="1.0dip"
     android:paddingLeft="1.0dip" >
@@ -35,7 +35,7 @@
     <RelativeLayout
         android:id="@+id/rl1"
         android:layout_width="70dp"
-        android:layout_height="match_parent"
+        android:layout_height="wrap_content"
         android:layout_alignParentLeft="true"
         android:layout_alignParentTop="true" >
 
@@ -47,7 +47,7 @@
             android:layout_height="wrap_content"
             android:layout_alignParentTop="true"
             android:layout_centerHorizontal="true"
-            android:layout_marginTop="15dp"
+            android:layout_marginTop="10dp"
             android:src="@drawable/battery_full" android:contentDescription="@string/battery_icon"/>
 
 
@@ -77,15 +77,12 @@
 
     </RelativeLayout>
 
-
-
     <RelativeLayout
         android:id="@+id/rl2"
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
+        android:layout_height="wrap_content"
         android:layout_alignParentTop="true"
         android:layout_toRightOf="@+id/rl1" >
-
 
         <TextView
             android:id="@+id/textView7"
@@ -93,7 +90,7 @@
             android:layout_height="wrap_content"
             android:layout_alignParentTop="true"
             android:layout_centerHorizontal="true"
-            android:layout_marginTop="10dp"
+            android:layout_marginTop="5dp"
             android:shadowColor="#00000000"
             android:shadowDx="1.0"
             android:shadowDy="1.0"

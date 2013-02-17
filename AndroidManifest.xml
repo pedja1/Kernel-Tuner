@@ -64,7 +64,24 @@
                 <action android:name="rs.pedjaapps.KernelTuner.StartupService" />
             </intent-filter>
         </service>
+<receiver
+            android:name=".receiver.WidgetToggle"
+            android:icon="@drawable/ic_launcher"
+            android:label="Kernel Tuner 2x1" >
+            <intent-filter>
+                <action android:name="android.appwidget.action.APPWIDGET_UPDATE" />
+                <action android:name="rs.pedjaapps.KernelTuner.receiver.AppWidget.ACTION_CLICK" />
+           		<action android:name="rs.pedjaapps.KernelTuner.receivers.WidgetToggle.ACTION_WIDGET_TOGGLE_CPU1"/>
+           		<action android:name="rs.pedjaapps.KernelTuner.receivers.WidgetToggle.ACTION_WIDGET_TOGGLE_CPU2"/>
+           		<action android:name="rs.pedjaapps.KernelTuner.receivers.WidgetToggle.ACTION_WIDGET_TOGGLE_CPU3"/>
+                <action android:name="rs.pedjaapps.KernelTuner.receivers.WidgetToggle.ACTION_WIDGET_REFRESH"/>
+                
+                </intent-filter>
 
+            <meta-data
+                android:name="android.appwidget.provider"
+                android:resource="@xml/widget_provider_toggle" />
+        </receiver>
         <receiver
             android:name=".receiver.AppWidget"
             android:icon="@drawable/ic_launcher"

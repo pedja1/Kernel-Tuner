@@ -226,7 +226,7 @@ public class WidgetUpdateService extends Service
 			}
 			catch (Exception e)
 			{
-				timeint = 1800;
+				timeint = 30;
 			}
 
 			PendingIntent pendingIntent = PendingIntent.getBroadcast(getApplicationContext(), 0, clickIntent,
@@ -236,8 +236,8 @@ public class WidgetUpdateService extends Service
 			AlarmManager alarmManager = (AlarmManager)getSystemService(ALARM_SERVICE);
 			Calendar calendar = Calendar.getInstance();
 			calendar.setTimeInMillis(System.currentTimeMillis());
-			calendar.add(Calendar.SECOND, timeint);
-			alarmManager.setRepeating(AlarmManager.RTC_WAKEUP, calendar.getTimeInMillis(), 20 * 1000, pendingIntent);
+			calendar.add(Calendar.SECOND, timeint*60);
+			alarmManager.setRepeating(AlarmManager.RTC_WAKEUP, calendar.getTimeInMillis(), calendar.getTimeInMillis(), pendingIntent);
 
 			appWidgetManager.updateAppWidget(widgetId, remoteViews);
 
