@@ -2,8 +2,8 @@
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:id="@+id/widget_layout"
     android:layout_width="match_parent"
-    android:layout_height="wrap_content"
-    android:background="@drawable/lcd_background_grey"
+    android:layout_height="match_parent"
+    android:background="@drawable/widget_bg"
     android:paddingBottom="1.0dip"
     android:paddingLeft="1.0dip" >
 

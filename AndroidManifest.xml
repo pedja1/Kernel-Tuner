@@ -67,7 +67,7 @@
 <receiver
             android:name=".receiver.WidgetToggle"
             android:icon="@drawable/ic_launcher"
-            android:label="Kernel Tuner 2x1" >
+            android:label="Kernel Tuner Toggle" >
             <intent-filter>
                 <action android:name="android.appwidget.action.APPWIDGET_UPDATE" />
                 <action android:name="rs.pedjaapps.KernelTuner.receiver.AppWidget.ACTION_CLICK" />

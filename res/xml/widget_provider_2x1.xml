@@ -5,6 +5,7 @@ android:minHeight="40.0dp"
 android:updatePeriodMillis="1800000"
 android:widgetCategory="keyguard|home_screen"
 android:initialLayout="@layout/widget_loading"
+	android:previewImage="@drawable/widget_small_prev"
 />
 
 <!--android:resizeMode="horizontal|vertical"-->
