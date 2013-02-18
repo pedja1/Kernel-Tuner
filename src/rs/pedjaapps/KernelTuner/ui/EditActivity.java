@@ -112,7 +112,7 @@ public final class EditActivity extends Activity
 		 for(Profile p : profiles){
 			 profileList.add(p.getName());
 		 }
-		 Spinner profSpinner = (Spinner)findViewById(R.id.spinner1);
+		 Spinner profSpinner = (Spinner)findViewById(R.id.bg);
 		ArrayAdapter<String> profileAdapter = new ArrayAdapter<String>(this,   android.R.layout.simple_spinner_item, profileList);
 		
 		profileAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);

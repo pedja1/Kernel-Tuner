@@ -1089,7 +1089,7 @@ public class MiscTweaks extends SherlockActivity {
 
 	private final void createSpinnerIO() {
 
-		final Spinner spinner = (Spinner) findViewById(R.id.spinner1);
+		final Spinner spinner = (Spinner) findViewById(R.id.bg);
 		ArrayAdapter<String> spinnerArrayAdapter = new ArrayAdapter<String>(
 				this, android.R.layout.simple_spinner_item, schedulers);
 		spinnerArrayAdapter

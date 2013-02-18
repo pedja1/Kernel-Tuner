@@ -46,6 +46,7 @@ public class Preferences extends SherlockPreferenceActivity
 	private CheckBoxPreference resetApp;
 	private ListPreference themePrefList;
 	private ListPreference cpuList;
+	private ListPreference widgetPrefList;
 
 	@SuppressWarnings("deprecation")
 	@Override
@@ -72,6 +73,24 @@ public class Preferences extends SherlockPreferenceActivity
 		
 		ActionBar actionBar = getSupportActionBar();
 		actionBar.setDisplayHomeAsUpEnabled(true);
+		
+		widgetPrefList = (ListPreference) findPreference("widget_bg");
+        widgetPrefList.setDefaultValue(widgetPrefList.getEntryValues()[0]);
+        String widgetBg = widgetPrefList.getValue();
+        if (widgetBg == null) {
+            widgetPrefList.setValue((String)widgetPrefList.getEntryValues()[0]);
+            widgetBg = widgetPrefList.getValue();
+        }
+        widgetPrefList.setSummary(widgetPrefList.getEntries()[widgetPrefList.findIndexOfValue(widgetBg)]);
+
+
+        widgetPrefList.setOnPreferenceChangeListener(new OnPreferenceChangeListener() {
+            @Override
+            public boolean onPreferenceChange(Preference preference, Object newValue) {
+                widgetPrefList.setSummary(widgetPrefList.getEntries()[widgetPrefList.findIndexOfValue(newValue.toString())]);
+                return true;
+            }
+        }); 
 		
 		themePrefList = (ListPreference) findPreference("theme");
         themePrefList.setDefaultValue(themePrefList.getEntryValues()[0]);

@@ -22,6 +22,14 @@
             android:key="widget_time"
             android:summary="@string/preferences_widget_settings_interval_summary"
             android:title="@string/preferences_widget_settings_interval_title" />
+    	<ListPreference
+            android:entries="@array/widget_bg_entry"
+            android:entryValues="@array/widget_bg_values"
+            android:key="widget_bg"
+            android:summary=""
+            android:title="Widget Background"
+			android:defaultValue="grey"/>
+    
     </PreferenceCategory>
 
     <PreferenceCategory android:title="Other" >

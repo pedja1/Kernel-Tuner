@@ -209,7 +209,7 @@ public class ProfileEditor extends SherlockActivity
 
 		});
 	
-		final Spinner spinner1 = (Spinner)findViewById(R.id.spinner1);
+		final Spinner spinner1 = (Spinner)findViewById(R.id.bg);
 		Spinner spinner2 = (Spinner)findViewById(R.id.spinner2);
 		Spinner spinner3 = (Spinner)findViewById(R.id.spinner3);
 		Spinner spinner4 = (Spinner)findViewById(R.id.spinner4);

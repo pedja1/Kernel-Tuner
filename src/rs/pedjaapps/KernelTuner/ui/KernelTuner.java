@@ -31,6 +31,7 @@ import android.util.*;
 import android.view.*;
 import android.view.View.*;
 import android.widget.*;
+
 import com.actionbarsherlock.app.*;
 import com.google.ads.*;
 import java.io.*;
@@ -1207,28 +1208,53 @@ startCpuLoadThread();
 		/**
 		 * Update widgets after application is closed
 		 */
-		AppWidgetBig updateBig = new AppWidgetBig();
-		Context context = this;
-		AppWidgetManager appWidgetManager = AppWidgetManager
-				.getInstance(context);
-		RemoteViews remoteViews = new RemoteViews(context.getPackageName(),
+		
+		/*AppWidgetBig updateBig = new AppWidgetBig();
+		AppWidgetManager appWidgetManager = AppWidgetManager.getInstance(this);
+		RemoteViews remoteViews = new RemoteViews(this.getPackageName(),
 				R.layout.widget_4x4);
-		ComponentName thisWidget = new ComponentName(context,
+		ComponentName thisWidget = new ComponentName(this,
 				AppWidgetBig.class);
 		appWidgetManager.updateAppWidget(thisWidget, remoteViews);
 		int[] appWidgetIds = null;
-		updateBig.onUpdate(context, appWidgetManager, appWidgetIds);
+		updateBig.onUpdate(this, appWidgetManager, appWidgetIds);
 
 		AppWidget updateSmall = new AppWidget();
 		RemoteViews remoteViewsSmall = new RemoteViews(
-				context.getPackageName(), R.layout.widget_2x1);
-		ComponentName thisWidgetSmall = new ComponentName(context,
+				this.getPackageName(), R.layout.widget_2x1);
+		ComponentName thisWidgetSmall = new ComponentName(this,
 				AppWidget.class);
 		appWidgetManager.updateAppWidget(thisWidgetSmall, remoteViewsSmall);
 
-		updateSmall.onUpdate(context, appWidgetManager, appWidgetIds);
+		updateSmall.onUpdate(this, appWidgetManager, appWidgetIds);
 
-		super.onDestroy();
+		AppWidget updateToggle = new AppWidget();
+		RemoteViews remoteViewsToggle = new RemoteViews(
+				this.getPackageName(), R.layout.widget_toggle);
+		ComponentName thisWidgetToggle = new ComponentName(this,
+				WidgetToggle.class);
+		appWidgetManager.updateAppWidget(thisWidgetToggle, remoteViewsToggle);
+
+		updateToggle.onUpdate(this, appWidgetManager, appWidgetIds);
+
+		AppWidget updateMem = new AppWidget();
+		RemoteViews remoteViewsMem = new RemoteViews(
+				this.getPackageName(), R.layout.widget_memory);
+		ComponentName thisWidgetMem = new ComponentName(this,
+				AppWidgetMem.class);
+		appWidgetManager.updateAppWidget(thisWidgetMem, remoteViewsMem);
+
+		updateMem.onUpdate(this, appWidgetManager, appWidgetIds);
+		
+		AppWidget updateBattery = new AppWidget();
+		RemoteViews remoteViewsBattery = new RemoteViews(
+				this.getPackageName(), R.layout.widget_battery);
+		ComponentName thisWidgetBattery = new ComponentName(this,
+				AppWidgetBattery.class);
+		appWidgetManager.updateAppWidget(thisWidgetBattery, remoteViewsBattery);
+
+		updateBattery.onUpdate(this, appWidgetManager, appWidgetIds);
+		*/super.onDestroy();
 
 	}
 

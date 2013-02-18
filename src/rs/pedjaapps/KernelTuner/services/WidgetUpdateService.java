@@ -37,8 +37,11 @@ public class WidgetUpdateService extends Service
 	private String gov;
 	private String battperc;
 	private String charge;
-	private int timeint;
-
+	private double timeint;
+	private int bgRes = 0;
+	AlarmManager alarmManager;
+	PendingIntent pendingIntent;
+	
 	private void read()
 	{
 		System.out.println("widget service");
@@ -222,21 +225,36 @@ public class WidgetUpdateService extends Service
 
 		 	try
 			{
-				timeint = Integer.parseInt(timer.trim());
+				timeint = Double.parseDouble(timer.trim());
 			}
 			catch (Exception e)
 			{
 				timeint = 30;
 			}
 
-			PendingIntent pendingIntent = PendingIntent.getBroadcast(getApplicationContext(), 0, clickIntent,
+		 	SharedPreferences pref = PreferenceManager.getDefaultSharedPreferences(this);
+			String widgetBgPref = pref.getString("widget_bg","grey");
+			if(widgetBgPref.equals("grey")){
+				bgRes = R.drawable.lcd_background_grey;
+			}
+			else if(widgetBgPref.equals("dark")){
+				bgRes = R.drawable.appwidget_dark_bg;
+			}
+			
+			else if(widgetBgPref.equals("transparent")){
+				bgRes = 0;
+			}
+			if(bgRes!=0){
+			    remoteViews.setInt(R.id.widget_layout, "setBackgroundResource", bgRes);
+			    }
+			pendingIntent = PendingIntent.getBroadcast(getApplicationContext(), 0, clickIntent,
 																	 PendingIntent.FLAG_UPDATE_CURRENT);
 			remoteViews.setOnClickPendingIntent(R.id.widget_layout, pendingIntent);
 
-			AlarmManager alarmManager = (AlarmManager)getSystemService(ALARM_SERVICE);
+			alarmManager = (AlarmManager)getSystemService(ALARM_SERVICE);
 			Calendar calendar = Calendar.getInstance();
 			calendar.setTimeInMillis(System.currentTimeMillis());
-			calendar.add(Calendar.SECOND, timeint*60);
+			calendar.add(Calendar.SECOND, (int)timeint*60);
 			alarmManager.setRepeating(AlarmManager.RTC_WAKEUP, calendar.getTimeInMillis(), calendar.getTimeInMillis(), pendingIntent);
 
 			appWidgetManager.updateAppWidget(widgetId, remoteViews);
@@ -253,4 +271,5 @@ public class WidgetUpdateService extends Service
 	{
 		return null;
 	}
+	
 } 

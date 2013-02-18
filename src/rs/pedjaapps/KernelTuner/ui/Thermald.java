@@ -259,7 +259,7 @@ public class Thermald extends SherlockActivity
 	{
 		
 
-		final Spinner spinner = (Spinner) findViewById(R.id.spinner1);
+		final Spinner spinner = (Spinner) findViewById(R.id.bg);
 		ArrayAdapter<String> spinnerArrayAdapter = new ArrayAdapter<String>(this,   android.R.layout.simple_spinner_item, freqNames);
 		spinnerArrayAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item); // The drop down vieww
 		spinner.setAdapter(spinnerArrayAdapter);

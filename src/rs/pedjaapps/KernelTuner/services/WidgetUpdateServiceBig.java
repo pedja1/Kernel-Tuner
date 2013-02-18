@@ -66,7 +66,9 @@ public class WidgetUpdateServiceBig extends Service
 	private int cf = 0;
 	private String cpu1curr;
 	private int cf2 = 0;
-	private int timeint = 30;
+	private double timeint = 30;
+	private int bgRes = 0;
+	
 	private boolean enableTmp(){
 		boolean b;
 		try
@@ -866,19 +868,32 @@ public class WidgetUpdateServiceBig extends Service
 
 			try
 			{
-				timeint = Integer.parseInt(timer.trim());
+				timeint = Double.parseDouble(timer.trim());
 			}
 			catch (Exception e)
 			{
 				timeint = 30;
 			}
+			String widgetBgPref = sharedPrefs.getString("widget_bg","grey");
+			if(widgetBgPref.equals("grey")){
+				bgRes = R.drawable.lcd_background_grey;
+			}
+			else if(widgetBgPref.equals("dark")){
+				bgRes = R.drawable.appwidget_dark_bg;
+			}
+			else if(widgetBgPref.equals("transparent")){
+				bgRes = 0;
+			}
+			if(bgRes!=0){
+			    remoteViews.setInt(R.id.widget_layout, "setBackgroundResource", bgRes);
+			    }
 			PendingIntent pendingIntent = PendingIntent.getBroadcast(getApplicationContext(), 0, clickIntent,
 																	 PendingIntent.FLAG_UPDATE_CURRENT);
-			remoteViews.setOnClickPendingIntent(R.id.widget_layout2, pendingIntent);
+			remoteViews.setOnClickPendingIntent(R.id.widget_layout, pendingIntent);
 			AlarmManager alarmManager = (AlarmManager)getSystemService(ALARM_SERVICE);
 			Calendar calendar = Calendar.getInstance();
 			calendar.setTimeInMillis(System.currentTimeMillis());
-			calendar.add(Calendar.SECOND, timeint*60);
+			calendar.add(Calendar.SECOND, (int)timeint*60);
 			alarmManager.setRepeating(AlarmManager.RTC_WAKEUP, calendar.getTimeInMillis(), calendar.getTimeInMillis(), pendingIntent);
 
 			appWidgetManager.updateAppWidget(widgetId, remoteViews);

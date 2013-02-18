@@ -17,8 +17,10 @@ import android.appwidget.AppWidgetProvider;
 import android.content.ComponentName;
 import android.content.Context;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.graphics.Color;
 import android.os.AsyncTask;
+import android.preference.PreferenceManager;
 import android.util.Log;
 import android.view.View;
 import android.widget.RemoteViews;
@@ -35,6 +37,19 @@ public class WidgetToggle extends AppWidgetProvider {
 	@Override
 	public void onUpdate(Context context, AppWidgetManager appWidgetManager, int[] appWidgetIds) {
 	    
+		int bgRes = R.drawable.lcd_background_grey;
+		SharedPreferences pref = PreferenceManager.getDefaultSharedPreferences(context);
+		String widgetBgPref = pref.getString("widget_bg","grey");
+		if(widgetBgPref.equals("grey")){
+			bgRes = R.drawable.lcd_background_grey;
+		}
+		else if(widgetBgPref.equals("dark")){
+			bgRes = R.drawable.appwidget_dark_bg;
+		}
+		else if(widgetBgPref.equals("transparent")){
+			bgRes = 0;
+		}
+		
 	    Intent active = new Intent(context, WidgetToggle.class);
 	    active.setAction(ACTION_WIDGET_TOGGLE_CPU1);
 	    PendingIntent actionPendingIntent = PendingIntent.getBroadcast(context, 0, active, 0);
@@ -55,7 +70,9 @@ public class WidgetToggle extends AppWidgetProvider {
 	    actionPendingIntent = PendingIntent.getBroadcast(context, 0, active, 0);
 	    remoteViews.setOnClickPendingIntent(R.id.refresh, actionPendingIntent);
 	    
-	    
+	    if(bgRes!=0){
+	    remoteViews.setInt(R.id.widget_layout, "setBackgroundResource", bgRes);
+	    }
 	    setView(context);
 	    appWidgetManager.updateAppWidget(appWidgetIds, remoteViews);
 	}

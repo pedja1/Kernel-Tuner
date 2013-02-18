@@ -551,7 +551,7 @@ public class Swap extends SherlockActivity
 	{
 
 
-    	Spinner spinner = (Spinner) findViewById(R.id.spinner1);
+    	Spinner spinner = (Spinner) findViewById(R.id.bg);
     	ArrayAdapter<String> spinnerArrayAdapter = new ArrayAdapter<String>(this,   android.R.layout.simple_spinner_item, swapSize);
     	spinnerArrayAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item); // The drop down vieww
     	spinner.setAdapter(spinnerArrayAdapter);

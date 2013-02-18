@@ -72,7 +72,7 @@
                 android:text="@string/cpu0_min_freq_" />
 
             <Spinner
-                android:id="@+id/spinner1"
+                android:id="@+id/bg"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content" />
             

@@ -354,7 +354,7 @@ public class CPUActivity extends SherlockActivity
 		cpu3govtxt = (TextView)findViewById(R.id.textView2);
 
 		gov0spinner = (Spinner)findViewById(R.id.spinner3);
-		gov1spinner = (Spinner)findViewById(R.id.spinner1);
+		gov1spinner = (Spinner)findViewById(R.id.bg);
 		gov2spinner = (Spinner)findViewById(R.id.spinner2);
 		gov3spinner = (Spinner)findViewById(R.id.spinner4);
 

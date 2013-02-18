@@ -189,7 +189,7 @@ public class Mpdecision extends SherlockActivity
 		
 		
 		mp_switch = (Switch)findViewById(R.id.mp_switch);
-		idleSpinner =(Spinner)findViewById(R.id.spinner1);
+		idleSpinner =(Spinner)findViewById(R.id.bg);
 		scroffSpinner =(Spinner)findViewById(R.id.spinner2);
 		freqEntries = CPUInfo.frequencies();
 		for(CPUInfo.FreqsEntry f: freqEntries){

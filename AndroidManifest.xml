@@ -83,6 +83,36 @@
                 android:resource="@xml/widget_provider_toggle" />
         </receiver>
         <receiver
+            android:name=".receiver.AppWidgetMem"
+            android:icon="@drawable/ic_launcher"
+            android:label="Kernel Tuner Memory Info" >
+            <intent-filter>
+                <action android:name="android.appwidget.action.APPWIDGET_UPDATE" />
+                <action android:name="rs.pedjaapps.KernelTuner.receiver.AppWidgetMem.ACTION_CLICK" />
+            <action android:name="rs.pedjaapps.KernelTuner.receivers.AppWidgetMem.ACTION_WIDGET_REFRESH"/>
+                
+            </intent-filter>
+
+            <meta-data
+                android:name="android.appwidget.provider"
+                android:resource="@xml/widget_provider_mem" />
+        </receiver>
+        <receiver
+            android:name=".receiver.AppWidgetBattery"
+            android:icon="@drawable/ic_launcher"
+            android:label="Kernel Tuner Battery" >
+            <intent-filter>
+                <action android:name="android.appwidget.action.APPWIDGET_UPDATE" />
+                <action android:name="rs.pedjaapps.KernelTuner.receiver.AppWidgetBattery.ACTION_CLICK" />
+            <action android:name="rs.pedjaapps.KernelTuner.receivers.AppWidgetBattery.ACTION_WIDGET_REFRESH"/>
+                
+            </intent-filter>
+
+            <meta-data
+                android:name="android.appwidget.provider"
+                android:resource="@xml/widget_provider_battery" />
+        </receiver>
+        <receiver
             android:name=".receiver.AppWidget"
             android:icon="@drawable/ic_launcher"
             android:label="Kernel Tuner 2x1" >
