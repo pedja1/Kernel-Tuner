@@ -1,8 +1,8 @@
 <?xml version="1.0" encoding="utf-8"?>
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:id="@+id/widget_layout"
-    android:layout_width="match_parent"
-    android:layout_height="match_parent"
+    android:layout_width="wrap_content"
+    android:layout_height="wrap_content"
     android:paddingBottom="1.0dip"
     android:paddingLeft="1.0dip" >
 
@@ -24,11 +24,6 @@
         android:textColor="#ffbbbbbb"
         
         android:typeface="sans" />
-
-
-
-
-
     -->
 
     <RelativeLayout
@@ -38,8 +33,6 @@
         android:layout_alignParentLeft="true"
         android:layout_alignParentTop="true" >
 
-
-
         <ImageView
             android:id="@+id/imageView1"
             android:layout_width="wrap_content"
@@ -47,12 +40,8 @@
             android:layout_alignParentTop="true"
             android:layout_centerHorizontal="true"
             android:layout_marginTop="10dp"
-            android:src="@drawable/battery_full" android:contentDescription="@string/battery_icon"/>
-
-
-
-
-
+            android:contentDescription="@string/battery_icon"
+            android:src="@drawable/battery_full" />
 
         <ProgressBar
             android:id="@+id/progressBar1"
@@ -73,22 +62,20 @@
             android:layout_centerHorizontal="true"
             android:gravity="center|center_horizontal"
             android:textAppearance="?android:attr/textAppearanceSmall" />
-
     </RelativeLayout>
 
-    <RelativeLayout
+    <LinearLayout
         android:id="@+id/rl2"
-        android:layout_width="match_parent"
+        android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_alignParentTop="true"
-        android:layout_toRightOf="@+id/rl1" >
+        android:layout_toRightOf="@+id/rl1"
+        android:orientation="vertical" >
 
         <TextView
             android:id="@+id/textView7"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_alignParentTop="true"
-            android:layout_centerHorizontal="true"
             android:layout_marginTop="5dp"
             android:shadowColor="#00000000"
             android:shadowDx="1.0"
@@ -102,23 +89,17 @@
             android:id="@+id/textView5"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_below="@+id/textView7"
-            android:layout_centerHorizontal="true"
             android:shadowColor="#00000000"
             android:shadowDx="1.0"
             android:shadowDy="1.0"
             android:shadowRadius="2.0"
-            
             android:textColor="#ffffffff"
             android:typeface="sans" />
-
 
         <TextView
             android:id="@+id/textView9"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_below="@+id/textView5"
-            android:layout_centerHorizontal="true"
             android:shadowColor="#00000000"
             android:shadowDx="1.0"
             android:shadowDy="1.0"
@@ -131,16 +112,12 @@
             android:id="@+id/textView6"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-             android:layout_below="@+id/textView9"
-            android:layout_centerHorizontal="true"
             android:shadowColor="#00000000"
             android:shadowDx="1.0"
             android:shadowDy="1.0"
             android:shadowRadius="2.0"
-            
             android:textColor="#ffffffff"
             android:typeface="sans" />
-
-    </RelativeLayout>
+    </LinearLayout>
 
 </RelativeLayout>

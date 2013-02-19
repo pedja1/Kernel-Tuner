@@ -223,7 +223,7 @@ public final class EditActivity extends Activity
         /*
          * inflate the default menu layout from XML
          */
-        getMenuInflater().inflate(R.menu.locale_help_save_dontsave, menu);
+        getMenuInflater().inflate(R.menu.locale_save_dontsave, menu);
 
         /*
          * Set up the breadcrumbs for the ActionBar

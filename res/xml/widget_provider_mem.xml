@@ -6,5 +6,6 @@ android:updatePeriodMillis="1800000"
 android:resizeMode="horizontal|vertical"
 android:widgetCategory="keyguard|home_screen"
 android:initialLayout="@layout/widget_loading"
+android:previewImage="@drawable/widget_mem_prev"
 />
 

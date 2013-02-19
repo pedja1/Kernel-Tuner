@@ -13,9 +13,9 @@
         android:layout_above="@+id/miscToggles"
         android:layout_marginLeft="3dp"
         android:layout_marginRight="3dp"
+        android:contentDescription="@string/divider"
         android:scaleType="fitXY"
-        android:src="@drawable/divider_strong_holo" 
-        android:contentDescription="@string/divider"/>
+        android:src="@drawable/divider_strong_holo" />
 
     <LinearLayout
         android:id="@+id/up"
@@ -41,7 +41,8 @@
                     android:layout_height="wrap_content"
                     android:layout_marginLeft="10dp"
                     android:layout_marginTop="10dp"
-                    android:src="@drawable/battery_charge_usb" android:contentDescription="@string/battery_icon"/>
+                    android:contentDescription="@string/battery_icon"
+                    android:src="@drawable/battery_charge_usb" />
 
                 <ProgressBar
                     android:id="@+id/progressBar1"
@@ -76,9 +77,9 @@
                 android:layout_below="@+id/batteryLevelLayout"
                 android:layout_marginLeft="3dp"
                 android:layout_marginRight="3dp"
+                android:contentDescription="@string/divider"
                 android:scaleType="fitXY"
-                android:src="@drawable/divider_strong_holo"
-                android:contentDescription="@string/divider" />
+                android:src="@drawable/divider_strong_holo" />
 
             <RelativeLayout
                 android:id="@+id/batteryStatLayout"
@@ -87,21 +88,23 @@
                 android:layout_above="@+id/imageView9"
                 android:layout_below="@+id/imageView8" >
 
-                <RelativeLayout
-                    android:id="@+id/RelativeLayout1"
+                <LinearLayout
+                    android:id="@+id/LinearLayout1"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content" >
 
                     <TextView
                         android:id="@+id/textView15"
-                        android:layout_width="wrap_content"
+                        android:layout_width="0dp"
                         android:layout_height="wrap_content"
                         android:layout_marginLeft="3dp"
                         android:layout_marginTop="10dp"
+                        android:layout_weight="1"
                         android:shadowColor="#00000000"
                         android:shadowDx="1.0"
                         android:shadowDy="1.0"
                         android:shadowRadius="2.0"
+                        android:singleLine="true"
                         android:text="@string/temperature_"
                         android:textColor="#ffffffff"
                         android:typeface="sans" />
@@ -110,7 +113,6 @@
                         android:id="@+id/textView20"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:layout_alignParentRight="true"
                         android:layout_marginRight="3dp"
                         android:layout_marginTop="10dp"
                         android:shadowColor="#00000000"
@@ -120,23 +122,25 @@
                         android:text="@string/n_a"
                         android:textColor="#ffffffff"
                         android:typeface="sans" />
-                </RelativeLayout>
+                </LinearLayout>
 
-                <RelativeLayout
+                <LinearLayout
                     android:id="@+id/LinearLayout2"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:layout_below="@+id/RelativeLayout1" >
+                    android:layout_below="@+id/LinearLayout1" >
 
                     <TextView
                         android:id="@+id/textView16"
-                        android:layout_width="wrap_content"
+                        android:layout_width="0dp"
                         android:layout_height="wrap_content"
                         android:layout_marginLeft="3dp"
+                        android:layout_weight="1"
                         android:shadowColor="#00000000"
                         android:shadowDx="1.0"
                         android:shadowDy="1.0"
                         android:shadowRadius="2.0"
+                        android:singleLine="true"
                         android:text="@string/voltage_"
                         android:textColor="#ffffffff"
                         android:typeface="sans" />
@@ -145,7 +149,6 @@
                         android:id="@+id/textView21"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:layout_alignParentRight="true"
                         android:layout_marginRight="3dp"
                         android:shadowColor="#00000000"
                         android:shadowDx="1.0"
@@ -154,9 +157,9 @@
                         android:text="@string/n_a"
                         android:textColor="#ffffffff"
                         android:typeface="sans" />
-                </RelativeLayout>
+                </LinearLayout>
 
-                <RelativeLayout
+                <LinearLayout
                     android:id="@+id/LinearLayout3"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
@@ -164,13 +167,15 @@
 
                     <TextView
                         android:id="@+id/textView17"
-                        android:layout_width="wrap_content"
+                        android:layout_width="0dp"
                         android:layout_height="wrap_content"
                         android:layout_marginLeft="3dp"
+                        android:layout_weight="1"
                         android:shadowColor="#00000000"
                         android:shadowDx="1.0"
                         android:shadowDy="1.0"
                         android:shadowRadius="2.0"
+                        android:singleLine="true"
                         android:text="@string/technology_"
                         android:textColor="#ffffffff"
                         android:typeface="sans" />
@@ -179,7 +184,6 @@
                         android:id="@+id/textView22"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:layout_alignParentRight="true"
                         android:layout_marginRight="3dp"
                         android:shadowColor="#00000000"
                         android:shadowDx="1.0"
@@ -188,9 +192,9 @@
                         android:text="@string/n_a"
                         android:textColor="#ffffffff"
                         android:typeface="sans" />
-                </RelativeLayout>
+                </LinearLayout>
 
-                <RelativeLayout
+                <LinearLayout
                     android:id="@+id/LinearLayout4"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
@@ -198,13 +202,15 @@
 
                     <TextView
                         android:id="@+id/textView18"
-                        android:layout_width="wrap_content"
+                        android:layout_width="0dp"
                         android:layout_height="wrap_content"
                         android:layout_marginLeft="3dp"
+                        android:layout_weight="1"
                         android:shadowColor="#00000000"
                         android:shadowDx="1.0"
                         android:shadowDy="1.0"
                         android:shadowRadius="2.0"
+                        android:singleLine="true"
                         android:text="@string/drain_charge_"
                         android:textColor="#ffffffff"
                         android:typeface="sans" />
@@ -213,7 +219,6 @@
                         android:id="@+id/textView23"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:layout_alignParentRight="true"
                         android:layout_marginRight="3dp"
                         android:shadowColor="#00000000"
                         android:shadowDx="1.0"
@@ -222,9 +227,9 @@
                         android:text="@string/n_a"
                         android:textColor="#ffffffff"
                         android:typeface="sans" />
-                </RelativeLayout>
+                </LinearLayout>
 
-                <RelativeLayout
+                <LinearLayout
                     android:id="@+id/LinearLayout5"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
@@ -232,13 +237,15 @@
 
                     <TextView
                         android:id="@+id/textView19"
-                        android:layout_width="wrap_content"
+                        android:layout_width="0dp"
                         android:layout_height="wrap_content"
                         android:layout_marginLeft="3dp"
+                        android:layout_weight="1"
                         android:shadowColor="#00000000"
                         android:shadowDx="1.0"
                         android:shadowDy="1.0"
                         android:shadowRadius="2.0"
+                        android:singleLine="true"
                         android:text="@string/health_"
                         android:textColor="#ffffffff"
                         android:typeface="sans" />
@@ -247,7 +254,6 @@
                         android:id="@+id/textView24"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:layout_alignParentRight="true"
                         android:layout_marginRight="3dp"
                         android:shadowColor="#00000000"
                         android:shadowDx="1.0"
@@ -256,9 +262,9 @@
                         android:text="@string/n_a"
                         android:textColor="#ffffffff"
                         android:typeface="sans" />
-                </RelativeLayout>
+                </LinearLayout>
 
-                <RelativeLayout
+                <LinearLayout
                     android:id="@+id/LinearLayout6"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
@@ -266,13 +272,15 @@
 
                     <TextView
                         android:id="@+id/textView25"
-                        android:layout_width="wrap_content"
+                        android:layout_width="0dp"
                         android:layout_height="wrap_content"
                         android:layout_marginLeft="3dp"
+                        android:layout_weight="1"
                         android:shadowColor="#00000000"
                         android:shadowDx="1.0"
                         android:shadowDy="1.0"
                         android:shadowRadius="2.0"
+                        android:singleLine="true"
                         android:text="@string/capacity_"
                         android:textColor="#ffffffff"
                         android:typeface="sans" />
@@ -281,7 +289,6 @@
                         android:id="@+id/textView26"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:layout_alignParentRight="true"
                         android:layout_marginRight="3dp"
                         android:shadowColor="#00000000"
                         android:shadowDx="1.0"
@@ -290,19 +297,20 @@
                         android:text="@string/n_a"
                         android:textColor="#ffffffff"
                         android:typeface="sans" />
-                </RelativeLayout>
+                </LinearLayout>
 
-                <RelativeLayout
+                <LinearLayout
                     android:id="@+id/LinearLayout7"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:layout_below="@+id/LinearLayout6"
-                    android:layout_marginTop="20dp" >
+                    android:layout_below="@+id/LinearLayout6" >
 
                     <TextView
                         android:id="@+id/textView5"
-                        android:layout_width="wrap_content"
+                        android:layout_width="0dp"
                         android:layout_height="wrap_content"
+                        android:layout_weight="1"
+                        android:singleLine="true"
                         android:text="@string/activity_main_cpu_temp_"
                         android:textColor="#ffffffff" />
 
@@ -310,9 +318,9 @@
                         android:id="@+id/textView27"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:layout_alignParentRight="true"
-                        android:text="@string/n_a" />
-                </RelativeLayout>
+                        android:text="@string/n_a"
+                        android:layout_marginRight="3dp" />
+                </LinearLayout>
             </RelativeLayout>
 
             <ImageView
@@ -322,80 +330,93 @@
                 android:layout_above="@+id/timesLayout"
                 android:layout_marginLeft="3dp"
                 android:layout_marginRight="3dp"
+                android:contentDescription="@string/divider"
                 android:scaleType="fitXY"
-                android:src="@drawable/divider_strong_holo"
-                android:contentDescription="@string/divider" />
+                android:src="@drawable/divider_strong_holo" />
 
-            <LinearLayout
+            <RelativeLayout
                 android:id="@+id/timesLayout"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_alignParentBottom="true"
                 android:orientation="vertical" >
 
-                <TextView
-                    android:id="@+id/textView10"
+                <LinearLayout
+                    android:id="@+id/uptime_layout"
                     android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_gravity="center_horizontal"
-                    android:shadowColor="#00000000"
-                    android:shadowDx="1.0"
-                    android:shadowDy="1.0"
-                    android:shadowRadius="2.0"
-                    android:text="@string/uptime_"
-                    android:textColor="#ffffffff"
-                    android:typeface="sans" />
+                    android:layout_height="wrap_content" >
 
-                <TextView
-                    android:id="@+id/textView11"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_gravity="center_horizontal"
-                    android:shadowColor="#00000000"
-                    android:shadowDx="1.0"
-                    android:shadowDy="1.0"
-                    android:shadowRadius="2.0"
-                    android:text="@string/n_a"
-                    android:textColor="#ffffffff"
-                    android:typeface="sans" />
+                    <TextView
+                        android:id="@+id/textView10"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="1"
+                        android:shadowColor="#00000000"
+                        android:shadowDx="1.0"
+                        android:shadowDy="1.0"
+                        android:shadowRadius="2.0"
+                        android:singleLine="true"
+                        android:text="@string/uptime_"
+                        android:textColor="#ffffffff"
+                        android:typeface="sans" />
 
-                <TextView
-                    android:id="@+id/textView12"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_gravity="center_horizontal"
-                    android:shadowColor="#00000000"
-                    android:shadowDx="1.0"
-                    android:shadowDy="1.0"
-                    android:shadowRadius="2.0"
-                    android:text="@string/deep_sleep_"
-                    android:textColor="#ffffffff"
-                    android:typeface="sans" />
+                    <TextView
+                        android:id="@+id/textView11"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:shadowColor="#00000000"
+                        android:shadowDx="1.0"
+                        android:shadowDy="1.0"
+                        android:shadowRadius="2.0"
+                        android:text="@string/n_a"
+                        android:textColor="#ffffffff"
+                        android:typeface="sans" />
+                </LinearLayout>
 
-                <TextView
-                    android:id="@+id/textView13"
+                <LinearLayout
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:layout_gravity="center_horizontal"
-                    android:shadowColor="#00000000"
-                    android:shadowDx="1.0"
-                    android:shadowDy="1.0"
-                    android:shadowRadius="2.0"
-                    android:text="@string/n_a"
-                    android:textColor="#ffffffff"
-                    android:typeface="sans" />
-            </LinearLayout>
+                    android:layout_below="@+id/uptime_layout" >
+
+                    <TextView
+                        android:id="@+id/textView12"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="1"
+                        android:shadowColor="#00000000"
+                        android:shadowDx="1.0"
+                        android:shadowDy="1.0"
+                        android:shadowRadius="2.0"
+                        android:singleLine="true"
+                        android:text="@string/deep_sleep_"
+                        android:textColor="#ffffffff"
+                        android:typeface="sans" />
+
+                    <TextView
+                        android:id="@+id/textView13"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:shadowColor="#00000000"
+                        android:shadowDx="1.0"
+                        android:shadowDy="1.0"
+                        android:shadowRadius="2.0"
+                        android:text="@string/n_a"
+                        android:textColor="#ffffffff"
+                        android:typeface="sans" />
+                </LinearLayout>
+
+            </RelativeLayout>
+
         </RelativeLayout>
 
         <ImageView
-            
             android:layout_width="wrap_content"
             android:layout_height="match_parent"
             android:layout_marginLeft="3dp"
             android:layout_marginRight="3dp"
+            android:contentDescription="@string/divider"
             android:scaleType="fitXY"
-            android:src="@drawable/divider_strong_holo"
-            android:contentDescription="@string/divider" />
+            android:src="@drawable/divider_strong_holo" />
 
         <RelativeLayout
             android:id="@+id/cpuLayout"
@@ -431,8 +452,8 @@
                     android:layout_below="@+id/textView6"
                     android:layout_centerHorizontal="true"
                     android:layout_marginTop="7dp"
-                    android:src="@drawable/red"
-                    android:contentDescription="@string/divider" />
+                    android:contentDescription="@string/divider"
+                    android:src="@drawable/red" />
 
                 <TextView
                     android:id="@+id/freq0"
@@ -509,8 +530,8 @@
                     android:layout_below="@+id/textView7"
                     android:layout_centerHorizontal="true"
                     android:layout_marginTop="7dp"
-                    android:src="@drawable/red"
-                    android:contentDescription="@string/dot" />
+                    android:contentDescription="@string/dot"
+                    android:src="@drawable/red" />
 
                 <TextView
                     android:id="@+id/freq1"
@@ -564,7 +585,6 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_centerHorizontal="true" />
-
         </RelativeLayout>
     </LinearLayout>
 
@@ -597,6 +617,7 @@
                 android:shadowDx="1.0"
                 android:shadowDy="1.0"
                 android:shadowRadius="2.0"
+                android:singleLine="true"
                 android:text="@string/buttons_n_light"
                 android:textColor="#ffffffff"
                 android:typeface="sans" />
@@ -606,17 +627,16 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_gravity="center_horizontal"
-                android:src="@drawable/green"
-                android:contentDescription="@string/dot" />
+                android:contentDescription="@string/dot"
+                android:src="@drawable/green" />
         </LinearLayout>
 
         <ImageView
-            
             android:layout_width="wrap_content"
             android:layout_height="match_parent"
+            android:contentDescription="@string/divider"
             android:scaleType="fitXY"
-            android:src="@drawable/divider_strong_holo" 
-            android:contentDescription="@string/divider"/>
+            android:src="@drawable/divider_strong_holo" />
 
         <LinearLayout
             android:id="@+id/left"
@@ -635,6 +655,7 @@
                 android:shadowDx="1.0"
                 android:shadowDy="1.0"
                 android:shadowRadius="2.0"
+                android:singleLine="true"
                 android:text="@string/fast_ncharge"
                 android:textColor="#ffffffff"
                 android:typeface="sans" />
@@ -644,17 +665,16 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_gravity="center_horizontal"
-                android:src="@drawable/green"
-                android:contentDescription="@string/dot" />
+                android:contentDescription="@string/dot"
+                android:src="@drawable/green" />
         </LinearLayout>
 
         <ImageView
-            
             android:layout_width="wrap_content"
             android:layout_height="match_parent"
+            android:contentDescription="@string/divider"
             android:scaleType="fitXY"
-            android:src="@drawable/divider_strong_holo"
-            android:contentDescription="@string/divider" />
+            android:src="@drawable/divider_strong_holo" />
 
         <LinearLayout
             android:id="@+id/right"
@@ -673,6 +693,7 @@
                 android:shadowDx="1.0"
                 android:shadowDy="1.0"
                 android:shadowRadius="2.0"
+                android:singleLine="true"
                 android:text="@string/color_n_depth"
                 android:textColor="#ffffffff"
                 android:typeface="sans" />
@@ -682,17 +703,16 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_gravity="center_horizontal"
-                android:src="@drawable/green" 
-                android:contentDescription="@string/dot"/>
+                android:contentDescription="@string/dot"
+                android:src="@drawable/green" />
         </LinearLayout>
 
         <ImageView
-            
             android:layout_width="wrap_content"
             android:layout_height="match_parent"
+            android:contentDescription="@string/divider"
             android:scaleType="fitXY"
-            android:src="@drawable/divider_strong_holo" 
-            android:contentDescription="@string/divider"/>
+            android:src="@drawable/divider_strong_holo" />
 
         <LinearLayout
             android:id="@+id/inerright"
@@ -702,7 +722,7 @@
             android:orientation="vertical" >
 
             <TextView
-                android:id="@+id/textView2"
+                android:id="@+id/cpumin"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_gravity="center_horizontal"
@@ -711,6 +731,7 @@
                 android:shadowDx="1.0"
                 android:shadowDy="1.0"
                 android:shadowRadius="2.0"
+                android:singleLine="true"
                 android:text="@string/vsync"
                 android:textColor="#ffffffff"
                 android:typeface="sans" />
@@ -720,8 +741,8 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_gravity="center_horizontal"
-                android:src="@drawable/green"
-                android:contentDescription="@string/dot" />
+                android:contentDescription="@string/dot"
+                android:src="@drawable/green" />
         </LinearLayout>
     </LinearLayout>
 
@@ -737,12 +758,11 @@
         android:paddingLeft="1.0dip" >
 
         <ImageView
-            
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
+            android:contentDescription="@string/divider"
             android:scaleType="fitXY"
-            android:src="@drawable/divider_strong_holo"
-            android:contentDescription="@string/divider" />
+            android:src="@drawable/divider_strong_holo" />
 
         <TextView
             android:id="@+id/textView1k"
@@ -762,9 +782,9 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_below="@+id/textView1"
+            android:contentDescription="@string/divider"
             android:scaleType="fitXY"
-            android:src="@drawable/divider_strong_holo"
-            android:contentDescription="@string/divider" />
+            android:src="@drawable/divider_strong_holo" />
     </RelativeLayout>
 
 </RelativeLayout>

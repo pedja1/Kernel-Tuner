@@ -64,6 +64,23 @@
                 <action android:name="rs.pedjaapps.KernelTuner.StartupService" />
             </intent-filter>
         </service>
+        
+        <receiver
+            android:name=".receiver.AppWidgetSummary"
+            android:icon="@drawable/ic_launcher"
+            android:label="Kernel Tuner Summary" >
+            <intent-filter>
+                <action android:name="android.appwidget.action.APPWIDGET_UPDATE" />
+                <action android:name="rs.pedjaapps.KernelTuner.receiver.AppWidgetBattery.ACTION_CLICK" />
+            	<action android:name="rs.pedjaapps.KernelTuner.receivers.AppWidgetBattery.ACTION_WIDGET_REFRESH"/>
+                
+            </intent-filter>
+
+            <meta-data
+                android:name="android.appwidget.provider"
+                android:resource="@xml/widget_provider_summary" />
+        </receiver>
+        
 <receiver
             android:name=".receiver.WidgetToggle"
             android:icon="@drawable/ic_launcher"
@@ -307,6 +324,7 @@
             android:theme="@style/IndicatorLight"
             android:uiOptions="splitActionBarWhenNarrow" >
         </activity>
+        
         <activity
             android:name=".ui.EditActivity"
             android:exported="true"

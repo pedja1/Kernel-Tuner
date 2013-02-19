@@ -24,13 +24,12 @@ import java.io.File;
 import java.io.FileInputStream;
 import java.io.IOException;
 import java.io.InputStreamReader;
+import java.io.RandomAccessFile;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Collections;
 import java.util.Comparator;
 import java.util.List;
-
-
 import android.os.SystemClock;
 import android.util.Log;
 import rs.pedjaapps.KernelTuner.entry.*;
@@ -93,6 +92,10 @@ public class CPUInfo
 	public static final String SCHEDULER = "/sys/block/mmcblk0/queue/scheduler";
 	public static final String OTG = "/sys/kernel/debug/msm_otg/mode";
 	public static final String OTG_2= "/sys/kernel/debug/otg/mode";
+	public static final String CPU_MIN= "/sys/devices/system/cpu/cpu0/cpufreq/cpuinfo_min_freq";
+	public static final String CPU_MAX= "/sys/devices/system/cpu/cpu0/cpufreq/cpuinfo_max_freq";
+
+	
 	public static final boolean freqsExists()
 	{
 		boolean i = false;
@@ -517,6 +520,66 @@ public class CPUInfo
 		{
 
 			File myFile = new File(CPU0_MIN_FREQ);
+			FileInputStream fIn = new FileInputStream(myFile);
+
+			BufferedReader myReader = new BufferedReader(
+				new InputStreamReader(fIn));
+			String aDataRow = "";
+			aBuffer = "";
+			while ((aDataRow = myReader.readLine()) != null)
+			{
+				aBuffer += aDataRow + "\n";
+			}
+
+			myReader.close();
+			fIn.close();
+
+		}
+		catch (Exception e)
+		{
+
+		}
+		return aBuffer.trim();
+
+	}
+	
+	public static final String cpuMin()
+	{
+		String aBuffer = "offline";
+		try
+		{
+
+			File myFile = new File(CPU_MIN);
+			FileInputStream fIn = new FileInputStream(myFile);
+
+			BufferedReader myReader = new BufferedReader(
+				new InputStreamReader(fIn));
+			String aDataRow = "";
+			aBuffer = "";
+			while ((aDataRow = myReader.readLine()) != null)
+			{
+				aBuffer += aDataRow + "\n";
+			}
+
+			myReader.close();
+			fIn.close();
+
+		}
+		catch (Exception e)
+		{
+
+		}
+		return aBuffer.trim();
+
+	}
+	
+	public static final String cpuMax()
+	{
+		String aBuffer = "offline";
+		try
+		{
+
+			File myFile = new File(CPU_MAX);
 			FileInputStream fIn = new FileInputStream(myFile);
 
 			BufferedReader myReader = new BufferedReader(
@@ -2259,5 +2322,127 @@ public class CPUInfo
 		   return ob1.getFreq() - ob2.getFreq() ;
 		  }
 		}
+	public static int batteryLevel(){
+		int level = 0;
+		try {
+
+			File myFile = new File(
+					"/sys/class/power_supply/battery/capacity");
+			FileInputStream fIn = new FileInputStream(myFile);
+
+			BufferedReader myReader = new BufferedReader(
+					new InputStreamReader(fIn));
+			String aDataRow = "";
+			String aBuffer = "";
+			while ((aDataRow = myReader.readLine()) != null) {
+				aBuffer += aDataRow + "\n";
+			}
+
+			level = Integer.parseInt(aBuffer.trim());
+			myReader.close();
+			fIn.close();
+		} catch (Exception e) {
+
+		}
+
+		return level;
+	}
+	
+	public static double batteryTemp(){
+		double temp = 0.0;
+		try {
+
+			File myFile = new File(
+					"/sys/class/power_supply/battery/batt_temp");
+			FileInputStream fIn = new FileInputStream(myFile);
+
+			BufferedReader myReader = new BufferedReader(
+					new InputStreamReader(fIn));
+			String aDataRow = "";
+			String aBuffer = "";
+			while ((aDataRow = myReader.readLine()) != null) {
+				aBuffer += aDataRow + "\n";
+			}
+
+			temp = Double.parseDouble(aBuffer.trim()) / 10;
+			myReader.close();
+			fIn.close();
+		} catch (Exception e) {
+
+		}
+		return temp;
+		
+	}
+	
+	public static String batteryDrain(){
+		String drain = "";
+		try {
+
+			File myFile = new File(
+					"/sys/class/power_supply/battery/batt_current");
+			FileInputStream fIn = new FileInputStream(myFile);
+
+			BufferedReader myReader = new BufferedReader(
+					new InputStreamReader(fIn));
+			String aDataRow = "";
+			String aBuffer = "";
+			while ((aDataRow = myReader.readLine()) != null) {
+				aBuffer += aDataRow + "\n";
+			}
+
+			drain = aBuffer.trim();
+			myReader.close();
+			fIn.close();
+		} catch (Exception e) {
+			drain = "err";
+		}
+		return drain;
+	}
+	static int load;
+	public static int cpuLoad() {
+		// Do something long
+		
+		Runnable runnable = new Runnable() {
+			@Override
+			public void run() {
+				float fLoad = 0;
+					try {
+						RandomAccessFile reader = new RandomAccessFile("/proc/stat", "r");
+						String load = reader.readLine();
+
+						String[] toks = load.split(" ");
+
+						long idle1 = Long.parseLong(toks[5]);
+						long cpu1 = Long.parseLong(toks[2]) + Long.parseLong(toks[3]) + Long.parseLong(toks[4])
+							+ Long.parseLong(toks[6]) + Long.parseLong(toks[7]) + Long.parseLong(toks[8]);
+
+						try {
+							Thread.sleep(360);
+						} catch (Exception e) {}
+
+						reader.seek(0);
+						load = reader.readLine();
+						reader.close();
+
+						toks = load.split(" ");
+
+						long idle2 = Long.parseLong(toks[5]);
+						long cpu2 = Long.parseLong(toks[2]) + Long.parseLong(toks[3]) + Long.parseLong(toks[4])
+							+ Long.parseLong(toks[6]) + Long.parseLong(toks[7]) + Long.parseLong(toks[8]);
+
+						fLoad =	 (float)(cpu2 - cpu1) / ((cpu2 + idle2) - (cpu1 + idle1));
+
+					} catch (IOException ex) {
+						ex.printStackTrace();
+					}
+					load = (int) (fLoad*100);
+					
+					
+				
+			}
+		};
+		new Thread(runnable).start();
+		return load;
+	}
 	
 }

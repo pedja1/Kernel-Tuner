@@ -6,6 +6,7 @@ import java.io.FileInputStream;
 import java.io.InputStreamReader;
 
 import rs.pedjaapps.KernelTuner.R;
+import rs.pedjaapps.KernelTuner.helpers.CPUInfo;
 import android.app.PendingIntent;
 import android.appwidget.AppWidgetManager;
 import android.appwidget.AppWidgetProvider;
@@ -71,7 +72,6 @@ public class AppWidgetBattery extends AppWidgetProvider {
 			remoteViews.setTextViewText(R.id.textView5, battcurrent + "mAh");
 			if (battcurrent.substring(0, 1).equals("-"))
 			{
-				
 				remoteViews.setTextColor(R.id.textView5, Color.RED);
 			}
 			else
@@ -101,68 +101,11 @@ public class AppWidgetBattery extends AppWidgetProvider {
 	    
 	}
 public void battInfo(){	
-	try {
-
-		File myFile = new File(
-				"/sys/class/power_supply/battery/capacity");
-		FileInputStream fIn = new FileInputStream(myFile);
-
-		BufferedReader myReader = new BufferedReader(
-				new InputStreamReader(fIn));
-		String aDataRow = "";
-		String aBuffer = "";
-		while ((aDataRow = myReader.readLine()) != null) {
-			aBuffer += aDataRow + "\n";
-		}
-
-		battperc = Integer.parseInt(aBuffer.trim());
-		myReader.close();
-		fIn.close();
-	} catch (Exception e) {
-
-	}
-
-	try {
-
-		File myFile = new File(
-				"/sys/class/power_supply/battery/batt_temp");
-		FileInputStream fIn = new FileInputStream(myFile);
-
-		BufferedReader myReader = new BufferedReader(
-				new InputStreamReader(fIn));
-		String aDataRow = "";
-		String aBuffer = "";
-		while ((aDataRow = myReader.readLine()) != null) {
-			aBuffer += aDataRow + "\n";
-		}
-
-		batttemp = Double.parseDouble(aBuffer.trim()) / 10;
-		myReader.close();
-		fIn.close();
-	} catch (Exception e) {
-
-	}
-
-	try {
-
-		File myFile = new File(
-				"/sys/class/power_supply/battery/batt_current");
-		FileInputStream fIn = new FileInputStream(myFile);
-
-		BufferedReader myReader = new BufferedReader(
-				new InputStreamReader(fIn));
-		String aDataRow = "";
-		String aBuffer = "";
-		while ((aDataRow = myReader.readLine()) != null) {
-			aBuffer += aDataRow + "\n";
-		}
-
-		battcurrent = aBuffer.trim();
-		myReader.close();
-		fIn.close();
-	} catch (Exception e) {
-		battcurrent = "err";
-	}
+	
+		battperc =CPUInfo.batteryLevel();
+		batttemp = CPUInfo.batteryTemp();
+		battcurrent = CPUInfo.batteryDrain();
+		
 }
 public static String tempConverter(String tempPref, double cTemp) {
 	String tempNew = "";
