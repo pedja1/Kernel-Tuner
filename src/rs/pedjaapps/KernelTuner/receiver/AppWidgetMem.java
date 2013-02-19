@@ -3,9 +3,11 @@ package rs.pedjaapps.KernelTuner.receiver;
 import java.io.IOException;
 import java.io.RandomAccessFile;
 import java.text.DecimalFormat;
+import java.util.Calendar;
 
 import rs.pedjaapps.KernelTuner.R;
 import android.app.ActivityManager;
+import android.app.AlarmManager;
 import android.app.PendingIntent;
 import android.app.ActivityManager.MemoryInfo;
 import android.appwidget.AppWidgetManager;
@@ -53,6 +55,23 @@ public class AppWidgetMem extends AppWidgetProvider {
 	    }
 	    
 	    setView(context);
+	    String timer = pref.getString("widget_time", "");
+	    double time;
+	 	try
+		{
+			time = Double.parseDouble(timer.trim());
+		}
+		catch (Exception e)
+		{
+			time = 30;
+		}
+	    
+	    AlarmManager alarmManager = (AlarmManager) context.getSystemService(context.ALARM_SERVICE);
+	    Calendar calendar = Calendar.getInstance();
+	    calendar.setTimeInMillis(System.currentTimeMillis());
+	    calendar.add(Calendar.SECOND, (int)time*60);
+	    alarmManager.setRepeating(AlarmManager.RTC_WAKEUP, calendar.getTimeInMillis(), calendar.getTimeInMillis(), actionPendingIntent);
+	    
 	    appWidgetManager.updateAppWidget(appWidgetIds, remoteViews);
 	}
 
