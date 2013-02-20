@@ -94,8 +94,15 @@ public class AppWidgetSummary extends AppWidgetProvider {
 		remoteViews.setTextViewText(R.id.cpu_sleep, sleep);
 		remoteViews.setTextViewText(R.id.cpu_gov, governor);
 		remoteViews.setTextViewText(R.id.cpu_temp, temp);
-		remoteViews.setTextViewText(R.id.gpu2d, gpu2d);
-		remoteViews.setTextViewText(R.id.gpu3d, gpu3d);
+		if(gpu3d.length()>6){
+			
+			remoteViews.setTextViewText(R.id.gpu_3d, gpu3d.substring(0, gpu3d.length()-6)+"Mhz");
+		}
+		if(gpu2d.length()>6){
+			
+			remoteViews.setTextViewText(R.id.gpu_2d, gpu2d.substring(0, gpu2d.length()-6)+"Mhz");
+		}
+		
 		remoteViews.setTextViewText(R.id.misc_bl, light);
 		if(vsync==0){
 		remoteViews.setTextViewText(R.id.misc_vs, "OFF");
