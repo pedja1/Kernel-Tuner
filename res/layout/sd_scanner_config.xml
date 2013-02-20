@@ -112,6 +112,12 @@
             android:layout_height="wrap_content"
             android:text="Scann Folders" />
 
+        <de.ankri.views.Switch
+            android:id="@+id/display_in_switch"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="Dispay Result in Chart" />
+
         <Button
             android:id="@+id/button2"
             android:layout_width="match_parent"

@@ -75,6 +75,7 @@ public class SDScannerConfigActivity extends SherlockActivity
 
 	  TextView path;
 	  LinearLayout chart;
+	  int labelColor;
 	  
 	  @Override
 	  protected void onRestoreInstanceState(Bundle savedState) {
@@ -101,13 +102,16 @@ public class SDScannerConfigActivity extends SherlockActivity
 		
 		if(theme.equals("light")){
 			setTheme(R.style.SwitchCompatAndSherlockLight);
+			labelColor = Color.BLACK;
 		}
 		else if(theme.equals("dark")){
 			setTheme(R.style.SwitchCompatAndSherlock);
+			labelColor = Color.WHITE;
 			
 		}
 		else if(theme.equals("light_dark_action_bar")){
 			setTheme(R.style.SwitchCompatAndSherlockLightDark);
+			labelColor = Color.BLACK;
 			
 		}
 		super.onCreate(savedInstanceState);
@@ -128,6 +132,9 @@ public class SDScannerConfigActivity extends SherlockActivity
 	    mRenderer.setMargins(new int[] { 20, 30, 15, 0 });
 	    mRenderer.setZoomButtonsVisible(false);
 	    mRenderer.setStartAngle(90);
+		mRenderer.setAntialiasing(true);
+		mRenderer.setLabelsColor(labelColor);
+		mRenderer.setApplyBackgroundColor(false);
 		final SharedPreferences.Editor editor = preferences.edit();
 		boolean ads = preferences.getBoolean("ads", true);
 		if (ads == true)
@@ -163,6 +170,21 @@ public class SDScannerConfigActivity extends SherlockActivity
 			}
 			
 		});
+		final Switch displayType = (Switch)findViewById(R.id.display_in_switch);
+		displayType.setOnCheckedChangeListener(new OnCheckedChangeListener(){
+
+			@Override
+			public void onCheckedChanged(CompoundButton arg0, boolean arg1) {
+				
+				if(arg0.isChecked()){
+					arg0.setText("Dispay Result in List");
+				}
+				else if(arg0.isChecked()==false){
+					arg0.setText("Dispay Result in Chart");
+				}
+			}
+			
+		});
 		
 		path = (TextView)findViewById(R.id.path);
 		final EditText depth = (EditText)findViewById(R.id.editText2);
@@ -176,6 +198,12 @@ public class SDScannerConfigActivity extends SherlockActivity
 		}
 		else{
 			sw.setChecked(false);
+		}
+		if(preferences.getBoolean("SDScanner_display_type", false)){
+			displayType.setChecked(true);
+		}
+		else{
+			displayType.setChecked(false);
 		}
 		Button scan = (Button)findViewById(R.id.button2);
 		scan.setOnClickListener(new View.OnClickListener(){
@@ -194,7 +222,14 @@ public class SDScannerConfigActivity extends SherlockActivity
 				intent.putExtra("depth", depth.getText().toString());
 				intent.putExtra("items", numberOfItems.getText().toString());
 				intent.putExtra("scannType", scannType);
-				intent.setClass(SDScannerConfigActivity.this, SDScannerActivity.class);
+				if(displayType.isChecked()){
+					intent.setClass(SDScannerConfigActivity.this, SDScannerActivityList.class);
+					editor.putBoolean("SDScanner_display_type", true);
+				}
+				else{
+					intent.setClass(SDScannerConfigActivity.this, SDScannerActivity.class);
+					editor.putBoolean("SDScanner_display_type", false);
+				}
 				startActivity(intent);
 				editor.putString("SDScanner_path", path.getText().toString());
 				editor.putString("SDScanner_depth", depth.getText().toString());

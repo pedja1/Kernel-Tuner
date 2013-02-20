@@ -30,6 +30,7 @@ import android.util.*;
 import android.view.*;
 import android.view.ViewGroup.*;
 import android.widget.*;
+
 import com.actionbarsherlock.app.*;
 import com.google.ads.*;
 import java.io.*;
@@ -40,17 +41,19 @@ import org.achartengine.model.*;
 import org.achartengine.renderer.*;
 import rs.pedjaapps.KernelTuner.*;
 import rs.pedjaapps.KernelTuner.entry.*;
+import rs.pedjaapps.KernelTuner.helpers.SDAdapter;
+import rs.pedjaapps.KernelTuner.helpers.VoltageAdapter;
 
 import com.actionbarsherlock.app.ActionBar;
 import java.lang.Process;
 
-public class SDScannerActivity extends SherlockActivity
+public class SDScannerActivityList extends SherlockActivity
 {
 
 	
 	private ProgressDialog pd;
 	private List<SDScannerEntry> entries = new ArrayList<SDScannerEntry>();
-	public static final String TYPE = "type";
+	
 
 	  private static int[] COLORS = new int[] {Color.parseColor("#FF0000"), 
 		  Color.parseColor("#F88017"), 
@@ -73,34 +76,22 @@ public class SDScannerActivity extends SherlockActivity
 		  Color.GRAY};
 	  int labelColor;
 
-	  private CategorySeries mSeries = new CategorySeries("");
-
-	  private DefaultRenderer mRenderer = new DefaultRenderer();
-
-	  private String mDateFormat;
-
-	  private GraphicalView mChartView;
-
-	  
-	  LinearLayout chart;
+	 
 	  String depth;
 	  String numberOfItems;
 	  String scannType;
+	  SDAdapter sDAdapter;
 	  
 	  @Override
 	  protected void onRestoreInstanceState(Bundle savedState) {
 	    super.onRestoreInstanceState(savedState);
-	    mSeries = (CategorySeries) savedState.getSerializable("current_series");
-	    mRenderer = (DefaultRenderer) savedState.getSerializable("current_renderer");
-	    mDateFormat = savedState.getString("date_format");
+	    
 	  }
 
 	  @Override
 	  protected void onSaveInstanceState(Bundle outState) {
 	    super.onSaveInstanceState(outState);
-	    outState.putSerializable("current_series", mSeries);
-	    outState.putSerializable("current_renderer", mRenderer);
-	    outState.putString("date_format", mDateFormat);
+	    
 	  }
 	@Override
 	public void onCreate(Bundle savedInstanceState)
@@ -123,20 +114,10 @@ public class SDScannerActivity extends SherlockActivity
 		}
 		super.onCreate(savedInstanceState);
 
-		setContentView(R.layout.sd_scanner);
+		setContentView(R.layout.sd_analyzer_list);
 		ActionBar actionBar = getSupportActionBar();
 		actionBar.setDisplayHomeAsUpEnabled(true);
-		mRenderer.setApplyBackgroundColor(true);
-	    mRenderer.setBackgroundColor(Color.argb(100, 50, 50, 50));
-	    mRenderer.setChartTitleTextSize(20);
-	    mRenderer.setLabelsTextSize(15);
-	    mRenderer.setLegendTextSize(15);
-	    mRenderer.setMargins(new int[] { 20, 30, 15, 0 });
-	    mRenderer.setZoomButtonsVisible(false);
-	    mRenderer.setStartAngle(90);
-		mRenderer.setAntialiasing(true);
-		mRenderer.setLabelsColor(labelColor);
-		mRenderer.setApplyBackgroundColor(false);
+		
 		boolean ads = preferences.getBoolean("ads", true);
 		if (ads == true)
 		{AdView adView = (AdView)findViewById(R.id.ad);
@@ -147,7 +128,12 @@ public class SDScannerActivity extends SherlockActivity
 		depth = intent.getStringExtra("depth");
 		numberOfItems = intent.getStringExtra("items");
 		scannType = intent.getStringExtra("scannType");
-		
+		ListView sDListView = (ListView) findViewById(R.id.list);
+		sDAdapter = new SDAdapter(this, R.layout.sd_list_row);
+		System.out.println(sDAdapter);
+		System.out.println(sDListView);
+		sDListView.setAdapter(sDAdapter);
+		//sDListView
 		new ScannSDCard().execute(new String[] {path,
 				depth,
 				numberOfItems,
@@ -158,34 +144,7 @@ public class SDScannerActivity extends SherlockActivity
 	@Override
 	  protected void onResume() {
 	    super.onResume();
-	    if (mChartView == null) {
-	      chart = (LinearLayout) findViewById(R.id.chart);
-	      
-	      mChartView = ChartFactory.getPieChartView(this, mSeries, mRenderer);
-	      mRenderer.setClickEnabled(true);
-	      mRenderer.setSelectableBuffer(10);
-	      mChartView.setOnClickListener(new View.OnClickListener() {
-	          @Override
-	          public void onClick(View v) {
-	        	  /*SeriesSelection seriesSelection = mChartView.getCurrentSeriesAndPoint();
-	              if (seriesSelection == null) {
-	                Toast.makeText(SDScannerActivity.this, "No chart element selected", Toast.LENGTH_SHORT)
-	                    .show();
-	              } else {
-	               
-	            	  new ScannSDCard().execute(new String[] {entries.get(seriesSelection.getPointIndex()).getPath(),
-	          				depth,
-	          				numberOfItems,
-	          				scannType});
-	              }*/
-
-	          }
-	        });
-	      chart.addView(mChartView, new LayoutParams(LayoutParams.MATCH_PARENT,
-	          LayoutParams.MATCH_PARENT));
-	    } else {
-	      mChartView.repaint();
-	    }
+	    
 	  }
 
 	private class ScannSDCard extends AsyncTask<String, String, Void> {
@@ -219,8 +178,12 @@ public class SDScannerActivity extends SherlockActivity
 				
 				while ( ( line = bufferedReader.readLine() ) != null )
 				{
-
-					entries.add(new SDScannerEntry(line.substring(line.lastIndexOf("/")+1, line.length()),Integer.parseInt(line.substring(0, line.indexOf("/")).trim()), size(Integer.parseInt(line.substring(0, line.indexOf("/")).trim())), line.substring(line.indexOf("/"), line.length()).trim(), false) );
+					if(new File(line.substring(line.indexOf("/"), line.length()).trim()).isFile()){
+						entries.add(new SDScannerEntry(line.substring(line.lastIndexOf("/")+1, line.length()),Integer.parseInt(line.substring(0, line.indexOf("/")).trim()), size(Integer.parseInt(line.substring(0, line.indexOf("/")).trim())), line.substring(line.indexOf("/"), line.length()).trim(), false) );	
+					}
+					else{
+						entries.add(new SDScannerEntry(line.substring(line.lastIndexOf("/")+1, line.length()),Integer.parseInt(line.substring(0, line.indexOf("/")).trim()), size(Integer.parseInt(line.substring(0, line.indexOf("/")).trim())), line.substring(line.indexOf("/"), line.length()).trim(), true) );
+					}
 					publishProgress(line.substring(line.indexOf("/"), line.length()).trim());
 					
 				}
@@ -250,15 +213,10 @@ public class SDScannerActivity extends SherlockActivity
 			for(int i = entries.size(); i>numberOfItems; i--){
 				entries.remove(entries.size()-1);
 			}
-			mSeries.clear();
+			
 				for(SDScannerEntry e : entries){
-					mSeries.add(e.getFileName()   + " " +e.getHRsize(), e.getSize());
-			        SimpleSeriesRenderer renderer = new SimpleSeriesRenderer();
-			        renderer.setColor(COLORS[(mSeries.getItemCount() - 1) % COLORS.length]);
-			        mRenderer.addSeriesRenderer(renderer);
-			        if (mChartView != null) {
-			          mChartView.repaint();
-			        }
+					sDAdapter.add(e);
+					sDAdapter.notifyDataSetChanged();
 				}
 			
 			
@@ -269,7 +227,7 @@ public class SDScannerActivity extends SherlockActivity
 		
 			
 			
-			pd = new ProgressDialog(SDScannerActivity.this);
+			pd = new ProgressDialog(SDScannerActivityList.this);
 			pd.setIndeterminate(true);
 			//pd.setTitle("Scanning SD Card");
 			pd.setTitle("Please Wait...");

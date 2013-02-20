@@ -303,6 +303,15 @@
             android:theme="@style/IndicatorLight" >
         </activity>
         <activity
+            android:name=".ui.SDScannerActivityList"
+            android:configChanges="keyboardHidden|orientation"
+            android:exported="true"
+            android:icon="@drawable/sd"
+            android:label="SD Card Analyzer"
+            android:screenOrientation="portrait"
+            android:theme="@style/IndicatorLight" >
+        </activity>
+        <activity
             android:name=".ui.SDScannerConfigActivity"
             android:configChanges="keyboardHidden|orientation"
             android:exported="true"

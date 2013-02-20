@@ -25,39 +25,39 @@ public final class SDScannerEntry
 	private final int size;
 	private final String HRsize;
 	private final String path;
-
-
-
-	public SDScannerEntry(final String name, final int size, final String HRsize, final String path)
-	{
-		this.fileName = name;
+	private final boolean folder;
+	
+	public SDScannerEntry(String fileName, int size, String hRsize,
+			String path, boolean folder) {
+		super();
+		this.fileName = fileName;
 		this.size = size;
-		this.HRsize = HRsize;
+		HRsize = hRsize;
 		this.path = path;
-		
-
+		this.folder = folder;
 	}
 
-
-	public String getName()
-	{
+	public String getFileName() {
 		return fileName;
 	}
 
-
-	public int getSize()
-	{
+	public int getSize() {
 		return size;
 	}
-	
-	public String getHR()
-	{
+
+	public String getHRsize() {
 		return HRsize;
 	}
 
-	public String getPath()
-	{
+	public String getPath() {
 		return path;
 	}
 
+	public boolean isFolder() {
+		return folder;
+	}
+
+
+	
+	
 }
