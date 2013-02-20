@@ -71,6 +71,7 @@ public class SDScannerActivity extends SherlockActivity
 		  Color.CYAN,
 		  Color.MAGENTA,
 		  Color.GRAY};
+	  int labelColor;
 
 	  private CategorySeries mSeries = new CategorySeries("");
 
@@ -108,14 +109,15 @@ public class SDScannerActivity extends SherlockActivity
 		
 		if(theme.equals("light")){
 			setTheme(R.style.IndicatorLight);
+			labelColor = Color.BLACK;
 		}
 		else if(theme.equals("dark")){
 			setTheme(R.style.IndicatorDark);
-			
+			labelColor = Color.WHITE;
 		}
 		else if(theme.equals("light_dark_action_bar")){
 			setTheme(R.style.IndicatorLightDark);
-			
+			labelColor = Color.BLACK;
 		}
 		super.onCreate(savedInstanceState);
 
@@ -130,6 +132,9 @@ public class SDScannerActivity extends SherlockActivity
 	    mRenderer.setMargins(new int[] { 20, 30, 15, 0 });
 	    mRenderer.setZoomButtonsVisible(false);
 	    mRenderer.setStartAngle(90);
+		mRenderer.setAntialiasing(true);
+		mRenderer.setLabelsColor(labelColor);
+		mRenderer.setApplyBackgroundColor(false);
 		boolean ads = preferences.getBoolean("ads", true);
 		if (ads == true)
 		{AdView adView = (AdView)findViewById(R.id.ad);
