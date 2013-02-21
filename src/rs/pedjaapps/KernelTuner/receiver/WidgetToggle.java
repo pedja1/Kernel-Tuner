@@ -1,3 +1,21 @@
+/*
+* This file is part of the Kernel Tuner.
+*
+* Copyright Predrag Čokulov <predragcokulov@gmail.com>
+*
+* Kernel Tuner is free software: you can redistribute it and/or modify
+* it under the terms of the GNU General Public License as published by
+* the Free Software Foundation, either version 3 of the License, or
+* (at your option) any later version.
+*
+* Kernel Tuner is distributed in the hope that it will be useful,
+* but WITHOUT ANY WARRANTY; without even the implied warranty of
+* MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the
+* GNU General Public License for more details.
+*
+* You should have received a copy of the GNU General Public License
+* along with Kernel Tuner. If not, see <http://www.gnu.org/licenses/>.
+*/
 package rs.pedjaapps.KernelTuner.receiver;
 
 import java.io.BufferedReader;
@@ -11,7 +29,7 @@ import java.io.OutputStream;
 import java.util.Calendar;
 
 import rs.pedjaapps.KernelTuner.R;
-import rs.pedjaapps.KernelTuner.helpers.CPUInfo;
+import rs.pedjaapps.KernelTuner.helpers.IOHelper;
 import android.app.AlarmManager;
 import android.app.PendingIntent;
 import android.appwidget.AppWidgetManager;
@@ -98,7 +116,7 @@ public class WidgetToggle extends AppWidgetProvider {
 
 	private void setView(Context context){
 		
-		if(CPUInfo.cpu1Online()==false){
+		if(IOHelper.cpu1Online()==false){
 	    	remoteViews.setViewVisibility(R.id.button1, View.GONE);
 	    	remoteViews.setViewVisibility(R.id.cpu1, View.GONE);
 	    	remoteViews.setViewVisibility(R.id.single_core_info, View.VISIBLE);
@@ -106,7 +124,7 @@ public class WidgetToggle extends AppWidgetProvider {
 	    else{
 		    remoteViews.setViewVisibility(R.id.button1, View.VISIBLE);
 		    remoteViews.setViewVisibility(R.id.cpu1, View.VISIBLE);
-		    if(new File(CPUInfo.CPU1_CURR_GOV).exists()){
+		    if(new File(IOHelper.CPU1_CURR_GOV).exists()){
 				remoteViews.setTextViewText(R.id.cpu1, "ON");
 				remoteViews.setTextColor(R.id.cpu1, Color.GREEN);
 			}
@@ -114,14 +132,14 @@ public class WidgetToggle extends AppWidgetProvider {
 		    	remoteViews.setTextViewText(R.id.cpu1, "OFF");
 				remoteViews.setTextColor(R.id.cpu1, Color.RED);
 		    }
-		    if(CPUInfo.cpu2Online()==false){
+		    if(IOHelper.cpu2Online()==false){
 		    	remoteViews.setViewVisibility(R.id.button2, View.GONE);
 		    	remoteViews.setViewVisibility(R.id.cpu2, View.GONE);
 		    }
 		    else{
 			    remoteViews.setViewVisibility(R.id.button2, View.VISIBLE);
 			    remoteViews.setViewVisibility(R.id.cpu2, View.VISIBLE);
-			    if(new File(CPUInfo.CPU2_CURR_GOV).exists()){
+			    if(new File(IOHelper.CPU2_CURR_GOV).exists()){
 					remoteViews.setTextViewText(R.id.cpu2, "ON");
 					remoteViews.setTextColor(R.id.cpu2, Color.GREEN);
 				}
@@ -130,14 +148,14 @@ public class WidgetToggle extends AppWidgetProvider {
 					remoteViews.setTextColor(R.id.cpu2, Color.RED);
 			    }
 		    }
-			if(CPUInfo.cpu3Online()==false){
+			if(IOHelper.cpu3Online()==false){
 		    	remoteViews.setViewVisibility(R.id.button3, View.GONE);
 		    	remoteViews.setViewVisibility(R.id.cpu3, View.GONE);
 		    }
 		    else{
 			    remoteViews.setViewVisibility(R.id.button3, View.VISIBLE);
 			    remoteViews.setViewVisibility(R.id.cpu3, View.VISIBLE);
-			    if(new File(CPUInfo.CPU3_CURR_GOV).exists()){
+			    if(new File(IOHelper.CPU3_CURR_GOV).exists()){
 					remoteViews.setTextViewText(R.id.cpu3, "ON");
 					remoteViews.setTextColor(R.id.cpu3, Color.GREEN);
 				}

@@ -83,7 +83,7 @@ public class Profiles extends SherlockActivity
 
 				DataOutputStream localDataOutputStream = new DataOutputStream(localProcess.getOutputStream());
 				
-				if (CPUInfo.cpu1Online() == true)
+				if (IOHelper.cpu1Online() == true)
 						{
 							localDataOutputStream.writeBytes("echo 0 > /sys/kernel/msm_mpdecision/conf/enabled\n");
 							localDataOutputStream.writeBytes("chmod 666 /sys/devices/system/cpu/cpu1/online\n");
@@ -91,14 +91,14 @@ public class Profiles extends SherlockActivity
 							localDataOutputStream.writeBytes("chmod 444 /sys/devices/system/cpu/cpu1/online\n");
 							localDataOutputStream.writeBytes("chown system /sys/devices/system/cpu/cpu1/online\n");
 						}
-						if (CPUInfo.cpu2Online() == true)
+						if (IOHelper.cpu2Online() == true)
 						{
 							localDataOutputStream.writeBytes("chmod 666 /sys/devices/system/cpu/cpu2/online\n");
 							localDataOutputStream.writeBytes("echo 1 > /sys/devices/system/cpu/cpu2/online\n");
 							localDataOutputStream.writeBytes("chmod 444 /sys/devices/system/cpu/cpu2/online\n");
 							localDataOutputStream.writeBytes("chown system /sys/devices/system/cpu/cpu2/online\n");
 						}
-						if (CPUInfo.cpu3Online() == true)
+						if (IOHelper.cpu3Online() == true)
 						{
 							localDataOutputStream.writeBytes("chmod 666 /sys/devices/system/cpu/cpu3/online\n");
 							localDataOutputStream.writeBytes("echo 1 > /sys/devices/system/cpu/cpu3/online\n");
@@ -121,55 +121,55 @@ public class Profiles extends SherlockActivity
 				e1.printStackTrace();
 			}
 						
-			_cpu0min = CPUInfo.cpu0MinFreq();
-			_cpu0max = CPUInfo.cpu0MaxFreq();
-			_cpu0gov = CPUInfo.cpu0CurGov();
-			if(CPUInfo.cpu1Online()){
-			_cpu1min = CPUInfo.cpu1MinFreq();
-			_cpu1max = CPUInfo.cpu1MaxFreq();
-			_cpu1gov = CPUInfo.cpu1CurGov();
+			_cpu0min = IOHelper.cpu0MinFreq();
+			_cpu0max = IOHelper.cpu0MaxFreq();
+			_cpu0gov = IOHelper.cpu0CurGov();
+			if(IOHelper.cpu1Online()){
+			_cpu1min = IOHelper.cpu1MinFreq();
+			_cpu1max = IOHelper.cpu1MaxFreq();
+			_cpu1gov = IOHelper.cpu1CurGov();
 			}
-			if(CPUInfo.cpu2Online()){
-			_cpu2min = CPUInfo.cpu2MinFreq();
-			_cpu2max = CPUInfo.cpu2MaxFreq();
-			_cpu2gov = CPUInfo.cpu2CurGov();
+			if(IOHelper.cpu2Online()){
+			_cpu2min = IOHelper.cpu2MinFreq();
+			_cpu2max = IOHelper.cpu2MaxFreq();
+			_cpu2gov = IOHelper.cpu2CurGov();
 			}
-			if(CPUInfo.cpu3Online()){
-			_cpu3min = CPUInfo.cpu3MinFreq();
-			_cpu3max = CPUInfo.cpu3MaxFreq();
-			_cpu3gov = CPUInfo.cpu3CurGov();
+			if(IOHelper.cpu3Online()){
+			_cpu3min = IOHelper.cpu3MinFreq();
+			_cpu3max = IOHelper.cpu3MaxFreq();
+			_cpu3gov = IOHelper.cpu3CurGov();
 			}
-			_mpup = CPUInfo.mpup();
-			_mpdown = CPUInfo.mpdown();
-			_gpu2d = CPUInfo.gpu2d();
-			_gpu3d = CPUInfo.gpu3d();
-			_cbb = CPUInfo.cbb();
-			_vsync = CPUInfo.vsync();
-			_fcharge = CPUInfo.fcharge();
-			_cdepth = CPUInfo.cDepth();
-			_scheduler = CPUInfo.scheduler();
-			_sdcache = CPUInfo.sdCache();
-			_s2w = CPUInfo.s2w();
+			_mpup = IOHelper.mpup();
+			_mpdown = IOHelper.mpdown();
+			_gpu2d = IOHelper.gpu2d();
+			_gpu3d = IOHelper.gpu3d();
+			_cbb = IOHelper.leds();
+			_vsync = IOHelper.vsync();
+			_fcharge = IOHelper.fcharge();
+			_cdepth = IOHelper.cDepth();
+			_scheduler = IOHelper.scheduler();
+			_sdcache = IOHelper.sdCache();
+			_s2w = IOHelper.s2w();
 			
 try{
 	localProcess = Runtime.getRuntime().exec("su");
 
 	DataOutputStream localDataOutputStream = new DataOutputStream(localProcess.getOutputStream());
 	
-			if (CPUInfo.cpu1Online() == true)
+			if (IOHelper.cpu1Online() == true)
 			{
 				localDataOutputStream.writeBytes("echo 1 > /sys/kernel/msm_mpdecision/conf/enabled\n");
 				localDataOutputStream.writeBytes("chmod 777 /sys/devices/system/cpu/cpu1/online\n");
 				localDataOutputStream.writeBytes("echo 0 > /sys/devices/system/cpu/cpu1/online\n");
 				localDataOutputStream.writeBytes("chown system /sys/devices/system/cpu/cpu1/online\n");
 			}
-			if (CPUInfo.cpu2Online() == true)
+			if (IOHelper.cpu2Online() == true)
 			{
 				localDataOutputStream.writeBytes("chmod 777 /sys/devices/system/cpu/cpu2/online\n");
 				localDataOutputStream.writeBytes("echo 0 > /sys/devices/system/cpu/cpu2/online\n");
 				localDataOutputStream.writeBytes("chown system /sys/devices/system/cpu/cpu2/online\n");
 			}
-			if (CPUInfo.cpu3Online() == true)
+			if (IOHelper.cpu3Online() == true)
 			{
 				localDataOutputStream.writeBytes("chmod 777 /sys/devices/system/cpu/cpu3/online\n");
 				localDataOutputStream.writeBytes("echo 0 > /sys/devices/system/cpu/cpu3/online\n");

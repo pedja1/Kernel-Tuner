@@ -46,7 +46,7 @@ import java.util.List;
 import rs.pedjaapps.KernelTuner.ui.KernelTuner;
 import rs.pedjaapps.KernelTuner.R;
 import rs.pedjaapps.KernelTuner.entry.GovEntry;
-import rs.pedjaapps.KernelTuner.helpers.CPUInfo;
+import rs.pedjaapps.KernelTuner.helpers.IOHelper;
 import rs.pedjaapps.KernelTuner.helpers.GovernorSettingsAdapter;
 import rs.pedjaapps.KernelTuner.tools.ChangeGovernorSettings;
 
@@ -64,7 +64,7 @@ public class GovernorActivity extends SherlockActivity
 	@Override
 	public void onCreate(Bundle savedInstanceState)
 	{
-		availableGovs = CPUInfo.availableGovs();
+		availableGovs = IOHelper.availableGovs();
 		SharedPreferences preferences = PreferenceManager.getDefaultSharedPreferences(this);
 		
 		String theme = preferences.getString("theme", "light");

@@ -43,7 +43,7 @@ public class Mpdecision extends SherlockActivity
 {
 
 	
-	private List<CPUInfo.FreqsEntry> freqEntries;
+	private List<IOHelper.FreqsEntry> freqEntries;
 	private List<Integer> freqs = new ArrayList<Integer>();
 	private List<String> freqNames = new ArrayList<String>();
 	
@@ -191,11 +191,11 @@ public class Mpdecision extends SherlockActivity
 		mp_switch = (Switch)findViewById(R.id.mp_switch);
 		idleSpinner =(Spinner)findViewById(R.id.bg);
 		scroffSpinner =(Spinner)findViewById(R.id.spinner2);
-		freqEntries = CPUInfo.frequencies();
-		for(CPUInfo.FreqsEntry f: freqEntries){
+		freqEntries = IOHelper.frequencies();
+		for(IOHelper.FreqsEntry f: freqEntries){
 			freqs.add(f.getFreq());
 		}
-		for(CPUInfo.FreqsEntry f: freqEntries){
+		for(IOHelper.FreqsEntry f: freqEntries){
 			freqNames.add(f.getFreqName());
 		}
 		

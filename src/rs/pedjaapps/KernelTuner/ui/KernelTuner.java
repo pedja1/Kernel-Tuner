@@ -20,7 +20,6 @@ package rs.pedjaapps.KernelTuner.ui;
 
 import android.app.*;
 import android.app.ActivityManager.*;
-import android.appwidget.*;
 import android.content.*;
 import android.content.pm.*;
 import android.content.res.*;
@@ -38,7 +37,6 @@ import java.io.*;
 import java.util.*;
 import rs.pedjaapps.KernelTuner.*;
 import rs.pedjaapps.KernelTuner.helpers.*;
-import rs.pedjaapps.KernelTuner.receiver.*;
 import rs.pedjaapps.KernelTuner.services.*;
 import rs.pedjaapps.KernelTuner.tools.*;
 
@@ -49,8 +47,8 @@ import java.lang.Process;
 
 public class KernelTuner extends SherlockActivity {
 
-	private List<CPUInfo.FreqsEntry> freqEntries;
-	private List<CPUInfo.VoltageList> voltageFreqs;
+	private List<IOHelper.FreqsEntry> freqEntries;
+	private List<IOHelper.VoltageList> voltageFreqs;
 	private List<String> voltages = new ArrayList<String>();
 	private TextView batteryLevel;
 	private TextView batteryTemp;
@@ -63,34 +61,7 @@ public class KernelTuner extends SherlockActivity {
 	private String tmp;
 	int i = 0;
 
-	private final boolean enableTmp() {
-		boolean b;
-		try {
-
-			File myFile = new File(
-					"/sys/devices/virtual/thermal/thermal_zone1/mode");
-			FileInputStream fIn = new FileInputStream(myFile);
-
-			BufferedReader myReader = new BufferedReader(new InputStreamReader(
-					fIn));
-			String aDataRow = "";
-			String aBuffer = "";
-			while ((aDataRow = myReader.readLine()) != null) {
-				aBuffer += aDataRow + "\n";
-			}
-			myReader.close();
-			fIn.close();
-			if (aBuffer.trim().equals("enabled")) {
-				b = false;
-			} else {
-				b = true;
-			}
-
-		} catch (Exception e) {
-			b = true;
-		}
-		return b;
-	}
+	
 
 	private BroadcastReceiver mBatInfoReceiver = new BroadcastReceiver() {
 		@Override
@@ -206,12 +177,11 @@ public class KernelTuner extends SherlockActivity {
 
 	private SharedPreferences.Editor editor;
 
-	private class cpu1Toggle extends AsyncTask<String, Void, Object> {
-
+	private class CPUToggle extends AsyncTask<String, Void, Object> {
 		@Override
 		protected Object doInBackground(String... args) {
 			Process process;
-			File file = new File(CPUInfo.CPU1_CURR_GOV);
+			File file = new File("/sys/devices/system/cpu/cpu"+args[0]+"/cpufreq/scaling_governor");
 			try {
 
 				InputStream fIn = new FileInputStream(file);
@@ -225,11 +195,11 @@ public class KernelTuner extends SherlockActivity {
 
 					stdin.write(("echo 1 > /sys/kernel/msm_mpdecision/conf/enabled\n")
 							.getBytes());
-					stdin.write(("chmod 777 /sys/devices/system/cpu/cpu1/online\n")
+					stdin.write(("chmod 777 /sys/devices/system/cpu/cpu"+args[0]+"/online\n")
 							.getBytes());
-					stdin.write(("echo 0 > /sys/devices/system/cpu/cpu1/online\n")
+					stdin.write(("echo 0 > /sys/devices/system/cpu/cpu"+args[0]+"/online\n")
 							.getBytes());
-					stdin.write(("chown system /sys/devices/system/cpu/cpu1/online\n")
+					stdin.write(("chown system /sys/devices/system/cpu/cpu"+args[0]+"/online\n")
 							.getBytes());
 
 					stdin.flush();
@@ -255,15 +225,10 @@ public class KernelTuner extends SherlockActivity {
 				} catch (IOException e) {
 
 				}
-
-				SharedPreferences.Editor editor = preferences.edit();
-				editor.putBoolean("cputoggle", false);
-				editor.commit();
 				fIn.close();
 			}
 
 			catch (FileNotFoundException e) {
-				// enable cpu1
 
 				try {
 					String line;
@@ -274,13 +239,13 @@ public class KernelTuner extends SherlockActivity {
 
 					stdin.write(("echo 0 > /sys/kernel/msm_mpdecision/conf/enabled\n")
 							.getBytes());
-					stdin.write(("chmod 666 /sys/devices/system/cpu/cpu1/online\n")
+					stdin.write(("chmod 666 /sys/devices/system/cpu/cpu"+args[0]+"/online\n")
 							.getBytes());
-					stdin.write(("echo 1 > /sys/devices/system/cpu/cpu1/online\n")
+					stdin.write(("echo 1 > /sys/devices/system/cpu/cpu"+args[0]+"/online\n")
 							.getBytes());
-					stdin.write(("chmod 444 /sys/devices/system/cpu/cpu1/online\n")
+					stdin.write(("chmod 444 /sys/devices/system/cpu/cpu"+args[0]+"/online\n")
 							.getBytes());
-					stdin.write(("chown system /sys/devices/system/cpu/cpu1/online\n")
+					stdin.write(("chown system /sys/devices/system/cpu/cpu"+args[0]+"/online\n")
 							.getBytes());
 
 					stdin.flush();
@@ -301,9 +266,6 @@ public class KernelTuner extends SherlockActivity {
 
 				} catch (IOException ex) {
 				}
-				SharedPreferences.Editor editor = preferences.edit();
-				editor.putBoolean("cputoggle", true);
-				editor.commit();
 			} catch (IOException e) {
 
 				e.printStackTrace();
@@ -316,228 +278,9 @@ public class KernelTuner extends SherlockActivity {
 		protected void onPostExecute(Object result) {
 
 			KernelTuner.this.pd.dismiss();
-
 		}
 
 	}
-
-	private class cpu2Toggle extends AsyncTask<String, Void, Object> {
-
-		@Override
-		protected Object doInBackground(String... args) {
-			Process process;
-			File file = new File(CPUInfo.CPU2_CURR_GOV);
-			try {
-
-				InputStream fIn = new FileInputStream(file);
-				process = Runtime.getRuntime().exec("su");
-				try {
-					String line;
-
-					OutputStream stdin = process.getOutputStream();
-					InputStream stderr = process.getErrorStream();
-					InputStream stdout = process.getInputStream();
-
-					stdin.write(("echo 1 > /sys/kernel/msm_mpdecision/conf/enabled\n")
-							.getBytes());
-					stdin.write(("chmod 777 /sys/devices/system/cpu/cpu2/online\n")
-							.getBytes());
-					stdin.write(("echo 0 > /sys/devices/system/cpu/cpu2/online\n")
-							.getBytes());
-					stdin.write(("chown system /sys/devices/system/cpu/cpu2/online\n")
-							.getBytes());
-
-					stdin.flush();
-
-					stdin.close();
-					BufferedReader brCleanUp = new BufferedReader(
-							new InputStreamReader(stdout));
-					while ((line = brCleanUp.readLine()) != null) {
-						Log.d("[KernelTuner ToggleCPU Output]", line);
-					}
-					brCleanUp.close();
-					brCleanUp = new BufferedReader(
-							new InputStreamReader(stderr));
-					while ((line = brCleanUp.readLine()) != null) {
-						Log.e("[KernelTuner ToggleCPU Error]", line);
-					}
-					brCleanUp.close();
-
-				} catch (IOException ex) {
-				}
-
-				SharedPreferences.Editor editor = preferences.edit();
-				editor.putBoolean("cpu2toggle", false);
-				editor.commit();
-				fIn.close();
-			}
-
-			catch (FileNotFoundException e) {
-				// enable cpu1
-
-				try {
-					String line;
-					process = Runtime.getRuntime().exec("su");
-					OutputStream stdin = process.getOutputStream();
-					InputStream stderr = process.getErrorStream();
-					InputStream stdout = process.getInputStream();
-
-					stdin.write(("echo 0 > /sys/kernel/msm_mpdecision/conf/enabled\n")
-							.getBytes());
-					stdin.write(("chmod 666 /sys/devices/system/cpu/cpu2/online\n")
-							.getBytes());
-					stdin.write(("echo 1 > /sys/devices/system/cpu/cpu2/online\n")
-							.getBytes());
-					stdin.write(("chmod 444 /sys/devices/system/cpu/cpu2/online\n")
-							.getBytes());
-					stdin.write(("chown system /sys/devices/system/cpu/cpu2/online\n")
-							.getBytes());
-
-					stdin.flush();
-
-					stdin.close();
-					BufferedReader brCleanUp = new BufferedReader(
-							new InputStreamReader(stdout));
-					while ((line = brCleanUp.readLine()) != null) {
-						Log.d("[KernelTuner ToggleCPU Output]", line);
-					}
-					brCleanUp.close();
-					brCleanUp = new BufferedReader(
-							new InputStreamReader(stderr));
-					while ((line = brCleanUp.readLine()) != null) {
-						Log.e("[KernelTuner ToggleCPU Error]", line);
-					}
-					brCleanUp.close();
-
-				} catch (IOException ex) {
-				}
-				SharedPreferences.Editor editor = preferences.edit();
-				editor.putBoolean("cpu2toggle", true);
-				editor.commit();
-			} catch (IOException e) {
-
-			}
-
-			return "";
-		}
-
-		@Override
-		protected void onPostExecute(Object result) {
-
-			KernelTuner.this.pd.dismiss();
-
-		}
-
-	}
-
-	private class cpu3Toggle extends AsyncTask<String, Void, Object> {
-
-		@Override
-		protected Object doInBackground(String... args) {
-			Process process;
-			File file = new File(CPUInfo.CPU3_CURR_GOV);
-			try {
-
-				InputStream fIn = new FileInputStream(file);
-
-				try {
-					String line;
-					process = Runtime.getRuntime().exec("su");
-					OutputStream stdin = process.getOutputStream();
-					InputStream stderr = process.getErrorStream();
-					InputStream stdout = process.getInputStream();
-
-					stdin.write(("echo 1 > /sys/kernel/msm_mpdecision/conf/enabled\n")
-							.getBytes());
-					stdin.write(("chmod 777 /sys/devices/system/cpu/cpu3/online\n")
-							.getBytes());
-					stdin.write(("echo 0 > /sys/devices/system/cpu/cpu3/online\n")
-							.getBytes());
-					stdin.write(("chown system /sys/devices/system/cpu/cpu3/online\n")
-							.getBytes());
-
-					stdin.flush();
-
-					stdin.close();
-					BufferedReader brCleanUp = new BufferedReader(
-							new InputStreamReader(stdout));
-					while ((line = brCleanUp.readLine()) != null) {
-						Log.d("[KernelTuner ToggleCPU Output]", line);
-					}
-					brCleanUp.close();
-					brCleanUp = new BufferedReader(
-							new InputStreamReader(stderr));
-					while ((line = brCleanUp.readLine()) != null) {
-						Log.e("[KernelTuner ToggleCPU Error]", line);
-					}
-					brCleanUp.close();
-
-				} catch (IOException ex) {
-				}
-
-				SharedPreferences.Editor editor = preferences.edit();
-				editor.putBoolean("cpu3toggle", false);
-				editor.commit();
-				fIn.close();
-			}
-
-			catch (FileNotFoundException e) {
-				// enable cpu1
-
-				try {
-					String line;
-					process = Runtime.getRuntime().exec("su");
-					OutputStream stdin = process.getOutputStream();
-					InputStream stderr = process.getErrorStream();
-					InputStream stdout = process.getInputStream();
-
-					stdin.write(("echo 0 > /sys/kernel/msm_mpdecision/conf/enabled\n")
-							.getBytes());
-					stdin.write(("chmod 666 /sys/devices/system/cpu/cpu3/online\n")
-							.getBytes());
-					stdin.write(("echo 1 > /sys/devices/system/cpu/cpu3/online\n")
-							.getBytes());
-					stdin.write(("chmod 444 /sys/devices/system/cpu/cpu3/online\n")
-							.getBytes());
-					stdin.write(("chown system /sys/devices/system/cpu/cpu3/online\n")
-							.getBytes());
-
-					stdin.flush();
-
-					stdin.close();
-					BufferedReader brCleanUp = new BufferedReader(
-							new InputStreamReader(stdout));
-					while ((line = brCleanUp.readLine()) != null) {
-						Log.d("[KernelTuner ToggleCPU Output]", line);
-					}
-					brCleanUp.close();
-					brCleanUp = new BufferedReader(
-							new InputStreamReader(stderr));
-					while ((line = brCleanUp.readLine()) != null) {
-						Log.e("[KernelTuner ToggleCPU Error]", line);
-					}
-					brCleanUp.close();
-
-				} catch (IOException ex) {
-				}
-				SharedPreferences.Editor editor = preferences.edit();
-				editor.putBoolean("cpu3toggle", true);
-				editor.commit();
-			} catch (IOException e) {
-
-			}
-
-			return "";
-		}
-
-		@Override
-		protected void onPostExecute(Object result) {
-			KernelTuner.this.pd.dismiss();
-
-		}
-
-	}
-
 	private class mountDebugFs extends AsyncTask<String, Void, Object> {
 
 		@Override
@@ -645,8 +388,8 @@ public class KernelTuner extends SherlockActivity {
          StrictMode.setVmPolicy(new StrictMode.VmPolicy.Builder()
                  .detectAll().build());*/
 
-		freqEntries = CPUInfo.frequencies();
-		voltageFreqs = CPUInfo.voltages();
+		freqEntries = IOHelper.frequencies();
+		voltageFreqs = IOHelper.voltages();
 		preferences = PreferenceManager.getDefaultSharedPreferences(this);
 		editor = preferences.edit();
 		theme = preferences.getString("theme", "light");
@@ -710,7 +453,7 @@ public class KernelTuner extends SherlockActivity {
 		/*
 		 * Enable temperature monitor
 		 */
-		if (enableTmp() == true) {
+		if (IOHelper.isTempEnabled() == false) {
 			new enableTempMonitor().execute();
 		}
 
@@ -723,7 +466,7 @@ public class KernelTuner extends SherlockActivity {
 			adView.loadAd(new AdRequest());
 		}
 
-		editor.putString("kernel", CPUInfo.kernel());
+		editor.putString("kernel", IOHelper.kernel());
 		editor.commit();
 
 		/**
@@ -735,13 +478,13 @@ public class KernelTuner extends SherlockActivity {
 		 * Read all available frequency steps
 		 */
 
-		for(CPUInfo.FreqsEntry f: freqEntries){
+		for(IOHelper.FreqsEntry f: freqEntries){
 			freqlist.add(new StringBuilder().append(f.getFreq()).toString());
 		}
 		/*for(CPUInfo.FreqsEntry f: freqEntries){
 			freqNames.add(f.getFreqName());
 		}*/
-		for (CPUInfo.VoltageList v : voltageFreqs) {
+		for (IOHelper.VoltageList v : voltageFreqs) {
 			voltages.add(new StringBuilder().append(v.getFreq()).toString());
 		}
 
@@ -757,24 +500,24 @@ public class KernelTuner extends SherlockActivity {
 				while (thread) {
 					try {
 						Thread.sleep(1000);
-						freqcpu0 = CPUInfo.cpu0CurFreq();
-						cpu0max = CPUInfo.cpu0MaxFreq();
-						tmp = CPUInfo.cpuTemp();
+						freqcpu0 = IOHelper.cpu0CurFreq();
+						cpu0max = IOHelper.cpu0MaxFreq();
+						tmp = IOHelper.cpuTemp();
 						
-						if (CPUInfo.cpu1Online() == true)
+						if (IOHelper.cpu1Online() == true)
 						{
-							freqcpu1 = CPUInfo.cpu1CurFreq();
-							cpu1max = CPUInfo.cpu1MaxFreq();
+							freqcpu1 = IOHelper.cpu1CurFreq();
+							cpu1max = IOHelper.cpu1MaxFreq();
 						}
-						if (CPUInfo.cpu2Online() == true)
+						if (IOHelper.cpu2Online() == true)
 						{
-							freqcpu2 = CPUInfo.cpu2CurFreq();
-							cpu2max = CPUInfo.cpu2MaxFreq();
+							freqcpu2 = IOHelper.cpu2CurFreq();
+							cpu2max = IOHelper.cpu2MaxFreq();
 						}
-						if (CPUInfo.cpu3Online() == true)
+						if (IOHelper.cpu3Online() == true)
 						{
-							freqcpu3 = CPUInfo.cpu3CurFreq();
-							cpu3max = CPUInfo.cpu3MaxFreq();
+							freqcpu3 = IOHelper.cpu3CurFreq();
+							cpu3max = IOHelper.cpu3MaxFreq();
 
 						}
 						mHandler.post(new Runnable() {
@@ -786,18 +529,18 @@ public class KernelTuner extends SherlockActivity {
 										cpuTemp(tmp);
 										cpu0update();
 										
-										if (CPUInfo.cpu1Online())
+										if (IOHelper.cpu1Online())
 										{
 											cpu1update();
 
 										}
-										if (CPUInfo.cpu2Online())
+										if (IOHelper.cpu2Online())
 										{
 											
 											cpu2update();
 
 										}
-										if (CPUInfo.cpu3Online())
+										if (IOHelper.cpu3Online())
 										{
 											cpu3update();
 
@@ -981,7 +724,7 @@ public class KernelTuner extends SherlockActivity {
 						null,
 						getResources().getString(R.string.applying_settings),
 						true, true);
-				new cpu1Toggle().execute();
+				new CPUToggle().execute(new String[] {"1"});
 
 			}
 		});
@@ -996,7 +739,7 @@ public class KernelTuner extends SherlockActivity {
 						null,
 						getResources().getString(R.string.applying_settings),
 						true, true);
-				new cpu2Toggle().execute();
+				new CPUToggle().execute(new String[] {"2"});
 
 			}
 		});
@@ -1011,7 +754,7 @@ public class KernelTuner extends SherlockActivity {
 						null,
 						getResources().getString(R.string.applying_settings),
 						true, true);
-				new cpu3Toggle().execute();
+				new CPUToggle().execute(new String[] {"3"});
 
 			}
 		});
@@ -1205,56 +948,7 @@ startCpuLoadThread();
 		 */
 		thread = false;
 
-		/**
-		 * Update widgets after application is closed
-		 */
-		
-		/*AppWidgetBig updateBig = new AppWidgetBig();
-		AppWidgetManager appWidgetManager = AppWidgetManager.getInstance(this);
-		RemoteViews remoteViews = new RemoteViews(this.getPackageName(),
-				R.layout.widget_4x4);
-		ComponentName thisWidget = new ComponentName(this,
-				AppWidgetBig.class);
-		appWidgetManager.updateAppWidget(thisWidget, remoteViews);
-		int[] appWidgetIds = null;
-		updateBig.onUpdate(this, appWidgetManager, appWidgetIds);
-
-		AppWidget updateSmall = new AppWidget();
-		RemoteViews remoteViewsSmall = new RemoteViews(
-				this.getPackageName(), R.layout.widget_2x1);
-		ComponentName thisWidgetSmall = new ComponentName(this,
-				AppWidget.class);
-		appWidgetManager.updateAppWidget(thisWidgetSmall, remoteViewsSmall);
-
-		updateSmall.onUpdate(this, appWidgetManager, appWidgetIds);
-
-		AppWidget updateToggle = new AppWidget();
-		RemoteViews remoteViewsToggle = new RemoteViews(
-				this.getPackageName(), R.layout.widget_toggle);
-		ComponentName thisWidgetToggle = new ComponentName(this,
-				WidgetToggle.class);
-		appWidgetManager.updateAppWidget(thisWidgetToggle, remoteViewsToggle);
-
-		updateToggle.onUpdate(this, appWidgetManager, appWidgetIds);
-
-		AppWidget updateMem = new AppWidget();
-		RemoteViews remoteViewsMem = new RemoteViews(
-				this.getPackageName(), R.layout.widget_memory);
-		ComponentName thisWidgetMem = new ComponentName(this,
-				AppWidgetMem.class);
-		appWidgetManager.updateAppWidget(thisWidgetMem, remoteViewsMem);
-
-		updateMem.onUpdate(this, appWidgetManager, appWidgetIds);
-		
-		AppWidget updateBattery = new AppWidget();
-		RemoteViews remoteViewsBattery = new RemoteViews(
-				this.getPackageName(), R.layout.widget_battery);
-		ComponentName thisWidgetBattery = new ComponentName(this,
-				AppWidgetBattery.class);
-		appWidgetManager.updateAppWidget(thisWidgetBattery, remoteViewsBattery);
-
-		updateBattery.onUpdate(this, appWidgetManager, appWidgetIds);
-		*/super.onDestroy();
+		super.onDestroy();
 
 	}
 
@@ -1441,7 +1135,7 @@ private void startCpuLoadThread() {
 		/**
 		 * Show/hide certain Views depending on number of cpus
 		 */
-		if (CPUInfo.cpu1Online() == true) {
+		if (IOHelper.cpu1Online() == true) {
 			Button b2 = (Button) findViewById(R.id.button1);
 			b2.setVisibility(View.VISIBLE);
 			ProgressBar cpu1progbar = (ProgressBar)findViewById(R.id.progressBar2);
@@ -1461,7 +1155,7 @@ private void startCpuLoadThread() {
 			TextView tv4 = (TextView) findViewById(R.id.ptextView4);
 			tv4.setVisibility(View.GONE);
 		}
-		if (CPUInfo.cpu2Online() == true) {
+		if (IOHelper.cpu2Online() == true) {
 			Button b3 = (Button) findViewById(R.id.button8);
 			b3.setVisibility(View.VISIBLE);
 			ProgressBar cpu1progbar = (ProgressBar)findViewById(R.id.progressBar3);
@@ -1481,7 +1175,7 @@ private void startCpuLoadThread() {
 			TextView tv4 = (TextView) findViewById(R.id.ptextView7);
 			tv4.setVisibility(View.GONE);
 		}
-		if (CPUInfo.cpu3Online() == true) {
+		if (IOHelper.cpu3Online() == true) {
 			Button b4 = (Button) findViewById(R.id.button9);
 			b4.setVisibility(View.VISIBLE);
 			ProgressBar cpu1progbar = (ProgressBar)findViewById(R.id.progressBar4);
@@ -1506,8 +1200,8 @@ private void startCpuLoadThread() {
 		 * Check for certain files in sysfs and if they doesnt exists hide
 		 * depending views
 		 */
-		File file4 = new File(CPUInfo.CPU0_FREQS);
-		File file5 = new File(CPUInfo.TIMES_IN_STATE_CPU0);
+		File file4 = new File(IOHelper.CPU0_FREQS);
+		File file5 = new File(IOHelper.TIMES_IN_STATE_CPU0);
 		try {
 			InputStream fIn = new FileInputStream(file4);
 			fIn.close();
@@ -1526,13 +1220,13 @@ private void startCpuLoadThread() {
 
 		}
 
-		File file = new File(CPUInfo.VOLTAGE_PATH);
+		File file = new File(IOHelper.VOLTAGE_PATH);
 		try {
 			InputStream fIn = new FileInputStream(file);
 			fIn.close();
 
 		} catch (FileNotFoundException e) {
-			File file2 = new File(CPUInfo.VOLTAGE_PATH_TEGRA_3);
+			File file2 = new File(IOHelper.VOLTAGE_PATH_TEGRA_3);
 			try {
 				InputStream fIn = new FileInputStream(file2);
 				fIn.close();
@@ -1549,7 +1243,7 @@ private void startCpuLoadThread() {
 
 		}
 
-		File file2 = new File(CPUInfo.TIMES_IN_STATE_CPU0);
+		File file2 = new File(IOHelper.TIMES_IN_STATE_CPU0);
 		try {
 			InputStream fIn = new FileInputStream(file2);
 			fIn.close();
@@ -1563,7 +1257,7 @@ private void startCpuLoadThread() {
 		}
 
 
-		File file6 = new File(CPUInfo.MPDECISION);
+		File file6 = new File(IOHelper.MPDECISION);
 		try {
 			InputStream fIn = new FileInputStream(file6);
 			fIn.close();
@@ -1576,7 +1270,7 @@ private void startCpuLoadThread() {
 
 		}
 
-		File file7 = new File(CPUInfo.THERMALD);
+		File file7 = new File(IOHelper.THERMALD);
 		try {
 			InputStream fIn = new FileInputStream(file7);
 			fIn.close();
@@ -1589,7 +1283,7 @@ private void startCpuLoadThread() {
 
 		}
 
-		File file3 = new File(CPUInfo.GPU);
+		File file3 = new File(IOHelper.GPU_3D);
 		try {
 			InputStream fIn = new FileInputStream(file3);
 			fIn.close();
@@ -1842,8 +1536,8 @@ private void startCpuLoadThread() {
 						 " > /sys/devices/system/cpu/cpu3/cpufreq/scaling_min_freq \n").append(
 							 "chmod 444 /sys/devices/system/cpu/cpu3/cpufreq/scaling_min_freq \n\n");
 		}
-		List<String> govSettings = CPUInfo.govSettings();
-		List<String> availableGovs = CPUInfo.availableGovs();
+		List<String> govSettings = IOHelper.govSettings();
+		List<String> availableGovs = IOHelper.availableGovs();
 
 		for (String s : availableGovs) {
 			for (String st : govSettings) {

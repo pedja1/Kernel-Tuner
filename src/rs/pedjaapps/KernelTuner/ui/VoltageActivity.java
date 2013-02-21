@@ -304,7 +304,7 @@ boolean isLight;
 
 		final List<VoltageEntry> entries = new ArrayList<VoltageEntry>();
 
-		List<CPUInfo.VoltageList> voltageList = CPUInfo.voltages();
+		List<IOHelper.VoltageList> voltageList = IOHelper.voltages();
 		if(voltageFreqs.isEmpty()==false){
 			voltageFreqs.clear();
 		}
@@ -314,17 +314,17 @@ boolean isLight;
 		if(voltageFreqNames.isEmpty()==false){
 			voltageFreqNames.clear();
 		}
-		for(CPUInfo.VoltageList v: voltageList){
+		for(IOHelper.VoltageList v: voltageList){
 			voltageFreqs.add((v.getFreq()));
 		}
-		for(CPUInfo.VoltageList v: voltageList){
+		for(IOHelper.VoltageList v: voltageList){
 			voltages.add(v.getVoltage());
 		}
-		for(CPUInfo.VoltageList v: voltageList){
+		for(IOHelper.VoltageList v: voltageList){
 			voltageFreqNames.add(v.getFreqName());
 		}
 
-		if (new File(CPUInfo.VOLTAGE_PATH).exists())
+		if (new File(IOHelper.VOLTAGE_PATH).exists())
 		{
 			int voltagesSize = voltages.size();
 			for (int i= 0; i < voltagesSize; i++)
@@ -335,7 +335,7 @@ boolean isLight;
 			}	
 
 		}
-		else if (new File(CPUInfo.VOLTAGE_PATH_TEGRA_3).exists())
+		else if (new File(IOHelper.VOLTAGE_PATH_TEGRA_3).exists())
 		{
 			int voltagesSize = voltages.size();
 			for (int i= 0; i < voltagesSize; i++)

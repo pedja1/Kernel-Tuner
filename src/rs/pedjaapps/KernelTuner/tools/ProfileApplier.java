@@ -34,7 +34,7 @@ import java.util.List;
 import rs.pedjaapps.KernelTuner.R;
 import rs.pedjaapps.KernelTuner.entry.Profile;
 import rs.pedjaapps.KernelTuner.entry.Voltage;
-import rs.pedjaapps.KernelTuner.helpers.CPUInfo;
+import rs.pedjaapps.KernelTuner.helpers.IOHelper;
 import rs.pedjaapps.KernelTuner.helpers.DatabaseHandler;
 
 
@@ -91,11 +91,11 @@ public class ProfileApplier extends AsyncTask<String, Void, String>
 		 Integer sdcache = profile.getSdcache();
 
 		 Integer s2w = profile.getSweep2wake();
-		 List<CPUInfo.VoltageList> voltageList = CPUInfo.voltages();
+		 List<IOHelper.VoltageList> voltageList = IOHelper.voltages();
 			
 			List<String> voltageFreqs =  new ArrayList<String>();
 			
-			for(CPUInfo.VoltageList v: voltageList){
+			for(IOHelper.VoltageList v: voltageList){
 				voltageFreqs.add((v.getFreq()));
 			}
 		
@@ -106,7 +106,7 @@ public class ProfileApplier extends AsyncTask<String, Void, String>
 	            InputStream stderr = process.getErrorStream();
 	            InputStream stdout = process.getInputStream();
 
-	            if (CPUInfo.cpu1Online() == true)
+	            if (IOHelper.cpu1Online() == true)
 				{
 					stdin.write(("echo 0 > /sys/kernel/msm_mpdecision/conf/enabled\n").getBytes());
 					stdin.write(("chmod 666 /sys/devices/system/cpu/cpu1/online\n").getBytes());
@@ -114,14 +114,14 @@ public class ProfileApplier extends AsyncTask<String, Void, String>
 					stdin.write(("chmod 444 /sys/devices/system/cpu/cpu1/online\n").getBytes());
 					stdin.write(("chown system /sys/devices/system/cpu/cpu1/online\n").getBytes());
 				}
-				if (CPUInfo.cpu2Online() == true)
+				if (IOHelper.cpu2Online() == true)
 				{
 					stdin.write(("chmod 666 /sys/devices/system/cpu/cpu2/online\n").getBytes());
 					stdin.write(("echo 1 > /sys/devices/system/cpu/cpu2/online\n").getBytes());
 					stdin.write(("chmod 444 /sys/devices/system/cpu/cpu2/online\n").getBytes());
 					stdin.write(("chown system /sys/devices/system/cpu/cpu2/online\n").getBytes());
 				}
-				if (CPUInfo.cpu3Online() == true)
+				if (IOHelper.cpu3Online() == true)
 				{
 					stdin.write(("chmod 666 /sys/devices/system/cpu/cpu3/online\n").getBytes());
 					stdin.write(("echo 1 > /sys/devices/system/cpu/cpu3/online\n").getBytes());
@@ -383,20 +383,20 @@ public class ProfileApplier extends AsyncTask<String, Void, String>
 	  	    editor.commit();
 		}
 		
-		if (CPUInfo.cpu1Online() == true)
+		if (IOHelper.cpu1Online() == true)
 		{
 			stdin.write(("echo 1 > /sys/kernel/msm_mpdecision/conf/enabled\n").getBytes());
 			stdin.write(("chmod 777 /sys/devices/system/cpu/cpu1/online\n").getBytes());
 			stdin.write(("echo 0 > /sys/devices/system/cpu/cpu1/online\n").getBytes());
 			stdin.write(("chown system /sys/devices/system/cpu/cpu1/online\n").getBytes());
 		}
-		if (CPUInfo.cpu2Online() == true)
+		if (IOHelper.cpu2Online() == true)
 		{
 			stdin.write(("chmod 777 /sys/devices/system/cpu/cpu2/online\n").getBytes());
 			stdin.write(("echo 0 > /sys/devices/system/cpu/cpu2/online\n").getBytes());
 			stdin.write(("chown system /sys/devices/system/cpu/cpu2/online\n").getBytes());
 		}
-		if (CPUInfo.cpu3Online() == true)
+		if (IOHelper.cpu3Online() == true)
 		{
 			stdin.write(("chmod 777 /sys/devices/system/cpu/cpu3/online\n").getBytes());
 			stdin.write(("echo 0 > /sys/devices/system/cpu/cpu3/online\n").getBytes());

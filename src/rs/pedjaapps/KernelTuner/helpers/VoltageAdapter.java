@@ -37,7 +37,7 @@ public final class VoltageAdapter extends ArrayAdapter<VoltageEntry>
 
 	public static ProgressDialog pd = null;
 	private final int voltageItemLayoutResource;
-	List<CPUInfo.VoltageList> voltageList = CPUInfo.voltages();
+	List<IOHelper.VoltageList> voltageList = IOHelper.voltages();
 	static List<Integer> voltages = new ArrayList<Integer>();
 	static List<String> voltageFreqs =  new ArrayList<String>();
 	static List<String> voltageFreqNames =  new ArrayList<String>();
@@ -55,13 +55,13 @@ public final class VoltageAdapter extends ArrayAdapter<VoltageEntry>
 		final View view = getWorkingView(convertView);
 		final ViewHolder viewHolder = getViewHolder(view);
 		final VoltageEntry entry = getItem(position);
-		for(CPUInfo.VoltageList v: voltageList){
+		for(IOHelper.VoltageList v: voltageList){
 			voltageFreqs.add((v.getFreq()));
 		}
-		for(CPUInfo.VoltageList v: voltageList){
+		for(IOHelper.VoltageList v: voltageList){
 			voltages.add(v.getVoltage());
 		}
-		for(CPUInfo.VoltageList v: voltageList){
+		for(IOHelper.VoltageList v: voltageList){
 			voltageFreqNames.add(v.getFreqName());
 		}
 
@@ -123,7 +123,7 @@ public final class VoltageAdapter extends ArrayAdapter<VoltageEntry>
 
 								if (!input.getText().toString().equals(""))
 								{
-									if (new File(CPUInfo.VOLTAGE_PATH).exists())
+									if (new File(IOHelper.VOLTAGE_PATH).exists())
 									{
 										if (Integer.parseInt(input.getText().toString()) >= 700000 && Integer.parseInt(input.getText().toString()) <= 1400000)
 										{
@@ -135,7 +135,7 @@ public final class VoltageAdapter extends ArrayAdapter<VoltageEntry>
 											Toast.makeText(VoltageAdapter.this.getContext(), "Value must be between 700000 and 1400000", Toast.LENGTH_LONG).show();
 										}
 									}
-									else if (new File(CPUInfo.VOLTAGE_PATH_TEGRA_3).exists())
+									else if (new File(IOHelper.VOLTAGE_PATH_TEGRA_3).exists())
 									{
 										if (Integer.parseInt(input.getText().toString()) >= 700 && Integer.parseInt(input.getText().toString()) <= 1400)
 										{

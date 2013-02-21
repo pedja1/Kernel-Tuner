@@ -82,7 +82,7 @@ public class OOM extends Activity {
 		}
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.oom);
-		oom = CPUInfo.oom();
+		oom = IOHelper.oom();
 		
 
 		foregroundSeek = (SeekBar) findViewById(R.id.foregroundSeek);
@@ -393,7 +393,7 @@ public class OOM extends Activity {
 						+ ","
 						+ args[5]);
 				editor.commit();
-				oom = CPUInfo.oom();
+				oom = IOHelper.oom();
 	        } catch (IOException ex) {
 	        }
 			

@@ -65,9 +65,9 @@ public class SystemInfo extends SherlockFragmentActivity implements
 
 	private SharedPreferences prefs;
 	private static String tempPref;
-	private List<CPUInfo.FreqsEntry> freqEntries;
+	private List<IOHelper.FreqsEntry> freqEntries;
 	private List<String> freqs = new ArrayList<String>();
-	private List<CPUInfo.VoltageList> voltEntries;
+	private List<IOHelper.VoltageList> voltEntries;
 	private List<Integer> voltages = new ArrayList<Integer>();
 	private List<String> voltFreq = new ArrayList<String>();
 	private String governors;
@@ -130,19 +130,19 @@ public class SystemInfo extends SherlockFragmentActivity implements
 		protected Object doInBackground(String... args) {
 			isSDPresent = android.os.Environment.getExternalStorageState()
 					.equals(android.os.Environment.MEDIA_MOUNTED);
-			freqEntries = CPUInfo.frequencies();
-			voltEntries = CPUInfo.voltages();
-			for (CPUInfo.FreqsEntry f : freqEntries) {
+			freqEntries = IOHelper.frequencies();
+			voltEntries = IOHelper.voltages();
+			for (IOHelper.FreqsEntry f : freqEntries) {
 				freqs.add(f.getFreqName());
 			}
-			for (CPUInfo.VoltageList v : voltEntries) {
+			for (IOHelper.VoltageList v : voltEntries) {
 				voltFreq.add(v.getFreqName());
 			}
-			for (CPUInfo.VoltageList v : voltEntries) {
+			for (IOHelper.VoltageList v : voltEntries) {
 				voltages.add(v.getVoltage());
 			}
 
-			List<String> govs = CPUInfo.governors();
+			List<String> govs = IOHelper.governors();
 			StringBuilder builder = new StringBuilder();
 			for (String s : govs) {
 				builder.append(s + ", ");

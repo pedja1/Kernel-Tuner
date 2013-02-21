@@ -18,7 +18,6 @@
 */
 package rs.pedjaapps.KernelTuner.services;
 
-import android.annotation.*;
 import android.app.*;
 import android.appwidget.*;
 import android.content.*;
@@ -41,8 +40,7 @@ import java.lang.Process;
 public class WidgetUpdateServiceBig extends Service
 {
 	
-	private List<CPUInfo.FreqsEntry> freqEntries = CPUInfo.frequencies();
-	private List<String> freqNames = new ArrayList<String>();
+	private List<IOHelper.FreqsEntry> freqEntries = IOHelper.frequencies();
 	private String led;
 	private String cpu0curr;
 	private String cpu0gov;
@@ -54,7 +52,7 @@ public class WidgetUpdateServiceBig extends Service
 	private String kernel = "     ";
 	private String deepSleep;
 	private String upTime;
-	private String charge;
+	private int charge;
 	private String battperc;
 	private String batttemp;
 	private String battvol;
@@ -69,40 +67,7 @@ public class WidgetUpdateServiceBig extends Service
 	private double timeint = 30;
 	private int bgRes = 0;
 	
-	private boolean enableTmp(){
-		boolean b;
-		try
-		{
-
-			File myFile = new File("/sys/devices/virtual/thermal/thermal_zone1/mode");
-			FileInputStream fIn = new FileInputStream(myFile);
-
-			BufferedReader myReader = new BufferedReader(
-				new InputStreamReader(fIn));
-			String aDataRow = "";
-			String aBuffer = "";
-			while ((aDataRow = myReader.readLine()) != null)
-			{
-				aBuffer += aDataRow + "\n";
-			}
-			myReader.close();
-			fIn.close();
-			if(aBuffer.trim().equals("enabled")){
-				b = false;
-			}
-			else{
-				b=true;
-			}
-			
-			
-
-		}
-		catch (Exception e)
-		{
-			b=true;
-		}
-		return b;
-	}
+	
 
 
 	
@@ -181,247 +146,28 @@ public class WidgetUpdateServiceBig extends Service
 
 
 		System.out.println("widget service big");
-		cpu0gov = CPUInfo.cpu0CurGov();
-		cpu1gov = CPUInfo.cpu1CurGov();
-		led = CPUInfo.cbb();
-		
-		fastcharge = ""+CPUInfo.fcharge();
-		vsync = ""+CPUInfo.vsync();
-		cdepth = CPUInfo.cDepth();
-		for(CPUInfo.FreqsEntry f: freqEntries){
+		cpu0gov = IOHelper.cpu0CurGov();
+		cpu1gov = IOHelper.cpu1CurGov();
+		led = IOHelper.leds();
+		fastcharge = ""+IOHelper.fcharge();
+		vsync = ""+IOHelper.vsync();
+		cdepth = IOHelper.cDepth();
+		for(IOHelper.FreqsEntry f: freqEntries){
 			frequencies.add(""+f.getFreq());
 		}
-		for(CPUInfo.FreqsEntry f: freqEntries){
-			freqNames.add(f.getFreqName());
-		}
-		cpu0curr = CPUInfo.cpu0CurFreq();
-		cpu1curr = CPUInfo.cpu1CurFreq();
-		upTime = CPUInfo.uptime();
-		deepSleep =CPUInfo.deepSleep();
-
-		try
-		{
-
-			File myFile = new File("/proc/version");
-			FileInputStream fIn = new FileInputStream(myFile);
-
-			BufferedReader myReader = new BufferedReader(
-				new InputStreamReader(fIn));
-			String aDataRow = "";
-			String aBuffer = "";
-			while ((aDataRow = myReader.readLine()) != null)
-			{
-				aBuffer += aDataRow + "\n";
-			}
-
-			kernel = aBuffer.trim();
-			myReader.close();
-			fIn.close();
-		}
-		catch (Exception e)
-		{
-			kernel = "Kernel version file not found";
-
-		}
-
-
-		try
-		{
-
-			File myFile = new File("/sys/class/power_supply/battery/capacity");
-			FileInputStream fIn = new FileInputStream(myFile);
-
-			BufferedReader myReader = new BufferedReader(
-				new InputStreamReader(fIn));
-			String aDataRow = "";
-			String aBuffer = "";
-			while ((aDataRow = myReader.readLine()) != null)
-			{
-				aBuffer += aDataRow + "\n";
-			}
-
-			battperc = aBuffer.trim();
-			myReader.close();
-			fIn.close();
-		}
-		catch (Exception e)
-		{
-			battperc = "0";
-		}
-
-		try
-		{
-
-			File myFile = new File("/sys/class/power_supply/battery/charging_source");
-			FileInputStream fIn = new FileInputStream(myFile);
-
-			BufferedReader myReader = new BufferedReader(
-				new InputStreamReader(fIn));
-			String aDataRow = "";
-			String aBuffer = "";
-			while ((aDataRow = myReader.readLine()) != null)
-			{
-				aBuffer += aDataRow + "\n";
-			}
-
-			charge = aBuffer.trim();
-			myReader.close();
-			fIn.close();
-		}
-		catch (Exception e)
-		{
-			charge = "0";
-		}
-
-		//System.out.println(cpu0min);
-
-		try
-		{
-
-			File myFile = new File("/sys/class/power_supply/battery/batt_temp");
-			FileInputStream fIn = new FileInputStream(myFile);
-
-			BufferedReader myReader = new BufferedReader(
-				new InputStreamReader(fIn));
-			String aDataRow = "";
-			String aBuffer = "";
-			while ((aDataRow = myReader.readLine()) != null)
-			{
-				aBuffer += aDataRow + "\n";
-			}
-
-			batttemp = aBuffer.trim();
-			myReader.close();
-			fIn.close();
-		}
-		catch (Exception e)
-		{
-			batttemp = "0";
-		}
-
-		try
-		{
-
-			File myFile = new File("/sys/class/power_supply/battery/batt_vol");
-			FileInputStream fIn = new FileInputStream(myFile);
-
-			BufferedReader myReader = new BufferedReader(
-				new InputStreamReader(fIn));
-			String aDataRow = "";
-			String aBuffer = "";
-			while ((aDataRow = myReader.readLine()) != null)
-			{
-				aBuffer += aDataRow + "\n";
-			}
-
-			battvol = aBuffer.trim();
-			myReader.close();
-			fIn.close();
-		}
-		catch (Exception e)
-		{
-			battvol = "0";
-		}
-
-		try
-		{
-
-			File myFile = new File("/sys/class/power_supply/battery/technology");
-			FileInputStream fIn = new FileInputStream(myFile);
-
-			BufferedReader myReader = new BufferedReader(
-				new InputStreamReader(fIn));
-			String aDataRow = "";
-			String aBuffer = "";
-			while ((aDataRow = myReader.readLine()) != null)
-			{
-				aBuffer += aDataRow + "\n";
-			}
-
-			batttech = aBuffer.trim();
-			myReader.close();
-			fIn.close();
-		}
-		catch (Exception e)
-		{
-			batttech = "err";
-		}	
-
-		try
-		{
-
-			File myFile = new File("/sys/class/power_supply/battery/batt_current");
-			FileInputStream fIn = new FileInputStream(myFile);
-
-			BufferedReader myReader = new BufferedReader(
-				new InputStreamReader(fIn));
-			String aDataRow = "";
-			String aBuffer = "";
-			while ((aDataRow = myReader.readLine()) != null)
-			{
-				aBuffer += aDataRow + "\n";
-			}
-
-			battcurrent = aBuffer.trim();
-			myReader.close();
-			fIn.close();
-		}
-		catch (Exception e)
-		{
-			battcurrent = "err";
-		}	
-
-		try
-		{
-
-			File myFile = new File("/sys/class/power_supply/battery/health");
-			FileInputStream fIn = new FileInputStream(myFile);
-
-			BufferedReader myReader = new BufferedReader(
-				new InputStreamReader(fIn));
-			String aDataRow = "";
-			String aBuffer = "";
-			while ((aDataRow = myReader.readLine()) != null)
-			{
-				aBuffer += aDataRow + "\n";
-			}
-
-			batthealth = aBuffer.trim();
-			myReader.close();
-			fIn.close();
-		}
-		catch (Exception e)
-		{
-			batthealth = "err";
-		}	
-
-		try
-		{
-
-			File myFile = new File("/sys/class/power_supply/battery/full_bat");
-			FileInputStream fIn = new FileInputStream(myFile);
-
-			BufferedReader myReader = new BufferedReader(
-				new InputStreamReader(fIn));
-			String aDataRow = "";
-			String aBuffer = "";
-			while ((aDataRow = myReader.readLine()) != null)
-			{
-				aBuffer += aDataRow + "\n";
-			}
-
-			battcap = aBuffer.trim();
-			myReader.close();
-			fIn.close();
-		}
-		catch (Exception e)
-		{
-			battcap = "err";
-		}	
-
-		
-		
-
+		cpu0curr = IOHelper.cpu0CurFreq();
+		cpu1curr = IOHelper.cpu1CurFreq();
+		upTime = IOHelper.uptime();
+		deepSleep =IOHelper.deepSleep();
+		kernel = IOHelper.kernel();
+		battperc = ""+IOHelper.batteryLevel();
+		charge = IOHelper.batteryChargingSource();
+		batttemp =""+IOHelper.batteryTemp();
+		battvol =""+IOHelper.batteryVoltage();
+		batttech = IOHelper.batteryTechnology();
+		battcurrent = IOHelper.batteryDrain();
+		batthealth = IOHelper.batteryHealth();
+		battcap = IOHelper.batteryCapacity();
 		int freqslength = frequencies.size();
 		int index = frequencies.indexOf(cpu0curr);
 		int index2 = frequencies.indexOf(cpu1curr);
@@ -431,13 +177,9 @@ public class WidgetUpdateServiceBig extends Service
 		
 	}
 
-	@SuppressLint("ParserError")
 	@Override
 	public int onStartCommand(Intent intent, int flags, int startId)
 	{
-		//Log.i(LOG, "Called");
-		// Create some random data
-
 		AppWidgetManager appWidgetManager = AppWidgetManager.getInstance(this
 																		 .getApplicationContext());
 
@@ -449,21 +191,15 @@ public class WidgetUpdateServiceBig extends Service
 		File file = new File("/sys/kernel/debug");
 		
 		File[] contents = file.listFiles();
-		// the directory file is not really a directory..
 		if (contents == null) {
-
 		}
-		// Folder is empty
 		else if (contents.length == 0) {
 			mountdebugfs();
 		}
-		// Folder contains files
 		else {
-
 		}
-		if(enableTmp()==true){
+		if(IOHelper.isTempEnabled()==false){
 		enableTemp();
-		
 		}
 		
 		info();
@@ -518,7 +254,6 @@ public class WidgetUpdateServiceBig extends Service
 
 			Bitmap bitmap2 = Bitmap.createBitmap(100, 100, Config.ARGB_8888);
 			Canvas canvas2 = new Canvas(bitmap2);
-			// canvas2.drawArc(new RectF(5, 5, 90, 90), 90, angle, true, p);
 			if (!cpu1curr.equals("offline"))
 			{
 				for (int i = 5, a = 8; a < 100 && i < 100; i = i + 4, a = a + 4)
@@ -566,8 +301,6 @@ public class WidgetUpdateServiceBig extends Service
 
 			remoteViews.setImageViewBitmap(R.id.imageView7, bitmap);
 			remoteViews.setImageViewBitmap(R.id.ImageView01, bitmap2);
-
-			//System.out.println(cpu0min);
 			if (!cpu0curr.equals("offline"))
 			{
 				remoteViews.setTextViewText(R.id.freq0, cpu0curr.substring(0, cpu0curr.length() - 3) + "Mhz");
@@ -679,28 +412,28 @@ public class WidgetUpdateServiceBig extends Service
 			{
 				battperciconint = 0;
 			}
-			if (battperciconint <= 15 && battperciconint != 0 && charge.equals("0"))
+			if (battperciconint <= 15 && battperciconint != 0 && charge==0)
 			{
 				remoteViews.setImageViewResource(R.id.imageView10, R.drawable.battery_low);
 				remoteViews.setTextColor(R.id.textView14, Color.RED);
 			}
-			else if (battperciconint > 30 && charge.equals("0"))
+			else if (battperciconint > 30 && charge==0)
 			{
 				remoteViews.setImageViewResource(R.id.imageView10, R.drawable.battery_full);
 				remoteViews.setTextColor(R.id.textView14, Color.GREEN);
 
 			}
-			else if (battperciconint < 30 && battperciconint > 15 && charge.equals("0"))
+			else if (battperciconint < 30 && battperciconint > 15 && charge==0)
 			{
 				remoteViews.setImageViewResource(R.id.imageView10, R.drawable.battery_half);
 				remoteViews.setTextColor(R.id.textView14, Color.YELLOW);
 			}
-			else if (charge.equals("1"))
+			else if (charge==1)
 			{
 				remoteViews.setImageViewResource(R.id.imageView10, R.drawable.battery_charge_usb);
 				remoteViews.setTextColor(R.id.textView14, Color.CYAN);
 			}
-			else if (charge.equals("2"))
+			else if (charge==2)
 			{
 				remoteViews.setImageViewResource(R.id.imageView10, R.drawable.battery_charge_ac);
 				remoteViews.setTextColor(R.id.textView14, Color.CYAN);
@@ -713,7 +446,7 @@ public class WidgetUpdateServiceBig extends Service
 			remoteViews.setTextViewText(R.id.textView14, battperc + "%");
 
 			double battempint = Double.parseDouble(batttemp)/10;
-			String cpuTemp = CPUInfo.cpuTemp();
+			String cpuTemp = IOHelper.cpuTemp();
 			SharedPreferences sharedPrefs = PreferenceManager.getDefaultSharedPreferences(this);
 			String tempPref = sharedPrefs.getString("temp", "celsius");
 			if (tempPref.equals("fahrenheit"))

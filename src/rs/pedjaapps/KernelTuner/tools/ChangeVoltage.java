@@ -32,7 +32,7 @@ import java.io.OutputStream;
 import java.util.ArrayList;
 import java.util.List;
 import rs.pedjaapps.KernelTuner.ui.VoltageActivity;
-import rs.pedjaapps.KernelTuner.helpers.CPUInfo;
+import rs.pedjaapps.KernelTuner.helpers.IOHelper;
 import rs.pedjaapps.KernelTuner.helpers.VoltageAdapter;
 
 
@@ -56,20 +56,20 @@ public class ChangeVoltage extends AsyncTask<String, Void, String>
 	protected String doInBackground(String... args)
 	{
 
-		List<CPUInfo.VoltageList> voltageList = CPUInfo.voltages();
+		List<IOHelper.VoltageList> voltageList = IOHelper.voltages();
 		List<Integer> voltages = new ArrayList<Integer>();
 		List<String> voltageFreqs =  new ArrayList<String>();
 		
-		for(CPUInfo.VoltageList v: voltageList){
+		for(IOHelper.VoltageList v: voltageList){
 			voltageFreqs.add((v.getFreq()));
 		}
-		for(CPUInfo.VoltageList v: voltageList){
+		for(IOHelper.VoltageList v: voltageList){
 			voltages.add(v.getVoltage());
 		}
 		
 		
 		System.out.println("ChangeVoltage: Changing voltage");
-		if (new File(CPUInfo.VOLTAGE_PATH).exists())
+		if (new File(IOHelper.VOLTAGE_PATH).exists())
 		{
 			if (args[0].equals("minus"))
 			{
@@ -355,7 +355,7 @@ public class ChangeVoltage extends AsyncTask<String, Void, String>
 			}
 			
 		}
-		else if (new File(CPUInfo.VOLTAGE_PATH_TEGRA_3).exists())
+		else if (new File(IOHelper.VOLTAGE_PATH_TEGRA_3).exists())
 		{
 			
 			if (args[0].equals("minus"))

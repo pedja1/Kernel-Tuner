@@ -22,7 +22,7 @@ import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.preference.PreferenceManager;
-import rs.pedjaapps.KernelTuner.helpers.CPUInfo;
+import rs.pedjaapps.KernelTuner.helpers.IOHelper;
 import rs.pedjaapps.KernelTuner.tools.AppReset;
 
 
@@ -33,7 +33,7 @@ public class StartupReceiver extends BroadcastReceiver
 		boolean newKernel = false;
 		String savedKernel = sharedPrefs.getString("kernel", "");
 		if(!savedKernel.equals("")){
-			if(!(savedKernel.equals(CPUInfo.kernel()))){
+			if(!(savedKernel.equals(IOHelper.kernel()))){
 				
 			}
 		}

@@ -131,14 +131,14 @@ public class MiscTweaks extends SherlockActivity {
 
 		@Override
 		protected String doInBackground(String... args) {
-			otg = CPUInfo.readOTG();
-			cdepth = CPUInfo.cDepth();
-			sdcache = CPUInfo.sdCache();
-			schedulers = CPUInfo.schedulers();
-			scheduler = CPUInfo.scheduler();
-			led = CPUInfo.leds();
-			fastcharge = CPUInfo.fcharge();
-			vsync = CPUInfo.vsync();
+			otg = IOHelper.readOTG();
+			cdepth = IOHelper.cDepth();
+			sdcache = IOHelper.sdCache();
+			schedulers = IOHelper.schedulers();
+			scheduler = IOHelper.scheduler();
+			led = IOHelper.leds();
+			fastcharge = IOHelper.fcharge();
+			vsync = IOHelper.vsync();
 			ledHox = readFile("/sys/devices/platform/msm_ssbi.0/pm8921-core/pm8xxx-led/leds/button-backlight/currents");
 			return "";
 		}
@@ -822,7 +822,7 @@ public class MiscTweaks extends SherlockActivity {
 		} else {
 			mSeekBar.setProgress(Integer.parseInt(led));
 		}
-		if (new File(CPUInfo.BUTTONS_LIGHT_2).exists()) {
+		if (new File(IOHelper.BUTTONS_LIGHT_2).exists()) {
 			mSeekBar.setVisibility(View.GONE);
 			btminus.setVisibility(View.GONE);
 			btplus.setVisibility(View.GONE);
@@ -830,7 +830,7 @@ public class MiscTweaks extends SherlockActivity {
 			sb1.setVisibility(View.GONE);
 			im.setVisibility(View.GONE);
 
-		} else if (new File(CPUInfo.BUTTONS_LIGHT).exists()) {
+		} else if (new File(IOHelper.BUTTONS_LIGHT).exists()) {
 			buttonsGroup.setVisibility(View.GONE);
 		} else {
 			mSeekBar.setVisibility(View.GONE);
@@ -901,7 +901,7 @@ public class MiscTweaks extends SherlockActivity {
 	{
 
 		
-		if(!CPUInfo.fchargeExists()){
+		if(!IOHelper.fchargeExists()){
 			fchargeHead.setVisibility(View.GONE);
 			fchargeHeadImage.setVisibility(View.GONE);
 			fchargeLayout.setVisibility(View.GONE);
@@ -916,7 +916,7 @@ public class MiscTweaks extends SherlockActivity {
 		}
 		
 
-		if(!CPUInfo.vsyncExists()){
+		if(!IOHelper.vsyncExists()){
 			vsyncHead.setVisibility(View.GONE);
 			vsyncHeadImage.setVisibility(View.GONE);
 			vsyncLayout.setVisibility(View.GONE);
@@ -936,7 +936,7 @@ public class MiscTweaks extends SherlockActivity {
 			EditText sd = (EditText) findViewById(R.id.editText1);
 			sd.setText(sdcache+"");
 		}
-		if(!CPUInfo.sdcacheExists()){
+		if(!IOHelper.sdcacheExists()){
 			sdcacheLayout.setVisibility(View.GONE);
 			ioDivider.setVisibility(View.GONE);
 		}
@@ -969,7 +969,7 @@ public class MiscTweaks extends SherlockActivity {
 				}
 
 			});
-		if(CPUInfo.cdExists()){
+		if(IOHelper.cdExists()){
 			if(cdepth.equals("16")){
 				rb16.setChecked(true);
 			}
@@ -1030,7 +1030,7 @@ public class MiscTweaks extends SherlockActivity {
 			s2wLayoutEnd.setVisibility(View.GONE);
 		}
 		
-		if(CPUInfo.otgExists()){
+		if(IOHelper.otgExists()){
 			if(otg.equals("host")){
 				otgSwitch.setChecked(true);
 			}

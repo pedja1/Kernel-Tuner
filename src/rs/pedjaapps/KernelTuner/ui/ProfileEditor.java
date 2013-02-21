@@ -39,7 +39,7 @@ public class ProfileEditor extends SherlockActivity
 {
 	
 	
-	private List<CPUInfo.FreqsEntry> freqEntries = CPUInfo.frequencies();
+	private List<IOHelper.FreqsEntry> freqEntries = IOHelper.frequencies();
 	private List<String> freqNames = new ArrayList<String>();
 	private String cpu0min;
 	private String cpu0max; 
@@ -230,21 +230,21 @@ public class ProfileEditor extends SherlockActivity
 
 		List<String> freqs = new ArrayList<String>();
 		freqs.add(getResources().getString(R.string.unchanged));
-		for(CPUInfo.FreqsEntry f: freqEntries){
+		for(IOHelper.FreqsEntry f: freqEntries){
 			freqs.add(f.getFreq()+"");
 		}
-		for(CPUInfo.FreqsEntry f: freqEntries){
+		for(IOHelper.FreqsEntry f: freqEntries){
 			freqNames.add(f.getFreqName());
 		}
 
 
 		List<String> govs = new ArrayList<String>();
 		govs.add(getResources().getString(R.string.unchanged));
-		govs.addAll(CPUInfo.governors());
+		govs.addAll(IOHelper.governors());
 
 		List<String> schedulers = new ArrayList<String>();
 		schedulers.add(getResources().getString(R.string.unchanged));
-		schedulers.addAll(CPUInfo.schedulers());
+		schedulers.addAll(IOHelper.schedulers());
 
 
 		List<String> voltageProfiles = new ArrayList<String>();
@@ -300,22 +300,22 @@ public class ProfileEditor extends SherlockActivity
 			}
 		}
 
-		if(CPUInfo.mpdecisionExists()==false){
+		if(IOHelper.mpdecisionExists()==false){
 			mpup.setVisibility(View.GONE);
 			mpdown.setVisibility(View.GONE);
 		}
-		if(CPUInfo.buttonsExists()==false){
+		if(IOHelper.buttonsExists()==false){
 			buttons.setVisibility(View.GONE);
 		}
-		if(CPUInfo.sdcacheExists()==false){
+		if(IOHelper.sdcacheExists()==false){
 			sd.setVisibility(View.GONE);
 		}
 
-		if(CPUInfo.vsyncExists()==false){
+		if(IOHelper.vsyncExists()==false){
 			vsyncGroup.setVisibility(View.GONE);
 			vsyncText.setVisibility(View.GONE);
 		}
-		if(CPUInfo.fchargeExists()==false){
+		if(IOHelper.fchargeExists()==false){
 			fchargeGroup.setVisibility(View.GONE);
 			fchargetext.setVisibility(View.GONE);
 		}
@@ -419,7 +419,7 @@ public class ProfileEditor extends SherlockActivity
         	    }
         	});
 		
-		if(CPUInfo.cpu1Online()==true)
+		if(IOHelper.cpu1Online()==true)
 		{
 			/**spinner3*/
 			ArrayAdapter<String> spinner3ArrayAdapter = new ArrayAdapter<String>(this,   android.R.layout.simple_spinner_item, freqs);
@@ -505,7 +505,7 @@ public class ProfileEditor extends SherlockActivity
 			cpu1maxll.setVisibility(View.GONE);
 			cpu1govll.setVisibility(View.GONE);
 		}
-		if(CPUInfo.cpu2Online()==true)
+		if(IOHelper.cpu2Online()==true)
 		{
 			/**spinner5*/
 			ArrayAdapter<String> spinner5ArrayAdapter = new ArrayAdapter<String>(this,   android.R.layout.simple_spinner_item, freqs);
@@ -591,7 +591,7 @@ public class ProfileEditor extends SherlockActivity
 			cpu2maxll.setVisibility(View.GONE);
 			cpu2govll.setVisibility(View.GONE);
 		}
-		if(CPUInfo.cpu3Online()==true)
+		if(IOHelper.cpu3Online()==true)
 		{
 			/**spinner7*/
 
@@ -678,7 +678,7 @@ public class ProfileEditor extends SherlockActivity
 			cpu3maxll.setVisibility(View.GONE);
 			cpu3govll.setVisibility(View.GONE);
 		}
-		if(CPUInfo.voltageExists())
+		if(IOHelper.voltageExists())
 		{
 			/**spinner13*/
 			ArrayAdapter<String> spinner13ArrayAdapter = new ArrayAdapter<String>(this,   android.R.layout.simple_spinner_item, voltageProfiles);
@@ -710,7 +710,7 @@ public class ProfileEditor extends SherlockActivity
 
 			voltage.setVisibility(View.GONE);
 		}
-		if(CPUInfo.gpuExists())
+		if(IOHelper.gpuExists())
 		{
 			/**spinner14*/
 			ArrayAdapter<String> spinner14ArrayAdapter = new ArrayAdapter<String>(this,   android.R.layout.simple_spinner_item, gpu2ds);
@@ -769,7 +769,7 @@ public class ProfileEditor extends SherlockActivity
 			gpu2dll.setVisibility(View.GONE);
 			gpu3dll.setVisibility(View.GONE);
 		}
-		if(CPUInfo.cdExists())
+		if(IOHelper.cdExists())
 		{
 			/**spinner16*/
 			ArrayAdapter<String> spinner16ArrayAdapter = new ArrayAdapter<String>(this,   android.R.layout.simple_spinner_item, cd);
@@ -825,7 +825,7 @@ public class ProfileEditor extends SherlockActivity
         	        //do nothing
         	    }
         	});
-		if(CPUInfo.s2wExists())
+		if(IOHelper.s2wExists())
 		{
 			/**spinner18*/
 			ArrayAdapter<String> spinner18ArrayAdapter = new ArrayAdapter<String>(this,   android.R.layout.simple_spinner_item, sweep2wake);

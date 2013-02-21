@@ -41,7 +41,7 @@ import rs.pedjaapps.KernelTuner.R;
 public class Thermald extends SherlockActivity
 {
 
-	private List<CPUInfo.FreqsEntry> freqEntries;
+	private List<IOHelper.FreqsEntry> freqEntries;
 	private List<String> freqs = new ArrayList<String>();
 	private List<String> freqNames = new ArrayList<String>();
 	private String p1freq;
@@ -182,11 +182,11 @@ public class Thermald extends SherlockActivity
 
 
 		setContentView(R.layout.thermald);
-		freqEntries = CPUInfo.frequencies();
-		for(CPUInfo.FreqsEntry f: freqEntries){
+		freqEntries = IOHelper.frequencies();
+		for(IOHelper.FreqsEntry f: freqEntries){
 			freqs.add(f.getFreq()+"");
 		}
-		for(CPUInfo.FreqsEntry f: freqEntries){
+		for(IOHelper.FreqsEntry f: freqEntries){
 			freqNames.add(f.getFreqName());
 		}
 		ActionBar actionBar = getSupportActionBar();

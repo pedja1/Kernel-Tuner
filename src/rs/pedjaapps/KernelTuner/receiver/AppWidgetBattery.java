@@ -1,13 +1,26 @@
+/*
+* This file is part of the Kernel Tuner.
+*
+* Copyright Predrag Čokulov <predragcokulov@gmail.com>
+*
+* Kernel Tuner is free software: you can redistribute it and/or modify
+* it under the terms of the GNU General Public License as published by
+* the Free Software Foundation, either version 3 of the License, or
+* (at your option) any later version.
+*
+* Kernel Tuner is distributed in the hope that it will be useful,
+* but WITHOUT ANY WARRANTY; without even the implied warranty of
+* MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the
+* GNU General Public License for more details.
+*
+* You should have received a copy of the GNU General Public License
+* along with Kernel Tuner. If not, see <http://www.gnu.org/licenses/>.
+*/
 package rs.pedjaapps.KernelTuner.receiver;
-
-import java.io.BufferedReader;
-import java.io.File;
-import java.io.FileInputStream;
-import java.io.InputStreamReader;
 import java.util.Calendar;
 
 import rs.pedjaapps.KernelTuner.R;
-import rs.pedjaapps.KernelTuner.helpers.CPUInfo;
+import rs.pedjaapps.KernelTuner.helpers.IOHelper;
 import android.app.AlarmManager;
 import android.app.PendingIntent;
 import android.appwidget.AppWidgetManager;
@@ -120,9 +133,9 @@ public class AppWidgetBattery extends AppWidgetProvider {
 	}
 public void battInfo(){	
 	
-		battperc =CPUInfo.batteryLevel();
-		batttemp = CPUInfo.batteryTemp();
-		battcurrent = CPUInfo.batteryDrain();
+		battperc =IOHelper.batteryLevel();
+		batttemp = IOHelper.batteryTemp();
+		battcurrent = IOHelper.batteryDrain();
 		
 }
 public static String tempConverter(String tempPref, double cTemp) {

@@ -73,11 +73,11 @@ public class StartupService extends Service
 		@Override
 		protected String doInBackground(String... args)
 		{
-			List<CPUInfo.VoltageList> voltageList = CPUInfo.voltages();
+			List<IOHelper.VoltageList> voltageList = IOHelper.voltages();
 			
 			List<String> voltageFreqs =  new ArrayList<String>();
 			
-			for(CPUInfo.VoltageList v: voltageList){
+			for(IOHelper.VoltageList v: voltageList){
 				voltageFreqs.add((v.getFreq()));
 			}
 			
@@ -266,8 +266,8 @@ public class StartupService extends Service
 					}
 				}
 
-				List<String> govSettings = CPUInfo.govSettings();
-				List<String> availableGovs = CPUInfo.availableGovs();
+				List<String> govSettings = IOHelper.govSettings();
+				List<String> availableGovs = IOHelper.availableGovs();
 
 				for (String s : availableGovs)
 				{

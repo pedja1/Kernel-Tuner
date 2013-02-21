@@ -33,7 +33,7 @@ public class CPUShortcut extends Activity
 	public void onCreate(Bundle savedInstanceState)
 	{
 		super.onCreate(savedInstanceState);
-		if(CPUInfo.freqsExists() || CPUInfo.TISExists()){
+		if(IOHelper.freqsExists() || IOHelper.TISExists()){
 		Intent shortcutintent = new Intent("com.android.launcher.action.INSTALL_SHORTCUT");
 		shortcutintent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
 		shortcutintent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);

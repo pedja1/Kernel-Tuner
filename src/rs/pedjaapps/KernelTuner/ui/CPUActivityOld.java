@@ -43,14 +43,14 @@ import java.util.ArrayList;
 import java.util.List;
 import rs.pedjaapps.KernelTuner.ui.KernelTuner;
 import rs.pedjaapps.KernelTuner.R;
-import rs.pedjaapps.KernelTuner.helpers.CPUInfo;
+import rs.pedjaapps.KernelTuner.helpers.IOHelper;
 import rs.pedjaapps.KernelTuner.tools.ChangeGovernor;
 import rs.pedjaapps.KernelTuner.tools.FrequencyChanger;
 
 public class CPUActivityOld extends SherlockActivity
 {
 
-	private  List<CPUInfo.FreqsEntry> freqEntries;
+	private  List<IOHelper.FreqsEntry> freqEntries;
 	private  List<String> frequencies = new ArrayList<String>();
 	private  List<String> freqNames = new ArrayList<String>();
 	private String cpu0MaxFreq ;
@@ -109,15 +109,15 @@ public class CPUActivityOld extends SherlockActivity
 		@Override
 		protected Boolean doInBackground(Boolean... args)
 		{
-			freqEntries = CPUInfo.frequencies();
-			cpu0Online = CPUInfo.cpu0Online();
-			cpu1Online = CPUInfo.cpu1Online();
-			cpu2Online = CPUInfo.cpu2Online();
-			cpu3Online = CPUInfo.cpu3Online();
-			for(CPUInfo.FreqsEntry f: freqEntries){
+			freqEntries = IOHelper.frequencies();
+			cpu0Online = IOHelper.cpu0Online();
+			cpu1Online = IOHelper.cpu1Online();
+			cpu2Online = IOHelper.cpu2Online();
+			cpu3Online = IOHelper.cpu3Online();
+			for(IOHelper.FreqsEntry f: freqEntries){
 				frequencies.add(f.getFreq()+"");
 			}
-			for(CPUInfo.FreqsEntry f: freqEntries){
+			for(IOHelper.FreqsEntry f: freqEntries){
 				freqNames.add(f.getFreqName());
 			}
 			
@@ -131,7 +131,7 @@ public class CPUActivityOld extends SherlockActivity
 		            InputStream stderr = process.getErrorStream();
 		            InputStream stdout = process.getInputStream();
 
-		            if (CPUInfo.cpu1Online() == true)
+		            if (IOHelper.cpu1Online() == true)
 					{
 		            stdin.write(("echo 0 > /sys/kernel/msm_mpdecision/conf/enabled\n").getBytes());
 		            stdin.write(("chmod 666 /sys/devices/system/cpu/cpu1/online\n").getBytes());
@@ -140,7 +140,7 @@ public class CPUActivityOld extends SherlockActivity
 		            stdin.write(("chown system /sys/devices/system/cpu/cpu1/online\n").getBytes());
 					
 					}
-		            if (CPUInfo.cpu2Online() == true)
+		            if (IOHelper.cpu2Online() == true)
 					{
 		            stdin.write(("echo 0 > /sys/kernel/msm_mpdecision/conf/enabled\n").getBytes());
 		            stdin.write(("chmod 666 /sys/devices/system/cpu/cpu2/online\n").getBytes());
@@ -149,7 +149,7 @@ public class CPUActivityOld extends SherlockActivity
 		            stdin.write(("chown system /sys/devices/system/cpu/cpu2/online\n").getBytes());
 					
 					}
-		            if (CPUInfo.cpu3Online() == true)
+		            if (IOHelper.cpu3Online() == true)
 					{
 		            stdin.write(("echo 0 > /sys/kernel/msm_mpdecision/conf/enabled\n").getBytes());
 		            stdin.write(("chmod 666 /sys/devices/system/cpu/cpu3/online\n").getBytes());
@@ -188,7 +188,7 @@ public class CPUActivityOld extends SherlockActivity
 		            InputStream stderr = process.getErrorStream();
 		            InputStream stdout = process.getInputStream();
 
-		            if (CPUInfo.cpu1Online() == true)
+		            if (IOHelper.cpu1Online() == true)
 					{
 		            stdin.write(("echo 1 > /sys/kernel/msm_mpdecision/conf/enabled\n").getBytes());
 		            stdin.write(("chmod 777 /sys/devices/system/cpu/cpu1/online\n").getBytes());
@@ -196,7 +196,7 @@ public class CPUActivityOld extends SherlockActivity
 		            stdin.write(("chown system /sys/devices/system/cpu/cpu1/online\n").getBytes());
 					
 					}
-		            if (CPUInfo.cpu2Online() == true)
+		            if (IOHelper.cpu2Online() == true)
 					{
 		            	stdin.write(("echo 1 > /sys/kernel/msm_mpdecision/conf/enabled\n").getBytes());
 			            stdin.write(("chmod 777 /sys/devices/system/cpu/cpu2/online\n").getBytes());
@@ -204,7 +204,7 @@ public class CPUActivityOld extends SherlockActivity
 			            stdin.write(("chown system /sys/devices/system/cpu/cpu2/online\n").getBytes());
 							
 					}
-		            if (CPUInfo.cpu3Online() == true)
+		            if (IOHelper.cpu3Online() == true)
 					{
 		            	stdin.write(("echo 1 > /sys/kernel/msm_mpdecision/conf/enabled\n").getBytes());
 			            stdin.write(("chmod 777 /sys/devices/system/cpu/cpu3/online\n").getBytes());
@@ -231,14 +231,14 @@ public class CPUActivityOld extends SherlockActivity
 		        } catch (IOException ex) {
 		        }
 			}
-			cpu0MinFreq = CPUInfo.cpu0MinFreq();
-			cpu1MinFreq = CPUInfo.cpu1MinFreq();
-			cpu2MinFreq = CPUInfo.cpu2MinFreq();
-			cpu3MinFreq = CPUInfo.cpu3MinFreq();
-			cpu0MaxFreq = CPUInfo.cpu0MaxFreq();
-			cpu1MaxFreq = CPUInfo.cpu1MaxFreq();
-			cpu2MaxFreq = CPUInfo.cpu2MaxFreq();
-			cpu3MaxFreq = CPUInfo.cpu3MaxFreq();
+			cpu0MinFreq = IOHelper.cpu0MinFreq();
+			cpu1MinFreq = IOHelper.cpu1MinFreq();
+			cpu2MinFreq = IOHelper.cpu2MinFreq();
+			cpu3MinFreq = IOHelper.cpu3MinFreq();
+			cpu0MaxFreq = IOHelper.cpu0MaxFreq();
+			cpu1MaxFreq = IOHelper.cpu1MaxFreq();
+			cpu2MaxFreq = IOHelper.cpu2MaxFreq();
+			cpu3MaxFreq = IOHelper.cpu3MaxFreq();
 			return args[0];
 		}
 
@@ -532,13 +532,13 @@ public class CPUActivityOld extends SherlockActivity
 	private final void populateGovernorSpinners()
 	{
 
-		ArrayAdapter<String> govAdapter = new ArrayAdapter<String>(this,   android.R.layout.simple_spinner_item, CPUInfo.governors());
+		ArrayAdapter<String> govAdapter = new ArrayAdapter<String>(this,   android.R.layout.simple_spinner_item, IOHelper.governors());
 		govAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
 
     	gov0spinner.setAdapter(govAdapter);
 
 
-		int gov0spinnerPosition = govAdapter.getPosition(CPUInfo.cpu0CurGov());
+		int gov0spinnerPosition = govAdapter.getPosition(IOHelper.cpu0CurGov());
 		gov0spinner.setSelection(gov0spinnerPosition);
 
 		gov0spinner.setOnItemSelectedListener(new OnItemSelectedListener() {
@@ -563,7 +563,7 @@ public class CPUActivityOld extends SherlockActivity
 		{
 			gov1spinner.setAdapter(govAdapter);
 
-			int gov1spinnerPosition = govAdapter.getPosition(CPUInfo.cpu1CurGov());
+			int gov1spinnerPosition = govAdapter.getPosition(IOHelper.cpu1CurGov());
 			gov1spinner.setSelection(gov1spinnerPosition);
 
 			gov1spinner.setOnItemSelectedListener(new OnItemSelectedListener() {
@@ -589,7 +589,7 @@ public class CPUActivityOld extends SherlockActivity
 		{
 			gov2spinner.setAdapter(govAdapter);
 
-			int gov2spinnerPosition = govAdapter.getPosition(CPUInfo.cpu2CurGov());
+			int gov2spinnerPosition = govAdapter.getPosition(IOHelper.cpu2CurGov());
 			gov2spinner.setSelection(gov2spinnerPosition);
 
 			gov2spinner.setOnItemSelectedListener(new OnItemSelectedListener() {
@@ -614,7 +614,7 @@ public class CPUActivityOld extends SherlockActivity
 			//cpu3 governors
 			gov3spinner.setAdapter(govAdapter);
 
-			int gov3spinnerPosition = govAdapter.getPosition(CPUInfo.cpu3CurGov());
+			int gov3spinnerPosition = govAdapter.getPosition(IOHelper.cpu3CurGov());
 			gov3spinner.setSelection(gov3spinnerPosition);
 
 			gov3spinner.setOnItemSelectedListener(new OnItemSelectedListener() {

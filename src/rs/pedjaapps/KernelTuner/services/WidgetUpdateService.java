@@ -25,9 +25,9 @@ import android.graphics.*;
 import android.os.*;
 import android.preference.*;
 import android.widget.*;
-import java.io.*;
 import java.util.*;
 import rs.pedjaapps.KernelTuner.*;
+import rs.pedjaapps.KernelTuner.helpers.IOHelper;
 import rs.pedjaapps.KernelTuner.receiver.*;
 
 public class WidgetUpdateService extends Service
@@ -36,7 +36,7 @@ public class WidgetUpdateService extends Service
 	private String curentfreq;
 	private String gov;
 	private String battperc;
-	private String charge;
+	private int charge;
 	private double timeint;
 	private int bgRes = 0;
 	AlarmManager alarmManager;
@@ -45,113 +45,16 @@ public class WidgetUpdateService extends Service
 	private void read()
 	{
 		System.out.println("widget service");
-		try
-		{
-
-			File myFile = new File("/sys/devices/system/cpu/cpu0/cpufreq/scaling_cur_freq");
-			FileInputStream fIn = new FileInputStream(myFile);
-
-			BufferedReader myReader = new BufferedReader(
-				new InputStreamReader(fIn));
-			String aDataRow = "";
-			String aBuffer = "";
-			while ((aDataRow = myReader.readLine()) != null)
-			{
-				aBuffer += aDataRow + "\n";
-			}
-
-			curentfreq = aBuffer;
-			myReader.close();
-			fIn.close();
-		}
-		catch (Exception e)
-		{
-			curentfreq = "offline";
-
-		}
-		try
-		{
-
-			File myFile = new File("/sys/devices/system/cpu/cpu0/cpufreq/scaling_governor");
-			FileInputStream fIn = new FileInputStream(myFile);
-
-			BufferedReader myReader = new BufferedReader(
-				new InputStreamReader(fIn));
-			String aDataRow = "";
-			String aBuffer = "";
-			while ((aDataRow = myReader.readLine()) != null)
-			{
-				aBuffer += aDataRow + "\n";
-			}
-
-			gov = aBuffer.trim();
-			myReader.close();
-			fIn.close();
-		}
-		catch (Exception e)
-		{
-			gov = "offline";
-		}
-
-		try
-		{
-
-			File myFile = new File("/sys/class/power_supply/battery/capacity");
-			FileInputStream fIn = new FileInputStream(myFile);
-
-			BufferedReader myReader = new BufferedReader(
-				new InputStreamReader(fIn));
-			String aDataRow = "";
-			String aBuffer = "";
-			while ((aDataRow = myReader.readLine()) != null)
-			{
-				aBuffer += aDataRow + "\n";
-			}
-
-			battperc = aBuffer.trim();
-			myReader.close();
-			fIn.close();
-		}
-		catch (Exception e)
-		{
-			battperc = "0";
-		}
-
-		try
-		{
-
-			File myFile = new File("/sys/class/power_supply/battery/charging_source");
-			FileInputStream fIn = new FileInputStream(myFile);
-
-			BufferedReader myReader = new BufferedReader(
-				new InputStreamReader(fIn));
-			String aDataRow = "";
-			String aBuffer = "";
-			while ((aDataRow = myReader.readLine()) != null)
-			{
-				aBuffer += aDataRow + "\n";
-			}
-
-			charge = aBuffer.trim();
-			myReader.close();
-			fIn.close();
-		}
-		catch (Exception e)
-		{
-			charge = "0";
-		}
-
-
+			curentfreq = IOHelper.cpu0CurFreq();
+			gov = IOHelper.cpu0CurGov();
+			battperc = ""+IOHelper.batteryLevel();
+			charge = IOHelper.batteryChargingSource();
 	}
 	@Override
 	public int onStartCommand(Intent intent, int flags, int startId)
 	{
-		//Log.i(LOG, "Called");
 
-
-		AppWidgetManager appWidgetManager = AppWidgetManager.getInstance(this
-																		 .getApplicationContext());
-
+		AppWidgetManager appWidgetManager = AppWidgetManager.getInstance(this.getApplicationContext());
 		int[] allWidgetIds = intent
 			.getIntArrayExtra(AppWidgetManager.EXTRA_APPWIDGET_IDS);
 
@@ -159,13 +62,10 @@ public class WidgetUpdateService extends Service
 
 		for (int widgetId : allWidgetIds)
 		{
-			// Create some random data
-			//int number = (new Random().nextInt(100));
-
+			
 			RemoteViews remoteViews = new RemoteViews(this
 													  .getApplicationContext().getPackageName(),
 													  R.layout.widget_2x1);
-			//Log.w("Widget", String.valueOf(number));
 			remoteViews.setTextViewText(R.id.textView5, curentfreq.substring(0, curentfreq.length() - 4) + "Mhz");
 			int fr = Integer.parseInt(curentfreq.substring(0, curentfreq.length() - 4));
 			if (fr <= 918)
@@ -182,35 +82,34 @@ public class WidgetUpdateService extends Service
 			}
 			remoteViews.setTextViewText(R.id.textView6, gov);
 			int battperciconint = Integer.parseInt(battperc.substring(0, battperc.length()).trim());
-			if (battperciconint <= 15 && battperciconint != 0 && charge.equals("0"))
+			if (battperciconint <= 15 && battperciconint != 0 && charge==0)
 			{
 				remoteViews.setImageViewResource(R.id.imageView1, R.drawable.battery_low);
 				remoteViews.setTextColor(R.id.textView1, Color.RED);
 			}
-			else if (battperciconint > 30 && charge.equals("0"))
+			else if (battperciconint > 30 && charge==0)
 			{
 				remoteViews.setImageViewResource(R.id.imageView1, R.drawable.battery_full);
 				remoteViews.setTextColor(R.id.textView1, Color.GREEN);
 
 			}
-			else if (battperciconint < 30 && battperciconint > 15 && charge.equals("0"))
+			else if (battperciconint < 30 && battperciconint > 15 && charge==0)
 			{
 				remoteViews.setImageViewResource(R.id.imageView1, R.drawable.battery_half);
 				remoteViews.setTextColor(R.id.textView1, Color.YELLOW);
 			}
-			else if (charge.equals("1"))
+			else if (charge==1)
 			{
 				remoteViews.setImageViewResource(R.id.imageView1, R.drawable.battery_charge_usb);
 				remoteViews.setTextColor(R.id.textView1, Color.CYAN);
 			}
-			else if (charge.equals("2"))
+			else if (charge==2)
 			{
 				remoteViews.setImageViewResource(R.id.imageView1, R.drawable.battery_charge_ac);
 				remoteViews.setTextColor(R.id.textView1, Color.CYAN);
 			}
 			remoteViews.setProgressBar(R.id.progressBar1, 100, battperciconint, false);
 			remoteViews.setTextViewText(R.id.textView1, battperc + "%");
-			// Register an onClickListener
 			Intent clickIntent = new Intent(this.getApplicationContext(),
 											AppWidget.class);
 
@@ -221,7 +120,6 @@ public class WidgetUpdateService extends Service
 
 
 			String timer = sharedPrefs.getString("widget_time", "");
-			//System.out.println(timer);
 
 		 	try
 			{

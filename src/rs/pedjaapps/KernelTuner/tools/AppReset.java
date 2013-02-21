@@ -25,7 +25,7 @@ import android.preference.PreferenceManager;
 import java.util.ArrayList;
 import java.util.List;
 import rs.pedjaapps.KernelTuner.tools.Initd;
-import rs.pedjaapps.KernelTuner.helpers.CPUInfo;
+import rs.pedjaapps.KernelTuner.helpers.IOHelper;
 
 
 public class AppReset
@@ -45,11 +45,11 @@ public class AppReset
 	
 	final public void reset(){
 		
-		List<CPUInfo.VoltageList> voltageList = CPUInfo.voltages();
+		List<IOHelper.VoltageList> voltageList = IOHelper.voltages();
 		
 		List<String> voltageFreqs =  new ArrayList<String>();
 		
-		for(CPUInfo.VoltageList v: voltageList){
+		for(IOHelper.VoltageList v: voltageList){
 			voltageFreqs.add((v.getFreq()));
 		}
 		
@@ -59,8 +59,8 @@ public class AppReset
 	
 		}
 
-		List<String> govSettings = CPUInfo.govSettings();
-		List<String> availableGovs = CPUInfo.availableGovs();
+		List<String> govSettings = IOHelper.govSettings();
+		List<String> availableGovs = IOHelper.availableGovs();
 
 		for (String s : availableGovs)
 		{

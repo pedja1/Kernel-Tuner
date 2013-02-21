@@ -30,7 +30,7 @@ import java.util.List;
 import android.widget.VerticalSeekBar;
 
 import rs.pedjaapps.KernelTuner.R;
-import rs.pedjaapps.KernelTuner.helpers.CPUInfo;
+import rs.pedjaapps.KernelTuner.helpers.IOHelper;
 import rs.pedjaapps.KernelTuner.tools.ChangeGovernor;
 import rs.pedjaapps.KernelTuner.tools.FrequencyChanger;
 import android.app.ProgressDialog;
@@ -58,7 +58,7 @@ import com.google.ads.AdView;
 public class CPUActivity extends SherlockActivity
 {
 
-	private  List<CPUInfo.FreqsEntry> freqEntries;
+	private  List<IOHelper.FreqsEntry> freqEntries;
 	private boolean thread = true;
 	private  Handler mHandler;
 	private TextView cpu0prog;
@@ -156,17 +156,17 @@ public class CPUActivity extends SherlockActivity
 		@Override
 		protected Boolean doInBackground(Boolean... args)
 		{
-			freqEntries = CPUInfo.frequencies();
-			for(CPUInfo.FreqsEntry f: freqEntries){
+			freqEntries = IOHelper.frequencies();
+			for(IOHelper.FreqsEntry f: freqEntries){
 				frequencies.add(f.getFreq()+"");
 			}
-			for(CPUInfo.FreqsEntry f: freqEntries){
+			for(IOHelper.FreqsEntry f: freqEntries){
 				freqNames.add(f.getFreqName());
 			}
-			cpu0Online = CPUInfo.cpu0Online();
-			cpu1Online = CPUInfo.cpu1Online();
-			cpu2Online = CPUInfo.cpu2Online();
-			cpu3Online = CPUInfo.cpu3Online();
+			cpu0Online = IOHelper.cpu0Online();
+			cpu1Online = IOHelper.cpu1Online();
+			cpu2Online = IOHelper.cpu2Online();
+			cpu3Online = IOHelper.cpu3Online();
 			if (args[0] == true)
 			{
 				try {
@@ -176,7 +176,7 @@ public class CPUActivity extends SherlockActivity
 		            InputStream stderr = process.getErrorStream();
 		            InputStream stdout = process.getInputStream();
 
-		            if (CPUInfo.cpu1Online() == true)
+		            if (IOHelper.cpu1Online() == true)
 					{
 		            stdin.write(("echo 0 > /sys/kernel/msm_mpdecision/conf/enabled\n").getBytes());
 		            stdin.write(("chmod 666 /sys/devices/system/cpu/cpu1/online\n").getBytes());
@@ -185,7 +185,7 @@ public class CPUActivity extends SherlockActivity
 		            stdin.write(("chown system /sys/devices/system/cpu/cpu1/online\n").getBytes());
 					
 					}
-		            if (CPUInfo.cpu2Online() == true)
+		            if (IOHelper.cpu2Online() == true)
 					{
 		            stdin.write(("echo 0 > /sys/kernel/msm_mpdecision/conf/enabled\n").getBytes());
 		            stdin.write(("chmod 666 /sys/devices/system/cpu/cpu2/online\n").getBytes());
@@ -194,7 +194,7 @@ public class CPUActivity extends SherlockActivity
 		            stdin.write(("chown system /sys/devices/system/cpu/cpu2/online\n").getBytes());
 					
 					}
-		            if (CPUInfo.cpu3Online() == true)
+		            if (IOHelper.cpu3Online() == true)
 					{
 		            stdin.write(("echo 0 > /sys/kernel/msm_mpdecision/conf/enabled\n").getBytes());
 		            stdin.write(("chmod 666 /sys/devices/system/cpu/cpu3/online\n").getBytes());
@@ -233,7 +233,7 @@ public class CPUActivity extends SherlockActivity
 		            InputStream stderr = process.getErrorStream();
 		            InputStream stdout = process.getInputStream();
 
-		            if (CPUInfo.cpu1Online() == true)
+		            if (IOHelper.cpu1Online() == true)
 					{
 		            stdin.write(("echo 1 > /sys/kernel/msm_mpdecision/conf/enabled\n").getBytes());
 		            stdin.write(("chmod 777 /sys/devices/system/cpu/cpu1/online\n").getBytes());
@@ -241,7 +241,7 @@ public class CPUActivity extends SherlockActivity
 		            stdin.write(("chown system /sys/devices/system/cpu/cpu1/online\n").getBytes());
 					
 					}
-		            if (CPUInfo.cpu2Online() == true)
+		            if (IOHelper.cpu2Online() == true)
 					{
 		            	stdin.write(("echo 1 > /sys/kernel/msm_mpdecision/conf/enabled\n").getBytes());
 			            stdin.write(("chmod 777 /sys/devices/system/cpu/cpu2/online\n").getBytes());
@@ -249,7 +249,7 @@ public class CPUActivity extends SherlockActivity
 			            stdin.write(("chown system /sys/devices/system/cpu/cpu2/online\n").getBytes());
 							
 					}
-		            if (CPUInfo.cpu3Online() == true)
+		            if (IOHelper.cpu3Online() == true)
 					{
 		            	stdin.write(("echo 1 > /sys/kernel/msm_mpdecision/conf/enabled\n").getBytes());
 			            stdin.write(("chmod 777 /sys/devices/system/cpu/cpu3/online\n").getBytes());
@@ -424,25 +424,25 @@ startCpuLoadThread();
 						try
 						{
 							Thread.sleep(1000);
-							cpu0CurFreq = CPUInfo.cpu0CurFreq();
-							cpu0MaxFreq = CPUInfo.cpu0MaxFreq();
-							tmp = CPUInfo.cpuTemp();
-							upt = CPUInfo.uptime();
-							ds = CPUInfo.deepSleep();
+							cpu0CurFreq = IOHelper.cpu0CurFreq();
+							cpu0MaxFreq = IOHelper.cpu0MaxFreq();
+							tmp = IOHelper.cpuTemp();
+							upt = IOHelper.uptime();
+							ds = IOHelper.deepSleep();
 							if (cpu1Online == true)
 							{
-								cpu1CurFreq = CPUInfo.cpu1CurFreq();
-								cpu1MaxFreq = CPUInfo.cpu1MaxFreq();
+								cpu1CurFreq = IOHelper.cpu1CurFreq();
+								cpu1MaxFreq = IOHelper.cpu1MaxFreq();
 							}
 							if (cpu2Online == true)
 							{
-								cpu2CurFreq = CPUInfo.cpu2CurFreq();
-								cpu2MaxFreq = CPUInfo.cpu2MaxFreq();
+								cpu2CurFreq = IOHelper.cpu2CurFreq();
+								cpu2MaxFreq = IOHelper.cpu2MaxFreq();
 							}
 							if (cpu3Online == true)
 							{
-								cpu3CurFreq = CPUInfo.cpu3CurFreq();
-								cpu3MaxFreq = CPUInfo.cpu3MaxFreq();
+								cpu3CurFreq = IOHelper.cpu3CurFreq();
+								cpu3MaxFreq = IOHelper.cpu3MaxFreq();
 
 							}
 							mHandler.post(new Runnable() {
@@ -597,8 +597,8 @@ startCpuLoadThread();
 			gov3spinner.setVisibility(View.GONE);
 		}
 		
-		cpu0MinFreq = CPUInfo.cpu0MinFreq();
-		cpu0MaxFreq = CPUInfo.cpu0MaxFreq();
+		cpu0MinFreq = IOHelper.cpu0MinFreq();
+		cpu0MaxFreq = IOHelper.cpu0MaxFreq();
 		cpu0min.setText(cpu0MinFreq.substring(0, cpu0MinFreq.length() - 3) + "Mhz");
 		cpu0max.setText(cpu0MaxFreq.substring(0, cpu0MaxFreq.length() - 3) + "Mhz");
 		cpu0maxSeek = (VerticalSeekBar)findViewById(R.id.cpu0MaxSeekbar);
@@ -646,9 +646,9 @@ startCpuLoadThread();
 				@Override
 				public void onStopTrackingTouch(SeekBar seekBar)
 				{
-					if (prog > frequencies.indexOf(CPUInfo.cpu0MaxFreq()))
+					if (prog > frequencies.indexOf(IOHelper.cpu0MaxFreq()))
 					{
-						cpu0minSeek.setProgressAndThumb(frequencies.indexOf(CPUInfo.cpu0MinFreq()));
+						cpu0minSeek.setProgressAndThumb(frequencies.indexOf(IOHelper.cpu0MinFreq()));
 					}
 					else
 					{
@@ -710,9 +710,9 @@ startCpuLoadThread();
 				public void onStopTrackingTouch(SeekBar seekBar)
 				{
 
-					if (prog < frequencies.indexOf(CPUInfo.cpu0MinFreq()))
+					if (prog < frequencies.indexOf(IOHelper.cpu0MinFreq()))
 					{
-						cpu0maxSeek.setProgressAndThumb(frequencies.indexOf(CPUInfo.cpu0MaxFreq()));
+						cpu0maxSeek.setProgressAndThumb(frequencies.indexOf(IOHelper.cpu0MaxFreq()));
 					}
 					else
 					{
@@ -736,8 +736,8 @@ startCpuLoadThread();
 			});
 		if (cpu1Online == true)
 		{
-			cpu1MinFreq = CPUInfo.cpu1MinFreq();
-			cpu1MaxFreq = CPUInfo.cpu1MaxFreq();
+			cpu1MinFreq = IOHelper.cpu1MinFreq();
+			cpu1MaxFreq = IOHelper.cpu1MaxFreq();
 			cpu1min.setText(cpu1MinFreq.substring(0, cpu1MinFreq.length() - 3) + "Mhz");
 			cpu1max.setText(cpu1MaxFreq.substring(0, cpu1MaxFreq.length() - 3) + "Mhz");
 			cpu1maxSeek = (VerticalSeekBar)findViewById(R.id.cpu1MaxSeekbar);
@@ -784,9 +784,9 @@ startCpuLoadThread();
 					public void onStopTrackingTouch(SeekBar seekBar)
 					{
 
-						if (prog > frequencies.indexOf(CPUInfo.cpu1MaxFreq()))
+						if (prog > frequencies.indexOf(IOHelper.cpu1MaxFreq()))
 						{
-							cpu1minSeek.setProgressAndThumb(frequencies.indexOf(CPUInfo.cpu1MinFreq()));
+							cpu1minSeek.setProgressAndThumb(frequencies.indexOf(IOHelper.cpu1MinFreq()));
 						}
 						else
 						{
@@ -844,9 +844,9 @@ startCpuLoadThread();
 					public void onStopTrackingTouch(SeekBar seekBar)
 					{
 
-						if (prog < frequencies.indexOf(CPUInfo.cpu1MinFreq()))
+						if (prog < frequencies.indexOf(IOHelper.cpu1MinFreq()))
 						{
-							cpu1maxSeek.setProgressAndThumb(frequencies.indexOf(CPUInfo.cpu1MaxFreq()));
+							cpu1maxSeek.setProgressAndThumb(frequencies.indexOf(IOHelper.cpu1MaxFreq()));
 						}
 						else
 						{
@@ -872,8 +872,8 @@ startCpuLoadThread();
 		}
 		if (cpu2Online == true)
 		{
-			cpu2MinFreq = CPUInfo.cpu2MinFreq();
-			cpu2MaxFreq = CPUInfo.cpu2MaxFreq();
+			cpu2MinFreq = IOHelper.cpu2MinFreq();
+			cpu2MaxFreq = IOHelper.cpu2MaxFreq();
 			cpu2min.setText(cpu2MinFreq.substring(0, cpu2MinFreq.length() - 3) + "Mhz");
 			cpu2max.setText(cpu2MaxFreq.substring(0, cpu2MaxFreq.length() - 3) + "Mhz");
 			cpu2minSeek = (VerticalSeekBar)findViewById(R.id.cpu2MinSeekbar);
@@ -920,9 +920,9 @@ startCpuLoadThread();
 					public void onStopTrackingTouch(SeekBar seekBar)
 					{
 
-						if (prog > frequencies.indexOf(CPUInfo.cpu2MaxFreq()))
+						if (prog > frequencies.indexOf(IOHelper.cpu2MaxFreq()))
 						{
-							cpu2minSeek.setProgressAndThumb(frequencies.indexOf(CPUInfo.cpu2MinFreq()));
+							cpu2minSeek.setProgressAndThumb(frequencies.indexOf(IOHelper.cpu2MinFreq()));
 						}
 						else
 						{
@@ -981,9 +981,9 @@ startCpuLoadThread();
 					public void onStopTrackingTouch(SeekBar seekBar)
 					{
 
-						if (prog < frequencies.indexOf(CPUInfo.cpu2MinFreq()))
+						if (prog < frequencies.indexOf(IOHelper.cpu2MinFreq()))
 						{
-							cpu2maxSeek.setProgressAndThumb(frequencies.indexOf(CPUInfo.cpu2MaxFreq()));
+							cpu2maxSeek.setProgressAndThumb(frequencies.indexOf(IOHelper.cpu2MaxFreq()));
 						}
 						else
 						{
@@ -1008,8 +1008,8 @@ startCpuLoadThread();
 		}
 		if (cpu3Online == true)
 		{
-			cpu3MinFreq = CPUInfo.cpu3MinFreq();
-			cpu3MaxFreq = CPUInfo.cpu3MaxFreq();
+			cpu3MinFreq = IOHelper.cpu3MinFreq();
+			cpu3MaxFreq = IOHelper.cpu3MaxFreq();
 			cpu3min.setText(cpu3MinFreq.substring(0, cpu3MinFreq.length() - 3) + "Mhz");
 			cpu3max.setText(cpu3MaxFreq.substring(0, cpu3MaxFreq.length() - 3) + "Mhz");
 			cpu3minSeek = (VerticalSeekBar)findViewById(R.id.cpu3MinSeekbar);
@@ -1055,9 +1055,9 @@ startCpuLoadThread();
 					public void onStopTrackingTouch(SeekBar seekBar)
 					{
 
-						if (prog > frequencies.indexOf(CPUInfo.cpu3MaxFreq()))
+						if (prog > frequencies.indexOf(IOHelper.cpu3MaxFreq()))
 						{
-							cpu3minSeek.setProgressAndThumb(frequencies.indexOf(CPUInfo.cpu3MinFreq()));
+							cpu3minSeek.setProgressAndThumb(frequencies.indexOf(IOHelper.cpu3MinFreq()));
 						}
 						else
 						{
@@ -1116,9 +1116,9 @@ startCpuLoadThread();
 					public void onStopTrackingTouch(SeekBar seekBar)
 					{
 
-						if (prog < frequencies.indexOf(CPUInfo.cpu3MinFreq()))
+						if (prog < frequencies.indexOf(IOHelper.cpu3MinFreq()))
 						{
-							cpu3maxSeek.setProgressAndThumb(frequencies.indexOf(CPUInfo.cpu3MaxFreq()));
+							cpu3maxSeek.setProgressAndThumb(frequencies.indexOf(IOHelper.cpu3MaxFreq()));
 						}
 						else
 						{
@@ -1257,13 +1257,13 @@ startCpuLoadThread();
 	private final void populateGovernorSpinners()
 	{
 		
-		ArrayAdapter<String> govAdapter = new ArrayAdapter<String>(this,   android.R.layout.simple_spinner_item, CPUInfo.governors());
+		ArrayAdapter<String> govAdapter = new ArrayAdapter<String>(this,   android.R.layout.simple_spinner_item, IOHelper.governors());
 		govAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
 	
     	gov0spinner.setAdapter(govAdapter);
 
 		
-		int gov0spinnerPosition = govAdapter.getPosition(CPUInfo.cpu0CurGov());
+		int gov0spinnerPosition = govAdapter.getPosition(IOHelper.cpu0CurGov());
 		gov0spinner.setSelection(gov0spinnerPosition);
 
 		gov0spinner.setOnItemSelectedListener(new OnItemSelectedListener() {
@@ -1289,7 +1289,7 @@ startCpuLoadThread();
 		{
 			gov1spinner.setAdapter(govAdapter);
 
-			int gov1spinnerPosition = govAdapter.getPosition(CPUInfo.cpu1CurGov());
+			int gov1spinnerPosition = govAdapter.getPosition(IOHelper.cpu1CurGov());
 			gov1spinner.setSelection(gov1spinnerPosition);
 
 			gov1spinner.setOnItemSelectedListener(new OnItemSelectedListener() {
@@ -1315,7 +1315,7 @@ startCpuLoadThread();
 		{
 			gov2spinner.setAdapter(govAdapter);
 
-			int gov2spinnerPosition = govAdapter.getPosition(CPUInfo.cpu2CurGov());
+			int gov2spinnerPosition = govAdapter.getPosition(IOHelper.cpu2CurGov());
 			gov2spinner.setSelection(gov2spinnerPosition);
 
 			gov2spinner.setOnItemSelectedListener(new OnItemSelectedListener() {
@@ -1340,7 +1340,7 @@ startCpuLoadThread();
 			//cpu3 governors
 			gov3spinner.setAdapter(govAdapter);
 
-			int gov3spinnerPosition = govAdapter.getPosition(CPUInfo.cpu3CurGov());
+			int gov3spinnerPosition = govAdapter.getPosition(IOHelper.cpu3CurGov());
 			gov3spinner.setSelection(gov3spinnerPosition);
 
 			gov3spinner.setOnItemSelectedListener(new OnItemSelectedListener() {

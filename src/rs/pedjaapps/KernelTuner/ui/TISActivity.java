@@ -45,7 +45,7 @@ public class TISActivity extends SherlockActivity {
 	@Override
 	public void onCreate(Bundle savedInstanceState)
 	{
-		times = CPUInfo.getTis();
+		times = IOHelper.getTis();
 		SharedPreferences preferences = PreferenceManager.getDefaultSharedPreferences(this);
 		
 		String theme = preferences.getString("theme", "light");
@@ -101,7 +101,7 @@ public class TISActivity extends SherlockActivity {
 				public void onClick(View arg0)
 				{
 					setDeepSleepAndUptime();
-					times = CPUInfo.getTis();
+					times = IOHelper.getTis();
 					tisAdapter.clear();
 					for (final TISEntry entry : getTISEntries())
 					{

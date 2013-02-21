@@ -1,10 +1,28 @@
+/*
+* This file is part of the Kernel Tuner.
+*
+* Copyright Predrag Čokulov <predragcokulov@gmail.com>
+*
+* Kernel Tuner is free software: you can redistribute it and/or modify
+* it under the terms of the GNU General Public License as published by
+* the Free Software Foundation, either version 3 of the License, or
+* (at your option) any later version.
+*
+* Kernel Tuner is distributed in the hope that it will be useful,
+* but WITHOUT ANY WARRANTY; without even the implied warranty of
+* MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the
+* GNU General Public License for more details.
+*
+* You should have received a copy of the GNU General Public License
+* along with Kernel Tuner. If not, see <http://www.gnu.org/licenses/>.
+*/
 package rs.pedjaapps.KernelTuner.receiver;
 
 
 import java.util.Calendar;
 
 import rs.pedjaapps.KernelTuner.R;
-import rs.pedjaapps.KernelTuner.helpers.CPUInfo;
+import rs.pedjaapps.KernelTuner.helpers.IOHelper;
 import android.app.AlarmManager;
 import android.app.PendingIntent;
 import android.appwidget.AppWidgetManager;
@@ -177,26 +195,26 @@ public class AppWidgetSummary extends AppWidgetProvider {
 	}
 	
 	public void getInfo(){
-		uptime = CPUInfo.uptime();
-		sleep = CPUInfo.deepSleep();
-		min = CPUInfo.cpuMin();
-		max = CPUInfo.cpuMax();
+		uptime = IOHelper.uptime();
+		sleep = IOHelper.deepSleep();
+		min = IOHelper.cpuMin();
+		max = IOHelper.cpuMax();
 		min = min.substring(0, min.length()-3)+"Mhz";
 		max = max.substring(0, max.length()-3)+"Mhz";
-		governor = CPUInfo.cpu0CurGov();
-		temp = tempConverter(pref.getString("temp", "celsius"), Double.parseDouble(CPUInfo.cpuTemp()));
-		gpu2d = CPUInfo.gpu2d();
-		gpu3d = CPUInfo.gpu3d();
-		fc = CPUInfo.fcharge();
-		vsync = CPUInfo.vsync();
-		light = ((Integer.parseInt(CPUInfo.cbb())*100)/60)+"";
-		scheduler = CPUInfo.scheduler();
-		s2w = CPUInfo.s2w();
-		cache = CPUInfo.sdCache();
-		battperc =CPUInfo.batteryLevel();
-		batttemp = CPUInfo.batteryTemp();
-		battcurrent = CPUInfo.batteryDrain();
-		load = CPUInfo.cpuLoad();
+		governor = IOHelper.cpu0CurGov();
+		temp = tempConverter(pref.getString("temp", "celsius"), Double.parseDouble(IOHelper.cpuTemp()));
+		gpu2d = IOHelper.gpu2d();
+		gpu3d = IOHelper.gpu3d();
+		fc = IOHelper.fcharge();
+		vsync = IOHelper.vsync();
+		light = ((Integer.parseInt(IOHelper.leds())*100)/60)+"";
+		scheduler = IOHelper.scheduler();
+		s2w = IOHelper.s2w();
+		cache = IOHelper.sdCache();
+		battperc =IOHelper.batteryLevel();
+		batttemp = IOHelper.batteryTemp();
+		battcurrent = IOHelper.batteryDrain();
+		load = IOHelper.cpuLoad();
 	}
 	
 	public static String tempConverter(String tempPref, double cTemp) {

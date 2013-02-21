@@ -18,7 +18,7 @@
 */
 package rs.pedjaapps.KernelTuner.shortcuts;
 
-import rs.pedjaapps.KernelTuner.helpers.CPUInfo;
+import rs.pedjaapps.KernelTuner.helpers.IOHelper;
 import rs.pedjaapps.KernelTuner.R;
 import rs.pedjaapps.KernelTuner.ui.Swap;
 import android.app.Activity;
@@ -33,7 +33,7 @@ public class SwapShortcut extends Activity
 	public void onCreate(Bundle savedInstanceState)
 	{
 		super.onCreate(savedInstanceState);
-		if(CPUInfo.swapsExists()){
+		if(IOHelper.swapsExists()){
 		Intent shortcutintent = new Intent("com.android.launcher.action.INSTALL_SHORTCUT");
 		shortcutintent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
 		shortcutintent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);

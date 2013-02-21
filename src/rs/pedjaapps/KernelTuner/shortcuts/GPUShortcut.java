@@ -18,7 +18,7 @@
 */
 package rs.pedjaapps.KernelTuner.shortcuts;
 
-import rs.pedjaapps.KernelTuner.helpers.CPUInfo;
+import rs.pedjaapps.KernelTuner.helpers.IOHelper;
 import rs.pedjaapps.KernelTuner.ui.Gpu;
 import rs.pedjaapps.KernelTuner.R;
 import android.app.Activity;
@@ -33,7 +33,7 @@ public class GPUShortcut extends Activity
 	public void onCreate(Bundle savedInstanceState)
 	{
 		super.onCreate(savedInstanceState);
-		if(CPUInfo.gpuExists()){
+		if(IOHelper.gpuExists()){
 		Intent shortcutintent = new Intent("com.android.launcher.action.INSTALL_SHORTCUT");
 		shortcutintent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
 		shortcutintent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
