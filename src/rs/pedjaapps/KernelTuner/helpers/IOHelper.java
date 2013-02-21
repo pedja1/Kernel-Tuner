@@ -1006,7 +1006,7 @@ public class IOHelper
 	public static final String cDepth(){
 		try
 		{
-			return FileUtils.readFileToString(new File(FCHARGE)).trim();
+			return FileUtils.readFileToString(new File(CDEPTH)).trim();
 		}
 		catch (Exception e)
 		{
