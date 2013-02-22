@@ -20,16 +20,16 @@ package rs.pedjaapps.KernelTuner.ui;
 
 
 
+import android.app.ProgressDialog;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.graphics.Color;
+import android.os.AsyncTask;
 import android.os.Bundle;
 import android.os.Environment;
 import android.os.StatFs;
 import android.preference.PreferenceManager;
 import android.view.View;
-import android.view.ViewGroup.LayoutParams;
-import android.widget.CompoundButton;
 import android.widget.CompoundButton.OnCheckedChangeListener;
 import android.widget.*;
 
@@ -40,13 +40,19 @@ import com.google.ads.AdView;
 
 import de.ankri.views.Switch;
 
+import java.io.File;
 import java.text.DecimalFormat;
-import org.achartengine.ChartFactory;
-import org.achartengine.GraphicalView;
-import org.achartengine.model.CategorySeries;
-import org.achartengine.renderer.DefaultRenderer;
-import org.achartengine.renderer.SimpleSeriesRenderer;
+import java.util.ArrayList;
+import java.util.Collections;
+import java.util.Comparator;
+import java.util.Iterator;
+import java.util.List;
+
+import org.apache.commons.io.FileUtils;
+
 import rs.pedjaapps.KernelTuner.R;
+import rs.pedjaapps.KernelTuner.entry.SDSummaryEntry;
+import rs.pedjaapps.KernelTuner.helpers.SDSummaryAdapter;
 import rs.pedjaapps.KernelTuner.ui.SDScannerActivity;
 import rs.pedjaapps.KernelTuner.ui.SDScannerConfigActivity;
 
@@ -58,39 +64,25 @@ public class SDScannerConfigActivity extends SherlockActivity
 	
 	private Switch sw;
 	private static final int GET_CODE = 0;
-	  public static final String TYPE = "type";
-
-	  private static int[] COLORS = new int[] {Color.RED, 
-		  Color.GREEN};
-	  
 	  String pt;
-
-	  private CategorySeries mSeries = new CategorySeries("");
-
-	  private DefaultRenderer mRenderer = new DefaultRenderer();
-
-	  private String mDateFormat;
-
-	  private GraphicalView mChartView;
 
 	  TextView path;
 	  LinearLayout chart;
 	  int labelColor;
-	  
+	  SDSummaryAdapter summaryAdapter;
+	  ProgressDialog pd;
+	  List<SDSummaryEntry> entries;
+	  String[] names = {"Applications(*.apk)", "Videos", "Music", "Images", "Documents", "Archives"};
+	  int[] icons = {R.drawable.apk, R.drawable.movie, R.drawable.music, R.drawable.img, R.drawable.doc, R.drawable.arch};
+	  private static final String CALCULATING = "calculating...";
 	  @Override
 	  protected void onRestoreInstanceState(Bundle savedState) {
 	    super.onRestoreInstanceState(savedState);
-	    mSeries = (CategorySeries) savedState.getSerializable("current_series");
-	    mRenderer = (DefaultRenderer) savedState.getSerializable("current_renderer");
-	    mDateFormat = savedState.getString("date_format");
-	  }
+	   }
 
 	  @Override
 	  protected void onSaveInstanceState(Bundle outState) {
 	    super.onSaveInstanceState(outState);
-	    outState.putSerializable("current_series", mSeries);
-	    outState.putSerializable("current_renderer", mRenderer);
-	    outState.putString("date_format", mDateFormat);
 	  }
 	  
 	@Override
@@ -124,37 +116,12 @@ public class SDScannerConfigActivity extends SherlockActivity
 		setContentView(R.layout.sd_scanner_config);
 		ActionBar actionBar = getSupportActionBar();
 		actionBar.setDisplayHomeAsUpEnabled(true);
-		mRenderer.setApplyBackgroundColor(true);
-	    mRenderer.setBackgroundColor(Color.argb(100, 50, 50, 50));
-	    mRenderer.setChartTitleTextSize(20);
-	    mRenderer.setLabelsTextSize(15);
-	    mRenderer.setLegendTextSize(25);
-	    mRenderer.setMargins(new int[] { 20, 30, 15, 0 });
-	    mRenderer.setZoomButtonsVisible(false);
-	    mRenderer.setStartAngle(90);
-		mRenderer.setAntialiasing(true);
-		mRenderer.setLabelsColor(labelColor);
-		mRenderer.setApplyBackgroundColor(false);
 		final SharedPreferences.Editor editor = preferences.edit();
 		boolean ads = preferences.getBoolean("ads", true);
 		if (ads == true)
 		{AdView adView = (AdView)findViewById(R.id.ad);
 			adView.loadAd(new AdRequest());}
-	mSeries.add("Used: "   + humanRadableSize(getUsedSpaceInBytes()), getUsedSpaceInBytes());
-	SimpleSeriesRenderer renderer2 = new SimpleSeriesRenderer();
-    renderer2.setColor(COLORS[(mSeries.getItemCount() - 1) % COLORS.length]);
-    mRenderer.addSeriesRenderer(renderer2);
-	if (mChartView != null) {
-	      mChartView.repaint();
-	    }
-	mSeries.add("Free: "   + humanRadableSize(getAvailableSpaceInBytes()), getAvailableSpaceInBytes());
-	SimpleSeriesRenderer renderer = new SimpleSeriesRenderer();
-    renderer.setColor(COLORS[(mSeries.getItemCount() - 1) % COLORS.length]);
-    mRenderer.addSeriesRenderer(renderer);
-    
-    if (mChartView != null) {
-      mChartView.repaint();
-    }
+		
 		sw = (Switch)findViewById(R.id.switch1);
 		sw.setOnCheckedChangeListener(new OnCheckedChangeListener(){
 
@@ -251,28 +218,25 @@ public class SDScannerConfigActivity extends SherlockActivity
 			}
 		});
 		
+		ListView summaryListView = (ListView) findViewById(R.id.list);
+		summaryAdapter = new SDSummaryAdapter(this, R.layout.sd_conf_list_row);
+		summaryListView.setAdapter(summaryAdapter);
+		summaryAdapter.add(new SDSummaryEntry(names[0], CALCULATING, 0, 0, icons[0]));
+		summaryAdapter.add(new SDSummaryEntry(names[1], CALCULATING, 0, 0, icons[1]));
+		summaryAdapter.add(new SDSummaryEntry(names[2], CALCULATING, 0, 0, icons[2]));
+		summaryAdapter.add(new SDSummaryEntry(names[3], CALCULATING, 0, 0, icons[3]));
+		summaryAdapter.add(new SDSummaryEntry(names[4], CALCULATING, 0, 0, icons[4]));
+		summaryAdapter.add(new SDSummaryEntry(names[5], CALCULATING, 0, 0, icons[5]));
+		
+		new ScanSDCard().execute();
 	}
 
 	@Override
 	  protected void onResume() {
 	    super.onResume();
-	    if (mChartView == null) {
-		      chart = (LinearLayout) findViewById(R.id.chart);
-		      
-		      mChartView = ChartFactory.getPieChartView(this, mSeries, mRenderer);
-		      mRenderer.setClickEnabled(true);
-		      mRenderer.setSelectableBuffer(10);
-		      mChartView.setOnClickListener(new View.OnClickListener() {
-		          @Override
-		          public void onClick(View v) {
-		       
-		          }
-		        });
-		      chart.addView(mChartView, new LayoutParams(LayoutParams.MATCH_PARENT,
-		          LayoutParams.MATCH_PARENT));
-		    } else {
-		      mChartView.repaint();
-		    }
+	    ((TextView)findViewById(R.id.mem_total)).setText("Total: "+size(getTotalSpaceInBytes()));
+		((TextView)findViewById(R.id.mem_used)).setText("Used: "+size(getUsedSpaceInBytes()));
+		((TextView)findViewById(R.id.mem_free)).setText("Free: "+size(getAvailableSpaceInBytes()));
 	  }
 
 	
@@ -291,8 +255,15 @@ public class SDScannerConfigActivity extends SherlockActivity
 
 	    return usedSpace;
 	}
+	public static long getTotalSpaceInBytes() {
+	    long totalSpace = -1L;
+	    StatFs stat = new StatFs(Environment.getExternalStorageDirectory().getPath());
+	    totalSpace = (long) stat.getBlockCount() * (long) stat.getBlockSize();
 
-	public String humanRadableSize(long size){
+	    return totalSpace;
+	}
+
+	public String size(long size){
 		String hrSize = "";
 		
 		long b = size;
@@ -339,7 +310,6 @@ public class SDScannerConfigActivity extends SherlockActivity
 	public boolean onOptionsItemSelected(com.actionbarsherlock.view.MenuItem item) {
 	    switch (item.getItemId()) {
 	        case android.R.id.home:
-	            // app icon in action bar clicked; go home
 	            Intent intent = new Intent(this, KernelTuner.class);
 	            intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
 	            startActivity(intent);
@@ -362,5 +332,116 @@ public class SDScannerConfigActivity extends SherlockActivity
 	   
 	  }
 	 }
+	private class ScanSDCard extends AsyncTask<String, Integer, Void> {
+		long apk;
+		long video;
+		long music;
+		long images;
+		long doc;
+		long arch;
+		
+		
+		
+		
+		@Override
+		protected Void doInBackground(String... args) {
+			entries = new ArrayList<SDSummaryEntry>();
+			Iterator<File> apkIt = FileUtils.iterateFiles(Environment.getExternalStorageDirectory(), new String[] {"apk"}, true);
+			while(apkIt.hasNext()){
+				apk+=apkIt.next().length();
+	        }
+			publishProgress(0);
+			Iterator<File> videoIt = FileUtils.iterateFiles(Environment.getExternalStorageDirectory(), new String[] {"avi", "mp4", "mkv", "m4v", "3gp"}, true);
+			while(videoIt.hasNext()){
+				video+=videoIt.next().length();
+	        }
+			publishProgress(1);
+			Iterator<File> musicIt = FileUtils.iterateFiles(Environment.getExternalStorageDirectory(), new String[] {"mp3", "wma", "wav", "aac"}, true);
+			while(musicIt.hasNext()){
+				music+=musicIt.next().length();
+	        }
+			publishProgress(2);
+			Iterator<File> imgIt = FileUtils.iterateFiles(Environment.getExternalStorageDirectory(), new String[] {"jpg", "jpeg", "png", "bmp", "jcs", "mpo"}, true);
+			while(imgIt.hasNext()){
+				images+=imgIt.next().length();
+	        }
+			publishProgress(3);
+			Iterator<File> docIt = FileUtils.iterateFiles(Environment.getExternalStorageDirectory(), new String[] {"docx", "xls", "ppt", "docx", "pptx", "xlsx", "pdf", "epub"}, true);
+			while(docIt.hasNext()){
+				doc+=docIt.next().length();
+	        }
+			publishProgress(4);
+			Iterator<File> archIt = FileUtils.iterateFiles(Environment.getExternalStorageDirectory(), new String[] {"zip", "jar", "rar", "7zip", "tar", "gz"}, true);
+			while(archIt.hasNext()){
+				arch+=archIt.next().length();
+	        }
+			publishProgress(5);
+			return null;
+		}
+		
+		@Override
+		protected void onProgressUpdate(Integer... values)
+		{
+			switch(values[0]){
+				case 0:
+					summaryAdapter.remove(summaryAdapter.getItem(0));
+					summaryAdapter.insert(new SDSummaryEntry(names[0], size(apk), apk, (int)(apk*100/getTotalSpaceInBytes()), icons[0]), 0);
+					entries.add(new SDSummaryEntry(names[0], size(apk), apk, (int)(apk*100/getTotalSpaceInBytes()), icons[0]));
+					break;
+				case 1:
+					summaryAdapter.remove(summaryAdapter.getItem(1));
+					summaryAdapter.insert(new SDSummaryEntry(names[1], size(video), video, (int)(video*100/getTotalSpaceInBytes()), icons[1]), 1);
+					entries.add(new SDSummaryEntry(names[1], size(video), video, (int)(video*100/getTotalSpaceInBytes()), icons[1]));
+					break;
+				case 2:
+					summaryAdapter.remove(summaryAdapter.getItem(2));
+					summaryAdapter.insert(new SDSummaryEntry(names[2], size(music), music, (int)(music*100/getTotalSpaceInBytes()), icons[2]), 2);
+					entries.add(new SDSummaryEntry(names[2], size(music), music, (int)(music*100/getTotalSpaceInBytes()), icons[2]));
+					break;
+				case 3:
+					summaryAdapter.remove(summaryAdapter.getItem(3));
+					summaryAdapter.insert(new SDSummaryEntry(names[3], size(images), images, (int)(images*100/getTotalSpaceInBytes()), icons[3]), 3);
+					entries.add(new SDSummaryEntry(names[3], size(images), images, (int)(images*100/getTotalSpaceInBytes()), icons[3]));
+					break;
+				case 4:
+					summaryAdapter.remove(summaryAdapter.getItem(4));
+					summaryAdapter.insert(new SDSummaryEntry(names[4], size(doc), doc, (int)(doc*100/getTotalSpaceInBytes()), icons[4]), 4);
+					entries.add(new SDSummaryEntry(names[4], size(doc), doc, (int)(doc*100/getTotalSpaceInBytes()), icons[4]));
+					break;
+				case 5:
+					summaryAdapter.remove(summaryAdapter.getItem(5));
+					summaryAdapter.insert(new SDSummaryEntry(names[5], size(arch), arch, (int)(arch*100/getTotalSpaceInBytes()), icons[5]), 5);
+					entries.add(new SDSummaryEntry(names[5], size(arch), arch, (int)(arch*100/getTotalSpaceInBytes()), icons[5]));
+					break;
+			}
+			super.onProgressUpdate();
+		}
+
+		@Override
+		protected void onPostExecute(Void res) {
+			summaryAdapter.clear();
+			Collections.sort(entries, new MyComparator());
+			for(SDSummaryEntry e : entries){
+				summaryAdapter.add(e);
+			}
+			summaryAdapter.notifyDataSetChanged();
+		}
+		@Override
+		protected void onPreExecute(){
+		
+		}
+
+	}
+	
+	
+	
+
+
+	class MyComparator implements Comparator<SDSummaryEntry>{
+	  public int compare(SDSummaryEntry ob1, SDSummaryEntry ob2){
+	   return ob2.getSize().compareTo(ob1.getSize()) ;
+	  }
+	}
+	
 	
 }

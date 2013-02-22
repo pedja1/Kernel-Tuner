@@ -46,6 +46,8 @@
 <string name="mail"><a href="mailto:predragcokulov@gmail.com">Send me Mail</a></string>
     
     <color name="green">#00ff00</color>
+    <color name="red">#ff0000</color>
+    <color name="orange">#ffa500</color>
 
     <string name="copyright_cokulov_predrag_2012">Copyright © Čokulov Predrag 2012</string>
     <string name="about_faq_and_support">FAQ and Support:</string>

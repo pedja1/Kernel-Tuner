@@ -2,12 +2,47 @@
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
     xmlns:ads="http://schemas.android.com/apk/lib/com.google.ads"
-    tools:context=".KernelTuner"
     android:layout_width="match_parent"
-    android:layout_height="match_parent" >
-		
-		
-	
+    android:layout_height="match_parent"
+    tools:context=".KernelTuner" >
+
+    <LinearLayout
+        android:id="@+id/mem_layout"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginLeft="3dp"
+        android:layout_marginRight="3dp"
+        android:background="@drawable/lcd_background_grey" >
+
+        <TextView
+            android:id="@+id/mem_total"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="3dp"
+            android:layout_weight="1"
+            android:text="Total: "
+            android:textColor="@color/orange" />
+
+        <TextView
+            android:id="@+id/mem_used"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:text="Used: "
+            
+            android:textColor="@color/red" />
+
+        <TextView
+            android:id="@+id/mem_free"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:text="Free: "
+            
+            android:textColor="@color/green" />
+
+    </LinearLayout>
+
     <LinearLayout
         android:id="@+id/ly3"
         android:layout_width="match_parent"
@@ -20,7 +55,6 @@
             android:layout_height="wrap_content"
             ads:adSize="BANNER"
             ads:adUnitId="a15056d54ca9d71"
-           
             ads:testDevices="TEST_EMULATOR, 3CE20BB714ED336822A2508B26BBC32B" />
     </LinearLayout>
 
@@ -32,14 +66,14 @@
         android:layout_centerVertical="true"
         android:src="@drawable/memory_card" />
 
-    <LinearLayout
-        android:id="@+id/chart"
+    <ListView
+        android:id="@+id/list"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_above="@+id/ll"
-        android:layout_alignParentTop="true" >
+        android:layout_below="@+id/mem_layout" >
 
-    </LinearLayout>
+    </ListView>
 
     <LinearLayout
         android:id="@+id/ll"
@@ -60,11 +94,11 @@
                 android:layout_weight="1"
                 android:text="path" />
 
-            <Button 
+            <Button
                 android:id="@+id/browse"
-                android:text="Browse"
                 android:layout_width="wrap_content"
-                android:layout_height="wrap_content"/>
+                android:layout_height="wrap_content"
+                android:text="Browse" />
         </LinearLayout>
 
         <LinearLayout
@@ -124,5 +158,5 @@
             android:layout_height="wrap_content"
             android:text="@string/scann" />
     </LinearLayout>
-    
+
 </RelativeLayout>
