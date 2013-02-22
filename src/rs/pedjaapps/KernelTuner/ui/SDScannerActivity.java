@@ -148,7 +148,7 @@ public class SDScannerActivity extends SherlockActivity
 		numberOfItems = intent.getStringExtra("items");
 		scannType = intent.getStringExtra("scannType");
 		
-		new ScannSDCard().execute(new String[] {path,
+		new ScannSDCard().executeOnExecutor(AsyncTask.THREAD_POOL_EXECUTOR,new String[] {path,
 				depth,
 				numberOfItems,
 				scannType});

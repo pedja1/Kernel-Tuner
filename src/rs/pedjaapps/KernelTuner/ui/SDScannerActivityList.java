@@ -28,7 +28,6 @@ import android.os.*;
 import android.preference.*;
 import android.util.*;
 import android.view.*;
-import android.view.ViewGroup.*;
 import android.widget.*;
 
 import com.actionbarsherlock.app.*;
@@ -36,13 +35,9 @@ import com.google.ads.*;
 import java.io.*;
 import java.text.*;
 import java.util.*;
-import org.achartengine.*;
-import org.achartengine.model.*;
-import org.achartengine.renderer.*;
 import rs.pedjaapps.KernelTuner.*;
 import rs.pedjaapps.KernelTuner.entry.*;
 import rs.pedjaapps.KernelTuner.helpers.SDAdapter;
-import rs.pedjaapps.KernelTuner.helpers.VoltageAdapter;
 
 import com.actionbarsherlock.app.ActionBar;
 import java.lang.Process;
@@ -53,27 +48,6 @@ public class SDScannerActivityList extends SherlockActivity
 	
 	private ProgressDialog pd;
 	private List<SDScannerEntry> entries = new ArrayList<SDScannerEntry>();
-	
-
-	  private static int[] COLORS = new int[] {Color.parseColor("#FF0000"), 
-		  Color.parseColor("#F88017"), 
-		  Color.parseColor("#FBB117"), 
-		  Color.parseColor("#FDD017"),
-		  Color.parseColor("#FFFF00"),
-		  Color.parseColor("#FFFF00"),
-		  Color.parseColor("#5FFB17"),
-		  Color.GREEN,
-		  Color.parseColor("#347C17"),
-		  Color.parseColor("#387C44"),
-		  Color.parseColor("#348781"),
-		  Color.parseColor("#6698FF"),
-		  Color.BLUE,
-		  Color.parseColor("#6C2DC7"),
-		  Color.parseColor("#7D1B7E"),
-		  Color.WHITE,
-		  Color.CYAN,
-		  Color.MAGENTA,
-		  Color.GRAY};
 	  int labelColor;
 
 	 
@@ -130,11 +104,59 @@ public class SDScannerActivityList extends SherlockActivity
 		scannType = intent.getStringExtra("scannType");
 		ListView sDListView = (ListView) findViewById(R.id.list);
 		sDAdapter = new SDAdapter(this, R.layout.sd_list_row);
-		System.out.println(sDAdapter);
-		System.out.println(sDListView);
 		sDListView.setAdapter(sDAdapter);
-		//sDListView
-		new ScannSDCard().execute(new String[] {path,
+		sDListView.setOnItemClickListener(new AdapterView.OnItemClickListener(){
+
+			@Override
+			public void onItemClick(AdapterView<?> arg0, View arg1, final int pos,
+					long arg3) {
+				
+				
+					AlertDialog.Builder builder = new AlertDialog.Builder(arg0.getContext());
+
+					builder.setTitle(entries.get(pos).getFileName());
+
+					builder.setMessage("Location: "+entries.get(pos).getPath()+"\nSize: "
+							+entries.get(pos).getHRsize());
+
+					builder.setIcon(R.drawable.ic_menu_cc);
+
+					if(new File(entries.get(pos).getPath()).isDirectory()){
+						
+						
+					
+					builder.setPositiveButton("Scan Content", new DialogInterface.OnClickListener() {
+							@Override
+							public void onClick(DialogInterface dialog, int which)
+							{
+								new ScannSDCard().executeOnExecutor(AsyncTask.THREAD_POOL_EXECUTOR, new String[] {entries.get(pos).getPath(),
+										depth,
+										numberOfItems,
+										scannType});
+
+							}
+						});
+					}
+					builder.setNegativeButton("Delete", new DialogInterface.OnClickListener() {
+						@Override
+						public void onClick(DialogInterface dialog, int which)
+						{
+							new File(entries.get(pos).getPath()).delete();
+							sDAdapter.remove(sDAdapter.getItem(pos));
+							sDAdapter.notifyDataSetChanged();
+							entries.remove(pos);
+						}
+					});
+
+					AlertDialog alert = builder.create();
+
+					alert.show();
+				
+				
+			}
+			
+		});
+		new ScannSDCard().executeOnExecutor(AsyncTask.THREAD_POOL_EXECUTOR, new String[] {path,
 				depth,
 				numberOfItems,
 				scannType});
@@ -205,7 +227,7 @@ public class SDScannerActivityList extends SherlockActivity
 		@Override
 		protected void onPostExecute(Void res) {
 			pd.dismiss();
-			
+			sDAdapter.clear();
 			Collections.sort(entries,new MyComparator());
 			if(entries.isEmpty()==false){
 			entries.remove(entries.get(0));
@@ -216,9 +238,8 @@ public class SDScannerActivityList extends SherlockActivity
 			
 				for(SDScannerEntry e : entries){
 					sDAdapter.add(e);
-					sDAdapter.notifyDataSetChanged();
 				}
-			
+				sDAdapter.notifyDataSetChanged();
 			
 			
 		}

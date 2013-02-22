@@ -49,6 +49,9 @@ public final class SDAdapter extends ArrayAdapter<SDScannerEntry>
 		if(entry.isFolder()==false){
 			viewHolder.iconView.setImageResource(R.drawable.file);
 		}
+		else{
+			viewHolder.iconView.setImageResource(R.drawable.folder);
+		}
 		
 
 		return view;
