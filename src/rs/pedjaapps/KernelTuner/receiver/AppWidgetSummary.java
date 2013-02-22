@@ -207,7 +207,9 @@ public class AppWidgetSummary extends AppWidgetProvider {
 		gpu3d = IOHelper.gpu3d();
 		fc = IOHelper.fcharge();
 		vsync = IOHelper.vsync();
+		if(IOHelper.leds().length()>0){
 		light = ((Integer.parseInt(IOHelper.leds())*100)/60)+"";
+		}
 		scheduler = IOHelper.scheduler();
 		s2w = IOHelper.s2w();
 		cache = IOHelper.sdCache();
