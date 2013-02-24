@@ -75,6 +75,7 @@ public class SDScannerConfigActivity extends SherlockActivity
 	  String[] names = {"Applications(*.apk)", "Videos", "Music", "Images", "Documents", "Archives"};
 	  int[] icons = {R.drawable.apk, R.drawable.movie, R.drawable.music, R.drawable.img, R.drawable.doc, R.drawable.arch};
 	  private static final String CALCULATING = "calculating...";
+	  ScanSDCard scanSDCard = new ScanSDCard();
 	  @Override
 	  protected void onRestoreInstanceState(Bundle savedState) {
 	    super.onRestoreInstanceState(savedState);
@@ -228,7 +229,7 @@ public class SDScannerConfigActivity extends SherlockActivity
 		summaryAdapter.add(new SDSummaryEntry(names[4], CALCULATING, 0, 0, icons[4]));
 		summaryAdapter.add(new SDSummaryEntry(names[5], CALCULATING, 0, 0, icons[5]));
 		
-		new ScanSDCard().execute();
+		scanSDCard.execute();
 	}
 
 	@Override
@@ -339,13 +340,19 @@ public class SDScannerConfigActivity extends SherlockActivity
 		long images;
 		long doc;
 		long arch;
+		boolean running = true;
 		
 		
+		@Override
+		protected void onCancelled(){
+			running = false;
+		}
 		
 		
 		@Override
 		protected Void doInBackground(String... args) {
 			entries = new ArrayList<SDSummaryEntry>();
+			while(running){
 			Iterator<File> apkIt = FileUtils.iterateFiles(Environment.getExternalStorageDirectory(), new String[] {"apk"}, true);
 			while(apkIt.hasNext()){
 				apk+=apkIt.next().length();
@@ -376,6 +383,7 @@ public class SDScannerConfigActivity extends SherlockActivity
 				arch+=archIt.next().length();
 	        }
 			publishProgress(5);
+			}
 			return null;
 		}
 		
@@ -443,5 +451,10 @@ public class SDScannerConfigActivity extends SherlockActivity
 	  }
 	}
 	
+	@Override
+	public void onDestroy(){
+		scanSDCard.cancel(true);
+		scanSDCard = null;
+	}
 	
 }
