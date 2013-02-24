@@ -203,68 +203,10 @@ public class SystemInfo extends SherlockFragmentActivity implements
 			screenPpi = "X: " + dm.xdpi + ", Y "
 					+ dm.ydpi;
 
-			try {
-
-				File myFile = new File(
-						"/sys/class/power_supply/battery/capacity");
-				FileInputStream fIn = new FileInputStream(myFile);
-
-				BufferedReader myReader = new BufferedReader(
-						new InputStreamReader(fIn));
-				String aDataRow = "";
-				String aBuffer = "";
-				while ((aDataRow = myReader.readLine()) != null) {
-					aBuffer += aDataRow + "\n";
-				}
-
-				battperc = Integer.parseInt(aBuffer.trim());
-				myReader.close();
-				fIn.close();
-			} catch (Exception e) {
-
-			}
-
-			try {
-
-				File myFile = new File(
-						"/sys/class/power_supply/battery/batt_temp");
-				FileInputStream fIn = new FileInputStream(myFile);
-
-				BufferedReader myReader = new BufferedReader(
-						new InputStreamReader(fIn));
-				String aDataRow = "";
-				String aBuffer = "";
-				while ((aDataRow = myReader.readLine()) != null) {
-					aBuffer += aDataRow + "\n";
-				}
-
-				batttemp = Double.parseDouble(aBuffer.trim()) / 10;
-				myReader.close();
-				fIn.close();
-			} catch (Exception e) {
-
-			}
-
-			try {
-
-				File myFile = new File(
-						"/sys/class/power_supply/battery/batt_current");
-				FileInputStream fIn = new FileInputStream(myFile);
-
-				BufferedReader myReader = new BufferedReader(
-						new InputStreamReader(fIn));
-				String aDataRow = "";
-				String aBuffer = "";
-				while ((aDataRow = myReader.readLine()) != null) {
-					aBuffer += aDataRow + "\n";
-				}
-
-				battcurrent = aBuffer.trim();
-				myReader.close();
-				fIn.close();
-			} catch (Exception e) {
-				battcurrent = "err";
-			}
+			
+				battperc = IOHelper.batteryLevel();
+				batttemp = IOHelper.batteryTemp();
+				battcurrent = IOHelper.batteryDrain();
 
 			try {
 
@@ -284,129 +226,30 @@ public class SystemInfo extends SherlockFragmentActivity implements
 			} catch (Exception e) {
 				cpu_info = "err";
 			}
+			try {
+				gpu3d = Integer.parseInt(IOHelper.gpu3d());
+			} catch (Exception e) {
+
+			}
+
+			try 
+			{
+				gpu2d = Integer.parseInt(IOHelper.gpu2d());
+			} catch (Exception e) {
+
+			}
+				fastcharge = IOHelper.fcharge();
+				vsync = IOHelper.vsync();
+			try 
+			{
+				cdepth = Integer.parseInt(IOHelper.cDepth());
+			} catch (Exception e) {
+				
+			}
 
 			
-
-			try {
-
-				File myFile = new File(
-						"/sys/devices/platform/kgsl-3d0.0/kgsl/kgsl-3d0/max_gpuclk");
-				FileInputStream fIn = new FileInputStream(myFile);
-
-				BufferedReader myReader = new BufferedReader(
-						new InputStreamReader(fIn));
-				String aDataRow = "";
-				String aBuffer = "";
-				while ((aDataRow = myReader.readLine()) != null) {
-					aBuffer += aDataRow + "\n";
-				}
-
-				gpu3d = Integer.parseInt(aBuffer.trim());
-				myReader.close();
-				fIn.close();
-			} catch (Exception e) {
-
-			}
-
-			try {
-
-				File myFile = new File(
-						"/sys/devices/platform/kgsl-2d0.0/kgsl/kgsl-2d0/max_gpuclk");
-				FileInputStream fIn = new FileInputStream(myFile);
-				BufferedReader myReader = new BufferedReader(
-						new InputStreamReader(fIn));
-				String aDataRow = "";
-				String aBuffer = "";
-				while ((aDataRow = myReader.readLine()) != null) {
-					aBuffer += aDataRow + "\n";
-				}
-
-				gpu2d = Integer.parseInt(aBuffer.trim());
-
-				myReader.close();
-				fIn.close();
-			} catch (Exception e) {
-
-			}
-
-			try {
-				String aBuffer = "";
-				File myFile = new File(
-						"/sys/kernel/fast_charge/force_fast_charge");
-				FileInputStream fIn = new FileInputStream(myFile);
-				BufferedReader myReader = new BufferedReader(
-						new InputStreamReader(fIn));
-				String aDataRow = "";
-				while ((aDataRow = myReader.readLine()) != null) {
-					aBuffer += aDataRow + "\n";
-				}
-
-				fastcharge = Integer.parseInt(aBuffer.trim());
-				myReader.close();
-				fIn.close();
-			} catch (Exception e) {
+				kernel = IOHelper.kernel();
 				
-			}
-
-			try {
-				String aBuffer = "";
-				File myFile = new File(
-						"/sys/kernel/debug/msm_fb/0/vsync_enable");
-				FileInputStream fIn = new FileInputStream(myFile);
-				BufferedReader myReader = new BufferedReader(
-						new InputStreamReader(fIn));
-				String aDataRow = "";
-				while ((aDataRow = myReader.readLine()) != null) {
-					aBuffer += aDataRow + "\n";
-				}
-
-				vsync = Integer.parseInt(aBuffer.trim());
-				myReader.close();
-				fIn.close();
-			} catch (Exception e) {
-				
-			}
-
-			try {
-
-				File myFile = new File("/sys/kernel/debug/msm_fb/0/bpp");
-				FileInputStream fIn = new FileInputStream(myFile);
-
-				BufferedReader myReader = new BufferedReader(
-						new InputStreamReader(fIn));
-				String aDataRow = "";
-				String aBuffer = "";
-				while ((aDataRow = myReader.readLine()) != null) {
-					aBuffer += aDataRow + "\n";
-				}
-
-				cdepth = Integer.parseInt(aBuffer.trim());
-				myReader.close();
-				fIn.close();
-
-			} catch (IOException e) {
-				
-			}
-
-			try {
-
-				File myFile = new File("/proc/version");
-				FileInputStream fIn = new FileInputStream(myFile);
-				BufferedReader myReader = new BufferedReader(
-						new InputStreamReader(fIn));
-				String aDataRow = "";
-				String aBuffer = "";
-				while ((aDataRow = myReader.readLine()) != null) {
-					aBuffer += aDataRow + "\n";
-				}
-
-				kernel = aBuffer.trim();
-				myReader.close();
-				fIn.close();
-			} catch (Exception e) {
-				kernel = "Kernel version file not found";
-
-			}
 
 			try {
 
@@ -458,48 +301,11 @@ public class SystemInfo extends SherlockFragmentActivity implements
 
 			}
 
-			try {
+			
 
-				File myFile = new File("/sys/android_touch/sweep2wake");
-				FileInputStream fIn = new FileInputStream(myFile);
+				s2w = IOHelper.s2w();
 
-				BufferedReader myReader = new BufferedReader(
-						new InputStreamReader(fIn));
-				String aDataRow = "";
-				String aBuffer = "";
-				while ((aDataRow = myReader.readLine()) != null) {
-					aBuffer += aDataRow + "\n";
-				}
-
-				s2w = Integer.parseInt(aBuffer.trim());
-
-				myReader.close();
-				fIn.close();
-			} catch (Exception e) {
-
-				try {
-
-					File myFile = new File(
-							"/sys/android_touch/sweep2wake/s2w_switch");
-					FileInputStream fIn = new FileInputStream(myFile);
-
-					BufferedReader myReader = new BufferedReader(
-							new InputStreamReader(fIn));
-					String aDataRow = "";
-					String aBuffer = "";
-					while ((aDataRow = myReader.readLine()) != null) {
-						aBuffer += aDataRow + "\n";
-					}
-
-					s2w = Integer.parseInt(aBuffer.trim());
-
-					myReader.close();
-
-				} catch (Exception e2) {
-
-					
-				}
-			}
+			
 
 			return "";
 		}

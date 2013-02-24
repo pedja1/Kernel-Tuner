@@ -575,6 +575,7 @@ public class WidgetUpdateServiceBig extends Service
 			remoteViews.setTextViewText(R.id.textView21, battvol.trim() + "mV");
 			remoteViews.setTextViewText(R.id.textView22, batttech);
 			remoteViews.setTextViewText(R.id.textView23, battcurrent + "mA");
+			if(battcurrent.length()>0){
 			if (battcurrent.substring(0, 1).equals("-"))
 			{
 				remoteViews.setTextColor(R.id.textView23, Color.RED);
@@ -583,6 +584,7 @@ public class WidgetUpdateServiceBig extends Service
 			{
 				remoteViews.setTextViewText(R.id.textView23, "+" + battcurrent + "mA");
 				remoteViews.setTextColor(R.id.textView23, Color.GREEN);
+			}
 			}
 			remoteViews.setTextViewText(R.id.textView24, batthealth);
 			remoteViews.setTextViewText(R.id.textView26, battcap + "mAh");

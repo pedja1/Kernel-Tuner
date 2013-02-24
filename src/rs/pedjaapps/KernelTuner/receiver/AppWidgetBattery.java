@@ -99,7 +99,7 @@ public class AppWidgetBattery extends AppWidgetProvider {
 		} else {
 			remoteViews.setTextViewText(R.id.textView3, "Unknown");
 		}
-		if (!battcurrent.equals("err")) {
+		if (battcurrent.length()>0) {
 			remoteViews.setTextViewText(R.id.textView5, battcurrent + "mAh");
 			if (battcurrent.substring(0, 1).equals("-"))
 			{
