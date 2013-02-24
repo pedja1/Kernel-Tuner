@@ -352,35 +352,53 @@ public class SDScannerConfigActivity extends SherlockActivity
 		@Override
 		protected Void doInBackground(String... args) {
 			entries = new ArrayList<SDSummaryEntry>();
-			while(running){
+			while(!isCancelled()){
 			Iterator<File> apkIt = FileUtils.iterateFiles(Environment.getExternalStorageDirectory(), new String[] {"apk"}, true);
 			while(apkIt.hasNext()){
 				apk+=apkIt.next().length();
+				/*if(isCancelled()){
+					running = false;
+				}*/
 	        }
 			publishProgress(0);
 			Iterator<File> videoIt = FileUtils.iterateFiles(Environment.getExternalStorageDirectory(), new String[] {"avi", "mp4", "mkv", "m4v", "3gp"}, true);
 			while(videoIt.hasNext()){
 				video+=videoIt.next().length();
+				/*if(isCancelled()){
+					running = false;
+				}*/
 	        }
 			publishProgress(1);
 			Iterator<File> musicIt = FileUtils.iterateFiles(Environment.getExternalStorageDirectory(), new String[] {"mp3", "wma", "wav", "aac"}, true);
 			while(musicIt.hasNext()){
 				music+=musicIt.next().length();
+				/*if(isCancelled()){
+					running = false;
+				}*/
 	        }
 			publishProgress(2);
 			Iterator<File> imgIt = FileUtils.iterateFiles(Environment.getExternalStorageDirectory(), new String[] {"jpg", "jpeg", "png", "bmp", "jcs", "mpo"}, true);
 			while(imgIt.hasNext()){
 				images+=imgIt.next().length();
+				/*if(isCancelled()){
+					running = false;
+				}*/
 	        }
 			publishProgress(3);
 			Iterator<File> docIt = FileUtils.iterateFiles(Environment.getExternalStorageDirectory(), new String[] {"docx", "xls", "ppt", "docx", "pptx", "xlsx", "pdf", "epub"}, true);
 			while(docIt.hasNext()){
 				doc+=docIt.next().length();
+				/*if(isCancelled()){
+					running = false;
+				}*/
 	        }
 			publishProgress(4);
 			Iterator<File> archIt = FileUtils.iterateFiles(Environment.getExternalStorageDirectory(), new String[] {"zip", "jar", "rar", "7zip", "tar", "gz"}, true);
 			while(archIt.hasNext()){
 				arch+=archIt.next().length();
+				/*if(isCancelled()){
+					running = false;
+				}*/
 	        }
 			publishProgress(5);
 			}
@@ -455,6 +473,7 @@ public class SDScannerConfigActivity extends SherlockActivity
 	public void onDestroy(){
 		scanSDCard.cancel(true);
 		scanSDCard = null;
+		super.onDestroy();
 	}
 	
 }

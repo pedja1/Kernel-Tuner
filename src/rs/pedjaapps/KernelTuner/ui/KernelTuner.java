@@ -946,9 +946,10 @@ startCpuLoadThread();
 		/**
 		 * set thread false so that cpu info thread stop repeating
 		 */
+		super.onDestroy();
 		thread = false;
 		java.lang.System.exit(0);
-		super.onDestroy();
+		
 
 	}
 
@@ -970,6 +971,7 @@ startCpuLoadThread();
 private void startCpuLoadThread() {
 		// Do something long
 		Runnable runnable = new Runnable() {
+			
 			@Override
 			public void run() {
 				while(thread) {
