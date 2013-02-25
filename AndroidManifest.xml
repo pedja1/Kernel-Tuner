@@ -180,6 +180,14 @@
             android:uiOptions="splitActionBarWhenNarrow" >
         </activity>
         <activity
+            android:name=".ui.MpdecisionNew"
+            android:exported="true"
+            android:icon="@drawable/dual"
+            android:label="@string/title_mpdecision"
+            android:theme="@style/SwitchCompatAndSherlockLight"
+            android:uiOptions="splitActionBarWhenNarrow" >
+        </activity>
+        <activity
             android:name=".ui.Thermald"
             android:exported="true"
             android:icon="@drawable/temp"

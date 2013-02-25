@@ -695,8 +695,14 @@ public class KernelTuner extends SherlockActivity {
 
 			@Override
 			public void onClick(View v) {
-
-				Intent myIntent = new Intent(KernelTuner.this, Mpdecision.class);
+				
+				Intent myIntent = null; 
+				if(new File("/sys/kernel/msm_mpdecision/conf/nwns_threshold_up").exists()){
+				myIntent = new Intent(KernelTuner.this, Mpdecision.class);
+				}
+				else if(new File("/sys/kernel/msm_mpdecision/conf/nwns_threshold_0").exists()){
+					myIntent = new Intent(KernelTuner.this, MpdecisionNew.class);
+				}
 				KernelTuner.this.startActivity(myIntent);
 
 			}
@@ -1365,7 +1371,20 @@ private void startCpuLoadThread() {
 		String idle_freq = sharedPrefs.getString("idle_freq", "");
 		String scroff = sharedPrefs.getString("scroff", "");
 		String scroff_single = sharedPrefs.getString("scroff_single", "");
-
+		String[] thr = new String[6];
+		String[] tim = new String[6];
+		thr[0] = sharedPrefs.getString("thr0", "");
+		thr[1] = sharedPrefs.getString("thr2", "");
+		thr[2] = sharedPrefs.getString("thr3", "");
+		thr[3] = sharedPrefs.getString("thr4", "");
+		thr[4] = sharedPrefs.getString("thr5", "");
+		thr[5] = sharedPrefs.getString("thr7", "");
+		tim[0] = sharedPrefs.getString("tim0", "");
+		tim[1] = sharedPrefs.getString("tim2", "");
+		tim[2] = sharedPrefs.getString("tim3", "");
+		tim[3] = sharedPrefs.getString("tim4", "");
+		tim[4] = sharedPrefs.getString("tim5", "");
+		tim[5] = sharedPrefs.getString("tim7", "");
 		StringBuilder gpubuilder = new StringBuilder();
 
 		gpubuilder.append("#!/system/bin/sh");
