@@ -129,7 +129,7 @@ public class SDScannerActivityList extends SherlockActivity
 							@Override
 							public void onClick(DialogInterface dialog, int which)
 							{
-								new ScannSDCard().executeOnExecutor(AsyncTask.THREAD_POOL_EXECUTOR, new String[] {entries.get(pos).getPath(),
+								new ScannSDCard().execute( new String[] {entries.get(pos).getPath(),
 										depth,
 										numberOfItems,
 										scannType});
@@ -156,7 +156,7 @@ public class SDScannerActivityList extends SherlockActivity
 			}
 			
 		});
-		new ScannSDCard().executeOnExecutor(AsyncTask.THREAD_POOL_EXECUTOR, new String[] {path,
+		new ScannSDCard().execute( new String[] {path,
 				depth,
 				numberOfItems,
 				scannType});

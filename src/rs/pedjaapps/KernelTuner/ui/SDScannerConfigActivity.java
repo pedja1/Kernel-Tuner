@@ -25,6 +25,7 @@ import android.content.Intent;
 import android.content.SharedPreferences;
 import android.graphics.Color;
 import android.os.AsyncTask;
+import android.os.Build;
 import android.os.Bundle;
 import android.os.Environment;
 import android.os.StatFs;
@@ -228,8 +229,13 @@ public class SDScannerConfigActivity extends SherlockActivity
 		summaryAdapter.add(new SDSummaryEntry(names[3], CALCULATING, 0, 0, icons[3]));
 		summaryAdapter.add(new SDSummaryEntry(names[4], CALCULATING, 0, 0, icons[4]));
 		summaryAdapter.add(new SDSummaryEntry(names[5], CALCULATING, 0, 0, icons[5]));
-		
-		scanSDCard.executeOnExecutor(AsyncTask.THREAD_POOL_EXECUTOR);
+		int apiLevel = Build.VERSION.SDK_INT;
+		if(apiLevel <= android.os.Build.VERSION_CODES.GINGERBREAD_MR1){
+		scanSDCard.execute();
+		}
+		else{
+			scanSDCard.executeOnExecutor(AsyncTask.THREAD_POOL_EXECUTOR);
+		}
 	}
 
 	@Override
