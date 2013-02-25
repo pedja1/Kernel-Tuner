@@ -593,7 +593,7 @@ public class SystemInfo extends SherlockFragmentActivity implements
 		} else {
 			temp.setText("Unknown");
 		}
-		if (!battcurrent.equals("err")) {
+		if (battcurrent.length()<0) {
 			drain.setText(battcurrent + "mAh");
 			if (battcurrent.substring(0, 1).equals("-"))
 			{
