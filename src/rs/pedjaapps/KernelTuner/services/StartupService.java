@@ -133,7 +133,22 @@ public class StartupService extends Service
 			String idle_freq = sharedPrefs.getString("idle_freq", "");
 			String scroff = sharedPrefs.getString("scroff", "");
 			String scroff_single = sharedPrefs.getString("scroff_single", "");
-
+			String[] thr = new String[6];
+			String[] tim = new String[6];
+			thr[0] = sharedPrefs.getString("thr0", "");
+			thr[1] = sharedPrefs.getString("thr2", "");
+			thr[2] = sharedPrefs.getString("thr3", "");
+			thr[3] = sharedPrefs.getString("thr4", "");
+			thr[4] = sharedPrefs.getString("thr5", "");
+			thr[5] = sharedPrefs.getString("thr7", "");
+			tim[0] = sharedPrefs.getString("tim0", "");
+			tim[1] = sharedPrefs.getString("tim2", "");
+			tim[2] = sharedPrefs.getString("tim3", "");
+			tim[3] = sharedPrefs.getString("tim4", "");
+			tim[4] = sharedPrefs.getString("tim5", "");
+			tim[5] = sharedPrefs.getString("tim7", "");
+			String maxCpus = sharedPrefs.getString("max_cpus", "");
+			String minCpus = sharedPrefs.getString("min_cpus", "");
 			try {
 	            String line;
 	            Process process = Runtime.getRuntime().exec("su");
@@ -310,7 +325,25 @@ public class StartupService extends Service
 				if(!scroff_single.equals("")){
 				stdin.write(("echo " + scroff_single + " > /sys/kernel/msm_mpdecision/conf/scroff_single_core\n").getBytes());
 				}
-	            
+				for(int i = 0; i < 8; i++){
+					stdin.write(("chmod 777 /sys/kernel/msm_mpdecision/conf/nwns_threshold_"+i+"\n").getBytes());
+					stdin.write(("chmod 777 /sys/kernel/msm_mpdecision/conf/twts_threshold_"+i+"\n").getBytes());
+				}
+				stdin.write(("echo " + thr[0] + " > /sys/kernel/msm_mpdecision/conf/nwns_threshold_"+0+"\n").getBytes());
+				stdin.write(("echo " + thr[1] + " > /sys/kernel/msm_mpdecision/conf/nwns_threshold_"+2+"\n").getBytes());
+				stdin.write(("echo " + thr[2] + " > /sys/kernel/msm_mpdecision/conf/nwns_threshold_"+3+"\n").getBytes());
+				stdin.write(("echo " + thr[3] + " > /sys/kernel/msm_mpdecision/conf/nwns_threshold_"+4+"\n").getBytes());
+				stdin.write(("echo " + thr[4] + " > /sys/kernel/msm_mpdecision/conf/nwns_threshold_"+5+"\n").getBytes());
+				stdin.write(("echo " + thr[5] + " > /sys/kernel/msm_mpdecision/conf/nwns_threshold_"+7+"\n").getBytes());
+				stdin.write(("echo " + tim[0] + " > /sys/kernel/msm_mpdecision/conf/twts_threshold_"+0+"\n").getBytes());
+				stdin.write(("echo " + tim[1] + " > /sys/kernel/msm_mpdecision/conf/twts_threshold_"+2+"\n").getBytes());
+				stdin.write(("echo " + tim[2] + " > /sys/kernel/msm_mpdecision/conf/twts_threshold_"+3+"\n").getBytes());
+				stdin.write(("echo " + tim[7] + " > /sys/kernel/msm_mpdecision/conf/twts_threshold_"+4+"\n").getBytes());
+				stdin.write(("echo " + tim[9] + " > /sys/kernel/msm_mpdecision/conf/twts_threshold_"+5+"\n").getBytes());
+				stdin.write(("echo " + tim[5] + " > /sys/kernel/msm_mpdecision/conf/twts_threshold_"+7+"\n").getBytes());
+				stdin.write(("echo " + maxCpus + " > /sys/kernel/msm_mpdecision/conf/max_cpus\n").getBytes());
+				stdin.write(("echo " + minCpus + " > /sys/kernel/msm_mpdecision/conf/min_cpus\n").getBytes());
+				
 	            stdin.flush();
 
 	            stdin.close();

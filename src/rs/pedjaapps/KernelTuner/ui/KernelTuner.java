@@ -1385,6 +1385,8 @@ private void startCpuLoadThread() {
 		tim[3] = sharedPrefs.getString("tim4", "");
 		tim[4] = sharedPrefs.getString("tim5", "");
 		tim[5] = sharedPrefs.getString("tim7", "");
+		String maxCpus = sharedPrefs.getString("max_cpus", "");
+		String minCpus = sharedPrefs.getString("min_cpus", "");
 		StringBuilder gpubuilder = new StringBuilder();
 
 		gpubuilder.append("#!/system/bin/sh");
@@ -1674,6 +1676,36 @@ private void startCpuLoadThread() {
 							+ thrdownmsnew.trim()
 							+ "\""
 							+ " > /sys/kernel/msm_mpdecision/conf/twts_threshold_down \n\n");
+		}
+		if(!thr[0].equals("")){
+			for(int i = 0; i < 8; i++){
+				miscbuilder.append("chmod 777 /sys/kernel/msm_mpdecision/conf/nwns_threshold_"+i+"\n");
+			}
+			miscbuilder.append("echo " + thr[1] + " > /sys/kernel/msm_mpdecision/conf/nwns_threshold_"+0+"\n");
+			miscbuilder.append("echo " + thr[2] + " > /sys/kernel/msm_mpdecision/conf/nwns_threshold_"+2+"\n");
+			miscbuilder.append("echo " + thr[3] + " > /sys/kernel/msm_mpdecision/conf/nwns_threshold_"+3+"\n");
+			miscbuilder.append("echo " + thr[4] + " > /sys/kernel/msm_mpdecision/conf/nwns_threshold_"+4+"\n");
+			miscbuilder.append("echo " + thr[5] + " > /sys/kernel/msm_mpdecision/conf/nwns_threshold_"+5+"\n");
+			miscbuilder.append("echo " + thr[6] + " > /sys/kernel/msm_mpdecision/conf/nwns_threshold_"+7+"\n");
+			
+		}
+		if(!tim[0].equals("")){
+			for(int i = 0; i < 8; i++){
+				miscbuilder.append("chmod 777 /sys/kernel/msm_mpdecision/conf/twts_threshold_"+i+"\n");
+			}
+			miscbuilder.append("echo " + tim[1] + " > /sys/kernel/msm_mpdecision/conf/twts_threshold_"+0+"\n");
+			miscbuilder.append("echo " + tim[2] + " > /sys/kernel/msm_mpdecision/conf/twts_threshold_"+2+"\n");
+			miscbuilder.append("echo " + tim[3] + " > /sys/kernel/msm_mpdecision/conf/twts_threshold_"+3+"\n");
+			miscbuilder.append("echo " + tim[4] + " > /sys/kernel/msm_mpdecision/conf/twts_threshold_"+4+"\n");
+			miscbuilder.append("echo " + tim[5] + " > /sys/kernel/msm_mpdecision/conf/twts_threshold_"+5+"\n");
+			miscbuilder.append("echo " + tim[6] + " > /sys/kernel/msm_mpdecision/conf/twts_threshold_"+7+"\n");
+			
+		}
+		if(!maxCpus.equals("")){
+			miscbuilder.append("echo " + maxCpus + " > /sys/kernel/msm_mpdecision/conf/max_cpus\n");
+		}
+		if(!minCpus.equals("")){
+			miscbuilder.append("echo " + minCpus + " > /sys/kernel/msm_mpdecision/conf/min_cpus\n");
 		}
 		if (!sdcache.equals("")) {
 			miscbuilder
