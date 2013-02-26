@@ -214,7 +214,7 @@ public class AppWidgetSummary extends AppWidgetProvider {
 		s2w = IOHelper.s2w();
 		cache = IOHelper.sdCache();
 		battperc =IOHelper.batteryLevel();
-		batttemp = IOHelper.batteryTemp();
+		batttemp = IOHelper.batteryTemp()/10.0;
 		battcurrent = IOHelper.batteryDrain();
 		load = IOHelper.cpuLoad();
 	}
