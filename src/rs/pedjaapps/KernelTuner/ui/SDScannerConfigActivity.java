@@ -230,7 +230,7 @@ public class SDScannerConfigActivity extends SherlockActivity
 		summaryAdapter.add(new SDSummaryEntry(names[4], CALCULATING, 0, 0, icons[4]));
 		summaryAdapter.add(new SDSummaryEntry(names[5], CALCULATING, 0, 0, icons[5]));
 		int apiLevel = Build.VERSION.SDK_INT;
-		if(apiLevel <= android.os.Build.VERSION_CODES.GINGERBREAD_MR1){
+		if(apiLevel <= android.os.Build.VERSION_CODES.HONEYCOMB){
 		scanSDCard.execute();
 		}
 		else{
