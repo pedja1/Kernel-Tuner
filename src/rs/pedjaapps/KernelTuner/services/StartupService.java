@@ -338,8 +338,8 @@ public class StartupService extends Service
 				stdin.write(("echo " + tim[0] + " > /sys/kernel/msm_mpdecision/conf/twts_threshold_"+0+"\n").getBytes());
 				stdin.write(("echo " + tim[1] + " > /sys/kernel/msm_mpdecision/conf/twts_threshold_"+2+"\n").getBytes());
 				stdin.write(("echo " + tim[2] + " > /sys/kernel/msm_mpdecision/conf/twts_threshold_"+3+"\n").getBytes());
-				stdin.write(("echo " + tim[7] + " > /sys/kernel/msm_mpdecision/conf/twts_threshold_"+4+"\n").getBytes());
-				stdin.write(("echo " + tim[9] + " > /sys/kernel/msm_mpdecision/conf/twts_threshold_"+5+"\n").getBytes());
+				stdin.write(("echo " + tim[3] + " > /sys/kernel/msm_mpdecision/conf/twts_threshold_"+4+"\n").getBytes());
+				stdin.write(("echo " + tim[4] + " > /sys/kernel/msm_mpdecision/conf/twts_threshold_"+5+"\n").getBytes());
 				stdin.write(("echo " + tim[5] + " > /sys/kernel/msm_mpdecision/conf/twts_threshold_"+7+"\n").getBytes());
 				stdin.write(("echo " + maxCpus + " > /sys/kernel/msm_mpdecision/conf/max_cpus\n").getBytes());
 				stdin.write(("echo " + minCpus + " > /sys/kernel/msm_mpdecision/conf/min_cpus\n").getBytes());
