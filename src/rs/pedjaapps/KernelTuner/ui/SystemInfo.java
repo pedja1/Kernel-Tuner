@@ -205,7 +205,9 @@ public class SystemInfo extends SherlockFragmentActivity implements
 
 			
 				battperc = IOHelper.batteryLevel();
-				batttemp = IOHelper.batteryTemp();
+				
+				batttemp = IOHelper.batteryTemp()/10.0;
+				
 				battcurrent = IOHelper.batteryDrain();
 
 			try {
