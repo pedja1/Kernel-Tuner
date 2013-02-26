@@ -12,8 +12,9 @@ import org.apache.commons.io.FileUtils;
 import rs.pedjaapps.KernelTuner.helpers.IOHelper;
 
 
-@ReportsCrashes(formKey = "dDlUVUxrRnNKeU40X3VmejBFenF0Z0E6MQ",
+@ReportsCrashes(formKey = "",//"dDlUVUxrRnNKeU40X3VmejBFenF0Z0E6MQ",
 // formUri = "http://www.bugsense.com/api/acra?api_key=f605d6c7",
+	formUri = "http://kerneltuner.pedjaapps.in.rs/ktuner/crash_reports/submit.php?key=XPlrFdDPHQWpDRMGbqCpsFJFGvpJqMjn",
 				includeDropBoxSystemTags = true,
 				mode = ReportingInteractionMode.NOTIFICATION, 
 				resNotifTickerText = R.string.crash_notif_ticker_text, 
