@@ -43,7 +43,15 @@
             android:key="reset"
             android:summary="Reset all settings after flashing new kernel"
             android:title="Reset App after flashing new kernel" />
-        
+         </PreferenceCategory>	
+         <PreferenceCategory android:title="Crashes" >
+             <CheckBoxPreference 
+                 	android:key="acra.enable"
+    				android:title="Automatic Crash Reporting"
+    				android:summaryOn="Crash Reporting Enabled"
+    				android:summaryOff="Crash Repporting Disabled"
+    				android:defaultValue="true"/>
+             		
          </PreferenceCategory>	
          <PreferenceCategory android:title="@string/preferences_notification" >
         <PreferenceScreen 
