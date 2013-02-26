@@ -315,5 +315,14 @@
    <string name="io_scheduler">IO Scheduler</string>
    <string name="set_io_scheduler">Set IO Scheduler</string>
    <string name="sd_card_cache_size">SD Card Cache Size</string>
-	
+	<string name="crash_notif_ticker_text">Unexpected error, please send a report...</string>
+	<string name="crash_notif_title">Kernel Tuner has crashed...</string>
+	<string name="crash_notif_text">Please click here to help fix the issue.</string>
+    
+	<string name="crash_dialog_title">Kernel Tuner has crashed</string>
+	<string name="crash_dialog_text">An unexpected error occurred forcing the
+    application to stop. Please help us fix this by sending us error data,
+    all you have to do is click OK.</string>
+	<string name="crash_dialog_comment_prompt">You might add your comments about the problem below:</string>
+	<string name="crash_dialog_ok_toast">Thank you !</string>
 </resources>
