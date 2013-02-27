@@ -612,6 +612,7 @@ startCpuLoadThread();
 
 				
 
+				int origProg;
 				int prog;
 				@Override
 				public void onProgressChanged(SeekBar seekBar, int progress,
@@ -640,15 +641,22 @@ startCpuLoadThread();
 				public void onStartTrackingTouch(SeekBar seekBar)
 				{
 
+					origProg = seekBar.getProgress();
 
 				} 
 
 				@Override
 				public void onStopTrackingTouch(SeekBar seekBar)
 				{
-					if (prog > frequencies.indexOf(IOHelper.cpu0MaxFreq()))
+					if (seekBar.getProgress() > frequencies.indexOf(IOHelper.cpu0MaxFreq()))
 					{
-						cpu0minSeek.setProgressAndThumb(frequencies.indexOf(IOHelper.cpu0MinFreq()));
+						try{
+							cpu0minSeek.setProgressAndThumb(origProg);
+						}
+						catch(Exception e){
+							cpu0minSeek.setProgressAndThumb(origProg);	
+							cpu0min.setText(freqNames.get(origProg));	
+						}
 					}
 					else
 					{
@@ -749,6 +757,7 @@ startCpuLoadThread();
 			cpu1maxSeek.setProgress(frequencies.indexOf(cpu1MaxFreq));
 			cpu1minSeek.setOnSeekBarChangeListener(new OnSeekBarChangeListener(){
 					int prog;
+					int origProg;
 					@Override
 					public void onProgressChanged(SeekBar seekBar, int progress,
 												  boolean fromUser)
@@ -767,7 +776,9 @@ startCpuLoadThread();
 								}
 						}
 						if(size>progress){
+							System.out.println(freqNames.get(progress)+"+"+progress);
 						cpu1min.setText(freqNames.get(progress));
+							System.out.println(freqNames.get(progress)+"+"+progress);
 						}
 
 					}
@@ -775,7 +786,8 @@ startCpuLoadThread();
 					@Override
 					public void onStartTrackingTouch(SeekBar seekBar)
 					{
-
+					
+					origProg=seekBar.getProgress();
 
 
 					} 
@@ -784,9 +796,15 @@ startCpuLoadThread();
 					public void onStopTrackingTouch(SeekBar seekBar)
 					{
 
-						if (prog > frequencies.indexOf(IOHelper.cpu1MaxFreq()))
+						if (seekBar.getProgress() > frequencies.indexOf(IOHelper.cpu1MaxFreq()))
 						{
-							cpu1minSeek.setProgressAndThumb(frequencies.indexOf(IOHelper.cpu1MinFreq()));
+							try{
+							cpu1minSeek.setProgressAndThumb(origProg);//frequencies.indexOf(IOHelper.cpu1MinFreq()));
+							}
+							catch(Exception e){
+								cpu1minSeek.setProgressAndThumb(origProg);	
+								cpu1min.setText(freqNames.get(origProg));	
+							}
 						}
 						else
 						{
@@ -885,6 +903,7 @@ startCpuLoadThread();
 			cpu2maxSeek.setProgress(frequencies.indexOf(cpu2MaxFreq));
 			cpu2minSeek.setOnSeekBarChangeListener(new OnSeekBarChangeListener(){
 					int prog;
+					int origProg;
 					@Override
 					public void onProgressChanged(SeekBar seekBar, int progress,
 												  boolean fromUser)
@@ -912,6 +931,7 @@ startCpuLoadThread();
 					public void onStartTrackingTouch(SeekBar seekBar)
 					{
 
+						origProg = seekBar.getProgress();
 
 
 					} 
@@ -920,9 +940,15 @@ startCpuLoadThread();
 					public void onStopTrackingTouch(SeekBar seekBar)
 					{
 
-						if (prog > frequencies.indexOf(IOHelper.cpu2MaxFreq()))
+						if (seekBar.getProgress() > frequencies.indexOf(IOHelper.cpu2MaxFreq()))
 						{
-							cpu2minSeek.setProgressAndThumb(frequencies.indexOf(IOHelper.cpu2MinFreq()));
+							try{
+								cpu2minSeek.setProgressAndThumb(origProg);//frequencies.indexOf(IOHelper.cpu1MinFreq()));
+							}
+							catch(Exception e){
+								cpu2minSeek.setProgressAndThumb(origProg);	
+								cpu2min.setText(freqNames.get(origProg));	
+							}
 						}
 						else
 						{
@@ -1020,6 +1046,7 @@ startCpuLoadThread();
 			cpu3maxSeek.setProgress(frequencies.indexOf(cpu3MaxFreq));
 			cpu3minSeek.setOnSeekBarChangeListener(new OnSeekBarChangeListener(){
 					int prog;
+					int origProg;
 					@Override
 					public void onProgressChanged(SeekBar seekBar, int progress,
 												  boolean fromUser)
@@ -1047,6 +1074,7 @@ startCpuLoadThread();
 					public void onStartTrackingTouch(SeekBar seekBar)
 					{
 
+						origProg = seekBar.getProgress();
 
 
 					} 
@@ -1055,9 +1083,15 @@ startCpuLoadThread();
 					public void onStopTrackingTouch(SeekBar seekBar)
 					{
 
-						if (prog > frequencies.indexOf(IOHelper.cpu3MaxFreq()))
+						if (seekBar.getProgress() > frequencies.indexOf(IOHelper.cpu3MaxFreq()))
 						{
-							cpu3minSeek.setProgressAndThumb(frequencies.indexOf(IOHelper.cpu3MinFreq()));
+							try{
+								cpu3minSeek.setProgressAndThumb(origProg);//frequencies.indexOf(IOHelper.cpu1MinFreq()));
+							}
+							catch(Exception e){
+								cpu3minSeek.setProgressAndThumb(origProg);	
+								cpu3min.setText(freqNames.get(origProg));	
+							}
 						}
 						else
 						{
@@ -1206,10 +1240,31 @@ startCpuLoadThread();
 		if (!cpu1CurFreq.equals("offline") && cpu0CurFreq.length()!=0)
 		{
 			cpu1prog.setText(cpu1CurFreq.substring(0, cpu1CurFreq.length() - 3) + "Mhz");
+
+			if(rlcpu1.getVisibility()==View.GONE){
+				rlcpu1.setVisibility(View.VISIBLE);
+				cb.setVisibility(View.VISIBLE);
+				cpu1prog.setVisibility(View.VISIBLE);
+				progCpu1.setVisibility(View.VISIBLE);
+				cpu1txt.setVisibility(View.VISIBLE);
+				cpu1govtxt.setVisibility(View.VISIBLE);
+				gov1spinner.setVisibility(View.VISIBLE);
+			
+				}
 		}
 		else
 		{
+			if(rlcpu1.getVisibility()==View.VISIBLE){
+			rlcpu1.setVisibility(View.GONE);
+			cb.setVisibility(View.GONE);
+			cpu1prog.setVisibility(View.GONE);
+			progCpu1.setVisibility(View.GONE);
+			cpu1txt.setVisibility(View.GONE);
+			cpu1govtxt.setVisibility(View.GONE);
+			gov1spinner.setVisibility(View.GONE);
+			}
 			cpu1prog.setText(getResources().getString(R.string.offline));
+			
 		}
 
 		progCpu1.setMax(frequencies.indexOf(cpu1MaxFreq.trim()) + 1);
@@ -1223,10 +1278,28 @@ startCpuLoadThread();
 
 		if (!cpu2CurFreq.equals("offline") && cpu0CurFreq.length()!=0)
 		{
+			if(rlcpu2.getVisibility()==View.GONE){
+				rlcpu2.setVisibility(View.VISIBLE);
+				cpu2prog.setVisibility(View.VISIBLE);
+				progCpu2.setVisibility(View.VISIBLE);
+				cpu2txt.setVisibility(View.VISIBLE);
+				cpu2govtxt.setVisibility(View.VISIBLE);
+				gov2spinner.setVisibility(View.VISIBLE);
+
+			}
 			cpu2prog.setText(cpu2CurFreq.substring(0, cpu2CurFreq.length() - 3) + "Mhz");
 		}
 		else
 		{
+			if(rlcpu2.getVisibility()==View.VISIBLE){
+				rlcpu2.setVisibility(View.GONE);
+				
+				cpu2prog.setVisibility(View.GONE);
+				progCpu2.setVisibility(View.GONE);
+				cpu2txt.setVisibility(View.GONE);
+				cpu2govtxt.setVisibility(View.GONE);
+				gov2spinner.setVisibility(View.GONE);
+			}
 			cpu2prog.setText(getResources().getString(R.string.offline));
 		}
 
@@ -1241,10 +1314,27 @@ startCpuLoadThread();
 
 		if (!cpu3CurFreq.equals("offline") && cpu0CurFreq.length()!=0)
 		{
+			if(rlcpu3.getVisibility()==View.GONE){
+				rlcpu3.setVisibility(View.VISIBLE);
+				cpu3prog.setVisibility(View.VISIBLE);
+				progCpu3.setVisibility(View.VISIBLE);
+				cpu3txt.setVisibility(View.VISIBLE);
+				cpu3govtxt.setVisibility(View.VISIBLE);
+				gov3spinner.setVisibility(View.VISIBLE);
+
+			}
 			cpu3prog.setText(cpu3CurFreq.substring(0, cpu3CurFreq.length() - 3) + "Mhz");
 		}
 		else
 		{
+			if(rlcpu3.getVisibility()==View.VISIBLE){
+				rlcpu3.setVisibility(View.GONE);
+				cpu3prog.setVisibility(View.GONE);
+				progCpu3.setVisibility(View.GONE);
+				cpu3txt.setVisibility(View.GONE);
+				cpu3govtxt.setVisibility(View.GONE);
+				gov3spinner.setVisibility(View.GONE);
+			}
 			cpu3prog.setText(getResources().getString(R.string.offline));
 		}
 
