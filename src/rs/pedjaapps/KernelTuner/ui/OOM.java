@@ -306,7 +306,7 @@ public class OOM extends Activity {
 
 	}
 
-	public final void updateUI() {
+	public final void updateUI(){
 		try{
 		foreground = Integer.parseInt(oom.get(0).trim()) * 4 / 1024;
 		visible = Integer.parseInt(oom.get(1).trim()) * 4 / 1024;
@@ -315,7 +315,7 @@ public class OOM extends Activity {
 		content = Integer.parseInt(oom.get(4).trim()) * 4 / 1024;
 		empty = Integer.parseInt(oom.get(5).trim()) * 4 / 1024;
 		}
-		catch(NumberFormatException e){
+		catch(Exception e){
 			foreground=0;
 			visible=0;
 			secondary=0;
