@@ -118,8 +118,6 @@ public class BackupRestore extends SherlockActivity
 			restoreUserPrefs(BackupRestore.this);
 			publishProgress(1);
 			restoreDb(BackupRestore.this);
-				
-			
 			return "";
 		}
 

@@ -30,58 +30,26 @@ import android.os.AsyncTask;
 import android.preference.PreferenceManager;
 import android.util.Log;
 
-
-
 public class FrequencyChanger extends AsyncTask<String, Void, String>
 {
-
 	Context context;
 
 	public FrequencyChanger(Context context)
 	{
 		this.context = context;
 		preferences = PreferenceManager.getDefaultSharedPreferences(context);
-
 	}
 	
-
 	final SharedPreferences preferences;
 	@Override
 	protected String doInBackground(String... args)
 	{
-
-
-		
-		try {
-            String line;
-            Process process = Runtime.getRuntime().exec("su");
-            OutputStream stdin = process.getOutputStream();
-            InputStream stderr = process.getErrorStream();
-            InputStream stdout = process.getInputStream();
-
-            stdin.write(("chmod 777 /sys/devices/system/cpu/" + args[0] + "/cpufreq/scaling_" + args[1] + "_freq\n").getBytes());
-            stdin.write(("echo " + args[2] + " > /sys/devices/system/cpu/" + args[0] + "/cpufreq/scaling_" + args[1] + "_freq\n").getBytes());
-            stdin.write(("chmod 444 /sys/devices/system/cpu/" + args[0] + "/cpufreq/scaling_" + args[1] + "_freq\n").getBytes());
-            stdin.write(("chown system /sys/devices/system/cpu/" + args[0] + "/cpufreq/scaling_" + args[1] + "_freq\n").getBytes());
-            
-            stdin.flush();
-
-            stdin.close();
-            BufferedReader brCleanUp =
-                    new BufferedReader(new InputStreamReader(stdout));
-            while ((line = brCleanUp.readLine()) != null) {
-                Log.d("[KernelTuner ChangeGovernor Output]", line);
-            }
-            brCleanUp.close();
-            brCleanUp =
-                    new BufferedReader(new InputStreamReader(stderr));
-            while ((line = brCleanUp.readLine()) != null) {
-            	Log.e("[KernelTuner ChangeGovernor Error]", line);
-            }
-            brCleanUp.close();
-
-        } catch (IOException ex) {
-        }
+	RootExecuter.exec(new String[]{
+            "chmod 777 /sys/devices/system/cpu/" + args[0] + "/cpufreq/scaling_" + args[1] + "_freq\n",
+            "echo " + args[2] + " > /sys/devices/system/cpu/" + args[0] + "/cpufreq/scaling_" + args[1] + "_freq\n",
+            "chmod 444 /sys/devices/system/cpu/" + args[0] + "/cpufreq/scaling_" + args[1] + "_freq\n",
+            "chown system /sys/devices/system/cpu/" + args[0] + "/cpufreq/scaling_" + args[1] + "_freq\n"});
+          
 		SharedPreferences.Editor editor = preferences.edit();
 		editor.putString(args[0] + args[1], args[2]);
 		editor.commit();

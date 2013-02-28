@@ -18,14 +18,21 @@
 */
 package rs.pedjaapps.KernelTuner.shortcuts;
 
-import rs.pedjaapps.KernelTuner.helpers.IOHelper;
-import rs.pedjaapps.KernelTuner.ui.Mpdecision;
-import rs.pedjaapps.KernelTuner.R;
 import android.app.Activity;
+import android.content.Context;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.os.Parcelable;
+import android.preference.PreferenceManager;
 import android.widget.Toast;
+import java.io.File;
+import rs.pedjaapps.KernelTuner.Constants;
+import rs.pedjaapps.KernelTuner.R;
+import rs.pedjaapps.KernelTuner.helpers.IOHelper;
+import rs.pedjaapps.KernelTuner.ui.Mpdecision;
+import rs.pedjaapps.KernelTuner.ui.TISActivity;
+import rs.pedjaapps.KernelTuner.ui.TISActivityChart;
 
 public class MpdecisionShortcut extends Activity
 {
@@ -33,20 +40,20 @@ public class MpdecisionShortcut extends Activity
 	public void onCreate(Bundle savedInstanceState)
 	{
 		super.onCreate(savedInstanceState);
+		Context c = getApplicationContext();
+	    Class mActivity= null;
+    	if(new File(Constants.MPDEC_THR_UP).exists()){
+			mActivity = Mpdecision.class;
+		}
+		else if (new File(Constants.MPDEC_THR_0).exists()){
+			mActivity = Mpdecision.class;
+		}
 		if(IOHelper.mpdecisionExists()){
-		Intent shortcutintent = new Intent("com.android.launcher.action.INSTALL_SHORTCUT");
-		shortcutintent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
-		shortcutintent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
-		//repeat to create is forbidden
-		shortcutintent.putExtra("duplicate", false);
-		//set the name of shortCut
-		shortcutintent.putExtra(Intent.EXTRA_SHORTCUT_NAME, "Mpdecision");
-		//set icon
-		Parcelable icon = Intent.ShortcutIconResource.fromContext(getApplicationContext(), R.drawable.dual);
-		shortcutintent.putExtra(Intent.EXTRA_SHORTCUT_ICON_RESOURCE, icon);
-		//set the application to lunch when you click the icon
-		shortcutintent.putExtra(Intent.EXTRA_SHORTCUT_INTENT, new Intent(MpdecisionShortcut.this , Mpdecision.class));
-		//sendBroadcast,done
+		Intent shortcutintent = new Intent("com.android.launcher.action.INSTALL_SHORTCUT")
+		         .putExtra("duplicate", false)
+				 .putExtra(Intent.EXTRA_SHORTCUT_NAME, "Mpdecision")
+				 .putExtra(Intent.EXTRA_SHORTCUT_ICON_RESOURCE, Intent.ShortcutIconResource.fromContext(c, R.drawable.dual))
+				 .putExtra(Intent.EXTRA_SHORTCUT_INTENT, new Intent(c , mActivity));
 		sendBroadcast(shortcutintent);
 		Toast.makeText(MpdecisionShortcut.this, "Shortcut Mpdecision created", Toast.LENGTH_SHORT).show();
 		finish();

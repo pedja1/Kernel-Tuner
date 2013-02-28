@@ -18,23 +18,34 @@
 */
 package rs.pedjaapps.KernelTuner.ui;
 
-import android.app.*;
-import android.content.*;
-import android.os.*;
-import android.preference.*;
-import android.view.*;
-import android.widget.*;
-import com.actionbarsherlock.app.*;
-import com.google.ads.*;
-import java.io.*;
-import java.util.*;
-import rs.pedjaapps.KernelTuner.entry.*;
-import rs.pedjaapps.KernelTuner.helpers.*;
-import rs.pedjaapps.KernelTuner.tools.*;
-
+import android.app.AlertDialog;
+import android.app.ProgressDialog;
+import android.content.DialogInterface;
+import android.content.Intent;
+import android.content.SharedPreferences;
+import android.os.Bundle;
+import android.preference.PreferenceManager;
+import android.view.Gravity;
+import android.view.View;
 import android.view.View.OnClickListener;
+import android.widget.Button;
+import android.widget.EditText;
+import android.widget.ListView;
 import com.actionbarsherlock.app.ActionBar;
+import com.actionbarsherlock.app.SherlockActivity;
+import com.google.ads.AdRequest;
+import com.google.ads.AdView;
+import java.io.File;
+import java.util.ArrayList;
+import java.util.List;
+import rs.pedjaapps.KernelTuner.Constants;
 import rs.pedjaapps.KernelTuner.R;
+import rs.pedjaapps.KernelTuner.entry.Voltage;
+import rs.pedjaapps.KernelTuner.entry.VoltageEntry;
+import rs.pedjaapps.KernelTuner.helpers.DatabaseHandler;
+import rs.pedjaapps.KernelTuner.helpers.IOHelper;
+import rs.pedjaapps.KernelTuner.helpers.VoltageAdapter;
+import rs.pedjaapps.KernelTuner.tools.ChangeVoltage;
 
 public class VoltageActivity extends SherlockActivity
 {
@@ -97,11 +108,8 @@ boolean isLight;
 				@Override
 				public void onClick(View arg0)
 				{
-					
 					VoltageAdapter.pd = ProgressDialog.show(VoltageActivity.this, null, getResources().getString(R.string.changing_voltage), true, false);
 					new ChangeVoltage(VoltageActivity.this).execute(new String[] {"minus"});
-
-
 				}
 
 			});
@@ -115,8 +123,6 @@ boolean isLight;
 					
 					VoltageAdapter.pd = ProgressDialog.show(VoltageActivity.this, null, getResources().getString(R.string.changing_voltage), true, false);
 					new ChangeVoltage(VoltageActivity.this).execute(new String[] {"plus"});
-
-
 				}
 
 			});
@@ -196,9 +202,6 @@ boolean isLight;
 				    	Voltage voltage = db.getVoltageByName(items2[item].toString()) ;
 				    	VoltageAdapter.pd = ProgressDialog.show(VoltageActivity.this, null, getResources().getString(R.string.changing_voltage), true, false);
 						new ChangeVoltage(VoltageActivity.this).execute(new String[] {"profile", voltage.getValue()});
-				    	
-
-				    	
 				    }
 				});
 				AlertDialog alert = builder.create();
@@ -324,7 +327,7 @@ boolean isLight;
 			voltageFreqNames.add(v.getFreqName());
 		}
 
-		if (new File(IOHelper.VOLTAGE_PATH).exists())
+		if (new File(Constants.VOLTAGE_PATH).exists())
 		{
 			int voltagesSize = voltages.size();
 			for (int i= 0; i < voltagesSize; i++)
@@ -335,7 +338,7 @@ boolean isLight;
 			}	
 
 		}
-		else if (new File(IOHelper.VOLTAGE_PATH_TEGRA_3).exists())
+		else if (new File(Constants.VOLTAGE_PATH_TEGRA_3).exists())
 		{
 			int voltagesSize = voltages.size();
 			for (int i= 0; i < voltagesSize; i++)

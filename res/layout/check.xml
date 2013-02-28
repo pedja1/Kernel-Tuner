@@ -228,27 +228,7 @@
                     android:layout_height="wrap_content"
                     android:text="@string/n_a" />
             </LinearLayout>
-            
-            <LinearLayout
-                android:id="@+id/ll11"
-                android:layout_width="match_parent"
-                android:layout_height="match_parent"
-                android:visibility="gone" >
-
-                <TextView
-                    android:id="@+id/textView21"
-                    android:layout_width="0dp"
-                    android:layout_height="wrap_content"
-                    android:layout_weight="1"
-                    android:text="@string/activity_check_f_sync_"
-                     android:textColor="#FFFFFF" />
-
-                <TextView
-                    android:id="@+id/textView22"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:text="@string/n_a" />
-            </LinearLayout>
+           
             
             <LinearLayout
                 android:id="@+id/ll12"

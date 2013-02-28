@@ -49,6 +49,7 @@ import rs.pedjaapps.KernelTuner.entry.GovEntry;
 import rs.pedjaapps.KernelTuner.helpers.IOHelper;
 import rs.pedjaapps.KernelTuner.helpers.GovernorSettingsAdapter;
 import rs.pedjaapps.KernelTuner.tools.ChangeGovernorSettings;
+import android.content.Context;
 
 public class GovernorActivity extends SherlockActivity
 {
@@ -61,11 +62,13 @@ public class GovernorActivity extends SherlockActivity
 	private List<String> governors;
 	private List<String> temp;
 	boolean isLight;
+	Context c;
 	@Override
 	public void onCreate(Bundle savedInstanceState)
 	{
+		c = this;
 		availableGovs = IOHelper.availableGovs();
-		SharedPreferences preferences = PreferenceManager.getDefaultSharedPreferences(this);
+		SharedPreferences preferences = PreferenceManager.getDefaultSharedPreferences(c);
 		
 		String theme = preferences.getString("theme", "light");
 		
@@ -90,8 +93,7 @@ public class GovernorActivity extends SherlockActivity
 		ActionBar actionBar = getSupportActionBar();
 		actionBar.setDisplayHomeAsUpEnabled(true);
 
-		SharedPreferences sharedPrefs = PreferenceManager.getDefaultSharedPreferences(this);
-		boolean ads = sharedPrefs.getBoolean("ads", true);
+		boolean ads = preferences.getBoolean("ads", true);
 		if (ads == true)
 		{AdView adView = (AdView)findViewById(R.id.ad);
 			adView.loadAd(new AdRequest());}
@@ -99,7 +101,7 @@ public class GovernorActivity extends SherlockActivity
 		if (!availableGovs.isEmpty())
 		{
 
-			govAdapter = new GovernorSettingsAdapter(this, R.layout.governor_list_item);
+			govAdapter = new GovernorSettingsAdapter(c, R.layout.governor_list_item);
 			govListView.setAdapter(govAdapter);
 
 			for (final GovEntry entry : getGovEntries())
@@ -139,7 +141,7 @@ public class GovernorActivity extends SherlockActivity
 							public void onClick(DialogInterface dialog, int which)
 							{
 								
-								new ChangeGovernorSettings(GovernorActivity.this).execute(new String[] {input.getText()+"", fileList.get(position), governors.get(position)});
+								new ChangeGovernorSettings(c).execute(new String[] {input.getText()+"", fileList.get(position), governors.get(position)});
 
 								try
 								{
@@ -257,7 +259,7 @@ public class GovernorActivity extends SherlockActivity
 	    switch (item.getItemId()) {
 	        case android.R.id.home:
 	            // app icon in action bar clicked; go home
-	            Intent intent = new Intent(this, KernelTuner.class);
+	            Intent intent = new Intent(c, KernelTuner.class);
 	            intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
 	            startActivity(intent);
 	            return true;

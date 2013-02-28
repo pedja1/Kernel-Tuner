@@ -35,6 +35,7 @@ import rs.pedjaapps.KernelTuner.receiver.*;
 
 import android.graphics.Bitmap.Config;
 import java.lang.Process;
+import rs.pedjaapps.KernelTuner.tools.RootExecuter;
 
 
 public class WidgetUpdateServiceBig extends Service
@@ -67,12 +68,6 @@ public class WidgetUpdateServiceBig extends Service
 	private double timeint = 30;
 	private int bgRes = 0;
 	
-	
-
-
-	
-	
-
 	private void mountdebugfs()
 	{
 		try {
@@ -107,44 +102,16 @@ public class WidgetUpdateServiceBig extends Service
 
 	private void enableTemp()
 	{
-		try {
-            String line;
-            Process process = Runtime.getRuntime().exec("su");
-            OutputStream stdin = process.getOutputStream();
-            InputStream stderr = process.getErrorStream();
-            InputStream stdout = process.getInputStream();
-
-            stdin.write(("chmod 777 /sys/devices/virtual/thermal/thermal_zone1/mode\n").getBytes());
-            stdin.write(("chmod 777 /sys/devices/virtual/thermal/thermal_zone0/mode\n").getBytes());
-            stdin.write(("echo -n enabled > /sys/devices/virtual/thermal/thermal_zone1/mode\n").getBytes());
-            stdin.write(("echo -n enabled > /sys/devices/virtual/thermal/thermal_zone0/mode\n").getBytes());
+	     RootExecuter.exec(new String[]{
+            "chmod 777 /sys/devices/virtual/thermal/thermal_zone1/mode\n",
+            "chmod 777 /sys/devices/virtual/thermal/thermal_zone0/mode\n",
+            "echo -n enabled > /sys/devices/virtual/thermal/thermal_zone1/mode\n",
+            "echo -n enabled > /sys/devices/virtual/thermal/thermal_zone0/mode\n"});
 	           
-            stdin.flush();
-
-            stdin.close();
-            BufferedReader brCleanUp =
-                    new BufferedReader(new InputStreamReader(stdout));
-            while ((line = brCleanUp.readLine()) != null) {
-                Log.d("[KernelTuner EnableTempMonitor Output]", line);
-            }
-            brCleanUp.close();
-            brCleanUp =
-                    new BufferedReader(new InputStreamReader(stderr));
-            while ((line = brCleanUp.readLine()) != null) {
-            	Log.e("[KernelTuner EnableTempMonitor Error]", line);
-            }
-            brCleanUp.close();
-
-        } catch (IOException ex) {
-        }
 
 	}
-
-
 	private void info()
 	{
-
-
 		System.out.println("widget service big");
 		cpu0gov = IOHelper.cpu0CurGov();
 		cpu1gov = IOHelper.cpu1CurGov();
@@ -171,7 +138,6 @@ public class WidgetUpdateServiceBig extends Service
 		int freqslength = frequencies.size();
 		int index = frequencies.indexOf(cpu0curr);
 		int index2 = frequencies.indexOf(cpu1curr);
-
 		cf = index * 100 / freqslength + 4;
 		cf2 = index2 * 100 / freqslength + 4;
 		
@@ -185,11 +151,7 @@ public class WidgetUpdateServiceBig extends Service
 
 		int[] allWidgetIds = intent
 			.getIntArrayExtra(AppWidgetManager.EXTRA_APPWIDGET_IDS);
-
-		
-
 		File file = new File("/sys/kernel/debug");
-		
 		File[] contents = file.listFiles();
 		if (contents == null) {
 		}
@@ -201,11 +163,7 @@ public class WidgetUpdateServiceBig extends Service
 		if(IOHelper.isTempEnabled()==false){
 		enableTemp();
 		}
-		
 		info();
-
-		
-
 		for (int widgetId : allWidgetIds)
 		{
 
@@ -240,7 +198,6 @@ public class WidgetUpdateServiceBig extends Service
 
 			for (int i = 97, a = 100; a > 100 - cf && i > 100 - cf; i = i - 4, a = a - 4)
 			{
-
 				p.setColor(Color.GREEN);
 				Rect rect = new Rect(10, i, 50, a);
 				RectF rectF = new RectF(rect);
@@ -249,7 +206,6 @@ public class WidgetUpdateServiceBig extends Service
 				rect = new Rect(51, i, 91, a);
 				rectF = new RectF(rect);
 				canvas.drawRoundRect(rectF, 1, 1, p);
-
 			}
 
 			Bitmap bitmap2 = Bitmap.createBitmap(100, 100, Config.ARGB_8888);

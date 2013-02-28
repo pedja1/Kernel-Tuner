@@ -41,6 +41,7 @@ import java.lang.Process;
 import org.apache.commons.io.FileUtils;
 
 import rs.pedjaapps.KernelTuner.R;
+import rs.pedjaapps.KernelTuner.Constants;
 
 public class MpdecisionNew extends SherlockActivity
 {
@@ -183,8 +184,6 @@ public class MpdecisionNew extends SherlockActivity
 
 	}
 
-
-
 	@Override
 	public void onCreate(Bundle savedInstanceState)
 	{
@@ -244,9 +243,6 @@ public class MpdecisionNew extends SherlockActivity
 			thrTxt[i] = (EditText)findViewById(thrIds[i]);
 		}
 		readMpdec();
-		
-		
-		
 	}
 
 	@Override
@@ -258,10 +254,7 @@ public class MpdecisionNew extends SherlockActivity
 	@Override
 	protected void onResume()
 	{
-
-
 		super.onResume();
-
 	}
 
 
@@ -369,9 +362,7 @@ public class MpdecisionNew extends SherlockActivity
 	{
 		try
 		{
-
-			
-			delay = FileUtils.readFileToString(new File("/sys/kernel/msm_mpdecision/conf/delay"));
+			delay = FileUtils.readFileToString(new File(Constants.MPDEC_DELAY));
 		}
 		catch (Exception e)
 		{
@@ -383,9 +374,7 @@ public class MpdecisionNew extends SherlockActivity
 
 		try
 		{
-
-			pause = FileUtils.readFileToString(new File("/sys/kernel/msm_mpdecision/conf/pause"));
-			
+			pause = FileUtils.readFileToString(new File(Constants.MPDEC_PAUSE));
 		}
 		catch (Exception e)
 		{
@@ -421,7 +410,7 @@ public class MpdecisionNew extends SherlockActivity
 	    
 		try
 		{
-			idle = FileUtils.readFileToString(new File("/sys/kernel/msm_mpdecision/conf/idle_freq")).trim();
+			idle = FileUtils.readFileToString(new File(Constants.MPDEC_IDLE_FREQ)).trim();
 		}
 		catch (Exception e)
 		{
@@ -431,7 +420,7 @@ public class MpdecisionNew extends SherlockActivity
 		
 		try
 		{
-			scroff = FileUtils.readFileToString(new File("/sys/kernel/msm_mpdecision/conf/scroff_freq")).trim();
+			scroff = FileUtils.readFileToString(new File(Constants.MPDEC_SCROFF_FREQ)).trim();
 		}
 		catch (Exception e)
 		{
@@ -441,7 +430,7 @@ public class MpdecisionNew extends SherlockActivity
 		
 		try
 		{
-			scroff_single = FileUtils.readFileToString(new File("/sys/kernel/msm_mpdecision/conf/scroff_single_core")).trim();	
+			scroff_single = FileUtils.readFileToString(new File(Constants.MPDEC_SCROFF_SINGLE)).trim();	
 		
 		}
 		catch (Exception e)
@@ -452,7 +441,7 @@ public class MpdecisionNew extends SherlockActivity
 		}
 		try
 		{
-			max_cpus = FileUtils.readFileToString(new File("/sys/kernel/msm_mpdecision/conf/max_cpus"));	
+			max_cpus = FileUtils.readFileToString(new File(Constants.MPDEC_MAX_CPUS));	
 		}
 		catch (Exception e)
 		{
@@ -461,7 +450,7 @@ public class MpdecisionNew extends SherlockActivity
 		}
 		try
 		{
-			min_cpus = FileUtils.readFileToString(new File("/sys/kernel/msm_mpdecision/conf/min_cpus"));	
+			min_cpus = FileUtils.readFileToString(new File(Constants.MPDEC_MIN_CPUS));	
 		}
 		catch (Exception e)
 		{

@@ -18,44 +18,34 @@
 */
 package rs.pedjaapps.KernelTuner.tools;
 
+import java.io.*;
+
 import android.content.Context;
 import android.content.SharedPreferences;
 import android.os.AsyncTask;
 import android.preference.PreferenceManager;
 import android.util.Log;
-import java.io.BufferedReader;
-import java.io.File;
-import java.io.IOException;
-import java.io.InputStream;
-import java.io.InputStreamReader;
-import java.io.OutputStream;
 import java.util.ArrayList;
 import java.util.List;
-import rs.pedjaapps.KernelTuner.ui.VoltageActivity;
+import rs.pedjaapps.KernelTuner.Constants;
 import rs.pedjaapps.KernelTuner.helpers.IOHelper;
 import rs.pedjaapps.KernelTuner.helpers.VoltageAdapter;
+import rs.pedjaapps.KernelTuner.ui.VoltageActivity;
 
 
 public class ChangeVoltage extends AsyncTask<String, Void, String>
 {
-
 	final Context context;
-
-	
 	public ChangeVoltage(Context context)
 	{
 		this.context = context;
 		preferences = PreferenceManager.getDefaultSharedPreferences(context);
-
 	}
-	
-
 	final SharedPreferences preferences;
 
 	@Override
 	protected String doInBackground(String... args)
 	{
-
 		List<IOHelper.VoltageList> voltageList = IOHelper.voltages();
 		List<Integer> voltages = new ArrayList<Integer>();
 		List<String> voltageFreqs =  new ArrayList<String>();
@@ -66,14 +56,11 @@ public class ChangeVoltage extends AsyncTask<String, Void, String>
 		for(IOHelper.VoltageList v: voltageList){
 			voltages.add(v.getVoltage());
 		}
-		
-		
 		System.out.println("ChangeVoltage: Changing voltage");
-		if (new File(IOHelper.VOLTAGE_PATH).exists())
+		if (new File(Constants.VOLTAGE_PATH).exists())
 		{
 			if (args[0].equals("minus"))
 			{
-				
 				try {
 		            String line;
 		            Process process = Runtime.getRuntime().exec("su");
@@ -355,7 +342,7 @@ public class ChangeVoltage extends AsyncTask<String, Void, String>
 			}
 			
 		}
-		else if (new File(IOHelper.VOLTAGE_PATH_TEGRA_3).exists())
+		else if (new File(Constants.VOLTAGE_PATH_TEGRA_3).exists())
 		{
 			
 			if (args[0].equals("minus"))

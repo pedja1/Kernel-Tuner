@@ -18,13 +18,14 @@
 */
 package rs.pedjaapps.KernelTuner.shortcuts;
 
-import rs.pedjaapps.KernelTuner.ui.GovernorActivity;
-import rs.pedjaapps.KernelTuner.R;
 import android.app.Activity;
+import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
 import android.os.Parcelable;
 import android.widget.Toast;
+import rs.pedjaapps.KernelTuner.R;
+import rs.pedjaapps.KernelTuner.ui.GovernorActivity;
 
 public class GovernorShortcut extends Activity
 {
@@ -32,20 +33,12 @@ public class GovernorShortcut extends Activity
 	public void onCreate(Bundle savedInstanceState)
 	{
 		super.onCreate(savedInstanceState);
-		
-		Intent shortcutintent = new Intent("com.android.launcher.action.INSTALL_SHORTCUT");
-		shortcutintent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
-		shortcutintent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
-		//repeat to create is forbidden
-		shortcutintent.putExtra("duplicate", false);
-		//set the name of shortCut
-		shortcutintent.putExtra(Intent.EXTRA_SHORTCUT_NAME, "Governor Settings");
-		//set icon
-		Parcelable icon = Intent.ShortcutIconResource.fromContext(getApplicationContext(), R.drawable.dual);
-		shortcutintent.putExtra(Intent.EXTRA_SHORTCUT_ICON_RESOURCE, icon);
-		//set the application to lunch when you click the icon
-		shortcutintent.putExtra(Intent.EXTRA_SHORTCUT_INTENT, new Intent(GovernorShortcut.this , GovernorActivity.class));
-		//sendBroadcast,done
+		Context c = getApplicationContext();
+		Intent shortcutintent = new Intent("com.android.launcher.action.INSTALL_SHORTCUT")
+		         .putExtra("duplicate", false)
+				 .putExtra(Intent.EXTRA_SHORTCUT_NAME, "Governor Settings")
+				 .putExtra(Intent.EXTRA_SHORTCUT_ICON_RESOURCE, Intent.ShortcutIconResource.fromContext(c, R.drawable.dual))
+				 .putExtra(Intent.EXTRA_SHORTCUT_INTENT, new Intent(GovernorShortcut.this , GovernorActivity.class));
 		sendBroadcast(shortcutintent);
 		Toast.makeText(GovernorShortcut.this, "Shortcut GovernorSettings created", Toast.LENGTH_SHORT).show();
 		finish();

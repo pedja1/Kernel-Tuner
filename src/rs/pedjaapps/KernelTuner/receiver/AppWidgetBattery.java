@@ -32,6 +32,7 @@ import android.content.SharedPreferences;
 import android.graphics.Color;
 import android.preference.PreferenceManager;
 import android.widget.RemoteViews;
+import rs.pedjaapps.KernelTuner.tools.Tools;
 
 public class AppWidgetBattery extends AppWidgetProvider {
 
@@ -95,7 +96,7 @@ public class AppWidgetBattery extends AppWidgetProvider {
 			remoteViews.setTextViewText(R.id.textView1, "Unknown");
 		}
 		if (batttemp != null) {
-			remoteViews.setTextViewText(R.id.textView3, tempConverter(tempPref, batttemp));
+			remoteViews.setTextViewText(R.id.textView3, Tools.tempConverter(tempPref, batttemp));
 		} else {
 			remoteViews.setTextViewText(R.id.textView3, "Unknown");
 		}
@@ -137,24 +138,5 @@ public void battInfo(){
 		batttemp = IOHelper.batteryTemp();
 		battcurrent = IOHelper.batteryDrain();
 		
-}
-public static String tempConverter(String tempPref, double cTemp) {
-	String tempNew = "";
-	/**
-	 * cTemp = temperature in celsius tempPreff = string from shared
-	 * preferences with value fahrenheit, celsius or kelvin
-	 */
-	if (tempPref.equals("fahrenheit")) {
-		tempNew = ((cTemp * 1.8) + 32) + "°F";
-
-	} else if (tempPref.equals("celsius")) {
-		tempNew = cTemp + "°C";
-
-	} else if (tempPref.equals("kelvin")) {
-
-		tempNew = (cTemp + 273.15) + "°C";
-
-	}
-	return tempNew;
 }
 }

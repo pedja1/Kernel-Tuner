@@ -34,19 +34,11 @@ public class OOMShortcut extends Activity
 	{
 		super.onCreate(savedInstanceState);
 		if(IOHelper.oomExists()){
-		Intent shortcutintent = new Intent("com.android.launcher.action.INSTALL_SHORTCUT");
-		shortcutintent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
-		shortcutintent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
-		//repeat to create is forbidden
-		shortcutintent.putExtra("duplicate", false);
-		//set the name of shortCut
-		shortcutintent.putExtra(Intent.EXTRA_SHORTCUT_NAME, "OOM");
-		//set icon
-		Parcelable icon = Intent.ShortcutIconResource.fromContext(getApplicationContext(), R.drawable.swap);
-		shortcutintent.putExtra(Intent.EXTRA_SHORTCUT_ICON_RESOURCE, icon);
-		//set the application to lunch when you click the icon
-		shortcutintent.putExtra(Intent.EXTRA_SHORTCUT_INTENT, new Intent(OOMShortcut.this , OOM.class));
-		//sendBroadcast,done
+		Intent shortcutintent = new Intent("com.android.launcher.action.INSTALL_SHORTCUT")
+		      .putExtra("duplicate", false)
+		      .putExtra(Intent.EXTRA_SHORTCUT_NAME, "OOM")
+		      .putExtra(Intent.EXTRA_SHORTCUT_ICON_RESOURCE, Intent.ShortcutIconResource.fromContext(this, R.drawable.swap))
+			  .putExtra(Intent.EXTRA_SHORTCUT_INTENT, new Intent(this , OOM.class));
 		sendBroadcast(shortcutintent);
 		Toast.makeText(OOMShortcut.this, "Shortcut OOM created", Toast.LENGTH_SHORT).show();
 		finish();

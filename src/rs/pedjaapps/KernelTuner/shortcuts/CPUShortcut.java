@@ -18,14 +18,17 @@
 */
 package rs.pedjaapps.KernelTuner.shortcuts;
 
-import rs.pedjaapps.KernelTuner.ui.CPUActivity;
-import rs.pedjaapps.KernelTuner.R;
 import android.app.Activity;
+import android.content.Context;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.os.Bundle;
-import android.os.Parcelable;
+import android.preference.PreferenceManager;
 import android.widget.Toast;
-import rs.pedjaapps.KernelTuner.helpers.*;
+import rs.pedjaapps.KernelTuner.R;
+import rs.pedjaapps.KernelTuner.helpers.IOHelper;
+import rs.pedjaapps.KernelTuner.ui.CPUActivity;
+import rs.pedjaapps.KernelTuner.ui.CPUActivityOld;
 
 public class CPUShortcut extends Activity
 {
@@ -33,20 +36,23 @@ public class CPUShortcut extends Activity
 	public void onCreate(Bundle savedInstanceState)
 	{
 		super.onCreate(savedInstanceState);
+		Context c = getApplicationContext();
+		
+	    SharedPreferences prefs = PreferenceManager.getDefaultSharedPreferences(c);
+	    String cpuPref = prefs.getString("show_cpu_as","full");
+	    Class cpuActivity= null;
+    	if(cpuPref.equals("full")){
+			cpuActivity = CPUActivity.class;
+		}
+		else{
+			cpuActivity = CPUActivityOld.class;
+		}
 		if(IOHelper.freqsExists() || IOHelper.TISExists()){
-		Intent shortcutintent = new Intent("com.android.launcher.action.INSTALL_SHORTCUT");
-		shortcutintent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
-		shortcutintent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
-		//repeat to create is forbidden
-		shortcutintent.putExtra("duplicate", false);
-		//set the name of shortCut
-		shortcutintent.putExtra(Intent.EXTRA_SHORTCUT_NAME, "CPUTweaks");
-		//set icon
-		Parcelable icon = Intent.ShortcutIconResource.fromContext(getApplicationContext(), R.drawable.ic_launcher);
-		shortcutintent.putExtra(Intent.EXTRA_SHORTCUT_ICON_RESOURCE, icon);
-		//set the application to lunch when you click the icon
-		shortcutintent.putExtra(Intent.EXTRA_SHORTCUT_INTENT, new Intent(CPUShortcut.this , CPUActivity.class));
-		//sendBroadcast,done
+		Intent shortcutintent = new Intent("com.android.launcher.action.INSTALL_SHORTCUT")
+		        .putExtra("duplicate", false)
+				.putExtra(Intent.EXTRA_SHORTCUT_NAME, "CPUTweaks")
+				.putExtra(Intent.EXTRA_SHORTCUT_ICON_RESOURCE, Intent.ShortcutIconResource.fromContext(c, R.drawable.ic_launcher))
+				.putExtra(Intent.EXTRA_SHORTCUT_INTENT, new Intent(c, cpuActivity));
 		sendBroadcast(shortcutintent);
 		Toast.makeText(CPUShortcut.this, "Shortcut CPUTweaks created", Toast.LENGTH_SHORT).show();
 		finish();

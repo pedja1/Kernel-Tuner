@@ -33,21 +33,6 @@ public class MyApplication extends Application {
 	public void onCreate() {
 		super.onCreate();
 		ACRA.init(this);
-		/*try {
-			ACRA.getErrorReporter().putCustomData("freq_table",
-					FileUtils.readFileToString(new File("/sys/devices/system/cpu/cpu0/cpufreq/scaling_available_frequencies")));
-			ACRA.getErrorReporter().putCustomData("cpu_max",
-					FileUtils.readFileToString(new File("/sys/devices/system/cpu/cpu0/cpufreq/scaling_max_freq")));
-			ACRA.getErrorReporter().putCustomData("cpu_min",
-					FileUtils.readFileToString(new File("/sys/devices/system/cpu/cpu0/cpufreq/scaling_min_freq")));
-			ACRA.getErrorReporter().putCustomData("gpu3d_max",
-					FileUtils.readFileToString(new File(IOHelper.GPU_2D)));
-			ACRA.getErrorReporter().putCustomData("gpu3d_max",
-					FileUtils.readFileToString(new File(IOHelper.GPU_3D)));
-		} catch (IOException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		}*/
 	}
 
 }

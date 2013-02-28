@@ -38,6 +38,7 @@ import com.actionbarsherlock.view.Menu;
 import com.actionbarsherlock.view.MenuInflater;
 import java.lang.Process;
 import rs.pedjaapps.KernelTuner.R;
+import rs.pedjaapps.KernelTuner.tools.RootExecuter;
 
 public class Mpdecision extends SherlockActivity
 {
@@ -78,65 +79,34 @@ public class Mpdecision extends SherlockActivity
 	private String onoff;
 
 	private ProgressDialog pd = null;
-
 	private class apply extends AsyncTask<String, Void, Object>
 	{
-
-
 		@Override
 		protected Object doInBackground(String... args)
 		{
+			RootExecuter.exec(new String[]{
+		            "chmod 777 /sys/kernel/msm_mpdecision/conf/scroff_single_core\n",
+					"chmod 777 /sys/kernel/msm_mpdecision/conf/scroff_freq\n",
+					"chmod 777 /sys/kernel/msm_mpdecision/conf/idle_freq\n",
+					"chmod 777 /sys/kernel/msm_mpdecision/conf/dealy\n",
+					"chmod 777 /sys/kernel/msm_mpdecision/conf/pause\n",
+					"chmod 777 /sys/kernel/msm_mpdecision/conf/nwns_threshold_up\n",
+					"chmod 777 /sys/kernel/msm_mpdecision/conf/twts_threshold_up\n",
+					"chmod 777 /sys/kernel/msm_mpdecision/conf/nwns_threshold_down\n",
+					"chmod 777 /sys/kernel/msm_mpdecision/conf/twts_threshold_down\n",
 
-			
-			 try {
-		            String line;
-		            Process process = Runtime.getRuntime().exec("su");
-		            OutputStream stdin = process.getOutputStream();
-		            InputStream stderr = process.getErrorStream();
-		            InputStream stdout = process.getInputStream();
-
-		            stdin.write(("chmod 777 /sys/kernel/msm_mpdecision/conf/scroff_single_core\n").getBytes());
-					stdin.write(("chmod 777 /sys/kernel/msm_mpdecision/conf/scroff_freq\n").getBytes());
-					stdin.write(("chmod 777 /sys/kernel/msm_mpdecision/conf/idle_freq\n").getBytes());
-					stdin.write(("chmod 777 /sys/kernel/msm_mpdecision/conf/dealy\n").getBytes());
-					stdin.write(("chmod 777 /sys/kernel/msm_mpdecision/conf/pause\n").getBytes());
-					stdin.write(("chmod 777 /sys/kernel/msm_mpdecision/conf/nwns_threshold_up\n").getBytes());
-					stdin.write(("chmod 777 /sys/kernel/msm_mpdecision/conf/twts_threshold_up\n").getBytes());
-					stdin.write(("chmod 777 /sys/kernel/msm_mpdecision/conf/nwns_threshold_down\n").getBytes());
-					stdin.write(("chmod 777 /sys/kernel/msm_mpdecision/conf/twts_threshold_down\n").getBytes());
-
-					stdin.write(("echo " + mpscroff + " > /sys/kernel/msm_mpdecision/conf/scroff_single_core\n").getBytes());
-					stdin.write(("echo " + onoff + " > /sys/kernel/msm_mpdecision/conf/scroff_profile\n").getBytes());
-					stdin.write(("echo " + delaynew + " > /sys/kernel/msm_mpdecision/conf/delay\n").getBytes());
-					stdin.write(("echo " + pausenew + " > /sys/kernel/msm_mpdecision/conf/pause\n").getBytes());
-					stdin.write(("echo " + thruploadnew + " > /sys/kernel/msm_mpdecision/conf/nwns_threshold_up\n").getBytes());
-					stdin.write(("echo " + thrdownloadnew + " > /sys/kernel/msm_mpdecision/conf/nwns_threshold_down\n").getBytes());
-					stdin.write(("echo " + thrupmsnew + " > /sys/kernel/msm_mpdecision/conf/twts_threshold_up\n").getBytes());
-					stdin.write(("echo " + thrdownmsnew + " > /sys/kernel/msm_mpdecision/conf/twts_threshold_down\n").getBytes());
-					stdin.write(("echo " + idleNew + " > /sys/kernel/msm_mpdecision/conf/idle_freq\n").getBytes());
-					stdin.write(("echo " + scroffNew + " > /sys/kernel/msm_mpdecision/conf/scroff_freq\n").getBytes());
-					stdin.write(("echo " + scroff_singleNew + " > /sys/kernel/msm_mpdecision/conf/scroff_single_core\n").getBytes());
+					"echo " + mpscroff + " > /sys/kernel/msm_mpdecision/conf/scroff_single_core\n",
+					"echo " + onoff + " > /sys/kernel/msm_mpdecision/conf/scroff_profile\n",
+					"echo " + delaynew + " > /sys/kernel/msm_mpdecision/conf/delay\n",
+					"echo " + pausenew + " > /sys/kernel/msm_mpdecision/conf/pause\n",
+					"echo " + thruploadnew + " > /sys/kernel/msm_mpdecision/conf/nwns_threshold_up\n",
+					"echo " + thrdownloadnew + " > /sys/kernel/msm_mpdecision/conf/nwns_threshold_down\n",
+					"echo " + thrupmsnew + " > /sys/kernel/msm_mpdecision/conf/twts_threshold_up\n",
+					"echo " + thrdownmsnew + " > /sys/kernel/msm_mpdecision/conf/twts_threshold_down\n",
+					"echo " + idleNew + " > /sys/kernel/msm_mpdecision/conf/idle_freq\n",
+					"echo " + scroffNew + " > /sys/kernel/msm_mpdecision/conf/scroff_freq\n",
+					"echo " + scroff_singleNew + " > /sys/kernel/msm_mpdecision/conf/scroff_single_core\n"});
 					 
-		            
-		            stdin.flush();
-
-		            stdin.close();
-		            BufferedReader brCleanUp =
-		                    new BufferedReader(new InputStreamReader(stdout));
-		            while ((line = brCleanUp.readLine()) != null) {
-		                Log.d("[KernelTuner ChangeGovernor Output]", line);
-		            }
-		            brCleanUp.close();
-		            brCleanUp =
-		                    new BufferedReader(new InputStreamReader(stderr));
-		            while ((line = brCleanUp.readLine()) != null) {
-		            	Log.e("[KernelTuner ChangeGovernor Error]", line);
-		            }
-		            brCleanUp.close();
-
-		        } catch (IOException ex) {
-		        }
-
 			return "";
 		}
 
@@ -207,7 +177,15 @@ public class Mpdecision extends SherlockActivity
 			adView.loadAd(new AdRequest());}
 		this.getWindow().setSoftInputMode(WindowManager.LayoutParams.SOFT_INPUT_STATE_ALWAYS_HIDDEN); 
 
-		readMpdec();
+		delay = IOHelper.mpDelay();
+		pause = IOHelper.mpPause();
+		thrupload = IOHelper.mpup();
+		thrdownload = IOHelper.mpdown();
+		thrupms = IOHelper.mpTimeUp();
+		thrdownms = IOHelper.mpTimeDown();
+		idle = IOHelper.mpIdleFreq();
+		scroff = IOHelper.mpScroffFreq();
+		scroff_single = IOHelper.mpScroffSingleCore();
 		setCheckBoxes();
 
 	}
@@ -221,34 +199,55 @@ public class Mpdecision extends SherlockActivity
 	@Override
 	protected void onResume()
 	{
-
-
 		super.onResume();
-
 	}
 
 
 	private final void setCheckBoxes()
 	{
 
-
 		EditText del=(EditText)findViewById(R.id.ed1);
+		if(delay.equals("err")){
+			del.setEnabled(false);
+		}
 		del.setText(delay.trim());
-
+		
 		EditText paus=(EditText)findViewById(R.id.ed2);
 		paus.setText(pause.trim());
+		if(pause.equals("err")){
+			paus.setEnabled(false);
+		}
 
 		EditText thruploadtext=(EditText)findViewById(R.id.ed3);
 		thruploadtext.setText(thrupload.trim());
+		if(thrupload.equals("err")){
+			thruploadtext.setEnabled(false);
+		}
 
 		EditText thrupmstext=(EditText)findViewById(R.id.ed4);
 		thrupmstext.setText(thrupms.trim());
-
+        if(thrupms.equals("err")){
+			thrupmstext.setEnabled(false);
+		}
+		
 		EditText thrdownloadtext=(EditText)findViewById(R.id.ed5);
 		thrdownloadtext.setText(thrdownload.trim());
-
+        if(thrupload.equals("err")){
+			thrdownloadtext.setEnabled(false);
+		}
+		
 		EditText thrdownmstext=(EditText)findViewById(R.id.ed6);
 		thrdownmstext.setText(thrdownms.trim());
+		if(thrdownms.equals("err")){
+			thrdownmstext.setEnabled(false);
+		}
+		
+		if(idle.equals("err")){
+			idleSpinner.setEnabled(false);
+		}
+		if(scroff.equals("err")){
+			scroffSpinner.setEnabled(false);
+		}
 		
 		if(scroff_single.equals("1")){
 			mp_switch.setChecked(true);
@@ -350,257 +349,6 @@ public class Mpdecision extends SherlockActivity
 
 	}
 
-
-
-
-	private final void readMpdec()
-	{
-		try
-		{
-
-			File myFile = new File("/sys/kernel/msm_mpdecision/conf/delay");
-			FileInputStream fIn = new FileInputStream(myFile);
-
-			BufferedReader myReader = new BufferedReader(
-				new InputStreamReader(fIn));
-			String aDataRow = "";
-			String aBuffer = "";
-			while ((aDataRow = myReader.readLine()) != null)
-			{
-				aBuffer += aDataRow + "\n";
-			}
-
-			delay = aBuffer;
-			myReader.close();
-			fIn.close();
-		}
-		catch (Exception e)
-		{
-			delay = "err";
-			EditText ed=(EditText)findViewById(R.id.ed1);
-
-			ed.setEnabled(false);
-		}
-
-
-		try
-		{
-
-			File myFile = new File("/sys/kernel/msm_mpdecision/conf/pause");
-			FileInputStream fIn = new FileInputStream(myFile);
-
-			BufferedReader myReader = new BufferedReader(
-				new InputStreamReader(fIn));
-			String aDataRow = "";
-			String aBuffer = "";
-			while ((aDataRow = myReader.readLine()) != null)
-			{
-				aBuffer += aDataRow + "\n";
-			}
-
-			pause = aBuffer;
-			myReader.close();
-			fIn.close();
-		}
-		catch (Exception e)
-		{
-			pause = "err";
-			EditText ed=(EditText)findViewById(R.id.ed2);
-
-			ed.setEnabled(false);
-
-		}
-
-		try
-		{
-
-			File myFile = new File("/sys/kernel/msm_mpdecision/conf/nwns_threshold_up");
-			FileInputStream fIn = new FileInputStream(myFile);
-
-			BufferedReader myReader = new BufferedReader(
-				new InputStreamReader(fIn));
-			String aDataRow = "";
-			String aBuffer = "";
-			while ((aDataRow = myReader.readLine()) != null)
-			{
-				aBuffer += aDataRow + "\n";
-			}
-
-			thrupload = aBuffer;
-			myReader.close();
-			fIn.close();
-		}
-		catch (Exception e)
-		{
-			thrupload = "err";
-			EditText ed=(EditText)findViewById(R.id.ed3);
-
-			ed.setEnabled(false);
-		}
-
-		try
-		{
-
-			File myFile = new File("/sys/kernel/msm_mpdecision/conf/twts_threshold_up");
-			FileInputStream fIn = new FileInputStream(myFile);
-
-			BufferedReader myReader = new BufferedReader(
-				new InputStreamReader(fIn));
-			String aDataRow = "";
-			String aBuffer = "";
-			while ((aDataRow = myReader.readLine()) != null)
-			{
-				aBuffer += aDataRow + "\n";
-			}
-
-			thrupms = aBuffer;
-			myReader.close();
-			fIn.close();
-		}
-		catch (Exception e)
-		{
-			thrupms = "err";
-			EditText ed=(EditText)findViewById(R.id.ed4);
-
-			ed.setEnabled(false);
-		}
-
-	    try
-		{
-
-			File myFile = new File("/sys/kernel/msm_mpdecision/conf/twts_threshold_down");
-			FileInputStream fIn = new FileInputStream(myFile);
-
-			BufferedReader myReader = new BufferedReader(
-				new InputStreamReader(fIn));
-			String aDataRow = "";
-			String aBuffer = "";
-			while ((aDataRow = myReader.readLine()) != null)
-			{
-				aBuffer += aDataRow + "\n";
-			}
-
-			thrdownms = aBuffer;
-			myReader.close();
-			fIn.close();
-		}
-		catch (Exception e)
-		{
-			thrdownms = "err";
-			EditText ed=(EditText)findViewById(R.id.ed5);
-
-			ed.setEnabled(false);
-		}
-
-		try
-		{
-
-			File myFile = new File("/sys/kernel/msm_mpdecision/conf/nwns_threshold_down");
-			FileInputStream fIn = new FileInputStream(myFile);
-
-			BufferedReader myReader = new BufferedReader(
-				new InputStreamReader(fIn));
-			String aDataRow = "";
-			String aBuffer = "";
-			while ((aDataRow = myReader.readLine()) != null)
-			{
-				aBuffer += aDataRow + "\n";
-			}
-
-			thrdownload = aBuffer;
-			myReader.close();
-			fIn.close();
-		}
-		catch (Exception e)
-		{
-			thrdownload = "err";
-			EditText ed=(EditText)findViewById(R.id.ed6);
-
-			ed.setEnabled(false);
-		}
-
-		try
-		{
-
-			File myFile = new File("/sys/kernel/msm_mpdecision/conf/idle_freq");
-			FileInputStream fIn = new FileInputStream(myFile);
-
-			BufferedReader myReader = new BufferedReader(
-				new InputStreamReader(fIn));
-			String aDataRow = "";
-			String aBuffer = "";
-			while ((aDataRow = myReader.readLine()) != null)
-			{
-				aBuffer += aDataRow + "\n";
-			}
-
-			idle = aBuffer.trim();
-			myReader.close();
-			fIn.close();
-		}
-		catch (Exception e)
-		{
-			idle = "err";
-			
-
-			idleSpinner.setEnabled(false);
-		}
-		
-		try
-		{
-
-			File myFile = new File("/sys/kernel/msm_mpdecision/conf/scroff_freq");
-			FileInputStream fIn = new FileInputStream(myFile);
-
-			BufferedReader myReader = new BufferedReader(
-				new InputStreamReader(fIn));
-			String aDataRow = "";
-			String aBuffer = "";
-			while ((aDataRow = myReader.readLine()) != null)
-			{
-				aBuffer += aDataRow + "\n";
-			}
-
-			scroff = aBuffer.trim();
-			myReader.close();
-			fIn.close();
-		}
-		catch (Exception e)
-		{
-			scroff= "err";
-			
-
-			scroffSpinner.setEnabled(false);
-		}
-		
-		try
-		{
-
-			File myFile = new File("/sys/kernel/msm_mpdecision/conf/scroff_single_core");
-			FileInputStream fIn = new FileInputStream(myFile);
-
-			BufferedReader myReader = new BufferedReader(
-				new InputStreamReader(fIn));
-			String aDataRow = "";
-			String aBuffer = "";
-			while ((aDataRow = myReader.readLine()) != null)
-			{
-				aBuffer += aDataRow + "\n";
-			}
-
-			scroff_single= aBuffer.trim();
-			myReader.close();
-			fIn.close();
-		}
-		catch (Exception e)
-		{
-			scroff_single = "err";
-			
-
-			mp_switch.setEnabled(false);
-		}
-		
-	}
 	
 	@Override
 	public boolean onCreateOptionsMenu(Menu menu) {

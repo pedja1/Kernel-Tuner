@@ -43,6 +43,7 @@ import rs.pedjaapps.KernelTuner.entry.*;
 
 import com.actionbarsherlock.app.ActionBar;
 import java.lang.Process;
+import rs.pedjaapps.KernelTuner.tools.Tools;
 
 public class SDScannerActivity extends SherlockActivity
 {
@@ -206,23 +207,16 @@ public class SDScannerActivity extends SherlockActivity
 				numberOfItems = 20;
 			}
 			
-			 
 			try
 			{
 				proc = Runtime.getRuntime().exec(getFilesDir().getPath()+"/du -d "+args[1] + args[3] +args[0]);
-
-
 				InputStream inputStream = proc.getInputStream();
 				InputStreamReader inputStreamReader = new InputStreamReader(inputStream);
 				BufferedReader bufferedReader = new BufferedReader(inputStreamReader);
-
-				
 				while ( ( line = bufferedReader.readLine() ) != null )
 				{
-
-					entries.add(new SDScannerEntry(line.substring(line.lastIndexOf("/")+1, line.length()),Integer.parseInt(line.substring(0, line.indexOf("/")).trim()), size(Integer.parseInt(line.substring(0, line.indexOf("/")).trim())), line.substring(line.indexOf("/"), line.length()).trim(), false) );
+					entries.add(new SDScannerEntry(line.substring(line.lastIndexOf("/")+1, line.length()),Integer.parseInt(line.substring(0, line.indexOf("/")).trim()), Tools.kByteToHumanReadableSize(Integer.parseInt(line.substring(0, line.indexOf("/")).trim())), line.substring(line.indexOf("/"), line.length()).trim(), false) );
 					publishProgress(line.substring(line.indexOf("/"), line.length()).trim());
-					
 				}
 			}
 			catch (IOException e)
@@ -267,16 +261,10 @@ public class SDScannerActivity extends SherlockActivity
 		@Override
 		protected void onPreExecute(){
 		
-			
-			
 			pd = new ProgressDialog(SDScannerActivity.this);
 			pd.setIndeterminate(true);
-			//pd.setTitle("Scanning SD Card");
 			pd.setTitle("Please Wait...");
 			pd.setIcon(R.drawable.info);
-			//pd.setMessage("Please Wait\n" +
-					//"This can take a while");
-		
 		pd.setOnCancelListener(new OnCancelListener(){
 
 			@Override
@@ -290,54 +278,13 @@ public class SDScannerActivity extends SherlockActivity
 
 	}
 	
-	
-	
-
-
 	class MyComparator implements Comparator<SDScannerEntry>{
 	  public int compare(SDScannerEntry ob1, SDScannerEntry ob2){
 	   return ob2.getSize() - ob1.getSize() ;
 	  }
 	}
 	
-	private String size(int size){
-		String hrSize = "";
-		int k = size;
-		double m = size/1024.0;
-		double g = size/1048576.0;
-		double t = size/1073741824.0;
-		
-		DecimalFormat dec = new DecimalFormat("0.00");
-	
-		if (t>1)
-		{
-	
-			hrSize = dec.format(t).concat("TB");
-		}
-		else if (g>1)
-		{
-			
-			hrSize = dec.format(g).concat("GB");
-		}
-		else if (m>1)
-		{
-		
-			hrSize = dec.format(m).concat("MB");
-		}
-		else if (k>1)
-		{
-	
-			hrSize = dec.format(k).concat("KB");
 
-		}
-		
-		
-		
-		
-		return hrSize;
-		
-	}
-	
 	@Override
 	public boolean onOptionsItemSelected(com.actionbarsherlock.view.MenuItem item) {
 	    switch (item.getItemId()) {

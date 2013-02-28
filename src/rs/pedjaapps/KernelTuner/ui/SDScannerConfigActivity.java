@@ -18,8 +18,6 @@
 */
 package rs.pedjaapps.KernelTuner.ui;
 
-
-
 import android.app.ProgressDialog;
 import android.content.Intent;
 import android.content.SharedPreferences;
@@ -56,13 +54,11 @@ import rs.pedjaapps.KernelTuner.entry.SDSummaryEntry;
 import rs.pedjaapps.KernelTuner.helpers.SDSummaryAdapter;
 import rs.pedjaapps.KernelTuner.ui.SDScannerActivity;
 import rs.pedjaapps.KernelTuner.ui.SDScannerConfigActivity;
+import rs.pedjaapps.KernelTuner.tools.Tools;
 
 public class SDScannerConfigActivity extends SherlockActivity
 {
 
-	
-	
-	
 	private Switch sw;
 	private static final int GET_CODE = 0;
 	  String pt;
@@ -206,7 +202,6 @@ public class SDScannerConfigActivity extends SherlockActivity
 				
 				editor.commit();
 				
-				
 			}
 			
 		});
@@ -241,78 +236,11 @@ public class SDScannerConfigActivity extends SherlockActivity
 	@Override
 	  protected void onResume() {
 	    super.onResume();
-	    ((TextView)findViewById(R.id.mem_total)).setText("Total: "+size(getTotalSpaceInBytes()));
-		((TextView)findViewById(R.id.mem_used)).setText("Used: "+size(getUsedSpaceInBytes()));
-		((TextView)findViewById(R.id.mem_free)).setText("Free: "+size(getAvailableSpaceInBytes()));
+	    ((TextView)findViewById(R.id.mem_total)).setText("Total: "+Tools.byteToHumanReadableSize(Tools.getTotalSpaceInBytesOnExternalStorage()));
+		((TextView)findViewById(R.id.mem_used)).setText("Used: "+Tools.byteToHumanReadableSize(Tools.getUsedSpaceInBytesOnExternalStorage()));
+		((TextView)findViewById(R.id.mem_free)).setText("Free: "+Tools.byteToHumanReadableSize(Tools.getAvailableSpaceInBytesOnExternalStorage()));
 	  }
 
-	
-	public static long getAvailableSpaceInBytes() {
-	    long availableSpace = -1L;
-	    StatFs stat = new StatFs(Environment.getExternalStorageDirectory().getPath());
-	    availableSpace = (long) stat.getAvailableBlocks() * (long) stat.getBlockSize();
-
-	    return availableSpace;
-	}
-	
-	public static long getUsedSpaceInBytes() {
-	    long usedSpace = -1L;
-	    StatFs stat = new StatFs(Environment.getExternalStorageDirectory().getPath());
-	    usedSpace = ((long) stat.getBlockCount() - stat.getAvailableBlocks()) * (long) stat.getBlockSize();
-
-	    return usedSpace;
-	}
-	public static long getTotalSpaceInBytes() {
-	    long totalSpace = -1L;
-	    StatFs stat = new StatFs(Environment.getExternalStorageDirectory().getPath());
-	    totalSpace = (long) stat.getBlockCount() * (long) stat.getBlockSize();
-
-	    return totalSpace;
-	}
-
-	public String size(long size){
-		String hrSize = "";
-		
-		long b = size;
-		double k = size/1024.0;
-		double m = size/1048576.0;
-		double g = size/1073741824.0;
-		double t = size/1099511627776.0;
-		
-		DecimalFormat dec = new DecimalFormat("0.00");
-	
-		if (t>1)
-		{
-	
-			hrSize = dec.format(t).concat("TB");
-		}
-		else if (g>1)
-		{
-			
-			hrSize = dec.format(g).concat("GB");
-		}
-		else if (m>1)
-		{
-		
-			hrSize = dec.format(m).concat("MB");
-		}
-		else if (k>1)
-		{
-	
-			hrSize = dec.format(k).concat("KB");
-
-		}
-		else if(b>1){
-			hrSize = dec.format(b).concat("B");
-		}
-		
-		
-		
-		
-		return hrSize;
-		
-	}
-	
 	@Override
 	public boolean onOptionsItemSelected(com.actionbarsherlock.view.MenuItem item) {
 	    switch (item.getItemId()) {
@@ -399,33 +327,33 @@ public class SDScannerConfigActivity extends SherlockActivity
 			switch(values[0]){
 				case 0:
 					summaryAdapter.remove(summaryAdapter.getItem(0));
-					summaryAdapter.insert(new SDSummaryEntry(names[0], size(apk), apk, (int)(apk*100/getTotalSpaceInBytes()), icons[0]), 0);
-					entries.add(new SDSummaryEntry(names[0], size(apk), apk, (int)(apk*100/getTotalSpaceInBytes()), icons[0]));
+					summaryAdapter.insert(new SDSummaryEntry(names[0], Tools.byteToHumanReadableSize(apk), apk, (int)(apk*100/Tools.getTotalSpaceInBytesOnExternalStorage()), icons[0]), 0);
+					entries.add(new SDSummaryEntry(names[0], Tools.byteToHumanReadableSize(apk), apk, (int)(apk*100/Tools.getTotalSpaceInBytesOnExternalStorage()), icons[0]));
 					break;
 				case 1:
 					summaryAdapter.remove(summaryAdapter.getItem(1));
-					summaryAdapter.insert(new SDSummaryEntry(names[1], size(video), video, (int)(video*100/getTotalSpaceInBytes()), icons[1]), 1);
-					entries.add(new SDSummaryEntry(names[1], size(video), video, (int)(video*100/getTotalSpaceInBytes()), icons[1]));
+					summaryAdapter.insert(new SDSummaryEntry(names[1], Tools.byteToHumanReadableSize(video), video, (int)(video*100/Tools.getTotalSpaceInBytesOnExternalStorage()), icons[1]), 1);
+					entries.add(new SDSummaryEntry(names[1], Tools.byteToHumanReadableSize(video), video, (int)(video*100/Tools.getTotalSpaceInBytesOnExternalStorage()), icons[1]));
 					break;
 				case 2:
 					summaryAdapter.remove(summaryAdapter.getItem(2));
-					summaryAdapter.insert(new SDSummaryEntry(names[2], size(music), music, (int)(music*100/getTotalSpaceInBytes()), icons[2]), 2);
-					entries.add(new SDSummaryEntry(names[2], size(music), music, (int)(music*100/getTotalSpaceInBytes()), icons[2]));
+					summaryAdapter.insert(new SDSummaryEntry(names[2], Tools.byteToHumanReadableSize(music), music, (int)(music*100/Tools.getTotalSpaceInBytesOnExternalStorage()), icons[2]), 2);
+					entries.add(new SDSummaryEntry(names[2], Tools.byteToHumanReadableSize(music), music, (int)(music*100/Tools.getTotalSpaceInBytesOnExternalStorage()), icons[2]));
 					break;
 				case 3:
 					summaryAdapter.remove(summaryAdapter.getItem(3));
-					summaryAdapter.insert(new SDSummaryEntry(names[3], size(images), images, (int)(images*100/getTotalSpaceInBytes()), icons[3]), 3);
-					entries.add(new SDSummaryEntry(names[3], size(images), images, (int)(images*100/getTotalSpaceInBytes()), icons[3]));
+					summaryAdapter.insert(new SDSummaryEntry(names[3], Tools.byteToHumanReadableSize(images), images, (int)(images*100/Tools.getTotalSpaceInBytesOnExternalStorage()), icons[3]), 3);
+					entries.add(new SDSummaryEntry(names[3], Tools.byteToHumanReadableSize(images), images, (int)(images*100/Tools.getTotalSpaceInBytesOnExternalStorage()), icons[3]));
 					break;
 				case 4:
 					summaryAdapter.remove(summaryAdapter.getItem(4));
-					summaryAdapter.insert(new SDSummaryEntry(names[4], size(doc), doc, (int)(doc*100/getTotalSpaceInBytes()), icons[4]), 4);
-					entries.add(new SDSummaryEntry(names[4], size(doc), doc, (int)(doc*100/getTotalSpaceInBytes()), icons[4]));
+					summaryAdapter.insert(new SDSummaryEntry(names[4], Tools.byteToHumanReadableSize(doc), doc, (int)(doc*100/Tools.getTotalSpaceInBytesOnExternalStorage()), icons[4]), 4);
+					entries.add(new SDSummaryEntry(names[4], Tools.byteToHumanReadableSize(doc), doc, (int)(doc*100/Tools.getTotalSpaceInBytesOnExternalStorage()), icons[4]));
 					break;
 				case 5:
 					summaryAdapter.remove(summaryAdapter.getItem(5));
-					summaryAdapter.insert(new SDSummaryEntry(names[5], size(arch), arch, (int)(arch*100/getTotalSpaceInBytes()), icons[5]), 5);
-					entries.add(new SDSummaryEntry(names[5], size(arch), arch, (int)(arch*100/getTotalSpaceInBytes()), icons[5]));
+					summaryAdapter.insert(new SDSummaryEntry(names[5], Tools.byteToHumanReadableSize(arch), arch, (int)(arch*100/Tools.getTotalSpaceInBytesOnExternalStorage()), icons[5]), 5);
+					entries.add(new SDSummaryEntry(names[5], Tools.byteToHumanReadableSize(arch), arch, (int)(arch*100/Tools.getTotalSpaceInBytesOnExternalStorage()), icons[5]));
 					break;
 			}
 			super.onProgressUpdate();

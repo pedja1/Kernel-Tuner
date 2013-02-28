@@ -39,6 +39,7 @@ import android.os.StatFs;
 import android.preference.PreferenceManager;
 import android.view.View;
 import android.widget.RemoteViews;
+import rs.pedjaapps.KernelTuner.tools.Tools;
 
 public class AppWidgetMem extends AppWidgetProvider {
 
@@ -97,22 +98,22 @@ public class AppWidgetMem extends AppWidgetProvider {
 		int freeRAM = getFreeRAM();
 		int totalRAM = getTotalRAM();
 		int usedRAM = getTotalRAM() - getFreeRAM();
-		long freeInternal = getAvailableSpaceInBytesOnInternalStorage();
-		long usedInternal = getUsedSpaceInBytesOnInternalStorage();
-		long totalInternal = getTotalSpaceInBytesOnInternalStorage();
-		long freeExternal = getAvailableSpaceInBytesOnExternalStorage();
-		long usedExternal = getUsedSpaceInBytesOnExternalStorage();
-		long totalExternal = getTotalSpaceInBytesOnExternalStorage();
+		long freeInternal = Tools.getAvailableSpaceInBytesOnInternalStorage();
+		long usedInternal = Tools.getUsedSpaceInBytesOnInternalStorage();
+		long totalInternal = Tools.getTotalSpaceInBytesOnInternalStorage();
+		long freeExternal = Tools.getAvailableSpaceInBytesOnExternalStorage();
+		long usedExternal = Tools.getUsedSpaceInBytesOnExternalStorage();
+		long totalExternal = Tools.getTotalSpaceInBytesOnExternalStorage();
 		remoteViews.setTextViewText(R.id.textView7, freeRAM+"MB/" + totalRAM + "MB");
 		remoteViews.setProgressBar(R.id.progressBar2, 100, usedRAM * 100 / totalRAM, false);
 
-		remoteViews.setTextViewText(R.id.textView10, humanReadableSize(freeInternal)+"/" + humanReadableSize(totalInternal));
+		remoteViews.setTextViewText(R.id.textView10, Tools.byteToHumanReadableSize(freeInternal)+"/" + Tools.byteToHumanReadableSize(totalInternal));
 		remoteViews.setProgressBar(R.id.progressBar3, 100, (int) (usedInternal * 100 / totalInternal), false);
 		boolean isSDPresent = android.os.Environment.getExternalStorageState()
 				.equals(android.os.Environment.MEDIA_MOUNTED);
 		if (isSDPresent) {
-			remoteViews.setTextViewText(R.id.textView13, humanReadableSize(freeExternal)+"/"
-					+ humanReadableSize(totalExternal));
+			remoteViews.setTextViewText(R.id.textView13, Tools.byteToHumanReadableSize(freeExternal)+"/"
+					+ Tools.byteToHumanReadableSize(totalExternal));
 			remoteViews.setProgressBar(R.id.progressBar4, 100, (int) (usedExternal * 100 / totalExternal), false);
 		} else {
 			remoteViews.setTextViewText(R.id.textView12, "External Storage not present");
@@ -151,93 +152,6 @@ public class AppWidgetMem extends AppWidgetProvider {
 		activityManager.getMemoryInfo(mi);
 		Integer mem = (int) (mi.availMem / 1048576L);
 		return mem;
-
-	}
-
-	public static long getAvailableSpaceInBytesOnInternalStorage() {
-		long availableSpace = -1L;
-		StatFs stat = new StatFs(Environment.getDataDirectory().getPath());
-		availableSpace = (long) stat.getAvailableBlocks()
-				* (long) stat.getBlockSize();
-
-		return availableSpace;
-	}
-
-	public static long getUsedSpaceInBytesOnInternalStorage() {
-		long usedSpace = -1L;
-		StatFs stat = new StatFs(Environment.getDataDirectory().getPath());
-		usedSpace = ((long) stat.getBlockCount() - stat.getAvailableBlocks())
-				* (long) stat.getBlockSize();
-
-		return usedSpace;
-	}
-
-	public static long getTotalSpaceInBytesOnInternalStorage() {
-		long usedSpace = -1L;
-		StatFs stat = new StatFs(Environment.getDataDirectory().getPath());
-		usedSpace = ((long) stat.getBlockCount()) * (long) stat.getBlockSize();
-
-		return usedSpace;
-	}
-
-	public static long getAvailableSpaceInBytesOnExternalStorage() {
-		long availableSpace = -1L;
-		StatFs stat = new StatFs(Environment.getExternalStorageDirectory()
-				.getPath());
-		availableSpace = (long) stat.getAvailableBlocks()
-				* (long) stat.getBlockSize();
-
-		return availableSpace;
-	}
-
-	public static long getUsedSpaceInBytesOnExternalStorage() {
-		long usedSpace = -1L;
-		StatFs stat = new StatFs(Environment.getExternalStorageDirectory()
-				.getPath());
-		usedSpace = ((long) stat.getBlockCount() - stat.getAvailableBlocks())
-				* (long) stat.getBlockSize();
-
-		return usedSpace;
-	}
-
-	public static long getTotalSpaceInBytesOnExternalStorage() {
-		long usedSpace = -1L;
-		StatFs stat = new StatFs(Environment.getExternalStorageDirectory()
-				.getPath());
-		usedSpace = ((long) stat.getBlockCount()) * (long) stat.getBlockSize();
-
-		return usedSpace;
-	}
-
-	public String humanReadableSize(long size) {
-		String hrSize = "";
-
-		long b = size;
-		double k = size / 1024.0;
-		double m = size / 1048576.0;
-		double g = size / 1073741824.0;
-		double t = size / 1099511627776.0;
-
-		DecimalFormat dec = new DecimalFormat("0.00");
-
-		if (t > 1) {
-
-			hrSize = dec.format(t).concat("TB");
-		} else if (g > 1) {
-
-			hrSize = dec.format(g).concat("GB");
-		} else if (m > 1) {
-
-			hrSize = dec.format(m).concat("MB");
-		} else if (k > 1) {
-
-			hrSize = dec.format(k).concat("KB");
-
-		} else if (b > 1) {
-			hrSize = dec.format(b).concat("B");
-		}
-
-		return hrSize;
 
 	}
 	

@@ -33,6 +33,8 @@ import rs.pedjaapps.KernelTuner.*;
 
 import android.view.View.OnClickListener;
 import java.lang.Process;
+import rs.pedjaapps.KernelTuner.tools.RootExecuter;
+import org.apache.commons.io.FileUtils;
 
 public class Gpu extends SherlockActivity
 {
@@ -59,49 +61,20 @@ public class Gpu extends SherlockActivity
 
 	private ProgressDialog pd = null;
 	private SharedPreferences preferences;
-	
+	Context c;
 
 private class changegpu extends AsyncTask<String, Void, Object>
 	{
 		@Override
 		protected Object doInBackground(String... args)
 		{
-				try {
-		            String line;
-		            Process process = Runtime.getRuntime().exec("su");
-		            OutputStream stdin = process.getOutputStream();
-		            InputStream stderr = process.getErrorStream();
-		            InputStream stdout = process.getInputStream();
-
-		            stdin.write(("chmod 777 /sys/devices/platform/kgsl-3d0.0/kgsl/kgsl-3d0/max_gpuclk\n").getBytes());
-		            stdin.write(("chmod 777 /sys/devices/platform/kgsl-2d1.1/kgsl/kgsl-2d1/max_gpuclk\n").getBytes());
-		            stdin.write(("chmod 777 /sys/devices/platform/kgsl-2d0.0/kgsl/kgsl-2d0/max_gpuclk\n").getBytes());
-		            
-		            stdin.write(("echo " + selected3d + " > /sys/devices/platform/kgsl-3d0.0/kgsl/kgsl-3d0/max_gpuclk\n").getBytes());
-		            stdin.write(("echo " + selected2d + " > /sys/devices/platform/kgsl-2d0.0/kgsl/kgsl-2d0/max_gpuclk\n").getBytes());
-		            stdin.write(("echo " + selected2d + " > /sys/devices/platform/kgsl-2d1.1/kgsl/kgsl-2d1/max_gpuclk\n").getBytes());
-		            
-		            stdin.flush();
-
-		            stdin.close();
-		            BufferedReader brCleanUp =
-		                    new BufferedReader(new InputStreamReader(stdout));
-		            while ((line = brCleanUp.readLine()) != null) {
-		                Log.d("[KernelTuner GPU Output]", line);
-		            }
-		            brCleanUp.close();
-		            brCleanUp =
-		                    new BufferedReader(new InputStreamReader(stderr));
-		            while ((line = brCleanUp.readLine()) != null) {
-		            	Log.e("[KernelTuner GPU Error]", line);
-		            }
-		            brCleanUp.close();
-
-		        } catch (IOException ex) {
-		        }
-				
-
-
+			RootExecuter.exec(new String[]{
+		            "chmod 777 /sys/devices/platform/kgsl-3d0.0/kgsl/kgsl-3d0/max_gpuclk\n",
+		            "chmod 777 /sys/devices/platform/kgsl-2d1.1/kgsl/kgsl-2d1/max_gpuclk\n",
+		            "chmod 777 /sys/devices/platform/kgsl-2d0.0/kgsl/kgsl-2d0/max_gpuclk\n",
+		            "echo " + selected3d + " > /sys/devices/platform/kgsl-3d0.0/kgsl/kgsl-3d0/max_gpuclk\n",
+		            "echo " + selected2d + " > /sys/devices/platform/kgsl-2d0.0/kgsl/kgsl-2d0/max_gpuclk\n",
+		            "echo " + selected2d + " > /sys/devices/platform/kgsl-2d1.1/kgsl/kgsl-2d1/max_gpuclk\n",});
 			return "";
 		}
 
@@ -114,7 +87,6 @@ private class changegpu extends AsyncTask<String, Void, Object>
 	  	    editor.putString("gpu2d", selected2d+"");
 	  	    editor.commit();
 
-
 			Gpu.this.pd.dismiss();
 			Gpu.this.finish();
 
@@ -125,8 +97,9 @@ private class changegpu extends AsyncTask<String, Void, Object>
     @Override
 	public void onCreate(Bundle savedInstanceState)
 	{
+		c = this;
     	board = android.os.Build.DEVICE;
-    	preferences = PreferenceManager.getDefaultSharedPreferences(this);
+    	preferences = PreferenceManager.getDefaultSharedPreferences(c);
 		
 		String theme = preferences.getString("theme", "light");
 		
@@ -228,26 +201,17 @@ private class changegpu extends AsyncTask<String, Void, Object>
 			d3Spinner.setEnabled(false);
 			apply.setEnabled(false);
 		}
-
-		
-	
-	
-		
 		TextView tv5 = (TextView)findViewById(R.id.textView5);
 		TextView tv2 = (TextView)findViewById(R.id.textView7);
-
 		tv5.setText((gpu3dcurent/1000000) + "Mhz");
 		tv2.setText((gpu2dcurent/1000000) + "Mhz");
-
-	
 		Button cancel = (Button)findViewById(R.id.cancel);
 		apply.setOnClickListener(new OnClickListener(){
 
 			@Override
 			public void onClick(View arg0) {
-				Gpu.this.pd = ProgressDialog.show(Gpu.this, null, getResources().getString(R.string.applying_settings), true, false);
+				Gpu.this.pd = ProgressDialog.show(c, null, getResources().getString(R.string.applying_settings), true, false);
 				new changegpu().execute();
-				
 			}
 			
 		});
@@ -260,19 +224,11 @@ private class changegpu extends AsyncTask<String, Void, Object>
 			
 		});
 
-		
-
-
-
-
 	}
 
     private void createSpinners()
 	{
-
-
-	
-		ArrayAdapter<String> d2Adapter = new ArrayAdapter<String>(this,   android.R.layout.simple_spinner_item, gpu2dHr);
+		ArrayAdapter<String> d2Adapter = new ArrayAdapter<String>(c,   android.R.layout.simple_spinner_item, gpu2dHr);
 		d2Adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item); // The drop down vieww
 		d2Spinner.setAdapter(d2Adapter);
 
@@ -292,13 +248,12 @@ private class changegpu extends AsyncTask<String, Void, Object>
 			});
 		
 		int p = gpu2d.indexOf(gpu2dmax+"");
-	//	Toast.makeText(Gpu.this, gpu2dmax+" "+p, Toast.LENGTH_LONG).show();
-		if(p != -1){
+     	if(p != -1){
 		int d2Position = d2Adapter.getPosition(gpu2dHr.get(p));
 		d2Spinner.setSelection(d2Position);
         }
 	
-		ArrayAdapter<String> d3Adapter = new ArrayAdapter<String>(this,   android.R.layout.simple_spinner_item, gpu3dHr);
+		ArrayAdapter<String> d3Adapter = new ArrayAdapter<String>(c,   android.R.layout.simple_spinner_item, gpu3dHr);
 		d3Adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item); // The drop down vieww
 		d3Spinner.setAdapter(d3Adapter);
 
@@ -323,28 +278,11 @@ private class changegpu extends AsyncTask<String, Void, Object>
 		}
 	}
 
-    
-
     private Integer readFile(String path)
 	{
 		try
 		{
-
-			File myFile = new File(path/*"/sys/devices/platform/kgsl-2d0.0/kgsl/kgsl-2d0/max_gpuclk"*/);
-			FileInputStream fIn = new FileInputStream(myFile);
-			BufferedReader myReader = new BufferedReader(
-				new InputStreamReader(fIn));
-			String aDataRow = "";
-			String aBuffer = "";
-			while ((aDataRow = myReader.readLine()) != null)
-			{
-				aBuffer += aDataRow + "\n";
-			}
-			myReader.close();
-			return Integer.parseInt(aBuffer.trim());
-
-
-
+			return Integer.parseInt(FileUtils.readFileToString(new File(path)));
 		}
 		catch (Exception e)
 		{

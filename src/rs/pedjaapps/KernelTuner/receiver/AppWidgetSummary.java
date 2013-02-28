@@ -34,6 +34,7 @@ import android.content.SharedPreferences;
 import android.graphics.Color;
 import android.preference.PreferenceManager;
 import android.widget.RemoteViews;
+import rs.pedjaapps.KernelTuner.tools.Tools;
 
 public class AppWidgetSummary extends AppWidgetProvider {
 
@@ -155,7 +156,7 @@ public class AppWidgetSummary extends AppWidgetProvider {
 			remoteViews.setTextViewText(R.id.textView1, "Unknown");
 		}
 		if (batttemp != null) {
-			remoteViews.setTextViewText(R.id.textView3, tempConverter(pref.getString("temp", "celsius"), batttemp));
+			remoteViews.setTextViewText(R.id.textView3, Tools.tempConverter(pref.getString("temp", "celsius"), batttemp));
 		} else {
 			remoteViews.setTextViewText(R.id.textView3, "Unknown");
 		}
@@ -202,7 +203,7 @@ public class AppWidgetSummary extends AppWidgetProvider {
 		min = min.substring(0, min.length()-3)+"Mhz";
 		max = max.substring(0, max.length()-3)+"Mhz";
 		governor = IOHelper.cpu0CurGov();
-		temp = tempConverter(pref.getString("temp", "celsius"), Double.parseDouble(IOHelper.cpuTemp()));
+		temp = Tools.tempConverter(pref.getString("temp", "celsius"), Double.parseDouble(IOHelper.cpuTemp()));
 		gpu2d = IOHelper.gpu2d();
 		gpu3d = IOHelper.gpu3d();
 		fc = IOHelper.fcharge();
@@ -219,23 +220,4 @@ public class AppWidgetSummary extends AppWidgetProvider {
 		load = IOHelper.cpuLoad();
 	}
 	
-	public static String tempConverter(String tempPref, double cTemp) {
-		String tempNew = "";
-		/**
-		 * cTemp = temperature in celsius tempPreff = string from shared
-		 * preferences with value fahrenheit, celsius or kelvin
-		 */
-		if (tempPref.equals("fahrenheit")) {
-			tempNew = ((cTemp * 1.8) + 32) + "°F";
-
-		} else if (tempPref.equals("celsius")) {
-			tempNew = cTemp + "°C";
-
-		} else if (tempPref.equals("kelvin")) {
-
-			tempNew = (cTemp + 273.15) + "°C";
-
-		}
-		return tempNew;
-	}
 }

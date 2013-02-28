@@ -32,6 +32,7 @@ import rs.pedjaapps.KernelTuner.helpers.*;
 
 import android.view.View.OnClickListener;
 import rs.pedjaapps.KernelTuner.R;
+import rs.pedjaapps.KernelTuner.tools.Tools;
 public class TISActivity extends SherlockActivity {
 
 	private List<TimesEntry> times;
@@ -81,8 +82,8 @@ public class TISActivity extends SherlockActivity {
 		
 		tisListView.addHeaderView(header, null, false);
 		tisListView.addFooterView(footer, null, false);
-		String deepSleep = hrTimeSystem(SystemClock.elapsedRealtime() - SystemClock.uptimeMillis());
-		String bootTime = hrTimeSystem(SystemClock.elapsedRealtime());
+		String deepSleep = Tools.msToHumanReadableTime(SystemClock.elapsedRealtime() - SystemClock.uptimeMillis());
+		String bootTime = Tools.msToHumanReadableTime(SystemClock.elapsedRealtime());
 		TextView deepSleepText = (TextView)footer.findViewById(R.id.deep_sleep);
 		TextView bootTimeText = (TextView)footer.findViewById(R.id.boot_time);
 		deepSleepText.setText(deepSleep);
@@ -116,8 +117,8 @@ public class TISActivity extends SherlockActivity {
 	}
 
 	private void setDeepSleepAndUptime(){
-		String deepSleep = hrTimeSystem(SystemClock.elapsedRealtime() - SystemClock.uptimeMillis());
-		String bootTime = hrTimeSystem(SystemClock.elapsedRealtime());
+		String deepSleep = Tools.msToHumanReadableTime(SystemClock.elapsedRealtime() - SystemClock.uptimeMillis());
+		String bootTime = Tools.msToHumanReadableTime(SystemClock.elapsedRealtime());
 		TextView deepSleepText = (TextView)footer.findViewById(R.id.deep_sleep);
 		TextView bootTimeText = (TextView)footer.findViewById(R.id.boot_time);
 		deepSleepText.setText(deepSleep);
@@ -131,86 +132,16 @@ public class TISActivity extends SherlockActivity {
 		final List<TISEntry> entries = new ArrayList<TISEntry>();
 		
 		long totalTime = totalTime();
-		
-		
-		
 		for (TimesEntry t : times)
 		{
-			entries.add(new TISEntry((t.getFreq()/1000)+"Mhz", hrTime(t.getTime()), (t.getTime()*100/totalTime) + "%", (int)(t.getTime()*100/totalTime)));
-			System.out.println(hrTime(t.getTime()));
+			entries.add(new TISEntry((t.getFreq()/1000)+"Mhz", Tools.msToHumanReadableTime2(t.getTime()), (t.getTime()*100/totalTime) + "%", (int)(t.getTime()*100/totalTime)));
+			System.out.println(Tools.msToHumanReadableTime2(t.getTime()));
 		}
 
 
 		return entries;
 	}
 	
-	private  String hrTime(long time)
-	{
-		
-		String timeString;
-		String s = ""+((int)((time / 100) % 60));
-		String m = ""+((int)((time / (100 * 60)) % 60));
-		String h = ""+((int)((time / (100 * 3600)) % 24));
-		String d = ""+((int)(time / (100 * 60 * 60 * 24)));
-		StringBuilder builder = new StringBuilder();
-		if (!d.equals("0"))
-		{
-			builder.append(d + "d:");
-
-		}
-		if (!h.equals("0"))
-		{
-			builder.append(h + "h:");
-
-		}
-		if (!m.equals("0"))
-		{
-			builder.append(m + "m:");
-
-		}
-
-		builder.append(s + "s");
-
-
-		timeString = builder.toString();
-		return timeString;
-
-
-	}
-	
-	private String hrTimeSystem(long time)
-	{
-		
-		String timeString;
-		String s = ""+((int)((time / 1000) % 60));
-		String m = ""+((int)((time / (1000 * 60)) % 60));
-		String h = ""+((int)((time / (1000 * 3600)) % 24));
-		String d = ""+((int)(time / (1000 * 60 * 60 * 24)));
-		StringBuilder builder = new StringBuilder();
-		if (!d.equals("0"))
-		{
-			builder.append(d + "d:");
-
-		}
-		if (!h.equals("0"))
-		{
-			builder.append(h + "h:");
-
-		}
-		if (!m.equals("0"))
-		{
-			builder.append(m + "m:");
-
-		}
-
-		builder.append(s + "s");
-
-
-		timeString = builder.toString();
-		return timeString;
-
-
-	}
 	
 	private long totalTime(){
 		long a=0;

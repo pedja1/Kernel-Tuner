@@ -37,14 +37,12 @@ import rs.pedjaapps.KernelTuner.helpers.*;
 import android.view.View.OnClickListener;
 import android.view.ViewGroup.LayoutParams;
 import rs.pedjaapps.KernelTuner.R;
+import rs.pedjaapps.KernelTuner.tools.Tools;
 
 public class TISActivityChart extends SherlockActivity
 {
 
 	private List<TimesEntry> times;
-	
-
-	
 	public static final String TYPE = "type";
 
 	  private static int[] COLORS = new int[] {Color.parseColor("#FF0000"), 
@@ -130,9 +128,7 @@ public class TISActivityChart extends SherlockActivity
 		if (ads == true)
 		{AdView adView = (AdView)findViewById(R.id.ad);
 			adView.loadAd(new AdRequest());}
-
-		
-		
+			
 		setDeepSleepAndUptime();
 		getTISEntries();
 		
@@ -174,8 +170,8 @@ public class TISActivityChart extends SherlockActivity
 	  }
 
 	private void setDeepSleepAndUptime(){
-		String deepSleep = hrTimeSystem(SystemClock.elapsedRealtime() - SystemClock.uptimeMillis());
-		String bootTime = hrTimeSystem(SystemClock.elapsedRealtime());
+		String deepSleep = Tools.msToHumanReadableTime(SystemClock.elapsedRealtime() - SystemClock.uptimeMillis());
+		String bootTime = Tools.msToHumanReadableTime(SystemClock.elapsedRealtime());
 		TextView deepSleepText = (TextView)findViewById(R.id.deep_sleep);
 		TextView bootTimeText = (TextView)findViewById(R.id.boot_time);
 		deepSleepText.setText(deepSleep);
@@ -196,8 +192,8 @@ public class TISActivityChart extends SherlockActivity
 		for (TimesEntry t : times)
 		{
 			
-			entries.add(new TISEntry((t.getFreq()/1000)+"Mhz", hrTime(t.getTime()), (t.getTime()*100/totalTime) + "%", (int)(t.getTime()*100/totalTime)));
-			mSeries.add((t.getFreq()/1000)+"Mhz(" + hrTime(t.getTime())+")", t.getTime());
+			entries.add(new TISEntry((t.getFreq()/1000)+"Mhz", Tools.msToHumanReadableTime2(t.getTime()), (t.getTime()*100/totalTime) + "%", (int)(t.getTime()*100/totalTime)));
+			mSeries.add((t.getFreq()/1000)+"Mhz(" + Tools.msToHumanReadableTime2(t.getTime())+")", t.getTime());
 	        SimpleSeriesRenderer renderer = new SimpleSeriesRenderer();
 	        renderer.setColor(COLORS[(mSeries.getItemCount() - 1) % COLORS.length]);
 	        mRenderer.addSeriesRenderer(renderer);
@@ -210,73 +206,6 @@ public class TISActivityChart extends SherlockActivity
 		return entries;
 	}
 	
-	private String hrTime(long time)
-	{
-		
-		String timeString;
-		String s = ""+((int)((time / 100) % 60));
-		String m = ""+((int)((time / (100 * 60)) % 60));
-		String h = ""+((int)((time / (100 * 3600)) % 24));
-		String d = ""+((int)(time / (100 * 60 * 60 * 24)));
-		StringBuilder builder = new StringBuilder();
-		if (!d.equals("0"))
-		{
-			builder.append(d + "d:");
-
-		}
-		if (!h.equals("0"))
-		{
-			builder.append(h + "h:");
-
-		}
-		if (!m.equals("0"))
-		{
-			builder.append(m + "m:");
-
-		}
-
-		builder.append(s + "s");
-
-
-		timeString = builder.toString();
-		return timeString;
-
-
-	}
-	
-	private String hrTimeSystem(long time)
-	{
-		
-		String timeString;
-		String s = ""+((int)((time / 1000) % 60));
-		String m = ""+((int)((time / (1000 * 60)) % 60));
-		String h = ""+((int)((time / (1000 * 3600)) % 24));
-		String d = ""+((int)(time / (1000 * 60 * 60 * 24)));
-		StringBuilder builder = new StringBuilder();
-		if (!d.equals("0"))
-		{
-			builder.append(d + "d:");
-
-		}
-		if (!h.equals("0"))
-		{
-			builder.append(h + "h:");
-
-		}
-		if (!m.equals("0"))
-		{
-			builder.append(m + "m:");
-
-		}
-
-		builder.append(s + "s");
-
-
-		timeString = builder.toString();
-		return timeString;
-
-
-	}
 	
 	private long totalTime(){
 		long a=0;

@@ -55,6 +55,9 @@ import de.ankri.views.Switch;
 
 import java.lang.Process;
 import rs.pedjaapps.KernelTuner.R;
+import rs.pedjaapps.KernelTuner.Constants;
+import rs.pedjaapps.KernelTuner.tools.RootExecuter;
+import org.apache.commons.io.FileUtils;
 
 public class MiscTweaks extends SherlockActivity {
 
@@ -126,7 +129,8 @@ public class MiscTweaks extends SherlockActivity {
 	private Switch otgSwitch;
 	private ProgressDialog pd;
 	private String otg;
-
+    
+	
 	private class LoadInfo extends AsyncTask<String, Void, String> {
 
 		@Override
@@ -165,36 +169,9 @@ public class MiscTweaks extends SherlockActivity {
 		@Override
 		protected String doInBackground(String... args) {
 
-			try {
-				String line;
-				Process process = Runtime.getRuntime().exec("su");
-				OutputStream stdin = process.getOutputStream();
-				InputStream stderr = process.getErrorStream();
-				InputStream stdout = process.getInputStream();
-
-				stdin.write(("chmod 777 /sys/kernel/debug/msm_fb/0/bpp\n")
-						.getBytes());
-				stdin.write(("echo " + args[0] + " > /sys/kernel/debug/msm_fb/0/bpp\n")
-						.getBytes());
-
-				stdin.flush();
-
-				stdin.close();
-				BufferedReader brCleanUp = new BufferedReader(
-						new InputStreamReader(stdout));
-				while ((line = brCleanUp.readLine()) != null) {
-					Log.d("[KernelTuner MiscTweaks Output]", line);
-				}
-				brCleanUp.close();
-				brCleanUp = new BufferedReader(new InputStreamReader(stderr));
-				while ((line = brCleanUp.readLine()) != null) {
-					Log.e("[KernelTuner MiscTweaks Error]", line);
-				}
-				brCleanUp.close();
-
-			} catch (IOException ex) {
-			}
-
+		RootExecuter.exec(new String[]{
+				"chmod 777 /sys/kernel/debug/msm_fb/0/bpp\n",
+				"echo " + args[0] + " > /sys/kernel/debug/msm_fb/0/bpp\n"});
 			return args[0];
 		}
 
@@ -214,40 +191,11 @@ public class MiscTweaks extends SherlockActivity {
 		@Override
 		protected String doInBackground(String... args) {
 
-			try {
-				String line;
-				Process process = Runtime.getRuntime().exec("su");
-				OutputStream stdin = process.getOutputStream();
-				InputStream stderr = process.getErrorStream();
-				InputStream stdout = process.getInputStream();
-
-				stdin.write(("chmod 777 /sys/kernel/debug/msm_otg/mode\n")
-						.getBytes());
-				stdin.write(("chmod 777 /sys/kernel/debug/otg/mode\n")
-						.getBytes());
-				stdin.write(("echo " + args[0] + " > /sys/kernel/debug/otg/mode\n")
-						.getBytes());
-				stdin.write(("echo " + args[0] + " > /sys/kernel/debug/msm_otg/mode\n")
-						.getBytes());
-
-				stdin.flush();
-
-				stdin.close();
-				BufferedReader brCleanUp = new BufferedReader(
-						new InputStreamReader(stdout));
-				while ((line = brCleanUp.readLine()) != null) {
-					Log.d("[KernelTuner MiscTweaks Output]", line);
-				}
-				brCleanUp.close();
-				brCleanUp = new BufferedReader(new InputStreamReader(stderr));
-				while ((line = brCleanUp.readLine()) != null) {
-					Log.e("[KernelTuner MiscTweaks Error]", line);
-				}
-				brCleanUp.close();
-
-			} catch (IOException ex) {
-			}
-
+		     RootExecuter.exec(new String[]{
+				"chmod 777 /sys/kernel/debug/msm_otg/mode\n",
+				"chmod 777 /sys/kernel/debug/otg/mode\n",
+				"echo " + args[0] + " > /sys/kernel/debug/otg/mode\n",
+				"echo " + args[0] + " > /sys/kernel/debug/msm_otg/mode\n"});
 			return args[0];
 		}
 
@@ -267,36 +215,9 @@ public class MiscTweaks extends SherlockActivity {
 		@Override
 		protected Object doInBackground(String... args) {
 
-			try {
-				String line;
-				Process process = Runtime.getRuntime().exec("su");
-				OutputStream stdin = process.getOutputStream();
-				InputStream stderr = process.getErrorStream();
-				InputStream stdout = process.getInputStream();
-
-				stdin.write(("chmod 777 /sys/kernel/fast_charge/force_fast_charge\n")
-						.getBytes());
-				stdin.write(("echo " + fc + " > /sys/kernel/fast_charge/force_fast_charge\n")
-						.getBytes());
-
-				stdin.flush();
-
-				stdin.close();
-				BufferedReader brCleanUp = new BufferedReader(
-						new InputStreamReader(stdout));
-				while ((line = brCleanUp.readLine()) != null) {
-					Log.d("[KernelTuner MiscTweaks Output]", line);
-				}
-				brCleanUp.close();
-				brCleanUp = new BufferedReader(new InputStreamReader(stderr));
-				while ((line = brCleanUp.readLine()) != null) {
-					Log.e("[KernelTuner MiscTweaks Error]", line);
-				}
-				brCleanUp.close();
-
-			} catch (IOException ex) {
-			}
-
+		    RootExecuter.exec(new String[]{
+				"chmod 777 /sys/kernel/fast_charge/force_fast_charge\n",
+				"echo " + fc + " > /sys/kernel/fast_charge/force_fast_charge\n"});
 			return "";
 		}
 
@@ -315,44 +236,15 @@ public class MiscTweaks extends SherlockActivity {
 
 		@Override
 		protected Object doInBackground(String... args) {
-			try {
-				String line;
-				Process process = Runtime.getRuntime().exec("su");
-				OutputStream stdin = process.getOutputStream();
-				InputStream stderr = process.getErrorStream();
-				InputStream stdout = process.getInputStream();
-
-				stdin.write(("chmod 777 /sys/kernel/debug/msm_fb/0/vsync_enable\n")
-						.getBytes());
-				stdin.write(("chmod 777 /sys/kernel/debug/msm_fb/0/hw_vsync_mode\n")
-						.getBytes());
-				stdin.write(("chmod 777 /sys/kernel/debug/msm_fb/0/backbuff\n")
-						.getBytes());
-				stdin.write(("echo " + vs + " > /sys/kernel/debug/msm_fb/0/vsync_enable\n")
-						.getBytes());
-				stdin.write(("echo " + hw + " > /sys/kernel/debug/msm_fb/0/hw_vsync_mode\n")
-						.getBytes());
-				stdin.write(("echo " + backbuf + " > /sys/kernel/debug/msm_fb/0/backbuff\n")
-						.getBytes());
-
-				stdin.flush();
-
-				stdin.close();
-				BufferedReader brCleanUp = new BufferedReader(
-						new InputStreamReader(stdout));
-				while ((line = brCleanUp.readLine()) != null) {
-					Log.d("[KernelTuner MiscTweaks Output]", line);
-				}
-				brCleanUp.close();
-				brCleanUp = new BufferedReader(new InputStreamReader(stderr));
-				while ((line = brCleanUp.readLine()) != null) {
-					Log.e("[KernelTuner MiscTweaks Error]", line);
-				}
-				brCleanUp.close();
-
-			} catch (IOException ex) {
-			}
-
+			
+			RootExecuter.exec(new String[]{
+				"chmod 777 /sys/kernel/debug/msm_fb/0/vsync_enable\n",
+			    "chmod 777 /sys/kernel/debug/msm_fb/0/hw_vsync_mode\n",
+				"chmod 777 /sys/kernel/debug/msm_fb/0/backbuff\n",
+				"echo " + vs + " > /sys/kernel/debug/msm_fb/0/vsync_enable\n",
+				"echo " + hw + " > /sys/kernel/debug/msm_fb/0/hw_vsync_mode\n",
+				"echo " + backbuf + " > /sys/kernel/debug/msm_fb/0/backbuff\n"});
+						
 			return "";
 		}
 
@@ -374,42 +266,17 @@ public class MiscTweaks extends SherlockActivity {
 		@Override
 		protected Object doInBackground(String... args) {
 
-			try {
-				String line;
-				Process process = Runtime.getRuntime().exec("su");
-				OutputStream stdin = process.getOutputStream();
-				InputStream stderr = process.getErrorStream();
-				InputStream stdout = process.getInputStream();
-
-				stdin.write(("chmod 777 /sys/devices/platform/leds-pm8058/leds/button-backlight/currents\n")
-						.getBytes());
-				stdin.write(("chmod 777 /sys/devices/platform/msm_ssbi.0/pm8921-core/pm8xxx-led/leds/button-backlight/currents\n")
-						.getBytes());
+			String[] temp = new String[3];
+				temp[0] = "chmod 777 /sys/devices/platform/leds-pm8058/leds/button-backlight/currents\n";
+				temp[1] = "chmod 777 /sys/devices/platform/msm_ssbi.0/pm8921-core/pm8xxx-led/leds/button-backlight/currents\n";
 				if (args[0].equals("e3d")) {
-					stdin.write(("echo " + ledprogress + " > /sys/devices/platform/leds-pm8058/leds/button-backlight/currents\n")
-							.getBytes());
+					temp[2] = "echo " + ledprogress + " > /sys/devices/platform/leds-pm8058/leds/button-backlight/currents\n";
 				} else if (args[0].equals("hox")) {
-					stdin.write(("echo " + args[1] + " > /sys/devices/platform/msm_ssbi.0/pm8921-core/pm8xxx-led/leds/button-backlight/currents\n")
-							.getBytes());
+					temp[2] = "echo " + args[1] + " > /sys/devices/platform/msm_ssbi.0/pm8921-core/pm8xxx-led/leds/button-backlight/currents\n";
 				}
 
-				stdin.flush();
-
-				stdin.close();
-				BufferedReader brCleanUp = new BufferedReader(
-						new InputStreamReader(stdout));
-				while ((line = brCleanUp.readLine()) != null) {
-					Log.d("[KernelTuner MiscTweaks Output]", line);
-				}
-				brCleanUp.close();
-				brCleanUp = new BufferedReader(new InputStreamReader(stderr));
-				while ((line = brCleanUp.readLine()) != null) {
-					Log.e("[KernelTuner MiscTweaks Error]", line);
-				}
-				brCleanUp.close();
-
-			} catch (IOException ex) {
-			}
+			RootExecuter.exec(temp);
+			
 
 			return "";
 		}
@@ -431,36 +298,9 @@ public class MiscTweaks extends SherlockActivity {
 		@Override
 		protected String doInBackground(String... args) {
 
-			try {
-				String line;
-				Process process = Runtime.getRuntime().exec("su");
-				OutputStream stdin = process.getOutputStream();
-				InputStream stderr = process.getErrorStream();
-				InputStream stdout = process.getInputStream();
-
-				stdin.write(("chmod 777 /sys/kernel/notification_leds/off_timer_multiplier\n")
-						.getBytes());
-				stdin.write(("echo " + args[0] + " > /sys/kernel/notification_leds/off_timer_multiplier\n")
-						.getBytes());
-
-				stdin.flush();
-
-				stdin.close();
-				BufferedReader brCleanUp = new BufferedReader(
-						new InputStreamReader(stdout));
-				while ((line = brCleanUp.readLine()) != null) {
-					Log.d("[KernelTuner MiscTweaks Output]", line);
-				}
-				brCleanUp.close();
-				brCleanUp = new BufferedReader(new InputStreamReader(stderr));
-				while ((line = brCleanUp.readLine()) != null) {
-					Log.e("[KernelTuner MiscTweaks Error]", line);
-				}
-				brCleanUp.close();
-
-			} catch (IOException ex) {
-			}
-
+			RootExecuter.exec(new String[]{
+				"chmod 777 /sys/kernel/notification_leds/off_timer_multiplier\n",
+				"echo " + args[0] + " > /sys/kernel/notification_leds/off_timer_multiplier\n"});
 			return args[0];
 		}
 
@@ -551,51 +391,17 @@ public class MiscTweaks extends SherlockActivity {
 		@Override
 		protected Object doInBackground(String... args) {
 
-			try {
-				String line;
-				Process process = Runtime.getRuntime().exec("su");
-				OutputStream stdin = process.getOutputStream();
-				InputStream stderr = process.getErrorStream();
-				InputStream stdout = process.getInputStream();
-				stdin.write(("chmod 777 /sys/block/mmcblk1/queue/read_ahead_kb\n")
-						.getBytes());
-				stdin.write(("chmod 777 /sys/block/mmcblk2/queue/read_ahead_kb\n")
-						.getBytes());
-				stdin.write(("chmod 777 /sys/devices/virtual/bdi/179:0/read_ahead_kb\n")
-						.getBytes());
-				stdin.write(("echo " + sdcache + " > /sys/block/mmcblk1/queue/read_ahead_kb\n")
-						.getBytes());
-				stdin.write(("echo " + sdcache + " > /sys/block/mmcblk0/queue/read_ahead_kb\n")
-						.getBytes());
-				stdin.write(("echo " + sdcache + " > /sys/devices/virtual/bdi/179:0/read_ahead_kb\n")
-						.getBytes());
-				stdin.write(("chmod 777 /sys/block/mmcblk0/queue/scheduler\n")
-						.getBytes());
-				stdin.write(("chmod 777 /sys/block/mmcblk1/queue/scheduler\n")
-						.getBytes());
-				stdin.write(("echo " + scheduler + " > /sys/block/mmcblk0/queue/scheduler\n")
-						.getBytes());
-				stdin.write(("echo " + scheduler + " > /sys/block/mmcblk1/queue/scheduler\n")
-						.getBytes());
-
-				stdin.flush();
-
-				stdin.close();
-				BufferedReader brCleanUp = new BufferedReader(
-						new InputStreamReader(stdout));
-				while ((line = brCleanUp.readLine()) != null) {
-					Log.d("[KernelTuner MiscTweaks Output]", line);
-				}
-				brCleanUp.close();
-				brCleanUp = new BufferedReader(new InputStreamReader(stderr));
-				while ((line = brCleanUp.readLine()) != null) {
-					Log.e("[KernelTuner MiscTweaks Error]", line);
-				}
-				brCleanUp.close();
-
-			} catch (IOException ex) {
-				Log.d("[KernelTuner MiscTweaks Error]", "" + ex.getMessage());
-			}
+			RootExecuter.exec(new String[]{
+				"chmod 777 /sys/block/mmcblk1/queue/read_ahead_kb\n",
+				"chmod 777 /sys/block/mmcblk2/queue/read_ahead_kb\n",
+				"chmod 777 /sys/devices/virtual/bdi/179:0/read_ahead_kb\n",
+				"echo " + sdcache + " > /sys/block/mmcblk1/queue/read_ahead_kb\n",
+				"echo " + sdcache + " > /sys/block/mmcblk0/queue/read_ahead_kb\n",
+				"echo " + sdcache + " > /sys/devices/virtual/bdi/179:0/read_ahead_kb\n",
+				"chmod 777 /sys/block/mmcblk0/queue/scheduler\n",
+				"chmod 777 /sys/block/mmcblk1/queue/scheduler\n",
+			    "echo " + scheduler + " > /sys/block/mmcblk0/queue/scheduler\n",
+				"echo " + scheduler + " > /sys/block/mmcblk1/queue/scheduler\n"});
 
 			return "";
 		}
@@ -614,7 +420,7 @@ public class MiscTweaks extends SherlockActivity {
 	}
 
 	
-
+    
 	@Override
 	public void onCreate(Bundle savedInstanceState) {
 		preferences = PreferenceManager.getDefaultSharedPreferences(this);
@@ -635,7 +441,7 @@ public class MiscTweaks extends SherlockActivity {
 
 		new LoadInfo().execute();
 
-		this.getWindow().setSoftInputMode(
+		getWindow().setSoftInputMode(
 				WindowManager.LayoutParams.SOFT_INPUT_STATE_ALWAYS_HIDDEN);
 
 		sdcacheLayout = (LinearLayout) findViewById(R.id.sdcache_layout);
@@ -687,10 +493,9 @@ public class MiscTweaks extends SherlockActivity {
 			AdView adView = (AdView) findViewById(R.id.ad);
 			adView.loadAd(new AdRequest());
 		}
-		this.getWindow().setSoftInputMode(
+		getWindow().setSoftInputMode(
 				WindowManager.LayoutParams.SOFT_INPUT_STATE_ALWAYS_HIDDEN);
 		
-
 	}
 
 	private void setUI(){
@@ -822,7 +627,7 @@ public class MiscTweaks extends SherlockActivity {
 		} else {
 			mSeekBar.setProgress(Integer.parseInt(led));
 		}
-		if (new File(IOHelper.BUTTONS_LIGHT_2).exists()) {
+		if (new File(Constants.BUTTONS_LIGHT_2).exists()) {
 			mSeekBar.setVisibility(View.GONE);
 			btminus.setVisibility(View.GONE);
 			btplus.setVisibility(View.GONE);
@@ -830,7 +635,7 @@ public class MiscTweaks extends SherlockActivity {
 			sb1.setVisibility(View.GONE);
 			im.setVisibility(View.GONE);
 
-		} else if (new File(IOHelper.BUTTONS_LIGHT).exists()) {
+		} else if (new File(Constants.BUTTONS_LIGHT).exists()) {
 			buttonsGroup.setVisibility(View.GONE);
 		} else {
 			mSeekBar.setVisibility(View.GONE);
@@ -985,8 +790,8 @@ public class MiscTweaks extends SherlockActivity {
 			cdHead.setVisibility(View.GONE);
 			cdRadio.setVisibility(View.GONE);
 		}
-		if(new File("/sys/kernel/notification_leds/off_timer_multiplier").exists()){
-			nlt = readFile("/sys/kernel/notification_leds/off_timer_multiplier");
+		if(new File(Constants.NLT).exists()){
+			nlt = readFile(Constants.NLT);
 			createNLT();
 		}
 		else{
@@ -995,23 +800,23 @@ public class MiscTweaks extends SherlockActivity {
 			nltLayout.setVisibility(View.GONE);
 		}
 		
-		if(new File("/sys/android_touch/sweep2wake").exists()){
+		if(new File(Constants.S2W).exists()){
 			
 			
-			s2w = readFile("/sys/android_touch/sweep2wake");
+			s2w = readFile(Constants.S2W);
 			s2wmethod = true;
-			s2wEnd = readFile("/sys/android_touch/sweep2wake_endbutton");
-			s2wButtons = readFile("/sys/android_touch/sweep2wake_buttons");
-			s2wStart = readFile("/sys/android_touch/sweep2wake_startbutton");
+			s2wEnd = readFile(Constants.S2W_END);
+			s2wButtons = readFile(Constants.S2W_BUTTONS);
+			s2wStart = readFile(Constants.S2W_START);
 			createSpinnerS2W();
 			
 		}
-		else if(new File("/sys/android_touch/sweep2wake/s2w_switch").exists()){
-			s2w = readFile("/sys/android_touch/sweep2wake/s2w_switch");
+		else if(new File(Constants.S2W_ALT).exists()){
+			s2w = readFile(Constants.S2W_ALT);
 			s2wmethod = false;
-			s2wEnd = readFile("/sys/android_touch/sweep2wake_endbutton");
-			s2wButtons = readFile("/sys/android_touch/sweep2wake_buttons");
-			s2wStart = readFile("/sys/android_touch/sweep2wake_startbutton");
+			s2wEnd = readFile(Constants.S2W_END);
+			s2wButtons = readFile(Constants.S2W_BUTTONS);
+			s2wStart = readFile(Constants.S2W_START);
 			createSpinnerS2W();
 		}
 		else{
@@ -1019,7 +824,7 @@ public class MiscTweaks extends SherlockActivity {
 			s2wHeadImage.setVisibility(View.GONE);
 			s2wLayout.setVisibility(View.GONE);
 		}
-		if(new File("/sys/android_touch/sweep2wake_buttons").exists()){
+		if(new File(Constants.S2W_BUTTONS).exists()){
 			createSpinnerS2WEnd();
 			createSpinnerS2WStart();
 		}
@@ -1065,24 +870,12 @@ public class MiscTweaks extends SherlockActivity {
 	
 
 	private String readFile(String path) {
-		try {
-
-			File myFile = new File(path);
-			FileInputStream fIn = new FileInputStream(myFile);
-
-			BufferedReader myReader = new BufferedReader(new InputStreamReader(
-					fIn));
-			String aDataRow = "";
-			String aBuffer = "";
-			while ((aDataRow = myReader.readLine()) != null) {
-				aBuffer += aDataRow + "\n";
-			}
-			myReader.close();
-			fIn.close();
-			return aBuffer.trim();
-
-		} catch (Exception e) {
-
+		try
+		{
+			return FileUtils.readFileToString(new File(path)).trim();
+		}
+		catch (Exception e)
+		{
 			return "";
 		}
 	}
@@ -1131,7 +924,7 @@ public class MiscTweaks extends SherlockActivity {
 			public void onItemSelected(AdapterView<?> parent, View view,
 					int pos, long id) {
 				s2wnew = pos + "";
-				if (s2w == "err") {
+				if (s2w.length()==0) {
 					Spinner spinner = (Spinner) findViewById(R.id.spinner2);
 					TextView s2wtxt = (TextView) findViewById(R.id.textView13);
 					spinner.setVisibility(View.GONE);
@@ -1175,7 +968,7 @@ public class MiscTweaks extends SherlockActivity {
 			public void onItemSelected(AdapterView<?> parent, View view,
 					int pos, long id) {
 				s2wStartnew = parent.getItemAtPosition(pos).toString();
-				if (s2wStart == "err") {
+				if (s2wStart.length()==0) {
 					Spinner spinner = (Spinner) findViewById(R.id.spinner3);
 					TextView s2wtxt = (TextView) findViewById(R.id.textView14);
 					spinner.setVisibility(View.GONE);
@@ -1209,7 +1002,7 @@ public class MiscTweaks extends SherlockActivity {
 			public void onItemSelected(AdapterView<?> parent, View view,
 					int pos, long id) {
 				s2wEndnew = parent.getItemAtPosition(pos).toString();
-				if (s2wEnd == "err") {
+				if (s2wEnd.length()==0) {
 					Spinner spinner = (Spinner) findViewById(R.id.spinner4);
 					TextView s2wtxt = (TextView) findViewById(R.id.textView15);
 					spinner.setVisibility(View.GONE);

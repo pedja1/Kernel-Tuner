@@ -40,44 +40,16 @@ public class ChangeGovernor extends AsyncTask<String, Void, String>
 	{
 		this.context = context;
 		preferences = PreferenceManager.getDefaultSharedPreferences(context);
-
 	}
-
 
 	final SharedPreferences preferences;
 	
 	@Override
 	protected String doInBackground(String... args)
 	{
-
-		 try {
-	            String line;
-	            Process process = Runtime.getRuntime().exec("su");
-	            OutputStream stdin = process.getOutputStream();
-	            InputStream stderr = process.getErrorStream();
-	            InputStream stdout = process.getInputStream();
-
-	            stdin.write(("chmod 777 /sys/devices/system/cpu/" + args[0] + "/cpufreq/scaling_governor\n").getBytes());
-	            stdin.write(("echo " + args[1] + " > /sys/devices/system/cpu/" + args[0] + "/cpufreq/scaling_governor\n").getBytes());
-	            
-	            stdin.flush();
-
-	            stdin.close();
-	            BufferedReader brCleanUp =
-	                    new BufferedReader(new InputStreamReader(stdout));
-	            while ((line = brCleanUp.readLine()) != null) {
-	                Log.d("[KernelTuner ChangeGovernor Output]", line);
-	            }
-	            brCleanUp.close();
-	            brCleanUp =
-	                    new BufferedReader(new InputStreamReader(stderr));
-	            while ((line = brCleanUp.readLine()) != null) {
-	            	Log.e("[KernelTuner ChangeGovernor Error]", line);
-	            }
-	            brCleanUp.close();
-
-	        } catch (IOException ex) {
-	        }
+		RootExecuter.exec(new String[] {
+			"chmod 777 /sys/devices/system/cpu/" + args[0] + "/cpufreq/scaling_governor\n", 
+		    "echo " + args[1] + " > /sys/devices/system/cpu/" + args[0] + "/cpufreq/scaling_governor\n"});
 		 SharedPreferences.Editor editor = preferences.edit();
 			editor.putString(args[0] + "gov", args[1]);
 			editor.commit();

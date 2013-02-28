@@ -123,7 +123,7 @@ public final class VoltageAdapter extends ArrayAdapter<VoltageEntry>
 
 								if (!input.getText().toString().equals(""))
 								{
-									if (new File(IOHelper.VOLTAGE_PATH).exists())
+									if (new File(Constants.VOLTAGE_PATH).exists())
 									{
 										if (Integer.parseInt(input.getText().toString()) >= 700000 && Integer.parseInt(input.getText().toString()) <= 1400000)
 										{
@@ -135,7 +135,7 @@ public final class VoltageAdapter extends ArrayAdapter<VoltageEntry>
 											Toast.makeText(VoltageAdapter.this.getContext(), "Value must be between 700000 and 1400000", Toast.LENGTH_LONG).show();
 										}
 									}
-									else if (new File(IOHelper.VOLTAGE_PATH_TEGRA_3).exists())
+									else if (new File(Constants.VOLTAGE_PATH_TEGRA_3).exists())
 									{
 										if (Integer.parseInt(input.getText().toString()) >= 700 && Integer.parseInt(input.getText().toString()) <= 1400)
 										{

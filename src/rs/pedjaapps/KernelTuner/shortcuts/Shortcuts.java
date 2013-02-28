@@ -18,11 +18,8 @@
 */
 package rs.pedjaapps.KernelTuner.shortcuts;
 
-import java.util.ArrayList;
-import java.util.List;
-
-import rs.pedjaapps.KernelTuner.R;
 import android.app.Activity;
+import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
 import android.view.Menu;
@@ -30,8 +27,10 @@ import android.view.MenuInflater;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.AdapterView;
-import android.widget.AdapterView.OnItemClickListener;
 import android.widget.ListView;
+import java.util.ArrayList;
+import java.util.List;
+import rs.pedjaapps.KernelTuner.R;
 
 public class Shortcuts extends Activity
 {
@@ -53,7 +52,8 @@ ListView shortcutListView;
                 "Swap",
                 "System Info",
                 "Settings",
-                "OOM"};
+                "OOM",
+				"SD Analyzer"};
         String[] descs ={"Normal Reboot", 
                 "Reboot device in recovery mode",
                 "Reboot device in bootloader", 
@@ -69,7 +69,8 @@ ListView shortcutListView;
                 "Create and manage Swap",
                 "View System Information",
                 "Change app Settings",
-                "Out Of Memory Settings"};
+                "Out Of Memory Settings",
+				"Analyze SD Card Content"};
 
         int[] icons = {R.drawable.reboot,
                 R.drawable.reboot,
@@ -86,7 +87,8 @@ ListView shortcutListView;
                 R.drawable.swap,
                 R.drawable.info,
                 R.drawable.misc,
-                R.drawable.swap};
+                R.drawable.swap,
+				R.drawable.sd};
         Class<?>[] classes = {RebootShortcut.class, 
                         RebootShortcut.class, 
                         RebootShortcut.class, 
@@ -102,32 +104,28 @@ ListView shortcutListView;
                         SwapShortcut.class,
                         InfoShortcut.class,
                         SettingsShortcut.class,
-                        OOMShortcut.class};
+                        OOMShortcut.class,
+						SDShortcut.class};
 
         @Override
         public void onCreate(Bundle savedInstanceState)
         {
                 super.onCreate(savedInstanceState);
+				final Context c = getApplicationContext();
                 setContentView(R.layout.shortcuts_list);
-        shortcutListView = (ListView) findViewById(R.id.list);
-                shortcutAdapter = new ShortcutAdapter(this, R.layout.shortcut_list_item);
+                shortcutListView = (ListView) findViewById(R.id.list);
+                shortcutAdapter = new ShortcutAdapter(c, R.layout.shortcut_list_item);
                 shortcutListView.setAdapter(shortcutAdapter);
 
                 for (final ShortcutEntry entry : getShortcutEntries())
                 {
                         shortcutAdapter.add(entry);
                 }
-                
-        
-                
-                shortcutListView.setOnItemClickListener(new OnItemClickListener() {
+                shortcutListView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
                                 @Override
                                 public void onItemClick(AdapterView<?> parent, View view, final int position, long id) 
                                 {
-
-                                        
-                
-                                                Intent myIntent = new Intent(Shortcuts.this, classes[position]);
+                                                Intent myIntent = new Intent(c, classes[position]);
                                                 switch(position){
                                                 case 0:
                                                         myIntent.putExtra("reboot", "");
@@ -146,17 +144,10 @@ ListView shortcutListView;
         
         private List<ShortcutEntry> getShortcutEntries()
         {
-
                 final List<ShortcutEntry> entries = new ArrayList<ShortcutEntry>();
-                
-                
                 for(int i =0; i < titles.length; i++){
                         entries.add(new ShortcutEntry(titles[i],descs[i],icons[i]));
                 }
-                                
-                                
-
-
                 return entries;
         }
         
@@ -174,15 +165,10 @@ ListView shortcutListView;
 
         @Override
         public boolean onOptionsItemSelected(MenuItem item) {
-
-                
-
                 if (item.getItemId() == R.id.done)
                 {
                         finish();
                 }
-
                 return super.onOptionsItemSelected(item);
-                
                 }
 }

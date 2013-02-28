@@ -60,7 +60,7 @@ public class KernelTuner extends SherlockActivity {
 	private AlertDialog alert;
 	private String tmp;
 	int i = 0;
-
+    Context c;
 	
 
 	private BroadcastReceiver mBatInfoReceiver = new BroadcastReceiver() {
@@ -180,96 +180,24 @@ public class KernelTuner extends SherlockActivity {
 	private class CPUToggle extends AsyncTask<String, Void, Object> {
 		@Override
 		protected Object doInBackground(String... args) {
-			Process process;
 			File file = new File("/sys/devices/system/cpu/cpu"+args[0]+"/cpufreq/scaling_governor");
-			try {
-
-				InputStream fIn = new FileInputStream(file);
-
-				try {
-					String line;
-					process = Runtime.getRuntime().exec("su");
-					OutputStream stdin = process.getOutputStream();
-					InputStream stderr = process.getErrorStream();
-					InputStream stdout = process.getInputStream();
-
-					stdin.write(("echo 1 > /sys/kernel/msm_mpdecision/conf/enabled\n")
-							.getBytes());
-					stdin.write(("chmod 777 /sys/devices/system/cpu/cpu"+args[0]+"/online\n")
-							.getBytes());
-					stdin.write(("echo 0 > /sys/devices/system/cpu/cpu"+args[0]+"/online\n")
-							.getBytes());
-					stdin.write(("chown system /sys/devices/system/cpu/cpu"+args[0]+"/online\n")
-							.getBytes());
-
-					stdin.flush();
-
-					stdin.close();
-					BufferedReader brCleanUp = new BufferedReader(
-							new InputStreamReader(stdout));
-					while ((line = brCleanUp.readLine()) != null) {
-						Log.d("[KernelTuner ToggleCPU Output]", line);
-					}
-					brCleanUp.close();
-					brCleanUp = new BufferedReader(
-							new InputStreamReader(stderr));
-					while ((line = brCleanUp.readLine()) != null) {
-						Log.e("[KernelTuner ToggleCPU Error]", line);
-					}
-					brCleanUp.close();
-					if (process != null) {
-						process.getErrorStream().close();
-						process.getInputStream().close();
-						process.getOutputStream().close();
-					}
-				} catch (IOException e) {
-
-				}
-				fIn.close();
-			}
-
-			catch (FileNotFoundException e) {
-
-				try {
-					String line;
-					process = Runtime.getRuntime().exec("su");
-					OutputStream stdin = process.getOutputStream();
-					InputStream stderr = process.getErrorStream();
-					InputStream stdout = process.getInputStream();
-
-					stdin.write(("echo 0 > /sys/kernel/msm_mpdecision/conf/enabled\n")
-							.getBytes());
-					stdin.write(("chmod 666 /sys/devices/system/cpu/cpu"+args[0]+"/online\n")
-							.getBytes());
-					stdin.write(("echo 1 > /sys/devices/system/cpu/cpu"+args[0]+"/online\n")
-							.getBytes());
-					stdin.write(("chmod 444 /sys/devices/system/cpu/cpu"+args[0]+"/online\n")
-							.getBytes());
-					stdin.write(("chown system /sys/devices/system/cpu/cpu"+args[0]+"/online\n")
-							.getBytes());
-
-					stdin.flush();
-
-					stdin.close();
-					BufferedReader brCleanUp = new BufferedReader(
-							new InputStreamReader(stdout));
-					while ((line = brCleanUp.readLine()) != null) {
-						Log.d("[KernelTuner ToggleCPU Output]", line);
-					}
-					brCleanUp.close();
-					brCleanUp = new BufferedReader(
-							new InputStreamReader(stderr));
-					while ((line = brCleanUp.readLine()) != null) {
-						Log.e("[KernelTuner ToggleCPU Error]", line);
-					}
-					brCleanUp.close();
-
-				} catch (IOException ex) {
-				}
-			} catch (IOException e) {
-
-				e.printStackTrace();
-			}
+			if(file.exists()){
+ 
+			RootExecuter.exec(new String[]{
+					"echo 1 > /sys/kernel/msm_mpdecision/conf/enabled\n",
+					"chmod 777 /sys/devices/system/cpu/cpu"+args[0]+"/online\n",
+					"echo 0 > /sys/devices/system/cpu/cpu"+args[0]+"/online\n",
+					"chown system /sys/devices/system/cpu/cpu"+args[0]+"/online\n"});
+            }
+				
+			else{
+		      RootExecuter.exec(new String[]{
+					"echo 0 > /sys/kernel/msm_mpdecision/conf/enabled\n",
+					"chmod 666 /sys/devices/system/cpu/cpu"+args[0]+"/online\n",
+					"echo 1 > /sys/devices/system/cpu/cpu"+args[0]+"/online\n",
+					"chmod 444 /sys/devices/system/cpu/cpu"+args[0]+"/online\n",
+					"chown system /sys/devices/system/cpu/cpu"+args[0]+"/online\n"});
+			}	
 
 			return "";
 		}
@@ -286,40 +214,8 @@ public class KernelTuner extends SherlockActivity {
 		@Override
 		protected Object doInBackground(String... args) {
 
-			try {
-				String line;
-				Process process = Runtime.getRuntime().exec("su");
-				OutputStream stdin = process.getOutputStream();
-				InputStream stderr = process.getErrorStream();
-				InputStream stdout = process.getInputStream();
-
-				stdin.write(("mount -t debugfs debugfs /sys/kernel/debug\n")
-						.getBytes());
-
-				stdin.flush();
-
-				stdin.close();
-				BufferedReader brCleanUp = new BufferedReader(
-						new InputStreamReader(stdout));
-				while ((line = brCleanUp.readLine()) != null) {
-					Log.d("[KernelTuner MountDebugFs Output]", line);
-				}
-				brCleanUp.close();
-				brCleanUp = new BufferedReader(new InputStreamReader(stderr));
-				while ((line = brCleanUp.readLine()) != null) {
-					Log.e("[KernelTuner MountDebugFs Error]", "" + line);
-				}
-				brCleanUp.close();
-				stderr.close();
-				stdout.close();
-				process.waitFor();
-
-			} catch (InterruptedException e) {
-				Log.e("Interupted Kernel Tuner", "" + e.getMessage());
-			} catch (IOException e) {
-				Log.e("IO Kernel Tuner", "" + e.getMessage());
-			}
-
+			RootExecuter.exec(new String[]{
+				"mount -t debugfs debugfs /sys/kernel/debug\n"});
 			return "";
 		}
 
@@ -334,41 +230,13 @@ public class KernelTuner extends SherlockActivity {
 
 		@Override
 		protected Object doInBackground(String... args) {
-
-			try {
-				String line;
-				Process process = Runtime.getRuntime().exec("su");
-				OutputStream stdin = process.getOutputStream();
-				InputStream stderr = process.getErrorStream();
-				InputStream stdout = process.getInputStream();
-
-				stdin.write(("chmod 777 /sys/devices/virtual/thermal/thermal_zone1/mode\n")
-						.getBytes());
-				stdin.write(("chmod 777 /sys/devices/virtual/thermal/thermal_zone0/mode\n")
-						.getBytes());
-				stdin.write(("echo -n enabled > /sys/devices/virtual/thermal/thermal_zone1/mode\n")
-						.getBytes());
-				stdin.write(("echo -n enabled > /sys/devices/virtual/thermal/thermal_zone0/mode\n")
-						.getBytes());
-
-				stdin.flush();
-
-				stdin.close();
-				BufferedReader brCleanUp = new BufferedReader(
-						new InputStreamReader(stdout));
-				while ((line = brCleanUp.readLine()) != null) {
-					Log.d("[KernelTuner EnableTempMonitor Output]", line);
-				}
-				brCleanUp.close();
-				brCleanUp = new BufferedReader(new InputStreamReader(stderr));
-				while ((line = brCleanUp.readLine()) != null) {
-					Log.e("[KernelTuner EnableTempMonitor Error]", line);
-				}
-				brCleanUp.close();
-
-			} catch (IOException ex) {
-			}
-
+ 
+             RootExecuter.exec(new String[]{
+				"chmod 777 /sys/devices/virtual/thermal/thermal_zone1/mode\n",
+				"chmod 777 /sys/devices/virtual/thermal/thermal_zone0/mode\n",
+				"echo -n enabled > /sys/devices/virtual/thermal/thermal_zone1/mode\n",
+				"echo -n enabled > /sys/devices/virtual/thermal/thermal_zone0/mode\n"});
+			
 			return "";
 		}
 
@@ -388,9 +256,10 @@ public class KernelTuner extends SherlockActivity {
          StrictMode.setVmPolicy(new StrictMode.VmPolicy.Builder()
                  .detectAll().build());*/
 
+		c = this;
 		freqEntries = IOHelper.frequencies();
 		voltageFreqs = IOHelper.voltages();
-		preferences = PreferenceManager.getDefaultSharedPreferences(this);
+		preferences = PreferenceManager.getDefaultSharedPreferences(c);
 		editor = preferences.edit();
 		theme = preferences.getString("theme", "light");
 
@@ -408,10 +277,10 @@ public class KernelTuner extends SherlockActivity {
 		setContentView(R.layout.main);
 
 		mHandler = new Handler();
-		cpu0prog = (TextView)this.findViewById(R.id.ptextView3);
-		cpu1prog = (TextView)this.findViewById(R.id.ptextView4);
-		cpu2prog = (TextView)this.findViewById(R.id.ptextView7);
-	    cpu3prog = (TextView)this.findViewById(R.id.ptextView8);
+		cpu0prog = (TextView)findViewById(R.id.ptextView3);
+		cpu1prog = (TextView)findViewById(R.id.ptextView4);
+		cpu2prog = (TextView)findViewById(R.id.ptextView7);
+	    cpu3prog = (TextView)findViewById(R.id.ptextView8);
 		
 		cpu0progbar = (ProgressBar)findViewById(R.id.progressBar1);
 		cpu1progbar = (ProgressBar)findViewById(R.id.progressBar2);
@@ -421,8 +290,8 @@ public class KernelTuner extends SherlockActivity {
 		 * Get temperature unit from preferences
 		 */
 		tempPref = preferences.getString("temp", "celsius");
-		batteryLevel = (TextView) this.findViewById(R.id.textView42);
-		batteryTemp = (TextView) this.findViewById(R.id.textView40);
+		batteryLevel = (TextView) findViewById(R.id.textView42);
+		batteryTemp = (TextView) findViewById(R.id.textView40);
 		tempLayout = (RelativeLayout) findViewById(R.id.test1a);
 		/**
 		 * Extract assets if first launch
@@ -431,11 +300,6 @@ public class KernelTuner extends SherlockActivity {
 		if (first == false) {
 			CopyAssets();
 		}
-		
-		/*dump = preferences.getBoolean("dump", false);
-		if(dump == false){
-			new upl().execute();
-		}*/
 
 		ActionBar actionBar = getSupportActionBar();
 
@@ -462,7 +326,7 @@ public class KernelTuner extends SherlockActivity {
 		 */
 		boolean ads = preferences.getBoolean("ads", true);
 		if (ads == true) {
-			AdView adView = (AdView) this.findViewById(R.id.ad);
+			AdView adView = (AdView)findViewById(R.id.ad);
 			adView.loadAd(new AdRequest());
 		}
 
@@ -566,8 +430,8 @@ public class KernelTuner extends SherlockActivity {
 
 			@Override
 			public void onClick(View v) {
-				Intent myIntent = new Intent(KernelTuner.this, Gpu.class);
-				KernelTuner.this.startActivity(myIntent);
+				Intent myIntent = new Intent(c, Gpu.class);
+				c.startActivity(myIntent);
 
 			}
 
@@ -588,14 +452,14 @@ public class KernelTuner extends SherlockActivity {
 			@Override
 			public void onClick(View v) {
 
-				Intent myIntent = new Intent(KernelTuner.this,
+				Intent myIntent = new Intent(c,
 						VoltageActivity.class);
-				KernelTuner.this.startActivity(myIntent);
+				c.startActivity(myIntent);
 			}
 
 		});
 
-		Button cpu = (Button) this.findViewById(R.id.button2);
+		Button cpu = (Button) findViewById(R.id.button2);
 		
 		cpu.setOnClickListener(new OnClickListener() {
 
@@ -605,18 +469,18 @@ public class KernelTuner extends SherlockActivity {
 				String cpu = preferences.getString("show_cpu_as", "full");
 				Intent myIntent = null;
 				if(cpu.equals("full")){
-				myIntent = new Intent(KernelTuner.this,
+				myIntent = new Intent(c,
 						CPUActivity.class);
 				}
 				else if(cpu.equals("minimal")){
-					myIntent = new Intent(KernelTuner.this,
+					myIntent = new Intent(c,
 							CPUActivityOld.class);
 				}
-				KernelTuner.this.startActivity(myIntent);
+				startActivity(myIntent);
 			}
 		});
 
-		Button tis = (Button) this.findViewById(R.id.button5);
+		Button tis = (Button) findViewById(R.id.button5);
 		tis.setOnClickListener(new OnClickListener() {
 
 			@Override
@@ -624,10 +488,10 @@ public class KernelTuner extends SherlockActivity {
 				String tisChoice = preferences.getString("tis_open_as", "ask");
 				if (tisChoice.equals("ask")) {
 					AlertDialog.Builder builder = new AlertDialog.Builder(
-							KernelTuner.this);
+							c);
 
 					builder.setTitle("Display As");
-					LayoutInflater inflater = (LayoutInflater) KernelTuner.this
+					LayoutInflater inflater = (LayoutInflater) c
 							.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
 					View view = inflater.inflate(R.layout.tis_dialog, null);
 					ImageView list = (ImageView) view
@@ -642,9 +506,9 @@ public class KernelTuner extends SherlockActivity {
 						@Override
 						public void onClick(View arg0) {
 
-							Intent myIntent = new Intent(KernelTuner.this,
+							Intent myIntent = new Intent(c,
 									TISActivity.class);
-							KernelTuner.this.startActivity(myIntent);
+							startActivity(myIntent);
 							if (remember.isChecked()) {
 								editor.putString("tis_open_as", "list");
 								editor.commit();
@@ -660,9 +524,9 @@ public class KernelTuner extends SherlockActivity {
 						@Override
 						public void onClick(View arg0) {
 
-							Intent myIntent = new Intent(KernelTuner.this,
+							Intent myIntent = new Intent(c,
 									TISActivityChart.class);
-							KernelTuner.this.startActivity(myIntent);
+							startActivity(myIntent);
 							if (remember.isChecked()) {
 								editor.putString("tis_open_as", "chart");
 								editor.commit();
@@ -678,55 +542,55 @@ public class KernelTuner extends SherlockActivity {
 
 					alert.show();
 				} else if (tisChoice.equals("list")) {
-					Intent myIntent = new Intent(KernelTuner.this,
+					Intent myIntent = new Intent(c,
 							TISActivity.class);
-					KernelTuner.this.startActivity(myIntent);
+					startActivity(myIntent);
 				} else if (tisChoice.equals("chart")) {
-					Intent myIntent = new Intent(KernelTuner.this,
+					Intent myIntent = new Intent(c,
 							TISActivityChart.class);
-					KernelTuner.this.startActivity(myIntent);
+					startActivity(myIntent);
 				}
 
 			}
 		});
 
-		Button mpdec = (Button) this.findViewById(R.id.button7);
+		Button mpdec = (Button) findViewById(R.id.button7);
 		mpdec.setOnClickListener(new OnClickListener() {
 
 			@Override
 			public void onClick(View v) {
 				
 				Intent myIntent = null; 
-				if(new File("/sys/kernel/msm_mpdecision/conf/nwns_threshold_up").exists()){
-				myIntent = new Intent(KernelTuner.this, Mpdecision.class);
+				if(new File(Constants.MPDEC_THR_DOWN).exists()){
+				myIntent = new Intent(c, Mpdecision.class);
 				}
-				else if(new File("/sys/kernel/msm_mpdecision/conf/nwns_threshold_0").exists()){
-					myIntent = new Intent(KernelTuner.this, MpdecisionNew.class);
+				else if(new File(Constants.MPDEC_THR_0).exists()){
+					myIntent = new Intent(c, MpdecisionNew.class);
 				}
-				KernelTuner.this.startActivity(myIntent);
+				startActivity(myIntent);
 
 			}
 		});
 
-		Button misc = (Button) this.findViewById(R.id.button4);
+		Button misc = (Button) findViewById(R.id.button4);
 		misc.setOnClickListener(new OnClickListener() {
 
 			@Override
 			public void onClick(View v) {
 
-				Intent myIntent = new Intent(KernelTuner.this, MiscTweaks.class);
-				KernelTuner.this.startActivity(myIntent);
+				Intent myIntent = new Intent(c, MiscTweaks.class);
+				startActivity(myIntent);
 
 			}
 		});
 
-		Button cpu1toggle = (Button) this.findViewById(R.id.button1);
+		Button cpu1toggle = (Button)findViewById(R.id.button1);
 		cpu1toggle.setOnClickListener(new OnClickListener() {
 
 			@Override
 			public void onClick(View v) {
 
-				KernelTuner.this.pd = ProgressDialog.show(KernelTuner.this,
+				KernelTuner.this.pd = ProgressDialog.show(c,
 						null,
 						getResources().getString(R.string.applying_settings),
 						true, true);
@@ -735,13 +599,13 @@ public class KernelTuner extends SherlockActivity {
 			}
 		});
 
-		Button cpu2toggle = (Button) this.findViewById(R.id.button8);
+		Button cpu2toggle = (Button) findViewById(R.id.button8);
 		cpu2toggle.setOnClickListener(new OnClickListener() {
 
 			@Override
 			public void onClick(View v) {
 
-				KernelTuner.this.pd = ProgressDialog.show(KernelTuner.this,
+				KernelTuner.this.pd = ProgressDialog.show(c,
 						null,
 						getResources().getString(R.string.applying_settings),
 						true, true);
@@ -750,13 +614,13 @@ public class KernelTuner extends SherlockActivity {
 			}
 		});
 
-		Button cpu3toggle = (Button) this.findViewById(R.id.button9);
+		Button cpu3toggle = (Button) findViewById(R.id.button9);
 		cpu3toggle.setOnClickListener(new OnClickListener() {
 
 			@Override
 			public void onClick(View v) {
 
-				KernelTuner.this.pd = ProgressDialog.show(KernelTuner.this,
+				KernelTuner.this.pd = ProgressDialog.show(c,
 						null,
 						getResources().getString(R.string.applying_settings),
 						true, true);
@@ -770,70 +634,70 @@ public class KernelTuner extends SherlockActivity {
 
 			@Override
 			public void onClick(View v) {
-				Intent myIntent = new Intent(KernelTuner.this,
+				Intent myIntent = new Intent(c,
 						GovernorActivity.class);
-				KernelTuner.this.startActivity(myIntent);
+				startActivity(myIntent);
 
 			}
 
 		});
 
-		Button oom = (Button) this.findViewById(R.id.button13);
+		Button oom = (Button) findViewById(R.id.button13);
 		oom.setOnClickListener(new OnClickListener() {
 
 			@Override
 			public void onClick(View v) {
 
-				Intent myIntent = new Intent(KernelTuner.this, OOM.class);
-				KernelTuner.this.startActivity(myIntent);
+				Intent myIntent = new Intent(c, OOM.class);
+				startActivity(myIntent);
 
 			}
 		});
 
-		Button profiles = (Button) this.findViewById(R.id.button12);
+		Button profiles = (Button)findViewById(R.id.button12);
 		profiles.setOnClickListener(new OnClickListener() {
 
 			@Override
 			public void onClick(View v) {
 
-				Intent myIntent = new Intent(KernelTuner.this, Profiles.class);
-				KernelTuner.this.startActivity(myIntent);
+				Intent myIntent = new Intent(c, Profiles.class);
+				startActivity(myIntent);
 
 			}
 		});
 
-		Button thermald = (Button) this.findViewById(R.id.button11);
+		Button thermald = (Button)findViewById(R.id.button11);
 		thermald.setOnClickListener(new OnClickListener() {
 
 			@Override
 			public void onClick(View v) {
 
-				Intent myIntent = new Intent(KernelTuner.this, Thermald.class);
-				KernelTuner.this.startActivity(myIntent);
+				Intent myIntent = new Intent(c, Thermald.class);
+				startActivity(myIntent);
 
 			}
 		});
 
-		Button sd = (Button) this.findViewById(R.id.button15);
+		Button sd = (Button)findViewById(R.id.button15);
 		sd.setOnClickListener(new OnClickListener() {
 
 			@Override
 			public void onClick(View v) {
 
-				Intent myIntent = new Intent(KernelTuner.this, SDScannerConfigActivity.class);
-				KernelTuner.this.startActivity(myIntent);
+				Intent myIntent = new Intent(c, SDScannerConfigActivity.class);
+				startActivity(myIntent);
 
 			}
 		});
 
-		Button sys = (Button) this.findViewById(R.id.button14);
+		Button sys = (Button)findViewById(R.id.button14);
 		sys.setOnClickListener(new OnClickListener() {
 
 			@Override
 			public void onClick(View v) {
 
-				Intent myIntent = new Intent(KernelTuner.this, SystemInfo.class);
-				KernelTuner.this.startActivity(myIntent);
+				Intent myIntent = new Intent(c, SystemInfo.class);
+				startActivity(myIntent);
 
 			}
 		});
@@ -887,10 +751,10 @@ public class KernelTuner extends SherlockActivity {
 startCpuLoadThread();
 		if (preferences.getBoolean("notificationService", false) == true
 				&& isNotificationServiceRunning() == false) {
-			startService(new Intent(KernelTuner.this, NotificationService.class));
+			startService(new Intent(c, NotificationService.class));
 		} else if (preferences.getBoolean("notificationService", false) == false
 				&& isNotificationServiceRunning() == true) {
-			stopService(new Intent(KernelTuner.this, NotificationService.class));
+			stopService(new Intent(c, NotificationService.class));
 		}
 
 	}
@@ -1041,8 +905,8 @@ private void startCpuLoadThread() {
 			String version = pInfo.versionName;
 			if (!versionpref.equals(version)) {
 
-				Intent myIntent = new Intent(KernelTuner.this, Changelog.class);
-				KernelTuner.this.startActivity(myIntent);
+				Intent myIntent = new Intent(c, Changelog.class);
+				startActivity(myIntent);
 				if (first == true) {
 					CopyAssets();
 				}
@@ -1208,8 +1072,8 @@ private void startCpuLoadThread() {
 		 * Check for certain files in sysfs and if they doesnt exists hide
 		 * depending views
 		 */
-		File file4 = new File(IOHelper.CPU0_FREQS);
-		File file5 = new File(IOHelper.TIMES_IN_STATE_CPU0);
+		File file4 = new File(Constants.CPU0_FREQS);
+		File file5 = new File(Constants.TIMES_IN_STATE_CPU0);
 		try {
 			InputStream fIn = new FileInputStream(file4);
 			fIn.close();
@@ -1228,13 +1092,13 @@ private void startCpuLoadThread() {
 
 		}
 
-		File file = new File(IOHelper.VOLTAGE_PATH);
+		File file = new File(Constants.VOLTAGE_PATH);
 		try {
 			InputStream fIn = new FileInputStream(file);
 			fIn.close();
 
 		} catch (FileNotFoundException e) {
-			File file2 = new File(IOHelper.VOLTAGE_PATH_TEGRA_3);
+			File file2 = new File(Constants.VOLTAGE_PATH_TEGRA_3);
 			try {
 				InputStream fIn = new FileInputStream(file2);
 				fIn.close();
@@ -1251,7 +1115,7 @@ private void startCpuLoadThread() {
 
 		}
 
-		File file2 = new File(IOHelper.TIMES_IN_STATE_CPU0);
+		File file2 = new File(Constants.TIMES_IN_STATE_CPU0);
 		try {
 			InputStream fIn = new FileInputStream(file2);
 			fIn.close();
@@ -1265,7 +1129,7 @@ private void startCpuLoadThread() {
 		}
 
 
-		File file6 = new File(IOHelper.MPDECISION);
+		File file6 = new File(Constants.MPDECISION);
 		try {
 			InputStream fIn = new FileInputStream(file6);
 			fIn.close();
@@ -1278,7 +1142,7 @@ private void startCpuLoadThread() {
 
 		}
 
-		File file7 = new File(IOHelper.THERMALD);
+		File file7 = new File(Constants.THERMALD);
 		try {
 			InputStream fIn = new FileInputStream(file7);
 			fIn.close();
@@ -1291,7 +1155,7 @@ private void startCpuLoadThread() {
 
 		}
 
-		File file3 = new File(IOHelper.GPU_3D);
+		File file3 = new File(Constants.GPU_3D);
 		try {
 			InputStream fIn = new FileInputStream(file3);
 			fIn.close();
@@ -1315,7 +1179,7 @@ private void startCpuLoadThread() {
 	private void initdExport() {
 
 		SharedPreferences sharedPrefs = PreferenceManager
-				.getDefaultSharedPreferences(this);
+				.getDefaultSharedPreferences(c);
 		String gpu3d = sharedPrefs.getString("gpu3d", "");
 		String gpu2d = sharedPrefs.getString("gpu2d", "");
 
@@ -2053,13 +1917,13 @@ private void startCpuLoadThread() {
 	public boolean onOptionsItemSelected(MenuItem item) {
 
 		if (item.getItemId() == 1) {
-			startActivity(new Intent(this, Preferences.class));
+			startActivity(new Intent(c, Preferences.class));
 		}
 		else if (item.getItemId() == 2) {
-			startActivity(new Intent(this, CompatibilityCheck.class));
+			startActivity(new Intent(c, CompatibilityCheck.class));
 		}
 		else if (item.getItemId() == 4) {
-			startActivity(new Intent(this, Swap.class));
+			startActivity(new Intent(c, Swap.class));
 		}
 		return super.onOptionsItemSelected(item);
 	}
@@ -2070,7 +1934,7 @@ private void startCpuLoadThread() {
 	@Override
 	public void onBackPressed() {
 		if (mLastBackPressTime < java.lang.System.currentTimeMillis() - 4000) {
-			mToast = Toast.makeText(this,
+			mToast = Toast.makeText(c,
 					getResources().getString(R.string.press_again_to_exit),
 					Toast.LENGTH_SHORT);
 			mToast.show();

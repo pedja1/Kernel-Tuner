@@ -33,9 +33,6 @@ import rs.pedjaapps.KernelTuner.R;
 
 public class About extends Activity
 {
-	
-	
-
 	@Override
 	public void onCreate(Bundle savedInstanceState)
 	{
@@ -139,25 +136,14 @@ public class About extends Activity
 		{
 			mail.setMovementMethod(LinkMovementMethod.getInstance());
 		}
-
-	
-
-		
-
-		
 		try
 		{
 			PackageInfo pInfo = getPackageManager().getPackageInfo(getPackageName(), 0);
 			String	version = pInfo.versionName;
-			
 			versiontext.setText(getResources().getString(R.string.version) + version);
 		}
 		catch (PackageManager.NameNotFoundException e)
-		{}
-
-
+		{
+		}
 	}
-
-	
-	
 }

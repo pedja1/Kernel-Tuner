@@ -56,8 +56,6 @@ public class Swap extends SherlockActivity
 
 	private class deactivateSwap extends AsyncTask<String, Void, Object>
 	{
-
-
 		@Override
 		protected Object doInBackground(String... args)
 		{

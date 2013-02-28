@@ -46,6 +46,7 @@ import rs.pedjaapps.KernelTuner.R;
 import rs.pedjaapps.KernelTuner.helpers.IOHelper;
 import rs.pedjaapps.KernelTuner.tools.ChangeGovernor;
 import rs.pedjaapps.KernelTuner.tools.FrequencyChanger;
+import android.content.Context;
 
 public class CPUActivityOld extends SherlockActivity
 {
@@ -100,6 +101,7 @@ public class CPUActivityOld extends SherlockActivity
 
 	private ArrayAdapter<String> mhzAdapter;
 
+	Context c;
 	/**
 	 * AsyncTask class that will enable All CPUs
 	 */
@@ -258,8 +260,8 @@ public class CPUActivityOld extends SherlockActivity
 	@Override
 	public void onCreate(Bundle savedInstanceState)
 	{
-		
-		sharedPrefs = PreferenceManager.getDefaultSharedPreferences(this);
+		c = this;
+		sharedPrefs = PreferenceManager.getDefaultSharedPreferences(c);
 		
 		final String theme = sharedPrefs.getString("theme", "light");
 		
@@ -278,7 +280,7 @@ public class CPUActivityOld extends SherlockActivity
 
 		setContentView(R.layout.cpu_tweaks_old);
 		
-		CPUActivityOld.this.pd = ProgressDialog.show(CPUActivityOld.this, null, 
+		pd = ProgressDialog.show(c, null, 
 				  getResources().getString(R.string.enabling_cpus), true, false);
 		new ToggleCPUs().execute(new Boolean[] {true});
 		rlcpu1 = (LinearLayout)findViewById(R.id.cpu1lay);
@@ -304,17 +306,12 @@ public class CPUActivityOld extends SherlockActivity
 		cpu2MaxSpinner = (Spinner)findViewById(R.id.spinner10);
 		cpu3MaxSpinner = (Spinner)findViewById(R.id.spinner12);
 
-		
-		
-		
-
 
 	}
 	@Override
 	public void onResume()
 	{
 		
-
 		super.onResume();
 	}
 	@Override
@@ -332,10 +329,6 @@ public class CPUActivityOld extends SherlockActivity
 		
 		super.onStop();
 	}
-
-	
-	
-
 	
 	private final void updateUI()
 	{
@@ -359,10 +352,7 @@ public class CPUActivityOld extends SherlockActivity
 			gov3spinner.setVisibility(View.GONE);
 		}
 		
-		
-		
-
-		 mhzAdapter = new ArrayAdapter<String>(this,   android.R.layout.simple_spinner_item, freqNames);
+		 mhzAdapter = new ArrayAdapter<String>(c,   android.R.layout.simple_spinner_item, freqNames);
 		mhzAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
 		
 	    cpu0Spinners();
@@ -375,14 +365,6 @@ public class CPUActivityOld extends SherlockActivity
 		if(cpu3Online){
 			cpu3Spinner();
 		}
-		
-		
-		
-		
-	
-
-		
-
 		populateGovernorSpinners();
 	}
 
@@ -397,8 +379,7 @@ public class CPUActivityOld extends SherlockActivity
 				@Override
 				public void onItemSelected(AdapterView<?> parent, View view, int pos, long id)
 				{
-					new FrequencyChanger(CPUActivityOld.this).execute(new String[] {"cpu0","min", frequencies.get(pos)+""});
-					
+					new FrequencyChanger(c).execute(new String[] {"cpu0","min", frequencies.get(pos)+""});
 				}
 
 				@Override
@@ -411,7 +392,7 @@ public class CPUActivityOld extends SherlockActivity
 				@Override
 				public void onItemSelected(AdapterView<?> parent, View view, int pos, long id)
 				{
-					new FrequencyChanger(CPUActivityOld.this).execute(new String[] {"cpu0","max", frequencies.get(pos)+""});
+					new FrequencyChanger(c).execute(new String[] {"cpu0","max", frequencies.get(pos)+""});
 				}
 
 				@Override
@@ -434,7 +415,7 @@ public class CPUActivityOld extends SherlockActivity
 				@Override
 				public void onItemSelected(AdapterView<?> parent, View view, int pos, long id)
 				{
-					new FrequencyChanger(CPUActivityOld.this).execute(new String[] {"cpu1","min", frequencies.get(pos)+""});
+					new FrequencyChanger(c).execute(new String[] {"cpu1","min", frequencies.get(pos)+""});
 				}
 
 				@Override
@@ -447,7 +428,7 @@ public class CPUActivityOld extends SherlockActivity
 				@Override
 				public void onItemSelected(AdapterView<?> parent, View view, int pos, long id)
 				{
-					new FrequencyChanger(CPUActivityOld.this).execute(new String[] {"cpu1","max", frequencies.get(pos)+""});
+					new FrequencyChanger(c).execute(new String[] {"cpu1","max", frequencies.get(pos)+""});
 				}
 
 				@Override
@@ -469,7 +450,7 @@ public class CPUActivityOld extends SherlockActivity
 				@Override
 				public void onItemSelected(AdapterView<?> parent, View view, int pos, long id)
 				{
-					new FrequencyChanger(CPUActivityOld.this).execute(new String[] {"cpu2","min", frequencies.get(pos)+""});
+					new FrequencyChanger(c).execute(new String[] {"cpu2","min", frequencies.get(pos)+""});
 				}
 
 				@Override
@@ -482,7 +463,7 @@ public class CPUActivityOld extends SherlockActivity
 				@Override
 				public void onItemSelected(AdapterView<?> parent, View view, int pos, long id)
 				{
-					new FrequencyChanger(CPUActivityOld.this).execute(new String[] {"cpu2","max", frequencies.get(pos)+""});
+					new FrequencyChanger(c).execute(new String[] {"cpu2","max", frequencies.get(pos)+""});
 				}
 
 				@Override
@@ -504,7 +485,7 @@ public class CPUActivityOld extends SherlockActivity
 				@Override
 				public void onItemSelected(AdapterView<?> parent, View view, int pos, long id)
 				{
-					new FrequencyChanger(CPUActivityOld.this).execute(new String[] {"cpu3","min", frequencies.get(pos)+""});
+					new FrequencyChanger(c).execute(new String[] {"cpu3","min", frequencies.get(pos)+""});
 				}
 
 				@Override
@@ -517,7 +498,7 @@ public class CPUActivityOld extends SherlockActivity
 				@Override
 				public void onItemSelected(AdapterView<?> parent, View view, int pos, long id)
 				{
-					new FrequencyChanger(CPUActivityOld.this).execute(new String[] {"cpu3","max", frequencies.get(pos)+""});
+					new FrequencyChanger(c).execute(new String[] {"cpu3","max", frequencies.get(pos)+""});
 				}
 
 				@Override
@@ -532,7 +513,7 @@ public class CPUActivityOld extends SherlockActivity
 	private final void populateGovernorSpinners()
 	{
 
-		ArrayAdapter<String> govAdapter = new ArrayAdapter<String>(this,   android.R.layout.simple_spinner_item, IOHelper.governors());
+		ArrayAdapter<String> govAdapter = new ArrayAdapter<String>(c,   android.R.layout.simple_spinner_item, IOHelper.governors());
 		govAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
 
     	gov0spinner.setAdapter(govAdapter);
@@ -545,7 +526,7 @@ public class CPUActivityOld extends SherlockActivity
 				@Override
 				public void onItemSelected(AdapterView<?> parent, View view, int pos, long id)
 				{
-					new ChangeGovernor(CPUActivityOld.this).execute(new String[] {"cpu0",parent.getItemAtPosition(pos).toString()});
+					new ChangeGovernor(c).execute(new String[] {"cpu0",parent.getItemAtPosition(pos).toString()});
 				}
 
 				@Override
@@ -554,9 +535,6 @@ public class CPUActivityOld extends SherlockActivity
 
 				}
 			});
-
-
-
 
 		//govrnors for cpu1
 		if (cpu0Online == true)
@@ -570,7 +548,7 @@ public class CPUActivityOld extends SherlockActivity
 					@Override
 					public void onItemSelected(AdapterView<?> parent, View view, int pos, long id)
 					{
-						new ChangeGovernor(CPUActivityOld.this).execute(new String[] {"cpu1",parent.getItemAtPosition(pos).toString()});
+						new ChangeGovernor(c).execute(new String[] {"cpu1",parent.getItemAtPosition(pos).toString()});
 
 					}
 
@@ -596,7 +574,7 @@ public class CPUActivityOld extends SherlockActivity
 					@Override
 					public void onItemSelected(AdapterView<?> parent, View view, int pos, long id)
 					{
-						new ChangeGovernor(CPUActivityOld.this).execute(new String[] {"cpu2",parent.getItemAtPosition(pos).toString()});
+						new ChangeGovernor(c).execute(new String[] {"cpu2",parent.getItemAtPosition(pos).toString()});
 
 					}
 
@@ -621,7 +599,7 @@ public class CPUActivityOld extends SherlockActivity
 					@Override
 					public void onItemSelected(AdapterView<?> parent, View view, int pos, long id)
 					{
-						new ChangeGovernor(CPUActivityOld.this).execute(new String[] {"cpu3",parent.getItemAtPosition(pos).toString()});
+						new ChangeGovernor(c).execute(new String[] {"cpu3",parent.getItemAtPosition(pos).toString()});
 
 
 					}
@@ -642,7 +620,7 @@ public class CPUActivityOld extends SherlockActivity
 	    switch (item.getItemId()) {
 	        case android.R.id.home:
 	            // app icon in action bar clicked; go home
-	            Intent intent = new Intent(this, KernelTuner.class);
+	            Intent intent = new Intent(c, KernelTuner.class);
 	            intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
 	            startActivity(intent);
 	            return true;

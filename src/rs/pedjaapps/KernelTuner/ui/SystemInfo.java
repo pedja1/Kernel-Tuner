@@ -40,6 +40,7 @@ import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentTransaction;
 import com.actionbarsherlock.app.ActionBar;
 import rs.pedjaapps.KernelTuner.R;
+import rs.pedjaapps.KernelTuner.tools.Tools;
 
 public class SystemInfo extends SherlockFragmentActivity implements
 		ActionBar.TabListener {
@@ -553,12 +554,12 @@ public class SystemInfo extends SherlockFragmentActivity implements
 		Integer freeRAM = getFreeRAM();
 		Integer totalRAM = getTotalRAM();
 		Integer usedRAM = getTotalRAM() - getFreeRAM();
-		long freeInternal = getAvailableSpaceInBytesOnInternalStorage();
-		long usedInternal = getUsedSpaceInBytesOnInternalStorage();
-		long totalInternal = getTotalSpaceInBytesOnInternalStorage();
-		long freeExternal = getAvailableSpaceInBytesOnExternalStorage();
-		long usedExternal = getUsedSpaceInBytesOnExternalStorage();
-		long totalExternal = getTotalSpaceInBytesOnExternalStorage();
+		long freeInternal = Tools.getAvailableSpaceInBytesOnInternalStorage();
+		long usedInternal = Tools.getUsedSpaceInBytesOnInternalStorage();
+		long totalInternal = Tools.getTotalSpaceInBytesOnInternalStorage();
+		long freeExternal = Tools.getAvailableSpaceInBytesOnExternalStorage();
+		long usedExternal = Tools.getUsedSpaceInBytesOnExternalStorage();
+		long totalExternal = Tools.getTotalSpaceInBytesOnExternalStorage();
 
 		inflater.inflate(R.layout.system_info_overview, container);
 		TextView level = (TextView) container.findViewById(R.id.textView1);
@@ -591,7 +592,7 @@ public class SystemInfo extends SherlockFragmentActivity implements
 			level.setText("Unknown");
 		}
 		if (batttemp != null) {
-			temp.setText(tempConverter(tempPref, batttemp));
+			temp.setText(Tools.tempConverter(tempPref, batttemp));
 		} else {
 			temp.setText("Unknown");
 		}
@@ -614,14 +615,14 @@ public class SystemInfo extends SherlockFragmentActivity implements
 		freeRAMtxt.setText("Free: " +freeRAM + "MB");
 		ramProgress.setProgress(usedRAM * 100 / totalRAM);
 
-		totalInternaltxt.setText("Total: " + humanReadableSize(totalInternal));
-		freeInternaltxt.setText("Free: " + humanReadableSize(freeInternal));
+		totalInternaltxt.setText("Total: " + Tools.byteToHumanReadableSize(totalInternal));
+		freeInternaltxt.setText("Free: " + Tools.byteToHumanReadableSize(freeInternal));
 		internalProgress
 				.setProgress((int) (usedInternal * 100 / totalInternal));
 		if (isSDPresent) {
 			totalExternaltxt.setText("Total: "
-					+ humanReadableSize(totalExternal));
-			freeExternaltxt.setText("Free: " + humanReadableSize(freeExternal));
+									 + Tools.byteToHumanReadableSize(totalExternal));
+			freeExternaltxt.setText("Free: " + Tools.byteToHumanReadableSize(freeExternal));
 			externalProgress
 					.setProgress((int) (usedExternal * 100 / totalExternal));
 		} else {
@@ -831,27 +832,6 @@ public class SystemInfo extends SherlockFragmentActivity implements
 		}
 	}
 
-	
-
-	public static String tempConverter(String tempPref, double cTemp) {
-		String tempNew = "";
-		/**
-		 * cTemp = temperature in celsius tempPreff = string from shared
-		 * preferences with value fahrenheit, celsius or kelvin
-		 */
-		if (tempPref.equals("fahrenheit")) {
-			tempNew = ((cTemp * 1.8) + 32) + "°F";
-
-		} else if (tempPref.equals("celsius")) {
-			tempNew = cTemp + "°C";
-
-		} else if (tempPref.equals("kelvin")) {
-
-			tempNew = (cTemp + 273.15) + "°C";
-
-		}
-		return tempNew;
-	}
 
 	public static Integer getTotalRAM() {
 		RandomAccessFile reader = null;
@@ -884,92 +864,7 @@ public class SystemInfo extends SherlockFragmentActivity implements
 
 	}
 
-	public static long getAvailableSpaceInBytesOnInternalStorage() {
-		long availableSpace = -1L;
-		StatFs stat = new StatFs(Environment.getDataDirectory().getPath());
-		availableSpace = (long) stat.getAvailableBlocks()
-				* (long) stat.getBlockSize();
 
-		return availableSpace;
-	}
-
-	public static long getUsedSpaceInBytesOnInternalStorage() {
-		long usedSpace = -1L;
-		StatFs stat = new StatFs(Environment.getDataDirectory().getPath());
-		usedSpace = ((long) stat.getBlockCount() - stat.getAvailableBlocks())
-				* (long) stat.getBlockSize();
-
-		return usedSpace;
-	}
-
-	public static long getTotalSpaceInBytesOnInternalStorage() {
-		long usedSpace = -1L;
-		StatFs stat = new StatFs(Environment.getDataDirectory().getPath());
-		usedSpace = ((long) stat.getBlockCount()) * (long) stat.getBlockSize();
-
-		return usedSpace;
-	}
-
-	public static long getAvailableSpaceInBytesOnExternalStorage() {
-		long availableSpace = -1L;
-		StatFs stat = new StatFs(Environment.getExternalStorageDirectory()
-				.getPath());
-		availableSpace = (long) stat.getAvailableBlocks()
-				* (long) stat.getBlockSize();
-
-		return availableSpace;
-	}
-
-	public static long getUsedSpaceInBytesOnExternalStorage() {
-		long usedSpace = -1L;
-		StatFs stat = new StatFs(Environment.getExternalStorageDirectory()
-				.getPath());
-		usedSpace = ((long) stat.getBlockCount() - stat.getAvailableBlocks())
-				* (long) stat.getBlockSize();
-
-		return usedSpace;
-	}
-
-	public static long getTotalSpaceInBytesOnExternalStorage() {
-		long usedSpace = -1L;
-		StatFs stat = new StatFs(Environment.getExternalStorageDirectory()
-				.getPath());
-		usedSpace = ((long) stat.getBlockCount()) * (long) stat.getBlockSize();
-
-		return usedSpace;
-	}
-
-	public String humanReadableSize(long size) {
-		String hrSize = "";
-
-		long b = size;
-		double k = size / 1024.0;
-		double m = size / 1048576.0;
-		double g = size / 1073741824.0;
-		double t = size / 1099511627776.0;
-
-		DecimalFormat dec = new DecimalFormat("0.00");
-
-		if (t > 1) {
-
-			hrSize = dec.format(t).concat("TB");
-		} else if (g > 1) {
-
-			hrSize = dec.format(g).concat("GB");
-		} else if (m > 1) {
-
-			hrSize = dec.format(m).concat("MB");
-		} else if (k > 1) {
-
-			hrSize = dec.format(k).concat("KB");
-
-		} else if (b > 1) {
-			hrSize = dec.format(b).concat("B");
-		}
-
-		return hrSize;
-
-	}
 
 	protected String getSensorInfo(Sensor sen) {
 		String sensorInfo = "INVALID";

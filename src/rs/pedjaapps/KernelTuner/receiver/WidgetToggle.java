@@ -18,18 +18,8 @@
 */
 package rs.pedjaapps.KernelTuner.receiver;
 
-import java.io.BufferedReader;
-import java.io.File;
-import java.io.FileInputStream;
-import java.io.FileNotFoundException;
-import java.io.IOException;
-import java.io.InputStream;
-import java.io.InputStreamReader;
-import java.io.OutputStream;
-import java.util.Calendar;
+import java.io.*;
 
-import rs.pedjaapps.KernelTuner.R;
-import rs.pedjaapps.KernelTuner.helpers.IOHelper;
 import android.app.AlarmManager;
 import android.app.PendingIntent;
 import android.appwidget.AppWidgetManager;
@@ -44,6 +34,10 @@ import android.preference.PreferenceManager;
 import android.util.Log;
 import android.view.View;
 import android.widget.RemoteViews;
+import java.util.Calendar;
+import rs.pedjaapps.KernelTuner.Constants;
+import rs.pedjaapps.KernelTuner.R;
+import rs.pedjaapps.KernelTuner.helpers.IOHelper;
 
 public class WidgetToggle extends AppWidgetProvider {
 
@@ -124,7 +118,7 @@ public class WidgetToggle extends AppWidgetProvider {
 	    else{
 		    remoteViews.setViewVisibility(R.id.button1, View.VISIBLE);
 		    remoteViews.setViewVisibility(R.id.cpu1, View.VISIBLE);
-		    if(new File(IOHelper.CPU1_CURR_GOV).exists()){
+		    if(new File(Constants.CPU1_CURR_GOV).exists()){
 				remoteViews.setTextViewText(R.id.cpu1, "ON");
 				remoteViews.setTextColor(R.id.cpu1, Color.GREEN);
 			}
@@ -139,7 +133,7 @@ public class WidgetToggle extends AppWidgetProvider {
 		    else{
 			    remoteViews.setViewVisibility(R.id.button2, View.VISIBLE);
 			    remoteViews.setViewVisibility(R.id.cpu2, View.VISIBLE);
-			    if(new File(IOHelper.CPU2_CURR_GOV).exists()){
+			    if(new File(Constants.CPU2_CURR_GOV).exists()){
 					remoteViews.setTextViewText(R.id.cpu2, "ON");
 					remoteViews.setTextColor(R.id.cpu2, Color.GREEN);
 				}
@@ -155,7 +149,7 @@ public class WidgetToggle extends AppWidgetProvider {
 		    else{
 			    remoteViews.setViewVisibility(R.id.button3, View.VISIBLE);
 			    remoteViews.setViewVisibility(R.id.cpu3, View.VISIBLE);
-			    if(new File(IOHelper.CPU3_CURR_GOV).exists()){
+			    if(new File(Constants.CPU3_CURR_GOV).exists()){
 					remoteViews.setTextViewText(R.id.cpu3, "ON");
 					remoteViews.setTextColor(R.id.cpu3, Color.GREEN);
 				}
@@ -216,7 +210,7 @@ public class WidgetToggle extends AppWidgetProvider {
 					InputStream stderr = process.getErrorStream();
 					InputStream stdout = process.getInputStream();
 
-					stdin.write(("echo 1 > /sys/kernel/msm_mpdecision/conf/enabled\n")
+					stdin.write(("echo 1 > "+Constants.MPDECISION+"\n")
 							.getBytes());
 					stdin.write(("chmod 777 /sys/devices/system/cpu/cpu"+args[0]+"/online\n")
 							.getBytes());
@@ -260,7 +254,7 @@ public class WidgetToggle extends AppWidgetProvider {
 					InputStream stderr = process.getErrorStream();
 					InputStream stdout = process.getInputStream();
 
-					stdin.write(("echo 0 > /sys/kernel/msm_mpdecision/conf/enabled\n")
+					stdin.write(("echo 0 > "+Constants.MPDECISION+"\n")
 							.getBytes());
 					stdin.write(("chmod 666 /sys/devices/system/cpu/cpu"+args[0]+"/online\n")
 							.getBytes());

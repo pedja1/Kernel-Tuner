@@ -1,3 +1,21 @@
+/*
+ * This file is part of the Kernel Tuner.
+ *
+ * Copyright Predrag Čokulov <predragcokulov@gmail.com>
+ *
+ * Kernel Tuner is free software: you can redistribute it and/or modify
+ * it under the terms of the GNU General Public License as published by
+ * the Free Software Foundation, either version 3 of the License, or
+ * (at your option) any later version.
+ *
+ * Kernel Tuner is distributed in the hope that it will be useful,
+ * but WITHOUT ANY WARRANTY; without even the implied warranty of
+ * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the
+ * GNU General Public License for more details.
+ *
+ * You should have received a copy of the GNU General Public License
+ * along with Kernel Tuner. If not, see <http://www.gnu.org/licenses/>.
+ */
 package rs.pedjaapps.KernelTuner.ui;
 
 import android.content.Intent;
@@ -22,6 +40,8 @@ import com.actionbarsherlock.view.MenuItem;
 import rs.pedjaapps.KernelTuner.R;
 import rs.pedjaapps.KernelTuner.entry.FMEntry;
 import rs.pedjaapps.KernelTuner.helpers.FMAdapter;
+import android.content.Context;
+import rs.pedjaapps.KernelTuner.tools.Tools;
 
 public class FMActivity extends SherlockActivity
 {
@@ -29,9 +49,11 @@ public class FMActivity extends SherlockActivity
 	String path;
 	FMAdapter fAdapter;
 	GridView fListView;
+	Context c;
 	@Override
     public void onCreate(Bundle savedInstanceState)
 	{
+		c = this;
         super.onCreate(savedInstanceState);
         setContentView(R.layout.fm);
 		fListView = (GridView) findViewById(R.id.list);
@@ -39,7 +61,7 @@ public class FMActivity extends SherlockActivity
 		path = Environment.getExternalStorageDirectory().toString();
 
         fListView.setDrawingCacheEnabled(true);
-		fAdapter = new FMAdapter(this, R.layout.fm_row);
+		fAdapter = new FMAdapter(c, R.layout.fm_row);
 
 		fListView.setAdapter(fAdapter);
 
@@ -69,19 +91,6 @@ public class FMActivity extends SherlockActivity
 
 			});
 
-		/*fListView.setOnItemLongClickListener(new AdapterView.OnItemLongClickListener(){
-
-				@Override
-				public boolean onItemLongClick(AdapterView<?> arg0, View arg1,
-											   int position, long id)
-				{
-				
-					return true;
-				}
-
-
-
-			});*/
     }
 	
 	private List<FMEntry> ls(File path){
@@ -91,19 +100,13 @@ public class FMActivity extends SherlockActivity
 		for(File f : files){
 			if(f.isDirectory()){
 		      	e.add(new FMEntry(f.getName(),
-		            	date(f.lastModified()),
-		            	size(f.length()),1,f.getAbsolutePath().toString()));
+		            	Tools.msToDate(f.lastModified()),
+		            	Tools.byteToHumanReadableSize(f.length()),1,f.getAbsolutePath().toString()));
 			}
-			/*else{
-				e.add(new FMEntry(f.getName(),
-								  date(f.lastModified()),
-								  size(f.length()),0,f.getAbsolutePath().toString()));
-			}*/
-			//System.out.println(f.getName());
 		}
 		Collections.sort(e, new SortByName());
 		Collections.sort(e, new SortFolderFirst());
-	//	
+
 		return e;
 	}
 	
@@ -131,44 +134,7 @@ public class FMActivity extends SherlockActivity
 
 	}
 	
-	private String size(long size){
-		String hrSize = "";
-		long b = size;
-		double k = size/1024.0;
-		double m = size/1048576.0;
-		double g = size/1073741824.0;
-		double t = size/1099511627776.0;
-		
-		DecimalFormat dec = new DecimalFormat("0.00");
 	
-		if (t>1)
-		{
-			hrSize = dec.format(t).concat("TB");
-		}
-		else if (g>1)
-		{
-			hrSize = dec.format(g).concat("GB");
-		}
-		else if (m>1)
-		{
-			hrSize = dec.format(m).concat("MB");
-		}
-		else if (k>1)
-		{
-			hrSize = dec.format(k).concat("KB");
-		}
-		else if (b>1)
-		{
-			hrSize = dec.format(b).concat("B");
-		}
-		return hrSize;
-		
-	}
-	
-	public String date(long ms){
-		SimpleDateFormat f = new SimpleDateFormat("dd MMM yy HH:mm:ss");
-		return f.format(ms);
-	}
 	
 	@Override
 	public void onBackPressed() {

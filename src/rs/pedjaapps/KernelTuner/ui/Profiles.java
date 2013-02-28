@@ -191,14 +191,6 @@ catch (InterruptedException e1)
 	e1.printStackTrace();
 }
 
-
-
-			
-			
-			
-			
-			
-
 			return "";
 		}
 
@@ -506,7 +498,7 @@ catch (InterruptedException e1)
 
 					}
 					//mpdecision down
-					if( mpdown != null && !mpdown.equals("") ){
+					if( mpdown != null && !mpdown.equals("err") ){
 						tv14.setText(mpdown);
 					}
 					else{
@@ -514,7 +506,7 @@ catch (InterruptedException e1)
 
 					}
 					//mpdecision up
-					if( mpup != null && !mpup.equals("") ){
+					if( mpup != null && !mpup.equals("err") ){
 						tv15.setText(mpup);
 					}
 					else{

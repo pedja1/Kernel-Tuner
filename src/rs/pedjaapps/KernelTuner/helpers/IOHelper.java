@@ -18,92 +18,27 @@
 */
 package rs.pedjaapps.KernelTuner.helpers;
 
-import java.io.BufferedReader;
-import java.io.DataInputStream;
-import java.io.File;
-import java.io.FileInputStream;
-import java.io.IOException;
-import java.io.InputStreamReader;
-import java.io.RandomAccessFile;
+import java.io.*;
+
+import android.os.SystemClock;
+import android.util.Log;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Collections;
 import java.util.Comparator;
 import java.util.List;
-
 import org.apache.commons.io.FileUtils;
-
-import android.os.SystemClock;
-import android.util.Log;
-import rs.pedjaapps.KernelTuner.entry.*;
+import rs.pedjaapps.KernelTuner.Constants;
+import rs.pedjaapps.KernelTuner.entry.TimesEntry;
+import rs.pedjaapps.KernelTuner.ui.OOM;
 
 public class IOHelper
 {
-
-	public static final String cpu0online = "/sys/devices/system/cpu/cpu0/online"; 
-	public static final String cpu1online = "/sys/devices/system/cpu/cpu1/online"; 
-	public static final String cpu2online = "/sys/devices/system/cpu/cpu2/online"; 
-	public static final String cpu3online = "/sys/devices/system/cpu/cpu3/online"; 
-
-
-	public static final String CPU0_FREQS = "/sys/devices/system/cpu/cpu0/cpufreq/scaling_available_frequencies";
-	public static final String SWAPS = "/proc/swaps";
-	
-	public static final String CPU0_CURR_FREQ = "/sys/devices/system/cpu/cpu0/cpufreq/scaling_cur_freq";
-	public static final String CPU1_CURR_FREQ = "/sys/devices/system/cpu/cpu1/cpufreq/scaling_cur_freq";
-	public static final String CPU2_CURR_FREQ = "/sys/devices/system/cpu/cpu2/cpufreq/scaling_cur_freq";
-	public static final String CPU3_CURR_FREQ = "/sys/devices/system/cpu/cpu3/cpufreq/scaling_cur_freq";
-
-	public static final String CPU0_MAX_FREQ = "/sys/devices/system/cpu/cpu0/cpufreq/scaling_max_freq";
-	public static final String CPU1_MAX_FREQ = "/sys/devices/system/cpu/cpu1/cpufreq/scaling_max_freq";
-	public static final String CPU2_MAX_FREQ = "/sys/devices/system/cpu/cpu2/cpufreq/scaling_max_freq";
-	public static final String CPU3_MAX_FREQ = "/sys/devices/system/cpu/cpu3/cpufreq/scaling_max_freq";
-
-	public static final String CPU0_MIN_FREQ = "/sys/devices/system/cpu/cpu0/cpufreq/scaling_min_freq";
-	public static final String CPU1_MIN_FREQ = "/sys/devices/system/cpu/cpu1/cpufreq/scaling_min_freq";
-	public static final String CPU2_MIN_FREQ = "/sys/devices/system/cpu/cpu2/cpufreq/scaling_min_freq";
-	public static final String CPU3_MIN_FREQ = "/sys/devices/system/cpu/cpu3/cpufreq/scaling_min_freq";
-
-	public static final String CPU0_CURR_GOV = "/sys/devices/system/cpu/cpu0/cpufreq/scaling_governor";
-	public static final String CPU1_CURR_GOV = "/sys/devices/system/cpu/cpu1/cpufreq/scaling_governor";
-	public static final String CPU2_CURR_GOV = "/sys/devices/system/cpu/cpu2/cpufreq/scaling_governor";
-	public static final String CPU3_CURR_GOV = "/sys/devices/system/cpu/cpu3/cpufreq/scaling_governor";
-
-	public static final String CPU0_GOVS = "/sys/devices/system/cpu/cpu0/cpufreq/scaling_available_governors";
-	public static final String CPU1_GOVS = "/sys/devices/system/cpu/cpu1/cpufreq/scaling_available_governors";
-	public static final String CPU2_GOVS = "/sys/devices/system/cpu/cpu2/cpufreq/scaling_available_governors";
-	public static final String CPU3_GOVS = "/sys/devices/system/cpu/cpu3/cpufreq/scaling_available_governors";
-	public static final String TIMES_IN_STATE_CPU0 = "/sys/devices/system/cpu/cpu0/cpufreq/stats/time_in_state";
-	public static final String TIMES_IN_STATE_CPU1 = "/sys/devices/system/cpu/cpu1/cpufreq/stats/time_in_state";
-	public static final String TIMES_IN_STATE_CPU2 = "/sys/devices/system/cpu/cpu2/cpufreq/stats/time_in_state";
-	public static final String TIMES_IN_STATE_CPU3 = "/sys/devices/system/cpu/cpu3/cpufreq/stats/time_in_state";
-
-	public static final String VOLTAGE_PATH = "/sys/devices/system/cpu/cpufreq/vdd_table/vdd_levels";
-	public static final String VOLTAGE_PATH_TEGRA_3 = "/sys/devices/system/cpu/cpu0/cpufreq/UV_mV_table";
-	public static final String GPU_3D = "/sys/devices/platform/kgsl-3d0.0/kgsl/kgsl-3d0/max_gpuclk";
-	public static final String GPU_2D = "/sys/devices/platform/kgsl-2d0.0/kgsl/kgsl-2d0/max_gpuclk";
-	public static final String CDEPTH = "/sys/kernel/debug/msm_fb/0/bpp";
-	public static final String S2W = "/sys/android_touch/sweep2wake";
-	public static final String S2W_ALT = "/sys/android_touch/sweep2wake/s2w_switch";
-	public static final String MPDECISION = "/sys/kernel/msm_mpdecision/conf/enabled";
-	public static final String BUTTONS_LIGHT = "/sys/devices/platform/leds-pm8058/leds/button-backlight/currents";
-	public static final String BUTTONS_LIGHT_2 = "/sys/devices/platform/msm_ssbi.0/pm8921-core/pm8xxx-led/leds/button-backlight/currents";
-	public static final String SD_CACHE = "/sys/devices/virtual/bdi/179:0/read_ahead_kb";
-	public static final String VSYNC = "/sys/kernel/debug/msm_fb/0/vsync_enable";
-	public static final String FCHARGE = "/sys/kernel/fast_charge/force_fast_charge";
-	public static final String OOM = "/sys/module/lowmemorykiller/parameters/minfree";
-	public static final String THERMALD = "/sys/kernel/msm_thermal/conf/allowed_low_freq";
-	public static final String SCHEDULER = "/sys/block/mmcblk0/queue/scheduler";
-	public static final String OTG = "/sys/kernel/debug/msm_otg/mode";
-	public static final String OTG_2= "/sys/kernel/debug/otg/mode";
-	public static final String CPU_MIN= "/sys/devices/system/cpu/cpu0/cpufreq/cpuinfo_min_freq";
-	public static final String CPU_MAX= "/sys/devices/system/cpu/cpu0/cpufreq/cpuinfo_max_freq";
-
 	
 	public static final boolean freqsExists()
 	{
 		boolean i = false;
-		if (new File(CPU0_FREQS).exists())
+		if (new File(Constants.CPU0_FREQS).exists())
 		{
 			i = true;
 		}
@@ -114,7 +49,7 @@ public class IOHelper
 	public static final boolean oomExists()
 	{
 		boolean i = false;
-		if (new File(OOM).exists())
+		if (new File(Constants.OOM).exists())
 		{
 			i = true;
 		}
@@ -125,7 +60,7 @@ public class IOHelper
 	public static final boolean thermaldExists()
 	{
 		boolean i = false;
-		if (new File(THERMALD).exists())
+		if (new File(Constants.THERMALD).exists())
 		{
 			i = true;
 		}
@@ -136,7 +71,7 @@ public class IOHelper
 	public static final boolean swapsExists()
 	{
 		boolean i = false;
-		if (new File(SWAPS).exists())
+		if (new File(Constants.SWAPS).exists())
 		{
 			i = true;
 		}
@@ -147,7 +82,7 @@ public class IOHelper
 	public static final boolean cpu0Online()
 	{
 		boolean i = false;
-		if (new File(cpu0online).exists())
+		if (new File(Constants.cpu0online).exists())
 		{
 			i = true;
 		}
@@ -158,7 +93,7 @@ public class IOHelper
 	public static final boolean cpu1Online()
 	{
 		boolean i = false;
-		if (new File(cpu1online).exists())
+		if (new File(Constants.cpu1online).exists())
 		{
 			i = true;
 		}
@@ -169,7 +104,7 @@ public class IOHelper
 	public static final boolean cpu2Online()
 	{
 		boolean i = false;
-		if (new File(cpu2online).exists())
+		if (new File(Constants.cpu2online).exists())
 		{
 			i = true;
 		}
@@ -180,7 +115,7 @@ public class IOHelper
 	public static final boolean cpu3Online()
 	{
 		boolean i = false;
-		if (new File(cpu3online).exists())
+		if (new File(Constants.cpu3online).exists())
 		{
 			i = true;
 		}
@@ -191,7 +126,7 @@ public class IOHelper
 	public static final boolean gpuExists()
 	{
 		boolean i = false;
-		if (new File(GPU_3D).exists())
+		if (new File(Constants.GPU_3D).exists())
 		{
 			i = true;
 		}
@@ -202,7 +137,7 @@ public class IOHelper
 	public static final boolean cdExists()
 	{
 		boolean i = false;
-		if (new File(CDEPTH).exists())
+		if (new File(Constants.CDEPTH).exists())
 		{
 			i = true;
 		}
@@ -213,11 +148,11 @@ public class IOHelper
 	public static final boolean voltageExists()
 	{
 		boolean i = false;
-		if (new File(VOLTAGE_PATH).exists())
+		if (new File(Constants.VOLTAGE_PATH).exists())
 		{
 			i = true;
 		}
-		else if (new File(VOLTAGE_PATH_TEGRA_3).exists())
+		else if (new File(Constants.VOLTAGE_PATH_TEGRA_3).exists())
 		{
 			i = true;
 		}
@@ -228,11 +163,11 @@ public class IOHelper
 	public static final boolean otgExists()
 	{
 		boolean i = false;
-		if (new File(OTG).exists())
+		if (new File(Constants.OTG).exists())
 		{
 			i = true;
 		}
-		else if (new File(OTG_2).exists())
+		else if (new File(Constants.OTG_2).exists())
 		{
 			i = true;
 		}
@@ -243,11 +178,11 @@ public class IOHelper
 	public static final boolean s2wExists()
 	{
 		boolean i = false;
-		if (new File(S2W).exists())
+		if (new File(Constants.S2W).exists())
 		{
 			i = true;
 		}
-		else if (new File(S2W_ALT).exists())
+		else if (new File(Constants.S2W_ALT).exists())
 		{
 			i = true;
 		}
@@ -258,7 +193,7 @@ public class IOHelper
 	public static final boolean TISExists()
 	{
 		boolean i = false;
-		if (new File(TIMES_IN_STATE_CPU0).exists())
+		if (new File(Constants.TIMES_IN_STATE_CPU0).exists())
 		{
 			i = true;
 		}
@@ -269,7 +204,7 @@ public class IOHelper
 	public static final boolean mpdecisionExists()
 	{
 		boolean i = false;
-		if (new File(MPDECISION).exists())
+		if (new File(Constants.MPDECISION).exists())
 		{
 			i = true;
 		}
@@ -280,11 +215,11 @@ public class IOHelper
 	public static final boolean buttonsExists()
 	{
 		boolean i = false;
-		if (new File(BUTTONS_LIGHT).exists())
+		if (new File(Constants.BUTTONS_LIGHT).exists())
 		{
 			i = true;
 		}
-		else if (new File(BUTTONS_LIGHT_2).exists())
+		else if (new File(Constants.BUTTONS_LIGHT_2).exists())
 		{
 			i = true;
 		}
@@ -295,7 +230,7 @@ public class IOHelper
 	public static final boolean sdcacheExists()
 	{
 		boolean i = false;
-		if (new File(SD_CACHE).exists())
+		if (new File(Constants.SD_CACHE).exists())
 		{
 			i = true;
 		}
@@ -306,7 +241,7 @@ public class IOHelper
 	public static final boolean vsyncExists()
 	{
 		boolean i = false;
-		if (new File(VSYNC).exists())
+		if (new File(Constants.VSYNC).exists())
 		{
 			i = true;
 		}
@@ -317,7 +252,7 @@ public class IOHelper
 	public static final boolean fchargeExists()
 	{
 		boolean i = false;
-		if (new File(FCHARGE).exists())
+		if (new File(Constants.FCHARGE).exists())
 		{
 			i = true;
 		}
@@ -333,7 +268,7 @@ public class IOHelper
 		try
 		{
 
-			File myFile = new File(CPU0_FREQS);
+			File myFile = new File(Constants.CPU0_FREQS);
 			FileInputStream fIn = new FileInputStream(myFile);
 
 			BufferedReader myReader = new BufferedReader(
@@ -357,7 +292,7 @@ public class IOHelper
 			try
 			{
 
-	 			FileInputStream fstream = new FileInputStream(TIMES_IN_STATE_CPU0);
+	 			FileInputStream fstream = new FileInputStream(Constants.TIMES_IN_STATE_CPU0);
 
 	 			DataInputStream in = new DataInputStream(fstream);
 	 			BufferedReader br = new BufferedReader(new InputStreamReader(in));
@@ -398,7 +333,7 @@ public class IOHelper
 	{
 		try
 		{
-			return Arrays.asList(FileUtils.readFileToString(new File(OOM)).split(","));
+			return Arrays.asList(FileUtils.readFileToString(new File(Constants.OOM)).split(","));
 		}
 		catch (Exception e)
 		{
@@ -411,13 +346,13 @@ public class IOHelper
 	{
 		try
 		{
-			return FileUtils.readFileToString(new File(BUTTONS_LIGHT_2)).trim();	
+			return FileUtils.readFileToString(new File(Constants.BUTTONS_LIGHT_2)).trim();	
 		}
 		catch (Exception e)
 		{
 			try
 			{
-				return FileUtils.readFileToString(new File(BUTTONS_LIGHT)).trim();
+				return FileUtils.readFileToString(new File(Constants.BUTTONS_LIGHT)).trim();
 			}
 			catch (Exception ee)
 			{
@@ -431,7 +366,7 @@ public class IOHelper
 	{
 		try
 		{
-			return Arrays.asList(FileUtils.readFileToString(new File(CPU0_GOVS)).split("\\s"));
+			return Arrays.asList(FileUtils.readFileToString(new File(Constants.CPU0_GOVS)).split("\\s"));
 		}
 		catch (Exception e)
 		{
@@ -444,7 +379,7 @@ public class IOHelper
 	{
 		try
 		{
-			return FileUtils.readFileToString(new File(CPU0_MIN_FREQ)).trim();
+			return FileUtils.readFileToString(new File(Constants.CPU0_MIN_FREQ)).trim();
 		}
 		catch (Exception e)
 		{
@@ -457,7 +392,7 @@ public class IOHelper
 	{
 		try
 		{
-			return FileUtils.readFileToString(new File(CPU_MIN)).trim();
+			return FileUtils.readFileToString(new File(Constants.CPU_MIN)).trim();
 		}
 		catch (Exception e)
 		{
@@ -470,7 +405,7 @@ public class IOHelper
 	{
 		try
 		{
-			return FileUtils.readFileToString(new File(CPU_MAX)).trim();
+			return FileUtils.readFileToString(new File(Constants.CPU_MAX)).trim();
 		}
 		catch (Exception e)
 		{
@@ -482,7 +417,7 @@ public class IOHelper
 	{
 		try
 		{
-			return FileUtils.readFileToString(new File(CPU0_MAX_FREQ)).trim();
+			return FileUtils.readFileToString(new File(Constants.CPU0_MAX_FREQ)).trim();
 		}
 		catch (Exception e)
 		{
@@ -495,7 +430,7 @@ public class IOHelper
 	{
 		try
 		{
-			return FileUtils.readFileToString(new File(CPU1_MIN_FREQ)).trim();
+			return FileUtils.readFileToString(new File(Constants.CPU1_MIN_FREQ)).trim();
 		}
 		catch (Exception e)
 		{
@@ -507,7 +442,7 @@ public class IOHelper
 	{
 		try
 		{
-			return FileUtils.readFileToString(new File(CPU1_MAX_FREQ)).trim();
+			return FileUtils.readFileToString(new File(Constants.CPU1_MAX_FREQ)).trim();
 		}
 		catch (Exception e)
 		{
@@ -519,7 +454,7 @@ public class IOHelper
 	{
 		try
 		{
-			return FileUtils.readFileToString(new File(CPU2_MIN_FREQ)).trim();
+			return FileUtils.readFileToString(new File(Constants.CPU2_MIN_FREQ)).trim();
 		}
 		catch (Exception e)
 		{
@@ -532,7 +467,7 @@ public class IOHelper
 	{
 		try
 		{
-			return FileUtils.readFileToString(new File(CPU2_MAX_FREQ)).trim();
+			return FileUtils.readFileToString(new File(Constants.CPU2_MAX_FREQ)).trim();
 		}
 		catch (Exception e)
 		{
@@ -544,7 +479,7 @@ public class IOHelper
 	{
 		try
 		{
-			return FileUtils.readFileToString(new File(CPU3_MIN_FREQ)).trim();
+			return FileUtils.readFileToString(new File(Constants.CPU3_MIN_FREQ)).trim();
 		}
 		catch (Exception e)
 		{
@@ -557,7 +492,7 @@ public class IOHelper
 	{
 		try
 		{
-			return FileUtils.readFileToString(new File(CPU3_MAX_FREQ)).trim();
+			return FileUtils.readFileToString(new File(Constants.CPU3_MAX_FREQ)).trim();
 		}
 		catch (Exception e)
 		{
@@ -570,7 +505,7 @@ public class IOHelper
 	{
 		try
 		{
-			return FileUtils.readFileToString(new File(CPU0_CURR_FREQ)).trim();
+			return FileUtils.readFileToString(new File(Constants.CPU0_CURR_FREQ)).trim();
 		}
 		catch (Exception e)
 		{
@@ -582,7 +517,7 @@ public class IOHelper
 	{
 		try
 		{
-			return FileUtils.readFileToString(new File(CPU1_CURR_FREQ)).trim();
+			return FileUtils.readFileToString(new File(Constants.CPU1_CURR_FREQ)).trim();
 		}
 		catch (Exception e)
 		{
@@ -594,7 +529,7 @@ public class IOHelper
 	{
 		try
 		{
-			return FileUtils.readFileToString(new File(CPU2_CURR_FREQ)).trim();
+			return FileUtils.readFileToString(new File(Constants.CPU2_CURR_FREQ)).trim();
 		}
 		catch (Exception e)
 		{
@@ -607,7 +542,7 @@ public class IOHelper
 	{
 		try
 		{
-			return FileUtils.readFileToString(new File(CPU3_CURR_FREQ)).trim();
+			return FileUtils.readFileToString(new File(Constants.CPU3_CURR_FREQ)).trim();
 		}
 		catch (Exception e)
 		{
@@ -620,7 +555,7 @@ public class IOHelper
 	{
 		try
 		{
-			return FileUtils.readFileToString(new File(CPU0_CURR_GOV)).trim();
+			return FileUtils.readFileToString(new File(Constants.CPU0_CURR_GOV)).trim();
 		}
 		catch (Exception e)
 		{
@@ -633,7 +568,7 @@ public class IOHelper
 	{
 		try
 		{
-			return FileUtils.readFileToString(new File(CPU1_CURR_GOV)).trim();
+			return FileUtils.readFileToString(new File(Constants.CPU1_CURR_GOV)).trim();
 		}
 		catch (Exception e)
 		{
@@ -646,7 +581,7 @@ public class IOHelper
 	{
 		try
 		{
-			return FileUtils.readFileToString(new File(CPU2_CURR_GOV)).trim();
+			return FileUtils.readFileToString(new File(Constants.CPU2_CURR_GOV)).trim();
 		}
 		catch (Exception e)
 		{
@@ -659,7 +594,7 @@ public class IOHelper
 	{
 		try
 		{
-			return FileUtils.readFileToString(new File(CPU3_CURR_GOV)).trim();
+			return FileUtils.readFileToString(new File(Constants.CPU3_CURR_GOV)).trim();
 		}
 		catch (Exception e)
 		{
@@ -676,7 +611,7 @@ public class IOHelper
 		try
 		{
 
-			FileInputStream fstream = new FileInputStream(TIMES_IN_STATE_CPU0);
+			FileInputStream fstream = new FileInputStream(Constants.TIMES_IN_STATE_CPU0);
 
 			DataInputStream in = new DataInputStream(fstream);
 			BufferedReader br = new BufferedReader(new InputStreamReader(in));
@@ -712,7 +647,7 @@ public class IOHelper
 		try
 		{
 
-			FileInputStream fstream = new FileInputStream(VOLTAGE_PATH);
+			FileInputStream fstream = new FileInputStream(Constants.VOLTAGE_PATH);
 
 			DataInputStream in = new DataInputStream(fstream);
 			BufferedReader br = new BufferedReader(new InputStreamReader(in));
@@ -735,7 +670,7 @@ public class IOHelper
 			try
 			{
 
-				FileInputStream fstream = new FileInputStream(VOLTAGE_PATH_TEGRA_3);
+				FileInputStream fstream = new FileInputStream(Constants.VOLTAGE_PATH_TEGRA_3);
 
 				DataInputStream in = new DataInputStream(fstream);
 				BufferedReader br = new BufferedReader(new InputStreamReader(in));
@@ -829,7 +764,7 @@ public class IOHelper
 	{
 		try
 		{
-			return FileUtils.readFileToString(new File("/sys/class/thermal/thermal_zone1/temp")).trim();
+			return FileUtils.readFileToString(new File(Constants.CPU_TEMP)).trim();
 		}
 		catch (Exception e2)
 		{
@@ -841,7 +776,7 @@ public class IOHelper
 	{
 		try
 		{
-			return FileUtils.readFileToString(new File("/proc/cpuinfo")).trim();
+			return FileUtils.readFileToString(new File(Constants.CPU_INFO)).trim();
 		}
 		catch (Exception e2)
 		{
@@ -905,7 +840,7 @@ public class IOHelper
 		try
 		{
 
-			File myFile = new File(SCHEDULER);
+			File myFile = new File(Constants.SCHEDULER);
 			FileInputStream fIn = new FileInputStream(myFile);
 
 			BufferedReader myReader = new BufferedReader(new InputStreamReader(
@@ -940,29 +875,29 @@ public class IOHelper
 	{
 		try
 		{
-			return FileUtils.readFileToString(new File("/sys/kernel/msm_mpdecision/conf/nwns_threshold_up")).trim();
+			return FileUtils.readFileToString(new File(Constants.MPDEC_THR_UP)).trim();
 		}
 		catch (Exception e)
 		{
-			return "";
+			return "err";
 		}
 	}
 	
 	public static final String mpdown(){
 		try
 		{
-			return FileUtils.readFileToString(new File("/sys/kernel/msm_mpdecision/conf/nwns_threshold_down")).trim();
+			return FileUtils.readFileToString(new File(Constants.MPDEC_THR_DOWN)).trim();
 		}
 		catch (Exception e)
 		{
-			return "";
+			return "err";
 		}
 	}
 	
 	public static final String gpu3d(){
 		try
 		{
-			return FileUtils.readFileToString(new File(GPU_3D)).trim();
+			return FileUtils.readFileToString(new File(Constants.GPU_3D)).trim();
 		}
 		catch (Exception e)
 		{
@@ -973,7 +908,7 @@ public class IOHelper
 	public static final String gpu2d(){
 		try
 		{
-			return FileUtils.readFileToString(new File(GPU_2D)).trim();
+			return FileUtils.readFileToString(new File(Constants.GPU_2D)).trim();
 		}
 		catch (Exception e)
 		{
@@ -984,7 +919,7 @@ public class IOHelper
 	public static final int fcharge(){
 		try
 		{
-			return Integer.parseInt(FileUtils.readFileToString(new File(FCHARGE)).trim());
+			return Integer.parseInt(FileUtils.readFileToString(new File(Constants.FCHARGE)).trim());
 		}
 		catch (Exception e)
 		{
@@ -995,7 +930,7 @@ public class IOHelper
 	public static final int vsync(){
 		try
 		{
-			return Integer.parseInt(FileUtils.readFileToString(new File(VSYNC)).trim());
+			return Integer.parseInt(FileUtils.readFileToString(new File(Constants.VSYNC)).trim());
 		}
 		catch (Exception e)
 		{
@@ -1006,7 +941,7 @@ public class IOHelper
 	public static final String cDepth(){
 		try
 		{
-			return FileUtils.readFileToString(new File(CDEPTH)).trim();
+			return FileUtils.readFileToString(new File(Constants.CDEPTH)).trim();
 		}
 		catch (Exception e)
 		{
@@ -1019,7 +954,7 @@ public class IOHelper
 		try
 		{
 
-			File myFile = new File(SCHEDULER);
+			File myFile = new File(Constants.SCHEDULER);
 			FileInputStream fIn = new FileInputStream(myFile);
 
 			BufferedReader myReader = new BufferedReader(
@@ -1049,7 +984,7 @@ public class IOHelper
 	public static final int sdCache(){
 		try
 		{
-			return Integer.parseInt(FileUtils.readFileToString(new File(SD_CACHE)).trim());
+			return Integer.parseInt(FileUtils.readFileToString(new File(Constants.SD_CACHE)).trim());
 		}
 		catch (Exception e)
 		{
@@ -1061,13 +996,13 @@ public class IOHelper
 	{
 		try
 		{
-			return Integer.parseInt(FileUtils.readFileToString(new File("/sys/android_touch/sweep2wake")).trim());
+			return Integer.parseInt(FileUtils.readFileToString(new File(Constants.S2W)).trim());
 		}
 		catch (Exception e)
 		{
 			try
 			{
-				return Integer.parseInt(FileUtils.readFileToString(new File("/sys/android_touch/sweep2wake/s2w_switch")).trim());
+				return Integer.parseInt(FileUtils.readFileToString(new File(Constants.S2W_ALT)).trim());
 			}
 			catch(Exception e2)
 			{
@@ -1079,13 +1014,13 @@ public class IOHelper
 	public static final String readOTG(){
 		try
 		{
-			return FileUtils.readFileToString(new File(OTG)).trim();
+			return FileUtils.readFileToString(new File(Constants.OTG)).trim();
 		}
 		catch (Exception e)
 		{
 			try
 			{
-				return FileUtils.readFileToString(new File(OTG_2)).trim();
+				return FileUtils.readFileToString(new File(Constants.OTG_2)).trim();
 			}
 			catch(Exception e2)
 			{
@@ -1160,7 +1095,7 @@ public class IOHelper
 	public static final String kernel(){
 		try
 		{
-			return FileUtils.readFileToString(new File("/proc/version")).trim();
+			return FileUtils.readFileToString(new File(Constants.KERNEL)).trim();
 		}
 		catch (Exception e)
 		{
@@ -1177,7 +1112,7 @@ public class IOHelper
 	{
 		try
 		{
-			return Integer.parseInt(FileUtils.readFileToString(new File("/sys/class/power_supply/battery/capacity")).trim());
+			return Integer.parseInt(FileUtils.readFileToString(new File(Constants.BATTERY_LEVEL)).trim());
 		}
 		catch (Exception e)
 		{
@@ -1189,7 +1124,7 @@ public class IOHelper
 	{
 		try
 		{
-			return Double.parseDouble(FileUtils.readFileToString(new File("/sys/class/power_supply/battery/batt_temp")).trim());
+			return Double.parseDouble(FileUtils.readFileToString(new File(Constants.BATTERY_TEMP)).trim());
 		}
 		catch (Exception e)
 		{
@@ -1201,7 +1136,7 @@ public class IOHelper
 	{
 		try
 		{
-			return FileUtils.readFileToString(new File("/sys/class/power_supply/battery/batt_current")).trim();
+			return FileUtils.readFileToString(new File(Constants.BATTERY_DRAIN)).trim();
 		}
 		catch (Exception e)
 		{
@@ -1213,7 +1148,7 @@ public class IOHelper
 	{
 		try
 		{
-			return Integer.parseInt(FileUtils.readFileToString(new File("/sys/class/power_supply/battery/batt_vol")).trim());
+			return Integer.parseInt(FileUtils.readFileToString(new File(Constants.BATTERY_VOLTAGE)).trim());
 		}
 		catch (Exception e)
 		{
@@ -1225,7 +1160,7 @@ public class IOHelper
 	{
 		try
 		{
-			return FileUtils.readFileToString(new File("/sys/class/power_supply/battery/technology")).trim();
+			return FileUtils.readFileToString(new File(Constants.BATTERY_TECH)).trim();
 		}
 		catch (Exception e)
 		{
@@ -1236,7 +1171,7 @@ public class IOHelper
 	{
 		try
 		{
-			return FileUtils.readFileToString(new File("/sys/class/power_supply/battery/health")).trim();
+			return FileUtils.readFileToString(new File(Constants.BATTERY_HEALTH)).trim();
 		}
 		catch (Exception e)
 		{
@@ -1247,7 +1182,7 @@ public class IOHelper
 	{
 		try
 		{
-			return FileUtils.readFileToString(new File("/sys/class/power_supply/battery/full_bat")).trim();
+			return FileUtils.readFileToString(new File(Constants.BATTERY_CAPACITY)).trim();
 		}
 		catch (Exception e)
 		{
@@ -1263,7 +1198,7 @@ public class IOHelper
 	{
 		try
 		{
-			return Integer.parseInt(FileUtils.readFileToString(new File("/sys/class/power_supply/battery/charging_source")).trim());
+			return Integer.parseInt(FileUtils.readFileToString(new File(Constants.BATTERY_CHARGING_SOURCE)).trim());
 		}
 		catch (Exception e)
 		{
@@ -1273,7 +1208,7 @@ public class IOHelper
 	public static boolean isTempEnabled(){
 		try
 		{
-			if(FileUtils.readFileToString(new File("/sys/devices/virtual/thermal/thermal_zone1/mode")).equals("enabled")){
+			if(FileUtils.readFileToString(new File(Constants.CPU_TEMP_ENABLED)).equals("enabled")){
 				return true;
 			}
 			else{
@@ -1283,6 +1218,197 @@ public class IOHelper
 		catch (Exception e)
 		{
 			return false;
+		}
+	}
+	
+	public static final String mpDelay()
+	{
+		try
+		{
+			return FileUtils.readFileToString(new File(Constants.MPDEC_DELAY)).trim();
+		}
+		catch (Exception e)
+		{
+			return "err";
+		}
+	}
+	
+	public static final String mpPause()
+	{
+		try
+		{
+			return FileUtils.readFileToString(new File(Constants.MPDEC_PAUSE)).trim();
+		}
+		catch (Exception e)
+		{
+			return "err";
+		}
+	}
+	
+	public static final String mpTimeUp()
+	{
+		try
+		{
+			return FileUtils.readFileToString(new File(Constants.MPDEC_TIME_UP)).trim();
+		}
+		catch (Exception e)
+		{
+			return "err";
+		}
+	}
+	
+	public static final String mpTimeDown()
+	{
+		try
+		{
+			return FileUtils.readFileToString(new File(Constants.MPDEC_TIME_DOWN)).trim();
+		}
+		catch (Exception e)
+		{
+			return "err";
+		}
+	}
+	
+	public static final String mpIdleFreq()
+	{
+		try
+		{
+			return FileUtils.readFileToString(new File(Constants.MPDEC_IDLE_FREQ)).trim();
+		}
+		catch (Exception e)
+		{
+			return "err";
+		}
+	}
+	
+	public static final String mpScroffFreq()
+	{
+		try
+		{
+			return FileUtils.readFileToString(new File(Constants.MPDEC_SCROFF_FREQ)).trim();
+		}
+		catch (Exception e)
+		{
+			return "err";
+		}
+	}
+	
+	public static final String mpScroffSingleCore()
+	{
+		try
+		{
+			return FileUtils.readFileToString(new File(Constants.MPDEC_SCROFF_SINGLE)).trim();
+		}
+		catch (Exception e)
+		{
+			return "err";
+		}
+	}
+	
+	public static final String thermalLowLow()
+	{
+		try
+		{
+			return FileUtils.readFileToString(new File(Constants.THERMAL_LOW_LOW)).trim();
+		}
+		catch (Exception e)
+		{
+			return "";
+		}
+	}
+	
+	public static final String thermalLowHigh()
+	{
+		try
+		{
+			return FileUtils.readFileToString(new File(Constants.THERMAL_LOW_HIGH)).trim();
+		}
+		catch (Exception e)
+		{
+			return "";
+		}
+	}
+	
+	public static final String thermalMidLow()
+	{
+		try
+		{
+			return FileUtils.readFileToString(new File(Constants.THERMAL_MID_LOW)).trim();
+		}
+		catch (Exception e)
+		{
+			return "";
+		}
+	}
+	
+	public static final String thermalMidHigh()
+	{
+		try
+		{
+			return FileUtils.readFileToString(new File(Constants.THERMAL_MID_HIGH)).trim();
+		}
+		catch (Exception e)
+		{
+			return "";
+		}
+	}
+	
+	public static final String thermalMaxLow()
+	{
+		try
+		{
+			return FileUtils.readFileToString(new File(Constants.THERMAL_MAX_LOW)).trim();
+		}
+		catch (Exception e)
+		{
+			return "";
+		}
+	}
+
+	public static final String thermalMaxHigh()
+	{
+		try
+		{
+			return FileUtils.readFileToString(new File(Constants.THERMAL_MAX_HIGH)).trim();
+		}
+		catch (Exception e)
+		{
+			return "";
+		}
+	}
+	
+	public static final String thermalLowFreq()
+	{
+		try
+		{
+			return FileUtils.readFileToString(new File(Constants.THERMAL_LOW_FREQ)).trim();
+		}
+		catch (Exception e)
+		{
+			return "";
+		}
+	}
+
+	public static final String thermalMidFreq()
+	{
+		try
+		{
+			return FileUtils.readFileToString(new File(Constants.THERMAL_MID_FREQ)).trim();
+		}
+		catch (Exception e)
+		{
+			return "";
+		}
+	}
+	public static final String thermalMaxFreq()
+	{
+		try
+		{
+			return FileUtils.readFileToString(new File(Constants.THERMAL_MAX_FREQ)).trim();
+		}
+		catch (Exception e)
+		{
+			return "";
 		}
 	}
 	static int load;

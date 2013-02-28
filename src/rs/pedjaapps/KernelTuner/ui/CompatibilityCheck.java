@@ -24,11 +24,15 @@ import android.graphics.Color;
 import android.os.AsyncTask;
 import android.os.Bundle;
 import android.view.View;
+import android.widget.Button;
+import android.widget.LinearLayout;
+import android.widget.ProgressBar;
+import android.widget.TextView;
 import java.io.File;
 import java.io.FileInputStream;
 import java.io.IOException;
+import rs.pedjaapps.KernelTuner.Constants;
 import rs.pedjaapps.KernelTuner.R;
-import android.widget.*;
 
 
 public class CompatibilityCheck extends Activity
@@ -61,203 +65,121 @@ public class CompatibilityCheck extends Activity
 		@Override
 		protected Void doInBackground(Void... args)
 		{
-			
-			try
-			{
-
-				File myFile = new File(
-					"/sys/devices/system/cpu/cpu0/cpufreq/scaling_available_frequencies");
-				FileInputStream fIn = new FileInputStream(myFile);
-
+				if(new File(Constants.CPU0_FREQS).exists())
+				{
 				count = count + 1;
 				saf = true;
-				fIn.close();
-			}
-			catch (IOException e)
-			{
-				saf = false;
-			}
-
-			publishProgress(3);
-			try
-			{
-
-				File myFile = new File(
-					"/sys/devices/system/cpu/cpufreq/vdd_table/vdd_levels");
-				FileInputStream fIn = new FileInputStream(myFile);
-
+				}
+				else{
+					saf = false;
+				}
+				publishProgress(3);
+				
+		       if(new File(Constants.VOLTAGE_PATH).exists())
+			   {
 				count = count + 1;
 				uv = true;
-				fIn.close();
-			}
-			catch (IOException e)
+			   }
+			   else if(new File(Constants.VOLTAGE_PATH_TEGRA_3).exists()){
+				   count = count + 1;
+				   uv = true;
+			   }
+			   else{
+				   uv = false;
+			   }
+		    	publishProgress(4);
+				
+	        if(new File(Constants.TIMES_IN_STATE_CPU0).exists())
 			{
-				uv = false;
-			}
-			publishProgress(4);
-			try
-			{
-
-				File myFile = new File(
-					"/sys/devices/system/cpu/cpu0/cpufreq/stats/time_in_state");
-				FileInputStream fIn = new FileInputStream(myFile);
-
 				count = count + 1;
 				tis = true;
-				fIn.close();
 			}
-			catch (IOException e)
-			{
+			else{
 				tis = false;
 			}
 			publishProgress(5);
-			try
-			{
+		
 
-				File myFile = new File(
-					"/sys/kernel/notification_leds/off_timer_multiplier");
-				FileInputStream fIn = new FileInputStream(myFile);
-
+				if(new File(Constants.NOTIF_LED).exists())
+			    {
 				count = count + 1;
 				lt = true;
-				fIn.close();
-			}
-			catch (IOException e)
-			{
-				lt = false;
-			}
+				}
+				else{
+					lt = false;
+				}
+			
 			publishProgress(6);
-			try
+		
+			if(new File(Constants.BUTTONS_LIGHT).exists())
 			{
-
-				File myFile = new File(
-					"/sys/devices/platform/leds-pm8058/leds/button-backlight/currents");
-				FileInputStream fIn = new FileInputStream(myFile);
-
 				count = count + 1;
 				bl = true;
-				fIn.close();
 			}
-			catch (IOException e)
-			{
-				try
-				{
-
-					File myFile = new File(
-						"/sys/devices/platform/msm_ssbi.0/pm8921-core/pm8xxx-led/leds/button-backlight/currents");
-					FileInputStream fIn = new FileInputStream(myFile);
-
-					count = count + 1;
-					bl = true;
-					fIn.close();
-				}
-				catch (IOException e1)
-				{
-					bl = false;
-					
-				}
+			else if(new File(Constants.BUTTONS_LIGHT_2).exists()){
+				count = count + 1;
+				bl = true;
+			}
+			else{
+				bl = false;
 			}
 			publishProgress(7);
-			try
-			{
-
-				File myFile = new File(
-					"/sys/devices/platform/kgsl-3d0.0/kgsl/kgsl-3d0/max_gpuclk");
-				FileInputStream fIn = new FileInputStream(myFile);
-
+		
+				if( new File(Constants.GPU_3D).exists())
+			    {
 				count = count + 1;
 				g3d = true;
-				fIn.close();
-
-			}
-			catch (IOException e)
-			{
-
-				g3d = false;
-			}
+			    }
+				else{
+					g3d = false;
+				}
 			publishProgress(8);
-			try
-			{
-
-				File myFile = new File(
-					"/sys/devices/platform/kgsl-2d0.0/kgsl/kgsl-2d0/max_gpuclk");
-				FileInputStream fIn = new FileInputStream(myFile);
-
+				if(new File(Constants.GPU_2D).exists())
+			    {
 				count = count + 1;
 				g2d = true;
-				fIn.close();
-			}
-			catch (IOException e)
-			{
-				g2d = false;
-			}
+			    }
+				else{
+					g2d = false;
+				}
 			publishProgress(9);
-			try
-			{
+			
 
-				File myFile = new File(
-					"/sys/kernel/fast_charge/force_fast_charge");
-				FileInputStream fIn = new FileInputStream(myFile);
-
+				if(new File(Constants.FCHARGE).exists())
+			    {
 				count = count + 1;
 				fc = true;
-				fIn.close();
-
-			}
-			catch (IOException e)
-			{
-				fc = false;
-			}
+			    }
+				else{
+					fc = false;
+				}
+		
 			publishProgress(10);
-			try
-			{
-
-				File myFile = new File(
-					"/sys/kernel/debug/msm_fb/0/vsync_enable");
-				FileInputStream fIn = new FileInputStream(myFile);
-
+			
+				if(new File(Constants.VSYNC).exists())
+				{
 				count = count + 1;
 				vs = true;
-				fIn.close();
-			}
-			catch (IOException e)
-			{
+			    }
+				else
+				{
 				vs = false;
-			}
+				}
 			publishProgress(11);
 
-			try
-			{
-
-				File myFile = new File("/sys/kernel/debug/msm_fb/0/bpp");
-				FileInputStream fIn = new FileInputStream(myFile);
-
+		
+				 if( new File(Constants.CDEPTH).exists())
+				 {
 				count = count + 1;
 				cd = true;
-				fIn.close();
-
 			}
-			catch (IOException e)
-			{
+			else{
 				cd = false;
-
 			}
 			publishProgress(12);
-			try
-			{
+		
 
-				File myFile = new File(
-					"/sys/kernel/dyn_fsync/Dyn_fsync_version");
-				FileInputStream fIn = new FileInputStream(myFile);
-				count = count + 1;
-				fs = true;
-				fIn.close();
-			}
-			catch (IOException e)
-			{
-				fs = false;
-			}
-			publishProgress(13);
+			
 			try
 			{
 
@@ -272,75 +194,52 @@ public class CompatibilityCheck extends Activity
 			{
 				s2w = false;
 			}
-			publishProgress(14);
-			try
-			{
+			publishProgress(13);
+			
 
-				File myFile = new File(
-					"/sys/kernel/msm_thermal/conf/allowed_low_freq");
-				FileInputStream fIn = new FileInputStream(myFile);
-
+				if(new File(Constants.THERMAL_LOW_FREQ).exists())
+				{
 				count = count + 1;
 				td = true;
-				fIn.close();
 			}
-			catch (IOException e)
-			{
-
+			else{
 				td = false;
 			}
-			publishProgress(15);
-			try
-			{
-
-				File myFile = new File(
-					"/sys/kernel/msm_mpdecision/conf/enabled");
-				FileInputStream fIn = new FileInputStream(myFile);
-
+			publishProgress(14);
+			
+				if( new File(Constants.MPDECISION).exists())
+				{
 				count = count + 1;
 				mp = true;
-				fIn.close();
 			}
-			catch (IOException e)
-			{
+			else{
 				mp = false;
-
 			}
-			publishProgress(16);
-			try
-			{
+			publishProgress(15);
+			
 
-				File myFile = new File(
-					"/sys/devices/virtual/bdi/179:0/read_ahead_kb");
-				FileInputStream fIn = new FileInputStream(myFile);
+				if(new File(Constants.READ_AHEAD_KB).exists())
+				{
 				count = count + 1;
 				sdc = true;
-				fIn.close();
-
 			}
-			catch (Exception e)
-			{
-
+			else{
 				sdc = false;
 			}
-			publishProgress(17);
+			publishProgress(16);
 
-			try
-			{
+		
 
-				File myFile = new File("/sys/block/mmcblk0/queue/scheduler");
-				FileInputStream fIn = new FileInputStream(myFile);
+				if(new File(Constants.SCHEDULER).exists())
+				{
 				count = count + 1;
 				sh = true;
-				fIn.close();
+				}
+				else{
+					sh = false;
+				}
 
-			}
-			catch (Exception e)
-			{
-				sh = false;
-			}
-
-			publishProgress(18);
+			publishProgress(17);
 
 			return null;
 		}
@@ -361,7 +260,7 @@ public class CompatibilityCheck extends Activity
 			LinearLayout ll8 = (LinearLayout) findViewById(R.id.ll8);
 			LinearLayout ll9 = (LinearLayout) findViewById(R.id.ll9);
 			LinearLayout ll10 = (LinearLayout) findViewById(R.id.ll10);
-			LinearLayout ll11 = (LinearLayout) findViewById(R.id.ll11);
+		//	LinearLayout ll11 = (LinearLayout) findViewById(R.id.ll11);
 			LinearLayout ll12 = (LinearLayout) findViewById(R.id.ll12);
 			LinearLayout ll13 = (LinearLayout) findViewById(R.id.ll13);
 			LinearLayout ll14 = (LinearLayout) findViewById(R.id.ll14);
@@ -377,7 +276,7 @@ public class CompatibilityCheck extends Activity
 			TextView fctv = (TextView) findViewById(R.id.textView16);
 			TextView vstv = (TextView) findViewById(R.id.textView18);
 			TextView cdtv = (TextView) findViewById(R.id.textView20);
-			TextView fstv = (TextView) findViewById(R.id.textView22);
+		//	TextView fstv = (TextView) findViewById(R.id.textView22);
 			TextView s2wtv = (TextView) findViewById(R.id.textView24);
 			TextView tdtv = (TextView) findViewById(R.id.textView26);
 			TextView mptv = (TextView) findViewById(R.id.textView28);
@@ -524,7 +423,7 @@ public class CompatibilityCheck extends Activity
 					cdtv.setTextColor(Color.RED);
 				}
 			}
-			if (values[0] == 13)
+		/*	if (values[0] == 13)
 			{
 				ll11.setVisibility(View.VISIBLE);
 				if (fs == true)
@@ -537,8 +436,8 @@ public class CompatibilityCheck extends Activity
 					fstv.setText("[Not Found]");
 					fstv.setTextColor(Color.RED);
 				}
-			}
-			if (values[0] == 14)
+			}*/
+			if (values[0] == 13)
 			{
 				ll12.setVisibility(View.VISIBLE);
 				if (s2w == true)
@@ -552,7 +451,7 @@ public class CompatibilityCheck extends Activity
 					s2wtv.setTextColor(Color.RED);
 				}
 			}
-			if (values[0] == 15)
+			if (values[0] == 14)
 			{
 				ll13.setVisibility(View.VISIBLE);
 				if (td == true)
@@ -566,7 +465,7 @@ public class CompatibilityCheck extends Activity
 					tdtv.setTextColor(Color.RED);
 				}
 			}
-			if (values[0] == 16)
+			if (values[0] == 15)
 			{
 				ll14.setVisibility(View.VISIBLE);
 				if (mp == true)
@@ -581,7 +480,7 @@ public class CompatibilityCheck extends Activity
 				}
 			}
 
-			if (values[0] == 17)
+			if (values[0] == 16)
 			{
 				ll15.setVisibility(View.VISIBLE);
 				if (sdc == true)
@@ -595,7 +494,7 @@ public class CompatibilityCheck extends Activity
 					sdctv.setTextColor(Color.RED);
 				}
 			}
-			if (values[0] == 18)
+			if (values[0] == 17)
 			{
 				ll16.setVisibility(View.VISIBLE);
 				if (sh == true)
@@ -616,7 +515,7 @@ public class CompatibilityCheck extends Activity
 		protected void onPostExecute(Void result)
 		{
 			TextView res = (TextView) findViewById(R.id.textView34);
-			int cn = count * 100 / 16;
+			int cn = count * 100 / 15;
 			res.setText(String.valueOf(cn) + "%");
 			if (cn < 30)
 			{
