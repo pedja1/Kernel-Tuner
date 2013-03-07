@@ -379,7 +379,9 @@ public class ProfileApplier extends AsyncTask<String, Void, String>
 			stdin.write(("echo " + s2w + " > /sys/android_touch/sweep2wake\n").getBytes());
 			stdin.write(("chmod 777 /sys/android_touch/sweep2wake/s2w_switch\n").getBytes());
 			stdin.write(("echo " + s2w + " > /sys/android_touch/sweep2wake/s2w_switch\n").getBytes());
+			if(s2w!=3){
 			editor.putString("s2w", String.valueOf(s2w));
+			}
 	  	    editor.commit();
 		}
 		
