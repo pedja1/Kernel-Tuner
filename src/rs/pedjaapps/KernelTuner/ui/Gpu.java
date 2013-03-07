@@ -282,7 +282,7 @@ private class changegpu extends AsyncTask<String, Void, Object>
 	{
 		try
 		{
-			return Integer.parseInt(FileUtils.readFileToString(new File(path)));
+			return Integer.parseInt(FileUtils.readFileToString(new File(path)).trim());
 		}
 		catch (Exception e)
 		{
