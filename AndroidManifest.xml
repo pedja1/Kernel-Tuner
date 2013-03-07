@@ -3,8 +3,8 @@
     xmlns:tools="http://schemas.android.com/tools"
     package="rs.pedjaapps.KernelTuner"
     android:installLocation="internalOnly"
-    android:versionCode="528022013"
-    android:versionName="4.3" >
+    android:versionCode="606032013"
+    android:versionName="4.3.1" >
 
     <uses-sdk
         android:minSdkVersion="9"
@@ -441,7 +441,7 @@
 
         <service android:name=".services.WidgetUpdateService" >
         </service>
-        <service android:name=".services.WidgetUpdateServiceBig" >
+        <service android:name=".services.WidgetSummaryUpdateService" >
         </service>
         <service
             android:name=".services.NotificationService"
