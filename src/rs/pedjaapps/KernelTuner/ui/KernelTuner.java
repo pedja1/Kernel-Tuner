@@ -1557,12 +1557,12 @@ private void startCpuLoadThread() {
 			for(int i = 0; i < 8; i++){
 				miscbuilder.append("chmod 777 /sys/kernel/msm_mpdecision/conf/twts_threshold_"+i+"\n");
 			}
-			miscbuilder.append("echo " + tim[1] + " > /sys/kernel/msm_mpdecision/conf/twts_threshold_"+0+"\n");
-			miscbuilder.append("echo " + tim[2] + " > /sys/kernel/msm_mpdecision/conf/twts_threshold_"+2+"\n");
+			miscbuilder.append("echo " + tim[0] + " > /sys/kernel/msm_mpdecision/conf/twts_threshold_"+0+"\n");
+			miscbuilder.append("echo " + tim[1] + " > /sys/kernel/msm_mpdecision/conf/twts_threshold_"+2+"\n");
 			miscbuilder.append("echo " + tim[3] + " > /sys/kernel/msm_mpdecision/conf/twts_threshold_"+3+"\n");
-			miscbuilder.append("echo " + tim[4] + " > /sys/kernel/msm_mpdecision/conf/twts_threshold_"+4+"\n");
-			miscbuilder.append("echo " + tim[5] + " > /sys/kernel/msm_mpdecision/conf/twts_threshold_"+5+"\n");
-			miscbuilder.append("echo " + tim[6] + " > /sys/kernel/msm_mpdecision/conf/twts_threshold_"+7+"\n");
+			miscbuilder.append("echo " + tim[3] + " > /sys/kernel/msm_mpdecision/conf/twts_threshold_"+4+"\n");
+			miscbuilder.append("echo " + tim[4] + " > /sys/kernel/msm_mpdecision/conf/twts_threshold_"+5+"\n");
+			miscbuilder.append("echo " + tim[5] + " > /sys/kernel/msm_mpdecision/conf/twts_threshold_"+7+"\n");
 			
 		}
 		if(!maxCpus.equals("")){
