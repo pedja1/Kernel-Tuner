@@ -805,18 +805,12 @@ public class MiscTweaks extends SherlockActivity {
 			
 			s2w = readFile(Constants.S2W);
 			s2wmethod = true;
-			s2wEnd = readFile(Constants.S2W_END);
-			s2wButtons = readFile(Constants.S2W_BUTTONS);
-			s2wStart = readFile(Constants.S2W_START);
 			createSpinnerS2W();
 			
 		}
 		else if(new File(Constants.S2W_ALT).exists()){
 			s2w = readFile(Constants.S2W_ALT);
 			s2wmethod = false;
-			s2wEnd = readFile(Constants.S2W_END);
-			s2wButtons = readFile(Constants.S2W_BUTTONS);
-			s2wStart = readFile(Constants.S2W_START);
 			createSpinnerS2W();
 		}
 		else{
@@ -825,7 +819,10 @@ public class MiscTweaks extends SherlockActivity {
 			s2wLayout.setVisibility(View.GONE);
 		}
 		if(new File(Constants.S2W_BUTTONS).exists()){
-			createSpinnerS2WEnd();
+			s2wEnd = readFile(Constants.S2W_END);
+			s2wButtons = readFile(Constants.S2W_BUTTONS);
+			s2wStart = readFile(Constants.S2W_START);
+	    	createSpinnerS2WEnd();
 			createSpinnerS2WStart();
 		}
 		else{
