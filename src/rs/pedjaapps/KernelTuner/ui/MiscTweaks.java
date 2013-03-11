@@ -922,10 +922,7 @@ public class MiscTweaks extends SherlockActivity {
 					int pos, long id) {
 				s2wnew = pos + "";
 				if (s2w.length()==0) {
-					Spinner spinner = (Spinner) findViewById(R.id.spinner2);
-					TextView s2wtxt = (TextView) findViewById(R.id.textView13);
-					spinner.setVisibility(View.GONE);
-					s2wtxt.setVisibility(View.GONE);
+				    s2wLayout.setVisibility(View.GONE);
 				}
 			}
 
@@ -966,10 +963,7 @@ public class MiscTweaks extends SherlockActivity {
 					int pos, long id) {
 				s2wStartnew = parent.getItemAtPosition(pos).toString();
 				if (s2wStart.length()==0) {
-					Spinner spinner = (Spinner) findViewById(R.id.spinner3);
-					TextView s2wtxt = (TextView) findViewById(R.id.textView14);
-					spinner.setVisibility(View.GONE);
-					s2wtxt.setVisibility(View.GONE);
+					s2wLayoutStart.setVisibility(View.GONE);
 				}
 			}
 
@@ -1000,10 +994,8 @@ public class MiscTweaks extends SherlockActivity {
 					int pos, long id) {
 				s2wEndnew = parent.getItemAtPosition(pos).toString();
 				if (s2wEnd.length()==0) {
-					Spinner spinner = (Spinner) findViewById(R.id.spinner4);
-					TextView s2wtxt = (TextView) findViewById(R.id.textView15);
-					spinner.setVisibility(View.GONE);
-					s2wtxt.setVisibility(View.GONE);
+					
+					s2wLayoutEnd.setVisibility(View.GONE);
 				}
 			}
 

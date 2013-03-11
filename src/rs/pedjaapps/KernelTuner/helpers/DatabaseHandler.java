@@ -30,7 +30,7 @@ public class DatabaseHandler extends SQLiteOpenHelper
 
     // All Static variables
     // Database Version
-    private static final int DATABASE_VERSION = 1;
+    private static final int DATABASE_VERSION = 2;
 
     // Database Name
     private static final String DATABASE_NAME = "KTDatabase.db";
@@ -38,6 +38,7 @@ public class DatabaseHandler extends SQLiteOpenHelper
     // table names
     private static final String TABLE_PROFILES = "profiles";
     private static final String TABLE_VOLTAGE = "voltage";
+	private static final String TABLE_SYS = "sysctl";
 
     // Table Columns names
     private static final String KEY_PROFILE_ID = "id";
@@ -75,6 +76,10 @@ public class DatabaseHandler extends SQLiteOpenHelper
     private static final String KEY_VOLTAGE_FREQ = "freq";
     private static final String KEY_VOLTAGE_VALUE = "value";
 
+	private static final String KEY_SYS_ID = "_id";
+	private static final String KEY_SYS_KEY = "key";
+	private static final String KEY_SYS_VALUE = "value";
+	
     public DatabaseHandler(Context context)
 	{
         super(context, DATABASE_NAME, null, DATABASE_VERSION);
@@ -118,8 +123,14 @@ public class DatabaseHandler extends SQLiteOpenHelper
     			+ KEY_VOLTAGE_ID + " INTEGER PRIMARY KEY," + KEY_VOLTAGE_NAME + " TEXT," + KEY_VOLTAGE_FREQ + " TEXT," + KEY_VOLTAGE_VALUE + " TEXT"
     			+
     			")";
+		String CREATE_SYS_TABLE = "CREATE TABLE " + TABLE_SYS + "("
+			+ KEY_SYS_ID + " INTEGER PRIMARY KEY," + KEY_SYS_KEY + " TEXT," + KEY_SYS_VALUE + " TEXT"
+			+
+			")";
+		db.execSQL(CREATE_SYS_TABLE);
         db.execSQL(CREATE_PROFILES_TABLE);
         db.execSQL(CREATE_VOLTAGE_TABLE);
+		
     }
 
     
@@ -130,7 +141,8 @@ public class DatabaseHandler extends SQLiteOpenHelper
         // Drop older table if existed
         db.execSQL("DROP TABLE IF EXISTS " + TABLE_PROFILES);
         db.execSQL("DROP TABLE IF EXISTS " + TABLE_VOLTAGE);
-
+		db.execSQL("DROP TABLE IF EXISTS " + TABLE_SYS);
+		
         // Create tables again
         onCreate(db);
     }
@@ -177,6 +189,79 @@ public class DatabaseHandler extends SQLiteOpenHelper
         db.close(); // Closing database connection
     }
 
+	public void addSysCtlEntry(SysCtlDatabaseEntry entry)
+	{
+        SQLiteDatabase db = this.getWritableDatabase();
+
+        ContentValues values = new ContentValues();
+        values.put(KEY_SYS_KEY, entry.getKey());
+        values.put(KEY_SYS_VALUE, entry.getValue()); 
+
+        // Inserting Row
+        db.insert(TABLE_SYS, null, values);
+        db.close(); // Closing database connection
+    }
+	
+	public List<SysCtlDatabaseEntry> getAllSysCtlEntries()
+	{
+        List<SysCtlDatabaseEntry> entries = new ArrayList<SysCtlDatabaseEntry>();
+        // Select All Query
+        String selectQuery = "SELECT  * FROM " + TABLE_SYS;
+
+        SQLiteDatabase db = this.getWritableDatabase();
+        Cursor cursor = db.rawQuery(selectQuery, null);
+
+        // looping through all rows and adding to list
+        if (cursor.moveToFirst())
+		{
+            do {
+				SysCtlDatabaseEntry entry = new SysCtlDatabaseEntry();
+                entry.setID(Integer.parseInt(cursor.getString(0)));
+                entry.setKey(cursor.getString(1));
+                entry.setValue(cursor.getString(2));
+               
+
+                // Adding  to list
+                entries.add(entry);
+            } while (cursor.moveToNext());
+        }
+
+        // return list
+        db.close();
+        cursor.close();
+        return entries;
+    }
+	
+	public boolean sysEntryExists(String name) {
+    	SQLiteDatabase db = this.getReadableDatabase();
+
+        Cursor cursor = db.query(TABLE_SYS, new String[] { KEY_SYS_ID,
+									 KEY_SYS_KEY,
+									 KEY_SYS_VALUE
+								 }, KEY_SYS_KEY + "=?",
+								 new String[] { name }, null, null, null, null);
+        boolean exists = (cursor.getCount() > 0);
+        cursor.close();
+        db.close();
+        return exists;
+	}
+	public void updateSysEntry(SysCtlDatabaseEntry entry)
+	{
+        SQLiteDatabase db = this.getWritableDatabase();
+
+		ContentValues values = new ContentValues();
+        values.put(KEY_SYS_KEY, entry.getKey());
+        values.put(KEY_SYS_VALUE, entry.getValue()); 
+		
+
+        // updating row
+		db.delete(TABLE_SYS, KEY_SYS_KEY + " = ?",
+				  new String[] { entry.getKey() });
+        db.insert(TABLE_SYS, null, values);
+		db.close();
+	}
+	
+	
     // Getting single profile
     public Profile getProfile(int id)
 	{

@@ -66,38 +66,38 @@
 	<style name="SwitchCompatAndSherlock" parent="Theme.Sherlock">
     <item name="switchStyle">@style/switch_dark</item>
     <item name="textAppearance">@style/TextAppearance</item>
-     <item name="homeAsUpIndicator">@drawable/indicator</item>
-        <item name="android:homeAsUpIndicator">@drawable/indicator</item>
+     <!--<item name="homeAsUpIndicator">@drawable/indicator</item>
+        <item name="android:homeAsUpIndicator">@drawable/indicator</item>-->
 </style>
 
 	
 	<style name="SwitchCompatAndSherlockLight" parent="Theme.Sherlock.Light">
     <item name="switchStyle">@style/switch_light</item>
     <item name="textAppearance">@style/TextAppearance</item>
-     <item name="homeAsUpIndicator">@drawable/indicator</item>
-        <item name="android:homeAsUpIndicator">@drawable/indicator</item>
+     <!--<item name="homeAsUpIndicator">@drawable/indicator</item>
+        <item name="android:homeAsUpIndicator">@drawable/indicator</item>-->
 </style>
 
 	
 	<style name="SwitchCompatAndSherlockLightDark" parent="Theme.Sherlock.Light.DarkActionBar">
     <item name="switchStyle">@style/switch_light</item>
     <item name="textAppearance">@style/TextAppearance</item>
-     <item name="homeAsUpIndicator">@drawable/indicator</item>
-        <item name="android:homeAsUpIndicator">@drawable/indicator</item>
+    <!-- <item name="homeAsUpIndicator">@drawable/indicator</item>
+        <item name="android:homeAsUpIndicator">@drawable/indicator</item>-->
 </style>
 	
 	<style name="IndicatorLight" parent="Theme.Sherlock.Light">
-        <item name="homeAsUpIndicator">@drawable/indicator</item>
-        <item name="android:homeAsUpIndicator">@drawable/indicator</item>
+        <!--<item name="homeAsUpIndicator">@drawable/indicator</item>
+        <item name="android:homeAsUpIndicator">@drawable/indicator</item>-->
     </style>
     <style name="IndicatorDark" parent="Theme.Sherlock">
-        <item name="homeAsUpIndicator">@drawable/indicator</item>
-        <item name="android:homeAsUpIndicator">@drawable/indicator</item>
+       <!-- <item name="homeAsUpIndicator">@drawable/indicator</item>
+        <item name="android:homeAsUpIndicator">@drawable/indicator</item>-->
     </style>
     
     <style name="IndicatorLightDark" parent="Theme.Sherlock.Light.DarkActionBar">
-        <item name="homeAsUpIndicator">@drawable/indicator</item>
-        <item name="android:homeAsUpIndicator">@drawable/indicator</item>
+       <!-- <item name="homeAsUpIndicator">@drawable/indicator</item>
+        <item name="android:homeAsUpIndicator">@drawable/indicator</item>-->
     </style>
 	<style name="switch_dark">
         <item name="track">@drawable/switch_track_holo_dark</item>

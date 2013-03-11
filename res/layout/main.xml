@@ -288,7 +288,7 @@
             android:orientation="vertical" >
 
             <LinearLayout
-                android:id="@+id/LinearLayout1"
+                android:id="@+id/ll1"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="15dp"
@@ -302,7 +302,7 @@
                     android:layout_weight="1.0"
                     android:drawableTop="@drawable/main_cpu"
                     android:gravity="center|center_vertical"
-                    android:text="@string/title_cpu"
+                    android:text="@string/main_cpu"
 					android:ellipsize="middle"
 					android:singleLine="true"/>
 
@@ -314,7 +314,7 @@
                     android:layout_weight="1.0"
                     android:drawableTop="@drawable/main_times"
                     android:gravity="center|center_vertical"
-                    android:text="@string/title_tis"
+                    android:text="@string/main_tis"
 					android:ellipsize="middle"
 					android:singleLine="true"/>
 
@@ -326,18 +326,11 @@
                     android:layout_weight="1.0"
                     android:drawableTop="@drawable/main_voltage"
                     android:gravity="center|center_vertical"
-                    android:text="@string/title_voltage"
+                    android:text="@string/main_voltage"
 					android:ellipsize="middle"
 					android:singleLine="true"/>
-            </LinearLayout>
-
-            <LinearLayout
-                android:id="@+id/LinearLayout2"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:orientation="horizontal" >
-
-                <Button
+					
+				<Button
                     android:id="@+id/button10"
                     style="?android:attr/buttonStyleSmall"
                     android:layout_width="match_parent"
@@ -345,8 +338,18 @@
                     android:layout_weight="1"
                     android:drawableTop="@drawable/main_governor"
                     android:gravity="center|center_vertical"
-                    android:text="@string/title_governor" 
+                    android:text="@string/main_governor" 
 					android:singleLine="true"/>
+					
+            </LinearLayout>
+
+            <LinearLayout
+                android:id="@+id/ll2"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal" >
+
+               
 
                 <Button
                     android:id="@+id/button7"
@@ -356,7 +359,7 @@
                     android:layout_weight="1"
                     android:drawableTop="@drawable/main_mp"
                     android:gravity="center|center_vertical"
-                    android:text="@string/title_mpdecision"
+                    android:text="@string/main_mpdecision"
                     android:visibility="visible"
 					android:singleLine="true"/>
 
@@ -368,17 +371,10 @@
                     android:layout_weight="1"
                     android:drawableTop="@drawable/main_thermal"
                     android:gravity="center|center_vertical"
-                    android:text="@string/title_thermald"
+                    android:text="@string/main_thermald"
 					android:singleLine="true"/>
-            </LinearLayout>
-
-            <LinearLayout
-                android:id="@+id/linearLayout3"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:orientation="horizontal" >
-
-                <Button
+					
+				<Button
                     android:id="@+id/button3"
                     style="?android:attr/buttonStyleSmall"
                     android:layout_width="match_parent"
@@ -386,7 +382,7 @@
                     android:layout_weight="1"
                     android:drawableTop="@drawable/main_gpu"
                     android:gravity="center|center_vertical"
-                    android:text="@string/title_gpu"
+                    android:text="@string/main_gpu"
 					android:singleLine="true"/>
 
                 <Button
@@ -397,39 +393,54 @@
                     android:layout_weight="1"
                     android:drawableTop="@drawable/main_misc"
                     android:gravity="center|center_vertical"
-                    android:text="@string/title_misc" 
-					android:singleLine="true"/>
-
-                <Button
-                    android:id="@+id/button12"
-                    style="?android:attr/buttonStyleSmall"
-                    android:layout_width="match_parent"
-                    android:layout_height="match_parent"
-                    android:layout_weight="1"
-                    android:drawableTop="@drawable/main_profiles"
-                    android:gravity="center|center_vertical"
-                    android:text="@string/title_profiles"
-					android:singleLine="true"/>
+                    android:text="@string/main_misc" 
+					android:singleLine="true"
+					/>
+					
             </LinearLayout>
 
             <LinearLayout
-                android:id="@+id/linearLayout4"
+                android:id="@+id/ll3"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:orientation="horizontal" >
 
                 <Button
-                    android:id="@+id/button13"
+                    android:id="@+id/button16"
                     style="?android:attr/buttonStyleSmall"
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"
                     android:layout_weight="1"
-                    android:drawableTop="@drawable/main_oom_swap"
+                    android:drawableTop="@drawable/main_tm"
                     android:gravity="center|center_vertical"
-                    android:text="@string/oom"
+                    android:text="@string/main_tm"
 					android:singleLine="true"/>
-
-                <Button
+					
+				<Button
+                    android:id="@+id/button17"
+                    style="?android:attr/buttonStyleSmall"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:layout_weight="1"
+                    android:drawableTop="@drawable/main_sysctl"
+                    android:gravity="center|center_vertical"
+                    android:text="@string/main_sysctl"
+					android:singleLine="true"/>
+					
+				<Button
+                    android:id="@+id/button18"
+                    style="?android:attr/buttonStyleSmall"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:layout_weight="1"
+                    android:drawableTop="@drawable/main_build"
+                    android:gravity="center|center_vertical"
+                    android:text="@string/main_build"
+					android:singleLine="true"/>
+					
+				
+					
+				<Button
                     android:id="@+id/button15"
                     style="?android:attr/buttonStyleSmall"
                     android:layout_width="match_parent"
@@ -437,9 +448,52 @@
                     android:layout_weight="1"
                     android:drawableTop="@drawable/main_sd"
                     android:gravity="center|center_vertical"
-                    android:text="SD Tweaks"
+                    android:text="@string/main_sd"
 					android:singleLine="true"/>
 
+                
+            </LinearLayout>
+
+            <LinearLayout
+                android:id="@+id/ll4"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal" >
+
+				<Button
+                    android:id="@+id/button12"
+                    style="?android:attr/buttonStyleSmall"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:layout_weight="1"
+                    android:drawableTop="@drawable/main_profiles"
+                    android:gravity="center|center_vertical"
+                    android:text="@string/main_profiles"
+					android:singleLine="true"/>
+				
+                
+				<Button
+                    android:id="@+id/button13"
+                    style="?android:attr/buttonStyleSmall"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:layout_weight="1"
+                    android:drawableTop="@drawable/main_oom"
+                    android:gravity="center|center_vertical"
+                    android:text="@string/oom"
+					android:singleLine="true"/>
+                
+				<Button
+                    android:id="@+id/button19"
+                    style="?android:attr/buttonStyleSmall"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:layout_weight="1"
+                    android:drawableTop="@drawable/main_swap"
+                    android:gravity="center|center_vertical"
+                    android:text="Swap"
+					android:singleLine="true"/>
+				
                 <Button
                     android:id="@+id/button14"
                     style="?android:attr/buttonStyleSmall"
@@ -448,8 +502,10 @@
                     android:layout_weight="1"
                     android:drawableTop="@drawable/main_info"
                     android:gravity="center|center_vertical"
-                    android:text="@string/info"
+                    android:text="@string/main_info"
 					android:singleLine="true"/>
+					
+				
             </LinearLayout>
         </LinearLayout>
     </ScrollView>

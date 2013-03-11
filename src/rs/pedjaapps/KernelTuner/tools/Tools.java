@@ -75,10 +75,19 @@ public class Tools
 		SimpleDateFormat f = new SimpleDateFormat("dd MMM yy HH:mm:ss");
 		return f.format(ms);
 	}
+	public static String msToDateSimple(long ms){
+		SimpleDateFormat f = new SimpleDateFormat("ddMMyyHHmmss");
+		return f.format(ms);
+	}
 	
 	public static String mbToPages(int progress) {
 		String prog = (progress * 1024 / 4)+"";
 		return prog;
+	}
+	
+	public static int pagesToMb(int pages) {
+		return pages / 1024 * 4;
+		
 	}
 	
 	public static long getAvailableSpaceInBytesOnInternalStorage() {

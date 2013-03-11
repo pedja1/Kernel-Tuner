@@ -19,7 +19,7 @@
         >
     
     
-    <LinearLayout
+    <!--<LinearLayout
         android:id="@+id/LinearLayout1"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
@@ -31,9 +31,10 @@
             android:layout_width="match_parent"
             android:layout_height="match_parent"
           
-            android:drawableTop="@drawable/ic_launcher"
+            android:drawableTop="@drawable/main_cpu"
             android:gravity="center|center_vertical"
-            android:text="@string/oc" />
+            android:text="@string/title_cpu"
+            android:singleLine="true" />
 
         <Button
             android:id="@+id/button5"
@@ -41,19 +42,20 @@
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             
-            android:drawableTop="@drawable/times"
+            android:drawableTop="@drawable/main_times"
             android:gravity="center|center_vertical"
-            android:text="@string/title_tis" />
+            android:text="@string/title_tis"
+            android:singleLine="true" />
 
         <Button
             android:id="@+id/button6"
             style="?android:attr/buttonStyleSmall"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-          
-            android:drawableTop="@drawable/voltage"
+            android:drawableTop="@drawable/main_voltage"
             android:gravity="center|center_vertical"
-            android:text="@string/title_voltage" />
+            android:text="@string/title_voltage"
+            android:singleLine="true" />
     
 		<Button
             android:id="@+id/button10"
@@ -61,18 +63,20 @@
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:layout_weight="1"
-            android:drawableTop="@drawable/dual"
+            android:drawableTop="@drawable/main_governor"
             android:gravity="center|center_vertical"
-            android:text="@string/governor_" />
+            android:text="@string/title_governor"
+            android:singleLine="true" />
 		
 		<Button
             android:id="@+id/button7"
             style="?android:attr/buttonStyleSmall"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:drawableTop="@drawable/dual"
+            android:drawableTop="@drawable/main_mp"
             android:gravity="center|center_vertical"
-            android:text="@string/mpdecision"
+            android:text="@string/title_mpdecision"
+            android:singleLine="true"
            />
         
 		<Button
@@ -81,27 +85,30 @@
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:layout_weight="1"
-            android:drawableTop="@drawable/temp"
+            android:drawableTop="@drawable/main_thermal"
             android:gravity="center|center_vertical"
-            android:text="@string/thermald" />
+            android:text="@string/title_thermald"
+            android:singleLine="true" />
 		
         <Button
             android:id="@+id/button3"
             style="?android:attr/buttonStyleSmall"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:drawableTop="@drawable/gpu"
+            android:drawableTop="@drawable/main_gpu"
             android:gravity="center|center_vertical"
-            android:text="@string/title_gpu" />
+            android:text="@string/title_gpu" 
+            android:singleLine="true"/>
 
         <Button
             android:id="@+id/button4"
             style="?android:attr/buttonStyleSmall"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:drawableTop="@drawable/misc"
+            android:drawableTop="@drawable/main_misc"
             android:gravity="center|center_vertical"
-            android:text="@string/title_misc" />
+            android:text="@string/title_misc" 
+            android:singleLine="true"/>
 
         
         
@@ -111,7 +118,7 @@
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:layout_weight="1"
-             android:drawableTop="@drawable/profile"
+             android:drawableTop="@drawable/main_profiles"
             android:gravity="center|center_vertical"
             android:text="@string/profiles" />
         <Button
@@ -120,31 +127,286 @@
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:layout_weight="1"
-            android:drawableTop="@drawable/swap"
+            android:drawableTop="@drawable/main_oom"
             android:gravity="center|center_vertical"
-            android:text="@string/oom" />
-
+            android:text="@string/oom"
+            android:singleLine="true" />
+	<Button
+            android:id="@+id/button15"
+            style="?android:attr/buttonStyleSmall"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_weight="1"
+            android:drawableTop="@drawable/main_sd"
+            android:gravity="center|center_vertical"
+            android:text="SD Tweaks"
+            android:singleLine="true" />
         <Button
             android:id="@+id/button14"
             style="?android:attr/buttonStyleSmall"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:layout_weight="1"
-            android:drawableTop="@drawable/info"
+            android:drawableTop="@drawable/main_info"
             android:gravity="center|center_vertical"
-            android:text="@string/info" />
-
-        <Button
-            android:id="@+id/button15"
-            style="?android:attr/buttonStyleSmall"
-            android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:layout_weight="1"
-            android:drawableTop="@drawable/about"
-            android:gravity="center|center_vertical"
-            android:text="@string/title_about" />
+            android:text="@string/info"
+            android:singleLine="true" />
         
-    </LinearLayout>
+
+        
+    </LinearLayout>-->
+		<LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical" >
+
+            <LinearLayout
+                android:id="@+id/ll1"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="15dp"
+                android:orientation="horizontal" >
+
+                <Button
+                    android:id="@+id/button2"
+                    style="?android:attr/buttonStyleSmall"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:layout_weight="1.0"
+                    android:drawableTop="@drawable/main_cpu"
+                    android:gravity="center|center_vertical"
+                    android:text="@string/main_cpu"
+					android:ellipsize="middle"
+					android:singleLine="true"/>
+
+                <Button
+                    android:id="@+id/button5"
+                    style="?android:attr/buttonStyleSmall"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:layout_weight="1.0"
+                    android:drawableTop="@drawable/main_times"
+                    android:gravity="center|center_vertical"
+                    android:text="@string/main_tis"
+					android:ellipsize="middle"
+					android:singleLine="true"/>
+
+			</LinearLayout>
+			<LinearLayout
+                android:id="@+id/ll2"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="15dp"
+                android:orientation="horizontal" >
+					
+                <Button
+                    android:id="@+id/button6"
+                    style="?android:attr/buttonStyleSmall"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:layout_weight="1.0"
+                    android:drawableTop="@drawable/main_voltage"
+                    android:gravity="center|center_vertical"
+                    android:text="@string/main_voltage"
+					android:ellipsize="middle"
+					android:singleLine="true"/>
+
+				<Button
+                    android:id="@+id/button10"
+                    style="?android:attr/buttonStyleSmall"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:layout_weight="1"
+                    android:drawableTop="@drawable/main_governor"
+                    android:gravity="center|center_vertical"
+                    android:text="@string/main_governor" 
+					android:singleLine="true"/>
+			</LinearLayout>
+			<LinearLayout
+                android:id="@+id/ll3"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="15dp"
+                android:orientation="horizontal" >
+
+                <Button
+                    android:id="@+id/button7"
+                    style="?android:attr/buttonStyleSmall"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:layout_weight="1"
+                    android:drawableTop="@drawable/main_mp"
+                    android:gravity="center|center_vertical"
+                    android:text="@string/main_mpdecision"
+                    android:visibility="visible"
+					android:singleLine="true"/>
+
+                <Button
+                    android:id="@+id/button11"
+                    style="?android:attr/buttonStyleSmall"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:layout_weight="1"
+                    android:drawableTop="@drawable/main_thermal"
+                    android:gravity="center|center_vertical"
+                    android:text="@string/main_thermald"
+					android:singleLine="true"/>
+
+			</LinearLayout>
+			<LinearLayout
+                android:id="@+id/ll4"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="15dp"
+                android:orientation="horizontal" >
+				<Button
+                    android:id="@+id/button3"
+                    style="?android:attr/buttonStyleSmall"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:layout_weight="1"
+                    android:drawableTop="@drawable/main_gpu"
+                    android:gravity="center|center_vertical"
+                    android:text="@string/main_gpu"
+					android:singleLine="true"/>
+
+                <Button
+                    android:id="@+id/button4"
+                    style="?android:attr/buttonStyleSmall"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:layout_weight="1"
+                    android:drawableTop="@drawable/main_misc"
+                    android:gravity="center|center_vertical"
+                    android:text="@string/main_misc" 
+					android:singleLine="true"
+				/>
+
+            </LinearLayout>
+
+            <LinearLayout
+                android:id="@+id/ll5"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal" >
+
+                <Button
+                    android:id="@+id/button16"
+                    style="?android:attr/buttonStyleSmall"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:layout_weight="1"
+                    android:drawableTop="@drawable/main_tm"
+                    android:gravity="center|center_vertical"
+                    android:text="@string/main_tm"
+					android:singleLine="true"/>
+
+				<Button
+                    android:id="@+id/button17"
+                    style="?android:attr/buttonStyleSmall"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:layout_weight="1"
+                    android:drawableTop="@drawable/main_sysctl"
+                    android:gravity="center|center_vertical"
+                    android:text="@string/main_sysctl"
+					android:singleLine="true"/>
+			</LinearLayout>
+			<LinearLayout
+                android:id="@+id/ll6"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="15dp"
+                android:orientation="horizontal" >
+				<Button
+                    android:id="@+id/button18"
+                    style="?android:attr/buttonStyleSmall"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:layout_weight="1"
+                    android:drawableTop="@drawable/main_build"
+                    android:gravity="center|center_vertical"
+                    android:text="@string/main_build"
+					android:singleLine="true"/>
+
+
+
+				<Button
+                    android:id="@+id/button15"
+                    style="?android:attr/buttonStyleSmall"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:layout_weight="1"
+                    android:drawableTop="@drawable/main_sd"
+                    android:gravity="center|center_vertical"
+                    android:text="@string/main_sd"
+					android:singleLine="true"/>
+
+			</LinearLayout>
+			<LinearLayout
+                android:id="@+id/ll7"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="15dp"
+                android:orientation="horizontal" >
+            
+
+            
+
+				<Button
+                    android:id="@+id/button12"
+                    style="?android:attr/buttonStyleSmall"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:layout_weight="1"
+                    android:drawableTop="@drawable/main_profiles"
+                    android:gravity="center|center_vertical"
+                    android:text="@string/main_profiles"
+					android:singleLine="true"/>
+
+
+				<Button
+                    android:id="@+id/button13"
+                    style="?android:attr/buttonStyleSmall"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:layout_weight="1"
+                    android:drawableTop="@drawable/main_oom"
+                    android:gravity="center|center_vertical"
+                    android:text="@string/oom"
+					android:singleLine="true"/>
+			</LinearLayout>
+			<LinearLayout
+                android:id="@+id/ll8"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="15dp"
+                android:orientation="horizontal" >
+				<Button
+                    android:id="@+id/button19"
+                    style="?android:attr/buttonStyleSmall"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:layout_weight="1"
+                    android:drawableTop="@drawable/main_swap"
+                    android:gravity="center|center_vertical"
+                    android:text="Swap"
+					android:singleLine="true"/>
+
+                <Button
+                    android:id="@+id/button14"
+                    style="?android:attr/buttonStyleSmall"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:layout_weight="1"
+                    android:drawableTop="@drawable/main_info"
+                    android:gravity="center|center_vertical"
+                    android:text="@string/main_info"
+					android:singleLine="true"/>
+
+
+            </LinearLayout>
+        </LinearLayout>
     </ScrollView>
 
     <LinearLayout
@@ -168,8 +430,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"           
                 android:text="@string/activity_main_cpu_temp_"
-                
-                android:textColor="#FFFFFF" />
+                />
 
             <TextView
                 android:id="@+id/textView38"
@@ -195,7 +456,7 @@
                 android:layout_height="wrap_content"           
                 android:text="@string/activity_main__battery_temp_"
                  
-                 android:textColor="#FFFFFF" />
+               />
 
             <TextView
                 android:id="@+id/textView40"
@@ -218,7 +479,7 @@
                 android:layout_height="wrap_content"           
                 android:text="@string/activity_main__battery_level_"
                 
-                 android:textColor="#FFFFFF"  />
+            />
 
             <TextView
                 android:id="@+id/textView42"

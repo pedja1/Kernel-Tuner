@@ -327,4 +327,19 @@
 	<string name="crash_dialog_ok_toast">Thank you !</string>
 <string name="textOn">ON</string>
     <string name="textOff">OFF</string>
+		
+	<string name="main_cpu">CPU</string>
+    <string name="main_governor">Governor</string>
+    <string name="main_tis">Times</string>
+    <string name="main_voltage">Voltage</string>
+    <string name="main_gpu">GPU</string>
+    <string name="main_misc">Misc</string>
+    <string name="main_profiles">Profiles</string>
+    <string name="main_mpdecision">MP-Decision</string>
+    <string name="main_thermald">Thermal</string>
+    <string name="main_info">Sys. Info</string>
+	<string name="main_sd">SD</string>
+    <string name="main_tm">Task Mgr.</string>
+    <string name="main_sysctl">SysCtl</string>
+    <string name="main_build">Build.prop</string>
 </resources>

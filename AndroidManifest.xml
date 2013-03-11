@@ -3,8 +3,8 @@
     xmlns:tools="http://schemas.android.com/tools"
     package="rs.pedjaapps.KernelTuner"
     android:installLocation="internalOnly"
-    android:versionCode="606032013"
-    android:versionName="4.3.1" >
+    android:versionCode="611032013"
+    android:versionName="4.4.1" >
 
     <uses-sdk
         android:minSdkVersion="9"
@@ -28,7 +28,7 @@
         android:theme="@style/IndicatorLight" >
 
          <activity android:name="org.acra.CrashReportDialog"
-        			android:theme="@android:style/Theme.Holo.Dialog"
+        			android:theme="@style/Theme.Sherlock.Light.Dialog.NoTitleBar"
         			android:launchMode="singleInstance"
         			android:excludeFromRecents="true"
        			android:finishOnTaskLaunch="true" />
@@ -44,6 +44,25 @@
 
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
+        </activity>
+		<activity
+            android:name=".ui.TaskManager"
+            android:icon="@drawable/tm"
+            android:label="Task Manager"
+            >
+        </activity>
+		<activity
+            android:name=".ui.SysCtl"
+            android:icon="@drawable/sysctl"
+            android:label="SysCtl"
+		>
+        </activity>
+		<activity
+            android:name=".ui.BuildpropEditor"
+            android:icon="@drawable/build"
+            android:label="Build.prop Editor"
+			android:uiOptions="splitActionBarWhenNarrow"
+		>
         </activity>
         <activity
             android:name=".ui.Preferences"
@@ -303,7 +322,7 @@
         <activity
             android:name=".ui.OOM"
             android:exported="true"
-            android:icon="@drawable/swap"
+            android:icon="@drawable/oom"
             android:label="OOM"
             android:theme="@style/Theme.Dialog.NoTitleBar.Light" >
         </activity>
@@ -442,6 +461,8 @@
         <service android:name=".services.WidgetUpdateService" >
         </service>
         <service android:name=".services.WidgetSummaryUpdateService" >
+        </service>
+        <service android:name=".services.WidgetUpdateServiceBig" >
         </service>
         <service
             android:name=".services.NotificationService"

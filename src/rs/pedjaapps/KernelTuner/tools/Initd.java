@@ -45,7 +45,9 @@ public class Initd extends AsyncTask<String, Void, String>
 	            "/data/data/rs.pedjaapps.KernelTuner/files/cp /data/data/rs.pedjaapps.KernelTuner/files/99ktmisctweaks /system/etc/init.d\n",
 	            "chmod 777 /system/etc/init.d/99ktmisctweaks\n",
 	            "/data/data/rs.pedjaapps.KernelTuner/files/cp /data/data/rs.pedjaapps.KernelTuner/files/99ktvoltage /system/etc/init.d\n",
-	            "chmod 777 /system/etc/init.d/99ktvoltage\n"});
+	            "chmod 777 /system/etc/init.d/99ktvoltage\n",
+				"/data/data/rs.pedjaapps.KernelTuner/files/cp /data/data/rs.pedjaapps.KernelTuner/files/99ktsysctl /system/etc/init.d\n",
+				"chmod 777 /system/etc/init.d/99ktsysctl\n"});
 	           
 		}
 		else if (args[0].equals("rm"))
@@ -56,7 +58,8 @@ public class Initd extends AsyncTask<String, Void, String>
 	            "rm /system/etc/init.d/99ktcputweaks\n",
 	            "rm /system/etc/init.d/99ktgputweaks\n",
 	            "rm /system/etc/init.d/99ktmisctweaks\n",
-	            "rm /system/etc/init.d/99ktvoltage\n"});
+	            "rm /system/etc/init.d/99ktvoltage\n",
+				"rm /system/etc/init.d/99ktsysctl\n"});
 		}
 		return "";
 	}

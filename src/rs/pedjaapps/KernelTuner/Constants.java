@@ -38,7 +38,8 @@ public final class Constants
 	/**
 	 *Paths
 	 */
-	 
+	
+    public static final String G_S_URL_PREFIX = "https://www.google.com/search?q=";
 	public static final String cpu0online = "/sys/devices/system/cpu/cpu0/online"; 
 	public static final String cpu1online = "/sys/devices/system/cpu/cpu1/online"; 
 	public static final String cpu2online = "/sys/devices/system/cpu/cpu2/online"; 
@@ -101,7 +102,7 @@ public final class Constants
     public static final String CPU_TEMP = "/sys/class/thermal/thermal_zone1/temp";
 	public static final String MPDEC_THR_UP = "/sys/kernel/msm_mpdecision/conf/nwns_threshold_up";
 	public static final String MPDEC_THR_DOWN = "/sys/kernel/msm_mpdecision/conf/nwns_threshold_down";
-	public static final String KERNEL = "/pric/version";
+	public static final String KERNEL = "/proc/version";
 	public static final String BATTERY_LEVEL = "/sys/class/power_supply/battery/capacity";
 	public static final String BATTERY_TEMP = "/sys/class/power_supply/battery/batt_temp";
 	public static final String BATTERY_DRAIN = "/sys/class/power_supply/battery/batt_current";

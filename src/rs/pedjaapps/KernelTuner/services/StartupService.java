@@ -29,6 +29,7 @@ import java.util.*;
 import rs.pedjaapps.KernelTuner.helpers.*;
 
 import java.lang.Process;
+import rs.pedjaapps.KernelTuner.entry.SysCtlDatabaseEntry;
 
 public class StartupService extends Service
 {
@@ -73,6 +74,7 @@ public class StartupService extends Service
 		@Override
 		protected String doInBackground(String... args)
 		{
+			DatabaseHandler db = new DatabaseHandler(StartupService.this);
 			List<IOHelper.VoltageList> voltageList = IOHelper.voltages();
 			
 			List<String> voltageFreqs =  new ArrayList<String>();
@@ -343,6 +345,11 @@ public class StartupService extends Service
 				stdin.write(("echo " + tim[5] + " > /sys/kernel/msm_mpdecision/conf/twts_threshold_"+7+"\n").getBytes());
 				stdin.write(("echo " + maxCpus + " > /sys/kernel/msm_mpdecision/conf/max_cpus\n").getBytes());
 				stdin.write(("echo " + minCpus + " > /sys/kernel/msm_mpdecision/conf/min_cpus\n").getBytes());
+				
+				List<SysCtlDatabaseEntry> sysEntries = db.getAllSysCtlEntries();
+				for(SysCtlDatabaseEntry e : sysEntries){
+					stdin.write((getFilesDir().getPath() + "/busybox sysctl -w " + e.getKey().trim() + "=" + e.getValue().trim()+"\n").getBytes());
+				}
 				
 	            stdin.flush();
 

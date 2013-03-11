@@ -13,8 +13,8 @@ import rs.pedjaapps.KernelTuner.helpers.IOHelper;
 
 
 @ReportsCrashes(formKey = "",//"dDlUVUxrRnNKeU40X3VmejBFenF0Z0E6MQ",
-// formUri = "http://www.bugsense.com/api/acra?api_key=f605d6c7",
-	formUri = "http://kerneltuner.pedjaapps.in.rs/ktuner/crash_reports/submit.php?key=XPlrFdDPHQWpDRMGbqCpsFJFGvpJqMjn",
+formUri = "http://www.bugsense.com/api/acra?api_key=f605d6c7",
+//	formUri = "http://kerneltuner.pedjaapps.in.rs/ktuner/crash_reports/submit.php?key=XPlrFdDPHQWpDRMGbqCpsFJFGvpJqMjn",
 				includeDropBoxSystemTags = true,
 				deleteUnapprovedReportsOnApplicationStart = true
 				/*mode = ReportingInteractionMode.NOTIFICATION, 

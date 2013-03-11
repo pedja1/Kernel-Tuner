@@ -24,6 +24,7 @@ import android.content.*;
 import android.content.pm.*;
 import android.content.res.*;
 import android.graphics.*;
+import android.net.Uri;
 import android.os.*;
 import android.preference.*;
 import android.util.*;
@@ -43,7 +44,7 @@ import rs.pedjaapps.KernelTuner.tools.*;
 import com.actionbarsherlock.app.ActionBar;
 import com.actionbarsherlock.view.Menu;
 import com.actionbarsherlock.view.MenuItem;
-import java.lang.Process;
+import rs.pedjaapps.KernelTuner.entry.SysCtlDatabaseEntry;
 
 public class KernelTuner extends SherlockActivity {
 
@@ -248,6 +249,22 @@ public class KernelTuner extends SherlockActivity {
 	String theme;
 	boolean dump;
 	Button[] buttons;
+	Button gpu,
+	       cpu, 
+		   tis,
+		   voltage,
+		   mp,
+		   thermal,
+		   misc, 
+		   sys, 
+		   tm,
+		   build, 
+		   sd, 
+		   profiles,
+		   oom, 
+		   swap,
+		   info,
+		   governor;
 	
 
 	@Override
@@ -351,8 +368,6 @@ public class KernelTuner extends SherlockActivity {
 		for (IOHelper.VoltageList v : voltageFreqs) {
 			voltages.add(new StringBuilder().append(v.getFreq()).toString());
 		}
-
-		initialCheck();
 		
 		/***
 		 * Create new thread that will loop and show current frequency for each
@@ -424,7 +439,7 @@ public class KernelTuner extends SherlockActivity {
 		/**
 		 * Declare buttons and set onClickListener for each
 		 */
-		Button gpu = (Button) findViewById(R.id.button3);
+		gpu = (Button) findViewById(R.id.button3);
 		
 		gpu.setOnClickListener(new OnClickListener() {
 
@@ -441,12 +456,13 @@ public class KernelTuner extends SherlockActivity {
 			@Override
 			public boolean onLongClick(View arg0) {
 
+				infoDialog(R.drawable.gpu, "GPU" ,"GPU(Graphic Processing Unit) is used for rendering 2D and 3D graphic\nThis option allows you to change GPU clock speed(frequency)\nOnly devices with Adreno 220, 225, and 320 are supported at the moment",Constants.G_S_URL_PREFIX+"GPU", true);
 				return true;
 			}
 
 		});
 
-		Button voltage = (Button) findViewById(R.id.button6);
+		voltage = (Button) findViewById(R.id.button6);
 		voltage.setOnClickListener(new OnClickListener() {
 
 			@Override
@@ -458,8 +474,18 @@ public class KernelTuner extends SherlockActivity {
 			}
 
 		});
+		voltage.setOnLongClickListener(new OnLongClickListener() {
 
-		Button cpu = (Button) findViewById(R.id.button2);
+			@Override
+			public boolean onLongClick(View arg0) {
+
+				infoDialog(R.drawable.voltage, "Undervolting" ,"Allows you to set custom CPU voltage\nVoltage is managed on per frequency base(Each frequency step can be adjucted for specific votage)\nSome Qualcomm devices and most of the Tegra 3 devies are supported at the moment",Constants.G_S_URL_PREFIX+"undervolting cpu", true);
+				return true;
+			}
+
+		});
+
+		cpu = (Button) findViewById(R.id.button2);
 		
 		cpu.setOnClickListener(new OnClickListener() {
 
@@ -479,8 +505,18 @@ public class KernelTuner extends SherlockActivity {
 				startActivity(myIntent);
 			}
 		});
+		cpu.setOnLongClickListener(new OnLongClickListener() {
 
-		Button tis = (Button) findViewById(R.id.button5);
+			@Override
+			public boolean onLongClick(View arg0) {
+
+				infoDialog(R.drawable.ic_launcher, "CPU" ,"CPU(Central Processing Unit)\nThis option allows you to change CPU clock speed(frequency) and governor\nChanging frequency and governors is core-independent. Most devices supports this function",Constants.G_S_URL_PREFIX+"CPU", true);
+				return true;
+			}
+
+		});
+
+		tis = (Button) findViewById(R.id.button5);
 		tis.setOnClickListener(new OnClickListener() {
 
 			@Override
@@ -553,9 +589,19 @@ public class KernelTuner extends SherlockActivity {
 
 			}
 		});
+		tis.setOnLongClickListener(new OnLongClickListener() {
 
-		Button mpdec = (Button) findViewById(R.id.button7);
-		mpdec.setOnClickListener(new OnClickListener() {
+			@Override
+			public boolean onLongClick(View arg0) {
+
+				infoDialog(R.drawable.times, "Times in State" ,"Displays time CPU has spent in each frequency",Constants.G_S_URL_PREFIX+"cpu times_in_state", true);
+				return true;
+			}
+
+		});
+		
+		mp = (Button) findViewById(R.id.button7);
+		mp.setOnClickListener(new OnClickListener() {
 
 			@Override
 			public void onClick(View v) {
@@ -571,8 +617,18 @@ public class KernelTuner extends SherlockActivity {
 
 			}
 		});
+		mp.setOnLongClickListener(new OnLongClickListener() {
 
-		Button misc = (Button) findViewById(R.id.button4);
+			@Override
+			public boolean onLongClick(View arg0) {
+
+				infoDialog(R.drawable.dual, "MP-Decision" ,"MP-Decision determins when to enable/disable CPU cores\n You can tune MP-Decision options here",Constants.G_S_URL_PREFIX+"mp-decision", true);
+				return true;
+			}
+
+		});
+
+		misc = (Button) findViewById(R.id.button4);
 		misc.setOnClickListener(new OnClickListener() {
 
 			@Override
@@ -582,6 +638,16 @@ public class KernelTuner extends SherlockActivity {
 				startActivity(myIntent);
 
 			}
+		});
+		misc.setOnLongClickListener(new OnLongClickListener() {
+
+			@Override
+			public boolean onLongClick(View arg0) {
+
+				infoDialog(R.drawable.misc, "Misc Tweaks" ,"Contains various options for tweaking kernel including:\n\n    *Changing Capacitive buttons backlight\n    *Toggle Fastcharge mode\n    *Toggle vsync\n    *Change Color Depth\n    *Change Sweep2Wake\n    *...\n\nAll options are kernel dependend.","", false);
+				return true;
+			}
+
 		});
 
 		Button cpu1toggle = (Button)findViewById(R.id.button1);
@@ -629,7 +695,7 @@ public class KernelTuner extends SherlockActivity {
 			}
 		});
 
-		Button governor = (Button) findViewById(R.id.button10);
+	    governor = (Button) findViewById(R.id.button10);
 		governor.setOnClickListener(new OnClickListener() {
 
 			@Override
@@ -641,8 +707,18 @@ public class KernelTuner extends SherlockActivity {
 			}
 
 		});
+		governor.setOnLongClickListener(new OnLongClickListener() {
 
-		Button oom = (Button) findViewById(R.id.button13);
+			@Override
+			public boolean onLongClick(View arg0) {
+
+				infoDialog(R.drawable.main_governor, "CPU Governor Settings" ,"Governor manages CPU frequency scalling\nYou can tune governor settings here\n\nNot all governors supports settings.",Constants.G_S_URL_PREFIX+"linux governors", true);
+				return true;
+			}
+
+		});
+
+		oom = (Button) findViewById(R.id.button13);
 		oom.setOnClickListener(new OnClickListener() {
 
 			@Override
@@ -653,8 +729,18 @@ public class KernelTuner extends SherlockActivity {
 
 			}
 		});
+		oom.setOnLongClickListener(new OnLongClickListener() {
 
-		Button profiles = (Button)findViewById(R.id.button12);
+			@Override
+			public boolean onLongClick(View arg0) {
+
+				infoDialog(R.drawable.oom, "OOM" ,"OOM(Out Of Memory)\nAndroid system will use this values to determin which application to terminate to release memory",Constants.G_S_URL_PREFIX+"oom", true);
+				return true;
+			}
+
+		});
+
+		profiles = (Button)findViewById(R.id.button12);
 		profiles.setOnClickListener(new OnClickListener() {
 
 			@Override
@@ -665,9 +751,19 @@ public class KernelTuner extends SherlockActivity {
 
 			}
 		});
+		profiles.setOnLongClickListener(new OnLongClickListener() {
 
-		Button thermald = (Button)findViewById(R.id.button11);
-		thermald.setOnClickListener(new OnClickListener() {
+			@Override
+			public boolean onLongClick(View arg0) {
+
+				infoDialog(R.drawable.profile, "Profiles" ,"Create settings profiles to be applied at differente conditions\nUse with one of these applications to apply profiles depending on conditions:\n\n    *Llama\n    *Tasker\n    *Locale","", false);
+				return true;
+			}
+
+		});
+
+		thermal = (Button)findViewById(R.id.button11);
+		thermal.setOnClickListener(new OnClickListener() {
 
 			@Override
 			public void onClick(View v) {
@@ -677,8 +773,19 @@ public class KernelTuner extends SherlockActivity {
 
 			}
 		});
+		
+		thermal.setOnLongClickListener(new OnLongClickListener() {
 
-		Button sd = (Button)findViewById(R.id.button15);
+			@Override
+			public boolean onLongClick(View arg0) {
+
+				infoDialog(R.drawable.temp, "Thermal" ,"This option allows you to set thermal options for your cpu.\nEach time CPU temperature reaches certain threshold cpu frequency will be lowered to prevent overheating\nWhen temperature lowers cpu frequency will reset","", false);
+				return true;
+			}
+
+		});
+
+		sd = (Button)findViewById(R.id.button15);
 		sd.setOnClickListener(new OnClickListener() {
 
 			@Override
@@ -689,9 +796,19 @@ public class KernelTuner extends SherlockActivity {
 
 			}
 		});
+		sd.setOnLongClickListener(new OnLongClickListener() {
 
-		Button sys = (Button)findViewById(R.id.button14);
-		sys.setOnClickListener(new OnClickListener() {
+			@Override
+			public boolean onLongClick(View arg0) {
+
+				infoDialog(R.drawable.sd, "SD Analyzer" ,"Set of tools for analizing what is using most space in your sdcard","", false);
+				return true;
+			}
+
+		});
+
+		info = (Button)findViewById(R.id.button14);
+		info.setOnClickListener(new OnClickListener() {
 
 			@Override
 			public void onClick(View v) {
@@ -701,53 +818,103 @@ public class KernelTuner extends SherlockActivity {
 
 			}
 		});
+		info.setOnLongClickListener(new OnLongClickListener() {
 
-		//buttons = new Button[] {cpu, tis, voltage, governor, mpdec, thermald,
-				//gpu, misc, profiles, oom, sd, sys};
-		/*for(int i =0; i<buttons.length; i++){
-			buttons[i].startAnimation(l2r);
-		}*/
-		
-
-		
-	/*	mHandler.postDelayed(new Runnable(){
-		    @Override
-		    public void run(){
-		    	buttons[0].startAnimation(l2r);
-		    }
-		}, 500);
-		mHandler.postDelayed(new Runnable(){
-		    @Override
-		    public void run(){
-		    	buttons[1].startAnimation(l2r);
-		    }
-		}, 1000);*/
-		
-		//cpu.startAnimation(l2r);
-		/*final Timer timer = new Timer();
-		
-		timer.scheduleAtFixedRate(new TimerTask() {
-			
 			@Override
-			  public void run() {
-				runOnUiThread(new Runnable() {
+			public boolean onLongClick(View arg0) {
 
-				    @Override
-				    public void run() {
-				    	if(buttons.length>i){
-				    	buttons[i].startAnimation(l2r);
-						 i++;
-				    	}
-				    	else{
-				    		timer.cancel();
-				    	}
-				    }
-				     
-				});
-				 
-			  }
-			  }, 0, 500);*/
-		
+				infoDialog(R.drawable.info, "System Info" ,"Detailed system information","", false);
+				return true;
+			}
+
+		});
+
+		tm = (Button)findViewById(R.id.button16);
+		tm.setOnClickListener(new OnClickListener() {
+
+			@Override
+			public void onClick(View v) {
+
+				Intent myIntent = new Intent(c, TaskManager.class);
+				startActivity(myIntent);
+
+			}
+		});
+		tm.setOnLongClickListener(new OnLongClickListener() {
+
+			@Override
+			public boolean onLongClick(View arg0) {
+
+				infoDialog(R.drawable.tm, "Task Manager" ,"Display and manage running processes on your device\n\nAt the moment you can:\n\n    *Kill Process\n    *Set process priority",Constants.G_S_URL_PREFIX+"task manager", true);
+				return true;
+			}
+
+		});
+		build = (Button)findViewById(R.id.button18);
+		build.setOnClickListener(new OnClickListener() {
+
+				@Override
+				public void onClick(View v) {
+
+					Intent myIntent = new Intent(c, BuildpropEditor.class);
+					startActivity(myIntent);
+
+				}
+			});
+		build.setOnLongClickListener(new OnLongClickListener() {
+
+			@Override
+			public boolean onLongClick(View arg0) {
+
+				infoDialog(R.drawable.build, "build.prop Editor" ,"Edit you devices build properties",Constants.G_S_URL_PREFIX+"build.prop", true);
+				return true;
+			}
+
+		});
+		sys = (Button)findViewById(R.id.button17);
+		sys.setOnClickListener(new OnClickListener() {
+
+			@Override
+			public void onClick(View v) {
+
+				Intent myIntent = new Intent(c, SysCtl.class);
+				startActivity(myIntent);
+
+			}
+		});
+		sys.setOnLongClickListener(new OnLongClickListener() {
+
+			@Override
+			public boolean onLongClick(View arg0) {
+
+				infoDialog(R.drawable.sysctl, "System Control" ,"",Constants.G_S_URL_PREFIX+"sysctl", true);
+				return true;
+			}
+
+		});
+	    swap = (Button)findViewById(R.id.button19);
+		swap.setOnClickListener(new OnClickListener() {
+
+				@Override
+				public void onClick(View v) {
+
+					Intent myIntent = new Intent(c, Swap.class);
+					startActivity(myIntent);
+
+				}
+			});
+		swap.setOnLongClickListener(new OnLongClickListener() {
+
+			@Override
+			public boolean onLongClick(View arg0) {
+
+				infoDialog(R.drawable.swap, "Swap Manager" ,"Create and manage swap files\nWhen memory is low kernel will push memory pages of lower priority processes to swap file releasing RAM for curently active application(s)\n\nThis option is depricated and no longer maintained, use at your own risk\nPlease DO NOT submit bug reports for Swap",Constants.G_S_URL_PREFIX+"swap", true);
+				return true;
+			}
+
+		});
+
+		initialCheck();
 startCpuLoadThread();
 		if (preferences.getBoolean("notificationService", false) == true
 				&& isNotificationServiceRunning() == false) {
@@ -757,6 +924,45 @@ startCpuLoadThread();
 			stopService(new Intent(c, NotificationService.class));
 		}
 
+	}
+	
+	private void infoDialog(int icon, String title, String text, final String url, boolean more)
+	{
+		AlertDialog.Builder builder = new AlertDialog.Builder(this);
+		
+		builder.setTitle(title);
+
+		builder.setIcon(icon);
+		LayoutInflater inflater = (LayoutInflater) c
+				.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
+		View view = inflater.inflate(R.layout.text_view_layout, null);
+		TextView tv = (TextView)view.findViewById(R.id.tv);
+		tv.setText(text);
+		
+		builder.setPositiveButton("Got It!", new DialogInterface.OnClickListener() {
+				@Override
+				public void onClick(DialogInterface dialog, int which)
+				{
+
+				}
+			});
+		if(more){
+		builder.setNeutralButton("Im stil confused", new DialogInterface.OnClickListener(){
+
+				@Override
+				public void onClick(DialogInterface arg0, int arg1)
+				{
+					Uri uri = Uri.parse(url);
+					Intent intent = new Intent(Intent.ACTION_VIEW, uri);
+					startActivity(intent);
+				}
+
+			});
+		}
+		builder.setView(view);
+		AlertDialog alert = builder.create();
+
+		alert.show();
 	}
 	
 	@Override
@@ -818,7 +1024,7 @@ startCpuLoadThread();
 		 */
 		super.onDestroy();
 		thread = false;
-		java.lang.System.exit(0);
+		
 		
 
 	}
@@ -1072,103 +1278,28 @@ private void startCpuLoadThread() {
 		 * Check for certain files in sysfs and if they doesnt exists hide
 		 * depending views
 		 */
-		File file4 = new File(Constants.CPU0_FREQS);
-		File file5 = new File(Constants.TIMES_IN_STATE_CPU0);
-		try {
-			InputStream fIn = new FileInputStream(file4);
-			fIn.close();
-			} catch (FileNotFoundException e) {
-			try {
-				InputStream fIn = new FileInputStream(file5);
-				fIn.close();
-			} catch (FileNotFoundException e2) {
-				Button cpu = (Button) findViewById(R.id.button2);
-				cpu.setVisibility(View.GONE);
-			} catch (IOException e1) {
-
-			}
-
-		} catch (IOException e) {
-
-		}
-
-		File file = new File(Constants.VOLTAGE_PATH);
-		try {
-			InputStream fIn = new FileInputStream(file);
-			fIn.close();
-
-		} catch (FileNotFoundException e) {
-			File file2 = new File(Constants.VOLTAGE_PATH_TEGRA_3);
-			try {
-				InputStream fIn = new FileInputStream(file2);
-				fIn.close();
-
-			} catch (FileNotFoundException ex) {
-				Button voltage = (Button) findViewById(R.id.button6);
+		if(!(new File(Constants.CPU0_FREQS).exists())){
+			if(!(new File(Constants.TIMES_IN_STATE_CPU0).exists())){
+			 cpu.setVisibility(View.GONE);
+			 }
+		 }
+		if(!(new File(Constants.VOLTAGE_PATH).exists())){
+			if(!(new File(Constants.VOLTAGE_PATH_TEGRA_3).exists())){
 				voltage.setVisibility(View.GONE);
-
-			} catch (IOException e1) {
-
 			}
-
-		} catch (IOException e) {
-
 		}
-
-		File file2 = new File(Constants.TIMES_IN_STATE_CPU0);
-		try {
-			InputStream fIn = new FileInputStream(file2);
-			fIn.close();
-
-		} catch (FileNotFoundException e) {
-			Button times = (Button) findViewById(R.id.button5);
-			times.setVisibility(View.GONE);
-
-		} catch (IOException e) {
-
+		if(!(new File(Constants.TIMES_IN_STATE_CPU0).exists())){
+			tis.setVisibility(View.GONE);
 		}
-
-
-		File file6 = new File(Constants.MPDECISION);
-		try {
-			InputStream fIn = new FileInputStream(file6);
-			fIn.close();
-
-		} catch (FileNotFoundException e) {
-			Button mpdec = (Button) findViewById(R.id.button7);
-			mpdec.setVisibility(View.GONE);
-
-		} catch (IOException e) {
-
+		if(!(new File(Constants.MPDECISION).exists())){
+			mp.setVisibility(View.GONE);
 		}
-
-		File file7 = new File(Constants.THERMALD);
-		try {
-			InputStream fIn = new FileInputStream(file7);
-			fIn.close();
-			
-		} catch (FileNotFoundException e) {
-			Button td = (Button) findViewById(R.id.button11);
-			td.setVisibility(View.GONE);
-
-		} catch (IOException e) {
-
+		if(!(new File(Constants.THERMALD).exists())){
+			thermal.setVisibility(View.GONE);
 		}
-
-		File file3 = new File(Constants.GPU_3D);
-		try {
-			InputStream fIn = new FileInputStream(file3);
-			fIn.close();
-			
-		} catch (FileNotFoundException e) {
-			Button gpu = (Button) findViewById(R.id.button3);
+		if(!(new File(Constants.GPU_3D).exists())){
 			gpu.setVisibility(View.GONE);
-
-		} catch (IOException e) {
-
 		}
-
-		
 
 	}
 
@@ -1178,8 +1309,8 @@ private void startCpuLoadThread() {
 
 	private void initdExport() {
 
-		SharedPreferences sharedPrefs = PreferenceManager
-				.getDefaultSharedPreferences(c);
+		DatabaseHandler db = new DatabaseHandler(this);
+		SharedPreferences sharedPrefs = PreferenceManager.getDefaultSharedPreferences(c);
 		String gpu3d = sharedPrefs.getString("gpu3d", "");
 		String gpu2d = sharedPrefs.getString("gpu2d", "");
 
@@ -1545,12 +1676,12 @@ private void startCpuLoadThread() {
 			for(int i = 0; i < 8; i++){
 				miscbuilder.append("chmod 777 /sys/kernel/msm_mpdecision/conf/nwns_threshold_"+i+"\n");
 			}
-			miscbuilder.append("echo " + thr[1] + " > /sys/kernel/msm_mpdecision/conf/nwns_threshold_"+0+"\n");
-			miscbuilder.append("echo " + thr[2] + " > /sys/kernel/msm_mpdecision/conf/nwns_threshold_"+2+"\n");
-			miscbuilder.append("echo " + thr[3] + " > /sys/kernel/msm_mpdecision/conf/nwns_threshold_"+3+"\n");
-			miscbuilder.append("echo " + thr[4] + " > /sys/kernel/msm_mpdecision/conf/nwns_threshold_"+4+"\n");
-			miscbuilder.append("echo " + thr[5] + " > /sys/kernel/msm_mpdecision/conf/nwns_threshold_"+5+"\n");
-			miscbuilder.append("echo " + thr[6] + " > /sys/kernel/msm_mpdecision/conf/nwns_threshold_"+7+"\n");
+			miscbuilder.append("echo " + thr[0] + " > /sys/kernel/msm_mpdecision/conf/nwns_threshold_"+0+"\n");
+			miscbuilder.append("echo " + thr[1] + " > /sys/kernel/msm_mpdecision/conf/nwns_threshold_"+2+"\n");
+			miscbuilder.append("echo " + thr[2] + " > /sys/kernel/msm_mpdecision/conf/nwns_threshold_"+3+"\n");
+			miscbuilder.append("echo " + thr[3] + " > /sys/kernel/msm_mpdecision/conf/nwns_threshold_"+4+"\n");
+			miscbuilder.append("echo " + thr[4] + " > /sys/kernel/msm_mpdecision/conf/nwns_threshold_"+5+"\n");
+			miscbuilder.append("echo " + thr[5] + " > /sys/kernel/msm_mpdecision/conf/nwns_threshold_"+7+"\n");
 			
 		}
 		if(!tim[0].equals("")){
@@ -1765,6 +1896,25 @@ private void startCpuLoadThread() {
 			}
 		}
 		String voltage = voltagebuilder.toString();
+		StringBuilder sysBuilder = new StringBuilder();
+		sysBuilder.append("#!/system/bin/sh \n");
+			List<SysCtlDatabaseEntry> sysEntries = db.getAllSysCtlEntries();
+			for(SysCtlDatabaseEntry e : sysEntries){
+				sysBuilder.append(getFilesDir().getPath() + "/busybox sysctl -w " + e.getKey().trim() + "=" + e.getValue().trim()+"\n");
+			}
+		
+		String sys = sysBuilder.toString();
+		try {
+
+			FileOutputStream fOut = openFileOutput("99ktsysctl",
+												   MODE_PRIVATE);
+			OutputStreamWriter osw = new OutputStreamWriter(fOut);
+			osw.write(sys);
+			osw.flush();
+			osw.close();
+
+		} catch (IOException ioe) {
+		}
 		try {
 
 			FileOutputStream fOut = openFileOutput("99ktcputweaks",
@@ -1907,9 +2057,6 @@ private void startCpuLoadThread() {
 								| MenuItem.SHOW_AS_ACTION_WITH_TEXT);
 		menu.add(2, 2, 2, "Compatibility Check").setShowAsAction(
 				MenuItem.SHOW_AS_ACTION_NEVER);
-		menu.add(4, 4, 4, "Swap")
-				.setShowAsAction(MenuItem.SHOW_AS_ACTION_NEVER);
-
 		return true;
 	}
 
@@ -1922,9 +2069,7 @@ private void startCpuLoadThread() {
 		else if (item.getItemId() == 2) {
 			startActivity(new Intent(c, CompatibilityCheck.class));
 		}
-		else if (item.getItemId() == 4) {
-			startActivity(new Intent(c, Swap.class));
-		}
+		
 		return super.onOptionsItemSelected(item);
 	}
 
@@ -1943,7 +2088,7 @@ private void startCpuLoadThread() {
 			if (mToast != null)
 				mToast.cancel();
 			KernelTuner.this.finish();
-
+			java.lang.System.exit(0);
 			mLastBackPressTime = 0;
 		}
 	}
