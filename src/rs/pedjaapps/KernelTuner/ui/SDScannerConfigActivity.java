@@ -90,19 +90,40 @@ public class SDScannerConfigActivity extends SherlockActivity
 		
 		String theme = preferences.getString("theme", "light");
 		
-		if(theme.equals("light")){
+		if (theme.equals("light")) 
+		{
 			setTheme(R.style.SwitchCompatAndSherlockLight);
 			labelColor = Color.BLACK;
-		}
-		else if(theme.equals("dark")){
+		} 
+		else if (theme.equals("dark")) 
+		{
 			setTheme(R.style.SwitchCompatAndSherlock);
 			labelColor = Color.WHITE;
-			
-		}
-		else if(theme.equals("light_dark_action_bar")){
+		} 
+		else if (theme.equals("light_dark_action_bar")) 
+		{
 			setTheme(R.style.SwitchCompatAndSherlockLightDark);
 			labelColor = Color.BLACK;
-			
+		}
+		else if (theme.equals("miui_light")) 
+		{
+			setTheme(R.style.Theme_Miui_Light);
+			labelColor = Color.BLACK;
+		} 
+		else if (theme.equals("miui_dark")) 
+		{
+			setTheme(R.style.Theme_Miui_Dark);
+			labelColor = Color.WHITE;
+		} 
+		else if (theme.equals("sense5")) 
+		{
+			setTheme(R.style.Theme_Sense5);
+			labelColor = Color.WHITE;
+		}
+		else if (theme.equals("sense5_light")) 
+		{
+			setTheme(R.style.Theme_Light_Sense5);
+			labelColor = Color.BLACK;
 		}
 		super.onCreate(savedInstanceState);
 

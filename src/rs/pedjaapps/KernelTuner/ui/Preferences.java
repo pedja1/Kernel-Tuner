@@ -47,6 +47,13 @@ public class Preferences extends SherlockPreferenceActivity
 	private ListPreference themePrefList;
 	private ListPreference cpuList;
 	private ListPreference widgetPrefList;
+	private ListPreference unsupportedPrefList;
+	private CheckBoxPreference mainCpuPref;
+	private CheckBoxPreference mainTempPref;
+	private CheckBoxPreference mainTogglesPref;
+	private CheckBoxPreference mainButtonsPref;
+	private CheckBoxPreference mainStylePref;
+	private EditTextPreference refreshPref;
 
 	@SuppressWarnings("deprecation")
 	@Override
@@ -56,23 +63,79 @@ public class Preferences extends SherlockPreferenceActivity
 				.getDefaultSharedPreferences(this);
 		String them = sharedPrefs.getString("theme", "light");
 		
-			if(them.equals("light")){
-				setTheme(R.style.IndicatorLight);
-			}
-			else if(them.equals("dark")){
-				setTheme(R.style.IndicatorDark);
-				
-			}
-			else if(them.equals("light_dark_action_bar")){
-				setTheme(R.style.IndicatorLightDark);
-				
-			}
+		if (them.equals("light")) 
+		{
+			setTheme(R.style.Theme_Sherlock_Light);
+		} 
+		else if (them.equals("dark")) 
+		{
+			setTheme(R.style.Theme_Sherlock);
+		} 
+		else if (them.equals("light_dark_action_bar")) 
+		{
+			setTheme(R.style.Theme_Sherlock_Light_DarkActionBar);
+		}
+		else if (them.equals("miui_light")) 
+		{
+			setTheme(R.style.Theme_Miui_Light);
+		} 
+		else if (them.equals("miui_dark")) 
+		{
+			setTheme(R.style.Theme_Miui_Dark);
+		} 
+		else if (them.equals("sense5")) 
+		{
+			setTheme(R.style.Theme_Sense5);
+		}
+		else if (them.equals("sense5_light")) 
+		{
+			setTheme(R.style.Theme_Light_Sense5);
+		}
 		super.onCreate(savedInstanceState);
 
 		addPreferencesFromResource(R.xml.preferences); 
 		
 		ActionBar actionBar = getSupportActionBar();
 		actionBar.setDisplayHomeAsUpEnabled(true);
+		
+		mainCpuPref = (CheckBoxPreference)findPreference("main_cpu");
+		mainTempPref = (CheckBoxPreference)findPreference("main_temp");
+		mainTogglesPref = (CheckBoxPreference)findPreference("main_toggles");
+		mainButtonsPref = (CheckBoxPreference)findPreference("main_buttons");
+		mainStylePref = (CheckBoxPreference)findPreference("main_style");
+		
+		mainStylePref.setOnPreferenceChangeListener(new Preference.OnPreferenceChangeListener(){
+
+				public boolean onPreferenceChange(Preference preferenxe, Object newValue)
+				{
+					if(newValue.toString().equals("true")){
+						mainCpuPref.setEnabled(false);
+						mainTogglesPref.setEnabled(false);
+						mainButtonsPref.setEnabled(false);
+						mainTempPref.setEnabled(false);
+					}
+					else{
+						mainCpuPref.setEnabled(true);
+						mainTogglesPref.setEnabled(true);
+						mainButtonsPref.setEnabled(true);
+						mainTempPref.setEnabled(true);
+					}
+					return true;
+				}
+			});
+		if(mainStylePref.isChecked()){
+			mainCpuPref.setEnabled(false);
+			mainTogglesPref.setEnabled(false);
+			mainButtonsPref.setEnabled(false);
+			mainTempPref.setEnabled(false);
+		}
+		else{
+			mainCpuPref.setEnabled(true);
+			mainTogglesPref.setEnabled(true);
+			mainButtonsPref.setEnabled(true);
+			mainTempPref.setEnabled(true);
+		}
+		
 		
 		widgetPrefList = (ListPreference) findPreference("widget_bg");
         widgetPrefList.setDefaultValue(widgetPrefList.getEntryValues()[0]);
@@ -329,6 +392,43 @@ public class Preferences extends SherlockPreferenceActivity
 				public boolean onPreferenceChange(Preference preference, Object newValue) {
 					cpuList.setSummary(cpuList.getEntries()[cpuList.findIndexOfValue(newValue.toString())]);
 
+					return true;
+				}
+			}); 
+			
+			
+		unsupportedPrefList = (ListPreference) findPreference("unsupported_items_display");
+        unsupportedPrefList.setDefaultValue(unsupportedPrefList.getEntryValues()[0]);
+        String unsupported = unsupportedPrefList.getValue();
+        if (unsupported == null) {
+            unsupportedPrefList.setValue((String)unsupportedPrefList.getEntryValues()[0]);
+            unsupported = unsupportedPrefList.getValue();
+        }
+        unsupportedPrefList.setSummary(unsupportedPrefList.getEntries()[unsupportedPrefList.findIndexOfValue(unsupported)]);
+
+
+        unsupportedPrefList.setOnPreferenceChangeListener(new OnPreferenceChangeListener() {
+				@Override
+				public boolean onPreferenceChange(Preference preference, Object newValue) {
+					unsupportedPrefList.setSummary(unsupportedPrefList.getEntries()[unsupportedPrefList.findIndexOfValue(newValue.toString())]);
+					return true;
+				}
+			}); 
+			
+		refreshPref = (EditTextPreference) findPreference("refresh");
+        refreshPref.setDefaultValue(refreshPref.getText());
+        String refresh = refreshPref.getText();
+        if (refresh == null) {
+        	refreshPref.setText(refreshPref.getText().toString());
+            refresh = refreshPref.getText();
+        }
+        refreshPref.setSummary(refresh+"ms");
+
+
+        refreshPref.setOnPreferenceChangeListener(new OnPreferenceChangeListener() {
+				@Override
+				public boolean onPreferenceChange(Preference preference, Object newValue) {
+					refreshPref.setSummary(newValue.toString()+"ms");
 					return true;
 				}
 			}); 

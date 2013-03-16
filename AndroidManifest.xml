@@ -38,7 +38,8 @@
             android:name=".ui.KernelTuner"
             android:icon="@drawable/ic_launcher"
             android:label="@string/app_name"
-            android:windowSoftInputMode="adjustResize" >
+            android:windowSoftInputMode="adjustResize"
+			android:theme="@style/Theme.Translucent.NoTitleBar">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 

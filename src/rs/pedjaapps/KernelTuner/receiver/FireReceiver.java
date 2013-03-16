@@ -12,17 +12,18 @@
 
 package rs.pedjaapps.KernelTuner.receiver;
 
-import rs.pedjaapps.KernelTuner.Constants;
-import rs.pedjaapps.KernelTuner.tools.ProfileApplier;
-import rs.pedjaapps.KernelTuner.bundle.BundleScrubber;
-import rs.pedjaapps.KernelTuner.bundle.PluginBundleManager;
-import rs.pedjaapps.KernelTuner.ui.EditActivity;
 import android.content.BroadcastReceiver;
 import android.content.Context;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.os.Bundle;
+import android.preference.PreferenceManager;
 import android.util.Log;
 import android.widget.Toast;
+import rs.pedjaapps.KernelTuner.Constants;
+import rs.pedjaapps.KernelTuner.bundle.BundleScrubber;
+import rs.pedjaapps.KernelTuner.bundle.PluginBundleManager;
+import rs.pedjaapps.KernelTuner.tools.ProfileApplier;
 
 /**
  * This is the "fire" BroadcastReceiver for a Locale Plug-in setting.
@@ -70,9 +71,11 @@ public final class FireReceiver extends BroadcastReceiver
          */
         if (PluginBundleManager.isBundleValid(bundle))
         {
+			SharedPreferences preferences = PreferenceManager.getDefaultSharedPreferences(context);
+			if(preferences.getBoolean("profile_notifications",true)){
             Toast.makeText(context, "Applyng profile: "+bundle.getString(PluginBundleManager.BUNDLE_EXTRA_STRING_MESSAGE), Toast.LENGTH_LONG)
                  .show();
-            
+            }
             new ProfileApplier(context).execute(new String[] {bundle.getString(PluginBundleManager.BUNDLE_EXTRA_STRING_MESSAGE)});
         }
     }

@@ -114,12 +114,21 @@ private class changegpu extends AsyncTask<String, Void, Object>
 			setTheme(R.style.Theme_Sherlock_Light_Dialog_NoTitleBar);
 			
 		}
+		else if (theme.equals("miui_dark")) 
+		{
+			setTheme(R.style.Theme_Sherlock_Dialog_NoTitleBar);
+		} 
+		else if (theme.equals("sense5")) 
+		{
+			setTheme(R.style.Theme_Sherlock_Dialog_NoTitleBar);
+		}
+
 		super.onCreate(savedInstanceState);
 		   
 		setContentView(R.layout.gpu);
-			Button apply = (Button)findViewById(R.id.apply);
+		Button apply = (Button)findViewById(R.id.apply);
 		d2Spinner = (Spinner) findViewById(R.id.spinner2);
-		 d3Spinner = (Spinner) findViewById(R.id.bg);
+		d3Spinner = (Spinner) findViewById(R.id.bg);
 		gpu2dmax = readFile("/sys/devices/platform/kgsl-2d0.0/kgsl/kgsl-2d0/max_gpuclk");
 		gpu3dmax = readFile("/sys/devices/platform/kgsl-3d0.0/kgsl/kgsl-3d0/max_gpuclk");
 		gpu2dcurent = readFile("/sys/devices/platform/kgsl-2d0.0/kgsl/kgsl-2d0/gpuclk");

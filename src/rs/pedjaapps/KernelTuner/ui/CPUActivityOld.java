@@ -276,6 +276,15 @@ public class CPUActivityOld extends SherlockActivity
 			setTheme(R.style.Theme_Sherlock_Light_Dialog_NoTitleBar);
 			
 		}
+		else if (theme.equals("miui_dark")) 
+		{
+			setTheme(R.style.Theme_Sherlock_Dialog_NoTitleBar);
+		} 
+		else if (theme.equals("sense5")) 
+		{
+			setTheme(R.style.Theme_Sherlock_Dialog_NoTitleBar);
+		}
+		
 		super.onCreate(savedInstanceState);
 
 		setContentView(R.layout.cpu_tweaks_old);

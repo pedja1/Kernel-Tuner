@@ -1,0 +1,11 @@
+<selector xmlns:android="http://schemas.android.com/apk/res/android">
+
+    <item android:drawable="@drawable/btn_default_normal_sense5" android:state_enabled="true" android:state_window_focused="false"/>
+    <item android:drawable="@drawable/btn_default_disabled_sense5" android:state_enabled="false" android:state_window_focused="false"/>
+    <item android:drawable="@drawable/btn_default_pressed_sense5" android:state_pressed="true"/>
+    <item android:drawable="@drawable/btn_default_focused_sense5" android:state_enabled="true" android:state_focused="true"/>
+    <item android:drawable="@drawable/btn_default_normal_sense5" android:state_enabled="true"/>
+    <item android:drawable="@drawable/btn_default_disabled_focused_sense5" android:state_focused="true"/>
+    <item android:drawable="@drawable/btn_default_disabled_sense5"/>
+
+</selector>

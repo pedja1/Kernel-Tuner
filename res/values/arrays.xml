@@ -4,12 +4,20 @@
         <item>Light Theme</item>
         <item>Light Theme with dark action bar</item>
         <item>Dark Theme</item>  
+        <item>Miui Light Theme</item>
+        <item>Miui Dark Theme</item>  
+		<item>Sense 5 Theme</item> 
+		<item>Sense 5 Light Theme</item> 
     </string-array>
 
     <string-array name="theme_values">
         <item>light</item>
         <item>light_dark_action_bar</item>
         <item>dark</item>  
+        <item>miui_light</item>
+        <item>miui_dark</item> 
+		<item>sense5</item>
+		<item>sense5_light</item>
     </string-array>
     
 <string-array name="listDisplayWord" >
@@ -83,5 +91,14 @@
         <item>grey</item>
         <item>transparent</item>   
     </string-array>
+	
+	<string-array name="unsupported_items_titles">
+		<item>Hide Unsupported Options</item>
+		<item>Disable Unsupported Options</item>
+	</string-array>
+	<string-array name="unsupported_items_values">
+		<item>hide</item>
+		<item>disable</item>
+	</string-array>
 		
 </resources>

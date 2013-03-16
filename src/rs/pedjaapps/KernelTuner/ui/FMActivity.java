@@ -19,14 +19,14 @@
 package rs.pedjaapps.KernelTuner.ui;
 
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.os.Environment;
+import android.preference.PreferenceManager;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.GridView;
 import java.io.File;
-import java.text.DecimalFormat;
-import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.Comparator;
@@ -34,7 +34,6 @@ import java.util.List;
 
 import com.actionbarsherlock.app.SherlockActivity;
 import com.actionbarsherlock.view.Menu;
-import com.actionbarsherlock.view.MenuInflater;
 import com.actionbarsherlock.view.MenuItem;
 
 import rs.pedjaapps.KernelTuner.R;
@@ -56,6 +55,36 @@ public class FMActivity extends SherlockActivity
 		c = this;
         super.onCreate(savedInstanceState);
         setContentView(R.layout.fm);
+        SharedPreferences prefs = PreferenceManager.getDefaultSharedPreferences(this);
+        String theme = prefs.getString("theme", "light");
+        if (theme.equals("light")) 
+		{
+			setTheme(R.style.Theme_Sherlock_Light);
+		} 
+		else if (theme.equals("dark")) 
+		{
+			setTheme(R.style.Theme_Sherlock);
+		} 
+		else if (theme.equals("light_dark_action_bar")) 
+		{
+			setTheme(R.style.Theme_Sherlock_Light_DarkActionBar);
+		}
+		else if (theme.equals("miui_light")) 
+		{
+			setTheme(R.style.Theme_Miui_Light);
+		} 
+		else if (theme.equals("miui_dark")) 
+		{
+			setTheme(R.style.Theme_Miui_Dark);
+		} 
+		else if (theme.equals("sense5")) 
+		{
+			setTheme(R.style.Theme_Sense5);
+		}
+		else if (theme.equals("sense5_light")) 
+		{
+			setTheme(R.style.Theme_Light_Sense5);
+		}
 		fListView = (GridView) findViewById(R.id.list);
 		
 		path = Environment.getExternalStorageDirectory().toString();

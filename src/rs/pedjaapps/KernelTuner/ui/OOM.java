@@ -67,19 +67,29 @@ public class OOM extends Activity {
 		
 		String theme = preferences.getString("theme", "light");
 		
-		if(theme.equals("light")){
-			setTheme(R.style.Theme_Dialog_NoTitleBar_Light);
-			isLight =true;
+		if (theme.equals("light")) 
+		{
+			setTheme(R.style.Theme_Translucent_NoTitleBar_Light);
+		} 
+		else if (theme.equals("dark")) 
+		{
+			setTheme(R.style.Theme_Translucent_NoTitleBar);
+		} 
+		else if (theme.equals("miui_light")) 
+		{
+			setTheme(R.style.Theme_Translucent_NoTitleBar_Miui_Light);
+		} 
+		else if (theme.equals("miui_dark")) 
+		{
+			setTheme(R.style.Theme_Translucent_NoTitleBar_Miui);
+		} 
+		else if (theme.equals("sense5")) 
+		{
+			setTheme(R.style.Theme_Translucent_NoTitleBar_Sense5);
 		}
-		else if(theme.equals("dark")){
-			setTheme(R.style.Theme_Dialog_NoTitleBar);
-			isLight = false;
-			
-		}
-		else if(theme.equals("light_dark_action_bar")){
-			setTheme(R.style.Theme_Dialog_NoTitleBar_Light);
-			isLight = true;
-			
+		else if (theme.equals("sense5_light")) 
+		{
+			setTheme(R.style.Theme_Translucent_NoTitleBar_Sense5_Light);
 		}
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.oom);

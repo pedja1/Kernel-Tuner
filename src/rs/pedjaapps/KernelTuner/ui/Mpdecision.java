@@ -22,21 +22,18 @@ import android.app.*;
 import android.content.*;
 import android.os.*;
 import android.preference.*;
-import android.util.*;
 import android.view.*;
 import android.widget.*;
 import android.widget.AdapterView.*;
 import android.widget.CompoundButton.*;
 import com.actionbarsherlock.app.*;
 import com.google.ads.*;
-import java.io.*;
 import java.util.*;
 import rs.pedjaapps.KernelTuner.helpers.*;
 import de.ankri.views.Switch;
 import com.actionbarsherlock.app.ActionBar;
 import com.actionbarsherlock.view.Menu;
 import com.actionbarsherlock.view.MenuInflater;
-import java.lang.Process;
 import rs.pedjaapps.KernelTuner.R;
 import rs.pedjaapps.KernelTuner.tools.RootExecuter;
 
@@ -142,16 +139,33 @@ public class Mpdecision extends SherlockActivity
 		
 		String theme = preferences.getString("theme", "light");
 		
-		if(theme.equals("light")){
+		if (theme.equals("light")) 
+		{
 			setTheme(R.style.SwitchCompatAndSherlockLight);
-		}
-		else if(theme.equals("dark")){
+		} 
+		else if (theme.equals("dark")) 
+		{
 			setTheme(R.style.SwitchCompatAndSherlock);
-			
-		}
-		else if(theme.equals("light_dark_action_bar")){
+		} 
+		else if (theme.equals("light_dark_action_bar")) 
+		{
 			setTheme(R.style.SwitchCompatAndSherlockLightDark);
-			
+		}
+		else if (theme.equals("miui_light")) 
+		{
+			setTheme(R.style.Theme_Miui_Light);
+		} 
+		else if (theme.equals("miui_dark")) 
+		{
+			setTheme(R.style.Theme_Miui_Dark);
+		} 
+		else if (theme.equals("sense5")) 
+		{
+			setTheme(R.style.Theme_Sense5);
+		}
+		else if (theme.equals("sense5_light")) 
+		{
+			setTheme(R.style.Theme_Light_Sense5);
 		}
 		super.onCreate(savedInstanceState);
 

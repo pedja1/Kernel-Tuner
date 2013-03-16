@@ -428,9 +428,9 @@ public class ProfileApplier extends AsyncTask<String, Void, String>
 	}
 	@Override
 	protected void onPostExecute(String result){
-		
+		if(preferences.getBoolean("profile_notifications",true)){
 		Toast.makeText(context, context.getResources().getString(R.string.profile)+"\""+ profile.getName()+"\""+" " + context.getResources().getString(R.string.applied)  , Toast.LENGTH_LONG).show();
-		
+		}
 	}
 }	
 

@@ -53,7 +53,10 @@ ListView shortcutListView;
                 "System Info",
                 "Settings",
                 "OOM",
-				"SD Analyzer"};
+				"SD Analyzer",
+				"build.prop Editor",
+				"SysCtl",
+				"Task Manager"};
         String[] descs ={"Normal Reboot", 
                 "Reboot device in recovery mode",
                 "Reboot device in bootloader", 
@@ -70,7 +73,10 @@ ListView shortcutListView;
                 "View System Information",
                 "Change app Settings",
                 "Out Of Memory Settings",
-				"Analyze SD Card Content"};
+				"Analyze SD Card Content",
+				"Edit Build properties",
+				"System Control",
+				"Manage Running Processes"};
 
         int[] icons = {R.drawable.reboot,
                 R.drawable.reboot,
@@ -88,7 +94,10 @@ ListView shortcutListView;
                 R.drawable.info,
                 R.drawable.misc,
                 R.drawable.swap,
-				R.drawable.sd};
+				R.drawable.sd,
+				R.drawable.build,
+				R.drawable.sysctl,
+				R.drawable.tm};
         Class<?>[] classes = {RebootShortcut.class, 
                         RebootShortcut.class, 
                         RebootShortcut.class, 
@@ -105,13 +114,16 @@ ListView shortcutListView;
                         InfoShortcut.class,
                         SettingsShortcut.class,
                         OOMShortcut.class,
-						SDShortcut.class};
+						SDShortcut.class,
+						BuildShortcut.class,
+						SysShortcut.class,
+						TmShortcut.class};
 
         @Override
         public void onCreate(Bundle savedInstanceState)
         {
                 super.onCreate(savedInstanceState);
-				final Context c = getApplicationContext();
+				final Context c = this;
                 setContentView(R.layout.shortcuts_list);
                 shortcutListView = (ListView) findViewById(R.id.list);
                 shortcutAdapter = new ShortcutAdapter(c, R.layout.shortcut_list_item);

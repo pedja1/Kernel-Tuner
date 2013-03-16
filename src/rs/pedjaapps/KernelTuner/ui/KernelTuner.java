@@ -22,6 +22,7 @@ import android.app.*;
 import android.app.ActivityManager.*;
 import android.content.*;
 import android.content.pm.*;
+import android.content.pm.PackageManager.NameNotFoundException;
 import android.content.res.*;
 import android.graphics.*;
 import android.net.Uri;
@@ -48,227 +49,87 @@ import rs.pedjaapps.KernelTuner.entry.SysCtlDatabaseEntry;
 
 public class KernelTuner extends SherlockActivity {
 
-	private List<IOHelper.FreqsEntry> freqEntries;
-	private List<IOHelper.VoltageList> voltageFreqs;
-	private List<String> voltages = new ArrayList<String>();
-	private TextView batteryLevel;
-	private TextView batteryTemp;
-	private TextView cputemptxt;
-	private String tempPref;
-	private long mLastBackPressTime = 0;
-	private Toast mToast;
-	private RelativeLayout tempLayout;
-	private AlertDialog alert;
-	private String tmp;
-	int i = 0;
-    Context c;
+	private List<IOHelper.FreqsEntry>   freqEntries;
+	private List<IOHelper.VoltageList>  voltageFreqs;
+	private List<String>                voltages           = new ArrayList<String>();
+	private TextView                    batteryLevel;
+	private TextView                    batteryTemp;
+	private TextView                    cputemptxt;
+	private String                      tempPref;
+	private long                        mLastBackPressTime = 0;
+	private Toast                       mToast;
+	private RelativeLayout              tempLayout;
+	private AlertDialog                 alert;
+	private String                      tmp;
+    private Context                     c;
+	private boolean                     thread             = true;
 	
-
-	private BroadcastReceiver mBatInfoReceiver = new BroadcastReceiver() {
-		@Override
-		public void onReceive(Context arg0, Intent intent) {
-
-			int level = intent.getIntExtra("level", 0);
-			double temperature = intent.getIntExtra(
-					BatteryManager.EXTRA_TEMPERATURE, 0) / 10;
-
-			if (tempPref.equals("fahrenheit")) {
-				temperature = (temperature * 1.8) + 32;
-				batteryTemp.setText(((int) temperature) + "°F");
-				if (temperature <= 104) {
-					batteryTemp.setTextColor(Color.GREEN);
-
-				} else if (temperature > 104 && temperature < 131) {
-					batteryTemp.setTextColor(Color.YELLOW);
-
-				} else if (temperature >= 131 && temperature < 140) {
-					batteryTemp.setTextColor(Color.RED);
-
-				} else if (temperature >= 140) {
-
-					batteryTemp.setTextColor(Color.RED);
-
-				}
-			}
-
-			else if (tempPref.equals("celsius")) {
-				batteryTemp.setText(temperature + "°C");
-				if (temperature < 45) {
-					batteryTemp.setTextColor(Color.GREEN);
-
-				} else if (temperature > 45 && temperature < 55) {
-					batteryTemp.setTextColor(Color.YELLOW);
-
-				} else if (temperature >= 55 && temperature < 60) {
-					batteryTemp.setTextColor(Color.RED);
-
-				} else if (temperature >= 60) {
-
-					batteryTemp.setTextColor(Color.RED);
-
-				}
-			} else if (tempPref.equals("kelvin")) {
-				temperature = temperature + 273.15;
-				batteryTemp.setText(temperature + "°K");
-				if (temperature < 318.15) {
-					batteryTemp.setTextColor(Color.GREEN);
-
-				} else if (temperature > 318.15 && temperature < 328.15) {
-					batteryTemp.setTextColor(Color.YELLOW);
-
-				} else if (temperature >= 328.15 && temperature < 333.15) {
-					batteryTemp.setTextColor(Color.RED);
-
-				} else if (temperature >= 333.15) {
-
-					batteryTemp.setTextColor(Color.RED);
-
-				}
-			}
-			// /F = (C x 1.8) + 32
-			batteryLevel.setText(level + "%");
-			if (level < 15 && level >= 5) {
-				batteryLevel.setTextColor(Color.RED);
-
-			} else if (level > 15 && level <= 30) {
-				batteryLevel.setTextColor(Color.YELLOW);
-
-			} else if (level > 30) {
-				batteryLevel.setTextColor(Color.GREEN);
-
-			} else if (level < 5) {
-				batteryLevel.setTextColor(Color.RED);
-
-			}
-		}
-	};
-
-	private boolean thread = true;
-	private String freqcpu0 = "offline";
-	private String freqcpu1= "offline";
-
+	private String                      freqcpu0           = "offline";
+	private String                      freqcpu1           = "offline";
+	private String                      freqcpu2           = "offline";
+	private String                      freqcpu3           = "offline";
 	
-	private String cpu0max = "       ";
-	private String cpu1max = "       ";
-	private String cpu2max = "       ";
-	private String cpu3max = "       ";
+	private String                      cpu0max            = "       ";
+	private String                      cpu1max            = "       ";
+	private String                      cpu2max            = "       ";
+	private String                      cpu3max            = "       ";
 
-	private String freqcpu2 = "offline";
-	private String freqcpu3 = "offline";
-
-
-	private float fLoad;
-	private TextView cpu0prog;
-	private TextView cpu1prog;
-	private TextView cpu2prog;
-	private TextView cpu3prog;
-
-	private ProgressBar cpu0progbar;
-	private ProgressBar cpu1progbar;
-	private ProgressBar cpu2progbar;
-	private ProgressBar cpu3progbar;
-
-	private List<String> freqlist = new ArrayList<String>();
-	private SharedPreferences preferences;
-	private ProgressDialog pd = null;
+	private float                       fLoad;
 	
-	private int load;
+	private TextView                    cpu0prog;
+	private TextView                    cpu1prog;
+	private TextView                    cpu2prog;
+	private TextView                    cpu3prog;
 
-	private Handler mHandler;
+	private ProgressBar                 cpu0progbar;
+	private ProgressBar                 cpu1progbar;
+	private ProgressBar                 cpu2progbar;
+	private ProgressBar                 cpu3progbar;
 
-	private SharedPreferences.Editor editor;
-
-	private class CPUToggle extends AsyncTask<String, Void, Object> {
-		@Override
-		protected Object doInBackground(String... args) {
-			File file = new File("/sys/devices/system/cpu/cpu"+args[0]+"/cpufreq/scaling_governor");
-			if(file.exists()){
- 
-			RootExecuter.exec(new String[]{
-					"echo 1 > /sys/kernel/msm_mpdecision/conf/enabled\n",
-					"chmod 777 /sys/devices/system/cpu/cpu"+args[0]+"/online\n",
-					"echo 0 > /sys/devices/system/cpu/cpu"+args[0]+"/online\n",
-					"chown system /sys/devices/system/cpu/cpu"+args[0]+"/online\n"});
-            }
-				
-			else{
-		      RootExecuter.exec(new String[]{
-					"echo 0 > /sys/kernel/msm_mpdecision/conf/enabled\n",
-					"chmod 666 /sys/devices/system/cpu/cpu"+args[0]+"/online\n",
-					"echo 1 > /sys/devices/system/cpu/cpu"+args[0]+"/online\n",
-					"chmod 444 /sys/devices/system/cpu/cpu"+args[0]+"/online\n",
-					"chown system /sys/devices/system/cpu/cpu"+args[0]+"/online\n"});
-			}	
-
-			return "";
-		}
-
-		@Override
-		protected void onPostExecute(Object result) {
-
-			KernelTuner.this.pd.dismiss();
-		}
-
-	}
-	private class mountDebugFs extends AsyncTask<String, Void, Object> {
-
-		@Override
-		protected Object doInBackground(String... args) {
-
-			RootExecuter.exec(new String[]{
-				"mount -t debugfs debugfs /sys/kernel/debug\n"});
-			return "";
-		}
-
-		@Override
-		protected void onPostExecute(Object result) {
-
-		}
-
-	}
-
-	private class enableTempMonitor extends AsyncTask<String, Void, Object> {
-
-		@Override
-		protected Object doInBackground(String... args) {
- 
-             RootExecuter.exec(new String[]{
-				"chmod 777 /sys/devices/virtual/thermal/thermal_zone1/mode\n",
-				"chmod 777 /sys/devices/virtual/thermal/thermal_zone0/mode\n",
-				"echo -n enabled > /sys/devices/virtual/thermal/thermal_zone1/mode\n",
-				"echo -n enabled > /sys/devices/virtual/thermal/thermal_zone0/mode\n"});
-			
-			return "";
-		}
-
-	}
-
-
-	boolean first;
-	boolean isLight;
-	String theme;
-	boolean dump;
-	Button[] buttons;
-	Button gpu,
-	       cpu, 
-		   tis,
-		   voltage,
-		   mp,
-		   thermal,
-		   misc, 
-		   sys, 
-		   tm,
-		   build, 
-		   sd, 
-		   profiles,
-		   oom, 
-		   swap,
-		   info,
-		   governor;
+	private List<String>                freqlist          = new ArrayList<String>();
+	private SharedPreferences           preferences;
+	private ProgressDialog              pd                = null;
 	
+	LinearLayout                        tempPanel;
+	RelativeLayout                      cpuPanel;
+	LinearLayout                        togglesPanel;
+	LinearLayout                        mainPanel;
+	
+	private int                         load;
 
+	private Handler                     mHandler;
+
+	private SharedPreferences.Editor    editor;
+
+	private boolean                     first;
+	private boolean                     isLight;
+	private String                      theme;
+	private Button                      gpu,
+	                                    cpu, 
+		                                tis,
+		                                voltage,
+		                                mp,
+		                                thermal,
+		                                misc, 
+		                                sys, 
+		                                tm,
+		                                build, 
+		                                sd, 
+		                                profiles,
+		                                oom, 
+		                                swap,
+		                                info,
+		                                governor;
+	private boolean                     minimal;
+	private TextView                    cpuLoadTxt;
+	private ProgressBar                 cpuLoad;
+	private int                         refresh         = 1000;
+	
 	@Override
 	public void onCreate(Bundle savedInstanceState) {
+		/**
+		*Strict mode for debuging
+		*/
 		/*StrictMode.setThreadPolicy(new StrictMode.ThreadPolicy.Builder().detectAll().build());
          StrictMode.setVmPolicy(new StrictMode.VmPolicy.Builder()
                  .detectAll().build());*/
@@ -280,36 +141,234 @@ public class KernelTuner extends SherlockActivity {
 		editor = preferences.edit();
 		theme = preferences.getString("theme", "light");
 
-		if (theme.equals("light")) {
+		minimal = preferences.getBoolean("main_style",false);
+		if(minimal == true){
+			if (theme.equals("light")) 
+			{
+				setTheme(R.style.Theme_Translucent_NoTitleBar_Light);
+			} 
+			else if (theme.equals("dark")) 
+			{
+				setTheme(R.style.Theme_Translucent_NoTitleBar);
+			} 
+			else if (theme.equals("miui_light")) 
+			{
+				setTheme(R.style.Theme_Translucent_NoTitleBar_Miui_Light);
+			} 
+			else if (theme.equals("miui_dark")) 
+			{
+				setTheme(R.style.Theme_Translucent_NoTitleBar_Miui);
+			} 
+			else if (theme.equals("sense5")) 
+			{
+				setTheme(R.style.Theme_Translucent_NoTitleBar_Sense5);
+			}
+			else if (theme.equals("sense5_light")) 
+			{
+				setTheme(R.style.Theme_Translucent_NoTitleBar_Sense5_Light);
+			}
+			setContentView(R.layout.main_popup);
+		}
+		else{
+		if (theme.equals("light")) 
+		{
 			setTheme(R.style.Theme_Sherlock_Light);
-		} else if (theme.equals("dark")) {
+		} 
+		else if (theme.equals("dark")) 
+		{
 			setTheme(R.style.Theme_Sherlock);
-
-		} else if (theme.equals("light_dark_action_bar")) {
+		} 
+		else if (theme.equals("light_dark_action_bar")) 
+		{
 			setTheme(R.style.Theme_Sherlock_Light_DarkActionBar);
-
+		}
+		else if (theme.equals("miui_light")) 
+		{
+			setTheme(R.style.Theme_Miui_Light);
+		} 
+		else if (theme.equals("miui_dark")) 
+		{
+			setTheme(R.style.Theme_Miui_Dark);
+		} 
+		else if (theme.equals("sense5")) 
+		{
+			setTheme(R.style.Theme_Sense5);
+		}
+		else if (theme.equals("sense5_light")) 
+		{
+			setTheme(R.style.Theme_Light_Sense5);
+		}
+			setContentView(R.layout.main);
 		}
 		super.onCreate(savedInstanceState);
-
-		setContentView(R.layout.main);
-
 		mHandler = new Handler();
-		cpu0prog = (TextView)findViewById(R.id.ptextView3);
-		cpu1prog = (TextView)findViewById(R.id.ptextView4);
-		cpu2prog = (TextView)findViewById(R.id.ptextView7);
-	    cpu3prog = (TextView)findViewById(R.id.ptextView8);
+		try{
+			refresh = Integer.parseInt(preferences.getString("refresh","1000"));
+		}
+		catch(Exception e){
+			refresh = 1000;
+		}
+	    if(minimal==false){
+		    tempPanel = (LinearLayout)findViewById(R.id.test1);
+	    	mainPanel = (LinearLayout)findViewById(R.id.scrollView1);
+		    cpuPanel = (RelativeLayout)findViewById(R.id.rl);
+	    	togglesPanel = (LinearLayout)findViewById(R.id.ly2);
 		
-		cpu0progbar = (ProgressBar)findViewById(R.id.progressBar1);
-		cpu1progbar = (ProgressBar)findViewById(R.id.progressBar2);
-		cpu2progbar = (ProgressBar)findViewById(R.id.progressBar3);
-		cpu3progbar = (ProgressBar)findViewById(R.id.progressBar4);
-		/**
-		 * Get temperature unit from preferences
-		 */
-		tempPref = preferences.getString("temp", "celsius");
-		batteryLevel = (TextView) findViewById(R.id.textView42);
-		batteryTemp = (TextView) findViewById(R.id.textView40);
-		tempLayout = (RelativeLayout) findViewById(R.id.test1a);
+		    if(preferences.getBoolean("main_temp",true)==false){
+			    tempPanel.setVisibility(View.GONE);
+	    	}
+		    if(preferences.getBoolean("main_cpu",true)==false){
+			    cpuPanel.setVisibility(View.GONE);
+		    }
+		    if(preferences.getBoolean("main_toggles",true)==false){
+			    togglesPanel.setVisibility(View.GONE);
+		    }
+		    if(preferences.getBoolean("main_buttons",true)==false){
+			    mainPanel.setVisibility(View.GONE);
+		    }
+		
+		    cpu0prog = (TextView)findViewById(R.id.ptextView3);
+		    cpu1prog = (TextView)findViewById(R.id.ptextView4);
+		    cpu2prog = (TextView)findViewById(R.id.ptextView7);
+	        cpu3prog = (TextView)findViewById(R.id.ptextView8);
+		
+		    cpu0progbar = (ProgressBar)findViewById(R.id.progressBar1);
+		    cpu1progbar = (ProgressBar)findViewById(R.id.progressBar2);
+		    cpu2progbar = (ProgressBar)findViewById(R.id.progressBar3);
+		    cpu3progbar = (ProgressBar)findViewById(R.id.progressBar4);
+	    	/**
+		     * Get temperature unit from preferences
+		     */
+	    	tempPref = preferences.getString("temp", "celsius");
+		    batteryLevel = (TextView) findViewById(R.id.textView42);
+	    	batteryTemp = (TextView) findViewById(R.id.textView40);
+	    	tempLayout = (RelativeLayout) findViewById(R.id.test1a);
+			
+		    ActionBar actionBar = getSupportActionBar();
+	    	actionBar.setSubtitle("Various kernel and system tuning");
+	    	actionBar.setHomeButtonEnabled(false);
+		
+	    	/**
+		     * Read all available frequency steps
+		     */
+
+	    	for(IOHelper.FreqsEntry f: freqEntries){
+		    	freqlist.add(new StringBuilder().append(f.getFreq()).toString());
+	    	}
+	    	for (IOHelper.VoltageList v : voltageFreqs) {
+		    	voltages.add(new StringBuilder().append(v.getFreq()).toString());
+	    	}
+
+	    	/***
+		     * Create new thread that will loop and show current frequency for each
+		     * core
+		     */
+	    	new Thread(new Runnable() {
+				@Override
+				public void run() {
+					while (thread) {
+						try {
+							Thread.sleep(refresh);
+							freqcpu0 = IOHelper.cpu0CurFreq();
+							cpu0max = IOHelper.cpu0MaxFreq();
+							tmp = IOHelper.cpuTemp();
+
+							    if (IOHelper.cpu1Online() == true)
+							    {
+								    freqcpu1 = IOHelper.cpu1CurFreq();
+								    cpu1max = IOHelper.cpu1MaxFreq();
+							    }
+								if (IOHelper.cpu2Online() == true)
+							    {
+								    freqcpu2 = IOHelper.cpu2CurFreq();
+							    	cpu2max = IOHelper.cpu2MaxFreq();
+							    }
+							    if (IOHelper.cpu3Online() == true)
+							    {
+							    	freqcpu3 = IOHelper.cpu3CurFreq();
+							    	cpu3max = IOHelper.cpu3MaxFreq();
+
+							    }
+						    	mHandler.post(new Runnable() {
+
+									@Override
+									public void run() {
+
+
+										cpuTemp(tmp);
+										cpu0update();
+
+										if (IOHelper.cpu1Online())
+										{
+											cpu1update();
+										}
+										if (IOHelper.cpu2Online())
+										{
+											cpu2update();
+										}
+										if (IOHelper.cpu3Online())
+										{
+											cpu3update();
+										}
+									}
+								});
+						} catch (Exception e) {
+
+						}
+					}
+				}
+			}).start();
+
+		Button cpu1toggle = (Button)findViewById(R.id.button1);
+		cpu1toggle.setOnClickListener(new OnClickListener() {
+
+			@Override
+			public void onClick(View v) {
+
+				KernelTuner.this.pd = ProgressDialog.show(c,
+						null,
+						getResources().getString(R.string.applying_settings),
+						true, true);
+				new CPUToggle().execute(new String[] {"1"});
+
+			}
+		});
+
+		Button cpu2toggle = (Button) findViewById(R.id.button8);
+		cpu2toggle.setOnClickListener(new OnClickListener() {
+
+			@Override
+			public void onClick(View v) {
+
+				KernelTuner.this.pd = ProgressDialog.show(c,
+						null,
+						getResources().getString(R.string.applying_settings),
+						true, true);
+				new CPUToggle().execute(new String[] {"2"});
+
+			}
+		});
+
+		Button cpu3toggle = (Button) findViewById(R.id.button9);
+		cpu3toggle.setOnClickListener(new OnClickListener() {
+
+			@Override
+			public void onClick(View v) {
+
+				KernelTuner.this.pd = ProgressDialog.show(c,
+						null,
+						getResources().getString(R.string.applying_settings),
+						true, true);
+				new CPUToggle().execute(new String[] {"3"});
+
+			}
+		});
+	    cputemptxt = (TextView) findViewById(R.id.textView38);
+	    cpuLoadTxt = (TextView)findViewById(R.id.textView1);
+		cpuLoad = (ProgressBar)findViewById(R.id.progressBar5);
+		startCpuLoadThread();
+		    
+		}
 		/**
 		 * Extract assets if first launch
 		 */
@@ -318,11 +377,7 @@ public class KernelTuner extends SherlockActivity {
 			CopyAssets();
 		}
 
-		ActionBar actionBar = getSupportActionBar();
-
-		actionBar.setSubtitle("Various kernel and system tuning");
-		actionBar.setHomeButtonEnabled(false);
-
+	
 		File file = new File("/sys/kernel/debug");
 
 		if (file.exists() && file.list().length > 0) {
@@ -355,87 +410,6 @@ public class KernelTuner extends SherlockActivity {
 		 */
 		changelog();
 
-		/**
-		 * Read all available frequency steps
-		 */
-
-		for(IOHelper.FreqsEntry f: freqEntries){
-			freqlist.add(new StringBuilder().append(f.getFreq()).toString());
-		}
-		/*for(CPUInfo.FreqsEntry f: freqEntries){
-			freqNames.add(f.getFreqName());
-		}*/
-		for (IOHelper.VoltageList v : voltageFreqs) {
-			voltages.add(new StringBuilder().append(v.getFreq()).toString());
-		}
-		
-		/***
-		 * Create new thread that will loop and show current frequency for each
-		 * core
-		 */
-		new Thread(new Runnable() {
-			@Override
-			public void run() {
-				while (thread) {
-					try {
-						Thread.sleep(1000);
-						freqcpu0 = IOHelper.cpu0CurFreq();
-						cpu0max = IOHelper.cpu0MaxFreq();
-						tmp = IOHelper.cpuTemp();
-						
-						if (IOHelper.cpu1Online() == true)
-						{
-							freqcpu1 = IOHelper.cpu1CurFreq();
-							cpu1max = IOHelper.cpu1MaxFreq();
-						}
-						if (IOHelper.cpu2Online() == true)
-						{
-							freqcpu2 = IOHelper.cpu2CurFreq();
-							cpu2max = IOHelper.cpu2MaxFreq();
-						}
-						if (IOHelper.cpu3Online() == true)
-						{
-							freqcpu3 = IOHelper.cpu3CurFreq();
-							cpu3max = IOHelper.cpu3MaxFreq();
-
-						}
-						mHandler.post(new Runnable() {
-
-							@Override
-							public void run() {
-
-										
-										cpuTemp(tmp);
-										cpu0update();
-										
-										if (IOHelper.cpu1Online())
-										{
-											cpu1update();
-
-										}
-										if (IOHelper.cpu2Online())
-										{
-											
-											cpu2update();
-
-										}
-										if (IOHelper.cpu3Online())
-										{
-											cpu3update();
-
-										}
-
-
-									}
-						});
-					} catch (Exception e) {
-
-					}
-				}
-			}
-		}).start();
-
-		
 		/**
 		 * Declare buttons and set onClickListener for each
 		 */
@@ -648,51 +622,6 @@ public class KernelTuner extends SherlockActivity {
 				return true;
 			}
 
-		});
-
-		Button cpu1toggle = (Button)findViewById(R.id.button1);
-		cpu1toggle.setOnClickListener(new OnClickListener() {
-
-			@Override
-			public void onClick(View v) {
-
-				KernelTuner.this.pd = ProgressDialog.show(c,
-						null,
-						getResources().getString(R.string.applying_settings),
-						true, true);
-				new CPUToggle().execute(new String[] {"1"});
-
-			}
-		});
-
-		Button cpu2toggle = (Button) findViewById(R.id.button8);
-		cpu2toggle.setOnClickListener(new OnClickListener() {
-
-			@Override
-			public void onClick(View v) {
-
-				KernelTuner.this.pd = ProgressDialog.show(c,
-						null,
-						getResources().getString(R.string.applying_settings),
-						true, true);
-				new CPUToggle().execute(new String[] {"2"});
-
-			}
-		});
-
-		Button cpu3toggle = (Button) findViewById(R.id.button9);
-		cpu3toggle.setOnClickListener(new OnClickListener() {
-
-			@Override
-			public void onClick(View v) {
-
-				KernelTuner.this.pd = ProgressDialog.show(c,
-						null,
-						getResources().getString(R.string.applying_settings),
-						true, true);
-				new CPUToggle().execute(new String[] {"3"});
-
-			}
 		});
 
 	    governor = (Button) findViewById(R.id.button10);
@@ -915,7 +844,6 @@ public class KernelTuner extends SherlockActivity {
 		});
 
 		initialCheck();
-startCpuLoadThread();
 		if (preferences.getBoolean("notificationService", false) == true
 				&& isNotificationServiceRunning() == false) {
 			startService(new Intent(c, NotificationService.class));
@@ -947,7 +875,7 @@ startCpuLoadThread();
 				}
 			});
 		if(more){
-		builder.setNeutralButton("Im stil confused", new DialogInterface.OnClickListener(){
+		    builder.setNeutralButton("Im stil confused", new DialogInterface.OnClickListener(){
 
 				@Override
 				public void onClick(DialogInterface arg0, int arg1)
@@ -980,9 +908,11 @@ startCpuLoadThread();
 		 * update ui
 		 */
 
-		this.registerReceiver(this.mBatInfoReceiver, new IntentFilter(
+		if(minimal==false){
+		    this.registerReceiver(this.mBatInfoReceiver, new IntentFilter(
 				Intent.ACTION_BATTERY_CHANGED));
 
+		}
 		/**
 		 * I init.d is selected for restore settings on boot make inid.d files
 		 * else remove them
@@ -1006,10 +936,11 @@ startCpuLoadThread();
 		/**
 		 * Unregister receiver
 		 */
-		if (mBatInfoReceiver != null) {
-			unregisterReceiver(mBatInfoReceiver);
-
-			mBatInfoReceiver = null;
+		if(minimal==false){
+	    	if (mBatInfoReceiver != null) {
+		    	unregisterReceiver(mBatInfoReceiver);
+            	mBatInfoReceiver = null;
+		    }
 		}
 
 		super.onStop();
@@ -1024,20 +955,11 @@ startCpuLoadThread();
 		 */
 		super.onDestroy();
 		thread = false;
-		
-		
-
 	}
 
 	private void setCpuLoad(){
-		TextView cpuLoadTxt = (TextView)findViewById(R.id.textView1);
-
-		ProgressBar cpuLoad = (ProgressBar)findViewById(R.id.progressBar5);
 		cpuLoad.setProgress(load);
-		
 		cpuLoadTxt.setText(load+"%");
-		
-		
 	}
 	
 	
@@ -1082,7 +1004,7 @@ private void startCpuLoadThread() {
 					}
 					load =(int) (fLoad*100);
 					try {
-						Thread.sleep(1000);
+						Thread.sleep(refresh);
 					} catch (InterruptedException e) {
 						e.printStackTrace();
 					}
@@ -1131,9 +1053,6 @@ private void startCpuLoadThread() {
 	 */
 
 	private void cpuTemp(String cputemp) {
-		cputemptxt = (TextView) findViewById(R.id.textView38);
-
-		
 			tempLayout.setVisibility(View.VISIBLE);
 
 			/**
@@ -1210,12 +1129,20 @@ private void startCpuLoadThread() {
 
 	private void initialCheck() {
 		
+		String dOpt = preferences.getString("unsupported_items_display","hide");
 		/**
 		 * Show/hide certain Views depending on number of cpus
 		 */
+		if(minimal==false){
 		if (IOHelper.cpu1Online() == true) {
 			Button b2 = (Button) findViewById(R.id.button1);
-			b2.setVisibility(View.VISIBLE);
+
+			if(dOpt.equals("hide")){
+				b2.setVisibility(View.VISIBLE);
+			}
+			else{
+				b2.setEnabled(true);
+			}
 			ProgressBar cpu1progbar = (ProgressBar)findViewById(R.id.progressBar2);
 			cpu1progbar.setVisibility(View.VISIBLE);
 			TextView tv1 = (TextView) findViewById(R.id.ptextView2);
@@ -1225,7 +1152,12 @@ private void startCpuLoadThread() {
 
 		} else {
 			Button b2 = (Button) findViewById(R.id.button1);
-			b2.setVisibility(View.GONE);
+			if(dOpt.equals("hide")){
+				b2.setVisibility(View.GONE);
+			}
+			else{
+				b2.setEnabled(false);
+			}
 			ProgressBar cpu1progbar = (ProgressBar)findViewById(R.id.progressBar2);
 			cpu1progbar.setVisibility(View.GONE);
 			TextView tv1 = (TextView) findViewById(R.id.ptextView2);
@@ -1235,7 +1167,12 @@ private void startCpuLoadThread() {
 		}
 		if (IOHelper.cpu2Online() == true) {
 			Button b3 = (Button) findViewById(R.id.button8);
-			b3.setVisibility(View.VISIBLE);
+			if(dOpt.equals("hide")){
+				b3.setVisibility(View.VISIBLE);
+			}
+			else{
+				b3.setEnabled(true);
+			}
 			ProgressBar cpu1progbar = (ProgressBar)findViewById(R.id.progressBar3);
 			cpu1progbar.setVisibility(View.VISIBLE);
 			TextView tv1 = (TextView) findViewById(R.id.ptextView5);
@@ -1245,7 +1182,12 @@ private void startCpuLoadThread() {
 
 		} else {
 			Button b3 = (Button) findViewById(R.id.button8);
-			b3.setVisibility(View.GONE);
+			if(dOpt.equals("hide")){
+				b3.setVisibility(View.GONE);
+			}
+			else{
+				b3.setEnabled(false);
+			}
 			ProgressBar cpu1progbar = (ProgressBar)findViewById(R.id.progressBar3);
 			cpu1progbar.setVisibility(View.GONE);
 			TextView tv1 = (TextView) findViewById(R.id.ptextView5);
@@ -1255,7 +1197,12 @@ private void startCpuLoadThread() {
 		}
 		if (IOHelper.cpu3Online() == true) {
 			Button b4 = (Button) findViewById(R.id.button9);
-			b4.setVisibility(View.VISIBLE);
+			if(dOpt.equals("hide")){
+				b4.setVisibility(View.VISIBLE);
+			}
+			else{
+				b4.setEnabled(true);
+			}
 			ProgressBar cpu1progbar = (ProgressBar)findViewById(R.id.progressBar4);
 			cpu1progbar.setVisibility(View.VISIBLE);
 			TextView tv1 = (TextView) findViewById(R.id.ptextView6);
@@ -1265,7 +1212,12 @@ private void startCpuLoadThread() {
 
 		} else {
 			Button b4 = (Button) findViewById(R.id.button9);
-			b4.setVisibility(View.GONE);
+			if(dOpt.equals("hide")){
+				b4.setVisibility(View.GONE);
+			}
+			else{
+				b4.setEnabled(false);
+			}
 			ProgressBar cpu1progbar = (ProgressBar)findViewById(R.id.progressBar4);
 			cpu1progbar.setVisibility(View.GONE);
 			TextView tv1 = (TextView) findViewById(R.id.ptextView6);
@@ -1274,31 +1226,62 @@ private void startCpuLoadThread() {
 			tv4.setVisibility(View.GONE);
 		}
 
+		}
 		/**
 		 * Check for certain files in sysfs and if they doesnt exists hide
 		 * depending views
 		 */
 		if(!(new File(Constants.CPU0_FREQS).exists())){
 			if(!(new File(Constants.TIMES_IN_STATE_CPU0).exists())){
-			 cpu.setVisibility(View.GONE);
+				if(dOpt.equals("hide")){
+			      cpu.setVisibility(View.GONE);
+			    }
+			    else{
+			      cpu.setEnabled(false);
+			    }
 			 }
 		 }
 		if(!(new File(Constants.VOLTAGE_PATH).exists())){
 			if(!(new File(Constants.VOLTAGE_PATH_TEGRA_3).exists())){
-				voltage.setVisibility(View.GONE);
+				if(dOpt.equals("hide")){
+					voltage.setVisibility(View.GONE);
+			    }
+			    else{
+					voltage.setEnabled(false);
+			    }
 			}
 		}
 		if(!(new File(Constants.TIMES_IN_STATE_CPU0).exists())){
-			tis.setVisibility(View.GONE);
+			if(dOpt.equals("hide")){
+				tis.setVisibility(View.GONE);
+			}
+			else{
+				tis.setEnabled(false);
+			}
 		}
 		if(!(new File(Constants.MPDECISION).exists())){
-			mp.setVisibility(View.GONE);
+			if(dOpt.equals("hide")){
+				mp.setVisibility(View.GONE);
+			}
+			else{
+				mp.setEnabled(false);
+			}
 		}
 		if(!(new File(Constants.THERMALD).exists())){
-			thermal.setVisibility(View.GONE);
+			if(dOpt.equals("hide")){
+				thermal.setVisibility(View.GONE);
+			}
+			else{
+				thermal.setEnabled(false);
+			}
 		}
 		if(!(new File(Constants.GPU_3D).exists())){
-			gpu.setVisibility(View.GONE);
+			if(dOpt.equals("hide")){
+				gpu.setVisibility(View.GONE);
+			}
+			else{
+				gpu.setEnabled(false);
+			}
 		}
 
 	}
@@ -2078,6 +2061,7 @@ private void startCpuLoadThread() {
 	 */
 	@Override
 	public void onBackPressed() {
+		if(minimal==false){
 		if (mLastBackPressTime < java.lang.System.currentTimeMillis() - 4000) {
 			mToast = Toast.makeText(c,
 					getResources().getString(R.string.press_again_to_exit),
@@ -2090,6 +2074,11 @@ private void startCpuLoadThread() {
 			KernelTuner.this.finish();
 			java.lang.System.exit(0);
 			mLastBackPressTime = 0;
+		}
+		}
+		else{
+			KernelTuner.this.finish();
+			java.lang.System.exit(0);
 		}
 	}
 
@@ -2145,6 +2134,150 @@ private void startCpuLoadThread() {
 			}
 		}
 		return false;
+	}
+	
+	private BroadcastReceiver mBatInfoReceiver = new BroadcastReceiver() {
+		@Override
+		public void onReceive(Context arg0, Intent intent) {
+
+			int level = intent.getIntExtra("level", 0);
+			double temperature = intent.getIntExtra(
+					BatteryManager.EXTRA_TEMPERATURE, 0) / 10;
+
+			if (tempPref.equals("fahrenheit")) {
+				temperature = (temperature * 1.8) + 32;
+				batteryTemp.setText(((int) temperature) + "°F");
+				if (temperature <= 104) {
+					batteryTemp.setTextColor(Color.GREEN);
+
+				} else if (temperature > 104 && temperature < 131) {
+					batteryTemp.setTextColor(Color.YELLOW);
+
+				} else if (temperature >= 131 && temperature < 140) {
+					batteryTemp.setTextColor(Color.RED);
+
+				} else if (temperature >= 140) {
+
+					batteryTemp.setTextColor(Color.RED);
+
+				}
+			}
+
+			else if (tempPref.equals("celsius")) {
+				batteryTemp.setText(temperature + "°C");
+				if (temperature < 45) {
+					batteryTemp.setTextColor(Color.GREEN);
+
+				} else if (temperature > 45 && temperature < 55) {
+					batteryTemp.setTextColor(Color.YELLOW);
+
+				} else if (temperature >= 55 && temperature < 60) {
+					batteryTemp.setTextColor(Color.RED);
+
+				} else if (temperature >= 60) {
+
+					batteryTemp.setTextColor(Color.RED);
+
+				}
+			} else if (tempPref.equals("kelvin")) {
+				temperature = temperature + 273.15;
+				batteryTemp.setText(temperature + "°K");
+				if (temperature < 318.15) {
+					batteryTemp.setTextColor(Color.GREEN);
+
+				} else if (temperature > 318.15 && temperature < 328.15) {
+					batteryTemp.setTextColor(Color.YELLOW);
+
+				} else if (temperature >= 328.15 && temperature < 333.15) {
+					batteryTemp.setTextColor(Color.RED);
+
+				} else if (temperature >= 333.15) {
+
+					batteryTemp.setTextColor(Color.RED);
+
+				}
+			}
+			// /F = (C x 1.8) + 32
+			batteryLevel.setText(level + "%");
+			if (level < 15 && level >= 5) {
+				batteryLevel.setTextColor(Color.RED);
+
+			} else if (level > 15 && level <= 30) {
+				batteryLevel.setTextColor(Color.YELLOW);
+
+			} else if (level > 30) {
+				batteryLevel.setTextColor(Color.GREEN);
+
+			} else if (level < 5) {
+				batteryLevel.setTextColor(Color.RED);
+
+			}
+		}
+	};
+	
+	private class CPUToggle extends AsyncTask<String, Void, Object> {
+		@Override
+		protected Object doInBackground(String... args) {
+			File file = new File("/sys/devices/system/cpu/cpu"+args[0]+"/cpufreq/scaling_governor");
+			if(file.exists()){
+ 
+		    	RootExecuter.exec(new String[]{
+					"echo 1 > /sys/kernel/msm_mpdecision/conf/enabled\n",
+					"chmod 777 /sys/devices/system/cpu/cpu"+args[0]+"/online\n",
+					"echo 0 > /sys/devices/system/cpu/cpu"+args[0]+"/online\n",
+					"chown system /sys/devices/system/cpu/cpu"+args[0]+"/online\n"});
+            }
+				
+			else{
+		        RootExecuter.exec(new String[]{
+					"echo 0 > /sys/kernel/msm_mpdecision/conf/enabled\n",
+					"chmod 666 /sys/devices/system/cpu/cpu"+args[0]+"/online\n",
+					"echo 1 > /sys/devices/system/cpu/cpu"+args[0]+"/online\n",
+					"chmod 444 /sys/devices/system/cpu/cpu"+args[0]+"/online\n",
+					"chown system /sys/devices/system/cpu/cpu"+args[0]+"/online\n"});
+			}	
+
+			return "";
+		}
+
+		@Override
+		protected void onPostExecute(Object result) {
+
+			KernelTuner.this.pd.dismiss();
+		}
+
+	}
+	private class mountDebugFs extends AsyncTask<String, Void, Object> {
+
+		@Override
+		protected Object doInBackground(String... args) {
+
+			RootExecuter.exec(new String[]{
+				"mount -t debugfs debugfs /sys/kernel/debug\n"});
+			return "";
+		}
+
+		@Override
+		protected void onPostExecute(Object result) {
+
+		}
+
+	}
+
+	private class enableTempMonitor extends AsyncTask<String, Void, Object> {
+
+		@Override
+		protected Object doInBackground(String... args) {
+ 
+             RootExecuter.exec(new String[]{
+				"chmod 777 /sys/devices/virtual/thermal/thermal_zone1/mode\n",
+				"chmod 777 /sys/devices/virtual/thermal/thermal_zone0/mode\n",
+				"echo -n enabled > /sys/devices/virtual/thermal/thermal_zone1/mode\n",
+				"echo -n enabled > /sys/devices/virtual/thermal/thermal_zone0/mode\n"});
+			
+			return "";
+		}
+
 	}
 	
 }

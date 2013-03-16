@@ -621,7 +621,7 @@ public class IOHelper
 			{	
 				String[] delims = strLine.split(" ");
 				times.add(new TimesEntry(Integer.parseInt(delims[0]), Long.parseLong(delims[1])));
-				System.out.println(strLine);
+				//System.out.println(strLine);
 			}
 			in.close();
 			fstream.close();
@@ -694,7 +694,7 @@ public class IOHelper
 
 			}
 		}
-		System.out.println(voltages);
+		//System.out.println(voltages);
 		return voltages;
 
 	}

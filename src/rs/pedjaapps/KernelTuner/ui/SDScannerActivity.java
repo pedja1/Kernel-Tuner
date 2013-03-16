@@ -110,16 +110,39 @@ public class SDScannerActivity extends SherlockActivity
 		
 		String theme = preferences.getString("theme", "light");
 		
-		if(theme.equals("light")){
-			setTheme(R.style.IndicatorLight);
+		if (theme.equals("light")) 
+		{
+			setTheme(R.style.Theme_Sherlock_Light);
+			labelColor = Color.BLACK;
+		} 
+		else if (theme.equals("dark")) 
+		{
+			setTheme(R.style.Theme_Sherlock);
+			labelColor = Color.WHITE;
+		} 
+		else if (theme.equals("light_dark_action_bar")) 
+		{
+			setTheme(R.style.Theme_Sherlock_Light_DarkActionBar);
 			labelColor = Color.BLACK;
 		}
-		else if(theme.equals("dark")){
-			setTheme(R.style.IndicatorDark);
+		else if (theme.equals("miui_light")) 
+		{
+			setTheme(R.style.Theme_Miui_Light);
+			labelColor = Color.BLACK;
+		} 
+		else if (theme.equals("miui_dark")) 
+		{
+			setTheme(R.style.Theme_Miui_Dark);
+			labelColor = Color.WHITE;
+		} 
+		else if (theme.equals("sense5")) 
+		{
+			setTheme(R.style.Theme_Sense5);
 			labelColor = Color.WHITE;
 		}
-		else if(theme.equals("light_dark_action_bar")){
-			setTheme(R.style.IndicatorLightDark);
+		else if (theme.equals("sense5_light")) 
+		{
+			setTheme(R.style.Theme_Light_Sense5);
 			labelColor = Color.BLACK;
 		}
 		super.onCreate(savedInstanceState);
@@ -209,7 +232,7 @@ public class SDScannerActivity extends SherlockActivity
 			
 			try
 			{
-				proc = Runtime.getRuntime().exec(getFilesDir().getPath()+"/busybox du -d "+args[1] + args[3] +args[0]);
+				proc = Runtime.getRuntime().exec(getFilesDir().getPath()+"/du -d "+args[1] + args[3] +args[0]);
 				InputStream inputStream = proc.getInputStream();
 				InputStreamReader inputStreamReader = new InputStreamReader(inputStream);
 				BufferedReader bufferedReader = new BufferedReader(inputStreamReader);

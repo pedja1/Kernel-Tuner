@@ -21,7 +21,8 @@
             android:defaultValue="30"
             android:key="widget_time"
             android:summary="@string/preferences_widget_settings_interval_summary"
-            android:title="@string/preferences_widget_settings_interval_title" />
+            android:title="@string/preferences_widget_settings_interval_title"
+			android:inputType="numberDecimal"/>
     	<ListPreference
             android:entries="@array/widget_bg_entry"
             android:entryValues="@array/widget_bg_values"
@@ -43,6 +44,12 @@
             android:key="reset"
             android:summary="Reset all settings after flashing new kernel"
             android:title="Reset App after flashing new kernel" />
+		<EditTextPreference
+            android:defaultValue="1000"
+            android:key="refresh"
+            android:summary="How often to check frequency and load"
+            android:title="Refresh Rate"
+			android:inputType="number"/>
          </PreferenceCategory>	
          <PreferenceCategory android:title="Crashes" >
              <CheckBoxPreference 
@@ -83,6 +90,46 @@
                 android:title="UI Settings"
                 android:summary=""
 				android:icon="@drawable/theme">
+				
+	   <PreferenceScreen
+		   android:title="Main Screen"
+		   android:summary="Main Screen Look and Feel">
+
+		   <ListPreference
+			   android:entries="@array/unsupported_items_titles"
+			   android:entryValues="@array/unsupported_items_values"
+			   android:key="unsupported_items_display"
+			   android:summary=""
+			   android:title="Unsupported Options Display" 
+			   android:defaultValue="hide"/>
+		  
+		   <CheckBoxPreference
+			   android:defaultValue="false"
+			   android:key="main_style"
+			   android:title="Main Screen As Dialog"
+			   android:summary="Display only main options(button grid)" />
+		  
+		   <CheckBoxPreference
+			   android:defaultValue="true"
+			   android:key="main_temp"
+			   android:summary="Display Temperature/Battery Panel"
+			   android:title="Temperature Panel" />
+		   <CheckBoxPreference
+			   android:defaultValue="true"
+			   android:key="main_cpu"
+			   android:summary="Display CPU Frequency/Load Panel"
+			   android:title="CPU Panel" />
+		   <CheckBoxPreference
+			   android:defaultValue="true"
+			   android:key="main_toggles"
+			   android:summary="Display CPU Toggles Panel"
+			   android:title="Toggles Panel" />
+		   <CheckBoxPreference
+			   android:defaultValue="true"
+			   android:key="main_buttons"
+			   android:summary="Display Main Options Panel"
+			   android:title="Main Options Panel" />
+	   </PreferenceScreen>
       
        <ListPreference
                 android:key="theme"
@@ -122,7 +169,13 @@
             android:summary="Temperature Unit"
             android:title="Temperature Unit" 
             android:defaultValue="celsius"/>
-        
+		
+	   <CheckBoxPreference
+		   android:defaultValue="true"
+		   android:key="profile_notifications"
+		   android:summary="Display Toast Notifications when applying profiles"
+		   android:title="Profile Toast Notifications" />
+		
         </PreferenceScreen>
 
     <PreferenceScreen

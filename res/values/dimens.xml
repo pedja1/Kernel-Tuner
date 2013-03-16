@@ -21,5 +21,7 @@
     <dimen name="shadow_width">15dp</dimen>
 
     <integer name="num_cols">1</integer>
-
+	
+    <dimen name="alert_dialog_title_height">64.0dip</dimen>
+    <dimen name="alert_dialog_button_bar_height">48.0dip</dimen>
 </resources>

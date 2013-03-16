@@ -59,241 +59,96 @@ import android.content.Context;
 public class CPUActivity extends SherlockActivity
 {
 
-	private  List<IOHelper.FreqsEntry> freqEntries;
-	private boolean thread = true;
-	private  Handler mHandler;
-	private TextView cpu0prog;
-	private ProgressBar progCpu0;
-	private TextView cpu1prog;
-	private ProgressBar progCpu1;
-	private TextView cpu2prog;
-	private ProgressBar progCpu2;
-	private TextView cpu3prog;
-	private ProgressBar progCpu3;
-	private  List<String> frequencies = new ArrayList<String>();
-	private  List<String> freqNames = new ArrayList<String>();
-	private String cpu0MaxFreq ;
-	private String cpu0CurFreq ;
-	private String cpu1MaxFreq ;
-	private String cpu1CurFreq ;
-	private String cpu2MaxFreq ;
-	private String cpu2CurFreq ;
-	private String cpu3MaxFreq ;
-	private String cpu3CurFreq ;
-	private Spinner gov0spinner;
-	private Spinner gov1spinner;
-	private Spinner gov2spinner;
-	private Spinner gov3spinner;
+	private List<IOHelper.FreqsEntry>          freqEntries;
+	private boolean                            thread          = true;
+	private Handler                            mHandler;
+	private TextView                           cpu0prog;
+	private ProgressBar                        progCpu0;
+	private TextView                           cpu1prog;
+	private ProgressBar                        progCpu1;
+	private TextView                           cpu2prog;
+	private ProgressBar                        progCpu2;
+	private TextView                           cpu3prog;
+	private ProgressBar                        progCpu3;
+	private List<String>                       frequencies     = new ArrayList<String>();
+	private List<String>                       freqNames       = new ArrayList<String>();
+	private String                             cpu0MaxFreq ;
+	private String                             cpu0CurFreq ;
+	private String                             cpu1MaxFreq ;
+	private String                             cpu1CurFreq ;
+	private String                             cpu2MaxFreq ;
+	private String                             cpu2CurFreq ;
+	private String                             cpu3MaxFreq ;
+	private String                             cpu3CurFreq ;
+	private Spinner                            gov0spinner;
+	private Spinner                            gov1spinner;
+	private Spinner                            gov2spinner;
+	private Spinner                            gov3spinner;
 
-	private String cpu0MinFreq ;
-	private String cpu1MinFreq ;
-	private String cpu2MinFreq ;
-	private String cpu3MinFreq ;
+	private String                             cpu0MinFreq ;
+	private String                             cpu1MinFreq ;
+	private String                             cpu2MinFreq ;
+	private String                             cpu3MinFreq ;
 
-	private VerticalSeekBar cpu0minSeek;
-	private VerticalSeekBar cpu0maxSeek;
-	private VerticalSeekBar cpu1minSeek;
-	private VerticalSeekBar cpu1maxSeek;
-	private VerticalSeekBar cpu2minSeek;
-	private VerticalSeekBar cpu2maxSeek;
-	private VerticalSeekBar cpu3minSeek;
-	private VerticalSeekBar cpu3maxSeek;
+	private VerticalSeekBar                    cpu0minSeek;
+	private VerticalSeekBar                    cpu0maxSeek;
+	private VerticalSeekBar                    cpu1minSeek;
+	private VerticalSeekBar                    cpu1maxSeek;
+	private VerticalSeekBar                    cpu2minSeek;
+	private VerticalSeekBar                    cpu2maxSeek;
+	private VerticalSeekBar                    cpu3minSeek;
+	private VerticalSeekBar                    cpu3maxSeek;
 
-	private boolean cpu0Online;
-	private boolean cpu1Online;
-	private boolean cpu2Online;
-	private boolean cpu3Online;
+	private boolean                            cpu0Online;
+	private boolean                            cpu1Online;
+	private boolean                            cpu2Online;
+	private boolean                            cpu3Online;
 
-	private RelativeLayout rlcpu1;
-	private RelativeLayout rlcpu2;
-	private RelativeLayout rlcpu3;
+	private RelativeLayout                     rlcpu1;
+	private RelativeLayout                     rlcpu2;
+	private RelativeLayout                     rlcpu3;
 
-	private TextView cpu1txt;
-	private TextView cpu2txt;
-	private TextView cpu3txt;
+	private TextView                           cpu1txt;
+	private TextView                           cpu2txt;
+	private TextView                           cpu3txt;
 
-	private TextView cpu1govtxt;
-	private TextView cpu2govtxt;
-	private TextView cpu3govtxt;
+	private TextView                           cpu1govtxt;
+	private TextView                           cpu2govtxt;
+	private TextView                           cpu3govtxt;
 
-	private TextView cpu0min;
-	private TextView cpu0max;
-	private TextView cpu1min;
-	private TextView cpu1max;
-	private TextView cpu2min;
-	private TextView cpu2max;
-	private TextView cpu3min;
-	private TextView cpu3max;
+	private TextView                           cpu0min;
+	private TextView                           cpu0max;
+	private TextView                           cpu1min;
+	private TextView                           cpu1max;
+	private TextView                           cpu2min;
+	private TextView                           cpu2max;
+	private TextView                           cpu3min;
+	private TextView                           cpu3max;
 
-	private ProgressBar cpuLoad;
-	private TextView cpuLoadTxt;
+	private ProgressBar                        cpuLoad;
+	private TextView                           cpuLoadTxt;
 
-	private TextView uptime;
-	private TextView deepSleep;
-	private TextView temp;
+	private TextView                           uptime;
+	private TextView                           deepSleep;
+	private TextView                           temp;
 	
-	private String tmp;
-	private String upt;
-	private String ds;
+	private String                             tmp;
+	private String                             upt;
+	private String                             ds;
 	
-	private int load;
-	private float fLoad;
+	private int                                load;
+	private float                              fLoad;
 
-	private String tempUnit;
+	private String                             tempUnit;
 
-	private ProgressDialog pd;	
+	private ProgressDialog                     pd;	
 	
-	private SharedPreferences sharedPrefs;
+	private SharedPreferences                  sharedPrefs;
 
-	private CheckBox cb;
-	private boolean cpuLock;
-	Context c;
-
-	/**
-	 * AsyncTask class that will enable All CPUs
-	 */
-	private final class ToggleCPUs extends AsyncTask<Boolean, Void, Boolean>
-	{
-
-		@Override
-		protected Boolean doInBackground(Boolean... args)
-		{
-			freqEntries = IOHelper.frequencies();
-			for(IOHelper.FreqsEntry f: freqEntries){
-				frequencies.add(f.getFreq()+"");
-			}
-			for(IOHelper.FreqsEntry f: freqEntries){
-				freqNames.add(f.getFreqName());
-			}
-			cpu0Online = IOHelper.cpu0Online();
-			cpu1Online = IOHelper.cpu1Online();
-			cpu2Online = IOHelper.cpu2Online();
-			cpu3Online = IOHelper.cpu3Online();
-			if (args[0] == true)
-			{
-				try {
-		            String line;
-		            Process process = Runtime.getRuntime().exec("su");
-		            OutputStream stdin = process.getOutputStream();
-		            InputStream stderr = process.getErrorStream();
-		            InputStream stdout = process.getInputStream();
-
-					String[] str = new String[]{};
-		            if (IOHelper.cpu1Online() == true)
-					{
-		            stdin.write(("echo 0 > /sys/kernel/msm_mpdecision/conf/enabled\n").getBytes());
-		            stdin.write(("chmod 666 /sys/devices/system/cpu/cpu1/online\n").getBytes());
-		            stdin.write(("echo 1 > /sys/devices/system/cpu/cpu1/online\n").getBytes());
-		            stdin.write(("chmod 444 /sys/devices/system/cpu/cpu1/online\n").getBytes());
-		            stdin.write(("chown system /sys/devices/system/cpu/cpu1/online\n").getBytes());
-					}
-		            if (IOHelper.cpu2Online() == true)
-					{
-		            stdin.write(("echo 0 > /sys/kernel/msm_mpdecision/conf/enabled\n").getBytes());
-		            stdin.write(("chmod 666 /sys/devices/system/cpu/cpu2/online\n").getBytes());
-		            stdin.write(("echo 1 > /sys/devices/system/cpu/cpu2/online\n").getBytes());
-		            stdin.write(("chmod 444 /sys/devices/system/cpu/cpu2/online\n").getBytes());
-		            stdin.write(("chown system /sys/devices/system/cpu/cpu2/online\n").getBytes());
-					
-					}
-		            if (IOHelper.cpu3Online() == true)
-					{
-		            stdin.write(("echo 0 > /sys/kernel/msm_mpdecision/conf/enabled\n").getBytes());
-		            stdin.write(("chmod 666 /sys/devices/system/cpu/cpu3/online\n").getBytes());
-		            stdin.write(("echo 1 > /sys/devices/system/cpu/cpu3/online\n").getBytes());
-		            stdin.write(("chmod 444 /sys/devices/system/cpu/cpu3/online\n").getBytes());
-		            stdin.write(("chown system /sys/devices/system/cpu/cpu3/online\n").getBytes());
-					
-					}
-		            stdin.flush();
-
-		            stdin.close();
-		            BufferedReader brCleanUp =
-		                    new BufferedReader(new InputStreamReader(stdout));
-		            while ((line = brCleanUp.readLine()) != null) {
-		                Log.d("[KernelTuner ToggleCPUs Output]", line);
-		            }
-		            brCleanUp.close();
-		            brCleanUp =
-		                    new BufferedReader(new InputStreamReader(stderr));
-		            while ((line = brCleanUp.readLine()) != null) {
-		            	Log.e("[KernelTuner ToggleCPUs Error]", line);
-		            }
-		            brCleanUp.close();
-
-		        } catch (IOException ex) {
-		        }
-				
-			}
-			else
-			{
-				
-				try {
-		            String line;
-		            Process process = Runtime.getRuntime().exec("su");
-		            OutputStream stdin = process.getOutputStream();
-		            InputStream stderr = process.getErrorStream();
-		            InputStream stdout = process.getInputStream();
-
-		            if (IOHelper.cpu1Online() == true)
-					{
-		            stdin.write(("echo 1 > /sys/kernel/msm_mpdecision/conf/enabled\n").getBytes());
-		            stdin.write(("chmod 777 /sys/devices/system/cpu/cpu1/online\n").getBytes());
-		            stdin.write(("echo 0 > /sys/devices/system/cpu/cpu1/online\n").getBytes());
-		            stdin.write(("chown system /sys/devices/system/cpu/cpu1/online\n").getBytes());
-					
-					}
-		            if (IOHelper.cpu2Online() == true)
-					{
-		            	stdin.write(("echo 1 > /sys/kernel/msm_mpdecision/conf/enabled\n").getBytes());
-			            stdin.write(("chmod 777 /sys/devices/system/cpu/cpu2/online\n").getBytes());
-			            stdin.write(("echo 0 > /sys/devices/system/cpu/cpu2/online\n").getBytes());
-			            stdin.write(("chown system /sys/devices/system/cpu/cpu2/online\n").getBytes());
-							
-					}
-		            if (IOHelper.cpu3Online() == true)
-					{
-		            	stdin.write(("echo 1 > /sys/kernel/msm_mpdecision/conf/enabled\n").getBytes());
-			            stdin.write(("chmod 777 /sys/devices/system/cpu/cpu3/online\n").getBytes());
-			            stdin.write(("echo 0 > /sys/devices/system/cpu/cpu3/online\n").getBytes());
-			            stdin.write(("chown system /sys/devices/system/cpu/cpu3/online\n").getBytes());
-						
-					}
-		            stdin.flush();
-
-		            stdin.close();
-		            BufferedReader brCleanUp =
-		                    new BufferedReader(new InputStreamReader(stdout));
-		            while ((line = brCleanUp.readLine()) != null) {
-		                Log.d("[KernelTuner ToggleCPUs Output]", line);
-		            }
-		            brCleanUp.close();
-		            brCleanUp =
-		                    new BufferedReader(new InputStreamReader(stderr));
-		            while ((line = brCleanUp.readLine()) != null) {
-		            	Log.e("[KernelTuner ToggleCPUs Error]", line);
-		            }
-		            brCleanUp.close();
-
-		        } catch (IOException ex) {
-		        }
-			}
-
-			return args[0];
-		}
-
-		@Override
-		protected void onPostExecute(Boolean result)
-		{
-			if (result == true)
-			{
-				updateUI();
-			}
-			pd.dismiss();
-		}
-	}	
-
-
+	private CheckBox                           cb;
+	private boolean                            cpuLock;
+	private Context                            c;
+	private int                                refresh          = 1000;
 
 	@Override
 	public void onCreate(Bundle savedInstanceState)
@@ -304,16 +159,33 @@ public class CPUActivity extends SherlockActivity
 		
 		final String theme = sharedPrefs.getString("theme", "light");
 		
-		if(theme.equals("light")){
-			setTheme(R.style.IndicatorLight);
+		if (theme.equals("light")) 
+		{
+			setTheme(R.style.Theme_Sherlock_Light);
+		} 
+		else if (theme.equals("dark")) 
+		{
+			setTheme(R.style.Theme_Sherlock);
+		} 
+		else if (theme.equals("light_dark_action_bar")) 
+		{
+			setTheme(R.style.Theme_Sherlock_Light_DarkActionBar);
 		}
-		else if(theme.equals("dark")){
-			setTheme(R.style.IndicatorDark);
-			
+		else if (theme.equals("miui_light")) 
+		{
+			setTheme(R.style.Theme_Miui_Light);
+		} 
+		else if (theme.equals("miui_dark")) 
+		{
+			setTheme(R.style.Theme_Miui_Dark);
+		} 
+		else if (theme.equals("sense5")) 
+		{
+			setTheme(R.style.Theme_Sense5);
 		}
-		else if(theme.equals("light_dark_action_bar")){
-			setTheme(R.style.IndicatorLightDark);
-			
+		else if (theme.equals("sense5_light")) 
+		{
+			setTheme(R.style.Theme_Light_Sense5);
 		}
 		super.onCreate(savedInstanceState);
 
@@ -326,6 +198,12 @@ public class CPUActivity extends SherlockActivity
 				  getResources().getString(R.string.enabling_cpus), true, false);
 		new ToggleCPUs().execute(new Boolean[] {true});
 
+		try{
+			refresh = Integer.parseInt(sharedPrefs.getString("refresh","1000"));
+		}
+		catch(Exception e){
+			refresh = 1000;
+		}
 
 		/**
 		 * Load ads if enabled in settings*/
@@ -426,7 +304,7 @@ startCpuLoadThread();
 					{
 						try
 						{
-							Thread.sleep(1000);
+							Thread.sleep(refresh);
 							cpu0CurFreq = IOHelper.cpu0CurFreq();
 							cpu0MaxFreq = IOHelper.cpu0MaxFreq();
 							tmp = IOHelper.cpuTemp();
@@ -545,7 +423,7 @@ startCpuLoadThread();
 							}
 					load =(int) (fLoad*100);
 					try {
-						Thread.sleep(1000);
+						Thread.sleep(refresh);
 					} catch (InterruptedException e) {
 					}
 					mHandler.post(new Runnable() {
@@ -1470,5 +1348,147 @@ startCpuLoadThread();
 	    }
 	    return super.onOptionsItemSelected(item);
 	}
+	
+	/**
+	 * AsyncTask class that will enable All CPUs
+	 */
+	private final class ToggleCPUs extends AsyncTask<Boolean, Void, Boolean>
+	{
+
+		@Override
+		protected Boolean doInBackground(Boolean... args)
+		{
+			freqEntries = IOHelper.frequencies();
+			for(IOHelper.FreqsEntry f: freqEntries){
+				frequencies.add(f.getFreq()+"");
+			}
+			for(IOHelper.FreqsEntry f: freqEntries){
+				freqNames.add(f.getFreqName());
+			}
+			cpu0Online = IOHelper.cpu0Online();
+			cpu1Online = IOHelper.cpu1Online();
+			cpu2Online = IOHelper.cpu2Online();
+			cpu3Online = IOHelper.cpu3Online();
+			if (args[0] == true)
+			{
+				try {
+		            String line;
+		            Process process = Runtime.getRuntime().exec("su");
+		            OutputStream stdin = process.getOutputStream();
+		            InputStream stderr = process.getErrorStream();
+		            InputStream stdout = process.getInputStream();
+		            if (IOHelper.cpu1Online() == true)
+					{
+		            stdin.write(("echo 0 > /sys/kernel/msm_mpdecision/conf/enabled\n").getBytes());
+		            stdin.write(("chmod 666 /sys/devices/system/cpu/cpu1/online\n").getBytes());
+		            stdin.write(("echo 1 > /sys/devices/system/cpu/cpu1/online\n").getBytes());
+		            stdin.write(("chmod 444 /sys/devices/system/cpu/cpu1/online\n").getBytes());
+		            stdin.write(("chown system /sys/devices/system/cpu/cpu1/online\n").getBytes());
+					}
+		            if (IOHelper.cpu2Online() == true)
+					{
+		            stdin.write(("echo 0 > /sys/kernel/msm_mpdecision/conf/enabled\n").getBytes());
+		            stdin.write(("chmod 666 /sys/devices/system/cpu/cpu2/online\n").getBytes());
+		            stdin.write(("echo 1 > /sys/devices/system/cpu/cpu2/online\n").getBytes());
+		            stdin.write(("chmod 444 /sys/devices/system/cpu/cpu2/online\n").getBytes());
+		            stdin.write(("chown system /sys/devices/system/cpu/cpu2/online\n").getBytes());
+					
+					}
+		            if (IOHelper.cpu3Online() == true)
+					{
+		            stdin.write(("echo 0 > /sys/kernel/msm_mpdecision/conf/enabled\n").getBytes());
+		            stdin.write(("chmod 666 /sys/devices/system/cpu/cpu3/online\n").getBytes());
+		            stdin.write(("echo 1 > /sys/devices/system/cpu/cpu3/online\n").getBytes());
+		            stdin.write(("chmod 444 /sys/devices/system/cpu/cpu3/online\n").getBytes());
+		            stdin.write(("chown system /sys/devices/system/cpu/cpu3/online\n").getBytes());
+					
+					}
+		            stdin.flush();
+
+		            stdin.close();
+		            BufferedReader brCleanUp =
+		                    new BufferedReader(new InputStreamReader(stdout));
+		            while ((line = brCleanUp.readLine()) != null) {
+		                Log.d("[KernelTuner ToggleCPUs Output]", line);
+		            }
+		            brCleanUp.close();
+		            brCleanUp =
+		                    new BufferedReader(new InputStreamReader(stderr));
+		            while ((line = brCleanUp.readLine()) != null) {
+		            	Log.e("[KernelTuner ToggleCPUs Error]", line);
+		            }
+		            brCleanUp.close();
+
+		        } catch (IOException ex) {
+		        }
+				
+			}
+			else
+			{
+				
+				try {
+		            String line;
+		            Process process = Runtime.getRuntime().exec("su");
+		            OutputStream stdin = process.getOutputStream();
+		            InputStream stderr = process.getErrorStream();
+		            InputStream stdout = process.getInputStream();
+
+		            if (IOHelper.cpu1Online() == true)
+					{
+		            stdin.write(("echo 1 > /sys/kernel/msm_mpdecision/conf/enabled\n").getBytes());
+		            stdin.write(("chmod 777 /sys/devices/system/cpu/cpu1/online\n").getBytes());
+		            stdin.write(("echo 0 > /sys/devices/system/cpu/cpu1/online\n").getBytes());
+		            stdin.write(("chown system /sys/devices/system/cpu/cpu1/online\n").getBytes());
+					
+					}
+		            if (IOHelper.cpu2Online() == true)
+					{
+		            	stdin.write(("echo 1 > /sys/kernel/msm_mpdecision/conf/enabled\n").getBytes());
+			            stdin.write(("chmod 777 /sys/devices/system/cpu/cpu2/online\n").getBytes());
+			            stdin.write(("echo 0 > /sys/devices/system/cpu/cpu2/online\n").getBytes());
+			            stdin.write(("chown system /sys/devices/system/cpu/cpu2/online\n").getBytes());
+							
+					}
+		            if (IOHelper.cpu3Online() == true)
+					{
+		            	stdin.write(("echo 1 > /sys/kernel/msm_mpdecision/conf/enabled\n").getBytes());
+			            stdin.write(("chmod 777 /sys/devices/system/cpu/cpu3/online\n").getBytes());
+			            stdin.write(("echo 0 > /sys/devices/system/cpu/cpu3/online\n").getBytes());
+			            stdin.write(("chown system /sys/devices/system/cpu/cpu3/online\n").getBytes());
+						
+					}
+		            stdin.flush();
+
+		            stdin.close();
+		            BufferedReader brCleanUp =
+		                    new BufferedReader(new InputStreamReader(stdout));
+		            while ((line = brCleanUp.readLine()) != null) {
+		                Log.d("[KernelTuner ToggleCPUs Output]", line);
+		            }
+		            brCleanUp.close();
+		            brCleanUp =
+		                    new BufferedReader(new InputStreamReader(stderr));
+		            while ((line = brCleanUp.readLine()) != null) {
+		            	Log.e("[KernelTuner ToggleCPUs Error]", line);
+		            }
+		            brCleanUp.close();
+
+		        } catch (IOException ex) {
+		        }
+			}
+
+			return args[0];
+		}
+
+		@Override
+		protected void onPostExecute(Boolean result)
+		{
+			if (result == true)
+			{
+				updateUI();
+			}
+			pd.dismiss();
+		}
+	}	
 
 }

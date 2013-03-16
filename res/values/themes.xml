@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
-<resources>
+<resources xmlns:android="http://schemas.android.com/apk/res/android">
     <style name="AppThemeDark" parent="@android:style/Theme.DeviceDefault">
 		<item name="switchStyle">@style/switch_dark</item>
 		<item name="textAppearance">@style/TextAppearance</item>
@@ -9,4 +9,55 @@
 		<item name="switchStyle">@style/switch_light</item>
 		<item name="textAppearance">@style/TextAppearance</item>
 	</style>
+
+    <style name="Theme.Miui.Dark" parent="Theme.Sherlock">
+
+        <item name="android:buttonStyle">@style/MiuiButton_Dark</item>
+        <item name="android:buttonStyleSmall">@style/MiuiButton_Dark_Small</item>
+		<item name="android:progressBarStyleHorizontal">@style/Miui.ProgressBar.Horizontal</item>
+		<item name="android:seekBarStyle">@style/Miui.SeekBar</item>
+        <item name="android:listChoiceIndicatorMultiple">@drawable/btn_checkbox_holo_dark_miui</item>
+        <item name="android:listChoiceIndicatorSingle">@drawable/btn_radio_holo_dark_miui</item>
+		<item name="android:spinnerStyle">@style/Miui.Spinner</item>
+		<item name="android:editTextStyle">@style/Miui.EditText</item>
+			<item name="switchStyle">@style/Miui_switch_dark</item>
+    </style>
+    <style name="Theme.Miui.Light" parent="Theme.Sherlock.Light.DarkActionBar">
+
+        <item name="android:buttonStyle">@style/MiuiButton_Light</item>
+        <item name="android:buttonStyleSmall">@style/MiuiButton_Light_Small</item>
+        <item name="android:progressBarStyleHorizontal">@style/Miui.ProgressBar.Horizontal</item>
+        <item name="android:seekBarStyle">@style/Miui.SeekBar.Light</item>
+        <item name="android:listChoiceIndicatorMultiple">@drawable/btn_checkbox_holo_light_miui</item>
+        <item name="android:listChoiceIndicatorSingle">@drawable/btn_radio_holo_light_miui</item>
+		<item name="android:spinnerStyle">@style/Miui.Spinner.Light</item>
+		<item name="android:editTextStyle">@style/Miui.EditText.Light</item>
+		<item name="switchStyle">@style/Miui_switch_light</item>
+    </style>
+	
+    <style name="Theme.Sense5" parent="Theme.Sherlock">
+
+        <item name="android:buttonStyle">@style/Sense5_Button</item>
+        <item name="android:buttonStyleSmall">@style/Sense5_Button_Small</item>
+        <item name="android:progressBarStyleHorizontal">@style/Sense5_ProgressBar_Horizontal</item>
+        <item name="android:seekBarStyle">@style/Sense5_SeekBar</item>
+        <item name="android:listChoiceIndicatorMultiple">@drawable/btn_checkbox_sense5</item>
+        <item name="android:listChoiceIndicatorSingle">@drawable/btn_radio_sense5</item>
+		<item name="android:spinnerStyle">@style/Sense5_Spinner</item>
+		<item name="android:editTextStyle">@style/Sense5_EditText</item>
+		<item name="switchStyle">@style/Sense5_switch</item>
+	</style>
+    <style name="Theme.Light.Sense5" parent="Theme.Sherlock.Light.DarkActionBar">
+
+        <item name="android:buttonStyle">@style/Sense5_Button_Light</item>
+        <item name="android:buttonStyleSmall">@style/Sense5_Button_Small_Light</item>
+        <item name="android:progressBarStyleHorizontal">@style/Sense5_ProgressBar_Horizontal_Light</item>
+        <item name="android:seekBarStyle">@style/Sense5_SeekBar_Light</item>
+        <item name="android:listChoiceIndicatorMultiple">@drawable/btn_checkbox_light_sense5</item>
+        <item name="android:listChoiceIndicatorSingle">@drawable/btn_radio_light_sense5</item>
+		<item name="android:spinnerStyle">@style/Sense5_Spinner_Light</item>
+		<item name="android:editTextStyle">@style/Sense5_EditText_Light</item>
+		<item name="switchStyle">@style/Sense5_switch_light</item>
+	</style>
+	
 </resources>
