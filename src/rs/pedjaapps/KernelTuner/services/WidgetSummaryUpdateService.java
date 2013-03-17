@@ -70,7 +70,12 @@ public class WidgetSummaryUpdateService extends Service
 		fc = IOHelper.fcharge();
 		vsync = IOHelper.vsync();
 		if(IOHelper.leds().length()>0){
+			try{
 			light = ((Integer.parseInt(IOHelper.leds())*100)/60)+"";
+			}
+			catch(Exception e){
+				light = "";
+			}
 		}
 		scheduler = IOHelper.scheduler();
 		s2w = IOHelper.s2w();

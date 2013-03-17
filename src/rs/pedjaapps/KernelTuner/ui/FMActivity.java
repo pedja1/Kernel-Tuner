@@ -41,6 +41,7 @@ import rs.pedjaapps.KernelTuner.entry.FMEntry;
 import rs.pedjaapps.KernelTuner.helpers.FMAdapter;
 import android.content.Context;
 import rs.pedjaapps.KernelTuner.tools.Tools;
+import javax.crypto.NullCipher;
 
 public class FMActivity extends SherlockActivity
 {
@@ -112,7 +113,9 @@ public class FMActivity extends SherlockActivity
 					fAdapter.clear();
 					for (FMEntry entry : ls(new File(path)))
 					{
+						if(entry!=null){
 						fAdapter.add(entry);
+						}
 					}
 					fAdapter.notifyDataSetChanged();
 					getSupportActionBar().setTitle(path);

@@ -67,7 +67,13 @@ public class WidgetUpdateService extends Service
 													  .getApplicationContext().getPackageName(),
 													  R.layout.widget_2x1);
 			remoteViews.setTextViewText(R.id.textView5, curentfreq.substring(0, curentfreq.length() - 4) + "Mhz");
-			int fr = Integer.parseInt(curentfreq.substring(0, curentfreq.length() - 4));
+			int fr;
+			try{
+			fr = Integer.parseInt(curentfreq.substring(0, curentfreq.length() - 4));
+			}
+			catch(Exception e){
+				fr = 0;
+			}
 			if (fr <= 918)
 			{
 				remoteViews.setTextColor(R.id.textView5, Color.YELLOW);
