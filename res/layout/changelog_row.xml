@@ -19,6 +19,7 @@
             android:id="@+id/icon"
             android:layout_width="36dp"
             android:layout_height="36dp"
+			android:layout_margin="5dp"
             android:src="@drawable/changelog_new" />
 
         <TextView

@@ -3,8 +3,8 @@
     xmlns:tools="http://schemas.android.com/tools"
     package="rs.pedjaapps.KernelTuner"
     android:installLocation="internalOnly"
-    android:versionCode="611032013"
-    android:versionName="4.4.1" >
+    android:versionCode="617032013"
+    android:versionName="4.4.2" >
 
     <uses-sdk
         android:minSdkVersion="9"
@@ -237,7 +237,8 @@
             android:name=".ui.Changelog"
             android:icon="@drawable/changelog"
             android:label="@string/title_changelog"
-            android:theme="@style/Theme.TransparentDark" >
+            android:theme="@style/Theme.TransparentDark"
+			android:uiOptions="splitActionBarWhenNarrow">
             <intent-filter>
                 <action android:name="rs.pedjaapps.KernelTuner.Changelog" />
 
