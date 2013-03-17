@@ -375,8 +375,10 @@ public class BuildpropEditor extends SherlockActivity
 		File backupDir = new File(Environment.getExternalStorageDirectory().toString()+"/KernelTuner/build/");
 		File[] backups = backupDir.listFiles();
 		List<CharSequence> items = new ArrayList<CharSequence>();
-		for(File f : backups){
-			items.add(f.getName());
+		if(backups!=null){
+			for(File f : backups){
+				items.add(f.getName());
+			}
 		}
 		final CharSequence[] items2;
 		items2 = items.toArray(new String[0]);

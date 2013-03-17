@@ -32,7 +32,6 @@ import android.view.*;
 import android.widget.*;
 import com.actionbarsherlock.app.*;
 import java.io.*;
-import java.text.*;
 import java.util.*;
 import rs.pedjaapps.KernelTuner.helpers.*;
 
@@ -42,6 +41,7 @@ import com.actionbarsherlock.app.ActionBar;
 import rs.pedjaapps.KernelTuner.R;
 import rs.pedjaapps.KernelTuner.tools.Tools;
 
+@SuppressLint("NewApi")
 public class SystemInfo extends SherlockFragmentActivity implements
 		ActionBar.TabListener {
 
@@ -412,8 +412,8 @@ public class SystemInfo extends SherlockFragmentActivity implements
 	@Override
 	public void onSaveInstanceState(Bundle outState) {
 		// Serialize the current tab position.
-		outState.putInt("tr", getSupportActionBar()
-				.getSelectedNavigationIndex());
+		/*outState.putInt("tr", getSupportActionBar()
+				.getSelectedNavigationIndex());*/
 		
 	}
 
@@ -436,7 +436,7 @@ public class SystemInfo extends SherlockFragmentActivity implements
 		}
 		fragment.setArguments(args);
 		getSupportFragmentManager().beginTransaction()
-				.replace(R.id.container, fragment).commit();
+				.replace(R.id.container, fragment).commitAllowingStateLoss();
 		
 	}
 

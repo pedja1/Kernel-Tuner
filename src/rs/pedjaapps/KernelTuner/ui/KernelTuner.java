@@ -22,7 +22,6 @@ import android.app.*;
 import android.app.ActivityManager.*;
 import android.content.*;
 import android.content.pm.*;
-import android.content.pm.PackageManager.NameNotFoundException;
 import android.content.res.*;
 import android.graphics.*;
 import android.net.Uri;

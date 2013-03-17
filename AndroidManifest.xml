@@ -234,7 +234,7 @@
         </activity>
         <activity
             android:name=".ui.Changelog"
-            android:icon="@drawable/ic_menu_recent_history"
+            android:icon="@drawable/changelog"
             android:label="@string/title_changelog"
             android:theme="@style/Theme.TransparentDark" >
             <intent-filter>
