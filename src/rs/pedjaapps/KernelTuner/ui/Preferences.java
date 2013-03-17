@@ -29,6 +29,7 @@ import rs.pedjaapps.KernelTuner.*;
 import rs.pedjaapps.KernelTuner.services.*;
 
 import com.actionbarsherlock.app.ActionBar;
+import rs.pedjaapps.KernelTuner.tools.Tools;
 
 
 
@@ -63,34 +64,7 @@ public class Preferences extends SherlockPreferenceActivity
 				.getDefaultSharedPreferences(this);
 		String them = sharedPrefs.getString("theme", "light");
 		
-		if (them.equals("light")) 
-		{
-			setTheme(R.style.Theme_Sherlock_Light);
-		} 
-		else if (them.equals("dark")) 
-		{
-			setTheme(R.style.Theme_Sherlock);
-		} 
-		else if (them.equals("light_dark_action_bar")) 
-		{
-			setTheme(R.style.Theme_Sherlock_Light_DarkActionBar);
-		}
-		else if (them.equals("miui_light")) 
-		{
-			setTheme(R.style.Theme_Miui_Light);
-		} 
-		else if (them.equals("miui_dark")) 
-		{
-			setTheme(R.style.Theme_Miui_Dark);
-		} 
-		else if (them.equals("sense5")) 
-		{
-			setTheme(R.style.Theme_Sense5);
-		}
-		else if (them.equals("sense5_light")) 
-		{
-			setTheme(R.style.Theme_Light_Sense5);
-		}
+		setTheme(Tools.getPreferedTheme(them));
 		super.onCreate(savedInstanceState);
 
 		addPreferencesFromResource(R.xml.preferences); 

@@ -18,16 +18,21 @@
 */
 package rs.pedjaapps.KernelTuner.ui;
 
-import java.util.ArrayList;
-import java.util.List;
-import com.actionbarsherlock.app.SherlockActivity;
+import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.preference.PreferenceManager;
 import android.widget.ListView;
+import com.actionbarsherlock.app.SherlockActivity;
+import com.actionbarsherlock.view.Menu;
+import com.actionbarsherlock.view.MenuItem;
+import java.util.ArrayList;
+import java.util.List;
 import rs.pedjaapps.KernelTuner.R;
 import rs.pedjaapps.KernelTuner.entry.ChangelogEntry;
 import rs.pedjaapps.KernelTuner.helpers.ChangelogAdapter;
+import rs.pedjaapps.KernelTuner.tools.Tools;
+import android.net.Uri;
 
 public class Changelog extends SherlockActivity
 {
@@ -37,34 +42,7 @@ public class Changelog extends SherlockActivity
 		super.onCreate(savedInstanceState);
 		SharedPreferences prefs = PreferenceManager.getDefaultSharedPreferences(this);
 		String theme = prefs.getString("theme", "light");
-		if (theme.equals("light")) 
-		{
-			setTheme(R.style.Theme_Sherlock_Light);
-		} 
-		else if (theme.equals("dark")) 
-		{
-			setTheme(R.style.Theme_Sherlock);
-		} 
-		else if (theme.equals("light_dark_action_bar")) 
-		{
-			setTheme(R.style.Theme_Sherlock_Light_DarkActionBar);
-		}
-		else if (theme.equals("miui_light")) 
-		{
-			setTheme(R.style.Theme_Miui_Light);
-		} 
-		else if (theme.equals("miui_dark")) 
-		{
-			setTheme(R.style.Theme_Miui_Dark);
-		} 
-		else if (theme.equals("sense5")) 
-		{
-			setTheme(R.style.Theme_Sense5);
-		}
-		else if (theme.equals("sense5_light")) 
-		{
-			setTheme(R.style.Theme_Light_Sense5);
-		}
+		setTheme(Tools.getPreferedTheme(theme));
 		setContentView(R.layout.changelog);
 
 		ListView mListView = (ListView) findViewById(R.id.list);
@@ -91,9 +69,43 @@ public class Changelog extends SherlockActivity
 		entries.add(new ChangelogEntry(false, "New theme: Sense 5", 0, ""));
 		entries.add(new ChangelogEntry(false, "Option to select custom refresh rate of CPU load and frequency", 0, ""));
 		entries.add(new ChangelogEntry(false, "Fixed BuildProp Editor FC when there are no backups", 1, ""));
+		entries.add(new ChangelogEntry(false, "New Changelog screen", 0, ""));
+		entries.add(new ChangelogEntry(false, "Superuser permission for new Superuser app(ClockworkMod)", 0, ""));
 		
 		
 		return entries;
+	}
+	
+	@Override
+	public boolean onCreateOptionsMenu(Menu menu) {
+		
+		menu.add(0,0,0,"Full Changelog").setShowAsAction(MenuItem.SHOW_AS_ACTION_IF_ROOM);
+		menu.add(0,1,1,"OK").setShowAsAction(MenuItem.SHOW_AS_ACTION_IF_ROOM);
+	
+		return super.onCreateOptionsMenu(menu);
+	}
+
+	@Override
+	public boolean onOptionsItemSelected(
+		com.actionbarsherlock.view.MenuItem item) {
+		switch (item.getItemId()) {
+			case android.R.id.home:
+				Intent intent = new Intent(this, KernelTuner.class);
+				intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
+				startActivity(intent);
+
+				return true;
+			case 0:
+				Uri uri = Uri.parse("http://forum.xda-developers.com/showpost.php?p=27603190&postcount=2");
+				Intent intent2 = new Intent(Intent.ACTION_VIEW, uri);
+				startActivity(intent2);
+				return true;
+			case 1:
+				finish();
+				return true;
+
+		}
+		return super.onOptionsItemSelected(item);
 	}
 	
 }

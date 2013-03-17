@@ -58,6 +58,7 @@ import rs.pedjaapps.KernelTuner.R;
 import rs.pedjaapps.KernelTuner.Constants;
 import rs.pedjaapps.KernelTuner.tools.RootExecuter;
 import org.apache.commons.io.FileUtils;
+import rs.pedjaapps.KernelTuner.tools.Tools;
 
 public class MiscTweaks extends SherlockActivity {
 
@@ -427,34 +428,7 @@ public class MiscTweaks extends SherlockActivity {
 
 		String theme = preferences.getString("theme", "light");
 
-		if (theme.equals("light")) 
-		{
-			setTheme(R.style.SwitchCompatAndSherlockLight);
-		} 
-		else if (theme.equals("dark")) 
-		{
-			setTheme(R.style.SwitchCompatAndSherlock);
-		} 
-		else if (theme.equals("light_dark_action_bar")) 
-		{
-			setTheme(R.style.SwitchCompatAndSherlockLightDark);
-		}
-		else if (theme.equals("miui_light")) 
-		{
-			setTheme(R.style.Theme_Miui_Light);
-		} 
-		else if (theme.equals("miui_dark")) 
-		{
-			setTheme(R.style.Theme_Miui_Dark);
-		} 
-		else if (theme.equals("sense5")) 
-		{
-			setTheme(R.style.Theme_Sense5);
-		}
-		else if (theme.equals("sense5_light")) 
-		{
-			setTheme(R.style.Theme_Light_Sense5);
-		}
+		setTheme(Tools.getPreferedThemeSwitchCompat(theme));
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.misc_tweaks);
 

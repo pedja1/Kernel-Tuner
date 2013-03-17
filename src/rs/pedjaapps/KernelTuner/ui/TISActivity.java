@@ -50,35 +50,7 @@ public class TISActivity extends SherlockActivity {
 		SharedPreferences preferences = PreferenceManager.getDefaultSharedPreferences(this);
 		
 		String theme = preferences.getString("theme", "light");
-		
-		if (theme.equals("light")) 
-		{
-			setTheme(R.style.Theme_Sherlock_Light);
-		} 
-		else if (theme.equals("dark")) 
-		{
-			setTheme(R.style.Theme_Sherlock);
-		} 
-		else if (theme.equals("light_dark_action_bar")) 
-		{
-			setTheme(R.style.Theme_Sherlock_Light_DarkActionBar);
-		}
-		else if (theme.equals("miui_light")) 
-		{
-			setTheme(R.style.Theme_Miui_Light);
-		} 
-		else if (theme.equals("miui_dark")) 
-		{
-			setTheme(R.style.Theme_Miui_Dark);
-		} 
-		else if (theme.equals("sense5")) 
-		{
-			setTheme(R.style.Theme_Sense5);
-		}
-		else if (theme.equals("sense5_light")) 
-		{
-			setTheme(R.style.Theme_Light_Sense5);
-		}
+		setTheme(Tools.getPreferedTheme(theme));
 		super.onCreate(savedInstanceState);
 
 		setContentView(R.layout.times_in_state);
