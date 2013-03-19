@@ -55,7 +55,7 @@ public class WidgetSummaryUpdateService extends Service
 	int load;
 	private double timeint = 30;
 	private int bgRes = 0;
-	
+	private int cpuTempPath = IOHelper.getCpuTempPath();
 	public void getInfo(){
 		uptime = IOHelper.uptime();
 		sleep = IOHelper.deepSleep();
@@ -64,7 +64,8 @@ public class WidgetSummaryUpdateService extends Service
 		min = min.substring(0, min.length()-3)+"Mhz";
 		max = max.substring(0, max.length()-3)+"Mhz";
 		governor = IOHelper.cpu0CurGov();
-		temp = Tools.tempConverter(pref.getString("temp", "celsius"), Double.parseDouble(IOHelper.cpuTemp()));
+		
+		temp = Tools.tempConverter(pref.getString("temp", "celsius"), Double.parseDouble(IOHelper.cpuTemp(cpuTempPath)));
 		gpu2d = IOHelper.gpu2d();
 		gpu3d = IOHelper.gpu3d();
 		fc = IOHelper.fcharge();

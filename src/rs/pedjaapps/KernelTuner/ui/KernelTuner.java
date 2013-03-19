@@ -212,6 +212,7 @@ public class KernelTuner extends SherlockActivity {
 		     * Create new thread that will loop and show current frequency for each
 		     * core
 		     */
+	    	final int cpuTempPath = IOHelper.getCpuTempPath();
 	    	new Thread(new Runnable() {
 				@Override
 				public void run() {
@@ -220,7 +221,7 @@ public class KernelTuner extends SherlockActivity {
 							Thread.sleep(refresh);
 							freqcpu0 = IOHelper.cpu0CurFreq();
 							cpu0max = IOHelper.cpu0MaxFreq();
-							tmp = IOHelper.cpuTemp();
+							tmp = IOHelper.cpuTemp(cpuTempPath);
 
 							    if (IOHelper.cpu1Online() == true)
 							    {
@@ -801,6 +802,7 @@ public class KernelTuner extends SherlockActivity {
 			stopService(new Intent(c, NotificationService.class));
 		}
 
+		System.out.println(IOHelper.getCpuTempPath());
 	}
 	
 	private void infoDialog(int icon, String title, String text, final String url, boolean more)

@@ -67,6 +67,7 @@ public class WidgetUpdateServiceBig extends Service
 	private int cf2 = 0;
 	private double timeint = 30;
 	private int bgRes = 0;
+	private int cpuTempPath = IOHelper.getCpuTempPath();
 	
 	private void mountdebugfs()
 	{
@@ -402,7 +403,7 @@ public class WidgetUpdateServiceBig extends Service
 			remoteViews.setTextViewText(R.id.textView14, battperc + "%");
 
 			double battempint = Double.parseDouble(batttemp)/10;
-			String cpuTemp = IOHelper.cpuTemp();
+			String cpuTemp = IOHelper.cpuTemp(cpuTempPath);
 			SharedPreferences sharedPrefs = PreferenceManager.getDefaultSharedPreferences(this);
 			String tempPref = sharedPrefs.getString("temp", "celsius");
 			if (tempPref.equals("fahrenheit"))

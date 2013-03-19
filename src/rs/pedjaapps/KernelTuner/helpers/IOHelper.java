@@ -760,7 +760,7 @@ public class IOHelper
 		return deepSleep;
 	}
 
-	public int getCpuTempPath(){
+	public static int getCpuTempPath(){
 		int ret = 10;
 		for(int i = 0; i < Constants.CPU_TEMP_PATHS.length; i++){
 			if(new File(Constants.CPU_TEMP_PATHS[i]).exists()){
@@ -774,11 +774,17 @@ public class IOHelper
 		return ret;
 	}
 	
-	public static final String cpuTemp()
+	public static final String cpuTemp(int path)
 	{
 		try
 		{
-			return FileUtils.readFileToString(new File(Constants.CPU_TEMP)).trim();
+			String temp = FileUtils.readFileToString(new File(Constants.CPU_TEMP_PATHS[/*getCpuTempPath()*/path])).trim();
+			if(temp.length()>2){
+				return temp.substring(0, temp.length()-(temp.length()-2));
+			}
+			else{
+				return temp;
+			}
 		}
 		catch (Exception e2)
 		{

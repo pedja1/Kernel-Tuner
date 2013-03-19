@@ -150,7 +150,7 @@ public class CPUActivity extends SherlockActivity
 	private boolean                            cpuLock;
 	private Context                            c;
 	private int                                refresh          = 1000;
-
+	private int                                cpuTempPath;
 	@Override
 	public void onCreate(Bundle savedInstanceState)
 	{
@@ -258,7 +258,7 @@ public class CPUActivity extends SherlockActivity
 		
 
 startCpuLoadThread();
-
+		cpuTempPath = IOHelper.getCpuTempPath();
 
 	}
 	@Override
@@ -281,7 +281,7 @@ startCpuLoadThread();
 							Thread.sleep(refresh);
 							cpu0CurFreq = IOHelper.cpu0CurFreq();
 							cpu0MaxFreq = IOHelper.cpu0MaxFreq();
-							tmp = IOHelper.cpuTemp();
+							tmp = IOHelper.cpuTemp(cpuTempPath);
 							upt = IOHelper.uptime();
 							ds = IOHelper.deepSleep();
 							if (cpu1Online == true)
