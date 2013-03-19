@@ -60,6 +60,9 @@ public class Changelog extends SherlockActivity
 
 		final List<ChangelogEntry> entries = new ArrayList<ChangelogEntry>();
 
+		entries.add(new ChangelogEntry(true, null, 0, "4.4.3"));
+		entries.add(new ChangelogEntry(false, "Fixed CPU Temperature on some divices(need confirmation)", 1, ""));
+		entries.add(new ChangelogEntry(false, "Fixed Task Manager on some devices(need confirmation)", 1, ""));
 		entries.add(new ChangelogEntry(true, null, 0, "4.4.2"));
 		entries.add(new ChangelogEntry(false, "Main Screen as popup option(Like in new Android Tuner)", 0, ""));
 		entries.add(new ChangelogEntry(false, "Option to disable toast notifications when applying profiles (requested by user)", 0, ""));
