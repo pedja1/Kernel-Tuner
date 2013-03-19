@@ -119,6 +119,11 @@ public class BackupRestore extends SherlockActivity
 			restoreUserPrefs(BackupRestore.this);
 			publishProgress(1);
 			restoreDb(BackupRestore.this);
+			try{
+				Runtime.getRuntime().exec("chmod -R 755 " + getFilesDir().getPath()+"/");
+			}catch(Exception e){
+				
+			}
 			return "";
 		}
 
