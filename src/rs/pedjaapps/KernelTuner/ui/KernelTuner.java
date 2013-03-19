@@ -134,6 +134,7 @@ public class KernelTuner extends SherlockActivity {
                  .detectAll().build());*/
 
 		c = this;
+		new Chmod().execute();
 		freqEntries = IOHelper.frequencies();
 		voltageFreqs = IOHelper.voltages();
 		preferences = PreferenceManager.getDefaultSharedPreferences(c);
@@ -2185,7 +2186,11 @@ private void startCpuLoadThread() {
 					"chmod 666 /sys/devices/system/cpu/cpu"+args[0]+"/online\n",
 					"echo 1 > /sys/devices/system/cpu/cpu"+args[0]+"/online\n",
 					"chmod 444 /sys/devices/system/cpu/cpu"+args[0]+"/online\n",
-					"chown system /sys/devices/system/cpu/cpu"+args[0]+"/online\n"});
+					"chown system /sys/devices/system/cpu/cpu"+args[0]+"/online\n",
+					"chmod 777 /sys/devices/system/cpu/cpu"+args[0]+"/cpufreq/scaling_max_freq\n",
+					"chmod 777 /sys/devices/system/cpu/cpu"+args[0]+"/cpufreq/scaling_min_freq\n",
+					"chmod 777 /sys/devices/system/cpu/cpu"+args[0]+"/cpufreq/scaling_cur_freq\n",
+					"chmod 777 /sys/devices/system/cpu/cpu"+args[0]+"/cpufreq/scaling_governor\n"});
 			}	
 
 			return "";
@@ -2204,7 +2209,8 @@ private void startCpuLoadThread() {
 		protected Object doInBackground(String... args) {
 
 			RootExecuter.exec(new String[]{
-				"mount -t debugfs debugfs /sys/kernel/debug\n"});
+				"mount -t debugfs debugfs /sys/kernel/debug\n"
+				});
 			return "";
 		}
 
@@ -2215,6 +2221,43 @@ private void startCpuLoadThread() {
 
 	}
 
+	private class Chmod extends AsyncTask<String, Void, Object> {
+
+		@Override
+		protected Object doInBackground(String... args) {
+
+			RootExecuter.exec(new String[]{
+								  "chmod 777 /sys/devices/system/cpu/cpu0/cpufreq/scaling_max_freq\n",
+								  "chmod 777 /sys/devices/system/cpu/cpu0/cpufreq/scaling_min_freq\n",
+								  "chmod 777 /sys/devices/system/cpu/cpu0/cpufreq/scaling_cur_freq\n",
+								  "chmod 777 /sys/devices/system/cpu/cpu0/cpufreq/scaling_governor\n",
+								  "chmod 777 /sys/devices/system/cpu/cpu0/cpufreq/scaling_available_governors\n",
+								  "chmod 777 /sys/devices/system/cpu/cpu0/cpufreq/scaling_available_frequencies\n",
+
+								  "chmod 777 /sys/devices/system/cpu/cpu1/cpufreq/scaling_max_freq\n",
+								  "chmod 777 /sys/devices/system/cpu/cpu1/cpufreq/scaling_min_freq\n",
+								  "chmod 777 /sys/devices/system/cpu/cpu1/cpufreq/scaling_cur_freq\n",
+								  "chmod 777 /sys/devices/system/cpu/cpu1/cpufreq/scaling_governor\n",
+
+								  "chmod 777 /sys/devices/system/cpu/cpu2/cpufreq/scaling_max_freq\n",
+								  "chmod 777 /sys/devices/system/cpu/cpu2/cpufreq/scaling_min_freq\n",
+								  "chmod 777 /sys/devices/system/cpu/cpu2/cpufreq/scaling_cur_freq\n",
+								  "chmod 777 /sys/devices/system/cpu/cpu2/cpufreq/scaling_governor\n",
+
+								  "chmod 777 /sys/devices/system/cpu/cpu3/cpufreq/scaling_max_freq\n",
+								  "chmod 777 /sys/devices/system/cpu/cpu3/cpufreq/scaling_min_freq\n",
+								  "chmod 777 /sys/devices/system/cpu/cpu3/cpufreq/scaling_cur_freq\n",
+								  "chmod 777 /sys/devices/system/cpu/cpu3/cpufreq/scaling_governor\n"});
+			return "";
+		}
+
+		@Override
+		protected void onPostExecute(Object result) {
+
+		}
+
+	}
+	
 	private class enableTempMonitor extends AsyncTask<String, Void, Object> {
 
 		@Override

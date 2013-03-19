@@ -132,33 +132,44 @@ public class CPUActivityOld extends SherlockActivity
 		            OutputStream stdin = process.getOutputStream();
 		            InputStream stderr = process.getErrorStream();
 		            InputStream stdout = process.getInputStream();
-
+					stdin.write(("chmod 777 /sys/devices/system/cpu/cpu0/cpufreq/scaling_available_governors\n").getBytes());
+					stdin.write(("chmod 777 /sys/devices/system/cpu/cpu0/cpufreq/scaling_available_frequencies\n").getBytes());
 		            if (IOHelper.cpu1Online() == true)
 					{
-		            stdin.write(("echo 0 > /sys/kernel/msm_mpdecision/conf/enabled\n").getBytes());
-		            stdin.write(("chmod 666 /sys/devices/system/cpu/cpu1/online\n").getBytes());
-		            stdin.write(("echo 1 > /sys/devices/system/cpu/cpu1/online\n").getBytes());
-		            stdin.write(("chmod 444 /sys/devices/system/cpu/cpu1/online\n").getBytes());
-		            stdin.write(("chown system /sys/devices/system/cpu/cpu1/online\n").getBytes());
-					
+						stdin.write(("echo 0 > /sys/kernel/msm_mpdecision/conf/enabled\n").getBytes());
+						stdin.write(("chmod 666 /sys/devices/system/cpu/cpu1/online\n").getBytes());
+						stdin.write(("echo 1 > /sys/devices/system/cpu/cpu1/online\n").getBytes());
+						stdin.write(("chmod 444 /sys/devices/system/cpu/cpu1/online\n").getBytes());
+						stdin.write(("chown system /sys/devices/system/cpu/cpu1/online\n").getBytes());
+						stdin.write(("chmod 777 /sys/devices/system/cpu/cpu1/cpufreq/scaling_max_freq\n").getBytes());
+						stdin.write(("chmod 777 /sys/devices/system/cpu/cpu1/cpufreq/scaling_min_freq\n").getBytes());
+						stdin.write(("chmod 777 /sys/devices/system/cpu/cpu1/cpufreq/scaling_cur_freq\n").getBytes());
+						stdin.write(("chmod 777 /sys/devices/system/cpu/cpu1/cpufreq/scaling_governor\n").getBytes());
 					}
 		            if (IOHelper.cpu2Online() == true)
 					{
-		            stdin.write(("echo 0 > /sys/kernel/msm_mpdecision/conf/enabled\n").getBytes());
-		            stdin.write(("chmod 666 /sys/devices/system/cpu/cpu2/online\n").getBytes());
-		            stdin.write(("echo 1 > /sys/devices/system/cpu/cpu2/online\n").getBytes());
-		            stdin.write(("chmod 444 /sys/devices/system/cpu/cpu2/online\n").getBytes());
-		            stdin.write(("chown system /sys/devices/system/cpu/cpu2/online\n").getBytes());
-					
+						stdin.write(("echo 0 > /sys/kernel/msm_mpdecision/conf/enabled\n").getBytes());
+						stdin.write(("chmod 666 /sys/devices/system/cpu/cpu2/online\n").getBytes());
+						stdin.write(("echo 1 > /sys/devices/system/cpu/cpu2/online\n").getBytes());
+						stdin.write(("chmod 444 /sys/devices/system/cpu/cpu2/online\n").getBytes());
+						stdin.write(("chown system /sys/devices/system/cpu/cpu2/online\n").getBytes());
+						stdin.write(("chmod 777 /sys/devices/system/cpu/cpu2/cpufreq/scaling_max_freq\n").getBytes());
+						stdin.write(("chmod 777 /sys/devices/system/cpu/cpu2/cpufreq/scaling_min_freq\n").getBytes());
+						stdin.write(("chmod 777 /sys/devices/system/cpu/cpu2/cpufreq/scaling_cur_freq\n").getBytes());
+						stdin.write(("chmod 777 /sys/devices/system/cpu/cpu2/cpufreq/scaling_governor\n").getBytes());
+
 					}
 		            if (IOHelper.cpu3Online() == true)
 					{
-		            stdin.write(("echo 0 > /sys/kernel/msm_mpdecision/conf/enabled\n").getBytes());
-		            stdin.write(("chmod 666 /sys/devices/system/cpu/cpu3/online\n").getBytes());
-		            stdin.write(("echo 1 > /sys/devices/system/cpu/cpu3/online\n").getBytes());
-		            stdin.write(("chmod 444 /sys/devices/system/cpu/cpu3/online\n").getBytes());
-		            stdin.write(("chown system /sys/devices/system/cpu/cpu3/online\n").getBytes());
-					
+						stdin.write(("echo 0 > /sys/kernel/msm_mpdecision/conf/enabled\n").getBytes());
+						stdin.write(("chmod 666 /sys/devices/system/cpu/cpu3/online\n").getBytes());
+						stdin.write(("echo 1 > /sys/devices/system/cpu/cpu3/online\n").getBytes());
+						stdin.write(("chmod 444 /sys/devices/system/cpu/cpu3/online\n").getBytes());
+						stdin.write(("chown system /sys/devices/system/cpu/cpu3/online\n").getBytes());
+						stdin.write(("chmod 777 /sys/devices/system/cpu/cpu3/cpufreq/scaling_max_freq\n").getBytes());
+						stdin.write(("chmod 777 /sys/devices/system/cpu/cpu3/cpufreq/scaling_min_freq\n").getBytes());
+						stdin.write(("chmod 777 /sys/devices/system/cpu/cpu3/cpufreq/scaling_cur_freq\n").getBytes());
+						stdin.write(("chmod 777 /sys/devices/system/cpu/cpu3/cpufreq/scaling_governor\n").getBytes());
 					}
 		            stdin.flush();
 
