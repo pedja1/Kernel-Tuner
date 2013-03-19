@@ -760,6 +760,20 @@ public class IOHelper
 		return deepSleep;
 	}
 
+	public int getCpuTempPath(){
+		int ret = 10;
+		for(int i = 0; i < Constants.CPU_TEMP_PATHS.length; i++){
+			if(new File(Constants.CPU_TEMP_PATHS[i]).exists()){
+			ret = i;
+			break;
+	    	}
+	    	else{
+			continue;
+	    	}
+		}
+		return ret;
+	}
+	
 	public static final String cpuTemp()
 	{
 		try
