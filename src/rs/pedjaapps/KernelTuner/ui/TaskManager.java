@@ -312,7 +312,7 @@ public class TaskManager extends SherlockActivity
 			Process proc = null;
 			try
 			{
-				proc = Runtime.getRuntime().exec("ps\n");
+				proc = Runtime.getRuntime().exec(getFilesDir().getPath()+"/ps\n");
 				InputStream inputStream = proc.getInputStream();
 				InputStreamReader inputStreamReader = new InputStreamReader(inputStream);
 				BufferedReader bufferedReader = new BufferedReader(inputStreamReader);

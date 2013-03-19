@@ -167,64 +167,8 @@ public class SysCtl extends SherlockActivity
 				}
 			});
 
-		try{
-			String line;
-			Process p = Runtime.getRuntime().exec("which sysctl");
-			InputStream inputStream = p.getInputStream();
-			InputStreamReader inputStreamReader = new InputStreamReader(inputStream);
-			BufferedReader bufferedReader = new BufferedReader(inputStreamReader);
-			 line = bufferedReader.readLine();
+	new GetSysCtlEntries().execute();
 			
-				if(line!=null && line.startsWith("/")){
-					System.out.println(line+"sys");
-					new GetSysCtlEntries().execute();
-				}
-				else{
-					AlertDialog.Builder builder = new AlertDialog.Builder(this);
-					builder.setTitle("Error!");
-
-					builder.setMessage("sysctl executable not found!\nDid you install busybox?");
-
-					builder.setIcon(R.drawable.sysctl);
-					
-					builder.setNegativeButton("Exit", new DialogInterface.OnClickListener(){
-
-							@Override
-							public void onClick(DialogInterface arg0, int arg1)
-							{
-								finish();
-							}
-
-						});
-					AlertDialog alert = builder.create();
-					alert.setCancelable(false);
-					alert.setCanceledOnTouchOutside(false);
-					alert.show();
-				}
-			
-		}
-		catch(Exception e){
-			AlertDialog.Builder builder = new AlertDialog.Builder(this);
-			builder.setTitle("Error!");
-
-			builder.setMessage("Something went wrong\n"+e.getMessage());
-
-			builder.setIcon(R.drawable.sysctl);
-			
-			builder.setNegativeButton("Exit", new DialogInterface.OnClickListener(){
-
-					@Override
-					public void onClick(DialogInterface arg0, int arg1)
-					{
-						finish();
-					}
-
-				});
-			AlertDialog alert = builder.create();
-			alert.setCancelable(false);
-			alert.setCanceledOnTouchOutside(false);
-			alert.show();
-		}
 		
 
 	}
@@ -248,7 +192,7 @@ public class SysCtl extends SherlockActivity
 			Process proc = null;
 			try
 			{
-				proc = Runtime.getRuntime().exec("sysctl -a\n");
+				proc = Runtime.getRuntime().exec(getFilesDir().getPath()+"/sysctl -a\n");
 				InputStream inputStream = proc.getInputStream();
 				InputStreamReader inputStreamReader = new InputStreamReader(inputStream);
 				BufferedReader bufferedReader = new BufferedReader(inputStreamReader);
