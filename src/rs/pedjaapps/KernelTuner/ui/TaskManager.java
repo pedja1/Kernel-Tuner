@@ -231,67 +231,7 @@ public class TaskManager extends SherlockActivity
 				
 			}
 		});
-		try{
-			String line;
-			Process p = Runtime.getRuntime().exec("which ps");
-			InputStream inputStream = p.getInputStream();
-			InputStreamReader inputStreamReader = new InputStreamReader(inputStream);
-			BufferedReader bufferedReader = new BufferedReader(inputStreamReader);
-			line = bufferedReader.readLine();
-			
-				if(line != null && line.startsWith("/")){
-					new GetRunningApps().execute();
-				}
-				else{
-					AlertDialog.Builder builder = new AlertDialog.Builder(this);
-					builder.setTitle("Error!");
-
-					builder.setMessage("ps executable not found!\nYour ROM isnt supported");
-
-					builder.setIcon(R.drawable.tm);
-					
-					builder.setNegativeButton("Exit", new DialogInterface.OnClickListener(){
-
-							@Override
-							public void onClick(DialogInterface arg0, int arg1)
-							{
-								finish();
-							}
-
-						});
-					AlertDialog alert = builder.create();
-					alert.setCancelable(false);
-					alert.setCanceledOnTouchOutside(false);
-					alert.show();
-				}
-			
-		}
-		catch(Exception e){
-			AlertDialog.Builder builder = new AlertDialog.Builder(this);
-			builder.setTitle("Error!");
-
-			builder.setMessage("Something went wrong\n"+e.getMessage());
-
-			builder.setIcon(R.drawable.tm);
-			
-			builder.setNegativeButton("Exit", new DialogInterface.OnClickListener(){
-
-					@Override
-					public void onClick(DialogInterface arg0, int arg1)
-					{
-						finish();
-					}
-
-				});
-			AlertDialog alert = builder.create();
-			alert.setCancelable(false);
-			alert.setCanceledOnTouchOutside(false);
-			alert.show();
-		}
-		
-
-	
-		
+			new GetRunningApps().execute();
 		
 	}
 	
