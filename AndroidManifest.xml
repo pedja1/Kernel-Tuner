@@ -4,7 +4,7 @@
     package="rs.pedjaapps.KernelTuner"
     android:installLocation="internalOnly"
     android:versionCode="620032013"
-    android:versionName="4.4.3" >
+    android:versionName="4.4.4" >
 
     <uses-sdk
         android:minSdkVersion="9"
@@ -461,6 +461,22 @@
             android:label="Kernel Tuner - Shortcuts" >
         </activity>
 
+		<activity
+            android:name=".shortcuts.SDShortcut"
+            android:label="Kernel Tuner - Shortcuts" >
+        </activity>
+		<activity
+            android:name=".shortcuts.BuildShortcut"
+            android:label="Kernel Tuner - Shortcuts" >
+        </activity>
+		<activity
+            android:name=".shortcuts.SysShortcut"
+            android:label="Kernel Tuner - Shortcuts" >
+        </activity>
+		<activity
+            android:name=".shortcuts.TmShortcut"
+            android:label="Kernel Tuner - Shortcuts" >
+        </activity>
         <service android:name=".services.WidgetUpdateService" >
         </service>
         <service android:name=".services.WidgetSummaryUpdateService" >
