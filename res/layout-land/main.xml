@@ -388,9 +388,9 @@
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"
                     android:layout_weight="1"
-                    android:drawableTop="@drawable/main_swap"
+                    android:drawableTop="@drawable/main_log"
                     android:gravity="center|center_vertical"
-                    android:text="Swap"
+                    android:text="LogCat"
 					android:singleLine="true"/>
 
                 <Button

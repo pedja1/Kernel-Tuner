@@ -116,7 +116,7 @@ public class KernelTuner extends SherlockActivity {
 		                                sd, 
 		                                profiles,
 		                                oom, 
-		                                /*swap,*/
+		                                log,
 		                                info,
 		                                governor;
 	private boolean                     minimal;
@@ -772,27 +772,27 @@ public class KernelTuner extends SherlockActivity {
 			}
 
 		});
-	  /*  swap = (Button)findViewById(R.id.button19);
-		swap.setOnClickListener(new OnClickListener() {
+	    log = (Button)findViewById(R.id.button19);
+		log.setOnClickListener(new OnClickListener() {
 
 				@Override
 				public void onClick(View v) {
 
-					Intent myIntent = new Intent(c, Swap.class);
+					Intent myIntent = new Intent(c, LogCat.class);
 					startActivity(myIntent);
 
 				}
 			});
-		swap.setOnLongClickListener(new OnLongClickListener() {
+		log.setOnLongClickListener(new OnLongClickListener() {
 
 			@Override
 			public boolean onLongClick(View arg0) {
 
-				infoDialog(R.drawable.swap, "Swap Manager" ,"Create and manage swap files\nWhen memory is low kernel will push memory pages of lower priority processes to swap file releasing RAM for curently active application(s)\n\nThis option is depricated and no longer maintained, use at your own risk\nPlease DO NOT submit bug reports for Swap",Constants.G_S_URL_PREFIX+"swap", true);
+				//infoDialog(R.drawable.swap, "Swap Manager" ,"Create and manage swap files\nWhen memory is low kernel will push memory pages of lower priority processes to swap file releasing RAM for curently active application(s)\n\nThis option is depricated and no longer maintained, use at your own risk\nPlease DO NOT submit bug reports for Swap",Constants.G_S_URL_PREFIX+"swap", true);
 				return true;
 			}
 
-		});*/
+		});
 
 		initialCheck();
 		if (preferences.getBoolean("notificationService", false) == true
@@ -1988,10 +1988,10 @@ private void startCpuLoadThread() {
 						isLight ? R.drawable.settings_light
 								: R.drawable.settings_dark)
 				.setShowAsAction(
-						MenuItem.SHOW_AS_ACTION_IF_ROOM
+						MenuItem.SHOW_AS_ACTION_ALWAYS
 								| MenuItem.SHOW_AS_ACTION_WITH_TEXT);
 		menu.add(2, 2, 2, "Compatibility Check").setShowAsAction(
-				MenuItem.SHOW_AS_ACTION_IF_ROOM);
+				MenuItem.SHOW_AS_ACTION_NEVER);
 		return true;
 	}
 

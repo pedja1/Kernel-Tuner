@@ -20,7 +20,8 @@
     <uses-permission android:name="android.permission.READ_LOGS" />
 	<uses-permission android:name="android.permission.ACCESS_SUPERUSER" />
     <uses-permission android:name="com.android.launcher.permission.INSTALL_SHORTCUT" />
-   
+   <uses-permission android:name="android.permission.READ_LOGS" />
+    <uses-permission android:name="android.permission.WAKE_LOCK" />
     <application
         android:name=".MyApplication"
         android:allowBackup="true"
@@ -266,10 +267,10 @@
             android:uiOptions="splitActionBarWhenNarrow" >
         </activity>
         <activity
-            android:name=".ui.Swap"
+            android:name=".ui.LogCat"
             android:exported="true"
-            android:icon="@drawable/swap"
-            android:label="@string/swap"
+            android:icon="@drawable/log"
+            android:label="LogCat"
             android:theme="@style/IndicatorLight" >
         </activity>
         <activity
@@ -505,6 +506,40 @@
         <activity
             android:name="com.google.ads.AdActivity"
             android:configChanges="keyboard|keyboardHidden|orientation|screenLayout|uiMode|screenSize|smallestScreenSize" />
+
+	<activity
+            android:name=".ui.LogCat"
+            android:configChanges="keyboardHidden|orientation"
+            android:label="LogCat"
+            android:launchMode="singleTop" >
+            <intent-filter>
+                <action android:name="android.intent.action.MAIN" />
+
+                <category android:name="android.intent.category.LAUNCHER" />
+                <category android:name="android.intent.category.DEFAULT" />
+            </intent-filter>
+            <intent-filter>
+                <category android:name="android.intent.category.LAUNCHER" />
+
+                <action android:name="org.jtb.alogcat.intent.START" />
+
+                <category android:name="android.intent.category.DEFAULT" />
+            </intent-filter>
+        </activity>
+
+ 	<service android:name="org.jtb.alogcat.SaveService" />
+        <service android:name="org.jtb.alogcat.ShareService" />
+
+        <receiver android:name="org.jtb.alogcat.SaveReceiver" >
+            <intent-filter>
+                <action android:name="org.jtb.alogcat.intent.SAVE" />
+            </intent-filter>
+        </receiver>
+        <receiver android:name="org.jtb.alogcat.ShareReceiver" >
+            <intent-filter>
+                <action android:name="org.jtb.alogcat.intent.SHARE" />
+            </intent-filter>
+        </receiver>
     </application>
 
 </manifest>
