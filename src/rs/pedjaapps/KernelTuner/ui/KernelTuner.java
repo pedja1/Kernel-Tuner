@@ -116,7 +116,7 @@ public class KernelTuner extends SherlockActivity {
 		                                sd, 
 		                                profiles,
 		                                oom, 
-		                                swap,
+		                                /*swap,*/
 		                                info,
 		                                governor;
 	private boolean                     minimal;
@@ -772,7 +772,7 @@ public class KernelTuner extends SherlockActivity {
 			}
 
 		});
-	    swap = (Button)findViewById(R.id.button19);
+	  /*  swap = (Button)findViewById(R.id.button19);
 		swap.setOnClickListener(new OnClickListener() {
 
 				@Override
@@ -792,7 +792,7 @@ public class KernelTuner extends SherlockActivity {
 				return true;
 			}
 
-		});
+		});*/
 
 		initialCheck();
 		if (preferences.getBoolean("notificationService", false) == true
@@ -1991,7 +1991,7 @@ private void startCpuLoadThread() {
 						MenuItem.SHOW_AS_ACTION_IF_ROOM
 								| MenuItem.SHOW_AS_ACTION_WITH_TEXT);
 		menu.add(2, 2, 2, "Compatibility Check").setShowAsAction(
-				MenuItem.SHOW_AS_ACTION_NEVER);
+				MenuItem.SHOW_AS_ACTION_IF_ROOM);
 		return true;
 	}
 
