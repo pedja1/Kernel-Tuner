@@ -359,4 +359,20 @@ public class Tools
 			return R.style.SwitchCompatAndSherlockLight;
 		}
 	}
+	
+	public static String getAbi(){
+		String abi = android.os.Build.CPU_ABI;
+		if(abi.contains("armeabi")){
+			return "arm";
+		}
+		else if(abi.contains("x86")){
+			return "x86";
+		}
+		else if(abi.contains("mips")){
+			return "mips";
+		}
+		else{
+			return "arm";
+		}
+	}
 }

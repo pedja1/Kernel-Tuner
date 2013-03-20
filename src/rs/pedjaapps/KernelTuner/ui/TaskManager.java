@@ -52,6 +52,7 @@ import rs.pedjaapps.KernelTuner.R;
 import rs.pedjaapps.KernelTuner.entry.TMEntry;
 import rs.pedjaapps.KernelTuner.helpers.TMAdapter;
 import rs.pedjaapps.KernelTuner.tools.RootExecuter;
+import rs.pedjaapps.KernelTuner.tools.Tools;
 
 import com.actionbarsherlock.app.SherlockActivity;
 
@@ -68,6 +69,7 @@ public class TaskManager extends SherlockActivity
 	CheckBox system, user, other;
 	SharedPreferences preferences;
 	ProgressBar loading;
+	String arch = "arm";
 	
 	/**
 	 * Foreground Application = 10040
@@ -234,7 +236,7 @@ public class TaskManager extends SherlockActivity
 			}
 		});
 			new GetRunningApps().execute();
-		
+			arch = Tools.getAbi();
 	}
 	
 	private class Listener implements CompoundButton.OnCheckedChangeListener{
@@ -254,7 +256,7 @@ public class TaskManager extends SherlockActivity
 			Process proc = null;
 			try
 			{
-				proc = Runtime.getRuntime().exec(getFilesDir().getPath()+"/ps\n");
+				proc = Runtime.getRuntime().exec(getFilesDir().getPath()+"/"+arch+"/ps\n");
 				InputStream inputStream = proc.getInputStream();
 				InputStreamReader inputStreamReader = new InputStreamReader(inputStream);
 				BufferedReader bufferedReader = new BufferedReader(inputStreamReader);
