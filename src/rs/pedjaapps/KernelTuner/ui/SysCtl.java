@@ -67,6 +67,7 @@ public class SysCtl extends SherlockActivity
 	SharedPreferences preferences;
 	DatabaseHandler db = new DatabaseHandler(this);
 	ProgressBar loading;
+	String arch;
 
 	@Override
 	public void onCreate(Bundle savedInstanceState)
@@ -89,6 +90,7 @@ public class SysCtl extends SherlockActivity
 			adView.loadAd(new AdRequest());
 		}
 
+		arch = Tools.getAbi();
 		loading = (ProgressBar)findViewById(R.id.loading);
 		kernel = (CheckBox)findViewById(R.id.kernel);
 		vm = (CheckBox)findViewById(R.id.vm);
@@ -195,7 +197,7 @@ public class SysCtl extends SherlockActivity
 			Process proc = null;
 			try
 			{
-				proc = Runtime.getRuntime().exec(getFilesDir().getPath()+"/sysctl -a\n");
+				proc = Runtime.getRuntime().exec(getFilesDir().getPath()+"/"+arch+"/sysctl -a\n");
 				InputStream inputStream = proc.getInputStream();
 				InputStreamReader inputStreamReader = new InputStreamReader(inputStream);
 				BufferedReader bufferedReader = new BufferedReader(inputStreamReader);

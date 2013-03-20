@@ -87,6 +87,7 @@ public class SDScannerActivity extends SherlockActivity
 	  String depth;
 	  String numberOfItems;
 	  String scannType;
+	  String arch;
 	  
 	  @Override
 	  protected void onRestoreInstanceState(Bundle savedState) {
@@ -171,7 +172,7 @@ public class SDScannerActivity extends SherlockActivity
 		depth = intent.getStringExtra("depth");
 		numberOfItems = intent.getStringExtra("items");
 		scannType = intent.getStringExtra("scannType");
-		
+		arch = Tools.getAbi();
 		new ScannSDCard().execute(new String[] {path,
 				depth,
 				numberOfItems,
@@ -232,7 +233,7 @@ public class SDScannerActivity extends SherlockActivity
 			
 			try
 			{
-				proc = Runtime.getRuntime().exec(getFilesDir().getPath()+"/du -d "+args[1] + args[3] +args[0]);
+				proc = Runtime.getRuntime().exec(getFilesDir().getPath()+"/"+arch+"/du -d "+args[1] + args[3] +args[0]);
 				InputStream inputStream = proc.getInputStream();
 				InputStreamReader inputStreamReader = new InputStreamReader(inputStream);
 				BufferedReader bufferedReader = new BufferedReader(inputStreamReader);

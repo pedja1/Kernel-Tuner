@@ -354,6 +354,7 @@ public class BuildpropEditor extends SherlockActivity
 				items.add(f.getName());
 			}
 		}
+		final String arch = Tools.getAbi();
 		final CharSequence[] items2;
 		items2 = items.toArray(new String[0]);
 		AlertDialog.Builder builder = new AlertDialog.Builder(this);
@@ -361,7 +362,7 @@ public class BuildpropEditor extends SherlockActivity
 		builder.setItems(items2, new DialogInterface.OnClickListener() {
 		    @Override
 			public void onClick(DialogInterface dialog, int item) {
-		    	RootExecuter.exec(new String[]{"/data/data/rs.pedjaapps.KernelTuner/files/cp "+ Environment.getExternalStorageDirectory().toString()+"/KernelTuner/build/"+items2[item]+" /system/build.prop\n",
+		    	RootExecuter.exec(new String[]{"/data/data/rs.pedjaapps.KernelTuner/files/"+arch+"/cp "+ Environment.getExternalStorageDirectory().toString()+"/KernelTuner/build/"+items2[item]+" /system/build.prop\n",
 		    			"chmod 644 /system/build.prop\n"});
 		    	Toast.makeText(BuildpropEditor.this, "build.prop restored", Toast.LENGTH_LONG).show();
 		    	new GetBuildEntries().execute();

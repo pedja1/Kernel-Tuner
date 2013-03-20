@@ -52,6 +52,7 @@ public class SDScannerActivityList extends SherlockActivity
 	  String numberOfItems;
 	  String scannType;
 	  SDAdapter sDAdapter;
+	  String arch;
 	  
 	  @Override
 	  protected void onRestoreInstanceState(Bundle savedState) {
@@ -117,6 +118,7 @@ public class SDScannerActivityList extends SherlockActivity
 		{AdView adView = (AdView)findViewById(R.id.ad);
 			adView.loadAd(new AdRequest());}
 	
+	    arch = Tools.getAbi();
 		Intent intent = getIntent();
 		String path = intent.getStringExtra("path");
 		depth = intent.getStringExtra("depth");
@@ -209,7 +211,7 @@ public class SDScannerActivityList extends SherlockActivity
 			
 			try
 			{
-				proc = Runtime.getRuntime().exec(getFilesDir().getPath()+"/du -d "+args[1] + args[3] +args[0]);
+				proc = Runtime.getRuntime().exec(getFilesDir().getPath()+"/"+arch+"/du -d "+args[1] + args[3] +args[0]);
 				InputStream inputStream = proc.getInputStream();
 				InputStreamReader inputStreamReader = new InputStreamReader(inputStream);
 				BufferedReader bufferedReader = new BufferedReader(inputStreamReader);
