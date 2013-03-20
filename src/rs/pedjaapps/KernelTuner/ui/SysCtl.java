@@ -53,6 +53,7 @@ import android.content.Intent;
 import com.actionbarsherlock.view.MenuItem;
 import com.actionbarsherlock.app.SherlockActivity;
 import rs.pedjaapps.KernelTuner.tools.Tools;
+import android.widget.ProgressBar;
 
 
 
@@ -65,6 +66,7 @@ public class SysCtl extends SherlockActivity
 	CheckBox kernel, vm, fs, net;
 	SharedPreferences preferences;
 	DatabaseHandler db = new DatabaseHandler(this);
+	ProgressBar loading;
 
 	@Override
 	public void onCreate(Bundle savedInstanceState)
@@ -87,6 +89,7 @@ public class SysCtl extends SherlockActivity
 			adView.loadAd(new AdRequest());
 		}
 
+		loading = (ProgressBar)findViewById(R.id.loading);
 		kernel = (CheckBox)findViewById(R.id.kernel);
 		vm = (CheckBox)findViewById(R.id.vm);
 		fs = (CheckBox)findViewById(R.id.fs);
@@ -182,11 +185,11 @@ public class SysCtl extends SherlockActivity
 		
 	}
 	
-	private class GetSysCtlEntries extends AsyncTask<String, SysCtlEntry, Void>
+	private class GetSysCtlEntries extends AsyncTask<String, Void, List<SysCtlEntry>>
 	{
 		String line;
 		@Override
-		protected Void doInBackground(String... args)
+		protected List<SysCtlEntry> doInBackground(String... args)
 		{
 			entries = new ArrayList<SysCtlEntry>();
 			Process proc = null;
@@ -213,19 +216,19 @@ public class SysCtl extends SherlockActivity
 						//	System.out.println(tmp.get(0));
 						SysCtlEntry tmpEntry = new SysCtlEntry(tmp.get(0), tmp.get(1));
 						entries.add(tmpEntry);
-						publishProgress(tmpEntry);
+					//	publishProgress(tmpEntry);
 					}
 
 				}
 			}
 			catch (Exception e)
 			{
-				Log.e("du", "error " + e.getMessage());
+				Log.e("syscl", "error " + e.getMessage());
 			}
-			return null;
+			return entries;
 		}
 
-		@Override
+		/*@Override
 		protected void onProgressUpdate(SysCtlEntry... values)
 		{
 			if(values[0].getName().startsWith("kernel")){
@@ -257,10 +260,10 @@ public class SysCtl extends SherlockActivity
 					sysAdapter.notifyDataSetChanged();
 			}
 			super.onProgressUpdate();
-		}
+		}*/
 
 		@Override
-		protected void onPostExecute(Void res)
+		protected void onPostExecute(List<SysCtlEntry> res)
 		{
 			SharedPreferences.Editor editor = preferences.edit();
 			     editor.putBoolean("sysctl_kernel", kernel.isChecked())
@@ -268,14 +271,47 @@ public class SysCtl extends SherlockActivity
 				 .putBoolean("sysctl_fs",fs.isChecked()).
 				 putBoolean("sysctl_net",net.isChecked()).
 				 apply();
-			setProgressBarIndeterminateVisibility(false);
+				for(SysCtlEntry e : res){
+					if(e.getName().startsWith("kernel")){
+						if(kernel.isChecked()){
+							sysAdapter.add(e);
+					
+						}
+					}
+					else if(e.getName().startsWith("vm")){
+						if(vm.isChecked()){
+							sysAdapter.add(e);
+					
+						}
+					}
+					else if(e.getName().startsWith("fs")){
+						if(fs.isChecked()){
+							sysAdapter.add(e);
+			
+						}
+					}
+					else if(e.getName().startsWith("net")){
+						if(net.isChecked()){
+							sysAdapter.add(e);
+					
+						}
+					}
+					else {
+						sysAdapter.add(e);
+						
+					}
+				}
+			sysAdapter.notifyDataSetChanged();
+			loading.setVisibility(View.GONE);
+			//setProgressBarIndeterminateVisibility(false);
 
 		}
 		@Override
 		protected void onPreExecute()
 		{
-			setProgressBarIndeterminateVisibility(true);
+			//setProgressBarIndeterminateVisibility(true);
 			sysAdapter.clear();
+			loading.setVisibility(View.VISIBLE);
 		}
 
 	}

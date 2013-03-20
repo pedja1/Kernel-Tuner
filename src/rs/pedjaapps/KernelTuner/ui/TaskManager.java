@@ -67,6 +67,7 @@ public class TaskManager extends SherlockActivity
 	String set;
 	CheckBox system, user, other;
 	SharedPreferences preferences;
+	ProgressBar loading;
 	
 	/**
 	 * Foreground Application = 10040
@@ -121,7 +122,7 @@ public class TaskManager extends SherlockActivity
 			setTheme(R.style.Theme_Light_Sense5);
 		}
 		super.onCreate(savedInstanceState);
-		requestWindowFeature(Window.FEATURE_INDETERMINATE_PROGRESS);
+		//requestWindowFeature(Window.FEATURE_INDETERMINATE_PROGRESS);
 		setContentView(R.layout.task_manager);
 		getSupportActionBar().setDisplayHomeAsUpEnabled(true);
 		pm = getPackageManager();
@@ -134,6 +135,7 @@ public class TaskManager extends SherlockActivity
 			adView.loadAd(new AdRequest());
 		}
 		
+		loading = (ProgressBar)findViewById(R.id.loading);
 		system = (CheckBox)findViewById(R.id.system);
 		user = (CheckBox)findViewById(R.id.user);
 		other = (CheckBox)findViewById(R.id.other);
@@ -244,7 +246,7 @@ public class TaskManager extends SherlockActivity
 
 	}
 	
-	private class GetRunningApps extends AsyncTask<String, TMEntry, Void> {
+	private class GetRunningApps extends AsyncTask<String, /*TMEntry*/Void, Void> {
 		String line;
 		@Override
 		protected Void doInBackground(String... args) {
@@ -266,7 +268,7 @@ public class TaskManager extends SherlockActivity
 						if(!tmp.get(4).equals("0")){
 					TMEntry tmpEntry = new TMEntry(getApplicationName(tmp.get(8)), Integer.parseInt(tmp.get(1)), getApplicationIcon(tmp.get(8)), Integer.parseInt(tmp.get(4)), appType(tmp.get(8)));
 					entries.add(tmpEntry);
-					publishProgress(tmpEntry);
+					//publishProgress(tmpEntry);
 					}
 					}
 					else{
@@ -282,7 +284,7 @@ public class TaskManager extends SherlockActivity
 			return null;
 		}
 
-		@Override
+	/*	@Override
 		protected void onProgressUpdate(TMEntry... values)
 		{
 			if(values[0].getType()==2){
@@ -307,14 +309,14 @@ public class TaskManager extends SherlockActivity
 			    }
 			}
 			super.onProgressUpdate();
-		}
+		}*/
 
 		@Override
 		protected void onPostExecute(Void res) {
-			setProgressBarIndeterminateVisibility(false);
+		//	setProgressBarIndeterminateVisibility(false);
 			
 			Collections.sort(entries, new SortByMb());
-			tmAdapter.clear();
+			
 			for(TMEntry e : entries){
 				if(e.getType()==2){
 					if(other.isChecked())
@@ -334,6 +336,7 @@ public class TaskManager extends SherlockActivity
 						tmAdapter.add(e);
 					}
 				}
+				loading.setVisibility(View.GONE);
 			}
 			tmAdapter.notifyDataSetChanged();
 
@@ -345,7 +348,9 @@ public class TaskManager extends SherlockActivity
 		}
 		@Override
 		protected void onPreExecute(){
-			setProgressBarIndeterminateVisibility(true);
+			//setProgressBarIndeterminateVisibility(true);
+			tmAdapter.clear();
+			loading.setVisibility(View.VISIBLE);
 		}
 
 	}
