@@ -2053,9 +2053,11 @@ private void startCpuLoadThread() {
 			if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.HONEYCOMB)
 	        {
 				startActivity(new Intent(c, PreferencesFragmentActivity.class));
+				System.out.println("fragment");
 	        }
 			else{
 			startActivity(new Intent(c, Preferences.class));
+			System.out.println("activity");
 			}
 		}
 		else if (item.getItemId() == 2) {

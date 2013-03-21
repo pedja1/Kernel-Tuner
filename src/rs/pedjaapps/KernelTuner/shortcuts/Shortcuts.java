@@ -49,7 +49,7 @@ ListView shortcutListView;
                 "GPU",
                 "Misc Tweaks",
                 "Profiles",
-                
+                "Swap",
                 "System Info",
                 "Settings",
                 "OOM",
@@ -69,7 +69,7 @@ ListView shortcutListView;
                 "Overclock GPU",
                 "Start Misc Tweaks",
                 "Manage Settings Profiles",
-                
+                "Create and Manage Swap",
                 "View System Information",
                 "Change app Settings",
                 "Out Of Memory Settings",
@@ -90,7 +90,7 @@ ListView shortcutListView;
                 R.drawable.gpu,
                 R.drawable.misc,
                 R.drawable.profile,
-                
+                R.drawable.swap,
                 R.drawable.info,
                 R.drawable.misc,
                 R.drawable.swap,
@@ -110,7 +110,7 @@ ListView shortcutListView;
                         GPUShortcut.class,
                         MiscShortcut.class,
                         ProfilesShortcut.class,
-                        
+                        SwapShortcut.class,
                         InfoShortcut.class,
                         SettingsShortcut.class,
                         OOMShortcut.class,
