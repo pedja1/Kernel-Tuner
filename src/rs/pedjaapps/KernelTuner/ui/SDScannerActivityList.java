@@ -211,7 +211,7 @@ public class SDScannerActivityList extends SherlockActivity
 			
 			try
 			{
-				proc = Runtime.getRuntime().exec(getFilesDir().getPath()+"/"+arch+"/du -d "+args[1] + args[3] +args[0]);
+				proc = Runtime.getRuntime().exec(getFilesDir().getPath()+"/du-"+arch+" -d "+args[1] + args[3] +args[0]);
 				InputStream inputStream = proc.getInputStream();
 				InputStreamReader inputStreamReader = new InputStreamReader(inputStream);
 				BufferedReader bufferedReader = new BufferedReader(inputStreamReader);

@@ -117,21 +117,7 @@ public class Prefs {
 		setString("filter", filter);
 	}
 
-	public BackgroundColor getBackgroundColor() {
-		String c = getString(BACKGROUND_COLOR_KEY, "WHITE");
-		BackgroundColor bc;
-
-		try {
-			bc = BackgroundColor.valueOf(c);
-		} catch (IllegalArgumentException iae) {
-			bc = BackgroundColor.valueOfHexColor(c);
-		}
-		if (bc == null) {
-			return BackgroundColor.WHITE;
-		}
-		
-		return bc;
-	}
+	
 
 	public boolean isShareHtml() {
 		boolean b = getBoolean(SHARE_HTML_KEY, false);

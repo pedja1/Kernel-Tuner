@@ -127,7 +127,7 @@ public class Logcat {
 				}
 			}
 		} catch (IOException e) {
-			Log.e("alogcat", "error reading log", e);
+			Log.e("logcat", "error reading log", e);
 			return;
 		} finally {
 			// Log.d("alogcat", "stopped");
@@ -141,7 +141,7 @@ public class Logcat {
 					mReader.close();
 					mReader = null;
 				} catch (IOException e) {
-					Log.e("alogcat", "error closing stream", e);
+					Log.e("logcat", "error closing stream", e);
 				}
 			}
 		}

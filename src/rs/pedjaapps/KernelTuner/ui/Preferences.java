@@ -55,6 +55,10 @@ public class Preferences extends SherlockPreferenceActivity
 	private CheckBoxPreference mainButtonsPref;
 	private CheckBoxPreference mainStylePref;
 	private EditTextPreference refreshPref;
+	private ListPreference levelPrefList;
+	private ListPreference formatPrefList;
+	private ListPreference bufferPrefList;
+	private ListPreference textsizePrefList;
 
 	@SuppressWarnings("deprecation")
 	@Override
@@ -406,6 +410,79 @@ public class Preferences extends SherlockPreferenceActivity
 					return true;
 				}
 			}); 
+			
+		levelPrefList = (ListPreference) findPreference("level");
+        levelPrefList.setDefaultValue(levelPrefList.getEntryValues()[0]);
+        String level = levelPrefList.getValue();
+        if (level == null) {
+        	levelPrefList.setValue((String)levelPrefList.getEntryValues()[0]);
+        	level = levelPrefList.getValue();
+        }
+        levelPrefList.setSummary(levelPrefList.getEntries()[levelPrefList.findIndexOfValue(level)]);
+
+
+        levelPrefList.setOnPreferenceChangeListener(new OnPreferenceChangeListener() {
+				@Override
+				public boolean onPreferenceChange(Preference preference, Object newValue) {
+					levelPrefList.setSummary(levelPrefList.getEntries()[levelPrefList.findIndexOfValue(newValue.toString())]);
+					return true;
+				}
+			}); 
+			
+		bufferPrefList = (ListPreference) findPreference("buffer");
+        bufferPrefList.setDefaultValue(bufferPrefList.getEntryValues()[0]);
+        String buffer = bufferPrefList.getValue();
+        if (buffer == null) {
+        	bufferPrefList.setValue((String)bufferPrefList.getEntryValues()[0]);
+        	buffer = bufferPrefList.getValue();
+        }
+        bufferPrefList.setSummary(bufferPrefList.getEntries()[bufferPrefList.findIndexOfValue(buffer)]);
+
+
+        bufferPrefList.setOnPreferenceChangeListener(new OnPreferenceChangeListener() {
+				@Override
+				public boolean onPreferenceChange(Preference preference, Object newValue) {
+					bufferPrefList.setSummary(bufferPrefList.getEntries()[bufferPrefList.findIndexOfValue(newValue.toString())]);
+					return true;
+				}
+			}); 
+			
+		formatPrefList = (ListPreference) findPreference("format");
+        formatPrefList.setDefaultValue(formatPrefList.getEntryValues()[0]);
+        String format = formatPrefList.getValue();
+        if (format == null) {
+        	formatPrefList.setValue((String)formatPrefList.getEntryValues()[0]);
+        	format = formatPrefList.getValue();
+        }
+        formatPrefList.setSummary(formatPrefList.getEntries()[formatPrefList.findIndexOfValue(format)]);
+
+
+        formatPrefList.setOnPreferenceChangeListener(new OnPreferenceChangeListener() {
+				@Override
+				public boolean onPreferenceChange(Preference preference, Object newValue) {
+					formatPrefList.setSummary(formatPrefList.getEntries()[formatPrefList.findIndexOfValue(newValue.toString())]);
+					return true;
+				}
+			}); 
+			
+		textsizePrefList = (ListPreference) findPreference("textsize");
+        textsizePrefList.setDefaultValue(textsizePrefList.getEntryValues()[0]);
+        String textsize = textsizePrefList.getValue();
+        if (textsize == null) {
+        	textsizePrefList.setValue((String)textsizePrefList.getEntryValues()[0]);
+        	textsize = textsizePrefList.getValue();
+        }
+        textsizePrefList.setSummary(textsizePrefList.getEntries()[textsizePrefList.findIndexOfValue(textsize)]);
+
+
+        textsizePrefList.setOnPreferenceChangeListener(new OnPreferenceChangeListener() {
+				@Override
+				public boolean onPreferenceChange(Preference preference, Object newValue) {
+					textsizePrefList.setSummary(textsizePrefList.getEntries()[textsizePrefList.findIndexOfValue(newValue.toString())]);
+					return true;
+				}
+			}); 
+		
        
 	}
 	

@@ -39,15 +39,15 @@ public class Initd extends AsyncTask<String, Void, String>
 			System.out.println("Init.d: Writing init.d");
 		RootExecuter.exec(new String[]{
 	            "mount -o remount,rw /system\n",
-	            "/data/data/rs.pedjaapps.KernelTuner/files/"+arch+"/cp /data/data/rs.pedjaapps.KernelTuner/files/99ktcputweaks /system/etc/init.d\n",
+								  "/data/data/rs.pedjaapps.KernelTuner/files/cp-"+arch+" /data/data/rs.pedjaapps.KernelTuner/files/99ktcputweaks /system/etc/init.d\n",
 	            "chmod 777 /system/etc/init.d/99ktcputweaks\n",
-				"/data/data/rs.pedjaapps.KernelTuner/files/"+arch+"/cp /data/data/rs.pedjaapps.KernelTuner/files/99ktgputweaks /system/etc/init.d\n",
+								  "/data/data/rs.pedjaapps.KernelTuner/files/cp-"+arch+" /data/data/rs.pedjaapps.KernelTuner/files/99ktgputweaks /system/etc/init.d\n",
 	            "chmod 777 /system/etc/init.d/99ktgputweaks\n",
-				"/data/data/rs.pedjaapps.KernelTuner/files/"+arch+"/cp /data/data/rs.pedjaapps.KernelTuner/files/99ktmisctweaks /system/etc/init.d\n",
+								  "/data/data/rs.pedjaapps.KernelTuner/files/cp-"+arch+" /data/data/rs.pedjaapps.KernelTuner/files/99ktmisctweaks /system/etc/init.d\n",
 	            "chmod 777 /system/etc/init.d/99ktmisctweaks\n",
-				"/data/data/rs.pedjaapps.KernelTuner/files/"+arch+"/cp /data/data/rs.pedjaapps.KernelTuner/files/99ktvoltage /system/etc/init.d\n",
+								  "/data/data/rs.pedjaapps.KernelTuner/files/cp-"+arch+" /data/data/rs.pedjaapps.KernelTuner/files/99ktvoltage /system/etc/init.d\n",
 	            "chmod 777 /system/etc/init.d/99ktvoltage\n",
-				"/data/data/rs.pedjaapps.KernelTuner/files/"+arch+"/cp /data/data/rs.pedjaapps.KernelTuner/files/99ktsysctl /system/etc/init.d\n",
+								  "/data/data/rs.pedjaapps.KernelTuner/files/cp-"+arch+" /data/data/rs.pedjaapps.KernelTuner/files/99ktsysctl /system/etc/init.d\n",
 				"chmod 777 /system/etc/init.d/99ktsysctl\n"});
 	           
 		}

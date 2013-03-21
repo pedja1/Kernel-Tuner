@@ -51,15 +51,7 @@
             android:title="Refresh Rate"
 			android:inputType="number"/>
          </PreferenceCategory>	
-         <PreferenceCategory android:title="Crashes" >
-             <CheckBoxPreference 
-                 	android:key="acra.enable"
-    				android:title="Automatic Crash Reporting"
-    				android:summaryOn="Crash Reporting Enabled"
-    				android:summaryOff="Crash Repporting Disabled"
-    				android:defaultValue="true"/>
-             		
-         </PreferenceCategory>	
+        
          <PreferenceCategory android:title="@string/preferences_notification" >
         <PreferenceScreen 
     android:title="@string/preferences_notification"
@@ -84,7 +76,7 @@
     </PreferenceScreen>
     
         </PreferenceCategory>
-<PreferenceCategory android:title="Log Display" >
+<PreferenceCategory android:title="LogCat Optiond" >
 
         <ListPreference
             android:defaultValue="V"
@@ -92,7 +84,7 @@
             android:entryValues="@array/level_values"
             android:key="level"
             android:summary="Log level used to display log entries."
-            android:title="Level?" />
+            android:title="Level" />
 
         <ListPreference
             android:defaultValue="BRIEF"
@@ -100,7 +92,7 @@
             android:entryValues="@array/format_values"
             android:key="format"
             android:summary="Log format to use when displaying log entries."
-            android:title="Format?" />
+            android:title="Format" />
 
         <ListPreference
             android:defaultValue="MAIN"
@@ -108,7 +100,7 @@
             android:entryValues="@array/buffer_values"
             android:key="buffer"
             android:summary="Log buffer to display."
-            android:title="Buffer?" />
+            android:title="Buffer" />
 
         <ListPreference
             android:defaultValue="MEDIUM"
@@ -116,31 +108,15 @@
             android:entryValues="@array/textsize_values"
             android:key="textsize"
             android:summary="Text size to use when displaying log entries."
-            android:title="Text size?" />
-
-        <ListPreference
-            android:defaultValue="#ffffff"
-            android:entries="@array/backgroundColor_entries"
-            android:entryValues="@array/backgroundColor_values"
-            android:key="backgroundColor"
-            android:summary="Background color to use when displaying log entries."
-            android:title="Background color?" />
+            android:title="Text Size" />
 
         <CheckBoxPreference
             android:defaultValue="false"
             android:key="keepScreenOn"
-            android:summary="Prevent screen from turning off when application is running."
-            android:title="Keep Screen On?" />
+            android:summary="Prevent screen from turning off when logcat is running."
+            android:title="Keep Screen On" />
     </PreferenceCategory>
 
-    <PreferenceCategory android:title="Log Output" >
-
-        <CheckBoxPreference
-            android:defaultValue="false"
-            android:key="shareHtml"
-            android:summary="Share logs in HTML format?"
-            android:title="HTML?" />
-    </PreferenceCategory>
         </PreferenceScreen>
     
    <PreferenceScreen

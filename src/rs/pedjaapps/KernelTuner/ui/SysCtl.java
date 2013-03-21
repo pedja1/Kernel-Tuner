@@ -197,7 +197,7 @@ public class SysCtl extends SherlockActivity
 			Process proc = null;
 			try
 			{
-				proc = Runtime.getRuntime().exec(getFilesDir().getPath()+"/"+arch+"/sysctl -a\n");
+				proc = Runtime.getRuntime().exec(getFilesDir().getPath()+"/sysctl-"+arch+" -a\n");
 				InputStream inputStream = proc.getInputStream();
 				InputStreamReader inputStreamReader = new InputStreamReader(inputStream);
 				BufferedReader bufferedReader = new BufferedReader(inputStreamReader);

@@ -60,6 +60,14 @@ public class Changelog extends SherlockActivity
 
 		final List<ChangelogEntry> entries = new ArrayList<ChangelogEntry>();
 
+		entries.add(new ChangelogEntry(true, null, 0, "4.4.4.1"));
+		entries.add(new ChangelogEntry(false, "Logcat", 0, ""));
+		entries.add(new ChangelogEntry(false, "Removed Swap", 2, ""));
+		entries.add(new ChangelogEntry(false, "Removed Automatic Crash Reporting", 2, ""));
+		entries.add(new ChangelogEntry(false, "Support for x86 and mips devices", 0, ""));
+		entries.add(new ChangelogEntry(false, "Fixed FC on some Shortcuts", 1, ""));
+		
+		
 		entries.add(new ChangelogEntry(true, null, 0, "4.4.3"));
 		entries.add(new ChangelogEntry(false, "Fixed CPU Temperature on some divices(need confirmation)", 1, ""));
 		entries.add(new ChangelogEntry(false, "Fixed Task Manager on some devices(need confirmation)", 1, ""));

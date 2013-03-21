@@ -13,7 +13,6 @@ import java.util.concurrent.Executors;
 
 import android.app.AlertDialog;
 import android.app.Dialog;
-import android.app.ListActivity;
 import android.content.Intent;
 import android.os.Bundle;
 import android.os.Debug;
@@ -26,26 +25,31 @@ import android.text.TextUtils;
 import android.util.Log;
 import android.view.ContextMenu;
 import android.view.ContextMenu.ContextMenuInfo;
-import android.view.Menu;
-import android.view.MenuItem;
 import android.view.View;
 import android.view.WindowManager;
 import android.widget.AbsListView;
 import android.widget.AbsListView.OnScrollListener;
 import android.widget.ListView;
-import android.widget.Toast;
+
 
 import rs.pedjaapps.KernelTuner.R;
 import rs.pedjaapps.KernelTuner.entry.LogEntry;
 import rs.pedjaapps.KernelTuner.helpers.LogEntryAdapter;
 import rs.pedjaapps.KernelTuner.helpers.Logcat;
 import rs.pedjaapps.KernelTuner.helpers.LogcatLevel;
-import rs.pedjaapps.KernelTuner.tools.BackgroundColor;
 import rs.pedjaapps.KernelTuner.tools.Format;
 import rs.pedjaapps.KernelTuner.tools.LogSaver;
 import rs.pedjaapps.KernelTuner.tools.Prefs;
+import android.widget.Toast;
+import android.content.SharedPreferences;
+import rs.pedjaapps.KernelTuner.tools.Tools;
+import android.preference.PreferenceManager;
+import android.graphics.Color;
+import com.actionbarsherlock.app.SherlockListActivity;
+import com.actionbarsherlock.view.MenuItem;
+import com.actionbarsherlock.view.Menu;
 
-public class LogCat extends ListActivity {
+public class LogCat extends SherlockListActivity {
 	public static final SimpleDateFormat LOG_DATE_FORMAT = new SimpleDateFormat(
 			"MMM d, yyyy HH:mm:ss ZZZZ");
 	private static final Executor EX = Executors.newCachedThreadPool();
@@ -137,23 +141,31 @@ public class LogCat extends ListActivity {
 	@Override
 	public void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
-		setContentView(R.layout.logcat);
-		getWindow().setTitle(getResources().getString(R.string.app_name));
+		SharedPreferences preferences = PreferenceManager.getDefaultSharedPreferences(this);
+		String theme = preferences.getString("theme", "light");
 
+		setTheme(Tools.getPreferedTheme(theme));
+		setContentView(R.layout.logcat);
+		
+		//getWindow().setTitle(getResources().getString(R.string.app_name));
+
+		getSupportActionBar().setSubtitle("running");
 		mThis = this;
 		mPrefs = new Prefs(this);
 
+		getSupportActionBar().setDisplayHomeAsUpEnabled(true);
+		
 		mLogList = (ListView) findViewById(android.R.id.list);
 		mLogList.setOnCreateContextMenuListener(new View.OnCreateContextMenuListener() {
 
 			@Override
 			public void onCreateContextMenu(ContextMenu menu, View v,
 					ContextMenuInfo menuInfo) {
-				MenuItem jumpTopItem = menu.add(0, MENU_JUMP_TOP, 0,
+				android.view.MenuItem jumpTopItem = menu.add(0, MENU_JUMP_TOP, 0,
 						R.string.jump_start_menu);
 				jumpTopItem.setIcon(android.R.drawable.ic_media_previous);
 
-				MenuItem jumpBottomItem = menu.add(0, MENU_JUMP_BOTTOM, 0,
+				android.view.MenuItem jumpBottomItem = menu.add(0, MENU_JUMP_BOTTOM, 0,
 						R.string.jump_end_menu);
 				jumpBottomItem.setIcon(android.R.drawable.ic_media_next);
 			}
@@ -174,20 +186,7 @@ public class LogCat extends ListActivity {
 		// Log.v("alogcat", "created");
 	}
 
-	@Override
-	protected void onNewIntent(Intent intent) {
-		// Log.i("alogcat", "new intent: " + intent);
-		if (intent == null) {
-			return;
-		}
-		if (intent.getAction() == null) {
-			return;
-		}
-		setIntent(intent);
-		if (intent.getAction().equals(rs.pedjaapps.KernelTuner.intents.Intent.START_INTENT)) {
-			rs.pedjaapps.KernelTuner.intents.Intent.handleExtras(this, intent);
-		}
-	}
+	
 
 	@Override
 	public void onStart() {
@@ -196,10 +195,9 @@ public class LogCat extends ListActivity {
 	}
 
 	private void init() {
-		BackgroundColor bc = mPrefs.getBackgroundColor();
-		int color = bc.getColor();
-		mLogList.setBackgroundColor(color);
-		mLogList.setCacheColorHint(color);
+		
+		mLogList.setBackgroundColor(Color.WHITE);
+		mLogList.setCacheColorHint(Color.WHITE);
 
 		mLogEntryAdapter = new LogEntryAdapter(this, R.layout.logcat_row,
 				new ArrayList<LogEntry>(WINDOW_SIZE));
@@ -212,7 +210,7 @@ public class LogCat extends ListActivity {
 	public void onResume() {
 		//Debug.startMethodTracing("alogcat");
 		super.onResume();
-		onNewIntent(getIntent());
+	//	onNewIntent(getIntent());
 		init();
 		// Log.v("alogcat", "resumed");
 	}
@@ -250,7 +248,7 @@ public class LogCat extends ListActivity {
 	}
 
 	public void reset() {
-		Toast.makeText(this, R.string.reading_logs, Toast.LENGTH_SHORT).show();
+		//Toast.makeText(this, R.string.reading_logs, Toast.LENGTH_SHORT).show();
 		mLastLevel = LogcatLevel.V;
 
 		if (mLogcat != null) {
@@ -273,9 +271,9 @@ public class LogCat extends ListActivity {
 
 		// TODO: maybe this should be in a menu.xml file. ;)
 		mPlayItem = menu.add(0, MENU_PLAY, 0, R.string.pause_menu);
-		mPlayItem.setIcon(android.R.drawable.ic_media_pause);
-		MenuItemCompat.setShowAsAction(mPlayItem,
-				MenuItemCompat.SHOW_AS_ACTION_IF_ROOM);
+		mPlayItem.setIcon(android.R.drawable.ic_media_pause)
+		.setShowAsAction(
+				MenuItem.SHOW_AS_ACTION_IF_ROOM);
 		setPlayMenu();
 
 		mFilterItem = menu.add(
@@ -284,32 +282,23 @@ public class LogCat extends ListActivity {
 				0,
 				getResources().getString(R.string.filter_menu,
 						mPrefs.getFilter()));
-		mFilterItem.setIcon(android.R.drawable.ic_menu_search);
-		MenuItemCompat.setShowAsAction(mFilterItem,
-				MenuItemCompat.SHOW_AS_ACTION_IF_ROOM
-						| MenuItemCompat.SHOW_AS_ACTION_WITH_TEXT);
+		mFilterItem.setIcon(android.R.drawable.ic_menu_search)
+		.setShowAsAction(
+				MenuItem.SHOW_AS_ACTION_IF_ROOM
+						| MenuItem.SHOW_AS_ACTION_WITH_TEXT);
 		setFilterMenu();
 
 		MenuItem clearItem = menu.add(0, MENU_CLEAR, 0, R.string.clear_menu);
-		clearItem.setIcon(android.R.drawable.ic_menu_close_clear_cancel);
-		MenuItemCompat.setShowAsAction(clearItem,
-				MenuItemCompat.SHOW_AS_ACTION_IF_ROOM);
+		clearItem.setIcon(android.R.drawable.ic_menu_close_clear_cancel)
+		.setShowAsAction(
+				MenuItem.SHOW_AS_ACTION_IF_ROOM);
 
-		MenuItem shareItem = menu.add(0, MENU_SHARE, 0, R.string.share_menu);
-		shareItem.setIcon(android.R.drawable.ic_menu_share);
-		MenuItemCompat.setShowAsAction(shareItem,
-				MenuItemCompat.SHOW_AS_ACTION_IF_ROOM);
 
 		MenuItem saveItem = menu.add(0, MENU_SAVE, 0, R.string.save_menu);
-		saveItem.setIcon(android.R.drawable.ic_menu_save);
-		MenuItemCompat.setShowAsAction(saveItem,
+		saveItem.setIcon(android.R.drawable.ic_menu_save)
+		.setShowAsAction(
 				MenuItemCompat.SHOW_AS_ACTION_IF_ROOM);
 
-		MenuItem prefsItem = menu.add(0, MENU_PREFS, 0, getResources()
-				.getString(R.string.prefs_menu));
-		prefsItem.setIcon(android.R.drawable.ic_menu_preferences);
-		MenuItemCompat.setShowAsAction(prefsItem,
-				MenuItemCompat.SHOW_AS_ACTION_IF_ROOM);
 
 		return true;
 	}
@@ -352,9 +341,6 @@ public class LogCat extends ListActivity {
 		case MENU_FILTER:
 			showDialog(FILTER_DIALOG);
 			return true;
-		case MENU_SHARE:
-			share();
-			return true;
 		case MENU_SAVE:
 			File f = save();
 			String msg = getResources().getString(R.string.saving_log,
@@ -372,10 +358,9 @@ public class LogCat extends ListActivity {
 			clear();
 			reset();
 			return true;
-		/*case MENU_PREFS:
-			Intent intent = new Intent(this, PrefsActivity.class);
-			startActivityForResult(intent, PREFS_REQUEST);
-			return true;*/
+		case android.R.id.home:
+		    finish();
+			return true;
 		default:
 			return super.onOptionsItemSelected(item);
 		}
@@ -402,7 +387,7 @@ public class LogCat extends ListActivity {
 	}
 
 	@Override
-	public boolean onContextItemSelected(MenuItem item) {
+	public boolean onContextItemSelected(android.view.MenuItem item) {
 		switch (item.getItemId()) {
 		case MENU_JUMP_TOP:
 			Toast.makeText(this, "Jumping to top of log ...",
@@ -458,37 +443,10 @@ public class LogCat extends ListActivity {
 		return sb.toString();
 	}
 
-	private void share() {
-		EX.execute(new Runnable() {
-			public void run() {
-				boolean html = mPrefs.isShareHtml();
-				String content = dump(html);
-
-				Intent shareIntent = new Intent(
-						android.content.Intent.ACTION_SEND);
-
-				// emailIntent.setType("message/rfc822");
-				if (html) {
-					shareIntent.setType("text/html");
-				} else {
-					shareIntent.setType("text/plain");
-				}
-
-				shareIntent.putExtra(android.content.Intent.EXTRA_SUBJECT,
-						"Android Log: " + LOG_DATE_FORMAT.format(new Date()));
-				shareIntent.putExtra(android.content.Intent.EXTRA_TEXT,
-						html ? Html.fromHtml(content) : content);
-				startActivity(Intent.createChooser(shareIntent,
-						"Share Android Log ..."));
-			}
-		});
-
-	}
-
 	private File save() {
 		final File path = new File(Environment.getExternalStorageDirectory(),
-				"alogcat");
-		final File file = new File(path + File.separator + "alogcat."
+				"logcat");
+		final File file = new File(path + File.separator + "logcat."
 				+ LogSaver.LOG_FILE_FORMAT.format(new Date()) + ".txt");
 
 		// String msg = "saving log to: " + file.toString();
@@ -508,13 +466,13 @@ public class LogCat extends ListActivity {
 					bw = new BufferedWriter(new FileWriter(file), 1024);
 					bw.write(content);
 				} catch (IOException e) {
-					Log.e("alogcat", "error saving log", e);
+					Log.e("logcat", "error saving log", e);
 				} finally {
 					if (bw != null) {
 						try {
 							bw.close();
 						} catch (IOException e) {
-							Log.e("alogcat", "error closing log", e);
+							Log.e("logcat", "error closing log", e);
 						}
 					}
 				}
@@ -537,8 +495,9 @@ public class LogCat extends ListActivity {
 		if (!mPlay) {
 			return;
 		}
-		getWindow()
-				.setTitle(getResources().getString(R.string.app_name_paused));
+	/*	getWindow()
+				.setTitle(getResources().getString(R.string.app_name_paused));*/
+				getSupportActionBar().setSubtitle("paused");
 		if (mLogcat != null) {
 			mLogcat.setPlay(false);
 			mPlay = false;
@@ -550,7 +509,8 @@ public class LogCat extends ListActivity {
 		if (mPlay) {
 			return;
 		}
-		getWindow().setTitle(getResources().getString(R.string.app_name));
+	//	getWindow().setTitle(getResources().getString(R.string.app_name));
+		getSupportActionBar().setSubtitle("running");
 		if (mLogcat != null) {
 			mLogcat.setPlay(true);
 			mPlay = true;

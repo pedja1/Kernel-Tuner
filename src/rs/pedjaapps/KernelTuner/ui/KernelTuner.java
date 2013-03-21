@@ -779,7 +779,7 @@ public class KernelTuner extends SherlockActivity {
 				public void onClick(View v) {
 
 					Intent myIntent = new Intent(c, LogCat.class);
-					startActivity(myIntent);
+				    startActivity(myIntent);
 
 				}
 			});
@@ -2034,7 +2034,7 @@ private void startCpuLoadThread() {
 		}
 	}
 
-	/*private void CopyAssets() {
+	private void CopyAssets() {
 		AssetManager assetManager = getAssets();
 		String[] files = null;
 		File file;
@@ -2059,7 +2059,7 @@ private void startCpuLoadThread() {
 				}
 				in.close();
 				Runtime.getRuntime().exec("chmod 755 " + file);
-				file.setExecutable(false);
+				file.setExecutable(true);
 				in = null;
 				out.flush();
 				out.close();
@@ -2079,72 +2079,8 @@ private void startCpuLoadThread() {
 		while ((read = in.read(buffer)) != -1) {
 			out.write(buffer, 0, read);
 		}
-	}*/
-	private void CopyAssets() {
-	    copyFileOrDir(""); // copy all files in assets folder in my project
-	    editor.putBoolean("first_launch", true);
-		editor.commit();
 	}
-
-	private void copyFileOrDir(String path) {
-	    AssetManager assetManager = this.getAssets();
-	    String assets[] = null;
-	    try {
-	        Log.i("tag", "copyFileOrDir() "+path);
-	        assets = assetManager.list(path);
-	        if (assets.length == 0) {
-	            copyFile(path);
-	        } else {
-	            String fullPath =  this.getFilesDir().getAbsolutePath() + "/" + path;
-	            Log.i("tag", "path="+fullPath);
-	            File dir = new File(fullPath);
-	            if (!dir.exists() && !path.startsWith("images") && !path.startsWith("sounds") && !path.startsWith("webkit"))
-	                if (!dir.mkdirs());
-	                    Log.i("tag", "could not create dir "+fullPath);
-	            for (int i = 0; i < assets.length; ++i) {
-	                String p;
-	                if (path.equals(""))
-	                    p = "";
-	                else 
-	                    p = path + "/";
-
-	                if (!path.startsWith("images") && !path.startsWith("sounds") && !path.startsWith("webkit"))
-	                    copyFileOrDir( p + assets[i]);
-	            }
-	        }
-	    } catch (IOException ex) {
-	        Log.e("tag", "I/O Exception", ex);
-	    }
-	}
-
-	private void copyFile(String filename) {
-	    AssetManager assetManager = this.getAssets();
-
-	    InputStream in = null;
-	    OutputStream out = null;
-	    String newFileName = null;
-	    try {
-	        Log.i("tag", "copyFile() "+filename);
-	        in = assetManager.open(filename);
-	        newFileName = this.getFilesDir().getAbsolutePath() + "/" + filename;
-	        out = new FileOutputStream(newFileName);
-	        new File(newFileName).setExecutable(true);
-	        byte[] buffer = new byte[1024];
-	        int read;
-	        while ((read = in.read(buffer)) != -1) {
-	            out.write(buffer, 0, read);
-	        }
-	        in.close();
-	        in = null;
-	        out.flush();
-	        out.close();
-	        out = null;
-	    } catch (Exception e) {
-	        Log.e("tag", "Exception in copyFile() of "+newFileName);
-	        Log.e("tag", "Exception in copyFile() "+e.toString());
-	    }
-
-	}
+	
 
 	private boolean isNotificationServiceRunning() {
 		ActivityManager manager = (ActivityManager) getSystemService(Context.ACTIVITY_SERVICE);

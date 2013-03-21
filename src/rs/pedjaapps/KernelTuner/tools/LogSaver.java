@@ -31,8 +31,8 @@ public class LogSaver {
 
 	public File save() {
 		final File path = new File(Environment.getExternalStorageDirectory(),
-				"alogcat");
-		final File file = new File(path + "/alogcat."
+				"KernelTuner");
+		final File file = new File(path + "/logcat."
 				+ LOG_FILE_FORMAT.format(new Date()) + ".txt");
 
 		String msg = "saving log to: " + file.toString();
@@ -52,13 +52,13 @@ public class LogSaver {
 					bw = new BufferedWriter(new FileWriter(file), 1024);
 					bw.write(dump);
 				} catch (IOException e) {
-					Log.e("alogcat", "error saving log", e);
+					Log.e("logcat", "error saving log", e);
 				} finally {
 					if (bw != null) {
 						try {
 							bw.close();
 						} catch (IOException e) {
-							Log.e("alogcat", "error closing log", e);
+							Log.e("logcat", "error closing log", e);
 						}
 					}
 				}
