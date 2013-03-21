@@ -18,22 +18,22 @@
 */
 package rs.pedjaapps.KernelTuner.ui;
 
+import android.annotation.TargetApi;
 import android.app.*;
 import android.app.ActivityManager.*;
 import android.content.*;
 import android.os.*;
 import android.preference.*;
 import android.preference.Preference.*;
-import com.actionbarsherlock.app.*;
+import android.view.MenuItem;
 import rs.pedjaapps.KernelTuner.*;
 import rs.pedjaapps.KernelTuner.services.*;
-
-import com.actionbarsherlock.app.ActionBar;
 import rs.pedjaapps.KernelTuner.tools.Tools;
 
 
 
-public class Preferences extends SherlockPreferenceActivity
+@TargetApi(Build.VERSION_CODES.HONEYCOMB)
+public class PreferencesFragment extends PreferenceFragment
 {
 
 	private ListPreference bootPrefList;
@@ -62,20 +62,21 @@ public class Preferences extends SherlockPreferenceActivity
 	private PreferenceScreen systemInfo;
 	private PreferenceScreen container;
 
-	@SuppressWarnings("deprecation")
+
 	@Override
 	public void onCreate(Bundle savedInstanceState)
 	{        
 		SharedPreferences sharedPrefs = PreferenceManager
-				.getDefaultSharedPreferences(this);
+				.getDefaultSharedPreferences(this.getActivity()
+						);
 		String them = sharedPrefs.getString("theme", "light");
 		
-		setTheme(Tools.getPreferedTheme(them));
+		getActivity().setTheme(Tools.getPreferedTheme(them));
 		super.onCreate(savedInstanceState);
 
 		addPreferencesFromResource(R.xml.preferences); 
 		
-		ActionBar actionBar = getSupportActionBar();
+		ActionBar actionBar = getActivity().getActionBar();
 		actionBar.setDisplayHomeAsUpEnabled(true);
 		
 		boolean minimal = sharedPrefs.getBoolean("main_style",false);
@@ -231,8 +232,8 @@ public class Preferences extends SherlockPreferenceActivity
             public boolean onPreferenceChange(Preference preference, Object newValue) {
             	notifPrefList.setSummary(notifPrefList.getEntries()[notifPrefList.findIndexOfValue(newValue.toString())]);
             	if(isNotificationServiceRunning()){
-            	stopService(new Intent(Preferences.this, NotificationService.class));
-            	startService(new Intent(Preferences.this, NotificationService.class));
+            	getActivity().stopService(new Intent(PreferencesFragment.this.getActivity(), NotificationService.class));
+            	getActivity().startService(new Intent(PreferencesFragment.this.getActivity(), NotificationService.class));
             	}
                 return true;
             }
@@ -243,18 +244,18 @@ public class Preferences extends SherlockPreferenceActivity
             @Override
             public boolean onPreferenceChange(Preference preference, Object newValue) {
             	if(notifBox.isChecked()){
-            		stopService(new Intent(Preferences.this, NotificationService.class));
+            		getActivity().stopService(new Intent(PreferencesFragment.this.getActivity(), NotificationService.class));
                 	
             	}
             	else if(notifBox.isChecked()==false){
-            	startService(new Intent(Preferences.this, NotificationService.class));
+            		getActivity().startService(new Intent(PreferencesFragment.this.getActivity(), NotificationService.class));
             	}
             	
                 return true;
             }
         }); 
 
-        	 getSupportActionBar().setSubtitle("Application Preferences");
+        getActivity().getActionBar().setSubtitle("Application Preferences");
 
         notifScreen = (PreferenceScreen)findPreference("notificationScreen");
         notifScreen.setOnPreferenceClickListener(new OnPreferenceClickListener(){
@@ -262,7 +263,7 @@ public class Preferences extends SherlockPreferenceActivity
 			@Override
 			public boolean onPreferenceClick(Preference arg0) {
 				AlertDialog.Builder builder = new AlertDialog.Builder(
-	                    Preferences.this);
+	                    PreferencesFragment.this.getActivity());
 
 					builder.setMessage(getResources().getString(R.string.notificatio_preferences_warning));
 
@@ -291,7 +292,7 @@ public class Preferences extends SherlockPreferenceActivity
 			public boolean onPreferenceClick(Preference arg0) {
 				if(htcOneOverride.isChecked()){
 				AlertDialog.Builder builder = new AlertDialog.Builder(
-	                    Preferences.this);
+	                    PreferencesFragment.this.getActivity());
 
 					builder.setMessage(getResources().getString(R.string.htc_override_preferences_warning));
 
@@ -322,7 +323,7 @@ public class Preferences extends SherlockPreferenceActivity
 			public boolean onPreferenceClick(Preference arg0) {
 				if(resetApp.isChecked()){
 				AlertDialog.Builder builder = new AlertDialog.Builder(
-	                    Preferences.this);
+	                    PreferencesFragment.this.getActivity());
 
 					builder.setMessage("This will not work if init.d is selected for restoring settings after reboot.\n\n init.d scripts are executed before this application can start");
 
@@ -495,7 +496,7 @@ public class Preferences extends SherlockPreferenceActivity
 	}
 	
 	private boolean isNotificationServiceRunning() {
-	    ActivityManager manager = (ActivityManager) getSystemService(Context.ACTIVITY_SERVICE);
+	    ActivityManager manager = (ActivityManager) getActivity().getSystemService(Context.ACTIVITY_SERVICE);
 	    for (RunningServiceInfo service : manager.getRunningServices(Integer.MAX_VALUE)) {
 	        if (NotificationService.class.getName().equals(service.service.getClassName())) {
 	            return true;
@@ -505,11 +506,11 @@ public class Preferences extends SherlockPreferenceActivity
 	}
 	
 	@Override
-	public boolean onOptionsItemSelected(com.actionbarsherlock.view.MenuItem item) {
+	public boolean onOptionsItemSelected(MenuItem item) {
 	    switch (item.getItemId()) {
 	        case android.R.id.home:
 	            // app icon in action bar clicked; go home
-	            Intent intent = new Intent(this, KernelTuner.class);
+	            Intent intent = new Intent(this.getActivity(), KernelTuner.class);
 	            intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
 	            startActivity(intent);
 	            return true;

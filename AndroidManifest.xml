@@ -65,6 +65,13 @@
             android:label="@string/title_preferences"
             android:theme="@style/IndicatorLight" >
         </activity>
+        <activity
+            android:name=".ui.PreferencesFragmentActivity"
+            android:exported="true"
+            android:icon="@drawable/settings"
+            android:label="@string/title_preferences"
+            android:theme="@style/IndicatorLight" >
+        </activity>
 
         <receiver
             android:name=".receiver.StartupReceiver"
@@ -264,6 +271,11 @@
             android:icon="@drawable/ic_menu_info_details"
             android:label="@string/info"
             android:theme="@style/IndicatorLight" >
+            <intent-filter>
+                <action android:name="rs.pedjaapps.KernelTuner.SystemInfo" />
+
+                <category android:name="android.intent.category.DEFAULT" />
+            </intent-filter>
         </activity>
         <activity
             android:name=".ui.CPUActivity"
@@ -293,6 +305,13 @@
             android:exported="true"
             android:icon="@drawable/times"
             android:label="@string/title_tis"
+            android:theme="@style/IndicatorLight" >
+        </activity>
+	<activity
+            android:name=".ui.Swap"
+            android:exported="true"
+            android:icon="@drawable/swap"
+            android:label="Swap"
             android:theme="@style/IndicatorLight" >
         </activity>
         <activity
@@ -429,6 +448,10 @@
  
         <activity
             android:name=".shortcuts.ThermaldShortcut"
+            android:label="Kernel Tuner - Shortcuts" >
+        </activity>
+	<activity
+            android:name=".shortcuts.SwapShortcut"
             android:label="Kernel Tuner - Shortcuts" >
         </activity>
         <activity

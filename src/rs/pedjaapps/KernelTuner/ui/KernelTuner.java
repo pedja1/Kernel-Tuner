@@ -18,33 +18,70 @@
 */
 package rs.pedjaapps.KernelTuner.ui;
 
-import android.app.*;
-import android.app.ActivityManager.*;
-import android.content.*;
-import android.content.pm.*;
-import android.content.res.*;
-import android.graphics.*;
-import android.net.Uri;
-import android.os.*;
-import android.preference.*;
-import android.util.*;
-import android.view.*;
-import android.view.View.*;
-import android.widget.*;
+import java.io.File;
+import java.io.FileOutputStream;
+import java.io.IOException;
+import java.io.InputStream;
+import java.io.OutputStream;
+import java.io.OutputStreamWriter;
+import java.io.RandomAccessFile;
+import java.util.ArrayList;
+import java.util.List;
 
-import com.actionbarsherlock.app.*;
-import com.google.ads.*;
-import java.io.*;
-import java.util.*;
-import rs.pedjaapps.KernelTuner.*;
-import rs.pedjaapps.KernelTuner.helpers.*;
-import rs.pedjaapps.KernelTuner.services.*;
-import rs.pedjaapps.KernelTuner.tools.*;
+import rs.pedjaapps.KernelTuner.Constants;
+import rs.pedjaapps.KernelTuner.R;
+import rs.pedjaapps.KernelTuner.entry.SysCtlDatabaseEntry;
+import rs.pedjaapps.KernelTuner.helpers.DatabaseHandler;
+import rs.pedjaapps.KernelTuner.helpers.IOHelper;
+import rs.pedjaapps.KernelTuner.services.NotificationService;
+import rs.pedjaapps.KernelTuner.tools.Initd;
+import rs.pedjaapps.KernelTuner.tools.RootExecuter;
+import rs.pedjaapps.KernelTuner.tools.Tools;
+import android.annotation.TargetApi;
+import android.app.ActivityManager;
+import android.app.ActivityManager.RunningServiceInfo;
+import android.app.AlertDialog;
+import android.app.ProgressDialog;
+import android.content.BroadcastReceiver;
+import android.content.Context;
+import android.content.DialogInterface;
+import android.content.Intent;
+import android.content.IntentFilter;
+import android.content.SharedPreferences;
+import android.content.pm.PackageInfo;
+import android.content.pm.PackageManager;
+import android.content.res.AssetManager;
+import android.graphics.Color;
+import android.net.Uri;
+import android.os.AsyncTask;
+import android.os.BatteryManager;
+import android.os.Build;
+import android.os.Bundle;
+import android.os.Handler;
+import android.preference.PreferenceManager;
+import android.util.Log;
+import android.view.LayoutInflater;
+import android.view.View;
+import android.view.View.OnClickListener;
+import android.view.View.OnLongClickListener;
+import android.widget.Button;
+import android.widget.CheckBox;
+import android.widget.ImageView;
+import android.widget.LinearLayout;
+import android.widget.ProgressBar;
+import android.widget.RelativeLayout;
+import android.widget.TextView;
+import android.widget.Toast;
 
 import com.actionbarsherlock.app.ActionBar;
+import com.actionbarsherlock.app.SherlockActivity;
+import com.actionbarsherlock.app.SherlockFragmentActivity;
 import com.actionbarsherlock.view.Menu;
 import com.actionbarsherlock.view.MenuItem;
-import rs.pedjaapps.KernelTuner.entry.SysCtlDatabaseEntry;
+import com.google.ads.AdRequest;
+import com.google.ads.AdView;
+
+
 
 public class KernelTuner extends SherlockActivity {
 
@@ -124,6 +161,7 @@ public class KernelTuner extends SherlockActivity {
 	private ProgressBar                 cpuLoad;
 	private int                         refresh         = 1000;
 	
+
 	@Override
 	public void onCreate(Bundle savedInstanceState) {
 		/**
@@ -688,13 +726,22 @@ public class KernelTuner extends SherlockActivity {
 		});
 
 		info = (Button)findViewById(R.id.button14);
+		if(minimal){
+			info.setText("Settings");
+			info.setCompoundDrawablesWithIntrinsicBounds(null, getResources().getDrawable( R.drawable.settings ), null, null);
+		}
 		info.setOnClickListener(new OnClickListener() {
 
 			@Override
 			public void onClick(View v) {
-
+				if(minimal){
+					Intent myIntent = new Intent(c, Preferences.class);
+					startActivity(myIntent);
+				}
+				else{
 				Intent myIntent = new Intent(c, SystemInfo.class);
 				startActivity(myIntent);
+				}
 
 			}
 		});
@@ -702,8 +749,9 @@ public class KernelTuner extends SherlockActivity {
 
 			@Override
 			public boolean onLongClick(View arg0) {
-
+				if(minimal==false){
 				infoDialog(R.drawable.info, "System Info" ,"Detailed system information","", false);
+				}
 				return true;
 			}
 
@@ -1992,19 +2040,31 @@ private void startCpuLoadThread() {
 								| MenuItem.SHOW_AS_ACTION_WITH_TEXT);
 		menu.add(2, 2, 2, "Compatibility Check").setShowAsAction(
 				MenuItem.SHOW_AS_ACTION_NEVER);
+		menu.add(3, 3, 3, "Swap").setShowAsAction(
+				MenuItem.SHOW_AS_ACTION_NEVER);
 		return true;
 	}
 
+	@TargetApi(Build.VERSION_CODES.HONEYCOMB)
 	@Override
 	public boolean onOptionsItemSelected(MenuItem item) {
 
 		if (item.getItemId() == 1) {
+			if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.HONEYCOMB)
+	        {
+				startActivity(new Intent(c, PreferencesFragmentActivity.class));
+	        }
+			else{
 			startActivity(new Intent(c, Preferences.class));
+			}
 		}
 		else if (item.getItemId() == 2) {
 			startActivity(new Intent(c, CompatibilityCheck.class));
 		}
-		
+		else if (item.getItemId() == 3) {
+		Intent myIntent = new Intent(c, Swap.class);
+		startActivity(myIntent);
+		}
 		return super.onOptionsItemSelected(item);
 	}
 

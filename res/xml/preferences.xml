@@ -1,6 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <PreferenceScreen xmlns:android="http://schemas.android.com/apk/res/android"
-    android:icon="@drawable/misc" >
+    android:icon="@drawable/misc"
+    android:key="container" >
 
     <PreferenceScreen
                 android:title="Application Settings"
@@ -240,6 +241,15 @@
 
         </PreferenceScreen>
 		
-	
+	<PreferenceScreen
+                android:title="System Info"
+                android:summary=""
+				android:icon="@drawable/info"
+				android:key="sysInfo">
+
+            <intent android:action="rs.pedjaapps.KernelTuner.SystemInfo"
+                     />
+
+        </PreferenceScreen>
     
 </PreferenceScreen>

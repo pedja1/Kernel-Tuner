@@ -1,0 +1,39 @@
+<?xml version="1.0" encoding="utf-8"?>
+<preference-headers xmlns:android="http://schemas.android.com/apk/res/android">
+    <header 
+        android:fragment="rs.pedjaapps.KernelTuner.ui.Preferences$Application"
+        android:title="Application"
+        android:summary="Base Application Settings" >
+        <extra android:name="settings" android:value="application" />
+    </header>
+    <header 
+        android:fragment="rs.pedjaapps.KernelTuner.ui.Preferences$Widget"
+        android:title="Widget"
+        android:summary="Widget Settings" >
+		<extra android:name="settings" android:value="widget" />
+    </header>
+    <header 
+        android:fragment="rs.pedjaapps.KernelTuner.ui.Preferences$Notification"
+        android:title="Notifications"
+        android:summary="Notification Settings" >
+		<extra android:name="settings" android:value="notification" />
+    </header>
+    <header 
+        android:fragment="rs.pedjaapps.KernelTuner.ui.Preferences$Logcat"
+        android:title="LogCat"
+        android:summary="LogCat Settings" >
+		<extra android:name="settings" android:value="logcat" />
+    </header>
+    <header 
+        android:fragment="rs.pedjaapps.KernelTuner.ui.Preferences$UI"
+        android:title="User Interface"
+        android:summary="UI Settings" >
+		<extra android:name="settings" android:value="ui" />
+    </header>
+    <header 
+        android:fragment="rs.pedjaapps.KernelTuner.ui.Preferences$Main"
+        android:title="Main Screen"
+        android:summary="Main Screen Settings" >
+		<extra android:name="settings" android:value="main" />
+    </header>
+</preference-headers>
