@@ -18,18 +18,25 @@
 */
 package rs.pedjaapps.KernelTuner.ui;
 
-import android.app.*;
-import android.app.ActivityManager.*;
-import android.content.*;
-import android.os.*;
 import android.preference.*;
-import android.preference.Preference.*;
-import com.actionbarsherlock.app.*;
-import rs.pedjaapps.KernelTuner.*;
-import rs.pedjaapps.KernelTuner.services.*;
 
+import android.app.ActivityManager;
+import android.app.ActivityManager.RunningServiceInfo;
+import android.app.AlertDialog;
+import android.content.Context;
+import android.content.DialogInterface;
+import android.content.Intent;
+import android.content.SharedPreferences;
+import android.os.Bundle;
+import android.preference.Preference.OnPreferenceChangeListener;
+import android.preference.Preference.OnPreferenceClickListener;
 import com.actionbarsherlock.app.ActionBar;
+import com.actionbarsherlock.app.SherlockPreferenceActivity;
+import java.util.List;
+import rs.pedjaapps.KernelTuner.R;
+import rs.pedjaapps.KernelTuner.services.NotificationService;
 import rs.pedjaapps.KernelTuner.tools.Tools;
+import android.os.Build;
 
 
 
@@ -61,7 +68,19 @@ public class Preferences extends SherlockPreferenceActivity
 	private ListPreference textsizePrefList;
 	private PreferenceScreen systemInfo;
 	private PreferenceScreen container;
+	
+	final static String ACTION_PREFS_APPLICATION = "com.example.prefs.PREFS_APPLICATION";
+	final static String ACTION_PREFS_WIDGET = "com.example.prefs.PREFS_WIDGET";
+	final static String ACTION_PREFS_NOTIFICATION = "com.example.prefs.PREFS_NOTIFICATION";
+	final static String ACTION_PREFS_LOGCAT = "com.example.prefs.PREFS_LOGCAT";
+	final static String ACTION_PREFS_UI = "com.example.prefs.PREFS_UI";
+	final static String ACTION_PREFS_MAIN = "com.example.prefs.PREFS_MAIN";
 
+	@Override
+    public void onBuildHeaders(List<Header> target) {
+        loadHeadersFromResource(R.xml.preference_header, target);
+    }
+	
 	@SuppressWarnings("deprecation")
 	@Override
 	public void onCreate(Bundle savedInstanceState)
@@ -73,24 +92,59 @@ public class Preferences extends SherlockPreferenceActivity
 		setTheme(Tools.getPreferedTheme(them));
 		super.onCreate(savedInstanceState);
 
-		addPreferencesFromResource(R.xml.preferences); 
+		String action = getIntent().getAction();
+		if (action != null && action.equals(ACTION_PREFS_APPLICATION)) {
+			addPreferencesFromResource(R.xml.settings_application);
+			app();
+		}
+		else if (action != null && action.equals(ACTION_PREFS_WIDGET)) {
+			addPreferencesFromResource(R.xml.settings_widget);
+			widget();
+		}
+		else if (action != null && action.equals(ACTION_PREFS_NOTIFICATION)) {
+			addPreferencesFromResource(R.xml.settings_notification);
+			notif();
+		}
+		else if (action != null && action.equals(ACTION_PREFS_LOGCAT)) {
+			addPreferencesFromResource(R.xml.settings_logcat);
+			logcat();
+		}
+		else if (action != null && action.equals(ACTION_PREFS_UI)) {
+			addPreferencesFromResource(R.xml.settings_ui);
+			ui();
+		}
+		else if (action != null && action.equals(ACTION_PREFS_MAIN)) {
+			addPreferencesFromResource(R.xml.settings_main);
+			main();
+		}
+		else if (Build.VERSION.SDK_INT < Build.VERSION_CODES.HONEYCOMB) {
+			// Load the legacy preferences headers
+			addPreferencesFromResource(R.xml.preference_header_legacy);
+		}
+		//addPreferencesFromResource(R.xml.preferences); 
 		
 		ActionBar actionBar = getSupportActionBar();
 		actionBar.setDisplayHomeAsUpEnabled(true);
-		
-		boolean minimal = sharedPrefs.getBoolean("main_style",false);
+	    actionBar.setSubtitle("Application Preferences");
+
+	/*	boolean minimal = sharedPrefs.getBoolean("main_style",false);
 		systemInfo = (PreferenceScreen)findPreference("sysInfo");
 		container = (PreferenceScreen)findPreference("container");
 		if(minimal==false){
 			container.removePreference(systemInfo);
 		}
 		
+	 */
+		
+       
+	}
+	private void main(){
 		mainCpuPref = (CheckBoxPreference)findPreference("main_cpu");
 		mainTempPref = (CheckBoxPreference)findPreference("main_temp");
 		mainTogglesPref = (CheckBoxPreference)findPreference("main_toggles");
 		mainButtonsPref = (CheckBoxPreference)findPreference("main_buttons");
 		mainStylePref = (CheckBoxPreference)findPreference("main_style");
-		
+
 		mainStylePref.setOnPreferenceChangeListener(new Preference.OnPreferenceChangeListener(){
 
 				public boolean onPreferenceChange(Preference preferenxe, Object newValue)
@@ -122,267 +176,6 @@ public class Preferences extends SherlockPreferenceActivity
 			mainButtonsPref.setEnabled(true);
 			mainTempPref.setEnabled(true);
 		}
-		
-		
-		widgetPrefList = (ListPreference) findPreference("widget_bg");
-        widgetPrefList.setDefaultValue(widgetPrefList.getEntryValues()[0]);
-        String widgetBg = widgetPrefList.getValue();
-        if (widgetBg == null) {
-            widgetPrefList.setValue((String)widgetPrefList.getEntryValues()[0]);
-            widgetBg = widgetPrefList.getValue();
-        }
-        widgetPrefList.setSummary(widgetPrefList.getEntries()[widgetPrefList.findIndexOfValue(widgetBg)]);
-
-
-        widgetPrefList.setOnPreferenceChangeListener(new OnPreferenceChangeListener() {
-            @Override
-            public boolean onPreferenceChange(Preference preference, Object newValue) {
-                widgetPrefList.setSummary(widgetPrefList.getEntries()[widgetPrefList.findIndexOfValue(newValue.toString())]);
-                return true;
-            }
-        }); 
-		
-		themePrefList = (ListPreference) findPreference("theme");
-        themePrefList.setDefaultValue(themePrefList.getEntryValues()[0]);
-        String theme = themePrefList.getValue();
-        if (theme == null) {
-            themePrefList.setValue((String)themePrefList.getEntryValues()[0]);
-            theme = themePrefList.getValue();
-        }
-        themePrefList.setSummary(themePrefList.getEntries()[themePrefList.findIndexOfValue(theme)]);
-
-
-        themePrefList.setOnPreferenceChangeListener(new OnPreferenceChangeListener() {
-            @Override
-            public boolean onPreferenceChange(Preference preference, Object newValue) {
-                themePrefList.setSummary(themePrefList.getEntries()[themePrefList.findIndexOfValue(newValue.toString())]);
-                return true;
-            }
-        }); 
-		
-		bootPrefList = (ListPreference) findPreference("boot");
-        bootPrefList.setDefaultValue(bootPrefList.getEntryValues()[0]);
-        String boot = bootPrefList.getValue();
-        if (boot == null) {
-            bootPrefList.setValue((String)bootPrefList.getEntryValues()[0]);
-            boot = bootPrefList.getValue();
-        }
-        bootPrefList.setSummary(bootPrefList.getEntries()[bootPrefList.findIndexOfValue(boot)]);
-
-
-        bootPrefList.setOnPreferenceChangeListener(new OnPreferenceChangeListener() {
-            @Override
-            public boolean onPreferenceChange(Preference preference, Object newValue) {
-                bootPrefList.setSummary(bootPrefList.getEntries()[bootPrefList.findIndexOfValue(newValue.toString())]);
-                return true;
-            }
-        }); 
-        
-        widgetPref = (EditTextPreference) findPreference("widget_time");
-        widgetPref.setDefaultValue(widgetPref.getText());
-        String widget = widgetPref.getText();
-        if (widget == null) {
-        	widgetPref.setText((String)widgetPref.getText());
-            widget = widgetPref.getText();
-        }
-        widgetPref.setSummary(widget+"min");
-
-
-        widgetPref.setOnPreferenceChangeListener(new OnPreferenceChangeListener() {
-            @Override
-            public boolean onPreferenceChange(Preference preference, Object newValue) {
-            	widgetPref.setSummary(newValue.toString()+"min");
-                return true;
-            }
-        }); 
-        
-        tempPrefList = (ListPreference) findPreference("temp");
-        tempPrefList.setDefaultValue(tempPrefList.getEntryValues()[0]);
-        String temp = tempPrefList.getValue();
-        if (temp == null) {
-        	tempPrefList.setValue((String)tempPrefList.getEntryValues()[0]);
-        	temp = tempPrefList.getValue();
-        }
-        tempPrefList.setSummary(tempPrefList.getEntries()[tempPrefList.findIndexOfValue(temp)]);
-
-
-        tempPrefList.setOnPreferenceChangeListener(new OnPreferenceChangeListener() {
-            @Override
-            public boolean onPreferenceChange(Preference preference, Object newValue) {
-            	tempPrefList.setSummary(tempPrefList.getEntries()[tempPrefList.findIndexOfValue(newValue.toString())]);
-                return true;
-            }
-        }); 
-        
-       
-        
-        notifPrefList = (ListPreference) findPreference("notif");
-        notifPrefList.setDefaultValue(notifPrefList.getEntryValues()[0]);
-        String notif = notifPrefList.getValue();
-        if (notif == null) {
-        	notifPrefList.setValue((String)notifPrefList.getEntryValues()[0]);
-        	notif = notifPrefList.getValue();
-        }
-        notifPrefList.setSummary(notifPrefList.getEntries()[notifPrefList.findIndexOfValue(notif)]);
-
-
-        notifPrefList.setOnPreferenceChangeListener(new OnPreferenceChangeListener() {
-            @Override
-            public boolean onPreferenceChange(Preference preference, Object newValue) {
-            	notifPrefList.setSummary(notifPrefList.getEntries()[notifPrefList.findIndexOfValue(newValue.toString())]);
-            	if(isNotificationServiceRunning()){
-            	stopService(new Intent(Preferences.this, NotificationService.class));
-            	startService(new Intent(Preferences.this, NotificationService.class));
-            	}
-                return true;
-            }
-        }); 
-		
-        notifBox = (CheckBoxPreference) findPreference("notificationService");
-        notifBox.setOnPreferenceChangeListener(new OnPreferenceChangeListener() {
-            @Override
-            public boolean onPreferenceChange(Preference preference, Object newValue) {
-            	if(notifBox.isChecked()){
-            		stopService(new Intent(Preferences.this, NotificationService.class));
-                	
-            	}
-            	else if(notifBox.isChecked()==false){
-            	startService(new Intent(Preferences.this, NotificationService.class));
-            	}
-            	
-                return true;
-            }
-        }); 
-
-        	 getSupportActionBar().setSubtitle("Application Preferences");
-
-        notifScreen = (PreferenceScreen)findPreference("notificationScreen");
-        notifScreen.setOnPreferenceClickListener(new OnPreferenceClickListener(){
-
-			@Override
-			public boolean onPreferenceClick(Preference arg0) {
-				AlertDialog.Builder builder = new AlertDialog.Builder(
-	                    Preferences.this);
-
-					builder.setMessage(getResources().getString(R.string.notificatio_preferences_warning));
-
-					builder.setIcon(R.drawable.ic_menu_recent_history);
-
-					builder.setPositiveButton(getResources().getString(R.string.ok), new DialogInterface.OnClickListener() {
-							@Override
-							public void onClick(DialogInterface dialog, int which)
-							{
-							
-							}
-						});
-					
-					
-					AlertDialog alert = builder.create();
-
-					alert.show();
-				return false;
-			}
-        	
-        });
-        htcOneOverride = (CheckBoxPreference) findPreference("htc_one_workaround");
-        htcOneOverride.setOnPreferenceClickListener(new OnPreferenceClickListener(){
-
-			@Override
-			public boolean onPreferenceClick(Preference arg0) {
-				if(htcOneOverride.isChecked()){
-				AlertDialog.Builder builder = new AlertDialog.Builder(
-	                    Preferences.this);
-
-					builder.setMessage(getResources().getString(R.string.htc_override_preferences_warning));
-
-					builder.setIcon(R.drawable.ic_menu_info_details);
-
-					builder.setPositiveButton(getResources().getString(R.string.ok), new DialogInterface.OnClickListener() {
-							@Override
-							public void onClick(DialogInterface dialog, int which)
-							{
-							
-							}
-						});
-					
-					
-					AlertDialog alert = builder.create();
-
-					alert.show();
-				}
-				return false;
-			}
-        	
-        });
-        
-        resetApp = (CheckBoxPreference) findPreference("reset");
-        resetApp.setOnPreferenceClickListener(new OnPreferenceClickListener(){
-
-			@Override
-			public boolean onPreferenceClick(Preference arg0) {
-				if(resetApp.isChecked()){
-				AlertDialog.Builder builder = new AlertDialog.Builder(
-	                    Preferences.this);
-
-					builder.setMessage("This will not work if init.d is selected for restoring settings after reboot.\n\n init.d scripts are executed before this application can start");
-
-					builder.setIcon(R.drawable.ic_menu_info_details);
-
-					builder.setPositiveButton(getResources().getString(R.string.ok), new DialogInterface.OnClickListener() {
-							@Override
-							public void onClick(DialogInterface dialog, int which)
-							{
-							
-							}
-						});
-					
-					
-					AlertDialog alert = builder.create();
-
-					alert.show();
-				}
-				return false;
-			}
-        	
-        });
-		
-		tisList = (ListPreference) findPreference("tis_open_as");
-		tisList.setDefaultValue(notifPrefList.getEntryValues()[0]);
-        String tis = tisList.getValue();
-        if (tis == null) {
-        	tisList.setValue((String)tisList.getEntryValues()[0]);
-        	tis = tisList.getValue();
-        }
-        tisList.setSummary(tisList.getEntries()[tisList.findIndexOfValue(tis)]);
-
-        tisList.setOnPreferenceChangeListener(new OnPreferenceChangeListener() {
-				@Override
-				public boolean onPreferenceChange(Preference preference, Object newValue) {
-					tisList.setSummary(tisList.getEntries()[tisList.findIndexOfValue(newValue.toString())]);
-
-					return true;
-				}
-			}); 
-        
-        cpuList = (ListPreference) findPreference("show_cpu_as");
-		cpuList.setDefaultValue(cpuList.getEntryValues()[0]);
-        String cpu = cpuList.getValue();
-        if (cpu == null) {
-        	cpuList.setValue((String)cpuList.getEntryValues()[0]);
-        	cpu = cpuList.getValue();
-        }
-        cpuList.setSummary(cpuList.getEntries()[cpuList.findIndexOfValue(cpu)]);
-
-        cpuList.setOnPreferenceChangeListener(new OnPreferenceChangeListener() {
-				@Override
-				public boolean onPreferenceChange(Preference preference, Object newValue) {
-					cpuList.setSummary(cpuList.getEntries()[cpuList.findIndexOfValue(newValue.toString())]);
-
-					return true;
-				}
-			}); 
-			
-			
 		unsupportedPrefList = (ListPreference) findPreference("unsupported_items_display");
         unsupportedPrefList.setDefaultValue(unsupportedPrefList.getEntryValues()[0]);
         String unsupported = unsupportedPrefList.getValue();
@@ -400,25 +193,47 @@ public class Preferences extends SherlockPreferenceActivity
 					return true;
 				}
 			}); 
-			
-		refreshPref = (EditTextPreference) findPreference("refresh");
-        refreshPref.setDefaultValue(refreshPref.getText());
-        String refresh = refreshPref.getText();
-        if (refresh == null) {
-        	refreshPref.setText(refreshPref.getText().toString());
-            refresh = refreshPref.getText();
+	}
+
+	private void widget(){
+		widgetPrefList = (ListPreference) findPreference("widget_bg");
+        widgetPrefList.setDefaultValue(widgetPrefList.getEntryValues()[0]);
+        String widgetBg = widgetPrefList.getValue();
+        if (widgetBg == null) {
+            widgetPrefList.setValue((String)widgetPrefList.getEntryValues()[0]);
+            widgetBg = widgetPrefList.getValue();
         }
-        refreshPref.setSummary(refresh+"ms");
+        widgetPrefList.setSummary(widgetPrefList.getEntries()[widgetPrefList.findIndexOfValue(widgetBg)]);
 
 
-        refreshPref.setOnPreferenceChangeListener(new OnPreferenceChangeListener() {
+        widgetPrefList.setOnPreferenceChangeListener(new OnPreferenceChangeListener() {
 				@Override
 				public boolean onPreferenceChange(Preference preference, Object newValue) {
-					refreshPref.setSummary(newValue.toString()+"ms");
+					widgetPrefList.setSummary(widgetPrefList.getEntries()[widgetPrefList.findIndexOfValue(newValue.toString())]);
 					return true;
 				}
 			}); 
-			
+		widgetPref = (EditTextPreference) findPreference("widget_time");
+        widgetPref.setDefaultValue(widgetPref.getText());
+        String widget = widgetPref.getText();
+        if (widget == null) {
+        	widgetPref.setText((String)widgetPref.getText());
+            widget = widgetPref.getText();
+        }
+        widgetPref.setSummary(widget+"min");
+
+
+        widgetPref.setOnPreferenceChangeListener(new OnPreferenceChangeListener() {
+				@Override
+				public boolean onPreferenceChange(Preference preference, Object newValue) {
+					widgetPref.setSummary(newValue.toString()+"min");
+					return true;
+				}
+			}); 
+
+	}
+
+	private void logcat(){
 		levelPrefList = (ListPreference) findPreference("level");
         levelPrefList.setDefaultValue(levelPrefList.getEntryValues()[0]);
         String level = levelPrefList.getValue();
@@ -436,7 +251,7 @@ public class Preferences extends SherlockPreferenceActivity
 					return true;
 				}
 			}); 
-			
+
 		bufferPrefList = (ListPreference) findPreference("buffer");
         bufferPrefList.setDefaultValue(bufferPrefList.getEntryValues()[0]);
         String buffer = bufferPrefList.getValue();
@@ -454,7 +269,7 @@ public class Preferences extends SherlockPreferenceActivity
 					return true;
 				}
 			}); 
-			
+
 		formatPrefList = (ListPreference) findPreference("format");
         formatPrefList.setDefaultValue(formatPrefList.getEntryValues()[0]);
         String format = formatPrefList.getValue();
@@ -472,7 +287,7 @@ public class Preferences extends SherlockPreferenceActivity
 					return true;
 				}
 			}); 
-			
+
 		textsizePrefList = (ListPreference) findPreference("textsize");
         textsizePrefList.setDefaultValue(textsizePrefList.getEntryValues()[0]);
         String textsize = textsizePrefList.getValue();
@@ -490,10 +305,250 @@ public class Preferences extends SherlockPreferenceActivity
 					return true;
 				}
 			}); 
-		
-       
 	}
-	
+	private void notif(){
+		notifPrefList = (ListPreference) findPreference("notif");
+        notifPrefList.setDefaultValue(notifPrefList.getEntryValues()[0]);
+        String notif = notifPrefList.getValue();
+        if (notif == null) {
+        	notifPrefList.setValue((String)notifPrefList.getEntryValues()[0]);
+        	notif = notifPrefList.getValue();
+        }
+        notifPrefList.setSummary(notifPrefList.getEntries()[notifPrefList.findIndexOfValue(notif)]);
+
+
+        notifPrefList.setOnPreferenceChangeListener(new OnPreferenceChangeListener() {
+				@Override
+				public boolean onPreferenceChange(Preference preference, Object newValue) {
+					notifPrefList.setSummary(notifPrefList.getEntries()[notifPrefList.findIndexOfValue(newValue.toString())]);
+					if(isNotificationServiceRunning()){
+						stopService(new Intent(Preferences.this, NotificationService.class));
+						startService(new Intent(Preferences.this, NotificationService.class));
+					}
+					return true;
+				}
+			}); 
+
+        notifBox = (CheckBoxPreference) findPreference("notificationService");
+        notifBox.setOnPreferenceChangeListener(new OnPreferenceChangeListener() {
+				@Override
+				public boolean onPreferenceChange(Preference preference, Object newValue) {
+					if(notifBox.isChecked()){
+						stopService(new Intent(Preferences.this, NotificationService.class));
+
+					}
+					else if(notifBox.isChecked()==false){
+						startService(new Intent(Preferences.this, NotificationService.class));
+					}
+
+					return true;
+				}
+			}); 
+
+        notifScreen = (PreferenceScreen)findPreference("notificationScreen");
+        notifScreen.setOnPreferenceClickListener(new OnPreferenceClickListener(){
+
+				@Override
+				public boolean onPreferenceClick(Preference arg0) {
+					AlertDialog.Builder builder = new AlertDialog.Builder(
+	                    Preferences.this);
+
+					builder.setMessage(getResources().getString(R.string.notificatio_preferences_warning));
+
+					builder.setIcon(R.drawable.ic_menu_recent_history);
+
+					builder.setPositiveButton(getResources().getString(R.string.ok), new DialogInterface.OnClickListener() {
+							@Override
+							public void onClick(DialogInterface dialog, int which)
+							{
+
+							}
+						});
+
+
+					AlertDialog alert = builder.create();
+
+					alert.show();
+					return false;
+				}
+
+			});
+	}
+
+	private void ui(){
+		themePrefList = (ListPreference) findPreference("theme");
+        themePrefList.setDefaultValue(themePrefList.getEntryValues()[0]);
+        String theme = themePrefList.getValue();
+        if (theme == null) {
+            themePrefList.setValue((String)themePrefList.getEntryValues()[0]);
+            theme = themePrefList.getValue();
+        }
+        themePrefList.setSummary(themePrefList.getEntries()[themePrefList.findIndexOfValue(theme)]);
+
+
+        themePrefList.setOnPreferenceChangeListener(new OnPreferenceChangeListener() {
+				@Override
+				public boolean onPreferenceChange(Preference preference, Object newValue) {
+					themePrefList.setSummary(themePrefList.getEntries()[themePrefList.findIndexOfValue(newValue.toString())]);
+					return true;
+				}
+			}); 
+		tisList = (ListPreference) findPreference("tis_open_as");
+		tisList.setDefaultValue(tisList.getEntryValues()[0]);
+        String tis = tisList.getValue();
+        if (tis == null) {
+        	tisList.setValue((String)tisList.getEntryValues()[0]);
+        	tis = tisList.getValue();
+        }
+        tisList.setSummary(tisList.getEntries()[tisList.findIndexOfValue(tis)]);
+
+        tisList.setOnPreferenceChangeListener(new OnPreferenceChangeListener() {
+				@Override
+				public boolean onPreferenceChange(Preference preference, Object newValue) {
+					tisList.setSummary(tisList.getEntries()[tisList.findIndexOfValue(newValue.toString())]);
+
+					return true;
+				}
+			});
+
+        cpuList = (ListPreference) findPreference("show_cpu_as");
+		cpuList.setDefaultValue(cpuList.getEntryValues()[0]);
+        String cpu = cpuList.getValue();
+        if (cpu == null) {
+        	cpuList.setValue((String)cpuList.getEntryValues()[0]);
+        	cpu = cpuList.getValue();
+        }
+        cpuList.setSummary(cpuList.getEntries()[cpuList.findIndexOfValue(cpu)]);
+
+        cpuList.setOnPreferenceChangeListener(new OnPreferenceChangeListener() {
+				@Override
+				public boolean onPreferenceChange(Preference preference, Object newValue) {
+					cpuList.setSummary(cpuList.getEntries()[cpuList.findIndexOfValue(newValue.toString())]);
+
+					return true;
+				}
+			}); 
+	}
+
+	private void app(){
+		tempPrefList = (ListPreference) findPreference("temp");
+        tempPrefList.setDefaultValue(tempPrefList.getEntryValues()[0]);
+        String temp = tempPrefList.getValue();
+        if (temp == null) {
+        	tempPrefList.setValue((String)tempPrefList.getEntryValues()[0]);
+        	temp = tempPrefList.getValue();
+        }
+        tempPrefList.setSummary(tempPrefList.getEntries()[tempPrefList.findIndexOfValue(temp)]);
+
+
+        tempPrefList.setOnPreferenceChangeListener(new OnPreferenceChangeListener() {
+				@Override
+				public boolean onPreferenceChange(Preference preference, Object newValue) {
+					tempPrefList.setSummary(tempPrefList.getEntries()[tempPrefList.findIndexOfValue(newValue.toString())]);
+					return true;
+				}
+			}); 
+		bootPrefList = (ListPreference) findPreference("boot");
+        bootPrefList.setDefaultValue(bootPrefList.getEntryValues()[0]);
+        String boot = bootPrefList.getValue();
+        if (boot == null) {
+            bootPrefList.setValue((String)bootPrefList.getEntryValues()[0]);
+            boot = bootPrefList.getValue();
+        }
+        bootPrefList.setSummary(bootPrefList.getEntries()[bootPrefList.findIndexOfValue(boot)]);
+
+
+        bootPrefList.setOnPreferenceChangeListener(new OnPreferenceChangeListener() {
+				@Override
+				public boolean onPreferenceChange(Preference preference, Object newValue) {
+					bootPrefList.setSummary(bootPrefList.getEntries()[bootPrefList.findIndexOfValue(newValue.toString())]);
+					return true;
+				}
+			}); 
+
+
+		refreshPref = (EditTextPreference) findPreference("refresh");
+        refreshPref.setDefaultValue(refreshPref.getText());
+        String refresh = refreshPref.getText();
+        if (refresh == null) {
+        	refreshPref.setText(refreshPref.getText().toString());
+            refresh = refreshPref.getText();
+        }
+        refreshPref.setSummary(refresh+"ms");
+
+
+        refreshPref.setOnPreferenceChangeListener(new OnPreferenceChangeListener() {
+				@Override
+				public boolean onPreferenceChange(Preference preference, Object newValue) {
+					refreshPref.setSummary(newValue.toString()+"ms");
+					return true;
+				}
+			}); 
+
+
+
+        htcOneOverride = (CheckBoxPreference) findPreference("htc_one_workaround");
+        htcOneOverride.setOnPreferenceClickListener(new OnPreferenceClickListener(){
+
+				@Override
+				public boolean onPreferenceClick(Preference arg0) {
+					if(htcOneOverride.isChecked()){
+						AlertDialog.Builder builder = new AlertDialog.Builder(
+							Preferences.this);
+
+						builder.setMessage(getResources().getString(R.string.htc_override_preferences_warning));
+
+						builder.setIcon(R.drawable.ic_menu_info_details);
+
+						builder.setPositiveButton(getResources().getString(R.string.ok), new DialogInterface.OnClickListener() {
+								@Override
+								public void onClick(DialogInterface dialog, int which)
+								{
+
+								}
+							});
+
+
+						AlertDialog alert = builder.create();
+
+						alert.show();
+					}
+					return false;
+				}
+
+			});
+
+        resetApp = (CheckBoxPreference) findPreference("reset");
+        resetApp.setOnPreferenceClickListener(new OnPreferenceClickListener(){
+
+				@Override
+				public boolean onPreferenceClick(Preference arg0) {
+					if(resetApp.isChecked()){
+						AlertDialog.Builder builder = new AlertDialog.Builder(
+							Preferences.this);
+
+						builder.setMessage("This will not work if init.d is selected for restoring settings after reboot.\n\n init.d scripts are executed before this application can start");
+
+						builder.setIcon(R.drawable.ic_menu_info_details);
+
+						builder.setPositiveButton(getResources().getString(R.string.ok), new DialogInterface.OnClickListener() {
+								@Override
+								public void onClick(DialogInterface dialog, int which)
+								{
+
+								}
+							});
+
+
+						AlertDialog alert = builder.create();
+
+						alert.show();
+					}
+					return false;
+				}
+
+			});
+	}
 	private boolean isNotificationServiceRunning() {
 	    ActivityManager manager = (ActivityManager) getSystemService(Context.ACTIVITY_SERVICE);
 	    for (RunningServiceInfo service : manager.getRunningServices(Integer.MAX_VALUE)) {

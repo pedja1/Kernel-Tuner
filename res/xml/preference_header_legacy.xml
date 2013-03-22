@@ -1,0 +1,91 @@
+<?xml version="1.0" encoding="utf-8"?>
+<PreferenceScreen xmlns:android="http://schemas.android.com/apk/res/android">
+	<Preference
+        android:title="Application"
+        android:summary="Base Application Settings" 
+		>
+		<intent 
+            android:targetPackage="rs.pedjaapps.KernelTuner.ui"
+            android:targetClass="rs.pedjaapps.KernelTuner.ui.Preferences"
+            android:action="rs.pedjaapps.KernelTuner.PREFS_APPLICATION" />
+    </Preference>
+    <Preference
+		android:title="Widget"
+        android:summary="Widget Settings" >
+		<intent 
+            android:targetPackage="rs.pedjaapps.KernelTuner.ui"
+            android:targetClass="rs.pedjaapps.KernelTuner.ui.Preferences"
+            android:action="rs.pedjaapps.KernelTuner.PREFS_WIDGET" />
+    </Preference>
+    <Preference 
+        android:title="Notifications"
+        android:summary="Notification Settings" >
+		<intent 
+            android:targetPackage="rs.pedjaapps.KernelTuner.ui"
+            android:targetClass="rs.pedjaapps.KernelTuner.ui.Preferences"
+            android:action="rs.pedjaapps.KernelTuner.PREFS_NOTIFICATION" />
+    </Preference>
+    <Preference
+		android:title="LogCat"
+        android:summary="LogCat Settings" >
+		<intent 
+            android:targetPackage="rs.pedjaapps.KernelTuner.ui"
+            android:targetClass="rs.pedjaapps.KernelTuner.ui.Preferences"
+            android:action="rs.pedjaapps.KernelTuner.PREFS_LOGCAT" />
+    </Preference>
+    <Preference
+         android:title="User Interface"
+        android:summary="UI Settings" >
+		<intent 
+            android:targetPackage="rs.pedjaapps.KernelTuner.ui"
+            android:targetClass="rs.pedjaapps.KernelTuner.ui.Preferences"
+            android:action="rs.pedjaapps.KernelTuner.PREFS_UI" />
+    </Preference>
+    <Preference
+		android:title="Main Screen"
+        android:summary="Main Screen Settings" >
+		<intent 
+            android:targetPackage="rs.pedjaapps.KernelTuner.ui"
+            android:targetClass="rs.pedjaapps.KernelTuner.ui.Preferences"
+            android:action="rs.pedjaapps.KernelTuner.PREFS_MAIN" />
+    </Preference>
+	<Preference
+		android:title="Backup And Restore"
+		android:summary=""
+		android:icon="@drawable/save">
+
+		<intent android:action="rs.pedjaapps.KernelTuner.ui.BackupRestore"
+		/>
+	</Preference>
+
+    <Preference
+		android:title="About"
+		android:summary=""
+		android:icon="@drawable/about">
+
+		<intent android:action="rs.pedjaapps.KernelTuner.About"
+		/>
+
+	</Preference>
+
+	<Preference
+		android:title="Changelog"
+		android:summary=""
+		android:icon="@drawable/changelog">
+
+		<intent android:action="rs.pedjaapps.KernelTuner.Changelog"
+		/>
+
+	</Preference>
+
+	<Preference
+		android:title="System Info"
+		android:summary=""
+		android:icon="@drawable/info"
+		android:key="sysInfo">
+
+		<intent android:action="rs.pedjaapps.KernelTuner.SystemInfo"
+		/>
+
+	</Preference>
+</PreferenceScreen>

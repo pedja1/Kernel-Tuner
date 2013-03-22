@@ -1,0 +1,44 @@
+<?xml version="1.0" encoding="utf-8"?>
+<PreferenceScreen xmlns:android="http://schemas.android.com/apk/res/android"
+	android:title="UI Settings"
+	android:summary=""
+	android:icon="@drawable/theme">
+
+
+
+	<ListPreference
+		android:key="theme"
+		android:defaultValue="light"
+		android:title="Application Theme"
+		android:summary=""
+		android:entries="@array/theme_entry"
+		android:entryValues="@array/theme_values"
+		android:dialogTitle="Select Theme" />
+
+	<ListPreference
+		android:entries="@array/tisNames"
+		android:entryValues="@array/tisValues"
+		android:key="tis_open_as"
+		android:summary=""
+		android:title="Show Times in State As" 
+		android:defaultValue="ask"/>
+
+	<ListPreference
+		android:entries="@array/cpuNames"
+		android:entryValues="@array/cpuValues"
+		android:key="show_cpu_as"
+		android:summary=""
+		android:title="CPU Tweaks Layout" 
+		android:defaultValue="full"/>
+
+	<CheckBoxPreference
+		android:defaultValue="true"
+		android:key="ads"
+		android:summary="@string/preferences_misc_ads_summary"
+		android:title="@string/preferences_misc_ads_title" />
+
+
+
+</PreferenceScreen>
+
+    

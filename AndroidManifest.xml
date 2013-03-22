@@ -65,13 +65,6 @@
             android:label="@string/title_preferences"
             android:theme="@style/IndicatorLight" >
         </activity>
-        <activity
-            android:name=".ui.PreferencesFragmentActivity"
-            android:exported="true"
-            android:icon="@drawable/settings"
-            android:label="@string/title_preferences"
-            android:theme="@style/IndicatorLight" >
-        </activity>
 
         <receiver
             android:name=".receiver.StartupReceiver"

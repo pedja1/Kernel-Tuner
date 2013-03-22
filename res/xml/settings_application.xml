@@ -1,0 +1,51 @@
+<?xml version="1.0" encoding="utf-8"?>
+    <PreferenceScreen xmlns:android="http://schemas.android.com/apk/res/android"
+                android:title="Application Settings"
+                android:summary=""
+				android:icon="@drawable/settings">
+
+            <PreferenceCategory android:title="@string/preferences_boot_settings" >
+        <ListPreference
+            android:entries="@array/listDisplayWord"
+            android:entryValues="@array/listReturnValue"
+            android:key="boot"
+            android:summary="@string/preferences_boot_settings_apply_summary"
+            android:title="@string/preferences_boot_settings_apply_title"
+			android:defaultValue="boot"/>
+    </PreferenceCategory>
+    
+
+    <PreferenceCategory android:title="Other" >
+           <CheckBoxPreference
+            android:defaultValue="false"
+            android:key="htc_one_workaround"
+            android:summary="@string/preferences_cpu_htcone_summary"
+            android:title="@string/preferences_cpu_htcone_title" />
+		<CheckBoxPreference
+            android:defaultValue="false"
+            android:key="reset"
+            android:summary="Reset all settings after flashing new kernel"
+            android:title="Reset App after flashing new kernel" />
+		<EditTextPreference
+            android:defaultValue="1000"
+            android:key="refresh"
+            android:summary="How often to check frequency and load"
+            android:title="Refresh Rate"
+			android:inputType="number"/>
+		<ListPreference
+            android:entries="@array/tempTitles"
+            android:entryValues="@array/tempValues"
+            android:key="temp"
+            android:summary="Temperature Unit"
+            android:title="Temperature Unit" 
+            android:defaultValue="celsius"/>
+
+		<CheckBoxPreference
+			android:defaultValue="true"
+			android:key="profile_notifications"
+			android:summary="Display Toast Notifications when applying profiles"
+			android:title="Profile Toast Notifications" />
+		
+         </PreferenceCategory>	
+        
+</PreferenceScreen>

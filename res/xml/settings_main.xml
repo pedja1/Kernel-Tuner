@@ -1,0 +1,44 @@
+<?xml version="1.0" encoding="utf-8"?>
+<PreferenceScreen xmlns:android="http://schemas.android.com/apk/res/android"
+    android:icon="@drawable/misc"
+    android:key="container"
+		   android:title="Main Screen"
+		   android:summary="Main Screen Look and Feel">
+
+		   <ListPreference
+			   android:entries="@array/unsupported_items_titles"
+			   android:entryValues="@array/unsupported_items_values"
+			   android:key="unsupported_items_display"
+			   android:summary=""
+			   android:title="Unsupported Options Display" 
+			   android:defaultValue="hide"/>
+		  
+		   <CheckBoxPreference
+			   android:defaultValue="false"
+			   android:key="main_style"
+			   android:title="Main Screen As Dialog"
+			   android:summary="Display only main options(button grid)" />
+		  
+		   <CheckBoxPreference
+			   android:defaultValue="true"
+			   android:key="main_temp"
+			   android:summary="Display Temperature/Battery Panel"
+			   android:title="Temperature Panel" />
+		   <CheckBoxPreference
+			   android:defaultValue="true"
+			   android:key="main_cpu"
+			   android:summary="Display CPU Frequency/Load Panel"
+			   android:title="CPU Panel" />
+		   <CheckBoxPreference
+			   android:defaultValue="true"
+			   android:key="main_toggles"
+			   android:summary="Display CPU Toggles Panel"
+			   android:title="Toggles Panel" />
+		   <CheckBoxPreference
+			   android:defaultValue="true"
+			   android:key="main_buttons"
+			   android:summary="Display Main Options Panel"
+			   android:title="Main Options Panel" />
+	   </PreferenceScreen>
+      
+      
