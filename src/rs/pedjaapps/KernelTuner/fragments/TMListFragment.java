@@ -1,44 +1,5 @@
-/*
- * This file is part of the Kernel Tuner.
- *
- * Copyright Predrag Čokulov <predragcokulov@gmail.com>
- *
- * Kernel Tuner is free software: you can redistribute it and/or modify
- * it under the terms of the GNU General Public License as published by
- * the Free Software Foundation, either version 3 of the License, or
- * (at your option) any later version.
- *
- * Kernel Tuner is distributed in the hope that it will be useful,
- * but WITHOUT ANY WARRANTY; without even the implied warranty of
- * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the
- * GNU General Public License for more details.
- *
- * You should have received a copy of the GNU General Public License
- * along with Kernel Tuner. If not, see <http://www.gnu.org/licenses/>.
- */
-package rs.pedjaapps.KernelTuner.ui;
+package rs.pedjaapps.KernelTuner.fragments;
 
-import android.widget.*;
-import android.app.AlertDialog;
-import android.app.ProgressDialog;
-import android.content.Context;
-import android.content.DialogInterface;
-import android.content.Intent;
-import android.content.SharedPreferences;
-import android.content.pm.ApplicationInfo;
-import android.content.pm.PackageManager;
-import android.graphics.drawable.Drawable;
-import android.os.AsyncTask;
-import android.os.Bundle;
-import android.preference.PreferenceManager;
-import android.support.v4.app.FragmentActivity;
-import android.util.Log;
-import android.view.LayoutInflater;
-import android.view.View;
-import android.view.Window;
-import com.actionbarsherlock.view.MenuItem;
-import com.google.ads.AdRequest;
-import com.google.ads.AdView;
 import java.io.BufferedReader;
 import java.io.File;
 import java.io.InputStream;
@@ -48,18 +9,95 @@ import java.util.Arrays;
 import java.util.Collections;
 import java.util.Comparator;
 import java.util.List;
+
+import org.apache.commons.io.FileUtils;
+
+import com.google.ads.AdRequest;
+import com.google.ads.AdView;
+
 import rs.pedjaapps.KernelTuner.R;
 import rs.pedjaapps.KernelTuner.entry.TMEntry;
-import rs.pedjaapps.KernelTuner.fragments.TMDetailFragment;
 import rs.pedjaapps.KernelTuner.helpers.TMAdapter;
 import rs.pedjaapps.KernelTuner.tools.Tools;
+import android.app.Activity;
+import android.app.AlertDialog;
+import android.app.ProgressDialog;
+import android.content.SharedPreferences;
+import android.content.pm.ApplicationInfo;
+import android.content.pm.PackageManager;
+import android.graphics.drawable.Drawable;
+import android.os.AsyncTask;
+import android.os.Bundle;
+import android.preference.PreferenceManager;
+import android.support.v4.app.ListFragment;
+import android.util.Log;
+import android.view.LayoutInflater;
+import android.view.View;
+import android.widget.AdapterView;
+import android.widget.ArrayAdapter;
+import android.widget.CheckBox;
+import android.widget.CompoundButton;
+import android.widget.ListView;
+import android.widget.ProgressBar;
 
-import com.actionbarsherlock.app.SherlockFragmentActivity;
-import rs.pedjaapps.KernelTuner.fragments.TMListFragment;
 
-public class TaskManager extends SherlockFragmentActivity implements TMListFragment.Callbacks
-{
-	
+/**
+ * A list fragment representing a list of processes. This fragment also supports
+ * tablet devices by allowing list items to be given an 'activated' state upon
+ * selection. This helps indicate which item is currently being viewed in a
+ * {@link TMDetailFragment}.
+ * <p>
+ * Activities containing this fragment MUST implement the {@link Callbacks}
+ * interface.
+ */
+public class TMListFragment extends ListFragment {
+
+	/**
+	 * The serialization (saved instance state) Bundle key representing the
+	 * activated item position. Only used on tablets.
+	 */
+	private static final String STATE_ACTIVATED_POSITION = "activated_position";
+
+	/**
+	 * The fragment's current callback object, which is notified of list item
+	 * clicks.
+	 */
+	private Callbacks mCallbacks = sDummyCallbacks;
+
+	/**
+	 * The current activated item position. Only used on tablets.
+	 */
+	private int mActivatedPosition = ListView.INVALID_POSITION;
+
+	/**
+	 * A callback interface that all activities containing this fragment must
+	 * implement. This mechanism allows activities to be notified of item
+	 * selections.
+	 */
+	public interface Callbacks {
+		/**
+		 * Callback for when an item has been selected.
+		 */
+		public void onItemSelected(String id);
+	}
+
+	/**
+	 * A dummy implementation of the {@link Callbacks} interface that does
+	 * nothing. Used only when this fragment is not attached to an activity.
+	 */
+	private static Callbacks sDummyCallbacks = new Callbacks() {
+		@Override
+		public void onItemSelected(String id) {
+		}
+	};
+
+	/**
+	 * Mandatory empty constructor for the fragment manager to instantiate the
+	 * fragment (e.g. upon screen orientation changes).
+	 */
+	public TMListFragment() {
+	}
+
 	ListView tmListView;
 	TMAdapter tmAdapter;
 	static Drawable dr;
@@ -72,61 +110,27 @@ public class TaskManager extends SherlockFragmentActivity implements TMListFragm
 	ProgressBar loading;
 	String arch = "arm";
 	
-	/**
-	 * Foreground Application = 10040
-	 * Secondary Server  	  = 10041
-	 * Content Providers      = 10043
-	 * Empty Application      = 10079
-	 * Visible Application    = 10025
-	 * Hidden Application     =
-	 * */
-	/*
-	private static final int BACKGROUND = RunningAppProcessInfo.IMPORTANCE_BACKGROUND;
-	private static final int EMPTY = RunningAppProcessInfo.IMPORTANCE_EMPTY;
-	private static final int FOREGROUND = RunningAppProcessInfo.IMPORTANCE_FOREGROUND;
-	private static final int PERCEPTIBLE = RunningAppProcessInfo.IMPORTANCE_PERCEPTIBLE;
-	private static final int SERVICE = RunningAppProcessInfo.IMPORTANCE_SERVICE;
-	private static final int VISIBLE = RunningAppProcessInfo.IMPORTANCE_VISIBLE;
-	*/
-	private boolean mTwoPane;
 	@Override
-	public void onCreate(Bundle savedInstanceState)
-	{
-		 preferences = PreferenceManager.getDefaultSharedPreferences(this);
-		String theme = preferences.getString("theme", "light");
-		setTheme(Tools.getPreferedTheme(theme));
-		
+	public void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
-		
-		getSupportActionBar().setDisplayHomeAsUpEnabled(true);
-		setContentView(R.layout.activity_tm_list);
 
-		if (findViewById(R.id.process_detail_container) != null) {
-			// The detail container view will be present only in the
-			// large-screen layouts (res/values-large and
-			// res/values-sw600dp). If this view is present, then the
-			// activity should be in two-pane mode.
-			mTwoPane = true;
-
-			// In two-pane mode, list items should be given the
-			// 'activated' state when touched.
-			((TMListFragment) getSupportFragmentManager()
-					.findFragmentById(R.id.process_list))
-					.setActivateOnItemClick(true);
-		}
-		/*pm = getPackageManager();
-		
+		// TODO: replace with a real list adapter.
+		/*setListAdapter(new ArrayAdapter<DummyContent.DummyItem>(getActivity(),
+				android.R.layout.simple_list_item_activated_1,
+				android.R.id.text1, DummyContent.ITEMS));*/
+		pm = getActivity().getPackageManager();
+		 preferences = PreferenceManager.getDefaultSharedPreferences(getActivity());
 		final boolean ads = preferences.getBoolean("ads", true);
 		if (ads == true)
 		{
-			AdView adView = (AdView)findViewById(R.id.ad);
+			AdView adView = (AdView)getActivity().findViewById(R.id.ad);
 			adView.loadAd(new AdRequest());
 		}
 		
-		loading = (ProgressBar)findViewById(R.id.loading);
-		system = (CheckBox)findViewById(R.id.system);
-		user = (CheckBox)findViewById(R.id.user);
-		other = (CheckBox)findViewById(R.id.other);
+		/*loading = (ProgressBar)getActivity().findViewById(R.id.loading);
+		system = (CheckBox)getActivity().findViewById(R.id.system);
+		user = (CheckBox)getActivity().findViewById(R.id.user);
+		other = (CheckBox)getActivity().findViewById(R.id.other);
 	
 		system.setChecked(preferences.getBoolean("tm_system", false));
 		user.setChecked(preferences.getBoolean("tm_user", true));
@@ -134,18 +138,20 @@ public class TaskManager extends SherlockFragmentActivity implements TMListFragm
 	
 		system.setOnCheckedChangeListener(new Listener());
 		user.setOnCheckedChangeListener(new Listener());
-		other.setOnCheckedChangeListener(new Listener());
+		other.setOnCheckedChangeListener(new Listener());*/
 	
 		
-		tmListView = (ListView) findViewById(R.id.list);
-		tmAdapter = new TMAdapter(this, R.layout.tm_row);
-		tmListView.setAdapter(tmAdapter);
-		tmListView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+		//tmListView = (ListView) getActivity().findViewById(R.id.list);
+		tmAdapter = new TMAdapter(getActivity(), R.layout.tm_row);
+		setListAdapter(tmAdapter);
+		tmAdapter.add(new TMEntry(arch, mActivatedPosition, null, mActivatedPosition, mActivatedPosition));
+		tmAdapter.notifyDataSetChanged();
+		/*tmListView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
 
 			@Override
 			public void onItemClick(AdapterView<?> arg0, View v, final int pos,
 					long id) {
-				AlertDialog.Builder builder = new AlertDialog.Builder(TaskManager.this);
+				AlertDialog.Builder builder = new AlertDialog.Builder(getActivity());
 
 				builder.setTitle("Change Process Priority");
 				Integer value = null;
@@ -220,31 +226,85 @@ public class TaskManager extends SherlockFragmentActivity implements TMListFragm
 				alert.show();
 				
 			}
-		});
-			new GetRunningApps().execute();
-			arch = Tools.getAbi();*/
+		});*/
+			//new GetRunningApps().execute();
+			arch = Tools.getAbi();
 	}
-	@Override
-	public void onItemSelected(String id) {
-		if (mTwoPane) {
-			// In two-pane mode, show the detail view in this activity by
-			// adding or replacing the detail fragment using a
-			// fragment transaction.
-			Bundle arguments = new Bundle();
-			arguments.putString(TMDetailFragment.ARG_ITEM_ID, id);
-			TMDetailFragment fragment = new TMDetailFragment();
-			fragment.setArguments(arguments);
-			getSupportFragmentManager().beginTransaction()
-					.replace(R.id.process_detail_container, fragment).commit();
 
-		} else {
-			// In single-pane mode, simply start the detail activity
-			// for the selected item ID.
-			Intent detailIntent = new Intent(this, TaskManagerDetailActivity.class);
-			detailIntent.putExtra(TMDetailFragment.ARG_ITEM_ID, id);
-			startActivity(detailIntent);
+	@Override
+	public void onViewCreated(View view, Bundle savedInstanceState) {
+		super.onViewCreated(view, savedInstanceState);
+
+		// Restore the previously serialized activated item position.
+		if (savedInstanceState != null
+				&& savedInstanceState.containsKey(STATE_ACTIVATED_POSITION)) {
+			setActivatedPosition(savedInstanceState
+					.getInt(STATE_ACTIVATED_POSITION));
 		}
 	}
+
+	@Override
+	public void onAttach(Activity activity) {
+		super.onAttach(activity);
+
+		// Activities containing this fragment must implement its callbacks.
+		if (!(activity instanceof Callbacks)) {
+			throw new IllegalStateException(
+					"Activity must implement fragment's callbacks.");
+		}
+
+		mCallbacks = (Callbacks) activity;
+	}
+
+	@Override
+	public void onDetach() {
+		super.onDetach();
+
+		// Reset the active callbacks interface to the dummy implementation.
+		mCallbacks = sDummyCallbacks;
+	}
+
+	@Override
+	public void onListItemClick(ListView listView, View view, int position,
+			long id) {
+		super.onListItemClick(listView, view, position, id);
+
+		// Notify the active callbacks interface (the activity, if the
+		// fragment is attached to one) that an item has been selected.
+		mCallbacks.onItemSelected(tmAdapter.getItemId(position)+"");
+	}
+
+	@Override
+	public void onSaveInstanceState(Bundle outState) {
+		super.onSaveInstanceState(outState);
+		if (mActivatedPosition != ListView.INVALID_POSITION) {
+			// Serialize and persist the activated item position.
+			outState.putInt(STATE_ACTIVATED_POSITION, mActivatedPosition);
+		}
+	}
+
+	/**
+	 * Turns on activate-on-click mode. When this mode is on, list items will be
+	 * given the 'activated' state when touched.
+	 */
+	public void setActivateOnItemClick(boolean activateOnItemClick) {
+		// When setting CHOICE_MODE_SINGLE, ListView will automatically
+		// give items the 'activated' state when touched.
+		getListView().setChoiceMode(
+				activateOnItemClick ? ListView.CHOICE_MODE_SINGLE
+						: ListView.CHOICE_MODE_NONE);
+	}
+
+	private void setActivatedPosition(int position) {
+		if (position == ListView.INVALID_POSITION) {
+			getListView().setItemChecked(mActivatedPosition, false);
+		} else {
+			getListView().setItemChecked(position, true);
+		}
+
+		mActivatedPosition = position;
+	}
+	
 	private class Listener implements CompoundButton.OnCheckedChangeListener{
 
 		@Override
@@ -262,7 +322,7 @@ public class TaskManager extends SherlockFragmentActivity implements TMListFragm
 			Process proc = null;
 			try
 			{
-				proc = Runtime.getRuntime().exec(getFilesDir().getPath()+"/ps-"+arch+"\n");
+				proc = Runtime.getRuntime().exec(getActivity().getFilesDir().getPath()+"/ps-"+arch+"\n");
 				InputStream inputStream = proc.getInputStream();
 				InputStreamReader inputStreamReader = new InputStreamReader(inputStream);
 				BufferedReader bufferedReader = new BufferedReader(inputStreamReader);
@@ -431,19 +491,5 @@ public class TaskManager extends SherlockFragmentActivity implements TMListFragm
 		{
 			return ob1.getType() - ob2.getType() ;
 		}
-	}
-	
-	@Override
-	public boolean onOptionsItemSelected(MenuItem item) {
-		switch (item.getItemId()) {
-			case android.R.id.home:
-				Intent intent = new Intent(this, KernelTuner.class);
-				intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
-				startActivity(intent);
-
-				return true;
-
-		}
-		return super.onOptionsItemSelected(item);
 	}
 }

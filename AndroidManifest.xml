@@ -45,6 +45,14 @@
             android:label="Task Manager"
             >
         </activity>
+        <activity
+            android:name=".ui.TaskManagerDetailActivity"
+            android:label="Process Details"
+            android:parentActivityName=".ui.TaskManager" >
+            <meta-data
+                android:name="android.support.PARENT_ACTIVITY"
+                android:value=".ui.TaskManager" />
+        </activity>
 		<activity
             android:name=".ui.SysCtl"
             android:icon="@drawable/sysctl"
