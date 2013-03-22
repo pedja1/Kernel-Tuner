@@ -5,7 +5,7 @@
         android:summary="Base Application Settings" 
 		>
 		<intent 
-            android:targetPackage="rs.pedjaapps.KernelTuner.ui"
+            android:targetPackage="rs.pedjaapps.KernelTuner"
             android:targetClass="rs.pedjaapps.KernelTuner.ui.Preferences"
             android:action="rs.pedjaapps.KernelTuner.PREFS_APPLICATION" />
     </Preference>
@@ -13,7 +13,7 @@
 		android:title="Widget"
         android:summary="Widget Settings" >
 		<intent 
-            android:targetPackage="rs.pedjaapps.KernelTuner.ui"
+            android:targetPackage="rs.pedjaapps.KernelTuner"
             android:targetClass="rs.pedjaapps.KernelTuner.ui.Preferences"
             android:action="rs.pedjaapps.KernelTuner.PREFS_WIDGET" />
     </Preference>
@@ -21,7 +21,7 @@
         android:title="Notifications"
         android:summary="Notification Settings" >
 		<intent 
-            android:targetPackage="rs.pedjaapps.KernelTuner.ui"
+            android:targetPackage="rs.pedjaapps.KernelTuner"
             android:targetClass="rs.pedjaapps.KernelTuner.ui.Preferences"
             android:action="rs.pedjaapps.KernelTuner.PREFS_NOTIFICATION" />
     </Preference>
@@ -29,7 +29,7 @@
 		android:title="LogCat"
         android:summary="LogCat Settings" >
 		<intent 
-            android:targetPackage="rs.pedjaapps.KernelTuner.ui"
+            android:targetPackage="rs.pedjaapps.KernelTuner"
             android:targetClass="rs.pedjaapps.KernelTuner.ui.Preferences"
             android:action="rs.pedjaapps.KernelTuner.PREFS_LOGCAT" />
     </Preference>
@@ -37,7 +37,7 @@
          android:title="User Interface"
         android:summary="UI Settings" >
 		<intent 
-            android:targetPackage="rs.pedjaapps.KernelTuner.ui"
+            android:targetPackage="rs.pedjaapps.KernelTuner"
             android:targetClass="rs.pedjaapps.KernelTuner.ui.Preferences"
             android:action="rs.pedjaapps.KernelTuner.PREFS_UI" />
     </Preference>
@@ -45,13 +45,13 @@
 		android:title="Main Screen"
         android:summary="Main Screen Settings" >
 		<intent 
-            android:targetPackage="rs.pedjaapps.KernelTuner.ui"
+            android:targetPackage="rs.pedjaapps.KernelTuner"
             android:targetClass="rs.pedjaapps.KernelTuner.ui.Preferences"
             android:action="rs.pedjaapps.KernelTuner.PREFS_MAIN" />
     </Preference>
 	<Preference
 		android:title="Backup And Restore"
-		android:summary=""
+		android:summary="Backup/Restore all Settings"
 		android:icon="@drawable/save">
 
 		<intent android:action="rs.pedjaapps.KernelTuner.ui.BackupRestore"
@@ -60,7 +60,7 @@
 
     <Preference
 		android:title="About"
-		android:summary=""
+		android:summary="Info about application/author"
 		android:icon="@drawable/about">
 
 		<intent android:action="rs.pedjaapps.KernelTuner.About"
@@ -70,7 +70,7 @@
 
 	<Preference
 		android:title="Changelog"
-		android:summary=""
+		android:summary="What has been Changed"
 		android:icon="@drawable/changelog">
 
 		<intent android:action="rs.pedjaapps.KernelTuner.Changelog"
@@ -80,7 +80,7 @@
 
 	<Preference
 		android:title="System Info"
-		android:summary=""
+		android:summary="System Information"
 		android:icon="@drawable/info"
 		android:key="sysInfo">
 

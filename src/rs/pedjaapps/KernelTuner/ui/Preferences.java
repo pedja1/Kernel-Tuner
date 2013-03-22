@@ -20,6 +20,7 @@ package rs.pedjaapps.KernelTuner.ui;
 
 import android.preference.*;
 
+import android.annotation.SuppressLint;
 import android.app.ActivityManager;
 import android.app.ActivityManager.RunningServiceInfo;
 import android.app.AlertDialog;
@@ -69,13 +70,14 @@ public class Preferences extends SherlockPreferenceActivity
 	private PreferenceScreen systemInfo;
 	private PreferenceScreen container;
 	
-	final static String ACTION_PREFS_APPLICATION = "com.example.prefs.PREFS_APPLICATION";
-	final static String ACTION_PREFS_WIDGET = "com.example.prefs.PREFS_WIDGET";
-	final static String ACTION_PREFS_NOTIFICATION = "com.example.prefs.PREFS_NOTIFICATION";
-	final static String ACTION_PREFS_LOGCAT = "com.example.prefs.PREFS_LOGCAT";
-	final static String ACTION_PREFS_UI = "com.example.prefs.PREFS_UI";
-	final static String ACTION_PREFS_MAIN = "com.example.prefs.PREFS_MAIN";
+	final static String ACTION_PREFS_APPLICATION = "rs.pedjaapps.KernelTuner.PREFS_APPLICATION";
+	final static String ACTION_PREFS_WIDGET = "rs.pedjaapps.KernelTuner.PREFS_WIDGET";
+	final static String ACTION_PREFS_NOTIFICATION = "rs.pedjaapps.KernelTuner.PREFS_NOTIFICATION";
+	final static String ACTION_PREFS_LOGCAT = "rs.pedjaapps.KernelTuner.PREFS_LOGCAT";
+	final static String ACTION_PREFS_UI = "rs.pedjaapps.KernelTuner.PREFS_UI";
+	final static String ACTION_PREFS_MAIN = "rs.pedjaapps.KernelTuner.PREFS_MAIN";
 
+	@SuppressLint("NewApi")
 	@Override
     public void onBuildHeaders(List<Header> target) {
         loadHeadersFromResource(R.xml.preference_header, target);

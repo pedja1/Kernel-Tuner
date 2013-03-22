@@ -38,7 +38,8 @@
     <header 
         android:fragment="rs.pedjaapps.KernelTuner.ui.PreferencesFragment"
         android:title="Main Screen"
-        android:summary="Main Screen Settings" >
+        android:summary="Main Screen Settings" 
+		android:icon="@drawable/prefs_main" >
 		<extra android:name="settings" android:value="main" />
     </header>
 	<header
