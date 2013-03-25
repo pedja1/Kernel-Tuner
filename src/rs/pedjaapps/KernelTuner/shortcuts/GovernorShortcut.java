@@ -38,7 +38,7 @@ public class GovernorShortcut extends Activity
 		         .putExtra("duplicate", false)
 				 .putExtra(Intent.EXTRA_SHORTCUT_NAME, "Governor Settings")
 				 .putExtra(Intent.EXTRA_SHORTCUT_ICON_RESOURCE, Intent.ShortcutIconResource.fromContext(c, R.drawable.dual))
-				 .putExtra(Intent.EXTRA_SHORTCUT_INTENT, new Intent(GovernorShortcut.this , GovernorActivity.class));
+			.putExtra(Intent.EXTRA_SHORTCUT_INTENT, new Intent("rs.pedjaapps.KernelTuner.GOVERNOR_SETTINGS"));
 		sendBroadcast(shortcutintent);
 		Toast.makeText(GovernorShortcut.this, "Shortcut GovernorSettings created", Toast.LENGTH_SHORT).show();
 		finish();

@@ -56,21 +56,18 @@ import rs.pedjaapps.KernelTuner.tools.Tools;
 
 import com.actionbarsherlock.app.SherlockFragmentActivity;
 import rs.pedjaapps.KernelTuner.fragments.TMListFragment;
+import com.actionbarsherlock.view.Menu;
+import com.actionbarsherlock.view.MenuInflater;
 
 public class TaskManager extends SherlockFragmentActivity implements TMListFragment.Callbacks
 {
 	
-	ListView tmListView;
-	TMAdapter tmAdapter;
-	static Drawable dr;
-	List<TMEntry> entries;
-	ProgressDialog pd;
-	PackageManager pm;
-	String set;
-	CheckBox system, user, other;
+	
+	public static CheckBox system, user, other;
 	SharedPreferences preferences;
 	ProgressBar loading;
-	String arch = "arm";
+	PackageManager pm;
+	String arch;
 	
 	/**
 	 * Foreground Application = 10040
@@ -92,15 +89,26 @@ public class TaskManager extends SherlockFragmentActivity implements TMListFragm
 	@Override
 	public void onCreate(Bundle savedInstanceState)
 	{
-		 preferences = PreferenceManager.getDefaultSharedPreferences(this);
+		preferences = PreferenceManager.getDefaultSharedPreferences(this);
 		String theme = preferences.getString("theme", "light");
 		setTheme(Tools.getPreferedTheme(theme));
-		
+		requestWindowFeature(Window.FEATURE_INDETERMINATE_PROGRESS);
 		super.onCreate(savedInstanceState);
 		
 		getSupportActionBar().setDisplayHomeAsUpEnabled(true);
 		setContentView(R.layout.activity_tm_list);
 
+		getSupportActionBar().setTitle("Task Manager");
+		getSupportActionBar().setSubtitle(null);
+		getSupportActionBar().setIcon(R.drawable.tm);
+		
+		View customNav = LayoutInflater.from(this).inflate(R.layout.ram_layout, null);
+
+
+        //Attach to the action bar
+        getSupportActionBar().setCustomView(customNav);
+        getSupportActionBar().setDisplayShowCustomEnabled(true);
+		
 		if (findViewById(R.id.process_detail_container) != null) {
 			// The detail container view will be present only in the
 			// large-screen layouts (res/values-large and
@@ -114,7 +122,7 @@ public class TaskManager extends SherlockFragmentActivity implements TMListFragm
 					.findFragmentById(R.id.process_list))
 					.setActivateOnItemClick(true);
 		}
-		/*pm = getPackageManager();
+		pm = getPackageManager();
 		
 		final boolean ads = preferences.getBoolean("ads", true);
 		if (ads == true)
@@ -122,116 +130,18 @@ public class TaskManager extends SherlockFragmentActivity implements TMListFragm
 			AdView adView = (AdView)findViewById(R.id.ad);
 			adView.loadAd(new AdRequest());
 		}
-		
-		loading = (ProgressBar)findViewById(R.id.loading);
-		system = (CheckBox)findViewById(R.id.system);
-		user = (CheckBox)findViewById(R.id.user);
-		other = (CheckBox)findViewById(R.id.other);
 	
-		system.setChecked(preferences.getBoolean("tm_system", false));
-		user.setChecked(preferences.getBoolean("tm_user", true));
-		other.setChecked(preferences.getBoolean("tm_other", false));
-	
-		system.setOnCheckedChangeListener(new Listener());
-		user.setOnCheckedChangeListener(new Listener());
-		other.setOnCheckedChangeListener(new Listener());
-	
-		
-		tmListView = (ListView) findViewById(R.id.list);
-		tmAdapter = new TMAdapter(this, R.layout.tm_row);
-		tmListView.setAdapter(tmAdapter);
-		tmListView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
-
-			@Override
-			public void onItemClick(AdapterView<?> arg0, View v, final int pos,
-					long id) {
-				AlertDialog.Builder builder = new AlertDialog.Builder(TaskManager.this);
-
-				builder.setTitle("Change Process Priority");
-				Integer value = null;
-				try {
-					value = Integer.parseInt(FileUtils.readFileToString(new File("/proc/"+tmAdapter.getItem(pos).getPid()+"/oom_adj")).trim());
-				} catch (Exception e) {
-					Log.e("", e.getMessage());
-				}
-				LayoutInflater inflater = (LayoutInflater) TaskManager.this
-						.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
-				View view = inflater.inflate(R.layout.tm_priority_layout, null);
-				final TextView nice  = (TextView)view.findViewById(R.id.nice);
-				SeekBar seekBar = (SeekBar)view.findViewById(R.id.seekBar);
-				LinearLayout ll = (LinearLayout)view.findViewById(R.id.ll);
-				
-				if(value!=null){
-					seekBar.setProgress(32-(15-value));
-					Log.e("", 32-(15-value)+"");
-					nice.setText(value+"");
-					
-					builder.setPositiveButton("Set", new DialogInterface.OnClickListener(){
-
-						@Override
-						public void onClick(DialogInterface arg0, int arg1) {
-							RootExecuter.exec(new String[]{"echo " + nice.getText().toString().trim() + " > /proc/"+tmAdapter.getItem(pos).getPid()+"/oom_adj"});		
-						}
-						
-					});
-					seekBar.setOnSeekBarChangeListener(new SeekBar.OnSeekBarChangeListener(){
-
-						@Override
-						public void onProgressChanged(SeekBar arg0, int progress,
-								boolean fromUser) {
-						
-							nice.setText(progress-(32-15)+"");
-							
-						}
-
-						@Override
-						public void onStartTrackingTouch(SeekBar arg0) {
-							
-						}
-
-						@Override
-						public void onStopTrackingTouch(SeekBar arg0) {
-							set = nice.getText().toString().trim();
-							System.out.println(set);
-						}
-						
-					});
-					
-				}
-				else{
-					ll.setVisibility(View.GONE);
-					nice.setText("Something went wrong");
-					
-				}
-				builder.setNegativeButton("Cancel", new DialogInterface.OnClickListener(){
-
-					@Override
-					public void onClick(DialogInterface arg0, int arg1) {
-						
-						
-					}
-					
-				});
-				
-				
-
-				builder.setView(view);
-				AlertDialog alert = builder.create();
-				alert.show();
-				
-			}
-		});
 			new GetRunningApps().execute();
-			arch = Tools.getAbi();*/
+			arch = Tools.getAbi();
 	}
 	@Override
-	public void onItemSelected(String id) {
+	public void onItemSelected(int id) {
 		if (mTwoPane) {
 			// In two-pane mode, show the detail view in this activity by
 			// adding or replacing the detail fragment using a
 			// fragment transaction.
 			Bundle arguments = new Bundle();
-			arguments.putString(TMDetailFragment.ARG_ITEM_ID, id);
+			arguments.putInt(TMDetailFragment.ARG_ITEM_ID, id);
 			TMDetailFragment fragment = new TMDetailFragment();
 			fragment.setArguments(arguments);
 			getSupportFragmentManager().beginTransaction()
@@ -249,16 +159,16 @@ public class TaskManager extends SherlockFragmentActivity implements TMListFragm
 
 		@Override
 		public void onCheckedChanged(CompoundButton arg0, boolean arg1) {
-			new GetRunningApps().execute();
+			 new GetRunningApps().execute();
 		}
 
 	}
-	
-	private class GetRunningApps extends AsyncTask<String, /*TMEntry*/Void, Void> {
+
+	public class GetRunningApps extends AsyncTask<String, /*TMEntry*/Void, Void> {
 		String line;
 		@Override
 		protected Void doInBackground(String... args) {
-			entries = new ArrayList<TMEntry>();
+			TMListFragment.entries = new ArrayList<TMEntry>();
 			Process proc = null;
 			try
 			{
@@ -274,16 +184,18 @@ public class TaskManager extends SherlockFragmentActivity implements TMListFragm
 					List<String> tmp = Arrays.asList(temp);
 					if(i>0){
 						if(!tmp.get(4).equals("0")){
-					TMEntry tmpEntry = new TMEntry(getApplicationName(tmp.get(8)), Integer.parseInt(tmp.get(1)), getApplicationIcon(tmp.get(8)), Integer.parseInt(tmp.get(4)), appType(tmp.get(8)));
-					entries.add(tmpEntry);
-					//publishProgress(tmpEntry);
-					}
+							TMEntry tmpEntry = new TMEntry(getApplicationName(tmp.get(8)), Integer.parseInt(tmp.get(1)), getApplicationIcon(tmp.get(8)), Integer.parseInt(tmp.get(4)), appType(tmp.get(8)));
+							TMListFragment.entries.add(tmpEntry);
+							//publishProgress(tmpEntry);
+						}
 					}
 					else{
 						i++;
 					}
-					
+
 				}
+				proc.waitFor();
+				proc.destroy();
 			}
 			catch (Exception e)
 			{
@@ -292,77 +204,50 @@ public class TaskManager extends SherlockFragmentActivity implements TMListFragm
 			return null;
 		}
 
-	/*	@Override
-		protected void onProgressUpdate(TMEntry... values)
-		{
-			if(values[0].getType()==2){
-				if(other.isChecked())
-				{
-		        	tmAdapter.add(values[0]);
-			        tmAdapter.notifyDataSetChanged();
-			    }
-			}
-			else if(values[0].getType()==1){
-				if(user.isChecked())
-				{
-		        	tmAdapter.add(values[0]);
-			        tmAdapter.notifyDataSetChanged();
-			    }
-			}
-			else if(values[0].getType()==0){
-				if(system.isChecked())
-				{
-		        	tmAdapter.add(values[0]);
-			        tmAdapter.notifyDataSetChanged();
-			    }
-			}
-			super.onProgressUpdate();
-		}*/
-
 		@Override
 		protected void onPostExecute(Void res) {
-		//	setProgressBarIndeterminateVisibility(false);
-			
-			Collections.sort(entries, new SortByMb());
-			
-			for(TMEntry e : entries){
+			//	setProgressBarIndeterminateVisibility(false);
+
+			Collections.sort(TMListFragment.entries, new SortByMb());
+
+			for(TMEntry e : TMListFragment.entries){
 				if(e.getType()==2){
 					if(other.isChecked())
 					{
-						tmAdapter.add(e);
+						TMListFragment.tmAdapter.add(e);
 					}
 				}
 				else if(e.getType()==1){
 					if(user.isChecked())
 					{
-						tmAdapter.add(e);
+						TMListFragment.tmAdapter.add(e);
 					}
 				}
 				else if(e.getType()==0){
 					if(system.isChecked())
 					{
-						tmAdapter.add(e);
+						TMListFragment.tmAdapter.add(e);
 					}
 				}
-				loading.setVisibility(View.GONE);
+				setProgressBarIndeterminateVisibility(false);
 			}
-			tmAdapter.notifyDataSetChanged();
+			TMListFragment.tmAdapter.notifyDataSetChanged();
 
 			SharedPreferences.Editor editor = preferences.edit();
-			editor.putBoolean("tm_system", system.isChecked())
-				.putBoolean("tm_user", user.isChecked())
-				.putBoolean("tm_other",other.isChecked())
+			editor.putBoolean("tm_system", TaskManager.system.isChecked())
+				.putBoolean("tm_user", TaskManager.user.isChecked())
+				.putBoolean("tm_other",TaskManager.other.isChecked())
 				.apply();
 		}
 		@Override
 		protected void onPreExecute(){
-			//setProgressBarIndeterminateVisibility(true);
-			tmAdapter.clear();
-			loading.setVisibility(View.VISIBLE);
+			setProgressBarIndeterminateVisibility(true);
+			TMListFragment.tmAdapter.clear();
+			
 		}
 
 	}
-	
+
 	public Drawable getApplicationIcon(String packageName){
 		try
 		{
@@ -383,36 +268,36 @@ public class TaskManager extends SherlockFragmentActivity implements TMListFragm
 			return packageName;
 		}
 	}
-	
+
 	/**
-	* @return 0 if system, 1 if user, 2 if unknown
-	*/
+	 * @return 0 if system, 1 if user, 2 if unknown
+	 */
 	public int appType(String packageName) {
 		try{
-		ApplicationInfo ai = pm.getApplicationInfo(packageName, 0);
-		int mask = ApplicationInfo.FLAG_SYSTEM | ApplicationInfo.FLAG_UPDATED_SYSTEM_APP;
-	    if((ai.flags & mask) == 0){
-			return 1;
-		}
-		else{
-     	    return 0;
-		}
+			ApplicationInfo ai = pm.getApplicationInfo(packageName, 0);
+			int mask = ApplicationInfo.FLAG_SYSTEM | ApplicationInfo.FLAG_UPDATED_SYSTEM_APP;
+			if((ai.flags & mask) == 0){
+				return 1;
+			}
+			else{
+				return 0;
+			}
 		}
 		catch (PackageManager.NameNotFoundException e)
 		{
 			return 2;
 		}
 	}
-	
+
 	class SortByMb implements Comparator<TMEntry>
 	{
-		  @Override
-		  public int compare(TMEntry ob1, TMEntry ob2)
-		  {
-		   return ob2.getRss() - ob1.getRss() ;
-		  }
+		@Override
+		public int compare(TMEntry ob1, TMEntry ob2)
+		{
+			return ob2.getRss() - ob1.getRss() ;
+		}
 	}
-		
+
 	static class SortByName implements Comparator<TMEntry>
 	{
 		@Override
@@ -423,7 +308,7 @@ public class TaskManager extends SherlockFragmentActivity implements TMListFragm
 		    return sub2.compareTo(sub1);
 		} 
 	}
-	
+
 	class SortByType implements Comparator<TMEntry>
 	{
 		@Override
@@ -431,6 +316,32 @@ public class TaskManager extends SherlockFragmentActivity implements TMListFragm
 		{
 			return ob1.getType() - ob2.getType() ;
 		}
+	}
+	
+	@Override
+	public boolean onCreateOptionsMenu(Menu menu) {
+
+		new MenuInflater(this).inflate(R.menu.tm_custom_menu, menu);
+		RelativeLayout relativeLayout = (RelativeLayout) menu.findItem(R.id.layout_item)
+                .getActionView();
+
+        View inflatedView = getLayoutInflater().inflate(R.layout.tm_cb_view,
+                null);
+
+        relativeLayout.addView(inflatedView);
+		loading = (ProgressBar)relativeLayout.findViewById(R.id.loading);
+		system = (CheckBox)relativeLayout.findViewById(R.id.system);
+		user = (CheckBox)relativeLayout.findViewById(R.id.user);
+		other = (CheckBox)relativeLayout.findViewById(R.id.other);
+
+		system.setChecked(preferences.getBoolean("tm_system", false));
+		user.setChecked(preferences.getBoolean("tm_user", true));
+		other.setChecked(preferences.getBoolean("tm_other", false));
+
+		system.setOnCheckedChangeListener(new Listener());
+		user.setOnCheckedChangeListener(new Listener());
+		other.setOnCheckedChangeListener(new Listener());
+		return super.onCreateOptionsMenu(menu);
 	}
 	
 	@Override

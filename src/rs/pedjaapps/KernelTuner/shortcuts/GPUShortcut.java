@@ -40,7 +40,7 @@ public class GPUShortcut extends Activity
 	        	.putExtra("duplicate", false)
 				.putExtra(Intent.EXTRA_SHORTCUT_NAME, "GPU")
 				.putExtra(Intent.EXTRA_SHORTCUT_ICON_RESOURCE, Intent.ShortcutIconResource.fromContext(c, R.drawable.gpu))
-				.putExtra(Intent.EXTRA_SHORTCUT_INTENT, new Intent(c , Gpu.class));
+				.putExtra(Intent.EXTRA_SHORTCUT_INTENT, new Intent("rs.pedjaapps.KernelTuner.GPU"));
 		sendBroadcast(shortcutintent);
 		Toast.makeText(GPUShortcut.this, "Shortcut GPU created", Toast.LENGTH_SHORT).show();
 		finish();

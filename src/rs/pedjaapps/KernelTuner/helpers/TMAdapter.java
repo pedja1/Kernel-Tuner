@@ -64,7 +64,8 @@ public final class TMAdapter extends ArrayAdapter<TMEntry>
 			    break;
 		}
 		viewHolder.mbView.setText(Tools.kByteToHumanReadableSize(entry.getRss()));
-	
+		viewHolder.pidView.setText("PID: "+entry.getPid());
+		
 		viewHolder.killView.setOnClickListener(new View.OnClickListener() {
 			
 			@Override
@@ -112,6 +113,7 @@ public final class TMAdapter extends ArrayAdapter<TMEntry>
 			viewHolder.mbView = (TextView) workingView.findViewById(R.id.mb);
 			viewHolder.imageView = (ImageView) workingView.findViewById(R.id.icon);
 			viewHolder.killView = (Button) workingView.findViewById(R.id.kill);
+			viewHolder.pidView = (TextView) workingView.findViewById(R.id.pid);
 			
 			workingView.setTag(viewHolder);
 
@@ -130,6 +132,7 @@ public final class TMAdapter extends ArrayAdapter<TMEntry>
 		public TextView mbView;
 		public ImageView imageView;
 		public Button killView;
+		public TextView pidView;
 	
 	}
 

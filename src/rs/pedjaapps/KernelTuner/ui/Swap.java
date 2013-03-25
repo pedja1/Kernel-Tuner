@@ -69,7 +69,7 @@ public class Swap extends SherlockActivity
 	            InputStream stdout = process.getInputStream();
 
 	            stdin.write(("swapoff " + swapLocationCurrent.trim() + "\n").getBytes());
-	            
+	            stdin.write("exit\n".getBytes());
 	            stdin.flush();
 
 	            stdin.close();
@@ -85,8 +85,10 @@ public class Swap extends SherlockActivity
 	            	Log.e("[KernelTuner Swap Error]", line);
 	            }
 	            brCleanUp.close();
+				process.waitFor();
+				process.destroy();
 
-	        } catch (IOException ex) {
+	        } catch (Exception ex) {
 	        }
 
 			return "";

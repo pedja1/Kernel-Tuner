@@ -40,19 +40,19 @@ public class CPUShortcut extends Activity
 		
 	    SharedPreferences prefs = PreferenceManager.getDefaultSharedPreferences(c);
 	    String cpuPref = prefs.getString("show_cpu_as","full");
-	    Class cpuActivity= null;
+	    String cpuActivity;
     	if(cpuPref.equals("full")){
-			cpuActivity = CPUActivity.class;
+			cpuActivity = "rs.pedjaapps.KernelTuner.CPU";
 		}
 		else{
-			cpuActivity = CPUActivityOld.class;
+			cpuActivity = "rs.pedjaapps.KernelTuner.CPU_MINIMAL";
 		}
 		if(IOHelper.freqsExists() || IOHelper.TISExists()){
 		Intent shortcutintent = new Intent("com.android.launcher.action.INSTALL_SHORTCUT")
 		        .putExtra("duplicate", false)
 				.putExtra(Intent.EXTRA_SHORTCUT_NAME, "CPUTweaks")
 				.putExtra(Intent.EXTRA_SHORTCUT_ICON_RESOURCE, Intent.ShortcutIconResource.fromContext(c, R.drawable.ic_launcher))
-				.putExtra(Intent.EXTRA_SHORTCUT_INTENT, new Intent(c, cpuActivity));
+				.putExtra(Intent.EXTRA_SHORTCUT_INTENT, new Intent(cpuActivity));
 		sendBroadcast(shortcutintent);
 		Toast.makeText(CPUShortcut.this, "Shortcut CPUTweaks created", Toast.LENGTH_SHORT).show();
 		finish();

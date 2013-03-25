@@ -2,8 +2,8 @@
 <preference-headers xmlns:android="http://schemas.android.com/apk/res/android">
     <header 
         android:fragment="rs.pedjaapps.KernelTuner.ui.PreferencesFragment"
-        android:title="Application"
-        android:summary="Base Application Settings"
+        android:title="General"
+        android:summary="General Application Settings"
 		android:icon="@drawable/ic_launcher">
         <extra android:name="settings" android:value="application" />
     </header>

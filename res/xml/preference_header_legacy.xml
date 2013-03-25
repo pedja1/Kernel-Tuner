@@ -1,8 +1,8 @@
 <?xml version="1.0" encoding="utf-8"?>
 <PreferenceScreen xmlns:android="http://schemas.android.com/apk/res/android">
 	<Preference
-        android:title="Application"
-        android:summary="Base Application Settings" 
+        android:title="General"
+        android:summary="General Application Settings" 
 		>
 		<intent 
             android:targetPackage="rs.pedjaapps.KernelTuner"

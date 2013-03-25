@@ -350,7 +350,7 @@ public class StartupService extends Service
 				for(SysCtlDatabaseEntry e : sysEntries){
 					stdin.write((getFilesDir().getPath() + "/busybox sysctl -w " + e.getKey().trim() + "=" + e.getValue().trim()+"\n").getBytes());
 				}
-				
+				stdin.write("exit\n".getBytes());
 	            stdin.flush();
 
 	            stdin.close();
@@ -366,8 +366,10 @@ public class StartupService extends Service
 	            	Log.e("[KernelTuner ChangeGovernor Error]", line);
 	            }
 	            brCleanUp.close();
+				process.waitFor();
+				process.destroy();
 
-	        } catch (IOException ex) {
+	        } catch (Exception ex) {
 	        }
 		
 			return "";

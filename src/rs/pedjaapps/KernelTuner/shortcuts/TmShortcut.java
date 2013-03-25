@@ -39,7 +39,7 @@ public class TmShortcut extends Activity
 		         .putExtra("duplicate", false)
 				 .putExtra(Intent.EXTRA_SHORTCUT_NAME, "Task Manager")
 				 .putExtra(Intent.EXTRA_SHORTCUT_ICON_RESOURCE, Intent.ShortcutIconResource.fromContext(c, R.drawable.tm))
-				 .putExtra(Intent.EXTRA_SHORTCUT_INTENT, new Intent(this , TaskManager.class));
+			.putExtra(Intent.EXTRA_SHORTCUT_INTENT, new Intent("rs.pedjaapps.KernelTuner.TM"));
 		sendBroadcast(shortcutintent);
 		Toast.makeText(this, "Shortcut Task Manager created", Toast.LENGTH_SHORT).show();
 		finish();

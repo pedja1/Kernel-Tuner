@@ -39,7 +39,7 @@ public class SysShortcut extends Activity
 		         .putExtra("duplicate", false)
 				 .putExtra(Intent.EXTRA_SHORTCUT_NAME, "SysCtl")
 				 .putExtra(Intent.EXTRA_SHORTCUT_ICON_RESOURCE, Intent.ShortcutIconResource.fromContext(c, R.drawable.sysctl))
-				 .putExtra(Intent.EXTRA_SHORTCUT_INTENT, new Intent(this , SysCtl.class));
+			.putExtra(Intent.EXTRA_SHORTCUT_INTENT, new Intent("rs.pedjaapps.KernelTuner.SYSCTL"));
 		sendBroadcast(shortcutintent);
 		Toast.makeText(this, "Shortcut SysCtl created", Toast.LENGTH_SHORT).show();
 		finish();

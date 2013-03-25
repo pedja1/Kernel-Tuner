@@ -52,7 +52,7 @@ public class Reboot extends Activity
             InputStream stdout = process.getInputStream();
 
             stdin.write(("/data/data/rs.pedjaapps.KernelTuner/files/reboot " + reboot + "\n").getBytes());
-            
+            stdin.write("exit\n".getBytes());
             stdin.flush();
 
             stdin.close();
@@ -68,8 +68,10 @@ public class Reboot extends Activity
             	Log.e("[KernelTuner ChangeGovernor Error]", line);
             }
             brCleanUp.close();
+			process.waitFor();
+			process.destroy();
 
-        } catch (IOException ex) {
+        } catch (Exception ex) {
         }
 	}
 }

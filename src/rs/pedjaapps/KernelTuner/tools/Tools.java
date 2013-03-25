@@ -375,4 +375,23 @@ public class Tools
 			return "arm";
 		}
 	}
+	
+	public static String getProcessStatus(String status){
+		if(status.equals("S")){
+			return "Sleeping";
+		} else if(status.equals("D")){
+			return "Uninterruptible";
+		} else if(status.equals("R")){
+			return "Running";
+		} else if(status.equals("T")){
+			return "Stopped";
+		} else if(status.equals("X")){
+			return "Terminated";
+		} else if(status.equals("Z")){
+			return "Zombie";
+		} else{
+			return "";
+		}
+		
+	}
 }

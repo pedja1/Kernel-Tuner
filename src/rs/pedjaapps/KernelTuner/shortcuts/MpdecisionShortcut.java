@@ -41,19 +41,19 @@ public class MpdecisionShortcut extends Activity
 	{
 		super.onCreate(savedInstanceState);
 		Context c = getApplicationContext();
-	    Class mActivity= null;
+	    String mActivity= "";
     	if(new File(Constants.MPDEC_THR_UP).exists()){
-			mActivity = Mpdecision.class;
+			mActivity = "rs.pedjaapps.KernelTuner.MPDECISION";
 		}
 		else if (new File(Constants.MPDEC_THR_0).exists()){
-			mActivity = Mpdecision.class;
+			mActivity = "rs.pedjaapps.KernelTuner.MPDECISION_NEW";
 		}
 		if(IOHelper.mpdecisionExists()){
 		Intent shortcutintent = new Intent("com.android.launcher.action.INSTALL_SHORTCUT")
 		         .putExtra("duplicate", false)
 				 .putExtra(Intent.EXTRA_SHORTCUT_NAME, "Mpdecision")
 				 .putExtra(Intent.EXTRA_SHORTCUT_ICON_RESOURCE, Intent.ShortcutIconResource.fromContext(c, R.drawable.dual))
-				 .putExtra(Intent.EXTRA_SHORTCUT_INTENT, new Intent(c , mActivity));
+				 .putExtra(Intent.EXTRA_SHORTCUT_INTENT, new Intent(mActivity));
 		sendBroadcast(shortcutintent);
 		Toast.makeText(MpdecisionShortcut.this, "Shortcut Mpdecision created", Toast.LENGTH_SHORT).show();
 		finish();

@@ -51,7 +51,7 @@ ListView shortcutListView;
                 "Profiles",
                 "Swap",
                 "System Info",
-                "Settings",
+                
                 "OOM",
 				"SD Analyzer",
 				"build.prop Editor",
@@ -71,7 +71,7 @@ ListView shortcutListView;
                 "Manage Settings Profiles",
                 "Create and Manage Swap",
                 "View System Information",
-                "Change app Settings",
+                
                 "Out Of Memory Settings",
 				"Analyze SD Card Content",
 				"Edit Build properties",
@@ -92,7 +92,7 @@ ListView shortcutListView;
                 R.drawable.profile,
                 R.drawable.swap,
                 R.drawable.info,
-                R.drawable.misc,
+                
                 R.drawable.swap,
 				R.drawable.sd,
 				R.drawable.build,
@@ -112,7 +112,7 @@ ListView shortcutListView;
                         ProfilesShortcut.class,
                         SwapShortcut.class,
                         InfoShortcut.class,
-                        SettingsShortcut.class,
+                       
                         OOMShortcut.class,
 						SDShortcut.class,
 						BuildShortcut.class,

@@ -45,7 +45,7 @@ public class RebootShortcut extends Activity
 		else{
 			rebootType = "Reboot";
 		}
-		Intent intent2 = new Intent(c , Reboot.class)
+		Intent intent2 = new Intent("rs.pedjaapps.KernelTuner.REBOOT")
 			.putExtra("reboot", reboot);
 		Intent shortcutintent = new Intent("com.android.launcher.action.INSTALL_SHORTCUT")
 		         .putExtra("duplicate", false)

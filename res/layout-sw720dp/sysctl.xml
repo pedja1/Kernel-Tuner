@@ -19,10 +19,8 @@
     android:layout_height="wrap_content"
     android:layout_above="@+id/ly3"
     android:layout_alignParentLeft="true"
-	android:numColumns="1"
-    android:layout_below="@+id/horizontalScrollView1"
-	android:divider="?android:attr/dividerHorizontal"
-    android:showDividers="middle">
+	android:numColumns="4"
+    android:layout_below="@+id/horizontalScrollView1" >
 
 </GridView>
 

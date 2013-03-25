@@ -38,6 +38,7 @@ public class RootExecuter
               for(String s : commands){
 			  stdin.write((s).getBytes());
 			  }
+			  stdin.write("exit\n".getBytes());
 			  stdin.flush();
 
 			  stdin.close();
@@ -53,13 +54,15 @@ public class RootExecuter
 				  Log.e(Constants.LOG_TAG, line);
 			  }
 			  brCleanUp.close();
+			  process.waitFor();
+			  process.destroy();
 			  if (process != null) {
 				  process.getErrorStream().close();
 				  process.getInputStream().close();
 				  process.getOutputStream().close();
 			  }
 
-		  } catch (IOException ex) {
+		  } catch (Exception ex) {
 			  
 		  }
 	  }

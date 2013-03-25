@@ -38,7 +38,7 @@ public class OOMShortcut extends Activity
 		      .putExtra("duplicate", false)
 		      .putExtra(Intent.EXTRA_SHORTCUT_NAME, "OOM")
 		      .putExtra(Intent.EXTRA_SHORTCUT_ICON_RESOURCE, Intent.ShortcutIconResource.fromContext(this, R.drawable.swap))
-			  .putExtra(Intent.EXTRA_SHORTCUT_INTENT, new Intent(this , OOM.class));
+				.putExtra(Intent.EXTRA_SHORTCUT_INTENT, new Intent("rs.pedjaapps.KernelTuner.OOM"));
 		sendBroadcast(shortcutintent);
 		Toast.makeText(OOMShortcut.this, "Shortcut OOM created", Toast.LENGTH_SHORT).show();
 		finish();
