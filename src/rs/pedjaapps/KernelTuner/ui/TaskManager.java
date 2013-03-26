@@ -18,11 +18,7 @@
  */
 package rs.pedjaapps.KernelTuner.ui;
 
-import android.widget.*;
-import android.app.AlertDialog;
-import android.app.ProgressDialog;
-import android.content.Context;
-import android.content.DialogInterface;
+import android.app.ActivityManager.*;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.content.pm.ApplicationInfo;
@@ -31,18 +27,26 @@ import android.graphics.drawable.Drawable;
 import android.os.AsyncTask;
 import android.os.Bundle;
 import android.preference.PreferenceManager;
-import android.support.v4.app.FragmentActivity;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.Window;
+import android.widget.CheckBox;
+import android.widget.CompoundButton;
+import android.widget.ProgressBar;
+import android.widget.RelativeLayout;
+import android.widget.TextView;
+import com.actionbarsherlock.app.SherlockFragmentActivity;
+import com.actionbarsherlock.view.Menu;
+import com.actionbarsherlock.view.MenuInflater;
 import com.actionbarsherlock.view.MenuItem;
 import com.google.ads.AdRequest;
 import com.google.ads.AdView;
 import java.io.BufferedReader;
-import java.io.File;
+import java.io.IOException;
 import java.io.InputStream;
 import java.io.InputStreamReader;
+import java.io.RandomAccessFile;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Collections;
@@ -51,13 +55,9 @@ import java.util.List;
 import rs.pedjaapps.KernelTuner.R;
 import rs.pedjaapps.KernelTuner.entry.TMEntry;
 import rs.pedjaapps.KernelTuner.fragments.TMDetailFragment;
-import rs.pedjaapps.KernelTuner.helpers.TMAdapter;
-import rs.pedjaapps.KernelTuner.tools.Tools;
-
-import com.actionbarsherlock.app.SherlockFragmentActivity;
 import rs.pedjaapps.KernelTuner.fragments.TMListFragment;
-import com.actionbarsherlock.view.Menu;
-import com.actionbarsherlock.view.MenuInflater;
+import rs.pedjaapps.KernelTuner.tools.Tools;
+import android.app.ActivityManager;
 
 public class TaskManager extends SherlockFragmentActivity implements TMListFragment.Callbacks
 {
@@ -104,6 +104,8 @@ public class TaskManager extends SherlockFragmentActivity implements TMListFragm
 		
 		View customNav = LayoutInflater.from(this).inflate(R.layout.ram_layout, null);
 
+		((TextView)customNav.findViewById(R.id.free)).setText("Free: "+ getFreeRAM()+"MB");
+		((TextView)customNav.findViewById(R.id.total)).setText("Available: "+ getTotalRAM()+"MB");
 
         //Attach to the action bar
         getSupportActionBar().setCustomView(customNav);
@@ -356,5 +358,36 @@ public class TaskManager extends SherlockFragmentActivity implements TMListFragm
 
 		}
 		return super.onOptionsItemSelected(item);
+	}
+	
+	public static Integer getTotalRAM() {
+		RandomAccessFile reader = null;
+		String load = null;
+		Integer mem = null;
+		try {
+			reader = new RandomAccessFile("/proc/meminfo", "r");
+			load = reader.readLine();
+			mem = Integer.parseInt(load.substring(load.indexOf(":") + 1,
+												  load.lastIndexOf(" ")).trim()) / 1024;
+		} catch (IOException ex) {
+			ex.printStackTrace();
+		} finally {
+			try {
+				reader.close();
+			} catch (IOException e) {
+
+				e.printStackTrace();
+			}
+		}
+		return mem;
+	}
+
+	public Integer getFreeRAM() {
+		MemoryInfo mi = new MemoryInfo();
+		ActivityManager activityManager = (ActivityManager) getSystemService(ACTIVITY_SERVICE);
+		activityManager.getMemoryInfo(mi);
+		Integer mem = (int) (mi.availMem / 1048576L);
+		return mem;
+
 	}
 }
