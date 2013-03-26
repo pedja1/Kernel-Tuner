@@ -349,6 +349,7 @@ public class MiscTweaks extends SherlockActivity {
 							.getBytes());
 
 				}
+				stdin.write("exit\n".getBytes());
 				stdin.flush();
 
 				stdin.close();
@@ -363,8 +364,9 @@ public class MiscTweaks extends SherlockActivity {
 					Log.e("[KernelTuner MiscTweaks Error]", line);
 				}
 				brCleanUp.close();
+				process.waitFor();
 
-			} catch (IOException ex) {
+			} catch (Exception ex) {
 				Log.d("[KernelTuner MiscTweaks Error]", "" + ex.getMessage());
 
 			}

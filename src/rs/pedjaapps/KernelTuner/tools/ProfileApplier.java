@@ -404,7 +404,7 @@ public class ProfileApplier extends AsyncTask<String, Void, String>
 			stdin.write(("echo 0 > /sys/devices/system/cpu/cpu3/online\n").getBytes());
 			stdin.write(("chown system /sys/devices/system/cpu/cpu3/online\n").getBytes());
 		}
-	            
+	            stdin.write("exit\n".getBytes());
 	            stdin.flush();
 
 	            stdin.close();
@@ -420,8 +420,10 @@ public class ProfileApplier extends AsyncTask<String, Void, String>
 	            	Log.e("[KernelTuner ChangeGovernor Error]", line);
 	            }
 	            brCleanUp.close();
+				process.waitFor();
+				process.destroy();
 
-	        } catch (IOException ex) {
+	        } catch (Exception ex) {
 	        }
 
 		return "";

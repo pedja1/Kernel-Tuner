@@ -37,7 +37,7 @@ public class ProfilesShortcut extends Activity
 		          .putExtra("duplicate", false)
 				  .putExtra(Intent.EXTRA_SHORTCUT_NAME, "Profiles")
 				  .putExtra(Intent.EXTRA_SHORTCUT_ICON_RESOURCE, Intent.ShortcutIconResource.fromContext(c, R.drawable.profile))
-				  .putExtra(Intent.EXTRA_SHORTCUT_INTENT, new Intent(c , Profiles.class));
+			.putExtra(Intent.EXTRA_SHORTCUT_INTENT, new Intent("rs.pedjaapps.KernelTuner.PROFILES"));
 		sendBroadcast(shortcutintent);
 		Toast.makeText(ProfilesShortcut.this, "Shortcut Profiles created", Toast.LENGTH_SHORT).show();
 		finish();

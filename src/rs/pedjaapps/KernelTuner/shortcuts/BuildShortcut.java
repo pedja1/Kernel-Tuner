@@ -39,7 +39,7 @@ public class BuildShortcut extends Activity
 		         .putExtra("duplicate", false)
 				 .putExtra(Intent.EXTRA_SHORTCUT_NAME, "Build.prop Editor")
 				 .putExtra(Intent.EXTRA_SHORTCUT_ICON_RESOURCE, Intent.ShortcutIconResource.fromContext(c, R.drawable.build))
-				 .putExtra(Intent.EXTRA_SHORTCUT_INTENT, new Intent(this , BuildpropEditor.class));
+				 .putExtra(Intent.EXTRA_SHORTCUT_INTENT, new Intent("rs.pedjaapps.KernelTuner.BUILD"));
 		sendBroadcast(shortcutintent);
 		Toast.makeText(this, "Shortcut Build.prop Editor created", Toast.LENGTH_SHORT).show();
 		finish();

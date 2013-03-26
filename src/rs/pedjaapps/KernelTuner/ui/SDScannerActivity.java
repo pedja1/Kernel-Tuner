@@ -242,8 +242,10 @@ public class SDScannerActivity extends SherlockActivity
 					entries.add(new SDScannerEntry(line.substring(line.lastIndexOf("/")+1, line.length()),Integer.parseInt(line.substring(0, line.indexOf("/")).trim()), Tools.kByteToHumanReadableSize(Integer.parseInt(line.substring(0, line.indexOf("/")).trim())), line.substring(line.indexOf("/"), line.length()).trim(), false) );
 					publishProgress(line.substring(line.indexOf("/"), line.length()).trim());
 				}
+				proc.waitFor();
+				proc.destroy();
 			}
-			catch (IOException e)
+			catch (Exception e)
 			{
 				Log.e("du","error "+e.getMessage());
 			}

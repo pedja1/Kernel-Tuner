@@ -40,22 +40,22 @@ public class TISShortcut extends Activity
 		Context c = getApplicationContext();
 		SharedPreferences prefs = PreferenceManager.getDefaultSharedPreferences(c);
 	    String tPref = prefs.getString("tis_open_as","list");
-	    Class tActivity= null;
+	    String tActivity= "";
     	if(tPref.equals("list")){
-			tActivity = TISActivity.class;
+			tActivity = "rs.pedjaapps.KernelTuner.TIMES";
 		}
 		else if (tPref.equals("chart")){
-			tActivity = TISActivityChart.class;
+			tActivity = "rs.pedjaapps.KernelTuner.TIMES_CHART";
 		}
 		else{
-			tActivity = TISActivity.class;
+			tActivity = "rs.pedjaapps.KernelTuner.TIMES";
 		}
 		if(IOHelper.TISExists()){
 		Intent shortcutintent = new Intent("com.android.launcher.action.INSTALL_SHORTCUT")
 		          .putExtra("duplicate", false)
 				  .putExtra(Intent.EXTRA_SHORTCUT_NAME, "Times in State")
 				  .putExtra(Intent.EXTRA_SHORTCUT_ICON_RESOURCE, Intent.ShortcutIconResource.fromContext(c, R.drawable.times))
-				  .putExtra(Intent.EXTRA_SHORTCUT_INTENT, new Intent(TISShortcut.this , tActivity));
+				.putExtra(Intent.EXTRA_SHORTCUT_INTENT, new Intent("rs.pedjaapps.KernelTuner.TIMES"));
 		sendBroadcast(shortcutintent);
 		Toast.makeText(TISShortcut.this, "Shortcut Times In State created", Toast.LENGTH_SHORT).show();
 		finish();

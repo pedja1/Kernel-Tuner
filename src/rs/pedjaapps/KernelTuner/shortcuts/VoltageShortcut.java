@@ -40,7 +40,7 @@ public class VoltageShortcut extends Activity
 		           .putExtra("duplicate", false)
 				   .putExtra(Intent.EXTRA_SHORTCUT_NAME, "Voltage")
 				   .putExtra(Intent.EXTRA_SHORTCUT_ICON_RESOURCE, Intent.ShortcutIconResource.fromContext(c, R.drawable.voltage))
-				   .putExtra(Intent.EXTRA_SHORTCUT_INTENT, new Intent(c, VoltageActivity.class));
+				.putExtra(Intent.EXTRA_SHORTCUT_INTENT, new Intent("rs.pedjaapps.KernelTuner.VOLTAGE"));
 		sendBroadcast(shortcutintent);
 		Toast.makeText(VoltageShortcut.this, "Shortcut Voltage created", Toast.LENGTH_SHORT).show();
 		finish();

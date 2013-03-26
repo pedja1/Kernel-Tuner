@@ -79,7 +79,7 @@ public class WidgetUpdateServiceBig extends Service
             InputStream stdout = process.getInputStream();
 
             stdin.write(("mount -t debugfs debugfs /sys/kernel/debug\n").getBytes());
-           
+			stdin.write("exit\n".getBytes());
             stdin.flush();
 
             stdin.close();
@@ -95,8 +95,9 @@ public class WidgetUpdateServiceBig extends Service
             	Log.e("[KernelTuner Widget Error]", line);
             }
             brCleanUp.close();
+			process.waitFor();
 
-        } catch (IOException ex) {
+        } catch (Exception ex) {
         }
 	}
 

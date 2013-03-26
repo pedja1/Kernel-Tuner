@@ -38,7 +38,7 @@ public class InfoShortcut extends Activity
 		        .putExtra("duplicate", false)
 				.putExtra(Intent.EXTRA_SHORTCUT_NAME, "System Info")
 				.putExtra(Intent.EXTRA_SHORTCUT_ICON_RESOURCE, Intent.ShortcutIconResource.fromContext(c, R.drawable.info))
-				.putExtra(Intent.EXTRA_SHORTCUT_INTENT, new Intent(c , SystemInfo.class));
+			.putExtra(Intent.EXTRA_SHORTCUT_INTENT, new Intent("rs.pedjaapps.KernelTuner.SystemInfo"));
 		sendBroadcast(shortcutintent);
 		Toast.makeText(InfoShortcut.this, "Shortcut System Info created", Toast.LENGTH_SHORT).show();
 		finish();

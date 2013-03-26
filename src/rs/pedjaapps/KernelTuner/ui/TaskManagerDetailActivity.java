@@ -1,12 +1,16 @@
 package rs.pedjaapps.KernelTuner.ui;
 
+import android.content.Intent;
+import android.content.SharedPreferences;
+import android.os.Bundle;
+import android.preference.PreferenceManager;
+import android.support.v4.app.NavUtils;
+import com.actionbarsherlock.app.SherlockFragmentActivity;
+import com.actionbarsherlock.view.MenuItem;
 import rs.pedjaapps.KernelTuner.R;
 import rs.pedjaapps.KernelTuner.fragments.TMDetailFragment;
-import android.content.Intent;
-import android.os.Bundle;
-import android.support.v4.app.FragmentActivity;
-import android.support.v4.app.NavUtils;
-import android.view.MenuItem;
+import rs.pedjaapps.KernelTuner.tools.Tools;
+import rs.pedjaapps.KernelTuner.fragments.TMListFragment;
 
 /**
  * An activity representing a single process detail screen. This activity is
@@ -16,15 +20,19 @@ import android.view.MenuItem;
  * This activity is mostly just a 'shell' activity containing nothing more than
  * a {@link TMDetailFragment}.
  */
-public class TaskManagerDetailActivity extends FragmentActivity {
+public class TaskManagerDetailActivity extends SherlockFragmentActivity {
 
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
+		
+		SharedPreferences prefs = PreferenceManager.getDefaultSharedPreferences(this);
+		setTheme(Tools.getPreferedTheme(prefs.getString("theme","light")));
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.activity_tm_detail);
 
+		
 		// Show the Up button in the action bar.
-		getActionBar().setDisplayHomeAsUpEnabled(true);
+		getSupportActionBar().setDisplayHomeAsUpEnabled(true);
 
 		// savedInstanceState is non-null when there is fragment state
 		// saved from previous configurations of this activity
@@ -39,13 +47,14 @@ public class TaskManagerDetailActivity extends FragmentActivity {
 			// Create the detail fragment and add it to the activity
 			// using a fragment transaction.
 			Bundle arguments = new Bundle();
-			arguments.putString(TMDetailFragment.ARG_ITEM_ID, getIntent()
-					.getStringExtra(TMDetailFragment.ARG_ITEM_ID));
+			arguments.putInt(TMDetailFragment.ARG_ITEM_ID, getIntent()
+					.getIntExtra(TMDetailFragment.ARG_ITEM_ID, 0));
 			TMDetailFragment fragment = new TMDetailFragment();
 			fragment.setArguments(arguments);
 			getSupportFragmentManager().beginTransaction()
 					.add(R.id.process_detail_container, fragment).commit();
 		}
+	
 	}
 
 	@Override

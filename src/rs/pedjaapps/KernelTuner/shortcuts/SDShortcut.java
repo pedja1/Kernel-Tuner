@@ -38,7 +38,7 @@ public class SDShortcut extends Activity
 			         .putExtra("duplicate", false)
 					 .putExtra(Intent.EXTRA_SHORTCUT_NAME, "SD Analyzer")
 					 .putExtra(Intent.EXTRA_SHORTCUT_ICON_RESOURCE, Intent.ShortcutIconResource.fromContext(c, R.drawable.sd))
-					 .putExtra(Intent.EXTRA_SHORTCUT_INTENT, new Intent(SDShortcut.this , SDScannerConfigActivity.class));
+			.putExtra(Intent.EXTRA_SHORTCUT_INTENT, new Intent("rs.pedjaapps.KernelTuner.SD_ANALYZER"));
 			sendBroadcast(shortcutintent);
 			Toast.makeText(SDShortcut.this, "Shortcut SD Analyzer created", Toast.LENGTH_SHORT).show();
 			finish();

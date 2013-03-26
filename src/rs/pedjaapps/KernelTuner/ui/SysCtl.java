@@ -54,12 +54,13 @@ import com.actionbarsherlock.view.MenuItem;
 import com.actionbarsherlock.app.SherlockActivity;
 import rs.pedjaapps.KernelTuner.tools.Tools;
 import android.widget.ProgressBar;
+import android.widget.GridView;
 
 
 
 public class SysCtl extends SherlockActivity
 {
-	ListView sysListView;
+	GridView sysListView;
 	SysCtlAdapter sysAdapter;
 	List<SysCtlEntry> entries;
 	ProgressDialog pd;
@@ -109,7 +110,7 @@ public class SysCtl extends SherlockActivity
 		
 		
 		
-		sysListView = (ListView) findViewById(R.id.list);
+		sysListView = (GridView) findViewById(R.id.list);
 		sysAdapter = new SysCtlAdapter(this, R.layout.sysctl_row);
 		sysListView.setAdapter(sysAdapter);
 
@@ -222,6 +223,8 @@ public class SysCtl extends SherlockActivity
 					}
 
 				}
+				proc.waitFor();
+				proc.destroy();
 			}
 			catch (Exception e)
 			{

@@ -40,7 +40,7 @@ public class ThermaldShortcut extends Activity
 		           .putExtra("duplicate", false)
 				   .putExtra(Intent.EXTRA_SHORTCUT_NAME, "Thermald")
 				   .putExtra(Intent.EXTRA_SHORTCUT_ICON_RESOURCE, Intent.ShortcutIconResource.fromContext(c, R.drawable.temp))
-				   .putExtra(Intent.EXTRA_SHORTCUT_INTENT, new Intent(ThermaldShortcut.this , Thermald.class));
+				.putExtra(Intent.EXTRA_SHORTCUT_INTENT, new Intent("rs.pedjaapps.KernelTuner.THERMAL"));
 		sendBroadcast(shortcutintent);
 		Toast.makeText(ThermaldShortcut.this, "Shortcut Thermald created", Toast.LENGTH_SHORT).show();
 		finish();

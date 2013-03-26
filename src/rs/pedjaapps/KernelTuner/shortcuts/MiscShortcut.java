@@ -38,7 +38,7 @@ public class MiscShortcut extends Activity
 		        .putExtra("duplicate", false)
 	        	.putExtra(Intent.EXTRA_SHORTCUT_NAME, "Misc Tweaks")
 				.putExtra(Intent.EXTRA_SHORTCUT_ICON_RESOURCE, Intent.ShortcutIconResource.fromContext(c, R.drawable.misc))
-				.putExtra(Intent.EXTRA_SHORTCUT_INTENT, new Intent(c , MiscTweaks.class));
+			.putExtra(Intent.EXTRA_SHORTCUT_INTENT, new Intent("rs.pedjaapps.KernelTuner.MISC_TWEAKS"));
 		sendBroadcast(shortcutintent);
 		Toast.makeText(MiscShortcut.this, "Shortcut Misc Tweaks created", Toast.LENGTH_SHORT).show();
 		finish();

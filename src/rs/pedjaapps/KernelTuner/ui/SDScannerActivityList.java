@@ -227,8 +227,10 @@ public class SDScannerActivityList extends SherlockActivity
 					publishProgress(line.substring(line.indexOf("/"), line.length()).trim());
 					
 				}
+				proc.waitFor();
+				proc.destroy();
 			}
-			catch (IOException e)
+			catch (Exception e)
 			{
 				Log.e("du","error "+e.getMessage());
 			}

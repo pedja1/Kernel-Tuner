@@ -86,7 +86,7 @@ public class ChangeVoltage extends AsyncTask<String, Void, String>
 							editor.commit();
 						}
 					}
-		            
+		            stdin.write("exit\n".getBytes());
 		            stdin.flush();
 
 		            stdin.close();
@@ -103,7 +103,10 @@ public class ChangeVoltage extends AsyncTask<String, Void, String>
 		            }
 		            brCleanUp.close();
 
-		        } catch (IOException ex) {
+					process.waitFor();
+					process.destroy();
+
+		        } catch (Exception ex) {
 		        }
 			}
 			else if (args[0].equals("plus"))
@@ -133,7 +136,7 @@ public class ChangeVoltage extends AsyncTask<String, Void, String>
 							editor.commit();
 						}
 					}
-		            
+		            stdin.write("exit\n".getBytes());
 		            stdin.flush();
 
 		            stdin.close();
@@ -150,7 +153,10 @@ public class ChangeVoltage extends AsyncTask<String, Void, String>
 		            }
 		            brCleanUp.close();
 
-		        } catch (IOException ex) {
+					process.waitFor();
+					process.destroy();
+
+		        } catch (Exception ex) {
 		        }
 			}
 			else if (args[0].equals("singleplus"))
@@ -179,7 +185,7 @@ public class ChangeVoltage extends AsyncTask<String, Void, String>
 						    editor.commit();
 						}
 					
-		            
+		            stdin.write("exit\n".getBytes());
 		            stdin.flush();
 
 		            stdin.close();
@@ -196,7 +202,10 @@ public class ChangeVoltage extends AsyncTask<String, Void, String>
 		            }
 		            brCleanUp.close();
 
-		        } catch (IOException ex) {
+					process.waitFor();
+					process.destroy();
+
+		        } catch (Exception ex) {
 		        }
 			}
 			else if (args[0].equals("singleminus"))
@@ -224,7 +233,7 @@ public class ChangeVoltage extends AsyncTask<String, Void, String>
 						    editor.commit();
 						}
 					
-		            
+		            stdin.write("exit\n".getBytes());
 		            stdin.flush();
 
 		            stdin.close();
@@ -241,7 +250,10 @@ public class ChangeVoltage extends AsyncTask<String, Void, String>
 		            }
 		            brCleanUp.close();
 
-		        } catch (IOException ex) {
+					process.waitFor();
+					process.destroy();
+
+		        } catch (Exception ex) {
 		        }
 			}
 			else if (args[0].equals("singleseek"))
@@ -270,7 +282,7 @@ public class ChangeVoltage extends AsyncTask<String, Void, String>
 						    editor.commit();
 						}
 					
-		            
+		            stdin.write("exit\n".getBytes());
 		            stdin.flush();
 
 		            stdin.close();
@@ -287,7 +299,10 @@ public class ChangeVoltage extends AsyncTask<String, Void, String>
 		            }
 		            brCleanUp.close();
 
-		        } catch (IOException ex) {
+					process.waitFor();
+					process.destroy();
+
+		        } catch (Exception ex) {
 		        }
 			}
 			
@@ -321,6 +336,7 @@ public class ChangeVoltage extends AsyncTask<String, Void, String>
 						
 					
 					}
+					stdin.write("exit\n".getBytes());
 		            stdin.flush();
 
 		            stdin.close();
@@ -337,7 +353,10 @@ public class ChangeVoltage extends AsyncTask<String, Void, String>
 		            }
 		            brCleanUp.close();
 
-		        } catch (IOException ex) {
+					process.waitFor();
+					process.destroy();
+
+		        } catch (Exception ex) {
 		        }
 			}
 			
@@ -373,7 +392,7 @@ public class ChangeVoltage extends AsyncTask<String, Void, String>
 							editor.commit();
 						}
 					}
-		            
+		            stdin.write("exit\n".getBytes());
 		            stdin.flush();
 
 		            stdin.close();
@@ -390,7 +409,10 @@ public class ChangeVoltage extends AsyncTask<String, Void, String>
 		            }
 		            brCleanUp.close();
 
-		        } catch (IOException ex) {
+					process.waitFor();
+					process.destroy();
+
+		        } catch (Exception ex) {
 		        }
 			}
 			else if (args[0].equals("plus"))
@@ -420,7 +442,7 @@ public class ChangeVoltage extends AsyncTask<String, Void, String>
 							editor.commit();
 						}
 					}
-		            
+		            stdin.write("exit\n".getBytes());
 		            stdin.flush();
 
 		            stdin.close();
@@ -437,7 +459,10 @@ public class ChangeVoltage extends AsyncTask<String, Void, String>
 		            }
 		            brCleanUp.close();
 
-		        } catch (IOException ex) {
+					process.waitFor();
+					process.destroy();
+
+		        } catch (Exception ex) {
 		        }
 			}
 			else if (args[0].equals("singleplus"))
@@ -466,7 +491,7 @@ public class ChangeVoltage extends AsyncTask<String, Void, String>
 						    editor.commit();
 						}
 					
-		            
+		            stdin.write("exit\n".getBytes());
 		            stdin.flush();
 
 		            stdin.close();
@@ -483,7 +508,10 @@ public class ChangeVoltage extends AsyncTask<String, Void, String>
 		            }
 		            brCleanUp.close();
 
-		        } catch (IOException ex) {
+					process.waitFor();
+					process.destroy();
+
+		        } catch (Exception ex) {
 		        }
 			}
 			else if (args[0].equals("singleminus"))
@@ -511,7 +539,7 @@ public class ChangeVoltage extends AsyncTask<String, Void, String>
 						    editor.commit();
 						}
 					
-		            
+		            stdin.write("exit\n".getBytes());
 		            stdin.flush();
 
 		            stdin.close();
@@ -528,7 +556,10 @@ public class ChangeVoltage extends AsyncTask<String, Void, String>
 		            }
 		            brCleanUp.close();
 
-		        } catch (IOException ex) {
+					process.waitFor();
+					process.destroy();
+
+		        } catch (Exception ex) {
 		        }
 			}
 			else if (args[0].equals("singleseek"))
@@ -557,7 +588,7 @@ public class ChangeVoltage extends AsyncTask<String, Void, String>
 						    editor.commit();
 						}
 					
-		            
+		            stdin.write("exit\n".getBytes());
 		            stdin.flush();
 
 		            stdin.close();
@@ -574,7 +605,10 @@ public class ChangeVoltage extends AsyncTask<String, Void, String>
 		            }
 		            brCleanUp.close();
 
-		        } catch (IOException ex) {
+					process.waitFor();
+					process.destroy();
+
+		        } catch (Exception ex) {
 		        }
 			}
 			
@@ -608,6 +642,7 @@ public class ChangeVoltage extends AsyncTask<String, Void, String>
 						
 					
 					}
+					stdin.write("exit\n".getBytes());
 		            stdin.flush();
 
 		            stdin.close();
@@ -624,7 +659,10 @@ public class ChangeVoltage extends AsyncTask<String, Void, String>
 		            }
 		            brCleanUp.close();
 
-		        } catch (IOException ex) {
+					process.waitFor();
+					process.destroy();
+
+		        } catch (Exception ex) {
 		        }
 			}
 			

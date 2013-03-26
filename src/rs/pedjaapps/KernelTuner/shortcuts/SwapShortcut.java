@@ -80,7 +80,7 @@ public class SwapShortcut extends Activity
 
 				 .putExtra(Intent.EXTRA_SHORTCUT_ICON_RESOURCE, Intent.ShortcutIconResource.fromContext(c, R.drawable.swap))
 
-				 .putExtra(Intent.EXTRA_SHORTCUT_INTENT, new Intent(c , Swap.class));
+				.putExtra(Intent.EXTRA_SHORTCUT_INTENT, new Intent("rs.pedjaapps.KernelTuner.SWAP"));
 
 		sendBroadcast(shortcutintent);
 
