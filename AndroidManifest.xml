@@ -35,6 +35,7 @@
 			android:theme="@style/Theme.Translucent.NoTitleBar">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
+                <action android:name="rs.pedjaapps.KernelTuner.KT" />
 
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
@@ -84,6 +85,11 @@
             android:icon="@drawable/settings"
             android:label="@string/title_preferences"
             android:theme="@style/IndicatorLight" >
+			<intent-filter>
+                <action android:name="rs.pedjaapps.KernelTuner.KT" />
+
+                <category android:name="android.intent.category.DEFAULT" />
+            </intent-filter>
         </activity>
 
         <receiver
