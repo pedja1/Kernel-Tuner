@@ -60,6 +60,13 @@ public class Changelog extends SherlockActivity
 
 		final List<ChangelogEntry> entries = new ArrayList<ChangelogEntry>();
 
+		entries.add(new ChangelogEntry(true, null, 0, "4.4.5"));
+		entries.add(new ChangelogEntry(false, "Optimized Settings nad Task Manager For Tablets(More to come)", 0, ""));
+		entries.add(new ChangelogEntry(false, "Re-added Swap", 0, ""));
+		entries.add(new ChangelogEntry(false, "Fixed Crashes on some Shortcuts", 1, ""));
+		entries.add(new ChangelogEntry(false, "Fixed some bugs with settings not sticking", 1, ""));
+		entries.add(new ChangelogEntry(false, "Fixed Crashes on Gingerbread devices", 1, ""));
+		
 		entries.add(new ChangelogEntry(true, null, 0, "4.4.4.1"));
 		entries.add(new ChangelogEntry(false, "Logcat", 0, ""));
 		entries.add(new ChangelogEntry(false, "Removed Swap", 2, ""));
