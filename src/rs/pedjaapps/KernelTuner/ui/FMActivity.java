@@ -55,10 +55,11 @@ public class FMActivity extends SherlockActivity
 	{
 		c = this;
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.fm);
+       
         SharedPreferences prefs = PreferenceManager.getDefaultSharedPreferences(this);
         String theme = prefs.getString("theme", "light");
 		setTheme(Tools.getPreferedTheme(theme));
+		 setContentView(R.layout.fm);
 		fListView = (GridView) findViewById(R.id.list);
 		
 		path = Environment.getExternalStorageDirectory().toString();
