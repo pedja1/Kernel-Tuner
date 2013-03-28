@@ -1,4 +1,3 @@
-
 #  Kernel Tuner 
 ## Various kernel and system tuning 
 
@@ -31,6 +30,20 @@
 * Themes(Holo variations-light, dark)
 * Profiles
 * Plugin for locale,llama,tasker to toggle profiles
+
+### Libraries
+
+This project relies on following libraries: 
+
+* [aChartEngine](http://code.google.com/p/achartengine/) - Apache License 2.0
+* [Apache Commons IO](http://commons.apache.org/proper/commons-io/) - Apache License 2.0
+* [ActionBarSherlock](http://actionbarsherlock.com/) - Apache License 2.0
+* [Locale Plugin](http://www.twofortyfouram.com/developer) - Apache License 2.0
+
+This project also includes modified code from the following open source projects:
+
+* [SwitchCompatLibrary](https://github.com/ankri/SwitchCompatLibrary) - Apache License 2.0
+* [aLogcat](http://code.google.com/p/alogcat/) - GNU GPL v3
 
 ### Thanks
 
