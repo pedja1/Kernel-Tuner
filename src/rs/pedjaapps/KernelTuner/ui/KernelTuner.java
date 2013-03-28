@@ -172,7 +172,7 @@ public class KernelTuner extends SherlockActivity {
                  .detectAll().build());*/
 
 		c = this;
-		new Chmod().execute();
+		//new Chmod().execute();
 		freqEntries = IOHelper.frequencies();
 		voltageFreqs = IOHelper.voltages();
 		preferences = PreferenceManager.getDefaultSharedPreferences(c);
@@ -1883,7 +1883,7 @@ private void startCpuLoadThread() {
 		sysBuilder.append("#!/system/bin/sh \n");
 			List<SysCtlDatabaseEntry> sysEntries = db.getAllSysCtlEntries();
 			for(SysCtlDatabaseEntry e : sysEntries){
-				sysBuilder.append(getFilesDir().getPath() + "/busybox sysctl -w " + e.getKey().trim() + "=" + e.getValue().trim()+"\n");
+				sysBuilder.append(getFilesDir().getPath() + "/sysctl-"+Tools.getAbi()+" -w " + e.getKey().trim() + "=" + e.getValue().trim()+"\n");
 			}
 		
 		String sys = sysBuilder.toString();
@@ -2080,13 +2080,13 @@ private void startCpuLoadThread() {
 			if (mToast != null)
 				mToast.cancel();
 			KernelTuner.this.finish();
-			java.lang.System.exit(0);
+			//java.lang.System.exit(0);
 			mLastBackPressTime = 0;
 		}
 		}
 		else{
 			KernelTuner.this.finish();
-			java.lang.System.exit(0);
+			//java.lang.System.exit(0);
 		}
 	}
 

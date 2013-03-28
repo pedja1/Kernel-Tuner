@@ -56,11 +56,6 @@ public class RootExecuter
 			  brCleanUp.close();
 			  process.waitFor();
 			  process.destroy();
-			  if (process != null) {
-				  process.getErrorStream().close();
-				  process.getInputStream().close();
-				  process.getOutputStream().close();
-			  }
 
 		  } catch (Exception ex) {
 			  
