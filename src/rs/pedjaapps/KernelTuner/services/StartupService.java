@@ -19,17 +19,23 @@
 package rs.pedjaapps.KernelTuner.services;
 
 
-import android.app.*;
-import android.content.*;
-import android.os.*;
-import android.preference.*;
-import android.util.*;
-import java.io.*;
-import java.util.*;
-import rs.pedjaapps.KernelTuner.helpers.*;
-
-import java.lang.Process;
+import android.app.Service;
+import android.content.Intent;
+import android.content.SharedPreferences;
+import android.os.AsyncTask;
+import android.os.IBinder;
+import android.preference.PreferenceManager;
+import android.util.Log;
+import com.stericson.RootTools.RootTools;
+import com.stericson.RootTools.execution.Command;
+import com.stericson.RootTools.execution.CommandCapture;
+import java.io.BufferedReader;
+import java.io.InputStreamReader;
+import java.util.ArrayList;
+import java.util.List;
 import rs.pedjaapps.KernelTuner.entry.SysCtlDatabaseEntry;
+import rs.pedjaapps.KernelTuner.helpers.DatabaseHandler;
+import rs.pedjaapps.KernelTuner.helpers.IOHelper;
 
 public class StartupService extends Service
 {
@@ -151,126 +157,179 @@ public class StartupService extends Service
 			tim[5] = sharedPrefs.getString("tim7", "");
 			String maxCpus = sharedPrefs.getString("max_cpus", "");
 			String minCpus = sharedPrefs.getString("min_cpus", "");
-			try {
-	            String line;
-	            Process process = Runtime.getRuntime().exec("su");
-	            
-	            OutputStream stdin = process.getOutputStream();
-	            InputStream stderr = process.getErrorStream();
-	            InputStream stdout = process.getInputStream();
+		
+		      CommandCapture command = new CommandCapture(0, 
+	            "chmod 777 /sys/devices/system/cpu/cpu0/cpufreq/scaling_governor",
+				"chmod 777 /sys/devices/system/cpu/cpu0/cpufreq/scaling_min_freq",
+				"chmod 777 /sys/devices/system/cpu/cpu0/cpufreq/scaling_max_freq",
+				"echo \"" + cpu0gov + "\" > /sys/devices/system/cpu/cpu0/cpufreq/scaling_governor",
+				"echo \"" + cpu0min + "\" > /sys/devices/system/cpu/cpu0/cpufreq/scaling_min_freq",
+			    "echo \"" + cpu0max + "\" > /sys/devices/system/cpu/cpu0/cpufreq/scaling_max_freq",
+				"chmod 444 /sys/devices/system/cpu/cpu0/cpufreq/scaling_governor",
+				"chmod 444 /sys/devices/system/cpu/cpu0/cpufreq/scaling_min_freq",
+				"chmod 444 /sys/devices/system/cpu/cpu0/cpufreq/scaling_max_freq",
+				
+			    "chmod 777 /sys/devices/system/cpu/cpu1/cpufreq/scaling_governor",
+				"chmod 777 /sys/devices/system/cpu/cpu1/cpufreq/scaling_min_freq",
+				"chmod 777 /sys/devices/system/cpu/cpu1/cpufreq/scaling_max_freq",
+				"echo \"" + cpu1gov + "\" > /sys/devices/system/cpu/cpu1/cpufreq/scaling_governor",
+				"echo \"" + cpu1min + "\" > /sys/devices/system/cpu/cpu1/cpufreq/scaling_min_freq",
+				"echo \"" + cpu1max + "\" > /sys/devices/system/cpu/cpu1/cpufreq/scaling_max_freq",
+				"chmod 444 /sys/devices/system/cpu/cpu1/cpufreq/scaling_governor",
+				"chmod 444 /sys/devices/system/cpu/cpu1/cpufreq/scaling_min_freq",
+				"chmod 444 /sys/devices/system/cpu/cpu1/cpufreq/scaling_max_freq",
+				
+				"chmod 777 /sys/devices/system/cpu/cpu2/cpufreq/scaling_governor",
+				"chmod 777 /sys/devices/system/cpu/cpu2/cpufreq/scaling_min_freq",
+				"chmod 777 /sys/devices/system/cpu/cpu2/cpufreq/scaling_max_freq",
+				
+				"echo \"" + cpu2gov + "\" > /sys/devices/system/cpu/cpu2/cpufreq/scaling_governor",
+				"echo \"" + cpu2min + "\" > /sys/devices/system/cpu/cpu2/cpufreq/scaling_min_freq",
+				"echo \"" + cpu2max + "\" > /sys/devices/system/cpu/cpu2/cpufreq/scaling_max_freq",
+				"chmod 444 /sys/devices/system/cpu/cpu2/cpufreq/scaling_governor",
+				"chmod 444 /sys/devices/system/cpu/cpu2/cpufreq/scaling_min_freq",
+				"chmod 444 /sys/devices/system/cpu/cpu2/cpufreq/scaling_max_freq",
+				
+		    	"chmod 777 /sys/devices/system/cpu/cpu3/cpufreq/scaling_governor",
+				"chmod 777 /sys/devices/system/cpu/cpu3/cpufreq/scaling_min_freq",
+				"chmod 777 /sys/devices/system/cpu/cpu3/cpufreq/scaling_max_freq",
+				"echo \"" + cpu3gov + "\" > /sys/devices/system/cpu/cpu3/cpufreq/scaling_governor",
+				"echo \"" + cpu3min + "\" > /sys/devices/system/cpu/cpu3/cpufreq/scaling_min_freq",
+				"echo \"" + cpu3max + "\" > /sys/devices/system/cpu/cpu3/cpufreq/scaling_max_freq",
+				"chmod 444 /sys/devices/system/cpu/cpu3/cpufreq/scaling_governor",
+				"chmod 444 /sys/devices/system/cpu/cpu3/cpufreq/scaling_min_freq",
+				"chmod 444 /sys/devices/system/cpu/cpu3/cpufreq/scaling_max_freq",
+				
+				"chmod 777 /sys/kernel/debug/msm_fb/0/vsync_enable",
+				"chmod 777 /sys/kernel/debug/msm_fb/0/hw_vsync_mode",
+				"chmod 777 /sys/kernel/debug/msm_fb/0/backbuff",
+			"chmod 777 /sys/block/mmcblk0/queue/scheduler",
+			"chmod 777 /sys/block/mmcblk1/queue/scheduler",
+			"echo " + io + " > /sys/block/mmcblk0/queue/scheduler",
+			"echo " + io + " > /sys/block/mmcblk1/queue/scheduler",
 
-	            stdin.write(("chmod 777 /sys/devices/system/cpu/cpu0/cpufreq/scaling_governor\n").getBytes());
-				stdin.write(("chmod 777 /sys/devices/system/cpu/cpu0/cpufreq/scaling_min_freq\n").getBytes());
-				stdin.write(("chmod 777 /sys/devices/system/cpu/cpu0/cpufreq/scaling_max_freq\n").getBytes());
-				stdin.write(("echo \"" + cpu0gov + "\" > /sys/devices/system/cpu/cpu0/cpufreq/scaling_governor\n").getBytes());
-				stdin.write(("echo \"" + cpu0min + "\" > /sys/devices/system/cpu/cpu0/cpufreq/scaling_min_freq\n").getBytes());
-				stdin.write(("echo \"" + cpu0max + "\" > /sys/devices/system/cpu/cpu0/cpufreq/scaling_max_freq\n").getBytes());
-				stdin.write(("chmod 444 /sys/devices/system/cpu/cpu0/cpufreq/scaling_governor\n").getBytes());
-				stdin.write(("chmod 444 /sys/devices/system/cpu/cpu0/cpufreq/scaling_min_freq\n").getBytes());
-				stdin.write(("chmod 444 /sys/devices/system/cpu/cpu0/cpufreq/scaling_max_freq\n").getBytes());
-				
-			    stdin.write(("chmod 777 /sys/devices/system/cpu/cpu1/cpufreq/scaling_governor\n").getBytes());
-				stdin.write(("chmod 777 /sys/devices/system/cpu/cpu1/cpufreq/scaling_min_freq\n").getBytes());
-				stdin.write(("chmod 777 /sys/devices/system/cpu/cpu1/cpufreq/scaling_max_freq\n").getBytes());
-				stdin.write(("echo \"" + cpu1gov + "\" > /sys/devices/system/cpu/cpu1/cpufreq/scaling_governor\n").getBytes());
-				stdin.write(("echo \"" + cpu1min + "\" > /sys/devices/system/cpu/cpu1/cpufreq/scaling_min_freq\n").getBytes());
-				stdin.write(("echo \"" + cpu1max + "\" > /sys/devices/system/cpu/cpu1/cpufreq/scaling_max_freq\n").getBytes());
-				stdin.write(("chmod 444 /sys/devices/system/cpu/cpu1/cpufreq/scaling_governor\n").getBytes());
-				stdin.write(("chmod 444 /sys/devices/system/cpu/cpu1/cpufreq/scaling_min_freq\n").getBytes());
-				stdin.write(("chmod 444 /sys/devices/system/cpu/cpu1/cpufreq/scaling_max_freq\n").getBytes());
-				
-				stdin.write(("chmod 777 /sys/devices/system/cpu/cpu2/cpufreq/scaling_governor\n").getBytes());
-				stdin.write(("chmod 777 /sys/devices/system/cpu/cpu2/cpufreq/scaling_min_freq\n").getBytes());
-				stdin.write(("chmod 777 /sys/devices/system/cpu/cpu2/cpufreq/scaling_max_freq\n").getBytes());
-				
-				stdin.write(("echo \"" + cpu2gov + "\" > /sys/devices/system/cpu/cpu2/cpufreq/scaling_governor\n").getBytes());
-				stdin.write(("echo \"" + cpu2min + "\" > /sys/devices/system/cpu/cpu2/cpufreq/scaling_min_freq\n").getBytes());
-				stdin.write(("echo \"" + cpu2max + "\" > /sys/devices/system/cpu/cpu2/cpufreq/scaling_max_freq\n").getBytes());
-				stdin.write(("chmod 444 /sys/devices/system/cpu/cpu2/cpufreq/scaling_governor\n").getBytes());
-				stdin.write(("chmod 444 /sys/devices/system/cpu/cpu2/cpufreq/scaling_min_freq\n").getBytes());
-				stdin.write(("chmod 444 /sys/devices/system/cpu/cpu2/cpufreq/scaling_max_freq\n").getBytes());
-				
-		    	stdin.write(("chmod 777 /sys/devices/system/cpu/cpu3/cpufreq/scaling_governor\n").getBytes());
-				stdin.write(("chmod 777 /sys/devices/system/cpu/cpu3/cpufreq/scaling_min_freq\n").getBytes());
-				stdin.write(("chmod 777 /sys/devices/system/cpu/cpu3/cpufreq/scaling_max_freq\n").getBytes());
-				stdin.write(("echo \"" + cpu3gov + "\" > /sys/devices/system/cpu/cpu3/cpufreq/scaling_governor\n").getBytes());
-				stdin.write(("echo \"" + cpu3min + "\" > /sys/devices/system/cpu/cpu3/cpufreq/scaling_min_freq\n").getBytes());
-				stdin.write(("echo \"" + cpu3max + "\" > /sys/devices/system/cpu/cpu3/cpufreq/scaling_max_freq\n").getBytes());
-				stdin.write(("chmod 444 /sys/devices/system/cpu/cpu3/cpufreq/scaling_governor\n").getBytes());
-				stdin.write(("chmod 444 /sys/devices/system/cpu/cpu3/cpufreq/scaling_min_freq\n").getBytes());
-				stdin.write(("chmod 444 /sys/devices/system/cpu/cpu3/cpufreq/scaling_max_freq\n").getBytes());
-				
-				stdin.write(("chmod 777 /sys/kernel/debug/msm_fb/0/vsync_enable\n").getBytes());
-				stdin.write(("chmod 777 /sys/kernel/debug/msm_fb/0/hw_vsync_mode\n").getBytes());
-				stdin.write(("chmod 777 /sys/kernel/debug/msm_fb/0/backbuff\n").getBytes());
-				if(!vsync.equals("")){
-				stdin.write(("echo " + vsync + " > /sys/kernel/debug/msm_fb/0/vsync_enable\n").getBytes());
-				stdin.write(("echo " + hw + " > /sys/kernel/debug/msm_fb/0/hw_vsync_mode\n").getBytes());
-				stdin.write(("echo " + backbuf + " > /sys/kernel/debug/msm_fb/0/backbuff\n").getBytes());
+			"chmod 777 /sys/kernel/msm_mpdecision/conf/do_scroff_single_core",
+			"chmod 777 /sys/kernel/msm_mpdecision/conf/mpdec_idlefreq",
+			"chmod 777 /sys/kernel/msm_mpdecision/conf/dealy",
+			"chmod 777 /sys/kernel/msm_mpdecision/conf/pause",
+			"chmod 777 /sys/kernel/msm_mpdecision/conf/nwns_threshold_up",
+			"chmod 777 /sys/kernel/msm_mpdecision/conf/twts_threshold_up",
+			"chmod 777 /sys/kernel/msm_mpdecision/conf/nwns_threshold_down",
+			"chmod 777 /sys/kernel/msm_mpdecision/conf/twts_threshold_down",
+
+
+
+			"echo " + delaynew.trim() + " > /sys/kernel/msm_mpdecision/conf/delay",
+			"echo " + pausenew.trim() + " > /sys/kernel/msm_mpdecision/conf/pause",
+			"echo " + thruploadnew.trim() + " > /sys/kernel/msm_mpdecision/conf/nwns_threshold_up",
+			"echo " + thrdownloadnew.trim() + " > /sys/kernel/msm_mpdecision/conf/nwns_threshold_down",
+			"echo " + thrupmsnew.trim() + " > /sys/kernel/msm_mpdecision/conf/twts_threshold_up",
+			"echo " + thrdownmsnew.trim() + " > /sys/kernel/msm_mpdecision/conf/twts_threshold_down",
+			"echo " + "\"" + ldt + "\"" + " > /sys/kernel/notification_leds/off_timer_multiplier",
+			"echo " + "\"" + s2w + "\"" + " > /sys/android_touch/sweep2wake",
+			"echo " + "\"" + s2w + "\"" + " > /sys/android_touch/sweep2wake/s2w_switch",
+
+			"echo " + p1freq + " > /sys/kernel/msm_thermal/conf/allowed_low_freq",
+			"echo " + p2freq + " > /sys/kernel/msm_thermal/conf/allowed_mid_freq",
+			"echo " + p3freq + " > /sys/kernel/msm_thermal/conf/allowed_max_freq",
+			"echo " + p1low + " > /sys/kernel/msm_thermal/conf/allowed_low_low",
+			"echo " + p1high + " > /sys/kernel/msm_thermal/conf/allowed_low_high",
+			"echo " + p2low + " > /sys/kernel/msm_thermal/conf/allowed_mid_low",
+			"echo " + p2high + " > /sys/kernel/msm_thermal/conf/allowed_mid_high",
+			"echo " + p3low + " > /sys/kernel/msm_thermal/conf/allowed_max_low",
+			"echo " + p3high + " > /sys/kernel/msm_thermal/conf/allowed_max_high",
+
+			"chmod 777 /sys/android_touch/sweep2wake_startbutton",
+			"echo " + s2wStart + " > /sys/android_touch/sweep2wake_startbutton",
+			"chmod 777 /sys/android_touch/sweep2wake_endbutton",
+			"echo " + s2wEnd + " > /sys/android_touch/sweep2wake_endbutton",
+
+			"mount -t debugfs debugfs /sys/kernel/debug",
+			"chmod 777 /sys/devices/platform/kgsl-3d0.0/kgsl/kgsl-3d0/max_gpuclk",
+			"echo " + gpu3d + " > /sys/devices/platform/kgsl-3d0.0/kgsl/kgsl-3d0/max_gpuclk",
+			"chmod 777 /sys/devices/platform/kgsl-2d0.0/kgsl/kgsl-2d0/max_gpuclk",
+			"chmod 777 /sys/devices/platform/kgsl-2d1.1/kgsl/kgsl-2d1/max_gpuclk",
+			"echo " + gpu2d + " > /sys/devices/platform/kgsl-2d0.0/kgsl/kgsl-2d0/gpuclk",
+			"echo " + gpu2d + " > /sys/devices/platform/kgsl-2d1.1/kgsl/kgsl-2d1/gpuclk",
+			"echo " + thr[0] + " > /sys/kernel/msm_mpdecision/conf/nwns_threshold_"+0,
+			"echo " + thr[1] + " > /sys/kernel/msm_mpdecision/conf/nwns_threshold_"+2,
+			"echo " + thr[2] + " > /sys/kernel/msm_mpdecision/conf/nwns_threshold_"+3,
+			"echo " + thr[3] + " > /sys/kernel/msm_mpdecision/conf/nwns_threshold_"+4,
+			"echo " + thr[4] + " > /sys/kernel/msm_mpdecision/conf/nwns_threshold_"+5,
+			"echo " + thr[5] + " > /sys/kernel/msm_mpdecision/conf/nwns_threshold_"+7,
+			"echo " + tim[0] + " > /sys/kernel/msm_mpdecision/conf/twts_threshold_"+0,
+			"echo " + tim[1] + " > /sys/kernel/msm_mpdecision/conf/twts_threshold_"+2,
+			"echo " + tim[2] + " > /sys/kernel/msm_mpdecision/conf/twts_threshold_"+3,
+			"echo " + tim[3] + " > /sys/kernel/msm_mpdecision/conf/twts_threshold_"+4,
+			"echo " + tim[4] + " > /sys/kernel/msm_mpdecision/conf/twts_threshold_"+5,
+			"echo " + tim[5] + " > /sys/kernel/msm_mpdecision/conf/twts_threshold_"+7,
+			"echo " + maxCpus + " > /sys/kernel/msm_mpdecision/conf/max_cpus",
+			"echo " + minCpus + " > /sys/kernel/msm_mpdecision/conf/min_cpus"
+			
+				);
+				try{
+				RootTools.getShell(true).add(command).waitForFinish();
 				}
-				stdin.write(("chmod 777 /sys/kernel/fast_charge/force_fast_charge\n").getBytes());
-				stdin.write(("echo " + fastcharge + " > /sys/kernel/fast_charge/force_fast_charge\n").getBytes());
-				stdin.write(("chmod 777 /sys/kernel/debug/msm_fb/0/bpp\n").getBytes());
+				catch(Exception e){
+					
+				}
+				if(!vsync.equals("")){
+				CommandCapture command4 = new CommandCapture(0, 
+				"echo " + vsync + " > /sys/kernel/debug/msm_fb/0/vsync_enable",
+				"echo " + hw + " > /sys/kernel/debug/msm_fb/0/hw_vsync_mode",
+				"echo " + backbuf + " > /sys/kernel/debug/msm_fb/0/backbuff");
+					try{
+						RootTools.getShell(true).add(command4).waitForFinish();
+					}
+					catch(Exception e){
+
+					}
+				}
+				if(!fastcharge.equals("")){
+					CommandCapture command1 = new CommandCapture(0, 
+				"chmod 777 /sys/kernel/fast_charge/force_fast_charge",
+				"echo " + fastcharge + " > /sys/kernel/fast_charge/force_fast_charge",
+				"chmod 777 /sys/kernel/debug/msm_fb/0/bpp");
+					try{
+						RootTools.getShell(true).add(command1).waitForFinish();
+					}
+					catch(Exception e){
+
+					}
+				}
 				if(!cdepth.equals("")){
-				stdin.write(("echo " + cdepth + " > /sys/kernel/debug/msm_fb/0/bpp\n").getBytes());
+					CommandCapture command2 = new CommandCapture(0, 
+				"echo " + cdepth + " > /sys/kernel/debug/msm_fb/0/bpp");
+					try{
+						RootTools.getShell(true).add(command2).waitForFinish();
+					}
+					catch(Exception e){
+
+					}
 				}
 				if(!sdcache.equals("")){
-				stdin.write(("chmod 777 /sys/block/mmcblk1/queue/read_ahead_kb\n").getBytes());
-				stdin.write(("chmod 777 /sys/block/mmcblk0/queue/read_ahead_kb\n").getBytes());
-				stdin.write(("echo " + sdcache + " > /sys/block/mmcblk1/queue/read_ahead_kb\n").getBytes());
-				stdin.write(("echo " + sdcache + " > /sys/block/mmcblk0/queue/read_ahead_kb\n").getBytes());
+					CommandCapture command3 = new CommandCapture(0, 
+				"chmod 777 /sys/block/mmcblk1/queue/read_ahead_kb",
+				"chmod 777 /sys/block/mmcblk0/queue/read_ahead_kb",
+				"echo " + sdcache + " > /sys/block/mmcblk1/queue/read_ahead_kb",
+				"echo " + sdcache + " > /sys/block/mmcblk0/queue/read_ahead_kb");
+					try{
+						RootTools.getShell(true).add(command3).waitForFinish();
+					}
+					catch(Exception e){
+
+					}
 				}
-				stdin.write(("chmod 777 /sys/block/mmcblk0/queue/scheduler\n").getBytes());
-				stdin.write(("chmod 777 /sys/block/mmcblk1/queue/scheduler\n").getBytes());
-				stdin.write(("echo " + io + " > /sys/block/mmcblk0/queue/scheduler\n").getBytes());
-				stdin.write(("echo " + io + " > /sys/block/mmcblk1/queue/scheduler\n").getBytes());
+			if(!led.equals("")){
+				CommandCapture command5 = new CommandCapture(0, 
+				"chmod 777 /sys/devices/platform/leds-pm8058/leds/button-backlight/currents",
+				"echo " + led + " > /sys/devices/platform/leds-pm8058/leds/button-backlight/currents");
+				try{
+					RootTools.getShell(true).add(command5).waitForFinish();
+				}
+				catch(Exception e){
 
-				stdin.write(("chmod 777 /sys/kernel/msm_mpdecision/conf/do_scroff_single_core\n").getBytes());
-				stdin.write(("chmod 777 /sys/kernel/msm_mpdecision/conf/mpdec_idlefreq\n").getBytes());
-				stdin.write(("chmod 777 /sys/kernel/msm_mpdecision/conf/dealy\n").getBytes());
-				stdin.write(("chmod 777 /sys/kernel/msm_mpdecision/conf/pause\n").getBytes());
-				stdin.write(("chmod 777 /sys/kernel/msm_mpdecision/conf/nwns_threshold_up\n").getBytes());
-				stdin.write(("chmod 777 /sys/kernel/msm_mpdecision/conf/twts_threshold_up\n").getBytes());
-				stdin.write(("chmod 777 /sys/kernel/msm_mpdecision/conf/nwns_threshold_down\n").getBytes());
-				stdin.write(("chmod 777 /sys/kernel/msm_mpdecision/conf/twts_threshold_down\n").getBytes());
-
-
-
-				stdin.write(("echo " + delaynew.trim() + " > /sys/kernel/msm_mpdecision/conf/delay\n").getBytes());
-				stdin.write(("echo " + pausenew.trim() + " > /sys/kernel/msm_mpdecision/conf/pause\n").getBytes());
-				stdin.write(("echo " + thruploadnew.trim() + " > /sys/kernel/msm_mpdecision/conf/nwns_threshold_up\n").getBytes());
-				stdin.write(("echo " + thrdownloadnew.trim() + " > /sys/kernel/msm_mpdecision/conf/nwns_threshold_down\n").getBytes());
-				stdin.write(("echo " + thrupmsnew.trim() + " > /sys/kernel/msm_mpdecision/conf/twts_threshold_up\n").getBytes());
-				stdin.write(("echo " + thrdownmsnew.trim() + " > /sys/kernel/msm_mpdecision/conf/twts_threshold_down\n").getBytes());
-				stdin.write(("echo " + "\"" + ldt + "\"" + " > /sys/kernel/notification_leds/off_timer_multiplier\n").getBytes());
-				stdin.write(("echo " + "\"" + s2w + "\"" + " > /sys/android_touch/sweep2wake\n").getBytes());
-				stdin.write(("echo " + "\"" + s2w + "\"" + " > /sys/android_touch/sweep2wake/s2w_switch\n").getBytes());
-
-				stdin.write(("echo " + p1freq + " > /sys/kernel/msm_thermal/conf/allowed_low_freq\n").getBytes());
-				stdin.write(("echo " + p2freq + " > /sys/kernel/msm_thermal/conf/allowed_mid_freq\n").getBytes());
-				stdin.write(("echo " + p3freq + " > /sys/kernel/msm_thermal/conf/allowed_max_freq\n").getBytes());
-				stdin.write(("echo " + p1low + " > /sys/kernel/msm_thermal/conf/allowed_low_low\n").getBytes());
-				stdin.write(("echo " + p1high + " > /sys/kernel/msm_thermal/conf/allowed_low_high\n").getBytes());
-				stdin.write(("echo " + p2low + " > /sys/kernel/msm_thermal/conf/allowed_mid_low\n").getBytes());
-				stdin.write(("echo " + p2high + " > /sys/kernel/msm_thermal/conf/allowed_mid_high\n").getBytes());
-				stdin.write(("echo " + p3low + " > /sys/kernel/msm_thermal/conf/allowed_max_low\n").getBytes());
-				stdin.write(("echo " + p3high + " > /sys/kernel/msm_thermal/conf/allowed_max_high\n").getBytes());
-
-				stdin.write(("chmod 777 /sys/android_touch/sweep2wake_startbutton\n").getBytes());
-				stdin.write(("echo " + s2wStart + " > /sys/android_touch/sweep2wake_startbutton\n").getBytes());
-				stdin.write(("chmod 777 /sys/android_touch/sweep2wake_endbutton\n").getBytes());
-				stdin.write(("echo " + s2wEnd + " > /sys/android_touch/sweep2wake_endbutton\n").getBytes());
-
-				stdin.write(("mount -t debugfs debugfs /sys/kernel/debug\n").getBytes());
-				stdin.write(("chmod 777 /sys/devices/platform/kgsl-3d0.0/kgsl/kgsl-3d0/max_gpuclk\n").getBytes());
-				stdin.write(("echo " + gpu3d + " > /sys/devices/platform/kgsl-3d0.0/kgsl/kgsl-3d0/max_gpuclk\n").getBytes());
-				stdin.write(("chmod 777 /sys/devices/platform/kgsl-2d0.0/kgsl/kgsl-2d0/max_gpuclk\n").getBytes());
-				stdin.write(("chmod 777 /sys/devices/platform/kgsl-2d1.1/kgsl/kgsl-2d1/max_gpuclk\n").getBytes());
-				stdin.write(("echo " + gpu2d + " > /sys/devices/platform/kgsl-2d0.0/kgsl/kgsl-2d0/gpuclk\n").getBytes());
-				stdin.write(("echo " + gpu2d + " > /sys/devices/platform/kgsl-2d1.1/kgsl/kgsl-2d1/gpuclk\n").getBytes());
-				if(!led.equals("")){
-				stdin.write(("chmod 777 /sys/devices/platform/leds-pm8058/leds/button-backlight/currents\n").getBytes());
-				stdin.write(("echo " + led + " > /sys/devices/platform/leds-pm8058/leds/button-backlight/currents\n").getBytes());
+				}
 				}
 
 				for (String s : voltageFreqs)
@@ -279,7 +338,13 @@ public class StartupService extends Service
 
 					if (!temp.equals(""))
 					{
-						stdin.write(("echo " + "\"" + temp + "\"" + " > /sys/devices/system/cpu/cpufreq/vdd_table/vdd_levels\n").getBytes());
+						CommandCapture command6 = new CommandCapture(0, "echo " + "\"" + temp + "\"" + " > /sys/devices/system/cpu/cpufreq/vdd_table/vdd_levels");
+						try{
+							RootTools.getShell(true).add(command6).waitForFinish();
+						}
+						catch(Exception e){
+
+						}
 					}
 				}
 
@@ -294,83 +359,120 @@ public class StartupService extends Service
 
 						if (!temp.equals(""))
 						{
-							stdin.write(("chmod 777 /sys/devices/system/cpu/cpufreq/" + s + "/" + st + "\n").getBytes());
-							stdin.write(("echo " + "\"" + temp + "\"" + " > /sys/devices/system/cpu/cpufreq/" + s + "/" + st + "\n").getBytes());
-							System.out.println(temp);
+							CommandCapture command7 = new CommandCapture(0, 
+							"chmod 777 /sys/devices/system/cpu/cpufreq/" + s + "/" + st,
+							"echo " + "\"" + temp + "\"" + " > /sys/devices/system/cpu/cpufreq/" + s + "/" + st);
+							try{
+								RootTools.getShell(true).add(command7).waitForFinish();
+							}
+							catch(Exception e){
+
+							}
+							
 						}
 					}
 				}
 				if (swap == true)
 				{
-					stdin.write(("echo " + swappiness + " > /proc/sys/vm/swappiness\n").getBytes());
-					stdin.write(("swapon " + swapLocation.trim() + "\n").getBytes());
+					CommandCapture command8 = new CommandCapture(0, 
+					"echo " + swappiness + " > /proc/sys/vm/swappiness",
+					"swapon " + swapLocation.trim());
+					try{
+						RootTools.getShell(true).add(command8).waitForFinish();
+					}
+					catch(Exception e){
+
+					}
 				}
 				else if (swap == false)
 				{
-					stdin.write(("swapoff " + swapLocation.trim() + "\n").getBytes());
+					CommandCapture command9 = new CommandCapture(0, 
+					"swapoff " + swapLocation.trim());
+					try{
+						RootTools.getShell(true).add(command9).waitForFinish();
+					}
+					catch(Exception e){
+
+					}
 
 				}
 				if(!oom.equals("")){
-				stdin.write(("echo " + oom + " > /sys/module/lowmemorykiller/parameters/minfree\n").getBytes());
+					CommandCapture command10 = new CommandCapture(0, 
+				      "echo " + oom + " > /sys/module/lowmemorykiller/parameters/minfree");
+					try{
+						RootTools.getShell(true).add(command10).waitForFinish();
+					}
+					catch(Exception e){
+
+					}
 				}
 				if(!otg.equals("")){
-					stdin.write(("echo " + otg + " > /sys/kernel/debug/msm_otg/mode\n").getBytes());
-					stdin.write(("echo " + otg + " > /sys/kernel/debug/otg/mode\n").getBytes());
+					CommandCapture command11 = new CommandCapture(0, 
+					"echo " + otg + " > /sys/kernel/debug/msm_otg/mode",
+					"echo " + otg + " > /sys/kernel/debug/otg/mode");
+					try{
+						RootTools.getShell(true).add(command11).waitForFinish();
+					}
+					catch(Exception e){
+
+					}
 						
 				}
 				if(!idle_freq.equals("")){
-				stdin.write(("echo " + idle_freq + " > /sys/kernel/msm_mpdecision/conf/idle_freq\n").getBytes());
+					CommandCapture command12 = new CommandCapture(0, 
+				"echo " + idle_freq + " > /sys/kernel/msm_mpdecision/conf/idle_freq");
+					try{
+						RootTools.getShell(true).add(command12).waitForFinish();
+					}
+					catch(Exception e){
+
+					}
+				
 				}
 				if(!scroff.equals("")){
-				stdin.write(("echo " + scroff + " > /sys/kernel/msm_mpdecision/conf/scroff_freq\n").getBytes());
+					CommandCapture command13 = new CommandCapture(0,
+				"echo " + scroff + " > /sys/kernel/msm_mpdecision/conf/scroff_freq");
+					try{
+						RootTools.getShell(true).add(command13).waitForFinish();
+					}
+					catch(Exception e){
+
+					}
 				}
 				if(!scroff_single.equals("")){
-				stdin.write(("echo " + scroff_single + " > /sys/kernel/msm_mpdecision/conf/scroff_single_core\n").getBytes());
+					CommandCapture command14 = new CommandCapture(0, 
+				"echo " + scroff_single + " > /sys/kernel/msm_mpdecision/conf/scroff_single_core");
+					try{
+						RootTools.getShell(true).add(command14).waitForFinish();
+					}
+					catch(Exception e){
+
+					}
 				}
 				for(int i = 0; i < 8; i++){
-					stdin.write(("chmod 777 /sys/kernel/msm_mpdecision/conf/nwns_threshold_"+i+"\n").getBytes());
-					stdin.write(("chmod 777 /sys/kernel/msm_mpdecision/conf/twts_threshold_"+i+"\n").getBytes());
+					CommandCapture command15 = new CommandCapture(0, 
+					"chmod 777 /sys/kernel/msm_mpdecision/conf/nwns_threshold_"+i,
+					"chmod 777 /sys/kernel/msm_mpdecision/conf/twts_threshold_"+i);
+					try{
+						RootTools.getShell(true).add(command15).waitForFinish();
+					}
+					catch(Exception e){
+
+					}
 				}
-				stdin.write(("echo " + thr[0] + " > /sys/kernel/msm_mpdecision/conf/nwns_threshold_"+0+"\n").getBytes());
-				stdin.write(("echo " + thr[1] + " > /sys/kernel/msm_mpdecision/conf/nwns_threshold_"+2+"\n").getBytes());
-				stdin.write(("echo " + thr[2] + " > /sys/kernel/msm_mpdecision/conf/nwns_threshold_"+3+"\n").getBytes());
-				stdin.write(("echo " + thr[3] + " > /sys/kernel/msm_mpdecision/conf/nwns_threshold_"+4+"\n").getBytes());
-				stdin.write(("echo " + thr[4] + " > /sys/kernel/msm_mpdecision/conf/nwns_threshold_"+5+"\n").getBytes());
-				stdin.write(("echo " + thr[5] + " > /sys/kernel/msm_mpdecision/conf/nwns_threshold_"+7+"\n").getBytes());
-				stdin.write(("echo " + tim[0] + " > /sys/kernel/msm_mpdecision/conf/twts_threshold_"+0+"\n").getBytes());
-				stdin.write(("echo " + tim[1] + " > /sys/kernel/msm_mpdecision/conf/twts_threshold_"+2+"\n").getBytes());
-				stdin.write(("echo " + tim[2] + " > /sys/kernel/msm_mpdecision/conf/twts_threshold_"+3+"\n").getBytes());
-				stdin.write(("echo " + tim[3] + " > /sys/kernel/msm_mpdecision/conf/twts_threshold_"+4+"\n").getBytes());
-				stdin.write(("echo " + tim[4] + " > /sys/kernel/msm_mpdecision/conf/twts_threshold_"+5+"\n").getBytes());
-				stdin.write(("echo " + tim[5] + " > /sys/kernel/msm_mpdecision/conf/twts_threshold_"+7+"\n").getBytes());
-				stdin.write(("echo " + maxCpus + " > /sys/kernel/msm_mpdecision/conf/max_cpus\n").getBytes());
-				stdin.write(("echo " + minCpus + " > /sys/kernel/msm_mpdecision/conf/min_cpus\n").getBytes());
 				
 				List<SysCtlDatabaseEntry> sysEntries = db.getAllSysCtlEntries();
 				for(SysCtlDatabaseEntry e : sysEntries){
-					stdin.write((getFilesDir().getPath() + "/busybox sysctl -w " + e.getKey().trim() + "=" + e.getValue().trim()+"\n").getBytes());
+					CommandCapture command16 = new CommandCapture(0, 
+					getFilesDir().getPath() + "/busybox sysctl -w " + e.getKey().trim() + "=" + e.getValue().trim());
+					try{
+						RootTools.getShell(true).add(command16).waitForFinish();
+					}
+					catch(Exception ex){
+
+					}
 				}
-				stdin.write("exit\n".getBytes());
-	            stdin.flush();
-
-	            stdin.close();
-	            BufferedReader brCleanUp =
-	                    new BufferedReader(new InputStreamReader(stdout));
-	            while ((line = brCleanUp.readLine()) != null) {
-	                Log.d("[KernelTuner ChangeGovernor Output]", line);
-	            }
-	            brCleanUp.close();
-	            brCleanUp =
-	                    new BufferedReader(new InputStreamReader(stderr));
-	            while ((line = brCleanUp.readLine()) != null) {
-	            	Log.e("[KernelTuner ChangeGovernor Error]", line);
-	            }
-	            brCleanUp.close();
-				process.waitFor();
-				process.destroy();
-
-	        } catch (Exception ex) {
-	        }
+				
 		
 			return "";
 		}
@@ -378,6 +480,12 @@ public class StartupService extends Service
 		@Override
 		protected void onPostExecute(String result){
 			
+			try{
+				RootTools.closeAllShells();
+			}
+			catch(Exception e){
+
+			}
 			stopService(new Intent(StartupService.this,StartupService.class));
 			
 		}

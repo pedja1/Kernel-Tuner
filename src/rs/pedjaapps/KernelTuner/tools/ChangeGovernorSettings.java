@@ -18,17 +18,12 @@
 */
 package rs.pedjaapps.KernelTuner.tools;
 
-import java.io.BufferedReader;
-import java.io.IOException;
-import java.io.InputStream;
-import java.io.InputStreamReader;
-import java.io.OutputStream;
-
 import android.content.Context;
 import android.content.SharedPreferences;
 import android.os.AsyncTask;
 import android.preference.PreferenceManager;
-import android.util.Log;
+import com.stericson.RootTools.RootTools;
+import com.stericson.RootTools.execution.CommandCapture;
 
 
 public class ChangeGovernorSettings extends AsyncTask<String, Void, String>
@@ -45,9 +40,15 @@ public class ChangeGovernorSettings extends AsyncTask<String, Void, String>
 	@Override
 	protected String doInBackground(String... args)
 	{
-            RootExecuter.exec(new String [] {
-				"chmod 777 /sys/devices/system/cpu/cpufreq/" + args[2] + "/" + args[1].trim() + "\n",
-                "echo " + args[0].trim() + " > /sys/devices/system/cpu/cpufreq/" + args[2] + "/" + args[1].trim() + "\n"});
+            CommandCapture command = new CommandCapture(0,
+				"chmod 777 /sys/devices/system/cpu/cpufreq/" + args[2] + "/" + args[1].trim(),
+                "echo " + args[0].trim() + " > /sys/devices/system/cpu/cpufreq/" + args[2] + "/" + args[1].trim());
+			try{
+			RootTools.getShell(true).add(command).waitForFinish();
+			}
+			catch(Exception e){
+				
+			}
 		SharedPreferences.Editor editor = preferences.edit();
 		editor.putString(args[2] + "_" + args[1], args[0]);
 		editor.commit();

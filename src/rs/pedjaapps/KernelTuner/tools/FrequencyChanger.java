@@ -29,6 +29,8 @@ import android.content.SharedPreferences;
 import android.os.AsyncTask;
 import android.preference.PreferenceManager;
 import android.util.Log;
+import com.stericson.RootTools.execution.CommandCapture;
+import com.stericson.RootTools.RootTools;
 
 public class FrequencyChanger extends AsyncTask<String, Void, String>
 {
@@ -44,12 +46,17 @@ public class FrequencyChanger extends AsyncTask<String, Void, String>
 	@Override
 	protected String doInBackground(String... args)
 	{
-	RootExecuter.exec(new String[]{
-            "chmod 777 /sys/devices/system/cpu/" + args[0] + "/cpufreq/scaling_" + args[1] + "_freq\n",
-            "echo " + args[2] + " > /sys/devices/system/cpu/" + args[0] + "/cpufreq/scaling_" + args[1] + "_freq\n",
-            "chmod 444 /sys/devices/system/cpu/" + args[0] + "/cpufreq/scaling_" + args[1] + "_freq\n",
-            "chown system /sys/devices/system/cpu/" + args[0] + "/cpufreq/scaling_" + args[1] + "_freq\n"});
-          
+		CommandCapture command = new CommandCapture(0, 
+            "chmod 777 /sys/devices/system/cpu/" + args[0] + "/cpufreq/scaling_" + args[1] + "_freq",
+            "echo " + args[2] + " > /sys/devices/system/cpu/" + args[0] + "/cpufreq/scaling_" + args[1] + "_freq",
+            "chmod 444 /sys/devices/system/cpu/" + args[0] + "/cpufreq/scaling_" + args[1] + "_freq",
+            "chown system /sys/devices/system/cpu/" + args[0] + "/cpufreq/scaling_" + args[1] + "_freq");
+          try{
+        RootTools.getShell(true).add(command).waitForFinish();
+		}
+		catch(Exception e){
+			
+		}
 		SharedPreferences.Editor editor = preferences.edit();
 		editor.putString(args[0] + args[1], args[2]);
 		editor.commit();

@@ -19,9 +19,12 @@
 package rs.pedjaapps.KernelTuner.ui;
 
 
+import android.widget.*;
+
 import android.app.AlertDialog;
 import android.app.ProgressDialog;
 import android.content.DialogInterface;
+import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.AsyncTask;
 import android.os.Bundle;
@@ -30,13 +33,12 @@ import android.util.Log;
 import android.view.Gravity;
 import android.view.View;
 import android.view.Window;
-import android.widget.AdapterView;
-import android.widget.CheckBox;
-import android.widget.CompoundButton;
-import android.widget.EditText;
-import android.widget.ListView;
+import com.actionbarsherlock.app.SherlockActivity;
+import com.actionbarsherlock.view.MenuItem;
 import com.google.ads.AdRequest;
 import com.google.ads.AdView;
+import com.stericson.RootTools.RootTools;
+import com.stericson.RootTools.execution.CommandCapture;
 import java.io.BufferedReader;
 import java.io.InputStream;
 import java.io.InputStreamReader;
@@ -44,17 +46,11 @@ import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 import rs.pedjaapps.KernelTuner.R;
-import rs.pedjaapps.KernelTuner.entry.SysCtlEntry;
-import rs.pedjaapps.KernelTuner.helpers.SysCtlAdapter;
-import rs.pedjaapps.KernelTuner.tools.RootExecuter;
-import rs.pedjaapps.KernelTuner.helpers.DatabaseHandler;
 import rs.pedjaapps.KernelTuner.entry.SysCtlDatabaseEntry;
-import android.content.Intent;
-import com.actionbarsherlock.view.MenuItem;
-import com.actionbarsherlock.app.SherlockActivity;
+import rs.pedjaapps.KernelTuner.entry.SysCtlEntry;
+import rs.pedjaapps.KernelTuner.helpers.DatabaseHandler;
+import rs.pedjaapps.KernelTuner.helpers.SysCtlAdapter;
 import rs.pedjaapps.KernelTuner.tools.Tools;
-import android.widget.ProgressBar;
-import android.widget.GridView;
 
 
 
@@ -139,7 +135,13 @@ public class SysCtl extends SherlockActivity
 							public void onClick(DialogInterface dialog, int which)
 							{
 
-								RootExecuter.exec(new String[]{"sysctl -w " + tmpEntry.getName().trim() + "=" + input.getText().toString().trim()+"\n"});
+								CommandCapture command = new CommandCapture(0, "sysctl -w " + tmpEntry.getName().trim() + "=" + input.getText().toString().trim());
+								try{
+									RootTools.getShell(true).add(command).waitForFinish();
+								}
+								catch(Exception e){
+
+								}
 								
 								sysAdapter.remove(tmpEntry);
 								sysAdapter.insert(new SysCtlEntry(tmpEntry.getName(), input.getText().toString()), pos);

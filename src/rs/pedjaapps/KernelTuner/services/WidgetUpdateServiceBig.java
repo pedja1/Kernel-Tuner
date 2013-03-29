@@ -18,24 +18,28 @@
 */
 package rs.pedjaapps.KernelTuner.services;
 
-import android.app.*;
-import android.appwidget.*;
-import android.content.*;
 import android.graphics.*;
-import android.graphics.Paint.*;
-import android.os.*;
-import android.preference.*;
-import android.util.*;
-import android.widget.*;
-import java.io.*;
-import java.util.*;
-import rs.pedjaapps.KernelTuner.*;
-import rs.pedjaapps.KernelTuner.helpers.*;
-import rs.pedjaapps.KernelTuner.receiver.*;
 
+import android.app.AlarmManager;
+import android.app.PendingIntent;
+import android.app.Service;
+import android.appwidget.AppWidgetManager;
+import android.content.Intent;
+import android.content.SharedPreferences;
 import android.graphics.Bitmap.Config;
-import java.lang.Process;
-import rs.pedjaapps.KernelTuner.tools.RootExecuter;
+import android.graphics.Paint.Style;
+import android.os.IBinder;
+import android.preference.PreferenceManager;
+import android.widget.RemoteViews;
+import com.stericson.RootTools.RootTools;
+import com.stericson.RootTools.execution.CommandCapture;
+import java.io.File;
+import java.util.ArrayList;
+import java.util.Calendar;
+import java.util.List;
+import rs.pedjaapps.KernelTuner.R;
+import rs.pedjaapps.KernelTuner.helpers.IOHelper;
+import rs.pedjaapps.KernelTuner.receiver.AppWidgetBig;
 
 
 public class WidgetUpdateServiceBig extends Service
@@ -71,44 +75,31 @@ public class WidgetUpdateServiceBig extends Service
 	
 	private void mountdebugfs()
 	{
-		try {
-            String line;
-            Process process = Runtime.getRuntime().exec("su");
-            OutputStream stdin = process.getOutputStream();
-            InputStream stderr = process.getErrorStream();
-            InputStream stdout = process.getInputStream();
+	
+           CommandCapture command = new CommandCapture(0, "mount -t debugfs debugfs /sys/kernel/debug");
+		try{
+			RootTools.getShell(true).add(command).waitForFinish();
+		}
+		catch(Exception e){
 
-            stdin.write(("mount -t debugfs debugfs /sys/kernel/debug\n").getBytes());
-			stdin.write("exit\n".getBytes());
-            stdin.flush();
-
-            stdin.close();
-            BufferedReader brCleanUp =
-                    new BufferedReader(new InputStreamReader(stdout));
-            while ((line = brCleanUp.readLine()) != null) {
-                Log.d("[KernelTuner Widget Output]", line);
-            }
-            brCleanUp.close();
-            brCleanUp =
-                    new BufferedReader(new InputStreamReader(stderr));
-            while ((line = brCleanUp.readLine()) != null) {
-            	Log.e("[KernelTuner Widget Error]", line);
-            }
-            brCleanUp.close();
-			process.waitFor();
-
-        } catch (Exception ex) {
-        }
+		}
+		
 	}
 
 
 	private void enableTemp()
 	{
-	     RootExecuter.exec(new String[]{
+	     CommandCapture command = new CommandCapture(0, 
             "chmod 777 /sys/devices/virtual/thermal/thermal_zone1/mode\n",
             "chmod 777 /sys/devices/virtual/thermal/thermal_zone0/mode\n",
             "echo -n enabled > /sys/devices/virtual/thermal/thermal_zone1/mode\n",
-            "echo -n enabled > /sys/devices/virtual/thermal/thermal_zone0/mode\n"});
+            "echo -n enabled > /sys/devices/virtual/thermal/thermal_zone0/mode\n");
+		try{
+			RootTools.getShell(true).add(command).waitForFinish();
+		}
+		catch(Exception e){
+
+		}
 	           
 
 	}

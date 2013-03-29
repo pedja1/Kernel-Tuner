@@ -14,11 +14,12 @@ import android.widget.TextView;
 import java.io.File;
 import org.apache.commons.io.FileUtils;
 import rs.pedjaapps.KernelTuner.R;
-import rs.pedjaapps.KernelTuner.tools.RootExecuter;
 import rs.pedjaapps.KernelTuner.ui.TaskManager;
 import com.actionbarsherlock.app.SherlockFragment;
 import rs.pedjaapps.KernelTuner.tools.Tools;
 import android.graphics.Color;
+import com.stericson.RootTools.execution.CommandCapture;
+import com.stericson.RootTools.RootTools;
 
 
 /**
@@ -119,7 +120,13 @@ public class TMDetailFragment extends SherlockFragment
 					public void onStopTrackingTouch(SeekBar arg0)
 					{
 						//String set = nice.getText().toString().trim();
-						RootExecuter.exec(new String[]{"echo " + nice.getText().toString().trim() + " > /proc/" + TMListFragment.tmAdapter.getItem(getArguments().getInt(ARG_ITEM_ID)).getPid() + "/oom_adj"});	
+						CommandCapture command = new CommandCapture(0, "echo " + nice.getText().toString().trim() + " > /proc/" + TMListFragment.tmAdapter.getItem(getArguments().getInt(ARG_ITEM_ID)).getPid() + "/oom_adj");
+						try{
+						RootTools.getShell(true).add(command).waitForFinish();
+						}
+						catch(Exception e){
+							
+						}
 					}
 
 				});

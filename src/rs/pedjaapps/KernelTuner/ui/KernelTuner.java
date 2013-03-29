@@ -18,36 +18,15 @@
 */
 package rs.pedjaapps.KernelTuner.ui;
 
-import java.io.File;
-import java.io.FileOutputStream;
-import java.io.IOException;
-import java.io.InputStream;
-import java.io.OutputStream;
-import java.io.OutputStreamWriter;
-import java.io.RandomAccessFile;
-import java.util.ArrayList;
-import java.util.List;
+import android.content.*;
+import android.widget.*;
+import java.io.*;
 
-import rs.pedjaapps.KernelTuner.Constants;
-import rs.pedjaapps.KernelTuner.R;
-import rs.pedjaapps.KernelTuner.entry.SysCtlDatabaseEntry;
-import rs.pedjaapps.KernelTuner.helpers.DatabaseHandler;
-import rs.pedjaapps.KernelTuner.helpers.IOHelper;
-import rs.pedjaapps.KernelTuner.services.NotificationService;
-import rs.pedjaapps.KernelTuner.tools.Initd;
-import rs.pedjaapps.KernelTuner.tools.RootExecuter;
-import rs.pedjaapps.KernelTuner.tools.Tools;
 import android.annotation.TargetApi;
 import android.app.ActivityManager;
 import android.app.ActivityManager.RunningServiceInfo;
 import android.app.AlertDialog;
 import android.app.ProgressDialog;
-import android.content.BroadcastReceiver;
-import android.content.Context;
-import android.content.DialogInterface;
-import android.content.Intent;
-import android.content.IntentFilter;
-import android.content.SharedPreferences;
 import android.content.pm.PackageInfo;
 import android.content.pm.PackageManager;
 import android.content.res.AssetManager;
@@ -64,22 +43,24 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.View.OnClickListener;
 import android.view.View.OnLongClickListener;
-import android.widget.Button;
-import android.widget.CheckBox;
-import android.widget.ImageView;
-import android.widget.LinearLayout;
-import android.widget.ProgressBar;
-import android.widget.RelativeLayout;
-import android.widget.TextView;
-import android.widget.Toast;
-
 import com.actionbarsherlock.app.ActionBar;
 import com.actionbarsherlock.app.SherlockActivity;
-import com.actionbarsherlock.app.SherlockFragmentActivity;
 import com.actionbarsherlock.view.Menu;
 import com.actionbarsherlock.view.MenuItem;
 import com.google.ads.AdRequest;
 import com.google.ads.AdView;
+import com.stericson.RootTools.RootTools;
+import com.stericson.RootTools.execution.CommandCapture;
+import java.util.ArrayList;
+import java.util.List;
+import rs.pedjaapps.KernelTuner.Constants;
+import rs.pedjaapps.KernelTuner.R;
+import rs.pedjaapps.KernelTuner.entry.SysCtlDatabaseEntry;
+import rs.pedjaapps.KernelTuner.helpers.DatabaseHandler;
+import rs.pedjaapps.KernelTuner.helpers.IOHelper;
+import rs.pedjaapps.KernelTuner.services.NotificationService;
+import rs.pedjaapps.KernelTuner.tools.Initd;
+import rs.pedjaapps.KernelTuner.tools.Tools;
 
 
 
@@ -955,6 +936,12 @@ public class KernelTuner extends SherlockActivity {
 		 */
 		super.onDestroy();
 		thread = false;
+		try{
+		RootTools.closeAllShells();
+		}
+		catch(IOException e){
+			
+		}
 	}
 
 	private void setCpuLoad(){
@@ -2235,24 +2222,36 @@ private void startCpuLoadThread() {
 			File file = new File("/sys/devices/system/cpu/cpu"+args[0]+"/cpufreq/scaling_governor");
 			if(file.exists()){
  
-		    	RootExecuter.exec(new String[]{
-					"echo 1 > /sys/kernel/msm_mpdecision/conf/enabled\n",
-					"chmod 777 /sys/devices/system/cpu/cpu"+args[0]+"/online\n",
-					"echo 0 > /sys/devices/system/cpu/cpu"+args[0]+"/online\n",
-					"chown system /sys/devices/system/cpu/cpu"+args[0]+"/online\n"});
+		    	CommandCapture command = new CommandCapture(0, 
+					"echo 1 > /sys/kernel/msm_mpdecision/conf/enabled",
+					"chmod 777 /sys/devices/system/cpu/cpu"+args[0]+"/online",
+					"echo 0 > /sys/devices/system/cpu/cpu"+args[0]+"/online",
+					"chown system /sys/devices/system/cpu/cpu"+args[0]+"/online");
+				try{
+					RootTools.getShell(true).add(command).waitForFinish();
+				}
+				catch(Exception e){
+
+				}
             }
 				
 			else{
-		        RootExecuter.exec(new String[]{
-					"echo 0 > /sys/kernel/msm_mpdecision/conf/enabled\n",
-					"chmod 666 /sys/devices/system/cpu/cpu"+args[0]+"/online\n",
-					"echo 1 > /sys/devices/system/cpu/cpu"+args[0]+"/online\n",
-					"chmod 444 /sys/devices/system/cpu/cpu"+args[0]+"/online\n",
-					"chown system /sys/devices/system/cpu/cpu"+args[0]+"/online\n",
-					"chmod 777 /sys/devices/system/cpu/cpu"+args[0]+"/cpufreq/scaling_max_freq\n",
-					"chmod 777 /sys/devices/system/cpu/cpu"+args[0]+"/cpufreq/scaling_min_freq\n",
-					"chmod 777 /sys/devices/system/cpu/cpu"+args[0]+"/cpufreq/scaling_cur_freq\n",
-					"chmod 777 /sys/devices/system/cpu/cpu"+args[0]+"/cpufreq/scaling_governor\n"});
+		        CommandCapture command = new CommandCapture(0, 
+					"echo 0 > /sys/kernel/msm_mpdecision/conf/enabled",
+					"chmod 666 /sys/devices/system/cpu/cpu"+args[0]+"/online",
+					"echo 1 > /sys/devices/system/cpu/cpu"+args[0]+"/online",
+					"chmod 444 /sys/devices/system/cpu/cpu"+args[0]+"/online",
+					"chown system /sys/devices/system/cpu/cpu"+args[0]+"/online",
+					"chmod 777 /sys/devices/system/cpu/cpu"+args[0]+"/cpufreq/scaling_max_freq",
+					"chmod 777 /sys/devices/system/cpu/cpu"+args[0]+"/cpufreq/scaling_min_freq",
+					"chmod 777 /sys/devices/system/cpu/cpu"+args[0]+"/cpufreq/scaling_cur_freq",
+					"chmod 777 /sys/devices/system/cpu/cpu"+args[0]+"/cpufreq/scaling_governor");
+				try{
+			RootTools.getShell(true).add(command).waitForFinish();
+			}
+			catch(Exception e){
+				
+			}
 			}	
 
 			return "";
@@ -2270,9 +2269,14 @@ private void startCpuLoadThread() {
 		@Override
 		protected Object doInBackground(String... args) {
 
-			RootExecuter.exec(new String[]{
-				"mount -t debugfs debugfs /sys/kernel/debug\n"
-				});
+			CommandCapture command = new CommandCapture(0, 
+				"mount -t debugfs debugfs /sys/kernel/debug");
+			try{
+				RootTools.getShell(true).add(command).waitForFinish();
+			}
+			catch(Exception e){
+
+			}
 			return "";
 		}
 
@@ -2288,28 +2292,34 @@ private void startCpuLoadThread() {
 		@Override
 		protected Object doInBackground(String... args) {
 
-			RootExecuter.exec(new String[]{
-								  "chmod 777 /sys/devices/system/cpu/cpu0/cpufreq/scaling_max_freq\n",
-								  "chmod 777 /sys/devices/system/cpu/cpu0/cpufreq/scaling_min_freq\n",
-								  "chmod 777 /sys/devices/system/cpu/cpu0/cpufreq/scaling_cur_freq\n",
-								  "chmod 777 /sys/devices/system/cpu/cpu0/cpufreq/scaling_governor\n",
-								  "chmod 777 /sys/devices/system/cpu/cpu0/cpufreq/scaling_available_governors\n",
-								  "chmod 777 /sys/devices/system/cpu/cpu0/cpufreq/scaling_available_frequencies\n",
+			CommandCapture command = new CommandCapture(0, 
+								  "chmod 777 /sys/devices/system/cpu/cpu0/cpufreq/scaling_max_freq",
+								  "chmod 777 /sys/devices/system/cpu/cpu0/cpufreq/scaling_min_freq",
+								  "chmod 777 /sys/devices/system/cpu/cpu0/cpufreq/scaling_cur_freq",
+								  "chmod 777 /sys/devices/system/cpu/cpu0/cpufreq/scaling_governor",
+								  "chmod 777 /sys/devices/system/cpu/cpu0/cpufreq/scaling_available_governors",
+								  "chmod 777 /sys/devices/system/cpu/cpu0/cpufreq/scaling_available_frequencies",
 
-								  "chmod 777 /sys/devices/system/cpu/cpu1/cpufreq/scaling_max_freq\n",
-								  "chmod 777 /sys/devices/system/cpu/cpu1/cpufreq/scaling_min_freq\n",
-								  "chmod 777 /sys/devices/system/cpu/cpu1/cpufreq/scaling_cur_freq\n",
-								  "chmod 777 /sys/devices/system/cpu/cpu1/cpufreq/scaling_governor\n",
+								  "chmod 777 /sys/devices/system/cpu/cpu1/cpufreq/scaling_max_freq",
+								  "chmod 777 /sys/devices/system/cpu/cpu1/cpufreq/scaling_min_freq",
+								  "chmod 777 /sys/devices/system/cpu/cpu1/cpufreq/scaling_cur_freq",
+								  "chmod 777 /sys/devices/system/cpu/cpu1/cpufreq/scaling_governor",
 
-								  "chmod 777 /sys/devices/system/cpu/cpu2/cpufreq/scaling_max_freq\n",
-								  "chmod 777 /sys/devices/system/cpu/cpu2/cpufreq/scaling_min_freq\n",
-								  "chmod 777 /sys/devices/system/cpu/cpu2/cpufreq/scaling_cur_freq\n",
-								  "chmod 777 /sys/devices/system/cpu/cpu2/cpufreq/scaling_governor\n",
+								  "chmod 777 /sys/devices/system/cpu/cpu2/cpufreq/scaling_max_freq",
+								  "chmod 777 /sys/devices/system/cpu/cpu2/cpufreq/scaling_min_freq",
+								  "chmod 777 /sys/devices/system/cpu/cpu2/cpufreq/scaling_cur_freq",
+								  "chmod 777 /sys/devices/system/cpu/cpu2/cpufreq/scaling_governor",
 
-								  "chmod 777 /sys/devices/system/cpu/cpu3/cpufreq/scaling_max_freq\n",
-								  "chmod 777 /sys/devices/system/cpu/cpu3/cpufreq/scaling_min_freq\n",
-								  "chmod 777 /sys/devices/system/cpu/cpu3/cpufreq/scaling_cur_freq\n",
-								  "chmod 777 /sys/devices/system/cpu/cpu3/cpufreq/scaling_governor\n"});
+								  "chmod 777 /sys/devices/system/cpu/cpu3/cpufreq/scaling_max_freq",
+								  "chmod 777 /sys/devices/system/cpu/cpu3/cpufreq/scaling_min_freq",
+								  "chmod 777 /sys/devices/system/cpu/cpu3/cpufreq/scaling_cur_freq",
+								  "chmod 777 /sys/devices/system/cpu/cpu3/cpufreq/scaling_governor");
+			try{
+				RootTools.getShell(true).add(command).waitForFinish();
+			}
+			catch(Exception e){
+
+			}
 			return "";
 		}
 
@@ -2325,11 +2335,11 @@ private void startCpuLoadThread() {
 		@Override
 		protected Object doInBackground(String... args) {
  
-             RootExecuter.exec(new String[]{
-				"chmod 777 /sys/devices/virtual/thermal/thermal_zone1/mode\n",
-				"chmod 777 /sys/devices/virtual/thermal/thermal_zone0/mode\n",
-				"echo -n enabled > /sys/devices/virtual/thermal/thermal_zone1/mode\n",
-				"echo -n enabled > /sys/devices/virtual/thermal/thermal_zone0/mode\n"});
+             CommandCapture command = new CommandCapture(0, 
+				"chmod 777 /sys/devices/virtual/thermal/thermal_zone1/mode",
+				"chmod 777 /sys/devices/virtual/thermal/thermal_zone0/mode",
+				"echo -n enabled > /sys/devices/virtual/thermal/thermal_zone1/mode",
+				"echo -n enabled > /sys/devices/virtual/thermal/thermal_zone0/mode");
 			
 			return "";
 		}

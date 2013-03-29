@@ -19,15 +19,20 @@
 package rs.pedjaapps.KernelTuner.helpers;
 
 
+import android.content.Context;
+import android.graphics.Color;
+import android.view.LayoutInflater;
+import android.view.View;
+import android.view.ViewGroup;
+import android.widget.ArrayAdapter;
+import android.widget.Button;
+import android.widget.ImageView;
+import android.widget.TextView;
+import com.stericson.RootTools.RootTools;
+import com.stericson.RootTools.execution.CommandCapture;
 import rs.pedjaapps.KernelTuner.R;
 import rs.pedjaapps.KernelTuner.entry.TMEntry;
-import rs.pedjaapps.KernelTuner.tools.RootExecuter;
 import rs.pedjaapps.KernelTuner.tools.Tools;
-import android.app.Application;
-import android.content.*;
-import android.view.*;
-import android.widget.*;
-import android.graphics.Color;
 
 public final class TMAdapter extends ArrayAdapter<TMEntry>
 {
@@ -70,7 +75,13 @@ public final class TMAdapter extends ArrayAdapter<TMEntry>
 			
 			@Override
 			public void onClick(View arg0) {
-				RootExecuter.exec(new String[]{"kill "+entry.getPid()});
+				CommandCapture command = new CommandCapture(0, "kill "+entry.getPid());
+				try{
+					RootTools.getShell(true).add(command).waitForFinish();
+				}
+				catch(Exception e){
+
+				}
 				remove(entry);
 				
 			}

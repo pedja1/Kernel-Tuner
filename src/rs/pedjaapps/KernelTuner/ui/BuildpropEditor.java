@@ -18,6 +18,8 @@
 */
 package rs.pedjaapps.KernelTuner.ui;
 
+import java.io.*;
+
 import android.app.AlertDialog;
 import android.app.ProgressDialog;
 import android.content.Context;
@@ -37,28 +39,21 @@ import android.widget.AdapterView;
 import android.widget.EditText;
 import android.widget.ListView;
 import android.widget.Toast;
-
 import com.actionbarsherlock.app.SherlockActivity;
 import com.actionbarsherlock.view.Menu;
 import com.actionbarsherlock.view.MenuItem;
 import com.google.ads.AdRequest;
 import com.google.ads.AdView;
-import java.io.BufferedReader;
-import java.io.FileOutputStream;
-import java.io.InputStreamReader;
-import java.io.OutputStreamWriter;
+import com.stericson.RootTools.RootTools;
+import com.stericson.RootTools.execution.CommandCapture;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
+import org.apache.commons.io.FileUtils;
 import rs.pedjaapps.KernelTuner.R;
 import rs.pedjaapps.KernelTuner.entry.BuildEntry;
 import rs.pedjaapps.KernelTuner.helpers.BuildAdapter;
-import rs.pedjaapps.KernelTuner.tools.RootExecuter;
 import rs.pedjaapps.KernelTuner.tools.Tools;
-
-import org.apache.commons.io.FileUtils;
-import java.io.File;
-import java.io.FileInputStream;
 
 
 
@@ -149,9 +144,15 @@ public class BuildpropEditor extends SherlockActivity
 								osw.write(bp);
 								osw.flush();
 								osw.close();
-								RootExecuter.exec(new String[]{"/data/data/rs.pedjaapps.KernelTuner/files/cp /system/build.prop /system/build.prop.bk\n",
-										"/data/data/rs.pedjaapps.KernelTuner/files/cp /data/data/rs.pedjaapps.KernelTuner/files/build.prop /system/build.prop\n",
-										"chmod 644 /system/build.prop\n"});
+								CommandCapture command = new CommandCapture(0, "/data/data/rs.pedjaapps.KernelTuner/files/cp /system/build.prop /system/build.prop.bk",
+										"/data/data/rs.pedjaapps.KernelTuner/files/cp /data/data/rs.pedjaapps.KernelTuner/files/build.prop /system/build.prop",
+										"chmod 644 /system/build.prop");
+								try{
+		                        	RootTools.getShell(true).add(command).waitForFinish();
+			 						}
+								catch(Exception e){
+				
+								}
 								Toast.makeText(BuildpropEditor.this, "build.prop edited successfully", Toast.LENGTH_LONG).show();
 								}
 								catch(Exception e){
@@ -310,7 +311,13 @@ public class BuildpropEditor extends SherlockActivity
 				@Override
 				public void onClick(DialogInterface dialog, int which)
 				{
-					RootExecuter.exec(new String[]{"echo "+key.getText().toString()+"="+value.getText().toString()+" >> /system/build.prop"});
+					CommandCapture command = new CommandCapture(0, "echo "+key.getText().toString()+"="+value.getText().toString()+" >> /system/build.prop");
+					try{
+			RootTools.getShell(true).add(command).waitForFinish();
+			}
+			catch(Exception e){
+				
+			}
 					bAdapter.add(new BuildEntry(key.getText().toString(), value.getText().toString()));
 					bAdapter.notifyDataSetChanged();
 				}
@@ -362,8 +369,14 @@ public class BuildpropEditor extends SherlockActivity
 		builder.setItems(items2, new DialogInterface.OnClickListener() {
 		    @Override
 			public void onClick(DialogInterface dialog, int item) {
-		    	RootExecuter.exec(new String[]{"/data/data/rs.pedjaapps.KernelTuner/files/"+arch+"/cp "+ Environment.getExternalStorageDirectory().toString()+"/KernelTuner/build/"+items2[item]+" /system/build.prop\n",
-		    			"chmod 644 /system/build.prop\n"});
+		    	CommandCapture command = new CommandCapture(0, "/data/data/rs.pedjaapps.KernelTuner/files/"+arch+"/cp "+ Environment.getExternalStorageDirectory().toString()+"/KernelTuner/build/"+items2[item]+" /system/build.prop",
+		    			"chmod 644 /system/build.prop");
+				try{
+					RootTools.getShell(true).add(command).waitForFinish();
+				}
+				catch(Exception e){
+
+				}
 		    	Toast.makeText(BuildpropEditor.this, "build.prop restored", Toast.LENGTH_LONG).show();
 		    	new GetBuildEntries().execute();
 		    }

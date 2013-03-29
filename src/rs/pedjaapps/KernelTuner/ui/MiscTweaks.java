@@ -18,46 +18,46 @@
 */
 package rs.pedjaapps.KernelTuner.ui;
 
-import android.app.*;
-import android.content.*;
-import android.os.*;
-import android.preference.*;
-import android.text.*;
-import android.util.*;
-import android.view.*;
-import android.widget.AdapterView;
-import android.widget.ArrayAdapter;
-import android.widget.CompoundButton;
-import android.widget.EditText;
-import android.widget.ImageView;
-import android.widget.LinearLayout;
-import android.widget.RadioButton;
-import android.widget.RadioGroup;
-import android.widget.SeekBar;
-import android.widget.Spinner;
-import android.widget.TextView;
-import android.widget.AdapterView.*;
-import android.widget.CompoundButton.*;
-import android.widget.SeekBar.*;
-import com.actionbarsherlock.app.*;
-import com.google.ads.*;
-import java.io.*;
-import java.util.*;
-import rs.pedjaapps.KernelTuner.helpers.*;
+import android.widget.*;
 
+import android.app.AlertDialog;
+import android.app.ProgressDialog;
+import android.content.DialogInterface;
+import android.content.Intent;
+import android.content.SharedPreferences;
+import android.os.AsyncTask;
+import android.os.Bundle;
+import android.preference.PreferenceManager;
+import android.text.InputType;
+import android.util.Log;
+import android.view.Gravity;
+import android.view.MotionEvent;
+import android.view.View;
 import android.view.View.OnClickListener;
 import android.view.View.OnTouchListener;
+import android.view.WindowManager;
+import android.widget.AdapterView.OnItemSelectedListener;
+import android.widget.CompoundButton.OnCheckedChangeListener;
+import android.widget.SeekBar.OnSeekBarChangeListener;
 import com.actionbarsherlock.app.ActionBar;
+import com.actionbarsherlock.app.SherlockActivity;
 import com.actionbarsherlock.view.Menu;
 import com.actionbarsherlock.view.MenuInflater;
-
+import com.google.ads.AdRequest;
+import com.google.ads.AdView;
+import com.stericson.RootTools.RootTools;
+import com.stericson.RootTools.execution.CommandCapture;
 import de.ankri.views.Switch;
-
-import java.lang.Process;
-import rs.pedjaapps.KernelTuner.R;
-import rs.pedjaapps.KernelTuner.Constants;
-import rs.pedjaapps.KernelTuner.tools.RootExecuter;
+import java.io.BufferedReader;
+import java.io.File;
+import java.io.InputStream;
+import java.io.InputStreamReader;
+import java.io.OutputStream;
+import java.util.List;
 import org.apache.commons.io.FileUtils;
+import rs.pedjaapps.KernelTuner.Constants;
+import rs.pedjaapps.KernelTuner.R;
+import rs.pedjaapps.KernelTuner.helpers.IOHelper;
 import rs.pedjaapps.KernelTuner.tools.Tools;
 
 public class MiscTweaks extends SherlockActivity {
@@ -170,9 +170,15 @@ public class MiscTweaks extends SherlockActivity {
 		@Override
 		protected String doInBackground(String... args) {
 
-		RootExecuter.exec(new String[]{
-				"chmod 777 /sys/kernel/debug/msm_fb/0/bpp\n",
-				"echo " + args[0] + " > /sys/kernel/debug/msm_fb/0/bpp\n"});
+		CommandCapture command = new CommandCapture(0, 
+				"chmod 777 /sys/kernel/debug/msm_fb/0/bpp",
+				"echo " + args[0] + " > /sys/kernel/debug/msm_fb/0/bpp");
+			try{
+				RootTools.getShell(true).add(command).waitForFinish();
+			}
+			catch(Exception e){
+
+			}
 			return args[0];
 		}
 
@@ -192,11 +198,17 @@ public class MiscTweaks extends SherlockActivity {
 		@Override
 		protected String doInBackground(String... args) {
 
-		     RootExecuter.exec(new String[]{
-				"chmod 777 /sys/kernel/debug/msm_otg/mode\n",
-				"chmod 777 /sys/kernel/debug/otg/mode\n",
-				"echo " + args[0] + " > /sys/kernel/debug/otg/mode\n",
-				"echo " + args[0] + " > /sys/kernel/debug/msm_otg/mode\n"});
+		     CommandCapture command = new CommandCapture(0, 
+				"chmod 777 /sys/kernel/debug/msm_otg/mode",
+				"chmod 777 /sys/kernel/debug/otg/mode",
+				"echo " + args[0] + " > /sys/kernel/debug/otg/mode",
+				"echo " + args[0] + " > /sys/kernel/debug/msm_otg/mode");
+			try{
+				RootTools.getShell(true).add(command).waitForFinish();
+			}
+			catch(Exception e){
+
+			}
 			return args[0];
 		}
 
@@ -216,9 +228,15 @@ public class MiscTweaks extends SherlockActivity {
 		@Override
 		protected Object doInBackground(String... args) {
 
-		    RootExecuter.exec(new String[]{
-				"chmod 777 /sys/kernel/fast_charge/force_fast_charge\n",
-				"echo " + fc + " > /sys/kernel/fast_charge/force_fast_charge\n"});
+		    CommandCapture command = new CommandCapture(0, 
+				"chmod 777 /sys/kernel/fast_charge/force_fast_charge",
+				"echo " + fc + " > /sys/kernel/fast_charge/force_fast_charge");
+			try{
+			RootTools.getShell(true).add(command).waitForFinish();
+			}
+			catch(Exception e){
+				
+			}
 			return "";
 		}
 
@@ -238,13 +256,19 @@ public class MiscTweaks extends SherlockActivity {
 		@Override
 		protected Object doInBackground(String... args) {
 			
-			RootExecuter.exec(new String[]{
-				"chmod 777 /sys/kernel/debug/msm_fb/0/vsync_enable\n",
-			    "chmod 777 /sys/kernel/debug/msm_fb/0/hw_vsync_mode\n",
-				"chmod 777 /sys/kernel/debug/msm_fb/0/backbuff\n",
-				"echo " + vs + " > /sys/kernel/debug/msm_fb/0/vsync_enable\n",
-				"echo " + hw + " > /sys/kernel/debug/msm_fb/0/hw_vsync_mode\n",
-				"echo " + backbuf + " > /sys/kernel/debug/msm_fb/0/backbuff\n"});
+		     CommandCapture command = new CommandCapture(0, 
+				"chmod 777 /sys/kernel/debug/msm_fb/0/vsync_enable",
+			    "chmod 777 /sys/kernel/debug/msm_fb/0/hw_vsync_mode",
+				"chmod 777 /sys/kernel/debug/msm_fb/0/backbuff",
+				"echo " + vs + " > /sys/kernel/debug/msm_fb/0/vsync_enable",
+				"echo " + hw + " > /sys/kernel/debug/msm_fb/0/hw_vsync_mode",
+				"echo " + backbuf + " > /sys/kernel/debug/msm_fb/0/backbuff");
+			try{
+				RootTools.getShell(true).add(command).waitForFinish();
+			}
+			catch(Exception e){
+
+			}
 						
 			return "";
 		}
@@ -268,15 +292,21 @@ public class MiscTweaks extends SherlockActivity {
 		protected Object doInBackground(String... args) {
 
 			String[] temp = new String[3];
-				temp[0] = "chmod 777 /sys/devices/platform/leds-pm8058/leds/button-backlight/currents\n";
-				temp[1] = "chmod 777 /sys/devices/platform/msm_ssbi.0/pm8921-core/pm8xxx-led/leds/button-backlight/currents\n";
+				temp[0] = "chmod 777 /sys/devices/platform/leds-pm8058/leds/button-backlight/currents";
+				temp[1] = "chmod 777 /sys/devices/platform/msm_ssbi.0/pm8921-core/pm8xxx-led/leds/button-backlight/currents";
 				if (args[0].equals("e3d")) {
-					temp[2] = "echo " + ledprogress + " > /sys/devices/platform/leds-pm8058/leds/button-backlight/currents\n";
+					temp[2] = "echo " + ledprogress + " > /sys/devices/platform/leds-pm8058/leds/button-backlight/currents";
 				} else if (args[0].equals("hox")) {
-					temp[2] = "echo " + args[1] + " > /sys/devices/platform/msm_ssbi.0/pm8921-core/pm8xxx-led/leds/button-backlight/currents\n";
+					temp[2] = "echo " + args[1] + " > /sys/devices/platform/msm_ssbi.0/pm8921-core/pm8xxx-led/leds/button-backlight/currents";
 				}
 
-			RootExecuter.exec(temp);
+			CommandCapture command = new CommandCapture(0, temp[0], temp[1], temp[2]);
+			try{
+				RootTools.getShell(true).add(command).waitForFinish();
+			}
+			catch(Exception e){
+
+			}
 			
 
 			return "";
@@ -299,9 +329,15 @@ public class MiscTweaks extends SherlockActivity {
 		@Override
 		protected String doInBackground(String... args) {
 
-			RootExecuter.exec(new String[]{
-				"chmod 777 /sys/kernel/notification_leds/off_timer_multiplier\n",
-				"echo " + args[0] + " > /sys/kernel/notification_leds/off_timer_multiplier\n"});
+			CommandCapture command = new CommandCapture(0, 
+				"chmod 777 /sys/kernel/notification_leds/off_timer_multiplier",
+				"echo " + args[0] + " > /sys/kernel/notification_leds/off_timer_multiplier");
+			try{
+				RootTools.getShell(true).add(command).waitForFinish();
+			}
+			catch(Exception e){
+
+			}
 			return args[0];
 		}
 
@@ -321,54 +357,27 @@ public class MiscTweaks extends SherlockActivity {
 
 		@Override
 		protected Object doInBackground(String... args) {
-			try {
-				String line;
-				Process process = Runtime.getRuntime().exec("su");
-				OutputStream stdin = process.getOutputStream();
-				InputStream stderr = process.getErrorStream();
-				InputStream stdout = process.getInputStream();
-
+			CommandCapture command;
 				if (s2wmethod == true) {
-					stdin.write(("chmod 777 /sys/android_touch/sweep2wake\n")
-							.getBytes());
-					stdin.write(("echo " + s2wnew + " > /sys/android_touch/sweep2wake\n")
-							.getBytes());
-					stdin.write(("chmod 777 /sys/android_touch/sweep2wake_startbutton\n")
-							.getBytes());
-					stdin.write(("echo " + s2wStartnew + " > /sys/android_touch/sweep2wake_startbutton\n")
-							.getBytes());
-					stdin.write(("chmod 777 /sys/android_touch/sweep2wake_endbutton\n")
-							.getBytes());
-					stdin.write(("echo " + s2wEndnew + " > /sys/android_touch/sweep2wake_endbutton\n")
-							.getBytes());
+					command = new CommandCapture(0, 
+					"chmod 777 /sys/android_touch/sweep2wake",
+					"echo " + s2wnew + " > /sys/android_touch/sweep2wake",
+					"chmod 777 /sys/android_touch/sweep2wake_startbutton",
+					"echo " + s2wStartnew + " > /sys/android_touch/sweep2wake_startbutton",
+					"chmod 777 /sys/android_touch/sweep2wake_endbutton",
+					"echo " + s2wEndnew + " > /sys/android_touch/sweep2wake_endbutton");
 
 				} else {
-					stdin.write(("chmod 777 /sys/android_touch/sweep2wake/s2w_switch\n")
-							.getBytes());
-					stdin.write(("echo " + s2wnew + " > /sys/android_touch/sweep2wake/s2w_switch\n")
-							.getBytes());
+					command = new CommandCapture(0, 
+					"chmod 777 /sys/android_touch/sweep2wake/s2w_switch",
+					"echo " + s2wnew + " > /sys/android_touch/sweep2wake/s2w_switch");
 
 				}
-				stdin.write("exit\n".getBytes());
-				stdin.flush();
-
-				stdin.close();
-				BufferedReader brCleanUp = new BufferedReader(
-						new InputStreamReader(stdout));
-				while ((line = brCleanUp.readLine()) != null) {
-					Log.d("[KernelTuner MiscTweaks Output]", line);
-				}
-				brCleanUp.close();
-				brCleanUp = new BufferedReader(new InputStreamReader(stderr));
-				while ((line = brCleanUp.readLine()) != null) {
-					Log.e("[KernelTuner MiscTweaks Error]", line);
-				}
-				brCleanUp.close();
-				process.waitFor();
-
-			} catch (Exception ex) {
-				Log.d("[KernelTuner MiscTweaks Error]", "" + ex.getMessage());
-
+				try{
+			RootTools.getShell(true).add(command).waitForFinish();
+			}
+			catch(Exception e){
+				
 			}
 
 			return "";
@@ -394,17 +403,23 @@ public class MiscTweaks extends SherlockActivity {
 		@Override
 		protected Object doInBackground(String... args) {
 
-			RootExecuter.exec(new String[]{
-				"chmod 777 /sys/block/mmcblk1/queue/read_ahead_kb\n",
-				"chmod 777 /sys/block/mmcblk2/queue/read_ahead_kb\n",
-				"chmod 777 /sys/devices/virtual/bdi/179:0/read_ahead_kb\n",
-				"echo " + sdcache + " > /sys/block/mmcblk1/queue/read_ahead_kb\n",
-				"echo " + sdcache + " > /sys/block/mmcblk0/queue/read_ahead_kb\n",
-				"echo " + sdcache + " > /sys/devices/virtual/bdi/179:0/read_ahead_kb\n",
-				"chmod 777 /sys/block/mmcblk0/queue/scheduler\n",
-				"chmod 777 /sys/block/mmcblk1/queue/scheduler\n",
-			    "echo " + scheduler + " > /sys/block/mmcblk0/queue/scheduler\n",
-				"echo " + scheduler + " > /sys/block/mmcblk1/queue/scheduler\n"});
+			CommandCapture command = new CommandCapture(0, 
+				"chmod 777 /sys/block/mmcblk1/queue/read_ahead_kb",
+				"chmod 777 /sys/block/mmcblk2/queue/read_ahead_kb",
+				"chmod 777 /sys/devices/virtual/bdi/179:0/read_ahead_kb",
+				"echo " + sdcache + " > /sys/block/mmcblk1/queue/read_ahead_kb",
+				"echo " + sdcache + " > /sys/block/mmcblk0/queue/read_ahead_kb",
+				"echo " + sdcache + " > /sys/devices/virtual/bdi/179:0/read_ahead_kb",
+				"chmod 777 /sys/block/mmcblk0/queue/scheduler",
+				"chmod 777 /sys/block/mmcblk1/queue/scheduler",
+			    "echo " + scheduler + " > /sys/block/mmcblk0/queue/scheduler",
+				"echo " + scheduler + " > /sys/block/mmcblk1/queue/scheduler");
+			try{
+				RootTools.getShell(true).add(command).waitForFinish();
+			}
+			catch(Exception e){
+
+			}
 
 			return "";
 		}

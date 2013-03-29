@@ -18,24 +18,34 @@
 */
 package rs.pedjaapps.KernelTuner.ui;
 
-import android.app.*;
-import android.content.*;
-import android.os.*;
-import android.preference.*;
-import android.view.*;
-import android.widget.*;
-import android.widget.AdapterView.*;
-import android.widget.CompoundButton.*;
-import com.actionbarsherlock.app.*;
-import com.google.ads.*;
-import java.util.*;
-import rs.pedjaapps.KernelTuner.helpers.*;
-import de.ankri.views.Switch;
+import android.app.ProgressDialog;
+import android.content.Intent;
+import android.content.SharedPreferences;
+import android.os.AsyncTask;
+import android.os.Bundle;
+import android.preference.PreferenceManager;
+import android.view.View;
+import android.view.WindowManager;
+import android.widget.AdapterView;
+import android.widget.AdapterView.OnItemSelectedListener;
+import android.widget.ArrayAdapter;
+import android.widget.CompoundButton;
+import android.widget.CompoundButton.OnCheckedChangeListener;
+import android.widget.EditText;
+import android.widget.Spinner;
 import com.actionbarsherlock.app.ActionBar;
+import com.actionbarsherlock.app.SherlockActivity;
 import com.actionbarsherlock.view.Menu;
 import com.actionbarsherlock.view.MenuInflater;
+import com.google.ads.AdRequest;
+import com.google.ads.AdView;
+import com.stericson.RootTools.RootTools;
+import com.stericson.RootTools.execution.CommandCapture;
+import de.ankri.views.Switch;
+import java.util.ArrayList;
+import java.util.List;
 import rs.pedjaapps.KernelTuner.R;
-import rs.pedjaapps.KernelTuner.tools.RootExecuter;
+import rs.pedjaapps.KernelTuner.helpers.IOHelper;
 import rs.pedjaapps.KernelTuner.tools.Tools;
 
 public class Mpdecision extends SherlockActivity
@@ -82,28 +92,34 @@ public class Mpdecision extends SherlockActivity
 		@Override
 		protected Object doInBackground(String... args)
 		{
-			RootExecuter.exec(new String[]{
-		            "chmod 777 /sys/kernel/msm_mpdecision/conf/scroff_single_core\n",
-					"chmod 777 /sys/kernel/msm_mpdecision/conf/scroff_freq\n",
-					"chmod 777 /sys/kernel/msm_mpdecision/conf/idle_freq\n",
-					"chmod 777 /sys/kernel/msm_mpdecision/conf/dealy\n",
-					"chmod 777 /sys/kernel/msm_mpdecision/conf/pause\n",
-					"chmod 777 /sys/kernel/msm_mpdecision/conf/nwns_threshold_up\n",
-					"chmod 777 /sys/kernel/msm_mpdecision/conf/twts_threshold_up\n",
-					"chmod 777 /sys/kernel/msm_mpdecision/conf/nwns_threshold_down\n",
-					"chmod 777 /sys/kernel/msm_mpdecision/conf/twts_threshold_down\n",
+			CommandCapture command = new CommandCapture(0,
+		            "chmod 777 /sys/kernel/msm_mpdecision/conf/scroff_single_core",
+					"chmod 777 /sys/kernel/msm_mpdecision/conf/scroff_freq",
+					"chmod 777 /sys/kernel/msm_mpdecision/conf/idle_freq",
+					"chmod 777 /sys/kernel/msm_mpdecision/conf/dealy",
+					"chmod 777 /sys/kernel/msm_mpdecision/conf/pause",
+					"chmod 777 /sys/kernel/msm_mpdecision/conf/nwns_threshold_up",
+					"chmod 777 /sys/kernel/msm_mpdecision/conf/twts_threshold_up",
+					"chmod 777 /sys/kernel/msm_mpdecision/conf/nwns_threshold_down",
+					"chmod 777 /sys/kernel/msm_mpdecision/conf/twts_threshold_down",
 
-					"echo " + mpscroff + " > /sys/kernel/msm_mpdecision/conf/scroff_single_core\n",
-					"echo " + onoff + " > /sys/kernel/msm_mpdecision/conf/scroff_profile\n",
-					"echo " + delaynew + " > /sys/kernel/msm_mpdecision/conf/delay\n",
-					"echo " + pausenew + " > /sys/kernel/msm_mpdecision/conf/pause\n",
-					"echo " + thruploadnew + " > /sys/kernel/msm_mpdecision/conf/nwns_threshold_up\n",
-					"echo " + thrdownloadnew + " > /sys/kernel/msm_mpdecision/conf/nwns_threshold_down\n",
-					"echo " + thrupmsnew + " > /sys/kernel/msm_mpdecision/conf/twts_threshold_up\n",
-					"echo " + thrdownmsnew + " > /sys/kernel/msm_mpdecision/conf/twts_threshold_down\n",
-					"echo " + idleNew + " > /sys/kernel/msm_mpdecision/conf/idle_freq\n",
-					"echo " + scroffNew + " > /sys/kernel/msm_mpdecision/conf/scroff_freq\n",
-					"echo " + scroff_singleNew + " > /sys/kernel/msm_mpdecision/conf/scroff_single_core\n"});
+					"echo " + mpscroff + " > /sys/kernel/msm_mpdecision/conf/scroff_single_core",
+					"echo " + onoff + " > /sys/kernel/msm_mpdecision/conf/scroff_profile",
+					"echo " + delaynew + " > /sys/kernel/msm_mpdecision/conf/delay",
+					"echo " + pausenew + " > /sys/kernel/msm_mpdecision/conf/pause",
+					"echo " + thruploadnew + " > /sys/kernel/msm_mpdecision/conf/nwns_threshold_up",
+					"echo " + thrdownloadnew + " > /sys/kernel/msm_mpdecision/conf/nwns_threshold_down",
+					"echo " + thrupmsnew + " > /sys/kernel/msm_mpdecision/conf/twts_threshold_up",
+					"echo " + thrdownmsnew + " > /sys/kernel/msm_mpdecision/conf/twts_threshold_down",
+					"echo " + idleNew + " > /sys/kernel/msm_mpdecision/conf/idle_freq",
+					"echo " + scroffNew + " > /sys/kernel/msm_mpdecision/conf/scroff_freq",
+					"echo " + scroff_singleNew + " > /sys/kernel/msm_mpdecision/conf/scroff_single_core");
+			try{
+				RootTools.getShell(true).add(command).waitForFinish();
+			}
+			catch(Exception e){
+
+			}
 					 
 			return "";
 		}

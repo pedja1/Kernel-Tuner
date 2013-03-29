@@ -18,14 +18,9 @@
 */
 package rs.pedjaapps.KernelTuner.tools;
 
-import java.io.BufferedReader;
-import java.io.IOException;
-import java.io.InputStream;
-import java.io.InputStreamReader;
-import java.io.OutputStream;
-
 import android.os.AsyncTask;
-import android.util.Log;
+import com.stericson.RootTools.RootTools;
+import com.stericson.RootTools.execution.CommandCapture;
 
 public class Initd extends AsyncTask<String, Void, String>
 {
@@ -37,30 +32,42 @@ public class Initd extends AsyncTask<String, Void, String>
 		if (args[0].equals("apply"))
 		{
 			System.out.println("Init.d: Writing init.d");
-		RootExecuter.exec(new String[]{
+		CommandCapture command = new CommandCapture(0, 
 	            "mount -o remount,rw /system\n",
-								  "/data/data/rs.pedjaapps.KernelTuner/files/cp-"+arch+" /data/data/rs.pedjaapps.KernelTuner/files/99ktcputweaks /system/etc/init.d\n",
+								  "/data/data/rs.pedjaapps.KernelTuner/files/cp-"+arch+" /data/data/rs.pedjaapps.KernelTuner/files/99ktcputweaks /system/etc/init.d",
 	            "chmod 777 /system/etc/init.d/99ktcputweaks\n",
-								  "/data/data/rs.pedjaapps.KernelTuner/files/cp-"+arch+" /data/data/rs.pedjaapps.KernelTuner/files/99ktgputweaks /system/etc/init.d\n",
+								  "/data/data/rs.pedjaapps.KernelTuner/files/cp-"+arch+" /data/data/rs.pedjaapps.KernelTuner/files/99ktgputweaks /system/etc/init.d",
 	            "chmod 777 /system/etc/init.d/99ktgputweaks\n",
-								  "/data/data/rs.pedjaapps.KernelTuner/files/cp-"+arch+" /data/data/rs.pedjaapps.KernelTuner/files/99ktmisctweaks /system/etc/init.d\n",
+								  "/data/data/rs.pedjaapps.KernelTuner/files/cp-"+arch+" /data/data/rs.pedjaapps.KernelTuner/files/99ktmisctweaks /system/etc/init.d",
 	            "chmod 777 /system/etc/init.d/99ktmisctweaks\n",
-								  "/data/data/rs.pedjaapps.KernelTuner/files/cp-"+arch+" /data/data/rs.pedjaapps.KernelTuner/files/99ktvoltage /system/etc/init.d\n",
+								  "/data/data/rs.pedjaapps.KernelTuner/files/cp-"+arch+" /data/data/rs.pedjaapps.KernelTuner/files/99ktvoltage /system/etc/init.d",
 	            "chmod 777 /system/etc/init.d/99ktvoltage\n",
-								  "/data/data/rs.pedjaapps.KernelTuner/files/cp-"+arch+" /data/data/rs.pedjaapps.KernelTuner/files/99ktsysctl /system/etc/init.d\n",
-				"chmod 777 /system/etc/init.d/99ktsysctl\n"});
+								  "/data/data/rs.pedjaapps.KernelTuner/files/cp-"+arch+" /data/data/rs.pedjaapps.KernelTuner/files/99ktsysctl /system/etc/init.d",
+				"chmod 777 /system/etc/init.d/99ktsysctl\n");
+			try{
+				RootTools.getShell(true).add(command).waitForFinish();
+			}
+			catch(Exception e){
+
+			}
 	           
 		}
 		else if (args[0].equals("rm"))
 		{
 			System.out.println("Init.d: Deleting init.d");
-		RootExecuter.exec(new String[]{
-	            "mount -o remount,rw /system\n",
-	            "rm /system/etc/init.d/99ktcputweaks\n",
-	            "rm /system/etc/init.d/99ktgputweaks\n",
-	            "rm /system/etc/init.d/99ktmisctweaks\n",
-	            "rm /system/etc/init.d/99ktvoltage\n",
-				"rm /system/etc/init.d/99ktsysctl\n"});
+		CommandCapture command = new CommandCapture(0, 
+	            "mount -o remount,rw /system",
+	            "rm /system/etc/init.d/99ktcputweaks",
+	            "rm /system/etc/init.d/99ktgputweaks",
+	            "rm /system/etc/init.d/99ktmisctweaks",
+	            "rm /system/etc/init.d/99ktvoltage",
+				"rm /system/etc/init.d/99ktsysctl");
+		try{
+			RootTools.getShell(true).add(command).waitForFinish();
+			}
+			catch(Exception e){
+				
+			}
 		}
 		return "";
 	}

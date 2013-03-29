@@ -18,23 +18,28 @@
 */
 package rs.pedjaapps.KernelTuner.ui;
 
-import android.app.*;
-import android.content.*;
-import android.os.*;
-import android.preference.*;
-import android.util.*;
-import android.view.*;
-import android.widget.*;
-import android.widget.AdapterView.*;
-import com.actionbarsherlock.app.*;
-import java.io.*;
-import java.util.*;
-import rs.pedjaapps.KernelTuner.*;
-
+import android.app.ProgressDialog;
+import android.content.Context;
+import android.content.SharedPreferences;
+import android.os.AsyncTask;
+import android.os.Bundle;
+import android.preference.PreferenceManager;
+import android.view.View;
 import android.view.View.OnClickListener;
-import java.lang.Process;
-import rs.pedjaapps.KernelTuner.tools.RootExecuter;
+import android.widget.AdapterView;
+import android.widget.AdapterView.OnItemSelectedListener;
+import android.widget.ArrayAdapter;
+import android.widget.Button;
+import android.widget.Spinner;
+import android.widget.TextView;
+import com.actionbarsherlock.app.SherlockActivity;
+import com.stericson.RootTools.RootTools;
+import com.stericson.RootTools.execution.CommandCapture;
+import java.io.File;
+import java.util.Arrays;
+import java.util.List;
 import org.apache.commons.io.FileUtils;
+import rs.pedjaapps.KernelTuner.R;
 
 public class Gpu extends SherlockActivity
 {
@@ -68,13 +73,19 @@ private class changegpu extends AsyncTask<String, Void, Object>
 		@Override
 		protected Object doInBackground(String... args)
 		{
-			RootExecuter.exec(new String[]{
-		            "chmod 777 /sys/devices/platform/kgsl-3d0.0/kgsl/kgsl-3d0/max_gpuclk\n",
-		            "chmod 777 /sys/devices/platform/kgsl-2d1.1/kgsl/kgsl-2d1/max_gpuclk\n",
-		            "chmod 777 /sys/devices/platform/kgsl-2d0.0/kgsl/kgsl-2d0/max_gpuclk\n",
-		            "echo " + selected3d + " > /sys/devices/platform/kgsl-3d0.0/kgsl/kgsl-3d0/max_gpuclk\n",
-		            "echo " + selected2d + " > /sys/devices/platform/kgsl-2d0.0/kgsl/kgsl-2d0/max_gpuclk\n",
-		            "echo " + selected2d + " > /sys/devices/platform/kgsl-2d1.1/kgsl/kgsl-2d1/max_gpuclk\n",});
+			CommandCapture command = new CommandCapture(0, 
+		            "chmod 777 /sys/devices/platform/kgsl-3d0.0/kgsl/kgsl-3d0/max_gpuclk",
+		            "chmod 777 /sys/devices/platform/kgsl-2d1.1/kgsl/kgsl-2d1/max_gpuclk",
+		            "chmod 777 /sys/devices/platform/kgsl-2d0.0/kgsl/kgsl-2d0/max_gpuclk",
+		            "echo " + selected3d + " > /sys/devices/platform/kgsl-3d0.0/kgsl/kgsl-3d0/max_gpuclk",
+		            "echo " + selected2d + " > /sys/devices/platform/kgsl-2d0.0/kgsl/kgsl-2d0/max_gpuclk",
+		            "echo " + selected2d + " > /sys/devices/platform/kgsl-2d1.1/kgsl/kgsl-2d1/max_gpuclk");
+			try{
+				RootTools.getShell(true).add(command).waitForFinish();
+			}
+			catch(Exception e){
+
+			}
 			return "";
 		}
 

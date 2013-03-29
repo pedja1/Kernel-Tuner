@@ -29,6 +29,8 @@ import android.content.SharedPreferences;
 import android.os.AsyncTask;
 import android.preference.PreferenceManager;
 import android.util.Log;
+import com.stericson.RootTools.execution.CommandCapture;
+import com.stericson.RootTools.RootTools;
 
 
 public class ChangeGovernor extends AsyncTask<String, Void, String>
@@ -47,9 +49,15 @@ public class ChangeGovernor extends AsyncTask<String, Void, String>
 	@Override
 	protected String doInBackground(String... args)
 	{
-		RootExecuter.exec(new String[] {
-			"chmod 777 /sys/devices/system/cpu/" + args[0] + "/cpufreq/scaling_governor\n", 
-		    "echo " + args[1] + " > /sys/devices/system/cpu/" + args[0] + "/cpufreq/scaling_governor\n"});
+		CommandCapture command = new CommandCapture(0, 
+			"chmod 777 /sys/devices/system/cpu/" + args[0] + "/cpufreq/scaling_governor", 
+		    "echo " + args[1] + " > /sys/devices/system/cpu/" + args[0] + "/cpufreq/scaling_governor");
+		try{
+		RootTools.getShell(true).add(command).waitForFinish();
+		}
+		catch(Exception e){
+			
+		}
 		 SharedPreferences.Editor editor = preferences.edit();
 			editor.putString(args[0] + "gov", args[1]);
 			editor.commit();

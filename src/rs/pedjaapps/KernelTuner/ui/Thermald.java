@@ -18,26 +18,32 @@
 */
 package rs.pedjaapps.KernelTuner.ui;
 
-import android.app.*;
-import android.content.*;
-import android.os.*;
-import android.preference.*;
-import android.util.*;
-import android.view.*;
-import android.widget.*;
-import android.widget.AdapterView.*;
-import com.actionbarsherlock.app.*;
-import com.google.ads.*;
-import java.io.*;
-import java.util.*;
-import rs.pedjaapps.KernelTuner.helpers.*;
-
+import android.app.ProgressDialog;
+import android.content.Intent;
+import android.content.SharedPreferences;
+import android.os.AsyncTask;
+import android.os.Bundle;
+import android.preference.PreferenceManager;
+import android.view.View;
+import android.view.WindowManager;
+import android.widget.AdapterView;
+import android.widget.AdapterView.OnItemSelectedListener;
+import android.widget.ArrayAdapter;
+import android.widget.EditText;
+import android.widget.Spinner;
+import android.widget.TextView;
 import com.actionbarsherlock.app.ActionBar;
+import com.actionbarsherlock.app.SherlockActivity;
 import com.actionbarsherlock.view.Menu;
 import com.actionbarsherlock.view.MenuInflater;
-import java.lang.Process;
+import com.google.ads.AdRequest;
+import com.google.ads.AdView;
+import com.stericson.RootTools.RootTools;
+import com.stericson.RootTools.execution.CommandCapture;
+import java.util.ArrayList;
+import java.util.List;
 import rs.pedjaapps.KernelTuner.R;
-import rs.pedjaapps.KernelTuner.tools.RootExecuter;
+import rs.pedjaapps.KernelTuner.helpers.IOHelper;
 import rs.pedjaapps.KernelTuner.tools.Tools;
 
 public class Thermald extends SherlockActivity
@@ -82,25 +88,31 @@ public class Thermald extends SherlockActivity
 		@Override
 		protected Object doInBackground(String... args)
 		{
-			RootExecuter.exec(new String[]{
-	            "chmod 777 /sys/kernel/msm_thermal/conf/allowed_low_freq\n",
-				"chmod 777 /sys/kernel/msm_thermal/conf/allowed_mid_freq\n",
-				"chmod 777 /sys/kernel/msm_thermal/conf/allowed_max_freq\n",
-				"chmod 777 /sys/kernel/msm_thermal/conf/allowed_low_low\n",
-				"chmod 777 /sys/kernel/msm_thermal/conf/allowed_low_high\n",
-				"chmod 777 /sys/kernel/msm_thermal/conf/allowed_mid_low\n",
-				"chmod 777 /sys/kernel/msm_thermal/conf/allowed_mid_high\n",
-				"chmod 777 /sys/kernel/msm_thermal/conf/allowed_max_low\n",
-				"chmod 777 /sys/kernel/msm_thermal/conf/allowed_max_high\n",
-				"echo " + p1freqnew + " > /sys/kernel/msm_thermal/conf/allowed_low_freq\n",
-				"echo " + p2freqnew + " > /sys/kernel/msm_thermal/conf/allowed_mid_freq\n",
-				"echo " + p3freqnew + " > /sys/kernel/msm_thermal/conf/allowed_max_freq\n",
-				"echo " + p1lownew + " > /sys/kernel/msm_thermal/conf/allowed_low_low\n",
-				"echo " + p1highnew + " > /sys/kernel/msm_thermal/conf/allowed_low_high\n",
-				"echo " + p2lownew + " > /sys/kernel/msm_thermal/conf/allowed_mid_low\n",
-				"echo " + p2highnew + " > /sys/kernel/msm_thermal/conf/allowed_mid_high\n",
-				"echo " + p3lownew + " > /sys/kernel/msm_thermal/conf/allowed_max_low\n",
-				"echo " + p3highnew + " > /sys/kernel/msm_thermal/conf/allowed_max_high\n"});
+		     CommandCapture command = new CommandCapture(0, 
+	            "chmod 777 /sys/kernel/msm_thermal/conf/allowed_low_freq",
+				"chmod 777 /sys/kernel/msm_thermal/conf/allowed_mid_freq",
+				"chmod 777 /sys/kernel/msm_thermal/conf/allowed_max_freq",
+				"chmod 777 /sys/kernel/msm_thermal/conf/allowed_low_low",
+				"chmod 777 /sys/kernel/msm_thermal/conf/allowed_low_high",
+				"chmod 777 /sys/kernel/msm_thermal/conf/allowed_mid_low",
+				"chmod 777 /sys/kernel/msm_thermal/conf/allowed_mid_high",
+				"chmod 777 /sys/kernel/msm_thermal/conf/allowed_max_low",
+				"chmod 777 /sys/kernel/msm_thermal/conf/allowed_max_high",
+				"echo " + p1freqnew + " > /sys/kernel/msm_thermal/conf/allowed_low_freq",
+				"echo " + p2freqnew + " > /sys/kernel/msm_thermal/conf/allowed_mid_freq",
+				"echo " + p3freqnew + " > /sys/kernel/msm_thermal/conf/allowed_max_freq",
+				"echo " + p1lownew + " > /sys/kernel/msm_thermal/conf/allowed_low_low",
+				"echo " + p1highnew + " > /sys/kernel/msm_thermal/conf/allowed_low_high",
+				"echo " + p2lownew + " > /sys/kernel/msm_thermal/conf/allowed_mid_low",
+				"echo " + p2highnew + " > /sys/kernel/msm_thermal/conf/allowed_mid_high",
+				"echo " + p3lownew + " > /sys/kernel/msm_thermal/conf/allowed_max_low",
+				"echo " + p3highnew + " > /sys/kernel/msm_thermal/conf/allowed_max_high");
+			try{
+				RootTools.getShell(true).add(command).waitForFinish();
+			}
+			catch(Exception e){
+
+			}
 			return "";
 		}
 
