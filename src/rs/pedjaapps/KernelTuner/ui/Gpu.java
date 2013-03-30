@@ -18,6 +18,7 @@
 */
 package rs.pedjaapps.KernelTuner.ui;
 
+import android.app.Activity;
 import android.app.ProgressDialog;
 import android.content.Context;
 import android.content.SharedPreferences;
@@ -32,7 +33,6 @@ import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.Spinner;
 import android.widget.TextView;
-import com.actionbarsherlock.app.SherlockActivity;
 import com.stericson.RootTools.RootTools;
 import com.stericson.RootTools.execution.CommandCapture;
 import java.io.File;
@@ -41,7 +41,7 @@ import java.util.List;
 import org.apache.commons.io.FileUtils;
 import rs.pedjaapps.KernelTuner.R;
 
-public class Gpu extends SherlockActivity
+public class Gpu extends Activity
 {
 
 	private int gpu2dcurent;

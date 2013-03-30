@@ -30,19 +30,15 @@ import android.preference.*;
 import android.util.*;
 import android.view.*;
 import android.widget.*;
-import com.actionbarsherlock.app.*;
 import java.io.*;
 import java.util.*;
 import rs.pedjaapps.KernelTuner.helpers.*;
 
-import android.support.v4.app.Fragment;
-import android.support.v4.app.FragmentTransaction;
-import com.actionbarsherlock.app.ActionBar;
 import rs.pedjaapps.KernelTuner.R;
 import rs.pedjaapps.KernelTuner.tools.Tools;
 
 @SuppressLint("NewApi")
-public class SystemInfo extends SherlockFragmentActivity implements
+public class SystemInfo extends Activity implements
 		ActionBar.TabListener {
 
 	private Integer gpu2d;
@@ -345,7 +341,7 @@ public class SystemInfo extends SherlockFragmentActivity implements
 		prefs = PreferenceManager.getDefaultSharedPreferences(this);
 		tempPref = prefs.getString("temp", "celsius");
 		// Set up the action bar to show tabs.
-		actionBar = getSupportActionBar();
+		actionBar = getActionBar();
 		actionBar.setNavigationMode(ActionBar.NAVIGATION_MODE_TABS);
 		actionBar.setHomeButtonEnabled(true);
 		m_sensormgr = (SensorManager) getSystemService(Context.SENSOR_SERVICE);
@@ -408,7 +404,7 @@ public class SystemInfo extends SherlockFragmentActivity implements
 			args.putInt(DummySectionFragment.ARG_SECTION_NUMBER, 3);
 		}
 		fragment.setArguments(args);
-		getSupportFragmentManager().beginTransaction()
+		getFragmentManager().beginTransaction()
 				.replace(R.id.container, fragment).commitAllowingStateLoss();
 		
 	}
@@ -1130,8 +1126,7 @@ public class SystemInfo extends SherlockFragmentActivity implements
 	}
 
 	@Override
-	public boolean onOptionsItemSelected(
-			com.actionbarsherlock.view.MenuItem item) {
+	public boolean onOptionsItemSelected(MenuItem item) {
 		switch (item.getItemId()) {
 		case android.R.id.home:
 			// app icon in action bar clicked; go home

@@ -18,12 +18,17 @@
 */
 package rs.pedjaapps.KernelTuner.ui;
 
+import android.app.ActionBar;
+import android.app.Activity;
 import android.app.ProgressDialog;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.AsyncTask;
 import android.os.Bundle;
 import android.preference.PreferenceManager;
+import android.view.Menu;
+import android.view.MenuInflater;
+import android.view.MenuItem;
 import android.view.View;
 import android.view.WindowManager;
 import android.widget.AdapterView;
@@ -32,10 +37,6 @@ import android.widget.ArrayAdapter;
 import android.widget.EditText;
 import android.widget.Spinner;
 import android.widget.TextView;
-import com.actionbarsherlock.app.ActionBar;
-import com.actionbarsherlock.app.SherlockActivity;
-import com.actionbarsherlock.view.Menu;
-import com.actionbarsherlock.view.MenuInflater;
 import com.google.ads.AdRequest;
 import com.google.ads.AdView;
 import com.stericson.RootTools.RootTools;
@@ -46,7 +47,7 @@ import rs.pedjaapps.KernelTuner.R;
 import rs.pedjaapps.KernelTuner.helpers.IOHelper;
 import rs.pedjaapps.KernelTuner.tools.Tools;
 
-public class Thermald extends SherlockActivity
+public class Thermald extends Activity
 {
 
 	private List<IOHelper.FreqsEntry> freqEntries;
@@ -160,7 +161,7 @@ public class Thermald extends SherlockActivity
 		for(IOHelper.FreqsEntry f: freqEntries){
 			freqNames.add(f.getFreqName());
 		}
-		ActionBar actionBar = getSupportActionBar();
+		ActionBar actionBar = getActionBar();
 		actionBar.setDisplayHomeAsUpEnabled(true);
 		boolean ads = preferences.getBoolean("ads", true);
 		if (ads == true)
@@ -387,12 +388,12 @@ public class Thermald extends SherlockActivity
 	}
 	@Override
 	public boolean onCreateOptionsMenu(Menu menu) {
-		MenuInflater inflater = getSupportMenuInflater();
+		MenuInflater inflater = getMenuInflater();
 		inflater.inflate(R.menu.misc_tweaks_options_menu, menu);
 		return super.onCreateOptionsMenu(menu);
 }
 	@Override
-	public boolean onOptionsItemSelected(com.actionbarsherlock.view.MenuItem item) {
+	public boolean onOptionsItemSelected(MenuItem item) {
 	    switch (item.getItemId()) {
 	        case android.R.id.home:
 	           

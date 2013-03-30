@@ -30,22 +30,18 @@ import android.util.*;
 import android.view.*;
 import android.view.ViewGroup.*;
 import android.widget.*;
-import com.actionbarsherlock.app.*;
 import com.google.ads.*;
 import java.io.*;
-import java.text.*;
 import java.util.*;
 import org.achartengine.*;
 import org.achartengine.model.*;
 import org.achartengine.renderer.*;
 import rs.pedjaapps.KernelTuner.*;
 import rs.pedjaapps.KernelTuner.entry.*;
-
-import com.actionbarsherlock.app.ActionBar;
 import java.lang.Process;
 import rs.pedjaapps.KernelTuner.tools.Tools;
 
-public class SDScannerActivity extends SherlockActivity
+public class SDScannerActivity extends Activity
 {
 
 	
@@ -113,17 +109,17 @@ public class SDScannerActivity extends SherlockActivity
 		
 		if (theme.equals("light")) 
 		{
-			setTheme(R.style.Theme_Sherlock_Light);
+			setTheme(android.R.style.Theme_Holo_Light);
 			labelColor = Color.BLACK;
 		} 
 		else if (theme.equals("dark")) 
 		{
-			setTheme(R.style.Theme_Sherlock);
+			setTheme(android.R.style.Theme_Holo);
 			labelColor = Color.WHITE;
 		} 
 		else if (theme.equals("light_dark_action_bar")) 
 		{
-			setTheme(R.style.Theme_Sherlock_Light_DarkActionBar);
+			setTheme(android.R.style.Theme_Holo_Light_DarkActionBar);
 			labelColor = Color.BLACK;
 		}
 		else if (theme.equals("miui_light")) 
@@ -149,7 +145,7 @@ public class SDScannerActivity extends SherlockActivity
 		super.onCreate(savedInstanceState);
 
 		setContentView(R.layout.sd_scanner);
-		ActionBar actionBar = getSupportActionBar();
+		ActionBar actionBar = getActionBar();
 		actionBar.setDisplayHomeAsUpEnabled(true);
 		mRenderer.setApplyBackgroundColor(true);
 	    mRenderer.setBackgroundColor(Color.argb(100, 50, 50, 50));
@@ -312,7 +308,7 @@ public class SDScannerActivity extends SherlockActivity
 	
 
 	@Override
-	public boolean onOptionsItemSelected(com.actionbarsherlock.view.MenuItem item) {
+	public boolean onOptionsItemSelected(MenuItem item) {
 	    switch (item.getItemId()) {
 	        case android.R.id.home:
 	            // app icon in action bar clicked; go home

@@ -19,12 +19,13 @@
 package rs.pedjaapps.KernelTuner.ui;
 
 
+import android.app.ActionBar;
+import android.app.Activity;
 import android.content.*;
 import android.os.*;
 import android.preference.*;
 import android.view.*;
 import android.widget.*;
-import com.actionbarsherlock.app.*;
 import com.google.ads.*;
 import java.util.*;
 import rs.pedjaapps.KernelTuner.entry.*;
@@ -33,7 +34,8 @@ import rs.pedjaapps.KernelTuner.helpers.*;
 import android.view.View.OnClickListener;
 import rs.pedjaapps.KernelTuner.R;
 import rs.pedjaapps.KernelTuner.tools.Tools;
-public class TISActivity extends SherlockActivity {
+
+public class TISActivity extends Activity {
 
 	private List<TimesEntry> times;
 	
@@ -54,7 +56,7 @@ public class TISActivity extends SherlockActivity {
 		super.onCreate(savedInstanceState);
 
 		setContentView(R.layout.times_in_state);
-			actionBar = getSupportActionBar();
+			actionBar = getActionBar();
 			actionBar.setDisplayHomeAsUpEnabled(true);
         
 		
@@ -144,7 +146,7 @@ public class TISActivity extends SherlockActivity {
 	}
 	
 	@Override
-	public boolean onOptionsItemSelected(com.actionbarsherlock.view.MenuItem item) {
+	public boolean onOptionsItemSelected(MenuItem item) {
 	    switch (item.getItemId()) {
 	        case android.R.id.home:
 	            // app icon in action bar clicked; go home

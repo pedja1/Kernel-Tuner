@@ -20,6 +20,8 @@ package rs.pedjaapps.KernelTuner.ui;
 
 import android.widget.*;
 
+import android.app.ActionBar;
+import android.app.Activity;
 import android.app.AlertDialog;
 import android.app.ProgressDialog;
 import android.content.DialogInterface;
@@ -29,8 +31,10 @@ import android.os.AsyncTask;
 import android.os.Bundle;
 import android.preference.PreferenceManager;
 import android.text.InputType;
-import android.util.Log;
 import android.view.Gravity;
+import android.view.Menu;
+import android.view.MenuInflater;
+import android.view.MenuItem;
 import android.view.MotionEvent;
 import android.view.View;
 import android.view.View.OnClickListener;
@@ -39,20 +43,11 @@ import android.view.WindowManager;
 import android.widget.AdapterView.OnItemSelectedListener;
 import android.widget.CompoundButton.OnCheckedChangeListener;
 import android.widget.SeekBar.OnSeekBarChangeListener;
-import com.actionbarsherlock.app.ActionBar;
-import com.actionbarsherlock.app.SherlockActivity;
-import com.actionbarsherlock.view.Menu;
-import com.actionbarsherlock.view.MenuInflater;
 import com.google.ads.AdRequest;
 import com.google.ads.AdView;
 import com.stericson.RootTools.RootTools;
 import com.stericson.RootTools.execution.CommandCapture;
-import de.ankri.views.Switch;
-import java.io.BufferedReader;
 import java.io.File;
-import java.io.InputStream;
-import java.io.InputStreamReader;
-import java.io.OutputStream;
 import java.util.List;
 import org.apache.commons.io.FileUtils;
 import rs.pedjaapps.KernelTuner.Constants;
@@ -60,7 +55,7 @@ import rs.pedjaapps.KernelTuner.R;
 import rs.pedjaapps.KernelTuner.helpers.IOHelper;
 import rs.pedjaapps.KernelTuner.tools.Tools;
 
-public class MiscTweaks extends SherlockActivity {
+public class MiscTweaks extends Activity {
 
 	private String led;
 	private String ledHox;
@@ -445,7 +440,7 @@ public class MiscTweaks extends SherlockActivity {
 
 		String theme = preferences.getString("theme", "light");
 
-		setTheme(Tools.getPreferedThemeSwitchCompat(theme));
+		setTheme(Tools.getPreferedTheme(theme));
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.misc_tweaks);
 
@@ -495,7 +490,7 @@ public class MiscTweaks extends SherlockActivity {
 		otgLayout = (LinearLayout) findViewById(R.id.otg_layout);
 		otgSwitch = (Switch) findViewById(R.id.otg_switch);
 
-		ActionBar actionBar = getSupportActionBar();
+		ActionBar actionBar = getActionBar();
 		actionBar.setDisplayHomeAsUpEnabled(true);
 
 		boolean ads = preferences.getBoolean("ads", true);
@@ -1105,14 +1100,13 @@ public class MiscTweaks extends SherlockActivity {
 
 	@Override
 	public boolean onCreateOptionsMenu(Menu menu) {
-		MenuInflater inflater = getSupportMenuInflater();
+		MenuInflater inflater = getMenuInflater();
 		inflater.inflate(R.menu.misc_tweaks_options_menu, menu);
 		return super.onCreateOptionsMenu(menu);
 	}
 
 	@Override
-	public boolean onOptionsItemSelected(
-			com.actionbarsherlock.view.MenuItem item) {
+	public boolean onOptionsItemSelected(MenuItem item) {
 		switch (item.getItemId()) {
 		case android.R.id.home:
 			Intent intent = new Intent(this, KernelTuner.class);

@@ -22,7 +22,8 @@ import android.content.*;
 import android.widget.*;
 import java.io.*;
 
-import android.annotation.TargetApi;
+import android.app.ActionBar;
+import android.app.Activity;
 import android.app.ActivityManager;
 import android.app.ActivityManager.RunningServiceInfo;
 import android.app.AlertDialog;
@@ -34,19 +35,16 @@ import android.graphics.Color;
 import android.net.Uri;
 import android.os.AsyncTask;
 import android.os.BatteryManager;
-import android.os.Build;
 import android.os.Bundle;
 import android.os.Handler;
 import android.preference.PreferenceManager;
 import android.util.Log;
 import android.view.LayoutInflater;
+import android.view.Menu;
+import android.view.MenuItem;
 import android.view.View;
 import android.view.View.OnClickListener;
 import android.view.View.OnLongClickListener;
-import com.actionbarsherlock.app.ActionBar;
-import com.actionbarsherlock.app.SherlockActivity;
-import com.actionbarsherlock.view.Menu;
-import com.actionbarsherlock.view.MenuItem;
 import com.google.ads.AdRequest;
 import com.google.ads.AdView;
 import com.stericson.RootTools.RootTools;
@@ -62,7 +60,7 @@ import rs.pedjaapps.KernelTuner.tools.Tools;
 
 
 
-public class KernelTuner extends SherlockActivity {
+public class KernelTuner extends Activity {
 
 	private List<IOHelper.FreqsEntry>   freqEntries;
 	private List<IOHelper.VoltageList>  voltageFreqs;
@@ -211,7 +209,7 @@ public class KernelTuner extends SherlockActivity {
 	    	batteryTemp = (TextView) findViewById(R.id.textView40);
 	    	tempLayout = (RelativeLayout) findViewById(R.id.test1a);
 			
-		    ActionBar actionBar = getSupportActionBar();
+		    ActionBar actionBar = getActionBar();
 	    	actionBar.setSubtitle("Various kernel and system tuning");
 	    	actionBar.setHomeButtonEnabled(false);
 		
@@ -1369,7 +1367,6 @@ private void startCpuLoadThread() {
 		return true;
 	}
 
-	@TargetApi(Build.VERSION_CODES.HONEYCOMB)
 	@Override
 	public boolean onOptionsItemSelected(MenuItem item) {
 

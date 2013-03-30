@@ -271,15 +271,15 @@ public class Tools
 	{
 		if (theme.equals("light")) 
 		{
-			return R.style.Theme_Sherlock_Light;
+			return android.R.style.Theme_Holo_Light;
 		} 
 		else if (theme.equals("dark")) 
 		{
-			return R.style.Theme_Sherlock;
+			return android.R.style.Theme_Holo;
 		} 
 		else if (theme.equals("light_dark_action_bar")) 
 		{
-			return R.style.Theme_Sherlock_Light_DarkActionBar;
+			return android.R.style.Theme_Holo_Light_DarkActionBar;
 		}
 		else if (theme.equals("miui_light")) 
 		{
@@ -299,7 +299,7 @@ public class Tools
 		}
 		else
 		{
-			return R.style.Theme_Sherlock_Light_DarkActionBar;
+			return android.R.style.Theme_Holo_Light_DarkActionBar;
 		}
 	}
 
@@ -332,42 +332,6 @@ public class Tools
 		else
 		{
 			return R.style.Theme_Translucent_NoTitleBar_Light;
-		}
-	}
-
-	public static int getPreferedThemeSwitchCompat(String theme)
-	{
-		if (theme.equals("light")) 
-		{
-			return R.style.SwitchCompatAndSherlockLight;
-		} 
-		else if (theme.equals("dark")) 
-		{
-			return R.style.SwitchCompatAndSherlock;
-		} 
-		else if (theme.equals("light_dark_action_bar")) 
-		{
-			return R.style.SwitchCompatAndSherlockLightDark;
-		}
-		else if (theme.equals("miui_light")) 
-		{
-			return R.style.Theme_Miui_Light;
-		} 
-		else if (theme.equals("miui_dark")) 
-		{
-			return R.style.Theme_Miui_Dark;
-		} 
-		else if (theme.equals("sense5")) 
-		{
-			return R.style.Theme_Sense5;
-		}
-		else if (theme.equals("sense5_light")) 
-		{
-			return R.style.Theme_Light_Sense5;
-		}
-		else
-		{
-			return R.style.SwitchCompatAndSherlockLight;
 		}
 	}
 	

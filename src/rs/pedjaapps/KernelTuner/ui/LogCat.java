@@ -13,18 +13,20 @@ import java.util.concurrent.Executors;
 
 import android.app.AlertDialog;
 import android.app.Dialog;
+import android.app.ListActivity;
 import android.content.Intent;
 import android.os.Bundle;
 import android.os.Debug;
 import android.os.Environment;
 import android.os.Handler;
 import android.os.Message;
-import android.support.v4.view.MenuItemCompat;
 import android.text.Html;
 import android.text.TextUtils;
 import android.util.Log;
 import android.view.ContextMenu;
 import android.view.ContextMenu.ContextMenuInfo;
+import android.view.Menu;
+import android.view.MenuItem;
 import android.view.View;
 import android.view.WindowManager;
 import android.widget.AbsListView;
@@ -45,11 +47,8 @@ import android.content.SharedPreferences;
 import rs.pedjaapps.KernelTuner.tools.Tools;
 import android.preference.PreferenceManager;
 import android.graphics.Color;
-import com.actionbarsherlock.app.SherlockListActivity;
-import com.actionbarsherlock.view.MenuItem;
-import com.actionbarsherlock.view.Menu;
 
-public class LogCat extends SherlockListActivity {
+public class LogCat extends ListActivity {
 	public static final SimpleDateFormat LOG_DATE_FORMAT = new SimpleDateFormat(
 			"MMM d, yyyy HH:mm:ss ZZZZ");
 	private static final Executor EX = Executors.newCachedThreadPool();
@@ -59,11 +58,9 @@ public class LogCat extends SherlockListActivity {
 	private static final int PREFS_REQUEST = 1;
 
 	private static final int MENU_FILTER = 1;
-	private static final int MENU_SHARE = 5;
 	private static final int MENU_PLAY = 6;
 	private static final int MENU_CLEAR = 8;
 	private static final int MENU_SAVE = 9;
-	private static final int MENU_PREFS = 10;
 	private static final int MENU_JUMP_TOP = 11;
 	private static final int MENU_JUMP_BOTTOM = 12;
 
@@ -149,11 +146,11 @@ public class LogCat extends SherlockListActivity {
 		
 		//getWindow().setTitle(getResources().getString(R.string.app_name));
 
-		getSupportActionBar().setSubtitle("running");
+		getActionBar().setSubtitle("running");
 		mThis = this;
 		mPrefs = new Prefs(this);
 
-		getSupportActionBar().setDisplayHomeAsUpEnabled(true);
+		getActionBar().setDisplayHomeAsUpEnabled(true);
 		
 		mLogList = (ListView) findViewById(android.R.id.list);
 		mLogList.setOnCreateContextMenuListener(new View.OnCreateContextMenuListener() {
@@ -269,7 +266,6 @@ public class LogCat extends SherlockListActivity {
 	public boolean onCreateOptionsMenu(Menu menu) {
 		super.onCreateOptionsMenu(menu);
 
-		// TODO: maybe this should be in a menu.xml file. ;)
 		mPlayItem = menu.add(0, MENU_PLAY, 0, R.string.pause_menu);
 		mPlayItem.setIcon(android.R.drawable.ic_media_pause)
 		.setShowAsAction(
@@ -297,7 +293,7 @@ public class LogCat extends SherlockListActivity {
 		MenuItem saveItem = menu.add(0, MENU_SAVE, 0, R.string.save_menu);
 		saveItem.setIcon(android.R.drawable.ic_menu_save)
 		.setShowAsAction(
-				MenuItemCompat.SHOW_AS_ACTION_IF_ROOM);
+				MenuItem.SHOW_AS_ACTION_IF_ROOM);
 
 
 		return true;
@@ -495,9 +491,7 @@ public class LogCat extends SherlockListActivity {
 		if (!mPlay) {
 			return;
 		}
-	/*	getWindow()
-				.setTitle(getResources().getString(R.string.app_name_paused));*/
-				getSupportActionBar().setSubtitle("paused");
+				getActionBar().setSubtitle("paused");
 		if (mLogcat != null) {
 			mLogcat.setPlay(false);
 			mPlay = false;
@@ -509,8 +503,7 @@ public class LogCat extends SherlockListActivity {
 		if (mPlay) {
 			return;
 		}
-	//	getWindow().setTitle(getResources().getString(R.string.app_name));
-		getSupportActionBar().setSubtitle("running");
+		getActionBar().setSubtitle("running");
 		if (mLogcat != null) {
 			mLogcat.setPlay(true);
 			mPlay = true;

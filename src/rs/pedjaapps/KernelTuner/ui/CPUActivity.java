@@ -33,6 +33,8 @@ import rs.pedjaapps.KernelTuner.R;
 import rs.pedjaapps.KernelTuner.helpers.IOHelper;
 import rs.pedjaapps.KernelTuner.tools.ChangeGovernor;
 import rs.pedjaapps.KernelTuner.tools.FrequencyChanger;
+import android.app.ActionBar;
+import android.app.Activity;
 import android.app.ProgressDialog;
 import android.content.Intent;
 import android.content.SharedPreferences;
@@ -41,14 +43,13 @@ import android.os.Bundle;
 import android.os.Handler;
 import android.preference.PreferenceManager;
 import android.util.Log;
+import android.view.MenuItem;
 import android.view.View;
 import android.widget.AdapterView.OnItemSelectedListener;
 import android.widget.CompoundButton.OnCheckedChangeListener;
 import android.widget.SeekBar.OnSeekBarChangeListener;
 import android.widget.*;
 
-import com.actionbarsherlock.app.ActionBar;
-import com.actionbarsherlock.app.SherlockActivity;
 import com.google.ads.AdRequest;
 import com.google.ads.AdView;
 import android.content.Context;
@@ -57,7 +58,7 @@ import rs.pedjaapps.KernelTuner.tools.Tools;
 
 
 
-public class CPUActivity extends SherlockActivity
+public class CPUActivity extends Activity
 {
 
 	private List<IOHelper.FreqsEntry>          freqEntries;
@@ -166,7 +167,7 @@ public class CPUActivity extends SherlockActivity
 		setContentView(R.layout.cpu_tweaks);
 		/**
 		 * Show Progress Dialog and execute ToggleCpus class*/
-		final ActionBar actionBar = getSupportActionBar();
+		final ActionBar actionBar = getActionBar();
 		actionBar.setDisplayHomeAsUpEnabled(true);
 		pd = ProgressDialog.show(c, null, 
 				  getResources().getString(R.string.enabling_cpus), true, false);
@@ -1309,7 +1310,7 @@ startCpuLoadThread();
 	}
 
 	@Override
-	public boolean onOptionsItemSelected(com.actionbarsherlock.view.MenuItem item) {
+	public boolean onOptionsItemSelected(MenuItem item) {
 	    switch (item.getItemId()) {
 	        case android.R.id.home:
 	            // app icon in action bar clicked; go home

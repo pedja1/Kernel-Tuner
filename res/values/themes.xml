@@ -1,16 +1,8 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources xmlns:android="http://schemas.android.com/apk/res/android">
-    <style name="AppThemeDark" parent="@android:style/Theme.DeviceDefault">
-		<item name="switchStyle">@style/switch_dark</item>
-		<item name="textAppearance">@style/TextAppearance</item>
-	</style>
 
-    <style name="AppThemeLight" parent="@android:style/Theme.DeviceDefault.Light">
-		<item name="switchStyle">@style/switch_light</item>
-		<item name="textAppearance">@style/TextAppearance</item>
-	</style>
 
-    <style name="Theme.Miui.Dark" parent="Theme.Sherlock">
+    <style name="Theme.Miui.Dark" parent="android:Theme.Holo">
 
         <item name="android:buttonStyle">@style/MiuiButton_Dark</item>
         <item name="android:buttonStyleSmall">@style/MiuiButton_Dark_Small</item>
@@ -20,9 +12,15 @@
         <item name="android:listChoiceIndicatorSingle">@drawable/btn_radio_holo_dark_miui</item>
 		<item name="android:spinnerStyle">@style/Miui.Spinner</item>
 		<item name="android:editTextStyle">@style/Miui.EditText</item>
-			<item name="switchStyle">@style/Miui_switch_dark</item>
+		<item name="android:track">@drawable/switch_track_holo_dark_miui</item>
+        <item name="android:thumb">@drawable/switch_inner_holo_dark_miui</item>
+        <item name="android:textOn">O</item>
+        <item name="android:textOff">I</item>
+        <item name="android:thumbTextPadding">12dip</item>
+        <item name="android:switchMinWidth">64dip</item>
+        <item name="android:switchPadding">16dip</item>
     </style>
-    <style name="Theme.Miui.Light" parent="Theme.Sherlock.Light.DarkActionBar">
+    <style name="Theme.Miui.Light" parent="android:Theme.Holo.Light.DarkActionBar">
 
         <item name="android:buttonStyle">@style/MiuiButton_Light</item>
         <item name="android:buttonStyleSmall">@style/MiuiButton_Light_Small</item>
@@ -32,10 +30,16 @@
         <item name="android:listChoiceIndicatorSingle">@drawable/btn_radio_holo_light_miui</item>
 		<item name="android:spinnerStyle">@style/Miui.Spinner.Light</item>
 		<item name="android:editTextStyle">@style/Miui.EditText.Light</item>
-		<item name="switchStyle">@style/Miui_switch_light</item>
+		<item name="android:track">@drawable/switch_track_holo_light_miui</item>
+        <item name="android:thumb">@drawable/switch_inner_holo_light_miui</item>
+        <item name="android:textOn">O</item>
+        <item name="android:textOff">I</item>
+        <item name="android:thumbTextPadding">12dip</item>
+        <item name="android:switchMinWidth">64dip</item>
+        <item name="android:switchPadding">16dip</item>
     </style>
 	
-    <style name="Theme.Sense5" parent="Theme.Sherlock">
+    <style name="Theme.Sense5" parent="android:Theme.Holo">
 
         <item name="android:buttonStyle">@style/Sense5_Button</item>
         <item name="android:buttonStyleSmall">@style/Sense5_Button_Small</item>
@@ -45,9 +49,10 @@
         <item name="android:listChoiceIndicatorSingle">@drawable/btn_radio_sense5</item>
 		<item name="android:spinnerStyle">@style/Sense5_Spinner</item>
 		<item name="android:editTextStyle">@style/Sense5_EditText</item>
-		<item name="switchStyle">@style/Sense5_switch</item>
+		<item name="android:track">@drawable/switch_track_sense5</item>
+        <item name="android:thumb">@drawable/switch_inner_sense5</item>
 	</style>
-    <style name="Theme.Light.Sense5" parent="Theme.Sherlock.Light.DarkActionBar">
+    <style name="Theme.Light.Sense5" parent="android:Theme.Holo.Light.DarkActionBar">
 
         <item name="android:buttonStyle">@style/Sense5_Button_Light</item>
         <item name="android:buttonStyleSmall">@style/Sense5_Button_Small_Light</item>
@@ -57,7 +62,8 @@
         <item name="android:listChoiceIndicatorSingle">@drawable/btn_radio_light_sense5</item>
 		<item name="android:spinnerStyle">@style/Sense5_Spinner_Light</item>
 		<item name="android:editTextStyle">@style/Sense5_EditText_Light</item>
-		<item name="switchStyle">@style/Sense5_switch_light</item>
+		<item name="android:track">@drawable/switch_track_light_sense5</item>
+        <item name="android:thumb">@drawable/switch_inner_light_sense5</item>
 	</style>
 	
 </resources>

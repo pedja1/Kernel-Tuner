@@ -21,6 +21,7 @@ package rs.pedjaapps.KernelTuner.ui;
 
 import android.widget.*;
 
+import android.app.Activity;
 import android.app.AlertDialog;
 import android.app.ProgressDialog;
 import android.content.DialogInterface;
@@ -31,10 +32,9 @@ import android.os.Bundle;
 import android.preference.PreferenceManager;
 import android.util.Log;
 import android.view.Gravity;
+import android.view.MenuItem;
 import android.view.View;
 import android.view.Window;
-import com.actionbarsherlock.app.SherlockActivity;
-import com.actionbarsherlock.view.MenuItem;
 import com.google.ads.AdRequest;
 import com.google.ads.AdView;
 import com.stericson.RootTools.RootTools;
@@ -54,7 +54,7 @@ import rs.pedjaapps.KernelTuner.tools.Tools;
 
 
 
-public class SysCtl extends SherlockActivity
+public class SysCtl extends Activity
 {
 	GridView sysListView;
 	SysCtlAdapter sysAdapter;
@@ -77,7 +77,7 @@ public class SysCtl extends SherlockActivity
 		requestWindowFeature(Window.FEATURE_INDETERMINATE_PROGRESS);
 		setContentView(R.layout.sysctl);
 		
-		getSupportActionBar().setDisplayHomeAsUpEnabled(true);
+		getActionBar().setDisplayHomeAsUpEnabled(true);
 		/**
 		 * Load ads if enabled in settings*/
 		final boolean ads = preferences.getBoolean("ads", true);

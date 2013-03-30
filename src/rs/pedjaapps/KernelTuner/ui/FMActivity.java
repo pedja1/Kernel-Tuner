@@ -18,11 +18,14 @@
  */
 package rs.pedjaapps.KernelTuner.ui;
 
+import android.app.Activity;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.os.Environment;
 import android.preference.PreferenceManager;
+import android.view.Menu;
+import android.view.MenuItem;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.GridView;
@@ -32,18 +35,14 @@ import java.util.Collections;
 import java.util.Comparator;
 import java.util.List;
 
-import com.actionbarsherlock.app.SherlockActivity;
-import com.actionbarsherlock.view.Menu;
-import com.actionbarsherlock.view.MenuItem;
 
 import rs.pedjaapps.KernelTuner.R;
 import rs.pedjaapps.KernelTuner.entry.FMEntry;
 import rs.pedjaapps.KernelTuner.helpers.FMAdapter;
 import android.content.Context;
 import rs.pedjaapps.KernelTuner.tools.Tools;
-import javax.crypto.NullCipher;
 
-public class FMActivity extends SherlockActivity
+public class FMActivity extends Activity
 {
 	List<FMEntry> e;
 	String path;
@@ -74,7 +73,7 @@ public class FMActivity extends SherlockActivity
 			fAdapter.add(entry);
 		}
 
-		getSupportActionBar().setTitle(path);
+		getActionBar().setTitle(path);
 		fListView.setOnItemClickListener(new AdapterView.OnItemClickListener(){
 
 
@@ -92,7 +91,7 @@ public class FMActivity extends SherlockActivity
 						}
 					}
 					fAdapter.notifyDataSetChanged();
-					getSupportActionBar().setTitle(path);
+					getActionBar().setTitle(path);
 				}
 
 			});
@@ -156,7 +155,7 @@ public class FMActivity extends SherlockActivity
 				fAdapter.add(entry);
 			}
 			fAdapter.notifyDataSetChanged();
-			getSupportActionBar().setTitle(path);
+			getActionBar().setTitle(path);
 		}
 	}
 	

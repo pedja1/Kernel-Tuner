@@ -18,14 +18,14 @@
 */
 package rs.pedjaapps.KernelTuner.ui;
 
+import android.app.Activity;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.preference.PreferenceManager;
+import android.view.Menu;
+import android.view.MenuItem;
 import android.widget.ListView;
-import com.actionbarsherlock.app.SherlockActivity;
-import com.actionbarsherlock.view.Menu;
-import com.actionbarsherlock.view.MenuItem;
 import java.util.ArrayList;
 import java.util.List;
 import rs.pedjaapps.KernelTuner.R;
@@ -34,7 +34,7 @@ import rs.pedjaapps.KernelTuner.helpers.ChangelogAdapter;
 import rs.pedjaapps.KernelTuner.tools.Tools;
 import android.net.Uri;
 
-public class Changelog extends SherlockActivity
+public class Changelog extends Activity
 {
 	@Override
 	public void onCreate(Bundle savedInstanceState)
@@ -104,8 +104,7 @@ public class Changelog extends SherlockActivity
 	}
 
 	@Override
-	public boolean onOptionsItemSelected(
-		com.actionbarsherlock.view.MenuItem item) {
+	public boolean onOptionsItemSelected(MenuItem item) {
 		switch (item.getItemId()) {
 			case android.R.id.home:
 				Intent intent = new Intent(this, KernelTuner.class);

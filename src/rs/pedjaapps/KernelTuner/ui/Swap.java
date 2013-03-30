@@ -26,17 +26,15 @@ import android.util.*;
 import android.view.*;
 import android.widget.*;
 import android.widget.AdapterView.*;
-import com.actionbarsherlock.app.*;
 import java.io.*;
 import java.util.*;
 
 import android.view.View.OnClickListener;
-import com.actionbarsherlock.app.ActionBar;
 import java.lang.Process;
 import rs.pedjaapps.KernelTuner.R;
 import rs.pedjaapps.KernelTuner.tools.Tools;
 
-public class Swap extends SherlockActivity
+public class Swap extends Activity
 {
 
 
@@ -285,7 +283,7 @@ public class Swap extends SherlockActivity
 		setContentView(R.layout.swap);
 		
 		
-		ActionBar actionBar = getSupportActionBar();
+		ActionBar actionBar = getActionBar();
 		actionBar.setDisplayHomeAsUpEnabled(true);
 		this.getWindow().setSoftInputMode(WindowManager.LayoutParams.SOFT_INPUT_STATE_ALWAYS_HIDDEN); 
 
@@ -594,7 +592,7 @@ public class Swap extends SherlockActivity
 
 	}
     @Override
-	public boolean onOptionsItemSelected(com.actionbarsherlock.view.MenuItem item) {
+	public boolean onOptionsItemSelected(MenuItem item) {
 	    switch (item.getItemId()) {
 	        case android.R.id.home:
 	            // app icon in action bar clicked; go home

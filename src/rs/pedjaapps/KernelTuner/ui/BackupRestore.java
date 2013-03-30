@@ -18,10 +18,10 @@
 */
 package rs.pedjaapps.KernelTuner.ui;
 
-
-
 import java.io.*;
 
+import android.app.ActionBar;
+import android.app.Activity;
 import android.app.AlertDialog;
 import android.app.ProgressDialog;
 import android.content.Context;
@@ -32,11 +32,10 @@ import android.os.AsyncTask;
 import android.os.Bundle;
 import android.os.Environment;
 import android.preference.PreferenceManager;
+import android.view.MenuItem;
 import android.view.View;
 import android.widget.*;
 
-import com.actionbarsherlock.app.ActionBar;
-import com.actionbarsherlock.app.SherlockActivity;
 import java.nio.channels.FileChannel;
 import javax.xml.parsers.DocumentBuilder;
 import javax.xml.parsers.DocumentBuilderFactory;
@@ -49,7 +48,7 @@ import rs.pedjaapps.KernelTuner.ui.BackupRestore;
 import rs.pedjaapps.KernelTuner.R;
 import rs.pedjaapps.KernelTuner.tools.Tools;
 
-public class BackupRestore extends SherlockActivity
+public class BackupRestore extends Activity
  {
 
 	
@@ -170,7 +169,7 @@ public class BackupRestore extends SherlockActivity
 		setTheme(Tools.getPreferedTheme(them));
 		
 		setContentView(R.layout.backup_restore);
-		ActionBar actionBar = getSupportActionBar();
+		ActionBar actionBar = getActionBar();
 		actionBar.setDisplayHomeAsUpEnabled(true);
 		Button backup = (Button) findViewById(R.id.backup);
 		Button restore = (Button) findViewById(R.id.restore);
@@ -272,7 +271,7 @@ public class BackupRestore extends SherlockActivity
 		}
 	
 	@Override
-	public boolean onOptionsItemSelected(com.actionbarsherlock.view.MenuItem item) {
+	public boolean onOptionsItemSelected(MenuItem item) {
 	    switch (item.getItemId()) {
 	        case android.R.id.home:
 	            // app icon in action bar clicked; go home

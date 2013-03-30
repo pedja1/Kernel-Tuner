@@ -18,6 +18,8 @@
 */
 package rs.pedjaapps.KernelTuner.ui;
 
+import android.app.ActionBar;
+import android.app.Activity;
 import android.app.AlertDialog;
 import android.app.ProgressDialog;
 import android.content.DialogInterface;
@@ -26,13 +28,12 @@ import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.preference.PreferenceManager;
 import android.view.Gravity;
+import android.view.MenuItem;
 import android.view.View;
 import android.view.View.OnClickListener;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ListView;
-import com.actionbarsherlock.app.ActionBar;
-import com.actionbarsherlock.app.SherlockActivity;
 import com.google.ads.AdRequest;
 import com.google.ads.AdView;
 import java.io.File;
@@ -48,7 +49,7 @@ import rs.pedjaapps.KernelTuner.helpers.VoltageAdapter;
 import rs.pedjaapps.KernelTuner.tools.ChangeVoltage;
 import rs.pedjaapps.KernelTuner.tools.Tools;
 
-public class VoltageActivity extends SherlockActivity
+public class VoltageActivity extends Activity
 {
 
 	private static VoltageAdapter voltageAdapter ;
@@ -72,7 +73,7 @@ boolean isLight;
 		setContentView(R.layout.voltage);
 		
 		
-		ActionBar actionBar = getSupportActionBar();
+		ActionBar actionBar = getActionBar();
 		actionBar.setDisplayHomeAsUpEnabled(true);
 
 		SharedPreferences sharedPrefs = PreferenceManager.getDefaultSharedPreferences(this);
@@ -342,7 +343,7 @@ boolean isLight;
 	}
 	
 	@Override
-	public boolean onOptionsItemSelected(com.actionbarsherlock.view.MenuItem item) {
+	public boolean onOptionsItemSelected(MenuItem item) {
 	    switch (item.getItemId()) {
 	        case android.R.id.home:
 	            // app icon in action bar clicked; go home

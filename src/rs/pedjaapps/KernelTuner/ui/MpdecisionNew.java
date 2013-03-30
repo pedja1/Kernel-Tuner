@@ -27,15 +27,10 @@ import android.view.*;
 import android.widget.*;
 import android.widget.AdapterView.*;
 import android.widget.CompoundButton.*;
-import com.actionbarsherlock.app.*;
 import com.google.ads.*;
 import java.io.*;
 import java.util.*;
 import rs.pedjaapps.KernelTuner.helpers.*;
-import de.ankri.views.Switch;
-import com.actionbarsherlock.app.ActionBar;
-import com.actionbarsherlock.view.Menu;
-import com.actionbarsherlock.view.MenuInflater;
 import java.lang.Process;
 
 import org.apache.commons.io.FileUtils;
@@ -44,7 +39,7 @@ import rs.pedjaapps.KernelTuner.R;
 import rs.pedjaapps.KernelTuner.Constants;
 import rs.pedjaapps.KernelTuner.tools.Tools;
 
-public class MpdecisionNew extends SherlockActivity
+public class MpdecisionNew extends Activity
 {
 
 	
@@ -192,7 +187,7 @@ public class MpdecisionNew extends SherlockActivity
 		
 		String theme = preferences.getString("theme", "light");
 		
-		setTheme(Tools.getPreferedThemeSwitchCompat(theme));
+		setTheme(Tools.getPreferedTheme(theme));
 		super.onCreate(savedInstanceState);
 
 		setContentView(R.layout.mpdecision_new);
@@ -209,7 +204,7 @@ public class MpdecisionNew extends SherlockActivity
 			freqNames.add(f.getFreqName());
 		}
 		
-		ActionBar actionBar = getSupportActionBar();
+		ActionBar actionBar = getActionBar();
 		actionBar.setDisplayHomeAsUpEnabled(true);
 		boolean ads = preferences.getBoolean("ads", true);
 		if (ads == true)
@@ -453,12 +448,12 @@ public class MpdecisionNew extends SherlockActivity
 	
 	@Override
 	public boolean onCreateOptionsMenu(Menu menu) {
-		MenuInflater inflater = getSupportMenuInflater();
+		MenuInflater inflater = getMenuInflater();
 		inflater.inflate(R.menu.misc_tweaks_options_menu, menu);
 		return super.onCreateOptionsMenu(menu);
 }
 	@Override
-	public boolean onOptionsItemSelected(com.actionbarsherlock.view.MenuItem item) {
+	public boolean onOptionsItemSelected(MenuItem item) {
 	    switch (item.getItemId()) {
 	        case android.R.id.home:
 	           

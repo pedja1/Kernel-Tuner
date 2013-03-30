@@ -18,7 +18,6 @@
 */
 package rs.pedjaapps.KernelTuner.ui;
 
-import android.annotation.TargetApi;
 import android.app.*;
 import android.app.ActivityManager.*;
 import android.content.*;
@@ -28,11 +27,7 @@ import android.preference.Preference.*;
 import android.view.MenuItem;
 import rs.pedjaapps.KernelTuner.*;
 import rs.pedjaapps.KernelTuner.services.*;
-import rs.pedjaapps.KernelTuner.tools.Tools;
 
-
-
-@TargetApi(Build.VERSION_CODES.HONEYCOMB)
 public class PreferencesFragment extends PreferenceFragment
 {
 
@@ -59,8 +54,6 @@ public class PreferencesFragment extends PreferenceFragment
 	private ListPreference formatPrefList;
 	private ListPreference bufferPrefList;
 	private ListPreference textsizePrefList;
-	private PreferenceScreen systemInfo;
-	private PreferenceScreen container;
 
 
 	@Override

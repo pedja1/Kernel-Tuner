@@ -26,22 +26,17 @@ import android.view.*;
 import android.view.ContextMenu.*;
 import android.widget.*;
 import android.widget.AdapterView.*;
-import com.actionbarsherlock.app.*;
 import java.io.*;
 import java.util.*;
 import rs.pedjaapps.KernelTuner.entry.*;
 import rs.pedjaapps.KernelTuner.helpers.*;
 import rs.pedjaapps.KernelTuner.tools.*;
-
-import com.actionbarsherlock.app.ActionBar;
-import com.actionbarsherlock.view.Menu;
-import com.actionbarsherlock.view.MenuItem;
 import java.lang.Process;
 import rs.pedjaapps.KernelTuner.R;
 
 
 
-public class Profiles extends SherlockActivity
+public class Profiles extends Activity
 {
 	private String _cpu0max;
 	private String _cpu1max;
@@ -260,7 +255,7 @@ catch (InterruptedException e1)
 		
 		ImageView add = (ImageView)findViewById(R.id.add);
 		add.setImageResource(isLight ? R.drawable.add_light : R.drawable.add_dark);
-		ActionBar actionBar = getSupportActionBar();
+		ActionBar actionBar = getActionBar();
 		actionBar.setDisplayHomeAsUpEnabled(true);
 		
 		db = new DatabaseHandler(this);

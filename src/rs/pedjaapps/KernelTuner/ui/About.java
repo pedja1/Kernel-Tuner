@@ -18,9 +18,7 @@
 */
 package rs.pedjaapps.KernelTuner.ui;
 
-
-import com.actionbarsherlock.app.SherlockActivity;
-
+import android.app.Activity;
 import android.content.*;
 import android.content.pm.*;
 import android.net.*;
@@ -34,7 +32,7 @@ import rs.pedjaapps.KernelTuner.tools.Tools;
 
 
 
-public class About extends SherlockActivity
+public class About extends Activity
 {
 	@Override
 	public void onCreate(Bundle savedInstanceState)
@@ -42,7 +40,7 @@ public class About extends SherlockActivity
 		SharedPreferences preferences = PreferenceManager.getDefaultSharedPreferences(this);
 		String theme = preferences.getString("theme", "light");
 		
-		setTheme(Tools.getPreferedTheme(theme));
+		setTheme(Tools.getPreferedThemeTranslucent(theme));
 		
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.about);

@@ -19,13 +19,14 @@
 package rs.pedjaapps.KernelTuner.ui;
 
 
+import android.app.ActionBar;
+import android.app.Activity;
 import android.content.*;
 import android.graphics.*;
 import android.os.*;
 import android.preference.*;
 import android.view.*;
 import android.widget.*;
-import com.actionbarsherlock.app.*;
 import com.google.ads.*;
 import java.util.*;
 import org.achartengine.*;
@@ -39,7 +40,7 @@ import android.view.ViewGroup.LayoutParams;
 import rs.pedjaapps.KernelTuner.R;
 import rs.pedjaapps.KernelTuner.tools.Tools;
 
-public class TISActivityChart extends SherlockActivity
+public class TISActivityChart extends Activity
 {
 
 	private List<TimesEntry> times;
@@ -104,7 +105,7 @@ public class TISActivityChart extends SherlockActivity
 
 		setContentView(R.layout.tis_chart);
 		
-		ActionBar actionBar = getSupportActionBar();
+		ActionBar actionBar = getActionBar();
 		actionBar.setDisplayHomeAsUpEnabled(true);
 		mRenderer.setApplyBackgroundColor(true);
 	    mRenderer.setBackgroundColor(Color.argb(100, 50, 50, 50));
@@ -209,7 +210,7 @@ public class TISActivityChart extends SherlockActivity
 	}
 	
 	@Override
-	public boolean onOptionsItemSelected(com.actionbarsherlock.view.MenuItem item) {
+	public boolean onOptionsItemSelected(MenuItem item) {
 	    switch (item.getItemId()) {
 	        case android.R.id.home:
 	            // app icon in action bar clicked; go home

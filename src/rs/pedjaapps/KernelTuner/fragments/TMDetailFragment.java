@@ -1,9 +1,7 @@
 package rs.pedjaapps.KernelTuner.fragments;
 
-import android.content.Context;
-import android.content.DialogInterface;
+import android.app.Fragment;
 import android.os.Bundle;
-import android.support.v4.app.Fragment;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -14,8 +12,6 @@ import android.widget.TextView;
 import java.io.File;
 import org.apache.commons.io.FileUtils;
 import rs.pedjaapps.KernelTuner.R;
-import rs.pedjaapps.KernelTuner.ui.TaskManager;
-import com.actionbarsherlock.app.SherlockFragment;
 import rs.pedjaapps.KernelTuner.tools.Tools;
 import android.graphics.Color;
 import com.stericson.RootTools.execution.CommandCapture;
@@ -27,7 +23,7 @@ import com.stericson.RootTools.RootTools;
  * either contained in a {@link processListActivity} in two-pane mode (on
  * tablets) or a {@link processDetailActivity} on handsets.
  */
-public class TMDetailFragment extends SherlockFragment
+public class TMDetailFragment extends Fragment
 {
 	/**
 	 * The fragment argument representing the item ID that this fragment
@@ -72,9 +68,9 @@ public class TMDetailFragment extends SherlockFragment
 				Log.e("", e.getMessage());
 			}
 		}
-		getSherlockActivity().getSupportActionBar().setSubtitle("PID: "+TMListFragment.tmAdapter.getItem(getArguments().getInt(ARG_ITEM_ID)).getPid());
-		getSherlockActivity().getSupportActionBar().setTitle(TMListFragment.tmAdapter.getItem(getArguments().getInt(ARG_ITEM_ID)).getName());
-		getSherlockActivity().getSupportActionBar().setIcon(TMListFragment.tmAdapter.getItem(getArguments().getInt(ARG_ITEM_ID)).getIcon());
+		getActivity().getActionBar().setSubtitle("PID: "+TMListFragment.tmAdapter.getItem(getArguments().getInt(ARG_ITEM_ID)).getPid());
+		getActivity().getActionBar().setTitle(TMListFragment.tmAdapter.getItem(getArguments().getInt(ARG_ITEM_ID)).getName());
+		getActivity().getActionBar().setIcon(TMListFragment.tmAdapter.getItem(getArguments().getInt(ARG_ITEM_ID)).getIcon());
 	}
 
 	@Override

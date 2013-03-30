@@ -18,6 +18,8 @@
 */
 package rs.pedjaapps.KernelTuner.ui;
 
+import android.app.ActionBar;
+import android.app.Activity;
 import android.app.ProgressDialog;
 import android.content.Intent;
 import android.content.SharedPreferences;
@@ -28,16 +30,14 @@ import android.os.Bundle;
 import android.os.Environment;
 import android.os.StatFs;
 import android.preference.PreferenceManager;
+import android.view.MenuItem;
 import android.view.View;
 import android.widget.CompoundButton.OnCheckedChangeListener;
 import android.widget.*;
 
-import com.actionbarsherlock.app.ActionBar;
-import com.actionbarsherlock.app.SherlockActivity;
 import com.google.ads.AdRequest;
 import com.google.ads.AdView;
 
-import de.ankri.views.Switch;
 
 import java.io.File;
 import java.text.DecimalFormat;
@@ -56,7 +56,7 @@ import rs.pedjaapps.KernelTuner.ui.SDScannerActivity;
 import rs.pedjaapps.KernelTuner.ui.SDScannerConfigActivity;
 import rs.pedjaapps.KernelTuner.tools.Tools;
 
-public class SDScannerConfigActivity extends SherlockActivity
+public class SDScannerConfigActivity extends Activity
 {
 
 	private Switch sw;
@@ -92,17 +92,17 @@ public class SDScannerConfigActivity extends SherlockActivity
 		
 		if (theme.equals("light")) 
 		{
-			setTheme(R.style.SwitchCompatAndSherlockLight);
+			setTheme(android.R.style.Theme_Holo_Light);
 			labelColor = Color.BLACK;
 		} 
 		else if (theme.equals("dark")) 
 		{
-			setTheme(R.style.SwitchCompatAndSherlock);
+			setTheme(android.R.style.Theme_Holo);
 			labelColor = Color.WHITE;
 		} 
 		else if (theme.equals("light_dark_action_bar")) 
 		{
-			setTheme(R.style.SwitchCompatAndSherlockLightDark);
+			setTheme(android.R.style.Theme_Holo_Light_DarkActionBar);
 			labelColor = Color.BLACK;
 		}
 		else if (theme.equals("miui_light")) 
@@ -133,7 +133,7 @@ public class SDScannerConfigActivity extends SherlockActivity
 			Toast.makeText(this, "External Storage not mounted", Toast.LENGTH_LONG).show();
 		}
 		setContentView(R.layout.sd_scanner_config);
-		ActionBar actionBar = getSupportActionBar();
+		ActionBar actionBar = getActionBar();
 		actionBar.setDisplayHomeAsUpEnabled(true);
 		final SharedPreferences.Editor editor = preferences.edit();
 		boolean ads = preferences.getBoolean("ads", true);
@@ -263,7 +263,7 @@ public class SDScannerConfigActivity extends SherlockActivity
 	  }
 
 	@Override
-	public boolean onOptionsItemSelected(com.actionbarsherlock.view.MenuItem item) {
+	public boolean onOptionsItemSelected(MenuItem item) {
 	    switch (item.getItemId()) {
 	        case android.R.id.home:
 	            Intent intent = new Intent(this, KernelTuner.class);

@@ -20,6 +20,7 @@ package rs.pedjaapps.KernelTuner.ui;
 
 import java.io.*;
 
+import android.app.Activity;
 import android.app.AlertDialog;
 import android.app.ProgressDialog;
 import android.content.Context;
@@ -33,15 +34,14 @@ import android.preference.PreferenceManager;
 import android.util.Log;
 import android.view.Gravity;
 import android.view.LayoutInflater;
+import android.view.Menu;
+import android.view.MenuItem;
 import android.view.View;
 import android.view.Window;
 import android.widget.AdapterView;
 import android.widget.EditText;
 import android.widget.ListView;
 import android.widget.Toast;
-import com.actionbarsherlock.app.SherlockActivity;
-import com.actionbarsherlock.view.Menu;
-import com.actionbarsherlock.view.MenuItem;
 import com.google.ads.AdRequest;
 import com.google.ads.AdView;
 import com.stericson.RootTools.RootTools;
@@ -57,7 +57,7 @@ import rs.pedjaapps.KernelTuner.tools.Tools;
 
 
 
-public class BuildpropEditor extends SherlockActivity
+public class BuildpropEditor extends Activity
 {
 	
 	ListView bListView;
@@ -78,7 +78,7 @@ public class BuildpropEditor extends SherlockActivity
 		super.onCreate(savedInstanceState);
 		requestWindowFeature(Window.FEATURE_INDETERMINATE_PROGRESS);
 		setContentView(R.layout.build);
-		getSupportActionBar().setDisplayHomeAsUpEnabled(true);
+		getActionBar().setDisplayHomeAsUpEnabled(true);
 		/**
 		 * Load ads if enabled in settings*/
 		final boolean ads = preferences.getBoolean("ads", true);
@@ -268,8 +268,7 @@ public class BuildpropEditor extends SherlockActivity
 	}
 
 	@Override
-	public boolean onOptionsItemSelected(
-		com.actionbarsherlock.view.MenuItem item) {
+	public boolean onOptionsItemSelected(MenuItem item) {
 		switch (item.getItemId()) {
 			case android.R.id.home:
 				Intent intent = new Intent(this, KernelTuner.class);

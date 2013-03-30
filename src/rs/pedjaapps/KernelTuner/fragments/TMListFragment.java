@@ -1,46 +1,19 @@
 package rs.pedjaapps.KernelTuner.fragments;
 
-import java.io.BufferedReader;
-import java.io.File;
-import java.io.InputStream;
-import java.io.InputStreamReader;
-import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.Collections;
-import java.util.Comparator;
 import java.util.List;
-
-import org.apache.commons.io.FileUtils;
-
-import com.google.ads.AdRequest;
-import com.google.ads.AdView;
-
 import rs.pedjaapps.KernelTuner.R;
 import rs.pedjaapps.KernelTuner.entry.TMEntry;
 import rs.pedjaapps.KernelTuner.helpers.TMAdapter;
-import rs.pedjaapps.KernelTuner.tools.Tools;
 import android.app.Activity;
-import android.app.AlertDialog;
+import android.app.ListFragment;
 import android.app.ProgressDialog;
 import android.content.SharedPreferences;
-import android.content.pm.ApplicationInfo;
 import android.content.pm.PackageManager;
 import android.graphics.drawable.Drawable;
-import android.os.AsyncTask;
 import android.os.Bundle;
 import android.preference.PreferenceManager;
-import android.support.v4.app.ListFragment;
-import android.util.Log;
-import android.view.LayoutInflater;
 import android.view.View;
-import android.widget.AdapterView;
-import android.widget.ArrayAdapter;
-import android.widget.CheckBox;
-import android.widget.CompoundButton;
 import android.widget.ListView;
-import android.widget.ProgressBar;
-import rs.pedjaapps.KernelTuner.ui.TaskManager;
-import android.widget.LinearLayout;
 
 
 /**
@@ -114,11 +87,6 @@ public class TMListFragment extends ListFragment {
 	@Override
 	public void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
-
-		// TODO: replace with a real list adapter.
-		/*setListAdapter(new ArrayAdapter<DummyContent.DummyItem>(getActivity(),
-				android.R.layout.simple_list_item_activated_1,
-				android.R.id.text1, DummyContent.ITEMS));*/
 		pm = getActivity().getPackageManager();
 		preferences = PreferenceManager.getDefaultSharedPreferences(getActivity());
     	tmAdapter = new TMAdapter(getActivity(), R.layout.tm_row);

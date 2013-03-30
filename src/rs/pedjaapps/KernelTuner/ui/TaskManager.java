@@ -29,6 +29,9 @@ import android.os.Bundle;
 import android.preference.PreferenceManager;
 import android.util.Log;
 import android.view.LayoutInflater;
+import android.view.Menu;
+import android.view.MenuInflater;
+import android.view.MenuItem;
 import android.view.View;
 import android.view.Window;
 import android.widget.CheckBox;
@@ -36,10 +39,6 @@ import android.widget.CompoundButton;
 import android.widget.ProgressBar;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
-import com.actionbarsherlock.app.SherlockFragmentActivity;
-import com.actionbarsherlock.view.Menu;
-import com.actionbarsherlock.view.MenuInflater;
-import com.actionbarsherlock.view.MenuItem;
 import com.google.ads.AdRequest;
 import com.google.ads.AdView;
 import java.io.BufferedReader;
@@ -57,9 +56,10 @@ import rs.pedjaapps.KernelTuner.entry.TMEntry;
 import rs.pedjaapps.KernelTuner.fragments.TMDetailFragment;
 import rs.pedjaapps.KernelTuner.fragments.TMListFragment;
 import rs.pedjaapps.KernelTuner.tools.Tools;
+import android.app.Activity;
 import android.app.ActivityManager;
 
-public class TaskManager extends SherlockFragmentActivity implements TMListFragment.Callbacks
+public class TaskManager extends Activity implements TMListFragment.Callbacks
 {
 	
 	
@@ -95,12 +95,12 @@ public class TaskManager extends SherlockFragmentActivity implements TMListFragm
 		requestWindowFeature(Window.FEATURE_INDETERMINATE_PROGRESS);
 		super.onCreate(savedInstanceState);
 		
-		getSupportActionBar().setDisplayHomeAsUpEnabled(true);
+		getActionBar().setDisplayHomeAsUpEnabled(true);
 		setContentView(R.layout.activity_tm_list);
 
-		getSupportActionBar().setTitle("Task Manager");
-		getSupportActionBar().setSubtitle(null);
-		getSupportActionBar().setIcon(R.drawable.tm);
+		getActionBar().setTitle("Task Manager");
+		getActionBar().setSubtitle(null);
+		getActionBar().setIcon(R.drawable.tm);
 		
 		View customNav = LayoutInflater.from(this).inflate(R.layout.ram_layout, null);
 
@@ -108,8 +108,8 @@ public class TaskManager extends SherlockFragmentActivity implements TMListFragm
 		((TextView)customNav.findViewById(R.id.total)).setText("Available: "+ getTotalRAM()+"MB");
 
         //Attach to the action bar
-        getSupportActionBar().setCustomView(customNav);
-        getSupportActionBar().setDisplayShowCustomEnabled(true);
+        getActionBar().setCustomView(customNav);
+        getActionBar().setDisplayShowCustomEnabled(true);
 		
 		if (findViewById(R.id.process_detail_container) != null) {
 			// The detail container view will be present only in the
@@ -120,7 +120,7 @@ public class TaskManager extends SherlockFragmentActivity implements TMListFragm
 
 			// In two-pane mode, list items should be given the
 			// 'activated' state when touched.
-			((TMListFragment) getSupportFragmentManager()
+			((TMListFragment) getFragmentManager()
 					.findFragmentById(R.id.process_list))
 					.setActivateOnItemClick(true);
 		}
@@ -146,7 +146,7 @@ public class TaskManager extends SherlockFragmentActivity implements TMListFragm
 			arguments.putInt(TMDetailFragment.ARG_ITEM_ID, id);
 			TMDetailFragment fragment = new TMDetailFragment();
 			fragment.setArguments(arguments);
-			getSupportFragmentManager().beginTransaction()
+			getFragmentManager().beginTransaction()
 					.replace(R.id.process_detail_container, fragment).commit();
 
 		} else {

@@ -19,6 +19,8 @@
 package rs.pedjaapps.KernelTuner.ui;
 
 
+import android.app.ActionBar;
+import android.app.Activity;
 import android.app.AlertDialog;
 import android.content.DialogInterface;
 import android.content.Intent;
@@ -27,14 +29,13 @@ import android.os.Bundle;
 import android.preference.PreferenceManager;
 import android.text.InputType;
 import android.view.Gravity;
+import android.view.MenuItem;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.AdapterView.OnItemClickListener;
 import android.widget.EditText;
 import android.widget.ListView;
 import android.widget.TextView;
-import com.actionbarsherlock.app.ActionBar;
-import com.actionbarsherlock.app.SherlockActivity;
 import com.google.ads.AdRequest;
 import com.google.ads.AdView;
 import java.io.BufferedReader;
@@ -52,7 +53,7 @@ import rs.pedjaapps.KernelTuner.tools.ChangeGovernorSettings;
 import android.content.Context;
 import rs.pedjaapps.KernelTuner.tools.Tools;
 
-public class GovernorActivity extends SherlockActivity
+public class GovernorActivity extends Activity
 {
 
 	private GovernorSettingsAdapter govAdapter ;
@@ -78,7 +79,7 @@ public class GovernorActivity extends SherlockActivity
 
 		setContentView(R.layout.governor_settings);
 		
-		ActionBar actionBar = getSupportActionBar();
+		ActionBar actionBar = getActionBar();
 		actionBar.setDisplayHomeAsUpEnabled(true);
 
 		boolean ads = preferences.getBoolean("ads", true);
@@ -243,7 +244,7 @@ public class GovernorActivity extends SherlockActivity
 	}
 	
 	@Override
-	public boolean onOptionsItemSelected(com.actionbarsherlock.view.MenuItem item) {
+	public boolean onOptionsItemSelected(MenuItem item) {
 	    switch (item.getItemId()) {
 	        case android.R.id.home:
 	            // app icon in action bar clicked; go home
