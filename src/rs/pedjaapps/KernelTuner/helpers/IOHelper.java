@@ -30,7 +30,6 @@ import java.util.List;
 import org.apache.commons.io.FileUtils;
 import rs.pedjaapps.KernelTuner.Constants;
 import rs.pedjaapps.KernelTuner.entry.TimesEntry;
-import rs.pedjaapps.KernelTuner.ui.OOM;
 
 public class IOHelper
 {
@@ -778,7 +777,7 @@ public class IOHelper
 	{
 		try
 		{
-			String temp = FileUtils.readFileToString(new File(Constants.CPU_TEMP_PATHS[/*getCpuTempPath()*/path])).trim();
+			String temp = FileUtils.readFileToString(new File(Constants.CPU_TEMP_PATHS[path])).trim();
 			if(temp.length()>2){
 				return temp.substring(0, temp.length()-(temp.length()-2));
 			}
