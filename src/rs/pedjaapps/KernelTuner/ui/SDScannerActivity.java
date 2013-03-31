@@ -251,7 +251,7 @@ public class SDScannerActivity extends Activity
 		@Override
 		protected void onProgressUpdate(String... values)
 		{
-			pd.setMessage("scanning...\n"+values[0]);
+			pd.setMessage(getResources().getString(R.string.sd_scanning)+values[0]);
 			super.onProgressUpdate();
 		}
 
@@ -285,7 +285,7 @@ public class SDScannerActivity extends Activity
 		
 			pd = new ProgressDialog(SDScannerActivity.this);
 			pd.setIndeterminate(true);
-			pd.setTitle("Please Wait...");
+			pd.setTitle(getResources().getString(R.string.sd_please_wait));
 			pd.setIcon(R.drawable.info);
 		pd.setOnCancelListener(new OnCancelListener(){
 

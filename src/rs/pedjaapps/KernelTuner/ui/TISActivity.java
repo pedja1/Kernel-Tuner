@@ -125,8 +125,7 @@ public class TISActivity extends Activity {
 		long totalTime = totalTime();
 		for (TimesEntry t : times)
 		{
-			entries.add(new TISEntry((t.getFreq()/1000)+"Mhz", Tools.msToHumanReadableTime2(t.getTime()), (t.getTime()*100/totalTime) + "%", (int)(t.getTime()*100/totalTime)));
-			System.out.println(Tools.msToHumanReadableTime2(t.getTime()));
+			entries.add(new TISEntry((t.getFreq()/1000)+getResources().getString(R.string.mhz), Tools.msToHumanReadableTime2(t.getTime()), (t.getTime()*100/totalTime) + "%", (int)(t.getTime()*100/totalTime)));
 		}
 
 

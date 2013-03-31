@@ -162,8 +162,8 @@ public class FMActivity extends Activity
 	@Override
 	public boolean onCreateOptionsMenu(Menu menu) {
 		
-		menu.add(0,0,0,"Select").setShowAsAction(MenuItem.SHOW_AS_ACTION_ALWAYS);
-		menu.add(0,1,1,"Cancel").setShowAsAction(MenuItem.SHOW_AS_ACTION_ALWAYS);
+		menu.add(0,0,0,getResources().getString(R.string.select)).setShowAsAction(MenuItem.SHOW_AS_ACTION_ALWAYS);
+		menu.add(0,1,1,getResources().getString(R.string.cancel)).setShowAsAction(MenuItem.SHOW_AS_ACTION_ALWAYS);
 		return super.onCreateOptionsMenu(menu);
 	
 	}

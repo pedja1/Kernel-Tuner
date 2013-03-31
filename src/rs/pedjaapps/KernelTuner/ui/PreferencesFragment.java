@@ -66,27 +66,27 @@ public class PreferencesFragment extends PreferenceFragment
         if ("application".equals(settings)) {
             addPreferencesFromResource(R.xml.settings_application);
 			app();
-			ab.setSubtitle("Application Settings");
+			ab.setSubtitle(getResources().getString(R.string.preferences_subtitle_genereal));
         } else if ("widget".equals(settings)) {
             addPreferencesFromResource(R.xml.settings_widget);
 			widget();
-			ab.setSubtitle("Widget Settings");
+			ab.setSubtitle(getResources().getString(R.string.preferences_subtitle_widget));
         } else if ("notification".equals(settings)) {
             addPreferencesFromResource(R.xml.settings_notification);
 			notif();
-			ab.setSubtitle("Notification Settings");
+			ab.setSubtitle(getResources().getString(R.string.preferences_subtitle_notification));
         } else if ("ui".equals(settings)) {
             addPreferencesFromResource(R.xml.settings_ui);
 			ui();
-			ab.setSubtitle("UI Settings");
+			ab.setSubtitle(getResources().getString(R.string.preferences_subtitle_ui));
         } else if ("logcat".equals(settings)) {
             addPreferencesFromResource(R.xml.settings_logcat);
 			logcat();
-			ab.setSubtitle("LogCat Settings");
+			ab.setSubtitle(getResources().getString(R.string.preferences_subtitle_logcat));
         } else if ("main".equals(settings)) {
             addPreferencesFromResource(R.xml.settings_main);
 			main();
-			ab.setSubtitle("Main Screen Settings");
+			ab.setSubtitle(getResources().getString(R.string.preferences_subtitle_main));
         }
 	}
 	

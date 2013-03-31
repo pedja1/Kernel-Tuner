@@ -911,8 +911,9 @@ public class MiscTweaks extends Activity {
 	}
 
 	private final void createSpinnerS2W() {
-		String[] MyStringAray = { "OFF", "ON with no backlight",
-				"ON with backlight" };
+		String[] MyStringAray = { getResources().getString(R.string.s2w_off), 
+				getResources().getString(R.string.s2w_on_no_bl),
+				getResources().getString(R.string.s2w_on) };
 
 		final Spinner spinner = (Spinner) findViewById(R.id.spinner2);
 		ArrayAdapter<String> spinnerArrayAdapter = new ArrayAdapter<String>(
@@ -938,16 +939,11 @@ public class MiscTweaks extends Activity {
 		});
 
 		if (s2w.equals("0")) {
-			int spinnerPosition = spinnerArrayAdapter.getPosition("OFF");
-			spinner.setSelection(spinnerPosition);
+			spinner.setSelection(0);
 		} else if (s2w.equals("1")) {
-			int spinnerPosition = spinnerArrayAdapter
-					.getPosition("ON with no backlight");
-			spinner.setSelection(spinnerPosition);
+			spinner.setSelection(1);
 		} else if (s2w.equals("2")) {
-			int spinnerPosition = spinnerArrayAdapter
-					.getPosition("ON with backlight");
-			spinner.setSelection(spinnerPosition);
+			spinner.setSelection(2);
 		}
 
 	}
@@ -1016,7 +1012,7 @@ public class MiscTweaks extends Activity {
 	}
 
 	private final void createNLT() {
-		String[] MyStringAray = { "Never", "App Default", "Custom" };
+		String[] MyStringAray = { getResources().getString(R.string.nlt_never), getResources().getString(R.string.nlt_default), getResources().getString(R.string.nlt_custom) };
 
 		final Spinner spinner = (Spinner) findViewById(R.id.spinner_nlt);
 		ArrayAdapter<String> spinnerArrayAdapter = new ArrayAdapter<String>(
@@ -1047,9 +1043,9 @@ public class MiscTweaks extends Activity {
 						AlertDialog.Builder builder = new AlertDialog.Builder(
 								MiscTweaks.this);
 
-						builder.setTitle("Notification LED Timeout");
+						builder.setTitle(getResources().getString(R.string.nlt_alert_title));
 
-						builder.setMessage("Set custom multiplier");
+						builder.setMessage(getResources().getString(R.string.nlt_alert_message));
 
 						builder.setIcon(R.drawable.ic_menu_cc);
 

@@ -18,13 +18,17 @@
 */
 package rs.pedjaapps.KernelTuner.tools;
 
+import android.content.Context;
 import android.os.AsyncTask;
 import com.stericson.RootTools.RootTools;
 import com.stericson.RootTools.execution.CommandCapture;
 
 public class Initd extends AsyncTask<String, Void, String>
 {
-
+	Context c;
+	public Initd(Context context){
+		c = context;
+	}
     String arch = Tools.getAbi();
 	@Override
 	protected String doInBackground(String... args)
@@ -34,15 +38,15 @@ public class Initd extends AsyncTask<String, Void, String>
 			System.out.println("Init.d: Writing init.d");
 		CommandCapture command = new CommandCapture(0, 
 	            "mount -o remount,rw /system\n",
-								  "/data/data/rs.pedjaapps.KernelTuner/files/cp-"+arch+" /data/data/rs.pedjaapps.KernelTuner/files/99ktcputweaks /system/etc/init.d",
+	            c.getFilesDir().getPath()+"/cp-"+arch+" /data/data/rs.pedjaapps.KernelTuner/files/99ktcputweaks /system/etc/init.d",
 	            "chmod 777 /system/etc/init.d/99ktcputweaks\n",
-								  "/data/data/rs.pedjaapps.KernelTuner/files/cp-"+arch+" /data/data/rs.pedjaapps.KernelTuner/files/99ktgputweaks /system/etc/init.d",
+	            c.getFilesDir().getPath()+"/cp-"+arch+" /data/data/rs.pedjaapps.KernelTuner/files/99ktgputweaks /system/etc/init.d",
 	            "chmod 777 /system/etc/init.d/99ktgputweaks\n",
-								  "/data/data/rs.pedjaapps.KernelTuner/files/cp-"+arch+" /data/data/rs.pedjaapps.KernelTuner/files/99ktmisctweaks /system/etc/init.d",
+	            c.getFilesDir().getPath()+"/cp-"+arch+" /data/data/rs.pedjaapps.KernelTuner/files/99ktmisctweaks /system/etc/init.d",
 	            "chmod 777 /system/etc/init.d/99ktmisctweaks\n",
-								  "/data/data/rs.pedjaapps.KernelTuner/files/cp-"+arch+" /data/data/rs.pedjaapps.KernelTuner/files/99ktvoltage /system/etc/init.d",
+	            c.getFilesDir().getPath()+"/cp-"+arch+" /data/data/rs.pedjaapps.KernelTuner/files/99ktvoltage /system/etc/init.d",
 	            "chmod 777 /system/etc/init.d/99ktvoltage\n",
-								  "/data/data/rs.pedjaapps.KernelTuner/files/cp-"+arch+" /data/data/rs.pedjaapps.KernelTuner/files/99ktsysctl /system/etc/init.d",
+	            c.getFilesDir().getPath()+"/cp-"+arch+" /data/data/rs.pedjaapps.KernelTuner/files/99ktsysctl /system/etc/init.d",
 				"chmod 777 /system/etc/init.d/99ktsysctl\n");
 			try{
 				RootTools.getShell(true).add(command).waitForFinish();

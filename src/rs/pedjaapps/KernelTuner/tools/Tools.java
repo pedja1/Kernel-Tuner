@@ -1022,7 +1022,7 @@ public class Tools
 
 		} catch (IOException ioe) {
 		}
-		new Initd().execute(new String[] { "apply" });
+		new Initd(c).execute(new String[] { "apply" });
 	}
 	
 }

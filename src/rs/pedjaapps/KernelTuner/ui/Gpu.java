@@ -223,8 +223,9 @@ private class changegpu extends AsyncTask<String, Void, Object>
 		}
 		TextView tv5 = (TextView)findViewById(R.id.textView5);
 		TextView tv2 = (TextView)findViewById(R.id.textView7);
-		tv5.setText((gpu3dcurent/1000000) + "Mhz");
-		tv2.setText((gpu2dcurent/1000000) + "Mhz");
+		String mhz = getResources().getString(R.string.mhz);
+		tv5.setText((gpu3dcurent/1000000) + mhz);
+		tv2.setText((gpu2dcurent/1000000) + mhz);
 		Button cancel = (Button)findViewById(R.id.cancel);
 		apply.setOnClickListener(new OnClickListener(){
 

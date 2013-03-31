@@ -80,7 +80,7 @@ public class BackupRestore extends Activity
 		protected void onPreExecute(){
 			pd = new ProgressDialog(BackupRestore.this);
 			pd.setIndeterminate(true);
-			pd.setTitle("Backing Up Application Settings");
+			pd.setTitle(getResources().getString(R.string.backing_up_settings));
 			pd.show();
 		}
 		
@@ -89,11 +89,11 @@ public class BackupRestore extends Activity
 		{
 			switch(values[0]){
 			case 0:
-				pd.setMessage("Backing up Database");
+				pd.setMessage(getResources().getString(R.string.backing_up_database));
 				pd.setProgress(1);
 				break;
 			case 1:
-				pd.setMessage("Backing up Shared Preferences");
+				pd.setMessage(getResources().getString(R.string.backing_up_preferences));
 				pd.setProgress(0);
 				break;
 			}
@@ -130,7 +130,7 @@ public class BackupRestore extends Activity
 		protected void onPreExecute(){
 			pd = new ProgressDialog(BackupRestore.this);
 			pd.setIndeterminate(true);
-			pd.setTitle("Restoring Application Settings");
+			pd.setTitle(getResources().getString(R.string.restoring_settings));
 			pd.show();
 		}
 		
@@ -139,11 +139,11 @@ public class BackupRestore extends Activity
 		{
 			switch(values[0]){
 			case 0:
-				pd.setMessage("Restoring Database");
+				pd.setMessage(getResources().getString(R.string.restoring_database));
 				pd.setProgress(1);
 				break;
 			case 1:
-				pd.setMessage("Restoring Shared Preferences");
+				pd.setMessage(getResources().getString(R.string.restoring_preferences));
 				pd.setProgress(0);
 				break;
 			}
@@ -153,7 +153,7 @@ public class BackupRestore extends Activity
 		@Override
 		protected void onPostExecute(String result) {
 			pd.cancel();
-			alert("Restore", prefRestoreMessage, dbRestoreMessage, "Restart Application for changes to take effect");
+			alert("Restore", prefRestoreMessage, dbRestoreMessage, getResources().getString(R.string.restart_note));
 			System.out.println(""+prefRestoreMessage);
 		}
 
@@ -184,7 +184,7 @@ public class BackupRestore extends Activity
 					new Backup().execute();
 				}
 				else{
-					Toast.makeText(BackupRestore.this, "Unable to write to external storage",
+					Toast.makeText(BackupRestore.this, getResources().getString(R.string.sd_write_error),
 							Toast.LENGTH_LONG).show();
 				}
 			}
@@ -200,7 +200,7 @@ public class BackupRestore extends Activity
 					new Restore().execute();
 				}
 				else{
-					Toast.makeText(BackupRestore.this, "Unable to read from external storage",
+					Toast.makeText(BackupRestore.this, getResources().getString(R.string.sd_read_error),
 							Toast.LENGTH_LONG).show();
 				}
 			}
@@ -230,7 +230,7 @@ public class BackupRestore extends Activity
 		    dst.close();
 		    fin.close();
 		    fout.close();
-		    prefBackupMessage = "Backup Successful";
+		    prefBackupMessage = getResources().getString(R.string.backup_success);
 		    //return true;
 		  } catch (FileNotFoundException e) {
 		    prefBackupMessage = e.getMessage();
@@ -259,7 +259,7 @@ public class BackupRestore extends Activity
 		    dst.close();
 		    fin.close();
 		    fout.close();
-		    dbBackupMessage = "Backup Successful";
+		    dbBackupMessage = getResources().getString(R.string.backup_success);
 		    //return true;
 		  } catch (FileNotFoundException e) {
 		    dbBackupMessage = e.getMessage();
@@ -303,7 +303,7 @@ public class BackupRestore extends Activity
 		    dst.close();
 		    fin.close();
 		    fout.close();
-		    dbRestoreMessage = "Restore Successful";
+		    dbRestoreMessage = getResources().getString(R.string.restore_success);
 		    //return true;
 		  } catch (FileNotFoundException e) {
 		    dbRestoreMessage = e.getMessage();
@@ -361,7 +361,7 @@ public class BackupRestore extends Activity
 		        
 		    editor.commit();
 
-		   prefRestoreMessage = "Restore Successful"; 
+		   prefRestoreMessage = getResources().getString(R.string.restore_success); 
 		    
 		    
 		  } catch (FileNotFoundException e) {
@@ -385,9 +385,9 @@ public class BackupRestore extends Activity
 
 		builder.setTitle(title);
 		StringBuilder strBuilder = new StringBuilder();
-		strBuilder.append("Shared Preferences - ");
+		strBuilder.append(getResources().getString(R.string.backup_alert_prefs_prefix)+" ");
 		strBuilder.append(prefMessage+"\n\n");
-		strBuilder.append("Database - ");
+		strBuilder.append(getResources().getString(R.string.backup_alert_database_prefix)+" ");
 		strBuilder.append(dbMessage+"\n\n");
 		strBuilder.append(restoreMessage);
 		builder.setMessage(strBuilder.toString());

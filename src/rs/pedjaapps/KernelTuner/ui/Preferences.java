@@ -53,7 +53,7 @@ public class Preferences extends PreferenceActivity
 		
 		ActionBar actionBar = getActionBar();
 		actionBar.setDisplayHomeAsUpEnabled(true);
-	    actionBar.setSubtitle("Application Preferences");
+	    actionBar.setSubtitle(getResources().getString(R.string.preferences_subtitle));
 
 	}
 	@Override

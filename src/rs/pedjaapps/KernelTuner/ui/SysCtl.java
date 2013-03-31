@@ -120,7 +120,7 @@ public class SysCtl extends Activity
 					final SysCtlEntry tmpEntry = sysAdapter.getItem(pos);
 					builder.setTitle(tmpEntry.getName());
 
-					builder.setMessage("Set new value!");
+					builder.setMessage(getResources().getString(R.string.set_new_value));
 
 					builder.setIcon(R.drawable.sysctl);
 					
@@ -235,40 +235,6 @@ public class SysCtl extends Activity
 			return entries;
 		}
 
-		/*@Override
-		protected void onProgressUpdate(SysCtlEntry... values)
-		{
-			if(values[0].getName().startsWith("kernel")){
-				if(kernel.isChecked()){
-					sysAdapter.add(values[0]);
-					sysAdapter.notifyDataSetChanged();
-				}
-			}
-			else if(values[0].getName().startsWith("vm")){
-				if(vm.isChecked()){
-					sysAdapter.add(values[0]);
-					sysAdapter.notifyDataSetChanged();
-				}
-			}
-			else if(values[0].getName().startsWith("fs")){
-				if(fs.isChecked()){
-					sysAdapter.add(values[0]);
-					sysAdapter.notifyDataSetChanged();
-				}
-			}
-			else if(values[0].getName().startsWith("net")){
-				if(net.isChecked()){
-					sysAdapter.add(values[0]);
-					sysAdapter.notifyDataSetChanged();
-				}
-			}
-			else {
-					sysAdapter.add(values[0]);
-					sysAdapter.notifyDataSetChanged();
-			}
-			super.onProgressUpdate();
-		}*/
-
 		@Override
 		protected void onPostExecute(List<SysCtlEntry> res)
 		{
@@ -316,7 +282,6 @@ public class SysCtl extends Activity
 		@Override
 		protected void onPreExecute()
 		{
-			//setProgressBarIndeterminateVisibility(true);
 			sysAdapter.clear();
 			loading.setVisibility(View.VISIBLE);
 		}

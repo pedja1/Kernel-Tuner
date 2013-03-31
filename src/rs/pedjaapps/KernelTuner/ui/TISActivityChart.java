@@ -183,7 +183,7 @@ public class TISActivityChart extends Activity
 		for (TimesEntry t : times)
 		{
 			
-			entries.add(new TISEntry((t.getFreq()/1000)+"Mhz", Tools.msToHumanReadableTime2(t.getTime()), (t.getTime()*100/totalTime) + "%", (int)(t.getTime()*100/totalTime)));
+			entries.add(new TISEntry((t.getFreq()/1000)+getResources().getString(R.string.mhz), Tools.msToHumanReadableTime2(t.getTime()), (t.getTime()*100/totalTime) + "%", (int)(t.getTime()*100/totalTime)));
 			mSeries.add((t.getFreq()/1000)+"Mhz(" + Tools.msToHumanReadableTime2(t.getTime())+")", t.getTime());
 	        SimpleSeriesRenderer renderer = new SimpleSeriesRenderer();
 	        renderer.setColor(COLORS[(mSeries.getItemCount() - 1) % COLORS.length]);

@@ -135,7 +135,7 @@ public class SDScannerActivityList extends Activity
 
 					builder.setTitle(entries.get(pos).getFileName());
 
-					builder.setMessage("Location: "+entries.get(pos).getPath()+"\nSize: "
+					builder.setMessage(getResources().getString(R.string.sd_alert_location)+" "+entries.get(pos).getPath()+"\n"+getResources().getString(R.string.sd_alert_location)+" "
 							+entries.get(pos).getHRsize());
 
 					builder.setIcon(R.drawable.ic_menu_cc);
@@ -144,7 +144,7 @@ public class SDScannerActivityList extends Activity
 						
 						
 					
-					builder.setPositiveButton("Scan Content", new DialogInterface.OnClickListener() {
+					builder.setPositiveButton(getResources().getString(R.string.sd_alert_scan), new DialogInterface.OnClickListener() {
 							@Override
 							public void onClick(DialogInterface dialog, int which)
 							{
@@ -156,7 +156,7 @@ public class SDScannerActivityList extends Activity
 							}
 						});
 					}
-					builder.setNegativeButton("Delete", new DialogInterface.OnClickListener() {
+					builder.setNegativeButton(getResources().getString(R.string.delete), new DialogInterface.OnClickListener() {
 						@Override
 						public void onClick(DialogInterface dialog, int which)
 						{
@@ -237,7 +237,7 @@ public class SDScannerActivityList extends Activity
 		@Override
 		protected void onProgressUpdate(String... values)
 		{
-			pd.setMessage("scanning...\n"+values[0]);
+			pd.setMessage(getResources().getString(R.string.sd_scanning)+values[0]);
 			super.onProgressUpdate();
 		}
 
@@ -263,7 +263,7 @@ public class SDScannerActivityList extends Activity
 		protected void onPreExecute(){
 			pd = new ProgressDialog(SDScannerActivityList.this);
 			pd.setIndeterminate(true);
-			pd.setTitle("Please Wait...");
+			pd.setTitle(getResources().getString(R.string.sd_please_wait));
 			pd.setIcon(R.drawable.info);
 		pd.setOnCancelListener(new OnCancelListener(){
 

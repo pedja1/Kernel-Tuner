@@ -112,7 +112,7 @@ public class AppReset
 		editor.remove("scroff");
 		editor.remove("scroff_single");
 		editor.commit();
-		new Initd().execute(new String[]{"rm"});
+		new Initd(context).execute(new String[]{"rm"});
 	}
 }	
 

@@ -19,7 +19,6 @@
 package rs.pedjaapps.KernelTuner.ui;
 
 import java.io.BufferedReader;
-import java.io.IOException;
 import java.io.InputStream;
 import java.io.InputStreamReader;
 import java.io.OutputStream;
@@ -51,7 +50,7 @@ public class Reboot extends Activity
             InputStream stderr = process.getErrorStream();
             InputStream stdout = process.getInputStream();
 
-            stdin.write(("/data/data/rs.pedjaapps.KernelTuner/files/reboot " + reboot + "\n").getBytes());
+            stdin.write((getFilesDir().getPath()+"/reboot " + reboot + "\n").getBytes());
             stdin.write("exit\n".getBytes());
             stdin.flush();
 

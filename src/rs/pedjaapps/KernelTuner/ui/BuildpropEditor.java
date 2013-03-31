@@ -144,8 +144,8 @@ public class BuildpropEditor extends Activity
 								osw.write(bp);
 								osw.flush();
 								osw.close();
-								CommandCapture command = new CommandCapture(0, "/data/data/rs.pedjaapps.KernelTuner/files/cp /system/build.prop /system/build.prop.bk",
-										"/data/data/rs.pedjaapps.KernelTuner/files/cp /data/data/rs.pedjaapps.KernelTuner/files/build.prop /system/build.prop",
+								CommandCapture command = new CommandCapture(0, getFilesDir().getPath()+"/cp /system/build.prop /system/build.prop.bk",
+										getFilesDir().getPath()+"/cp /data/data/rs.pedjaapps.KernelTuner/files/build.prop /system/build.prop",
 										"chmod 644 /system/build.prop");
 								try{
 		                        	RootTools.getShell(true).add(command).waitForFinish();
@@ -368,7 +368,7 @@ public class BuildpropEditor extends Activity
 		builder.setItems(items2, new DialogInterface.OnClickListener() {
 		    @Override
 			public void onClick(DialogInterface dialog, int item) {
-		    	CommandCapture command = new CommandCapture(0, "/data/data/rs.pedjaapps.KernelTuner/files/"+arch+"/cp "+ Environment.getExternalStorageDirectory().toString()+"/KernelTuner/build/"+items2[item]+" /system/build.prop",
+		    	CommandCapture command = new CommandCapture(0, getFilesDir().getPath()+"/"+arch+"/cp "+ Environment.getExternalStorageDirectory().toString()+"/KernelTuner/build/"+items2[item]+" /system/build.prop",
 		    			"chmod 644 /system/build.prop");
 				try{
 					RootTools.getShell(true).add(command).waitForFinish();

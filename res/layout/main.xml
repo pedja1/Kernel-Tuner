@@ -236,7 +236,8 @@
         android:id="@+id/ly2"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_above="@+id/ly3" >
+        android:layout_above="@+id/ly3"
+         >
 
         <Button
             android:id="@+id/button1"
@@ -501,7 +502,7 @@
                     android:layout_weight="1"
                     android:drawableTop="@drawable/main_log"
                     android:gravity="center|center_vertical"
-                    android:text="LogCat"
+                    android:text="@string/title_logcat"
 					android:singleLine="true"/>
 				
                 <Button

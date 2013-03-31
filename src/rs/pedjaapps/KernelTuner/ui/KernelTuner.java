@@ -396,7 +396,7 @@ public class KernelTuner extends Activity {
 			@Override
 			public boolean onLongClick(View arg0) {
 
-				infoDialog(R.drawable.gpu, "GPU" ,"GPU(Graphic Processing Unit) is used for rendering 2D and 3D graphic\nThis option allows you to change GPU clock speed(frequency)\nOnly devices with Adreno 220, 225, and 320 are supported at the moment",Constants.G_S_URL_PREFIX+"GPU", true);
+				infoDialog(R.drawable.gpu, getResources().getString(R.string.info_gpu_title) ,getResources().getString(R.string.info_gpu_text),Constants.G_S_URL_PREFIX+"GPU", true);
 				return true;
 			}
 
@@ -419,7 +419,7 @@ public class KernelTuner extends Activity {
 			@Override
 			public boolean onLongClick(View arg0) {
 
-				infoDialog(R.drawable.voltage, "Undervolting" ,"Allows you to set custom CPU voltage\nVoltage is managed on per frequency base(Each frequency step can be adjucted for specific votage)\nSome Qualcomm devices and most of the Tegra 3 devies are supported at the moment",Constants.G_S_URL_PREFIX+"undervolting cpu", true);
+				infoDialog(R.drawable.voltage, getResources().getString(R.string.info_voltage_title) ,getResources().getString(R.string.info_voltage_text),Constants.G_S_URL_PREFIX+"undervolting cpu", true);
 				return true;
 			}
 
@@ -450,7 +450,7 @@ public class KernelTuner extends Activity {
 			@Override
 			public boolean onLongClick(View arg0) {
 
-				infoDialog(R.drawable.ic_launcher, "CPU" ,"CPU(Central Processing Unit)\nThis option allows you to change CPU clock speed(frequency) and governor\nChanging frequency and governors is core-independent. Most devices supports this function",Constants.G_S_URL_PREFIX+"CPU", true);
+				infoDialog(R.drawable.ic_launcher, getResources().getString(R.string.info_cpu_title) ,getResources().getString(R.string.info_cpu_text),Constants.G_S_URL_PREFIX+"CPU", true);
 				return true;
 			}
 
@@ -534,7 +534,7 @@ public class KernelTuner extends Activity {
 			@Override
 			public boolean onLongClick(View arg0) {
 
-				infoDialog(R.drawable.times, "Times in State" ,"Displays time CPU has spent in each frequency",Constants.G_S_URL_PREFIX+"cpu times_in_state", true);
+				infoDialog(R.drawable.times, getResources().getString(R.string.info_tis_title) ,getResources().getString(R.string.info_tis_text),Constants.G_S_URL_PREFIX+"cpu times_in_state", true);
 				return true;
 			}
 
@@ -562,7 +562,7 @@ public class KernelTuner extends Activity {
 			@Override
 			public boolean onLongClick(View arg0) {
 
-				infoDialog(R.drawable.dual, "MP-Decision" ,"MP-Decision determins when to enable/disable CPU cores\n You can tune MP-Decision options here",Constants.G_S_URL_PREFIX+"mp-decision", true);
+				infoDialog(R.drawable.dual, getResources().getString(R.string.info_mpd_title) ,getResources().getString(R.string.info_mpd_text),Constants.G_S_URL_PREFIX+"mp-decision", true);
 				return true;
 			}
 
@@ -584,7 +584,7 @@ public class KernelTuner extends Activity {
 			@Override
 			public boolean onLongClick(View arg0) {
 
-				infoDialog(R.drawable.misc, "Misc Tweaks" ,"Contains various options for tweaking kernel including:\n\n    *Changing Capacitive buttons backlight\n    *Toggle Fastcharge mode\n    *Toggle vsync\n    *Change Color Depth\n    *Change Sweep2Wake\n    *...\n\nAll options are kernel dependend.","", false);
+				infoDialog(R.drawable.misc, getResources().getString(R.string.info_misc_title) ,getResources().getString(R.string.info_misc_text),"", false);
 				return true;
 			}
 
@@ -607,7 +607,7 @@ public class KernelTuner extends Activity {
 			@Override
 			public boolean onLongClick(View arg0) {
 
-				infoDialog(R.drawable.main_governor, "CPU Governor Settings" ,"Governor manages CPU frequency scalling\nYou can tune governor settings here\n\nNot all governors supports settings.",Constants.G_S_URL_PREFIX+"linux governors", true);
+				infoDialog(R.drawable.main_governor, getResources().getString(R.string.info_gov_title) ,getResources().getString(R.string.info_gov_text),Constants.G_S_URL_PREFIX+"linux governors", true);
 				return true;
 			}
 
@@ -629,7 +629,7 @@ public class KernelTuner extends Activity {
 			@Override
 			public boolean onLongClick(View arg0) {
 
-				infoDialog(R.drawable.oom, "OOM" ,"OOM(Out Of Memory)\nAndroid system will use this values to determin which application to terminate to release memory",Constants.G_S_URL_PREFIX+"oom", true);
+				infoDialog(R.drawable.oom, getResources().getString(R.string.info_oom_title) ,getResources().getString(R.string.info_oom_text),Constants.G_S_URL_PREFIX+"oom", true);
 				return true;
 			}
 
@@ -651,7 +651,7 @@ public class KernelTuner extends Activity {
 			@Override
 			public boolean onLongClick(View arg0) {
 
-				infoDialog(R.drawable.profile, "Profiles" ,"Create settings profiles to be applied at differente conditions\nUse with one of these applications to apply profiles depending on conditions:\n\n    *Llama\n    *Tasker\n    *Locale","", false);
+				infoDialog(R.drawable.profile, getResources().getString(R.string.info_profiles_title) ,getResources().getString(R.string.info_profiles_text),"", false);
 				return true;
 			}
 
@@ -674,7 +674,7 @@ public class KernelTuner extends Activity {
 			@Override
 			public boolean onLongClick(View arg0) {
 
-				infoDialog(R.drawable.temp, "Thermal" ,"This option allows you to set thermal options for your cpu.\nEach time CPU temperature reaches certain threshold cpu frequency will be lowered to prevent overheating\nWhen temperature lowers cpu frequency will reset","", false);
+				infoDialog(R.drawable.temp, getResources().getString(R.string.info_thermal_title) ,getResources().getString(R.string.info_thermal_text),"", false);
 				return true;
 			}
 
@@ -696,7 +696,7 @@ public class KernelTuner extends Activity {
 			@Override
 			public boolean onLongClick(View arg0) {
 
-				infoDialog(R.drawable.sd, "SD Analyzer" ,"Set of tools for analizing what is using most space in your sdcard","", false);
+				infoDialog(R.drawable.sd, getResources().getString(R.string.info_sd_title) ,getResources().getString(R.string.info_sd_text),"", false);
 				return true;
 			}
 
@@ -727,7 +727,7 @@ public class KernelTuner extends Activity {
 			@Override
 			public boolean onLongClick(View arg0) {
 				if(minimal==false){
-				infoDialog(R.drawable.info, "System Info" ,"Detailed system information","", false);
+				infoDialog(R.drawable.info, getResources().getString(R.string.info_sys_info_title) ,getResources().getString(R.string.info_sys_info_text),"", false);
 				}
 				return true;
 			}
@@ -750,7 +750,7 @@ public class KernelTuner extends Activity {
 			@Override
 			public boolean onLongClick(View arg0) {
 
-				infoDialog(R.drawable.tm, "Task Manager" ,"Display and manage running processes on your device\n\nAt the moment you can:\n\n    *Kill Process\n    *Set process priority",Constants.G_S_URL_PREFIX+"task manager", true);
+				infoDialog(R.drawable.tm, getResources().getString(R.string.info_tm_title) ,getResources().getString(R.string.info_tm_text),Constants.G_S_URL_PREFIX+"task manager", true);
 				return true;
 			}
 
@@ -771,7 +771,7 @@ public class KernelTuner extends Activity {
 			@Override
 			public boolean onLongClick(View arg0) {
 
-				infoDialog(R.drawable.build, "build.prop Editor" ,"Edit you devices build properties",Constants.G_S_URL_PREFIX+"build.prop", true);
+				infoDialog(R.drawable.build, getResources().getString(R.string.info_build_title) ,getResources().getString(R.string.info_build_text),Constants.G_S_URL_PREFIX+"build.prop", true);
 				return true;
 			}
 
@@ -792,7 +792,7 @@ public class KernelTuner extends Activity {
 			@Override
 			public boolean onLongClick(View arg0) {
 
-				infoDialog(R.drawable.sysctl, "System Control" ,"",Constants.G_S_URL_PREFIX+"sysctl", true);
+				infoDialog(R.drawable.sysctl, getResources().getString(R.string.info_sysctl_title) ,getResources().getString(R.string.info_sysctl_text),Constants.G_S_URL_PREFIX+"sysctl", true);
 				return true;
 			}
 
@@ -813,7 +813,7 @@ public class KernelTuner extends Activity {
 			@Override
 			public boolean onLongClick(View arg0) {
 
-				//infoDialog(R.drawable.swap, "Swap Manager" ,"Create and manage swap files\nWhen memory is low kernel will push memory pages of lower priority processes to swap file releasing RAM for curently active application(s)\n\nThis option is depricated and no longer maintained, use at your own risk\nPlease DO NOT submit bug reports for Swap",Constants.G_S_URL_PREFIX+"swap", true);
+				infoDialog(R.drawable.swap, getResources().getString(R.string.info_logs_title) ,getResources().getString(R.string.info_logs_text),Constants.G_S_URL_PREFIX+"swap", true);
 				return true;
 			}
 
@@ -827,8 +827,6 @@ public class KernelTuner extends Activity {
 				&& isNotificationServiceRunning() == true) {
 			stopService(new Intent(c, NotificationService.class));
 		}
-
-		System.out.println(IOHelper.getCpuTempPath());
 	}
 	
 	private void infoDialog(int icon, String title, String text, final String url, boolean more)
@@ -844,7 +842,7 @@ public class KernelTuner extends Activity {
 		TextView tv = (TextView)view.findViewById(R.id.tv);
 		tv.setText(text);
 		
-		builder.setPositiveButton("Got It!", new DialogInterface.OnClickListener() {
+		builder.setPositiveButton(getResources().getString(R.string.info_ok), new DialogInterface.OnClickListener() {
 				@Override
 				public void onClick(DialogInterface dialog, int which)
 				{
@@ -852,7 +850,7 @@ public class KernelTuner extends Activity {
 				}
 			});
 		if(more){
-		    builder.setNeutralButton("Im stil confused", new DialogInterface.OnClickListener(){
+		    builder.setNeutralButton(getResources().getString(R.string.info_more), new DialogInterface.OnClickListener(){
 
 				@Override
 				public void onClick(DialogInterface arg0, int arg1)
@@ -898,7 +896,7 @@ public class KernelTuner extends Activity {
 		if (boot.equals("init.d")) {
 			Tools.exportInitdScripts(c, voltages);
 		} else {
-			new Initd().execute(new String[] { "rm" });
+			new Initd(this).execute(new String[] { "rm" });
 		}
 
 		super.onResume();

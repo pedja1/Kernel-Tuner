@@ -390,7 +390,7 @@
                     android:layout_weight="1"
                     android:drawableTop="@drawable/main_log"
                     android:gravity="center|center_vertical"
-                    android:text="LogCat"
+                    android:text="@string/title_logcat"
 					android:singleLine="true"/>
 
                 <Button

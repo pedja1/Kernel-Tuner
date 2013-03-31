@@ -822,16 +822,13 @@ public class ProfileEditor extends Activity
 
 			if(profileName!=null && !profileName.equals("")){
 				if(profile.getSweep2wake()==0){
-					int spinner1Position = spinner18ArrayAdapter.getPosition("OFF");
-					spinner18.setSelection(spinner1Position);
+					spinner18.setSelection(0);
 				}
 				else if(profile.getSweep2wake()==1){
-					int spinner1Position = spinner18ArrayAdapter.getPosition("ON with no backlight");
-					spinner18.setSelection(spinner1Position);
+					spinner18.setSelection(1);
 				}
-				else if(profile.getSweep2wake()==1){
-					int spinner1Position = spinner18ArrayAdapter.getPosition("ON with backlight");
-					spinner18.setSelection(spinner1Position);
+				else if(profile.getSweep2wake()==2){
+					spinner18.setSelection(2);
 				}
 
 			}
@@ -840,15 +837,15 @@ public class ProfileEditor extends Activity
 					@Override
 					public void onItemSelected(AdapterView<?> parent, View view, int pos, long id)
 					{
-						if(parent.getItemAtPosition(pos).toString().equals("ON with no backlight"))
+						if(parent.getItemAtPosition(pos).toString().equals(getResources().getString(R.string.s2w_on_no_bl)))
 						{
 							s2w = 1;
 						}
-						else if(parent.getItemAtPosition(pos).toString().equals("OFF"))
+						else if(parent.getItemAtPosition(pos).toString().equals(getResources().getString(R.string.s2w_off)))
 						{
 							s2w = 0;
 						}
-						else if(parent.getItemAtPosition(pos).toString().equals("ON with backlight"))
+						else if(parent.getItemAtPosition(pos).toString().equals(getResources().getString(R.string.s2w_on)))
 						{
 							s2w = 2;
 						}

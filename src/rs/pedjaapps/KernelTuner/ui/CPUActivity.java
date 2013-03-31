@@ -152,6 +152,7 @@ public class CPUActivity extends Activity
 	private Context                            c;
 	private int                                refresh          = 1000;
 	private int                                cpuTempPath;
+	private String                             mhz              = getResources().getString(R.string.mhz);
 	@Override
 	public void onCreate(Bundle savedInstanceState)
 	{
@@ -455,8 +456,8 @@ startCpuLoadThread();
 		
 		cpu0MinFreq = IOHelper.cpu0MinFreq();
 		cpu0MaxFreq = IOHelper.cpu0MaxFreq();
-		cpu0min.setText(cpu0MinFreq.substring(0, cpu0MinFreq.length() - 3) + "Mhz");
-		cpu0max.setText(cpu0MaxFreq.substring(0, cpu0MaxFreq.length() - 3) + "Mhz");
+		cpu0min.setText(cpu0MinFreq.substring(0, cpu0MinFreq.length() - 3) + mhz);
+		cpu0max.setText(cpu0MaxFreq.substring(0, cpu0MaxFreq.length() - 3) + mhz);
 		cpu0maxSeek = (VerticalSeekBar)findViewById(R.id.cpu0MaxSeekbar);
 		cpu0minSeek = (VerticalSeekBar)findViewById(R.id.cpu0MinSeekbar);
 		cpu0minSeek.setMax(frequencies.size() - 1);
@@ -602,8 +603,8 @@ startCpuLoadThread();
 		{
 			cpu1MinFreq = IOHelper.cpu1MinFreq();
 			cpu1MaxFreq = IOHelper.cpu1MaxFreq();
-			cpu1min.setText(cpu1MinFreq.substring(0, cpu1MinFreq.length() - 3) + "Mhz");
-			cpu1max.setText(cpu1MaxFreq.substring(0, cpu1MaxFreq.length() - 3) + "Mhz");
+			cpu1min.setText(cpu1MinFreq.substring(0, cpu1MinFreq.length() - 3) + mhz);
+			cpu1max.setText(cpu1MaxFreq.substring(0, cpu1MaxFreq.length() - 3) + mhz);
 			cpu1maxSeek = (VerticalSeekBar)findViewById(R.id.cpu1MaxSeekbar);
 			cpu1minSeek = (VerticalSeekBar)findViewById(R.id.cpu1MinSeekbar);
 			
@@ -632,9 +633,7 @@ startCpuLoadThread();
 								}
 						}
 						if(size>progress){
-							System.out.println(freqNames.get(progress)+"+"+progress);
 						cpu1min.setText(freqNames.get(progress));
-							System.out.println(freqNames.get(progress)+"+"+progress);
 						}
 
 					}
@@ -748,8 +747,8 @@ startCpuLoadThread();
 		{
 			cpu2MinFreq = IOHelper.cpu2MinFreq();
 			cpu2MaxFreq = IOHelper.cpu2MaxFreq();
-			cpu2min.setText(cpu2MinFreq.substring(0, cpu2MinFreq.length() - 3) + "Mhz");
-			cpu2max.setText(cpu2MaxFreq.substring(0, cpu2MaxFreq.length() - 3) + "Mhz");
+			cpu2min.setText(cpu2MinFreq.substring(0, cpu2MinFreq.length() - 3) + mhz);
+			cpu2max.setText(cpu2MaxFreq.substring(0, cpu2MaxFreq.length() - 3) + mhz);
 			cpu2minSeek = (VerticalSeekBar)findViewById(R.id.cpu2MinSeekbar);
 			cpu2maxSeek = (VerticalSeekBar)findViewById(R.id.cpu2MaxSeekbar);
 			
@@ -892,8 +891,8 @@ startCpuLoadThread();
 		{
 			cpu3MinFreq = IOHelper.cpu3MinFreq();
 			cpu3MaxFreq = IOHelper.cpu3MaxFreq();
-			cpu3min.setText(cpu3MinFreq.substring(0, cpu3MinFreq.length() - 3) + "Mhz");
-			cpu3max.setText(cpu3MaxFreq.substring(0, cpu3MaxFreq.length() - 3) + "Mhz");
+			cpu3min.setText(cpu3MinFreq.substring(0, cpu3MinFreq.length() - 3) + mhz);
+			cpu3max.setText(cpu3MaxFreq.substring(0, cpu3MaxFreq.length() - 3) + mhz);
 			cpu3minSeek = (VerticalSeekBar)findViewById(R.id.cpu3MinSeekbar);
 			cpu3maxSeek = (VerticalSeekBar)findViewById(R.id.cpu3MaxSeekbar);
 			cpu3minSeek.setMax(frequencies.size() - 1);
@@ -1076,7 +1075,7 @@ startCpuLoadThread();
 
 		if (!cpu0CurFreq.equals("offline") && cpu0CurFreq.length()!=0)
 		{
-			cpu0prog.setText(cpu0CurFreq.substring(0, cpu0CurFreq.length() - 3) + "Mhz");
+			cpu0prog.setText(cpu0CurFreq.substring(0, cpu0CurFreq.length() - 3) + mhz);
 		}
 		else
 		{			
@@ -1095,7 +1094,7 @@ startCpuLoadThread();
 
 		if (!cpu1CurFreq.equals("offline") && cpu0CurFreq.length()!=0)
 		{
-			cpu1prog.setText(cpu1CurFreq.substring(0, cpu1CurFreq.length() - 3) + "Mhz");
+			cpu1prog.setText(cpu1CurFreq.substring(0, cpu1CurFreq.length() - 3) + mhz);
 
 			if(rlcpu1.getVisibility()==View.GONE){
 				rlcpu1.setVisibility(View.VISIBLE);
@@ -1143,7 +1142,7 @@ startCpuLoadThread();
 				gov2spinner.setVisibility(View.VISIBLE);
 
 			}
-			cpu2prog.setText(cpu2CurFreq.substring(0, cpu2CurFreq.length() - 3) + "Mhz");
+			cpu2prog.setText(cpu2CurFreq.substring(0, cpu2CurFreq.length() - 3) + mhz);
 		}
 		else
 		{
@@ -1179,7 +1178,7 @@ startCpuLoadThread();
 				gov3spinner.setVisibility(View.VISIBLE);
 
 			}
-			cpu3prog.setText(cpu3CurFreq.substring(0, cpu3CurFreq.length() - 3) + "Mhz");
+			cpu3prog.setText(cpu3CurFreq.substring(0, cpu3CurFreq.length() - 3) + mhz);
 		}
 		else
 		{

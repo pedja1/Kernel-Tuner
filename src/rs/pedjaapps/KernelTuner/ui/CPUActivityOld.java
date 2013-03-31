@@ -101,6 +101,7 @@ public class CPUActivityOld extends Activity
 	private SharedPreferences sharedPrefs;
 
 	private ArrayAdapter<String> mhzAdapter;
+	String mhz = getResources().getString(R.string.mhz);
 
 	Context c;
 	/**

@@ -37,7 +37,6 @@ import rs.pedjaapps.KernelTuner.helpers.*;
 import rs.pedjaapps.KernelTuner.R;
 import rs.pedjaapps.KernelTuner.tools.Tools;
 
-@SuppressLint("NewApi")
 public class SystemInfo extends Activity implements
 		ActionBar.TabListener {
 
@@ -115,6 +114,7 @@ public class SystemInfo extends Activity implements
 	static final int FLOATTOINTPRECISION = 100;
 
 	Boolean isSDPresent;
+	String unknown = getResources().getString(R.string.unknown);
 
 	private class info extends AsyncTask<String, Void, Object> {
 
@@ -151,11 +151,8 @@ public class SystemInfo extends Activity implements
 			manufacturer = android.os.Build.MANUFACTURER;
 			bootloader = android.os.Build.BOOTLOADER;
 			hardware = android.os.Build.HARDWARE;
-			if (apiLevel >= android.os.Build.VERSION_CODES.ICE_CREAM_SANDWICH) {
-				radio = android.os.Build.getRadioVersion();
-			} else {
-				radio = android.os.Build.RADIO;
-			}
+			radio = android.os.Build.getRadioVersion();
+			
 			board = android.os.Build.BOARD;
 			brand = android.os.Build.BRAND;
 			device = android.os.Build.DEVICE;
@@ -182,15 +179,10 @@ public class SystemInfo extends Activity implements
 			Display display = getWindowManager().getDefaultDisplay();
 			Point size = new Point();
 
-			if (apiLevel >= android.os.Build.VERSION_CODES.HONEYCOMB_MR2) {
-				display.getSize(size);
+			display.getSize(size);
 				screenRezolution = size.x + "x"
 						+ size.y;
-			} else {
-				screenRezolution = display.getWidth() + "x"
-						+ display.getHeight();
-
-			}
+			
 			screenRefreshRate = display.getRefreshRate()
 					+ "fps";
 
@@ -335,8 +327,7 @@ public class SystemInfo extends Activity implements
 		setTheme(Tools.getPreferedTheme(theme));
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.system_info);
-		pd = ProgressDialog.show(this, null,
-				"Gathering system information\nPlease wait...");
+		pd = ProgressDialog.show(this, null,getResources().getString(R.string.system_info_please_wait));
 		new info().execute();
 		prefs = PreferenceManager.getDefaultSharedPreferences(this);
 		tempPref = prefs.getString("temp", "celsius");
@@ -347,10 +338,10 @@ public class SystemInfo extends Activity implements
 		m_sensormgr = (SensorManager) getSystemService(Context.SENSOR_SERVICE);
 		m_sensorlist = m_sensormgr.getSensorList(Sensor.TYPE_ALL);
 
-		tabTitles.add("Overview");
-		tabTitles.add("Device");
-		tabTitles.add("CPU");
-		tabTitles.add("Sensors");
+		tabTitles.add(getResources().getString(R.string.system_info_overview));
+		tabTitles.add(getResources().getString(R.string.system_info_device));
+		tabTitles.add(getResources().getString(R.string.system_info_cpu));
+		tabTitles.add(getResources().getString(R.string.system_info_sensors));
 		// For each of the sections in the app, add a tab to the action bar.
 
 	}
@@ -394,13 +385,13 @@ public class SystemInfo extends Activity implements
 
 		Fragment fragment = new DummySectionFragment();
 		Bundle args = new Bundle();
-		if (tab.getText().equals("Overview")) {
+		if (tab.getText().equals(getResources().getString(R.string.system_info_overview))) {
 			args.putInt(DummySectionFragment.ARG_SECTION_NUMBER, 0);
-		} else if (tab.getText().equals("Device")) {
+		} else if (tab.getText().equals(getResources().getString(R.string.system_info_device))) {
 			args.putInt(DummySectionFragment.ARG_SECTION_NUMBER, 1);
-		} else if (tab.getText().equals("CPU")) {
+		} else if (tab.getText().equals(getResources().getString(R.string.system_info_cpu))) {
 			args.putInt(DummySectionFragment.ARG_SECTION_NUMBER, 2);
-		} else if (tab.getText().equals("Sensors")) {
+		} else if (tab.getText().equals(getResources().getString(R.string.system_info_sensors))) {
 			args.putInt(DummySectionFragment.ARG_SECTION_NUMBER, 3);
 		}
 		fragment.setArguments(args);
@@ -575,12 +566,12 @@ public class SystemInfo extends Activity implements
 			level.setText("Level: " + battperc + "%");
 			levelProgress.setProgress(battperc);
 		} else {
-			level.setText("Unknown");
+			level.setText(unknown);
 		}
 		if (batttemp != null) {
 			temp.setText(Tools.tempConverter(tempPref, batttemp));
 		} else {
-			temp.setText("Unknown");
+			temp.setText(unknown);
 		}
 		if (battcurrent.length()>0) {
 			drain.setText(battcurrent + "mAh");
@@ -595,7 +586,7 @@ public class SystemInfo extends Activity implements
 			drain.setTextColor(Color.GREEN);
 			}
 		} else {
-			drain.setText("Unknown");
+			drain.setText(unknown);
 		}
 		totalRAMtxt.setText("Total: " + totalRAM + "MB");
 		freeRAMtxt.setText("Free: " +freeRAM + "MB");
@@ -667,13 +658,13 @@ public class SystemInfo extends Activity implements
 			gpu2dtxt.setText((gpu2d/1000000)+"MHz");
 		}
 		else{
-			gpu2dtxt.setText("Unknown");
+			gpu2dtxt.setText(unknown);
 		}
 		if(gpu3d!=null){
 			gpu3dtxt.setText((gpu3d/1000000)+"MHz");
 		}
 		else{
-			gpu3dtxt.setText("Unknown");
+			gpu3dtxt.setText(unknown);
 		}
 		if(vsync!=null){
 			if(vsync==0){
@@ -685,11 +676,11 @@ public class SystemInfo extends Activity implements
 				vsynctxt.setTextColor(Color.GREEN);
 			}
 			else{
-				vsynctxt.setText("Unknown");
+				vsynctxt.setText(unknown);
 			}
 		}
 		else{
-			vsynctxt.setText("Unknown");
+			vsynctxt.setText(unknown);
 		}
 		if(fastcharge!=null){
 			if(fastcharge==0){
@@ -701,17 +692,17 @@ public class SystemInfo extends Activity implements
 				fastchargetxt.setTextColor(Color.GREEN);
 			}
 			else{
-				fastchargetxt.setText("Unknown");
+				fastchargetxt.setText(unknown);
 			}
 		}
 		else{
-			fastchargetxt.setText("Unknown");
+			fastchargetxt.setText(unknown);
 		}
 		if(cdepth!=null){
 			colorDepthtxt.setText(cdepth+"-bit");
 		}
 		else{
-			colorDepthtxt.setText("Unknown");
+			colorDepthtxt.setText(unknown);
 		}
 		schedulerstxt.setText(schedulers);
 		if(s2w!=null){
@@ -723,7 +714,7 @@ public class SystemInfo extends Activity implements
 			}
 		}
 		else{
-			s2wtxt.setText("Unknown");
+			s2wtxt.setText(unknown);
 		}
 		androidVersiontxt.setText(androidVersion);
 		apitxt.setText(apiLevel+"");
@@ -781,7 +772,7 @@ public class SystemInfo extends Activity implements
 			freqRange.setText(freqs.get(0) + " - "
 					+ freqs.get(freqs.size() - 1));
 		} else {
-			freqRange.setText("Unknown");
+			freqRange.setText(unknown);
 		}
 		if (mpdec != null) {
 			if (mpdec == 0) {
@@ -791,7 +782,7 @@ public class SystemInfo extends Activity implements
 				mpdectxt.setText("ON");
 				mpdectxt.setTextColor(Color.GREEN);
 			} else {
-				mpdectxt.setText("Unknown");
+				mpdectxt.setText(unknown);
 				mpdectxt.setTextColor(Color.RED);
 			}
 		} else {
@@ -804,7 +795,7 @@ public class SystemInfo extends Activity implements
 			thermalLayout.setVisibility(View.GONE);
 		}
 		if (governors.equals("")) {
-			governorstxt.setText("Unknown");
+			governorstxt.setText(unknown);
 		} else {
 			governorstxt.setText(governors);
 		}
@@ -920,7 +911,7 @@ public class SystemInfo extends Activity implements
 				accuracy = "SENSOR_STATUS_UNRELIABLE";
 				break;
 			default:
-				accuracy = "UNKNOWN";
+				accuracy = unknown;
 			}
 
 			if (event.sensor.getType() == Sensor.TYPE_ORIENTATION) {

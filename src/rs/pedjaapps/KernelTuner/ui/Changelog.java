@@ -97,7 +97,7 @@ public class Changelog extends Activity
 	@Override
 	public boolean onCreateOptionsMenu(Menu menu) {
 		
-		menu.add(0,0,0,"Full Changelog").setShowAsAction(MenuItem.SHOW_AS_ACTION_IF_ROOM);
+		menu.add(0,0,0,getResources().getString(R.string.full_changelog)).setShowAsAction(MenuItem.SHOW_AS_ACTION_IF_ROOM);
 		menu.add(0,1,1,"OK").setShowAsAction(MenuItem.SHOW_AS_ACTION_IF_ROOM);
 	
 		return super.onCreateOptionsMenu(menu);

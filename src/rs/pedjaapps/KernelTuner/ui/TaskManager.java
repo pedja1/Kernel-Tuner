@@ -98,14 +98,14 @@ public class TaskManager extends Activity implements TMListFragment.Callbacks
 		getActionBar().setDisplayHomeAsUpEnabled(true);
 		setContentView(R.layout.activity_tm_list);
 
-		getActionBar().setTitle("Task Manager");
+		getActionBar().setTitle(getResources().getString(R.string.title_task_manager));
 		getActionBar().setSubtitle(null);
 		getActionBar().setIcon(R.drawable.tm);
 		
 		View customNav = LayoutInflater.from(this).inflate(R.layout.ram_layout, null);
 
-		((TextView)customNav.findViewById(R.id.free)).setText("Free: "+ getFreeRAM()+"MB");
-		((TextView)customNav.findViewById(R.id.total)).setText("Available: "+ getTotalRAM()+"MB");
+		((TextView)customNav.findViewById(R.id.free)).setText(getResources().getString(R.string.mem_free)+ getFreeRAM()+"MB");
+		((TextView)customNav.findViewById(R.id.total)).setText(getResources().getString(R.string.mem_free)+ getTotalRAM()+"MB");
 
         //Attach to the action bar
         getActionBar().setCustomView(customNav);

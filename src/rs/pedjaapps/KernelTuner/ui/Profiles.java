@@ -520,20 +520,20 @@ catch (InterruptedException e1)
 					}
 					//vsync
 					if( vsync==0 ){
-						tv19.setText("OFF");
+						tv19.setText(getResources().getString(R.string.off));
 					}
 					else if(vsync == 1){
-						tv19.setText("ON");
+						tv19.setText(getResources().getString(R.string.on));
 					}
 					else{
 						vsyncBox.setVisibility(View.GONE);
 					}
 					//fcharge
 					if( fcharge==0 ){
-						tv20.setText("OFF");
+						tv20.setText(getResources().getString(R.string.off));
 					}
 					else if(fcharge == 1){
-						tv20.setText("ON");
+						tv20.setText(getResources().getString(R.string.on));
 					}
 					else{
 						fchargeBox.setVisibility(View.GONE);
@@ -562,13 +562,13 @@ catch (InterruptedException e1)
 					}
 					//s2w
 					if( s2w==0 ){
-						tv24.setText("OFF");
+						tv24.setText(getResources().getString(R.string.off));
 					}
 					else if(s2w==1){
-						tv24.setText("On with no backlight");
+						tv24.setText(getResources().getString(R.string.s2w_on_no_bl));
 					}
 					else if(s2w==2){
-						tv24.setText("On with backlight");
+						tv24.setText(getResources().getString(R.string.s2w_on));
 					}
 					else{
 						s2wll.setVisibility(View.GONE);

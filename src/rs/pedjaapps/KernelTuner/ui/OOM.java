@@ -421,7 +421,7 @@ public class OOM extends Activity {
 		protected void onPreExecute() {
 			
 			pd = new ProgressDialog(OOM.this);
-			pd.setMessage("Changing Out Of Memory values\nPlease wait...");
+			pd.setMessage(OOM.this.getResources().getString(R.string.oom_please_wait));
 			pd.show();
 		}
 
@@ -432,7 +432,7 @@ public class OOM extends Activity {
 			ContextMenuInfo menuInfo) {
 		super.onCreateContextMenu(menu, v, menuInfo);
 
-		menu.setHeaderTitle("Select Preset");
+		menu.setHeaderTitle(getResources().getString(R.string.oom_preset));
 		menu.setHeaderIcon(R.drawable.swap);
 		MenuInflater inflater = getMenuInflater();
 		inflater.inflate(R.menu.oom_context_menu, menu);

@@ -28,7 +28,6 @@ import android.os.AsyncTask;
 import android.os.Build;
 import android.os.Bundle;
 import android.os.Environment;
-import android.os.StatFs;
 import android.preference.PreferenceManager;
 import android.view.MenuItem;
 import android.view.View;
@@ -38,9 +37,7 @@ import android.widget.*;
 import com.google.ads.AdRequest;
 import com.google.ads.AdView;
 
-
 import java.io.File;
-import java.text.DecimalFormat;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.Comparator;
@@ -69,9 +66,14 @@ public class SDScannerConfigActivity extends Activity
 	  SDSummaryAdapter summaryAdapter;
 	  ProgressDialog pd;
 	  List<SDSummaryEntry> entries;
-	  String[] names = {"Applications(*.apk)", "Videos", "Music", "Images", "Documents", "Archives"};
+	  String[] names = {getResources().getString(R.string.applications)+"(*.apk)", 
+			  getResources().getString(R.string.videos), 
+			  getResources().getString(R.string.music), 
+			  getResources().getString(R.string.images), 
+			  getResources().getString(R.string.documents), 
+			  getResources().getString(R.string.archives)};
 	  int[] icons = {R.drawable.apk, R.drawable.movie, R.drawable.music, R.drawable.img, R.drawable.doc, R.drawable.arch};
-	  private static final String CALCULATING = "calculating...";
+	  private final String CALCULATING =  getResources().getString(R.string.sd_calculating);
 	  ScanSDCard scanSDCard = new ScanSDCard();
 	  @Override
 	  protected void onRestoreInstanceState(Bundle savedState) {
@@ -130,7 +132,7 @@ public class SDScannerConfigActivity extends Activity
 		boolean isSDPresent = android.os.Environment.getExternalStorageState().equals(android.os.Environment.MEDIA_MOUNTED);
 		if(isSDPresent==false){
 			finish();
-			Toast.makeText(this, "External Storage not mounted", Toast.LENGTH_LONG).show();
+			Toast.makeText(this,  getResources().getString(R.string.sd_not_mounted), Toast.LENGTH_LONG).show();
 		}
 		setContentView(R.layout.sd_scanner_config);
 		ActionBar actionBar = getActionBar();
@@ -148,10 +150,10 @@ public class SDScannerConfigActivity extends Activity
 			public void onCheckedChanged(CompoundButton arg0, boolean arg1) {
 				
 				if(arg0.isChecked()){
-					arg0.setText("Scann Folders+Files");
+					arg0.setText(getResources().getString(R.string.sd_scan_folders_and_files));
 				}
 				else if(arg0.isChecked()==false){
-					arg0.setText("Scann Folders");
+					arg0.setText(getResources().getString(R.string.sd_scan_folders));
 				}
 			}
 			
@@ -163,10 +165,10 @@ public class SDScannerConfigActivity extends Activity
 			public void onCheckedChanged(CompoundButton arg0, boolean arg1) {
 				
 				if(arg0.isChecked()){
-					arg0.setText("Dispay Result in List");
+					arg0.setText(getResources().getString(R.string.sd_display_list));
 				}
 				else if(arg0.isChecked()==false){
-					arg0.setText("Dispay Result in Chart");
+					arg0.setText(getResources().getString(R.string.sd_display_chart));
 				}
 			}
 			
@@ -257,9 +259,9 @@ public class SDScannerConfigActivity extends Activity
 	@Override
 	  protected void onResume() {
 	    super.onResume();
-	    ((TextView)findViewById(R.id.mem_total)).setText("Total: "+Tools.byteToHumanReadableSize(Tools.getTotalSpaceInBytesOnExternalStorage()));
-		((TextView)findViewById(R.id.mem_used)).setText("Used: "+Tools.byteToHumanReadableSize(Tools.getUsedSpaceInBytesOnExternalStorage()));
-		((TextView)findViewById(R.id.mem_free)).setText("Free: "+Tools.byteToHumanReadableSize(Tools.getAvailableSpaceInBytesOnExternalStorage()));
+	    ((TextView)findViewById(R.id.mem_total)).setText(getResources().getString(R.string.mem_total)+Tools.byteToHumanReadableSize(Tools.getTotalSpaceInBytesOnExternalStorage()));
+		((TextView)findViewById(R.id.mem_used)).setText(getResources().getString(R.string.mem_used)+Tools.byteToHumanReadableSize(Tools.getUsedSpaceInBytesOnExternalStorage()));
+		((TextView)findViewById(R.id.mem_free)).setText(getResources().getString(R.string.mem_free)+Tools.byteToHumanReadableSize(Tools.getAvailableSpaceInBytesOnExternalStorage()));
 	  }
 
 	@Override

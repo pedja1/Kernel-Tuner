@@ -9,19 +9,19 @@
 		android:id="@+id/notice"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-		android:text="Backup all application data to external storage.\n\nNote: All existing data will be wiped before restore."
+		android:text="@string/backup_note"
 	/>
 	
 	<Button
 		android:id="@+id/backup"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-		android:text="Backup"
+		android:text="@string/backup"
 		/>
 	<Button
 		android:id="@+id/restore"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-		android:text="Restore"
+		android:text="@string/restore"
 	/>
 </LinearLayout>
