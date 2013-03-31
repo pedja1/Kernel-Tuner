@@ -140,13 +140,13 @@
                 android:text="20" />
         </LinearLayout>
 
-        <de.ankri.views.Switch
+        <Switch
             android:id="@+id/switch1"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:text="Scann Folders" />
 
-        <de.ankri.views.Switch
+        <Switch
             android:id="@+id/display_in_switch"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
