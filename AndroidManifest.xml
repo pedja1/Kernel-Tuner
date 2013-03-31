@@ -3,7 +3,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     package="rs.pedjaapps.KernelTuner"
     android:installLocation="internalOnly"
-    android:versionCode="70000000"
+    android:versionCode="700000000"
     android:versionName="5.0.0" >
 
     <uses-sdk
@@ -30,9 +30,8 @@
             android:theme="@style/Theme.Translucent.NoTitleBar"
             android:windowSoftInputMode="adjustResize" >
             <intent-filter>
-                <action android:name="android.intent.action.MAIN" />
-                <action android:name="rs.pedjaapps.KernelTuner.KT" />
-
+                 <action android:name="rs.pedjaapps.KernelTuner.KT" />
+				<action android:name="android.intent.action.MAIN" />
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
