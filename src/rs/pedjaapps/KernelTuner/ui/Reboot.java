@@ -18,15 +18,13 @@
 */
 package rs.pedjaapps.KernelTuner.ui;
 
-import java.io.BufferedReader;
-import java.io.InputStream;
-import java.io.InputStreamReader;
-import java.io.OutputStream;
+
+import com.stericson.RootTools.RootTools;
+import com.stericson.RootTools.execution.CommandCapture;
 
 import android.app.Activity;
 import android.content.Intent;
 import android.os.Bundle;
-import android.util.Log;
 
 
 
@@ -42,35 +40,14 @@ public class Reboot extends Activity
 		Intent intent = getIntent();
 		reboot = intent.getExtras().getString("reboot");
 		
-		
-		try {
-            String line;
-            Process process = Runtime.getRuntime().exec("su");
-            OutputStream stdin = process.getOutputStream();
-            InputStream stderr = process.getErrorStream();
-            InputStream stdout = process.getInputStream();
+		CommandCapture command = new CommandCapture(0,
+            getFilesDir().getPath()+"/reboot " + reboot);
+		try{
+			RootTools.getShell(true).add(command).waitForFinish();
+		}
+		catch(Exception e){
 
-            stdin.write((getFilesDir().getPath()+"/reboot " + reboot + "\n").getBytes());
-            stdin.write("exit\n".getBytes());
-            stdin.flush();
-
-            stdin.close();
-            BufferedReader brCleanUp =
-                    new BufferedReader(new InputStreamReader(stdout));
-            while ((line = brCleanUp.readLine()) != null) {
-                Log.d("[KernelTuner ChangeGovernor Output]", line);
-            }
-            brCleanUp.close();
-            brCleanUp =
-                    new BufferedReader(new InputStreamReader(stderr));
-            while ((line = brCleanUp.readLine()) != null) {
-            	Log.e("[KernelTuner ChangeGovernor Error]", line);
-            }
-            brCleanUp.close();
-			process.waitFor();
-			process.destroy();
-
-        } catch (Exception ex) {
-        }
+		}  
+          
 	}
 }

@@ -22,16 +22,17 @@ import android.app.*;
 import android.content.*;
 import android.os.*;
 import android.preference.*;
-import android.util.*;
 import android.view.*;
 import android.widget.*;
 import android.widget.AdapterView.*;
 import android.widget.CompoundButton.*;
 import com.google.ads.*;
+import com.stericson.RootTools.RootTools;
+import com.stericson.RootTools.execution.CommandCapture;
+
 import java.io.*;
 import java.util.*;
 import rs.pedjaapps.KernelTuner.helpers.*;
-import java.lang.Process;
 
 import org.apache.commons.io.FileUtils;
 
@@ -88,62 +89,51 @@ public class MpdecisionNew extends Activity
 		{
 
 			
-			 try {
-		            String line;
-		            Process process = Runtime.getRuntime().exec("su");
-		            OutputStream stdin = process.getOutputStream();
-		            InputStream stderr = process.getErrorStream();
-		            InputStream stdout = process.getInputStream();
+			for(int i = 0; i < 8; i++){
+				CommandCapture command = new CommandCapture(0,
+				"chmod 777 /sys/kernel/msm_mpdecision/conf/nwns_threshold_"+i,
+				"chmod 777 /sys/kernel/msm_mpdecision/conf/twts_threshold_"+i);
+				try{
+					RootTools.getShell(true).add(command).waitForFinish();
+				}
+				catch(Exception e){
+	
+				}
+			}
+				CommandCapture command = new CommandCapture(0,
+		            "chmod 777 /sys/kernel/msm_mpdecision/conf/scroff_single_core",
+					"chmod 777 /sys/kernel/msm_mpdecision/conf/scroff_freq",
+					"chmod 777 /sys/kernel/msm_mpdecision/conf/idle_freq",
+					"chmod 777 /sys/kernel/msm_mpdecision/conf/dealy",
+					"chmod 777 /sys/kernel/msm_mpdecision/conf/pause",
+					"echo " + thrTxt[0].getText().toString() + " > /sys/kernel/msm_mpdecision/conf/nwns_threshold_"+0,
+					"echo " + thrTxt[2].getText().toString() + " > /sys/kernel/msm_mpdecision/conf/nwns_threshold_"+2,
+					"echo " + thrTxt[4].getText().toString() + " > /sys/kernel/msm_mpdecision/conf/nwns_threshold_"+3,
+					"echo " + thrTxt[6].getText().toString() + " > /sys/kernel/msm_mpdecision/conf/nwns_threshold_"+4,
+					"echo " + thrTxt[8].getText().toString() + " > /sys/kernel/msm_mpdecision/conf/nwns_threshold_"+5,
+					"echo " + thrTxt[10].getText().toString() + " > /sys/kernel/msm_mpdecision/conf/nwns_threshold_"+7,
+					"echo " + thrTxt[1].getText().toString() + " > /sys/kernel/msm_mpdecision/conf/twts_threshold_"+0,
+					"echo " + thrTxt[3].getText().toString() + " > /sys/kernel/msm_mpdecision/conf/twts_threshold_"+2,
+					"echo " + thrTxt[5].getText().toString() + " > /sys/kernel/msm_mpdecision/conf/twts_threshold_"+3,
+					"echo " + thrTxt[7].getText().toString() + " > /sys/kernel/msm_mpdecision/conf/twts_threshold_"+4,
+					"echo " + thrTxt[9].getText().toString() + " > /sys/kernel/msm_mpdecision/conf/twts_threshold_"+5,
+					"echo " + thrTxt[11].getText().toString() + " > /sys/kernel/msm_mpdecision/conf/twts_threshold_"+7,
+					"echo " + maxCpus.getText().toString() + " > /sys/kernel/msm_mpdecision/conf/max_cpus",
+					"echo " + minCpus.getText().toString() + " > /sys/kernel/msm_mpdecision/conf/min_cpus",
+					"echo " + mpscroff + " > /sys/kernel/msm_mpdecision/conf/scroff_single_core",
+					"echo " + onoff + " > /sys/kernel/msm_mpdecision/conf/scroff_profile",
+					"echo " + scroffNew + " > /sys/kernel/msm_mpdecision/conf/scroff_freq",
+					"echo " + scroff_singleNew + " > /sys/kernel/msm_mpdecision/conf/scroff_single_core");
+				try{
+					RootTools.getShell(true).add(command).waitForFinish();
+				}
+				catch(Exception e){
 
-		            stdin.write(("chmod 777 /sys/kernel/msm_mpdecision/conf/scroff_single_core\n").getBytes());
-					stdin.write(("chmod 777 /sys/kernel/msm_mpdecision/conf/scroff_freq\n").getBytes());
-					stdin.write(("chmod 777 /sys/kernel/msm_mpdecision/conf/idle_freq\n").getBytes());
-					stdin.write(("chmod 777 /sys/kernel/msm_mpdecision/conf/dealy\n").getBytes());
-					stdin.write(("chmod 777 /sys/kernel/msm_mpdecision/conf/pause\n").getBytes());
-					for(int i = 0; i < 8; i++){
-						stdin.write(("chmod 777 /sys/kernel/msm_mpdecision/conf/nwns_threshold_"+i+"\n").getBytes());
-						stdin.write(("chmod 777 /sys/kernel/msm_mpdecision/conf/twts_threshold_"+i+"\n").getBytes());
-					}
-					stdin.write(("echo " + thrTxt[0].getText().toString() + " > /sys/kernel/msm_mpdecision/conf/nwns_threshold_"+0+"\n").getBytes());
-					stdin.write(("echo " + thrTxt[2].getText().toString() + " > /sys/kernel/msm_mpdecision/conf/nwns_threshold_"+2+"\n").getBytes());
-					stdin.write(("echo " + thrTxt[4].getText().toString() + " > /sys/kernel/msm_mpdecision/conf/nwns_threshold_"+3+"\n").getBytes());
-					stdin.write(("echo " + thrTxt[6].getText().toString() + " > /sys/kernel/msm_mpdecision/conf/nwns_threshold_"+4+"\n").getBytes());
-					stdin.write(("echo " + thrTxt[8].getText().toString() + " > /sys/kernel/msm_mpdecision/conf/nwns_threshold_"+5+"\n").getBytes());
-					stdin.write(("echo " + thrTxt[10].getText().toString() + " > /sys/kernel/msm_mpdecision/conf/nwns_threshold_"+7+"\n").getBytes());
-					stdin.write(("echo " + thrTxt[1].getText().toString() + " > /sys/kernel/msm_mpdecision/conf/twts_threshold_"+0+"\n").getBytes());
-					stdin.write(("echo " + thrTxt[3].getText().toString() + " > /sys/kernel/msm_mpdecision/conf/twts_threshold_"+2+"\n").getBytes());
-					stdin.write(("echo " + thrTxt[5].getText().toString() + " > /sys/kernel/msm_mpdecision/conf/twts_threshold_"+3+"\n").getBytes());
-					stdin.write(("echo " + thrTxt[7].getText().toString() + " > /sys/kernel/msm_mpdecision/conf/twts_threshold_"+4+"\n").getBytes());
-					stdin.write(("echo " + thrTxt[9].getText().toString() + " > /sys/kernel/msm_mpdecision/conf/twts_threshold_"+5+"\n").getBytes());
-					stdin.write(("echo " + thrTxt[11].getText().toString() + " > /sys/kernel/msm_mpdecision/conf/twts_threshold_"+7+"\n").getBytes());
-					stdin.write(("echo " + maxCpus.getText().toString() + " > /sys/kernel/msm_mpdecision/conf/max_cpus\n").getBytes());
-					stdin.write(("echo " + minCpus.getText().toString() + " > /sys/kernel/msm_mpdecision/conf/min_cpus\n").getBytes());
+				}	 
 					
 					
-					stdin.write(("echo " + mpscroff + " > /sys/kernel/msm_mpdecision/conf/scroff_single_core\n").getBytes());
-					stdin.write(("echo " + onoff + " > /sys/kernel/msm_mpdecision/conf/scroff_profile\n").getBytes());
-					stdin.write(("echo " + scroffNew + " > /sys/kernel/msm_mpdecision/conf/scroff_freq\n").getBytes());
-					stdin.write(("echo " + scroff_singleNew + " > /sys/kernel/msm_mpdecision/conf/scroff_single_core\n").getBytes());
-					 
 		            
-		            stdin.flush();
-
-		            stdin.close();
-		            BufferedReader brCleanUp =
-		                    new BufferedReader(new InputStreamReader(stdout));
-		            while ((line = brCleanUp.readLine()) != null) {
-		                Log.d("[KernelTuner ChangeGovernor Output]", line);
-		            }
-		            brCleanUp.close();
-		            brCleanUp =
-		                    new BufferedReader(new InputStreamReader(stderr));
-		            while ((line = brCleanUp.readLine()) != null) {
-		            	Log.e("[KernelTuner ChangeGovernor Error]", line);
-		            }
-		            brCleanUp.close();
-
-		        } catch (IOException ex) {
-		        }
+		           
 
 			return "";
 		}

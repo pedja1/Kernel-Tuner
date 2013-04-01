@@ -35,6 +35,10 @@ import rs.pedjaapps.KernelTuner.helpers.*;
 
 import android.view.View.OnClickListener;
 import java.lang.Process;
+
+import com.stericson.RootTools.RootTools;
+import com.stericson.RootTools.execution.CommandCapture;
+
 import rs.pedjaapps.KernelTuner.tools.Tools;
 
 public class OOM extends Activity {
@@ -352,14 +356,9 @@ public class OOM extends Activity {
 		@Override
 		protected Object doInBackground(String... args) {
 		
-			try {
-	            String line;
-	            Process process = Runtime.getRuntime().exec("su");
-	            OutputStream stdin = process.getOutputStream();
-	            InputStream stderr = process.getErrorStream();
-	            InputStream stdout = process.getInputStream();
-
-	            stdin.write(("echo "
+			
+			CommandCapture command = new CommandCapture(0,
+	            "echo "
 						+ args[0]
 						+ ","
 						+ args[1]
@@ -371,23 +370,14 @@ public class OOM extends Activity {
 						+ args[4]
 						+ ","
 						+ args[5]
-						+ " > /sys/module/lowmemorykiller/parameters/minfree\n").getBytes());
-		
-	            stdin.flush();
+						+ " > /sys/module/lowmemorykiller/parameters/minfree\n");
+			try{
+				RootTools.getShell(true).add(command).waitForFinish();
+			}
+			catch(Exception e){
 
-	            stdin.close();
-	            BufferedReader brCleanUp =
-	                    new BufferedReader(new InputStreamReader(stdout));
-	            while ((line = brCleanUp.readLine()) != null) {
-	                Log.d("[KernelTuner ChangeGovernor Output]", line);
-	            }
-	            brCleanUp.close();
-	            brCleanUp =
-	                    new BufferedReader(new InputStreamReader(stderr));
-	            while ((line = brCleanUp.readLine()) != null) {
-	            	Log.e("[KernelTuner ChangeGovernor Error]", line);
-	            }
-	            brCleanUp.close();
+			}
+	           
 	            SharedPreferences preferences = PreferenceManager.getDefaultSharedPreferences(getBaseContext());
 				SharedPreferences.Editor editor = preferences.edit();
 				editor.putString("oom", args[0]
@@ -403,8 +393,7 @@ public class OOM extends Activity {
 						+ args[5]);
 				editor.commit();
 				oom = IOHelper.oom();
-	        } catch (IOException ex) {
-	        }
+	      
 			
 			return "";
 		}

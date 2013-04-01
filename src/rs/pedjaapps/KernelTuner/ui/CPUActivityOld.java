@@ -26,7 +26,6 @@ import android.content.SharedPreferences;
 import android.os.AsyncTask;
 import android.os.Bundle;
 import android.preference.PreferenceManager;
-import android.util.Log;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.AdapterView;
@@ -35,13 +34,12 @@ import android.widget.ArrayAdapter;
 import android.widget.LinearLayout;
 import android.widget.Spinner;
 import android.widget.TextView;
-import java.io.BufferedReader;
-import java.io.IOException;
-import java.io.InputStream;
-import java.io.InputStreamReader;
-import java.io.OutputStream;
 import java.util.ArrayList;
 import java.util.List;
+
+import com.stericson.RootTools.RootTools;
+import com.stericson.RootTools.execution.CommandCapture;
+
 import rs.pedjaapps.KernelTuner.ui.KernelTuner;
 import rs.pedjaapps.KernelTuner.R;
 import rs.pedjaapps.KernelTuner.helpers.IOHelper;
@@ -128,123 +126,123 @@ public class CPUActivityOld extends Activity
 			
 			if (args[0] == true)
 			{
-				try {
-		            String line;
-		            Process process = Runtime.getRuntime().exec("su");
-		            OutputStream stdin = process.getOutputStream();
-		            InputStream stderr = process.getErrorStream();
-		            InputStream stdout = process.getInputStream();
-					stdin.write(("chmod 777 /sys/devices/system/cpu/cpu0/cpufreq/scaling_available_governors\n").getBytes());
-					stdin.write(("chmod 777 /sys/devices/system/cpu/cpu0/cpufreq/scaling_available_frequencies\n").getBytes());
+					CommandCapture command = new CommandCapture(0, 
+					"chmod 777 /sys/devices/system/cpu/cpu0/cpufreq/scaling_available_governors",
+					"chmod 777 /sys/devices/system/cpu/cpu0/cpufreq/scaling_available_frequencies");
+					try{
+					RootTools.getShell(true).add(command).waitForFinish();
+					}
+					catch(Exception e){
+						
+					}
 		            if (IOHelper.cpu1Online() == true)
 					{
-						stdin.write(("echo 0 > /sys/kernel/msm_mpdecision/conf/enabled\n").getBytes());
-						stdin.write(("chmod 666 /sys/devices/system/cpu/cpu1/online\n").getBytes());
-						stdin.write(("echo 1 > /sys/devices/system/cpu/cpu1/online\n").getBytes());
-						stdin.write(("chmod 444 /sys/devices/system/cpu/cpu1/online\n").getBytes());
-						stdin.write(("chown system /sys/devices/system/cpu/cpu1/online\n").getBytes());
-						stdin.write(("chmod 777 /sys/devices/system/cpu/cpu1/cpufreq/scaling_max_freq\n").getBytes());
-						stdin.write(("chmod 777 /sys/devices/system/cpu/cpu1/cpufreq/scaling_min_freq\n").getBytes());
-						stdin.write(("chmod 777 /sys/devices/system/cpu/cpu1/cpufreq/scaling_cur_freq\n").getBytes());
-						stdin.write(("chmod 777 /sys/devices/system/cpu/cpu1/cpufreq/scaling_governor\n").getBytes());
+		            	CommandCapture command1 = new CommandCapture(0, 
+		            "echo 0 > /sys/kernel/msm_mpdecision/conf/enabled",
+		            "chmod 666 /sys/devices/system/cpu/cpu1/online",
+		            "echo 1 > /sys/devices/system/cpu/cpu1/online",
+		            "chmod 444 /sys/devices/system/cpu/cpu1/online",
+		            "chown system /sys/devices/system/cpu/cpu1/online",
+				    "chmod 777 /sys/devices/system/cpu/cpu1/cpufreq/scaling_max_freq",
+				    "chmod 777 /sys/devices/system/cpu/cpu1/cpufreq/scaling_min_freq",
+					"chmod 777 /sys/devices/system/cpu/cpu1/cpufreq/scaling_cur_freq",
+					"chmod 777 /sys/devices/system/cpu/cpu1/cpufreq/scaling_governor");
+		            	try{
+							RootTools.getShell(true).add(command1).waitForFinish();
+							}
+							catch(Exception e){
+								
+							}
 					}
 		            if (IOHelper.cpu2Online() == true)
 					{
-						stdin.write(("echo 0 > /sys/kernel/msm_mpdecision/conf/enabled\n").getBytes());
-						stdin.write(("chmod 666 /sys/devices/system/cpu/cpu2/online\n").getBytes());
-						stdin.write(("echo 1 > /sys/devices/system/cpu/cpu2/online\n").getBytes());
-						stdin.write(("chmod 444 /sys/devices/system/cpu/cpu2/online\n").getBytes());
-						stdin.write(("chown system /sys/devices/system/cpu/cpu2/online\n").getBytes());
-						stdin.write(("chmod 777 /sys/devices/system/cpu/cpu2/cpufreq/scaling_max_freq\n").getBytes());
-						stdin.write(("chmod 777 /sys/devices/system/cpu/cpu2/cpufreq/scaling_min_freq\n").getBytes());
-						stdin.write(("chmod 777 /sys/devices/system/cpu/cpu2/cpufreq/scaling_cur_freq\n").getBytes());
-						stdin.write(("chmod 777 /sys/devices/system/cpu/cpu2/cpufreq/scaling_governor\n").getBytes());
-
+		            	CommandCapture command1 = new CommandCapture(0, 
+		            "echo 0 > /sys/kernel/msm_mpdecision/conf/enabled",
+		            "chmod 666 /sys/devices/system/cpu/cpu2/online",
+		            "echo 1 > /sys/devices/system/cpu/cpu2/online",
+		            "chmod 444 /sys/devices/system/cpu/cpu2/online",
+		            "chown system /sys/devices/system/cpu/cpu2/online",
+					"chmod 777 /sys/devices/system/cpu/cpu2/cpufreq/scaling_max_freq",
+					"chmod 777 /sys/devices/system/cpu/cpu2/cpufreq/scaling_min_freq",
+					"chmod 777 /sys/devices/system/cpu/cpu2/cpufreq/scaling_cur_freq",
+					"chmod 777 /sys/devices/system/cpu/cpu2/cpufreq/scaling_governor");
+		            	try{
+							RootTools.getShell(true).add(command1).waitForFinish();
+							}
+							catch(Exception e){
+								
+							}
 					}
 		            if (IOHelper.cpu3Online() == true)
 					{
-						stdin.write(("echo 0 > /sys/kernel/msm_mpdecision/conf/enabled\n").getBytes());
-						stdin.write(("chmod 666 /sys/devices/system/cpu/cpu3/online\n").getBytes());
-						stdin.write(("echo 1 > /sys/devices/system/cpu/cpu3/online\n").getBytes());
-						stdin.write(("chmod 444 /sys/devices/system/cpu/cpu3/online\n").getBytes());
-						stdin.write(("chown system /sys/devices/system/cpu/cpu3/online\n").getBytes());
-						stdin.write(("chmod 777 /sys/devices/system/cpu/cpu3/cpufreq/scaling_max_freq\n").getBytes());
-						stdin.write(("chmod 777 /sys/devices/system/cpu/cpu3/cpufreq/scaling_min_freq\n").getBytes());
-						stdin.write(("chmod 777 /sys/devices/system/cpu/cpu3/cpufreq/scaling_cur_freq\n").getBytes());
-						stdin.write(("chmod 777 /sys/devices/system/cpu/cpu3/cpufreq/scaling_governor\n").getBytes());
+		            	CommandCapture command1 = new CommandCapture(0,
+		            "echo 0 > /sys/kernel/msm_mpdecision/conf/enabled",
+		            "chmod 666 /sys/devices/system/cpu/cpu3/online",
+		            "echo 1 > /sys/devices/system/cpu/cpu3/online",
+		            "chmod 444 /sys/devices/system/cpu/cpu3/online",
+		            "chown system /sys/devices/system/cpu/cpu3/online",
+					"chmod 777 /sys/devices/system/cpu/cpu3/cpufreq/scaling_max_freq",
+					"chmod 777 /sys/devices/system/cpu/cpu3/cpufreq/scaling_min_freq",
+					"chmod 777 /sys/devices/system/cpu/cpu3/cpufreq/scaling_cur_freq",
+					"chmod 777 /sys/devices/system/cpu/cpu3/cpufreq/scaling_governor");
+		            	try{
+							RootTools.getShell(true).add(command1).waitForFinish();
+							}
+							catch(Exception e){
+								
+							}
 					}
-		            stdin.flush();
-
-		            stdin.close();
-		            BufferedReader brCleanUp =
-		                    new BufferedReader(new InputStreamReader(stdout));
-		            while ((line = brCleanUp.readLine()) != null) {
-		                Log.d("[KernelTuner ToggleCPUs Output]", line);
-		            }
-		            brCleanUp.close();
-		            brCleanUp =
-		                    new BufferedReader(new InputStreamReader(stderr));
-		            while ((line = brCleanUp.readLine()) != null) {
-		            	Log.e("[KernelTuner ToggleCPUs Error]", line);
-		            }
-		            brCleanUp.close();
-
-		        } catch (IOException ex) {
-		        }
+		            
 				
 			}
 			else
 			{
 				
-				try {
-		            String line;
-		            Process process = Runtime.getRuntime().exec("su");
-		            OutputStream stdin = process.getOutputStream();
-		            InputStream stderr = process.getErrorStream();
-		            InputStream stdout = process.getInputStream();
+				
 
 		            if (IOHelper.cpu1Online() == true)
 					{
-		            stdin.write(("echo 1 > /sys/kernel/msm_mpdecision/conf/enabled\n").getBytes());
-		            stdin.write(("chmod 777 /sys/devices/system/cpu/cpu1/online\n").getBytes());
-		            stdin.write(("echo 0 > /sys/devices/system/cpu/cpu1/online\n").getBytes());
-		            stdin.write(("chown system /sys/devices/system/cpu/cpu1/online\n").getBytes());
-					
+		            	CommandCapture command = new CommandCapture(0, 
+		            "echo 1 > /sys/kernel/msm_mpdecision/conf/enabled",
+		            "chmod 777 /sys/devices/system/cpu/cpu1/online",
+		            "echo 0 > /sys/devices/system/cpu/cpu1/online",
+		            "chown system /sys/devices/system/cpu/cpu1/online");
+		            	try{
+							RootTools.getShell(true).add(command).waitForFinish();
+							}
+							catch(Exception e){
+								
+							}
 					}
 		            if (IOHelper.cpu2Online() == true)
 					{
-		            	stdin.write(("echo 1 > /sys/kernel/msm_mpdecision/conf/enabled\n").getBytes());
-			            stdin.write(("chmod 777 /sys/devices/system/cpu/cpu2/online\n").getBytes());
-			            stdin.write(("echo 0 > /sys/devices/system/cpu/cpu2/online\n").getBytes());
-			            stdin.write(("chown system /sys/devices/system/cpu/cpu2/online\n").getBytes());
+		            	CommandCapture command = new CommandCapture(0,
+		            	"echo 1 > /sys/kernel/msm_mpdecision/conf/enabled",
+			            "chmod 777 /sys/devices/system/cpu/cpu2/online",
+			            "echo 0 > /sys/devices/system/cpu/cpu2/online",
+			            "chown system /sys/devices/system/cpu/cpu2/online");
+		            	try{
+							RootTools.getShell(true).add(command).waitForFinish();
+							}
+							catch(Exception e){
+								
+							}
 							
 					}
 		            if (IOHelper.cpu3Online() == true)
 					{
-		            	stdin.write(("echo 1 > /sys/kernel/msm_mpdecision/conf/enabled\n").getBytes());
-			            stdin.write(("chmod 777 /sys/devices/system/cpu/cpu3/online\n").getBytes());
-			            stdin.write(("echo 0 > /sys/devices/system/cpu/cpu3/online\n").getBytes());
-			            stdin.write(("chown system /sys/devices/system/cpu/cpu3/online\n").getBytes());
-						
+		            	CommandCapture command = new CommandCapture(0,
+		            	"echo 1 > /sys/kernel/msm_mpdecision/conf/enabled",
+			            "chmod 777 /sys/devices/system/cpu/cpu3/online",
+			            "echo 0 > /sys/devices/system/cpu/cpu3/online",
+			            "chown system /sys/devices/system/cpu/cpu3/online");
+		            	try{
+							RootTools.getShell(true).add(command).waitForFinish();
+							}
+							catch(Exception e){
+								
+							}
 					}
-		            stdin.flush();
-
-		            stdin.close();
-		            BufferedReader brCleanUp =
-		                    new BufferedReader(new InputStreamReader(stdout));
-		            while ((line = brCleanUp.readLine()) != null) {
-		                Log.d("[KernelTuner ToggleCPUs Output]", line);
-		            }
-		            brCleanUp.close();
-		            brCleanUp =
-		                    new BufferedReader(new InputStreamReader(stderr));
-		            while ((line = brCleanUp.readLine()) != null) {
-		            	Log.e("[KernelTuner ToggleCPUs Error]", line);
-		            }
-		            brCleanUp.close();
-
-		        } catch (IOException ex) {
-		        }
 			}
 			cpu0MinFreq = IOHelper.cpu0MinFreq();
 			cpu1MinFreq = IOHelper.cpu1MinFreq();
