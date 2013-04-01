@@ -66,6 +66,7 @@ public class BuildpropEditor extends Activity
 	ProgressDialog pd;
 	//CheckBox kernel, vm, fs, net;
 	SharedPreferences preferences;
+	String arch = Tools.getAbi();
 
 	@Override
 	public void onCreate(Bundle savedInstanceState)
@@ -109,6 +110,7 @@ public class BuildpropEditor extends Activity
 		bListView = (ListView) findViewById(R.id.list);
 		bAdapter = new BuildAdapter(this, R.layout.build_row);
 		bListView.setAdapter(bAdapter);
+		
 
 		bListView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
 
@@ -140,12 +142,13 @@ public class BuildpropEditor extends Activity
 								bp = bp.replace((CharSequence)tmpEntry.getName().trim()+"="+tmpEntry.getValue().trim(), (CharSequence)tmpEntry.getName().trim()+"="+input.getText().toString().trim());
 								FileOutputStream fOut = openFileOutput("build.prop",
 										MODE_PRIVATE);
+								System.out.println(bp);
 								OutputStreamWriter osw = new OutputStreamWriter(fOut);
 								osw.write(bp);
 								osw.flush();
 								osw.close();
-								CommandCapture command = new CommandCapture(0, getFilesDir().getPath()+"/cp /system/build.prop /system/build.prop.bk",
-										getFilesDir().getPath()+"/cp /data/data/rs.pedjaapps.KernelTuner/files/build.prop /system/build.prop",
+								CommandCapture command = new CommandCapture(0, getFilesDir().getPath()+"/cp-"+arch+" /system/build.prop /system/build.prop.bk",
+																				getFilesDir().getPath()+"/cp-"+arch+" /data/data/rs.pedjaapps.KernelTuner/files/build.prop /system/build.prop",
 										"chmod 644 /system/build.prop");
 								try{
 		                        	RootTools.getShell(true).add(command).waitForFinish();
@@ -368,7 +371,7 @@ public class BuildpropEditor extends Activity
 		builder.setItems(items2, new DialogInterface.OnClickListener() {
 		    @Override
 			public void onClick(DialogInterface dialog, int item) {
-		    	CommandCapture command = new CommandCapture(0, getFilesDir().getPath()+"/"+arch+"/cp "+ Environment.getExternalStorageDirectory().toString()+"/KernelTuner/build/"+items2[item]+" /system/build.prop",
+		    	CommandCapture command = new CommandCapture(0, getFilesDir().getPath()+"/cp-"+arch+ Environment.getExternalStorageDirectory().toString()+"/KernelTuner/build/"+items2[item]+" /system/build.prop",
 		    			"chmod 644 /system/build.prop");
 				try{
 					RootTools.getShell(true).add(command).waitForFinish();
