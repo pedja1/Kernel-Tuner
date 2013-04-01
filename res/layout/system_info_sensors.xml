@@ -19,7 +19,7 @@
             android:id="@+id/textView1"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="ORIENTATION"
+            android:text="@string/orientation"
             android:textAppearance="?android:attr/textAppearanceMedium" />
 
         <ImageView
@@ -108,7 +108,7 @@
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="ACCELERATION"
+            android:text="@string/acceleration"
             android:layout_marginTop="8dp"
             android:textAppearance="?android:attr/textAppearanceMedium" />
 
@@ -198,7 +198,7 @@
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="MAGNETIC"
+            android:text="@string/magnetic"
             android:layout_marginTop="8dp"
             android:textAppearance="?android:attr/textAppearanceMedium" />
 
@@ -288,7 +288,7 @@
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="LIGHT"
+            android:text="@string/light"
             android:layout_marginTop="8dp"
             android:textAppearance="?android:attr/textAppearanceMedium" />
 
@@ -342,7 +342,7 @@
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="PROXIMITY"
+            android:text="@string/proximity"
             android:layout_marginTop="8dp"
             android:textAppearance="?android:attr/textAppearanceMedium" />
 
@@ -396,7 +396,7 @@
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="PRESSURE"
+            android:text="@string/pressure"
             android:layout_marginTop="8dp"
             android:textAppearance="?android:attr/textAppearanceMedium" />
 
@@ -450,7 +450,7 @@
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="TEMPERATURE"
+            android:text="@string/temperature"
             android:layout_marginTop="8dp"
             android:textAppearance="?android:attr/textAppearanceMedium" />
 
@@ -504,7 +504,7 @@
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="GRAVITY"
+            android:text="@string/gravity"
             android:layout_marginTop="8dp"
             android:textAppearance="?android:attr/textAppearanceMedium" />
 
@@ -592,7 +592,7 @@
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="GYROSCOPE"
+            android:text="@string/gyroscope"
             android:layout_marginTop="8dp"
             android:textAppearance="?android:attr/textAppearanceMedium" />
 
@@ -679,7 +679,7 @@
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="RELATIVE HUMIDITY"
+            android:text="@string/relative_humidity"
             android:layout_marginTop="8dp"
             android:textAppearance="?android:attr/textAppearanceMedium" />
 

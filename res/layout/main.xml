@@ -285,7 +285,8 @@
         android:layout_height="wrap_content"
 		android:layout_below="@+id/v"
         android:layout_above="@+id/ly2"
-        android:layout_margin="8dp"	>
+        android:layout_margin="8dp"
+        	android:baselineAligned="false">
     <ScrollView
         
         android:layout_width="match_parent"

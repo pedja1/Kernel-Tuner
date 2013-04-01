@@ -30,7 +30,8 @@
         android:id="@+id/scrollView1"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_alignParentTop="true" >
+        android:layout_alignParentTop="true" 
+        android:baselineAligned="false">
 
         <ScrollView
             android:layout_width="match_parent"
@@ -236,7 +237,7 @@
                         android:drawableTop="@drawable/main_log"
                         android:gravity="center|center_vertical"
                         android:singleLine="true"
-                        android:text="LogCat" />
+                        android:text="@string/title_logcat" />
 
                     <Button
                         android:id="@+id/button14"

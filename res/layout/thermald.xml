@@ -53,13 +53,15 @@
                     <TextView
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:text="Max frequency when threshold is reached" />
+                        android:text="@string/max_freq_desc" />
                 </LinearLayout>
 
                 <Spinner
                     android:id="@+id/bg"
                     android:layout_width="wrap_content"
-                    android:layout_height="wrap_content" />
+                    android:layout_height="wrap_content"
+                    tools:listitem="@android:layout/simple_spinner_dropdown_item" />
+
             </LinearLayout>
 
             <ImageView
@@ -88,13 +90,13 @@
                     <TextView
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:text="Lower frequency"
+                        android:text="@string/lower_frequency"
                         android:textAppearance="?android:attr/textAppearanceMedium" />
 
                     <TextView
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:text="Lower frequency when CPU temp reaches:" />
+                        android:text="@string/lower_freq_desc" />
                 </LinearLayout>
 
                 <EditText
@@ -140,13 +142,13 @@
                     <TextView
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:text="Reset frequency"
+                        android:text="@string/reset_frequency"
                         android:textAppearance="?android:attr/textAppearanceMedium" />
 
                     <TextView
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:text="Reset frequency when CPU temp reaches:" />
+                        android:text="@string/reset_freq_desc" />
                 </LinearLayout>
 
                 <EditText
@@ -203,7 +205,7 @@
                     <TextView
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:text="Max frequency when threshold is reached" />
+                        android:text="@string/max_freq_desc" />
                 </LinearLayout>
 
                 <Spinner
@@ -238,13 +240,13 @@
                     <TextView
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:text="Lower frequency"
+                        android:text="@string/lower_frequency"
                         android:textAppearance="?android:attr/textAppearanceMedium" />
 
                     <TextView
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:text="Lower frequency when CPU temp reaches:" />
+                        android:text="@string/lower_freq_desc" />
                 </LinearLayout>
 
                 <EditText
@@ -290,13 +292,13 @@
                     <TextView
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:text="Reset frequency"
+                        android:text="@string/reset_frequency"
                         android:textAppearance="?android:attr/textAppearanceMedium" />
 
                     <TextView
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:text="Reset frequency when CPU temp reaches:" />
+                        android:text="@string/reset_freq_desc" />
                 </LinearLayout>
 
                 <EditText
@@ -353,7 +355,7 @@
                     <TextView
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:text="Max frequency when threshold is reached" />
+                        android:text="@string/max_freq_desc" />
                 </LinearLayout>
 
                 <Spinner
@@ -388,13 +390,13 @@
                     <TextView
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:text="Lower frequency"
+                        android:text="@string/lower_frequency"
                         android:textAppearance="?android:attr/textAppearanceMedium" />
 
                     <TextView
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:text="Lower frequency when CPU temp reaches:" />
+                        android:text="@string/lower_freq_desc" />
                 </LinearLayout>
 
                 <EditText
@@ -440,13 +442,13 @@
                     <TextView
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:text="Reset frequency"
+                        android:text="@string/reset_frequency"
                         android:textAppearance="?android:attr/textAppearanceMedium" />
 
                     <TextView
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:text="Reset frequency when CPU temp reaches:" />
+                        android:text="@string/reset_freq_desc" />
                 </LinearLayout>
 
                 <EditText

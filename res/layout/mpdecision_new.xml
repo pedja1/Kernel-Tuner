@@ -34,13 +34,13 @@
                     <TextView
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:text="Service Start Delay"
+                        android:text="@string/service_start_delay"
                         android:textAppearance="?android:attr/textAppearanceMedium" />
 
                     <TextView
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:text="Time to delay start of mpdecision service" />
+                        android:text="@string/start_delay_desc" />
                 </LinearLayout>
                 
                 <EditText
@@ -51,7 +51,7 @@
                 <TextView
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:text="ms" />
+                        android:text="@string/ms" />
                
             </LinearLayout>
 
@@ -81,13 +81,13 @@
                     <TextView
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:text="Pause"
+                        android:text="@string/pause"
                         android:textAppearance="?android:attr/textAppearanceMedium" />
 
                     <TextView
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:text="Time to sleep if external process activates cpu1" />
+                        android:text="@string/pause_desc" />
                 </LinearLayout>
 
                 <EditText
@@ -98,7 +98,7 @@
                 <TextView
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:text="ms" />
+                        android:text="@string/ms" />
             </LinearLayout>
 
             <ImageView
@@ -127,13 +127,13 @@
                     <TextView
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:text="Max CPUs"
+                        android:text="@string/max_cpus"
                         android:textAppearance="?android:attr/textAppearanceMedium" />
 
                     <TextView
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:text="Max CPUs to be online, cannot be more than 4" />
+                        android:text="@string/max_cpus_desc" />
                 </LinearLayout>
 
                 <EditText
@@ -170,13 +170,13 @@
                     <TextView
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:text="Min CPUs"
+                        android:text="@string/min_cpus"
                         android:textAppearance="?android:attr/textAppearanceMedium" />
 
                     <TextView
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:text="Min CPUs to be online, cannot be less than 1" />
+                        android:text="@string/min_cpus_desc" />
                 </LinearLayout>
 
                 <EditText
@@ -213,13 +213,13 @@
                     <TextView
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:text="Idle Frequency"
+                        android:text="@string/idle_frequency"
                         android:textAppearance="?android:attr/textAppearanceMedium" />
 
                     <TextView
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:text="CPU idle frequency" />
+                        android:text="@string/idle_freq_desc" />
                 </LinearLayout>
 
                 <Spinner
@@ -254,13 +254,13 @@
                     <TextView
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:text="Screen-Off Frequency"
+                        android:text="@string/screen_off_frequency"
                         android:textAppearance="?android:attr/textAppearanceMedium" />
 
                     <TextView
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:text="Max Frequency to use when Screen is Off" />
+                        android:text="@string/scroff_freq_desc" />
                 </LinearLayout>
 
                 <Spinner
@@ -295,13 +295,13 @@
                     <TextView
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:text="Single Core - Screen Off"
+                        android:text="@string/single_core_screen_off"
                         android:textAppearance="?android:attr/textAppearanceMedium" />
 
                     <TextView
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:text="Use ony one core when screen is off" />
+                        android:text="@string/single_scroff_desc" />
                 </LinearLayout>
 
                 <Switch
@@ -315,7 +315,7 @@
              <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="1 CPU ONLINE"
+                android:text="@string/one_cpu_online"
                 android:layout_marginTop="8dp"
                 android:textAppearance="?android:attr/textAppearanceMedium" />
 
@@ -343,13 +343,13 @@
                     <TextView
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:text="CPU1 Hotplug"
+                        android:text="@string/cpu1_hotplug"
                         android:textAppearance="?android:attr/textAppearanceMedium" />
 
                     <TextView
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:text="Activate CPU1 after load reaches:" />
+                        android:text="@string/cpu1_hotplug_desc" />
                 </LinearLayout>
                 <EditText
                     android:id="@+id/one_cpu_hotplug"
@@ -359,7 +359,7 @@
                 <TextView
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:text="%" />
+                        android:text="@string/percent" />
             </LinearLayout>
             
             <ImageView
@@ -388,13 +388,13 @@
                     <TextView
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:text="CPU1 Hotplug Time"
+                        android:text="@string/cpu1_hotplug_time"
                         android:textAppearance="?android:attr/textAppearanceMedium" />
 
                     <TextView
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:text="Time load needs to exists before activating CPU1" />
+                        android:text="@string/cpu1_hotplug_time_desc" />
                 </LinearLayout>
                 <EditText
                     android:id="@+id/one_cpu_hotplug_time"
@@ -404,14 +404,14 @@
                 <TextView
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:text="ms" />
+                        android:text="@string/ms" />
             </LinearLayout>
             
 
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="2 CPUs ONLINE"
+                android:text="@string/two_cpus_online"
                 android:layout_marginTop="8dp"
                 android:textAppearance="?android:attr/textAppearanceMedium" />
 
@@ -439,13 +439,13 @@
                     <TextView
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:text="CPU2 Hotplug"
+                        android:text="@string/cpu2_hotplug"
                         android:textAppearance="?android:attr/textAppearanceMedium" />
 
                     <TextView
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:text="Activate CPU2 after load reaches:" />
+                        android:text="@string/cpu2_hotplug_desc" />
                 </LinearLayout>
                 <EditText
                     android:id="@+id/two_cpus_hotplug"
@@ -455,7 +455,7 @@
                 <TextView
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:text="%" />
+                        android:text="@string/percent" />
             </LinearLayout>
 
             <ImageView
@@ -484,13 +484,13 @@
                     <TextView
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:text="CPU2 Hotplug Time"
+                        android:text="@string/cpu2_hotplug_time"
                         android:textAppearance="?android:attr/textAppearanceMedium" />
 
                     <TextView
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:text="Time load needs to exists before activating CPU2" />
+                        android:text="@string/cpu2_hotplug_time_desc" />
                 </LinearLayout>
                 <EditText
                     android:id="@+id/two_cpu_hotplug_time"
@@ -500,7 +500,7 @@
                 <TextView
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:text="ms" />
+                        android:text="@string/ms" />
             </LinearLayout>
             
             <ImageView
@@ -529,13 +529,13 @@
                     <TextView
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:text="CPU1 Unplug"
+                        android:text="@string/cpu1_unplug"
                         android:textAppearance="?android:attr/textAppearanceMedium" />
 
                     <TextView
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:text="Deactivate CPU1 after load reaches:" />
+                        android:text="@string/cpu1_unplug_desc" />
                 </LinearLayout>
 
                 <EditText
@@ -546,7 +546,7 @@
                 <TextView
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:text="%" />
+                        android:text="@string/percent" />
                 
             </LinearLayout>
             
@@ -576,13 +576,13 @@
                     <TextView
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:text="CPU1 Unplug Time"
+                        android:text="@string/cpu1_unplug_time"
                         android:textAppearance="?android:attr/textAppearanceMedium" />
 
                     <TextView
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:text="Time load needs to exists before deactivating CPU1" />
+                        android:text="@string/cpu1_unplug_time_desc" />
                 </LinearLayout>
                 <EditText
                     android:id="@+id/two_cpu_unplug_time"
@@ -592,13 +592,13 @@
                 <TextView
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:text="ms" />
+                        android:text="@string/ms" />
             </LinearLayout>
             
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="3 CPUs ONLINE"
+                android:text="@string/three_cpus_online"
                 android:layout_marginTop="8dp"
                 android:textAppearance="?android:attr/textAppearanceMedium" />
 
@@ -626,13 +626,13 @@
                     <TextView
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:text="CPU3 Hotplug"
+                        android:text="@string/cpu3_hotplug"
                         android:textAppearance="?android:attr/textAppearanceMedium" />
 
                     <TextView
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:text="Activate CPU3 after load reaches:" />
+                        android:text="@string/cpu3_hotplug_desc" />
                 </LinearLayout>
                 <EditText
                     android:id="@+id/three_cpus_hotplug"
@@ -642,7 +642,7 @@
                 <TextView
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:text="%" />
+                        android:text="@string/percent" />
             </LinearLayout>
 
             <ImageView
@@ -671,13 +671,13 @@
                     <TextView
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:text="CPU3 Hotplug Time"
+                        android:text="@string/cpu3_hotplug_time"
                         android:textAppearance="?android:attr/textAppearanceMedium" />
 
                     <TextView
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:text="Time load needs to exists before activating CPU3" />
+                        android:text="@string/cpu3_hotplug_time_desc" />
                 </LinearLayout>
                 <EditText
                     android:id="@+id/three_cpu_hotplug_time"
@@ -687,7 +687,7 @@
                 <TextView
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:text="ms" />
+                        android:text="@string/ms" />
             </LinearLayout>
             
             <ImageView
@@ -716,13 +716,13 @@
                     <TextView
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:text="CPU2 Unplug"
+                        android:text="@string/cpu2_unplug"
                         android:textAppearance="?android:attr/textAppearanceMedium" />
 
                     <TextView
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:text="Deactivate CPU2 after load reaches:" />
+                        android:text="@string/cpu2_unplug_desc" />
                 </LinearLayout>
 
                 <EditText
@@ -733,7 +733,7 @@
                 <TextView
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:text="%" />
+                        android:text="@string/percent" />
                 
             </LinearLayout>
             
@@ -763,13 +763,13 @@
                     <TextView
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:text="CPU2 Unplug Time"
+                        android:text="@string/cpu2_unplug_time"
                         android:textAppearance="?android:attr/textAppearanceMedium" />
 
                     <TextView
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:text="Time load needs to exists before deactivating CPU2" />
+                        android:text="@string/cpu2_unplug_time_desc" />
                 </LinearLayout>
                 <EditText
                     android:id="@+id/three_cpu_unplug_time"
@@ -779,13 +779,13 @@
                 <TextView
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:text="ms" />
+                        android:text="@string/ms" />
             </LinearLayout>
             
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="4 CPU ONLINE"
+                android:text="@string/four_cpus_online"
                 android:layout_marginTop="8dp"
                 android:textAppearance="?android:attr/textAppearanceMedium" />
 
@@ -813,13 +813,13 @@
                     <TextView
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:text="CPU3 Unplug"
-                        android:textAppearance="?android:attr/textAppearanceMedium" />
+                        android:text="@string/cpu3_unplug"
+                        android:textAppearance="?android:attr/textAppearanceMedium"/>
 
                     <TextView
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:text="Deactivate CPU3 after load reaches:" />
+                        android:text="@string/cpu3_unplug_desc" />
                 </LinearLayout>
                 <EditText
                     android:id="@+id/four_cpus_unplug"
@@ -829,7 +829,7 @@
                 <TextView
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:text="%" />
+                        android:text="@string/percent" />
             </LinearLayout>
 
             <ImageView
@@ -858,13 +858,13 @@
                     <TextView
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:text="CPU3 Unplug Time"
+                        android:text="@string/cpu3_unplug_time"
                         android:textAppearance="?android:attr/textAppearanceMedium" />
 
                     <TextView
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:text="Time load needs to exists before deactivating CPU3" />
+                        android:text="@string/cpu3_unplug_time_desc" />
                 </LinearLayout>
                 <EditText
                     android:id="@+id/four_cpu_unplug_time"
@@ -874,7 +874,7 @@
                 <TextView
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:text="ms" />
+                        android:text="@string/ms" />
             </LinearLayout>
             
             

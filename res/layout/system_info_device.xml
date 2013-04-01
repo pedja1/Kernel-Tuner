@@ -24,7 +24,7 @@
 					
 					android:layout_width="wrap_content"
 					android:layout_height="wrap_content"
-					android:text="Android Version: "/>
+					android:text="@string/android_version_"/>
 			
 			<TextView
 				android:id="@+id/androidVersion"
@@ -43,7 +43,7 @@
 					
 					android:layout_width="wrap_content"
 					android:layout_height="wrap_content"
-					android:text="API Level: "/>
+					android:text="@string/api_level_"/>
 			<TextView
 				android:id="@+id/api"
 				android:layout_width="wrap_content"
@@ -62,7 +62,7 @@
 
 					android:layout_width="wrap_content"
 					android:layout_height="wrap_content"
-					android:text="CPU ABI: "/>
+					android:text="@string/cpu_abi_"/>
 			
 			<TextView
 				android:id="@+id/cpuAbi"
@@ -82,7 +82,7 @@
 
 					android:layout_width="wrap_content"
 					android:layout_height="wrap_content"
-					android:text="Manufacturer: "/>
+					android:text="@string/manufacturer_"/>
 			
 			<TextView
 				android:id="@+id/manufacturer"
@@ -102,7 +102,7 @@
 
 					android:layout_width="wrap_content"
 					android:layout_height="wrap_content"
-					android:text="Bootloader: "/>
+					android:text="@string/bootloader_"/>
 			
 			<TextView
 				android:id="@+id/bootloader"
@@ -121,7 +121,7 @@
 
 					android:layout_width="wrap_content"
 					android:layout_height="wrap_content"
-					android:text="Hardware: "/>
+					android:text="@string/hardware_"/>
 			
 			<TextView
 				android:id="@+id/hardware"
@@ -140,7 +140,7 @@
 
 					android:layout_width="wrap_content"
 					android:layout_height="wrap_content"
-					android:text="Radio: "/>
+					android:text="@string/radio_"/>
 			
 			<TextView
 				android:id="@+id/radio"
@@ -159,7 +159,7 @@
 
 					android:layout_width="wrap_content"
 					android:layout_height="wrap_content"
-					android:text="Board: "/>
+					android:text="@string/board_"/>
 			
 			<TextView
 				android:id="@+id/board"
@@ -178,7 +178,7 @@
 
 					android:layout_width="wrap_content"
 					android:layout_height="wrap_content"
-					android:text="Brand:"/>
+					android:text="@string/brand_"/>
 			
 			<TextView
 				android:id="@+id/brand"
@@ -197,7 +197,7 @@
 
 					android:layout_width="wrap_content"
 					android:layout_height="wrap_content"
-					android:text="Device: "/>
+					android:text="@string/device_"/>
 			
 			<TextView
 				android:id="@+id/device"
@@ -216,7 +216,7 @@
 
 					android:layout_width="wrap_content"
 					android:layout_height="wrap_content"
-					android:text="Dysplay: "/>
+					android:text="@string/display_"/>
 			
 			<TextView
 				android:id="@+id/display"
@@ -235,7 +235,7 @@
 
 					android:layout_width="wrap_content"
 					android:layout_height="wrap_content"
-					android:text="Fingerprint:"/>
+					android:text="@string/fingerprint_"/>
 			
 			<TextView
 				android:id="@+id/fingerprint"
@@ -254,7 +254,7 @@
 
 					android:layout_width="wrap_content"
 					android:layout_height="wrap_content"
-					android:text="Host:"/>
+					android:text="@string/host_"/>
 			
 			<TextView
 				android:id="@+id/host"
@@ -273,7 +273,7 @@
 
 					android:layout_width="wrap_content"
 					android:layout_height="wrap_content"
-					android:text="ID:"/>
+					android:text="@string/id_"/>
 			
 			<TextView
 				android:id="@+id/id"
@@ -292,7 +292,7 @@
 
 					android:layout_width="wrap_content"
 					android:layout_height="wrap_content"
-					android:text="Model: "/>
+					android:text="@string/model_"/>
 			
 			<TextView
 				android:id="@+id/model"
@@ -311,7 +311,7 @@
 
 					android:layout_width="wrap_content"
 					android:layout_height="wrap_content"
-					android:text="Product: "/>
+					android:text="@string/product_"/>
 			
 			<TextView
 				android:id="@+id/product"
@@ -330,7 +330,7 @@
 
 					android:layout_width="wrap_content"
 					android:layout_height="wrap_content"
-					android:text="Tags:"/>
+					android:text="@string/tags_"/>
 			
 			<TextView
 				android:id="@+id/tags"
@@ -349,7 +349,7 @@
 
 					android:layout_width="wrap_content"
 					android:layout_height="wrap_content"
-					android:text="Type:"/>
+					android:text="@string/type_"/>
 			
 			<TextView
 				android:id="@+id/type"
@@ -368,7 +368,7 @@
 
 					android:layout_width="wrap_content"
 					android:layout_height="wrap_content"
-					android:text="User:"/>
+					android:text="@string/user_"/>
 			
 			<TextView
 				android:id="@+id/user"
@@ -394,7 +394,7 @@
 
 					android:layout_width="wrap_content"
 					android:layout_height="wrap_content"
-					android:text="Installed Applications:"/>
+					android:text="@string/installed_applications_"/>
 			
 			<TextView
 				android:id="@+id/userApps"
@@ -413,7 +413,7 @@
 
 					android:layout_width="wrap_content"
 					android:layout_height="wrap_content"
-					android:text="System Applications:"/>
+					android:text="@string/system_applications_"/>
 			
 			<TextView
 				android:id="@+id/systemApps"
@@ -437,7 +437,7 @@
 
 					android:layout_width="wrap_content"
 					android:layout_height="wrap_content"
-					android:text="Screen Resoulution:"/>
+					android:text="@string/screen_resoulution_"/>
 			
 			<TextView
 				android:id="@+id/screenResolution"
@@ -456,7 +456,7 @@
 
 					android:layout_width="wrap_content"
 					android:layout_height="wrap_content"
-					android:text="Screen Refresh Rate:"/>
+					android:text="@string/screen_refresh_rate_"/>
 			
 			<TextView
 				android:id="@+id/screenRefreshRate"
@@ -475,7 +475,7 @@
 
 					android:layout_width="wrap_content"
 					android:layout_height="wrap_content"
-					android:text="Screen Density:"/>
+					android:text="@string/screen_density_"/>
 			
 			<TextView
 				android:id="@+id/screenDensity"
@@ -494,7 +494,7 @@
 
 					android:layout_width="wrap_content"
 					android:layout_height="wrap_content"
-					android:text="Screen PPI"/>
+					android:text="@string/screen_ppi"/>
 			
 			<TextView
 				android:id="@+id/screenPPI"
@@ -518,7 +518,7 @@
 					
 					android:layout_width="wrap_content"
 					android:layout_height="wrap_content"
-					android:text="GPU 2D Frequency: "/>
+					android:text="@string/gpu_2d_frequency_"/>
 			
 			<TextView
 				android:id="@+id/gpu2d"
@@ -537,7 +537,7 @@
 					
 					android:layout_width="wrap_content"
 					android:layout_height="wrap_content"
-					android:text="GPU 3D Frequency: "/>
+					android:text="@string/gpu_3d_frequency_"/>
 			<TextView
 				android:id="@+id/gpu3d"
 				android:layout_width="wrap_content"
@@ -556,7 +556,7 @@
 
 					android:layout_width="wrap_content"
 					android:layout_height="wrap_content"
-					android:text="Vsync: "/>
+					android:text="@string/vsync_"/>
 			
 			<TextView
 				android:id="@+id/vsync"
@@ -576,7 +576,7 @@
 
 					android:layout_width="wrap_content"
 					android:layout_height="wrap_content"
-					android:text="Fastcharge: "/>
+					android:text="@string/fastcharge_"/>
 			
 			<TextView
 				android:id="@+id/fastcharge"
@@ -596,7 +596,7 @@
 
 					android:layout_width="wrap_content"
 					android:layout_height="wrap_content"
-					android:text="Color Depth: "/>
+					android:text="@string/color_depth_"/>
 			
 			<TextView
 				android:id="@+id/cdepth"
@@ -615,7 +615,7 @@
 
 					android:layout_width="wrap_content"
 					android:layout_height="wrap_content"
-					android:text="Schedulers:"/>
+					android:text="@string/schedulers_"/>
 			
 			<TextView
 				android:id="@+id/schedulers"
@@ -634,7 +634,7 @@
 
 					android:layout_width="wrap_content"
 					android:layout_height="wrap_content"
-					android:text="Sweep2Wake:"/>
+					android:text="@string/sweep2wake_"/>
 			
 			<TextView
 				android:id="@+id/s2w"

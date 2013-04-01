@@ -3,18 +3,18 @@
 
     <item
         android:id="@+id/apply"
-        android:title="Apply"/>
+        android:title="@string/apply"/>
     
             <item
         android:id="@+id/delete"
-        android:title="Delete"/>
+        android:title="@string/delete"/>
             
             <item
         android:id="@+id/edit"
-        android:title="Edit"/>
+        android:title="@string/edit"/>
  
     <item
         android:id="@+id/copy"
-        android:title="Copy"/>
+        android:title="@string/copy"/>
             
 </menu>

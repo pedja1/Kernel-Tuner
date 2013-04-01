@@ -34,13 +34,13 @@
                     <TextView
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:text="Service Start Delay"
+                        android:text="@string/service_start_delay"
                         android:textAppearance="?android:attr/textAppearanceMedium" />
 
                     <TextView
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:text="Time to delay start of mpdecision service" />
+                        android:text="@string/start_delay_desc" />
                 </LinearLayout>
                 
                 <EditText
@@ -51,7 +51,7 @@
                 <TextView
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:text="ms" />
+                        android:text="@string/ms" />
                
             </LinearLayout>
 
@@ -81,13 +81,13 @@
                     <TextView
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:text="Pause"
+                        android:text="@string/pause"
                         android:textAppearance="?android:attr/textAppearanceMedium" />
 
                     <TextView
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:text="Time to sleep if external process activates cpu1" />
+                        android:text="@string/pause_desc" />
                 </LinearLayout>
 
                 <EditText
@@ -98,7 +98,7 @@
                 <TextView
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:text="ms" />
+                        android:text="@string/ms" />
             </LinearLayout>
 
             <ImageView
@@ -127,13 +127,13 @@
                     <TextView
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:text="Threshold Up - Load"
+                        android:text="@string/threshold_up_load"
                         android:textAppearance="?android:attr/textAppearanceMedium" />
 
                     <TextView
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:text="Activate CPU1 after cpu load reaches:" />
+                        android:text="@string/tul_desc" />
                 </LinearLayout>
 
                 <EditText
@@ -144,7 +144,7 @@
                 <TextView
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:text="%" />
+                        android:text="@string/percent" />
             </LinearLayout>
 
             <ImageView
@@ -173,13 +173,13 @@
                     <TextView
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:text="Threshold Up - Time"
+                        android:text="@string/threshold_up_time"
                         android:textAppearance="?android:attr/textAppearanceMedium" />
 
                     <TextView
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:text="Time load needs to exists before activating CPU1" />
+                        android:text="@string/tut_desc" />
                 </LinearLayout>
 
                 <EditText
@@ -190,7 +190,7 @@
                 <TextView
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:text="ms" />
+                        android:text="@string/ms" />
             </LinearLayout>
 
             <ImageView
@@ -219,13 +219,13 @@
                     <TextView
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:text="Threshold Down - Load"
+                        android:text="@string/threshold_down_load"
                         android:textAppearance="?android:attr/textAppearanceMedium" />
 
                     <TextView
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:text="Deactivate CPU1 after load reaches:" />
+                        android:text="@string/tdl_desc" />
                 </LinearLayout>
                 <EditText
                     android:id="@+id/ed5"
@@ -235,7 +235,7 @@
                 <TextView
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:text="%" />
+                        android:text="@string/percent" />
             </LinearLayout>
 
             <ImageView
@@ -264,13 +264,13 @@
                     <TextView
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:text="Threshold Down - Time"
+                        android:text="@string/threshold_down_time"
                         android:textAppearance="?android:attr/textAppearanceMedium" />
 
                     <TextView
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:text="Time load needs to exists before deactivating CPU1" />
+                        android:text="@string/tdt_desc" />
                 </LinearLayout>
 
                 <EditText
@@ -281,7 +281,7 @@
                 <TextView
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:text="ms" />
+                        android:text="@string/ms" />
                 
             </LinearLayout>
             <ImageView
@@ -310,13 +310,13 @@
                     <TextView
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:text="Idle Frequency"
+                        android:text="@string/idle_frequency"
                         android:textAppearance="?android:attr/textAppearanceMedium" />
 
                     <TextView
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:text="CPU idle frequency" />
+                        android:text="@string/idle_freq_desc" />
                 </LinearLayout>
 
                 <Spinner
@@ -351,13 +351,13 @@
                     <TextView
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:text="Screen-Off Frequency"
+                        android:text="@string/screen_off_frequency"
                         android:textAppearance="?android:attr/textAppearanceMedium" />
 
                     <TextView
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:text="Max Frequency to use when Screen is Off" />
+                        android:text="@string/scroff_freq_desc" />
                 </LinearLayout>
 
                 <Spinner
@@ -392,13 +392,13 @@
                     <TextView
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:text="Single Core - Screen Off"
+                        android:text="@string/single_core_screen_off"
                         android:textAppearance="?android:attr/textAppearanceMedium" />
 
                     <TextView
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:text="Use ony one core when screen is off" />
+                        android:text="@string/single_scroff_desc" />
                 </LinearLayout>
 
                 <Switch

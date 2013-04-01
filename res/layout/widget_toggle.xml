@@ -53,7 +53,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_weight="1"
-            android:text="CPU1" />
+            android:text="@string/cpu1" />
 
         <Button
             android:id="@+id/button2"
@@ -61,7 +61,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_weight="1"
-            android:text="CPU2" />
+            android:text="@string/cpu2" />
 
         <Button
             android:id="@+id/button3"
@@ -69,7 +69,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_weight="1"
-            android:text="CPU3" />
+            android:text="@string/cpu3" />
     </LinearLayout>
 
     <TextView
@@ -77,7 +77,7 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_weight="1"
-        android:text="This widget works only on multi-core devices!"
+        android:text="@string/this_widget_works_only_on_multi_core_devices_"
         android:visibility="gone" />
     
     </LinearLayout>

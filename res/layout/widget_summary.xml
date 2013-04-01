@@ -40,7 +40,7 @@
             android:layout_gravity="center_vertical"
             android:layout_marginLeft="5dp"
             android:layout_weight="1"
-            android:text="Up:" />
+            android:text="@string/up_" />
 
         <TextView
             android:id="@+id/cpu_uptime"
@@ -55,7 +55,7 @@
             android:layout_gravity="center_vertical"
             android:layout_marginLeft="10dp"
             android:layout_weight="1"
-            android:text="Sleep: " />
+            android:text="@string/sleep_" />
 
         <TextView
             android:id="@+id/cpu_sleep"
@@ -76,7 +76,7 @@
             android:layout_gravity="center_vertical"
             android:layout_marginLeft="5dp"
             android:layout_weight="1"
-            android:text="min:" />
+            android:text="@string/min_" />
 
         <TextView
             android:id="@+id/cpu_min"
@@ -91,7 +91,7 @@
             android:layout_gravity="center_vertical"
             android:layout_marginLeft="10dp"
             android:layout_weight="1"
-            android:text="max:" />
+            android:text="@string/max_" />
 
         <TextView
             android:id="@+id/cpu_max"
@@ -112,7 +112,7 @@
             android:layout_gravity="center_vertical"
             android:layout_marginLeft="5dp"
             android:layout_weight="1"
-            android:text="Governor" />
+            android:text="@string/governor" />
 
         <TextView
             android:id="@+id/cpu_gov"
@@ -127,7 +127,7 @@
             android:layout_gravity="center_vertical"
             android:layout_marginLeft="10dp"
             android:layout_weight="1"
-            android:text="Temp:" />
+            android:text="@string/temp_" />
 
         <TextView
             android:id="@+id/cpu_temp"
@@ -146,7 +146,7 @@
                      android:layout_width="wrap_content"
                      android:layout_height="wrap_content"
                      android:layout_marginLeft="5dp"
-                     android:text="Load: " />
+                     android:text="@string/load_" />
 
                  <ProgressBar
                      android:id="@+id/cpu_load_progress"
@@ -208,7 +208,7 @@
             android:layout_gravity="center_vertical"
             android:layout_marginLeft="5dp"
             android:layout_weight="1"
-            android:text="GPU 2D" />
+            android:text="@string/gpu_2d" />
 
         <TextView
             android:id="@+id/gpu_2d"
@@ -224,7 +224,7 @@
             android:layout_gravity="center_vertical"
             android:layout_marginLeft="10dp"
             android:layout_weight="1"
-            android:text="GPU 3D" />
+            android:text="@string/gpu_3d" />
 
         <TextView
             android:id="@+id/gpu_3d"
@@ -275,7 +275,7 @@
                     android:layout_gravity="center_vertical"
                     android:layout_marginLeft="5dp"
                     android:layout_weight="1"
-                    android:text="Buttons Light:" />
+                    android:text="@string/buttons_light_" />
 
         <TextView
             android:id="@+id/misc_bl"
@@ -290,7 +290,7 @@
             android:layout_gravity="center_vertical"
             android:layout_marginLeft="10dp"
             android:layout_weight="1"
-            android:text="Vsync:" />
+            android:text="@string/vsync_" />
 
         <TextView
             android:id="@+id/misc_vs"
@@ -311,7 +311,7 @@
             android:layout_gravity="center_vertical"
             android:layout_marginLeft="5dp"
             android:layout_weight="1"
-            android:text="Scheduler:" />
+            android:text="@string/scheduler_" />
 
         <TextView
             android:id="@+id/misc_scheduler"
@@ -326,7 +326,7 @@
             android:layout_gravity="center_vertical"
             android:layout_marginLeft="10dp"
             android:layout_weight="1"
-            android:text="Fastcharge:" />
+            android:text="@string/fastcharge_" />
 
         <TextView
             android:id="@+id/misc_fc"
@@ -347,7 +347,7 @@
             android:layout_gravity="center_vertical"
             android:layout_marginLeft="5dp"
             android:layout_weight="1"
-            android:text="S2W:" />
+            android:text="@string/s2w_" />
 
         <TextView
             android:id="@+id/misc_s2w"
@@ -362,7 +362,7 @@
             android:layout_gravity="center_vertical"
             android:layout_marginLeft="10dp"
             android:layout_weight="1"
-            android:text="Cache Size:" />
+            android:text="@string/cache_size_" />
 
         <TextView
             android:id="@+id/misc_cache"
@@ -406,7 +406,7 @@
                 android:id="@+id/textView1"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="Level" />
+                android:text="@string/level" />
 
             <ProgressBar
                 android:id="@+id/progressBar1"

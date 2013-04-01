@@ -4,12 +4,12 @@
      <item
         android:id="@+id/cancel"
         android:showAsAction="ifRoom|withText"
-        android:title="Cancel"/>
+        android:title="@string/cancel"/>
     
     <item
         android:id="@+id/apply"
         android:showAsAction="ifRoom|withText"
-        android:title="Apply"/>
+        android:title="@string/apply"/>
     
            
  

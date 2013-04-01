@@ -415,7 +415,7 @@
                        
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:text="Change SD Card Cache Size" />
+                        android:text="@string/change_sd_card_cache_size" />
                 </LinearLayout>
                     <EditText
                         android:id="@+id/editText1"
@@ -442,7 +442,7 @@
                 android:layout_height="wrap_content"
                 android:layout_below="@+id/io_sd_layout"
                 android:layout_marginTop="8dp"
-                android:text="NOTIIFCATION LED TIMEOUT"
+                android:text="@string/nlt_title"
                 android:textAppearance="?android:attr/textAppearanceMedium" />
 
             <LinearLayout
@@ -461,14 +461,14 @@
                       
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:text="Notificatio LED Timeout"
+                        android:text="@string/nlt"
                         android:textAppearance="?android:attr/textAppearanceMedium" />
 
                     <TextView
                         
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:text="Set timeout for LED Notifications" />
+                        android:text="@string/nlt_message" />
                 </LinearLayout>
                     <Spinner
                         android:id="@+id/spinner_nlt"
@@ -484,7 +484,7 @@
                 android:layout_height="wrap_content"
                 android:layout_alignParentLeft="true"
                 android:layout_below="@+id/nlt_layout"
-                android:text="SWEEP2WAKE"
+                android:text="@string/s2w_title"
                 android:layout_marginTop="8dp"
                 android:textAppearance="?android:attr/textAppearanceMedium" />
             
@@ -524,14 +524,14 @@
                         
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:text="Sweep2Wake"
+                        android:text="@string/s2w"
                         android:textAppearance="?android:attr/textAppearanceMedium" />
 
                     <TextView
                         
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:text="Toggle sweep2wake" />
+                        android:text="@string/s2w_message" />
                 </LinearLayout>
                     <Spinner
                         android:id="@+id/spinner2"
@@ -566,14 +566,14 @@
                         
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:text="Start Button"
+                        android:text="@string/start_button"
                         android:textAppearance="?android:attr/textAppearanceMedium" />
 
                     <TextView
                         
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:text="Start button for swipe gesture" />
+                        android:text="@string/start_button_desc" />
                 </LinearLayout>
                     <Spinner
                         android:id="@+id/spinner3"
@@ -607,14 +607,14 @@
                     
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:text="End Button"
+                        android:text="@string/end_button"
                         android:textAppearance="?android:attr/textAppearanceMedium" />
 
                     <TextView
                         
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:text="End button for swipe gesture" />
+                        android:text="@string/end_button_desc" />
                 </LinearLayout>
                     <Spinner
                         android:id="@+id/spinner4"

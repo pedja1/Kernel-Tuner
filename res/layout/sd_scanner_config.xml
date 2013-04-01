@@ -20,7 +20,7 @@
             android:layout_height="wrap_content"
             android:layout_marginLeft="3dp"
             android:layout_weight="1"
-            android:text="Total: "
+            android:text="@string/mem_total"
             android:textColor="@color/orange" />
 
         <TextView
@@ -28,7 +28,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_weight="1"
-            android:text="Used: "
+            android:text="@string/mem_used"
             
             android:textColor="@color/red" />
 
@@ -37,7 +37,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_weight="1"
-            android:text="Free: "
+            android:text="@string/mem_free"
             
             android:textColor="@color/green" />
 
@@ -98,7 +98,7 @@
                 android:id="@+id/browse"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="Browse" />
+                android:text="@string/browse" />
         </LinearLayout>
 
         <LinearLayout

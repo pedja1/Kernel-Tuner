@@ -12,21 +12,21 @@
 				android:id="@+id/system"
 				android:layout_width="wrap_content"
 				android:layout_height="wrap_content"
-				android:text="System"
+				android:text="@string/system"
 				android:checked="true"/>
 
 			<CheckBox
 				android:id="@+id/user"
 				android:layout_width="wrap_content"
 				android:layout_height="wrap_content"
-				android:text="User"
+				android:text="@string/user"
 				android:checked="true" />
 
 			<CheckBox
 				android:id="@+id/other"
 				android:layout_width="wrap_content"
 				android:layout_height="wrap_content"
-				android:text="Other"
+				android:text="@string/other"
 				android:checked="true" />
 
 		</LinearLayout>

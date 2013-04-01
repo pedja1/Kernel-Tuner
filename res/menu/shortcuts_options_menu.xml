@@ -6,7 +6,7 @@
     <item
         android:id="@+id/done"
         android:showAsAction="ifRoom|withText"
-        android:title="Done"/>
+        android:title="@string/done"/>
 
 
 
