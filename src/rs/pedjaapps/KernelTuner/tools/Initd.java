@@ -37,17 +37,17 @@ public class Initd extends AsyncTask<String, Void, String>
 		{
 			System.out.println("Init.d: Writing init.d");
 		CommandCapture command = new CommandCapture(0, 
-	            "mount -o remount,rw /system\n",
+	            "mount -o remount,rw /system",
 	            c.getFilesDir().getPath()+"/cp-"+arch+" /data/data/rs.pedjaapps.KernelTuner/files/99ktcputweaks /system/etc/init.d",
-	            "chmod 777 /system/etc/init.d/99ktcputweaks\n",
+	            "chmod 777 /system/etc/init.d/99ktcputweaks",
 	            c.getFilesDir().getPath()+"/cp-"+arch+" /data/data/rs.pedjaapps.KernelTuner/files/99ktgputweaks /system/etc/init.d",
-	            "chmod 777 /system/etc/init.d/99ktgputweaks\n",
+	            "chmod 777 /system/etc/init.d/99ktgputweaks",
 	            c.getFilesDir().getPath()+"/cp-"+arch+" /data/data/rs.pedjaapps.KernelTuner/files/99ktmisctweaks /system/etc/init.d",
-	            "chmod 777 /system/etc/init.d/99ktmisctweaks\n",
+	            "chmod 777 /system/etc/init.d/99ktmisctweaks",
 	            c.getFilesDir().getPath()+"/cp-"+arch+" /data/data/rs.pedjaapps.KernelTuner/files/99ktvoltage /system/etc/init.d",
-	            "chmod 777 /system/etc/init.d/99ktvoltage\n",
+	            "chmod 777 /system/etc/init.d/99ktvoltage",
 	            c.getFilesDir().getPath()+"/cp-"+arch+" /data/data/rs.pedjaapps.KernelTuner/files/99ktsysctl /system/etc/init.d",
-				"chmod 777 /system/etc/init.d/99ktsysctl\n");
+				"chmod 777 /system/etc/init.d/99ktsysctl");
 			try{
 				RootTools.getShell(true).add(command).waitForFinish();
 			}
