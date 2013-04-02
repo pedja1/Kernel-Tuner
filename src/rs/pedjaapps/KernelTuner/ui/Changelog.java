@@ -60,6 +60,10 @@ public class Changelog extends Activity
 
 		final List<ChangelogEntry> entries = new ArrayList<ChangelogEntry>();
 
+		entries.add(new ChangelogEntry(true, null, 0, "4.4.6"));
+		entries.add(new ChangelogEntry(false, "Switched to RootTools library for managing root commands", 0, ""));
+		entries.add(new ChangelogEntry(false, "Fixed build.prop not working", 1, ""));
+		
 		entries.add(new ChangelogEntry(true, null, 0, "4.4.5"));
 		entries.add(new ChangelogEntry(false, "Optimized Settings nad Task Manager For Tablets(More to come)", 0, ""));
 		entries.add(new ChangelogEntry(false, "Re-added Swap", 0, ""));
