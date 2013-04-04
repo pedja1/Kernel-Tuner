@@ -605,4 +605,5 @@
 	<string name="s2w_">S2W:</string>
 	<string name="cache_size_">Cache Size:</string>
 	<string name="this_widget_works_only_on_multi_core_devices_">This widget works only on multi-core devices!</string>
+	<string name="translators">Translators</string>
 </resources>
