@@ -114,7 +114,7 @@ public class SystemInfo extends Activity implements
 	static final int FLOATTOINTPRECISION = 100;
 
 	Boolean isSDPresent;
-	String unknown = getResources().getString(R.string.unknown);
+	String unknown;
 
 	private class info extends AsyncTask<String, Void, Object> {
 
@@ -327,6 +327,7 @@ public class SystemInfo extends Activity implements
 		setTheme(Tools.getPreferedTheme(theme));
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.system_info);
+		unknown = getResources().getString(R.string.unknown);
 		pd = ProgressDialog.show(this, null,getResources().getString(R.string.system_info_please_wait));
 		new info().execute();
 		prefs = PreferenceManager.getDefaultSharedPreferences(this);

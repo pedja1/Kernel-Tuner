@@ -99,7 +99,7 @@ public class CPUActivityOld extends Activity
 	private SharedPreferences sharedPrefs;
 
 	private ArrayAdapter<String> mhzAdapter;
-	String mhz = getResources().getString(R.string.mhz);
+	String mhz;
 
 	Context c;
 	/**
@@ -299,6 +299,7 @@ public class CPUActivityOld extends Activity
 		super.onCreate(savedInstanceState);
 
 		setContentView(R.layout.cpu_tweaks_old);
+		mhz = getResources().getString(R.string.mhz);
 		
 		pd = ProgressDialog.show(c, null, 
 				  getResources().getString(R.string.enabling_cpus), true, false);

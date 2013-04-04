@@ -150,7 +150,7 @@ public class CPUActivity extends Activity
 	private Context                            c;
 	private int                                refresh          = 1000;
 	private int                                cpuTempPath;
-	private String                             mhz              = getResources().getString(R.string.mhz);
+	private String                             mhz;
 	@Override
 	public void onCreate(Bundle savedInstanceState)
 	{
@@ -164,6 +164,7 @@ public class CPUActivity extends Activity
 		super.onCreate(savedInstanceState);
 
 		setContentView(R.layout.cpu_tweaks);
+		mhz = getResources().getString(R.string.mhz);
 		/**
 		 * Show Progress Dialog and execute ToggleCpus class*/
 		final ActionBar actionBar = getActionBar();

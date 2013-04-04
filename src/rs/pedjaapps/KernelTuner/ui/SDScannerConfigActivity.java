@@ -66,14 +66,9 @@ public class SDScannerConfigActivity extends Activity
 	  SDSummaryAdapter summaryAdapter;
 	  ProgressDialog pd;
 	  List<SDSummaryEntry> entries;
-	  String[] names = {getResources().getString(R.string.applications)+"(*.apk)", 
-			  getResources().getString(R.string.videos), 
-			  getResources().getString(R.string.music), 
-			  getResources().getString(R.string.images), 
-			  getResources().getString(R.string.documents), 
-			  getResources().getString(R.string.archives)};
-	  int[] icons = {R.drawable.apk, R.drawable.movie, R.drawable.music, R.drawable.img, R.drawable.doc, R.drawable.arch};
-	  private final String CALCULATING =  getResources().getString(R.string.sd_calculating);
+	  String[] names ;
+	  int[] icons;
+	  private String CALCULATING;
 	  ScanSDCard scanSDCard = new ScanSDCard();
 	  @Override
 	  protected void onRestoreInstanceState(Bundle savedState) {
@@ -135,6 +130,14 @@ public class SDScannerConfigActivity extends Activity
 			Toast.makeText(this,  getResources().getString(R.string.sd_not_mounted), Toast.LENGTH_LONG).show();
 		}
 		setContentView(R.layout.sd_scanner_config);
+		names = new String[] {getResources().getString(R.string.applications)+"(*.apk)", 
+				  getResources().getString(R.string.videos), 
+				  getResources().getString(R.string.music), 
+				  getResources().getString(R.string.images), 
+				  getResources().getString(R.string.documents), 
+				  getResources().getString(R.string.archives)};
+		icons = new int[] {R.drawable.apk, R.drawable.movie, R.drawable.music, R.drawable.img, R.drawable.doc, R.drawable.arch};
+		CALCULATING =  getResources().getString(R.string.sd_calculating);
 		ActionBar actionBar = getActionBar();
 		actionBar.setDisplayHomeAsUpEnabled(true);
 		final SharedPreferences.Editor editor = preferences.edit();
