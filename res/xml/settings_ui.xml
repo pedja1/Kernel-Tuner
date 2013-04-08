@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <PreferenceScreen xmlns:android="http://schemas.android.com/apk/res/android"
-	android:title="UI Settings"
+	android:title="@string/prefs_ui"
 	android:summary=""
 	android:icon="@drawable/theme">
 
@@ -9,18 +9,17 @@
 	<ListPreference
 		android:key="theme"
 		android:defaultValue="light"
-		android:title="Application Theme"
+		android:title="@string/prefs_app_theme"
 		android:summary=""
 		android:entries="@array/theme_entry"
-		android:entryValues="@array/theme_values"
-		android:dialogTitle="Select Theme" />
+		android:entryValues="@array/theme_values" />
 
 	<ListPreference
 		android:entries="@array/tisNames"
 		android:entryValues="@array/tisValues"
 		android:key="tis_open_as"
 		android:summary=""
-		android:title="Show Times in State As" 
+		android:title="@string/prefs_tis_as" 
 		android:defaultValue="ask"/>
 
 	<ListPreference
@@ -28,7 +27,7 @@
 		android:entryValues="@array/cpuValues"
 		android:key="show_cpu_as"
 		android:summary=""
-		android:title="CPU Tweaks Layout" 
+		android:title="@string/prefs_cpu_layout" 
 		android:defaultValue="full"/>
 
 	<CheckBoxPreference

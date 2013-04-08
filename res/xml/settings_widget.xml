@@ -14,7 +14,7 @@
             android:entryValues="@array/widget_bg_values"
             android:key="widget_bg"
             android:summary=""
-            android:title="Widget Background"
+            android:title="@string/prefs_widget_bg"
 			android:defaultValue="grey"/>
     
     </PreferenceCategory>

@@ -13,7 +13,7 @@
             android:entries="@array/notifNames"
             android:entryValues="@array/notifValues"
             android:key="notif"
-            android:title="Items to display in notification" 
+            android:title="@string/prefs_notif_items" 
             android:defaultValue="freq"/>
        </PreferenceCategory>
 

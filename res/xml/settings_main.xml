@@ -2,43 +2,43 @@
 <PreferenceScreen xmlns:android="http://schemas.android.com/apk/res/android"
     android:icon="@drawable/misc"
     android:key="container"
-		   android:title="Main Screen"
-		   android:summary="Main Screen Look and Feel">
+		   android:title="@string/prefs_main"
+		   android:summary="@string/prefs_main_summary">
 
 		   <ListPreference
 			   android:entries="@array/unsupported_items_titles"
 			   android:entryValues="@array/unsupported_items_values"
 			   android:key="unsupported_items_display"
 			   android:summary=""
-			   android:title="Unsupported Options Display" 
+			   android:title="@string/prefs_unsupported" 
 			   android:defaultValue="hide"/>
 		  
 		   <CheckBoxPreference
 			   android:defaultValue="false"
 			   android:key="main_style"
-			   android:title="Main Screen As Dialog"
-			   android:summary="Display only main options(button grid)" />
+			   android:title="@string/prefs_main_dialog"
+			   android:summary="@string/prefs_main_dialog_summary" />
 		  
 		   <CheckBoxPreference
 			   android:defaultValue="true"
 			   android:key="main_temp"
-			   android:summary="Display Temperature/Battery Panel"
-			   android:title="Temperature Panel" />
+			   android:summary="@string/prefs_temp_panel_summary"
+			   android:title="@string/prefs_temp_panel" />
 		   <CheckBoxPreference
 			   android:defaultValue="true"
 			   android:key="main_cpu"
-			   android:summary="Display CPU Frequency/Load Panel"
-			   android:title="CPU Panel" />
+			   android:summary="@string/prefs_cpu_panel_summary"
+			   android:title="@string/prefs_cpu_panel" />
 		   <CheckBoxPreference
 			   android:defaultValue="true"
 			   android:key="main_toggles"
-			   android:summary="Display CPU Toggles Panel"
-			   android:title="Toggles Panel" />
+			   android:summary="@string/prefs_toggles_panel_summary"
+			   android:title="@string/prefs_toggles_panel" />
 		   <CheckBoxPreference
 			   android:defaultValue="true"
 			   android:key="main_buttons"
-			   android:summary="Display Main Options Panel"
-			   android:title="Main Options Panel" />
+			   android:summary="@string/prefs_main_panel_summary"
+			   android:title="@string/prefs_main_panel" />
 	   </PreferenceScreen>
       
       

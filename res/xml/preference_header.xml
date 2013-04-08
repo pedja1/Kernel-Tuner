@@ -2,49 +2,49 @@
 <preference-headers xmlns:android="http://schemas.android.com/apk/res/android">
     <header 
         android:fragment="rs.pedjaapps.KernelTuner.ui.PreferencesFragment"
-        android:title="General"
-        android:summary="General Application Settings"
+        android:title="@string/prefs_general"
+        android:summary="@string/prefs_general_summary"
 		android:icon="@drawable/ic_launcher">
         <extra android:name="settings" android:value="application" />
     </header>
     <header 
         android:fragment="rs.pedjaapps.KernelTuner.ui.PreferencesFragment"
-        android:title="Widget"
-        android:summary="Widget Settings"
+        android:title="@string/prefs_widget"
+        android:summary="@string/prefs_widget_summary"
 		android:icon="@drawable/prefs_widget">
 		<extra android:name="settings" android:value="widget" />
     </header>
     <header 
         android:fragment="rs.pedjaapps.KernelTuner.ui.PreferencesFragment"
-        android:title="Notifications"
-        android:summary="Notification Settings"
+        android:title="@string/prefs_notification"
+        android:summary="@string/prefs_notification_summary"
 		android:icon="@drawable/prefs_notifications">
 		<extra android:name="settings" android:value="notification" />
     </header>
     <header 
         android:fragment="rs.pedjaapps.KernelTuner.ui.PreferencesFragment"
-        android:title="LogCat"
-        android:summary="LogCat Settings" 
+        android:title="@string/title_log"
+        android:summary="@string/prefs_log_summary" 
 		android:icon="@drawable/log">
 		<extra android:name="settings" android:value="logcat" />
     </header>
     <header 
         android:fragment="rs.pedjaapps.KernelTuner.ui.PreferencesFragment"
-        android:title="User Interface"
-        android:summary="UI Settings" 
+        android:title="@string/prefs_ui"
+        android:summary="@string/prefs_ui_summary" 
 		android:icon="@drawable/theme">
 		<extra android:name="settings" android:value="ui" />
     </header>
     <header 
         android:fragment="rs.pedjaapps.KernelTuner.ui.PreferencesFragment"
-        android:title="Main Screen"
-        android:summary="Main Screen Settings" 
+        android:title="@string/prefs_main"
+        android:summary="@string/prefs_main_summary" 
 		android:icon="@drawable/prefs_main" >
 		<extra android:name="settings" android:value="main" />
     </header>
 	<header
-		android:title="Backup And Restore"
-		android:summary="Backup/Restore all settings"
+		android:title="@string/title_backup"
+		android:summary="@string/prefs_backup_summary"
 		android:icon="@drawable/save">
 
 		<intent android:action="rs.pedjaapps.KernelTuner.ui.BackupRestore"
@@ -52,8 +52,8 @@
 	</header>
 
     <header
-		android:title="About"
-		android:summary="Info about application/author"
+		android:title="@string/title_about"
+		android:summary="@string/prefs_about_summary"
 		android:icon="@drawable/about">
 
 		<intent android:action="rs.pedjaapps.KernelTuner.About"
@@ -62,8 +62,8 @@
 	</header>
 
 	<header
-		android:title="Changelog"
-		android:summary="What has been changed"
+		android:title="@string/title_changelog"
+		android:summary="@string/prefs_changelog_summary"
 		android:icon="@drawable/changelog">
 
 		<intent android:action="rs.pedjaapps.KernelTuner.Changelog"
@@ -72,8 +72,8 @@
 	</header>
 
 	<header
-		android:title="System Info"
-		android:summary="System Information"
+		android:title="@string/title_info"
+		android:summary="@string/prefs_info_summary"
 		android:icon="@drawable/info"
 		android:key="sysInfo">
 
