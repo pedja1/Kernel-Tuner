@@ -4,151 +4,135 @@
     xmlns:ads="http://schemas.android.com/apk/lib/com.google.ads"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
-    tools:context=".KernelTuner"
-    
-	 >
-
+    tools:context=".KernelTuner">
+	<LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical" >
     <LinearLayout
-        android:id="@+id/LinearLayout1"
+        android:id="@+id/_2d_holder"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:orientation="vertical" >
 
+		<TextView
+			android:layout_width="match_parent"
+			android:layout_height="wrap_content"
+			android:text="@string/_2d"
+			android:textAppearance="?android:attr/textAppearanceLarge" />
         <LinearLayout
-            android:id="@+id/LinearLayout2"
-            
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            
             android:orientation="horizontal" >
 
             <TextView
-                android:id="@+id/textView1"
-                android:layout_width="0dp"
+                android:id="@+id/current_2d"
+                android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_weight="1"
-                android:text="@string/activity_gpu_3d_max_freq_"
-                
-                android:textAppearance="?android:attr/textAppearanceLarge" />
-
-            <Spinner
-                android:id="@+id/bg"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content" />
-
+                android:text="current freq" />
             <TextView
-                android:id="@+id/textView3"
+                android:id="@+id/max_2d"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="@string/mhz"
-                android:textAppearance="?android:attr/textAppearanceLarge" />
+				android:layout_weight="1"
+				android:gravity="end"
+                android:text="max freq" />
 
         </LinearLayout>
 
+		<SeekBar
+			android:id="@+id/seek_2d"
+			android:layout_width="match_parent"
+			android:layout_height="wrap_content"
+			android:max="100"
+			android:progress="45"/>
+	</LinearLayout>
+	<ImageView
+		android:id="@+id/divider"
+		android:layout_width="match_parent"
+		android:layout_height="wrap_content"  
+		android:scaleType="fitXY"
+		android:src="@drawable/divider_horizontal_bright" 
+		android:contentDescription="@string/divider"/>
+	<LinearLayout
+        android:id="@+id/_3d_holder"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical" >
+
+		<TextView
+			android:layout_width="match_parent"
+			android:layout_height="wrap_content"
+			android:text="@string/_3d"
+			android:textAppearance="?android:attr/textAppearanceLarge" />
         <LinearLayout
-            android:id="@+id/LinearLayout3"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            
             android:orientation="horizontal" >
 
             <TextView
-                android:id="@+id/textView2"
-                android:layout_width="0dp"
+                android:id="@+id/current_3d"
+                android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_weight="1"
-                android:text="@string/activity_gpu__2d_max_freq_"
-                
-                android:textAppearance="?android:attr/textAppearanceLarge" />
-
-            <Spinner
-                android:id="@+id/spinner2"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                 />
-
+                android:text="current freq" />
             <TextView
-                android:id="@+id/textView8"
+                android:id="@+id/max_3d"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="@string/mhz"
-                android:textAppearance="?android:attr/textAppearanceLarge" />
+				android:layout_weight="1"
+				android:gravity="end"
+                android:text="max freq" />
 
         </LinearLayout>
-    </LinearLayout>
 
-    <TextView
-        android:id="@+id/textView4"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_below="@+id/LinearLayout1"
-        android:layout_centerHorizontal="true"
-        android:layout_marginTop="10dp"
-        android:text="@string/activity_gpu_current_3d_frequency_"
-        android:textAppearance="?android:attr/textAppearanceLarge" />
+		<SeekBar
+			android:id="@+id/seek_3d"
+			android:layout_width="match_parent"
+			android:layout_height="wrap_content"
+			android:max="100"
+			android:progress="45"/>
+	</LinearLayout>
+	<ImageView
+		android:id="@+id/divider"
+		android:layout_width="match_parent"
+		android:layout_height="wrap_content"  
+		android:scaleType="fitXY"
+		android:src="@drawable/divider_horizontal_bright" 
+		android:contentDescription="@string/divider"/>
 
-    <TextView
-        android:id="@+id/textView5"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_below="@+id/textView4"
-        android:layout_centerHorizontal="true"
-        android:text="@string/n_a"
-        android:textAppearance="?android:attr/textAppearanceMedium" />
+	<TextView
+	    android:id="@+id/not_supported"
+	    android:layout_width="match_parent"
+	    android:layout_height="wrap_content"
+	    android:layout_gravity="center_horizontal"
+	    android:gravity="center_horizontal"
+	    android:text="@string/gpu_not_supported"
+	    android:visibility="gone" />
 
-    <TextView
-        android:id="@+id/textView6"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_below="@+id/textView5"
-        android:layout_centerHorizontal="true"
-        android:layout_marginTop="20dp"
-        android:text="@string/activity_gpu_current_2d_frequency_"
-        android:textAppearance="?android:attr/textAppearanceLarge" />
-
-    <TextView
-        android:id="@+id/textView7"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_below="@+id/textView6"
-        android:layout_centerHorizontal="true"
-        android:text="@string/n_a"
-        android:textAppearance="?android:attr/textAppearanceMedium" />
-     <ImageView
-                android:id="@+id/divider"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"  
-                android:scaleType="fitXY"
-                android:layout_below="@+id/textView7"
-                android:src="@drawable/divider_horizontal_bright" android:contentDescription="@string/divider"/>
     <LinearLayout
-    android:id="@+id/buttonHolder"
-    android:layout_width="match_parent"
-    android:layout_height="wrap_content" 
-    android:orientation="horizontal"
-    android:layout_below="@+id/divider"
-    style="?android:attr/buttonBarStyle"
-   android:paddingTop="0dip"
-    android:paddingLeft="2dip"
-    android:paddingRight="2dip"
-    android:measureWithLargestChild="true"
+		android:id="@+id/buttonHolder"
+		android:layout_width="match_parent"
+		android:layout_height="wrap_content" 
+		android:orientation="horizontal"
+		android:layout_below="@+id/divider"
+		style="?android:attr/buttonBarStyle"
+		android:paddingTop="0dip"
+		android:paddingLeft="2dip"
+		android:paddingRight="2dip"
+		android:measureWithLargestChild="true"
     >
 
-    <Button
-        android:id="@+id/cancel"
-        style="?android:attr/buttonBarButtonStyle"
-        android:layout_width="0dp"
-        android:layout_height="wrap_content"
-        android:layout_weight="1"
-        android:text="@string/cancel" />
+		<Button
+		    android:id="@+id/cancel"
+		    style="?android:attr/buttonBarButtonStyle"
+		    android:layout_width="0dp"
+		    android:layout_height="wrap_content"
+		    android:layout_weight="1"
+		    android:text="@string/close" />
 
-    <Button
-        android:id="@+id/apply"
-       	style="?android:attr/buttonBarButtonStyle"
-        android:layout_width="0dp"
-        android:layout_height="wrap_content"
-        android:layout_weight="1"
-        android:text="@string/apply" />
-</LinearLayout>
+	</LinearLayout>
 
+	</LinearLayout>
 </RelativeLayout>
