@@ -38,7 +38,7 @@
         <activity
             android:name=".ui.TaskManager"
             android:icon="@drawable/tm"
-            android:label="Task Manager"
+            android:label="@string/title_task_manager"
             android:uiOptions="splitActionBarWhenNarrow" >
             <intent-filter>
                 <action android:name="rs.pedjaapps.KernelTuner.TM" />
@@ -48,7 +48,7 @@
         </activity>
         <activity
             android:name=".ui.TaskManagerDetailActivity"
-            android:label="Process Details"
+            android:label="@string/process_details"
             android:parentActivityName=".ui.TaskManager" >
             <meta-data
                 android:name="android.support.PARENT_ACTIVITY"
@@ -57,7 +57,7 @@
         <activity
             android:name=".ui.SysCtl"
             android:icon="@drawable/sysctl"
-            android:label="SysCtl" >
+            android:label="@string/title_sysctl" >
             <intent-filter>
                 <action android:name="rs.pedjaapps.KernelTuner.SYSCTL" />
 
@@ -67,7 +67,7 @@
         <activity
             android:name=".ui.BuildpropEditor"
             android:icon="@drawable/build"
-            android:label="Build.prop Editor"
+            android:label="@string/title_build"
             android:uiOptions="splitActionBarWhenNarrow" >
             <intent-filter>
                 <action android:name="rs.pedjaapps.KernelTuner.BUILD" />
@@ -345,7 +345,7 @@
         <activity
             android:name=".ui.Swap"
             android:icon="@drawable/swap"
-            android:label="Swap" >
+            android:label="@string/swap" >
             <intent-filter>
                 <action android:name="rs.pedjaapps.KernelTuner.SWAP" />
 
@@ -365,7 +365,7 @@
         <activity
             android:name=".ui.Reboot"
             android:icon="@drawable/ic_launcher"
-            android:label="Reboot" >
+            android:label="@string/reboot" >
             <intent-filter>
                 <action android:name="rs.pedjaapps.KernelTuner.REBOOT" />
 
@@ -375,7 +375,7 @@
         <activity
             android:name=".ui.OOM"
             android:icon="@drawable/oom"
-            android:label="OOM"
+            android:label="@string/oom"
             android:theme="@style/Theme.Dialog.NoTitleBar.Light" >
             <intent-filter>
                 <action android:name="rs.pedjaapps.KernelTuner.OOM" />
@@ -387,21 +387,21 @@
             android:name=".ui.SDScannerActivity"
             android:configChanges="keyboardHidden|orientation"
             android:icon="@drawable/sd"
-            android:label="SD Card Analyzer"
+            android:label="@string/title_sd"
             android:screenOrientation="portrait" >
         </activity>
         <activity
             android:name=".ui.SDScannerActivityList"
             android:configChanges="keyboardHidden|orientation"
             android:icon="@drawable/sd"
-            android:label="SD Card Analyzer"
+            android:label="@string/title_sd"
             android:screenOrientation="portrait" >
         </activity>
         <activity
             android:name=".ui.SDScannerConfigActivity"
             android:configChanges="keyboardHidden|orientation"
             android:icon="@drawable/sd"
-            android:label="SD Card Analyzer"
+            android:label="@string/title_sd"
             android:screenOrientation="portrait" >
             <intent-filter>
                 <action android:name="rs.pedjaapps.KernelTuner.SD_ANALYZER" />
@@ -544,7 +544,7 @@
 
         <activity
             android:name="rs.pedjaapps.KernelTuner.ui.BackupRestore"
-            android:label="Backup/Restore" >
+            android:label="@string/backup" >
             <intent-filter>
                 <action android:name="rs.pedjaapps.KernelTuner.ui.BackupRestore" />
 
@@ -558,7 +558,7 @@
             android:name=".ui.LogCat"
             android:configChanges="keyboardHidden|orientation"
             android:icon="@drawable/log"
-            android:label="LogCat"
+            android:label="@string/title_log"
             android:launchMode="singleTop"
             android:uiOptions="splitActionBarWhenNarrow" >
             <intent-filter>

@@ -12,6 +12,11 @@
     <string name="title_about">About</string>
     <string name="title_info">System Info</string>
     <string name="title_preferences">Settings</string>
+    <string name="title_sysctl">SysCtl</string>
+    <string name="title_sd">SD Card Analyzer</string>
+    <string name="title_backup">Backup/Restore</string>
+    <string name="title_log">LogCat</string>
+    <string name="title_build">Build.prop Editor</string>
     <string name="app_name">Kernel Tuner</string>
     <string name="title_task_manager">Task Manager</string>
     <string name="preferences_boot_settings">Boot Settings</string>
@@ -612,4 +617,6 @@
 	<string name="_max">Max</string>
 	<string name="close">Close</string>
 	<string name="gpu_not_supported">Your device is not supported at the moment\nOnly devices with Adreno 220, 225 and 320 are supported.\nIf you device has one of these 3 GPUs and you see this message, please contact me.</string>
+	<string name="process_details">Process Details</string>
+	<string name="reboot">Reboot</string>
 </resources>
