@@ -40,6 +40,7 @@ import java.util.Arrays;
 import java.util.List;
 import org.apache.commons.io.FileUtils;
 import rs.pedjaapps.KernelTuner.R;
+import android.widget.SeekBar;
 
 public class Gpu extends Activity
 {
@@ -136,10 +137,10 @@ private class changegpu extends AsyncTask<String, Void, Object>
 
 		super.onCreate(savedInstanceState);
 		   
-		setContentView(R.layout.gpu);
+		setContentView(R.layout.gpu_test);
 		Button apply = (Button)findViewById(R.id.apply);
-		d2Spinner = (Spinner) findViewById(R.id.spinner2);
-		d3Spinner = (Spinner) findViewById(R.id.bg);
+		//d2Spinner = (Spinner) findViewById(R.id.spinner2);
+		//d3Spinner = (Spinner) findViewById(R.id.bg);
 		gpu2dmax = readFile("/sys/devices/platform/kgsl-2d0.0/kgsl/kgsl-2d0/max_gpuclk");
 		gpu3dmax = readFile("/sys/devices/platform/kgsl-3d0.0/kgsl/kgsl-3d0/max_gpuclk");
 		gpu2dcurent = readFile("/sys/devices/platform/kgsl-2d0.0/kgsl/kgsl-2d0/gpuclk");
@@ -147,13 +148,13 @@ private class changegpu extends AsyncTask<String, Void, Object>
 		List<String> adreno220 = Arrays.asList(new String[] {"shooter", "shooteru", "pyramid", "tenderloin", "vigor", "rider", "nozomi", "LT26i", "hikari", "doubleshot", "su640","SHV-E160S" ,"SHV-E160L", "SHV-E120L", "holiday"});
 		List<String> adreno225 = Arrays.asList(new String[] {"evita", "ville", "jewel", "d2spr", "d2tmo" });
 		List<String> adreno320 = Arrays.asList(new String[]{"mako","dlx"});
-		if (adreno220.contains(board)/*board.equals("shooter") || board.equals("shooteru") || board.equals("pyramid") || board.equals("tenderloin") || board.equals("vigor") || board.equals("raider") || board.equals("nozomi") || board.equals("LT26i") || board.equals("hikari")*/)
+		if (adreno220.contains(board))
 		{
 			gpu2dHr = Arrays.asList(new String[]{"160Mhz", "200Mhz", "228Mhz", "266Mhz"});
 			gpu3dHr = Arrays.asList(new String[]{"200Mhz", "228Mhz", "266Mhz", "300Mhz", "320Mhz"});
 			gpu2d = Arrays.asList(new String[]{"160000000", "200000000", "228571000", "266667000"});
 			gpu3d = Arrays.asList(new String[]{"200000000", "228571000", "266667000", "300000000", "320000000"});
-				createSpinners();
+		    seekBar(gpu2d.size()-1, gpu3d.size()-1, gpu2d.indexOf(gpu2dmax+""), gpu3d.indexOf(gpu3dmax+""));
 		}
 		else if (adreno225.contains(board))
 		{
@@ -161,7 +162,7 @@ private class changegpu extends AsyncTask<String, Void, Object>
 			gpu3dHr = Arrays.asList(new String[]{"512Mhz", "400Mhz", "320Mhz", "300Mhz", "266Mhz", "228Mhz", "200Mhz", "177Mhz", "27Mhz"});
 			gpu2d = Arrays.asList(new String[]{"320000000", "266667000", "228571000", "200000000", "160000000", "96000000", "27000000"});
 			gpu3d = Arrays.asList(new String[]{"512000000", "400000000", "320000000", "300000000", "266667000", "228571000", "200000000", "177778000", "27000000"});
-			createSpinners();
+			seekBar(gpu2d.size()-1, gpu3d.size()-1, gpu2d.indexOf(gpu2dmax+""), gpu3d.indexOf(gpu3dmax+""));
 		}
 		else if (adreno320.contains(board))
 		{
@@ -214,18 +215,24 @@ private class changegpu extends AsyncTask<String, Void, Object>
 					"400000000",
 					"450000000",
 					"500000000"});
-			createSpinners();
+			seekBar(gpu2d.size()-1, gpu3d.size()-1, gpu2d.indexOf(gpu2dmax+""), gpu3d.indexOf(gpu3dmax+""));
 		}
 		else{
-			d2Spinner.setEnabled(false);
+		/*	d2Spinner.setEnabled(false);
 			d3Spinner.setEnabled(false);
-			apply.setEnabled(false);
+			apply.setEnabled(false);*/
 		}
-		TextView tv5 = (TextView)findViewById(R.id.textView5);
-		TextView tv2 = (TextView)findViewById(R.id.textView7);
+		
+		TextView cur2dTxt = (TextView)findViewById(R.id.current_2d);
+		TextView cur3dTxt = (TextView)findViewById(R.id.current_3d);
+		TextView max2dTxt = (TextView)findViewById(R.id.max_2d);
+		TextView max3dTxt = (TextView)findViewById(R.id.max_3d);
 		String mhz = getResources().getString(R.string.mhz);
-		tv5.setText((gpu3dcurent/1000000) + mhz);
-		tv2.setText((gpu2dcurent/1000000) + mhz);
+		cur3dTxt.setText("Current: "+(gpu3dcurent/1000000) + mhz);
+		cur2dTxt.setText("Current: "+(gpu2dcurent/1000000) + mhz);
+		
+		max3dTxt.setText("Max: "+(gpu3dmax/1000000) + mhz);
+		max2dTxt.setText("Max: "+(gpu2dmax/1000000) + mhz);
 		Button cancel = (Button)findViewById(R.id.cancel);
 		apply.setOnClickListener(new OnClickListener(){
 
@@ -247,56 +254,14 @@ private class changegpu extends AsyncTask<String, Void, Object>
 
 	}
 
-    private void createSpinners()
+    private void seekBar(int max2d, int max3d, int current2d, int current3d)
 	{
-		ArrayAdapter<String> d2Adapter = new ArrayAdapter<String>(c,   android.R.layout.simple_spinner_item, gpu2dHr);
-		d2Adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item); // The drop down vieww
-		d2Spinner.setAdapter(d2Adapter);
-
-		d2Spinner.setOnItemSelectedListener(new OnItemSelectedListener() {
-
-				@Override
-				public void onItemSelected(AdapterView<?> parent, View view, int pos, long id)
-				{
-					selected2d = gpu2d.get(pos);
-				}
-
-				@Override
-				public void onNothingSelected(AdapterView<?> parent)
-				{
-					//do nothing
-				}
-			});
-		
-		int p = gpu2d.indexOf(gpu2dmax+"");
-     	if(p != -1){
-		int d2Position = d2Adapter.getPosition(gpu2dHr.get(p));
-		d2Spinner.setSelection(d2Position);
-        }
-	
-		ArrayAdapter<String> d3Adapter = new ArrayAdapter<String>(c,   android.R.layout.simple_spinner_item, gpu3dHr);
-		d3Adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item); // The drop down vieww
-		d3Spinner.setAdapter(d3Adapter);
-
-		d3Spinner.setOnItemSelectedListener(new OnItemSelectedListener() {
-				@Override
-				public void onItemSelected(AdapterView<?> parent, View view, int pos, long id)
-				{
-					selected3d = gpu3d.get(pos);
-				}
-
-				@Override
-				public void onNothingSelected(AdapterView<?> parent)
-				{
-					//do nothing
-				}
-			});
-       
-		int p1 = gpu3d.indexOf(gpu3dmax+"");
-		if(p1 != -1){
-		int d3Position = d3Adapter.getPosition(gpu3dHr.get(p1));
-		d3Spinner.setSelection(d3Position);
-		}
+		SeekBar seek2d = (SeekBar)findViewById(R.id.seek_2d);
+		SeekBar seek3d = (SeekBar)findViewById(R.id.seek_3d);
+		seek2d.setMax(max2d);
+		seek2d.setProgress(current2d);
+		seek3d.setMax(max3d);
+		seek3d.setProgress(current3d);
 	}
 
     private Integer readFile(String path)
