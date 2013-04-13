@@ -24,13 +24,15 @@ public final class VoltageEntry
 
 	private final int voltage;
 	private final String freq;
+	private final int type;
 
 
 
-	public VoltageEntry(final String freq, final int voltage)
+	public VoltageEntry(final String freq, final int voltage, final int type)
 	{
 		this.voltage = voltage;
 		this.freq = freq;
+		this.type = type;
 
 	}
 
@@ -40,6 +42,11 @@ public final class VoltageEntry
 		return voltage;
 	}
 
+	public int getType()
+	{
+		return type;
+	}
+	
 	public String getFreq()
 	{
 		return freq;

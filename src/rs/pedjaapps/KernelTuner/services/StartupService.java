@@ -36,6 +36,8 @@ import java.util.List;
 import rs.pedjaapps.KernelTuner.entry.SysCtlDatabaseEntry;
 import rs.pedjaapps.KernelTuner.helpers.DatabaseHandler;
 import rs.pedjaapps.KernelTuner.helpers.IOHelper;
+import rs.pedjaapps.KernelTuner.Constants;
+import java.io.File;
 
 public class StartupService extends Service
 {
@@ -141,6 +143,7 @@ public class StartupService extends Service
 			String idle_freq = sharedPrefs.getString("idle_freq", "");
 			String scroff = sharedPrefs.getString("scroff", "");
 			String scroff_single = sharedPrefs.getString("scroff_single", "");
+			String voltage_ = sharedPrefs.getString("voltage_","");
 			String[] thr = new String[6];
 			String[] tim = new String[6];
 			thr[0] = sharedPrefs.getString("thr0", "");
@@ -332,6 +335,7 @@ public class StartupService extends Service
 				}
 				}
 
+				if(new File(Constants.VOLTAGE_PATH).exists()){
 				for (String s : voltageFreqs)
 				{
 					String temp = sharedPrefs.getString("voltage_" + s, "");
@@ -347,6 +351,18 @@ public class StartupService extends Service
 						}
 					}
 				}
+				}
+			else if (new File(Constants.VOLTAGE_PATH_TEGRA_3).exists()){
+				if(!voltage_.equals("")){
+					CommandCapture command1 = new CommandCapture(0, "echo " + voltage_ + " > /sys/devices/system/cpu/cpu0/cpufreq/UV_mV_table");
+					try{
+						RootTools.getShell(true).add(command1).waitForFinish();
+					}
+					catch(Exception e){
+
+					}
+				}
+			}
 
 				List<String> govSettings = IOHelper.govSettings();
 				List<String> availableGovs = IOHelper.availableGovs();

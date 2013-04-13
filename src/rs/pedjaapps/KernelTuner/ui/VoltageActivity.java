@@ -323,7 +323,7 @@ boolean isLight;
 			int voltagesSize = voltages.size();
 			for (int i= 0; i < voltagesSize; i++)
 			{	    	 
-				entries.add(new VoltageEntry(voltageFreqNames.get(i), voltages.get(i)));
+				entries.add(new VoltageEntry(voltageFreqNames.get(i), voltages.get(i), 0));
 				
 
 			}	
@@ -334,8 +334,8 @@ boolean isLight;
 			int voltagesSize = voltages.size();
 			for (int i= 0; i < voltagesSize; i++)
 			{	    	 
-				entries.add(new VoltageEntry(voltageFreqNames.get(i), voltages.get(i)));
-				
+				entries.add(new VoltageEntry(voltageFreqNames.get(i), voltages.get(i), 1));
+				System.out.println(voltageFreqNames.get(i) + voltages.get(i));
 
 			}	
 		}

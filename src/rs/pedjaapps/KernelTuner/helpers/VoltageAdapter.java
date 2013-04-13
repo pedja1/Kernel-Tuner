@@ -66,8 +66,12 @@ public final class VoltageAdapter extends ArrayAdapter<VoltageEntry>
 		}
 
 		viewHolder.voltageSeekBarView.setMax(700000);
+		if(entry.getType()==0){
 		viewHolder.voltageSeekBarView.setProgress(entry.getVoltage()-700000);
-
+        }
+		else if(entry.getType()==1){
+			viewHolder.voltageSeekBarView.setProgress(entry.getVoltage()*1000-700000);
+		}
 		viewHolder.voltageSeekBarView.setOnSeekBarChangeListener(new OnSeekBarChangeListener(){
 
 
@@ -79,8 +83,9 @@ public final class VoltageAdapter extends ArrayAdapter<VoltageEntry>
 											  boolean fromUser)
 				{
 					prog = progress;
+					
 					viewHolder.buttonView.setText(String.valueOf((progress+700000) / 1000) + "mV");
-
+					
 				}
 
 				@Override
@@ -92,14 +97,25 @@ public final class VoltageAdapter extends ArrayAdapter<VoltageEntry>
 				public void onStopTrackingTouch(SeekBar seekBar)
 				{
 
+					if(entry.getType()==0){
 					VoltageAdapter.pd = ProgressDialog.show(VoltageAdapter.this.getContext(), null, VoltageAdapter.this.getContext().getResources().getString(R.string.changing_voltage), true, false);
 					new ChangeVoltage(VoltageAdapter.this.getContext()).execute(new String[] {"singleseek", String.valueOf(prog+700000), voltageFreqs.get(position)});
+					}
+					else if(entry.getType()==1){
+						VoltageAdapter.pd = ProgressDialog.show(VoltageAdapter.this.getContext(), null, VoltageAdapter.this.getContext().getResources().getString(R.string.changing_voltage), true, false);
+						new ChangeVoltage(VoltageAdapter.this.getContext()).execute(new String[] {"singleseek", String.valueOf((prog+700000)/1000), position+""});
+					}
 				}
 
 			});
 
-		viewHolder.buttonView.setText(String.valueOf((entry.getVoltage()) / 1000) + "mV");
-
+		
+		if(entry.getType()==0){
+			viewHolder.buttonView.setText(String.valueOf((entry.getVoltage()) / 1000) + "mV");
+		}
+		else if(entry.getType()==1){
+			viewHolder.buttonView.setText(String.valueOf((entry.getVoltage())) + "mV");
+		}
 		viewHolder.buttonView.setOnClickListener(new OnClickListener(){
 
 				@Override
@@ -107,7 +123,7 @@ public final class VoltageAdapter extends ArrayAdapter<VoltageEntry>
 				{
 
 					AlertDialog.Builder builder = new AlertDialog.Builder(view.getContext());
-					builder.setTitle(voltageFreqs.get(position).substring(0, voltageFreqs.get(position).length() - 3) + "Mhz");
+					builder.setTitle(voltageFreqNames.get(position));
 					builder.setMessage("Set new value: ");
 					builder.setIcon(R.drawable.edit_dark);
 

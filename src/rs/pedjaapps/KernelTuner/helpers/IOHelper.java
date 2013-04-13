@@ -677,8 +677,8 @@ public class IOHelper
 
 				while ((strLine = br.readLine()) != null)
 				{	
-					String[] delims = strLine.split(" ");
-					voltages.add(new VoltageList(delims[0],
+					String[] delims = strLine.split("\\s");
+					voltages.add(new VoltageList(delims[0].substring(0,delims[0].length() - 4),
 							 					 delims[0].substring(0,delims[0].length() - 4).trim()+"MHz", 
 							 					 Integer.parseInt(delims[1])));
 
