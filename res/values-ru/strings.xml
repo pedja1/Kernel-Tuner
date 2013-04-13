@@ -189,7 +189,13 @@
 <string name="ok">ОК</string>
 <string name="uptime_">Включен:</string>
 <string name="deep_sleep_">Время сна:</string>
-<string name="system_dump_text1">Будет создан на sdcard дамп системы,необходимый для приложения.\n\n'/sdcard/ktuner_log.txt'\n\nЭта информация может помочь улучшить приложение и добавить поддержку новых устройств\n\nХотите продолжить?</string>
+<string name="system_dump_text1">Будет создан на sdcard дамп системы,необходимый для приложения.
+\n
+\n\'/sdcard/ktuner_log.txt\'
+\n
+\nЭта информация может помочь улучшить приложение и добавить поддержку новых устройств
+\n
+\nХотите продолжить?</string>
 <string name="system_dump_text2">Личные данные не будут собираться!</string>
 <string name="clear">Очистить</string>
 <string name="delete">Удалить</string>
@@ -208,8 +214,12 @@
 <string name="bright">ЯРКО</string>
 <string name="version">Версия:</string>
 <string name="dialog_title">Подождите…</string>
-<string name="enabling_cpus">Включение всех ядер....\nПодождите...</string>
-<string name="gov_not_supported">Изменения в регуляторах ещё не применены!\n\nВы можете настроить регуляторы:\nondemand, conservative, interactive, xondemand</string>
+<string name="enabling_cpus">Включение всех ядер....
+\nПодождите...</string>
+<string name="gov_not_supported">Изменения в регуляторах ещё не применены!
+\n
+\nВы можете настроить регуляторы:
+\nondemand, conservative, interactive, xondemand</string>
 <string name="gov_new_value">Новое значение:</string>
 <string name="applying_settings">Применение настроек...</string>
 <string name="downloading_update">Загрузка обновления</string>
@@ -224,16 +234,19 @@
 <string name="profile">Профили</string>
 <string name="applied">Применено</string>
 <string name="unchanged">Не задано</string>
-<string name="empty_profile_name">Имя профиля не может быть пустым!\nВведите имя профиля</string>
+<string name="empty_profile_name">Имя профиля не может быть пустым!
+\nВведите имя профиля</string>
 <string name="delete_all_profiles">Удалить все профили</string>
 <string name="delete_all_profiles_confirm">Удалить все профили?</string>
 <string name="yes">Да</string>
 <string name="save_current_settings">Сохранить настройки</string>
 <string name="save">Сохр.</string>
-<string name="gathering_system_info">Загрузка информации о системе&#8230;\nПодождите&#8230;</string>
+<string name="gathering_system_info">Загрузка информации о системе&#8230;
+\nПодождите&#8230;</string>
 <string name="copy_profile">Копировать профиль</string>
 <string name="copy">Копир-ть</string>
-<string name="changing_voltage">Изменяем напряжение\nПодождите&#8230;</string>
+<string name="changing_voltage">Изменяем напряжение
+\nПодождите&#8230;</string>
 <string name="voltage_profile_name">Профиль вольтажа</string>
 <string name="enter_voltage_profile_name">Введите имя профиля:</string>
 <string name="select_profile">Выбрать профиль</string>
@@ -256,7 +269,8 @@
 <string name="product_">"Продукт: "</string>
 <string name="radio_">"Радио: "</string>
 <string name="kernel_">Ядро:</string>
-<string name="notificatio_preferences_warning">Эта опция может увеличить расход аккумулятора.\nБудьте осторожны!</string>
+<string name="notificatio_preferences_warning">Эта опция может увеличить расход аккумулятора.
+\nБудьте осторожны!</string>
 <string name="select_profile_">Выбор профиля:</string>
 <string name="presets">Предустановки</string>
 <string name="time">Время</string>
@@ -271,7 +285,11 @@
 <string name="folder_to_scann">Папка для поиска(полный путь)</string>
 <string name="preferences_cpu_htcone_title">Запрет изменений прочими приложениями</string>
 <string name="preferences_cpu_htcone_summary">Для управления CPU1, настройки не работают на HTC устройствах</string>
-<string name="htc_override_preferences_warning">Это временное решение для HTC устройств, которые имеют проблемы с CPU1\n\nПри помощи этого все ядра будут активны\n\nЕсли отключить CPU1, проблема вернётся</string>
+<string name="htc_override_preferences_warning">Это временное решение для HTC устройств, которые имеют проблемы с CPU1
+\n
+\nПри помощи этого все ядра будут активны
+\n
+\nЕсли отключить CPU1, проблема вернётся</string>
 <string name="List">Список</string>
 <string name="chart">Диаграмма</string>
 <string name="remember">Запомнить выбор</string>
@@ -390,31 +408,63 @@
 <string name="full_changelog">Все изменения</string>
 <string name="select">Выбор</string>
 <string name="info_gpu_title">GPU</string>
-<string name="info_gpu_text">GPU (графическая обработка) используется для отрисовки графики 2D и 3D\nЭтот параметр позволяет изменять частоту GPU\nПоддерживаются устройства с Adreno 220, 225 и 320</string>
+<string name="info_gpu_text">GPU (графическая обработка) используется для отрисовки графики 2D и 3D
+\nЭтот параметр позволяет изменять частоту GPU
+\nПоддерживаются устройства с Adreno 220, 225 и 320</string>
 <string name="info_voltage_title">Изменение вольтажа</string>
-<string name="info_voltage_text">Позволяет задать напряжение процессора\nНапряжение осуществляется по базавой частоте\nПоддерживаются устройства с Qualcomm и большинство с Tegra 3</string>
+<string name="info_voltage_text">Позволяет задать напряжение процессора
+\nНапряжение осуществляется по базавой частоте
+\nПоддерживаются устройства с Qualcomm и большинство с Tegra 3</string>
 <string name="info_cpu_title">CPU</string>
-<string name="info_cpu_text">CPU (центральный процессор)\nПозволяет вам изменять частоты CPU и говернор\nИзменение частоты и говернор независимо. Большинство устройств поддерживает эту функцию</string>
+<string name="info_cpu_text">CPU (центральный процессор)
+\nПозволяет вам изменять частоты CPU и говернор
+\nИзменение частоты и говернор независимо. Большинство устройств поддерживает эту функцию</string>
 <string name="info_tis_title">Статистика</string>
 <string name="info_tis_text">Время процессора на каждой частоте</string>
 <string name="info_mpd_title">MP-Decision</string>
-<string name="info_mpd_text">MP-Decision-решает,когда включить или отключить ядро(-а)\nВы можете настроить параметры MP-Decision</string>
+<string name="info_mpd_text">MP-Decision-решает,когда включить или отключить ядро(-а)
+\nВы можете настроить параметры MP-Decision</string>
 <string name="info_misc_title">Прочие твики</string>
-<string name="info_misc_text">Содержит различные опции для настройки:\n\n*Изменение подсветки кнопок\n*Режим быстрого заряда\n*Включение vsync\n*Управление глубиной цвета\n*Управление Sweep2Wake\n*...\n\nДолжно поддерживаться ядром!</string>
+<string name="info_misc_text">Содержит различные опции для настройки:
+\n
+\n*Изменение подсветки кнопок
+\n*Режим быстрого заряда
+\n*Включение vsync
+\n*Управление глубиной цвета
+\n*Управление Sweep2Wake
+\n*...
+\n
+\nДолжно поддерживаться ядром!</string>
 <string name="info_gov_title">Настройки говернора</string>
-<string name="info_gov_text">Говернор управляет частотой ЦП\nВы можете настроить параметры регулятора\n\nНе все говерноры можно настроить</string>
+<string name="info_gov_text">Говернор управляет частотой ЦП
+\nВы можете настроить параметры регулятора
+\n
+\nНе все говерноры можно настроить</string>
 <string name="info_oom_title">OOM</string>
-<string name="info_oom_text">OOM(Управление ОЗУ)\nСистема Android будет использовать эти значения для освобождения памяти</string>
+<string name="info_oom_text">OOM(Управление ОЗУ)
+\nСистема Android будет использовать эти значения для освобождения памяти</string>
 <string name="info_profiles_title">Профили</string>
-<string name="info_profiles_text">Создание профилей параметров\nИспользуйте профили в зависимости от условий:\n\n*Llama\n*Tasker\n*Локально</string>
+<string name="info_profiles_text">Создание профилей параметров
+\nИспользуйте профили в зависимости от условий:
+\n
+\n*Llama
+\n*Tasker
+\n*Локально</string>
 <string name="info_thermal_title">Перегрев</string>
-<string name="info_thermal_text">Эта опция управляеи тепловыми параметрами процессора\nЕсли температура достигает определенного порога,то частоты будут понижены для предотвращения перегрева\nКогда температура опустится-будет выполнен сброс</string>
+<string name="info_thermal_text">Эта опция управляеи тепловыми параметрами процессора
+\nЕсли температура достигает определенного порога,то частоты будут понижены для предотвращения перегрева
+\nКогда температура опустится-будет выполнен сброс</string>
 <string name="info_sd_title">Анализатор SD</string>
 <string name="info_sd_text">Инструмент для анализа занятого места на карте памяти</string>
 <string name="info_sys_info_title">О системе</string>
 <string name="info_sys_info_text">Детальная информация об аппарате</string>
 <string name="info_tm_title">Менеджер процессов</string>
-<string name="info_tm_text">Отображение и управление запущенными процессами\n\nВы можете:\n\n*Завершить процесс\n*Установить приоритет</string>
+<string name="info_tm_text">Отображение и управление запущенными процессами
+\n
+\nВы можете:
+\n
+\n*Завершить процесс
+\n*Установить приоритет</string>
 <string name="info_build_title">Редактор build.prop</string>
 <string name="info_build_text">Редактирование свойств build устройств</string>
 <string name="info_sysctl_title">SysCtl</string>
@@ -431,7 +481,8 @@
 <string name="nlt_custom">Обычное</string>
 <string name="nlt_alert_title">Таймаут LED уведомлений</string>
 <string name="nlt_alert_message">Задать множитель</string>
-<string name="oom_please_wait">Изменение настроек памяти\nЖдите…</string>
+<string name="oom_please_wait">Изменение настроек памяти
+\nЖдите…</string>
 <string name="oom_preset">Выберите стиль</string>
 <string name="preferences_subtitle">Настройки приложения</string>
 <string name="preferences_subtitle_genereal">Настройки приложения</string>
@@ -461,7 +512,8 @@
 <string name="mem_free">"Своб.: "</string>
 <string name="mem_used">"Занято: "</string>
 <string name="set_new_value">Введите новое значение:</string>
-<string name="system_info_please_wait">Сбор информации...\nПодождите</string>
+<string name="system_info_please_wait">Сбор информации...
+\nПодождите</string>
 <string name="system_info_overview">Обзор</string>
 <string name="system_info_device">Девайс</string>
 <string name="system_info_cpu">CPU</string>
@@ -469,7 +521,9 @@
 <string name="unknown">Не определено</string>
 <string name="backup">Бэкап</string>
 <string name="restore">Восстановление</string>
-<string name="backup_note">Резервное копирование.\\n\\nПримечание: Все существующие данные будут уничтожены перед восстановлением</string>
+<string name="backup_note">Резервное копирование.\
+\n\
+\nПримечание: Все существующие данные будут уничтожены перед восстановлением</string>
 <string name="title_logcat">Логи</string>
 <string name="change_sd_card_cache_size">Изменить размер кэша SD</string>
 <string name="nlt_title">ТАЙМАУТ LED УВЕДОМЛЕНИЙ</string>
@@ -611,7 +665,9 @@
 <string name="current">Минимум</string>
 <string name="_max">Максимум</string>
 <string name="close">Закрыть</string>
-<string name="gpu_not_supported">Ваше устройство не поддерживается!\nПоддерживаются устройства с Adreno 220, 225 и 320. \nЕсли в Вашем устройство имеет один из этих GPU и вы видите это сообщение,то свяжитесь со мной</string>
+<string name="gpu_not_supported">Ваше устройство не поддерживается!
+\nПоддерживаются устройства с Adreno 220, 225 и 320. 
+\nЕсли в Вашем устройство имеет один из этих GPU и вы видите это сообщение,то свяжитесь со мной</string>
 <string name="process_details">Детали процесса</string>
 <string name="reboot">Перезагрузка</string>
 <string name="prefs_general">Основные</string>
