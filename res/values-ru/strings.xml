@@ -12,6 +12,11 @@
 <string name="title_about">О программе</string>
 <string name="title_info">О системе</string>
 <string name="title_preferences">Настройки</string>
+<string name="title_sysctl">SysCtl</string>
+<string name="title_sd">Анализатор карты SD</string>
+<string name="title_backup">Бэкап/Восстановление</string>
+<string name="title_log">Логи</string>
+<string name="title_build">Редактор Build.prop</string>
 <string name="app_name">Kernel Tuner</string>
 <string name="title_task_manager">Менеджер процессов</string>
 <string name="preferences_boot_settings">Настройки загрузки</string>
@@ -142,14 +147,14 @@
 <string name="done">Готово</string>
 <string name="profile_">Профиль:</string>
 <string name="create_profile_from_current_settings">Создать профили из текущих настроек</string>
-<string name="phase1_low">НИЖНИЙ &#8211; ПОРОГ</string>
+<string name="phase1_low">НИЖНИЙ - ПОРОГ</string>
 <string name="max_frequency_">MAX Частота:</string>
 <string name="low_range_temperature_">Нижняя температура:</string>
 <string name="high_range_temperature_">Верхняя температура:</string>
-<string name="phase2_medium">СРЕДНИЙ &#8211; ПОРОГ</string>
-<string name="phase3_high">ВЕРХНИЙ &#8211; ПОРОГ</string>
+<string name="phase2_medium">СРЕДНИЙ - ПОРОГ</string>
+<string name="phase3_high">ВЕРХНИЙ - ПОРОГ</string>
 <string name="frequency_">Частота:</string>
-<string name="all_p12_5mv">Все +12.5мВ</string>
+<string name="all_p12_5mv">Все + 12.5мВ</string>
 <string name="all_m12_5mv">Все &#8211;12.5мВ</string>
 
 <string name="governor_">Говернор</string>
@@ -182,9 +187,9 @@
 <string name="swap">Swap</string>
 <string name="info">О системе</string>
 <string name="ok">ОК</string>
-<string name="uptime_">Включен&#8211;:</string>
+<string name="uptime_">Включен:</string>
 <string name="deep_sleep_">Время сна:</string>
-<string name="system_dump_text1">Будет создан на sdcard дамп системы,необходимый для приложения.\n\n\'/sdcard/ktuner_log.txt\'\n\nЭта информация может помочь улучшить приложение и добавить поддержку новых устройств\n\nХотите продолжить?</string>
+<string name="system_dump_text1">Будет создан на sdcard дамп системы,необходимый для приложения.\n\n'/sdcard/ktuner_log.txt'\n\nЭта информация может помочь улучшить приложение и добавить поддержку новых устройств\n\nХотите продолжить?</string>
 <string name="system_dump_text2">Личные данные не будут собираться!</string>
 <string name="clear">Очистить</string>
 <string name="delete">Удалить</string>
@@ -600,4 +605,57 @@
 <string name="s2w_">S2W:</string>
 <string name="cache_size_">Размер кэша:</string>
 <string name="this_widget_works_only_on_multi_core_devices_">Этот виджет работает только на многоядерных устройствах!</string>
+<string name="translators">Переводчики</string>
+<string name="_2d">2D</string>
+<string name="_3d">3D</string>
+<string name="current">Минимум</string>
+<string name="_max">Максимум</string>
+<string name="close">Закрыть</string>
+<string name="gpu_not_supported">Ваше устройство не поддерживается!\nПоддерживаются устройства с Adreno 220, 225 и 320. \nЕсли в Вашем устройство имеет один из этих GPU и вы видите это сообщение,то свяжитесь со мной</string>
+<string name="process_details">Детали процесса</string>
+<string name="reboot">Перезагрузка</string>
+<string name="prefs_general">Основные</string>
+<string name="prefs_general_summary">Основные настройки</string>
+<string name="prefs_widget">Виджеты</string>
+<string name="prefs_widget_summary">Настройки виджетов</string>
+<string name="prefs_notification">Уведомления</string>
+<string name="prefs_notification_summary">Настройки уведомлений</string>
+<string name="prefs_log_summary">Настройки лога</string>
+<string name="prefs_ui">Интерфейс</string>
+<string name="prefs_ui_summary">Пользовательские настройки</string>
+<string name="prefs_main">Главный экран</string>
+<string name="prefs_main_summary">Внешний вид главного экрана</string>
+<string name="prefs_backup_summary">Бэкап/Восстановление настроек</string>
+<string name="prefs_about_summary">О программе/Авторе</string>
+<string name="prefs_changelog_summary">Просмотр изменений</string>
+<string name="prefs_info_summary">О системе и устройстве</string>
+<string name="prefs_reset">Сброс приложений при новом ядре</string>
+<string name="prefs_reset_summary">Сброс параметров после прошивки ядра</string>
+<string name="prefs_refresh">Частота обновления</string>
+<string name="prefs_refresh_summary">Как часто обновлять информацию</string>
+<string name="prefs_temp">Единица температуры</string>
+<string name="prefs_toast">Уведомления профиля</string>
+<string name="prefs_toast_summary">Уведомлять при изменении профиля</string>
+<string name="prefs_level">Уровень</string>
+<string name="prefs_format">Формат</string>
+<string name="prefs_buffer">Буфер</string>
+<string name="prefs_text_size">Размер текста записей</string>
+<string name="prefs_screen_on">Не выключать экран</string>
+<string name="prefs_screen_on_summary">Не выключать при работающем логе</string>
+<string name="prefs_unsupported">Неподдерживаемые функции</string>
+<string name="prefs_main_dialog">Диалоговые окна</string>
+<string name="prefs_main_dialog_summary">Отображать только основные параметры</string>
+<string name="prefs_cpu_panel">Панель процессора</string>
+<string name="prefs_cpu_panel_summary">Показывать частоту/загрузку ЦП</string>
+<string name="prefs_temp_panel">Панель температуры</string>
+<string name="prefs_temp_panel_summary">Показывать температуру/батарею</string>
+<string name="prefs_toggles_panel">Включение ядра</string>
+<string name="prefs_toggles_panel_summary">Показывать панель вкл/выкл ядра(ядер)</string>
+<string name="prefs_main_panel">Панель функций</string>
+<string name="prefs_main_panel_summary">Показывать панель функций</string>
+<string name="prefs_notif_items">Элементы для отображения</string>
+<string name="prefs_app_theme">Темы приложения</string>
+<string name="prefs_tis_as">Вид статистики</string>
+<string name="prefs_cpu_layout">Схема твиков ЦП</string>
+<string name="prefs_widget_bg">Фон виджета</string>
 </resources>
