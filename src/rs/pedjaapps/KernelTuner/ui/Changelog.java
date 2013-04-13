@@ -42,7 +42,7 @@ public class Changelog extends Activity
 		super.onCreate(savedInstanceState);
 		SharedPreferences prefs = PreferenceManager.getDefaultSharedPreferences(this);
 		String theme = prefs.getString("theme", "light");
-		setTheme(Tools.getPreferedThemeTranslucent(theme));
+		setTheme(Tools.getPreferedTheme(theme));
 		setContentView(R.layout.changelog);
 
 		ListView mListView = (ListView) findViewById(R.id.list);
@@ -61,7 +61,9 @@ public class Changelog extends Activity
 		final List<ChangelogEntry> entries = new ArrayList<ChangelogEntry>();
 		entries.add(new ChangelogEntry(true, null, 0, "4.4.7"));
 		entries.add(new ChangelogEntry(false, "Redesigned GPU", 1, ""));
+		entries.add(new ChangelogEntry(false, "Fixed Voltage on some devices", 1, ""));
 		entries.add(new ChangelogEntry(false, "Russian Translation(thanks to zero2808@xda)", 0, ""));
+		entries.add(new ChangelogEntry(false, "Italian Translation(thanks to Snoob25@xda)", 0, ""));
 		
 		entries.add(new ChangelogEntry(true, null, 0, "4.4.6"));
 		entries.add(new ChangelogEntry(false, "Switched to RootTools library for managing root commands", 0, ""));
