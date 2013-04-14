@@ -59,6 +59,9 @@ public class Changelog extends Activity
 	{
 
 		final List<ChangelogEntry> entries = new ArrayList<ChangelogEntry>();
+		entries.add(new ChangelogEntry(true, null, 0, "4.4.7.1"));
+		entries.add(new ChangelogEntry(false, "Added Linpack Test in CPU Tweaks", 0, ""));
+		
 		entries.add(new ChangelogEntry(true, null, 0, "4.4.7"));
 		entries.add(new ChangelogEntry(false, "Redesigned GPU", 1, ""));
 		entries.add(new ChangelogEntry(false, "Fixed Voltage on some devices", 1, ""));

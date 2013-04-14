@@ -52,6 +52,9 @@ import com.stericson.RootTools.execution.CommandCapture;
 
 import android.content.Context;
 import rs.pedjaapps.KernelTuner.tools.Tools;
+import android.view.Menu;
+import rs.pedjaapps.KernelTuner.linpack.LinpackLoop;
+import rs.pedjaapps.KernelTuner.linpack.Tester;
 
 
 
@@ -1308,6 +1311,17 @@ startCpuLoadThread();
 	}
 
 	@Override
+	public boolean onCreateOptionsMenu(Menu menu) {
+
+		menu.add(1, 1, 1, "Linpack")
+			.setShowAsAction(
+			MenuItem.SHOW_AS_ACTION_ALWAYS
+			| MenuItem.SHOW_AS_ACTION_WITH_TEXT);
+		
+		return true;
+	}
+	
+	@Override
 	public boolean onOptionsItemSelected(MenuItem item) {
 	    switch (item.getItemId()) {
 	        case android.R.id.home:
@@ -1316,6 +1330,12 @@ startCpuLoadThread();
 	            intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
 	            startActivity(intent);
 	            return true;
+			case 1:
+			/*LinpackLoop linpack = new LinpackLoop();
+			String result = linpack.run_benchmark();
+			Toast.makeText(this, result, Toast.LENGTH_LONG).show();*/
+			startActivity(new Intent(this, Tester.class));
+			    return true;
 	        
 	            
 	    }
