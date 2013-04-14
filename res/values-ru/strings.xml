@@ -666,8 +666,7 @@
 <string name="_max">Максимум</string>
 <string name="close">Закрыть</string>
 <string name="gpu_not_supported">Ваше устройство не поддерживается!
-\nПоддерживаются устройства с Adreno 220, 225 и 320. 
-\nЕсли в Вашем устройство имеет один из этих GPU и вы видите это сообщение,то свяжитесь со мной</string>
+\nПоддерживаются устройства с Adreno 220, 225 и 320. </string>
 <string name="process_details">Детали процесса</string>
 <string name="reboot">Перезагрузка</string>
 <string name="prefs_general">Основные</string>

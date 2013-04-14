@@ -616,7 +616,7 @@
 	<string name="current">Current</string>
 	<string name="_max">Max</string>
 	<string name="close">Close</string>
-	<string name="gpu_not_supported">Your device is not supported at the moment\nOnly devices with Adreno 220, 225 and 320 are supported.\nIf you device has one of these 3 GPUs and you see this message, please contact me.</string>
+	<string name="gpu_not_supported">Your device is not supported at the moment\nOnly devices with Adreno 220, 225 and 320 are supported. Kernel support is also required</string>
 	<string name="process_details">Process Details</string>
 	<string name="reboot">Reboot</string>
 	<string name="prefs_general">General</string>

@@ -530,8 +530,7 @@
 <string name="current">Corrente</string>
 <string name="close">Chiudi</string>
 <string name="gpu_not_supported">Il tuo device non è supportato al momento
-\nSolo i device con Adreno 220,225 e 320 sono supportati.
-\nSe il tuo device ha una di queste tre GPU e stai leggendo questo messaggio, per favore contattami.</string>
+\nSolo i device con Adreno 220,225 e 320 sono supportati.</string>
 <string name="process_details">Dettagli del processo</string>
 <string name="reboot">Riavvia</string>
 <string name="prefs_general">Generale</string>
