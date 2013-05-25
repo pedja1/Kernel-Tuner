@@ -78,7 +78,7 @@ public class Profiles extends Activity
 
 				DataOutputStream localDataOutputStream = new DataOutputStream(localProcess.getOutputStream());
 				
-				if (IOHelper.cpu1Online() == true)
+				if (IOHelper.cpu1Exists() == true)
 						{
 							localDataOutputStream.writeBytes("echo 0 > /sys/kernel/msm_mpdecision/conf/enabled\n");
 							localDataOutputStream.writeBytes("chmod 666 /sys/devices/system/cpu/cpu1/online\n");
@@ -86,14 +86,14 @@ public class Profiles extends Activity
 							localDataOutputStream.writeBytes("chmod 444 /sys/devices/system/cpu/cpu1/online\n");
 							localDataOutputStream.writeBytes("chown system /sys/devices/system/cpu/cpu1/online\n");
 						}
-						if (IOHelper.cpu2Online() == true)
+						if (IOHelper.cpu2Exists() == true)
 						{
 							localDataOutputStream.writeBytes("chmod 666 /sys/devices/system/cpu/cpu2/online\n");
 							localDataOutputStream.writeBytes("echo 1 > /sys/devices/system/cpu/cpu2/online\n");
 							localDataOutputStream.writeBytes("chmod 444 /sys/devices/system/cpu/cpu2/online\n");
 							localDataOutputStream.writeBytes("chown system /sys/devices/system/cpu/cpu2/online\n");
 						}
-						if (IOHelper.cpu3Online() == true)
+						if (IOHelper.cpu3Exists() == true)
 						{
 							localDataOutputStream.writeBytes("chmod 666 /sys/devices/system/cpu/cpu3/online\n");
 							localDataOutputStream.writeBytes("echo 1 > /sys/devices/system/cpu/cpu3/online\n");
@@ -119,17 +119,17 @@ public class Profiles extends Activity
 			_cpu0min = IOHelper.cpu0MinFreq();
 			_cpu0max = IOHelper.cpu0MaxFreq();
 			_cpu0gov = IOHelper.cpu0CurGov();
-			if(IOHelper.cpu1Online()){
+			if(IOHelper.cpu1Exists()){
 			_cpu1min = IOHelper.cpu1MinFreq();
 			_cpu1max = IOHelper.cpu1MaxFreq();
 			_cpu1gov = IOHelper.cpu1CurGov();
 			}
-			if(IOHelper.cpu2Online()){
+			if(IOHelper.cpu2Exists()){
 			_cpu2min = IOHelper.cpu2MinFreq();
 			_cpu2max = IOHelper.cpu2MaxFreq();
 			_cpu2gov = IOHelper.cpu2CurGov();
 			}
-			if(IOHelper.cpu3Online()){
+			if(IOHelper.cpu3Exists()){
 			_cpu3min = IOHelper.cpu3MinFreq();
 			_cpu3max = IOHelper.cpu3MaxFreq();
 			_cpu3gov = IOHelper.cpu3CurGov();
@@ -151,20 +151,20 @@ try{
 
 	DataOutputStream localDataOutputStream = new DataOutputStream(localProcess.getOutputStream());
 	
-			if (IOHelper.cpu1Online() == true)
+			if (IOHelper.cpu1Exists() == true)
 			{
 				localDataOutputStream.writeBytes("echo 1 > /sys/kernel/msm_mpdecision/conf/enabled\n");
 				localDataOutputStream.writeBytes("chmod 777 /sys/devices/system/cpu/cpu1/online\n");
 				localDataOutputStream.writeBytes("echo 0 > /sys/devices/system/cpu/cpu1/online\n");
 				localDataOutputStream.writeBytes("chown system /sys/devices/system/cpu/cpu1/online\n");
 			}
-			if (IOHelper.cpu2Online() == true)
+			if (IOHelper.cpu2Exists() == true)
 			{
 				localDataOutputStream.writeBytes("chmod 777 /sys/devices/system/cpu/cpu2/online\n");
 				localDataOutputStream.writeBytes("echo 0 > /sys/devices/system/cpu/cpu2/online\n");
 				localDataOutputStream.writeBytes("chown system /sys/devices/system/cpu/cpu2/online\n");
 			}
-			if (IOHelper.cpu3Online() == true)
+			if (IOHelper.cpu3Exists() == true)
 			{
 				localDataOutputStream.writeBytes("chmod 777 /sys/devices/system/cpu/cpu3/online\n");
 				localDataOutputStream.writeBytes("echo 0 > /sys/devices/system/cpu/cpu3/online\n");

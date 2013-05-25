@@ -78,48 +78,24 @@ public class IOHelper
 
 	}
 	
-	public static final boolean cpu0Online()
+	public static final boolean cpu0Exists()
 	{
-		boolean i = false;
-		if (new File(Constants.cpu0online).exists())
-		{
-			i = true;
-		}
-		return i;
-
+		return new File(Constants.cpu0online).exists();
 	}
 
-	public static final boolean cpu1Online()
+	public static final boolean cpu1Exists()
 	{
-		boolean i = false;
-		if (new File(Constants.cpu1online).exists())
-		{
-			i = true;
-		}
-		return i;
-
+		return new File(Constants.cpu1online).exists();
 	}
 
-	public static final boolean cpu2Online()
+	public static final boolean cpu2Exists()
 	{
-		boolean i = false;
-		if (new File(Constants.cpu2online).exists())
-		{
-			i = true;
-		}
-		return i;
-
+		return new File(Constants.cpu2online).exists();
 	}
 
-	public static final boolean cpu3Online()
+	public static final boolean cpu3Exists()
 	{
-		boolean i = false;
-		if (new File(Constants.cpu3online).exists())
-		{
-			i = true;
-		}
-		return i;
-
+		return new File(Constants.cpu3online).exists();
 	}
 	
 	public static final boolean gpuExists()

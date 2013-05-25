@@ -18,16 +18,9 @@
 */
 package rs.pedjaapps.KernelTuner.ui;
 
-import android.content.*;
-import android.widget.*;
-import java.io.*;
-
-import android.app.ActionBar;
-import android.app.Activity;
-import android.app.ActivityManager;
+import android.app.*;
 import android.app.ActivityManager.RunningServiceInfo;
-import android.app.AlertDialog;
-import android.app.ProgressDialog;
+import android.content.*;
 import android.content.pm.PackageInfo;
 import android.content.pm.PackageManager;
 import android.content.res.AssetManager;
@@ -45,12 +38,11 @@ import android.view.MenuItem;
 import android.view.View;
 import android.view.View.OnClickListener;
 import android.view.View.OnLongClickListener;
+import android.widget.*;
 import com.google.ads.AdRequest;
 import com.google.ads.AdView;
 import com.stericson.RootTools.RootTools;
 import com.stericson.RootTools.execution.CommandCapture;
-import java.util.ArrayList;
-import java.util.List;
 import rs.pedjaapps.KernelTuner.Constants;
 import rs.pedjaapps.KernelTuner.R;
 import rs.pedjaapps.KernelTuner.helpers.IOHelper;
@@ -58,20 +50,21 @@ import rs.pedjaapps.KernelTuner.services.NotificationService;
 import rs.pedjaapps.KernelTuner.tools.Initd;
 import rs.pedjaapps.KernelTuner.tools.Tools;
 
+import java.io.*;
+import java.util.ArrayList;
+import java.util.List;
+
 
 
 public class KernelTuner extends Activity {
 
-	private List<IOHelper.FreqsEntry>   freqEntries;
-	private List<IOHelper.VoltageList>  voltageFreqs;
-	private List<String>                voltages           = new ArrayList<String>();
-	private TextView                    batteryLevel;
+    private List<String>                voltages           = new ArrayList<String>();
 	private TextView                    batteryTemp;
 	private TextView                    cputemptxt;
 	private String                      tempPref;
 	private long                        mLastBackPressTime = 0;
 	private Toast                       mToast;
-	private RelativeLayout              tempLayout;
+	private LinearLayout                cpuTempLayout;
 	private AlertDialog                 alert;
 	private String                      tmp;
     private Context                     c;
@@ -104,7 +97,7 @@ public class KernelTuner extends Activity {
 	private ProgressDialog              pd                = null;
 	
 	LinearLayout                        tempPanel;
-	RelativeLayout                      cpuPanel;
+	LinearLayout                      cpuPanel;
 	LinearLayout                        togglesPanel;
 	LinearLayout                        mainPanel;
 	
@@ -117,26 +110,19 @@ public class KernelTuner extends Activity {
 	private boolean                     first;
 	private boolean                     isLight;
 	private String                      theme;
-	private Button                      gpu,
-	                                    cpu, 
-		                                tis,
-		                                voltage,
-		                                mp,
-		                                thermal,
-		                                misc, 
-		                                sys, 
-		                                tm,
-		                                build, 
-		                                sd, 
-		                                profiles,
-		                                oom, 
-		                                log,
-		                                info,
-		                                governor;
-	private boolean                     minimal;
+	private Button                      gpu;
+    private Button cpu;
+    private Button tis;
+    private Button voltage;
+    private Button mp;
+    private Button thermal;
+    private boolean                     minimal;
 	private TextView                    cpuLoadTxt;
 	private ProgressBar                 cpuLoad;
 	private int                         refresh         = 1000;
+    Button cpu1toggle;
+    Button cpu2toggle;
+    Button cpu3toggle;
 	
 
 	@Override
@@ -150,20 +136,20 @@ public class KernelTuner extends Activity {
 
 		c = this;
 		//new Chmod().execute();
-		freqEntries = IOHelper.frequencies();
-		voltageFreqs = IOHelper.voltages();
+        List<IOHelper.FreqsEntry> freqEntries = IOHelper.frequencies();
+        List<IOHelper.VoltageList> voltageFreqs = IOHelper.voltages();
 		preferences = PreferenceManager.getDefaultSharedPreferences(c);
 		editor = preferences.edit();
 		theme = preferences.getString("theme", "light");
 
 		minimal = preferences.getBoolean("main_style",false);
-		if(minimal == true){
+		if(minimal){
 			setTheme(Tools.getPreferedThemeTranslucent(theme));
-			setContentView(R.layout.main_popup);
+			setContentView(R.layout.activity_main_popup);
 		}
 		else{
 			setTheme(Tools.getPreferedTheme(theme));
-			setContentView(R.layout.main);
+			setContentView(R.layout.activity_main);
 		}
 		super.onCreate(savedInstanceState);
 		mHandler = new Handler();
@@ -173,41 +159,40 @@ public class KernelTuner extends Activity {
 		catch(Exception e){
 			refresh = 1000;
 		}
-	    if(minimal==false){
-		    tempPanel = (LinearLayout)findViewById(R.id.test1);
-	    	mainPanel = (LinearLayout)findViewById(R.id.scrollView1);
-		    cpuPanel = (RelativeLayout)findViewById(R.id.rl);
-	    	togglesPanel = (LinearLayout)findViewById(R.id.ly2);
+	    if(!minimal){
+		    tempPanel = (LinearLayout)findViewById(R.id.temperature_layout);
+	    	mainPanel = (LinearLayout)findViewById(R.id.buttons_layout);
+		    cpuPanel = (LinearLayout)findViewById(R.id.cpu_info_layout);
+	    	togglesPanel = (LinearLayout)findViewById(R.id.toggles_layout);
 		
-		    if(preferences.getBoolean("main_temp",true)==false){
+		    if(!preferences.getBoolean("main_temp", true)){
 			    tempPanel.setVisibility(View.GONE);
 	    	}
-		    if(preferences.getBoolean("main_cpu",true)==false){
+		    if(!preferences.getBoolean("main_cpu", true)){
 			    cpuPanel.setVisibility(View.GONE);
 		    }
-		    if(preferences.getBoolean("main_toggles",true)==false){
+		    if(!preferences.getBoolean("main_toggles", true)){
 			    togglesPanel.setVisibility(View.GONE);
 		    }
-		    if(preferences.getBoolean("main_buttons",true)==false){
+		    if(!preferences.getBoolean("main_buttons", true)){
 			    mainPanel.setVisibility(View.GONE);
 		    }
 		
-		    cpu0prog = (TextView)findViewById(R.id.ptextView3);
-		    cpu1prog = (TextView)findViewById(R.id.ptextView4);
-		    cpu2prog = (TextView)findViewById(R.id.ptextView7);
-	        cpu3prog = (TextView)findViewById(R.id.ptextView8);
+		    cpu0prog = (TextView)findViewById(R.id.txtCpu0Freq);
+		    cpu1prog = (TextView)findViewById(R.id.txtCpu1Freq);
+		    cpu2prog = (TextView)findViewById(R.id.txtCpu2Freq);
+	        cpu3prog = (TextView)findViewById(R.id.txtCpu3Freq);
 		
-		    cpu0progbar = (ProgressBar)findViewById(R.id.progressBar1);
-		    cpu1progbar = (ProgressBar)findViewById(R.id.progressBar2);
-		    cpu2progbar = (ProgressBar)findViewById(R.id.progressBar3);
-		    cpu3progbar = (ProgressBar)findViewById(R.id.progressBar4);
+		    cpu0progbar = (ProgressBar)findViewById(R.id.prgCpu0);
+		    cpu1progbar = (ProgressBar)findViewById(R.id.prgCpu1);
+		    cpu2progbar = (ProgressBar)findViewById(R.id.prgCpu2);
+		    cpu3progbar = (ProgressBar)findViewById(R.id.prgCpu3);
 	    	/**
 		     * Get temperature unit from preferences
 		     */
 	    	tempPref = preferences.getString("temp", "celsius");
-		    batteryLevel = (TextView) findViewById(R.id.textView42);
-	    	batteryTemp = (TextView) findViewById(R.id.textView40);
-	    	tempLayout = (RelativeLayout) findViewById(R.id.test1a);
+	    	batteryTemp = (TextView) findViewById(R.id.txtBatteryTemp);
+	    	cpuTempLayout = (LinearLayout) findViewById(R.id.temp_cpu_layout);
 			
 		    ActionBar actionBar = getActionBar();
 	    	actionBar.setSubtitle("Various kernel and system tuning");
@@ -218,10 +203,10 @@ public class KernelTuner extends Activity {
 		     */
 
 	    	for(IOHelper.FreqsEntry f: freqEntries){
-		    	freqlist.add(new StringBuilder().append(f.getFreq()).toString());
+		    	freqlist.add(""+f.getFreq());
 	    	}
 	    	for (IOHelper.VoltageList v : voltageFreqs) {
-		    	voltages.add(new StringBuilder().append(v.getFreq()).toString());
+		    	voltages.add(v.getFreq());
 	    	}
 
 	    	/***
@@ -239,17 +224,17 @@ public class KernelTuner extends Activity {
 							cpu0max = IOHelper.cpu0MaxFreq();
 							tmp = IOHelper.cpuTemp(cpuTempPath);
 
-							    if (IOHelper.cpu1Online() == true)
+							    if (IOHelper.cpu1Exists())
 							    {
 								    freqcpu1 = IOHelper.cpu1CurFreq();
 								    cpu1max = IOHelper.cpu1MaxFreq();
 							    }
-								if (IOHelper.cpu2Online() == true)
+								if (IOHelper.cpu2Exists())
 							    {
 								    freqcpu2 = IOHelper.cpu2CurFreq();
 							    	cpu2max = IOHelper.cpu2MaxFreq();
 							    }
-							    if (IOHelper.cpu3Online() == true)
+							    if (IOHelper.cpu3Exists())
 							    {
 							    	freqcpu3 = IOHelper.cpu3CurFreq();
 							    	cpu3max = IOHelper.cpu3MaxFreq();
@@ -264,15 +249,15 @@ public class KernelTuner extends Activity {
 										cpuTemp(tmp);
 										cpu0update();
 
-										if (IOHelper.cpu1Online())
+										if (IOHelper.cpu1Exists())
 										{
 											cpu1update();
 										}
-										if (IOHelper.cpu2Online())
+										if (IOHelper.cpu2Exists())
 										{
 											cpu2update();
 										}
-										if (IOHelper.cpu3Online())
+										if (IOHelper.cpu3Exists())
 										{
 											cpu3update();
 										}
@@ -285,7 +270,7 @@ public class KernelTuner extends Activity {
 				}
 			}).start();
 
-		Button cpu1toggle = (Button)findViewById(R.id.button1);
+	    cpu1toggle = (Button)findViewById(R.id.btn_cpu1_toggle);
 		cpu1toggle.setOnClickListener(new OnClickListener() {
 
 			@Override
@@ -295,12 +280,12 @@ public class KernelTuner extends Activity {
 						null,
 						getResources().getString(R.string.applying_settings),
 						true, true);
-				new CPUToggle().execute(new String[] {"1"});
+				new CPUToggle().execute("1");
 
 			}
 		});
 
-		Button cpu2toggle = (Button) findViewById(R.id.button8);
+		cpu2toggle = (Button) findViewById(R.id.btn_cpu2_toggle);
 		cpu2toggle.setOnClickListener(new OnClickListener() {
 
 			@Override
@@ -310,12 +295,12 @@ public class KernelTuner extends Activity {
 						null,
 						getResources().getString(R.string.applying_settings),
 						true, true);
-				new CPUToggle().execute(new String[] {"2"});
+				new CPUToggle().execute("2");
 
 			}
 		});
 
-		Button cpu3toggle = (Button) findViewById(R.id.button9);
+		cpu3toggle = (Button) findViewById(R.id.btn_cpu3_toggle);
 		cpu3toggle.setOnClickListener(new OnClickListener() {
 
 			@Override
@@ -325,13 +310,13 @@ public class KernelTuner extends Activity {
 						null,
 						getResources().getString(R.string.applying_settings),
 						true, true);
-				new CPUToggle().execute(new String[] {"3"});
+				new CPUToggle().execute("3");
 
 			}
 		});
-	    cputemptxt = (TextView) findViewById(R.id.textView38);
-	    cpuLoadTxt = (TextView)findViewById(R.id.textView1);
-		cpuLoad = (ProgressBar)findViewById(R.id.progressBar5);
+	    cputemptxt = (TextView) findViewById(R.id.txtCpuTemp);
+	    cpuLoadTxt = (TextView)findViewById(R.id.txtCpuLoad);
+		cpuLoad = (ProgressBar)findViewById(R.id.prgCpuLoad);
 		startCpuLoadThread();
 		    
 		}
@@ -339,7 +324,7 @@ public class KernelTuner extends Activity {
 		 * Extract assets if first launch
 		 */
 		first = preferences.getBoolean("first_launch", false);
-		if (first == false) {
+		if (!first) {
 			CopyAssets();
 		}
 
@@ -355,7 +340,7 @@ public class KernelTuner extends Activity {
 		/*
 		 * Enable temperature monitor
 		 */
-		if (IOHelper.isTempEnabled() == false) {
+		if (!IOHelper.isTempEnabled()) {
 			new enableTempMonitor().execute();
 		}
 
@@ -363,7 +348,7 @@ public class KernelTuner extends Activity {
 		 * Load ads if not disabled
 		 */
 		boolean ads = preferences.getBoolean("ads", true);
-		if (ads == true) {
+		if (ads) {
 			AdView adView = (AdView)findViewById(R.id.ad);
 			adView.loadAd(new AdRequest());
 		}
@@ -379,7 +364,7 @@ public class KernelTuner extends Activity {
 		/**
 		 * Declare buttons and set onClickListener for each
 		 */
-		gpu = (Button) findViewById(R.id.button3);
+		gpu = (Button) findViewById(R.id.btn_gpu);
 		
 		gpu.setOnClickListener(new OnClickListener() {
 
@@ -402,7 +387,7 @@ public class KernelTuner extends Activity {
 
 		});
 
-		voltage = (Button) findViewById(R.id.button6);
+		voltage = (Button) findViewById(R.id.btn_voltage);
 		voltage.setOnClickListener(new OnClickListener() {
 
 			@Override
@@ -425,7 +410,7 @@ public class KernelTuner extends Activity {
 
 		});
 
-		cpu = (Button) findViewById(R.id.button2);
+		cpu = (Button) findViewById(R.id.btn_cpu);
 		
 		cpu.setOnClickListener(new OnClickListener() {
 
@@ -456,7 +441,7 @@ public class KernelTuner extends Activity {
 
 		});
 
-		tis = (Button) findViewById(R.id.button5);
+		tis = (Button) findViewById(R.id.btn_times);
 		tis.setOnClickListener(new OnClickListener() {
 
 			@Override
@@ -540,7 +525,7 @@ public class KernelTuner extends Activity {
 
 		});
 		
-		mp = (Button) findViewById(R.id.button7);
+		mp = (Button) findViewById(R.id.btn_mpdecision);
 		mp.setOnClickListener(new OnClickListener() {
 
 			@Override
@@ -568,96 +553,96 @@ public class KernelTuner extends Activity {
 
 		});
 
-		misc = (Button) findViewById(R.id.button4);
+        Button misc = (Button) findViewById(R.id.btn_misc);
 		misc.setOnClickListener(new OnClickListener() {
 
-			@Override
-			public void onClick(View v) {
+            @Override
+            public void onClick(View v) {
 
-				Intent myIntent = new Intent(c, MiscTweaks.class);
-				startActivity(myIntent);
+                Intent myIntent = new Intent(c, MiscTweaks.class);
+                startActivity(myIntent);
 
-			}
-		});
+            }
+        });
 		misc.setOnLongClickListener(new OnLongClickListener() {
 
-			@Override
-			public boolean onLongClick(View arg0) {
+            @Override
+            public boolean onLongClick(View arg0) {
 
-				infoDialog(R.drawable.misc, getResources().getString(R.string.info_misc_title) ,getResources().getString(R.string.info_misc_text),"", false);
-				return true;
-			}
+                infoDialog(R.drawable.misc, getResources().getString(R.string.info_misc_title), getResources().getString(R.string.info_misc_text), "", false);
+                return true;
+            }
 
-		});
+        });
 
-	    governor = (Button) findViewById(R.id.button10);
+        Button governor = (Button) findViewById(R.id.btn_governor);
 		governor.setOnClickListener(new OnClickListener() {
 
-			@Override
-			public void onClick(View v) {
-				Intent myIntent = new Intent(c,
-						GovernorActivity.class);
-				startActivity(myIntent);
+            @Override
+            public void onClick(View v) {
+                Intent myIntent = new Intent(c,
+                        GovernorActivity.class);
+                startActivity(myIntent);
 
-			}
+            }
 
-		});
+        });
 		governor.setOnLongClickListener(new OnLongClickListener() {
 
-			@Override
-			public boolean onLongClick(View arg0) {
+            @Override
+            public boolean onLongClick(View arg0) {
 
-				infoDialog(R.drawable.main_governor, getResources().getString(R.string.info_gov_title) ,getResources().getString(R.string.info_gov_text),Constants.G_S_URL_PREFIX+"linux governors", true);
-				return true;
-			}
+                infoDialog(R.drawable.main_governor, getResources().getString(R.string.info_gov_title), getResources().getString(R.string.info_gov_text), Constants.G_S_URL_PREFIX + "linux governors", true);
+                return true;
+            }
 
-		});
+        });
 
-		oom = (Button) findViewById(R.id.button13);
+        Button oom = (Button) findViewById(R.id.btn_oom);
 		oom.setOnClickListener(new OnClickListener() {
 
-			@Override
-			public void onClick(View v) {
+            @Override
+            public void onClick(View v) {
 
-				Intent myIntent = new Intent(c, OOM.class);
-				startActivity(myIntent);
+                Intent myIntent = new Intent(c, OOM.class);
+                startActivity(myIntent);
 
-			}
-		});
+            }
+        });
 		oom.setOnLongClickListener(new OnLongClickListener() {
 
-			@Override
-			public boolean onLongClick(View arg0) {
+            @Override
+            public boolean onLongClick(View arg0) {
 
-				infoDialog(R.drawable.oom, getResources().getString(R.string.info_oom_title) ,getResources().getString(R.string.info_oom_text),Constants.G_S_URL_PREFIX+"oom", true);
-				return true;
-			}
+                infoDialog(R.drawable.oom, getResources().getString(R.string.info_oom_title), getResources().getString(R.string.info_oom_text), Constants.G_S_URL_PREFIX + "oom", true);
+                return true;
+            }
 
-		});
+        });
 
-		profiles = (Button)findViewById(R.id.button12);
+        Button profiles = (Button) findViewById(R.id.btn_profiles);
 		profiles.setOnClickListener(new OnClickListener() {
 
-			@Override
-			public void onClick(View v) {
+            @Override
+            public void onClick(View v) {
 
-				Intent myIntent = new Intent(c, Profiles.class);
-				startActivity(myIntent);
+                Intent myIntent = new Intent(c, Profiles.class);
+                startActivity(myIntent);
 
-			}
-		});
+            }
+        });
 		profiles.setOnLongClickListener(new OnLongClickListener() {
 
-			@Override
-			public boolean onLongClick(View arg0) {
+            @Override
+            public boolean onLongClick(View arg0) {
 
-				infoDialog(R.drawable.profile, getResources().getString(R.string.info_profiles_title) ,getResources().getString(R.string.info_profiles_text),"", false);
-				return true;
-			}
+                infoDialog(R.drawable.profile, getResources().getString(R.string.info_profiles_title), getResources().getString(R.string.info_profiles_text), "", false);
+                return true;
+            }
 
-		});
+        });
 
-		thermal = (Button)findViewById(R.id.button11);
+		thermal = (Button)findViewById(R.id.btn_thermal);
 		thermal.setOnClickListener(new OnClickListener() {
 
 			@Override
@@ -680,151 +665,150 @@ public class KernelTuner extends Activity {
 
 		});
 
-		sd = (Button)findViewById(R.id.button15);
+        Button sd = (Button) findViewById(R.id.btn_sd);
 		sd.setOnClickListener(new OnClickListener() {
 
-			@Override
-			public void onClick(View v) {
+            @Override
+            public void onClick(View v) {
 
-				Intent myIntent = new Intent(c, SDScannerConfigActivity.class);
-				startActivity(myIntent);
+                Intent myIntent = new Intent(c, SDScannerConfigActivity.class);
+                startActivity(myIntent);
 
-			}
-		});
+            }
+        });
 		sd.setOnLongClickListener(new OnLongClickListener() {
 
-			@Override
-			public boolean onLongClick(View arg0) {
+            @Override
+            public boolean onLongClick(View arg0) {
 
-				infoDialog(R.drawable.sd, getResources().getString(R.string.info_sd_title) ,getResources().getString(R.string.info_sd_text),"", false);
-				return true;
-			}
+                infoDialog(R.drawable.sd, getResources().getString(R.string.info_sd_title), getResources().getString(R.string.info_sd_text), "", false);
+                return true;
+            }
 
-		});
+        });
 
-		info = (Button)findViewById(R.id.button14);
+        Button info = (Button) findViewById(R.id.btn_info);
 		if(minimal){
 			info.setText("Settings");
-			info.setCompoundDrawablesWithIntrinsicBounds(null, getResources().getDrawable( R.drawable.settings ), null, null);
+			info.setCompoundDrawablesWithIntrinsicBounds(null, getResources().getDrawable(R.drawable.settings), null, null);
 		}
 		info.setOnClickListener(new OnClickListener() {
 
-			@Override
-			public void onClick(View v) {
-				if(minimal){
-					Intent myIntent = new Intent(c, Preferences.class);
-					startActivity(myIntent);
-				}
-				else{
-				Intent myIntent = new Intent(c, SystemInfo.class);
-				startActivity(myIntent);
-				}
+            @Override
+            public void onClick(View v) {
+                if (minimal) {
+                    Intent myIntent = new Intent(c, Preferences.class);
+                    startActivity(myIntent);
+                } else {
+                    Intent myIntent = new Intent(c, SystemInfo.class);
+                    startActivity(myIntent);
+                }
 
-			}
-		});
+            }
+        });
 		info.setOnLongClickListener(new OnLongClickListener() {
 
-			@Override
-			public boolean onLongClick(View arg0) {
-				if(minimal==false){
-				infoDialog(R.drawable.info, getResources().getString(R.string.info_sys_info_title) ,getResources().getString(R.string.info_sys_info_text),"", false);
-				}
-				return true;
-			}
+            @Override
+            public boolean onLongClick(View arg0) {
+                if (!minimal) {
+                    infoDialog(R.drawable.info, getResources().getString(R.string.info_sys_info_title), getResources().getString(R.string.info_sys_info_text), "", false);
+                }
+                return true;
+            }
 
-		});
+        });
 
-		tm = (Button)findViewById(R.id.button16);
+        Button tm = (Button) findViewById(R.id.btn_task_manager);
 		tm.setOnClickListener(new OnClickListener() {
 
-			@Override
-			public void onClick(View v) {
+            @Override
+            public void onClick(View v) {
 
-				Intent myIntent = new Intent(c, TaskManager.class);
-				startActivity(myIntent);
+                Intent myIntent = new Intent(c, TaskManager.class);
+                startActivity(myIntent);
 
-			}
-		});
+            }
+        });
 		tm.setOnLongClickListener(new OnLongClickListener() {
 
-			@Override
-			public boolean onLongClick(View arg0) {
+            @Override
+            public boolean onLongClick(View arg0) {
 
-				infoDialog(R.drawable.tm, getResources().getString(R.string.info_tm_title) ,getResources().getString(R.string.info_tm_text),Constants.G_S_URL_PREFIX+"task manager", true);
-				return true;
-			}
+                infoDialog(R.drawable.tm, getResources().getString(R.string.info_tm_title), getResources().getString(R.string.info_tm_text), Constants.G_S_URL_PREFIX + "task manager", true);
+                return true;
+            }
 
-		});
-		build = (Button)findViewById(R.id.button18);
+        });
+        Button build = (Button) findViewById(R.id.btn_build);
 		build.setOnClickListener(new OnClickListener() {
 
-				@Override
-				public void onClick(View v) {
+            @Override
+            public void onClick(View v) {
 
-					Intent myIntent = new Intent(c, BuildpropEditor.class);
-					startActivity(myIntent);
+                Intent myIntent = new Intent(c, BuildpropEditor.class);
+                startActivity(myIntent);
 
-				}
-			});
+            }
+        });
 		build.setOnLongClickListener(new OnLongClickListener() {
 
-			@Override
-			public boolean onLongClick(View arg0) {
+            @Override
+            public boolean onLongClick(View arg0) {
 
-				infoDialog(R.drawable.build, getResources().getString(R.string.info_build_title) ,getResources().getString(R.string.info_build_text),Constants.G_S_URL_PREFIX+"build.prop", true);
-				return true;
-			}
+                infoDialog(R.drawable.build, getResources().getString(R.string.info_build_title), getResources().getString(R.string.info_build_text), Constants.G_S_URL_PREFIX + "build.prop", true);
+                return true;
+            }
 
-		});
-		sys = (Button)findViewById(R.id.button17);
+        });
+        Button sys = (Button) findViewById(R.id.btn_sysctl);
 		sys.setOnClickListener(new OnClickListener() {
 
-			@Override
-			public void onClick(View v) {
+            @Override
+            public void onClick(View v) {
 
-				Intent myIntent = new Intent(c, SysCtl.class);
-				startActivity(myIntent);
+                Intent myIntent = new Intent(c, SysCtl.class);
+                startActivity(myIntent);
 
-			}
-		});
+            }
+        });
 		sys.setOnLongClickListener(new OnLongClickListener() {
 
-			@Override
-			public boolean onLongClick(View arg0) {
+            @Override
+            public boolean onLongClick(View arg0) {
 
-				infoDialog(R.drawable.sysctl, getResources().getString(R.string.info_sysctl_title) ,getResources().getString(R.string.info_sysctl_text),Constants.G_S_URL_PREFIX+"sysctl", true);
-				return true;
-			}
+                infoDialog(R.drawable.sysctl, getResources().getString(R.string.info_sysctl_title), getResources().getString(R.string.info_sysctl_text), Constants.G_S_URL_PREFIX + "sysctl", true);
+                return true;
+            }
 
-		});
-	    log = (Button)findViewById(R.id.button19);
+        });
+        Button log = (Button) findViewById(R.id.btn_logcat);
 		log.setOnClickListener(new OnClickListener() {
 
-				@Override
-				public void onClick(View v) {
+            @Override
+            public void onClick(View v) {
 
-					Intent myIntent = new Intent(c, LogCat.class);
-				    startActivity(myIntent);
+                Intent myIntent = new Intent(c, LogCat.class);
+                startActivity(myIntent);
 
-				}
-			});
+            }
+        });
 		log.setOnLongClickListener(new OnLongClickListener() {
 
-			@Override
-			public boolean onLongClick(View arg0) {
+            @Override
+            public boolean onLongClick(View arg0) {
 
-				infoDialog(R.drawable.swap, getResources().getString(R.string.info_logs_title) ,getResources().getString(R.string.info_logs_text),Constants.G_S_URL_PREFIX+"swap", true);
-				return true;
-			}
+                infoDialog(R.drawable.swap, getResources().getString(R.string.info_logs_title), getResources().getString(R.string.info_logs_text), Constants.G_S_URL_PREFIX + "swap", true);
+                return true;
+            }
 
-		});
+        });
 
 		initialCheck();
-		if (preferences.getBoolean("notificationService", false) == true
-				&& isNotificationServiceRunning() == false) {
+		if (preferences.getBoolean("notificationService", false)
+				&& !isNotificationServiceRunning()) {
 			startService(new Intent(c, NotificationService.class));
-		} else if (preferences.getBoolean("notificationService", false) == false
-				&& isNotificationServiceRunning() == true) {
+		} else if (!preferences.getBoolean("notificationService", false)
+				&& isNotificationServiceRunning()) {
 			stopService(new Intent(c, NotificationService.class));
 		}
 	}
@@ -883,7 +867,7 @@ public class KernelTuner extends Activity {
 		 * update ui
 		 */
 
-		if(minimal==false){
+		if(!minimal){
 		    this.registerReceiver(this.mBatInfoReceiver, new IntentFilter(
 				Intent.ACTION_BATTERY_CHANGED));
 
@@ -896,7 +880,7 @@ public class KernelTuner extends Activity {
 		if (boot.equals("init.d")) {
 			Tools.exportInitdScripts(c, voltages);
 		} else {
-			new Initd(this).execute(new String[] { "rm" });
+			new Initd(this).execute("rm");
 		}
 
 		super.onResume();
@@ -909,7 +893,7 @@ public class KernelTuner extends Activity {
 		/**
 		 * Unregister receiver
 		 */
-		if(minimal==false){
+		if(!minimal){
 	    	if (mBatInfoReceiver != null) {
 		    	unregisterReceiver(mBatInfoReceiver);
             	mBatInfoReceiver = null;
@@ -1013,7 +997,7 @@ private void startCpuLoadThread() {
 
 				Intent myIntent = new Intent(c, Changelog.class);
 				startActivity(myIntent);
-				if (first == true) {
+				if (first) {
 					CopyAssets();
 				}
 
@@ -1031,7 +1015,7 @@ private void startCpuLoadThread() {
 	 */
 
 	private void cpuTemp(String cputemp) {
-			tempLayout.setVisibility(View.VISIBLE);
+			cpuTempLayout.setVisibility(View.VISIBLE);
 
 			/**
 			 * If fahrenheit is selected in settings, convert temp to
@@ -1100,7 +1084,7 @@ private void startCpuLoadThread() {
 
 			}
 			else{
-			tempLayout.setVisibility(View.GONE);
+			cpuTempLayout.setVisibility(View.GONE);
 			}
 		
 	}
@@ -1111,97 +1095,50 @@ private void startCpuLoadThread() {
 		/**
 		 * Show/hide certain Views depending on number of cpus
 		 */
-		if(minimal==false){
-		if (IOHelper.cpu1Online() == true) {
-			Button b2 = (Button) findViewById(R.id.button1);
+		if(!minimal){
+			RelativeLayout cpu1ProgLayout = (RelativeLayout)findViewById(R.id.cpu1ProgLayout);
+			RelativeLayout cpu2ProgLayout = (RelativeLayout)findViewById(R.id.cpu2ProgLayout);
+			RelativeLayout cpu3ProgLayout = (RelativeLayout)findViewById(R.id.cpu3ProgLayout);
+		if (IOHelper.cpu1Exists()) {
 
-			if(dOpt.equals("hide")){
-				b2.setVisibility(View.VISIBLE);
-			}
-			else{
-				b2.setEnabled(true);
-			}
-			ProgressBar cpu1progbar = (ProgressBar)findViewById(R.id.progressBar2);
-			cpu1progbar.setVisibility(View.VISIBLE);
-			TextView tv1 = (TextView) findViewById(R.id.ptextView2);
-			tv1.setVisibility(View.VISIBLE);
-			TextView tv4 = (TextView) findViewById(R.id.ptextView4);
-			tv4.setVisibility(View.VISIBLE);
+			if(dOpt.equals("hide")) cpu1toggle.setVisibility(View.VISIBLE);
+			else cpu1toggle.setEnabled(true);
+
+			cpu1ProgLayout.setVisibility(View.VISIBLE);
 
 		} else {
-			Button b2 = (Button) findViewById(R.id.button1);
-			if(dOpt.equals("hide")){
-				b2.setVisibility(View.GONE);
-			}
-			else{
-				b2.setEnabled(false);
-			}
-			ProgressBar cpu1progbar = (ProgressBar)findViewById(R.id.progressBar2);
-			cpu1progbar.setVisibility(View.GONE);
-			TextView tv1 = (TextView) findViewById(R.id.ptextView2);
-			tv1.setVisibility(View.GONE);
-			TextView tv4 = (TextView) findViewById(R.id.ptextView4);
-			tv4.setVisibility(View.GONE);
+
+			if(dOpt.equals("hide")) cpu1toggle.setVisibility(View.GONE);
+			else cpu1toggle.setEnabled(false);
+
+			cpu1ProgLayout.setVisibility(View.GONE);
 		}
-		if (IOHelper.cpu2Online() == true) {
-			Button b3 = (Button) findViewById(R.id.button8);
-			if(dOpt.equals("hide")){
-				b3.setVisibility(View.VISIBLE);
-			}
-			else{
-				b3.setEnabled(true);
-			}
-			ProgressBar cpu1progbar = (ProgressBar)findViewById(R.id.progressBar3);
-			cpu1progbar.setVisibility(View.VISIBLE);
-			TextView tv1 = (TextView) findViewById(R.id.ptextView5);
-			tv1.setVisibility(View.VISIBLE);
-			TextView tv4 = (TextView) findViewById(R.id.ptextView7);
-			tv4.setVisibility(View.VISIBLE);
+		if (IOHelper.cpu2Exists()) {
+
+			if(dOpt.equals("hide")) cpu2toggle.setVisibility(View.VISIBLE);
+			else cpu2toggle.setEnabled(true);
+
+			cpu2ProgLayout.setVisibility(View.VISIBLE);
 
 		} else {
-			Button b3 = (Button) findViewById(R.id.button8);
-			if(dOpt.equals("hide")){
-				b3.setVisibility(View.GONE);
-			}
-			else{
-				b3.setEnabled(false);
-			}
-			ProgressBar cpu1progbar = (ProgressBar)findViewById(R.id.progressBar3);
-			cpu1progbar.setVisibility(View.GONE);
-			TextView tv1 = (TextView) findViewById(R.id.ptextView5);
-			tv1.setVisibility(View.GONE);
-			TextView tv4 = (TextView) findViewById(R.id.ptextView7);
-			tv4.setVisibility(View.GONE);
+
+			if(dOpt.equals("hide")) cpu2toggle.setVisibility(View.GONE);
+			else cpu2toggle.setEnabled(false);
+
+			cpu2ProgLayout.setVisibility(View.GONE);
 		}
-		if (IOHelper.cpu3Online() == true) {
-			Button b4 = (Button) findViewById(R.id.button9);
-			if(dOpt.equals("hide")){
-				b4.setVisibility(View.VISIBLE);
-			}
-			else{
-				b4.setEnabled(true);
-			}
-			ProgressBar cpu1progbar = (ProgressBar)findViewById(R.id.progressBar4);
-			cpu1progbar.setVisibility(View.VISIBLE);
-			TextView tv1 = (TextView) findViewById(R.id.ptextView6);
-			tv1.setVisibility(View.VISIBLE);
-			TextView tv4 = (TextView) findViewById(R.id.ptextView8);
-			tv4.setVisibility(View.VISIBLE);
+		if (IOHelper.cpu3Exists()) {
+
+			if(dOpt.equals("hide")) cpu3toggle.setVisibility(View.VISIBLE);
+			else cpu3toggle.setEnabled(true);
+
+			cpu3ProgLayout.setVisibility(View.VISIBLE);
 
 		} else {
-			Button b4 = (Button) findViewById(R.id.button9);
-			if(dOpt.equals("hide")){
-				b4.setVisibility(View.GONE);
-			}
-			else{
-				b4.setEnabled(false);
-			}
-			ProgressBar cpu1progbar = (ProgressBar)findViewById(R.id.progressBar4);
-			cpu1progbar.setVisibility(View.GONE);
-			TextView tv1 = (TextView) findViewById(R.id.ptextView6);
-			tv1.setVisibility(View.GONE);
-			TextView tv4 = (TextView) findViewById(R.id.ptextView8);
-			tv4.setVisibility(View.GONE);
+			if(dOpt.equals("hide")) cpu3toggle.setVisibility(View.GONE);
+			else cpu3toggle.setEnabled(false);
+			
+			cpu3ProgLayout.setVisibility(View.GONE);
 		}
 
 		}
@@ -1388,7 +1325,7 @@ private void startCpuLoadThread() {
 	 */
 	@Override
 	public void onBackPressed() {
-		if(minimal==false){
+		if(!minimal){
 		if (mLastBackPressTime < java.lang.System.currentTimeMillis() - 4000) {
 			mToast = Toast.makeText(c,
 					getResources().getString(R.string.press_again_to_exit),
@@ -1473,7 +1410,6 @@ private void startCpuLoadThread() {
 		@Override
 		public void onReceive(Context arg0, Intent intent) {
 
-			int level = intent.getIntExtra("level", 0);
 			double temperature = intent.getIntExtra(
 					BatteryManager.EXTRA_TEMPERATURE, 0) / 10;
 
@@ -1531,20 +1467,7 @@ private void startCpuLoadThread() {
 				}
 			}
 			// /F = (C x 1.8) + 32
-			batteryLevel.setText(level + "%");
-			if (level < 15 && level >= 5) {
-				batteryLevel.setTextColor(Color.RED);
 
-			} else if (level > 15 && level <= 30) {
-				batteryLevel.setTextColor(Color.YELLOW);
-
-			} else if (level > 30) {
-				batteryLevel.setTextColor(Color.GREEN);
-
-			} else if (level < 5) {
-				batteryLevel.setTextColor(Color.RED);
-
-			}
 		}
 	};
 	

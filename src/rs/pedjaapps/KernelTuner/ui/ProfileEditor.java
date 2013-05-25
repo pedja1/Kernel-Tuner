@@ -327,7 +327,7 @@ public class ProfileEditor extends Activity
 		String[] sweep2wake = {getResources().getString(R.string.unchanged),"OFF","ON with no backlight","ON with backlight"};
 
 
-		/*if(CPUInfo.cpu0Online()==true)
+		/*if(CPUInfo.cpu0Exists()==true)
 		 {*/
 		/**spinner1*/
 		ArrayAdapter<String> spinnerArrayAdapter = new ArrayAdapter<String>(this,   android.R.layout.simple_spinner_item, freqs);
@@ -407,7 +407,7 @@ public class ProfileEditor extends Activity
         	    }
         	});
 		
-		if(IOHelper.cpu1Online()==true)
+		if(IOHelper.cpu1Exists()==true)
 		{
 			/**spinner3*/
 			ArrayAdapter<String> spinner3ArrayAdapter = new ArrayAdapter<String>(this,   android.R.layout.simple_spinner_item, freqs);
@@ -493,7 +493,7 @@ public class ProfileEditor extends Activity
 			cpu1maxll.setVisibility(View.GONE);
 			cpu1govll.setVisibility(View.GONE);
 		}
-		if(IOHelper.cpu2Online()==true)
+		if(IOHelper.cpu2Exists()==true)
 		{
 			/**spinner5*/
 			ArrayAdapter<String> spinner5ArrayAdapter = new ArrayAdapter<String>(this,   android.R.layout.simple_spinner_item, freqs);
@@ -579,7 +579,7 @@ public class ProfileEditor extends Activity
 			cpu2maxll.setVisibility(View.GONE);
 			cpu2govll.setVisibility(View.GONE);
 		}
-		if(IOHelper.cpu3Online()==true)
+		if(IOHelper.cpu3Exists()==true)
 		{
 			/**spinner7*/
 

@@ -663,4 +663,31 @@
 	<string name="prefs_tis_as">Show Times in State As</string>
 	<string name="prefs_cpu_layout">CPU Tweaks Layout</string>
 	<string name="prefs_widget_bg">Widget Background</string>
+    <string name="btn_cpu">CPU</string>
+    <string name="btn_times">Times</string>
+    <string name="btn_voltage">Voltage</string>
+    <string name="btn_governor">Governor</string>
+    <string name="btn_cpu1_toggle">Toggle CPU1</string>
+    <string name="btn_cpu2_toggle">Toggle CPU2</string>
+    <string name="btn_cpu3_toggle">Toggle CPU3</string>
+    <string name="btn_gpu">GPU</string>
+    <string name="btn_mpdecision">MP-Decision</string>
+    <string name="btn_thermal">Thermal</string>
+    <string name="btn_misc">Misc</string>
+    <string name="btn_task_manager">Task Manager</string>
+    <string name="btn_build">Build.prop Editor</string>
+    <string name="btn_sysctl">SysCtl</string>
+    <string name="btn_logcat">Logcat</string>
+    <string name="btn_oom">OOM</string>
+    <string name="btn_swap">Swap</string>
+    <string name="btn_profiles">Profiles</string>
+    <string name="btn_info">System Info</string>
+    <string name="txt_cpu0">CPU0:</string>
+    <string name="txtCpu1">CPU1:</string>
+    <string name="txtCpu2">CPU2:</string>
+    <string name="txtCpu3">CPU3:</string>
+    <string name="txt_cpu_load">CPU Load:</string>
+    <string name="txtCpuTemp">CPU Temperature:</string>
+    <string name="na">n/a</string>
+    <string name="txtBatteryTemp">Battery Temperature:</string><string name="btn_sd">SD Analyzer</string>
 </resources>

@@ -110,7 +110,7 @@ public class WidgetToggle extends AppWidgetProvider {
 
 	private void setView(Context context){
 		
-		if(IOHelper.cpu1Online()==false){
+		if(IOHelper.cpu1Exists()==false){
 	    	remoteViews.setViewVisibility(R.id.button1, View.GONE);
 	    	remoteViews.setViewVisibility(R.id.cpu1, View.GONE);
 	    	remoteViews.setViewVisibility(R.id.single_core_info, View.VISIBLE);
@@ -126,7 +126,7 @@ public class WidgetToggle extends AppWidgetProvider {
 		    	remoteViews.setTextViewText(R.id.cpu1, "OFF");
 				remoteViews.setTextColor(R.id.cpu1, Color.RED);
 		    }
-		    if(IOHelper.cpu2Online()==false){
+		    if(IOHelper.cpu2Exists()==false){
 		    	remoteViews.setViewVisibility(R.id.button2, View.GONE);
 		    	remoteViews.setViewVisibility(R.id.cpu2, View.GONE);
 		    }
@@ -142,7 +142,7 @@ public class WidgetToggle extends AppWidgetProvider {
 					remoteViews.setTextColor(R.id.cpu2, Color.RED);
 			    }
 		    }
-			if(IOHelper.cpu3Online()==false){
+			if(IOHelper.cpu3Exists()==false){
 		    	remoteViews.setViewVisibility(R.id.button3, View.GONE);
 		    	remoteViews.setViewVisibility(R.id.cpu3, View.GONE);
 		    }

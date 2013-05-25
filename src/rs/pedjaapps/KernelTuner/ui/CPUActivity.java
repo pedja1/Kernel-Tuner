@@ -37,7 +37,6 @@ import android.os.AsyncTask;
 import android.os.Bundle;
 import android.os.Handler;
 import android.preference.PreferenceManager;
-import android.util.Log;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.AdapterView.OnItemSelectedListener;
@@ -53,7 +52,6 @@ import com.stericson.RootTools.execution.CommandCapture;
 import android.content.Context;
 import rs.pedjaapps.KernelTuner.tools.Tools;
 import android.view.Menu;
-import rs.pedjaapps.KernelTuner.linpack.LinpackLoop;
 import rs.pedjaapps.KernelTuner.linpack.Tester;
 
 
@@ -1358,10 +1356,10 @@ startCpuLoadThread();
 			for(IOHelper.FreqsEntry f: freqEntries){
 				freqNames.add(f.getFreqName());
 			}
-			cpu0Online = IOHelper.cpu0Online();
-			cpu1Online = IOHelper.cpu1Online();
-			cpu2Online = IOHelper.cpu2Online();
-			cpu3Online = IOHelper.cpu3Online();
+			cpu0Online = IOHelper.cpu0Exists();
+			cpu1Online = IOHelper.cpu1Exists();
+			cpu2Online = IOHelper.cpu2Exists();
+			cpu3Online = IOHelper.cpu3Exists();
 			if (args[0] == true)
 			{
 					CommandCapture command = new CommandCapture(0, 
@@ -1373,7 +1371,7 @@ startCpuLoadThread();
 					catch(Exception e){
 						
 					}
-		            if (IOHelper.cpu1Online() == true)
+		            if (IOHelper.cpu1Exists() == true)
 					{
 		            	CommandCapture command1 = new CommandCapture(0, 
 		            "echo 0 > /sys/kernel/msm_mpdecision/conf/enabled",
@@ -1392,7 +1390,7 @@ startCpuLoadThread();
 								
 							}
 					}
-		            if (IOHelper.cpu2Online() == true)
+		            if (IOHelper.cpu2Exists() == true)
 					{
 		            	CommandCapture command1 = new CommandCapture(0, 
 		            "echo 0 > /sys/kernel/msm_mpdecision/conf/enabled",
@@ -1411,7 +1409,7 @@ startCpuLoadThread();
 								
 							}
 					}
-		            if (IOHelper.cpu3Online() == true)
+		            if (IOHelper.cpu3Exists() == true)
 					{
 		            	CommandCapture command1 = new CommandCapture(0,
 		            "echo 0 > /sys/kernel/msm_mpdecision/conf/enabled",
@@ -1438,7 +1436,7 @@ startCpuLoadThread();
 				
 				
 
-		            if (IOHelper.cpu1Online() == true)
+		            if (IOHelper.cpu1Exists() == true)
 					{
 		            	CommandCapture command = new CommandCapture(0, 
 		            "echo 1 > /sys/kernel/msm_mpdecision/conf/enabled",
@@ -1452,7 +1450,7 @@ startCpuLoadThread();
 								
 							}
 					}
-		            if (IOHelper.cpu2Online() == true)
+		            if (IOHelper.cpu2Exists() == true)
 					{
 		            	CommandCapture command = new CommandCapture(0,
 		            	"echo 1 > /sys/kernel/msm_mpdecision/conf/enabled",
@@ -1467,7 +1465,7 @@ startCpuLoadThread();
 							}
 							
 					}
-		            if (IOHelper.cpu3Online() == true)
+		            if (IOHelper.cpu3Exists() == true)
 					{
 		            	CommandCapture command = new CommandCapture(0,
 		            	"echo 1 > /sys/kernel/msm_mpdecision/conf/enabled",

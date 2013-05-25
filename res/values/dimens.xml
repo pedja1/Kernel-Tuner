@@ -24,4 +24,6 @@
 	
     <dimen name="alert_dialog_title_height">64.0dip</dimen>
     <dimen name="alert_dialog_button_bar_height">48.0dip</dimen>
+    <dimen name="activity_horizontal_margin">16dp</dimen>
+    <dimen name="activity_vertical_margin">16dp</dimen>
 </resources>
