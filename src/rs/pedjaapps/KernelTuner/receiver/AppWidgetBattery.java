@@ -135,7 +135,7 @@ public class AppWidgetBattery extends AppWidgetProvider {
 public void battInfo(){	
 	
 		battperc =IOHelper.batteryLevel();
-		batttemp = IOHelper.batteryTemp();
+		batttemp = IOHelper.batteryTemp()/10.0;
 		battcurrent = IOHelper.batteryDrain();
 		
 }
