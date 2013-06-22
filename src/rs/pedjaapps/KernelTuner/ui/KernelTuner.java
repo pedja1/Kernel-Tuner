@@ -45,6 +45,7 @@ import com.stericson.RootTools.RootTools;
 import com.stericson.RootTools.execution.CommandCapture;
 import rs.pedjaapps.KernelTuner.Constants;
 import rs.pedjaapps.KernelTuner.R;
+import rs.pedjaapps.KernelTuner.entry.Frequency;
 import rs.pedjaapps.KernelTuner.helpers.IOHelper;
 import rs.pedjaapps.KernelTuner.services.NotificationService;
 import rs.pedjaapps.KernelTuner.tools.Initd;
@@ -136,7 +137,7 @@ public class KernelTuner extends Activity implements Runnable {
 		 */
 
 		c = this;
-		List<IOHelper.FreqsEntry> freqEntries = IOHelper.frequencies();
+		List<Frequency> freqEntries = IOHelper.frequencies();
 		List<IOHelper.VoltageList> voltageFreqs = IOHelper.voltages();
 		preferences = PreferenceManager.getDefaultSharedPreferences(c);
 		editor = preferences.edit();
@@ -200,8 +201,8 @@ public class KernelTuner extends Activity implements Runnable {
 			 * Read all available frequency steps
 			 */
 
-			for (IOHelper.FreqsEntry f : freqEntries) {
-				freqlist.add("" + f.getFreq());
+			for (Frequency f : freqEntries) {
+				freqlist.add("" + f.getFrequencyValue());
 			}
 			for (IOHelper.VoltageList v : voltageFreqs) {
 				voltages.add(v.getFreq());

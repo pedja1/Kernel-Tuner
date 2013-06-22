@@ -32,6 +32,8 @@ import android.view.*;
 import android.widget.*;
 import java.io.*;
 import java.util.*;
+
+import rs.pedjaapps.KernelTuner.entry.Frequency;
 import rs.pedjaapps.KernelTuner.helpers.*;
 
 import rs.pedjaapps.KernelTuner.R;
@@ -61,7 +63,7 @@ public class SystemInfo extends Activity implements
 
 	private SharedPreferences prefs;
 	private static String tempPref;
-	private List<IOHelper.FreqsEntry> freqEntries;
+	private List<Frequency> freqEntries;
 	private List<String> freqs = new ArrayList<String>();
 	private List<IOHelper.VoltageList> voltEntries;
 	private List<Integer> voltages = new ArrayList<Integer>();
@@ -129,8 +131,8 @@ public class SystemInfo extends Activity implements
 					.equals(android.os.Environment.MEDIA_MOUNTED);
 			freqEntries = IOHelper.frequencies();
 			voltEntries = IOHelper.voltages();
-			for (IOHelper.FreqsEntry f : freqEntries) {
-				freqs.add(f.getFreqName());
+			for (Frequency f : freqEntries) {
+				freqs.add(f.getFrequencyString());
 			}
 			for (IOHelper.VoltageList v : voltEntries) {
 				voltFreq.add(v.getFreqName());

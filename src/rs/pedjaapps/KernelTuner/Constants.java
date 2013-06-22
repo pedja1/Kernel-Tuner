@@ -157,6 +157,12 @@ public final class Constants
 	"/sys/devices/platform/s5p-tmu/temperature",
 	"/sys/class/thermal/thermal_zone0/temp"
 	};
+	
+
+    public static final int SPLASH_MINIMUM_STAY_TIME = 5; // seconds
+
+    public static final int HANDLER_SPLASH_COMPLETE = 1001;
+	
     /**
      * Flag to enable logcat messages.
      */

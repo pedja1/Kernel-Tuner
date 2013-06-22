@@ -41,6 +41,7 @@ import com.stericson.RootTools.RootTools;
 import com.stericson.RootTools.execution.CommandCapture;
 
 import rs.pedjaapps.KernelTuner.R;
+import rs.pedjaapps.KernelTuner.entry.Frequency;
 import rs.pedjaapps.KernelTuner.helpers.IOHelper;
 import rs.pedjaapps.KernelTuner.tools.ChangeGovernor;
 import rs.pedjaapps.KernelTuner.tools.FrequencyChanger;
@@ -49,7 +50,7 @@ import android.content.Context;
 public class CPUActivityOld extends Activity
 {
 
-	private  List<IOHelper.FreqsEntry> freqEntries;
+	private  List<Frequency> freqEntries;
 	private  List<String> frequencies = new ArrayList<String>();
 	private  List<String> freqNames = new ArrayList<String>();
 	private String cpu0MaxFreq ;
@@ -115,11 +116,11 @@ public class CPUActivityOld extends Activity
 			cpu1Online = IOHelper.cpu1Exists();
 			cpu2Online = IOHelper.cpu2Exists();
 			cpu3Online = IOHelper.cpu3Exists();
-			for(IOHelper.FreqsEntry f: freqEntries){
-				frequencies.add(f.getFreq()+"");
+			for(Frequency f: freqEntries){
+				frequencies.add(f.getFrequencyValue()+"");
 			}
-			for(IOHelper.FreqsEntry f: freqEntries){
-				freqNames.add(f.getFreqName());
+			for(Frequency f: freqEntries){
+				freqNames.add(f.getFrequencyString());
 			}
 			
 			

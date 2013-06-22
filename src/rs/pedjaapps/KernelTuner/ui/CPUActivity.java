@@ -22,37 +22,44 @@ import java.io.RandomAccessFile;
 import java.util.ArrayList;
 import java.util.List;
 
-import android.widget.VerticalSeekBar;
-
 import rs.pedjaapps.KernelTuner.R;
+import rs.pedjaapps.KernelTuner.entry.Frequency;
 import rs.pedjaapps.KernelTuner.helpers.IOHelper;
+import rs.pedjaapps.KernelTuner.linpack.Tester;
 import rs.pedjaapps.KernelTuner.tools.ChangeGovernor;
 import rs.pedjaapps.KernelTuner.tools.FrequencyChanger;
+import rs.pedjaapps.KernelTuner.tools.Tools;
 import android.app.ActionBar;
 import android.app.Activity;
 import android.app.ProgressDialog;
+import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.AsyncTask;
 import android.os.Bundle;
 import android.os.Handler;
 import android.preference.PreferenceManager;
+import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
+import android.widget.AdapterView;
 import android.widget.AdapterView.OnItemSelectedListener;
+import android.widget.ArrayAdapter;
+import android.widget.CheckBox;
+import android.widget.CompoundButton;
 import android.widget.CompoundButton.OnCheckedChangeListener;
+import android.widget.ProgressBar;
+import android.widget.RelativeLayout;
+import android.widget.SeekBar;
 import android.widget.SeekBar.OnSeekBarChangeListener;
-import android.widget.*;
+import android.widget.Spinner;
+import android.widget.TextView;
+import android.widget.VerticalSeekBar;
 
 import com.google.ads.AdRequest;
 import com.google.ads.AdView;
 import com.stericson.RootTools.RootTools;
 import com.stericson.RootTools.execution.CommandCapture;
-
-import android.content.Context;
-import rs.pedjaapps.KernelTuner.tools.Tools;
-import android.view.Menu;
-import rs.pedjaapps.KernelTuner.linpack.Tester;
 
 
 
@@ -60,7 +67,7 @@ import rs.pedjaapps.KernelTuner.linpack.Tester;
 public class CPUActivity extends Activity
 {
 
-	private List<IOHelper.FreqsEntry>          freqEntries;
+	private List<Frequency>          freqEntries;
 	private boolean                            thread          = true;
 	private Handler                            mHandler;
 	private TextView                           cpu0prog;
@@ -1350,11 +1357,11 @@ startCpuLoadThread();
 		protected Boolean doInBackground(Boolean... args)
 		{
 			freqEntries = IOHelper.frequencies();
-			for(IOHelper.FreqsEntry f: freqEntries){
-				frequencies.add(f.getFreq()+"");
+			for(Frequency f: freqEntries){
+				frequencies.add(f.getFrequencyValue()+"");
 			}
-			for(IOHelper.FreqsEntry f: freqEntries){
-				freqNames.add(f.getFreqName());
+			for(Frequency f: freqEntries){
+				freqNames.add(f.getFrequencyString());
 			}
 			cpu0Online = IOHelper.cpu0Exists();
 			cpu1Online = IOHelper.cpu1Exists();

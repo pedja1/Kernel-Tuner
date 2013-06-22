@@ -32,6 +32,8 @@ import com.stericson.RootTools.execution.CommandCapture;
 
 import java.io.*;
 import java.util.*;
+
+import rs.pedjaapps.KernelTuner.entry.Frequency;
 import rs.pedjaapps.KernelTuner.helpers.*;
 
 import org.apache.commons.io.FileUtils;
@@ -44,7 +46,7 @@ public class MpdecisionNew extends Activity
 {
 
 	
-	private List<IOHelper.FreqsEntry> freqEntries;
+	private List<Frequency> freqEntries;
 	private List<Integer> freqs = new ArrayList<Integer>();
 	private List<String> freqNames = new ArrayList<String>();
 	
@@ -187,11 +189,11 @@ public class MpdecisionNew extends Activity
 		idleSpinner =(Spinner)findViewById(R.id.bg);
 		scroffSpinner =(Spinner)findViewById(R.id.spinner2);
 		freqEntries = IOHelper.frequencies();
-		for(IOHelper.FreqsEntry f: freqEntries){
-			freqs.add(f.getFreq());
+		for(Frequency f: freqEntries){
+			freqs.add(f.getFrequencyValue());
 		}
-		for(IOHelper.FreqsEntry f: freqEntries){
-			freqNames.add(f.getFreqName());
+		for(Frequency f: freqEntries){
+			freqNames.add(f.getFrequencyString());
 		}
 		
 		ActionBar actionBar = getActionBar();

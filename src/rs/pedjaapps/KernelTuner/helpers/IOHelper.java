@@ -18,18 +18,26 @@
 */
 package rs.pedjaapps.KernelTuner.helpers;
 
-import java.io.*;
-
-import android.os.SystemClock;
-import android.util.Log;
+import java.io.BufferedReader;
+import java.io.DataInputStream;
+import java.io.File;
+import java.io.FileInputStream;
+import java.io.IOException;
+import java.io.InputStreamReader;
+import java.io.RandomAccessFile;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Collections;
 import java.util.Comparator;
 import java.util.List;
+
 import org.apache.commons.io.FileUtils;
+
 import rs.pedjaapps.KernelTuner.Constants;
+import rs.pedjaapps.KernelTuner.entry.Frequency;
 import rs.pedjaapps.KernelTuner.entry.TimesEntry;
+import android.os.SystemClock;
+import android.util.Log;
 
 public class IOHelper
 {
@@ -235,10 +243,10 @@ public class IOHelper
 
 	}
 
-	public static final List<FreqsEntry> frequencies()
+	public static final List<Frequency> frequencies()
 	{
 		
-		List<FreqsEntry> entries = new ArrayList<FreqsEntry>();
+		List<Frequency> entries = new ArrayList<Frequency>();
 		List<String> frequencies = new ArrayList<String>();
 		try
 		{
@@ -256,7 +264,7 @@ public class IOHelper
 			}
 			frequencies = Arrays.asList(aBuffer.split("\\s"));
 			for(String s: frequencies){
-				entries.add(new FreqsEntry(s.trim().substring(0, s.trim().length()-3)+"MHz", Integer.parseInt(s.trim())));
+				entries.add(new Frequency(s.trim().substring(0, s.trim().length()-3)+"MHz", Integer.parseInt(s.trim())));
  				
 			}
 			myReader.close();
@@ -280,7 +288,7 @@ public class IOHelper
 	 				String[] delims = strLine.split(" ");
 	 				String freq = delims[0];
 	 				//frequencies.add(freq);
-	 				entries.add(new FreqsEntry(freq.trim().substring(0, freq.trim().length()-3)+"MHz", Integer.parseInt(freq.trim())));
+	 				entries.add(new Frequency(freq.trim().substring(0, freq.trim().length()-3)+"MHz", Integer.parseInt(freq.trim())));
 	 				
 
 	 			}
@@ -296,7 +304,7 @@ public class IOHelper
 			}
 			catch (Exception ee)
 			{
-				entries.add(new FreqsEntry("", 0));
+				entries.add(new Frequency("", 0));
  				
 			}
 		}
@@ -1098,9 +1106,9 @@ public class IOHelper
 		}
 	}
 
-	static class MyComparator implements Comparator<FreqsEntry>{
-		  public int compare(FreqsEntry ob1, FreqsEntry ob2){
-		   return ob1.getFreq() - ob2.getFreq() ;
+	static class MyComparator implements Comparator<Frequency>{
+		  public int compare(Frequency ob1, Frequency ob2){
+		   return ob1.getFrequencyValue() - ob2.getFrequencyValue() ;
 		  }
 		}
 	public static int batteryLevel()

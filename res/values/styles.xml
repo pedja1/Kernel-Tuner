@@ -1,117 +1,122 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-	<style name="Theme.Transparent" parent="android:Theme.Holo.Dialog">
-		<item name="android:windowIsTranslucent">true</item>
-		<item name="android:windowBackground">@drawable/lcd_background_black</item>
-		<item name="android:windowContentOverlay">@null</item>
-		<item name="android:windowNoTitle">false</item>
-		<item name="android:windowIsFloating">true</item>
-		<item name="android:backgroundDimEnabled">false</item>
-	<!--	<item name="android:background">@drawable/lcd_background_grey</item>-->
-	</style>
-	<style name="Theme.TransparentDark" parent="android:Theme.Holo.Dialog">
-		<item name="android:windowIsTranslucent">true</item>
-		<item name="android:windowBackground">@drawable/lcd_background_dark</item>
-		<item name="android:windowContentOverlay">@null</item>
-		<item name="android:windowNoTitle">false</item>
-		<item name="android:windowIsFloating">true</item>
-		<item name="android:backgroundDimEnabled">false</item>
-		<!--	<item name="android:background">@drawable/lcd_background_grey</item>-->
-	</style>
-	<style name="Theme.TransparentNoTitle" parent="android:Theme.Holo.Dialog">
-		<item name="android:windowIsTranslucent">true</item>
-		<item name="android:windowBackground">@drawable/lcd_background_dark</item>
-		<item name="android:windowContentOverlay">@null</item>
-		<item name="android:windowNoTitle">true</item>
-		<item name="android:windowIsFloating">true</item>
-		<item name="android:backgroundDimEnabled">false</item>
-		<!--	<item name="android:background">@drawable/lcd_background_grey</item>-->
-	</style>
-	<style name="Theme.Dialog.NoTitleBar" parent="android:Theme.Holo.Dialog">	
-		<item name="android:windowContentOverlay">@null</item>
-		<item name="android:windowNoTitle">true</item>
-		<item name="android:windowIsFloating">true</item>
-		<item name="android:backgroundDimEnabled">true</item>
-	</style>
-	<style name="Theme.Dialog.NoTitleBar.Light" parent="android:Theme.Holo.Light.Dialog">	
-		<item name="android:windowContentOverlay">@null</item>
-		<item name="android:windowNoTitle">true</item>
-		<item name="android:windowIsFloating">true</item>
-		<item name="android:backgroundDimEnabled">true</item>
-	</style>
-	
-	<style name="Theme.Translucent.NoTitleBar.Sense5" parent="android:Theme.Holo.Dialog">	
-		<item name="android:windowContentOverlay">@null</item>
-		<item name="android:windowNoTitle">true</item>
-		<item name="android:windowIsFloating">true</item>
-		<item name="android:backgroundDimEnabled">true</item>
-		<item name="android:windowIsTranslucent">true</item>
-		<item name="android:buttonStyleSmall">@style/Sense5_Button_Small</item>
-	</style>
-	<style name="Theme.Translucent.NoTitleBar.Sense5.Light" parent="android:Theme.Holo.Light.Dialog">	
-		<item name="android:windowContentOverlay">@null</item>
-		<item name="android:windowNoTitle">true</item>
-		<item name="android:windowIsFloating">true</item>
-		<item name="android:backgroundDimEnabled">true</item>
-		<item name="android:windowIsTranslucent">true</item>
-		<item name="android:buttonStyleSmall">@style/Sense5_Button_Small_Light</item>
-	</style>
-	<style name="Theme.Translucent.NoTitleBar.Miui" parent="android:Theme.Holo.Dialog">	
-		<item name="android:windowContentOverlay">@null</item>
-		<item name="android:windowNoTitle">true</item>
-		<item name="android:windowIsFloating">true</item>
-		<item name="android:backgroundDimEnabled">true</item>
-		<item name="android:windowIsTranslucent">true</item>
-		<item name="android:buttonStyleSmall">@style/MiuiButton_Dark_Small</item>
-	</style>
-	<style name="Theme.Translucent.NoTitleBar.Miui.Light" parent="android:Theme.Holo.Light.Dialog">	
-		<item name="android:windowContentOverlay">@null</item>
-		<item name="android:windowNoTitle">true</item>
-		<item name="android:windowIsFloating">true</item>
-		<item name="android:backgroundDimEnabled">true</item>
-		<item name="android:windowIsTranslucent">true</item>
-		<item name="android:buttonStyleSmall">@style/MiuiButton_Light_Small</item>
-	</style>
-	<style name="Theme.Translucent.NoTitleBar" parent="android:Theme.Holo.Dialog">	
-		<item name="android:windowContentOverlay">@null</item>
-		<item name="android:windowNoTitle">true</item>
-		<item name="android:windowIsFloating">true</item>
-		<item name="android:backgroundDimEnabled">true</item>
-		<item name="android:windowIsTranslucent">true</item>
-	</style>
-	<style name="Theme.Translucent.NoTitleBar.Light" parent="android:Theme.Holo.Light.Dialog">	
-		<item name="android:windowContentOverlay">@null</item>
-		<item name="android:windowNoTitle">true</item>
-		<item name="android:windowIsFloating">true</item>
-		<item name="android:backgroundDimEnabled">true</item>
-		<item name="android:windowIsTranslucent">true</item>
-	</style>
-	<style name="Theme.Sherlock.Dialog.NoTitleBar" parent="android:Theme.Holo.Dialog">
-		
-		<item name="android:windowContentOverlay">@null</item>
-		<item name="android:windowNoTitle">true</item>
-		<item name="android:windowIsFloating">true</item>
-		<item name="android:backgroundDimEnabled">true</item>
-		<item name="android:windowActionModeOverlay">true</item>
-		<item name="android:windowSoftInputMode">stateAlwaysHidden</item>
-		
-</style>
 
-	<style name="Theme.Sherlock.Light.Dialog.NoTitleBar" parent="android:Theme.Holo.Light.Dialog">
-		
-		<item name="android:windowContentOverlay">@null</item>
-		<item name="android:windowNoTitle">true</item>
-		<item name="android:windowIsFloating">true</item>
-		<item name="android:backgroundDimEnabled">true</item>
-		<item name="android:windowActionModeOverlay">true</item>
-		<item name="android:windowSoftInputMode">stateAlwaysHidden</item>
-		
-</style>
-	
-	
-	
-	<style name="MiuiButton_Dark">
-	     <item name="android:background">@drawable/btn_miui_holo_dark</item>
+    <style name="Theme.Transparent" parent="android:Theme.Holo.Dialog">
+        <item name="android:windowIsTranslucent">true</item>
+        <item name="android:windowBackground">@drawable/lcd_background_black</item>
+        <item name="android:windowContentOverlay">@null</item>
+        <item name="android:windowNoTitle">false</item>
+        <item name="android:windowIsFloating">true</item>
+        <item name="android:backgroundDimEnabled">false</item>
+        <!-- <item name="android:background">@drawable/lcd_background_grey</item> -->
+    </style>
+
+    <style name="Theme.TransparentDark" parent="android:Theme.Holo.Dialog">
+        <item name="android:windowIsTranslucent">true</item>
+        <item name="android:windowBackground">@drawable/lcd_background_dark</item>
+        <item name="android:windowContentOverlay">@null</item>
+        <item name="android:windowNoTitle">false</item>
+        <item name="android:windowIsFloating">true</item>
+        <item name="android:backgroundDimEnabled">false</item>
+        <!-- <item name="android:background">@drawable/lcd_background_grey</item> -->
+    </style>
+
+    <style name="Theme.TransparentNoTitle" parent="android:Theme.Holo.Dialog">
+        <item name="android:windowIsTranslucent">true</item>
+        <item name="android:windowBackground">@drawable/lcd_background_dark</item>
+        <item name="android:windowContentOverlay">@null</item>
+        <item name="android:windowNoTitle">true</item>
+        <item name="android:windowIsFloating">true</item>
+        <item name="android:backgroundDimEnabled">false</item>
+        <!-- <item name="android:background">@drawable/lcd_background_grey</item> -->
+    </style>
+
+    <style name="Theme.Dialog.NoTitleBar" parent="android:Theme.Holo.Dialog">
+        <item name="android:windowContentOverlay">@null</item>
+        <item name="android:windowNoTitle">true</item>
+        <item name="android:windowIsFloating">true</item>
+        <item name="android:backgroundDimEnabled">true</item>
+    </style>
+
+    <style name="Theme.Dialog.NoTitleBar.Light" parent="android:Theme.Holo.Light.Dialog">
+        <item name="android:windowContentOverlay">@null</item>
+        <item name="android:windowNoTitle">true</item>
+        <item name="android:windowIsFloating">true</item>
+        <item name="android:backgroundDimEnabled">true</item>
+    </style>
+
+    <style name="Theme.Translucent.NoTitleBar.Sense5" parent="android:Theme.Holo.Dialog">
+        <item name="android:windowContentOverlay">@null</item>
+        <item name="android:windowNoTitle">true</item>
+        <item name="android:windowIsFloating">true</item>
+        <item name="android:backgroundDimEnabled">true</item>
+        <item name="android:windowIsTranslucent">true</item>
+        <item name="android:buttonStyleSmall">@style/Sense5_Button_Small</item>
+    </style>
+
+    <style name="Theme.Translucent.NoTitleBar.Sense5.Light" parent="android:Theme.Holo.Light.Dialog">
+        <item name="android:windowContentOverlay">@null</item>
+        <item name="android:windowNoTitle">true</item>
+        <item name="android:windowIsFloating">true</item>
+        <item name="android:backgroundDimEnabled">true</item>
+        <item name="android:windowIsTranslucent">true</item>
+        <item name="android:buttonStyleSmall">@style/Sense5_Button_Small_Light</item>
+    </style>
+
+    <style name="Theme.Translucent.NoTitleBar.Miui" parent="android:Theme.Holo.Dialog">
+        <item name="android:windowContentOverlay">@null</item>
+        <item name="android:windowNoTitle">true</item>
+        <item name="android:windowIsFloating">true</item>
+        <item name="android:backgroundDimEnabled">true</item>
+        <item name="android:windowIsTranslucent">true</item>
+        <item name="android:buttonStyleSmall">@style/MiuiButton_Dark_Small</item>
+    </style>
+
+    <style name="Theme.Translucent.NoTitleBar.Miui.Light" parent="android:Theme.Holo.Light.Dialog">
+        <item name="android:windowContentOverlay">@null</item>
+        <item name="android:windowNoTitle">true</item>
+        <item name="android:windowIsFloating">true</item>
+        <item name="android:backgroundDimEnabled">true</item>
+        <item name="android:windowIsTranslucent">true</item>
+        <item name="android:buttonStyleSmall">@style/MiuiButton_Light_Small</item>
+    </style>
+
+    <style name="Theme.Translucent.NoTitleBar" parent="android:Theme.Holo.Dialog">
+        <item name="android:windowContentOverlay">@null</item>
+        <item name="android:windowNoTitle">true</item>
+        <item name="android:windowIsFloating">true</item>
+        <item name="android:backgroundDimEnabled">true</item>
+        <item name="android:windowIsTranslucent">true</item>
+    </style>
+
+    <style name="Theme.Translucent.NoTitleBar.Light" parent="android:Theme.Holo.Light.Dialog">
+        <item name="android:windowContentOverlay">@null</item>
+        <item name="android:windowNoTitle">true</item>
+        <item name="android:windowIsFloating">true</item>
+        <item name="android:backgroundDimEnabled">true</item>
+        <item name="android:windowIsTranslucent">true</item>
+    </style>
+
+    <style name="Theme.Sherlock.Dialog.NoTitleBar" parent="android:Theme.Holo.Dialog">
+        <item name="android:windowContentOverlay">@null</item>
+        <item name="android:windowNoTitle">true</item>
+        <item name="android:windowIsFloating">true</item>
+        <item name="android:backgroundDimEnabled">true</item>
+        <item name="android:windowActionModeOverlay">true</item>
+        <item name="android:windowSoftInputMode">stateAlwaysHidden</item>
+    </style>
+
+    <style name="Theme.Sherlock.Light.Dialog.NoTitleBar" parent="android:Theme.Holo.Light.Dialog">
+        <item name="android:windowContentOverlay">@null</item>
+        <item name="android:windowNoTitle">true</item>
+        <item name="android:windowIsFloating">true</item>
+        <item name="android:backgroundDimEnabled">true</item>
+        <item name="android:windowActionModeOverlay">true</item>
+        <item name="android:windowSoftInputMode">stateAlwaysHidden</item>
+    </style>
+
+    <style name="MiuiButton_Dark">
+        <item name="android:background">@drawable/btn_miui_holo_dark</item>
         <item name="android:clickable">true</item>
         <item name="android:focusable">true</item>
         <item name="android:gravity">center</item>
@@ -119,9 +124,10 @@
         <item name="android:minWidth">64dip</item>
         <item name="android:textAppearance">?android:attr/textAppearanceMedium</item>
         <item name="android:textColor">?android:textColorPrimary</item>
-    </style> 
+    </style>
+
     <style name="MiuiButton_Light">
-	     <item name="android:background">@drawable/btn_miui_holo_light</item>
+        <item name="android:background">@drawable/btn_miui_holo_light</item>
         <item name="android:clickable">true</item>
         <item name="android:focusable">true</item>
         <item name="android:gravity">center</item>
@@ -129,9 +135,10 @@
         <item name="android:minWidth">64dip</item>
         <item name="android:textAppearance">?android:attr/textAppearanceMedium</item>
         <item name="android:textColor">?android:textColorPrimary</item>
-    </style> 
+    </style>
+
     <style name="MiuiButton_Dark_Small">
-	     <item name="android:background">@drawable/btn_miui_holo_dark</item>
+        <item name="android:background">@drawable/btn_miui_holo_dark</item>
         <item name="android:clickable">true</item>
         <item name="android:focusable">true</item>
         <item name="android:gravity">center</item>
@@ -139,9 +146,10 @@
         <item name="android:minWidth">48dip</item>
         <item name="android:textAppearance">?android:attr/textAppearanceSmall</item>
         <item name="android:textColor">?android:textColorPrimary</item>
-    </style> 
+    </style>
+
     <style name="MiuiButton_Light_Small">
-	     <item name="android:background">@drawable/btn_miui_holo_light</item>
+        <item name="android:background">@drawable/btn_miui_holo_light</item>
         <item name="android:clickable">true</item>
         <item name="android:focusable">true</item>
         <item name="android:gravity">center</item>
@@ -149,19 +157,22 @@
         <item name="android:minWidth">48dip</item>
         <item name="android:textAppearance">?android:attr/textAppearanceSmall</item>
         <item name="android:textColor">?android:textColorPrimary</item>
-    </style> 
+    </style>
+
     <style name="Miui.ProgressBar.Horizontal" parent="@android:style/Widget.ProgressBar.Horizontal">
         <item name="android:indeterminateDrawable">@drawable/progress_indeterminate_horizontal_holo_miui</item>
         <item name="android:maxHeight">16dip</item>
         <item name="android:minHeight">16dip</item>
         <item name="android:progressDrawable">@drawable/progress_horizontal_holo_dark_miui</item>
     </style>
-     <style name="Miui.ProgressBar.Horizontal.Light" parent="@android:style/Widget.ProgressBar.Horizontal">
+
+    <style name="Miui.ProgressBar.Horizontal.Light" parent="@android:style/Widget.ProgressBar.Horizontal">
         <item name="android:indeterminateDrawable">@drawable/progress_indeterminate_horizontal_holo_miui</item>
         <item name="android:maxHeight">16dip</item>
         <item name="android:minHeight">16dip</item>
         <item name="android:progressDrawable">@drawable/progress_horizontal_holo_light_miui</item>
     </style>
+
     <style name="Miui.SeekBar" parent="@android:Widget.SeekBar">
         <item name="android:focusable">true</item>
         <item name="android:indeterminateDrawable">@drawable/scrubber_progress_horizontal_holo_dark_miui</item>
@@ -174,6 +185,7 @@
         <item name="android:thumb">@drawable/scrubber_control_selector_holo_miui</item>
         <item name="android:thumbOffset">16dip</item>
     </style>
+
     <style name="Miui.SeekBar.Light" parent="@android:Widget.SeekBar">
         <item name="android:focusable">true</item>
         <item name="android:indeterminateDrawable">@drawable/scrubber_progress_horizontal_holo_light_miui</item>
@@ -191,12 +203,13 @@
         <item name="android:background">@drawable/btn_radio_label_background</item>
         <item name="android:button">?android:attr/listChoiceIndicatorSingle</item>
     </style>
-     <style name="Miui.CompoundButton.RadioButton.Light" parent="android:Widget.CompoundButton.RadioButton">
+
+    <style name="Miui.CompoundButton.RadioButton.Light" parent="android:Widget.CompoundButton.RadioButton">
         <item name="android:background">@drawable/btn_radio_label_background</item>
         <item name="android:button">?android:attr/listChoiceIndicatorSingle</item>
     </style>
-    
-     <style name="Miui.Spinner" parent="android:Widget.Spinner">
+
+    <style name="Miui.Spinner" parent="android:Widget.Spinner">
         <item name="android:background">@drawable/spinner_background_holo_dark_miui</item>
         <item name="android:clickable">true</item>
         <item name="android:dropDownSelector">@drawable/list_selector_holo_dark_miui</item>
@@ -207,6 +220,7 @@
         <item name="android:dropDownVerticalOffset">0dip</item>
         <item name="android:spinnerMode">dropdown</item>
     </style>
+
     <style name="Miui.Spinner.Light">
         <item name="android:background">@drawable/spinner_background_holo_light_miui</item>
         <item name="android:clickable">true</item>
@@ -218,7 +232,8 @@
         <item name="android:dropDownVerticalOffset">0dip</item>
         <item name="android:spinnerMode">dropdown</item>
     </style>
-	<style name="Miui.EditText" parent="android:Widget.EditText">
+
+    <style name="Miui.EditText" parent="android:Widget.EditText">
         <item name="android:background">@drawable/edit_text_holo_dark_miui</item>
         <item name="android:clickable">true</item>
         <item name="android:focusable">true</item>
@@ -227,7 +242,8 @@
         <item name="android:textAppearance">?android:textAppearanceMediumInverse</item>
         <item name="android:textColor">?android:textColorPrimary</item>
     </style>
-	<style name="Miui.EditText.Light" parent="android:Widget.EditText">
+
+    <style name="Miui.EditText.Light" parent="android:Widget.EditText">
         <item name="android:background">@drawable/edit_text_holo_light_miui</item>
         <item name="android:clickable">true</item>
         <item name="android:focusable">true</item>
@@ -237,10 +253,8 @@
         <item name="android:textColor">?android:textColorPrimary</item>
     </style>
 
-
-    
-	<style name="Sense5_Button">
-		<item name="android:background">@drawable/btn_sense5</item>
+    <style name="Sense5_Button">
+        <item name="android:background">@drawable/btn_sense5</item>
         <item name="android:clickable">true</item>
         <item name="android:focusable">true</item>
         <item name="android:gravity">center</item>
@@ -248,9 +262,10 @@
         <item name="android:minWidth">64dip</item>
         <item name="android:textAppearance">?android:attr/textAppearanceMedium</item>
         <item name="android:textColor">?android:textColorPrimary</item>
-    </style> 
+    </style>
+
     <style name="Sense5_Button_Small">
-		<item name="android:background">@drawable/btn_sense5</item>
+        <item name="android:background">@drawable/btn_sense5</item>
         <item name="android:clickable">true</item>
         <item name="android:focusable">true</item>
         <item name="android:gravity">center</item>
@@ -258,13 +273,15 @@
         <item name="android:minWidth">48dip</item>
         <item name="android:textAppearance">?android:attr/textAppearanceSmall</item>
         <item name="android:textColor">?android:textColorPrimary</item>
-    </style> 
+    </style>
+
     <style name="Sense5_ProgressBar_Horizontal" parent="@android:style/Widget.ProgressBar.Horizontal">
         <item name="android:indeterminateDrawable">@drawable/progress_indeterminate_horizontal_sense5</item>
         <item name="android:maxHeight">16dip</item>
         <item name="android:minHeight">16dip</item>
         <item name="android:progressDrawable">@drawable/progress_horizontal_sense5</item>
     </style>
+
     <style name="Sense5_SeekBar" parent="@android:Widget.SeekBar">
         <item name="android:focusable">true</item>
         <item name="android:indeterminateDrawable">@drawable/scrubber_progress_horizontal_sense5</item>
@@ -277,11 +294,13 @@
         <item name="android:thumb">@drawable/scrubber_control_selector_sense5</item>
         <item name="android:thumbOffset">16dip</item>
     </style>
+
     <style name="Sense5_CompoundButton_RadioButton" parent="android:Widget.CompoundButton.RadioButton">
         <item name="android:background">@drawable/btn_radio_label_background_sense5</item>
         <item name="android:button">?android:attr/listChoiceIndicatorSingle</item>
     </style>
-	<style name="Sense5_Spinner" parent="android:Widget.Spinner">
+
+    <style name="Sense5_Spinner" parent="android:Widget.Spinner">
         <item name="android:background">@drawable/spinner_background_sense5</item>
         <item name="android:clickable">true</item>
         <item name="android:dropDownSelector">@drawable/list_selector_sense5</item>
@@ -292,7 +311,8 @@
         <item name="android:dropDownVerticalOffset">0dip</item>
         <item name="android:spinnerMode">dropdown</item>
     </style>
-	<style name="Sense5_EditText" parent="android:Widget.EditText">
+
+    <style name="Sense5_EditText" parent="android:Widget.EditText">
         <item name="android:background">@drawable/edit_text_sense5</item>
         <item name="android:clickable">true</item>
         <item name="android:focusable">true</item>
@@ -301,9 +321,9 @@
         <item name="android:textAppearance">?android:textAppearanceMediumInverse</item>
         <item name="android:textColor">?android:textColorPrimary</item>
     </style>
- 
+
     <style name="Sense5_Button_Light">
-		<item name="android:background">@drawable/btn_light_sense5</item>
+        <item name="android:background">@drawable/btn_light_sense5</item>
         <item name="android:clickable">true</item>
         <item name="android:focusable">true</item>
         <item name="android:gravity">center</item>
@@ -311,9 +331,10 @@
         <item name="android:minWidth">64dip</item>
         <item name="android:textAppearance">?android:attr/textAppearanceMedium</item>
         <item name="android:textColor">?android:textColorPrimary</item>
-    </style> 
+    </style>
+
     <style name="Sense5_Button_Small_Light">
-		<item name="android:background">@drawable/btn_light_sense5</item>
+        <item name="android:background">@drawable/btn_light_sense5</item>
         <item name="android:clickable">true</item>
         <item name="android:focusable">true</item>
         <item name="android:gravity">center</item>
@@ -321,13 +342,15 @@
         <item name="android:minWidth">48dip</item>
         <item name="android:textAppearance">?android:attr/textAppearanceSmall</item>
         <item name="android:textColor">?android:textColorPrimary</item>
-    </style> 
+    </style>
+
     <style name="Sense5_ProgressBar_Horizontal_Light" parent="@android:style/Widget.ProgressBar.Horizontal">
         <item name="android:indeterminateDrawable">@drawable/progress_indeterminate_horizontal_sense5</item>
         <item name="android:maxHeight">16dip</item>
         <item name="android:minHeight">16dip</item>
         <item name="android:progressDrawable">@drawable/progress_horizontal_light_sense5</item>
     </style>
+
     <style name="Sense5_SeekBar_Light" parent="@android:Widget.SeekBar">
         <item name="android:focusable">true</item>
         <item name="android:indeterminateDrawable">@drawable/scrubber_progress_horizontal_light_sense5</item>
@@ -345,7 +368,8 @@
         <item name="android:background">@drawable/btn_radio_label_background_sense5</item>
         <item name="android:button">?android:attr/listChoiceIndicatorSingle</item>
     </style>
-	<style name="Sense5_Spinner_Light" parent="android:Widget.Spinner">
+
+    <style name="Sense5_Spinner_Light" parent="android:Widget.Spinner">
         <item name="android:background">@drawable/spinner_background_light_sense5</item>
         <item name="android:clickable">true</item>
         <item name="android:dropDownSelector">@drawable/list_selector_light_sense5</item>
@@ -356,7 +380,8 @@
         <item name="android:dropDownVerticalOffset">0dip</item>
         <item name="android:spinnerMode">dropdown</item>
     </style>
-	<style name="Sense5_EditText_Light" parent="android:Widget.EditText">
+
+    <style name="Sense5_EditText_Light" parent="android:Widget.EditText">
         <item name="android:background">@drawable/edit_text_light_sense5</item>
         <item name="android:clickable">true</item>
         <item name="android:focusable">true</item>
@@ -366,6 +391,12 @@
         <item name="android:textColor">?android:textColorPrimary</item>
     </style>
 
+    <style name="SplashTheme" parent="android:Theme.Holo.Dialog">
+        <item name="android:windowContentOverlay">@null</item>
+        <item name="android:windowNoTitle">true</item>
+        <item name="android:windowIsFloating">true</item>
+        <item name="android:backgroundDimEnabled">true</item>
+        <item name="android:windowIsTranslucent">true</item>
+    </style>
 
-	
 </resources>

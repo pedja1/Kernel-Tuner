@@ -37,7 +37,7 @@ public class ProfileEditor extends Activity
 {
 	
 	
-	private List<IOHelper.FreqsEntry> freqEntries = IOHelper.frequencies();
+	private List<Frequency> freqEntries = IOHelper.frequencies();
 	private List<String> freqNames = new ArrayList<String>();
 	private String cpu0min;
 	private String cpu0max; 
@@ -218,11 +218,11 @@ public class ProfileEditor extends Activity
 
 		List<String> freqs = new ArrayList<String>();
 		freqs.add(getResources().getString(R.string.unchanged));
-		for(IOHelper.FreqsEntry f: freqEntries){
-			freqs.add(f.getFreq()+"");
+		for(Frequency f: freqEntries){
+			freqs.add(f.getFrequencyValue()+"");
 		}
-		for(IOHelper.FreqsEntry f: freqEntries){
-			freqNames.add(f.getFreqName());
+		for(Frequency f: freqEntries){
+			freqNames.add(f.getFrequencyString());
 		}
 
 

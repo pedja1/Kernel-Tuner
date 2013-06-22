@@ -18,34 +18,41 @@
 */
 package rs.pedjaapps.KernelTuner.services;
 
-import android.graphics.*;
+import java.io.File;
+import java.util.ArrayList;
+import java.util.Calendar;
+import java.util.List;
 
+import rs.pedjaapps.KernelTuner.R;
+import rs.pedjaapps.KernelTuner.entry.Frequency;
+import rs.pedjaapps.KernelTuner.helpers.IOHelper;
+import rs.pedjaapps.KernelTuner.receiver.AppWidgetBig;
 import android.app.AlarmManager;
 import android.app.PendingIntent;
 import android.app.Service;
 import android.appwidget.AppWidgetManager;
 import android.content.Intent;
 import android.content.SharedPreferences;
+import android.graphics.Bitmap;
 import android.graphics.Bitmap.Config;
+import android.graphics.Canvas;
+import android.graphics.Color;
+import android.graphics.Paint;
 import android.graphics.Paint.Style;
+import android.graphics.Rect;
+import android.graphics.RectF;
 import android.os.IBinder;
 import android.preference.PreferenceManager;
 import android.widget.RemoteViews;
+
 import com.stericson.RootTools.RootTools;
 import com.stericson.RootTools.execution.CommandCapture;
-import java.io.File;
-import java.util.ArrayList;
-import java.util.Calendar;
-import java.util.List;
-import rs.pedjaapps.KernelTuner.R;
-import rs.pedjaapps.KernelTuner.helpers.IOHelper;
-import rs.pedjaapps.KernelTuner.receiver.AppWidgetBig;
 
 
 public class WidgetUpdateServiceBig extends Service
 {
 	
-	private List<IOHelper.FreqsEntry> freqEntries = IOHelper.frequencies();
+	private List<Frequency> freqEntries = IOHelper.frequencies();
 	private String led;
 	private String cpu0curr;
 	private String cpu0gov;
@@ -112,8 +119,8 @@ public class WidgetUpdateServiceBig extends Service
 		fastcharge = ""+IOHelper.fcharge();
 		vsync = ""+IOHelper.vsync();
 		cdepth = IOHelper.cDepth();
-		for(IOHelper.FreqsEntry f: freqEntries){
-			frequencies.add(""+f.getFreq());
+		for(Frequency f: freqEntries){
+			frequencies.add(""+f.getFrequencyValue());
 		}
 		cpu0curr = IOHelper.cpu0CurFreq();
 		cpu1curr = IOHelper.cpu1CurFreq();

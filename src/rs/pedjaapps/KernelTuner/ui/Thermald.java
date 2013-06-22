@@ -44,13 +44,14 @@ import com.stericson.RootTools.execution.CommandCapture;
 import java.util.ArrayList;
 import java.util.List;
 import rs.pedjaapps.KernelTuner.R;
+import rs.pedjaapps.KernelTuner.entry.Frequency;
 import rs.pedjaapps.KernelTuner.helpers.IOHelper;
 import rs.pedjaapps.KernelTuner.tools.Tools;
 
 public class Thermald extends Activity
 {
 
-	private List<IOHelper.FreqsEntry> freqEntries;
+	private List<Frequency> freqEntries;
 	private List<String> freqs = new ArrayList<String>();
 	private List<String> freqNames = new ArrayList<String>();
 	private String p1freq;
@@ -155,11 +156,11 @@ public class Thermald extends Activity
 
 		setContentView(R.layout.thermald);
 		freqEntries = IOHelper.frequencies();
-		for(IOHelper.FreqsEntry f: freqEntries){
-			freqs.add(f.getFreq()+"");
+		for(Frequency f: freqEntries){
+			freqs.add(f.getFrequencyValue()+"");
 		}
-		for(IOHelper.FreqsEntry f: freqEntries){
-			freqNames.add(f.getFreqName());
+		for(Frequency f: freqEntries){
+			freqNames.add(f.getFrequencyString());
 		}
 		ActionBar actionBar = getActionBar();
 		actionBar.setDisplayHomeAsUpEnabled(true);
