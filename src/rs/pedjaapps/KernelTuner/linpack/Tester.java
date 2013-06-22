@@ -1,55 +1,49 @@
-/*
- * Copyright (C) 2010 0xlab - http://0xlab.org/
- *
- * Licensed under the Apache License, Version 2.0 (the "License");
- * you may not use this file except in compliance with the License.
- * You may obtain a copy of the License at
- *
- *     http://www.apache.org/licenses/LICENSE-2.0
- *
- * Unless required by applicable law or agreed to in writing, software
- * distributed under the License is distributed on an "AS IS" BASIS,
- * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
- * See the License for the specific language governing permissions and
- * limitations under the License.
- */
-
 package rs.pedjaapps.KernelTuner.linpack;
 
+import java.text.DecimalFormat;
+import java.text.SimpleDateFormat;
+
+import rs.pedjaapps.KernelTuner.R;
 import android.app.Activity;
-import android.content.Intent;
+import android.graphics.Color;
+import android.os.AsyncTask;
 import android.os.Bundle;
 import android.os.SystemClock;
 import android.util.Log;
-import android.view.MotionEvent;
+import android.view.View;
+import android.widget.Button;
 import android.widget.TextView;
+
 
 public class Tester extends Activity {
 
-    TextView mTextView;
+    TextView mflopsTextView;
+    TextView nresTextView;
+    TextView timeTextView;
+    TextView precisionTextView;
+	Button start_single;
+	Button start_multi;
     Bundle mInfo[];
     public final static String MFLOPS = "MFLOPS";
     public final static String RESIDN = "RESIDN";
     public final static String TIME   = "TIME";
     public final static String EPS    = "EPS";
 
-	private String TAG;
-    public final static String PACKAGE = "org.zeroxlab.zeroxbenchmark";
-    int mRound;
+	private static String TAG;
+	int mRound;
     int mNow;
     int mIndex;
 
     protected long mTesterStart = 0;
     protected long mTesterEnd   = 0;
 
-    protected String mSourceTag = "unknown";
     private boolean mNextRound = true;
 
     protected boolean mDropTouchEvent     = true;
     protected boolean mDropTrackballEvent = true;
 	
     protected String getTag() {
-        return "Arithmetic";
+        return "Linpack";
     }
 
     protected int sleepBeforeStart() {
@@ -61,30 +55,17 @@ public class Tester extends Activity {
     }
 
     protected void oneRound() {
-        LinpackLoop.main(mInfo[mNow - 1]);
+        Linpack.main(mInfo[mNow - 1]);
         decreaseCounter();
     }
 
-    
-    protected boolean saveResult(Intent intent) {
-        final Bundle result = new Bundle();
-        average(result, mInfo);
-    
-        //intent.putExtra(CaseArithmetic.LIN_RESULT, result);
-		runOnUiThread(new Runnable(){
-				public void run() {
-		mTextView.setText(bundleToString(result));
-		}});
-        return true;
-    }
     
     /** Called when the activity is first created. */
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-
+		setContentView(R.layout.main);
 		TAG = getTag();
-
 
 		mRound = 80;
 		mIndex = -1;
@@ -96,13 +77,44 @@ public class Tester extends Activity {
             mInfo[i] = new Bundle();
         }
 
-        mTextView = new TextView(this);
-        mTextView.setText("Running benchmark....");
-        //mTextView.setTextSize(mTextView.getTextSize() + 5);
-        setContentView(mTextView);
-        startTester();
-    }
+        mflopsTextView = (TextView)findViewById(R.id.mflops);
+        nresTextView = (TextView)findViewById(R.id.nres);
+        timeTextView = (TextView)findViewById(R.id.time);
+        precisionTextView = (TextView)findViewById(R.id.precision);
+        
+        start_single = (Button)findViewById(R.id.start_single);
+		start_single.setOnClickListener(new View.OnClickListener(){
 
+				public void onClick(View p1)
+				{
+					mflopsTextView.setText(R.string.running_benchmark);
+					nresTextView.setText("0");
+					timeTextView.setText("0");
+					precisionTextView.setText("0");
+					start_single.setEnabled(false);
+					start_multi.setEnabled(false);
+					startTester(0);
+				}
+			});
+		start_multi = (Button)findViewById(R.id.start_multi);
+		start_multi.setOnClickListener(new View.OnClickListener(){
+
+				public void onClick(View p1)
+				{
+					mflopsTextView.setText(R.string.running_benchmark);
+					nresTextView.setText("0");
+					timeTextView.setText("0");
+					precisionTextView.setText("0");
+					start_single.setEnabled(false);
+					start_multi.setEnabled(false);
+					startTester(1);
+				}
+			});
+		
+		
+        
+    }
+    
     public static void average(Bundle result, Bundle[] list) {
 
         if (result == null) {
@@ -110,7 +122,7 @@ public class Tester extends Activity {
         }
 
         if (list == null) {
-            Log.i("Arithmetic", "Array is null");
+            Log.i(TAG, "Array is null");
             return;
         }
 
@@ -124,7 +136,7 @@ public class Tester extends Activity {
             Bundle info = list[i];
 
             if (info == null) {
-                Log.i("Arithmetic", "one item of array is null!");
+                Log.i(TAG, "one item of array is null!");
                 return;
             }
 
@@ -139,49 +151,27 @@ public class Tester extends Activity {
         result.putDouble(TIME, time_total / length);
         result.putDouble(EPS, eps_total  / length);
     }
-
-    public static String bundleToString(Bundle bundle) {
-        String result = "";
-        result += "Mflops/s :" + bundle.getDouble(MFLOPS, 0.0);
-        /* the time result is too small to calculate average. (0.0 ~ 0.1), drop it*/
-        //result += "\nTime     :" + bundle.getDouble(TIME, 0.0);
-        result += "\nNorm Res :" + bundle.getDouble(RESIDN, 0.0);
-        result += "\nPrecision:" + bundle.getDouble(EPS, 0.0);
-
-        return result;
-    }
 	
 	@Override
     protected void onPause() {
         super.onPause();
 		if(isTesterFinished()==false){
-        interruptTester();
+           interruptTester();
 		}
     }
 
-    /* drop the annoying event */
-    @Override
-    public boolean dispatchTouchEvent(MotionEvent ev) {
-        if (mDropTouchEvent) {
-            return false;
-        } else {
-            return super.dispatchTouchEvent(ev);
-        }
-    }
-
-    @Override
-    public boolean dispatchTrackballEvent(MotionEvent ev) {
-        if (mDropTrackballEvent) {
-            return false;
-        } else {
-            return super.dispatchTouchEvent(ev);
-        }
-    }
-
-    protected void startTester() {
-        TesterThread thread = new TesterThread(sleepBeforeStart(), sleepBetweenRound());
-        thread.start();
-    }
+    protected void startTester(int code) {
+    	switch(code){
+    	case 0:
+    		TesterThread thread = new TesterThread(sleepBeforeStart(), sleepBetweenRound());
+            thread.start();
+            break;
+    	case 1:
+    	     new TesterAsyncTask(sleepBeforeStart(), sleepBetweenRound()).execute();
+    	    break;
+    	}
+        
+   }
 
     public void interruptTester() {
         mNow = 0;
@@ -194,21 +184,39 @@ public class Tester extends Activity {
      * @param start The starting time of testing round
      * @param end The ending time of testing round
      */
-    public void finishTester(long start, long end) {
-        mTesterStart = start;
-        mTesterEnd   = end;
-        Intent intent = new Intent();
-        if (mSourceTag == null || mSourceTag.equals("")) {
-			// Case.putSource(intent, "unknown");
-        } else {
-            //Case.putSource(intent, mSourceTag);
-        }
-
-		// Case.putIndex(intent, mIndex);
-        saveResult(intent);
-
-		// setResult(0, intent);
-		//  finish();
+    public void finishTester(final long start, final long end) {
+		final Bundle result = new Bundle();
+        average(result, mInfo);
+        final DecimalFormat mflopsFormat = new DecimalFormat("0.000");
+		final DecimalFormat nResFormat = new DecimalFormat("0.00");
+		SimpleDateFormat f = new SimpleDateFormat("dd MMM yy HH:mm:ss");
+        runOnUiThread(new Runnable(){
+				public void run() {
+					
+					mflopsTextView.setText(mflopsFormat.format(result.getDouble(MFLOPS, 0.0)));
+					if(result.getDouble(MFLOPS, 0.0)<30){
+						mflopsTextView.setTextColor(Color.RED);
+					}
+					else{
+						mflopsTextView.setTextColor(Color.GREEN);
+					}
+					nresTextView.setText(nResFormat.format(result.getDouble(RESIDN, 0.0)));
+					if(result.getDouble(RESIDN, 0.0)>5){
+						nresTextView.setTextColor(Color.YELLOW);
+					}
+					else if(result.getDouble(RESIDN, 0.0)>10){
+						nresTextView.setTextColor(Color.RED);
+					}
+					else{
+						nresTextView.setTextColor(Color.GREEN);
+					}
+					timeTextView.setText((double)(end-start)/1000 +"s");
+					precisionTextView.setText(""+result.getDouble(EPS, 0.0));
+					
+					Tester.this.start_single.setEnabled(true);
+					Tester.this.start_multi.setEnabled(true);
+				}});
+		mNow = mRound;
     }
 
    
@@ -218,13 +226,7 @@ public class Tester extends Activity {
     }
 
     public void decreaseCounter() {
-        /*
-		 if (mNow == mRound) {
-		 mTesterStart = SystemClock.uptimeMillis();
-		 } else if (mNow == 1) {
-		 mTesterEnd = SystemClock.uptimeMillis();
-		 }
-		 */
+       
         mNow = mNow - 1;
         mNextRound = true;
     }
@@ -248,27 +250,10 @@ public class Tester extends Activity {
                     oneRound();
                 } else {
                     sleep(mSleepingTime);
-                    // TODO: 
-                    // Benchmarks that calculates frequencies (e.g. fps) should be time,
-                    // for example, GL cases should run for a fixed time, and calculate 
-                    // # of frames rendered, instead of periodically checking if fixed 
-                    // # of frames had been rendered (which can hurt performance).
                 }
             }
         }
 
-        private void nervousLoop() throws Exception {
-            while (!isTesterFinished()) {
-                oneRound();
-            }
-        }
-
-        private void sleepLoop() throws Exception {
-            while (!isTesterFinished()) {
-                oneRound();
-                sleep(mSleepingTime);
-            }
-        }
 
         public void run() {
             try {
@@ -285,5 +270,50 @@ public class Tester extends Activity {
             }
         }
     }
+    
+    private class TesterAsyncTask extends AsyncTask<String, Void, Long[]> {
+
+    	int mSleepingStart;
+        int mSleepingTime;
+        TesterAsyncTask(int sleepStart, int sleepPeriod) {
+            mSleepingStart = sleepStart;
+            mSleepingTime  = sleepPeriod;
+        }
+        private void lazyLoop() throws Exception {
+            while (!isTesterFinished()) {
+                if (mNextRound) {
+                    mNextRound = false;
+                    oneRound();
+                } else {
+                    Thread.sleep(mSleepingTime);
+                }
+            }
+        }
+        
+		@Override
+		protected Long[] doInBackground(String... args) {
+			long start = 0;
+			long end = 0 ;
+			try {
+                Thread.sleep(mSleepingStart);
+
+                start = SystemClock.uptimeMillis();
+
+                lazyLoop();
+
+                end = SystemClock.uptimeMillis();
+                //finishTester(start, end);
+            } catch (Exception e) {
+				e.printStackTrace();
+            }
+			return new Long[]{start, end};
+		}
+
+		
+		@Override
+		protected void onPostExecute(Long[] result) {
+			finishTester(result[0], result[1]);
+		}
+	}
 
 }
