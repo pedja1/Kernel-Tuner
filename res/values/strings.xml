@@ -16,7 +16,7 @@
     <string name="title_sysctl">SysCtl</string>
     <string name="title_sd">SD Card Analyzer</string>
     <string name="title_backup">Backup/Restore</string>
-    <string name="title_log">L</string>
+    <string name="title_log">Logcat</string>
     <string name="title_build">Build.prop Editor</string>
     <string name="app_name">Kernel Tuner</string>
     <string name="title_task_manager">Task Manager</string>

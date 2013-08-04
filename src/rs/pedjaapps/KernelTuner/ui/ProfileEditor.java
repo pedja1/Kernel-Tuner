@@ -18,26 +18,42 @@
 */
 package rs.pedjaapps.KernelTuner.ui;
 
-import android.app.Activity;
-import android.content.*;
-import android.os.*;
-import android.preference.*;
-import android.view.*;
-import android.widget.*;
-import android.widget.AdapterView.*;
-import java.util.*;
-import rs.pedjaapps.KernelTuner.*;
-import rs.pedjaapps.KernelTuner.entry.*;
-import rs.pedjaapps.KernelTuner.helpers.*;
+import java.util.ArrayList;
+import java.util.List;
 
+import rs.pedjaapps.KernelTuner.R;
+import rs.pedjaapps.KernelTuner.entry.Frequency;
+import rs.pedjaapps.KernelTuner.entry.FrequencyCollection;
+import rs.pedjaapps.KernelTuner.entry.Profile;
+import rs.pedjaapps.KernelTuner.entry.Voltage;
+import rs.pedjaapps.KernelTuner.helpers.DatabaseHandler;
+import rs.pedjaapps.KernelTuner.helpers.IOHelper;
+import android.app.Activity;
+import android.content.Intent;
+import android.os.Bundle;
+import android.view.Menu;
+import android.view.MenuInflater;
+import android.view.MenuItem;
+import android.view.View;
 import android.view.View.OnClickListener;
-import rs.pedjaapps.KernelTuner.tools.Tools;
+import android.widget.AdapterView;
+import android.widget.AdapterView.OnItemSelectedListener;
+import android.widget.ArrayAdapter;
+import android.widget.EditText;
+import android.widget.ImageView;
+import android.widget.LinearLayout;
+import android.widget.RadioButton;
+import android.widget.RadioGroup;
+import android.widget.RelativeLayout;
+import android.widget.Spinner;
+import android.widget.TextView;
+import android.widget.Toast;
 
 public class ProfileEditor extends Activity
 {
 	
 	
-	private List<Frequency> freqEntries = IOHelper.frequencies();
+	private List<Frequency> freqEntries = FrequencyCollection.getInstance().getFrequencies();
 	private List<String> freqNames = new ArrayList<String>();
 	private String cpu0min;
 	private String cpu0max; 
@@ -95,11 +111,6 @@ public class ProfileEditor extends Activity
 	@Override
 	public void onCreate(Bundle savedInstanceState)
 	{
-		SharedPreferences preferences = PreferenceManager.getDefaultSharedPreferences(this);
-		
-		String theme = preferences.getString("theme", "light");
-		
-		setTheme(Tools.getPreferedTheme(theme));
 		super.onCreate(savedInstanceState);
 
 		setContentView(R.layout.profile_editor);

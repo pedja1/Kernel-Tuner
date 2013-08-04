@@ -19,12 +19,12 @@
 package rs.pedjaapps.KernelTuner.services;
 
 import java.io.File;
-import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.List;
 
 import rs.pedjaapps.KernelTuner.R;
 import rs.pedjaapps.KernelTuner.entry.Frequency;
+import rs.pedjaapps.KernelTuner.entry.FrequencyCollection;
 import rs.pedjaapps.KernelTuner.helpers.IOHelper;
 import rs.pedjaapps.KernelTuner.receiver.AppWidgetBig;
 import android.app.AlarmManager;
@@ -52,7 +52,6 @@ import com.stericson.RootTools.execution.CommandCapture;
 public class WidgetUpdateServiceBig extends Service
 {
 	
-	private List<Frequency> freqEntries = IOHelper.frequencies();
 	private String led;
 	private String cpu0curr;
 	private String cpu0gov;
@@ -72,7 +71,7 @@ public class WidgetUpdateServiceBig extends Service
 	private String battcurrent;
 	private String batthealth;
 	private String battcap;
-	private List<String> frequencies = new ArrayList<String>();
+	private List<String> frequencies = FrequencyCollection.getInstance().getFrequencyStrings();
 	private int cf = 0;
 	private String cpu1curr;
 	private int cf2 = 0;
@@ -119,9 +118,6 @@ public class WidgetUpdateServiceBig extends Service
 		fastcharge = ""+IOHelper.fcharge();
 		vsync = ""+IOHelper.vsync();
 		cdepth = IOHelper.cDepth();
-		for(Frequency f: freqEntries){
-			frequencies.add(""+f.getFrequencyValue());
-		}
 		cpu0curr = IOHelper.cpu0CurFreq();
 		cpu1curr = IOHelper.cpu1CurFreq();
 		upTime = IOHelper.uptime();

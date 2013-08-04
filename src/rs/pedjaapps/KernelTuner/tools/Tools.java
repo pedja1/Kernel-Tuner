@@ -17,11 +17,6 @@
  * along with Kernel Tuner. If not, see <http://www.gnu.org/licenses/>.
  */
 package rs.pedjaapps.KernelTuner.tools;
-import android.content.Context;
-import android.content.SharedPreferences;
-import android.os.Environment;
-import android.os.StatFs;
-import android.preference.PreferenceManager;
 import java.io.File;
 import java.io.FileOutputStream;
 import java.io.IOException;
@@ -29,11 +24,16 @@ import java.io.OutputStreamWriter;
 import java.text.DecimalFormat;
 import java.text.SimpleDateFormat;
 import java.util.List;
+
 import rs.pedjaapps.KernelTuner.Constants;
-import rs.pedjaapps.KernelTuner.R;
 import rs.pedjaapps.KernelTuner.entry.SysCtlDatabaseEntry;
 import rs.pedjaapps.KernelTuner.helpers.DatabaseHandler;
 import rs.pedjaapps.KernelTuner.helpers.IOHelper;
+import android.content.Context;
+import android.content.SharedPreferences;
+import android.os.Environment;
+import android.os.StatFs;
+import android.preference.PreferenceManager;
 
 public class Tools
 {
@@ -266,74 +266,6 @@ public class Tools
 		builder.append(s + "s");
 		timeString = builder.toString();
 		return timeString;
-	}
-
-	public static int getPreferedTheme(String theme)
-	{
-		if (theme.equals("light")) 
-		{
-			return android.R.style.Theme_Holo_Light;
-		} 
-		else if (theme.equals("dark")) 
-		{
-			return android.R.style.Theme_Holo;
-		} 
-		else if (theme.equals("light_dark_action_bar")) 
-		{
-			return android.R.style.Theme_Holo_Light_DarkActionBar;
-		}
-		else if (theme.equals("miui_light")) 
-		{
-			return R.style.Theme_Miui_Light;
-		} 
-		else if (theme.equals("miui_dark")) 
-		{
-			return R.style.Theme_Miui_Dark;
-		} 
-		else if (theme.equals("sense5")) 
-		{
-			return R.style.Theme_Sense5;
-		}
-		else if (theme.equals("sense5_light")) 
-		{
-			return R.style.Theme_Light_Sense5;
-		}
-		else
-		{
-			return android.R.style.Theme_Holo_Light_DarkActionBar;
-		}
-	}
-
-	public static int getPreferedThemeTranslucent(String theme)
-	{
-		if (theme.equals("light")) 
-		{
-			return R.style.Theme_Translucent_NoTitleBar_Light;
-		} 
-		else if (theme.equals("dark")) 
-		{
-			return R.style.Theme_Translucent_NoTitleBar;
-		} 
-		else if (theme.equals("miui_light")) 
-		{
-			return R.style.Theme_Translucent_NoTitleBar_Miui_Light;
-		} 
-		else if (theme.equals("miui_dark")) 
-		{
-			return R.style.Theme_Translucent_NoTitleBar_Miui;
-		} 
-		else if (theme.equals("sense5")) 
-		{
-			return R.style.Theme_Translucent_NoTitleBar_Sense5;
-		}
-		else if (theme.equals("sense5_light")) 
-		{
-			return R.style.Theme_Translucent_NoTitleBar_Sense5_Light;
-		}
-		else
-		{
-			return R.style.Theme_Translucent_NoTitleBar_Light;
-		}
 	}
 	
 	public static String getAbi(){
@@ -979,7 +911,7 @@ public class Tools
 		try {
 
 			FileOutputStream fOut = c.openFileOutput("99ktsysctl",
-												   c.MODE_PRIVATE);
+												   Context.MODE_PRIVATE);
 			OutputStreamWriter osw = new OutputStreamWriter(fOut);
 			osw.write(sys);
 			osw.flush();
@@ -990,7 +922,7 @@ public class Tools
 		try {
 
 			FileOutputStream fOut = c.openFileOutput("99ktcputweaks",
-					c.MODE_PRIVATE);
+					Context.MODE_PRIVATE);
 			OutputStreamWriter osw = new OutputStreamWriter(fOut);
 			osw.write(cpu);
 			osw.flush();
@@ -1001,7 +933,7 @@ public class Tools
 		try {
 
 			FileOutputStream fOut = c.openFileOutput("99ktgputweaks",
-					c.MODE_PRIVATE);
+					Context.MODE_PRIVATE);
 			OutputStreamWriter osw = new OutputStreamWriter(fOut);
 			osw.write(gpu);
 			osw.flush();
@@ -1012,7 +944,7 @@ public class Tools
 		try {
 
 			FileOutputStream fOut = c.openFileOutput("99ktmisctweaks",
-					c.MODE_PRIVATE);
+					Context.MODE_PRIVATE);
 			OutputStreamWriter osw = new OutputStreamWriter(fOut);
 			osw.write(misc);
 			osw.flush();
@@ -1023,7 +955,7 @@ public class Tools
 
 		try {
 
-			FileOutputStream fOut = c.openFileOutput("99ktvoltage", c.MODE_PRIVATE);
+			FileOutputStream fOut = c.openFileOutput("99ktvoltage", Context.MODE_PRIVATE);
 			OutputStreamWriter osw = new OutputStreamWriter(fOut);
 			osw.write(voltage);
 			osw.flush();

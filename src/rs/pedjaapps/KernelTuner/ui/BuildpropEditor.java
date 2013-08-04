@@ -72,9 +72,6 @@ public class BuildpropEditor extends Activity
 	public void onCreate(Bundle savedInstanceState)
 	{
 	    preferences = PreferenceManager.getDefaultSharedPreferences(this);
-		String theme = preferences.getString("theme", "light");
-
-		setTheme(Tools.getPreferedTheme(theme));
 		
 		super.onCreate(savedInstanceState);
 		requestWindowFeature(Window.FEATURE_INDETERMINATE_PROGRESS);

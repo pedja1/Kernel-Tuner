@@ -90,8 +90,7 @@ public class TaskManager extends Activity implements TMListFragment.Callbacks
 	public void onCreate(Bundle savedInstanceState)
 	{
 		preferences = PreferenceManager.getDefaultSharedPreferences(this);
-		String theme = preferences.getString("theme", "light");
-		setTheme(Tools.getPreferedTheme(theme));
+		
 		requestWindowFeature(Window.FEATURE_INDETERMINATE_PROGRESS);
 		super.onCreate(savedInstanceState);
 		

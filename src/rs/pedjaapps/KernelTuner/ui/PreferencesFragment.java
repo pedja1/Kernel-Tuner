@@ -40,7 +40,6 @@ public class PreferencesFragment extends PreferenceFragment
 	private CheckBoxPreference htcOneOverride;
 	private ListPreference tisList;
 	private CheckBoxPreference resetApp;
-	private ListPreference themePrefList;
 	private ListPreference cpuList;
 	private ListPreference widgetPrefList;
 	private ListPreference unsupportedPrefList;
@@ -338,23 +337,7 @@ public class PreferencesFragment extends PreferenceFragment
 	}
 	
 	private void ui(){
-		themePrefList = (ListPreference) findPreference("theme");
-        themePrefList.setDefaultValue(themePrefList.getEntryValues()[0]);
-        String theme = themePrefList.getValue();
-        if (theme == null) {
-            themePrefList.setValue((String)themePrefList.getEntryValues()[0]);
-            theme = themePrefList.getValue();
-        }
-        themePrefList.setSummary(themePrefList.getEntries()[themePrefList.findIndexOfValue(theme)]);
-
-
-        themePrefList.setOnPreferenceChangeListener(new OnPreferenceChangeListener() {
-				@Override
-				public boolean onPreferenceChange(Preference preference, Object newValue) {
-					themePrefList.setSummary(themePrefList.getEntries()[themePrefList.findIndexOfValue(newValue.toString())]);
-					return true;
-				}
-			}); 
+	
 		tisList = (ListPreference) findPreference("tis_open_as");
 		tisList.setDefaultValue(tisList.getEntryValues()[0]);
         String tis = tisList.getValue();

@@ -19,13 +19,21 @@
 package rs.pedjaapps.KernelTuner.ui;
 
 
+import java.util.List;
+
+import rs.pedjaapps.KernelTuner.MainApp;
+import rs.pedjaapps.KernelTuner.R;
+import rs.pedjaapps.KernelTuner.entry.FrequencyCollection;
+import rs.pedjaapps.KernelTuner.helpers.IOHelper;
+import rs.pedjaapps.KernelTuner.tools.ChangeGovernor;
+import rs.pedjaapps.KernelTuner.tools.FrequencyChanger;
 import android.app.Activity;
 import android.app.ProgressDialog;
+import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.AsyncTask;
 import android.os.Bundle;
-import android.preference.PreferenceManager;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.AdapterView;
@@ -34,25 +42,15 @@ import android.widget.ArrayAdapter;
 import android.widget.LinearLayout;
 import android.widget.Spinner;
 import android.widget.TextView;
-import java.util.ArrayList;
-import java.util.List;
 
 import com.stericson.RootTools.RootTools;
 import com.stericson.RootTools.execution.CommandCapture;
 
-import rs.pedjaapps.KernelTuner.R;
-import rs.pedjaapps.KernelTuner.entry.Frequency;
-import rs.pedjaapps.KernelTuner.helpers.IOHelper;
-import rs.pedjaapps.KernelTuner.tools.ChangeGovernor;
-import rs.pedjaapps.KernelTuner.tools.FrequencyChanger;
-import android.content.Context;
-
 public class CPUActivityOld extends Activity
 {
 
-	private  List<Frequency> freqEntries;
-	private  List<String> frequencies = new ArrayList<String>();
-	private  List<String> freqNames = new ArrayList<String>();
+	private List<String>                       frequencies     = FrequencyCollection.getInstance().getFrequencyValues();
+	private List<String>                       freqNames       = FrequencyCollection.getInstance().getFrequencyStrings();
 	private String cpu0MaxFreq ;
 	private String cpu1MaxFreq ;
 	private String cpu2MaxFreq ;
@@ -111,19 +109,10 @@ public class CPUActivityOld extends Activity
 		@Override
 		protected Boolean doInBackground(Boolean... args)
 		{
-			freqEntries = IOHelper.frequencies();
 			cpu0Online = IOHelper.cpu0Exists();
 			cpu1Online = IOHelper.cpu1Exists();
 			cpu2Online = IOHelper.cpu2Exists();
 			cpu3Online = IOHelper.cpu3Exists();
-			for(Frequency f: freqEntries){
-				frequencies.add(f.getFrequencyValue()+"");
-			}
-			for(Frequency f: freqEntries){
-				freqNames.add(f.getFrequencyString());
-			}
-			
-			
 			if (args[0] == true)
 			{
 					CommandCapture command = new CommandCapture(0, 
@@ -272,29 +261,7 @@ public class CPUActivityOld extends Activity
 	public void onCreate(Bundle savedInstanceState)
 	{
 		c = this;
-		sharedPrefs = PreferenceManager.getDefaultSharedPreferences(c);
-		
-		final String theme = sharedPrefs.getString("theme", "light");
-		
-		if(theme.equals("light")){
-			setTheme(R.style.Theme_Sherlock_Light_Dialog_NoTitleBar);
-		}
-		else if(theme.equals("dark")){
-			setTheme(R.style.Theme_Sherlock_Dialog_NoTitleBar);
-			
-		}
-		else if(theme.equals("light_dark_action_bar")){
-			setTheme(R.style.Theme_Sherlock_Light_Dialog_NoTitleBar);
-			
-		}
-		else if (theme.equals("miui_dark")) 
-		{
-			setTheme(R.style.Theme_Sherlock_Dialog_NoTitleBar);
-		} 
-		else if (theme.equals("sense5")) 
-		{
-			setTheme(R.style.Theme_Sherlock_Dialog_NoTitleBar);
-		}
+		sharedPrefs = MainApp.getInstance().getPrefs();
 		
 		super.onCreate(savedInstanceState);
 

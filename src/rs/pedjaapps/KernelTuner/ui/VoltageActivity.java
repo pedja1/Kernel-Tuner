@@ -18,6 +18,18 @@
 */
 package rs.pedjaapps.KernelTuner.ui;
 
+import java.io.File;
+import java.util.ArrayList;
+import java.util.List;
+
+import rs.pedjaapps.KernelTuner.Constants;
+import rs.pedjaapps.KernelTuner.R;
+import rs.pedjaapps.KernelTuner.entry.Voltage;
+import rs.pedjaapps.KernelTuner.entry.VoltageEntry;
+import rs.pedjaapps.KernelTuner.helpers.DatabaseHandler;
+import rs.pedjaapps.KernelTuner.helpers.IOHelper;
+import rs.pedjaapps.KernelTuner.helpers.VoltageAdapter;
+import rs.pedjaapps.KernelTuner.tools.ChangeVoltage;
 import android.app.ActionBar;
 import android.app.Activity;
 import android.app.AlertDialog;
@@ -34,20 +46,9 @@ import android.view.View.OnClickListener;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ListView;
+
 import com.google.ads.AdRequest;
 import com.google.ads.AdView;
-import java.io.File;
-import java.util.ArrayList;
-import java.util.List;
-import rs.pedjaapps.KernelTuner.Constants;
-import rs.pedjaapps.KernelTuner.R;
-import rs.pedjaapps.KernelTuner.entry.Voltage;
-import rs.pedjaapps.KernelTuner.entry.VoltageEntry;
-import rs.pedjaapps.KernelTuner.helpers.DatabaseHandler;
-import rs.pedjaapps.KernelTuner.helpers.IOHelper;
-import rs.pedjaapps.KernelTuner.helpers.VoltageAdapter;
-import rs.pedjaapps.KernelTuner.tools.ChangeVoltage;
-import rs.pedjaapps.KernelTuner.tools.Tools;
 
 public class VoltageActivity extends Activity
 {
@@ -63,11 +64,6 @@ boolean isLight;
 	@Override
 	public void onCreate(Bundle savedInstanceState)
 	{
-		SharedPreferences preferences = PreferenceManager.getDefaultSharedPreferences(this);
-		
-		String theme = preferences.getString("theme", "light");
-		
-		setTheme(Tools.getPreferedTheme(theme));
 		super.onCreate(savedInstanceState);
 
 		setContentView(R.layout.voltage);

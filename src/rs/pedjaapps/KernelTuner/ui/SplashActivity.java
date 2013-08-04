@@ -8,11 +8,15 @@ import android.app.Activity;
 import android.content.Intent;
 import android.os.AsyncTask;
 import android.os.Bundle;
+import android.preference.PreferenceManager;
 import android.util.Log;
 import android.widget.ProgressBar;
 
 public class SplashActivity extends Activity
 {
+
+	boolean isPreLoadFinished = false;
+	boolean isActualPreLoadFinished = false;
 
 	@Override
 	public void onCreate(Bundle savedInstanceState)
@@ -51,6 +55,7 @@ public class SplashActivity extends Activity
 	private class PreLoad extends AsyncTask<String, Integer, Void>
 	{
 		ProgressBar pb;
+
 		@Override
 		protected Void doInBackground(String... params)
 		{
@@ -72,12 +77,17 @@ public class SplashActivity extends Activity
 		protected void onPostExecute(Void result)
 		{
 			super.onPostExecute(result);
-			Intent intent = new Intent(SplashActivity.this, KernelTuner.class);
-			intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP
-					| Intent.FLAG_ACTIVITY_SINGLE_TOP);
-			startActivity(intent);
+			isPreLoadFinished = true;
+			if (isPreLoadFinished && isActualPreLoadFinished)
+			{
+				Intent intent = new Intent(SplashActivity.this,
+						KernelTuner.class);
+				intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP
+						| Intent.FLAG_ACTIVITY_SINGLE_TOP);
+				startActivity(intent);
 
-			finish();
+				finish();
+			}
 		}
 
 		@Override
@@ -89,7 +99,8 @@ public class SplashActivity extends Activity
 		@Override
 		protected void onProgressUpdate(Integer... progress)
 		{
-			pb.setProgress(progress[0]);
+			if (pb != null)
+				pb.setProgress(progress[0]);
 		}
 
 	}
@@ -101,6 +112,9 @@ public class SplashActivity extends Activity
 		{
 			FrequencyCollection collection = FrequencyCollection.getInstance();
 			collection.getAllFrequencies();
+			MainApp.getInstance().setPrefs(
+					PreferenceManager
+							.getDefaultSharedPreferences(SplashActivity.this));
 			return null;
 		}
 
@@ -108,14 +122,19 @@ public class SplashActivity extends Activity
 		protected void onPostExecute(Void result)
 		{
 			super.onPostExecute(result);
-			Intent intent = new Intent(SplashActivity.this, KernelTuner.class);
-			intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP
-					| Intent.FLAG_ACTIVITY_SINGLE_TOP);
-			startActivity(intent);
+			isActualPreLoadFinished = true;
+			if (isPreLoadFinished && isActualPreLoadFinished)
+			{
+				Intent intent = new Intent(SplashActivity.this,
+						KernelTuner.class);
+				intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP
+						| Intent.FLAG_ACTIVITY_SINGLE_TOP);
+				startActivity(intent);
 
-			finish();
+				finish();
+			}
 		}
 
 	}
-	
+
 }

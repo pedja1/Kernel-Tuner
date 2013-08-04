@@ -51,8 +51,6 @@ public class TISActivity extends Activity {
 		times = IOHelper.getTis();
 		SharedPreferences preferences = PreferenceManager.getDefaultSharedPreferences(this);
 		
-		String theme = preferences.getString("theme", "light");
-		setTheme(Tools.getPreferedTheme(theme));
 		super.onCreate(savedInstanceState);
 
 		setContentView(R.layout.times_in_state);

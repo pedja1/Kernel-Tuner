@@ -62,7 +62,7 @@ public class SDScannerConfigActivity extends Activity
 
 	  TextView path;
 	  LinearLayout chart;
-	  int labelColor;
+	  int labelColor = Color.BLACK;
 	  SDSummaryAdapter summaryAdapter;
 	  ProgressDialog pd;
 	  List<SDSummaryEntry> entries;
@@ -84,44 +84,7 @@ public class SDScannerConfigActivity extends Activity
 	public void onCreate(Bundle savedInstanceState)
 	{
 		SharedPreferences preferences = PreferenceManager.getDefaultSharedPreferences(this);
-		
-		String theme = preferences.getString("theme", "light");
-		
-		if (theme.equals("light")) 
-		{
-			setTheme(android.R.style.Theme_Holo_Light);
-			labelColor = Color.BLACK;
-		} 
-		else if (theme.equals("dark")) 
-		{
-			setTheme(android.R.style.Theme_Holo);
-			labelColor = Color.WHITE;
-		} 
-		else if (theme.equals("light_dark_action_bar")) 
-		{
-			setTheme(android.R.style.Theme_Holo_Light_DarkActionBar);
-			labelColor = Color.BLACK;
-		}
-		else if (theme.equals("miui_light")) 
-		{
-			setTheme(R.style.Theme_Miui_Light);
-			labelColor = Color.BLACK;
-		} 
-		else if (theme.equals("miui_dark")) 
-		{
-			setTheme(R.style.Theme_Miui_Dark);
-			labelColor = Color.WHITE;
-		} 
-		else if (theme.equals("sense5")) 
-		{
-			setTheme(R.style.Theme_Sense5);
-			labelColor = Color.WHITE;
-		}
-		else if (theme.equals("sense5_light")) 
-		{
-			setTheme(R.style.Theme_Light_Sense5);
-			labelColor = Color.BLACK;
-		}
+	
 		super.onCreate(savedInstanceState);
 
 		boolean isSDPresent = android.os.Environment.getExternalStorageState().equals(android.os.Environment.MEDIA_MOUNTED);

@@ -18,6 +18,11 @@
 */
 package rs.pedjaapps.KernelTuner.ui;
 
+import java.util.List;
+
+import rs.pedjaapps.KernelTuner.R;
+import rs.pedjaapps.KernelTuner.entry.FrequencyCollection;
+import rs.pedjaapps.KernelTuner.helpers.IOHelper;
 import android.app.ActionBar;
 import android.app.Activity;
 import android.app.ProgressDialog;
@@ -44,20 +49,13 @@ import com.google.ads.AdRequest;
 import com.google.ads.AdView;
 import com.stericson.RootTools.RootTools;
 import com.stericson.RootTools.execution.CommandCapture;
-import java.util.ArrayList;
-import java.util.List;
-import rs.pedjaapps.KernelTuner.R;
-import rs.pedjaapps.KernelTuner.entry.Frequency;
-import rs.pedjaapps.KernelTuner.helpers.IOHelper;
-import rs.pedjaapps.KernelTuner.tools.Tools;
 
 public class Mpdecision extends Activity
 {
 
+	private List<String>                       freqs     = FrequencyCollection.getInstance().getFrequencyValues();
+	private List<String>                       freqNames       = FrequencyCollection.getInstance().getFrequencyStrings();
 	
-	private List<Frequency> freqEntries;
-	private List<Integer> freqs = new ArrayList<Integer>();
-	private List<String> freqNames = new ArrayList<String>();
 	
 	private String mpscroff;
 	private SharedPreferences preferences;
@@ -157,9 +155,6 @@ public class Mpdecision extends Activity
 	{
 		preferences = PreferenceManager.getDefaultSharedPreferences(this);
 		
-		String theme = preferences.getString("theme", "light");
-		
-		setTheme(Tools.getPreferedTheme(theme));
 		super.onCreate(savedInstanceState);
 
 		setContentView(R.layout.mpdecision);
@@ -168,13 +163,6 @@ public class Mpdecision extends Activity
 		mp_switch = (Switch)findViewById(R.id.mp_switch);
 		idleSpinner =(Spinner)findViewById(R.id.bg);
 		scroffSpinner =(Spinner)findViewById(R.id.spinner2);
-		freqEntries = IOHelper.frequencies();
-		for(Frequency f: freqEntries){
-			freqs.add(f.getFrequencyValue());
-		}
-		for(Frequency f: freqEntries){
-			freqNames.add(f.getFrequencyString());
-		}
 		
 		ActionBar actionBar = getActionBar();
 		actionBar.setDisplayHomeAsUpEnabled(true);
@@ -288,7 +276,7 @@ public class Mpdecision extends Activity
 				@Override
 				public void onItemSelected(AdapterView<?> parent, View view, int pos, long id)
 				{
-					scroffNew = freqs.get(pos)+1;
+					scroffNew = Integer.parseInt(freqs.get(pos))+1;
 
 				}
 
@@ -300,7 +288,7 @@ public class Mpdecision extends Activity
 			});
 
 		try{
-		int scroffPosition = freqsArrayAdapter.getPosition(freqNames.get(freqs.indexOf(Integer.parseInt(scroff))));
+		int scroffPosition = freqsArrayAdapter.getPosition(freqNames.get(freqs.indexOf(scroff)));
 		scroffSpinner.setSelection(scroffPosition);
 		}
 		catch(Exception e){
@@ -312,7 +300,7 @@ public class Mpdecision extends Activity
 				@Override
 				public void onItemSelected(AdapterView<?> parent, View view, int pos, long id)
 				{
-					idleNew = freqs.get(pos)+1;
+					idleNew = Integer.parseInt(freqs.get(pos))+1;
 					System.out.println(idleNew);
 
 				}
@@ -325,7 +313,7 @@ public class Mpdecision extends Activity
 			});
 
 		try{
-		int idlePosition = freqsArrayAdapter.getPosition(freqNames.get(freqs.indexOf(Integer.parseInt(idle))));
+		int idlePosition = freqsArrayAdapter.getPosition(freqNames.get(freqs.indexOf(idle)));
 		idleSpinner.setSelection(idlePosition);
 		}
 		catch(Exception e){

@@ -65,29 +65,7 @@ public class Gpu extends Activity
 		c = this;
     	board = android.os.Build.DEVICE;
     	preferences = PreferenceManager.getDefaultSharedPreferences(c);
-		
-		String theme = preferences.getString("theme", "light");
-		
-		if(theme.equals("light")){
-			setTheme(R.style.Theme_Sherlock_Light_Dialog_NoTitleBar);
-		}
-		else if(theme.equals("dark")){
-			setTheme(R.style.Theme_Sherlock_Dialog_NoTitleBar);
-			
-		}
-		else if(theme.equals("light_dark_action_bar")){
-			setTheme(R.style.Theme_Sherlock_Light_Dialog_NoTitleBar);
-			
-		}
-		else if (theme.equals("miui_dark")) 
-		{
-			setTheme(R.style.Theme_Sherlock_Dialog_NoTitleBar);
-		} 
-		else if (theme.equals("sense5")) 
-		{
-			setTheme(R.style.Theme_Sherlock_Dialog_NoTitleBar);
-		}
-
+	
 		super.onCreate(savedInstanceState);
 		   
 		setContentView(R.layout.gpu);

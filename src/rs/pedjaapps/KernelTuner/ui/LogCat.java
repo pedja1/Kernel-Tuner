@@ -11,16 +11,23 @@ import java.util.List;
 import java.util.concurrent.Executor;
 import java.util.concurrent.Executors;
 
+import rs.pedjaapps.KernelTuner.R;
+import rs.pedjaapps.KernelTuner.entry.LogEntry;
+import rs.pedjaapps.KernelTuner.helpers.LogEntryAdapter;
+import rs.pedjaapps.KernelTuner.helpers.Logcat;
+import rs.pedjaapps.KernelTuner.helpers.LogcatLevel;
+import rs.pedjaapps.KernelTuner.tools.Format;
+import rs.pedjaapps.KernelTuner.tools.LogSaver;
+import rs.pedjaapps.KernelTuner.tools.Prefs;
 import android.app.AlertDialog;
 import android.app.Dialog;
 import android.app.ListActivity;
 import android.content.Intent;
+import android.graphics.Color;
 import android.os.Bundle;
-import android.os.Debug;
 import android.os.Environment;
 import android.os.Handler;
 import android.os.Message;
-import android.text.Html;
 import android.text.TextUtils;
 import android.util.Log;
 import android.view.ContextMenu;
@@ -30,23 +37,8 @@ import android.view.MenuItem;
 import android.view.View;
 import android.view.WindowManager;
 import android.widget.AbsListView;
-import android.widget.AbsListView.OnScrollListener;
 import android.widget.ListView;
-
-
-import rs.pedjaapps.KernelTuner.R;
-import rs.pedjaapps.KernelTuner.entry.LogEntry;
-import rs.pedjaapps.KernelTuner.helpers.LogEntryAdapter;
-import rs.pedjaapps.KernelTuner.helpers.Logcat;
-import rs.pedjaapps.KernelTuner.helpers.LogcatLevel;
-import rs.pedjaapps.KernelTuner.tools.Format;
-import rs.pedjaapps.KernelTuner.tools.LogSaver;
-import rs.pedjaapps.KernelTuner.tools.Prefs;
 import android.widget.Toast;
-import android.content.SharedPreferences;
-import rs.pedjaapps.KernelTuner.tools.Tools;
-import android.preference.PreferenceManager;
-import android.graphics.Color;
 
 public class LogCat extends ListActivity {
 	public static final SimpleDateFormat LOG_DATE_FORMAT = new SimpleDateFormat(
@@ -138,10 +130,6 @@ public class LogCat extends ListActivity {
 	@Override
 	public void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
-		SharedPreferences preferences = PreferenceManager.getDefaultSharedPreferences(this);
-		String theme = preferences.getString("theme", "light");
-
-		setTheme(Tools.getPreferedTheme(theme));
 		setContentView(R.layout.logcat);
 		
 		//getWindow().setTitle(getResources().getString(R.string.app_name));

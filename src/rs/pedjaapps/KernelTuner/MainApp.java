@@ -1,10 +1,12 @@
 package rs.pedjaapps.KernelTuner;
 
 import android.app.Application;
+import android.content.SharedPreferences;
 
 public class MainApp extends Application
 {
 	private static MainApp app = null;
+	SharedPreferences prefs;
 
 	@Override
 	public void onCreate()
@@ -19,6 +21,16 @@ public class MainApp extends Application
 			app = new MainApp();
 		}
 		return app;
+	}
+
+	public SharedPreferences getPrefs()
+	{
+		return prefs;
+	}
+
+	public void setPrefs(SharedPreferences prefs)
+	{
+		this.prefs = prefs;
 	}
 
 }

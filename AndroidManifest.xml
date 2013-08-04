@@ -3,8 +3,8 @@
     xmlns:tools="http://schemas.android.com/tools"
     package="rs.pedjaapps.KernelTuner"
     android:installLocation="internalOnly"
-    android:versionCode="713042013"
-    android:versionName="4.4.7.1" >
+    android:versionCode="822062013"
+    android:versionName="4.4.8" >
 
     <uses-sdk
         android:minSdkVersion="14"
@@ -22,12 +22,13 @@
     <application
         android:allowBackup="true"
         android:icon="@drawable/ic_launcher"
-        android:label="@string/app_name" >
+        android:label="@string/app_name"
+        android:theme="@android:style/Theme.Holo.Light.DarkActionBar" >
         <activity
             android:name="rs.pedjaapps.KernelTuner.ui.KernelTuner"
             android:icon="@drawable/ic_launcher"
             android:label="@string/app_name"
-            android:theme="@style/Theme.Translucent.NoTitleBar"
+            android:theme="@style/Theme.Translucent.NoTitleBar.Light"
             android:windowSoftInputMode="adjustResize" >
             <intent-filter>
                 <action android:name="rs.pedjaapps.KernelTuner.KT" />

@@ -18,6 +18,11 @@
 */
 package rs.pedjaapps.KernelTuner.ui;
 
+import java.util.List;
+
+import rs.pedjaapps.KernelTuner.R;
+import rs.pedjaapps.KernelTuner.entry.FrequencyCollection;
+import rs.pedjaapps.KernelTuner.helpers.IOHelper;
 import android.app.ActionBar;
 import android.app.Activity;
 import android.app.ProgressDialog;
@@ -37,23 +42,16 @@ import android.widget.ArrayAdapter;
 import android.widget.EditText;
 import android.widget.Spinner;
 import android.widget.TextView;
+
 import com.google.ads.AdRequest;
 import com.google.ads.AdView;
 import com.stericson.RootTools.RootTools;
 import com.stericson.RootTools.execution.CommandCapture;
-import java.util.ArrayList;
-import java.util.List;
-import rs.pedjaapps.KernelTuner.R;
-import rs.pedjaapps.KernelTuner.entry.Frequency;
-import rs.pedjaapps.KernelTuner.helpers.IOHelper;
-import rs.pedjaapps.KernelTuner.tools.Tools;
 
 public class Thermald extends Activity
 {
-
-	private List<Frequency> freqEntries;
-	private List<String> freqs = new ArrayList<String>();
-	private List<String> freqNames = new ArrayList<String>();
+	private List<String>                       freqs     = FrequencyCollection.getInstance().getFrequencyValues();
+	private List<String>                       freqNames       = FrequencyCollection.getInstance().getFrequencyStrings();
 	private String p1freq;
 	private String p2freq;
 	private String p3freq;
@@ -146,22 +144,13 @@ public class Thermald extends Activity
 	{
 		preferences = PreferenceManager.getDefaultSharedPreferences(this);
 		
-		String theme = preferences.getString("theme", "light");
-		
-		setTheme(Tools.getPreferedTheme(theme));
 		super.onCreate(savedInstanceState);
 
 		this.getWindow().setSoftInputMode(WindowManager.LayoutParams.SOFT_INPUT_STATE_ALWAYS_HIDDEN); 
 
 
 		setContentView(R.layout.thermald);
-		freqEntries = IOHelper.frequencies();
-		for(Frequency f: freqEntries){
-			freqs.add(f.getFrequencyValue()+"");
-		}
-		for(Frequency f: freqEntries){
-			freqNames.add(f.getFrequencyString());
-		}
+		
 		ActionBar actionBar = getActionBar();
 		actionBar.setDisplayHomeAsUpEnabled(true);
 		boolean ads = preferences.getBoolean("ads", true);

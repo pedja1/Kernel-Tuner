@@ -18,8 +18,24 @@
 */
 package rs.pedjaapps.KernelTuner.ui;
 
-import java.io.*;
+import java.io.File;
+import java.io.FileInputStream;
+import java.io.FileNotFoundException;
+import java.io.FileOutputStream;
+import java.io.IOException;
+import java.io.InputStream;
+import java.nio.channels.FileChannel;
 
+import javax.xml.parsers.DocumentBuilder;
+import javax.xml.parsers.DocumentBuilderFactory;
+import javax.xml.parsers.ParserConfigurationException;
+
+import org.w3c.dom.Document;
+import org.w3c.dom.Element;
+import org.w3c.dom.Node;
+import org.xml.sax.SAXException;
+
+import rs.pedjaapps.KernelTuner.R;
 import android.app.ActionBar;
 import android.app.Activity;
 import android.app.AlertDialog;
@@ -34,19 +50,8 @@ import android.os.Environment;
 import android.preference.PreferenceManager;
 import android.view.MenuItem;
 import android.view.View;
-import android.widget.*;
-
-import java.nio.channels.FileChannel;
-import javax.xml.parsers.DocumentBuilder;
-import javax.xml.parsers.DocumentBuilderFactory;
-import javax.xml.parsers.ParserConfigurationException;
-import org.w3c.dom.Document;
-import org.w3c.dom.Element;
-import org.w3c.dom.Node;
-import org.xml.sax.SAXException;
-import rs.pedjaapps.KernelTuner.ui.BackupRestore;
-import rs.pedjaapps.KernelTuner.R;
-import rs.pedjaapps.KernelTuner.tools.Tools;
+import android.widget.Button;
+import android.widget.Toast;
 
 public class BackupRestore extends Activity
  {
@@ -162,11 +167,6 @@ public class BackupRestore extends Activity
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
-		SharedPreferences sharedPrefs = PreferenceManager
-				.getDefaultSharedPreferences(this);
-		String them = sharedPrefs.getString("theme", "light");
-
-		setTheme(Tools.getPreferedTheme(them));
 		
 		setContentView(R.layout.backup_restore);
 		ActionBar actionBar = getActionBar();

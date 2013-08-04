@@ -18,37 +18,48 @@
 */
 package rs.pedjaapps.KernelTuner.ui;
 
-import android.app.*;
-import android.content.*;
-import android.os.*;
-import android.preference.*;
-import android.view.*;
-import android.widget.*;
-import android.widget.AdapterView.*;
-import android.widget.CompoundButton.*;
-import com.google.ads.*;
-import com.stericson.RootTools.RootTools;
-import com.stericson.RootTools.execution.CommandCapture;
-
-import java.io.*;
-import java.util.*;
-
-import rs.pedjaapps.KernelTuner.entry.Frequency;
-import rs.pedjaapps.KernelTuner.helpers.*;
+import java.io.File;
+import java.util.List;
 
 import org.apache.commons.io.FileUtils;
 
-import rs.pedjaapps.KernelTuner.R;
 import rs.pedjaapps.KernelTuner.Constants;
-import rs.pedjaapps.KernelTuner.tools.Tools;
+import rs.pedjaapps.KernelTuner.R;
+import rs.pedjaapps.KernelTuner.entry.FrequencyCollection;
+import android.app.ActionBar;
+import android.app.Activity;
+import android.app.ProgressDialog;
+import android.content.Intent;
+import android.content.SharedPreferences;
+import android.os.AsyncTask;
+import android.os.Bundle;
+import android.preference.PreferenceManager;
+import android.view.Menu;
+import android.view.MenuInflater;
+import android.view.MenuItem;
+import android.view.View;
+import android.view.WindowManager;
+import android.widget.AdapterView;
+import android.widget.AdapterView.OnItemSelectedListener;
+import android.widget.ArrayAdapter;
+import android.widget.CompoundButton;
+import android.widget.CompoundButton.OnCheckedChangeListener;
+import android.widget.EditText;
+import android.widget.Spinner;
+import android.widget.Switch;
+
+import com.google.ads.AdRequest;
+import com.google.ads.AdView;
+import com.stericson.RootTools.RootTools;
+import com.stericson.RootTools.execution.CommandCapture;
 
 public class MpdecisionNew extends Activity
 {
 
 	
-	private List<Frequency> freqEntries;
-	private List<Integer> freqs = new ArrayList<Integer>();
-	private List<String> freqNames = new ArrayList<String>();
+	private List<String>                       freqs     = FrequencyCollection.getInstance().getFrequencyValues();
+	private List<String>                       freqNames       = FrequencyCollection.getInstance().getFrequencyStrings();
+	
 	
 	private String mpscroff;
 	private SharedPreferences preferences;
@@ -177,9 +188,6 @@ public class MpdecisionNew extends Activity
 	{
 		preferences = PreferenceManager.getDefaultSharedPreferences(this);
 		
-		String theme = preferences.getString("theme", "light");
-		
-		setTheme(Tools.getPreferedTheme(theme));
 		super.onCreate(savedInstanceState);
 
 		setContentView(R.layout.mpdecision_new);
@@ -188,13 +196,7 @@ public class MpdecisionNew extends Activity
 		mp_switch = (Switch)findViewById(R.id.mp_switch);
 		idleSpinner =(Spinner)findViewById(R.id.bg);
 		scroffSpinner =(Spinner)findViewById(R.id.spinner2);
-		freqEntries = IOHelper.frequencies();
-		for(Frequency f: freqEntries){
-			freqs.add(f.getFrequencyValue());
-		}
-		for(Frequency f: freqEntries){
-			freqNames.add(f.getFrequencyString());
-		}
+		
 		
 		ActionBar actionBar = getActionBar();
 		actionBar.setDisplayHomeAsUpEnabled(true);
@@ -292,7 +294,7 @@ public class MpdecisionNew extends Activity
 				@Override
 				public void onItemSelected(AdapterView<?> parent, View view, int pos, long id)
 				{
-					scroffNew = freqs.get(pos)+1;
+					scroffNew = Integer.parseInt(freqs.get(pos))+1;
 
 				}
 
@@ -304,7 +306,7 @@ public class MpdecisionNew extends Activity
 			});
 
 		try{
-		int scroffPosition = freqsArrayAdapter.getPosition(freqNames.get(freqs.indexOf(Integer.parseInt(scroff))));
+		int scroffPosition = freqsArrayAdapter.getPosition(freqNames.get(freqs.indexOf(scroff)));
 		scroffSpinner.setSelection(scroffPosition);
 		}
 		catch(Exception e){
@@ -315,7 +317,7 @@ public class MpdecisionNew extends Activity
 				@Override
 				public void onItemSelected(AdapterView<?> parent, View view, int pos, long id)
 				{
-					idleNew = freqs.get(pos)+1;
+					idleNew = Integer.parseInt(freqs.get(pos))+1;
 
 				}
 
@@ -327,7 +329,7 @@ public class MpdecisionNew extends Activity
 			});
 
 		try{
-		int idlePosition = freqsArrayAdapter.getPosition(freqNames.get(freqs.indexOf(Integer.parseInt(idle))));
+		int idlePosition = freqsArrayAdapter.getPosition(freqNames.get(freqs.indexOf(idle)));
 		idleSpinner.setSelection(idlePosition);
 		}
 		catch(Exception e){

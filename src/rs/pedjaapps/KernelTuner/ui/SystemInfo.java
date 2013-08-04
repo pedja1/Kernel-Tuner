@@ -18,26 +18,51 @@
 */
 package rs.pedjaapps.KernelTuner.ui;
 
-import android.annotation.SuppressLint;
-import android.app.*;
-import android.app.ActivityManager.*;
-import android.content.*;
-import android.content.pm.*;
-import android.graphics.*;
-import android.hardware.*;
-import android.os.*;
-import android.preference.*;
-import android.util.*;
-import android.view.*;
-import android.widget.*;
-import java.io.*;
-import java.util.*;
-
-import rs.pedjaapps.KernelTuner.entry.Frequency;
-import rs.pedjaapps.KernelTuner.helpers.*;
+import java.io.BufferedReader;
+import java.io.File;
+import java.io.FileInputStream;
+import java.io.IOException;
+import java.io.InputStreamReader;
+import java.io.RandomAccessFile;
+import java.util.ArrayList;
+import java.util.List;
 
 import rs.pedjaapps.KernelTuner.R;
+import rs.pedjaapps.KernelTuner.entry.FrequencyCollection;
+import rs.pedjaapps.KernelTuner.helpers.IOHelper;
 import rs.pedjaapps.KernelTuner.tools.Tools;
+import android.annotation.SuppressLint;
+import android.app.ActionBar;
+import android.app.Activity;
+import android.app.ActivityManager;
+import android.app.ActivityManager.MemoryInfo;
+import android.app.Fragment;
+import android.app.FragmentTransaction;
+import android.app.ProgressDialog;
+import android.content.Context;
+import android.content.Intent;
+import android.content.SharedPreferences;
+import android.content.pm.ApplicationInfo;
+import android.content.pm.PackageInfo;
+import android.graphics.Color;
+import android.graphics.Point;
+import android.hardware.Sensor;
+import android.hardware.SensorEvent;
+import android.hardware.SensorEventListener;
+import android.hardware.SensorManager;
+import android.os.AsyncTask;
+import android.os.Build;
+import android.os.Bundle;
+import android.preference.PreferenceManager;
+import android.util.DisplayMetrics;
+import android.view.Display;
+import android.view.LayoutInflater;
+import android.view.MenuItem;
+import android.view.View;
+import android.view.ViewGroup;
+import android.widget.LinearLayout;
+import android.widget.ProgressBar;
+import android.widget.TextView;
 
 public class SystemInfo extends Activity implements
 		ActionBar.TabListener {
@@ -63,8 +88,7 @@ public class SystemInfo extends Activity implements
 
 	private SharedPreferences prefs;
 	private static String tempPref;
-	private List<Frequency> freqEntries;
-	private List<String> freqs = new ArrayList<String>();
+	private List<String>                       freqs    = FrequencyCollection.getInstance().getFrequencyValues();
 	private List<IOHelper.VoltageList> voltEntries;
 	private List<Integer> voltages = new ArrayList<Integer>();
 	private List<String> voltFreq = new ArrayList<String>();
@@ -129,11 +153,9 @@ public class SystemInfo extends Activity implements
 		protected Object doInBackground(String... args) {
 			isSDPresent = android.os.Environment.getExternalStorageState()
 					.equals(android.os.Environment.MEDIA_MOUNTED);
-			freqEntries = IOHelper.frequencies();
+			
 			voltEntries = IOHelper.voltages();
-			for (Frequency f : freqEntries) {
-				freqs.add(f.getFrequencyString());
-			}
+			
 			for (IOHelper.VoltageList v : voltEntries) {
 				voltFreq.add(v.getFreqName());
 			}
@@ -322,11 +344,7 @@ public class SystemInfo extends Activity implements
 
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
-		SharedPreferences preferences = PreferenceManager.getDefaultSharedPreferences(this);
-	
-		String theme = preferences.getString("theme", "light");
 		
-		setTheme(Tools.getPreferedTheme(theme));
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.system_info);
 		unknown = getResources().getString(R.string.unknown);

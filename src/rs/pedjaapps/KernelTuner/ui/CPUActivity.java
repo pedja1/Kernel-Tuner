@@ -19,16 +19,14 @@
 package rs.pedjaapps.KernelTuner.ui;
 import java.io.IOException;
 import java.io.RandomAccessFile;
-import java.util.ArrayList;
 import java.util.List;
 
 import rs.pedjaapps.KernelTuner.R;
-import rs.pedjaapps.KernelTuner.entry.Frequency;
+import rs.pedjaapps.KernelTuner.entry.FrequencyCollection;
 import rs.pedjaapps.KernelTuner.helpers.IOHelper;
 import rs.pedjaapps.KernelTuner.linpack.Tester;
 import rs.pedjaapps.KernelTuner.tools.ChangeGovernor;
 import rs.pedjaapps.KernelTuner.tools.FrequencyChanger;
-import rs.pedjaapps.KernelTuner.tools.Tools;
 import android.app.ActionBar;
 import android.app.Activity;
 import android.app.ProgressDialog;
@@ -67,7 +65,6 @@ import com.stericson.RootTools.execution.CommandCapture;
 public class CPUActivity extends Activity
 {
 
-	private List<Frequency>          freqEntries;
 	private boolean                            thread          = true;
 	private Handler                            mHandler;
 	private TextView                           cpu0prog;
@@ -78,8 +75,8 @@ public class CPUActivity extends Activity
 	private ProgressBar                        progCpu2;
 	private TextView                           cpu3prog;
 	private ProgressBar                        progCpu3;
-	private List<String>                       frequencies     = new ArrayList<String>();
-	private List<String>                       freqNames       = new ArrayList<String>();
+	private List<String>                       frequencies     = FrequencyCollection.getInstance().getFrequencyValues();
+	private List<String>                       freqNames       = FrequencyCollection.getInstance().getFrequencyStrings();
 	private String                             cpu0MaxFreq ;
 	private String                             cpu0CurFreq ;
 	private String                             cpu1MaxFreq ;
@@ -166,9 +163,6 @@ public class CPUActivity extends Activity
 		mHandler = new Handler();
 		sharedPrefs = PreferenceManager.getDefaultSharedPreferences(c);
 		
-		final String theme = sharedPrefs.getString("theme", "light");
-		
-		setTheme(Tools.getPreferedTheme(theme));
 		super.onCreate(savedInstanceState);
 
 		setContentView(R.layout.cpu_tweaks);
@@ -1356,13 +1350,7 @@ startCpuLoadThread();
 		@Override
 		protected Boolean doInBackground(Boolean... args)
 		{
-			freqEntries = IOHelper.frequencies();
-			for(Frequency f: freqEntries){
-				frequencies.add(f.getFrequencyValue()+"");
-			}
-			for(Frequency f: freqEntries){
-				freqNames.add(f.getFrequencyString());
-			}
+			
 			cpu0Online = IOHelper.cpu0Exists();
 			cpu1Online = IOHelper.cpu1Exists();
 			cpu2Online = IOHelper.cpu2Exists();

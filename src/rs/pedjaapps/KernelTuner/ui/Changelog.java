@@ -18,21 +18,19 @@
 */
 package rs.pedjaapps.KernelTuner.ui;
 
-import android.app.Activity;
-import android.content.Intent;
-import android.content.SharedPreferences;
-import android.os.Bundle;
-import android.preference.PreferenceManager;
-import android.view.Menu;
-import android.view.MenuItem;
-import android.widget.ListView;
 import java.util.ArrayList;
 import java.util.List;
+
 import rs.pedjaapps.KernelTuner.R;
 import rs.pedjaapps.KernelTuner.entry.ChangelogEntry;
 import rs.pedjaapps.KernelTuner.helpers.ChangelogAdapter;
-import rs.pedjaapps.KernelTuner.tools.Tools;
+import android.app.Activity;
+import android.content.Intent;
 import android.net.Uri;
+import android.os.Bundle;
+import android.view.Menu;
+import android.view.MenuItem;
+import android.widget.ListView;
 
 public class Changelog extends Activity
 {
@@ -40,9 +38,6 @@ public class Changelog extends Activity
 	public void onCreate(Bundle savedInstanceState)
 	{
 		super.onCreate(savedInstanceState);
-		SharedPreferences prefs = PreferenceManager.getDefaultSharedPreferences(this);
-		String theme = prefs.getString("theme", "light");
-		setTheme(Tools.getPreferedTheme(theme));
 		setContentView(R.layout.changelog);
 
 		ListView mListView = (ListView) findViewById(R.id.list);

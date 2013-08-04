@@ -18,8 +18,14 @@
 */
 package rs.pedjaapps.KernelTuner.ui;
 
-import android.widget.*;
+import java.io.File;
+import java.util.List;
 
+import org.apache.commons.io.FileUtils;
+
+import rs.pedjaapps.KernelTuner.Constants;
+import rs.pedjaapps.KernelTuner.R;
+import rs.pedjaapps.KernelTuner.helpers.IOHelper;
 import android.app.ActionBar;
 import android.app.Activity;
 import android.app.AlertDialog;
@@ -40,20 +46,26 @@ import android.view.View;
 import android.view.View.OnClickListener;
 import android.view.View.OnTouchListener;
 import android.view.WindowManager;
+import android.widget.AdapterView;
 import android.widget.AdapterView.OnItemSelectedListener;
+import android.widget.ArrayAdapter;
+import android.widget.CompoundButton;
 import android.widget.CompoundButton.OnCheckedChangeListener;
+import android.widget.EditText;
+import android.widget.ImageView;
+import android.widget.LinearLayout;
+import android.widget.RadioButton;
+import android.widget.RadioGroup;
+import android.widget.SeekBar;
 import android.widget.SeekBar.OnSeekBarChangeListener;
+import android.widget.Spinner;
+import android.widget.Switch;
+import android.widget.TextView;
+
 import com.google.ads.AdRequest;
 import com.google.ads.AdView;
 import com.stericson.RootTools.RootTools;
 import com.stericson.RootTools.execution.CommandCapture;
-import java.io.File;
-import java.util.List;
-import org.apache.commons.io.FileUtils;
-import rs.pedjaapps.KernelTuner.Constants;
-import rs.pedjaapps.KernelTuner.R;
-import rs.pedjaapps.KernelTuner.helpers.IOHelper;
-import rs.pedjaapps.KernelTuner.tools.Tools;
 
 public class MiscTweaks extends Activity {
 
@@ -438,9 +450,6 @@ public class MiscTweaks extends Activity {
 	public void onCreate(Bundle savedInstanceState) {
 		preferences = PreferenceManager.getDefaultSharedPreferences(this);
 
-		String theme = preferences.getString("theme", "light");
-
-		setTheme(Tools.getPreferedTheme(theme));
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.misc_tweaks);
 

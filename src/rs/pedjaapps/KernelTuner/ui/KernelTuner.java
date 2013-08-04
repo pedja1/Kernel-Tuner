@@ -18,9 +18,35 @@
  */
 package rs.pedjaapps.KernelTuner.ui;
 
-import android.app.*;
+import java.io.File;
+import java.io.FileOutputStream;
+import java.io.IOException;
+import java.io.InputStream;
+import java.io.OutputStream;
+import java.io.RandomAccessFile;
+import java.util.ArrayList;
+import java.util.List;
+
+import rs.pedjaapps.KernelTuner.Constants;
+import rs.pedjaapps.KernelTuner.MainApp;
+import rs.pedjaapps.KernelTuner.R;
+import rs.pedjaapps.KernelTuner.entry.FrequencyCollection;
+import rs.pedjaapps.KernelTuner.helpers.IOHelper;
+import rs.pedjaapps.KernelTuner.services.NotificationService;
+import rs.pedjaapps.KernelTuner.tools.Initd;
+import rs.pedjaapps.KernelTuner.tools.Tools;
+import android.app.ActionBar;
+import android.app.Activity;
+import android.app.ActivityManager;
 import android.app.ActivityManager.RunningServiceInfo;
-import android.content.*;
+import android.app.AlertDialog;
+import android.app.ProgressDialog;
+import android.content.BroadcastReceiver;
+import android.content.Context;
+import android.content.DialogInterface;
+import android.content.Intent;
+import android.content.IntentFilter;
+import android.content.SharedPreferences;
 import android.content.pm.PackageInfo;
 import android.content.pm.PackageManager;
 import android.content.res.AssetManager;
@@ -30,7 +56,6 @@ import android.os.AsyncTask;
 import android.os.BatteryManager;
 import android.os.Bundle;
 import android.os.Handler;
-import android.preference.PreferenceManager;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.Menu;
@@ -38,24 +63,22 @@ import android.view.MenuItem;
 import android.view.View;
 import android.view.View.OnClickListener;
 import android.view.View.OnLongClickListener;
-import android.widget.*;
+import android.widget.Button;
+import android.widget.CheckBox;
+import android.widget.ImageView;
+import android.widget.LinearLayout;
+import android.widget.ProgressBar;
+import android.widget.RelativeLayout;
+import android.widget.TextView;
+import android.widget.Toast;
+
 import com.google.ads.AdRequest;
 import com.google.ads.AdView;
 import com.stericson.RootTools.RootTools;
 import com.stericson.RootTools.execution.CommandCapture;
-import rs.pedjaapps.KernelTuner.Constants;
-import rs.pedjaapps.KernelTuner.R;
-import rs.pedjaapps.KernelTuner.entry.Frequency;
-import rs.pedjaapps.KernelTuner.helpers.IOHelper;
-import rs.pedjaapps.KernelTuner.services.NotificationService;
-import rs.pedjaapps.KernelTuner.tools.Initd;
-import rs.pedjaapps.KernelTuner.tools.Tools;
 
-import java.io.*;
-import java.util.ArrayList;
-import java.util.List;
-
-public class KernelTuner extends Activity implements Runnable {
+public class KernelTuner extends Activity implements Runnable
+{
 
 	private List<String> voltages = new ArrayList<String>();
 	private TextView batteryTemp;
@@ -90,8 +113,9 @@ public class KernelTuner extends Activity implements Runnable {
 	private ProgressBar cpu1progbar;
 	private ProgressBar cpu2progbar;
 	private ProgressBar cpu3progbar;
+	private List<String> freqlist = FrequencyCollection.getInstance()
+			.getFrequencyValues();
 
-	private List<String> freqlist = new ArrayList<String>();
 	private SharedPreferences preferences;
 	private ProgressDialog pd = null;
 
@@ -123,9 +147,11 @@ public class KernelTuner extends Activity implements Runnable {
 	Button cpu2toggle;
 	Button cpu3toggle;
 	final int cpuTempPath = IOHelper.getCpuTempPath();
+	MainApp app;
 
 	@Override
-	public void onCreate(Bundle savedInstanceState) {
+	public void onCreate(Bundle savedInstanceState)
+	{
 		/**
 		 * Strict mode for debuging
 		 */
@@ -135,45 +161,55 @@ public class KernelTuner extends Activity implements Runnable {
 		 * StrictMode.setVmPolicy(new StrictMode.VmPolicy.Builder()
 		 * .detectAll().build());
 		 */
-
+		app = MainApp.getInstance();
 		c = this;
-		List<Frequency> freqEntries = IOHelper.frequencies();
 		List<IOHelper.VoltageList> voltageFreqs = IOHelper.voltages();
-		preferences = PreferenceManager.getDefaultSharedPreferences(c);
+		preferences = app.getPrefs();
 		editor = preferences.edit();
 		theme = preferences.getString("theme", "light");
 		minimal = preferences.getBoolean("main_style", false);
-		if (minimal) {
-			setTheme(Tools.getPreferedThemeTranslucent(theme));
+		if (minimal)
+		{
+			setTheme(R.style.Theme_Translucent_NoTitleBar_Light);
 			setContentView(R.layout.activity_main_popup);
-		} else {
-			setTheme(Tools.getPreferedTheme(theme));
+		}
+		else
+		{
+			setTheme(android.R.style.Theme_Holo_Light_DarkActionBar);
 			setContentView(R.layout.activity_main);
 		}
 		super.onCreate(savedInstanceState);
 		mHandler = new Handler();
-		try {
+		try
+		{
 			refresh = Integer
 					.parseInt(preferences.getString("refresh", "1000"));
-		} catch (Exception e) {
+		}
+		catch (Exception e)
+		{
 			refresh = 1000;
 		}
-		if (!minimal) {
+		if (!minimal)
+		{
 			tempPanel = (LinearLayout) findViewById(R.id.temperature_layout);
 			mainPanel = (LinearLayout) findViewById(R.id.buttons_layout);
 			cpuPanel = (LinearLayout) findViewById(R.id.cpu_info_layout);
 			togglesPanel = (LinearLayout) findViewById(R.id.toggles_layout);
 
-			if (!preferences.getBoolean("main_temp", true)) {
+			if (!preferences.getBoolean("main_temp", true))
+			{
 				tempPanel.setVisibility(View.GONE);
 			}
-			if (!preferences.getBoolean("main_cpu", true)) {
+			if (!preferences.getBoolean("main_cpu", true))
+			{
 				cpuPanel.setVisibility(View.GONE);
 			}
-			if (!preferences.getBoolean("main_toggles", true)) {
+			if (!preferences.getBoolean("main_toggles", true))
+			{
 				togglesPanel.setVisibility(View.GONE);
 			}
-			if (!preferences.getBoolean("main_buttons", true)) {
+			if (!preferences.getBoolean("main_buttons", true))
+			{
 				mainPanel.setVisibility(View.GONE);
 			}
 
@@ -197,14 +233,8 @@ public class KernelTuner extends Activity implements Runnable {
 			actionBar.setSubtitle("Various kernel and system tuning");
 			actionBar.setHomeButtonEnabled(false);
 
-			/**
-			 * Read all available frequency steps
-			 */
-
-			for (Frequency f : freqEntries) {
-				freqlist.add("" + f.getFrequencyValue());
-			}
-			for (IOHelper.VoltageList v : voltageFreqs) {
+			for (IOHelper.VoltageList v : voltageFreqs)
+			{
 				voltages.add(v.getFreq());
 			}
 
@@ -234,22 +264,27 @@ public class KernelTuner extends Activity implements Runnable {
 		 * Extract assets if first launch
 		 */
 		first = preferences.getBoolean("first_launch", false);
-		if (!first) {
+		if (!first)
+		{
 			CopyAssets();
 		}
 
 		File file = new File("/sys/kernel/debug");
 
-		if (file.exists() && file.list().length > 0) {
+		if (file.exists() && file.list().length > 0)
+		{
 
-		} else {
+		}
+		else
+		{
 			new mountDebugFs().execute();
 		}
 
 		/*
 		 * Enable temperature monitor
 		 */
-		if (!IOHelper.isTempEnabled()) {
+		if (!IOHelper.isTempEnabled())
+		{
 			new enableTempMonitor().execute();
 		}
 
@@ -288,16 +323,21 @@ public class KernelTuner extends Activity implements Runnable {
 
 		cpu = (Button) findViewById(R.id.btn_cpu);
 
-		cpu.setOnClickListener(new OnClickListener() {
+		cpu.setOnClickListener(new OnClickListener()
+		{
 
 			@Override
-			public void onClick(View v) {
+			public void onClick(View v)
+			{
 
 				String cpu = preferences.getString("show_cpu_as", "full");
 				Intent myIntent = null;
-				if (cpu.equals("full")) {
+				if (cpu.equals("full"))
+				{
 					myIntent = new Intent(c, CPUActivity.class);
-				} else if (cpu.equals("minimal")) {
+				}
+				else if (cpu.equals("minimal"))
+				{
 					myIntent = new Intent(c, CPUActivityOld.class);
 				}
 				startActivity(myIntent);
@@ -309,12 +349,15 @@ public class KernelTuner extends Activity implements Runnable {
 				Constants.G_S_URL_PREFIX + "CPU", true));
 
 		tis = (Button) findViewById(R.id.btn_times);
-		tis.setOnClickListener(new OnClickListener() {
+		tis.setOnClickListener(new OnClickListener()
+		{
 
 			@Override
-			public void onClick(View v) {
+			public void onClick(View v)
+			{
 				String tisChoice = preferences.getString("tis_open_as", "ask");
-				if (tisChoice.equals("ask")) {
+				if (tisChoice.equals("ask"))
+				{
 					AlertDialog.Builder builder = new AlertDialog.Builder(c);
 
 					builder.setTitle("Display As");
@@ -328,14 +371,17 @@ public class KernelTuner extends Activity implements Runnable {
 					final CheckBox remember = (CheckBox) view
 							.findViewById(R.id.checkBox1);
 
-					list.setOnClickListener(new OnClickListener() {
+					list.setOnClickListener(new OnClickListener()
+					{
 
 						@Override
-						public void onClick(View arg0) {
+						public void onClick(View arg0)
+						{
 
 							Intent myIntent = new Intent(c, TISActivity.class);
 							startActivity(myIntent);
-							if (remember.isChecked()) {
+							if (remember.isChecked())
+							{
 								editor.putString("tis_open_as", "list");
 								editor.commit();
 							}
@@ -345,15 +391,18 @@ public class KernelTuner extends Activity implements Runnable {
 
 					});
 
-					chart.setOnClickListener(new OnClickListener() {
+					chart.setOnClickListener(new OnClickListener()
+					{
 
 						@Override
-						public void onClick(View arg0) {
+						public void onClick(View arg0)
+						{
 
 							Intent myIntent = new Intent(c,
 									TISActivityChart.class);
 							startActivity(myIntent);
-							if (remember.isChecked()) {
+							if (remember.isChecked())
+							{
 								editor.putString("tis_open_as", "chart");
 								editor.commit();
 							}
@@ -367,10 +416,14 @@ public class KernelTuner extends Activity implements Runnable {
 					alert = builder.create();
 
 					alert.show();
-				} else if (tisChoice.equals("list")) {
+				}
+				else if (tisChoice.equals("list"))
+				{
 					Intent myIntent = new Intent(c, TISActivity.class);
 					startActivity(myIntent);
-				} else if (tisChoice.equals("chart")) {
+				}
+				else if (tisChoice.equals("chart"))
+				{
 					Intent myIntent = new Intent(c, TISActivityChart.class);
 					startActivity(myIntent);
 				}
@@ -383,15 +436,20 @@ public class KernelTuner extends Activity implements Runnable {
 				Constants.G_S_URL_PREFIX + "cpu times_in_state", true));
 
 		mp = (Button) findViewById(R.id.btn_mpdecision);
-		mp.setOnClickListener(new OnClickListener() {
+		mp.setOnClickListener(new OnClickListener()
+		{
 
 			@Override
-			public void onClick(View v) {
+			public void onClick(View v)
+			{
 
 				Intent myIntent = null;
-				if (new File(Constants.MPDEC_THR_DOWN).exists()) {
+				if (new File(Constants.MPDEC_THR_DOWN).exists())
+				{
 					myIntent = new Intent(c, Mpdecision.class);
-				} else if (new File(Constants.MPDEC_THR_0).exists()) {
+				}
+				else if (new File(Constants.MPDEC_THR_0).exists())
+				{
 					myIntent = new Intent(c, MpdecisionNew.class);
 				}
 				startActivity(myIntent);
@@ -447,26 +505,33 @@ public class KernelTuner extends Activity implements Runnable {
 				getResources().getString(R.string.info_sd_text), "", false));
 
 		Button info = (Button) findViewById(R.id.btn_info);
-		if (minimal) {
+		if (minimal)
+		{
 			info.setText("Settings");
 			info.setCompoundDrawablesWithIntrinsicBounds(null, getResources()
 					.getDrawable(R.drawable.settings), null, null);
 		}
-		info.setOnClickListener(new OnClickListener() {
+		info.setOnClickListener(new OnClickListener()
+		{
 
 			@Override
-			public void onClick(View v) {
-				if (minimal) {
+			public void onClick(View v)
+			{
+				if (minimal)
+				{
 					Intent myIntent = new Intent(c, Preferences.class);
 					startActivity(myIntent);
-				} else {
+				}
+				else
+				{
 					Intent myIntent = new Intent(c, SystemInfo.class);
 					startActivity(myIntent);
 				}
 
 			}
 		});
-		if (!minimal) {
+		if (!minimal)
+		{
 			info.setOnLongClickListener(new InfoListener(R.drawable.info,
 					getResources().getString(R.string.info_sys_info_title),
 					getResources().getString(R.string.info_sys_info_text), "",
@@ -504,24 +569,30 @@ public class KernelTuner extends Activity implements Runnable {
 
 		initialCheck();
 		if (preferences.getBoolean("notificationService", false)
-				&& !isNotificationServiceRunning()) {
+				&& !isNotificationServiceRunning())
+		{
 			startService(new Intent(c, NotificationService.class));
-		} else if (!preferences.getBoolean("notificationService", false)
-				&& isNotificationServiceRunning()) {
+		}
+		else if (!preferences.getBoolean("notificationService", false)
+				&& isNotificationServiceRunning())
+		{
 			stopService(new Intent(c, NotificationService.class));
 		}
 	}
 
-	class ToggleListener implements OnClickListener {
+	class ToggleListener implements OnClickListener
+	{
 
 		int cpu;
 
-		public ToggleListener(int cpu) {
+		public ToggleListener(int cpu)
+		{
 			this.cpu = cpu;
 		}
 
 		@Override
-		public void onClick(View v) {
+		public void onClick(View v)
+		{
 			KernelTuner.this.pd = ProgressDialog.show(c, null, getResources()
 					.getString(R.string.applying_settings), true, true);
 			new CPUToggle().execute(cpu + "");
@@ -529,22 +600,26 @@ public class KernelTuner extends Activity implements Runnable {
 
 	}
 
-	class StartActivityListener implements OnClickListener {
+	class StartActivityListener implements OnClickListener
+	{
 
 		Class<?> cls;
 
-		public StartActivityListener(Class<?> cls) {
+		public StartActivityListener(Class<?> cls)
+		{
 			this.cls = cls;
 		}
 
 		@Override
-		public void onClick(View v) {
+		public void onClick(View v)
+		{
 			startActivity(new Intent(c, cls));
 		}
 
 	}
 
-	class InfoListener implements OnLongClickListener {
+	class InfoListener implements OnLongClickListener
+	{
 
 		int icon;
 		String title;
@@ -553,7 +628,8 @@ public class KernelTuner extends Activity implements Runnable {
 		boolean more;
 
 		public InfoListener(int icon, String title, String text, String url,
-				boolean more) {
+				boolean more)
+		{
 			this.icon = icon;
 			this.title = title;
 			this.text = text;
@@ -562,7 +638,8 @@ public class KernelTuner extends Activity implements Runnable {
 		}
 
 		@Override
-		public boolean onLongClick(View v) {
+		public boolean onLongClick(View v)
+		{
 			AlertDialog.Builder builder = new AlertDialog.Builder(c);
 
 			builder.setTitle(title);
@@ -576,19 +653,24 @@ public class KernelTuner extends Activity implements Runnable {
 
 			builder.setPositiveButton(getResources()
 					.getString(R.string.info_ok),
-					new DialogInterface.OnClickListener() {
+					new DialogInterface.OnClickListener()
+					{
 						@Override
-						public void onClick(DialogInterface dialog, int which) {
+						public void onClick(DialogInterface dialog, int which)
+						{
 
 						}
 					});
-			if (more) {
+			if (more)
+			{
 				builder.setNeutralButton(
 						getResources().getString(R.string.info_more),
-						new DialogInterface.OnClickListener() {
+						new DialogInterface.OnClickListener()
+						{
 
 							@Override
-							public void onClick(DialogInterface arg0, int arg1) {
+							public void onClick(DialogInterface arg0, int arg1)
+							{
 								Uri uri = Uri.parse(url);
 								Intent intent = new Intent(Intent.ACTION_VIEW,
 										uri);
@@ -607,21 +689,24 @@ public class KernelTuner extends Activity implements Runnable {
 	}
 
 	@Override
-	public void onPause() {
+	public void onPause()
+	{
 
 		super.onPause();
 
 	}
 
 	@Override
-	protected void onResume() {
+	protected void onResume()
+	{
 
 		/**
 		 * Register BroadcastReceiver that will listen for battery changes and
 		 * update ui
 		 */
 
-		if (!minimal) {
+		if (!minimal)
+		{
 			this.registerReceiver(this.mBatInfoReceiver, new IntentFilter(
 					Intent.ACTION_BATTERY_CHANGED));
 
@@ -631,9 +716,12 @@ public class KernelTuner extends Activity implements Runnable {
 		 * else remove them
 		 */
 		String boot = preferences.getString("boot", "init.d");
-		if (boot.equals("init.d")) {
+		if (boot.equals("init.d"))
+		{
 			Tools.exportInitdScripts(c, voltages);
-		} else {
+		}
+		else
+		{
 			new Initd(this).execute("rm");
 		}
 
@@ -642,12 +730,14 @@ public class KernelTuner extends Activity implements Runnable {
 	}
 
 	@Override
-	public void onStop() {
+	public void onStop()
+	{
 
 		/**
 		 * Unregister receiver
 		 */
-		if (!minimal && mBatInfoReceiver != null) {
+		if (!minimal && mBatInfoReceiver != null)
+		{
 			unregisterReceiver(mBatInfoReceiver);
 			mBatInfoReceiver = null;
 		}
@@ -657,16 +747,20 @@ public class KernelTuner extends Activity implements Runnable {
 	}
 
 	@Override
-	public void onDestroy() {
+	public void onDestroy()
+	{
 
 		/**
 		 * set thread false so that cpu info thread stop repeating
 		 */
 		super.onDestroy();
 		thread = false;
-		try {
+		try
+		{
 			RootTools.closeAllShells();
-		} catch (IOException e) {
+		}
+		catch (IOException e)
+		{
 			Log.e(Constants.LOG_TAG, e.getMessage());
 		}
 	}
@@ -675,19 +769,23 @@ public class KernelTuner extends Activity implements Runnable {
 	 * Display changelog if version is higher than one stored on shared
 	 * preferences than store curent version
 	 */
-	private void changelog() {
+	private void changelog()
+	{
 
 		String versionpref = preferences.getString("version", "");
 
-		try {
+		try
+		{
 			PackageInfo pInfo = getPackageManager().getPackageInfo(
 					getPackageName(), 0);
 			String version = pInfo.versionName;
-			if (!versionpref.equals(version)) {
+			if (!versionpref.equals(version))
+			{
 
 				Intent myIntent = new Intent(c, Changelog.class);
 				startActivity(myIntent);
-				if (first) {
+				if (first)
+				{
 					CopyAssets();
 				}
 
@@ -695,7 +793,9 @@ public class KernelTuner extends Activity implements Runnable {
 
 			editor.putString("version", version);
 			editor.commit();
-		} catch (PackageManager.NameNotFoundException e) {
+		}
+		catch (PackageManager.NameNotFoundException e)
+		{
 			Log.e(Constants.LOG_TAG, e.getMessage());
 		}
 
@@ -705,36 +805,50 @@ public class KernelTuner extends Activity implements Runnable {
 	 * CPU Temperature
 	 */
 
-	private void cpuTemp(String cputemp) {
+	private void cpuTemp(String cputemp)
+	{
 		cpuTempLayout.setVisibility(View.VISIBLE);
 
 		/**
 		 * If fahrenheit is selected in settings, convert temp to fahreinheit
 		 */
-		if (!cputemp.equals("") || cputemp.length() != 0) {
-			if (tempPref.equals("fahrenheit")) {
+		if (!cputemp.equals("") || cputemp.length() != 0)
+		{
+			if (tempPref.equals("fahrenheit"))
+			{
 				cputemp = String
 						.valueOf((int) (Double.parseDouble(cputemp) * 1.8) + 32);
 				cputemptxt.setText(cputemp + "°F");
 				int temp = Integer.parseInt(cputemp);
 
-				if (temp < 113) {
+				if (temp < 113)
+				{
 					cputemptxt.setTextColor(Color.GREEN);
-				} else if (temp >= 113 && temp < 138) {
+				}
+				else if (temp >= 113 && temp < 138)
+				{
 					cputemptxt.setTextColor(Color.YELLOW);
-				} else if (temp >= 138) {
+				}
+				else if (temp >= 138)
+				{
 					cputemptxt.setTextColor(Color.RED);
 				}
 			}
 
-			else if (tempPref.equals("celsius")) {
+			else if (tempPref.equals("celsius"))
+			{
 				cputemptxt.setText(cputemp + "°C");
 				int temp = Integer.parseInt(cputemp);
-				if (temp < 45) {
+				if (temp < 45)
+				{
 					cputemptxt.setTextColor(Color.GREEN);
-				} else if (temp >= 45 && temp <= 59) {
+				}
+				else if (temp >= 45 && temp <= 59)
+				{
 					cputemptxt.setTextColor(Color.YELLOW);
-				} else if (temp > 59) {
+				}
+				else if (temp > 59)
+				{
 					cputemptxt.setTextColor(Color.RED);
 
 				}
@@ -742,40 +856,51 @@ public class KernelTuner extends Activity implements Runnable {
 			/**
 			 * If kelvin is selected in settings convert cpu temp to kelvin
 			 */
-			else if (tempPref.equals("kelvin")) {
+			else if (tempPref.equals("kelvin"))
+			{
 				cputemp = String
 						.valueOf((int) (Double.parseDouble(cputemp) + 273.15));
 
 				cputemptxt.setText(cputemp + "°K");
 				int temp = Integer.parseInt(cputemp);
-				if (temp < 318) {
+				if (temp < 318)
+				{
 					cputemptxt.setTextColor(Color.GREEN);
-				} else if (temp >= 318 && temp <= 332) {
+				}
+				else if (temp >= 318 && temp <= 332)
+				{
 					cputemptxt.setTextColor(Color.YELLOW);
-				} else if (temp > 332) {
+				}
+				else if (temp > 332)
+				{
 					cputemptxt.setTextColor(Color.RED);
 
 				}
 			}
 
-		} else {
+		}
+		else
+		{
 			cpuTempLayout.setVisibility(View.GONE);
 		}
 
 	}
 
-	private void initialCheck() {
+	private void initialCheck()
+	{
 
 		String dOpt = preferences
 				.getString("unsupported_items_display", "hide");
 		/**
 		 * Show/hide certain Views depending on number of cpus
 		 */
-		if (!minimal) {
+		if (!minimal)
+		{
 			RelativeLayout cpu1ProgLayout = (RelativeLayout) findViewById(R.id.cpu1ProgLayout);
 			RelativeLayout cpu2ProgLayout = (RelativeLayout) findViewById(R.id.cpu2ProgLayout);
 			RelativeLayout cpu3ProgLayout = (RelativeLayout) findViewById(R.id.cpu3ProgLayout);
-			if (IOHelper.cpu1Exists()) {
+			if (IOHelper.cpu1Exists())
+			{
 
 				if (dOpt.equals("hide"))
 					cpu1toggle.setVisibility(View.VISIBLE);
@@ -784,7 +909,9 @@ public class KernelTuner extends Activity implements Runnable {
 
 				cpu1ProgLayout.setVisibility(View.VISIBLE);
 
-			} else {
+			}
+			else
+			{
 
 				if (dOpt.equals("hide"))
 					cpu1toggle.setVisibility(View.GONE);
@@ -793,7 +920,8 @@ public class KernelTuner extends Activity implements Runnable {
 
 				cpu1ProgLayout.setVisibility(View.GONE);
 			}
-			if (IOHelper.cpu2Exists()) {
+			if (IOHelper.cpu2Exists())
+			{
 
 				if (dOpt.equals("hide"))
 					cpu2toggle.setVisibility(View.VISIBLE);
@@ -802,7 +930,9 @@ public class KernelTuner extends Activity implements Runnable {
 
 				cpu2ProgLayout.setVisibility(View.VISIBLE);
 
-			} else {
+			}
+			else
+			{
 
 				if (dOpt.equals("hide"))
 					cpu2toggle.setVisibility(View.GONE);
@@ -811,7 +941,8 @@ public class KernelTuner extends Activity implements Runnable {
 
 				cpu2ProgLayout.setVisibility(View.GONE);
 			}
-			if (IOHelper.cpu3Exists()) {
+			if (IOHelper.cpu3Exists())
+			{
 
 				if (dOpt.equals("hide"))
 					cpu3toggle.setVisibility(View.VISIBLE);
@@ -820,7 +951,9 @@ public class KernelTuner extends Activity implements Runnable {
 
 				cpu3ProgLayout.setVisibility(View.VISIBLE);
 
-			} else {
+			}
+			else
+			{
 				if (dOpt.equals("hide"))
 					cpu3toggle.setVisibility(View.GONE);
 				else
@@ -834,49 +967,75 @@ public class KernelTuner extends Activity implements Runnable {
 		 * Check for certain files in sysfs and if they doesnt exists hide
 		 * depending views
 		 */
-		if (!(new File(Constants.CPU0_FREQS).exists())) {
-			if (!(new File(Constants.TIMES_IN_STATE_CPU0).exists())) {
-				if (dOpt.equals("hide")) {
+		if (!(new File(Constants.CPU0_FREQS).exists()))
+		{
+			if (!(new File(Constants.TIMES_IN_STATE_CPU0).exists()))
+			{
+				if (dOpt.equals("hide"))
+				{
 					cpu.setVisibility(View.GONE);
-				} else {
+				}
+				else
+				{
 					cpu.setEnabled(false);
 				}
 			}
 		}
-		if (!(new File(Constants.VOLTAGE_PATH).exists())) {
-			if (!(new File(Constants.VOLTAGE_PATH_TEGRA_3).exists())) {
-				if (dOpt.equals("hide")) {
+		if (!(new File(Constants.VOLTAGE_PATH).exists()))
+		{
+			if (!(new File(Constants.VOLTAGE_PATH_TEGRA_3).exists()))
+			{
+				if (dOpt.equals("hide"))
+				{
 					voltage.setVisibility(View.GONE);
-				} else {
+				}
+				else
+				{
 					voltage.setEnabled(false);
 				}
 			}
 		}
-		if (!(new File(Constants.TIMES_IN_STATE_CPU0).exists())) {
-			if (dOpt.equals("hide")) {
+		if (!(new File(Constants.TIMES_IN_STATE_CPU0).exists()))
+		{
+			if (dOpt.equals("hide"))
+			{
 				tis.setVisibility(View.GONE);
-			} else {
+			}
+			else
+			{
 				tis.setEnabled(false);
 			}
 		}
-		if (!(new File(Constants.MPDECISION).exists())) {
-			if (dOpt.equals("hide")) {
+		if (!(new File(Constants.MPDECISION).exists()))
+		{
+			if (dOpt.equals("hide"))
+			{
 				mp.setVisibility(View.GONE);
-			} else {
+			}
+			else
+			{
 				mp.setEnabled(false);
 			}
 		}
-		if (!(new File(Constants.THERMALD).exists())) {
-			if (dOpt.equals("hide")) {
+		if (!(new File(Constants.THERMALD).exists()))
+		{
+			if (dOpt.equals("hide"))
+			{
 				thermal.setVisibility(View.GONE);
-			} else {
+			}
+			else
+			{
 				thermal.setEnabled(false);
 			}
 		}
-		if (!(new File(Constants.GPU_3D).exists())) {
-			if (dOpt.equals("hide")) {
+		if (!(new File(Constants.GPU_3D).exists()))
+		{
+			if (dOpt.equals("hide"))
+			{
 				gpu.setVisibility(View.GONE);
-			} else {
+			}
+			else
+			{
 				gpu.setEnabled(false);
 			}
 		}
@@ -886,79 +1045,106 @@ public class KernelTuner extends Activity implements Runnable {
 	/**
 	 * Update UI with current frequency
 	 */
-	private void cpu0update() {
+	private void cpu0update()
+	{
 
-		if (!freqcpu0.equals("offline") && freqcpu0.length() != 0) {
+		if (!freqcpu0.equals("offline") && freqcpu0.length() != 0)
+		{
 			cpu0prog.setText(freqcpu0.trim()
 					.substring(0, freqcpu0.length() - 3) + "MHz");
-		} else {
+		}
+		else
+		{
 			cpu0prog.setText("offline");
 		}
-		if (freqlist != null) {
+		if (freqlist != null)
+		{
 
 			cpu0progbar.setMax(freqlist.indexOf(cpu0max.trim()) + 1);
 			cpu0progbar.setProgress(freqlist.indexOf(freqcpu0.trim()) + 1);
 		}
 	}
 
-	private void cpu1update() {
+	private void cpu1update()
+	{
 
-		if (!freqcpu1.equals("offline") && freqcpu1.length() != 0) {
+		if (!freqcpu1.equals("offline") && freqcpu1.length() != 0)
+		{
 			cpu1prog.setText(freqcpu1.trim()
 					.substring(0, freqcpu1.length() - 3) + "MHz");
-		} else {
+		}
+		else
+		{
 			cpu1prog.setText("offline");
 		}
-		if (freqlist != null) {
+		if (freqlist != null)
+		{
 
 			cpu1progbar.setMax(freqlist.indexOf(cpu1max.trim()) + 1);
 			cpu1progbar.setProgress(freqlist.indexOf(freqcpu1.trim()) + 1);
 		}
 	}
 
-	private void cpu2update() {
-		if (!freqcpu2.equals("offline") && freqcpu2.length() != 0) {
+	private void cpu2update()
+	{
+		if (!freqcpu2.equals("offline") && freqcpu2.length() != 0)
+		{
 			cpu2prog.setText(freqcpu2.trim()
 					.substring(0, freqcpu2.length() - 3) + "MHz");
-		} else {
+		}
+		else
+		{
 			cpu2prog.setText("offline");
 		}
-		if (freqlist != null) {
+		if (freqlist != null)
+		{
 
 			cpu2progbar.setMax(freqlist.indexOf(cpu2max.trim()) + 1);
 			cpu2progbar.setProgress(freqlist.indexOf(freqcpu2.trim()) + 1);
 		}
 	}
 
-	private void cpu3update() {
+	private void cpu3update()
+	{
 
-		if (!freqcpu3.equals("offline") && freqcpu3.length() != 0) {
+		if (!freqcpu3.equals("offline") && freqcpu3.length() != 0)
+		{
 			cpu3prog.setText(freqcpu3.trim()
 					.substring(0, freqcpu3.length() - 3) + "MHz");
-		} else {
+		}
+		else
+		{
 			cpu3prog.setText("offline");
 		}
 
-		if (freqlist != null) {
+		if (freqlist != null)
+		{
 
 			cpu3progbar.setMax(freqlist.indexOf(cpu3max.trim()) + 1);
 			cpu3progbar.setProgress(freqlist.indexOf(freqcpu3.trim()) + 1);
 		}
 	}
 
-	private void setCpuLoad() {
+	private void setCpuLoad()
+	{
 		cpuLoad.setProgress(load);
 		cpuLoadTxt.setText(load + "%");
 	}
 
 	@Override
-	public boolean onCreateOptionsMenu(Menu menu) {
+	public boolean onCreateOptionsMenu(Menu menu)
+	{
 
-		if (theme.equals("light")) {
+		if (theme.equals("light"))
+		{
 			isLight = true;
-		} else if (theme.equals("dark")) {
+		}
+		else if (theme.equals("dark"))
+		{
 			isLight = false;
-		} else if (theme.equals("light_dark_action_bar")) {
+		}
+		else if (theme.equals("light_dark_action_bar"))
+		{
 			isLight = false;
 		}
 		menu.add(1, 1, 1, "Settings")
@@ -976,15 +1162,21 @@ public class KernelTuner extends Activity implements Runnable {
 	}
 
 	@Override
-	public boolean onOptionsItemSelected(MenuItem item) {
+	public boolean onOptionsItemSelected(MenuItem item)
+	{
 
-		if (item.getItemId() == 1) {
+		if (item.getItemId() == 1)
+		{
 
 			startActivity(new Intent(c, Preferences.class));
 
-		} else if (item.getItemId() == 2) {
+		}
+		else if (item.getItemId() == 2)
+		{
 			startActivity(new Intent(c, CompatibilityCheck.class));
-		} else if (item.getItemId() == 3) {
+		}
+		else if (item.getItemId() == 3)
+		{
 			Intent myIntent = new Intent(c, Swap.class);
 			startActivity(myIntent);
 		}
@@ -995,47 +1187,63 @@ public class KernelTuner extends Activity implements Runnable {
 	 * Press back button twice to exit application
 	 */
 	@Override
-	public void onBackPressed() {
-		if (!minimal) {
-			if (mLastBackPressTime < java.lang.System.currentTimeMillis() - 4000) {
+	public void onBackPressed()
+	{
+		if (!minimal)
+		{
+			if (mLastBackPressTime < java.lang.System.currentTimeMillis() - 4000)
+			{
 				mToast = Toast.makeText(c,
 						getResources().getString(R.string.press_again_to_exit),
 						Toast.LENGTH_SHORT);
 				mToast.show();
 				mLastBackPressTime = java.lang.System.currentTimeMillis();
-			} else {
+			}
+			else
+			{
 				if (mToast != null)
 					mToast.cancel();
 				KernelTuner.this.finish();
 				// java.lang.System.exit(0);
 				mLastBackPressTime = 0;
 			}
-		} else {
+		}
+		else
+		{
 			KernelTuner.this.finish();
 			// java.lang.System.exit(0);
 		}
 	}
 
-	private void CopyAssets() {
+	private void CopyAssets()
+	{
 		AssetManager assetManager = getAssets();
 		String[] files = null;
 		File file;
-		try {
+		try
+		{
 			files = assetManager.list("");
-		} catch (IOException e) {
+		}
+		catch (IOException e)
+		{
 			Log.e("tag1", e.getMessage());
 		}
-		for (String filename : files) {
+		for (String filename : files)
+		{
 			InputStream in = null;
 			OutputStream out = null;
-			try {
+			try
+			{
 				in = assetManager.open(filename);
 				file = new File(this.getFilesDir().getAbsolutePath() + "/"
 						+ filename);
 				out = new FileOutputStream(file);
-				if (file.isFile()) {
+				if (file.isFile())
+				{
 					copyFile(in, out);
-				} else {
+				}
+				else
+				{
 					file.mkdir();
 				}
 				in.close();
@@ -1045,7 +1253,9 @@ public class KernelTuner extends Activity implements Runnable {
 				out.flush();
 				out.close();
 				out = null;
-			} catch (Exception e) {
+			}
+			catch (Exception e)
+			{
 				Log.e("tag2", e.getMessage());
 			}
 		}
@@ -1054,81 +1264,113 @@ public class KernelTuner extends Activity implements Runnable {
 		editor.commit();
 	}
 
-	private void copyFile(InputStream in, OutputStream out) throws IOException {
+	private void copyFile(InputStream in, OutputStream out) throws IOException
+	{
 		byte[] buffer = new byte[1024];
 		int read;
-		while ((read = in.read(buffer)) != -1) {
+		while ((read = in.read(buffer)) != -1)
+		{
 			out.write(buffer, 0, read);
 		}
 	}
 
-	private boolean isNotificationServiceRunning() {
+	private boolean isNotificationServiceRunning()
+	{
 		ActivityManager manager = (ActivityManager) getSystemService(Context.ACTIVITY_SERVICE);
 		for (RunningServiceInfo service : manager
-				.getRunningServices(Integer.MAX_VALUE)) {
+				.getRunningServices(Integer.MAX_VALUE))
+		{
 			if (NotificationService.class.getName().equals(
-					service.service.getClassName())) {
+					service.service.getClassName()))
+			{
 				return true;
 			}
 		}
 		return false;
 	}
 
-	private BroadcastReceiver mBatInfoReceiver = new BroadcastReceiver() {
+	private BroadcastReceiver mBatInfoReceiver = new BroadcastReceiver()
+	{
 		@Override
-		public void onReceive(Context arg0, Intent intent) {
+		public void onReceive(Context arg0, Intent intent)
+		{
 
 			double temperature = intent.getIntExtra(
 					BatteryManager.EXTRA_TEMPERATURE, 0) / 10;
 
-			if (tempPref.equals("fahrenheit")) {
+			if (tempPref.equals("fahrenheit"))
+			{
 				temperature = (temperature * 1.8) + 32;
 				batteryTemp.setText(((int) temperature) + "°F");
-				if (temperature <= 104) {
+				if (temperature <= 104)
+				{
 					batteryTemp.setTextColor(Color.GREEN);
 
-				} else if (temperature > 104 && temperature < 131) {
+				}
+				else if (temperature > 104 && temperature < 131)
+				{
 					batteryTemp.setTextColor(Color.YELLOW);
 
-				} else if (temperature >= 131 && temperature < 140) {
+				}
+				else if (temperature >= 131 && temperature < 140)
+				{
 					batteryTemp.setTextColor(Color.RED);
 
-				} else if (temperature >= 140) {
+				}
+				else if (temperature >= 140)
+				{
 
 					batteryTemp.setTextColor(Color.RED);
 
 				}
 			}
 
-			else if (tempPref.equals("celsius")) {
+			else if (tempPref.equals("celsius"))
+			{
 				batteryTemp.setText(temperature + "°C");
-				if (temperature < 45) {
+				if (temperature < 45)
+				{
 					batteryTemp.setTextColor(Color.GREEN);
 
-				} else if (temperature > 45 && temperature < 55) {
+				}
+				else if (temperature > 45 && temperature < 55)
+				{
 					batteryTemp.setTextColor(Color.YELLOW);
 
-				} else if (temperature >= 55 && temperature < 60) {
+				}
+				else if (temperature >= 55 && temperature < 60)
+				{
 					batteryTemp.setTextColor(Color.RED);
 
-				} else if (temperature >= 60) {
+				}
+				else if (temperature >= 60)
+				{
 
 					batteryTemp.setTextColor(Color.RED);
 
 				}
-			} else if (tempPref.equals("kelvin")) {
+			}
+			else if (tempPref.equals("kelvin"))
+			{
 				temperature = temperature + 273.15;
 				batteryTemp.setText(temperature + "°K");
-				if (temperature < 318.15) {
+				if (temperature < 318.15)
+				{
 					batteryTemp.setTextColor(Color.GREEN);
 
-				} else if (temperature > 318.15 && temperature < 328.15) {
+				}
+				else if (temperature > 318.15 && temperature < 328.15)
+				{
 					batteryTemp.setTextColor(Color.YELLOW);
 
-				} else if (temperature >= 328.15 && temperature < 333.15) {
+				}
+				else if (temperature >= 328.15 && temperature < 333.15)
+				{
 					batteryTemp.setTextColor(Color.RED);
 
-				} else if (temperature >= 333.15) {
+				}
+				else if (temperature >= 333.15)
+				{
 
 					batteryTemp.setTextColor(Color.RED);
 
@@ -1139,12 +1381,15 @@ public class KernelTuner extends Activity implements Runnable {
 		}
 	};
 
-	private class CPUToggle extends AsyncTask<String, Void, Object> {
+	private class CPUToggle extends AsyncTask<String, Void, Object>
+	{
 		@Override
-		protected Object doInBackground(String... args) {
+		protected Object doInBackground(String... args)
+		{
 			File file = new File("/sys/devices/system/cpu/cpu" + args[0]
 					+ "/cpufreq/scaling_governor");
-			if (file.exists()) {
+			if (file.exists())
+			{
 
 				CommandCapture command = new CommandCapture(0,
 						"echo 1 > /sys/kernel/msm_mpdecision/conf/enabled",
@@ -1154,14 +1399,18 @@ public class KernelTuner extends Activity implements Runnable {
 								+ "/online",
 						"chown system /sys/devices/system/cpu/cpu" + args[0]
 								+ "/online");
-				try {
+				try
+				{
 					RootTools.getShell(true).add(command).waitForFinish();
-				} catch (Exception e) {
+				}
+				catch (Exception e)
+				{
 
 				}
 			}
 
-			else {
+			else
+			{
 				CommandCapture command = new CommandCapture(0,
 						"echo 0 > /sys/kernel/msm_mpdecision/conf/enabled",
 						"chmod 666 /sys/devices/system/cpu/cpu" + args[0]
@@ -1180,9 +1429,12 @@ public class KernelTuner extends Activity implements Runnable {
 								+ "/cpufreq/scaling_cur_freq",
 						"chmod 777 /sys/devices/system/cpu/cpu" + args[0]
 								+ "/cpufreq/scaling_governor");
-				try {
+				try
+				{
 					RootTools.getShell(true).add(command).waitForFinish();
-				} catch (Exception e) {
+				}
+				catch (Exception e)
+				{
 
 				}
 			}
@@ -1191,39 +1443,48 @@ public class KernelTuner extends Activity implements Runnable {
 		}
 
 		@Override
-		protected void onPostExecute(Object result) {
+		protected void onPostExecute(Object result)
+		{
 
 			KernelTuner.this.pd.dismiss();
 		}
 
 	}
 
-	private class mountDebugFs extends AsyncTask<String, Void, Object> {
+	private class mountDebugFs extends AsyncTask<String, Void, Object>
+	{
 
 		@Override
-		protected Object doInBackground(String... args) {
+		protected Object doInBackground(String... args)
+		{
 
 			CommandCapture command = new CommandCapture(0,
 					"mount -t debugfs debugfs /sys/kernel/debug");
-			try {
+			try
+			{
 				RootTools.getShell(true).add(command).waitForFinish();
-			} catch (Exception e) {
+			}
+			catch (Exception e)
+			{
 
 			}
 			return "";
 		}
 
 		@Override
-		protected void onPostExecute(Object result) {
+		protected void onPostExecute(Object result)
+		{
 
 		}
 
 	}
 
-	private class enableTempMonitor extends AsyncTask<String, Void, Object> {
+	private class enableTempMonitor extends AsyncTask<String, Void, Object>
+	{
 
 		@Override
-		protected Object doInBackground(String... args) {
+		protected Object doInBackground(String... args)
+		{
 
 			CommandCapture command = new CommandCapture(
 					0,
@@ -1231,9 +1492,12 @@ public class KernelTuner extends Activity implements Runnable {
 					"chmod 777 /sys/devices/virtual/thermal/thermal_zone0/mode",
 					"echo -n enabled > /sys/devices/virtual/thermal/thermal_zone1/mode",
 					"echo -n enabled > /sys/devices/virtual/thermal/thermal_zone0/mode");
-			try {
+			try
+			{
 				RootTools.getShell(true).add(command).waitForFinish();
-			} catch (Exception e) {
+			}
+			catch (Exception e)
+			{
 
 			}
 			return "";
@@ -1242,23 +1506,29 @@ public class KernelTuner extends Activity implements Runnable {
 	}
 
 	@Override
-	public void run() {
-		while (thread) {
-			try {
+	public void run()
+	{
+		while (thread)
+		{
+			try
+			{
 				Thread.sleep(refresh);
 				freqcpu0 = IOHelper.cpu0CurFreq();
 				cpu0max = IOHelper.cpu0MaxFreq();
 				tmp = IOHelper.cpuTemp(cpuTempPath);
 
-				if (IOHelper.cpu1Exists()) {
+				if (IOHelper.cpu1Exists())
+				{
 					freqcpu1 = IOHelper.cpu1CurFreq();
 					cpu1max = IOHelper.cpu1MaxFreq();
 				}
-				if (IOHelper.cpu2Exists()) {
+				if (IOHelper.cpu2Exists())
+				{
 					freqcpu2 = IOHelper.cpu2CurFreq();
 					cpu2max = IOHelper.cpu2MaxFreq();
 				}
-				if (IOHelper.cpu3Exists()) {
+				if (IOHelper.cpu3Exists())
+				{
 					freqcpu3 = IOHelper.cpu3CurFreq();
 					cpu3max = IOHelper.cpu3MaxFreq();
 
@@ -1274,9 +1544,12 @@ public class KernelTuner extends Activity implements Runnable {
 						+ Long.parseLong(toks[4]) + Long.parseLong(toks[6])
 						+ Long.parseLong(toks[7]) + Long.parseLong(toks[8]);
 
-				try {
+				try
+				{
 					Thread.sleep(360);
-				} catch (Exception e) {
+				}
+				catch (Exception e)
+				{
 				}
 
 				reader.seek(0);
@@ -1293,27 +1566,34 @@ public class KernelTuner extends Activity implements Runnable {
 				fLoad = (float) (cpu2 - cpu1)
 						/ ((cpu2 + idle2) - (cpu1 + idle1));
 				load = (int) (fLoad * 100);
-				mHandler.post(new Runnable() {
+				mHandler.post(new Runnable()
+				{
 
 					@Override
-					public void run() {
+					public void run()
+					{
 
 						cpuTemp(tmp);
 						cpu0update();
 
-						if (IOHelper.cpu1Exists()) {
+						if (IOHelper.cpu1Exists())
+						{
 							cpu1update();
 						}
-						if (IOHelper.cpu2Exists()) {
+						if (IOHelper.cpu2Exists())
+						{
 							cpu2update();
 						}
-						if (IOHelper.cpu3Exists()) {
+						if (IOHelper.cpu3Exists())
+						{
 							cpu3update();
 						}
 						setCpuLoad();
 					}
 				});
-			} catch (Exception e) {
+			}
+			catch (Exception e)
+			{
 
 			}
 		}

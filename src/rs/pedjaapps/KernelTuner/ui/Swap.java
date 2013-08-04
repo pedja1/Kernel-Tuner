@@ -18,21 +18,40 @@
 */
 package rs.pedjaapps.KernelTuner.ui;
 
-import android.app.*;
-import android.content.*;
-import android.os.*;
-import android.preference.*;
-import android.util.*;
-import android.view.*;
-import android.widget.*;
-import android.widget.AdapterView.*;
-import java.io.*;
-import java.util.*;
+import java.io.BufferedReader;
+import java.io.File;
+import java.io.FileInputStream;
+import java.io.IOException;
+import java.io.InputStream;
+import java.io.InputStreamReader;
+import java.io.OutputStream;
+import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.List;
 
-import android.view.View.OnClickListener;
-import java.lang.Process;
 import rs.pedjaapps.KernelTuner.R;
-import rs.pedjaapps.KernelTuner.tools.Tools;
+import android.app.ActionBar;
+import android.app.Activity;
+import android.app.ProgressDialog;
+import android.content.Intent;
+import android.content.SharedPreferences;
+import android.os.AsyncTask;
+import android.os.Bundle;
+import android.os.Environment;
+import android.preference.PreferenceManager;
+import android.util.Log;
+import android.view.MenuItem;
+import android.view.View;
+import android.view.View.OnClickListener;
+import android.view.WindowManager;
+import android.widget.AdapterView;
+import android.widget.AdapterView.OnItemSelectedListener;
+import android.widget.ArrayAdapter;
+import android.widget.Button;
+import android.widget.EditText;
+import android.widget.LinearLayout;
+import android.widget.Spinner;
+import android.widget.TextView;
 
 public class Swap extends Activity
 {
@@ -273,11 +292,6 @@ public class Swap extends Activity
 	@Override
 	public void onCreate(Bundle savedInstanceState)
 	{
-		SharedPreferences preferences = PreferenceManager.getDefaultSharedPreferences(this);
-	
-	String theme = preferences.getString("theme", "light");
-	
-		setTheme(Tools.getPreferedTheme(theme));
 		super.onCreate(savedInstanceState);
 
 		setContentView(R.layout.swap);

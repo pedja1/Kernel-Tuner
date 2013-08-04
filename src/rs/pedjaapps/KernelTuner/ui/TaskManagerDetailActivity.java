@@ -1,15 +1,10 @@
 package rs.pedjaapps.KernelTuner.ui;
 
-import android.app.Activity;
-import android.content.Intent;
-import android.content.SharedPreferences;
-import android.os.Bundle;
-import android.preference.PreferenceManager;
-import android.view.MenuItem;
 import rs.pedjaapps.KernelTuner.R;
 import rs.pedjaapps.KernelTuner.fragments.TMDetailFragment;
-import rs.pedjaapps.KernelTuner.tools.Tools;
-import rs.pedjaapps.KernelTuner.fragments.TMListFragment;
+import android.app.Activity;
+import android.os.Bundle;
+import android.view.MenuItem;
 
 /**
  * An activity representing a single process detail screen. This activity is
@@ -23,9 +18,6 @@ public class TaskManagerDetailActivity extends Activity {
 
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
-		
-		SharedPreferences prefs = PreferenceManager.getDefaultSharedPreferences(this);
-		setTheme(Tools.getPreferedTheme(prefs.getString("theme","light")));
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.activity_tm_detail);
 

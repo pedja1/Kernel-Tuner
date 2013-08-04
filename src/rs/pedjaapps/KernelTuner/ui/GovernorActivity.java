@@ -19,9 +19,22 @@
 package rs.pedjaapps.KernelTuner.ui;
 
 
+import java.io.BufferedReader;
+import java.io.File;
+import java.io.FileInputStream;
+import java.io.InputStreamReader;
+import java.util.ArrayList;
+import java.util.List;
+
+import rs.pedjaapps.KernelTuner.R;
+import rs.pedjaapps.KernelTuner.entry.GovEntry;
+import rs.pedjaapps.KernelTuner.helpers.GovernorSettingsAdapter;
+import rs.pedjaapps.KernelTuner.helpers.IOHelper;
+import rs.pedjaapps.KernelTuner.tools.ChangeGovernorSettings;
 import android.app.ActionBar;
 import android.app.Activity;
 import android.app.AlertDialog;
+import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.SharedPreferences;
@@ -36,22 +49,9 @@ import android.widget.AdapterView.OnItemClickListener;
 import android.widget.EditText;
 import android.widget.ListView;
 import android.widget.TextView;
+
 import com.google.ads.AdRequest;
 import com.google.ads.AdView;
-import java.io.BufferedReader;
-import java.io.File;
-import java.io.FileInputStream;
-import java.io.InputStreamReader;
-import java.util.ArrayList;
-import java.util.List;
-import rs.pedjaapps.KernelTuner.ui.KernelTuner;
-import rs.pedjaapps.KernelTuner.R;
-import rs.pedjaapps.KernelTuner.entry.GovEntry;
-import rs.pedjaapps.KernelTuner.helpers.IOHelper;
-import rs.pedjaapps.KernelTuner.helpers.GovernorSettingsAdapter;
-import rs.pedjaapps.KernelTuner.tools.ChangeGovernorSettings;
-import android.content.Context;
-import rs.pedjaapps.KernelTuner.tools.Tools;
 
 public class GovernorActivity extends Activity
 {
@@ -72,9 +72,6 @@ public class GovernorActivity extends Activity
 		availableGovs = IOHelper.availableGovs();
 		SharedPreferences preferences = PreferenceManager.getDefaultSharedPreferences(c);
 		
-		String theme = preferences.getString("theme", "light");
-		
-		setTheme(Tools.getPreferedTheme(theme));
 		super.onCreate(savedInstanceState);
 
 		setContentView(R.layout.governor_settings);

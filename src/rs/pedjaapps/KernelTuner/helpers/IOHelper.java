@@ -1032,34 +1032,6 @@ public class IOHelper
 		}
 	}
 	
-	public static final class FreqsEntry
-	{
-
-		private final String freqName;
-		private final int freq;
-		
-
-
-		public FreqsEntry(final String freqName, 
-				final int freq)
-		{
-			this.freqName = freqName;
-			this.freq = freq;
-		}
-
-
-		public String getFreqName()
-		{
-			return freqName;
-		}
-
-
-		public int getFreq(){
-			return freq;
-		}
-
-	}
-	
 	public static final class VoltageList
 	{
 

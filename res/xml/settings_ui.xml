@@ -3,17 +3,6 @@
 	android:title="@string/prefs_ui"
 	android:summary=""
 	android:icon="@drawable/theme">
-
-
-
-	<ListPreference
-		android:key="theme"
-		android:defaultValue="light"
-		android:title="@string/prefs_app_theme"
-		android:summary=""
-		android:entries="@array/theme_entry"
-		android:entryValues="@array/theme_values" />
-
 	<ListPreference
 		android:entries="@array/tisNames"
 		android:entryValues="@array/tisValues"

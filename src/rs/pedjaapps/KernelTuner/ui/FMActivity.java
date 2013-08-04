@@ -18,29 +18,26 @@
  */
 package rs.pedjaapps.KernelTuner.ui;
 
-import android.app.Activity;
-import android.content.Intent;
-import android.content.SharedPreferences;
-import android.os.Bundle;
-import android.os.Environment;
-import android.preference.PreferenceManager;
-import android.view.Menu;
-import android.view.MenuItem;
-import android.view.View;
-import android.widget.AdapterView;
-import android.widget.GridView;
 import java.io.File;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.Comparator;
 import java.util.List;
 
-
 import rs.pedjaapps.KernelTuner.R;
 import rs.pedjaapps.KernelTuner.entry.FMEntry;
 import rs.pedjaapps.KernelTuner.helpers.FMAdapter;
-import android.content.Context;
 import rs.pedjaapps.KernelTuner.tools.Tools;
+import android.app.Activity;
+import android.content.Context;
+import android.content.Intent;
+import android.os.Bundle;
+import android.os.Environment;
+import android.view.Menu;
+import android.view.MenuItem;
+import android.view.View;
+import android.widget.AdapterView;
+import android.widget.GridView;
 
 public class FMActivity extends Activity
 {
@@ -55,9 +52,6 @@ public class FMActivity extends Activity
 		c = this;
         super.onCreate(savedInstanceState);
        
-        SharedPreferences prefs = PreferenceManager.getDefaultSharedPreferences(this);
-        String theme = prefs.getString("theme", "light");
-		setTheme(Tools.getPreferedTheme(theme));
 		 setContentView(R.layout.fm);
 		fListView = (GridView) findViewById(R.id.list);
 		

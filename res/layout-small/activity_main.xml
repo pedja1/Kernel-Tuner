@@ -242,7 +242,6 @@
                 android:layout_height="match_parent"
                 android:layout_gravity="center_vertical"
                 android:layout_weight="1"
-                android:drawableTop="@drawable/main_cpu"
                 android:singleLine="true"
                 android:text="@string/btn_cpu" />
 
@@ -253,7 +252,6 @@
                 android:layout_height="match_parent"
                 android:layout_gravity="center_vertical"
                 android:layout_weight="1"
-                android:drawableTop="@drawable/main_times"
                 android:singleLine="true"
                 android:text="@string/btn_times" />
 
@@ -264,7 +262,6 @@
                 android:layout_height="match_parent"
                 android:layout_gravity="center_vertical"
                 android:layout_weight="1"
-                android:drawableTop="@drawable/main_voltage"
                 android:singleLine="true"
                 android:text="@string/btn_voltage" />
 
@@ -275,7 +272,6 @@
                 android:layout_height="match_parent"
                 android:layout_gravity="center_vertical"
                 android:layout_weight="1"
-                android:drawableTop="@drawable/main_governor"
                 android:singleLine="true"
                 android:text="@string/btn_governor" />
         </LinearLayout>
@@ -292,7 +288,6 @@
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
                 android:layout_weight="1"
-                android:drawableTop="@drawable/main_gpu"
                 android:singleLine="true"
                 android:text="@string/btn_gpu" />
 
@@ -302,7 +297,6 @@
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
                 android:layout_weight="1"
-                android:drawableTop="@drawable/main_mp"
                 android:singleLine="true"
                 android:text="@string/btn_mpdecision" />
 
@@ -312,7 +306,6 @@
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
                 android:layout_weight="1"
-                android:drawableTop="@drawable/main_thermal"
                 android:singleLine="true"
                 android:text="@string/btn_thermal" />
 
@@ -322,7 +315,6 @@
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
                 android:layout_weight="1"
-                android:drawableTop="@drawable/main_misc"
                 android:singleLine="true"
                 android:text="@string/btn_misc" />
         </LinearLayout>
@@ -339,7 +331,6 @@
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
                 android:layout_weight="1"
-                android:drawableTop="@drawable/main_tm"
                 android:singleLine="true"
                 android:text="@string/btn_task_manager" />
 
@@ -349,7 +340,6 @@
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
                 android:layout_weight="1"
-                android:drawableTop="@drawable/main_build"
                 android:singleLine="true"
                 android:text="@string/btn_build" />
 
@@ -359,7 +349,6 @@
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
                 android:layout_weight="1"
-                android:drawableTop="@drawable/main_sysctl"
                 android:singleLine="true"
                 android:text="@string/btn_sysctl" />
 
@@ -369,7 +358,6 @@
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
                 android:layout_weight="1"
-                android:drawableTop="@drawable/main_log"
                 android:singleLine="true"
                 android:text="@string/btn_logcat" />
         </LinearLayout>
@@ -386,7 +374,6 @@
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
                 android:layout_weight="1"
-                android:drawableTop="@drawable/main_oom"
                 android:singleLine="true"
                 android:text="@string/btn_oom" />
 
@@ -396,7 +383,6 @@
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
                 android:layout_weight="1"
-                android:drawableTop="@drawable/main_sd"
                 android:singleLine="true"
                 android:text="@string/btn_sd" />
 
@@ -406,7 +392,6 @@
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
                 android:layout_weight="1"
-                android:drawableTop="@drawable/main_profiles"
                 android:singleLine="true"
                 android:text="@string/btn_profiles" />
 
@@ -416,7 +401,6 @@
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
                 android:layout_weight="1"
-                android:drawableTop="@drawable/main_info"
                 android:singleLine="true"
                 android:text="@string/btn_info" />
         </LinearLayout>

@@ -18,16 +18,14 @@
 */
 package rs.pedjaapps.KernelTuner.ui;
 
-import android.preference.*;
+import java.util.List;
+
+import rs.pedjaapps.KernelTuner.R;
 import android.app.ActionBar;
 import android.content.Intent;
-import android.content.SharedPreferences;
 import android.os.Bundle;
+import android.preference.PreferenceActivity;
 import android.view.MenuItem;
-
-import java.util.List;
-import rs.pedjaapps.KernelTuner.R;
-import rs.pedjaapps.KernelTuner.tools.Tools;
 
 
 
@@ -43,11 +41,6 @@ public class Preferences extends PreferenceActivity
 	@Override
 	public void onCreate(Bundle savedInstanceState)
 	{        
-		SharedPreferences sharedPrefs = PreferenceManager
-				.getDefaultSharedPreferences(this);
-		String them = sharedPrefs.getString("theme", "light");
-		
-		setTheme(Tools.getPreferedTheme(them));
 		super.onCreate(savedInstanceState);
 
 		
