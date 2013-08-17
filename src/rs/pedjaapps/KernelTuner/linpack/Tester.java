@@ -64,7 +64,7 @@ public class Tester extends Activity {
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-		setContentView(R.layout.main);
+		setContentView(R.layout.linpack_main);
 		TAG = getTag();
 
 		mRound = 80;
