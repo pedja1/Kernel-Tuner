@@ -131,7 +131,6 @@ public class KernelTuner extends Activity implements Runnable
 	private SharedPreferences.Editor editor;
 
 	private boolean first;
-	private boolean isLight;
 	private String theme;
 	private Button gpu;
 	private Button cpu;
@@ -307,7 +306,8 @@ public class KernelTuner extends Activity implements Runnable
 		 */
 		gpu = (Button) findViewById(R.id.btn_gpu);
 
-		gpu.setOnClickListener(new StartActivityListener(Gpu.class));
+		//TODO listener must be implemented differently(include both checks)
+		gpu.setOnClickListener(new StartActivityListener((new File(Constants.GPU_SGX540).exists()) ? GpuSGX540.class : Gpu.class)); 
 		gpu.setOnLongClickListener(new InfoListener(R.drawable.gpu,
 				getResources().getString(R.string.info_gpu_title),
 				getResources().getString(R.string.info_gpu_text),
@@ -1030,6 +1030,8 @@ public class KernelTuner extends Activity implements Runnable
 		}
 		if (!(new File(Constants.GPU_3D).exists()))
 		{
+			if (!(new File(Constants.GPU_SGX540).exists()))
+			{
 			if (dOpt.equals("hide"))
 			{
 				gpu.setVisibility(View.GONE);
@@ -1037,6 +1039,7 @@ public class KernelTuner extends Activity implements Runnable
 			else
 			{
 				gpu.setEnabled(false);
+			}
 			}
 		}
 
@@ -1135,22 +1138,9 @@ public class KernelTuner extends Activity implements Runnable
 	public boolean onCreateOptionsMenu(Menu menu)
 	{
 
-		if (theme.equals("light"))
-		{
-			isLight = true;
-		}
-		else if (theme.equals("dark"))
-		{
-			isLight = false;
-		}
-		else if (theme.equals("light_dark_action_bar"))
-		{
-			isLight = false;
-		}
+	
 		menu.add(1, 1, 1, "Settings")
-				.setIcon(
-						isLight ? R.drawable.settings_light
-								: R.drawable.settings_dark)
+				.setIcon(R.drawable.settings_dark)
 				.setShowAsAction(
 						MenuItem.SHOW_AS_ACTION_ALWAYS
 								| MenuItem.SHOW_AS_ACTION_WITH_TEXT);

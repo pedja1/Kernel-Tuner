@@ -697,5 +697,8 @@
     <string name="dummy_content">DUMMY\nCONTENT</string>
     <string name="action_settings">Settings</string>
     <string name="hello_world">Hello world!</string>
+	<string name="_gpu">GPU</string>
+    <string name="_iva">IVA</string>
+    <string name="_min">Min</string>
 
 </resources>

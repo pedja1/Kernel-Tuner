@@ -142,6 +142,11 @@ public class WidgetUpdateServiceBig extends Service
 	@Override
 	public int onStartCommand(Intent intent, int flags, int startId)
 	{
+		if(frequencies == null || frequencies.size() == 0)
+		{
+			FrequencyCollection.getInstance().getAllFrequencies();
+			frequencies = FrequencyCollection.getInstance().getFrequencyStrings();
+		}
 		AppWidgetManager appWidgetManager = AppWidgetManager.getInstance(this
 																		 .getApplicationContext());
 

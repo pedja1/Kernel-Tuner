@@ -158,6 +158,9 @@ public final class Constants
 	"/sys/class/thermal/thermal_zone0/temp"
 	};
 	
+	public static final String GPU_SGX540 = "/sys/devices/system/cpu/cpu0/cpufreq/gpu_max_freq";
+	public static final String IVA = "/sys/devices/system/cpu/cpu0/cpufreq/iva_freq_oc";
+	
 
     public static final int SPLASH_MINIMUM_STAY_TIME = 5; // seconds
 

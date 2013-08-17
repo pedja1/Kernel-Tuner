@@ -209,6 +209,17 @@
                 <category android:name="android.intent.category.DEFAULT" />
             </intent-filter>
         </activity>
+		<activity
+            android:name="rs.pedjaapps.KernelTuner.ui.GpuSGX540"
+            android:icon="@drawable/gpu"
+            android:label="@string/title_gpu"
+            android:theme="@style/Theme.Sherlock.Light.Dialog.NoTitleBar" >
+            <intent-filter>
+                <action android:name="rs.pedjaapps.KernelTuner.GPU" />
+
+                <category android:name="android.intent.category.DEFAULT" />
+            </intent-filter>
+        </activity>
         <activity
             android:name="rs.pedjaapps.KernelTuner.ui.MiscTweaks"
             android:icon="@drawable/misc"
