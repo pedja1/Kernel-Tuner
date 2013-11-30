@@ -8,7 +8,7 @@
 
     <uses-sdk
         android:minSdkVersion="14"
-        android:targetSdkVersion="17" />
+        android:targetSdkVersion="19" />
 
     <uses-permission android:name="android.permission.RECEIVE_BOOT_COMPLETED" />
     <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE" />
@@ -32,9 +32,10 @@
             android:windowSoftInputMode="adjustResize" >
             <intent-filter>
                 <action android:name="rs.pedjaapps.KernelTuner.KT" />
-                 <!--<action android:name="android.intent.action.MAIN" />
+                 <action android:name="android.intent.action.MAIN" />
 
-               <category android:name="android.intent.category.LAUNCHER" /> --> 
+               <category android:name="android.intent.category.LAUNCHER" /> 
+			 
             </intent-filter>
         </activity>
         <activity
@@ -586,17 +587,7 @@
                 <category android:name="android.intent.category.DEFAULT" />
             </intent-filter>
         </activity>
-        
-        <activity
-            android:name="rs.pedjaapps.KernelTuner.ui.SplashActivity"
-            android:label="@string/app_name"
-            android:theme="@android:style/Theme.Holo.NoActionBar" >
-            <intent-filter>
-                <action android:name="android.intent.action.MAIN" />
-
-                <category android:name="android.intent.category.LAUNCHER" />
-            </intent-filter>
-        </activity>
+       
     </application>
 
 </manifest>
