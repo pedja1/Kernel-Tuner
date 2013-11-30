@@ -21,6 +21,7 @@ public class FrequencyCollection
 
 	public List<Frequency> getFrequencies()
 	{
+		checkFreq(frequencies);
 		return frequencies;
 	}
 	
@@ -43,12 +44,21 @@ public class FrequencyCollection
 
 	public List<String> getFrequencyStrings()
 	{
+		checkFreq(frequencyStrings);
 		return frequencyStrings;
 	}
 
 	public List<String> getFrequencyValues()
 	{
+		checkFreq(frequencyValues);
 		return frequencyValues;
 	}
 	
+	private void checkFreq(List freq)
+	{
+		if(freq == null || freq.size() == 0)
+		{
+			getAllFrequencies();
+		}
+	}
 }
