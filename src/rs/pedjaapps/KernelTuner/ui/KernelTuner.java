@@ -18,64 +18,31 @@
  */
 package rs.pedjaapps.KernelTuner.ui;
 
-import java.io.File;
-import java.io.FileOutputStream;
-import java.io.IOException;
-import java.io.InputStream;
-import java.io.OutputStream;
-import java.io.RandomAccessFile;
-import java.util.ArrayList;
-import java.util.List;
+import android.app.*;
+import android.app.ActivityManager.*;
+import android.content.*;
+import android.content.pm.*;
+import android.content.res.*;
+import android.graphics.*;
+import android.net.*;
+import android.os.*;
+import android.preference.*;
+import android.util.*;
+import android.view.*;
+import android.view.View.*;
+import android.widget.*;
+import com.google.ads.*;
+import com.stericson.RootTools.*;
+import com.stericson.RootTools.execution.*;
+import java.io.*;
+import java.util.*;
+import rs.pedjaapps.KernelTuner.*;
+import rs.pedjaapps.KernelTuner.entry.*;
+import rs.pedjaapps.KernelTuner.helpers.*;
+import rs.pedjaapps.KernelTuner.services.*;
+import rs.pedjaapps.KernelTuner.tools.*;
 
 import rs.pedjaapps.KernelTuner.Constants;
-import rs.pedjaapps.KernelTuner.MainApp;
-import rs.pedjaapps.KernelTuner.R;
-import rs.pedjaapps.KernelTuner.entry.FrequencyCollection;
-import rs.pedjaapps.KernelTuner.helpers.IOHelper;
-import rs.pedjaapps.KernelTuner.services.NotificationService;
-import rs.pedjaapps.KernelTuner.tools.Initd;
-import rs.pedjaapps.KernelTuner.tools.Tools;
-import android.app.ActionBar;
-import android.app.Activity;
-import android.app.ActivityManager;
-import android.app.ActivityManager.RunningServiceInfo;
-import android.app.AlertDialog;
-import android.app.ProgressDialog;
-import android.content.BroadcastReceiver;
-import android.content.Context;
-import android.content.DialogInterface;
-import android.content.Intent;
-import android.content.IntentFilter;
-import android.content.SharedPreferences;
-import android.content.pm.PackageInfo;
-import android.content.pm.PackageManager;
-import android.content.res.AssetManager;
-import android.graphics.Color;
-import android.net.Uri;
-import android.os.AsyncTask;
-import android.os.BatteryManager;
-import android.os.Bundle;
-import android.os.Handler;
-import android.util.Log;
-import android.view.LayoutInflater;
-import android.view.Menu;
-import android.view.MenuItem;
-import android.view.View;
-import android.view.View.OnClickListener;
-import android.view.View.OnLongClickListener;
-import android.widget.Button;
-import android.widget.CheckBox;
-import android.widget.ImageView;
-import android.widget.LinearLayout;
-import android.widget.ProgressBar;
-import android.widget.RelativeLayout;
-import android.widget.TextView;
-import android.widget.Toast;
-
-import com.google.ads.AdRequest;
-import com.google.ads.AdView;
-import com.stericson.RootTools.RootTools;
-import com.stericson.RootTools.execution.CommandCapture;
 
 public class KernelTuner extends Activity implements Runnable
 {
@@ -91,16 +58,6 @@ public class KernelTuner extends Activity implements Runnable
 	private String tmp;
 	private Context c;
 	private boolean thread = true;
-
-	private String freqcpu0 = "offline";
-	private String freqcpu1 = "offline";
-	private String freqcpu2 = "offline";
-	private String freqcpu3 = "offline";
-
-	private String cpu0max = "       ";
-	private String cpu1max = "       ";
-	private String cpu2max = "       ";
-	private String cpu3max = "       ";
 
 	private float fLoad;
 
@@ -160,7 +117,13 @@ public class KernelTuner extends Activity implements Runnable
 		 * StrictMode.setVmPolicy(new StrictMode.VmPolicy.Builder()
 		 * .detectAll().build());
 		 */
+		FrequencyCollection collection = FrequencyCollection.getInstance();
+		collection.getAllFrequencies();
 		app = MainApp.getInstance();
+		app.setPrefs(
+			PreferenceManager
+			.getDefaultSharedPreferences(this));
+		
 		c = this;
 		List<IOHelper.VoltageList> voltageFreqs = IOHelper.voltages();
 		preferences = app.getPrefs();
@@ -329,18 +292,14 @@ public class KernelTuner extends Activity implements Runnable
 			@Override
 			public void onClick(View v)
 			{
-
-				String cpu = preferences.getString("show_cpu_as", "full");
-				Intent myIntent = null;
-				if (cpu.equals("full"))
+				if(preferences.getBoolean("show_cpu_options_dialog", true))
 				{
-					myIntent = new Intent(c, CPUActivity.class);
+                    cpuOptionsDialog();
 				}
-				else if (cpu.equals("minimal"))
+				else
 				{
-					myIntent = new Intent(c, CPUActivityOld.class);
+					startCpuSettings(preferences.getBoolean("cpu_enable_all", false), preferences.getBoolean("cpu_disable_all", false), false);
 				}
-				startActivity(myIntent);
 			}
 		});
 		cpu.setOnLongClickListener(new InfoListener(R.drawable.ic_launcher,
@@ -580,6 +539,56 @@ public class KernelTuner extends Activity implements Runnable
 		}
 	}
 
+	private void cpuOptionsDialog()
+	{
+		AlertDialog.Builder b = new AlertDialog.Builder(this);
+		LayoutInflater inflater = getLayoutInflater();
+		View v = inflater.inflate(R.layout.cpu_options_dialog, null);
+		final CheckBox cbEnableAll = (CheckBox)v.findViewById(R.id.cbEnableAll);
+		final CheckBox cbDisableAll = (CheckBox)v.findViewById(R.id.cbDisableAllOnExit);
+		final CheckBox cbSave = (CheckBox)v.findViewById(R.id.cbSave);
+		cbEnableAll.setChecked(preferences.getBoolean("cpu_enable_all", false));
+		cbDisableAll.setChecked(preferences.getBoolean("cpu_disable_all", false));
+		b.setView(v);
+		
+		b.setPositiveButton("Procede", new DialogInterface.OnClickListener(){
+
+				@Override
+				public void onClick(DialogInterface p1, int p2)
+				{
+			        startCpuSettings(cbEnableAll.isChecked(), cbDisableAll.isChecked(), cbSave.isChecked());
+				}
+			});
+			b.setNegativeButton("Cancel", null);
+		
+		b.show();
+	}
+	
+	private void startCpuSettings(boolean enableAll, boolean disableAll, boolean save)
+	{
+		String cpu = preferences.getString("show_cpu_as", "full");
+		Intent intent = null;
+		if (cpu.equals("full"))
+		{
+			intent = new Intent(c, CPUActivity.class);
+		}
+		else if (cpu.equals("minimal"))
+		{
+			intent = new Intent(c, CPUActivityOld.class);
+		}
+		intent.putExtra("enable_all", enableAll);
+		intent.putExtra("disable_all", disableAll);
+		SharedPreferences.Editor editor = preferences.edit();
+		editor.putBoolean("cpu_enable_all", enableAll);
+		editor.putBoolean("cpu_disable_all", disableAll);
+		if(save)
+		{
+			editor.putBoolean("show_cpu_options_dialog", false);
+		}
+		editor.apply();
+		startActivity(intent);
+	}
+	
 	class ToggleListener implements OnClickListener
 	{
 
@@ -691,15 +700,12 @@ public class KernelTuner extends Activity implements Runnable
 	@Override
 	public void onPause()
 	{
-
 		super.onPause();
-
 	}
 
 	@Override
 	protected void onResume()
 	{
-
 		/**
 		 * Register BroadcastReceiver that will listen for battery changes and
 		 * update ui
@@ -771,7 +777,6 @@ public class KernelTuner extends Activity implements Runnable
 	 */
 	private void changelog()
 	{
-
 		String versionpref = preferences.getString("version", "");
 
 		try
@@ -1502,6 +1507,15 @@ public class KernelTuner extends Activity implements Runnable
 		{
 			try
 			{
+	           String freqcpu0;
+	           String freqcpu1;
+	           String freqcpu2;
+	           String freqcpu3;
+
+	           String cpu0max;
+	           String cpu1max;
+	           String cpu2max;
+	           String cpu3max;
 				Thread.sleep(refresh);
 				freqcpu0 = IOHelper.cpu0CurFreq();
 				cpu0max = IOHelper.cpu0MaxFreq();
@@ -1523,46 +1537,13 @@ public class KernelTuner extends Activity implements Runnable
 					cpu3max = IOHelper.cpu3MaxFreq();
 
 				}
-				RandomAccessFile reader = new RandomAccessFile("/proc/stat",
-						"r");
-				String sLoad = reader.readLine();
-
-				String[] toks = sLoad.split(" ");
-
-				long idle1 = Long.parseLong(toks[5]);
-				long cpu1 = Long.parseLong(toks[2]) + Long.parseLong(toks[3])
-						+ Long.parseLong(toks[4]) + Long.parseLong(toks[6])
-						+ Long.parseLong(toks[7]) + Long.parseLong(toks[8]);
-
-				try
-				{
-					Thread.sleep(360);
-				}
-				catch (Exception e)
-				{
-				}
-
-				reader.seek(0);
-				sLoad = reader.readLine();
-				reader.close();
-
-				toks = sLoad.split(" ");
-
-				long idle2 = Long.parseLong(toks[5]);
-				long cpu2 = Long.parseLong(toks[2]) + Long.parseLong(toks[3])
-						+ Long.parseLong(toks[4]) + Long.parseLong(toks[6])
-						+ Long.parseLong(toks[7]) + Long.parseLong(toks[8]);
-
-				fLoad = (float) (cpu2 - cpu1)
-						/ ((cpu2 + idle2) - (cpu1 + idle1));
-				load = (int) (fLoad * 100);
-				mHandler.post(new Runnable()
+				load = getCpuLoad();
+				runOnUiThread(new Runnable()
 				{
 
 					@Override
 					public void run()
 					{
-
 						cpuTemp(tmp);
 						cpu0update();
 
@@ -1589,4 +1570,41 @@ public class KernelTuner extends Activity implements Runnable
 		}
 	}
 
+	private int getCpuLoad() throws IOException
+	{
+		RandomAccessFile reader = new RandomAccessFile("/proc/stat",
+													   "r");
+		String sLoad = reader.readLine();
+
+		String[] toks = sLoad.split(" ");
+
+		long idle1 = Long.parseLong(toks[5]);
+		long cpu1 = Long.parseLong(toks[2]) + Long.parseLong(toks[3])
+			+ Long.parseLong(toks[4]) + Long.parseLong(toks[6])
+			+ Long.parseLong(toks[7]) + Long.parseLong(toks[8]);
+
+		try
+		{
+			Thread.sleep(360);
+		}
+		catch (Exception e)
+		{
+		}
+
+		reader.seek(0);
+		sLoad = reader.readLine();
+		reader.close();
+
+		toks = sLoad.split(" ");
+
+		long idle2 = Long.parseLong(toks[5]);
+		long cpu2 = Long.parseLong(toks[2]) + Long.parseLong(toks[3])
+			+ Long.parseLong(toks[4]) + Long.parseLong(toks[6])
+			+ Long.parseLong(toks[7]) + Long.parseLong(toks[8]);
+
+		fLoad = (float) (cpu2 - cpu1)
+			/ ((cpu2 + idle2) - (cpu1 + idle1));
+		return (int) (fLoad * 100);
+	}
+	
 }
