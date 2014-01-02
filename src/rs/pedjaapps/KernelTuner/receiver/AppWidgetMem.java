@@ -20,7 +20,6 @@ package rs.pedjaapps.KernelTuner.receiver;
 
 import java.io.IOException;
 import java.io.RandomAccessFile;
-import java.text.DecimalFormat;
 import java.util.Calendar;
 
 import rs.pedjaapps.KernelTuner.R;
@@ -34,12 +33,10 @@ import android.content.ComponentName;
 import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
-import android.os.Environment;
-import android.os.StatFs;
 import android.preference.PreferenceManager;
 import android.view.View;
 import android.widget.RemoteViews;
-import rs.pedjaapps.KernelTuner.tools.Tools;
+import rs.pedjaapps.KernelTuner.utility.Tools;
 
 public class AppWidgetMem extends AppWidgetProvider {
 

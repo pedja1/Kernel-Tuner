@@ -12,13 +12,13 @@ import java.util.concurrent.Executor;
 import java.util.concurrent.Executors;
 
 import rs.pedjaapps.KernelTuner.R;
-import rs.pedjaapps.KernelTuner.entry.LogEntry;
+import rs.pedjaapps.KernelTuner.model.LogEntry;
 import rs.pedjaapps.KernelTuner.helpers.LogEntryAdapter;
 import rs.pedjaapps.KernelTuner.helpers.Logcat;
 import rs.pedjaapps.KernelTuner.helpers.LogcatLevel;
-import rs.pedjaapps.KernelTuner.tools.Format;
-import rs.pedjaapps.KernelTuner.tools.LogSaver;
-import rs.pedjaapps.KernelTuner.tools.Prefs;
+import rs.pedjaapps.KernelTuner.utility.Format;
+import rs.pedjaapps.KernelTuner.utility.LogSaver;
+import rs.pedjaapps.KernelTuner.utility.Prefs;
 import android.app.AlertDialog;
 import android.app.Dialog;
 import android.app.ListActivity;

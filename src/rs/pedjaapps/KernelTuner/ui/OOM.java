@@ -22,7 +22,7 @@ import java.util.List;
 
 import rs.pedjaapps.KernelTuner.R;
 import rs.pedjaapps.KernelTuner.helpers.IOHelper;
-import rs.pedjaapps.KernelTuner.tools.Tools;
+import rs.pedjaapps.KernelTuner.utility.Tools;
 import android.app.Activity;
 import android.app.AlertDialog;
 import android.app.ProgressDialog;

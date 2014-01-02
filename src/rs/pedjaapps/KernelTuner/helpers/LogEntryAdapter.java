@@ -12,8 +12,8 @@ import android.widget.ArrayAdapter;
 import android.widget.TextView;
 
 import rs.pedjaapps.KernelTuner.R;
-import rs.pedjaapps.KernelTuner.entry.LogEntry;
-import rs.pedjaapps.KernelTuner.tools.Prefs;
+import rs.pedjaapps.KernelTuner.model.LogEntry;
+import rs.pedjaapps.KernelTuner.utility.Prefs;
 
 public class LogEntryAdapter extends ArrayAdapter<LogEntry> {
 	private Activity mActivity;

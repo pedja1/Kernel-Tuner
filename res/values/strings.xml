@@ -1,6 +1,20 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
 
+    <!-- A format string for breadcrumbs in the titlebar.  For left to right languages, such as English, the format will look something like "Main Activity > Sub Activity > Sub Activity 2".  Item #1 is the previous path, item #2 is the separator, and item #3 is the current item.  For most left to right languages, this shouldn't need to be changed. -->
+    <string name="twofortyfouram_locale_breadcrumb_format">%1$s%2$s%3$s</string>
+
+    <!-- The separator character for breadcrumbs.  For most left to right languages, this shouldn't need to be changed. -->
+    <string name="twofortyfouram_locale_breadcrumb_separator">\u0020&gt;\u0020</string>
+
+    <!-- The Don't Save button in the menu or Action Bar.  MDPI 21 character maximum -->
+    <string name="twofortyfouram_locale_menu_dontsave">Cancel</string>
+
+    <!-- The Help button in the menu or Action Bar.  MDPI 21 character maximum -->
+    <string name="twofortyfouram_locale_menu_help">Help</string>
+
+    <!-- The Save button in the menu or Action Bar.  MDPI 21 character maximum -->
+    <string name="twofortyfouram_locale_menu_save">Done</string>
     <string name="title_cpu">CPU Tweaks</string>
     <string name="title_governor">Governor Settings</string>
     <string name="title_tis">Times In State</string>
@@ -256,8 +270,6 @@
     <string name="select_profile_">Select Profile:</string>
     <string name="presets">Presets</string>
     <string name="time">Time</string>
-
-    <color name="grey">#808080</color>
 
     <string name="deep_sleep">Deep Sleep</string>
     <string name="boot_time">Time since boot</string>
@@ -685,9 +697,7 @@
     <string name="start_multi">Multi Thread</string>
     <string name="mflops">Mflops</string>
     <string name="nres">Norm Res</string>
-    <string name="time">Time</string>
     <string name="precision">Precision</string>
-    <string name="close">Close</string>
     <string name="previous_runs">Previous Results</string>
 
     <color name="apps_primary">#ffb2cb39</color>
@@ -700,5 +710,43 @@
 	<string name="_gpu">GPU</string>
     <string name="_iva">IVA</string>
     <string name="_min">Min</string>
+
+    <string name="main_gpu_title">GPU Control</string>
+    <string name="main_gpu_text">GPU(Graphic Processing Unit) is used for rendering 2D and 3D graphic\nThis option allows you to change GPU clock speed(frequency)\nOnly devices with Adreno 220, 225, and 320 are supported at the moment</string>
+    <string name="main_voltage_title">Undervolting</string>
+    <string name="main_voltage_text">Allows you to set custom CPU voltage\nVoltage is managed on per frequency base(Each frequency step can be adjusted for specific voltage)\nSome Qualcomm devices and most of the Tegra 3 devices are supported at the moment</string>
+    <string name="main_cpu_title">CPU Control</string>
+    <string name="main_cpu_text">CPU(Central Processing Unit)\nThis option allows you to change CPU clock speed(frequency) and governor\nChanging frequency and governors is core-independent. Most devices supports this function</string>
+    <string name="main_tis_title">Times in State</string>
+    <string name="main_tis_text">Displays time CPU has spent in each frequency</string>
+    <string name="main_mpd_title">MP-Decision</string>
+    <string name="main_mpd_text">MP-Decision determins when to enable/disable CPU cores\n You can tune MP-Decision options here</string>
+    <string name="main_misc_title">Miscellaneous Tweaks</string>
+    <string name="main_misc_text">Contains various options for tweaking kernel including:\n\n    *Changing Capacitive buttons backlight\n    *Toggle Fastcharge mode\n    *Toggle vsync\n    *Change Color Depth\n    *Change Sweep2Wake\n    *...\n\nAll options are kernel dependent.</string>
+    <string name="main_gov_title">CPU Governor Settings</string>
+    <string name="main_gov_text">Governor manages CPU frequency scaling\nYou can tune governor settings here\n\nNot all governors supports settings.</string>
+    <string name="main_oom_title">OOM</string>
+    <string name="main_oom_text">OOM(Out Of Memory)\nAndroid system will use this values to determine which application to terminate to release memory</string>
+    <string name="main_profiles_title">Profiles</string>
+    <string name="main_profiles_text">Create settings profiles to be applied at different conditions\nUse with one of these applications to apply profiles depending on conditions:\n\n    *Llama\n    *Tasker\n    *Locale</string>
+    <string name="main_thermal_title">Thermal</string>
+    <string name="main_thermal_text">This option allows you to set thermal options for your cpu.\nEach time CPU temperature reaches certain threshold cpu frequency will be lowered to prevent overheating\nWhen temperature lowers cpu frequency will reset</string>
+    <string name="main_sd_title">SD Analyzer</string>
+    <string name="main_sd_text">Set of tools for analizing what is using most space in your sdcard</string>
+    <string name="main_sys_info_title">System Info</string>
+    <string name="main_sys_info_text">Detailed system information</string>
+    <string name="main_tm_title">Task Manager</string>
+    <string name="main_tm_text">Display and manage running processes on your device\n\nAt the moment you can:\n\n    *Kill Process\n    *Set process priority</string>
+    <string name="main_build_title">Build.prop Editor</string>
+    <string name="main_build_text">Edit you devices build properties</string>
+    <string name="main_sysctl_title">SysCtl Editor</string>
+    <string name="main_sysctl_text">System Control</string>
+    <string name="main_logs_title">LogCat Viewer</string>
+    <string name="main_logs_text">Display Device Logs</string>
+    <string name="main_adaway_title">Ad Blocker</string>
+    <string name="main_adaway_text">Blocks ads by using hosts file(Please don\'t use this :D)</string>
+    <string name="settings">Settings</string>
+    <string name="compatibility_check">Compatibility Check</string>
+    <string name="action_bar_subtitle">Various kernel and system tuning</string>
 
 </resources>

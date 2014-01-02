@@ -20,7 +20,7 @@ package rs.pedjaapps.KernelTuner.helpers;
 
 
 import rs.pedjaapps.KernelTuner.R;
-import rs.pedjaapps.KernelTuner.entry.FMEntry;
+import rs.pedjaapps.KernelTuner.model.FMEntry;
 import android.content.*;
 import android.view.*;
 import android.widget.*;

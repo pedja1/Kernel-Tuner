@@ -34,8 +34,8 @@ import java.util.List;
 import org.apache.commons.io.FileUtils;
 
 import rs.pedjaapps.KernelTuner.Constants;
-import rs.pedjaapps.KernelTuner.entry.Frequency;
-import rs.pedjaapps.KernelTuner.entry.TimesEntry;
+import rs.pedjaapps.KernelTuner.model.Frequency;
+import rs.pedjaapps.KernelTuner.model.TimesEntry;
 import android.os.SystemClock;
 import android.util.Log;
 

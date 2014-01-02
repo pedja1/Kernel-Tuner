@@ -37,10 +37,10 @@ import com.stericson.RootTools.execution.*;
 import java.io.*;
 import java.util.*;
 import rs.pedjaapps.KernelTuner.*;
-import rs.pedjaapps.KernelTuner.entry.*;
+import rs.pedjaapps.KernelTuner.model.*;
 import rs.pedjaapps.KernelTuner.helpers.*;
 import rs.pedjaapps.KernelTuner.services.*;
-import rs.pedjaapps.KernelTuner.tools.*;
+import rs.pedjaapps.KernelTuner.utility.*;
 
 import rs.pedjaapps.KernelTuner.Constants;
 
@@ -1053,7 +1053,7 @@ public class KernelTuner extends Activity implements Runnable
 	/**
 	 * Update UI with current frequency
 	 */
-	private void cpu0update()
+	/*private void cpu0update()
 	{
 
 		if (!freqcpu0.equals("offline") && freqcpu0.length() != 0)
@@ -1131,7 +1131,7 @@ public class KernelTuner extends Activity implements Runnable
 			cpu3progbar.setMax(freqlist.indexOf(cpu3max.trim()) + 1);
 			cpu3progbar.setProgress(freqlist.indexOf(freqcpu3.trim()) + 1);
 		}
-	}
+	}*/
 
 	private void setCpuLoad()
 	{
@@ -1545,19 +1545,19 @@ public class KernelTuner extends Activity implements Runnable
 					public void run()
 					{
 						cpuTemp(tmp);
-						cpu0update();
+						//cpu0update();
 
 						if (IOHelper.cpu1Exists())
 						{
-							cpu1update();
+							//cpu1update();
 						}
 						if (IOHelper.cpu2Exists())
 						{
-							cpu2update();
+							//cpu2update();
 						}
 						if (IOHelper.cpu3Exists())
 						{
-							cpu3update();
+							//cpu3update();
 						}
 						setCpuLoad();
 					}

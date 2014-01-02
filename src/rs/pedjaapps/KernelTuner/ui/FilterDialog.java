@@ -4,7 +4,7 @@ import java.util.regex.Pattern;
 import java.util.regex.PatternSyntaxException;
 
 import rs.pedjaapps.KernelTuner.R;
-import rs.pedjaapps.KernelTuner.tools.Prefs;
+import rs.pedjaapps.KernelTuner.utility.Prefs;
 
 import android.app.AlertDialog;
 import android.content.DialogInterface;

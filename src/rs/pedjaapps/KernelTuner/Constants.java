@@ -45,7 +45,23 @@ public final class Constants
 	/**
 	 *Paths
 	 */
-	
+    public static final String PATH_ROOT = "/";
+    public static final String PATH_RELATIVE_SYS = "sys";
+    public static final String PATH_RELATIVE_DEVICES = "devices";
+    public static final String PATH_RELATIVE_SYSTEM = "system";
+    public static final String PATH_RELATIVE_CPU = "cpu";
+    public static final String PATH_RELATIVE_CPUFREQ = "cpufreq";
+    public static final String PATH_ABSOLUTE_SYS = PATH_ROOT + PATH_RELATIVE_SYS;
+
+    public static final String PATH_CPU_ROOT = "/sys/devices/system/cpu/";
+    public static final String PATH_CPU_PRE = "/sys/devices/system/cpu/cpu";
+    public static final String PATH_CPU_CURR_FREQ = "/cpufreq/scaling_cur_freq";
+    public static final String PATH_CPU_MAX_FREQ = "/cpufreq/scaling_max_freq";
+    public static final String PATH_CPU_MIN_FREQ = "/cpufreq/scaling_min_freq";
+    public static final String PATH_CPU_ALL_FREQS = "/cpufreq/scaling_available_frequencies";
+    public static final String PATH_CPU_ONLINE = "/online";
+    public static final String PATH_CPU_TIMES = "/stats/time_in_state";
+
     public static final String G_S_URL_PREFIX = "https://www.google.com/search?q=";
 	public static final String cpu0online = "/sys/devices/system/cpu/cpu0/online"; 
 	public static final String cpu1online = "/sys/devices/system/cpu/cpu1/online"; 
@@ -90,6 +106,7 @@ public final class Constants
 	public static final String GPU_3D = "/sys/devices/platform/kgsl-3d0.0/kgsl/kgsl-3d0/max_gpuclk";
 	public static final String GPU_2D = "/sys/devices/platform/kgsl-2d0.0/kgsl/kgsl-2d0/max_gpuclk";
 	public static final String CDEPTH = "/sys/kernel/debug/msm_fb/0/bpp";
+    public static final String CDEPTH_SGX = "/sys/class/graphics/fb0/bits_per_pixel";
 	public static final String S2W = "/sys/android_touch/sweep2wake";
 	public static final String S2W_ALT = "/sys/android_touch/sweep2wake/s2w_switch";
 	public static final String MPDECISION = "/sys/kernel/msm_mpdecision/conf/enabled";

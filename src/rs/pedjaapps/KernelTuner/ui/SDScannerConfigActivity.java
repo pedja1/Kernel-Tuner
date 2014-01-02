@@ -47,11 +47,9 @@ import java.util.List;
 import org.apache.commons.io.FileUtils;
 
 import rs.pedjaapps.KernelTuner.R;
-import rs.pedjaapps.KernelTuner.entry.SDSummaryEntry;
+import rs.pedjaapps.KernelTuner.model.SDSummaryEntry;
 import rs.pedjaapps.KernelTuner.helpers.SDSummaryAdapter;
-import rs.pedjaapps.KernelTuner.ui.SDScannerActivity;
-import rs.pedjaapps.KernelTuner.ui.SDScannerConfigActivity;
-import rs.pedjaapps.KernelTuner.tools.Tools;
+import rs.pedjaapps.KernelTuner.utility.Tools;
 
 public class SDScannerConfigActivity extends Activity
 {

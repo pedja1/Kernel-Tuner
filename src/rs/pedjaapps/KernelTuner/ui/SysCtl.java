@@ -34,7 +34,7 @@ import android.util.Log;
 import android.view.Gravity;
 import android.view.MenuItem;
 import android.view.View;
-import android.view.Window;
+
 import com.google.ads.AdRequest;
 import com.google.ads.AdView;
 import com.stericson.RootTools.RootTools;
@@ -46,11 +46,11 @@ import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 import rs.pedjaapps.KernelTuner.R;
-import rs.pedjaapps.KernelTuner.entry.SysCtlDatabaseEntry;
-import rs.pedjaapps.KernelTuner.entry.SysCtlEntry;
+import rs.pedjaapps.KernelTuner.model.SysCtlDatabaseEntry;
+import rs.pedjaapps.KernelTuner.model.SysCtlEntry;
 import rs.pedjaapps.KernelTuner.helpers.DatabaseHandler;
 import rs.pedjaapps.KernelTuner.helpers.SysCtlAdapter;
-import rs.pedjaapps.KernelTuner.tools.Tools;
+import rs.pedjaapps.KernelTuner.utility.Tools;
 
 
 

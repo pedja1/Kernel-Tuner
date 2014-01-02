@@ -22,10 +22,10 @@ import java.util.ArrayList;
 import java.util.List;
 
 import rs.pedjaapps.KernelTuner.R;
-import rs.pedjaapps.KernelTuner.entry.Frequency;
-import rs.pedjaapps.KernelTuner.entry.FrequencyCollection;
-import rs.pedjaapps.KernelTuner.entry.Profile;
-import rs.pedjaapps.KernelTuner.entry.Voltage;
+import rs.pedjaapps.KernelTuner.model.Frequency;
+import rs.pedjaapps.KernelTuner.model.FrequencyCollection;
+import rs.pedjaapps.KernelTuner.model.Profile;
+import rs.pedjaapps.KernelTuner.model.Voltage;
 import rs.pedjaapps.KernelTuner.helpers.DatabaseHandler;
 import rs.pedjaapps.KernelTuner.helpers.IOHelper;
 import android.app.Activity;

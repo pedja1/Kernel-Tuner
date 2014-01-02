@@ -23,7 +23,7 @@ import android.content.*;
 import android.database.*;
 import android.database.sqlite.*;
 import java.util.*;
-import rs.pedjaapps.KernelTuner.entry.*;
+import rs.pedjaapps.KernelTuner.model.*;
 
 public class DatabaseHandler extends SQLiteOpenHelper
 {

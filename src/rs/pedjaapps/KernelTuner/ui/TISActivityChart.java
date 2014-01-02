@@ -32,13 +32,13 @@ import java.util.*;
 import org.achartengine.*;
 import org.achartengine.model.*;
 import org.achartengine.renderer.*;
-import rs.pedjaapps.KernelTuner.entry.*;
+import rs.pedjaapps.KernelTuner.model.*;
 import rs.pedjaapps.KernelTuner.helpers.*;
 
 import android.view.View.OnClickListener;
 import android.view.ViewGroup.LayoutParams;
 import rs.pedjaapps.KernelTuner.R;
-import rs.pedjaapps.KernelTuner.tools.Tools;
+import rs.pedjaapps.KernelTuner.utility.Tools;
 
 public class TISActivityChart extends Activity
 {

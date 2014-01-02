@@ -25,7 +25,7 @@ import org.apache.commons.io.FileUtils;
 
 import rs.pedjaapps.KernelTuner.Constants;
 import rs.pedjaapps.KernelTuner.R;
-import rs.pedjaapps.KernelTuner.entry.FrequencyCollection;
+import rs.pedjaapps.KernelTuner.model.FrequencyCollection;
 import android.app.ActionBar;
 import android.app.Activity;
 import android.app.ProgressDialog;
