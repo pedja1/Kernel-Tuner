@@ -1,0 +1,319 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+ <ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+
+        android:id="@+id/scrollView1"
+
+        android:layout_width="match_parent"
+
+        android:layout_height="match_parent" >
+
+<RelativeLayout 
+
+    android:layout_width="match_parent"
+
+    android:layout_height="wrap_content" >
+
+
+    <TextView
+
+        android:id="@+id/textView1"
+
+        android:layout_width="wrap_content"
+
+        android:layout_height="wrap_content"
+
+        android:layout_alignParentTop="true"
+
+        android:layout_centerHorizontal="true"
+
+        android:text="@string/swap_status"
+
+        android:textAppearance="?android:attr/textAppearanceLarge" />
+
+
+    <TextView
+
+        android:id="@+id/textView2"
+
+        android:layout_width="wrap_content"
+
+        android:layout_height="wrap_content"
+
+        android:layout_alignParentTop="false"
+
+        android:layout_below="@+id/textView1"
+
+        android:layout_centerHorizontal="true"
+
+         />
+
+
+    <LinearLayout
+
+        android:id="@+id/LinearLayout1"
+
+        android:layout_width="match_parent"
+
+        android:layout_height="wrap_content"
+
+        android:layout_below="@+id/textView9"
+
+        android:layout_marginTop="20dp"
+
+        android:orientation="vertical" >
+
+
+        <LinearLayout
+
+            android:id="@+id/ll1"
+
+            android:layout_width="match_parent"
+
+            android:layout_height="wrap_content" >
+
+
+            <TextView
+
+                android:id="@+id/textView3"
+
+                android:layout_width="wrap_content"
+
+                android:layout_height="wrap_content"
+
+                android:layout_weight="1"
+
+                android:text="@string/swap_size"
+
+                android:textAppearance="?android:attr/textAppearanceLarge" />
+
+
+            <Spinner
+
+                android:id="@+id/bg"
+
+                android:layout_width="wrap_content"
+
+                android:layout_height="wrap_content"
+
+                android:layout_weight="1" />
+
+
+        </LinearLayout>
+
+
+        <LinearLayout
+
+            android:id="@+id/ll2"
+
+            android:layout_width="match_parent"
+
+            android:layout_height="wrap_content" >
+
+
+            <TextView
+
+                android:id="@+id/textView4"
+
+                android:layout_width="wrap_content"
+
+                android:layout_height="wrap_content"
+
+                android:layout_weight="1"
+
+                android:text="@string/swap_location"
+
+                android:textAppearance="?android:attr/textAppearanceLarge" />
+
+
+            <Spinner
+
+                android:id="@+id/spinner2"
+
+                android:layout_width="wrap_content"
+
+                android:layout_height="wrap_content"
+
+                android:layout_weight="1" />
+
+
+        </LinearLayout>
+
+
+        <LinearLayout
+
+            android:id="@+id/ll3"
+
+            android:layout_width="match_parent"
+
+            android:layout_height="wrap_content" >
+
+
+            <TextView
+
+                android:id="@+id/textView5"
+
+                android:layout_width="0dp"
+
+                android:layout_height="wrap_content"
+
+                android:layout_weight="1"
+
+                android:text="@string/swappiness"
+
+                android:textAppearance="?android:attr/textAppearanceLarge" />
+
+
+            <EditText 
+
+                android:text=""
+
+                android:id="@+id/EditText1"
+
+                android:layout_width="wrap_content"
+
+                android:layout_height="wrap_content"
+
+                android:inputType="number" />
+
+
+        </LinearLayout>
+
+
+        <LinearLayout
+
+            android:layout_width="match_parent"
+
+            android:layout_height="wrap_content" >
+
+
+            <Button
+
+                android:id="@+id/button1"
+
+                android:layout_width="match_parent"
+
+                android:layout_height="wrap_content"
+
+                android:layout_weight="1"
+
+                android:text="@string/activate_swap" />
+
+
+            <Button
+
+                android:id="@+id/button2"
+
+                android:layout_width="match_parent"
+
+                android:layout_height="wrap_content"
+
+                android:layout_weight="1"
+
+                android:text="@string/create_swap" />
+
+
+            <Button
+
+                android:id="@+id/button4"
+
+                android:layout_width="match_parent"
+
+                android:layout_height="wrap_content"
+
+                android:layout_weight="1"
+
+                android:text="@string/deactivate_swap" />
+
+
+            <Button
+
+                android:id="@+id/button3"
+
+                android:layout_width="match_parent"
+
+                android:layout_height="wrap_content"
+
+                android:layout_weight="1"
+
+                android:text="@string/set_swappiness" />
+
+
+        </LinearLayout>
+
+
+    </LinearLayout>
+
+
+    <TextView
+
+        android:id="@+id/textView6"
+
+        android:layout_width="wrap_content"
+
+        android:layout_height="wrap_content"
+
+        android:layout_below="@+id/textView10"
+
+        android:layout_centerHorizontal="true" />
+
+
+    <TextView
+
+        android:id="@+id/textView7"
+
+        android:layout_width="wrap_content"
+
+        android:layout_height="wrap_content"
+
+        android:layout_alignParentLeft="false"
+
+        android:layout_below="@+id/textView6"
+
+        android:layout_centerHorizontal="true" />
+
+
+    <TextView
+
+        android:id="@+id/textView8"
+
+        android:layout_width="wrap_content"
+
+        android:layout_height="wrap_content"
+
+        android:layout_below="@+id/textView7"
+
+        android:layout_centerHorizontal="true" />
+
+
+    <TextView
+
+        android:id="@+id/textView9"
+
+        android:layout_width="wrap_content"
+
+        android:layout_height="wrap_content"
+
+        android:layout_below="@+id/textView8"
+
+        android:layout_centerHorizontal="true" />
+
+
+    <TextView
+
+        android:id="@+id/textView10"
+
+        android:layout_width="wrap_content"
+
+        android:layout_height="wrap_content"
+
+        android:layout_below="@+id/textView2"
+
+        android:layout_centerHorizontal="true" />
+
+	
+
+</RelativeLayout>
+
+</ScrollView>
+

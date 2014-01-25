@@ -1,0 +1,83 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    xmlns:ads="http://schemas.android.com/apk/lib/com.google.ads"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".KernelTuner"
+     >
+	<ProgressBar
+		android:id="@+id/loading"
+		style="?android:attr/progressBarStyleLarge"
+		android:layout_width="wrap_content"
+		android:layout_height="wrap_content" 
+		android:layout_centerHorizontal="true"
+		android:layout_centerVertical="true"/>
+<GridView
+    android:id="@+id/list"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:layout_above="@+id/ly3"
+    android:layout_alignParentLeft="true"
+	android:numColumns="2"
+    android:layout_below="@+id/horizontalScrollView1" >
+
+</GridView>
+
+<LinearLayout
+        android:id="@+id/ly3"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_alignParentBottom="true" >
+
+        <com.google.ads.AdView
+            android:id="@+id/ad"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            ads:adSize="BANNER"
+            ads:adUnitId="a15056d54ca9d71"
+           
+            ads:testDevices="TEST_EMULATOR, 3CE20BB714ED336822A2508B26BBC32B" />
+    </LinearLayout>
+
+<HorizontalScrollView
+    android:id="@+id/horizontalScrollView1"
+    android:layout_width="wrap_content"
+    android:layout_height="wrap_content" >
+
+    <LinearLayout
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content" >
+
+        <CheckBox
+            android:id="@+id/kernel"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="kernel"
+            android:checked="true"/>
+
+        <CheckBox
+            android:id="@+id/vm"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="vm"
+            android:checked="true" />
+
+        <CheckBox
+            android:id="@+id/fs"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="fs"
+            android:checked="true" />
+        <CheckBox
+            android:id="@+id/net"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="net"
+            android:checked="false" />
+        
+    </LinearLayout>
+
+</HorizontalScrollView>
+
+</RelativeLayout>

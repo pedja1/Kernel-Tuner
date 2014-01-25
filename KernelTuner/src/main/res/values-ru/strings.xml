@@ -1,0 +1,716 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+<string name="title_cpu">Твики CPU</string>
+<string name="title_governor">Говернор</string>
+<string name="title_tis">Статистика</string>
+<string name="title_voltage">Вольтаж</string>
+<string name="title_gpu">Твики GPU</string>
+<string name="title_misc">Прочие твики</string>
+<string name="title_profiles">Профили</string>
+<string name="title_mpdecision">MP-Desicion</string>
+<string name="title_thermald">Перегрев</string>
+<string name="title_about">О программе</string>
+<string name="title_info">О системе</string>
+<string name="title_preferences">Настройки</string>
+<string name="title_sysctl">SysCtl</string>
+<string name="title_sd">Анализатор карты SD</string>
+<string name="title_backup">Бэкап/Восстановление</string>
+<string name="title_log">Логи</string>
+<string name="title_build">Редактор Build.prop</string>
+<string name="app_name">Kernel Tuner</string>
+<string name="title_task_manager">Менеджер процессов</string>
+<string name="preferences_boot_settings">Настройки загрузки</string>
+<string name="preferences_boot_settings_apply_summary">Необходима перезагрузка</string>
+<string name="preferences_boot_settings_apply_title">Запускать приложение</string>
+<string name="preferences_widget_settings">Настройка виджетов</string>
+<string name="preferences_widget_settings_interval_title">Интервал обновления</string>
+<string name="preferences_widget_settings_interval_summary">Настройки приводят к увеличению разряда АКБ</string>
+<string name="preferences_misc">Разное</string>
+
+<string name="preferences_notification_toggle_title">Использование CPU</string>
+<string name="preferences_notification_toggle_summary">Информация о CPU в статус-баре</string>
+<string name="preferences_notification">Уведомления</string>
+<string name="preferences_cpu">CPU</string>
+<string name="preferences_memory">Память</string>
+
+
+
+<string name="preferences_misc_ads_title">Показывать рекламу</string>
+<string name="preferences_misc_ads_summary">Необходим перезапуск приложения</string>
+<string name="preferences_misc_update_title">Автообновление</string>
+<string name="preferences_misc_update_summary">Проверить обновление при запуске</string>
+
+<string name="title_changelog">Changelog</string>
+<string name="title_check">Проверить совместимость</string>
+
+<string name="activity_title_profile_editor">Редактор профиля</string>
+<string name="anthrax"><a href="http://anthrax&#8211;kernels.us/forum/showthread.php?t=574">anthrax&#8211;kernels.us</a></string>
+<string name="xda"><a href="http://forum.xda&#8211;developers.com/showthread.php?t=1719934">xda&#8211;developers.com</a></string>
+<string name="official"><a href="http://kerneltuner.pedjaapps.in.rs/">Оф.сайт</a></string>
+<string name="mail"><a href="mailto:predragcokulov@gmail.com">Письмо разработчику</a></string>
+
+<color name="green">#00ff00</color>
+<color name="red">#ff0000</color>
+<color name="orange">#ffa500</color>
+
+<string name="copyright_cokulov_predrag_2012">Авторское право © Čokulov Predrag 2012</string>
+<string name="about_faq_and_support">FAQ и поддержка:</string>
+<string name="activity_check_scaling_available_frequencies">Измерение доступных частот</string>
+<string name="activity_check_undervolting_">Управление питанием...</string>
+<string name="activity_check_time_in_state_">Статистика...</string>
+<string name="activity_check_led_notification_timeout_">Тайм-аут подсветки</string>
+<string name="activity_check_capacitive_buttons_backlight_">Подсветка нижних кнопок</string>
+<string name="activity_check_gpu_3d_overclocking_">Разгон GPU 3D</string>
+<string name="activity_check_gpu_2d_overclocking">Разгон GPU 2D</string>
+<string name="activity_check_fastcharge_">Быстрый заряд...</string>
+<string name="activity_check_vsync_">Vsync…</string>
+<string name="activity_check_color_depth_">Глубина цвета</string>
+<string name="activity_check_f_sync_">f/sync…</string>
+<string name="activity_check_sweep2wake_">Sweep2Wake…</string>
+<string name="activity_check_thermald_">Перегрев…</string>
+<string name="activity_check_mpdecision_">Mpdecision…</string>
+<string name="activity_check_sdcache_">sd кэш&#8230;.</string>
+<string name="activity_check_io_scheduler_">IO Планировщик</string>
+<string name="activity_check_your_device_is_">"Устройство на "</string>
+<string name="activity_check_compatible_">" совместимо!"</string>
+<string name="activity_main_cpu_temp_">Темп.CPU:</string>
+<string name="n_a">n/a</string>
+<string name="activity_main__battery_temp_">"Темп-ра:"</string>
+<string name="activity_main__battery_level_">" Батарея:"</string>
+<string name="cpu0">CPU0</string>
+<string name="cpu1">CPU1</string>
+<string name="offline">отключено</string>
+<string name="cpu2">CPU2</string>
+<string name="cpu3">CPU3</string>
+<string name="info_">Инфо:</string>
+<string name="cpu0_min_freq_">CPU0 мин частота:</string>
+<string name="cpu0_max_freq_">CPU0 макс частота:</string>
+<string name="cpu1_min_freq_">CPU1 мин частота:</string>
+<string name="cpu2_min_freq_">CPU2 мин частота:</string>
+<string name="cpu1_max_freq_">CPU1 макс частота:</string>
+<string name="cpu2_max_freq_">CPU2 макс частота:</string>
+<string name="cpu3_min_freq_">CPU3 мин частота:</string>
+<string name="crtica">&#8211;</string>
+<string name="cpu3_max_freq_">CPU3 макс частота:</string>
+<string name="fastcharge_status_">Статус заряда:</string>
+<string name="buttons_backlight">Подсветка нижних кнопок</string>
+<string name="buttons_backlight_">Подсветка нижних кнопок:</string>
+<string name="gpu2d_max_freq_">GPU2D макс частота:</string>
+<string name="gpu3d_max_freq_">GPU3D макс частота:</string>
+
+<string name="cpu0_governor_">Регулятор CPU0:</string>
+<string name="cpu1_governor_">Регулятор CPU1:</string>
+<string name="cpu2_governor_">Регулятор CPU2:</string>
+<string name="cpu3_governor_">Регулятор CPU3:</string>
+<string name="activity_main_up_time_">Включен&#8211;:</string>
+<string name="activity_main_deep_sleep_">Время сна:</string>
+<string name="activity_main_sweep2wake_">Sweep2Wake:</string>
+<string name="activity_main_cpu1_on_off">Вкл/Выкл CPU1</string>
+<string name="activity_main_cpu2_on_off">Вкл/Выкл CPU2</string>
+<string name="activity_main_cpu3_on_off">Вкл/Выкл CPU3</string>
+<string name="activity_gpu_3d_max_freq_">MAX частота 3D:</string>
+<string name="mhz">Мгц</string>
+<string name="activity_gpu__2d_max_freq_">MAX частота 2D:</string>
+<string name="activity_gpu_current_3d_frequency_">Текущая частота 3D:</string>
+<string name="activity_gpu_current_2d_frequency_">Текущая частота 2D:</string>
+<string name="cancel">Отмена</string>
+<string name="plus">+</string>
+<string name="fastcharge">Быстрый заряд</string>
+<string name="enable_disable_fastcharge_mod">Вкл/Выкл быстрый заряд</string>
+<string name="vsync">Vsync</string>
+<string name="enable_disable_vsync">Вкл./Выкл. Vsync</string>
+<string name="question_mark">\?</string>
+<string name="color_depth">Глубина цвета:</string>
+<string name="io_scheduler_">IO Планировщик:</string>
+<string name="sd_cache_size_">Размер кэша на SD:</string>
+<string name="led_notofications_timeout">Таймаут LED</string>
+<string name="unlimited">Не ограничено</string>
+<string name="application_default">По умолчанию</string>
+<string name="app_default_custom_multiplier">По умолчанию * пользователь</string>
+<string name="sweep2wake_">Sweep2Wake:</string>
+<string name="s2w_start_button_">S2W СТАРТ;</string>
+<string name="s2w_end_button_">S2W СТОП:</string>
+<string name="apply">Применить</string>
+<string name="mpdecision">Mpdecision</string>
+<string name="service_start_delay_">Задержка старта:</string>
+<string name="sleep_time_">Время сна:</string>
+<string name="up_threshold_load_">Верхний порог(загр-ка):</string>
+<string name="up_threshold_time_">Верхний порог(время):</string>
+<string name="down_threshold_load_">Нижний порог(загр-ка):</string>
+<string name="down_threshold_time_">Нижний порог(время):</string>
+<string name="max">макс.</string>
+<string name="min">мин.</string>
+<string name="profile_name">Имя профиля</string>
+<string name="number_of_active_cores_">Активных ядер:</string>
+<string name="mpdecision_threshold_up_">Верхний порог Mpdecision:</string>
+<string name="mpdecision_threshold_down_">Нижний порог Mpdecision:</string>
+<string name="done">Готово</string>
+<string name="profile_">Профиль:</string>
+<string name="create_profile_from_current_settings">Создать профили из текущих настроек</string>
+<string name="phase1_low">НИЖНИЙ - ПОРОГ</string>
+<string name="max_frequency_">MAX Частота:</string>
+<string name="low_range_temperature_">Нижняя температура:</string>
+<string name="high_range_temperature_">Верхняя температура:</string>
+<string name="phase2_medium">СРЕДНИЙ - ПОРОГ</string>
+<string name="phase3_high">ВЕРХНИЙ - ПОРОГ</string>
+<string name="frequency_">Частота:</string>
+<string name="all_p12_5mv">Все + 12.5мВ</string>
+<string name="all_m12_5mv">Все &#8211;12.5мВ</string>
+
+<string name="governor_">Говернор</string>
+<string name="buttons_n_light">Подсветка кнопок</string>
+<string name="fast_ncharge">Быстрый заряд</string>
+<string name="color_n_depth">Глубина цвета</string>
+
+<string name="temperature_">Температура:</string>
+<string name="temp">Темп-ра:</string>
+<string name="voltage_">Вольтаж:</string>
+<string name="technology_">Технология:</string>
+<string name="drain_charge_">Разряд/Заряд:</string>
+<string name="health_">Состояние:</string>
+<string name="capacity_">Емкость:</string>
+
+<string name="swap_size">Размер Swap(Mб)</string>
+<string name="swap_location">Раздел Swap файла</string>
+<string name="swappiness">Swappiness</string>
+<string name="create_swap">Создать Swap файл</string>
+<string name="activate_swap">Включить Swap</string>
+<string name="swap_status">Swap статус</string>
+<string name="delete_swap">Удалить Swap файл</string>
+<string name="deactivate_swap">Отключить Swap</string>
+<string name="set_swappiness">Установка Swappiness</string>
+<string name="cpu_load">Загрузка ЦП:</string>
+<string name="refresh">Обновить</string>
+<string name="load">Загрузка</string>
+<string name="thermald">Перегрев</string>
+<string name="profiles">Профили</string>
+<string name="swap">Swap</string>
+<string name="info">О системе</string>
+<string name="ok">ОК</string>
+<string name="uptime_">Включен:</string>
+<string name="deep_sleep_">Время сна:</string>
+<string name="system_dump_text1">Будет создан на sdcard дамп системы,необходимый для приложения.
+\n
+\n\'/sdcard/ktuner_log.txt\'
+\n
+\nЭта информация может помочь улучшить приложение и добавить поддержку новых устройств
+\n
+\nХотите продолжить?</string>
+<string name="system_dump_text2">Личные данные не будут собираться!</string>
+<string name="clear">Очистить</string>
+<string name="delete">Удалить</string>
+<string name="plugin_name">Kernel Tuner Профили</string>
+<string name="voltage_profile">Профиль вольтажа</string>
+<string name="cpu_">CPU:</string>
+<string name="gpu_">GPU:</string>
+<string name="other_">Прочее:</string>
+<string name="capacitive_buttons_light_level_0_60_">Уровень подсветки кнопок(0&#8211;60):</string>
+<string name="color_depth_">"Глубина цвета: "</string>
+<string name="sd_card_cache">Размер кэша на SD:</string>
+<string name="link_cpus">Скейлинг ядер(Частоты ядер изменяются вместе)</string>
+<string name="off">ВЫКЛ</string>
+<string name="on">ВКЛ</string>
+<string name="dim">DIM</string>
+<string name="bright">ЯРКО</string>
+<string name="version">Версия:</string>
+<string name="dialog_title">Подождите…</string>
+<string name="enabling_cpus">Включение всех ядер....
+\nПодождите...</string>
+<string name="gov_not_supported">Изменения в регуляторах ещё не применены!
+\n
+\nВы можете настроить регуляторы:
+\nondemand, conservative, interactive, xondemand</string>
+<string name="gov_new_value">Новое значение:</string>
+<string name="applying_settings">Применение настроек...</string>
+<string name="downloading_update">Загрузка обновления</string>
+<string name="available">Доступно</string>
+<string name="download_now">Загрузить сейчас?</string>
+<string name="download">Загрузить</string>
+<string name="dump">Дамп системы в файл</string>
+<string name="proceed">Прододжить</string>
+<string name="log_writen">Лог записан в:</string>
+<string name="log_error">Ошибка создания лог-файла:</string>
+<string name="press_again_to_exit">Для выхода нажмите ещё раз Назад</string>
+<string name="profile">Профили</string>
+<string name="applied">Применено</string>
+<string name="unchanged">Не задано</string>
+<string name="empty_profile_name">Имя профиля не может быть пустым!
+\nВведите имя профиля</string>
+<string name="delete_all_profiles">Удалить все профили</string>
+<string name="delete_all_profiles_confirm">Удалить все профили?</string>
+<string name="yes">Да</string>
+<string name="save_current_settings">Сохранить настройки</string>
+<string name="save">Сохр.</string>
+<string name="gathering_system_info">Загрузка информации о системе&#8230;
+\nПодождите&#8230;</string>
+<string name="copy_profile">Копировать профиль</string>
+<string name="copy">Копир-ть</string>
+<string name="changing_voltage">Изменяем напряжение
+\nПодождите&#8230;</string>
+<string name="voltage_profile_name">Профиль вольтажа</string>
+<string name="enter_voltage_profile_name">Введите имя профиля:</string>
+<string name="select_profile">Выбрать профиль</string>
+<string name="clear_voltage_profiles">Удалить профиль</string>
+<string name="clear_voltage_profiles_confirm">Очистить все профили?</string>
+<string name="no">Нет</string>
+<string name="select_profile_to_delte">Выберите профиль для удаления</string>
+<string name="voltage_value_out_of_bounds">Значение должно быть между 700 и 1400</string>
+<string name="voltage_value_empty">Не может быть пустым!</string>
+<string name="there_are_no_profiles_">Нет профилей!</string>
+<string name="tap_">"Нажмите "</string>
+<string name="_to_add_new_profile"> "чтобы добавить новый профиль"</string>
+<string name="device_">"Устройство: "</string>
+<string name="board_">"Плата: "</string>
+<string name="display_">"Дисплей: "</string>
+<string name="bootloader_">"Загрузчик: "</string>
+<string name="hardware_">"Оборудование: "</string>
+<string name="manufacturer_">"Мануфактура: "</string>
+<string name="model_">"Модель: "</string>
+<string name="product_">"Продукт: "</string>
+<string name="radio_">"Радио: "</string>
+<string name="kernel_">Ядро:</string>
+<string name="notificatio_preferences_warning">Эта опция может увеличить расход аккумулятора.
+\nБудьте осторожны!</string>
+<string name="select_profile_">Выбор профиля:</string>
+<string name="presets">Предустановки</string>
+<string name="time">Время</string>
+<color name="grey">#808080</color>
+<string name="deep_sleep">В режиме сна</string>
+<string name="boot_time">После включения</string>
+<string name="Browse">Обзор</string>
+<string name="browse">Выбрать</string>
+<string name="scann_depth">Глубина поиска(включая вложенные папки)</string>
+<string name="number_of_items">Число элементов для отображения</string>
+<string name="scann">Анализировать</string>
+<string name="folder_to_scann">Папка для поиска(полный путь)</string>
+<string name="preferences_cpu_htcone_title">Запрет изменений прочими приложениями</string>
+<string name="preferences_cpu_htcone_summary">Для управления CPU1, настройки не работают на HTC устройствах</string>
+<string name="htc_override_preferences_warning">Это временное решение для HTC устройств, которые имеют проблемы с CPU1
+\n
+\nПри помощи этого все ядра будут активны
+\n
+\nЕсли отключить CPU1, проблема вернётся</string>
+<string name="List">Список</string>
+<string name="chart">Диаграмма</string>
+<string name="remember">Запомнить выбор</string>
+<string name="head_capacitive_buttons_backlight">ПОДСВЕТКА КНОПОК</string>
+<string name="celsius_unit">°C</string>
+<string name="head_fastcharge">БЫСТРЫЙ ЗАРЯД</string>
+<string name="toggle_fastcharge_mode">Включение быстрого заряда</string>
+<string name="head_vsync">VSYNC</string>
+<string name="toggle_vsync">Включение vsync</string>
+<string name="head_otg">OTG</string>
+<string name="usb_otg">USB OTG</string>
+<string name="enable_otg_support_with_standard_usb_cable">Включение поддержки OTG через стандартный USB</string>
+<string name="no_sensor_found">Датчик не обнаружен</string>
+<string name="divider">divider</string>
+<string name="oom">OOM</string>
+<string name="google_play_store">Посмотреть на Google Play:</string>
+<string name="follow_me_">Связь со мной:</string>
+<string name="faq_and_support_">FAQ и поддержка:</string>
+<string name="contack_me_">Мои контакты:</string>
+<string name="icon_credits">Автор значка приложения vault1965</string>
+<string name="google_play_link">Ссылка Google Play</string>
+<string name="facebook_link">Ссылка Facebook</string>
+<string name="twitter_link">Ссылка Twitter</string>
+<string name="google_plus_link">Ссылка Google Plus</string>
+<string name="xda_link">Ссылка XDA</string>
+<string name="anthrax_link">Ссылка Anthrax</string>
+<string name="kt_link">Ссылка KT</string>
+<string name="version_n_a">Версия: n/a</string>
+<string name="nula">0</string>
+<string name="color_depth_header">ГЛУБИНА ЦВЕТА</string>
+<string name="_16_bit">16-бит</string>
+<string name="percent">%</string>
+<string name="button_minus">Кнопку минус</string>
+<string name="button_plus">Кнопку плюс</string>
+<string name="battery_icon">Иконка АКБ</string>
+<string name="dot">Точка</string>
+<string name="_24_bit">24-бит</string>
+<string name="_32_bit">32-бит</string>
+<string name="io_and_sd_card">IO и SD карта</string>
+<string name="io_scheduler">Планировщик IO</string>
+<string name="set_io_scheduler">Набор планировщиков IO</string>
+<string name="sd_card_cache_size">Размер кэша на SD</string>
+
+<string name="textOn">ВКЛ</string>
+<string name="textOff">ВЫКЛ</string>
+
+<string name="main_cpu">CPU</string>
+<string name="main_governor">Говернор</string>
+<string name="main_tis">Отчёт</string>
+<string name="main_voltage">Вольтаж</string>
+<string name="main_gpu">GPU</string>
+<string name="main_misc">Разное</string>
+<string name="main_profiles">Профили</string>
+<string name="main_mpdecision">MP-Decision</string>
+<string name="main_thermald">Перегрев</string>
+<string name="main_info">Система</string>
+<string name="main_sd">SD</string>
+<string name="main_tm">Процессы</string>
+<string name="main_sysctl">SysCtl</string>
+<string name="main_build">Build.prop</string>
+
+
+<string name="app_name_paused">Лог (пауза)</string>
+<string name="fatal_title">Критические</string>
+<string name="error_title">Ошибки</string>
+<string name="warn_title">Предупреждения</string>
+<string name="info_title">Информация</string>
+<string name="verbose_title">Подробный</string>
+<string name="debug_title">Отладка</string>
+<string name="filter_menu">Фильтр(%s)</string>
+<string name="filter_dialog_title">Фильтр лога</string>
+<string name="filter_menu_empty">Фильтр</string>
+<string name="filter_dialog_text">Фильтр журнала может быть простой подстрокой или Java-соответствием регулярного выражения</string>
+<string name="pattern_error_text">Недопустимое выражение</string>
+<string name="brief_title">Кратко</string>
+<string name="process_title">Процессы</string>
+<string name="tag_title">Теги</string>
+<string name="thread_title">Потоки</string>
+<string name="raw_title">Не обработаны</string>
+<string name="time_title">Время</string>
+<string name="long_title">Длительность</string>
+<string name="reading_logs">Чтение журналов,подождите</string>
+<string name="share_menu">Часть</string>
+<string name="play_menu">Пуск</string>
+<string name="pause_menu">Пауза</string>
+<string name="jump_start_menu">Верхняя</string>
+<string name="jump_end_menu">Нижняя</string>
+<string name="main_title">Главная</string>
+<string name="events_title">События</string>
+<string name="radio_title">Радио</string>
+<string name="small_title">Мелкий</string>
+<string name="medium_title">Средний</string>
+<string name="large_title">Большой</string>
+<string name="clear_menu">Очистить</string>
+<string name="save_menu">Сохранить</string>
+<string name="prefs_menu">Предпочтения</string>
+<string name="saving_log">Лог сохраняется в: %s, ждите</string>
+<string name="threadtime_title">Поток времени</string>
+<string name="black_title">Чёрный</string>
+<string name="white_title">Белый</string>
+<string name="gray_title">Серый</string>
+<string name="apply_as_regexp">Применять как регулярное выражение?</string>
+<string name="backing_up_settings">Бэкап настроек приложения</string>
+<string name="backing_up_database">Бэкап базы данных</string>
+<string name="backing_up_preferences">Бэкап прочих настроек приложения</string>
+<string name="restoring_settings">Восстановление настроек приложения</string>
+<string name="restoring_database">Восстановление базы данных</string>
+<string name="restoring_preferences">Восст-ие прочих настроек приложения</string>
+<string name="restart_note">Перезапустите приложение для вступления изменений в силу</string>
+<string name="sd_write_error">Не удалось выполнить запись</string>
+<string name="sd_read_error">Не удалось выполнить чтение</string>
+<string name="backup_success">Бэкап создан</string>
+<string name="restore_success">Восстановлено</string>
+<string name="backup_alert_prefs_prefix">Общие настройки -</string>
+<string name="backup_alert_database_prefix">База данных -</string>
+<string name="full_changelog">Все изменения</string>
+<string name="select">Выбор</string>
+<string name="info_gpu_title">GPU</string>
+<string name="info_gpu_text">GPU (графическая обработка) используется для отрисовки графики 2D и 3D
+\nЭтот параметр позволяет изменять частоту GPU
+\nПоддерживаются устройства с Adreno 220, 225 и 320</string>
+<string name="info_voltage_title">Изменение вольтажа</string>
+<string name="info_voltage_text">Позволяет задать напряжение процессора
+\nНапряжение осуществляется по базавой частоте
+\nПоддерживаются устройства с Qualcomm и большинство с Tegra 3</string>
+<string name="info_cpu_title">CPU</string>
+<string name="info_cpu_text">CPU (центральный процессор)
+\nПозволяет вам изменять частоты CPU и говернор
+\nИзменение частоты и говернор независимо. Большинство устройств поддерживает эту функцию</string>
+<string name="info_tis_title">Статистика</string>
+<string name="info_tis_text">Время процессора на каждой частоте</string>
+<string name="info_mpd_title">MP-Decision</string>
+<string name="info_mpd_text">MP-Decision-решает,когда включить или отключить ядро(-а)
+\nВы можете настроить параметры MP-Decision</string>
+<string name="info_misc_title">Прочие твики</string>
+<string name="info_misc_text">Содержит различные опции для настройки:
+\n
+\n*Изменение подсветки кнопок
+\n*Режим быстрого заряда
+\n*Включение vsync
+\n*Управление глубиной цвета
+\n*Управление Sweep2Wake
+\n*...
+\n
+\nДолжно поддерживаться ядром!</string>
+<string name="info_gov_title">Настройки говернора</string>
+<string name="info_gov_text">Говернор управляет частотой ЦП
+\nВы можете настроить параметры регулятора
+\n
+\nНе все говерноры можно настроить</string>
+<string name="info_oom_title">OOM</string>
+<string name="info_oom_text">OOM(Управление ОЗУ)
+\nСистема Android будет использовать эти значения для освобождения памяти</string>
+<string name="info_profiles_title">Профили</string>
+<string name="info_profiles_text">Создание профилей параметров
+\nИспользуйте профили в зависимости от условий:
+\n
+\n*Llama
+\n*Tasker
+\n*Локально</string>
+<string name="info_thermal_title">Перегрев</string>
+<string name="info_thermal_text">Эта опция управляеи тепловыми параметрами процессора
+\nЕсли температура достигает определенного порога,то частоты будут понижены для предотвращения перегрева
+\nКогда температура опустится-будет выполнен сброс</string>
+<string name="info_sd_title">Анализатор SD</string>
+<string name="info_sd_text">Инструмент для анализа занятого места на карте памяти</string>
+<string name="info_sys_info_title">О системе</string>
+<string name="info_sys_info_text">Детальная информация об аппарате</string>
+<string name="info_tm_title">Менеджер процессов</string>
+<string name="info_tm_text">Отображение и управление запущенными процессами
+\n
+\nВы можете:
+\n
+\n*Завершить процесс
+\n*Установить приоритет</string>
+<string name="info_build_title">Редактор build.prop</string>
+<string name="info_build_text">Редактирование свойств build устройств</string>
+<string name="info_sysctl_title">SysCtl</string>
+<string name="info_sysctl_text">Контроль системы</string>
+<string name="info_logs_title">Логи</string>
+<string name="info_logs_text">Экран логов устройства</string>
+<string name="info_ok">Есть!</string>
+<string name="info_more">Im stil confused</string>
+<string name="s2w_off">ВЫКЛ</string>
+<string name="s2w_on_no_bl">Без подсветки</string>
+<string name="s2w_on">С подсветкой</string>
+<string name="nlt_never">Никогда</string>
+<string name="nlt_default">По умолчанию</string>
+<string name="nlt_custom">Обычное</string>
+<string name="nlt_alert_title">Таймаут LED уведомлений</string>
+<string name="nlt_alert_message">Задать множитель</string>
+<string name="oom_please_wait">Изменение настроек памяти
+\nЖдите…</string>
+<string name="oom_preset">Выберите стиль</string>
+<string name="preferences_subtitle">Настройки приложения</string>
+<string name="preferences_subtitle_genereal">Настройки приложения</string>
+<string name="preferences_subtitle_widget">Настройка виджетов</string>
+<string name="preferences_subtitle_notification">Уведомления в статус-баре</string>
+<string name="preferences_subtitle_ui">Пользовательские настройки</string>
+<string name="preferences_subtitle_logcat">Настройки лога</string>
+<string name="preferences_subtitle_main">Настройки главного экрана</string>
+<string name="sd_scanning">Сканирую...</string>
+<string name="sd_please_wait">Ждите...</string>
+<string name="sd_alert_location">Путь:</string>
+<string name="sd_alert_size">Размер: </string>
+<string name="sd_alert_scan">Сканировать</string>
+<string name="applications">Приложения</string>
+<string name="images">Изображения</string>
+<string name="videos">Видео</string>
+<string name="documents">Документы</string>
+<string name="music">Музыка</string>
+<string name="archives">Архивы</string>
+<string name="sd_calculating">анализирую...</string>
+<string name="sd_not_mounted">Не найдена внешняя память</string>
+<string name="sd_scan_folders">Только папки</string>
+<string name="sd_scan_folders_and_files">Папки + Файлы</string>
+<string name="sd_display_list">Результат в таблице</string>
+<string name="sd_display_chart">Результат в диаграмме</string>
+<string name="mem_total">"Всего: "</string>
+<string name="mem_free">"Своб.: "</string>
+<string name="mem_used">"Занято: "</string>
+<string name="set_new_value">Введите новое значение:</string>
+<string name="system_info_please_wait">Сбор информации...
+\nПодождите</string>
+<string name="system_info_overview">Обзор</string>
+<string name="system_info_device">Девайс</string>
+<string name="system_info_cpu">CPU</string>
+<string name="system_info_sensors">Сенсоры</string>
+<string name="unknown">Не определено</string>
+<string name="backup">Бэкап</string>
+<string name="restore">Восстановление</string>
+<string name="backup_note">Резервное копирование.\
+\n\
+\nПримечание: Все существующие данные будут уничтожены перед восстановлением</string>
+<string name="title_logcat">Логи</string>
+<string name="change_sd_card_cache_size">Изменить размер кэша SD</string>
+<string name="nlt_title">ТАЙМАУТ LED УВЕДОМЛЕНИЙ</string>
+<string name="nlt">Таймаут LED уведомлений</string>
+<string name="nlt_message">Установить тайм-аут уведомлений</string>
+<string name="s2w_title">SWEEP2WAKE</string>
+<string name="s2w">Sweep2Wake</string>
+<string name="s2w_message">Переключить sweep2wake</string>
+<string name="start_button">СТАРТ</string>
+<string name="start_button_desc">Старт жестом</string>
+<string name="end_button">СТОП</string>
+<string name="end_button_desc">Стоп жестом</string>
+<string name="service_start_delay">Задержка начала</string>
+<string name="start_delay_desc">Время задержки до запуска mpdecision</string>
+<string name="ms">мс</string>
+<string name="pause">Пауза</string>
+<string name="pause_desc">Время сна, если внешний процесс активирует cpu1</string>
+<string name="threshold_up_load">Верхний порог загрузки</string>
+<string name="tul_desc">Включить CPU1,если загрузка:</string>
+<string name="threshold_up_time">Порог времени</string>
+<string name="tut_desc">Время загрузки перед активацией CPU1</string>
+<string name="threshold_down_load">Нижний порог загрузки</string>
+<string name="tdl_desc">Выключить CPU1 если нагрузка:</string>
+<string name="threshold_down_time">Нижний порог времени</string>
+<string name="tdt_desc">Время загрузки перед выключением CPU1</string>
+<string name="idle_frequency">Частота покоя</string>
+<string name="idle_freq_desc">Частота покоя ЦП</string>
+<string name="screen_off_frequency">Частота при блокировке</string>
+<string name="scroff_freq_desc">Макс. частота при блокировке</string>
+<string name="single_core_screen_off">Одно ядро для блокировки</string>
+<string name="single_scroff_desc">Включите одно ядро для блокировки</string>
+<string name="max_cpus">Макс. ЦП</string>
+<string name="max_cpus_desc">Максимум включённых ЦП,но не более 4</string>
+<string name="min_cpus">Мин. ЦП</string>
+<string name="min_cpus_desc">Минимум включённых ЦП,но не более 1</string>
+<string name="one_cpu_online">1 ЦП включен</string>
+<string name="cpu1_hotplug">CPU1 быстр.вкл.</string>
+<string name="cpu1_hotplug_desc">Включить CPU1 при загрузке:</string>
+<string name="cpu1_hotplug_time">CPU1 время быстр.вкл.</string>
+<string name="cpu1_hotplug_time_desc">Время загрузки перед активацией CPU1</string>
+<string name="two_cpus_online">2 ЦП включено</string>
+<string name="cpu2_hotplug">CPU2 быстр.вкл.</string>
+<string name="cpu2_hotplug_desc">Включить CPU2 при загрузке:</string>
+<string name="cpu2_hotplug_time">CPU2 время быстр.вкл.</string>
+<string name="cpu2_hotplug_time_desc">Время загрузки перед выключением CPU2</string>
+<string name="cpu1_unplug">CPU1 Unplug</string>
+<string name="cpu1_unplug_desc">Выключить CPU1 если нагрузка:</string>
+<string name="cpu1_unplug_time">CPU1 Unplug Time</string>
+<string name="cpu1_unplug_time_desc">Время загрузки перед выключением CPU1</string>
+<string name="three_cpus_online">3 ЦП включено</string>
+<string name="cpu3_hotplug">CPU3 быстр.вкл.</string>
+<string name="cpu3_hotplug_desc">Включить CPU3 при загрузке:</string>
+<string name="cpu3_hotplug_time">CPU3 время быстр.вкл.</string>
+<string name="cpu3_hotplug_time_desc">Время загрузки перед активацией CPU3</string>
+<string name="cpu2_unplug">CPU2 Unplug</string>
+<string name="cpu2_unplug_desc">Выключить CPU2 если нагрузка:</string>
+<string name="cpu2_unplug_time">CPU2 Unplug Time</string>
+<string name="cpu2_unplug_time_desc">Время загрузки перед выключением CPU2</string>
+<string name="four_cpus_online">4 ЦП включено</string>
+<string name="cpu3_unplug">CPU3 Unplug</string>
+<string name="cpu3_unplug_desc">Выключить CPU3 если нагрузка:</string>
+<string name="cpu3_unplug_time">CPU3 Unplug Time</string>
+<string name="cpu3_unplug_time_desc">Время загрузки перед выключением CPU3</string>
+<string name="edit">Изменить</string>
+<string name="frequency_range_">"Диапазон частот: "</string>
+<string name="mpdecision_">"Mpdecision: "</string>
+<string name="thermal_">"Перегрев: "</string>
+<string name="governors_">"Говерноры: "</string>
+<string name="voltage_range_">"Диапазон вольт: "</string>
+<string name="android_version_">"Версия Android: "</string>
+<string name="api_level_">"Уровень API: "</string>
+<string name="cpu_abi_">"CPU ABI: "</string>
+<string name="brand_">Брэнд:</string>
+<string name="fingerprint_">Сборка:</string>
+<string name="host_">Хост:</string>
+<string name="id_">ID:</string>
+<string name="tags_">Теги:</string>
+<string name="type_">Тип:</string>
+<string name="user_">Юзер:</string>
+<string name="installed_applications_">Установлено программ:</string>
+<string name="system_applications_">Системных программ:</string>
+<string name="screen_resoulution_">Разрешение дисплея:</string>
+<string name="screen_refresh_rate_">Частота обновления экрана:</string>
+<string name="screen_density_">Плотность пикселей:</string>
+<string name="screen_ppi">Плотность экрана</string>
+<string name="gpu_2d_frequency_">"Частота GPU 2D:"</string>
+<string name="gpu_3d_frequency_">"Частота GPU 3D:"</string>
+<string name="vsync_">Vsync:</string>
+<string name="fastcharge_">Быстрый заряд: </string>
+<string name="schedulers_">Планировщики: </string>
+<string name="level">Уровень</string>
+<string name="ram">RAM</string>
+<string name="internal">Системной:</string>
+<string name="external">Встроенной:</string>
+<string name="orientation">ОРИЕНТАЦИЯ</string>
+<string name="acceleration">АКСЕЛЕРОМЕТР</string>
+<string name="magnetic">МАГНИТНЫЙ</string>
+<string name="light">ДАТЧИК СВЕТА</string>
+<string name="proximity">ПРИБЛИЖЕНИЕ</string>
+<string name="pressure">ДАВЛЕНИЕ</string>
+<string name="temperature">ТЕМПЕРАТУРА</string>
+<string name="gravity">ГРАВИТАЦИЯ</string>
+<string name="gyroscope">ГИРОСКОП</string>
+<string name="relative_humidity">ВЛАЖНОСТЬ</string>
+<string name="max_freq_desc">Макс. частота порога</string>
+<string name="lower_frequency">Нижняя частота</string>
+<string name="lower_freq_desc">Уменьшить частоту, если температура ЦП:</string>
+<string name="reset_frequency">Сброс частоты</string>
+<string name="reset_freq_desc">Сбросить частоту, если температура ЦП:</string>
+<string name="system">Система</string>
+<string name="user">Юзер</string>
+<string name="other">Прочие</string>
+<string name="process_info">О процессе</string>
+<string name="application_name_">"Имя приложения: "</string>
+<string name="process_">"Процесс: "</string>
+<string name="pid_">"PID: "</string>
+<string name="memory_">"Память: "</string>
+<string name="status_">"Статус: " </string>
+<string name="process_priority">Приоритет процесса</string>
+<string name="high">Выше</string>
+<string name="low">Ниже</string>
+<string name="up_">Вкл.:</string>
+<string name="sleep_">"Сон: "</string>
+<string name="min_">мин.:</string>
+<string name="max_">макс.:</string>
+<string name="governor">Говернор</string>
+<string name="temp_">Темп-ра:</string>
+<string name="load_">"Загрузка: "</string>
+<string name="gpu_2d">GPU 2D</string>
+<string name="gpu_3d">GPU 3D</string>
+<string name="buttons_light_">Свет кнопок:</string>
+<string name="scheduler_">Планировщик:</string>
+<string name="s2w_">S2W:</string>
+<string name="cache_size_">Размер кэша:</string>
+<string name="this_widget_works_only_on_multi_core_devices_">Этот виджет работает только на многоядерных устройствах!</string>
+<string name="translators">Переводчики</string>
+<string name="_2d">2D</string>
+<string name="_3d">3D</string>
+<string name="current">Минимум</string>
+<string name="_max">Максимум</string>
+<string name="close">Закрыть</string>
+<string name="gpu_not_supported">Ваше устройство не поддерживается!
+\nПоддерживаются устройства с Adreno 220, 225 и 320. </string>
+<string name="process_details">Детали процесса</string>
+<string name="reboot">Перезагрузка</string>
+<string name="prefs_general">Основные</string>
+<string name="prefs_general_summary">Основные настройки</string>
+<string name="prefs_widget">Виджеты</string>
+<string name="prefs_widget_summary">Настройки виджетов</string>
+<string name="prefs_notification">Уведомления</string>
+<string name="prefs_notification_summary">Настройки уведомлений</string>
+<string name="prefs_log_summary">Настройки лога</string>
+<string name="prefs_ui">Интерфейс</string>
+<string name="prefs_ui_summary">Пользовательские настройки</string>
+<string name="prefs_main">Главный экран</string>
+<string name="prefs_main_summary">Внешний вид главного экрана</string>
+<string name="prefs_backup_summary">Бэкап/Восстановление настроек</string>
+<string name="prefs_about_summary">О программе/Авторе</string>
+<string name="prefs_changelog_summary">Просмотр изменений</string>
+<string name="prefs_info_summary">О системе и устройстве</string>
+<string name="prefs_reset">Сброс приложений при новом ядре</string>
+<string name="prefs_reset_summary">Сброс параметров после прошивки ядра</string>
+<string name="prefs_refresh">Частота обновления</string>
+<string name="prefs_refresh_summary">Как часто обновлять информацию</string>
+<string name="prefs_temp">Единица температуры</string>
+<string name="prefs_toast">Уведомления профиля</string>
+<string name="prefs_toast_summary">Уведомлять при изменении профиля</string>
+<string name="prefs_level">Уровень</string>
+<string name="prefs_format">Формат</string>
+<string name="prefs_buffer">Буфер</string>
+<string name="prefs_text_size">Размер текста записей</string>
+<string name="prefs_screen_on">Не выключать экран</string>
+<string name="prefs_screen_on_summary">Не выключать при работающем логе</string>
+<string name="prefs_unsupported">Неподдерживаемые функции</string>
+<string name="prefs_main_dialog">Диалоговые окна</string>
+<string name="prefs_main_dialog_summary">Отображать только основные параметры</string>
+<string name="prefs_cpu_panel">Панель процессора</string>
+<string name="prefs_cpu_panel_summary">Показывать частоту/загрузку ЦП</string>
+<string name="prefs_temp_panel">Панель температуры</string>
+<string name="prefs_temp_panel_summary">Показывать температуру/батарею</string>
+<string name="prefs_toggles_panel">Включение ядра</string>
+<string name="prefs_toggles_panel_summary">Показывать панель вкл/выкл ядра(ядер)</string>
+<string name="prefs_main_panel">Панель функций</string>
+<string name="prefs_main_panel_summary">Показывать панель функций</string>
+<string name="prefs_notif_items">Элементы для отображения</string>
+<string name="prefs_app_theme">Темы приложения</string>
+<string name="prefs_tis_as">Вид статистики</string>
+<string name="prefs_cpu_layout">Схема твиков ЦП</string>
+<string name="prefs_widget_bg">Фон виджета</string>
+</resources>

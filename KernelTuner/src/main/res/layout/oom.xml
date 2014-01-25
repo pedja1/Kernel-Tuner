@@ -1,0 +1,228 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    xmlns:ads="http://schemas.android.com/apk/lib/com.google.ads"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:layout_marginTop="15dp"
+    android:layout_marginRight="15dp"
+    android:layout_marginLeft="15dp"
+    tools:context=".KernelTuner" >
+
+	<ScrollView
+	    android:id="@+id/scrollView1"
+	    android:layout_width="match_parent"
+	    android:layout_height="wrap_content"
+	     >
+
+		<LinearLayout 
+			android:id="@+id/LinearLayout1"
+			android:layout_width="match_parent"
+			android:layout_height="wrap_content"
+
+			android:orientation="vertical" >
+
+			<TextView
+				android:id="@+id/textView2"
+				android:layout_width="wrap_content"
+				android:layout_height="wrap_content"
+				android:text="Foreground Application"
+				 />
+
+			
+
+				<LinearLayout
+					android:layout_width="match_parent"
+					android:layout_height="wrap_content" >
+
+					<SeekBar
+						android:id="@+id/foregroundSeek"
+						android:layout_width="0dp"
+						android:layout_height="wrap_content"
+						android:layout_weight="1"
+						android:max="256"	 />
+
+					<Button
+						android:id="@+id/foregroundTest"
+						android:layout_width="wrap_content"
+						android:layout_height="wrap_content" 
+						android:text="test"/>
+
+				
+
+			</LinearLayout>
+
+				<TextView
+				android:layout_width="wrap_content"
+				android:layout_height="wrap_content"
+				android:text="Visible Application"
+				 />
+
+			
+
+				<LinearLayout
+					android:layout_width="match_parent"
+					android:layout_height="wrap_content" >
+
+					<SeekBar
+						android:id="@+id/visibleSeek"
+						android:layout_width="0dp"
+						android:layout_height="wrap_content"
+						android:layout_weight="1"
+						android:max="256" />
+
+					<Button
+						android:id="@+id/visibleText"
+						android:layout_width="wrap_content"
+						android:layout_height="wrap_content" />
+
+				
+
+			</LinearLayout>
+
+				<TextView
+				android:layout_width="wrap_content"
+				android:layout_height="wrap_content"
+				android:text="Secondary Server"
+				 />
+
+			
+
+				<LinearLayout
+					android:layout_width="match_parent"
+					android:layout_height="wrap_content" >
+
+					<SeekBar
+						android:id="@+id/secondarySeek"
+						android:layout_width="0dp"
+						android:layout_height="wrap_content"
+						android:layout_weight="1"
+						android:max="256"/>
+
+					<Button
+						android:id="@+id/secondaryText"
+						android:layout_width="wrap_content"
+						android:layout_height="wrap_content" />
+
+			
+
+			</LinearLayout>
+			
+			<TextView
+				android:layout_width="wrap_content"
+				android:layout_height="wrap_content"
+				android:text="Hidden Application"
+			/>
+
+		
+
+				<LinearLayout
+					android:layout_width="match_parent"
+					android:layout_height="wrap_content" >
+
+					<SeekBar
+						android:id="@+id/hiddenSeek"
+						android:layout_width="0dp"
+						android:layout_height="wrap_content"
+						android:layout_weight="1"
+						android:max="256"	/>
+
+					<Button
+						android:id="@+id/hiddenText"
+						android:layout_width="wrap_content"
+						android:layout_height="wrap_content" />
+
+				
+
+			</LinearLayout>
+			
+			<TextView
+				android:layout_width="wrap_content"
+				android:layout_height="wrap_content"
+				android:text="Content Provider"
+			/>
+
+			
+
+				<LinearLayout
+					android:layout_width="match_parent"
+					android:layout_height="wrap_content" >
+
+					<SeekBar
+						android:id="@+id/contentSeek"
+						android:layout_width="0dp"
+						android:layout_height="wrap_content"
+						android:layout_weight="1"
+						android:max="256"/>
+
+					<Button
+						android:id="@+id/contentText"
+						android:layout_width="wrap_content"
+						android:layout_height="wrap_content" />
+
+				
+
+			</LinearLayout>
+			
+				<TextView
+				android:layout_width="wrap_content"
+				android:layout_height="wrap_content"
+				android:text="Empty Application"
+				 />
+
+			
+
+				<LinearLayout
+					android:layout_width="match_parent"
+					android:layout_height="wrap_content" >
+
+					<SeekBar
+						android:id="@+id/emptySeek"
+						android:layout_width="0dp"
+						android:layout_height="wrap_content"
+						android:layout_weight="1"
+						android:max="256"	 />
+
+					<Button
+						android:id="@+id/emptyText"
+						android:layout_width="wrap_content"
+						android:layout_height="wrap_content" />
+
+				
+
+			</LinearLayout>
+			
+				<ImageView
+                android:id="@+id/divider"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"  
+                android:scaleType="fitXY"
+                android:src="@drawable/divider_horizontal_bright" />
+				
+			<Button
+			    android:id="@+id/button1"
+			    android:layout_width="match_parent"
+			    android:layout_height="wrap_content"
+			    android:text="@string/presets" 
+			    style="?android:attr/buttonBarButtonStyle"/>
+
+		</LinearLayout>
+	</ScrollView>
+
+	<LinearLayout
+        android:id="@+id/ly3"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/scrollView1" >
+
+        <com.google.ads.AdView
+            android:id="@+id/ad"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            ads:adSize="BANNER"
+            ads:adUnitId="a15056d54ca9d71"
+
+            ads:testDevices="TEST_EMULATOR, 3CE20BB714ED336822A2508B26BBC32B" />
+    </LinearLayout>
+
+</RelativeLayout>

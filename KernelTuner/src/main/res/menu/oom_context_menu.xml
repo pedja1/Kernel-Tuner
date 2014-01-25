@@ -1,0 +1,53 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android" >
+
+    <item
+        android:id="@+id/very_light"
+        android:title="Very Light"/>
+    
+            <item
+        android:id="@+id/light"
+        android:title="Light"/>
+            
+            <item
+        android:id="@+id/medium"
+        android:title="Medium"/>
+ 
+    <item
+        android:id="@+id/aggressive"
+        android:title="Aggressive"/>
+    
+    <item
+        android:id="@+id/very_aggressive"
+        android:title="Very Aggressive"/>
+    
+    <item
+        android:id="@+id/_256_multitasking"
+        android:title="256 Multitasking"/>
+    
+    <item
+        android:id="@+id/_256_balanced"
+        android:title="256 Balanced"/>
+    <item
+        android:id="@+id/_256_aggressive"
+        android:title="256 Aggressive"/>
+    
+     <item
+        android:id="@+id/_512_multitasking"
+        android:title="512 Multitasking"/>
+    
+    <item
+        android:id="@+id/_512_balanced"
+        android:title="512 Balanced"/>
+    <item
+        android:id="@+id/_512_aggressive"
+        android:title="512 Aggressive"/>
+    <item
+        android:id="@+id/_768_aggressive"
+        android:title="768 Aggressive"/>
+    <item
+        android:id="@+id/_1000_aggressive"
+        android:title="1000 Aggressive"/>
+   
+            
+</menu>

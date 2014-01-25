@@ -1,0 +1,122 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+
+   
+    <ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+        android:id="@+id/scrollView2"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentTop="true" >
+
+		<LinearLayout
+			android:layout_width="match_parent"
+			android:layout_height="wrap_content"
+			android:orientation="vertical">
+			
+			<TextView
+			    android:id="@+id/tv"
+			    android:layout_width="match_parent"
+			    android:layout_height="wrap_content"
+			    android:layout_marginBottom="8dp" />
+			
+			<LinearLayout
+				
+				android:layout_width="match_parent"
+				android:layout_height="wrap_content"
+				>
+				
+				<TextView
+					
+					android:layout_width="wrap_content"
+					android:layout_height="wrap_content"
+					android:text="@string/frequency_range_"/>
+			
+			<TextView
+				android:id="@+id/freqRange"
+				android:layout_width="wrap_content"
+				android:layout_height="wrap_content"
+				android:layout_marginLeft="5dp"/>
+
+			</LinearLayout>
+			<LinearLayout
+				android:id="@+id/mpdecLayout"
+				android:layout_width="match_parent"
+				android:layout_height="wrap_content"
+				>
+				
+				<TextView
+					
+					android:layout_width="wrap_content"
+					android:layout_height="wrap_content"
+					android:text="@string/mpdecision_"/>
+			<TextView
+				android:id="@+id/mpdec"
+				android:layout_width="wrap_content"
+				android:layout_height="wrap_content"
+				android:layout_marginLeft="5dp"/>
+				
+			</LinearLayout>
+
+			<LinearLayout
+				android:id="@+id/thermalLayout"
+				android:layout_width="match_parent"
+				android:layout_height="wrap_content"
+			>
+
+				<TextView
+
+					android:layout_width="wrap_content"
+					android:layout_height="wrap_content"
+					android:text="@string/thermal_"/>
+			
+			<TextView
+				android:id="@+id/thermal"
+				android:layout_width="wrap_content"
+				android:layout_height="wrap_content"
+				android:layout_marginLeft="5dp"/>
+				
+			</LinearLayout>
+			
+			<LinearLayout
+
+				android:layout_width="match_parent"
+				android:layout_height="wrap_content"
+			>
+
+				<TextView
+
+					android:layout_width="wrap_content"
+					android:layout_height="wrap_content"
+					android:text="@string/governors_"/>
+			
+			<TextView
+				android:id="@+id/governors"
+				android:layout_width="wrap_content"
+				android:layout_height="wrap_content"
+				android:layout_marginLeft="5dp"/>
+				
+			</LinearLayout>
+			
+			<LinearLayout
+				android:id="@+id/voltageLayout"
+				android:layout_width="match_parent"
+				android:layout_height="wrap_content"
+			>
+
+				<TextView
+
+					android:layout_width="wrap_content"
+					android:layout_height="wrap_content"
+					android:text="@string/voltage_range_"/>
+			
+			<TextView
+				android:id="@+id/voltRange"
+				android:layout_width="wrap_content"
+				android:layout_height="wrap_content"
+				android:layout_marginLeft="5dp"/>
+			</LinearLayout>
+			
+		</LinearLayout>
+		
+	</ScrollView>
