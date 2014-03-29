@@ -15,8 +15,6 @@ gen/
 .git/
 .idea/
 out/
-.gradle/
-KernelTuner/build/
 
 # Local configuration file (sdk path, etc)
 local.properties
