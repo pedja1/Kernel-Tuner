@@ -21,7 +21,7 @@ package rs.pedjaapps.KernelTuner.ui;
 import java.util.List;
 
 import rs.pedjaapps.KernelTuner.R;
-import rs.pedjaapps.KernelTuner.entry.FrequencyCollection;
+import rs.pedjaapps.KernelTuner.model.FrequencyCollection;
 import rs.pedjaapps.KernelTuner.helpers.IOHelper;
 import android.app.ActionBar;
 import android.app.Activity;

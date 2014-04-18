@@ -37,9 +37,9 @@ import org.achartengine.*;
 import org.achartengine.model.*;
 import org.achartengine.renderer.*;
 import rs.pedjaapps.KernelTuner.*;
-import rs.pedjaapps.KernelTuner.entry.*;
+import rs.pedjaapps.KernelTuner.model.*;
 import java.lang.Process;
-import rs.pedjaapps.KernelTuner.tools.Tools;
+import rs.pedjaapps.KernelTuner.utility.Tools;
 
 public class SDScannerActivity extends Activity
 {

@@ -21,6 +21,7 @@ package rs.pedjaapps.KernelTuner.ui;
 import java.util.List;
 
 import rs.pedjaapps.KernelTuner.R;
+
 import android.app.ActionBar;
 import android.content.Intent;
 import android.os.Bundle;
@@ -28,40 +29,43 @@ import android.preference.PreferenceActivity;
 import android.view.MenuItem;
 
 
-
 public class Preferences extends PreferenceActivity
 {
-	
-
-	@Override
-    public void onBuildHeaders(List<Header> target) {
+    @Override
+    public void onBuildHeaders(List<Header> target)
+    {
         loadHeadersFromResource(R.xml.preference_header, target);
     }
-	
-	@Override
-	public void onCreate(Bundle savedInstanceState)
-	{        
-		super.onCreate(savedInstanceState);
 
-		
-		ActionBar actionBar = getActionBar();
-		actionBar.setDisplayHomeAsUpEnabled(true);
-	    actionBar.setSubtitle(getResources().getString(R.string.preferences_subtitle));
+    @Override
+    public void onCreate(Bundle savedInstanceState)
+    {
+        super.onCreate(savedInstanceState);
 
-	}
-	@Override
-	public boolean onOptionsItemSelected(MenuItem item) {
-	    switch (item.getItemId()) {
-	        case android.R.id.home:
-	            // app icon in action bar clicked; go home
-	            Intent intent = new Intent(this, KernelTuner.class);
-	            intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
-	            startActivity(intent);
-	            return true;
-	        
-	            
-	    }
-	    return super.onOptionsItemSelected(item);
-	}
-	
+        ActionBar actionBar = getActionBar();
+        actionBar.setDisplayHomeAsUpEnabled(true);
+        actionBar.setSubtitle(getResources().getString(R.string.preferences_subtitle));
+
+    }
+
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item)
+    {
+        switch (item.getItemId())
+        {
+            case android.R.id.home:
+                // app icon in action bar clicked; go home
+                Intent intent = new Intent(this, KernelTuner.class);
+                intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
+                startActivity(intent);
+                return true;
+        }
+        return super.onOptionsItemSelected(item);
+    }
+
+    @Override
+    protected boolean isValidFragment(String fragmentName)
+    {
+        return PreferencesFragment.class.getName().equals(fragmentName);
+    }
 }

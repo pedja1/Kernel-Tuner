@@ -4,17 +4,15 @@ import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStreamReader;
 import java.util.ArrayList;
-import java.util.Collections;
 import java.util.List;
-import java.util.concurrent.Executor;
 import java.util.concurrent.Executors;
 import java.util.concurrent.ScheduledExecutorService;
 import java.util.concurrent.TimeUnit;
 import java.util.regex.Pattern;
 
-import rs.pedjaapps.KernelTuner.tools.Buffer;
-import rs.pedjaapps.KernelTuner.tools.Format;
-import rs.pedjaapps.KernelTuner.tools.Prefs;
+import rs.pedjaapps.KernelTuner.utility.Buffer;
+import rs.pedjaapps.KernelTuner.utility.Format;
+import rs.pedjaapps.KernelTuner.utility.Prefs;
 import rs.pedjaapps.KernelTuner.ui.LogCat;
 
 import android.content.Context;

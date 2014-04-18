@@ -22,7 +22,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 import rs.pedjaapps.KernelTuner.R;
-import rs.pedjaapps.KernelTuner.entry.ChangelogEntry;
+import rs.pedjaapps.KernelTuner.model.ChangelogEntry;
 import rs.pedjaapps.KernelTuner.helpers.ChangelogAdapter;
 import android.app.Activity;
 import android.content.Intent;

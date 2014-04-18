@@ -700,5 +700,6 @@
 	<string name="_gpu">GPU</string>
     <string name="_iva">IVA</string>
     <string name="_min">Min</string>
+    <string name="please_wait">Please wait...</string>
 
 </resources>

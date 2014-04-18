@@ -12,7 +12,7 @@ import android.widget.TextView;
 import java.io.File;
 import org.apache.commons.io.FileUtils;
 import rs.pedjaapps.KernelTuner.R;
-import rs.pedjaapps.KernelTuner.tools.Tools;
+import rs.pedjaapps.KernelTuner.utility.Tools;
 import android.graphics.Color;
 import com.stericson.RootTools.execution.CommandCapture;
 import com.stericson.RootTools.RootTools;

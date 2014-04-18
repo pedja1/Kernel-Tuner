@@ -2,7 +2,7 @@ package rs.pedjaapps.KernelTuner.fragments;
 
 import java.util.List;
 import rs.pedjaapps.KernelTuner.R;
-import rs.pedjaapps.KernelTuner.entry.TMEntry;
+import rs.pedjaapps.KernelTuner.model.TMEntry;
 import rs.pedjaapps.KernelTuner.helpers.TMAdapter;
 import android.app.Activity;
 import android.app.ListFragment;

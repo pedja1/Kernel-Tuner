@@ -23,7 +23,7 @@ import android.widget.Toast;
 import rs.pedjaapps.KernelTuner.Constants;
 import rs.pedjaapps.KernelTuner.bundle.BundleScrubber;
 import rs.pedjaapps.KernelTuner.bundle.PluginBundleManager;
-import rs.pedjaapps.KernelTuner.tools.ProfileApplier;
+import rs.pedjaapps.KernelTuner.utility.ProfileApplier;
 
 /**
  * This is the "fire" BroadcastReceiver for a Locale Plug-in setting.

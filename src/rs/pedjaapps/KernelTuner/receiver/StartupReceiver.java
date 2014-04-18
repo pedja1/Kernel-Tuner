@@ -23,7 +23,7 @@ import android.content.Intent;
 import android.content.SharedPreferences;
 import android.preference.PreferenceManager;
 import rs.pedjaapps.KernelTuner.helpers.IOHelper;
-import rs.pedjaapps.KernelTuner.tools.AppReset;
+import rs.pedjaapps.KernelTuner.utility.AppReset;
 
 
 public class StartupReceiver extends BroadcastReceiver

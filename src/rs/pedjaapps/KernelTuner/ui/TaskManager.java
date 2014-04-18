@@ -52,10 +52,10 @@ import java.util.Collections;
 import java.util.Comparator;
 import java.util.List;
 import rs.pedjaapps.KernelTuner.R;
-import rs.pedjaapps.KernelTuner.entry.TMEntry;
+import rs.pedjaapps.KernelTuner.model.TMEntry;
 import rs.pedjaapps.KernelTuner.fragments.TMDetailFragment;
 import rs.pedjaapps.KernelTuner.fragments.TMListFragment;
-import rs.pedjaapps.KernelTuner.tools.Tools;
+import rs.pedjaapps.KernelTuner.utility.Tools;
 import android.app.Activity;
 import android.app.ActivityManager;
 

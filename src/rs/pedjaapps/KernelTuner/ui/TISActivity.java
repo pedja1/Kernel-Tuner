@@ -28,12 +28,12 @@ import android.view.*;
 import android.widget.*;
 import com.google.ads.*;
 import java.util.*;
-import rs.pedjaapps.KernelTuner.entry.*;
+import rs.pedjaapps.KernelTuner.model.*;
 import rs.pedjaapps.KernelTuner.helpers.*;
 
 import android.view.View.OnClickListener;
 import rs.pedjaapps.KernelTuner.R;
-import rs.pedjaapps.KernelTuner.tools.Tools;
+import rs.pedjaapps.KernelTuner.utility.Tools;
 
 public class TISActivity extends Activity {
 

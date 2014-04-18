@@ -28,8 +28,7 @@ import android.widget.SeekBar.*;
 import java.io.*;
 import java.util.*;
 import rs.pedjaapps.KernelTuner.*;
-import rs.pedjaapps.KernelTuner.entry.*;
-import rs.pedjaapps.KernelTuner.tools.*;
+import rs.pedjaapps.KernelTuner.utility.*;
 
 import android.view.View.OnClickListener;
 public final class VoltageAdapter extends ArrayAdapter<VoltageEntry>

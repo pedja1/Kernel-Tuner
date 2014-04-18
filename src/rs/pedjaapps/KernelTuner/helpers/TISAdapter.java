@@ -23,7 +23,7 @@ import android.content.*;
 import android.view.*;
 import android.widget.*;
 import rs.pedjaapps.KernelTuner.*;
-import rs.pedjaapps.KernelTuner.entry.*;
+import rs.pedjaapps.KernelTuner.model.*;
 
 public final class TISAdapter extends ArrayAdapter<TISEntry>
 {

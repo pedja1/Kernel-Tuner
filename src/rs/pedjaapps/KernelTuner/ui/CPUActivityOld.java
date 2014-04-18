@@ -23,10 +23,10 @@ import java.util.List;
 
 import rs.pedjaapps.KernelTuner.MainApp;
 import rs.pedjaapps.KernelTuner.R;
-import rs.pedjaapps.KernelTuner.entry.FrequencyCollection;
+import rs.pedjaapps.KernelTuner.model.FrequencyCollection;
 import rs.pedjaapps.KernelTuner.helpers.IOHelper;
-import rs.pedjaapps.KernelTuner.tools.ChangeGovernor;
-import rs.pedjaapps.KernelTuner.tools.FrequencyChanger;
+import rs.pedjaapps.KernelTuner.utility.ChangeGovernor;
+import rs.pedjaapps.KernelTuner.utility.FrequencyChanger;
 import android.app.Activity;
 import android.app.ProgressDialog;
 import android.content.Context;

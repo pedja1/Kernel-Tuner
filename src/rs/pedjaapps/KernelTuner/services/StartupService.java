@@ -27,13 +27,11 @@ import android.os.IBinder;
 import android.preference.PreferenceManager;
 import android.util.Log;
 import com.stericson.RootTools.RootTools;
-import com.stericson.RootTools.execution.Command;
 import com.stericson.RootTools.execution.CommandCapture;
-import java.io.BufferedReader;
-import java.io.InputStreamReader;
+
 import java.util.ArrayList;
 import java.util.List;
-import rs.pedjaapps.KernelTuner.entry.SysCtlDatabaseEntry;
+import rs.pedjaapps.KernelTuner.model.SysCtlDatabaseEntry;
 import rs.pedjaapps.KernelTuner.helpers.DatabaseHandler;
 import rs.pedjaapps.KernelTuner.helpers.IOHelper;
 import rs.pedjaapps.KernelTuner.Constants;
