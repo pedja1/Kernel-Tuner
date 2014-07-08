@@ -26,6 +26,8 @@ import android.content.Context;
  */
 public final class Constants
 {
+
+
     /**
      * Private constructor prevents instantiation
      * 
@@ -45,6 +47,8 @@ public final class Constants
 	/**
 	 *Paths
 	 */
+
+    public static final int CPU_OFFLINE_CODE = -45;
 	
     public static final String G_S_URL_PREFIX = "https://www.google.com/search?q=";
 	public static final String cpu0online = "/sys/devices/system/cpu/cpu0/online"; 

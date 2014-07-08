@@ -2,6 +2,8 @@ package rs.pedjaapps.KernelTuner.ui;
 
 import android.app.ActionBar;
 import android.app.AlertDialog;
+import android.app.Fragment;
+import android.content.BroadcastReceiver;
 import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
@@ -12,18 +14,24 @@ import android.content.pm.PackageManager;
 import android.graphics.Color;
 import android.net.Uri;
 import android.os.AsyncTask;
+import android.os.BatteryManager;
 import android.os.Bundle;
 import android.os.Handler;
 import android.os.HandlerThread;
 import android.util.Log;
 import android.view.LayoutInflater;
+import android.view.Menu;
+import android.view.MenuItem;
 import android.view.View;
+import android.widget.Button;
 import android.widget.Button;
 import android.widget.CheckBox;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.ProgressBar;
+import android.widget.RelativeLayout;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.crashlytics.android.Crashlytics;
 import com.google.ads.AdRequest;
@@ -39,9 +47,13 @@ import java.io.RandomAccessFile;
 import rs.pedjaapps.KernelTuner.Constants;
 import rs.pedjaapps.KernelTuner.R;
 import rs.pedjaapps.KernelTuner.constants.TempUnit;
+import rs.pedjaapps.KernelTuner.fragments.CpuFragment;
+import rs.pedjaapps.KernelTuner.fragments.MainFragment;
 import rs.pedjaapps.KernelTuner.helpers.IOHelper;
 import rs.pedjaapps.KernelTuner.model.FrequencyCollection;
+import rs.pedjaapps.KernelTuner.services.NotificationService;
 import rs.pedjaapps.KernelTuner.utility.PrefsManager;
+import rs.pedjaapps.KernelTuner.utility.Tools;
 
 /**
  * Created by pedja on 17.4.14..
@@ -49,23 +61,16 @@ import rs.pedjaapps.KernelTuner.utility.PrefsManager;
 public class MainActivity extends AbsActivity implements Runnable, View.OnClickListener
 {
     private long cpuRefreshInterval;
-    private boolean firstLaunch;
     final int cpuTempPath = IOHelper.getCpuTempPath();
+    boolean hideUnsupportedItems;
 
-    private LinearLayout tempPanel;
-    private LinearLayout cpuPanel;
-    private LinearLayout togglesPanel;
-    private LinearLayout mainPanel;
+    private long mLastBackPressTime = 0;
+    private Toast mToast;
 
     private TextView tvCpu0prog;
     private TextView tvCpu1prog;
     private TextView tvCpu2prog;
     private TextView tvCpu3prog;
-
-    private ProgressBar pbCpu0progbar;
-    private ProgressBar pbCpu1progbar;
-    private ProgressBar pbCpu2progbar;
-    private ProgressBar pbCpu3progbar;
 
     private TextView tvBatteryTemp;
     private TextView tvCputemptxt;
@@ -77,12 +82,11 @@ public class MainActivity extends AbsActivity implements Runnable, View.OnClickL
     Button cpu3toggle;
 
     private TextView tvCpuLoad;
-    private ProgressBar pbCpuLoad;
-    Button info;
 
     private TempUnit tempUnit;
     Handler cpuRefreshHandler;
     Handler uiHandler = new Handler();
+    Fragment currentFragment;
 
     @Override
     protected void onCreate(Bundle savedInstanceState)
@@ -92,8 +96,9 @@ public class MainActivity extends AbsActivity implements Runnable, View.OnClickL
         setContentView(getLayoutRes());
 
         cpuRefreshInterval = PrefsManager.getCpuRefreshInterval();
-        firstLaunch = PrefsManager.isFirstLaunch();
+        boolean firstLaunch = PrefsManager.isFirstLaunch();
         tempUnit = PrefsManager.getTempUnit();
+        hideUnsupportedItems = PrefsManager.hideUnsupportedItems();
 
         mountDebugFileSystem();
         enableTmemperatureMonitor();
@@ -103,8 +108,17 @@ public class MainActivity extends AbsActivity implements Runnable, View.OnClickL
         }
 
         setupView();
-        setupViewPost();
+
         showChangelog();
+
+        /*if (PrefsManager.getNotificationService())
+        {
+            startService(new Intent(this, NotificationService.class));
+        }
+        else
+        {
+            stopService(new Intent(this, NotificationService.class));
+        }*/
     }
 
     @Override
@@ -132,169 +146,6 @@ public class MainActivity extends AbsActivity implements Runnable, View.OnClickL
         {
             cpuRefreshHandler.removeCallbacks(this);
         }
-    }
-
-    private void setupViewPost()
-    {
-        if (PrefsManager.showAds())
-            ((AdView) findViewById(R.id.ad)).loadAd(new AdRequest());
-        Button gpu = (Button) findViewById(R.id.btn_gpu);
-
-        gpu.setOnClickListener(new StartActivityListener((new File(Constants.GPU_SGX540).exists()) ? GpuSGX540.class : Gpu.class));
-        gpu.setOnLongClickListener(new InfoListener(R.drawable.gpu,
-                getResources().getString(R.string.info_gpu_title),
-                getResources().getString(R.string.info_gpu_text),
-                Constants.G_S_URL_PREFIX + "GPU", true));
-
-        Button voltage = (Button) findViewById(R.id.btn_voltage);
-        voltage.setOnClickListener(new StartActivityListener(
-                VoltageActivity.class));
-        voltage.setOnLongClickListener(new InfoListener(R.drawable.voltage,
-                getResources().getString(R.string.info_voltage_title),
-                getResources().getString(R.string.info_voltage_text),
-                Constants.G_S_URL_PREFIX + "undervolting cpu", true));
-
-        Button cpu = (Button) findViewById(R.id.btn_cpu);
-        cpu.setOnClickListener(new View.OnClickListener()
-        {
-            @Override
-            public void onClick(View v)
-            {
-                if(PrefsManager.showCpuOptionDialog())
-                {
-                    cpuOptionsDialog();
-                }
-                else
-                {
-                    Intent intent = new Intent(MainActivity.this, CPUActivity.class);
-                    startActivity(intent);
-                }
-            }
-        });
-        cpu.setOnLongClickListener(new InfoListener(R.drawable.ic_launcher,
-                getResources().getString(R.string.info_cpu_title),
-                getResources().getString(R.string.info_cpu_text),
-                Constants.G_S_URL_PREFIX + "CPU", true));
-
-        Button tis = (Button) findViewById(R.id.btn_times);
-        tis.setOnClickListener(new View.OnClickListener()
-        {
-            @Override
-            public void onClick(View v)
-            {
-                Intent myIntent = new Intent(MainActivity.this, TISActivity.class);
-                startActivity(myIntent);
-            }
-        });
-        tis.setOnLongClickListener(new InfoListener(R.drawable.times,
-                getResources().getString(R.string.info_tis_title),
-                getResources().getString(R.string.info_tis_text),
-                Constants.G_S_URL_PREFIX + "cpu times_in_state", true));
-
-        Button mp = (Button) findViewById(R.id.btn_mpdecision);
-        mp.setOnClickListener(new View.OnClickListener()
-        {
-
-            @Override
-            public void onClick(View v)
-            {
-
-                Intent myIntent = null;
-                if (new File(Constants.MPDEC_THR_DOWN).exists())
-                {
-                    myIntent = new Intent(MainActivity.this, Mpdecision.class);
-                }
-                else if (new File(Constants.MPDEC_THR_0).exists())
-                {
-                    myIntent = new Intent(MainActivity.this, MpdecisionNew.class);
-                }
-                startActivity(myIntent);
-
-            }
-        });
-        mp.setOnLongClickListener(new InfoListener(R.drawable.dual,
-                getResources().getString(R.string.info_mpd_title),
-                getResources().getString(R.string.info_mpd_text),
-                Constants.G_S_URL_PREFIX + "mp-decision", true));
-
-        Button misc = (Button) findViewById(R.id.btn_misc);
-        misc.setOnClickListener(new StartActivityListener(MiscTweaks.class));
-        misc.setOnLongClickListener(new InfoListener(R.drawable.misc,
-                getResources().getString(R.string.info_misc_title),
-                getResources().getString(R.string.info_misc_text), "", false));
-
-        Button governor = (Button) findViewById(R.id.btn_governor);
-        governor.setOnClickListener(new StartActivityListener(
-                GovernorActivity.class));
-        governor.setOnLongClickListener(new InfoListener(
-                R.drawable.main_governor, getResources().getString(
-                R.string.info_gov_title), getResources().getString(
-                R.string.info_gov_text), Constants.G_S_URL_PREFIX
-                + "linux governors", true));
-
-        Button oom = (Button) findViewById(R.id.btn_oom);
-        oom.setOnClickListener(new StartActivityListener(OOM.class));
-        oom.setOnLongClickListener(new InfoListener(R.drawable.oom,
-                getResources().getString(R.string.info_oom_title),
-                getResources().getString(R.string.info_oom_text),
-                Constants.G_S_URL_PREFIX + "oom", true));
-
-        Button profiles = (Button) findViewById(R.id.btn_profiles);
-        profiles.setOnClickListener(new StartActivityListener(Profiles.class));
-        profiles.setOnLongClickListener(new InfoListener(R.drawable.profile,
-                getResources().getString(R.string.info_profiles_title),
-                getResources().getString(R.string.info_profiles_text), "",
-                false));
-
-        Button thermal = (Button) findViewById(R.id.btn_thermal);
-        thermal.setOnClickListener(new StartActivityListener(Thermald.class));
-
-        thermal.setOnLongClickListener(new InfoListener(R.drawable.temp,
-                getResources().getString(R.string.info_thermal_title),
-                getResources().getString(R.string.info_thermal_text), "", false));
-
-        Button sd = (Button) findViewById(R.id.btn_sd);
-        sd.setOnClickListener(new StartActivityListener(
-                SDScannerConfigActivity.class));
-        sd.setOnLongClickListener(new InfoListener(R.drawable.sd,
-                getResources().getString(R.string.info_sd_title),
-                getResources().getString(R.string.info_sd_text), "", false));
-
-
-
-        info.setOnLongClickListener(new InfoListener(R.drawable.info,
-                getResources().getString(R.string.info_sys_info_title),
-                getResources().getString(R.string.info_sys_info_text), "",
-                false));
-
-        Button tm = (Button) findViewById(R.id.btn_task_manager);
-        tm.setOnClickListener(new StartActivityListener(TaskManager.class));
-        tm.setOnLongClickListener(new InfoListener(R.drawable.tm,
-                getResources().getString(R.string.info_tm_title),
-                getResources().getString(R.string.info_tm_text),
-                Constants.G_S_URL_PREFIX + "task manager", true));
-
-        Button build = (Button) findViewById(R.id.btn_build);
-        build.setOnClickListener(new StartActivityListener(
-                BuildpropEditor.class));
-        build.setOnLongClickListener(new InfoListener(R.drawable.build,
-                getResources().getString(R.string.info_build_title),
-                getResources().getString(R.string.info_build_text),
-                Constants.G_S_URL_PREFIX + "build.prop", true));
-
-        Button sys = (Button) findViewById(R.id.btn_sysctl);
-        sys.setOnClickListener(new StartActivityListener(SysCtl.class));
-        sys.setOnLongClickListener(new InfoListener(R.drawable.sysctl,
-                getResources().getString(R.string.info_sysctl_title),
-                getResources().getString(R.string.info_sysctl_text),
-                Constants.G_S_URL_PREFIX + "sysctl", true));
-
-        Button log = (Button) findViewById(R.id.btn_logcat);
-        log.setOnClickListener(new StartActivityListener(LogCat.class));
-        log.setOnLongClickListener(new InfoListener(R.drawable.swap,
-                getResources().getString(R.string.info_logs_title),
-                getResources().getString(R.string.info_logs_text),
-                Constants.G_S_URL_PREFIX + "swap", true));
     }
 
     private void showChangelog()
@@ -357,12 +208,12 @@ public class MainActivity extends AbsActivity implements Runnable, View.OnClickL
 
     public void setupView()
     {
-        tempPanel = (LinearLayout) findViewById(R.id.temperature_layout);
-        mainPanel = (LinearLayout) findViewById(R.id.buttons_layout);
-        cpuPanel = (LinearLayout) findViewById(R.id.cpu_info_layout);
-        togglesPanel = (LinearLayout) findViewById(R.id.toggles_layout);
+        //LinearLayout tempPanel = (LinearLayout) findViewById(R.id.temperature_layout);
+        //LinearLayout mainPanel = (LinearLayout) findViewById(R.id.buttons_layout);
+        //LinearLayout cpuPanel = (LinearLayout) findViewById(R.id.cpu_info_layout);
+        //LinearLayout togglesPanel = (LinearLayout) findViewById(R.id.toggles_layout);
 
-        if (!PrefsManager.getMainShowTemp())
+        /*if (!PrefsManager.getMainShowTemp())
         {
             tempPanel.setVisibility(View.GONE);
         }
@@ -377,23 +228,18 @@ public class MainActivity extends AbsActivity implements Runnable, View.OnClickL
         if (!PrefsManager.getMainShowButtons())
         {
             mainPanel.setVisibility(View.GONE);
-        }
+        }*/
 
-        tvCpu0prog = (TextView) findViewById(R.id.txtCpu0Freq);
-        tvCpu1prog = (TextView) findViewById(R.id.txtCpu1Freq);
-        tvCpu2prog = (TextView) findViewById(R.id.txtCpu2Freq);
-        tvCpu3prog = (TextView) findViewById(R.id.txtCpu3Freq);
-
-        pbCpu0progbar = (ProgressBar) findViewById(R.id.prgCpu0);
-        pbCpu1progbar = (ProgressBar) findViewById(R.id.prgCpu1);
-        pbCpu2progbar = (ProgressBar) findViewById(R.id.prgCpu2);
-        pbCpu3progbar = (ProgressBar) findViewById(R.id.prgCpu3);
+        tvCpu0prog = (TextView) findViewById(R.id.txtCpu0);
+        tvCpu1prog = (TextView) findViewById(R.id.txtCpu1);
+        tvCpu2prog = (TextView) findViewById(R.id.txtCpu2);
+        tvCpu3prog = (TextView) findViewById(R.id.txtCpu3);
 
         tvBatteryTemp = (TextView) findViewById(R.id.txtBatteryTemp);
         llCpuTemp = (LinearLayout) findViewById(R.id.temp_cpu_layout);
 
         ActionBar actionBar = getActionBar();
-        actionBar.setSubtitle("Various kernel and system tuning");
+        //actionBar.setSubtitle("Various kernel and system tuning");
         actionBar.setHomeButtonEnabled(false);
 
         HandlerThread cpuRefreshThread = new HandlerThread("cpu_refresh_thread");
@@ -411,20 +257,67 @@ public class MainActivity extends AbsActivity implements Runnable, View.OnClickL
         cpu3toggle.setOnClickListener(this);
 
         tvCputemptxt = (TextView) findViewById(R.id.txtCpuTemp);
-        tvCpuLoad = (TextView) findViewById(R.id.txtCpuLoad);
-        pbCpuLoad = (ProgressBar) findViewById(R.id.prgCpuLoad);
+        tvCpuLoad = (TextView) findViewById(R.id.txtCpuLoadText);
 
-        info = (Button) findViewById(R.id.btn_info);
-        info.setOnClickListener(new View.OnClickListener()
+
+        if (IOHelper.cpu1Exists())
         {
+            if (hideUnsupportedItems)
+                cpu1toggle.setVisibility(View.VISIBLE);
+            else
+                cpu1toggle.setEnabled(true);
 
-            @Override
-            public void onClick(View v)
-            {
-                Intent myIntent = new Intent(MainActivity.this, SystemInfo.class);
-                startActivity(myIntent);
-            }
-        });
+            tvCpu1prog.setVisibility(View.VISIBLE);
+        }
+        else
+        {
+            if (hideUnsupportedItems)
+                cpu1toggle.setVisibility(View.GONE);
+            else
+                cpu1toggle.setEnabled(false);
+
+            tvCpu1prog.setVisibility(View.GONE);
+        }
+        if (IOHelper.cpu2Exists())
+        {
+            if (hideUnsupportedItems)
+                cpu2toggle.setVisibility(View.VISIBLE);
+            else
+                cpu2toggle.setEnabled(true);
+
+            tvCpu2prog.setVisibility(View.VISIBLE);
+        }
+        else
+        {
+            if (hideUnsupportedItems)
+                cpu2toggle.setVisibility(View.GONE);
+            else
+                cpu2toggle.setEnabled(false);
+
+            tvCpu2prog.setVisibility(View.GONE);
+        }
+        if (IOHelper.cpu3Exists())
+        {
+            if (hideUnsupportedItems)
+                cpu3toggle.setVisibility(View.VISIBLE);
+            else
+                cpu3toggle.setEnabled(true);
+
+            tvCpu3prog.setVisibility(View.VISIBLE);
+        }
+        else
+        {
+            if (hideUnsupportedItems)
+                cpu3toggle.setVisibility(View.GONE);
+            else
+                cpu3toggle.setEnabled(false);
+
+            tvCpu3prog.setVisibility(View.GONE);
+        }
+        if (PrefsManager.showAds())
+        ((AdView) findViewById(R.id.ad)).loadAd(new AdRequest());
+        currentFragment = MainFragment.newInstance();
+        getFragmentManager().beginTransaction().replace(R.id.flFragmentContainer, currentFragment).commit();
     }
 
     @Override
@@ -564,31 +457,51 @@ public class MainActivity extends AbsActivity implements Runnable, View.OnClickL
     @Override
     public void run()
     {
+        String tmp = IOHelper.cpuTemp(cpuTempPath);
+        cpuTemp(tmp);
+        cpu0update(IOHelper.cpu0CurFreq());
+        if(currentFragment instanceof CpuFragment)
+        {
+            ((CpuFragment)currentFragment).updateCpu(0, Tools.parseInt(IOHelper.cpu0MinFreq(), Constants.CPU_OFFLINE_CODE),
+                    Tools.parseInt(IOHelper.cpu0MaxFreq(), Constants.CPU_OFFLINE_CODE), true);
+        }
+
+        if (IOHelper.cpu1Exists())
+        {
+            cpu1update(IOHelper.cpu1CurFreq());
+            if(currentFragment instanceof CpuFragment)
+            {
+                ((CpuFragment)currentFragment).updateCpu(1, Tools.parseInt(IOHelper.cpu1MinFreq(), Constants.CPU_OFFLINE_CODE),
+                        Tools.parseInt(IOHelper.cpu1MaxFreq(), Constants.CPU_OFFLINE_CODE), true);
+            }
+        }
+        if (IOHelper.cpu2Exists())
+        {
+            cpu2update(IOHelper.cpu2CurFreq());
+            if(currentFragment instanceof CpuFragment)
+            {
+                ((CpuFragment)currentFragment).updateCpu(2, Tools.parseInt(IOHelper.cpu2MinFreq(), Constants.CPU_OFFLINE_CODE),
+                        Tools.parseInt(IOHelper.cpu2MaxFreq(), Constants.CPU_OFFLINE_CODE), true);
+            }
+        }
+        if (IOHelper.cpu3Exists())
+        {
+            cpu3update(IOHelper.cpu3CurFreq());
+            if(currentFragment instanceof CpuFragment)
+            {
+                ((CpuFragment)currentFragment).updateCpu(3, Tools.parseInt(IOHelper.cpu3MinFreq(), Constants.CPU_OFFLINE_CODE),
+                        Tools.parseInt(IOHelper.cpu3MaxFreq(), Constants.CPU_OFFLINE_CODE), true);
+            }
+        }
         try
         {
-            String tmp = IOHelper.cpuTemp(cpuTempPath);
-            cpuTemp(tmp);
-            cpu0update(IOHelper.cpu0CurFreq(), IOHelper.cpu0MaxFreq());
-
-            if (IOHelper.cpu1Exists())
-            {
-                cpu1update(IOHelper.cpu1CurFreq(), IOHelper.cpu1MaxFreq());
-            }
-            if (IOHelper.cpu2Exists())
-            {
-                cpu2update(IOHelper.cpu2CurFreq(), IOHelper.cpu2MaxFreq());
-            }
-            if (IOHelper.cpu3Exists())
-            {
-                cpu3update(IOHelper.cpu3CurFreq(), IOHelper.cpu3MaxFreq());
-            }
             setCpuLoad(getCpuLoad());
         }
-        catch (Exception e)
+        catch (IOException e)
         {
-            Crashlytics.logException(e);
             e.printStackTrace();
         }
+        cpuRefreshHandler.postDelayed(this, cpuRefreshInterval);
     }
 
     private int getCpuLoad() throws IOException
@@ -627,7 +540,7 @@ public class MainActivity extends AbsActivity implements Runnable, View.OnClickL
         return (int) (fLoad * 100);
     }
 
-    private void cpu0update(final String freq, final String max)
+    private void cpu0update(final String freq)
     {
         uiHandler.post(new Runnable()
         {
@@ -636,19 +549,17 @@ public class MainActivity extends AbsActivity implements Runnable, View.OnClickL
             {
                 if (!freq.equals("offline") && freq.length() > 3)
                 {
-                    tvCpu0prog.setText(freq.trim().substring(0, freq.length() - 3) + "MHz");
+                    tvCpu0prog.setText(getString(R.string.txt_cpu0, freq.trim().substring(0, freq.length() - 3) + "MHz"));
                 }
                 else
                 {
-                    tvCpu0prog.setText("offline");
+                    tvCpu0prog.setText(getString(R.string.txt_cpu0, "offline"));
                 }
-                pbCpu0progbar.setMax(FrequencyCollection.getInstance().getMaxProgress(max.trim()));
-                pbCpu0progbar.setProgress(FrequencyCollection.getInstance().getProgress(freq.trim()));
             }
         });
     }
 
-    private void cpu1update(final String freq, final String max)
+    private void cpu1update(final String freq)
     {
         uiHandler.post(new Runnable()
         {
@@ -657,19 +568,17 @@ public class MainActivity extends AbsActivity implements Runnable, View.OnClickL
             {
                 if (!freq.equals("offline") && freq.length() > 3)
                 {
-                    tvCpu1prog.setText(freq.trim().substring(0, freq.length() - 3) + "MHz");
+                    tvCpu1prog.setText(getString(R.string.txtCpu1, freq.trim().substring(0, freq.length() - 3) + "MHz"));
                 }
                 else
                 {
-                    tvCpu1prog.setText("offline");
+                    tvCpu1prog.setText(getString(R.string.txtCpu1, "offline"));
                 }
-                pbCpu1progbar.setMax(FrequencyCollection.getInstance().getMaxProgress(max.trim()));
-                pbCpu1progbar.setProgress(FrequencyCollection.getInstance().getProgress(freq.trim()));
             }
         });
     }
 
-    private void cpu2update(final String freq, final String max)
+    private void cpu2update(final String freq)
     {
         uiHandler.post(new Runnable()
         {
@@ -678,19 +587,17 @@ public class MainActivity extends AbsActivity implements Runnable, View.OnClickL
             {
                 if (!freq.equals("offline") && freq.length() > 3)
                 {
-                    tvCpu2prog.setText(freq.trim().substring(0, freq.length() - 3) + "MHz");
+                    tvCpu2prog.setText(getString(R.string.txtCpu2, freq.trim().substring(0, freq.length() - 3) + "MHz"));
                 }
                 else
                 {
-                    tvCpu2prog.setText("offline");
+                    tvCpu2prog.setText(getString(R.string.txtCpu2, "offline"));
                 }
-                pbCpu2progbar.setMax(FrequencyCollection.getInstance().getMaxProgress(max.trim()));
-                pbCpu2progbar.setProgress(FrequencyCollection.getInstance().getProgress(freq.trim()));
             }
         });
     }
 
-    private void cpu3update(final String freq, final String max)
+    private void cpu3update(final String freq)
     {
         uiHandler.post(new Runnable()
         {
@@ -699,200 +606,247 @@ public class MainActivity extends AbsActivity implements Runnable, View.OnClickL
             {
                 if (!freq.equals("offline") && freq.length() > 3)
                 {
-                    tvCpu3prog.setText(freq.trim().substring(0, freq.length() - 3) + "MHz");
+                    tvCpu3prog.setText(getString(R.string.txtCpu3, freq.trim().substring(0, freq.length() - 3) + "MHz"));
                 }
                 else
                 {
-                    tvCpu3prog.setText("offline");
+                    tvCpu3prog.setText(getString(R.string.txtCpu3, "offline"));
                 }
-                pbCpu3progbar.setMax(FrequencyCollection.getInstance().getMaxProgress(max.trim()));
-                pbCpu3progbar.setProgress(FrequencyCollection.getInstance().getProgress(freq.trim()));
             }
         });
     }
 
-    private void setCpuLoad(int load)
+    private void setCpuLoad(final int load)
     {
-        pbCpuLoad.setProgress(load);
-        tvCpuLoad.setText(load + "%");
+        uiHandler.post(new Runnable()
+        {
+            @Override
+            public void run()
+            {
+                tvCpuLoad.setText(getString(R.string.txt_cpu_load, load + "%"));
+            }
+        });
     }
 
     /**
      * CPU Temperature
      */
 
-    private void cpuTemp(String cputemp)
+    private void cpuTemp(final String cputemp)
     {
-        llCpuTemp.setVisibility(View.VISIBLE);
-
-        if (!cputemp.equals("") || cputemp.length() != 0)
+        uiHandler.post(new Runnable()
         {
+            @Override
+            public void run()
+            {
+                String tmpCputemp = cputemp;
+                llCpuTemp.setVisibility(View.VISIBLE);
+
+                if (!cputemp.equals("") || cputemp.length() != 0)
+                {
+                    if (tempUnit == TempUnit.fahrenheit)
+                    {
+                        tmpCputemp = String.valueOf((int) (Double.parseDouble(tmpCputemp) * 1.8) + 32);
+                        tvCputemptxt.setText(tmpCputemp + "°F");
+                        int temp = Integer.parseInt(tmpCputemp);
+
+                        if (temp < 113)
+                        {
+                            tvCputemptxt.setTextColor(Color.GREEN);
+                        }
+                        else if (temp >= 113 && temp < 138)
+                        {
+                            tvCputemptxt.setTextColor(Color.YELLOW);
+                        }
+                        else if (temp >= 138)
+                        {
+                            tvCputemptxt.setTextColor(Color.RED);
+                        }
+                    }
+
+                    else if (tempUnit == TempUnit.celsius)
+                    {
+                        tvCputemptxt.setText(tmpCputemp + "°C");
+                        int temp = Integer.parseInt(tmpCputemp);
+                        if (temp < 45)
+                        {
+                            tvCputemptxt.setTextColor(Color.GREEN);
+                        }
+                        else if (temp >= 45 && temp <= 59)
+                        {
+                            tvCputemptxt.setTextColor(Color.YELLOW);
+                        }
+                        else if (temp > 59)
+                        {
+                            tvCputemptxt.setTextColor(Color.RED);
+                        }
+                    }
+
+                    else if (tempUnit == TempUnit.kelvin)
+                    {
+                        tmpCputemp = String.valueOf((int) (Double.parseDouble(tmpCputemp) + 273.15));
+
+                        tvCputemptxt.setText(tmpCputemp + "°K");
+                        int temp = Integer.parseInt(tmpCputemp);
+                        if (temp < 318)
+                        {
+                            tvCputemptxt.setTextColor(Color.GREEN);
+                        }
+                        else if (temp >= 318 && temp <= 332)
+                        {
+                            tvCputemptxt.setTextColor(Color.YELLOW);
+                        }
+                        else if (temp > 332)
+                        {
+                            tvCputemptxt.setTextColor(Color.RED);
+                        }
+                    }
+                }
+                else
+                {
+                    llCpuTemp.setVisibility(View.GONE);
+                }
+            }
+        });
+
+    }
+
+    private BroadcastReceiver mBatInfoReceiver = new BroadcastReceiver()
+    {
+        @Override
+        public void onReceive(Context arg0, Intent intent)
+        {
+            double temperature = intent.getIntExtra(
+                    BatteryManager.EXTRA_TEMPERATURE, 0) / 10;
+
             if (tempUnit == TempUnit.fahrenheit)
             {
-                cputemp = String.valueOf((int) (Double.parseDouble(cputemp) * 1.8) + 32);
-                tvCputemptxt.setText(cputemp + "°F");
-                int temp = Integer.parseInt(cputemp);
-
-                if (temp < 113)
+                temperature = (temperature * 1.8) + 32;
+                tvBatteryTemp.setText(((int) temperature) + "°F");
+                if (temperature <= 104)
                 {
-                    tvCputemptxt.setTextColor(Color.GREEN);
+                    tvBatteryTemp.setTextColor(Color.GREEN);
                 }
-                else if (temp >= 113 && temp < 138)
+                else if (temperature > 104 && temperature < 131)
                 {
-                    tvCputemptxt.setTextColor(Color.YELLOW);
+                    tvBatteryTemp.setTextColor(Color.YELLOW);
                 }
-                else if (temp >= 138)
+                else if (temperature >= 131 && temperature < 140)
                 {
-                    tvCputemptxt.setTextColor(Color.RED);
+                    tvBatteryTemp.setTextColor(Color.RED);
+                }
+                else if (temperature >= 140)
+                {
+                    tvBatteryTemp.setTextColor(Color.RED);
                 }
             }
-
             else if (tempUnit == TempUnit.celsius)
             {
-                tvCputemptxt.setText(cputemp + "°C");
-                int temp = Integer.parseInt(cputemp);
-                if (temp < 45)
+                tvBatteryTemp.setText(temperature + "°C");
+                if (temperature < 45)
                 {
-                    tvCputemptxt.setTextColor(Color.GREEN);
+                    tvBatteryTemp.setTextColor(Color.GREEN);
+
                 }
-                else if (temp >= 45 && temp <= 59)
+                else if (temperature > 45 && temperature < 55)
                 {
-                    tvCputemptxt.setTextColor(Color.YELLOW);
+                    tvBatteryTemp.setTextColor(Color.YELLOW);
                 }
-                else if (temp > 59)
+                else if (temperature >= 55 && temperature < 60)
                 {
-                    tvCputemptxt.setTextColor(Color.RED);
+                    tvBatteryTemp.setTextColor(Color.RED);
+                }
+                else if (temperature >= 60)
+                {
+                    tvBatteryTemp.setTextColor(Color.RED);
                 }
             }
-
             else if (tempUnit == TempUnit.kelvin)
             {
-                cputemp = String.valueOf((int) (Double.parseDouble(cputemp) + 273.15));
-
-                tvCputemptxt.setText(cputemp + "°K");
-                int temp = Integer.parseInt(cputemp);
-                if (temp < 318)
+                temperature = temperature + 273.15;
+                tvBatteryTemp.setText(temperature + "°K");
+                if (temperature < 318.15)
                 {
-                    tvCputemptxt.setTextColor(Color.GREEN);
+                    tvBatteryTemp.setTextColor(Color.GREEN);
                 }
-                else if (temp >= 318 && temp <= 332)
+                else if (temperature > 318.15 && temperature < 328.15)
                 {
-                    tvCputemptxt.setTextColor(Color.YELLOW);
+                    tvBatteryTemp.setTextColor(Color.YELLOW);
                 }
-                else if (temp > 332)
+                else if (temperature >= 328.15 && temperature < 333.15)
                 {
-                    tvCputemptxt.setTextColor(Color.RED);
+                    tvBatteryTemp.setTextColor(Color.RED);
+                }
+                else if (temperature >= 333.15)
+                {
+                    tvBatteryTemp.setTextColor(Color.RED);
                 }
             }
+            // /F = (C x 1.8) + 32
+        }
+    };
+
+    @Override
+    public boolean onCreateOptionsMenu(Menu menu)
+    {
+        menu.add(1, 1, 1, getString(R.string.settings))
+                .setIcon(R.drawable.settings_dark)
+                .setShowAsAction(
+                        MenuItem.SHOW_AS_ACTION_ALWAYS
+                                | MenuItem.SHOW_AS_ACTION_WITH_TEXT);
+        menu.add(2, 2, 2, getString(R.string.compatibility_check)).setShowAsAction(
+                MenuItem.SHOW_AS_ACTION_NEVER);
+        menu.add(3, 3, 3, getString(R.string.swap))
+                .setShowAsAction(MenuItem.SHOW_AS_ACTION_NEVER);
+        return true;
+    }
+
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item)
+    {
+        if (item.getItemId() == 1)
+        {
+            startActivity(new Intent(this, Preferences.class));
+        }
+        else if (item.getItemId() == 2)
+        {
+            startActivity(new Intent(this, CompatibilityCheck.class));
+        }
+        else if (item.getItemId() == 3)
+        {
+            Intent myIntent = new Intent(this, Swap.class);
+            startActivity(myIntent);
+        }
+        return super.onOptionsItemSelected(item);
+    }
+
+    @Override
+    public void onBackPressed()
+    {
+        if (mLastBackPressTime < java.lang.System.currentTimeMillis() - 4000)
+        {
+            mToast = Toast.makeText(this,
+                    getResources().getString(R.string.press_again_to_exit),
+                    Toast.LENGTH_SHORT);
+            mToast.show();
+            mLastBackPressTime = java.lang.System.currentTimeMillis();
         }
         else
         {
-            llCpuTemp.setVisibility(View.GONE);
+            if (mToast != null)
+                mToast.cancel();
+            finish();
+            mLastBackPressTime = 0;
         }
     }
 
-    class StartActivityListener implements View.OnClickListener
+    public void setCurrentFragment(Fragment currentFragment)
     {
-        Class<?> cls;
-
-        public StartActivityListener(Class<?> cls)
-        {
-            this.cls = cls;
-        }
-
-        @Override
-        public void onClick(View v)
-        {
-            startActivity(new Intent(MainActivity.this, cls));
-        }
+        this.currentFragment = currentFragment;
     }
 
-    class InfoListener implements View.OnLongClickListener
+    public Fragment getCurrentFragment()
     {
-
-        int icon;
-        String title;
-        String text;
-        String url;
-        boolean more;
-
-        public InfoListener(int icon, String title, String text, String url, boolean more)
-        {
-            this.icon = icon;
-            this.title = title;
-            this.text = text;
-            this.url = url;
-            this.more = more;
-        }
-
-        @Override
-        public boolean onLongClick(View v)
-        {
-            AlertDialog.Builder builder = new AlertDialog.Builder(MainActivity.this);
-
-            builder.setTitle(title);
-
-            builder.setIcon(icon);
-            LayoutInflater inflater = (LayoutInflater) getSystemService(Context.LAYOUT_INFLATER_SERVICE);
-            View view = inflater.inflate(R.layout.text_view_layout, null);
-            TextView tv = (TextView) view.findViewById(R.id.tv);
-            tv.setText(text);
-
-            builder.setPositiveButton(getResources().getString(R.string.info_ok), null);
-            if (more)
-            {
-                builder.setNeutralButton(R.string.info_more, new DialogInterface.OnClickListener()
-                {
-                    @Override
-                    public void onClick(DialogInterface arg0, int arg1)
-                    {
-                        Uri uri = Uri.parse(url);
-                        Intent intent = new Intent(Intent.ACTION_VIEW, uri);
-                        startActivity(intent);
-                    }
-                });
-            }
-            builder.setView(view);
-            AlertDialog alert = builder.create();
-
-            alert.show();
-            return true;
-        }
+        return currentFragment;
     }
-
-    private void cpuOptionsDialog()
-    {
-        AlertDialog.Builder b = new AlertDialog.Builder(this);
-        LayoutInflater inflater = getLayoutInflater();
-        View v = inflater.inflate(R.layout.cpu_options_dialog, null);
-        final CheckBox cbEnableAll = (CheckBox)v.findViewById(R.id.cbEnableAll);
-        final CheckBox cbDisableAll = (CheckBox)v.findViewById(R.id.cbDisableAllOnExit);
-        final CheckBox cbSave = (CheckBox)v.findViewById(R.id.cbSave);
-        cbEnableAll.setChecked(PrefsManager.getCpuEnableAll());
-        cbDisableAll.setChecked(PrefsManager.getCpuDisableAll());
-        b.setView(v);
-
-        b.setPositiveButton("OK", new DialogInterface.OnClickListener(){
-
-            @Override
-            public void onClick(DialogInterface p1, int p2)
-            {
-                startCpuSettings(cbEnableAll.isChecked(), cbDisableAll.isChecked(), cbSave.isChecked());
-            }
-        });
-        b.setNegativeButton("Cancel", null);
-
-        b.show();
-    }
-
-    private void startCpuSettings(boolean enableAll, boolean disableAll, boolean save)
-    {
-        PrefsManager.setCpuEnableAll(enableAll);
-        PrefsManager.setCpuDisableAll(disableAll);
-        PrefsManager.setShowCpuOptionsDialog(save);
-        Intent intent = new Intent(this, CPUActivity.class);
-        startActivity(intent);
-    }
-
-
 }

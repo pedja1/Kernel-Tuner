@@ -27,8 +27,6 @@ import android.preference.PreferenceManager;
 import android.widget.Toast;
 import rs.pedjaapps.KernelTuner.R;
 import rs.pedjaapps.KernelTuner.helpers.IOHelper;
-import rs.pedjaapps.KernelTuner.ui.CPUActivity;
-import rs.pedjaapps.KernelTuner.ui.CPUActivityOld;
 
 public class CPUShortcut extends Activity
 {
@@ -38,15 +36,15 @@ public class CPUShortcut extends Activity
 		super.onCreate(savedInstanceState);
 		Context c = getApplicationContext();
 		
-	    SharedPreferences prefs = PreferenceManager.getDefaultSharedPreferences(c);
-	    String cpuPref = prefs.getString("show_cpu_as","full");
+	    //SharedPreferences prefs = PreferenceManager.getDefaultSharedPreferences(c);
+	    //String cpuPref = prefs.getString("show_cpu_as","full");
 	    String cpuActivity;
-    	if(cpuPref.equals("full")){
+    	//if(cpuPref.equals("full")){
 			cpuActivity = "rs.pedjaapps.KernelTuner.CPU";
-		}
-		else{
-			cpuActivity = "rs.pedjaapps.KernelTuner.CPU_MINIMAL";
-		}
+		//}
+		//else{
+		//	cpuActivity = "rs.pedjaapps.KernelTuner.CPU_MINIMAL";
+		//}
 		if(IOHelper.freqsExists() || IOHelper.TISExists()){
 		Intent shortcutintent = new Intent("com.android.launcher.action.INSTALL_SHORTCUT")
 		        .putExtra("duplicate", false)

@@ -36,7 +36,6 @@ import org.apache.commons.io.FileUtils;
 import rs.pedjaapps.KernelTuner.Constants;
 import rs.pedjaapps.KernelTuner.model.Frequency;
 import rs.pedjaapps.KernelTuner.model.TimesEntry;
-import rs.pedjaapps.KernelTuner.model.Voltage;
 import rs.pedjaapps.KernelTuner.utility.Tools;
 
 import android.os.SystemClock;
@@ -92,27 +91,27 @@ public class IOHelper
 
     }
 
-    public static final boolean cpu0Exists()
+    public static boolean cpu0Exists()
     {
         return new File(Constants.cpu0online).exists();
     }
 
-    public static final boolean cpu1Exists()
+    public static boolean cpu1Exists()
     {
         return new File(Constants.cpu1online).exists();
     }
 
-    public static final boolean cpu2Exists()
+    public static boolean cpu2Exists()
     {
         return new File(Constants.cpu2online).exists();
     }
 
-    public static final boolean cpu3Exists()
+    public static boolean cpu3Exists()
     {
         return new File(Constants.cpu3online).exists();
     }
 
-    public static final boolean gpuExists()
+    public static boolean gpuExists()
     {
         boolean i = false;
         if (new File(Constants.GPU_3D).exists())
@@ -368,7 +367,7 @@ public class IOHelper
 
     }
 
-    public static final String cpu0MinFreq()
+    public static String cpu0MinFreq()
     {
         try
         {
@@ -494,7 +493,7 @@ public class IOHelper
 
     }
 
-    public static final String cpu0CurFreq()
+    public static String cpu0CurFreq()
     {
         try
         {
@@ -506,7 +505,7 @@ public class IOHelper
         }
     }
 
-    public static final String cpu1CurFreq()
+    public static String cpu1CurFreq()
     {
         try
         {
@@ -630,7 +629,7 @@ public class IOHelper
     }
 
 
-    public static List<Voltage> voltages()
+    /*public static List<Voltage> voltages()
     {
         List<Voltage> voltages = new ArrayList<Voltage>();
         if (!voltages.isEmpty())
@@ -713,10 +712,10 @@ public class IOHelper
         }
         return voltages;
 
-    }
+    }*/
 
 
-    public static final String uptime()
+    public static String uptime()
     {
         String uptime;
 

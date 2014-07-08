@@ -81,13 +81,13 @@ public class StartupService extends Service
 		protected String doInBackground(String... args)
 		{
 			DatabaseHandler db = new DatabaseHandler(StartupService.this);
-			List<IOHelper.VoltageList> voltageList = IOHelper.voltages();
+			//List<IOHelper.VoltageList> voltageList = IOHelper.voltages();
 			
 			List<String> voltageFreqs =  new ArrayList<String>();
 			
-			for(IOHelper.VoltageList v: voltageList){
+			/*for(IOHelper.VoltageList v: voltageList){
 				voltageFreqs.add((v.getFreq()));
-			}
+			}*/
 			
 			String gpu3d = sharedPrefs.getString("gpu3d", "");
 			String gpu2d = sharedPrefs.getString("gpu2d", "");

@@ -21,6 +21,7 @@ package rs.pedjaapps.KernelTuner.ui;
 import java.util.List;
 
 import rs.pedjaapps.KernelTuner.R;
+import rs.pedjaapps.KernelTuner.model.Frequency;
 import rs.pedjaapps.KernelTuner.model.FrequencyCollection;
 import rs.pedjaapps.KernelTuner.helpers.IOHelper;
 import android.app.ActionBar;
@@ -53,10 +54,7 @@ import com.stericson.RootTools.execution.CommandCapture;
 public class Mpdecision extends Activity
 {
 
-	private List<String>                       freqs     = FrequencyCollection.getInstance().getFrequencyValues();
-	private List<String>                       freqNames       = FrequencyCollection.getInstance().getFrequencyStrings();
-	
-	
+	private List<Frequency> freqs     = FrequencyCollection.getInstance().getFrequencies();
 	private String mpscroff;
 	private SharedPreferences preferences;
 	private String delay;
@@ -167,7 +165,7 @@ public class Mpdecision extends Activity
 		ActionBar actionBar = getActionBar();
 		actionBar.setDisplayHomeAsUpEnabled(true);
 		boolean ads = preferences.getBoolean("ads", true);
-		if (ads == true)
+		if (ads)
 		{AdView adView = (AdView)findViewById(R.id.ad);
 			adView.loadAd(new AdRequest());}
 		this.getWindow().setSoftInputMode(WindowManager.LayoutParams.SOFT_INPUT_STATE_ALWAYS_HIDDEN); 
@@ -198,7 +196,7 @@ public class Mpdecision extends Activity
 	}
 
 
-	private final void setCheckBoxes()
+	private void setCheckBoxes()
 	{
 
 		EditText del=(EditText)findViewById(R.id.ed1);
@@ -268,7 +266,7 @@ public class Mpdecision extends Activity
 			
 		});
 		
-		ArrayAdapter<String> freqsArrayAdapter = new ArrayAdapter<String>(this,   android.R.layout.simple_spinner_item, freqNames);
+		ArrayAdapter<Frequency> freqsArrayAdapter = new ArrayAdapter<Frequency>(this,   android.R.layout.simple_spinner_item, freqs);
 		freqsArrayAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
 		scroffSpinner.setAdapter(freqsArrayAdapter);
 
@@ -276,7 +274,7 @@ public class Mpdecision extends Activity
 				@Override
 				public void onItemSelected(AdapterView<?> parent, View view, int pos, long id)
 				{
-					scroffNew = Integer.parseInt(freqs.get(pos))+1;
+					scroffNew = freqs.get(pos).getFrequencyValue()+1;
 
 				}
 
@@ -288,7 +286,7 @@ public class Mpdecision extends Activity
 			});
 
 		try{
-		int scroffPosition = freqsArrayAdapter.getPosition(freqNames.get(freqs.indexOf(scroff)));
+		int scroffPosition = freqsArrayAdapter.getPosition(freqs.get(freqs.indexOf(scroff)));
 		scroffSpinner.setSelection(scroffPosition);
 		}
 		catch(Exception e){
@@ -300,7 +298,7 @@ public class Mpdecision extends Activity
 				@Override
 				public void onItemSelected(AdapterView<?> parent, View view, int pos, long id)
 				{
-					idleNew = Integer.parseInt(freqs.get(pos))+1;
+					idleNew = freqs.get(pos).getFrequencyValue()+1;
 					System.out.println(idleNew);
 
 				}
@@ -313,7 +311,7 @@ public class Mpdecision extends Activity
 			});
 
 		try{
-		int idlePosition = freqsArrayAdapter.getPosition(freqNames.get(freqs.indexOf(idle)));
+		int idlePosition = freqsArrayAdapter.getPosition(freqs.get(freqs.indexOf(idle)));
 		idleSpinner.setSelection(idlePosition);
 		}
 		catch(Exception e){

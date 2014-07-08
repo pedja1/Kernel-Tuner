@@ -32,7 +32,7 @@ import java.util.ArrayList;
 import java.util.List;
 import rs.pedjaapps.KernelTuner.R;
 import rs.pedjaapps.KernelTuner.model.Profile;
-import rs.pedjaapps.KernelTuner.model.Voltage;
+//import rs.pedjaapps.KernelTuner.model.Voltage;
 import rs.pedjaapps.KernelTuner.helpers.IOHelper;
 import rs.pedjaapps.KernelTuner.helpers.DatabaseHandler;
 
@@ -90,13 +90,13 @@ public class ProfileApplier extends AsyncTask<String, Void, String>
 		 Integer sdcache = profile.getSdcache();
 
 		 Integer s2w = profile.getSweep2wake();
-		 List<IOHelper.VoltageList> voltageList = IOHelper.voltages();
+		 /*List<IOHelper.VoltageList> voltageList = IOHelper.voltages();
 			
 			List<String> voltageFreqs =  new ArrayList<String>();
 			
 			for(IOHelper.VoltageList v: voltageList){
 				voltageFreqs.add((v.getFreq()));
-			}
+			}*/
 		
 			try {
 	            String line;
@@ -129,7 +129,7 @@ public class ProfileApplier extends AsyncTask<String, Void, String>
 				}
 
 				stdin.write(("mount -t debugfs debugfs /sys/kernel/debug\n").getBytes());
-		
+
 		//cpu0 min
 		if( cpu0min != null && !cpu0min.equals("Unchanged") && !cpu0min.equals("") ){
 			stdin.write(("chmod 777 /sys/devices/system/cpu/cpu0/cpufreq/scaling_min_freq\n").getBytes());
@@ -235,7 +235,7 @@ public class ProfileApplier extends AsyncTask<String, Void, String>
 		}
 		
 		//voltage
-		if( voltage != null && !voltage.equals("Unchanged") && !voltage.equals("") ){
+		/*if( voltage != null && !voltage.equals("Unchanged") && !voltage.equals("") ){
 			Voltage volt = db.getVoltageByName(profile.getVoltage());
 			String[] values = volt.getValue().split("\\s");
 			
@@ -256,7 +256,7 @@ public class ProfileApplier extends AsyncTask<String, Void, String>
 				editor.putString("voltage_" + voltageFreqs.get(i), voltageFreqs.get(i) + " " + values[i]);
 				editor.commit();
 		}
-		}
+		}*/
 		
 		//mpdecision down
 		if( mpdown != null && !mpdown.equals("") ){

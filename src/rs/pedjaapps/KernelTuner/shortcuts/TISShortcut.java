@@ -38,18 +38,18 @@ public class TISShortcut extends Activity
 	{
 		super.onCreate(savedInstanceState);
 		Context c = getApplicationContext();
-		SharedPreferences prefs = PreferenceManager.getDefaultSharedPreferences(c);
-	    String tPref = prefs.getString("tis_open_as","list");
-	    String tActivity= "";
-    	if(tPref.equals("list")){
-			tActivity = "rs.pedjaapps.KernelTuner.TIMES";
-		}
-		else if (tPref.equals("chart")){
-			tActivity = "rs.pedjaapps.KernelTuner.TIMES_CHART";
-		}
-		else{
-			tActivity = "rs.pedjaapps.KernelTuner.TIMES";
-		}
+		//SharedPreferences prefs = PreferenceManager.getDefaultSharedPreferences(c);
+	    //String tPref = prefs.getString("tis_open_as","list");
+	    //String tActivity= "";
+    	//if(tPref.equals("list")){
+		//	tActivity = "rs.pedjaapps.KernelTuner.TIMES";
+		//}
+		//else if (tPref.equals("chart")){
+		//	tActivity = "rs.pedjaapps.KernelTuner.TIMES_CHART";
+		//}
+		//else{
+		//	tActivity = "rs.pedjaapps.KernelTuner.TIMES";
+		//}
 		if(IOHelper.TISExists()){
 		Intent shortcutintent = new Intent("com.android.launcher.action.INSTALL_SHORTCUT")
 		          .putExtra("duplicate", false)

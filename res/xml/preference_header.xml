@@ -14,13 +14,15 @@
 		android:icon="@drawable/prefs_widget">
 		<extra android:name="settings" android:value="widget" />
     </header>
-    <header 
+    <!--
+    <header
         android:fragment="rs.pedjaapps.KernelTuner.ui.PreferencesFragment"
         android:title="@string/prefs_notification"
         android:summary="@string/prefs_notification_summary"
 		android:icon="@drawable/prefs_notifications">
 		<extra android:name="settings" android:value="notification" />
     </header>
+    -->
     <header 
         android:fragment="rs.pedjaapps.KernelTuner.ui.PreferencesFragment"
         android:title="@string/title_log"
@@ -35,13 +37,15 @@
 		android:icon="@drawable/theme">
 		<extra android:name="settings" android:value="ui" />
     </header>
-    <header 
+    <!--
+    <header
         android:fragment="rs.pedjaapps.KernelTuner.ui.PreferencesFragment"
         android:title="@string/prefs_main"
-        android:summary="@string/prefs_main_summary" 
+        android:summary="@string/prefs_main_summary"
 		android:icon="@drawable/prefs_main" >
 		<extra android:name="settings" android:value="main" />
     </header>
+    -->
 	<header
 		android:title="@string/title_backup"
 		android:summary="@string/prefs_backup_summary"

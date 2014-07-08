@@ -18,7 +18,7 @@ public class PrefsManager
     {
         cpu_refresh_interval, is_first_launch, kernel_info, app_version, main_show_temp, main_show_cpu,
         main_show_toggles, main_show_buttons, temp_unit, show_ads, show_cpu_options_dialog, cpu_enable_all,
-        cpu_disable_all
+        cpu_disable_all, hide_unsupported_items, notification_service
     }
 
     public static long getCpuRefreshInterval()
@@ -117,4 +117,13 @@ public class PrefsManager
         editor.apply();
     }
 
+    public static boolean hideUnsupportedItems()
+    {
+        return prefs.getBoolean(Key.hide_unsupported_items.toString(), false);
+    }
+
+    public static boolean getNotificationService()
+    {
+        return prefs.getBoolean(Key.notification_service.toString(), false);
+    }
 }

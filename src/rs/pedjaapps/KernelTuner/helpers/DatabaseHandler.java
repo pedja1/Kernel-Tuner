@@ -527,7 +527,7 @@ public class DatabaseHandler extends SQLiteOpenHelper
         return cursor.getCount();
     }
     
-    public void addVoltage(Voltage voltage)
+    /*public void addVoltage(Voltage voltage)
    	{
            SQLiteDatabase db = this.getWritableDatabase();
 
@@ -684,5 +684,5 @@ public class DatabaseHandler extends SQLiteOpenHelper
            // return count
            return cursor.getCount();
        }
-
+*/
 }

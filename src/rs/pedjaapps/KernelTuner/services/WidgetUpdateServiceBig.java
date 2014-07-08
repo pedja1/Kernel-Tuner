@@ -23,6 +23,7 @@ import java.util.Calendar;
 import java.util.List;
 
 import rs.pedjaapps.KernelTuner.R;
+import rs.pedjaapps.KernelTuner.model.Frequency;
 import rs.pedjaapps.KernelTuner.model.FrequencyCollection;
 import rs.pedjaapps.KernelTuner.helpers.IOHelper;
 import rs.pedjaapps.KernelTuner.receiver.AppWidgetBig;
@@ -70,7 +71,7 @@ public class WidgetUpdateServiceBig extends Service
 	private String battcurrent;
 	private String batthealth;
 	private String battcap;
-	private List<String> frequencies = FrequencyCollection.getInstance().getFrequencyStrings();
+	private List<Frequency> frequencies = FrequencyCollection.getInstance().getFrequencies();
 	private int cf = 0;
 	private String cpu1curr;
 	private int cf2 = 0;
@@ -141,11 +142,6 @@ public class WidgetUpdateServiceBig extends Service
 	@Override
 	public int onStartCommand(Intent intent, int flags, int startId)
 	{
-		if(frequencies == null || frequencies.size() == 0)
-		{
-			FrequencyCollection.getInstance().getAllFrequencies();
-			frequencies = FrequencyCollection.getInstance().getFrequencyStrings();
-		}
 		AppWidgetManager appWidgetManager = AppWidgetManager.getInstance(this
 																		 .getApplicationContext());
 

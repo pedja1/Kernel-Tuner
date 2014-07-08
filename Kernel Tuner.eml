@@ -2,7 +2,7 @@
 <component jdk="Android API 19 Platform" jdk_type="Android SDK">
 	<exclude-output/>
 	<contentEntry url="file://$MODULE_DIR$"/>
-	<lib name="Crashlytics" scope="COMPILE">
+	<lib name="crashlytics.jar" scope="COMPILE">
 		<relative-module-cls project-related="jar://$PROJECT_DIR$/libs/crashlytics.jar!/"/>
 	</lib>
 	<levels>

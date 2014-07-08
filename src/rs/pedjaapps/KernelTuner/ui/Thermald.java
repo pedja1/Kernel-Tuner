@@ -21,6 +21,7 @@ package rs.pedjaapps.KernelTuner.ui;
 import java.util.List;
 
 import rs.pedjaapps.KernelTuner.R;
+import rs.pedjaapps.KernelTuner.model.Frequency;
 import rs.pedjaapps.KernelTuner.model.FrequencyCollection;
 import rs.pedjaapps.KernelTuner.helpers.IOHelper;
 import android.app.ActionBar;
@@ -50,8 +51,7 @@ import com.stericson.RootTools.execution.CommandCapture;
 
 public class Thermald extends Activity
 {
-	private List<String>                       freqs     = FrequencyCollection.getInstance().getFrequencyValues();
-	private List<String>                       freqNames       = FrequencyCollection.getInstance().getFrequencyStrings();
+	private List<Frequency> freqs = FrequencyCollection.getInstance().getFrequencies();
 	private String p1freq;
 	private String p2freq;
 	private String p3freq;
@@ -217,10 +217,10 @@ public class Thermald extends Activity
 
 	}
 
-	private final void createSpinnerp1()
+	private void createSpinnerp1()
 	{
 		final Spinner spinner = (Spinner) findViewById(R.id.bg);
-		ArrayAdapter<String> spinnerArrayAdapter = new ArrayAdapter<String>(this,   android.R.layout.simple_spinner_item, freqNames);
+		ArrayAdapter<Frequency> spinnerArrayAdapter = new ArrayAdapter<Frequency>(this,   android.R.layout.simple_spinner_item, freqs);
 		spinnerArrayAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item); // The drop down vieww
 		spinner.setAdapter(spinnerArrayAdapter);
 
@@ -239,7 +239,7 @@ public class Thermald extends Activity
 			});
 
 		try{
-		int spinnerPosition = spinnerArrayAdapter.getPosition(freqNames.get(freqs.indexOf(p1freq)));
+		int spinnerPosition = spinnerArrayAdapter.getPosition(freqs.get(freqs.indexOf(p1freq)));
 
 		//set the default according to value
 		spinner.setSelection(spinnerPosition);
@@ -250,12 +250,12 @@ public class Thermald extends Activity
 	}
 	}
 
-	private final void createSpinnerp2()
+	private void createSpinnerp2()
 	{
 		
 
 		final Spinner spinner = (Spinner) findViewById(R.id.spinner2);
-		ArrayAdapter<String> spinnerArrayAdapter = new ArrayAdapter<String>(this,   android.R.layout.simple_spinner_item, freqNames);
+		ArrayAdapter<Frequency> spinnerArrayAdapter = new ArrayAdapter<Frequency>(this,   android.R.layout.simple_spinner_item, freqs);
 		spinnerArrayAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item); // The drop down vieww
 		spinner.setAdapter(spinnerArrayAdapter);
 
@@ -275,7 +275,7 @@ public class Thermald extends Activity
 			});
 
 		try{
-		int spinnerPosition = spinnerArrayAdapter.getPosition(freqNames.get(freqs.indexOf(p2freq)));
+		int spinnerPosition = spinnerArrayAdapter.getPosition(freqs.get(freqs.indexOf(p2freq)));
 
 		//set the default according to value
 		spinner.setSelection(spinnerPosition);
@@ -290,7 +290,7 @@ public class Thermald extends Activity
 	{
 
 		final Spinner spinner = (Spinner) findViewById(R.id.spinner3);
-		ArrayAdapter<String> spinnerArrayAdapter = new ArrayAdapter<String>(this,   android.R.layout.simple_spinner_item, freqNames);
+		ArrayAdapter<Frequency> spinnerArrayAdapter = new ArrayAdapter<Frequency>(this,   android.R.layout.simple_spinner_item, freqs);
 		spinnerArrayAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item); // The drop down vieww
 		spinner.setAdapter(spinnerArrayAdapter);
 
@@ -310,7 +310,7 @@ public class Thermald extends Activity
 			});
 
 		try{
-		int spinnerPosition = spinnerArrayAdapter.getPosition(freqNames.get(freqs.indexOf(p3freq)));
+		int spinnerPosition = spinnerArrayAdapter.getPosition(freqs.get(freqs.indexOf(p3freq)));
 
 		//set the default according to value
 		spinner.setSelection(spinnerPosition);

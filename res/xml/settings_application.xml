@@ -8,7 +8,7 @@
         <ListPreference
             android:entries="@array/listDisplayWord"
             android:entryValues="@array/listReturnValue"
-            android:key="boot"
+            android:key="disable"
             android:summary="@string/preferences_boot_settings_apply_summary"
             android:title="@string/preferences_boot_settings_apply_title"
 			android:defaultValue="boot"/>

@@ -338,7 +338,7 @@ public class PreferencesFragment extends PreferenceFragment
 	
 	private void ui(){
 	
-		tisList = (ListPreference) findPreference("tis_open_as");
+		/*tisList = (ListPreference) findPreference("tis_open_as");
 		tisList.setDefaultValue(tisList.getEntryValues()[0]);
         String tis = tisList.getValue();
         if (tis == null) {
@@ -354,9 +354,9 @@ public class PreferencesFragment extends PreferenceFragment
 
 					return true;
 				}
-			});
+			});*/
 
-        cpuList = (ListPreference) findPreference("show_cpu_as");
+        /*cpuList = (ListPreference) findPreference("show_cpu_as");
 		cpuList.setDefaultValue(cpuList.getEntryValues()[0]);
         String cpu = cpuList.getValue();
         if (cpu == null) {
@@ -372,7 +372,7 @@ public class PreferencesFragment extends PreferenceFragment
 
 					return true;
 				}
-			}); 
+			}); */
 	}
 	
 	private void app(){

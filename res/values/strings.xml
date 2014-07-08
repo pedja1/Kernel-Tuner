@@ -671,11 +671,11 @@
     <string name="btn_swap">Swap</string>
     <string name="btn_profiles">Profiles</string>
     <string name="btn_info">System Info</string>
-    <string name="txt_cpu0">CPU0:</string>
-    <string name="txtCpu1">CPU1:</string>
-    <string name="txtCpu2">CPU2:</string>
-    <string name="txtCpu3">CPU3:</string>
-    <string name="txt_cpu_load">CPU Load:</string>
+    <string name="txt_cpu0">CPU0: %s</string>
+    <string name="txtCpu1">CPU1: %s</string>
+    <string name="txtCpu2">CPU2: %s</string>
+    <string name="txtCpu3">CPU3: %s</string>
+    <string name="txt_cpu_load">CPU Load: %s</string>
     <string name="txtCpuTemp">CPU Temperature:</string>
     <string name="na">n/a</string>
     <string name="txtBatteryTemp">Battery Temperature:</string>
@@ -701,5 +701,7 @@
     <string name="_iva">IVA</string>
     <string name="_min">Min</string>
     <string name="please_wait">Please wait...</string>
+    <string name="settings">Settings</string>
+    <string name="compatibility_check">Compatibility Check</string>
 
 </resources>

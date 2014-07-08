@@ -28,6 +28,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 import rs.pedjaapps.KernelTuner.R;
+import rs.pedjaapps.KernelTuner.model.Frequency;
 import rs.pedjaapps.KernelTuner.model.FrequencyCollection;
 import rs.pedjaapps.KernelTuner.helpers.IOHelper;
 import rs.pedjaapps.KernelTuner.utility.Tools;
@@ -88,10 +89,8 @@ public class SystemInfo extends Activity implements
 
 	private SharedPreferences prefs;
 	private static String tempPref;
-	private List<String>                       freqs    = FrequencyCollection.getInstance().getFrequencyValues();
-	private List<IOHelper.VoltageList> voltEntries;
-	private List<Integer> voltages = new ArrayList<Integer>();
-	private List<String> voltFreq = new ArrayList<String>();
+	private List<Frequency> freqs = FrequencyCollection.getInstance().getFrequencies();
+	//private List<Voltage> voltages = VoltageCollection.getInstance().getVoltages();
 	private String governors;
 	private String androidVersion;
 	private Integer apiLevel;
@@ -153,16 +152,6 @@ public class SystemInfo extends Activity implements
 		protected Object doInBackground(String... args) {
 			isSDPresent = android.os.Environment.getExternalStorageState()
 					.equals(android.os.Environment.MEDIA_MOUNTED);
-			
-			voltEntries = IOHelper.voltages();
-			
-			for (IOHelper.VoltageList v : voltEntries) {
-				voltFreq.add(v.getFreqName());
-			}
-			for (IOHelper.VoltageList v : voltEntries) {
-				voltages.add(v.getVoltage());
-			}
-
 			List<String> govs = IOHelper.governors();
 			StringBuilder builder = new StringBuilder();
 			for (String s : govs) {
@@ -820,14 +809,16 @@ public class SystemInfo extends Activity implements
 		} else {
 			governorstxt.setText(governors);
 		}
-		if (voltages.isEmpty() == false) {
-			voltRange.setText((voltages.get(0) / 1000) + "mV("
-					+ voltFreq.get(0) + ") - "
-					+ (voltages.get(voltages.size() - 1) / 1000)
-					+ "mV(" + voltFreq.get(voltFreq.size() - 1) + ")");
+		/*if (!voltages.isEmpty())
+        {
+			voltRange.setText((voltages.get(0).getValue()) + "mV("
+					+ voltages.get(0).getFreq() + ") - "
+					+ (voltages.get(voltages.size() - 1).getValue())
+					+ "mV(" + voltages.get(voltages.size() - 1) + ")");
 		} else {
 			voltageLayout.setVisibility(View.GONE);
-		}
+		}*/
+        //TODO implement voltage
 	}
 
 

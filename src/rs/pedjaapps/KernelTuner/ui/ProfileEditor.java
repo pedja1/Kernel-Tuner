@@ -25,7 +25,6 @@ import rs.pedjaapps.KernelTuner.R;
 import rs.pedjaapps.KernelTuner.model.Frequency;
 import rs.pedjaapps.KernelTuner.model.FrequencyCollection;
 import rs.pedjaapps.KernelTuner.model.Profile;
-import rs.pedjaapps.KernelTuner.model.Voltage;
 import rs.pedjaapps.KernelTuner.helpers.DatabaseHandler;
 import rs.pedjaapps.KernelTuner.helpers.IOHelper;
 import android.app.Activity;
@@ -247,11 +246,11 @@ public class ProfileEditor extends Activity
 
 
 		List<String> voltageProfiles = new ArrayList<String>();
-		List<Voltage> voltages = db.getAllVoltages();
+		/*List<Voltage> voltages = db.getAllVoltages();
 		voltageProfiles.add(getResources().getString(R.string.unchanged));
 		for(Voltage v : voltages){
 			voltageProfiles.add(v.getName());
-		}
+		}*///TODO implement voltages
 
 
 

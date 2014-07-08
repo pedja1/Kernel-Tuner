@@ -25,6 +25,7 @@ import org.apache.commons.io.FileUtils;
 
 import rs.pedjaapps.KernelTuner.Constants;
 import rs.pedjaapps.KernelTuner.R;
+import rs.pedjaapps.KernelTuner.model.Frequency;
 import rs.pedjaapps.KernelTuner.model.FrequencyCollection;
 import android.app.ActionBar;
 import android.app.Activity;
@@ -57,8 +58,7 @@ public class MpdecisionNew extends Activity
 {
 
 	
-	private List<String>                       freqs     = FrequencyCollection.getInstance().getFrequencyValues();
-	private List<String>                       freqNames       = FrequencyCollection.getInstance().getFrequencyStrings();
+	private List<Frequency> freqs     = FrequencyCollection.getInstance().getFrequencies();
 	
 	
 	private String mpscroff;
@@ -286,7 +286,7 @@ public class MpdecisionNew extends Activity
 			
 		});
 		
-		ArrayAdapter<String> freqsArrayAdapter = new ArrayAdapter<String>(this,   android.R.layout.simple_spinner_item, freqNames);
+		ArrayAdapter<Frequency> freqsArrayAdapter = new ArrayAdapter<Frequency>(this,   android.R.layout.simple_spinner_item, freqs);
 		freqsArrayAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
 		scroffSpinner.setAdapter(freqsArrayAdapter);
 
@@ -294,7 +294,7 @@ public class MpdecisionNew extends Activity
 				@Override
 				public void onItemSelected(AdapterView<?> parent, View view, int pos, long id)
 				{
-					scroffNew = Integer.parseInt(freqs.get(pos))+1;
+					scroffNew = freqs.get(pos).getFrequencyValue()+1;
 
 				}
 
@@ -306,7 +306,7 @@ public class MpdecisionNew extends Activity
 			});
 
 		try{
-		int scroffPosition = freqsArrayAdapter.getPosition(freqNames.get(freqs.indexOf(scroff)));
+		int scroffPosition = freqsArrayAdapter.getPosition(freqs.get(freqs.indexOf(scroff)));
 		scroffSpinner.setSelection(scroffPosition);
 		}
 		catch(Exception e){
@@ -317,7 +317,7 @@ public class MpdecisionNew extends Activity
 				@Override
 				public void onItemSelected(AdapterView<?> parent, View view, int pos, long id)
 				{
-					idleNew = Integer.parseInt(freqs.get(pos))+1;
+					idleNew = freqs.get(pos).getFrequencyValue()+1;
 
 				}
 
@@ -329,7 +329,7 @@ public class MpdecisionNew extends Activity
 			});
 
 		try{
-		int idlePosition = freqsArrayAdapter.getPosition(freqNames.get(freqs.indexOf(idle)));
+		int idlePosition = freqsArrayAdapter.getPosition(freqs.get(freqs.indexOf(idle)));
 		idleSpinner.setSelection(idlePosition);
 		}
 		catch(Exception e){
@@ -338,7 +338,7 @@ public class MpdecisionNew extends Activity
 	
 	}
 
-	private final void readMpdec()
+	private void readMpdec()
 	{
 		try
 		{

@@ -44,7 +44,7 @@ public class AppReset
 	
 	
 	final public void reset(){
-		List<IOHelper.VoltageList> voltageList = IOHelper.voltages();
+		/*List<IOHelper.VoltageList> voltageList = IOHelper.voltages();
 		List<String> voltageFreqs =  new ArrayList<String>();
 		for(IOHelper.VoltageList v: voltageList){
 			voltageFreqs.add((v.getFreq()));
@@ -52,7 +52,7 @@ public class AppReset
 		for (String s : voltageFreqs)
 		{
 			editor.remove("voltage_" + s);
-		}
+		}*/
 		List<String> govSettings = IOHelper.govSettings();
 		List<String> availableGovs = IOHelper.availableGovs();
 		for (String s : availableGovs)

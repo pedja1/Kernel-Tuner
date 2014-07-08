@@ -28,12 +28,12 @@ public class FrequencyCollection
         return frequencies;
     }
 
-    public int getMaxProgress(String maxFreq)
+    public static int getProgress(int freq, List<Frequency> frequencies)
     {
         int offset = 0;
         for(Frequency f : frequencies)
         {
-            if((f.getFrequencyValue() + "").equals(maxFreq))
+            if(f.getFrequencyValue() == freq)
             {
                 return offset + 1;
             }
@@ -42,17 +42,20 @@ public class FrequencyCollection
         return 0;
     }
 
-    public int getProgress(String freq)
+    public static String getHrStringFromFreq(int freq)
     {
-        int offset = 0;
-        for(Frequency f : frequencies)
+        //convert freq in hz to human readable format(eg. 500mhz, 2ghz)
+        if(freq / 1000000 > 0)
         {
-            if((f.getFrequencyValue() + "").equals(freq))
-            {
-                return offset + 1;
-            }
-            offset++;
+            return (double)freq / 1000000 + "Ghz";
         }
-        return 0;
+        else if(freq / 1000 > 0)
+        {
+            return (double)freq/1000 + "Mhz";
+        }
+        else
+        {
+            return freq + "Hz";//should never happen
+        }
     }
 }
