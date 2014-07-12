@@ -18,14 +18,14 @@
 */
 package rs.pedjaapps.kerneltuner.model;
 
-public final class BuildEntry
+public final class Build
 {
 
 	private final String name;
 	private final String value;
 
 
-	public BuildEntry(final String name, final String value)
+	public Build(final String name, final String value)
 	{
 		this.name = name;
 		this.value = value;

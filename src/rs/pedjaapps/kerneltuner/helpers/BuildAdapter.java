@@ -25,7 +25,7 @@ import android.widget.*;
 import rs.pedjaapps.kerneltuner.*;
 import rs.pedjaapps.kerneltuner.model.*;
 
-public final class BuildAdapter extends ArrayAdapter<BuildEntry>
+public final class BuildAdapter extends ArrayAdapter<Build>
 {
 
 	private final int govItemLayoutResource;
@@ -42,10 +42,10 @@ public final class BuildAdapter extends ArrayAdapter<BuildEntry>
 
 		final View view = getWorkingView(convertView);
 		final ViewHolder viewHolder = getViewHolder(view);
-		final BuildEntry entry = getItem(position);
+		final Build entry = getItem(position);
 
-		viewHolder.valueView.setText(entry.getValue());
-		viewHolder.nameView.setText(entry.getName());
+		viewHolder.tvValue.setText(entry.getValue());
+		viewHolder.tvTitle.setText(entry.getName());
 
 
 		return view;
@@ -81,8 +81,8 @@ public final class BuildAdapter extends ArrayAdapter<BuildEntry>
 		{
 			viewHolder = new ViewHolder();
 
-			viewHolder.nameView = (TextView) workingView.findViewById(R.id.name);
-			viewHolder.valueView = (TextView) workingView.findViewById(R.id.value);
+			viewHolder.tvTitle = (TextView) workingView.findViewById(R.id.tvTitle);
+			viewHolder.tvValue = (TextView) workingView.findViewById(R.id.tvValue);
 
 			workingView.setTag(viewHolder);
 
@@ -97,8 +97,8 @@ public final class BuildAdapter extends ArrayAdapter<BuildEntry>
 
 	private class ViewHolder
 	{
-		public TextView nameView;
-		public TextView valueView;
+		public TextView tvTitle;
+		public TextView tvValue;
 
 	}
 

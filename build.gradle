@@ -62,6 +62,8 @@ android {
             renderscript.srcDirs = ['src']
             res.srcDirs = ['res']
             assets.srcDirs = ['assets']
+            jni.srcDirs = []
+            jniLibs.srcDir 'libs'
         }
 
         androidTest.setRoot('tests')

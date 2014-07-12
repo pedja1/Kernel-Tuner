@@ -20,7 +20,6 @@ package rs.pedjaapps.kerneltuner.ui;
 
 import java.io.*;
 
-import android.app.Activity;
 import android.app.AlertDialog;
 import android.app.ProgressDialog;
 import android.content.Context;
@@ -42,336 +41,333 @@ import android.widget.AdapterView;
 import android.widget.EditText;
 import android.widget.ListView;
 import android.widget.Toast;
+
+import com.crashlytics.android.Crashlytics;
 import com.stericson.RootTools.RootTools;
 import com.stericson.RootTools.execution.CommandCapture;
+
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
-import org.apache.commons.io.FileUtils;
-import rs.pedjaapps.kerneltuner.R;
-import rs.pedjaapps.kerneltuner.model.BuildEntry;
-import rs.pedjaapps.kerneltuner.helpers.BuildAdapter;
-import rs.pedjaapps.kerneltuner.utility.Tools;
 
+import org.apache.commons.io.FileUtils;
+
+import rs.pedjaapps.kerneltuner.R;
+import rs.pedjaapps.kerneltuner.model.Build;
+import rs.pedjaapps.kerneltuner.helpers.BuildAdapter;
+import rs.pedjaapps.kerneltuner.root.RootUtils;
+import rs.pedjaapps.kerneltuner.utility.Tools;
 
 
 public class BuildpropEditor extends AbsActivity
 {
-	
-	ListView bListView;
-	BuildAdapter bAdapter;
-	List<BuildEntry> entries;
-	ProgressDialog pd;
-	//CheckBox kernel, vm, fs, net;
-	SharedPreferences preferences;
-	String arch = Tools.getAbi();
 
-	@Override
-	public void onCreate(Bundle savedInstanceState)
-	{
-	    preferences = PreferenceManager.getDefaultSharedPreferences(this);
-		
-		super.onCreate(savedInstanceState);
-		requestWindowFeature(Window.FEATURE_INDETERMINATE_PROGRESS);
-		setContentView(R.layout.build);
-		getActionBar().setDisplayHomeAsUpEnabled(true);
-		
-/*
-		kernel = (CheckBox)findViewById(R.id.kernel);
-		vm = (CheckBox)findViewById(R.id.vm);
-		fs = (CheckBox)findViewById(R.id.fs);
-		net = (CheckBox)findViewById(R.id.net);
+    ListView bListView;
+    BuildAdapter bAdapter;
+    List<Build> entries;
+    ProgressDialog pd;
+    SharedPreferences preferences;
+    String arch = Tools.getAbi();
 
-		kernel.setChecked(preferences.getBoolean("sysctl_kernel", true));
-		vm.setChecked(preferences.getBoolean("sysctl_vm", true));
-		fs.setChecked(preferences.getBoolean("sysctl_fs", true));
-		net.setChecked(preferences.getBoolean("sysctl_net", false));
+    @Override
+    public void onCreate(Bundle savedInstanceState)
+    {
+        preferences = PreferenceManager.getDefaultSharedPreferences(this);
 
-		kernel.setOnCheckedChangeListener(new Listener());
-		net.setOnCheckedChangeListener(new Listener());
-		vm.setOnCheckedChangeListener(new Listener());
-		fs.setOnCheckedChangeListener(new Listener());
-*/
+        super.onCreate(savedInstanceState);
+        requestWindowFeature(Window.FEATURE_INDETERMINATE_PROGRESS);
+        setContentView(R.layout.build);
+        getActionBar().setDisplayHomeAsUpEnabled(true);
+
+        bListView = (ListView) findViewById(R.id.list);
+        bAdapter = new BuildAdapter(this, R.layout.build_row);
+        bListView.setAdapter(bAdapter);
 
 
-		bListView = (ListView) findViewById(R.id.list);
-		bAdapter = new BuildAdapter(this, R.layout.build_row);
-		bListView.setAdapter(bAdapter);
-		
+        bListView.setOnItemClickListener(new AdapterView.OnItemClickListener()
+        {
+            @Override
+            public void onItemClick(AdapterView<?> arg0, View v, final int pos, long is)
+            {
+                AlertDialog.Builder builder = new AlertDialog.Builder(v.getContext());
+                final Build tmpEntry = bAdapter.getItem(pos);
+                builder.setTitle(tmpEntry.getName());
 
-		bListView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+                //builder.setMessage("Set new value!");
 
-				@Override
-				public void onItemClick(AdapterView<?> arg0, View v, final int pos,
-										long is)
-				{
-					AlertDialog.Builder builder = new AlertDialog.Builder(v.getContext());
-					final BuildEntry tmpEntry = bAdapter.getItem(pos);
-					builder.setTitle(tmpEntry.getName());
+                builder.setIcon(R.drawable.build);
 
-					builder.setMessage("Set new value!");
+                final EditText input = new EditText(v.getContext());
+                input.setText(tmpEntry.getValue());
+                input.selectAll();
+                input.setGravity(Gravity.CENTER_HORIZONTAL);
+                input.requestFocus();
 
-					builder.setIcon(R.drawable.build);
+                builder.setPositiveButton(getString(R.string.Change), new DialogInterface.OnClickListener()
+                {
+                    @Override
+                    public void onClick(DialogInterface dialog, int which)
+                    {
+                        saveBuildProp(tmpEntry, input, pos);
+                    }
+                });
+                builder.setNegativeButton(getResources().getString(R.string.cancel), null);
+                builder.setView(input);
 
+                AlertDialog alert = builder.create();
 
-					final EditText input = new EditText(v.getContext());
-					input.setText(tmpEntry.getValue());
-					input.selectAll();
-					input.setGravity(Gravity.CENTER_HORIZONTAL);
-					input.requestFocus();
+                alert.show();
+            }
+        });
+        new GetBuildEntries().execute();
+    }
 
-					builder.setPositiveButton("Change", new DialogInterface.OnClickListener() {
-							@Override
-							public void onClick(DialogInterface dialog, int which)
-							{
-								try{
-								String bp = FileUtils.readFileToString(new File("/system/build.prop"));
-								bp = bp.replace((CharSequence)tmpEntry.getName().trim()+"="+tmpEntry.getValue().trim(), (CharSequence)tmpEntry.getName().trim()+"="+input.getText().toString().trim());
-								FileOutputStream fOut = openFileOutput("build.prop",
-										MODE_PRIVATE);
-								System.out.println(bp);
-								OutputStreamWriter osw = new OutputStreamWriter(fOut);
-								osw.write(bp);
-								osw.flush();
-								osw.close();
-								CommandCapture command = new CommandCapture(0, getFilesDir().getPath()+"/cp-"+arch+" /system/build.prop /system/build.prop.bk",
-																				getFilesDir().getPath()+"/cp-"+arch+" /data/data/rs.pedjaapps.KernelTuner/files/build.prop /system/build.prop",
-										"chmod 644 /system/build.prop");
-								try{
-		                        	RootTools.getShell(true).add(command);
-			 						}
-								catch(Exception e){
-				
-								}
-								Toast.makeText(BuildpropEditor.this, "build.prop edited successfully", Toast.LENGTH_LONG).show();
-								}
-								catch(Exception e){
-									Log.e("",e.getMessage());
-									Toast.makeText(BuildpropEditor.this, "error ocured:\n"+e.getMessage(), Toast.LENGTH_LONG).show();
-								}
-								
-								bAdapter.remove(tmpEntry);
-								bAdapter.insert(new BuildEntry(tmpEntry.getName(), input.getText().toString()), pos);
-								bAdapter.notifyDataSetChanged();
+    private void saveBuildProp(final Build tmpEntry, final EditText input, final int position)
+    {
+        try
+        {
+            String bp = FileUtils.readFileToString(new File("/system/build.prop"));
+            bp = bp.replace(tmpEntry.getName().trim() + "=" + tmpEntry.getValue().trim(), tmpEntry.getName().trim() + "=" + input.getText().toString().trim());
+            FileOutputStream fOut = openFileOutput("build.prop", MODE_PRIVATE);
+            OutputStreamWriter osw = new OutputStreamWriter(fOut);
+            osw.write(bp);
+            osw.flush();
+            osw.close();
 
-							}
-						});
-					builder.setNegativeButton(getResources().getString(R.string.cancel), new DialogInterface.OnClickListener(){
+            new RootUtils().exec(new RootUtils.CommandCallback()
+                                 {
+                                     @Override
+                                     public void onComplete(RootUtils.Status status, String output)
+                                     {
+                                         System.out.println(output);
+                                         Toast.makeText(BuildpropEditor.this, getString(R.string.bprop_saved), Toast.LENGTH_LONG).show();
+                                         bAdapter.remove(tmpEntry);
+                                         bAdapter.insert(new Build(tmpEntry.getName(), input.getText().toString()), position);
+                                         bAdapter.notifyDataSetChanged();
+                                     }
+                                 }, "busybox cp -f /system/build.prop /system/build.prop.bk",
+                    "busybox cp -f " + getFilesDir().getPath() + "/build.prop /system/build.prop",
+                    "chmod 644 /system/build.prop");
 
-							@Override
-							public void onClick(DialogInterface arg0, int arg1)
-							{
-
-
-							}
-
-						});
-					builder.setView(input);
-
-					AlertDialog alert = builder.create();
-
-					alert.show();
-				}
-			});
+        }
+        catch (Exception e)
+        {
+            Crashlytics.logException(e);
+            Toast.makeText(BuildpropEditor.this, "Error: " + e.getMessage(), Toast.LENGTH_LONG).show();
+        }
+    }
 
 
-		new GetBuildEntries().execute();
+    private class GetBuildEntries extends AsyncTask<String, Build, Void>
+    {
+        String line;
 
-	}
+        @Override
+        protected Void doInBackground(String... args)
+        {
+            entries = new ArrayList<Build>();
+            //Process proc = null;
+            try
+            {
+                //	proc = Runtime.getRuntime().exec(getFilesDir().getPath() + "/toolbox getprop");
+
+                File myFile = new File("/system/build.prop");
+                FileInputStream fIn = new FileInputStream(myFile);
+
+                BufferedReader bufferedReader = new BufferedReader(
+                        new InputStreamReader(fIn));
+                while ((line = bufferedReader.readLine()) != null)
+                {
+
+                    if (!line.startsWith("#") && !line.startsWith(" ") && line.length() != 0)
+                    {
+                        String[] temp = line.trim().split("=");
+                        List<String> tmp = Arrays.asList(temp);
+                        Build tmpEntry;
+                        if (tmp.size() == 2)
+                        {
+                            tmpEntry = new Build(tmp.get(0), tmp.get(1));
+                        }
+                        else
+                        {
+                            tmpEntry = new Build(tmp.get(0), "");
+                        }
+                        entries.add(tmpEntry);
+                        publishProgress(tmpEntry);
+                    }
+
+                }
+                bufferedReader.close();
+            }
+            catch (Exception e)
+            {
+                Log.e("Get build prop", "error: " + e.getMessage());
+            }
+            return null;
+        }
+
+        @Override
+        protected void onProgressUpdate(Build... values)
+        {
+
+            bAdapter.add(values[0]);
+            bAdapter.notifyDataSetChanged();
+
+            super.onProgressUpdate();
+        }
+
+        @Override
+        protected void onPostExecute(Void res)
+        {
+            setProgressBarIndeterminateVisibility(false);
+        }
+
+        @Override
+        protected void onPreExecute()
+        {
+            setProgressBarIndeterminateVisibility(true);
+            bAdapter.clear();
+        }
+
+    }
+
+    @Override
+    public boolean onCreateOptionsMenu(Menu menu)
+    {
+
+        menu.add(0, 0, 0, getString(R.string.add)).setShowAsAction(MenuItem.SHOW_AS_ACTION_IF_ROOM);
+        menu.add(0, 1, 1, getString(R.string.backup)).setShowAsAction(MenuItem.SHOW_AS_ACTION_IF_ROOM);
+        menu.add(0, 2, 2, getString(R.string.restore)).setShowAsAction(MenuItem.SHOW_AS_ACTION_IF_ROOM);
+        return super.onCreateOptionsMenu(menu);
+    }
+
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item)
+    {
+        switch (item.getItemId())
+        {
+            case android.R.id.home:
+                Intent intent = new Intent(this, MainActivity.class);
+                intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
+                startActivity(intent);
+
+                return true;
+            case 0:
+                addDialog();
+                return true;
+            case 1:
+                backup();
+                return true;
+            case 2:
+                restore();
+                return true;
+
+        }
+        return super.onOptionsItemSelected(item);
+    }
+
+    private void addDialog()
+    {
+        AlertDialog.Builder builder = new AlertDialog.Builder(this);
+
+        builder.setTitle(getString(R.string.add_new_entry));
+
+        //builder.setMessage("Set new value!");
+
+        builder.setIcon(R.drawable.build);
+
+        LayoutInflater inflater = (LayoutInflater) this
+                .getSystemService(Context.LAYOUT_INFLATER_SERVICE);
+        View view = inflater.inflate(R.layout.build_add_layout, null);
+        final EditText key = (EditText) view.findViewById(R.id.key);
+        final EditText value = (EditText) view.findViewById(R.id.value);
+
+        builder.setPositiveButton(R.string.add, new DialogInterface.OnClickListener()
+        {
+            @Override
+            public void onClick(DialogInterface dialog, int which)
+            {
+                new RootUtils().exec(new RootUtils.CommandCallback()
+                {
+                    @Override
+                    public void onComplete(RootUtils.Status status, String output)
+                    {
+                        bAdapter.add(new Build(key.getText().toString(), value.getText().toString()));
+                        bAdapter.notifyDataSetChanged();
+                    }
+                }, "echo " + key.getText().toString() + "=" + value.getText().toString() + " >> /system/build.prop");
+
+            }
+        });
+        builder.setNegativeButton(getResources().getString(R.string.cancel), new DialogInterface.OnClickListener()
+        {
+
+            @Override
+            public void onClick(DialogInterface arg0, int arg1)
+            {
 
 
-	private class GetBuildEntries extends AsyncTask<String, BuildEntry, Void>
-	{
-		String line;
-		@Override
-		protected Void doInBackground(String... args)
-		{
-			entries = new ArrayList<BuildEntry>();
-			//Process proc = null;
-			try
-			{
-			//	proc = Runtime.getRuntime().exec(getFilesDir().getPath() + "/toolbox getprop");
-			
-				File myFile = new File("/system/build.prop");
-				FileInputStream fIn = new FileInputStream(myFile);
+            }
 
-				BufferedReader bufferedReader = new BufferedReader(
-					new InputStreamReader(fIn));
-				while ((line = bufferedReader.readLine()) != null)
-				{
-					
-					if(!line.startsWith("#") && !line.startsWith(" ") && line.length()!=0){
-						String[] temp = line.trim().split("=");
-						List<String> tmp = Arrays.asList(temp);
-						BuildEntry tmpEntry;
-						if(tmp.size()==2){
-							tmpEntry = new BuildEntry(tmp.get(0), tmp.get(1));
-						}
-						else{
-					        tmpEntry = new BuildEntry(tmp.get(0), "");
-					    }
-						entries.add(tmpEntry);
-						publishProgress(tmpEntry);
-					}
+        });
+        builder.setView(view);
 
-				}
-				bufferedReader.close();
-			}
-			catch (Exception e)
-			{
-				Log.e("Get build prop", "error: " + e.getMessage());
-			}
-			return null;
-		}
+        AlertDialog alert = builder.create();
 
-		@Override
-		protected void onProgressUpdate(BuildEntry... values)
-		{
-			
-				bAdapter.add(values[0]);
-				bAdapter.notifyDataSetChanged();
-			
-			super.onProgressUpdate();
-		}
+        alert.show();
+    }
 
-		@Override
-		protected void onPostExecute(Void res)
-		{
-			setProgressBarIndeterminateVisibility(false);
-		}
-		@Override
-		protected void onPreExecute()
-		{
-			setProgressBarIndeterminateVisibility(true);
-			bAdapter.clear();
-		}
+    private void backup()
+    {
+        try
+        {
+            //RootExecuter.exec(new String[]{"cp /system/build.prop "+Environment.getExternalStorageDirectory().toString()+"/KernelTuner/build.prop"});
+            FileUtils.copyFile(new File("/system/build.prop"), new File(Environment.getExternalStorageDirectory().toString() + "/KernelTuner/build/build.prop-" + Tools.msToDateSimple(System.currentTimeMillis())));
+            Toast.makeText(this, getString(R.string.build_prop_backedup) + Environment.getExternalStorageDirectory().toString() + "/KernelTuner/build/", Toast.LENGTH_LONG).show();
+        }
+        catch (Exception e)
+        {
+            Toast.makeText(this, e.getMessage(), Toast.LENGTH_LONG).show();
+        }
+    }
 
-	}
-	
-	@Override
-	public boolean onCreateOptionsMenu(Menu menu) {
-		
-		menu.add(0,0,0,"Add").setShowAsAction(MenuItem.SHOW_AS_ACTION_IF_ROOM);
-		menu.add(0,1,1,"Backup").setShowAsAction(MenuItem.SHOW_AS_ACTION_IF_ROOM);
-		menu.add(0,2,2,"Restore").setShowAsAction(MenuItem.SHOW_AS_ACTION_IF_ROOM);
-		return super.onCreateOptionsMenu(menu);
-	}
-
-	@Override
-	public boolean onOptionsItemSelected(MenuItem item) {
-		switch (item.getItemId()) {
-			case android.R.id.home:
-				Intent intent = new Intent(this, MainActivity.class);
-				intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
-				startActivity(intent);
-
-				return true;
-			case 0:
-				addDialog();
-				return true;
-			case 1:
-				backup();
-				return true;
-			case 2:
-				restore();
-				return true;
-
-		}
-		return super.onOptionsItemSelected(item);
-	}
-	
-	private void addDialog()
-	{
-		AlertDialog.Builder builder = new AlertDialog.Builder(this);
-
-		builder.setTitle("Add new entrie");
-
-		//builder.setMessage("Set new value!");
-
-		builder.setIcon(R.drawable.build);
-
-		LayoutInflater inflater = (LayoutInflater) this
-			.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
-		View view = inflater.inflate(R.layout.build_add_layout, null);
-	    final EditText key = (EditText)view.findViewById(R.id.key);
-		final EditText value = (EditText)view.findViewById(R.id.value);
-
-		builder.setPositiveButton("Add", new DialogInterface.OnClickListener() {
-				@Override
-				public void onClick(DialogInterface dialog, int which)
-				{
-					CommandCapture command = new CommandCapture(0, "echo "+key.getText().toString()+"="+value.getText().toString()+" >> /system/build.prop");
-					try{
-			RootTools.getShell(true).add(command);
-			}
-			catch(Exception e){
-				
-			}
-					bAdapter.add(new BuildEntry(key.getText().toString(), value.getText().toString()));
-					bAdapter.notifyDataSetChanged();
-				}
-			});
-		builder.setNegativeButton(getResources().getString(R.string.cancel), new DialogInterface.OnClickListener(){
-
-				@Override
-				public void onClick(DialogInterface arg0, int arg1)
-				{
+    private void restore()
+    {
+        File backupDir = new File(Environment.getExternalStorageDirectory().toString() + "/KernelTuner/build/");
+        File[] backups = backupDir.listFiles();
+        List<CharSequence> items = new ArrayList<>();
+        if (backups != null)
+        {
+            for (File f : backups)
+            {
+                items.add(f.getName());
+            }
+        }
+        final CharSequence[] items2;
+        items2 = items.toArray(new CharSequence[items.size()]);
+        AlertDialog.Builder builder = new AlertDialog.Builder(this);
+        builder.setTitle(getString(R.string.select_backup));
+        builder.setItems(items2, new DialogInterface.OnClickListener()
+        {
+            @Override
+            public void onClick(DialogInterface dialog, int item)
+            {
+                new RootUtils().exec(new RootUtils.CommandCallback()
+                {
+                    @Override
+                    public void onComplete(RootUtils.Status status, String output)
+                    {
+                        Toast.makeText(BuildpropEditor.this, getString(R.string.build_prop_restored), Toast.LENGTH_LONG).show();
+                        new GetBuildEntries().execute();
+                    }
+                }, "busybox cp -f " + Environment.getExternalStorageDirectory().toString() + "/KernelTuner/build/" + items2[item] + " /system/build.prop",
+                        "chmod 644 /system/build.prop");
 
 
-				}
+            }
+        });
+        AlertDialog alert = builder.create();
+        alert.show();
+    }
 
-			});
-		builder.setView(view);
-
-		AlertDialog alert = builder.create();
-
-		alert.show();
-	}
-	
-	private void backup()
-	{
-		try{
-		//RootExecuter.exec(new String[]{"cp /system/build.prop "+Environment.getExternalStorageDirectory().toString()+"/KernelTuner/build.prop"});
-		FileUtils.copyFile(new File("/system/build.prop"), new File(Environment.getExternalStorageDirectory().toString()+"/KernelTuner/build/build.prop-"+Tools.msToDateSimple(System.currentTimeMillis())));
-		Toast.makeText(this, "build.prop backed-up in "+Environment.getExternalStorageDirectory().toString()+"/KernelTuner/build/", Toast.LENGTH_LONG).show();
-		}
-		catch(Exception e){
-			Toast.makeText(this, e.getMessage(), Toast.LENGTH_LONG).show();
-		}
-	}
-	
-	private void restore()
-	{
-		File backupDir = new File(Environment.getExternalStorageDirectory().toString()+"/KernelTuner/build/");
-		File[] backups = backupDir.listFiles();
-		List<CharSequence> items = new ArrayList<CharSequence>();
-		if(backups!=null){
-			for(File f : backups){
-				items.add(f.getName());
-			}
-		}
-		final String arch = Tools.getAbi();
-		final CharSequence[] items2;
-		items2 = items.toArray(new String[0]);
-		AlertDialog.Builder builder = new AlertDialog.Builder(this);
-		builder.setTitle("Select Backup to Restore");
-		builder.setItems(items2, new DialogInterface.OnClickListener() {
-		    @Override
-			public void onClick(DialogInterface dialog, int item) {
-		    	CommandCapture command = new CommandCapture(0, getFilesDir().getPath()+"/cp-"+arch+ Environment.getExternalStorageDirectory().toString()+"/KernelTuner/build/"+items2[item]+" /system/build.prop",
-		    			"chmod 644 /system/build.prop");
-				try{
-					RootTools.getShell(true).add(command);
-				}
-				catch(Exception e){
-
-				}
-		    	Toast.makeText(BuildpropEditor.this, "build.prop restored", Toast.LENGTH_LONG).show();
-		    	new GetBuildEntries().execute();
-		    }
-		});
-		AlertDialog alert = builder.create();
-		alert.show();
-	}
-	
 }

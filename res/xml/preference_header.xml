@@ -1,14 +1,14 @@
 <?xml version="1.0" encoding="utf-8"?>
 <preference-headers xmlns:android="http://schemas.android.com/apk/res/android">
     <header 
-        android:fragment="rs.pedjaapps.KernelTuner.ui.PreferencesFragment"
+        android:fragment="rs.pedjaapps.kerneltuner.ui.PreferencesFragment"
         android:title="@string/prefs_general"
         android:summary="@string/prefs_general_summary"
 		android:icon="@drawable/ic_launcher">
         <extra android:name="settings" android:value="application" />
     </header>
     <header 
-        android:fragment="rs.pedjaapps.KernelTuner.ui.PreferencesFragment"
+        android:fragment="rs.pedjaapps.kerneltuner.ui.PreferencesFragment"
         android:title="@string/prefs_widget"
         android:summary="@string/prefs_widget_summary"
 		android:icon="@drawable/prefs_widget">
@@ -16,7 +16,7 @@
     </header>
     <!--
     <header
-        android:fragment="rs.pedjaapps.KernelTuner.ui.PreferencesFragment"
+        android:fragment="rs.pedjaapps.kerneltuner.ui.PreferencesFragment"
         android:title="@string/prefs_notification"
         android:summary="@string/prefs_notification_summary"
 		android:icon="@drawable/prefs_notifications">
@@ -24,14 +24,14 @@
     </header>
     -->
     <header 
-        android:fragment="rs.pedjaapps.KernelTuner.ui.PreferencesFragment"
+        android:fragment="rs.pedjaapps.kerneltuner.ui.PreferencesFragment"
         android:title="@string/title_log"
         android:summary="@string/prefs_log_summary" 
 		android:icon="@drawable/log">
 		<extra android:name="settings" android:value="logcat" />
     </header>
     <header 
-        android:fragment="rs.pedjaapps.KernelTuner.ui.PreferencesFragment"
+        android:fragment="rs.pedjaapps.kerneltuner.ui.PreferencesFragment"
         android:title="@string/prefs_ui"
         android:summary="@string/prefs_ui_summary" 
 		android:icon="@drawable/theme">
@@ -39,7 +39,7 @@
     </header>
     <!--
     <header
-        android:fragment="rs.pedjaapps.KernelTuner.ui.PreferencesFragment"
+        android:fragment="rs.pedjaapps.kerneltuner.ui.PreferencesFragment"
         android:title="@string/prefs_main"
         android:summary="@string/prefs_main_summary"
 		android:icon="@drawable/prefs_main" >
@@ -51,7 +51,7 @@
 		android:summary="@string/prefs_backup_summary"
 		android:icon="@drawable/save">
 
-		<intent android:action="rs.pedjaapps.KernelTuner.ui.BackupRestore"
+		<intent android:action="rs.pedjaapps.kerneltuner.ui.BackupRestore"
 		/>
 	</header>
 
@@ -60,7 +60,7 @@
 		android:summary="@string/prefs_about_summary"
 		android:icon="@drawable/about">
 
-		<intent android:action="rs.pedjaapps.KernelTuner.About"
+		<intent android:action="rs.pedjaapps.kerneltuner.About"
 		/>
 
 	</header>
@@ -70,7 +70,7 @@
 		android:summary="@string/prefs_changelog_summary"
 		android:icon="@drawable/changelog">
 
-		<intent android:action="rs.pedjaapps.KernelTuner.Changelog"
+		<intent android:action="rs.pedjaapps.kerneltuner.Changelog"
 		/>
 
 	</header>
@@ -81,7 +81,7 @@
 		android:icon="@drawable/info"
 		android:key="sysInfo">
 
-		<intent android:action="rs.pedjaapps.KernelTuner.SystemInfo"
+		<intent android:action="rs.pedjaapps.kerneltuner.SystemInfo"
 		/>
 
 	</header>

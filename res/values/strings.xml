@@ -709,5 +709,12 @@
     <string name="select_governor">Select Governor</string>
     <string name="cpu">cpu</string>
     <string name="show_all_cores">Show All Cores</string>
+    <string name="Change">Change</string>
+    <string name="bprop_saved">build.prop saved.</string>
+    <string name="add">Add</string>
+    <string name="add_new_entry">Add new entry</string>
+    <string name="select_backup">Select Backup to Restore</string>
+    <string name="build_prop_backedup">build.prop backed-up in </string>
+    <string name="build_prop_restored">build.prop restored.</string>
 
 </resources>

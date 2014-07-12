@@ -13,12 +13,6 @@ public class RootUtils
 	private CommandCallback callback;
 	private StringBuilder output;
 	private boolean commandExecuted = false;
-
-	public RootUtils(CommandCallback callback)
-	{
-		this.callback = callback;
-		reset();
-	}
 	
 	public RootUtils()
 	{
