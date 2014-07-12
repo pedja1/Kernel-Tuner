@@ -37,258 +37,250 @@ import android.view.View;
 
 import com.stericson.RootTools.RootTools;
 import com.stericson.RootTools.execution.CommandCapture;
+
 import java.io.BufferedReader;
 import java.io.InputStream;
 import java.io.InputStreamReader;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
+
 import rs.pedjaapps.kerneltuner.R;
 import rs.pedjaapps.kerneltuner.model.SysCtlDatabaseEntry;
 import rs.pedjaapps.kerneltuner.model.SysCtlEntry;
 import rs.pedjaapps.kerneltuner.helpers.DatabaseHandler;
 import rs.pedjaapps.kerneltuner.helpers.SysCtlAdapter;
+import rs.pedjaapps.kerneltuner.root.RootUtils;
 import rs.pedjaapps.kerneltuner.utility.Tools;
-
 
 
 public class SysCtl extends AbsActivity
 {
-	GridView sysListView;
-	SysCtlAdapter sysAdapter;
-	List<SysCtlEntry> entries;
-	ProgressDialog pd;
-	CheckBox kernel, vm, fs, net;
-	SharedPreferences preferences;
-	DatabaseHandler db = new DatabaseHandler(this);
-	ProgressBar loading;
-	String arch;
+    GridView sysListView;
+    SysCtlAdapter sysAdapter;
+    List<SysCtlEntry> entries;
+    ProgressDialog pd;
+    CheckBox kernel, vm, fs, net;
+    SharedPreferences preferences;
+    DatabaseHandler db = new DatabaseHandler(this);
+    ProgressBar loading;
+    String arch;
 
-	@Override
-	public void onCreate(Bundle savedInstanceState)
-	{
-	    preferences = PreferenceManager.getDefaultSharedPreferences(this);
-		super.onCreate(savedInstanceState);
-		setContentView(R.layout.sysctl);
-		
-		getActionBar().setDisplayHomeAsUpEnabled(true);
-		/**
-		 * Load ads if enabled in settings*/
+    @Override
+    public void onCreate(Bundle savedInstanceState)
+    {
+        preferences = PreferenceManager.getDefaultSharedPreferences(this);
+        super.onCreate(savedInstanceState);
+        setContentView(R.layout.sysctl);
 
-		arch = Tools.getAbi();
-		loading = (ProgressBar)findViewById(R.id.loading);
-		kernel = (CheckBox)findViewById(R.id.kernel);
-		vm = (CheckBox)findViewById(R.id.vm);
-		fs = (CheckBox)findViewById(R.id.fs);
-		net = (CheckBox)findViewById(R.id.net);
-		
-		kernel.setChecked(preferences.getBoolean("sysctl_kernel", true));
-		vm.setChecked(preferences.getBoolean("sysctl_vm", true));
-		fs.setChecked(preferences.getBoolean("sysctl_fs", true));
-		net.setChecked(preferences.getBoolean("sysctl_net", false));
-		
-		kernel.setOnCheckedChangeListener(new Listener());
-		net.setOnCheckedChangeListener(new Listener());
-		vm.setOnCheckedChangeListener(new Listener());
-		fs.setOnCheckedChangeListener(new Listener());
-		
-		
-		
-		sysListView = (GridView) findViewById(R.id.list);
-		sysAdapter = new SysCtlAdapter(this, R.layout.sysctl_row);
-		sysListView.setAdapter(sysAdapter);
+        getActionBar().setDisplayHomeAsUpEnabled(true);
 
-		sysListView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+        arch = Tools.getAbi();
+        loading = (ProgressBar) findViewById(R.id.loading);
+        kernel = (CheckBox) findViewById(R.id.kernel);
+        vm = (CheckBox) findViewById(R.id.vm);
+        fs = (CheckBox) findViewById(R.id.fs);
+        net = (CheckBox) findViewById(R.id.net);
 
-				@Override
-				public void onItemClick(AdapterView<?> arg0, View v, final int pos,
-										long is)
-				{
-					AlertDialog.Builder builder = new AlertDialog.Builder(v.getContext());
-					final SysCtlEntry tmpEntry = sysAdapter.getItem(pos);
-					builder.setTitle(tmpEntry.getName());
+        kernel.setChecked(preferences.getBoolean("sysctl_kernel", true));
+        vm.setChecked(preferences.getBoolean("sysctl_vm", true));
+        fs.setChecked(preferences.getBoolean("sysctl_fs", true));
+        net.setChecked(preferences.getBoolean("sysctl_net", false));
 
-					builder.setMessage(getResources().getString(R.string.set_new_value));
+        kernel.setOnCheckedChangeListener(new Listener());
+        net.setOnCheckedChangeListener(new Listener());
+        vm.setOnCheckedChangeListener(new Listener());
+        fs.setOnCheckedChangeListener(new Listener());
 
-					builder.setIcon(R.drawable.sysctl);
-					
 
-					final EditText input = new EditText(v.getContext());
-					input.setText(tmpEntry.getValue());
-					input.selectAll();
-					input.setGravity(Gravity.CENTER_HORIZONTAL);
-					input.requestFocus();
-					builder.setPositiveButton("Change", new DialogInterface.OnClickListener() {
-							@Override
-							public void onClick(DialogInterface dialog, int which)
-							{
+        sysListView = (GridView) findViewById(R.id.list);
+        sysAdapter = new SysCtlAdapter(this, R.layout.sysctl_row);
+        sysListView.setAdapter(sysAdapter);
 
-								CommandCapture command = new CommandCapture(0, "sysctl -w " + tmpEntry.getName().trim() + "=" + input.getText().toString().trim());
-								try{
-									RootTools.getShell(true).add(command);
-								}
-								catch(Exception e){
+        sysListView.setOnItemClickListener(new AdapterView.OnItemClickListener()
+        {
 
-								}
-								
-								sysAdapter.remove(tmpEntry);
-								sysAdapter.insert(new SysCtlEntry(tmpEntry.getName(), input.getText().toString()), pos);
-								sysAdapter.notifyDataSetChanged();
-								
-								if(db.sysEntryExists(tmpEntry.getName()))
-								{
-									db.updateSysEntry(new SysCtlDatabaseEntry(tmpEntry.getName(), input.getText().toString()));
-								}
-								else{
-								    db.addSysCtlEntry(new SysCtlDatabaseEntry(tmpEntry.getName(), input.getText().toString()));
+            @Override
+            public void onItemClick(AdapterView<?> arg0, View v, final int pos,
+                                    long is)
+            {
+                AlertDialog.Builder builder = new AlertDialog.Builder(v.getContext());
+                final SysCtlEntry tmpEntry = sysAdapter.getItem(pos);
+                builder.setTitle(tmpEntry.getName());
+
+                builder.setMessage(getResources().getString(R.string.set_new_value));
+
+                builder.setIcon(R.drawable.sysctl);
+
+
+                final EditText input = new EditText(v.getContext());
+                input.setText(tmpEntry.getValue());
+                input.setSelectAllOnFocus(true);
+                input.setGravity(Gravity.CENTER_HORIZONTAL);
+                input.requestFocus();
+                builder.setPositiveButton(R.string.Change, new DialogInterface.OnClickListener()
+                {
+                    @Override
+                    public void onClick(DialogInterface dialog, int which)
+                    {
+
+                        new RootUtils().exec(new RootUtils.CommandCallback()
+                        {
+                            @Override
+                            public void onComplete(RootUtils.Status status, String output)
+                            {
+                                sysAdapter.remove(tmpEntry);
+                                sysAdapter.insert(new SysCtlEntry(tmpEntry.getName(), input.getText().toString()), pos);
+                                sysAdapter.notifyDataSetChanged();
+
+                                if (db.sysEntryExists(tmpEntry.getName()))
+                                {
+                                    db.updateSysEntry(new SysCtlDatabaseEntry(tmpEntry.getName(), input.getText().toString()));
                                 }
-								
-							}
-						});
-					builder.setNegativeButton(getResources().getString(R.string.cancel), new DialogInterface.OnClickListener(){
+                                else
+                                {
+                                    db.addSysCtlEntry(new SysCtlDatabaseEntry(tmpEntry.getName(), input.getText().toString()));
+                                }
+                            }
+                        }, "sysctl -w " + tmpEntry.getName().trim() + "=" + input.getText().toString().trim());
+                    }
+                });
+                builder.setNegativeButton(getResources().getString(R.string.cancel), null);
+                builder.setView(input);
 
-							@Override
-							public void onClick(DialogInterface arg0, int arg1)
-							{
+                AlertDialog alert = builder.create();
 
+                alert.show();
+            }
+        });
+        new GetSysCtlEntries().execute();
+    }
 
-							}
+    private class Listener implements CompoundButton.OnCheckedChangeListener
+    {
+        @Override
+        public void onCheckedChanged(CompoundButton arg0, boolean arg1)
+        {
+            new GetSysCtlEntries().execute();
+        }
+    }
 
-						});
-					builder.setView(input);
+    private class GetSysCtlEntries extends AsyncTask<String, Void, List<SysCtlEntry>>
+    {
+        String line;
 
-					AlertDialog alert = builder.create();
+        @Override
+        protected List<SysCtlEntry> doInBackground(String... args)
+        {
+            entries = new ArrayList<>();
+            Process proc;
+            try
+            {
+                proc = Runtime.getRuntime().exec("sysctl -a\n");
+                InputStream inputStream = proc.getInputStream();
+                InputStreamReader inputStreamReader = new InputStreamReader(inputStream);
+                BufferedReader bufferedReader = new BufferedReader(inputStreamReader);
 
-					alert.show();
-				}
-			});
+                while ((line = bufferedReader.readLine()) != null)
+                {
+                    if (!line.startsWith("sysctl:"))
+                    {
+                        //line = line.replaceAll("\\s", "");
+                        String[] temp = line.split("=");
+                        List<String> tmp = Arrays.asList(temp);
 
-	new GetSysCtlEntries().execute();
-			
-		
+                        //System.out.println(line);
+                        //	System.out.println(tmp.get(0));
+                        SysCtlEntry tmpEntry = new SysCtlEntry(tmp.get(0), tmp.get(1));
+                        entries.add(tmpEntry);
+                        //	publishProgress(tmpEntry);
+                    }
 
-	}
+                }
+                proc.waitFor();
+                proc.destroy();
+            }
+            catch (Exception e)
+            {
+                Log.e("syscl", "error " + e.getMessage());
+            }
+            return entries;
+        }
 
-	private class Listener implements CompoundButton.OnCheckedChangeListener{
+        @Override
+        protected void onPostExecute(List<SysCtlEntry> res)
+        {
+            SharedPreferences.Editor editor = preferences.edit();
+            editor.putBoolean("sysctl_kernel", kernel.isChecked())
+                    .putBoolean("sysctl_vm", vm.isChecked())
+                    .putBoolean("sysctl_fs", fs.isChecked())
+                    .putBoolean("sysctl_net", net.isChecked())
+                    .apply();
+            for (SysCtlEntry e : res)
+            {
+                if (e.getName().startsWith("kernel"))
+                {
+                    if (kernel.isChecked())
+                    {
+                        sysAdapter.add(e);
+                    }
+                }
+                else if (e.getName().startsWith("vm"))
+                {
+                    if (vm.isChecked())
+                    {
+                        sysAdapter.add(e);
+                    }
+                }
+                else if (e.getName().startsWith("fs"))
+                {
+                    if (fs.isChecked())
+                    {
+                        sysAdapter.add(e);
+                    }
+                }
+                else if (e.getName().startsWith("net"))
+                {
+                    if (net.isChecked())
+                    {
+                        sysAdapter.add(e);
+                    }
+                }
+                else
+                {
+                    sysAdapter.add(e);
+                }
+            }
+            sysAdapter.notifyDataSetChanged();
+            loading.setVisibility(View.GONE);
+            //setProgressBarIndeterminateVisibility(false);
 
-		@Override
-		public void onCheckedChanged(CompoundButton arg0, boolean arg1) {
-			new GetSysCtlEntries().execute();
-		}
-		
-	}
-	
-	private class GetSysCtlEntries extends AsyncTask<String, Void, List<SysCtlEntry>>
-	{
-		String line;
-		@Override
-		protected List<SysCtlEntry> doInBackground(String... args)
-		{
-			entries = new ArrayList<SysCtlEntry>();
-			Process proc = null;
-			try
-			{
-				proc = Runtime.getRuntime().exec(getFilesDir().getPath()+"/sysctl-"+arch+" -a\n");
-				InputStream inputStream = proc.getInputStream();
-				InputStreamReader inputStreamReader = new InputStreamReader(inputStream);
-				BufferedReader bufferedReader = new BufferedReader(inputStreamReader);
+        }
 
-				while ((line = bufferedReader.readLine()) != null)
-				{
-					if (line.startsWith("sysctl:"))
-					{
-						//	System.out.println(line);
-					}
-					else
-					{
-						//line = line.replaceAll("\\s", "");
-						String[] temp = line.split("=");
-						List<String> tmp = Arrays.asList(temp);
+        @Override
+        protected void onPreExecute()
+        {
+            sysAdapter.clear();
+            loading.setVisibility(View.VISIBLE);
+        }
 
-						//System.out.println(line);
-						//	System.out.println(tmp.get(0));
-						SysCtlEntry tmpEntry = new SysCtlEntry(tmp.get(0), tmp.get(1));
-						entries.add(tmpEntry);
-					//	publishProgress(tmpEntry);
-					}
+    }
 
-				}
-				proc.waitFor();
-				proc.destroy();
-			}
-			catch (Exception e)
-			{
-				Log.e("syscl", "error " + e.getMessage());
-			}
-			return entries;
-		}
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item)
+    {
+        switch (item.getItemId())
+        {
+            case android.R.id.home:
+                Intent intent = new Intent(this, MainActivity.class);
+                intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
+                startActivity(intent);
 
-		@Override
-		protected void onPostExecute(List<SysCtlEntry> res)
-		{
-			SharedPreferences.Editor editor = preferences.edit();
-			     editor.putBoolean("sysctl_kernel", kernel.isChecked())
-				 .putBoolean("sysctl_vm", vm.isChecked())
-				 .putBoolean("sysctl_fs",fs.isChecked()).
-				 putBoolean("sysctl_net",net.isChecked()).
-				 apply();
-				for(SysCtlEntry e : res){
-					if(e.getName().startsWith("kernel")){
-						if(kernel.isChecked()){
-							sysAdapter.add(e);
-					
-						}
-					}
-					else if(e.getName().startsWith("vm")){
-						if(vm.isChecked()){
-							sysAdapter.add(e);
-					
-						}
-					}
-					else if(e.getName().startsWith("fs")){
-						if(fs.isChecked()){
-							sysAdapter.add(e);
-			
-						}
-					}
-					else if(e.getName().startsWith("net")){
-						if(net.isChecked()){
-							sysAdapter.add(e);
-					
-						}
-					}
-					else {
-						sysAdapter.add(e);
-						
-					}
-				}
-			sysAdapter.notifyDataSetChanged();
-			loading.setVisibility(View.GONE);
-			//setProgressBarIndeterminateVisibility(false);
+                return true;
 
-		}
-		@Override
-		protected void onPreExecute()
-		{
-			sysAdapter.clear();
-			loading.setVisibility(View.VISIBLE);
-		}
-
-	}
-
-	@Override
-	public boolean onOptionsItemSelected(MenuItem item) {
-		switch (item.getItemId()) {
-			case android.R.id.home:
-				Intent intent = new Intent(this, MainActivity.class);
-				intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
-				startActivity(intent);
-
-				return true;
-
-		}
-		return super.onOptionsItemSelected(item);
-	}
+        }
+        return super.onOptionsItemSelected(item);
+    }
 
 
 }
