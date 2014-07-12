@@ -19,3 +19,9 @@ out/
 # Local configuration file (sdk path, etc)
 local.properties
 lint.xml
+*.iml
+*.ipr
+*.eml
+*.iws
+/.gradle
+/build
