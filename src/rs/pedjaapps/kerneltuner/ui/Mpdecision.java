@@ -47,7 +47,6 @@ import android.widget.Spinner;
 import android.widget.Switch;
 
 import com.google.ads.AdRequest;
-import com.google.ads.AdView;
 import com.stericson.RootTools.RootTools;
 import com.stericson.RootTools.execution.CommandCapture;
 
@@ -164,10 +163,6 @@ public class Mpdecision extends AbsActivity
 		
 		ActionBar actionBar = getActionBar();
 		actionBar.setDisplayHomeAsUpEnabled(true);
-		boolean ads = preferences.getBoolean("ads", true);
-		if (ads)
-		{AdView adView = (AdView)findViewById(R.id.ad);
-			adView.loadAd(new AdRequest());}
 		this.getWindow().setSoftInputMode(WindowManager.LayoutParams.SOFT_INPUT_STATE_ALWAYS_HIDDEN); 
 
 		delay = IOHelper.mpDelay();

@@ -72,11 +72,7 @@ public class SDScannerActivityList extends AbsActivity
 		setContentView(R.layout.sd_analyzer_list);
 		ActionBar actionBar = getActionBar();
 		actionBar.setDisplayHomeAsUpEnabled(true);
-		
-		boolean ads = preferences.getBoolean("ads", true);
-		if (ads == true)
-		{AdView adView = (AdView)findViewById(R.id.ad);
-			adView.loadAd(new AdRequest());}
+
 	
 	    arch = Tools.getAbi();
 		Intent intent = getIntent();

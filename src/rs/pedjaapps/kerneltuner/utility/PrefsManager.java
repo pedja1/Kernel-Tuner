@@ -138,4 +138,9 @@ public class PrefsManager
         editor.putBoolean(Key.cpu_show_all_cores.toString(), show);
         editor.apply();
     }
+
+    public static boolean adsRemoved()
+    {
+        return false;//TODO implement this
+    }
 }

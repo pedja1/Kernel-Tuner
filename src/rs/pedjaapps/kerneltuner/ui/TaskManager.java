@@ -39,8 +39,6 @@ import android.widget.CompoundButton;
 import android.widget.ProgressBar;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
-import com.google.ads.AdRequest;
-import com.google.ads.AdView;
 import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStream;
@@ -124,13 +122,7 @@ public class TaskManager extends AbsActivity implements TMListFragment.Callbacks
 					.setActivateOnItemClick(true);
 		}
 		pm = getPackageManager();
-		
-		final boolean ads = preferences.getBoolean("ads", true);
-		if (ads == true)
-		{
-			AdView adView = (AdView)findViewById(R.id.ad);
-			adView.loadAd(new AdRequest());
-		}
+
 	
 			new GetRunningApps().execute();
 			arch = Tools.getAbi();

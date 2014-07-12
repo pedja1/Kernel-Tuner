@@ -35,8 +35,6 @@ import android.view.Gravity;
 import android.view.MenuItem;
 import android.view.View;
 
-import com.google.ads.AdRequest;
-import com.google.ads.AdView;
 import com.stericson.RootTools.RootTools;
 import com.stericson.RootTools.execution.CommandCapture;
 import java.io.BufferedReader;
@@ -54,7 +52,7 @@ import rs.pedjaapps.kerneltuner.utility.Tools;
 
 
 
-public class SysCtl extends Activity
+public class SysCtl extends AbsActivity
 {
 	GridView sysListView;
 	SysCtlAdapter sysAdapter;
@@ -76,12 +74,6 @@ public class SysCtl extends Activity
 		getActionBar().setDisplayHomeAsUpEnabled(true);
 		/**
 		 * Load ads if enabled in settings*/
-		final boolean ads = preferences.getBoolean("ads", true);
-		if (ads == true)
-		{
-			AdView adView = (AdView)findViewById(R.id.ad);
-			adView.loadAd(new AdRequest());
-		}
 
 		arch = Tools.getAbi();
 		loading = (ProgressBar)findViewById(R.id.loading);

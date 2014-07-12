@@ -34,8 +34,6 @@ import android.view.View;
 import android.widget.CompoundButton.OnCheckedChangeListener;
 import android.widget.*;
 
-import com.google.ads.AdRequest;
-import com.google.ads.AdView;
 
 import java.io.File;
 import java.util.ArrayList;
@@ -102,10 +100,6 @@ public class SDScannerConfigActivity extends AbsActivity
 		ActionBar actionBar = getActionBar();
 		actionBar.setDisplayHomeAsUpEnabled(true);
 		final SharedPreferences.Editor editor = preferences.edit();
-		boolean ads = preferences.getBoolean("ads", true);
-		if (ads == true)
-		{AdView adView = (AdView)findViewById(R.id.ad);
-			adView.loadAd(new AdRequest());}
 		
 		sw = (Switch)findViewById(R.id.switch1);
 		sw.setOnCheckedChangeListener(new OnCheckedChangeListener(){

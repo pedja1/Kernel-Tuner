@@ -18,36 +18,37 @@
 */
 package rs.pedjaapps.kerneltuner.model;
 
-public final class GovEntry
+public final class Governor
 {
+    private final String name;
+    private final String value;
 
-	private final String name;
-	private final String value;
+    /**
+     * @param name  Governor setting name(eg. sampling_rate)
+     * @param value Governor setting value(eg. 1000)
+     */
+    public Governor(final String name, final String value)
+    {
+        this.name = name;
+        this.value = value;
 
 
-	/**
-	 * @param name Governor setting name(eg. sampling_rate)
-	 * @param value Governor setting value(eg. 1000)*/
-	public GovEntry(final String name, final String value)
-	{
-		this.name = name;
-		this.value = value;
+    }
 
+    /**
+     * @return Governor setting name(eg. sampling_rate)
+     */
+    public String getName()
+    {
+        return name;
+    }
 
-	}
-
-	/**
-	 * @return Governor setting name(eg. sampling_rate)*/
-	public String getName()
-	{
-		return name;
-	}
-	
-	/**
-	 * @return Governor setting value(eg. 1000)*/
-	public String getValue()
-	{
-		return value;
-	}
+    /**
+     * @return Governor setting value(eg. 1000)
+     */
+    public String getValue()
+    {
+        return value;
+    }
 
 }

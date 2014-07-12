@@ -27,19 +27,16 @@ import java.util.ArrayList;
 import java.util.List;
 
 import rs.pedjaapps.kerneltuner.R;
-import rs.pedjaapps.kerneltuner.model.GovEntry;
+import rs.pedjaapps.kerneltuner.model.Governor;
 import rs.pedjaapps.kerneltuner.helpers.GovernorSettingsAdapter;
 import rs.pedjaapps.kerneltuner.helpers.IOHelper;
 import rs.pedjaapps.kerneltuner.utility.ChangeGovernorSettings;
+
 import android.app.ActionBar;
-import android.app.Activity;
 import android.app.AlertDialog;
-import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
-import android.content.SharedPreferences;
 import android.os.Bundle;
-import android.preference.PreferenceManager;
 import android.text.InputType;
 import android.view.Gravity;
 import android.view.MenuItem;
@@ -50,208 +47,165 @@ import android.widget.EditText;
 import android.widget.ListView;
 import android.widget.TextView;
 
-import com.google.ads.AdRequest;
-import com.google.ads.AdView;
+import com.crashlytics.android.Crashlytics;
 
 public class GovernorActivity extends AbsActivity
 {
+    private GovernorSettingsAdapter govAdapter;
+    private List<String> fileList;
+    private List<String> availableGovs;
+    private List<String> govValues;
+    private List<String> governors;
+    boolean isLight;
 
-	private GovernorSettingsAdapter govAdapter ;
-	private ListView govListView;
-	private List<String> fileList;
-	private List<String> availableGovs;
-	private List<String> govValues;
-	private List<String> governors;
-	private List<String> temp;
-	boolean isLight;
-	Context c;
-	@Override
-	public void onCreate(Bundle savedInstanceState)
-	{
-		c = this;
-		availableGovs = IOHelper.availableGovs();
-		SharedPreferences preferences = PreferenceManager.getDefaultSharedPreferences(c);
-		
-		super.onCreate(savedInstanceState);
+    @Override
+    public void onCreate(Bundle savedInstanceState)
+    {
+        availableGovs = IOHelper.availableGovs();
 
-		setContentView(R.layout.governor_settings);
-		
-		ActionBar actionBar = getActionBar();
-		actionBar.setDisplayHomeAsUpEnabled(true);
+        super.onCreate(savedInstanceState);
 
-		boolean ads = preferences.getBoolean("ads", true);
-		if (ads == true)
-		{AdView adView = (AdView)findViewById(R.id.ad);
-			adView.loadAd(new AdRequest());}
-		govListView = (ListView) findViewById(R.id.list);
-		if (!availableGovs.isEmpty())
-		{
+        setContentView(R.layout.governor_settings);
 
-			govAdapter = new GovernorSettingsAdapter(c, R.layout.governor_list_item);
-			govListView.setAdapter(govAdapter);
+        ActionBar actionBar = getActionBar();
+        actionBar.setDisplayHomeAsUpEnabled(true);
 
-			for (final GovEntry entry : getGovEntries())
-			{
-				govAdapter.add(entry);
-			}
-		}
-		else
-		{
-			TextView tv = (TextView)findViewById(R.id.textView1); 
-			tv.setVisibility(View.VISIBLE);
-			tv.setText(getResources().getString(R.string.gov_not_supported));
-		}
-		govListView.setOnItemClickListener(new OnItemClickListener() {
-				@Override
-				public void onItemClick(AdapterView<?> parent, View view, final int position, long id) 
-				{
+        ListView govListView = (ListView) findViewById(R.id.list);
+        if (!availableGovs.isEmpty())
+        {
+            govAdapter = new GovernorSettingsAdapter(this);
+            govListView.setAdapter(govAdapter);
 
-					String[] valuess = govValues.toArray(new String[0]);
-					AlertDialog.Builder builder = new AlertDialog.Builder(view.getContext());
+            for (final Governor entry : getGovEntries())
+            {
+                govAdapter.add(entry);
+            }
+        }
+        else
+        {
+            TextView tv = (TextView) findViewById(R.id.textView1);
+            tv.setVisibility(View.VISIBLE);
+            tv.setText(getResources().getString(R.string.gov_not_supported));
+        }
+        govListView.setOnItemClickListener(new OnItemClickListener()
+        {
+            @Override
+            public void onItemClick(AdapterView<?> parent, View view, final int position, long id)
+            {
+                String[] valuess = govValues.toArray(new String[govValues.size()]);
+                AlertDialog.Builder builder = new AlertDialog.Builder(view.getContext());
 
-					builder.setTitle(fileList.get(position));
+                builder.setTitle(fileList.get(position));
 
-					builder.setMessage(getResources().getString(R.string.gov_new_value));
+                builder.setMessage(getResources().getString(R.string.gov_new_value));
 
-					builder.setIcon(isLight ? R.drawable.edit_light: R.drawable.edit_dark);
+                builder.setIcon(isLight ? R.drawable.edit_light : R.drawable.edit_dark);
 
+                final EditText input = new EditText(view.getContext());
+                input.setText(valuess[position]);
+                input.setSelectAllOnFocus(true);
+                input.setInputType(InputType.TYPE_CLASS_NUMBER);
+                input.setGravity(Gravity.CENTER_HORIZONTAL);
 
-					final EditText input = new EditText(view.getContext());
-					input.setHint(valuess[position]);
-					input.selectAll();
-					input.setInputType(InputType.TYPE_CLASS_NUMBER);
-					input.setGravity(Gravity.CENTER_HORIZONTAL);
+                builder.setPositiveButton(getResources().getString(R.string.apply), new DialogInterface.OnClickListener()
+                {
+                    @Override
+                    public void onClick(DialogInterface dialog, int which)
+                    {
+                        new ChangeGovernorSettings(GovernorActivity.this).execute(input.getText().toString(), fileList.get(position), governors.get(position));
+                        try
+                        {
+                            Thread.sleep(700);
+                        }
+                        catch (InterruptedException e)
+                        {
+                        }
+                        getGovEntries();
 
-					builder.setPositiveButton(getResources().getString(R.string.apply), new DialogInterface.OnClickListener() {
-							@Override
-							public void onClick(DialogInterface dialog, int which)
-							{
-								
-								new ChangeGovernorSettings(c).execute(new String[] {input.getText()+"", fileList.get(position), governors.get(position)});
+                        govAdapter.clear();
+                        for (final Governor entry : getGovEntries())
+                        {
+                            govAdapter.add(entry);
+                        }
+                        govAdapter.notifyDataSetChanged();
+                    }
+                });
+                builder.setNegativeButton(getResources().getString(R.string.cancel), null);
+                builder.setView(input);
+                builder.show();
+            }
+        });
+    }
 
-								try
-								{
-									Thread.sleep(700);
-								}
-								catch (InterruptedException e)
-								{
-								}
-								getGovEntries();
+    private List<Governor> getGovEntries()
+    {
+        final List<Governor> entries = new ArrayList<>();
+        fileList = new ArrayList<>();
+        govValues = new ArrayList<>();
+        governors = new ArrayList<>();
+        List<String> temp = new ArrayList<>();
 
-								govAdapter.clear();
-								for (final GovEntry entry : getGovEntries())
-								{
-									govAdapter.add(entry);
-								}
-								govAdapter.notifyDataSetChanged();
-								govListView.invalidate();
-							}
-						});
-					builder.setNegativeButton(getResources().getString(R.string.cancel), new DialogInterface.OnClickListener(){
+        for (String s : availableGovs)
+        {
+            File gov = new File("/sys/devices/system/cpu/cpufreq/" + s + "/");
 
-							@Override
-							public void onClick(DialogInterface arg0, int arg1)
-							{
-								
+            if (gov.exists())
+            {
+                File[] files = gov.listFiles();
+                if (files != null)
+                {
+                    for (File file : files)
+                    {
+                        temp.add(file.getName());
+                        fileList.add(file.getName());
+                    }
 
-							}
+                    for (String aTemp : temp)
+                    {
+                        try
+                        {
+                            File myFile = new File("/sys/devices/system/cpu/cpufreq/" + s + "/" + aTemp.trim());
+                            FileInputStream fIn = new FileInputStream(myFile);
+                            BufferedReader myReader = new BufferedReader(new InputStreamReader(fIn));
+                            String aDataRow;
+                            String aBuffer = "";
+                            while ((aDataRow = myReader.readLine()) != null)
+                            {
+                                aBuffer += aDataRow + "\n";
+                            }
 
-						});
-					builder.setView(input);
+                            myReader.close();
 
-					AlertDialog alert = builder.create();
+                            entries.add(new Governor(aTemp, aBuffer.trim()));
+                            govValues.add(aBuffer);
+                            governors.add(s);
 
-					alert.show();
+                        }
+                        catch (Exception e)
+                        {
+                            Crashlytics.logException(e);
+                        }
+                    }
+                }
+            }
+            temp.clear();
+        }
 
+        return entries;
+    }
 
-				} 
-			});
-
-	}
-
-	
-
-	private final List<GovEntry> getGovEntries()
-	{
-
-		final List<GovEntry> entries = new ArrayList<GovEntry>();
-		fileList = new ArrayList<String>();
-		govValues = new ArrayList<String>();
-		governors = new ArrayList<String>();
-		temp = new ArrayList<String>();
-
-		for (String s : availableGovs)
-		{
-			File gov = new File("/sys/devices/system/cpu/cpufreq/" + s + "/");
-
-			if (gov.exists())
-			{
-				File[] files = gov.listFiles();
-				if(files!=null){
-				for (File file : files)
-				{
-					temp.add(file.getName());
-					fileList.add(file.getName());
-
-				}
-
-				int tempSize = temp.size();
-				for (int i = 0; i < tempSize; i++)
-				{
-
-					try
-					{
-
-		    			File myFile = new File("/sys/devices/system/cpu/cpufreq/" + s + "/" + temp.get(i).trim());
-		    			FileInputStream fIn = new FileInputStream(myFile);
-		    			BufferedReader myReader = new BufferedReader(
-							new InputStreamReader(fIn));
-		    			String aDataRow = "";
-		    			String aBuffer = "";
-		    			while ((aDataRow = myReader.readLine()) != null)
-						{
-		    				aBuffer += aDataRow + "\n";
-		    			}	    			
-
-
-		    			myReader.close();
-
-		    			entries.add(new GovEntry(temp.get(i), aBuffer));
-		    			govValues.add(aBuffer);
-		    			governors.add(s);
-
-
-		    		}
-					catch (Exception e)
-					{
-						}
-
-				}
-				}
-
-			}
-
-			temp.clear();
-
-
-		}
-
-
-		return entries;
-	}
-	
-	@Override
-	public boolean onOptionsItemSelected(MenuItem item) {
-	    switch (item.getItemId()) {
-	        case android.R.id.home:
-	            // app icon in action bar clicked; go home
-	            Intent intent = new Intent(c, MainActivity.class);
-	            intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
-	            startActivity(intent);
-	            return true;
-	        
-	            
-	    }
-	    return super.onOptionsItemSelected(item);
-	}
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item)
+    {
+        switch (item.getItemId())
+        {
+            case android.R.id.home:
+                // app icon in action bar clicked; go home
+                Intent intent = new Intent(this, MainActivity.class);
+                intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
+                startActivity(intent);
+                return true;
+        }
+        return super.onOptionsItemSelected(item);
+    }
 }

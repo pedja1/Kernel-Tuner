@@ -120,10 +120,6 @@ public class SDScannerActivity extends AbsActivity
 		mRenderer.setAntialiasing(true);
 		mRenderer.setLabelsColor(labelColor);
 		mRenderer.setApplyBackgroundColor(false);
-		boolean ads = preferences.getBoolean("ads", true);
-		if (ads == true)
-		{AdView adView = (AdView)findViewById(R.id.ad);
-			adView.loadAd(new AdRequest());}
 	
 		Intent intent = getIntent();
 		String path = intent.getStringExtra("path");

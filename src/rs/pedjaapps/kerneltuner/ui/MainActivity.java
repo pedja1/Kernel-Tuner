@@ -34,9 +34,6 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import com.crashlytics.android.Crashlytics;
-import com.google.ads.AdRequest;
-import com.google.ads.AdView;
-import com.google.ads.c;
 import com.stericson.RootTools.RootTools;
 import com.stericson.RootTools.execution.CommandCapture;
 
@@ -93,7 +90,6 @@ public class MainActivity extends AbsActivity implements Runnable, View.OnClickL
     @Override
     public void onCreate(Bundle savedInstanceState)
     {
-        
         super.onCreate(savedInstanceState);
         setContentView(getLayoutRes());
 
@@ -292,8 +288,6 @@ public class MainActivity extends AbsActivity implements Runnable, View.OnClickL
 
             tvCpu3prog.setVisibility(View.GONE);
         }
-        if (PrefsManager.showAds())
-        ((AdView) findViewById(R.id.ad)).loadAd(new AdRequest());
         currentFragment = MainFragment.newInstance();
         getFragmentManager().beginTransaction().replace(R.id.flFragmentContainer, currentFragment).commit();
     }

@@ -42,8 +42,6 @@ import android.widget.AdapterView;
 import android.widget.EditText;
 import android.widget.ListView;
 import android.widget.Toast;
-import com.google.ads.AdRequest;
-import com.google.ads.AdView;
 import com.stericson.RootTools.RootTools;
 import com.stericson.RootTools.execution.CommandCapture;
 import java.util.ArrayList;
@@ -77,14 +75,6 @@ public class BuildpropEditor extends AbsActivity
 		requestWindowFeature(Window.FEATURE_INDETERMINATE_PROGRESS);
 		setContentView(R.layout.build);
 		getActionBar().setDisplayHomeAsUpEnabled(true);
-		/**
-		 * Load ads if enabled in settings*/
-		final boolean ads = preferences.getBoolean("ads", true);
-		if (ads == true)
-		{
-			AdView adView = (AdView)findViewById(R.id.ad);
-			adView.loadAd(new AdRequest());
-		}
 		
 /*
 		kernel = (CheckBox)findViewById(R.id.kernel);

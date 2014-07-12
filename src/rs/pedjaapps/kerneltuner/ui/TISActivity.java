@@ -57,11 +57,7 @@ public class TISActivity extends AbsActivity {
 			actionBar = getActionBar();
 			actionBar.setDisplayHomeAsUpEnabled(true);
         
-		
-		boolean ads = preferences.getBoolean("ads", true);
-		if (ads == true)
-		{AdView adView = (AdView)findViewById(R.id.ad);
-			adView.loadAd(new AdRequest());}
+
 
 		tisListView = (ListView) findViewById(R.id.list);
 		tisAdapter = new TISAdapter(this, R.layout.tis_list_item);

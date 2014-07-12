@@ -22,88 +22,83 @@ package rs.pedjaapps.kerneltuner.helpers;
 import android.content.*;
 import android.view.*;
 import android.widget.*;
+
 import rs.pedjaapps.kerneltuner.*;
 import rs.pedjaapps.kerneltuner.model.*;
 
-public final class GovernorSettingsAdapter extends ArrayAdapter<GovEntry>
+public final class GovernorSettingsAdapter extends ArrayAdapter<Governor>
 {
 
-	private final int govItemLayoutResource;
+    public GovernorSettingsAdapter(Context context)
+    {
+        super(context, 0);
+    }
 
-	public GovernorSettingsAdapter(final Context context, final int govItemLayoutResource)
-	{
-		super(context, 0);
-		this.govItemLayoutResource = govItemLayoutResource;
-	}
+    @Override
+    public View getView(final int position, final View convertView, final ViewGroup parent)
+    {
+        final View view = getWorkingView(convertView);
+        final ViewHolder viewHolder = getViewHolder(view);
+        final Governor entry = getItem(position);
 
-	@Override
-	public View getView(final int position, final View convertView, final ViewGroup parent)
-	{
-
-		final View view = getWorkingView(convertView);
-		final ViewHolder viewHolder = getViewHolder(view);
-		final GovEntry entry = getItem(position);
-
-		viewHolder.nameView.setText(entry.getName());
+        viewHolder.tvTitle.setText(entry.getName());
 
 
-
-		viewHolder.valueView.setText(entry.getValue());
-
-
-		return view;
-	}
-
-	private View getWorkingView(final View convertView)
-	{
-		View workingView = null;
-
-		if (null == convertView)
-		{
-			final Context context = getContext();
-			final LayoutInflater inflater = (LayoutInflater)context.getSystemService
-			(Context.LAYOUT_INFLATER_SERVICE);
-
-			workingView = inflater.inflate(govItemLayoutResource, null);
-		}
-		else
-		{
-			workingView = convertView;
-		}
-
-		return workingView;
-	}
-
-	private ViewHolder getViewHolder(final View workingView)
-	{
-		final Object tag = workingView.getTag();
-		ViewHolder viewHolder = null;
+        viewHolder.tvValue.setText(entry.getValue());
 
 
-		if (null == tag || !(tag instanceof ViewHolder))
-		{
-			viewHolder = new ViewHolder();
+        return view;
+    }
 
-			viewHolder.nameView = (TextView) workingView.findViewById(R.id.name);
-			viewHolder.valueView = (TextView) workingView.findViewById(R.id.value);
+    private View getWorkingView(final View convertView)
+    {
+        View workingView;
 
-			workingView.setTag(viewHolder);
+        if (null == convertView)
+        {
+            final Context context = getContext();
+            final LayoutInflater inflater = (LayoutInflater) context.getSystemService
+                    (Context.LAYOUT_INFLATER_SERVICE);
 
-		}
-		else
-		{
-			viewHolder = (ViewHolder) tag;
-		}
+            workingView = inflater.inflate(R.layout.governor_list_item, null);
+        }
+        else
+        {
+            workingView = convertView;
+        }
 
-		return viewHolder;
-	}
+        return workingView;
+    }
 
-	private class ViewHolder
-	{
-		public TextView nameView;
-		public TextView valueView;
+    private ViewHolder getViewHolder(final View workingView)
+    {
+        final Object tag = workingView.getTag();
+        ViewHolder viewHolder;
 
-	}
+
+        if (null == tag || !(tag instanceof ViewHolder))
+        {
+            viewHolder = new ViewHolder();
+
+            viewHolder.tvTitle = (TextView) workingView.findViewById(R.id.tvTitle);
+            viewHolder.tvValue = (TextView) workingView.findViewById(R.id.tvValue);
+
+            workingView.setTag(viewHolder);
+
+        }
+        else
+        {
+            viewHolder = (ViewHolder) tag;
+        }
+
+        return viewHolder;
+    }
+
+    private class ViewHolder
+    {
+        public TextView tvTitle;
+        public TextView tvValue;
+    }
 
 
 }

@@ -113,10 +113,6 @@ public class TISActivityChart extends AbsActivity
 	    mRenderer.setMargins(new int[] { 20, 30, 15, 0 });
 	    mRenderer.setZoomButtonsVisible(false);
 	    mRenderer.setStartAngle(90);
-		boolean ads = preferences.getBoolean("ads", true);
-		if (ads == true)
-		{AdView adView = (AdView)findViewById(R.id.ad);
-			adView.loadAd(new AdRequest());}
 			
 		setDeepSleepAndUptime();
 		getTISEntries();

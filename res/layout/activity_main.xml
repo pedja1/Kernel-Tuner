@@ -1,10 +1,9 @@
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
                 xmlns:tools="http://schemas.android.com/tools"
-                xmlns:ads="http://schemas.android.com/apk/lib/com.google.ads"
+                xmlns:ads="http://schemas.android.com/apk/res-auto"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
                 android:orientation="vertical"
-                android:paddingBottom="@dimen/activity_vertical_margin"
                 android:paddingLeft="@dimen/activity_horizontal_margin"
                 android:paddingRight="@dimen/activity_horizontal_margin"
                 android:paddingTop="@dimen/activity_vertical_margin"
@@ -28,7 +27,7 @@
 
             <TextView
                 android:id="@+id/txtCpuTempText"
-                android:layout_width="wrap_content"
+                android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 android:layout_weight="1"
                 android:singleLine="true"
@@ -51,7 +50,7 @@
 
             <TextView
                 android:id="@+id/txtBatteryTempText"
-                android:layout_width="wrap_content"
+                android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 android:layout_weight="1"
                 android:singleLine="true"
@@ -167,18 +166,18 @@
         android:layout_height="wrap_content"
         android:layout_alignParentBottom="true"
         android:layout_alignParentLeft="true"
-        android:layout_alignParentTop="false">
+        android:layout_alignParentTop="false"
+        android:orientation="vertical">
 
-        <com.google.ads.AdView
-            android:id="@+id/ad"
-            android:layout_width="match_parent"
+        <com.google.android.gms.ads.AdView
+            android:id="@+id/adView"
+            android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            ads:adUnitId="@string/admob_adUnitId_Banner"
             ads:adSize="BANNER"
-            ads:adUnitId="a15056d54ca9d71"
-            ads:testDevices="TEST_EMULATOR, 3CE20BB714ED336822A2508B26BBC32B"
-            android:gravity="center_horizontal"/>
-
-        <!-- ads:loadAdOnCreate="true" -->
+            android:layout_gravity="center_horizontal"
+            android:layout_marginTop="5dp"
+            android:visibility="gone"/>
 
     </LinearLayout>
 

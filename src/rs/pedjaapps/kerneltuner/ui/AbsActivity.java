@@ -3,7 +3,14 @@ package rs.pedjaapps.kerneltuner.ui;
 import android.app.*;
 import android.os.*;
 import android.support.v4.app.*;
+import android.view.View;
+
+import com.google.android.gms.ads.AdListener;
+import com.google.android.gms.ads.AdRequest;
+import com.google.android.gms.ads.AdView;
+
 import rs.pedjaapps.kerneltuner.*;
+import rs.pedjaapps.kerneltuner.utility.PrefsManager;
 
 /**
  * Created by pedja on 17.4.14..
@@ -17,7 +24,45 @@ public abstract class AbsActivity extends FragmentActivity
 		super.onCreate(savedInstanceState);
 	}
 
-	@Override
+    @Override
+    protected void onStart()
+    {
+        super.onStart();
+        final AdView adView = (AdView)findViewById(R.id.adView);
+        AdRequest adRequest = new AdRequest.Builder()
+                .addTestDevice(AdRequest.DEVICE_ID_EMULATOR)
+                .addTestDevice("5750ECFACEA6FCE685DE7A97D8C59A5F")
+                .addTestDevice("05FBCDCAC44495595ACE7DC1AEC5C208")
+                .addTestDevice("40AA974617D79A7A6C155B1A2F57D595")
+                .build();
+        if(PrefsManager.showAds())adView.loadAd(adRequest);
+        adView.setAdListener(new AdListener()
+        {
+            @Override
+            public void onAdLoaded()
+            {
+                super.onAdLoaded();
+                adView.setVisibility(View.VISIBLE);
+            }
+        });
+
+        //test interstitial ad
+        // Create the interstitial.
+        /*interstitial = new InterstitialAd(this);
+        interstitial.setAdUnitId("ca-app-pub-6294976772687752/1839387229");
+        if(!SettingsManager.adsRemoved() && SettingsManager.canDisplayAdds())interstitial.loadAd(adRequest);
+        interstitial.setAdListener(new AdListener()
+        {
+            @Override
+            public void onAdLoaded()
+            {
+                super.onAdLoaded();
+                displayInterstitial();
+            }
+        });*/
+    }
+
+    @Override
 	public void onBackPressed()
 	{
 		super.onBackPressed();
