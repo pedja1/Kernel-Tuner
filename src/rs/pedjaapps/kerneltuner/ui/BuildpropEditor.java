@@ -134,7 +134,7 @@ public class BuildpropEditor extends AbsActivity
             osw.flush();
             osw.close();
 
-            new RootUtils().exec(new RootUtils.CommandCallback()
+            new RootUtils().exec(new RootUtils.CommandCallbackImpl()
                                  {
                                      @Override
                                      public void onComplete(RootUtils.Status status, String output)
@@ -287,7 +287,7 @@ public class BuildpropEditor extends AbsActivity
             @Override
             public void onClick(DialogInterface dialog, int which)
             {
-                new RootUtils().exec(new RootUtils.CommandCallback()
+                new RootUtils().exec(new RootUtils.CommandCallbackImpl()
                 {
                     @Override
                     public void onComplete(RootUtils.Status status, String output)
@@ -352,7 +352,7 @@ public class BuildpropEditor extends AbsActivity
             @Override
             public void onClick(DialogInterface dialog, int item)
             {
-                new RootUtils().exec(new RootUtils.CommandCallback()
+                new RootUtils().exec(new RootUtils.CommandCallbackImpl()
                 {
                     @Override
                     public void onComplete(RootUtils.Status status, String output)

@@ -312,7 +312,7 @@ public class MainActivity extends AbsActivity implements Runnable, View.OnClickL
 	private void toggleCpu(final View view, int coreNum)
 	{
 		view.setEnabled(false);
-		RCommand.toggleCpu(coreNum, new RootUtils.CommandCallback(){
+		RCommand.toggleCpu(coreNum, new RootUtils.CommandCallbackImpl(){
 
 				@Override
 				public void onComplete(RootUtils.Status status, String output)

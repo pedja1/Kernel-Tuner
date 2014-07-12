@@ -228,6 +228,12 @@ public class CPUActivity extends AbsActivity implements RootUtils.CommandCallbac
     }
 
     @Override
+    public void out(String line)
+    {
+
+    }
+
+    @Override
     public void onItemClick(AdapterView<?> adapterView, View view, int i, long l)
     {
         //we don't check whether its a header or item because header cant be clicked

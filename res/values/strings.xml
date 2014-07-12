@@ -716,5 +716,9 @@
     <string name="select_backup">Select Backup to Restore</string>
     <string name="build_prop_backedup">build.prop backed-up in </string>
     <string name="build_prop_restored">build.prop restored.</string>
+    <string name="running">running</string>
+    <string name="logcat_jumping_to_top">Jumping to top of log ...</string>
+    <string name="logcat_jumping_to_bottom">Jumping to bottom of log ...</string>
+    <string name="paused">paused</string>
 
 </resources>

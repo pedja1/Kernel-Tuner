@@ -9,6 +9,7 @@ import java.util.List;
 
 public class RCommand
 {
+
 	public static void toggleCpu(int coreNum, RootUtils.CommandCallback callback)
 	{
 
@@ -94,4 +95,6 @@ public class RCommand
                 "chmod 444 /sys/devices/system/cpu/cpu" + coreNum + "/cpufreq/screen_off_max_freq",
                 "chown system /sys/devices/system/cpu/cpu" + coreNum + "/cpufreq/screen_off_max_freq");
     }
+
+
 }

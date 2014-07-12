@@ -124,7 +124,7 @@ public class SysCtl extends AbsActivity
                     public void onClick(DialogInterface dialog, int which)
                     {
 
-                        new RootUtils().exec(new RootUtils.CommandCallback()
+                        new RootUtils().exec(new RootUtils.CommandCallbackImpl()
                         {
                             @Override
                             public void onComplete(RootUtils.Status status, String output)

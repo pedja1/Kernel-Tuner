@@ -10,7 +10,6 @@ import rs.pedjaapps.kerneltuner.utility.Executor;
 
 public class RootUtils
 {
-	private CommandCallback callback;
 	private StringBuilder output;
 	private boolean commandExecuted = false;
 	
@@ -24,27 +23,34 @@ public class RootUtils
 		output = new StringBuilder();
 	}
 	
-	public static interface CommandCallback
+	public static class CommandCallbackImpl implements CommandCallback
 	{
-		public void onComplete(Status status, String output);
+		public void onComplete(Status status, String output){}
+        public void out(String line){}
 	}
+
+    public static interface CommandCallback
+    {
+        public void onComplete(Status status, String output);
+        public void out(String line);
+    }
 	
 	public enum Status
 	{
 		success, no_root, timeout, io_exception
 	}
 	
-	public void exec(CommandCallback commandCallback, String... commands)
+	public void exec(final CommandCallback callback, String... commands)
 	{
 		if(commandExecuted) throw new IllegalArgumentException("You can only execute one command with one instance of RootUtils");
 		commandExecuted = true;
-		callback = commandCallback;
 		final CommandCapture command = new CommandCapture(0, commands)
 		{
 			@Override
 			public void output(int id, String line)
 			{
 				output.append(line).append("\n");
+                if(callback != null)callback.out(line);
 			}
 			
 			@Override
