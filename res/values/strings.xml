@@ -1,11 +1,11 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
 
-    <string name="title_cpu">CPU Tweaks</string>
-    <string name="title_governor">Governor Settings</string>
+    <string name="title_cpu">CPU Manager</string>
+    <string name="title_governor">Governor Manager</string>
     <string name="title_tis">Times In State</string>
     <string name="title_voltage">Voltage</string>
-    <string name="title_gpu">GPU Tweaks</string>
+    <string name="title_gpu">GPU Manager</string>
     <string name="title_misc">Misc Tweaks</string>
     <string name="title_profiles">Profiles</string>
     <string name="title_mpdecision">MP-Decision</string>
@@ -255,7 +255,6 @@
     <string name="notificatio_preferences_warning">This options are likely to cause higher battery drain.\nProceed with caution!</string>
     <string name="select_profile_">Select Profile:</string>
     <string name="presets">Presets</string>
-    <string name="time">Time</string>
 
     <color name="grey">#808080</color>
 
@@ -687,7 +686,6 @@
     <string name="nres">Norm Res</string>
     <string name="time">Time</string>
     <string name="precision">Precision</string>
-    <string name="close">Close</string>
     <string name="previous_runs">Previous Results</string>
 
     <color name="apps_primary">#ffb2cb39</color>
@@ -703,5 +701,13 @@
     <string name="please_wait">Please wait...</string>
     <string name="settings">Settings</string>
     <string name="compatibility_check">Compatibility Check</string>
+    <string name="maximum_frequency">Maximum CPU frequency</string>
+    <string name="minimum_frequncy">Minimum CPU frequency</string>
+    <string name="cpu_governor">CPU governor</string>
+    <string name="maximum_screen_off_frequency">Maximum Screen-Off frequency</string>
+    <string name="select_freq">Select Frequency</string>
+    <string name="select_governor">Select Governor</string>
+    <string name="cpu">cpu</string>
+    <string name="show_all_cores">Show All Cores</string>
 
 </resources>

@@ -21,11 +21,14 @@ package rs.pedjaapps.kerneltuner;
 
 import android.content.Context;
 
+import java.io.File;
+
 /**
  * Class of constants used by this Locale plug-in.
  */
 public final class Constants
 {
+
 
 
     /**
@@ -54,7 +57,8 @@ public final class Constants
 	public static final String cpu0online = "/sys/devices/system/cpu/cpu0/online"; 
 	public static final String cpu1online = "/sys/devices/system/cpu/cpu1/online"; 
 	public static final String cpu2online = "/sys/devices/system/cpu/cpu2/online"; 
-	public static final String cpu3online = "/sys/devices/system/cpu/cpu3/online"; 
+	public static final String cpu3online = "/sys/devices/system/cpu/cpu3/online";
+    public static final String cpuScreenOff = "/sys/devices/system/cpu/cpu0/cpufreq/screen_off_max_freq";
 
 
 	public static final String CPU0_FREQS = "/sys/devices/system/cpu/cpu0/cpufreq/scaling_available_frequencies";

@@ -152,7 +152,7 @@ public class SystemInfo extends AbsActivity implements
 		protected Object doInBackground(String... args) {
 			isSDPresent = android.os.Environment.getExternalStorageState()
 					.equals(android.os.Environment.MEDIA_MOUNTED);
-			List<String> govs = IOHelper.governors();
+			List<String> govs = IOHelper.governorsAsList();
 			StringBuilder builder = new StringBuilder();
 			for (String s : govs) {
 				builder.append(s + ", ");

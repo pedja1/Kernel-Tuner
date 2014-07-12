@@ -47,7 +47,7 @@ import com.crashlytics.android.Crashlytics;
 public class IOHelper
 {
 
-    public static final boolean freqsExists()
+    public static boolean freqsExists()
     {
         boolean i = false;
         if (new File(Constants.CPU0_FREQS).exists())
@@ -58,7 +58,7 @@ public class IOHelper
 
     }
 
-    public static final boolean oomExists()
+    public static boolean oomExists()
     {
         boolean i = false;
         if (new File(Constants.OOM).exists())
@@ -69,7 +69,7 @@ public class IOHelper
 
     }
 
-    public static final boolean thermaldExists()
+    public static boolean thermaldExists()
     {
         boolean i = false;
         if (new File(Constants.THERMALD).exists())
@@ -80,7 +80,7 @@ public class IOHelper
 
     }
 
-    public static final boolean swapsExists()
+    public static boolean swapsExists()
     {
         boolean i = false;
         if (new File(Constants.SWAPS).exists())
@@ -111,6 +111,16 @@ public class IOHelper
         return new File(Constants.cpu3online).exists();
     }
 
+    public static boolean cpuScreenOff()
+    {
+        return new File(Constants.cpuScreenOff).exists();
+    }
+
+    public static boolean cpuOnline(int cpu)
+    {
+         return new File("/sys/devices/system/cpu/cpu" + cpu + "/cpufreq/scaling_governor").exists();
+    }
+
     public static boolean gpuExists()
     {
         boolean i = false;
@@ -122,7 +132,7 @@ public class IOHelper
 
     }
 
-    public static final boolean cdExists()
+    public static boolean cdExists()
     {
         boolean i = false;
         if (new File(Constants.CDEPTH).exists())
@@ -133,7 +143,7 @@ public class IOHelper
 
     }
 
-    public static final boolean voltageExists()
+    public static boolean voltageExists()
     {
         boolean i = false;
         if (new File(Constants.VOLTAGE_PATH).exists())
@@ -148,7 +158,7 @@ public class IOHelper
 
     }
 
-    public static final boolean otgExists()
+    public static boolean otgExists()
     {
         boolean i = false;
         if (new File(Constants.OTG).exists())
@@ -163,7 +173,7 @@ public class IOHelper
 
     }
 
-    public static final boolean s2wExists()
+    public static boolean s2wExists()
     {
         boolean i = false;
         if (new File(Constants.S2W).exists())
@@ -178,7 +188,7 @@ public class IOHelper
 
     }
 
-    public static final boolean TISExists()
+    public static boolean TISExists()
     {
         boolean i = false;
         if (new File(Constants.TIMES_IN_STATE_CPU0).exists())
@@ -189,7 +199,7 @@ public class IOHelper
 
     }
 
-    public static final boolean mpdecisionExists()
+    public static boolean mpdecisionExists()
     {
         boolean i = false;
         if (new File(Constants.MPDECISION).exists())
@@ -200,7 +210,7 @@ public class IOHelper
 
     }
 
-    public static final boolean buttonsExists()
+    public static boolean buttonsExists()
     {
         boolean i = false;
         if (new File(Constants.BUTTONS_LIGHT).exists())
@@ -215,7 +225,7 @@ public class IOHelper
 
     }
 
-    public static final boolean sdcacheExists()
+    public static boolean sdcacheExists()
     {
         boolean i = false;
         if (new File(Constants.SD_CACHE).exists())
@@ -226,7 +236,7 @@ public class IOHelper
 
     }
 
-    public static final boolean vsyncExists()
+    public static boolean vsyncExists()
     {
         boolean i = false;
         if (new File(Constants.VSYNC).exists())
@@ -237,7 +247,7 @@ public class IOHelper
 
     }
 
-    public static final boolean fchargeExists()
+    public static boolean fchargeExists()
     {
         boolean i = false;
         if (new File(Constants.FCHARGE).exists())
@@ -256,23 +266,26 @@ public class IOHelper
             File myFile = new File(Constants.CPU0_FREQS);
             FileInputStream fIn = new FileInputStream(myFile);
 
-            BufferedReader myReader = new BufferedReader(
-                    new InputStreamReader(fIn));
+            BufferedReader myReader = new BufferedReader(new InputStreamReader(fIn));
             String aDataRow;
             while ((aDataRow = myReader.readLine()) != null)
             {
-                Frequency frequency = new Frequency();
-                int value = Tools.parseInt(aDataRow, Constants.CPU_OFFLINE_CODE);
-                if(value == Constants.CPU_OFFLINE_CODE) continue;
-                String string = null;
-                if(aDataRow.length() > 3)
+                String[] freqs = aDataRow.split(" ");
+                for(String s : freqs)
                 {
-                    string = aDataRow.trim().substring(0, aDataRow.trim().length() - 3) + "MHz";
+                    Frequency frequency = new Frequency();
+                    int value = Tools.parseInt(s, Constants.CPU_OFFLINE_CODE);
+                    if (value == Constants.CPU_OFFLINE_CODE) continue;
+                    String string = null;
+                    if (aDataRow.length() > 3)
+                    {
+                        string = s.trim().substring(0, s.trim().length() - 3) + "MHz";
+                    }
+                    if (TextUtils.isEmpty(string)) continue;
+                    frequency.setFrequencyString(string);
+                    frequency.setFrequencyValue(value);
+                    entries.add(frequency);
                 }
-                if(TextUtils.isEmpty(string)) continue;
-                frequency.setFrequencyString(string);
-                frequency.setFrequencyValue(value);
-                entries.add(frequency);
             }
             myReader.close();
             fIn.close();
@@ -334,7 +347,7 @@ public class IOHelper
 
     }
 
-    public static final String leds()
+    public static String leds()
     {
         try
         {
@@ -354,7 +367,20 @@ public class IOHelper
 
     }
 
-    public static final List<String> governors()
+    public static String[] governors()
+    {
+        try
+        {
+            return FileUtils.readFileToString(new File(Constants.CPU0_GOVS)).split("\\s");
+        }
+        catch (Exception e)
+        {
+            return new String[0];
+        }
+
+    }
+
+    public static List<String> governorsAsList()
     {
         try
         {
@@ -362,7 +388,7 @@ public class IOHelper
         }
         catch (Exception e)
         {
-            return new ArrayList<String>();
+            return new ArrayList<>();
         }
 
     }
@@ -380,7 +406,7 @@ public class IOHelper
 
     }
 
-    public static final String cpuMin()
+    public static String cpuMin()
     {
         try
         {
@@ -390,10 +416,9 @@ public class IOHelper
         {
             return "offline";
         }
-
     }
 
-    public static final String cpuMax()
+    public static String cpuMax()
     {
         try
         {
@@ -517,7 +542,7 @@ public class IOHelper
         }
     }
 
-    public static final String cpu2CurFreq()
+    public static String cpu2CurFreq()
     {
         try
         {
@@ -530,7 +555,7 @@ public class IOHelper
 
     }
 
-    public static final String cpu3CurFreq()
+    public static String cpu3CurFreq()
     {
         try
         {
@@ -543,7 +568,19 @@ public class IOHelper
 
     }
 
-    public static final String cpu0CurGov()
+    public static int cpuScreenOffMaxFreq()
+    {
+        try
+        {
+            return Tools.parseInt(FileUtils.readFileToString(new File(Constants.cpuScreenOff)).trim(), Constants.CPU_OFFLINE_CODE);
+        }
+        catch (Exception e)
+        {
+            return Constants.CPU_OFFLINE_CODE;
+        }
+    }
+
+    public static String cpu0CurGov()
     {
         try
         {
@@ -556,7 +593,7 @@ public class IOHelper
 
     }
 
-    public static final String cpu1CurGov()
+    public static String cpu1CurGov()
     {
         try
         {
@@ -569,7 +606,7 @@ public class IOHelper
 
     }
 
-    public static final String cpu2CurGov()
+    public static String cpu2CurGov()
     {
         try
         {
@@ -582,7 +619,7 @@ public class IOHelper
 
     }
 
-    public static final String cpu3CurGov()
+    public static String cpu3CurGov()
     {
         try
         {
@@ -596,7 +633,7 @@ public class IOHelper
     }
 
 
-    public static final List<TimesEntry> getTis()
+    public static List<TimesEntry> getTis()
     {
         List<TimesEntry> times = new ArrayList<TimesEntry>();
 

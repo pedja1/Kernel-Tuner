@@ -6,7 +6,7 @@ import java.util.*;
 import rs.pedjaapps.kerneltuner.model.*;
 import android.view.*;
 
-public class CPUAdapter extends ArrayAdapter<CPU>
+public class CPUAdapter extends ArrayAdapter<CPU> implements PinnedSectionListView.PinnedSectionListAdapter
 {
 	LayoutInflater inflater;
 	
@@ -28,7 +28,13 @@ public class CPUAdapter extends ArrayAdapter<CPU>
 		return 2;
 	}
 
-	@Override
+    @Override
+    public boolean isEnabled(int position)
+    {
+        return getItemViewType(position) == CPU.TYPE_ITEM;
+    }
+
+    @Override
 	public View getView(int position, View convertView, ViewGroup parent)
 	{
 		CPU item = getItem(position);
@@ -61,8 +67,14 @@ public class CPUAdapter extends ArrayAdapter<CPU>
 		}
 		return convertView;
 	}
-	
-	class ViewHolder
+
+    @Override
+    public boolean isItemViewTypePinned(int viewType)
+    {
+        return viewType == CPU.TYPE_HEADER;
+    }
+
+    class ViewHolder
 	{
 		TextView tvTitle, tvValue;
 	}

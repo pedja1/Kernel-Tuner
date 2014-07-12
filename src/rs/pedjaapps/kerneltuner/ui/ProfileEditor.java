@@ -238,7 +238,7 @@ public class ProfileEditor extends AbsActivity
 
 		List<String> govs = new ArrayList<String>();
 		govs.add(getResources().getString(R.string.unchanged));
-		govs.addAll(IOHelper.governors());
+		govs.addAll(IOHelper.governorsAsList());
 
 		List<String> schedulers = new ArrayList<String>();
 		schedulers.add(getResources().getString(R.string.unchanged));

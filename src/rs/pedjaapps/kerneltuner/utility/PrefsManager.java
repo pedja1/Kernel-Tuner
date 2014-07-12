@@ -18,7 +18,7 @@ public class PrefsManager
     {
         cpu_refresh_interval, is_first_launch, kernel_info, app_version, main_show_temp, main_show_cpu,
         main_show_toggles, main_show_buttons, temp_unit, show_ads, show_cpu_options_dialog, cpu_enable_all,
-        cpu_disable_all, hide_unsupported_items, notification_service
+        cpu_disable_all, hide_unsupported_items, notification_service, cpu_show_all_cores
     }
 
     public static long getCpuRefreshInterval()
@@ -125,5 +125,17 @@ public class PrefsManager
     public static boolean getNotificationService()
     {
         return prefs.getBoolean(Key.notification_service.toString(), false);
+    }
+
+    public static boolean cpuShowAllCores()
+    {
+        return prefs.getBoolean(Key.cpu_show_all_cores.toString(), false);
+    }
+
+    public static void setCpuShowAllCores(boolean show)
+    {
+        SharedPreferences.Editor editor = prefs.edit();
+        editor.putBoolean(Key.cpu_show_all_cores.toString(), show);
+        editor.apply();
     }
 }

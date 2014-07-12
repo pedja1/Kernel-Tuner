@@ -28,6 +28,18 @@ public class FrequencyCollection
         return frequencies;
     }
 
+    public String[] getFrequenciesAsStringArray()
+    {
+        String[] array = new String[frequencies.size()];
+        int i = 0;
+        for(Frequency f : frequencies)
+        {
+            array[i] = f.getFrequencyString();
+            i++;
+        }
+        return array;
+    }
+
     public static int getProgress(int freq, List<Frequency> frequencies)
     {
         int offset = 0;
@@ -57,5 +69,14 @@ public class FrequencyCollection
         {
             return freq + "Hz";//should never happen
         }
+    }
+
+    public Frequency getFrequencyForIndex(int index)
+    {
+        if(index < 0 || index >= frequencies.size())
+        {
+            return null;
+        }
+        return frequencies.get(index);
     }
 }

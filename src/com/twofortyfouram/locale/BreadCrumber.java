@@ -14,10 +14,10 @@ package com.twofortyfouram.locale;
 
 import android.content.*;
 import android.util.*;
-import com.twofortyfouram.locale.api.*;
 
 import android.content.Intent;
 
+import rs.pedjaapps.kerneltuner.R;
 
 
 /**
@@ -40,7 +40,7 @@ public final class BreadCrumber
     /**
      * Static helper method to generate bread crumbs. Bread crumb strings will be properly formatted for the
      * current language, including right-to-left languages, as long as the proper
-     * {@link com.twofortyfouram.locale.platform.R.string#twofortyfouram_locale_breadcrumb_format} string
+     * {@link rs.pedjaapps.kerneltuner.R.string#twofortyfouram_locale_breadcrumb_format} string
      * resources have been created.
      * 
      * @param context {@code Context} for loading platform resources. Cannot be null.

@@ -200,12 +200,6 @@ public class MainActivity extends AbsActivity implements Runnable, View.OnClickL
         }
     }
 
-    @Override
-    public int getThemeRes()
-    {
-        return R.style.Theme_Kerneltuner;
-    }
-
     public int getLayoutRes()
     {
         return R.layout.activity_main;
@@ -213,27 +207,6 @@ public class MainActivity extends AbsActivity implements Runnable, View.OnClickL
 
     public void setupView()
     {
-        //LinearLayout tempPanel = (LinearLayout) findViewById(R.id.temperature_layout);
-        //LinearLayout mainPanel = (LinearLayout) findViewById(R.id.buttons_layout);
-        //LinearLayout cpuPanel = (LinearLayout) findViewById(R.id.cpu_info_layout);
-        //LinearLayout togglesPanel = (LinearLayout) findViewById(R.id.toggles_layout);
-
-        /*if (!PrefsManager.getMainShowTemp())
-        {
-            tempPanel.setVisibility(View.GONE);
-        }
-        if (!PrefsManager.getMainShowCpu())
-        {
-            cpuPanel.setVisibility(View.GONE);
-        }
-        if (!PrefsManager.getMainShowToggles())
-        {
-            togglesPanel.setVisibility(View.GONE);
-        }
-        if (!PrefsManager.getMainShowButtons())
-        {
-            mainPanel.setVisibility(View.GONE);
-        }*/
 
         tvCpu0prog = (TextView) findViewById(R.id.txtCpu0);
         tvCpu1prog = (TextView) findViewById(R.id.txtCpu1);
