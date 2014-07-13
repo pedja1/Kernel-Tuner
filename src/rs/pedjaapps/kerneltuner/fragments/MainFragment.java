@@ -168,7 +168,7 @@ public class MainFragment extends Fragment
             @Override
             public void onClick(View v)
             {
-                Intent myIntent = new Intent(getActivity(), SystemInfo.class);
+                Intent myIntent = new Intent(getActivity(), SystemInfoActivity.class);
                 startActivity(myIntent);
             }
         });

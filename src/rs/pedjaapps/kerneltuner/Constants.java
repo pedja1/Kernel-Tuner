@@ -52,6 +52,8 @@ public final class Constants
 	 */
 
     public static final int CPU_OFFLINE_CODE = -45;
+    public static final int GPU_OFFLINE_CODE = -55;
+    public static final int GPU_NOT_AVAILABLE = -55;
 	
     public static final String G_S_URL_PREFIX = "https://www.google.com/search?q=";
 	public static final String cpu0online = "/sys/devices/system/cpu/cpu0/online"; 
@@ -96,6 +98,9 @@ public final class Constants
 	public static final String VOLTAGE_PATH = "/sys/devices/system/cpu/cpufreq/vdd_table/vdd_levels";
 	public static final String VOLTAGE_PATH_TEGRA_3 = "/sys/devices/system/cpu/cpu0/cpufreq/UV_mV_table";
 	public static final String GPU_3D = "/sys/devices/platform/kgsl-3d0.0/kgsl/kgsl-3d0/max_gpuclk";
+    public static final String GPU_3D_2 = "/sys/class/kgsl/kgsl-3d0/max_gpuclk";
+    public static final String GPU_2D_2 = "/sys/class/kgsl/kgsl-2d0/max_gpuclk";
+    public static final String GPU_3D_AVAILABLE_FREQUENCIES = "/sys/class/kgsl/kgsl-3d0/gpu_available_frequencies";
 	public static final String GPU_2D = "/sys/devices/platform/kgsl-2d0.0/kgsl/kgsl-2d0/max_gpuclk";
 	public static final String CDEPTH = "/sys/kernel/debug/msm_fb/0/bpp";
 	public static final String S2W = "/sys/android_touch/sweep2wake";
@@ -120,11 +125,15 @@ public final class Constants
 	public static final String KERNEL = "/proc/version";
 	public static final String BATTERY_LEVEL = "/sys/class/power_supply/battery/capacity";
 	public static final String BATTERY_TEMP = "/sys/class/power_supply/battery/batt_temp";
+    public static final String BATTERY_TEMP2 = "/sys/class/power_supply/battery/temp";
 	public static final String BATTERY_DRAIN = "/sys/class/power_supply/battery/batt_current";
+    public static final String BATTERY_DRAIN2 = "/sys/class/power_supply/battery/current_now";
 	public static final String BATTERY_VOLTAGE = "/sys/class/power_supply/battery/batt_vol";
+    public static final String BATTERY_VOLTAGE2 = "/sys/class/power_supply/battery/voltage_now";
 	public static final String BATTERY_TECH = "/sys/class/power_supply/battery/technology";
 	public static final String BATTERY_HEALTH = "/sys/class/power_supply/battery/health";
 	public static final String BATTERY_CAPACITY = "/sys/class/power_supply/battery/full_bat";
+    public static final String BATTERY_CAPACITY2 = "/sys/class/power_supply/battery/charge_full_design";
 	public static final String BATTERY_CHARGING_SOURCE = "/sys/class/power_supply/battery/charging_source";
 	public static final String CPU_TEMP_ENABLED = "/sys/devices/virtual/thermal/thermal_zone1/mode";
 	public static final String MPDEC_THR_0 = "/sys/kernel/msm_mpdecision/conf/nwns_threshold_0";

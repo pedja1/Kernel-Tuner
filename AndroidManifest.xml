@@ -114,92 +114,6 @@
             </intent-filter>
         </service>
 
-        <receiver
-            android:name="rs.pedjaapps.kerneltuner.receiver.AppWidgetSummary"
-            android:icon="@drawable/ic_launcher"
-            android:label="Kernel Tuner Summary">
-            <intent-filter>
-                <action android:name="android.appwidget.action.APPWIDGET_UPDATE"/>
-                <action android:name="rs.pedjaapps.kerneltuner.receiver.AppWidgetBattery.ACTION_CLICK"/>
-                <action android:name="rs.pedjaapps.kerneltuner.receivers.AppWidgetBattery.ACTION_WIDGET_REFRESH"/>
-            </intent-filter>
-
-            <meta-data
-                android:name="android.appwidget.provider"
-                android:resource="@xml/widget_provider_summary"/>
-        </receiver>
-        <receiver
-            android:name="rs.pedjaapps.kerneltuner.receiver.WidgetToggle"
-            android:icon="@drawable/ic_launcher"
-            android:label="Kernel Tuner Toggle">
-            <intent-filter>
-                <action android:name="android.appwidget.action.APPWIDGET_UPDATE"/>
-                <action android:name="rs.pedjaapps.kerneltuner.receiver.AppWidget.ACTION_CLICK"/>
-                <action android:name="rs.pedjaapps.kerneltuner.receivers.WidgetToggle.ACTION_WIDGET_TOGGLE_CPU1"/>
-                <action android:name="rs.pedjaapps.kerneltuner.receivers.WidgetToggle.ACTION_WIDGET_TOGGLE_CPU2"/>
-                <action android:name="rs.pedjaapps.kerneltuner.receivers.WidgetToggle.ACTION_WIDGET_TOGGLE_CPU3"/>
-                <action android:name="rs.pedjaapps.kerneltuner.receivers.WidgetToggle.ACTION_WIDGET_REFRESH"/>
-            </intent-filter>
-
-            <meta-data
-                android:name="android.appwidget.provider"
-                android:resource="@xml/widget_provider_toggle"/>
-        </receiver>
-        <receiver
-            android:name="rs.pedjaapps.kerneltuner.receiver.AppWidgetMem"
-            android:icon="@drawable/ic_launcher"
-            android:label="Kernel Tuner Memory Info">
-            <intent-filter>
-                <action android:name="android.appwidget.action.APPWIDGET_UPDATE"/>
-                <action android:name="rs.pedjaapps.kerneltuner.receiver.AppWidgetMem.ACTION_CLICK"/>
-                <action android:name="rs.pedjaapps.kerneltuner.receivers.AppWidgetMem.ACTION_WIDGET_REFRESH"/>
-            </intent-filter>
-
-            <meta-data
-                android:name="android.appwidget.provider"
-                android:resource="@xml/widget_provider_mem"/>
-        </receiver>
-        <receiver
-            android:name="rs.pedjaapps.kerneltuner.receiver.AppWidgetBattery"
-            android:icon="@drawable/ic_launcher"
-            android:label="Kernel Tuner Battery">
-            <intent-filter>
-                <action android:name="android.appwidget.action.APPWIDGET_UPDATE"/>
-                <action android:name="rs.pedjaapps.kerneltuner.receiver.AppWidgetBattery.ACTION_CLICK"/>
-                <action android:name="rs.pedjaapps.kerneltuner.receivers.AppWidgetBattery.ACTION_WIDGET_REFRESH"/>
-            </intent-filter>
-
-            <meta-data
-                android:name="android.appwidget.provider"
-                android:resource="@xml/widget_provider_battery"/>
-        </receiver>
-        <receiver
-            android:name="rs.pedjaapps.kerneltuner.receiver.AppWidget"
-            android:icon="@drawable/ic_launcher"
-            android:label="Kernel Tuner 2x1">
-            <intent-filter>
-                <action android:name="android.appwidget.action.APPWIDGET_UPDATE"/>
-                <action android:name="rs.pedjaapps.kerneltuner.receiver.AppWidget.ACTION_CLICK"/>
-            </intent-filter>
-
-            <meta-data
-                android:name="android.appwidget.provider"
-                android:resource="@xml/widget_provider_2x1"/>
-        </receiver>
-        <receiver
-            android:name="rs.pedjaapps.kerneltuner.receiver.AppWidgetBig"
-            android:icon="@drawable/ic_launcher"
-            android:label="Kernel Tuner 4x4">
-            <intent-filter>
-                <action android:name="android.appwidget.action.APPWIDGET_UPDATE"/>
-                <action android:name="rs.pedjaapps.kerneltuner.receiver.AppWidgetBig.ACTION_CLICK"/>
-            </intent-filter>
-
-            <meta-data
-                android:name="android.appwidget.provider"
-                android:resource="@xml/widget_provider_4x4"/>
-        </receiver>
-
         <activity
             android:name="rs.pedjaapps.kerneltuner.ui.Gpu"
             android:icon="@drawable/gpu"
@@ -307,7 +221,7 @@
             android:uiOptions="splitActionBarWhenNarrow">
         </activity>
         <activity
-            android:name="rs.pedjaapps.kerneltuner.ui.SystemInfo"
+            android:name=".ui.SystemInfoActivity"
             android:icon="@drawable/ic_menu_info_details"
             android:label="@string/info">
             <intent-filter>
@@ -509,21 +423,6 @@
             android:name="rs.pedjaapps.kerneltuner.shortcuts.TmShortcut"
             android:label="Kernel Tuner - Shortcuts">
         </activity>
-
-        <service android:name="rs.pedjaapps.kerneltuner.services.WidgetUpdateService">
-        </service>
-        <service android:name="rs.pedjaapps.kerneltuner.services.WidgetSummaryUpdateService">
-        </service>
-        <service android:name="rs.pedjaapps.kerneltuner.services.WidgetUpdateServiceBig">
-        </service>
-        <service
-            android:name="rs.pedjaapps.kerneltuner.services.NotificationService"
-            android:exported="false"
-            android:process=":background">
-            <intent-filter>
-                <action android:name="rs.pedjaapps.kerneltuner.NotificationService"/>
-            </intent-filter>
-        </service>
 
         <activity
             android:name="rs.pedjaapps.kerneltuner.ui.BackupRestore"

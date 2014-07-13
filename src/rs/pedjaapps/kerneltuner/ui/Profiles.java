@@ -156,7 +156,7 @@ public class Profiles extends Activity
 			_mpup = IOHelper.mpup();
 			_mpdown = IOHelper.mpdown();
 			_gpu2d = IOHelper.gpu2d();
-			_gpu3d = IOHelper.gpu3d();
+			//_gpu3d = IOHelper.gpu3d();
 			_cbb = IOHelper.leds();
 			_vsync = IOHelper.vsync();
 			_fcharge = IOHelper.fcharge();

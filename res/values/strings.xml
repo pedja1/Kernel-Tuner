@@ -39,8 +39,8 @@
     <string name="title_changelog">Changelog</string>
     <string name="title_check">Compatibility Check</string>
     <string name="activity_title_profile_editor">Profile Editor</string>
-    <string name="anthrax"><a href="http://anthrax–kernels.us/forum/showthread.php?t=574">anthrax&#8211;kernels.us</a></string>
-    <string name="xda"><a href="http://forum.xda–developers.com/showthread.php?t=1719934">xda&#8211;developers.com</a></string>
+    <string name="anthrax"><a href="http://anthrax–kernels.us/forum/showthread.php?t=574">anthrax–kernels.us</a></string>
+    <string name="xda"><a href="http://forum.xda–developers.com/showthread.php?t=1719934">xda–developers.com</a></string>
     <string name="official"><a href="http://kerneltuner.pedjaapps.in.rs/">Official Website</a></string>
     <string name="mail"><a href="mailto:predragcokulov@gmail.com">Send me Mail</a></string>
 
@@ -64,7 +64,7 @@
     <string name="activity_check_sweep2wake_">Sweep2Wake…</string>
     <string name="activity_check_thermald_">Thermal…</string>
     <string name="activity_check_mpdecision_">Mpdecision…</string>
-    <string name="activity_check_sdcache_">sdcache&#8230;.</string>
+    <string name="activity_check_sdcache_">sdcache….</string>
     <string name="activity_check_io_scheduler_">IO Scheduler…</string>
     <string name="activity_check_your_device_is_">"Your device is "</string>
     <string name="activity_check_compatible_">" compatible!"</string>
@@ -85,7 +85,7 @@
     <string name="cpu1_max_freq_">CPU1 max freq:</string>
     <string name="cpu2_max_freq_">CPU2 max freq:</string>
     <string name="cpu3_min_freq_">CPU3 min freq:</string>
-    <string name="crtica">&#8211;</string>
+    <string name="crtica">–</string>
     <string name="cpu3_max_freq_">CPU3 max freq:</string>
     <string name="fastcharge_status_">Fastcharge Status:</string>
     <string name="buttons_backlight">Capacitive Buttons Backlight</string>
@@ -96,7 +96,7 @@
     <string name="cpu1_governor_">CPU1 Governor:</string>
     <string name="cpu2_governor_">CPU2 Governor:</string>
     <string name="cpu3_governor_">CPU3 Governor:</string>
-    <string name="activity_main_up_time_">Up&#8211;time:</string>
+    <string name="activity_main_up_time_">Up–time:</string>
     <string name="activity_main_deep_sleep_">Deep sleep:</string>
     <string name="activity_main_sweep2wake_">Sweep2Wake:</string>
     <string name="activity_main_cpu1_on_off">CPU1 on/off</string>
@@ -141,15 +141,15 @@
     <string name="done">Done</string>
     <string name="profile_">Profile:</string>
     <string name="create_profile_from_current_settings">Create profile from current settings</string>
-    <string name="phase1_low">THRESHOLD &#8211; LOW</string>
+    <string name="phase1_low">THRESHOLD – LOW</string>
     <string name="max_frequency_">Max Frequency:</string>
     <string name="low_range_temperature_">Low range temperature:</string>
     <string name="high_range_temperature_">High range temperature:</string>
-    <string name="phase2_medium">THRESHOLD &#8211; MEDIUM</string>
-    <string name="phase3_high">THRESHOLD &#8211; HIGH</string>
+    <string name="phase2_medium">THRESHOLD – MEDIUM</string>
+    <string name="phase3_high">THRESHOLD – HIGH</string>
     <string name="frequency_">Frequency:</string>
     <string name="all_p12_5mv">All +12.5mV</string>
-    <string name="all_m12_5mv">All &#8211;12.5mV</string>
+    <string name="all_m12_5mv">All –12.5mV</string>
     <string name="governor_">Governor</string>
     <string name="buttons_n_light">Button Light</string>
     <string name="fast_ncharge">Fastcharge</string>
@@ -178,7 +178,7 @@
     <string name="swap">Swap</string>
     <string name="info">System Info</string>
     <string name="ok">OK</string>
-    <string name="uptime_">Up&#8211;time:</string>
+    <string name="uptime_">Up–time:</string>
     <string name="deep_sleep_">Deep Sleep:</string>
     <string name="system_dump_text1">This will dump all system information needed for this application to work in a file on your sdcard.\n\n
 		\'/sdcard/ktuner_log.txt\'\n\n
@@ -187,12 +187,12 @@
     <string name="system_dump_text2">No private date will be collected!</string>
     <string name="clear">Clear</string>
     <string name="delete">Delete</string>
-    <string name="plugin_name">Kernel Tuner &#8211; Profiles</string>
+    <string name="plugin_name">Kernel Tuner – Profiles</string>
     <string name="voltage_profile">Voltage Profile</string>
     <string name="cpu_">CPU:</string>
     <string name="gpu_">GPU:</string>
     <string name="other_">Other:</string>
-    <string name="capacitive_buttons_light_level_0_60_">Capacitive Buttons Light Level(0&#8211;60):</string>
+    <string name="capacitive_buttons_light_level_0_60_">Capacitive Buttons Light Level(0–60):</string>
     <string name="color_depth_">"Color Depth: "</string>
     <string name="sd_card_cache">SD Card Cache Size:</string>
     <string name="link_cpus">Link Cores(All frequencies will change together)</string>
@@ -201,13 +201,13 @@
     <string name="dim">DIM</string>
     <string name="bright">BRIGHT</string>
     <string name="version">version: </string>
-    <string name="dialog_title">Please wait&#8230;</string>
-    <string name="enabling_cpus">Enabling all CPUs&#8230;\nPlease wait..</string>
+    <string name="dialog_title">Please wait…</string>
+    <string name="enabling_cpus">Enabling all CPUs…\nPlease wait..</string>
     <string name="gov_not_supported">Current Governor(s) doesn\'t have any settings\n\n
 					   Only following governors can be configured:\n
 					  ondemand, conservative, interactive, xondemand</string>
     <string name="gov_new_value">Set new value: </string>
-    <string name="applying_settings">Applying settings&#8230;</string>
+    <string name="applying_settings">Applying settings…</string>
     <string name="downloading_update">Downloading Udate</string>
     <string name="available"> Available</string>
     <string name="download_now">Download Now?</string>
@@ -226,10 +226,10 @@
     <string name="yes">Yes</string>
     <string name="save_current_settings">Save Current Settings</string>
     <string name="save">Save</string>
-    <string name="gathering_system_info">Gathering system info&#8230;\nPlease wait&#8230;</string>
+    <string name="gathering_system_info">Gathering system info…\nPlease wait…</string>
     <string name="copy_profile">Copy Profile</string>
     <string name="copy">Copy</string>
-    <string name="changing_voltage">Changing Voltage\nPlease wait&#8230;</string>
+    <string name="changing_voltage">Changing Voltage\nPlease wait…</string>
     <string name="voltage_profile_name">Voltage Profile Name</string>
     <string name="enter_voltage_profile_name">Enter Voltage Profile Name:</string>
     <string name="select_profile">Select Profile</string>
@@ -695,7 +695,7 @@
     <string name="dummy_content">DUMMY\nCONTENT</string>
     <string name="action_settings">Settings</string>
     <string name="hello_world">Hello world!</string>
-	<string name="_gpu">GPU</string>
+    <string name="_gpu">GPU</string>
     <string name="_iva">IVA</string>
     <string name="_min">Min</string>
     <string name="please_wait">Please wait...</string>
@@ -721,5 +721,47 @@
     <string name="logcat_jumping_to_bottom">Jumping to bottom of log ...</string>
     <string name="paused">paused</string>
     <string name="scanning_sd_card">Scanning SD Card</string>
+    <string name="battery">Battery</string>
+    <string name="capacity">Capacity</string>
+    <string name="status">Status</string>
+    <string name="flow">Flow</string>
+    <string name="health">Health</string>
+    <string name="technology">Technology</string>
+    <string name="voltage">Voltage</string>
+    <string name="maximum">Maximum</string>
+    <string name="used">Used</string>
+    <string name="memory">Memory</string>
+    <string name="disk">Disk</string>
+    <string name="available_frequencies">Available Frequencies</string>
+    <string name="available_governors">Available Governors</string>
+    <string name="cpu_gpu">CPU/GPU</string>
+    <string name="gpu">GPU</string>
+    <string name="maximum_gpu_frequency">Maximum GPU frequency</string>
+    <string name="device">Device</string>
+    <string name="android_version">Android Version</string>
+    <string name="api_level">API Level</string>
+    <string name="manufacturer">Manufacturer</string>
+    <string name="bootloader">Bootloader</string>
+    <string name="hardware">Hardware</string>
+    <string name="radio">Radio</string>
+    <string name="board">Board</string>
+    <string name="brand">Brand</string>
+    <string name="display">Display</string>
+    <string name="fingerprint">Fingerprint</string>
+    <string name="host">Host</string>
+    <string name="id">ID</string>
+    <string name="model">Model</string>
+    <string name="product">Product</string>
+    <string name="tags">Tags</string>
+    <string name="type">Type</string>
+    <string name="installed_applications">Installed Applications</string>
+    <string name="system_applications">System Applications</string>
+    <string name="kernel">Kernel</string>
+    <string name="kernel_version">Kernel Version</string>
+    <string name="resolution">Rezolution</string>
+    <string name="screen_refresh_rate">Refresh Rate</string>
+    <string name="screen_density">Density</string>
+    <string name="hello_blank_fragment">Hello blank fragment</string>
+    <string name="sensors">Sensors</string>
 
 </resources>

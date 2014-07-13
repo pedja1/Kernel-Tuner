@@ -70,11 +70,7 @@ public class PreferencesFragment extends PreferenceFragment
             addPreferencesFromResource(R.xml.settings_widget);
 			widget();
 			ab.setSubtitle(getResources().getString(R.string.preferences_subtitle_widget));
-        } else if ("notification".equals(settings)) {
-            addPreferencesFromResource(R.xml.settings_notification);
-			notif();
-			ab.setSubtitle(getResources().getString(R.string.preferences_subtitle_notification));
-        } else if ("ui".equals(settings)) {
+        }  else if ("ui".equals(settings)) {
             addPreferencesFromResource(R.xml.settings_ui);
 			ui();
 			ab.setSubtitle(getResources().getString(R.string.preferences_subtitle_ui));
@@ -88,16 +84,7 @@ public class PreferencesFragment extends PreferenceFragment
 			ab.setSubtitle(getResources().getString(R.string.preferences_subtitle_main));
         }
 	}
-	
-	private boolean isNotificationServiceRunning() {
-	    ActivityManager manager = (ActivityManager) getActivity().getSystemService(Context.ACTIVITY_SERVICE);
-	    for (RunningServiceInfo service : manager.getRunningServices(Integer.MAX_VALUE)) {
-	        if (NotificationService.class.getName().equals(service.service.getClassName())) {
-	            return true;
-	        }
-	    }
-	    return false;
-	}
+
 	
 	private void main(){
 		mainCpuPref = (CheckBoxPreference)findPreference("main_cpu");
@@ -267,75 +254,7 @@ public class PreferencesFragment extends PreferenceFragment
 				}
 			}); 
 	}
-	private void notif(){
-		notifPrefList = (ListPreference) findPreference("notif");
-        notifPrefList.setDefaultValue(notifPrefList.getEntryValues()[0]);
-        String notif = notifPrefList.getValue();
-        if (notif == null) {
-        	notifPrefList.setValue((String)notifPrefList.getEntryValues()[0]);
-        	notif = notifPrefList.getValue();
-        }
-        notifPrefList.setSummary(notifPrefList.getEntries()[notifPrefList.findIndexOfValue(notif)]);
 
-
-        notifPrefList.setOnPreferenceChangeListener(new OnPreferenceChangeListener() {
-				@Override
-				public boolean onPreferenceChange(Preference preference, Object newValue) {
-					notifPrefList.setSummary(notifPrefList.getEntries()[notifPrefList.findIndexOfValue(newValue.toString())]);
-					if(isNotificationServiceRunning()){
-						getActivity().stopService(new Intent(PreferencesFragment.this.getActivity(), NotificationService.class));
-						getActivity().startService(new Intent(PreferencesFragment.this.getActivity(), NotificationService.class));
-					}
-					return true;
-				}
-			}); 
-
-        notifBox = (CheckBoxPreference) findPreference("notificationService");
-        notifBox.setOnPreferenceChangeListener(new OnPreferenceChangeListener() {
-				@Override
-				public boolean onPreferenceChange(Preference preference, Object newValue) {
-					if(notifBox.isChecked()){
-						getActivity().stopService(new Intent(PreferencesFragment.this.getActivity(), NotificationService.class));
-
-					}
-					else if(notifBox.isChecked()==false){
-						getActivity().startService(new Intent(PreferencesFragment.this.getActivity(), NotificationService.class));
-					}
-
-					return true;
-				}
-			}); 
-
-        notifScreen = (PreferenceScreen)findPreference("notificationScreen");
-        notifScreen.setOnPreferenceClickListener(new OnPreferenceClickListener(){
-
-				@Override
-				public boolean onPreferenceClick(Preference arg0) {
-					AlertDialog.Builder builder = new AlertDialog.Builder(
-	                    PreferencesFragment.this.getActivity());
-
-					builder.setMessage(getResources().getString(R.string.notificatio_preferences_warning));
-
-					builder.setIcon(R.drawable.ic_menu_recent_history);
-
-					builder.setPositiveButton(getResources().getString(R.string.ok), new DialogInterface.OnClickListener() {
-							@Override
-							public void onClick(DialogInterface dialog, int which)
-							{
-
-							}
-						});
-
-
-					AlertDialog alert = builder.create();
-
-					alert.show();
-					return false;
-				}
-
-			});
-	}
-	
 	private void ui(){
 	
 		/*tisList = (ListPreference) findPreference("tis_open_as");

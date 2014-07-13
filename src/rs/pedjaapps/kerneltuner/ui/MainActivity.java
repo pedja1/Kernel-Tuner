@@ -1,41 +1,28 @@
 package rs.pedjaapps.kerneltuner.ui;
 
 import android.app.ActionBar;
-import android.app.AlertDialog;
 import android.app.Fragment;
 import android.content.BroadcastReceiver;
 import android.content.Context;
-import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.IntentFilter;
-import android.content.SharedPreferences;
 import android.content.pm.PackageInfo;
 import android.content.pm.PackageManager;
 import android.graphics.Color;
-import android.net.Uri;
-import android.os.AsyncTask;
 import android.os.BatteryManager;
 import android.os.Bundle;
 import android.os.Handler;
 import android.os.HandlerThread;
 import android.util.Log;
-import android.view.LayoutInflater;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.Button;
-import android.widget.Button;
-import android.widget.CheckBox;
-import android.widget.ImageView;
 import android.widget.LinearLayout;
-import android.widget.ProgressBar;
-import android.widget.RelativeLayout;
 import android.widget.TextView;
 import android.widget.Toast;
 
 import com.crashlytics.android.Crashlytics;
-import com.stericson.RootTools.RootTools;
-import com.stericson.RootTools.execution.CommandCapture;
 
 import java.io.File;
 import java.io.IOException;
@@ -47,12 +34,8 @@ import rs.pedjaapps.kerneltuner.constants.TempUnit;
 import rs.pedjaapps.kerneltuner.fragments.CpuFragment;
 import rs.pedjaapps.kerneltuner.fragments.MainFragment;
 import rs.pedjaapps.kerneltuner.helpers.IOHelper;
-import rs.pedjaapps.kerneltuner.model.FrequencyCollection;
-import rs.pedjaapps.kerneltuner.services.NotificationService;
 import rs.pedjaapps.kerneltuner.utility.PrefsManager;
-import rs.pedjaapps.kerneltuner.utility.Tools;
 import rs.pedjaapps.kerneltuner.root.*;
-import rs.pedjaapps.kerneltuner.root.RootUtils.*;
 
 /**
  * Created by pedja on 17.4.14..

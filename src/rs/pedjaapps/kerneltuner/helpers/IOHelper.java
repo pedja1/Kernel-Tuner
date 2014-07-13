@@ -123,13 +123,9 @@ public class IOHelper
 
     public static boolean gpuExists()
     {
-        boolean i = false;
-        if (new File(Constants.GPU_3D).exists())
-        {
-            i = true;
-        }
-        return i;
-
+        File file1 = new File(Constants.GPU_3D);
+        File file2 = new File(Constants.GPU_3D_2);
+        return file1.exists() || file2.exists();
     }
 
     public static boolean cdExists()
@@ -858,11 +854,10 @@ public class IOHelper
         }
     }
 
-    public static final List<String> availableGovs()
+    public static List<String> availableGovs()
     {
         File govs = new File("/sys/devices/system/cpu/cpufreq/");
-        List<String> availableGovs = new ArrayList<String>();
-
+        List<String> availableGovs = new ArrayList<>();
 
         if (govs.exists())
         {
@@ -972,19 +967,32 @@ public class IOHelper
         }
     }
 
-    public static final String gpu3d()
+    public static int gpu3d()
     {
         try
         {
-            return FileUtils.readFileToString(new File(Constants.GPU_3D)).trim();
+            File file1 = new File(Constants.GPU_3D);
+            File file2 = new File(Constants.GPU_3D_2);
+            if(file1.exists())
+            {
+                return Tools.parseInt(FileUtils.readFileToString(file1).trim(), Constants.CPU_OFFLINE_CODE);
+            }
+            else if(file2.exists())
+            {
+                return Tools.parseInt(FileUtils.readFileToString(file2).trim(), Constants.GPU_OFFLINE_CODE);
+            }
+            else
+            {
+                return Constants.GPU_NOT_AVAILABLE;
+            }
         }
         catch (Exception e)
         {
-            return "";
+            return Constants.GPU_NOT_AVAILABLE;
         }
     }
 
-    public static final String gpu2d()
+    public static String gpu2d()
     {
         try
         {
@@ -995,6 +1003,45 @@ public class IOHelper
             return "";
         }
     }
+
+    public static String getGpu3dFrequenciesAsString()
+    {
+        List<Frequency> frequencies = gpu3dFrequenciesAsList();
+        StringBuilder builder = new StringBuilder();
+        int i = 0;
+        for(Frequency fr : frequencies)
+        {
+            if(i != 0)builder.append(", ");
+            builder.append(fr.getFrequencyString());
+            i++;
+        }
+        return builder.toString();
+    }
+
+    public static List<Frequency> gpu3dFrequenciesAsList()
+    {
+        try
+        {
+            List<Frequency> frequencies = new ArrayList<>();
+            File file1 = new File(Constants.GPU_3D_AVAILABLE_FREQUENCIES);
+            String[] frqs = FileUtils.readFileToString(file1).trim().split(" ");
+            for(String freq : frqs)
+            {
+                int frInt = Tools.parseInt(freq, -1);
+                if(frInt == -1)continue;
+                Frequency frequency = new Frequency();
+                frequency.setFrequencyValue(frInt);
+                frequency.setFrequencyString(frInt / 1000000 + "MHz");
+                frequencies.add(frequency);
+            }
+            return frequencies;
+        }
+        catch (Exception e)
+        {
+            return new ArrayList<>();
+        }
+    }
+
 
     public static final int fcharge()
     {
@@ -1008,15 +1055,15 @@ public class IOHelper
         }
     }
 
-    public static final int vsync()
+    public static int vsync()
     {
         try
         {
-            return Integer.parseInt(FileUtils.readFileToString(new File(Constants.VSYNC)).trim());
+            return Tools.parseInt(FileUtils.readFileToString(new File(Constants.VSYNC)).trim(), -1);
         }
         catch (Exception e)
         {
-            return 0;
+            return -1;
         }
     }
 
@@ -1151,7 +1198,20 @@ public class IOHelper
     {
         try
         {
-            return Double.parseDouble(FileUtils.readFileToString(new File(Constants.BATTERY_TEMP)).trim());
+            File battTempFile1 = new File(Constants.BATTERY_TEMP);
+            File battTempFile2 = new File(Constants.BATTERY_TEMP2);
+            if(battTempFile1.exists())
+            {
+                return Double.parseDouble(FileUtils.readFileToString(battTempFile1).trim());
+            }
+            else if(battTempFile2.exists())
+            {
+                return Double.parseDouble(FileUtils.readFileToString(battTempFile2).trim()) / 10;
+            }
+            else
+            {
+                return 0.0;
+            }
         }
         catch (Exception e)
         {
@@ -1163,11 +1223,25 @@ public class IOHelper
     {
         try
         {
-            return FileUtils.readFileToString(new File(Constants.BATTERY_DRAIN)).trim();
+            File file1 = new File(Constants.BATTERY_DRAIN);
+            File file2 = new File(Constants.BATTERY_DRAIN2);
+            if(file1.exists())
+            {
+                return FileUtils.readFileToString(file1).trim() + "mA";
+            }
+            else if(file2.exists())
+            {
+                return Tools.parseInt(FileUtils.readFileToString(file2).trim(), 1000) / 1000 + "mA";
+            }
+            else
+            {
+                return "n/a";
+            }
+
         }
         catch (Exception e)
         {
-            return "";
+            return "n/a";
         }
     }
 
@@ -1175,7 +1249,20 @@ public class IOHelper
     {
         try
         {
-            return Integer.parseInt(FileUtils.readFileToString(new File(Constants.BATTERY_VOLTAGE)).trim());
+            File file1 = new File(Constants.BATTERY_VOLTAGE);
+            File file2 = new File(Constants.BATTERY_VOLTAGE2);
+            if(file1.exists())
+            {
+                return Integer.parseInt(FileUtils.readFileToString(file1).trim());
+            }
+            else if(file2.exists())
+            {
+                return Integer.parseInt(FileUtils.readFileToString(file2).trim()) / 1000;
+            }
+            else
+            {
+                return 0;
+            }
         }
         catch (Exception e)
         {
@@ -1191,7 +1278,7 @@ public class IOHelper
         }
         catch (Exception e)
         {
-            return "";
+            return "n/a";
         }
     }
 
@@ -1203,7 +1290,7 @@ public class IOHelper
         }
         catch (Exception e)
         {
-            return "";
+            return "n/a";
         }
     }
 
@@ -1211,11 +1298,24 @@ public class IOHelper
     {
         try
         {
-            return FileUtils.readFileToString(new File(Constants.BATTERY_CAPACITY)).trim();
+            File file1 = new File(Constants.BATTERY_CAPACITY);
+            File file2 = new File(Constants.BATTERY_CAPACITY2);
+            if(file1.exists())
+            {
+                return FileUtils.readFileToString(file1).trim() + "mAh";
+            }
+            else if(file2.exists())
+            {
+                return FileUtils.readFileToString(file2).trim() + "mAh";
+            }
+            else
+            {
+                return "n/a";
+            }
         }
         catch (Exception e)
         {
-            return "";
+            return "n/a";
         }
     }
 
