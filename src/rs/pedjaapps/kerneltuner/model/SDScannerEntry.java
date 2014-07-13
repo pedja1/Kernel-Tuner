@@ -21,13 +21,17 @@ package rs.pedjaapps.kerneltuner.model;
 public final class SDScannerEntry
 {
 
-	private final String fileName;
-	private final int size;
-	private final String HRsize;
-	private final String path;
-	private final boolean folder;
-	
-	public SDScannerEntry(String fileName, int size, String hRsize,
+	private String fileName;
+	private long size;
+	private String HRsize;
+	private String path;
+	private boolean folder;
+
+    public SDScannerEntry()
+    {
+    }
+
+    public SDScannerEntry(String fileName, int size, String hRsize,
 			String path, boolean folder) {
 		super();
 		this.fileName = fileName;
@@ -41,7 +45,7 @@ public final class SDScannerEntry
 		return fileName;
 	}
 
-	public int getSize() {
+	public long getSize() {
 		return size;
 	}
 
@@ -58,6 +62,28 @@ public final class SDScannerEntry
 	}
 
 
-	
-	
+    public void setFileName(String fileName)
+    {
+        this.fileName = fileName;
+    }
+
+    public void setSize(long size)
+    {
+        this.size = size;
+    }
+
+    public void setHRsize(String HRsize)
+    {
+        this.HRsize = HRsize;
+    }
+
+    public void setPath(String path)
+    {
+        this.path = path;
+    }
+
+    public void setFolder(boolean folder)
+    {
+        this.folder = folder;
+    }
 }

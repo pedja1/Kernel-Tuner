@@ -720,5 +720,6 @@
     <string name="logcat_jumping_to_top">Jumping to top of log ...</string>
     <string name="logcat_jumping_to_bottom">Jumping to bottom of log ...</string>
     <string name="paused">paused</string>
+    <string name="scanning_sd_card">Scanning SD Card</string>
 
 </resources>

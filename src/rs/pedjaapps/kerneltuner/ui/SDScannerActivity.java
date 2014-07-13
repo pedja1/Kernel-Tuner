@@ -19,265 +19,226 @@
 package rs.pedjaapps.kerneltuner.ui;
 
 
-
 import android.app.*;
 import android.content.*;
 import android.content.DialogInterface.*;
 import android.graphics.*;
 import android.os.*;
-import android.preference.*;
-import android.util.*;
 import android.view.*;
-import android.view.ViewGroup.*;
 import android.widget.*;
-import com.google.ads.*;
+
+import org.apache.commons.io.FileUtils;
+
 import java.io.*;
 import java.util.*;
-import org.achartengine.*;
-import org.achartengine.model.*;
-import org.achartengine.renderer.*;
+
 import rs.pedjaapps.kerneltuner.*;
 import rs.pedjaapps.kerneltuner.model.*;
-import java.lang.Process;
+import rs.pedjaapps.kerneltuner.helpers.SDAdapter;
+
 import rs.pedjaapps.kerneltuner.utility.Tools;
 
 public class SDScannerActivity extends AbsActivity
 {
+    private ProgressDialog pd;
+    SDAdapter sDAdapter;
+    HashMap<String, List<SDScannerEntry>> backstack = new HashMap<>();
+    public static final String DEFAULT_PATH = Environment.getExternalStorageDirectory().getAbsolutePath();
+    String path = DEFAULT_PATH;
 
-	
-	private ProgressDialog pd;
-	private List<SDScannerEntry> entries = new ArrayList<SDScannerEntry>();
-	public static final String TYPE = "type";
+    @Override
+    protected void onRestoreInstanceState(Bundle savedState)
+    {
+        super.onRestoreInstanceState(savedState);
+    }
 
-	  private static int[] COLORS = new int[] {Color.parseColor("#FF0000"), 
-		  Color.parseColor("#F88017"), 
-		  Color.parseColor("#FBB117"), 
-		  Color.parseColor("#FDD017"),
-		  Color.parseColor("#FFFF00"),
-		  Color.parseColor("#FFFF00"),
-		  Color.parseColor("#5FFB17"),
-		  Color.GREEN,
-		  Color.parseColor("#347C17"),
-		  Color.parseColor("#387C44"),
-		  Color.parseColor("#348781"),
-		  Color.parseColor("#6698FF"),
-		  Color.BLUE,
-		  Color.parseColor("#6C2DC7"),
-		  Color.parseColor("#7D1B7E"),
-		  Color.WHITE,
-		  Color.CYAN,
-		  Color.MAGENTA,
-		  Color.GRAY};
-	  int labelColor = Color.BLACK;
+    @Override
+    protected void onSaveInstanceState(Bundle outState)
+    {
+        super.onSaveInstanceState(outState);
+    }
 
-	  private CategorySeries mSeries = new CategorySeries("");
+    @Override
+    public void onCreate(Bundle savedInstanceState)
+    {
+        super.onCreate(savedInstanceState);
 
-	  private DefaultRenderer mRenderer = new DefaultRenderer();
+        setContentView(R.layout.sd_analyzer_list);
+        ActionBar actionBar = getActionBar();
+        actionBar.setDisplayHomeAsUpEnabled(true);
 
-	  private String mDateFormat;
+        ListView sDListView = (ListView) findViewById(R.id.list);
+        sDAdapter = new SDAdapter(this, R.layout.sd_list_row);
+        sDListView.setAdapter(sDAdapter);
+        sDListView.setOnItemClickListener(new AdapterView.OnItemClickListener()
+        {
+            @Override
+            public void onItemClick(AdapterView<?> arg0, View arg1, final int pos,long arg3)
+            {
+                final SDScannerEntry entry = sDAdapter.getItem(pos);
+                AlertDialog.Builder builder = new AlertDialog.Builder(arg0.getContext());
+                builder.setTitle(entry.getFileName());
+                builder.setMessage(getResources().getString(R.string.sd_alert_location) + " " + entry.getPath() +
+                        "\n" + getResources().getString(R.string.sd_alert_size) + " " + entry.getHRsize());
 
-	  private GraphicalView mChartView;
+                builder.setIcon(R.drawable.ic_menu_cc);
 
-	  
-	  LinearLayout chart;
-	  String depth;
-	  String numberOfItems;
-	  String scannType;
-	  String arch;
-	  
-	  @Override
-	  protected void onRestoreInstanceState(Bundle savedState) {
-	    super.onRestoreInstanceState(savedState);
-	    mSeries = (CategorySeries) savedState.getSerializable("current_series");
-	    mRenderer = (DefaultRenderer) savedState.getSerializable("current_renderer");
-	    mDateFormat = savedState.getString("date_format");
-	  }
+                if (new File(entry.getPath()).isDirectory())
+                {
+                    builder.setPositiveButton(getResources().getString(R.string.sd_alert_scan), new DialogInterface.OnClickListener()
+                    {
+                        @Override
+                        public void onClick(DialogInterface dialog, int which)
+                        {
+                            path = entry.getPath();
+                            new ScanSDCard().execute(path);
+                        }
+                    });
+                }
+                builder.setNegativeButton(getResources().getString(R.string.delete), new DialogInterface.OnClickListener()
+                {
+                    @Override
+                    public void onClick(DialogInterface dialog, int which)
+                    {
+                        new File(entry.getPath()).delete();
+                        sDAdapter.remove(sDAdapter.getItem(pos));
+                        sDAdapter.notifyDataSetChanged();
+                    }
+                });
 
-	  @Override
-	  protected void onSaveInstanceState(Bundle outState) {
-	    super.onSaveInstanceState(outState);
-	    outState.putSerializable("current_series", mSeries);
-	    outState.putSerializable("current_renderer", mRenderer);
-	    outState.putString("date_format", mDateFormat);
-	  }
-	@Override
-	public void onCreate(Bundle savedInstanceState)
-	{
-		SharedPreferences preferences = PreferenceManager.getDefaultSharedPreferences(this);
-		super.onCreate(savedInstanceState);
+                AlertDialog alert = builder.create();
+                alert.show();
+            }
 
-		setContentView(R.layout.sd_scanner);
-		ActionBar actionBar = getActionBar();
-		actionBar.setDisplayHomeAsUpEnabled(true);
-		mRenderer.setApplyBackgroundColor(true);
-	    mRenderer.setBackgroundColor(Color.argb(100, 50, 50, 50));
-	    mRenderer.setChartTitleTextSize(20);
-	    mRenderer.setLabelsTextSize(15);
-	    mRenderer.setLegendTextSize(15);
-	    mRenderer.setMargins(new int[] { 20, 30, 15, 0 });
-	    mRenderer.setZoomButtonsVisible(false);
-	    mRenderer.setStartAngle(90);
-		mRenderer.setAntialiasing(true);
-		mRenderer.setLabelsColor(labelColor);
-		mRenderer.setApplyBackgroundColor(false);
-	
-		Intent intent = getIntent();
-		String path = intent.getStringExtra("path");
-		depth = intent.getStringExtra("depth");
-		numberOfItems = intent.getStringExtra("items");
-		scannType = intent.getStringExtra("scannType");
-		arch = Tools.getAbi();
-		new ScannSDCard().execute(new String[] {path,
-				depth,
-				numberOfItems,
-				scannType});
-		
-	}
+        });
+        new ScanSDCard().execute(path);
+    }
 
-	@Override
-	  protected void onResume() {
-	    super.onResume();
-	    if (mChartView == null) {
-	      chart = (LinearLayout) findViewById(R.id.chart);
-	      
-	      mChartView = ChartFactory.getPieChartView(this, mSeries, mRenderer);
-	      mRenderer.setClickEnabled(true);
-	      mRenderer.setSelectableBuffer(10);
-	      mChartView.setOnClickListener(new View.OnClickListener() {
-	          @Override
-	          public void onClick(View v) {
-	        	  /*SeriesSelection seriesSelection = mChartView.getCurrentSeriesAndPoint();
-	              if (seriesSelection == null) {
-	                Toast.makeText(SDScannerActivity.this, "No chart element selected", Toast.LENGTH_SHORT)
-	                    .show();
-	              } else {
-	               
-	            	  new ScannSDCard().execute(new String[] {entries.get(seriesSelection.getPointIndex()).getPath(),
-	          				depth,
-	          				numberOfItems,
-	          				scannType});
-	              }*/
+    private class ScanSDCard extends AsyncTask<String, String, List<SDScannerEntry>>
+    {
+        int max;
+        boolean cancel = false;
+        @Override
+        protected List<SDScannerEntry> doInBackground(String... args)
+        {
+            List<SDScannerEntry> fms = new ArrayList<>();
+            File[] files = new File(args[0]).listFiles();
+            max = files.length;
+            publishProgress("set_max");
+            int i = 0;
+            for(File file : files)
+            {
+                if(cancel)return null;
+                publishProgress("set_progress", file.getName(), i + "");
+                i++;
+                if(file.isFile() && file.length() == 0)continue;
+                SDScannerEntry entry = new SDScannerEntry();
+                long size = FileUtils.sizeOf(file);
+                entry.setFileName(file.getName());
+                entry.setFolder(!file.isFile());
+                entry.setHRsize(Tools.byteToHumanReadableSize(size));
+                entry.setPath(file.getAbsolutePath());
+                entry.setSize(size);
+                fms.add(entry);
+            }
+            Collections.sort(fms, new MyComparator());
+            return fms;
+        }
 
-	          }
-	        });
-	      chart.addView(mChartView, new LayoutParams(LayoutParams.MATCH_PARENT,
-	          LayoutParams.MATCH_PARENT));
-	    } else {
-	      mChartView.repaint();
-	    }
-	  }
+        @Override
+        protected void onProgressUpdate(String... values)
+        {
+            if("set_max".equals(values[0]))
+            {
+                pd.setMax(max);
+            }
+            else if("set_progress".equals(values[0]))
+            {
+                pd.setMessage(values[1]);
+                pd.setProgress(Integer.parseInt(values[2]));
+            }
+            super.onProgressUpdate();
+        }
 
-	private class ScannSDCard extends AsyncTask<String, String, Void> {
-		String line;
-		int numberOfItems;
-		
-		
-		
-		
-		@Override
-		protected Void doInBackground(String... args) {
-			entries = new ArrayList<SDScannerEntry>();
-			Process proc = null;
-			try{
-			numberOfItems = Integer.parseInt(args[2]);
-			}
-			catch(NumberFormatException e){
-				numberOfItems = 20;
-			}
-			
-			try
-			{
-				proc = Runtime.getRuntime().exec(getFilesDir().getPath()+"/du-"+arch+" -d "+args[1] + args[3] +args[0]);
-				InputStream inputStream = proc.getInputStream();
-				InputStreamReader inputStreamReader = new InputStreamReader(inputStream);
-				BufferedReader bufferedReader = new BufferedReader(inputStreamReader);
-				while ( ( line = bufferedReader.readLine() ) != null )
-				{
-					entries.add(new SDScannerEntry(line.substring(line.lastIndexOf("/")+1, line.length()),Integer.parseInt(line.substring(0, line.indexOf("/")).trim()), Tools.kByteToHumanReadableSize(Integer.parseInt(line.substring(0, line.indexOf("/")).trim())), line.substring(line.indexOf("/"), line.length()).trim(), false) );
-					publishProgress(line.substring(line.indexOf("/"), line.length()).trim());
-				}
-				proc.waitFor();
-				proc.destroy();
-			}
-			catch (Exception e)
-			{
-				Log.e("du","error "+e.getMessage());
-			}
-			return null;
-		}
-		
-		@Override
-		protected void onProgressUpdate(String... values)
-		{
-			pd.setMessage(getResources().getString(R.string.sd_scanning)+values[0]);
-			super.onProgressUpdate();
-		}
+        @Override
+        protected void onPostExecute(List<SDScannerEntry> list)
+        {
+            pd.dismiss();
+            sDAdapter.clear();
+            sDAdapter.addAll(list);
+            sDAdapter.notifyDataSetChanged();
+            backstack.put(path, list);
+        }
 
-		@Override
-		protected void onPostExecute(Void res) {
-			pd.dismiss();
-			
-			Collections.sort(entries,new MyComparator());
-			if(entries.isEmpty()==false){
-			entries.remove(entries.get(0));
-			}
-			for(int i = entries.size(); i>numberOfItems; i--){
-				entries.remove(entries.size()-1);
-			}
-			mSeries.clear();
-				for(SDScannerEntry e : entries){
-					mSeries.add(e.getFileName()   + " " +e.getHRsize(), e.getSize());
-			        SimpleSeriesRenderer renderer = new SimpleSeriesRenderer();
-			        renderer.setColor(COLORS[(mSeries.getItemCount() - 1) % COLORS.length]);
-			        mRenderer.addSeriesRenderer(renderer);
-			        if (mChartView != null) {
-			          mChartView.repaint();
-			        }
-				}
-			
-			
-			
-		}
-		@Override
-		protected void onPreExecute(){
-		
-			pd = new ProgressDialog(SDScannerActivity.this);
-			pd.setIndeterminate(true);
-			pd.setTitle(getResources().getString(R.string.sd_please_wait));
-			pd.setIcon(R.drawable.info);
-		pd.setOnCancelListener(new OnCancelListener(){
+        @Override
+        protected void onPreExecute()
+        {
+            pd = new ProgressDialog(SDScannerActivity.this);
+            pd.setMessage(getString(R.string.scanning_sd_card));
+            pd.setIndeterminate(false);
+            pd.setProgressStyle(ProgressDialog.STYLE_HORIZONTAL);
+            pd.setOnCancelListener(new OnCancelListener()
+            {
+                @Override
+                public void onCancel(DialogInterface arg0)
+                {
+                    ScanSDCard.this.cancel(true);
+                    finish();
+                    cancel = true;
+                }
+            });
+            pd.show();
+        }
+    }
 
-			@Override
-			public void onCancel(DialogInterface arg0) {
-				new ScannSDCard(). cancel(true);
-			}
-			
-		});
-			pd.show();
-		}
+    class MyComparator implements Comparator<SDScannerEntry>
+    {
+        public int compare(SDScannerEntry ob1, SDScannerEntry ob2)
+        {
+            if(ob2.getSize() < ob1.getSize()) return -1;
+            else if(ob2.getSize() > ob1.getSize()) return 1;
+            return 0;
+        }
+    }
 
-	}
-	
-	class MyComparator implements Comparator<SDScannerEntry>{
-	  public int compare(SDScannerEntry ob1, SDScannerEntry ob2){
-	   return ob2.getSize() - ob1.getSize() ;
-	  }
-	}
-	
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item)
+    {
+        switch (item.getItemId())
+        {
+            case android.R.id.home:
+                // app icon in action bar clicked; go home
+                Intent intent = new Intent(this, MainActivity.class);
+                intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
+                startActivity(intent);
+                return true;
 
-	@Override
-	public boolean onOptionsItemSelected(MenuItem item) {
-	    switch (item.getItemId()) {
-	        case android.R.id.home:
-	            // app icon in action bar clicked; go home
-	            Intent intent = new Intent(this, MainActivity.class);
-	            intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
-	            startActivity(intent);
-	            return true;
-	        
-	            
-	    }
-	    return super.onOptionsItemSelected(item);
-	}
-	
+
+        }
+        return super.onOptionsItemSelected(item);
+    }
+
+    @Override
+    public void onBackPressed()
+    {
+        if(DEFAULT_PATH.equals(path))
+        {
+            super.onBackPressed();
+        }
+        else
+        {
+            String tmpPath = path.substring(0, path.lastIndexOf("/"));
+            if(backstack.containsKey(tmpPath))
+            {
+                sDAdapter.clear();
+                sDAdapter.addAll(backstack.get(tmpPath));
+                sDAdapter.notifyDataSetChanged();
+                path = tmpPath;
+            }
+            else
+            {
+                super.onBackPressed();
+            }
+        }
+    }
 }

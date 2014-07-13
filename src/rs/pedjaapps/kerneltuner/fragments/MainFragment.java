@@ -155,7 +155,7 @@ public class MainFragment extends Fragment
 
         Button sd = (Button) view.findViewById(R.id.btn_sd);
         sd.setOnClickListener(new StartActivityListener(
-                SDScannerConfigActivity.class));
+                SDScannerActivity.class));
         sd.setOnLongClickListener(new InfoListener(R.drawable.sd,
                 getResources().getString(R.string.info_sd_title),
                 getResources().getString(R.string.info_sd_text), "", false));

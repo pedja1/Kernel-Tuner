@@ -25,7 +25,7 @@ import android.os.Bundle;
 import android.os.Parcelable;
 import android.widget.Toast;
 import rs.pedjaapps.kerneltuner.R;
-import rs.pedjaapps.kerneltuner.ui.SDScannerConfigActivity;
+import rs.pedjaapps.kerneltuner.ui.SDScannerActivity;
 
 public class SDShortcut extends Activity
 {

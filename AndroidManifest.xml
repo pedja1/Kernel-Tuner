@@ -381,21 +381,7 @@
             </intent-filter>
         </activity>
         <activity
-            android:name="rs.pedjaapps.kerneltuner.ui.SDScannerActivity"
-            android:configChanges="keyboardHidden|orientation"
-            android:icon="@drawable/sd"
-            android:label="@string/title_sd"
-            android:screenOrientation="portrait">
-        </activity>
-        <activity
-            android:name="rs.pedjaapps.kerneltuner.ui.SDScannerActivityList"
-            android:configChanges="keyboardHidden|orientation"
-            android:icon="@drawable/sd"
-            android:label="@string/title_sd"
-            android:screenOrientation="portrait">
-        </activity>
-        <activity
-            android:name="rs.pedjaapps.kerneltuner.ui.SDScannerConfigActivity"
+            android:name=".ui.SDScannerActivity"
             android:configChanges="keyboardHidden|orientation"
             android:icon="@drawable/sd"
             android:label="@string/title_sd"

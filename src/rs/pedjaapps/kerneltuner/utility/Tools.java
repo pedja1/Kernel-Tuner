@@ -40,9 +40,8 @@ public class Tools
 
     public static String byteToHumanReadableSize(long size)
 	{
-		String hrSize = "";
-		long b = size;
-		double k = size / 1024.0;
+		String hrSize = "0.00B";
+        double k = size / 1024.0;
 		double m = size / 1048576.0;
 		double g = size / 1073741824.0;
 		double t = size / 1099511627776.0;
@@ -65,9 +64,9 @@ public class Tools
 		{
 			hrSize = dec.format(k).concat("KB");
 		}
-		else if (b > 1)
+		else if (size > 1)
 		{
-			hrSize = dec.format(b).concat("B");
+			hrSize = dec.format(size).concat("B");
 		}
 		return hrSize;
 

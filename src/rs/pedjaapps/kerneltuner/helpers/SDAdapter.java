@@ -22,94 +22,93 @@ package rs.pedjaapps.kerneltuner.helpers;
 import android.content.*;
 import android.view.*;
 import android.widget.*;
+
 import rs.pedjaapps.kerneltuner.*;
 import rs.pedjaapps.kerneltuner.model.*;
 
 public final class SDAdapter extends ArrayAdapter<SDScannerEntry>
 {
 
-	private final int sdItemLayoutResource;
+    private final int sdItemLayoutResource;
 
-	public SDAdapter(final Context context, final int sdItemLayoutResource)
-	{
-		super(context, 0);
-		this.sdItemLayoutResource = sdItemLayoutResource;
-	}
+    public SDAdapter(final Context context, final int sdItemLayoutResource)
+    {
+        super(context, 0);
+        this.sdItemLayoutResource = sdItemLayoutResource;
+    }
 
-	@Override
-	public View getView(final int position, final View convertView, final ViewGroup parent)
-	{
+    @Override
+    public View getView(final int position, final View convertView, final ViewGroup parent)
+    {
 
-		final View view = getWorkingView(convertView);
-		final ViewHolder viewHolder = getViewHolder(view);
-		final SDScannerEntry entry = getItem(position);
+        final View view = getWorkingView(convertView);
+        final ViewHolder viewHolder = getViewHolder(view);
+        final SDScannerEntry entry = getItem(position);
 
-		viewHolder.nameView.setText(entry.getFileName());
-		viewHolder.sizeView.setText(entry.getHRsize());
-		if(entry.isFolder()==false){
-			viewHolder.iconView.setImageResource(R.drawable.file);
-		}
-		else{
-			viewHolder.iconView.setImageResource(R.drawable.folder);
-		}
-		
+        viewHolder.nameView.setText(entry.getFileName());
+        viewHolder.sizeView.setText(entry.getHRsize());
+        if (!entry.isFolder())
+        {
+            viewHolder.iconView.setImageResource(R.drawable.file);
+        }
+        else
+        {
+            viewHolder.iconView.setImageResource(R.drawable.folder);
+        }
 
-		return view;
-	}
+        return view;
+    }
 
-	private View getWorkingView(final View convertView)
-	{
-		View workingView = null;
+    private View getWorkingView(final View convertView)
+    {
+        View workingView;
 
-		if (null == convertView)
-		{
-			final Context context = getContext();
-			final LayoutInflater inflater = (LayoutInflater)context.getSystemService
-			(Context.LAYOUT_INFLATER_SERVICE);
+        if (null == convertView)
+        {
+            final Context context = getContext();
+            final LayoutInflater inflater = (LayoutInflater) context.getSystemService
+                    (Context.LAYOUT_INFLATER_SERVICE);
 
-			workingView = inflater.inflate(sdItemLayoutResource, null);
-		}
-		else
-		{
-			workingView = convertView;
-		}
+            workingView = inflater.inflate(sdItemLayoutResource, null);
+        }
+        else
+        {
+            workingView = convertView;
+        }
 
-		return workingView;
-	}
+        return workingView;
+    }
 
-	private ViewHolder getViewHolder(final View workingView)
-	{
-		final Object tag = workingView.getTag();
-		ViewHolder viewHolder = null;
+    private ViewHolder getViewHolder(final View workingView)
+    {
+        final Object tag = workingView.getTag();
+        ViewHolder viewHolder;
 
 
-		if (null == tag || !(tag instanceof ViewHolder))
-		{
-			viewHolder = new ViewHolder();
+        if (null == tag || !(tag instanceof ViewHolder))
+        {
+            viewHolder = new ViewHolder();
 
-			viewHolder.nameView = (TextView) workingView.findViewById(R.id.name);
-			viewHolder.sizeView = (TextView)workingView.findViewById(R.id.size);
-			viewHolder.iconView = (ImageView)workingView.findViewById(R.id.icon);
-			
+            viewHolder.nameView = (TextView) workingView.findViewById(R.id.name);
+            viewHolder.sizeView = (TextView) workingView.findViewById(R.id.size);
+            viewHolder.iconView = (ImageView) workingView.findViewById(R.id.icon);
 
-			workingView.setTag(viewHolder);
+            workingView.setTag(viewHolder);
+        }
+        else
+        {
+            viewHolder = (ViewHolder) tag;
+        }
 
-		}
-		else
-		{
-			viewHolder = (ViewHolder) tag;
-		}
+        return viewHolder;
+    }
 
-		return viewHolder;
-	}
-
-	private class ViewHolder
-	{
-		public TextView nameView;
-		public TextView sizeView;
-		public ImageView iconView;
-
-	}
+    private class ViewHolder
+    {
+        public TextView nameView;
+        public TextView sizeView;
+        public ImageView iconView;
+    }
 
 
 }
