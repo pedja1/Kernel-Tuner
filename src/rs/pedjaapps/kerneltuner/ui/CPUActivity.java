@@ -44,10 +44,12 @@ public class CPUActivity extends AbsActivity implements RootUtils.CommandCallbac
     CPUAdapter mListAdapter;
     ProgressBar pbLoading;
     boolean showAllCores = false;
+	Handler uiHandler;
 
     @Override
     public void onCreate(Bundle savedInstanceState)
     {
+		uiHandler = new Handler();
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_cpu);
 

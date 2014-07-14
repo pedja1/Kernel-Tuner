@@ -1,4 +1,5 @@
 package rs.pedjaapps.kerneltuner.root;
+import android.os.*;
 import com.stericson.RootTools.*;
 import com.stericson.RootTools.exceptions.*;
 import com.stericson.RootTools.execution.*;
@@ -12,10 +13,12 @@ public class RootUtils
 {
 	private StringBuilder output;
 	private boolean commandExecuted = false;
+	private Handler handler;
 	
 	public RootUtils()
 	{
 		reset();
+		handler = new Handler();
 	}
 
 	public void reset()
@@ -71,18 +74,39 @@ public class RootUtils
 				}
 				catch (TimeoutException e)
 				{
-					if(callback != null)callback.onComplete(Status.timeout, output.toString());
-					reset();
+					handler.post(new Runnable(){
+
+							@Override
+							public void run()
+							{
+								if(callback != null)callback.onComplete(Status.timeout, output.toString());
+								reset();
+							}
+						});
 				}
 				catch (IOException e)
 				{
-					if(callback != null)callback.onComplete(Status.io_exception, output.toString());
-					reset();
+					handler.post(new Runnable(){
+
+							@Override
+							public void run()
+							{
+								if(callback != null)callback.onComplete(Status.io_exception, output.toString());
+								reset();
+							}
+						});
 				}
 				catch (RootDeniedException e)
 				{
-					if(callback != null)callback.onComplete(Status.no_root, output.toString());
-					reset();
+					handler.post(new Runnable(){
+
+							@Override
+							public void run()
+							{
+								if(callback != null)callback.onComplete(Status.no_root, output.toString());
+								reset();
+							}
+						});
 				}
 			}
 		};
