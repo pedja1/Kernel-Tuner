@@ -4,7 +4,8 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:layout_alignParentLeft="true"
-    android:layout_alignParentTop="true" >
+    android:layout_alignParentTop="true" 
+	android:padding="5dp">
 
 
     <LinearLayout
@@ -17,18 +18,10 @@
 
         <TextView
             android:id="@+id/textView1"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="@string/orientation"
-            android:textAppearance="?android:attr/textAppearanceMedium" />
-
-        <ImageView
-            
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_marginBottom="8dp"
-            android:scaleType="fitXY"
-            android:src="@drawable/divider_strong_holo" android:contentDescription="@string/divider"/>
+            android:text="@string/orientation"
+			style="?android:attr/listSeparatorTextViewStyle" />
 
         <LinearLayout
             android:id="@+id/oriLayout"
@@ -106,20 +99,12 @@
         </LinearLayout>
 
         <TextView
-            android:layout_width="wrap_content"
+            android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:text="@string/acceleration"
             android:layout_marginTop="8dp"
-            android:textAppearance="?android:attr/textAppearanceMedium" />
+			style="?android:attr/listSeparatorTextViewStyle"/>
 
-        <ImageView
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginBottom="8dp"
-            android:scaleType="fitXY"
-            android:src="@drawable/divider_strong_holo"
-            android:contentDescription="@string/divider" />
-        
         <LinearLayout
             android:id="@+id/accLayout"
             android:layout_width="fill_parent"
@@ -196,20 +181,12 @@
         </LinearLayout>
 
         <TextView
-            android:layout_width="wrap_content"
+            android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:text="@string/magnetic"
             android:layout_marginTop="8dp"
-            android:textAppearance="?android:attr/textAppearanceMedium" />
-
-        <ImageView
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginBottom="8dp"
-            android:scaleType="fitXY"
-            android:src="@drawable/divider_strong_holo"
-            android:contentDescription="@string/divider" />
-        
+			style="?android:attr/listSeparatorTextViewStyle"/>
+		
         <LinearLayout
             android:id="@+id/magLayout"
             android:layout_width="fill_parent"
@@ -286,20 +263,13 @@
         </LinearLayout>
 
         <TextView
-            android:layout_width="wrap_content"
+            android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:text="@string/light"
             android:layout_marginTop="8dp"
-            android:textAppearance="?android:attr/textAppearanceMedium" />
 
-        <ImageView
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginBottom="8dp"
-            android:scaleType="fitXY"
-            android:src="@drawable/divider_strong_holo"
-            android:contentDescription="@string/divider" />
-        
+			style="?android:attr/listSeparatorTextViewStyle" />
+
         <LinearLayout
             android:id="@+id/ligLayout"
             android:layout_width="fill_parent"
@@ -340,20 +310,12 @@
         </LinearLayout>
 
         <TextView
-            android:layout_width="wrap_content"
+            android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:text="@string/proximity"
             android:layout_marginTop="8dp"
-            android:textAppearance="?android:attr/textAppearanceMedium" />
+			style="?android:attr/listSeparatorTextViewStyle" />
 
-        <ImageView
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginBottom="8dp"
-            android:scaleType="fitXY"
-            android:src="@drawable/divider_strong_holo"
-            android:contentDescription="@string/divider" />
-        
         <LinearLayout
             android:id="@+id/proxLayout"
             android:layout_width="fill_parent"
@@ -394,20 +356,12 @@
         </LinearLayout>
 
         <TextView
-            android:layout_width="wrap_content"
+            android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:text="@string/pressure"
             android:layout_marginTop="8dp"
-            android:textAppearance="?android:attr/textAppearanceMedium" />
+			style="?android:attr/listSeparatorTextViewStyle"/>
 
-        <ImageView
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginBottom="8dp"
-            android:scaleType="fitXY"
-            android:src="@drawable/divider_strong_holo"
-            android:contentDescription="@string/divider" />
-        
         <LinearLayout
             android:id="@+id/pressLayout"
             android:layout_width="fill_parent"
@@ -448,20 +402,12 @@
         </LinearLayout>
 
         <TextView
-            android:layout_width="wrap_content"
+            android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:text="@string/temperature"
             android:layout_marginTop="8dp"
-            android:textAppearance="?android:attr/textAppearanceMedium" />
+			style="?android:attr/listSeparatorTextViewStyle"/>
 
-        <ImageView
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginBottom="8dp"
-            android:scaleType="fitXY"
-            android:src="@drawable/divider_strong_holo"
-            android:contentDescription="@string/divider" />
-        
         <LinearLayout
             android:id="@+id/tempLayout"
             android:layout_width="fill_parent"
@@ -502,20 +448,12 @@
         </LinearLayout>
         
         <TextView
-            android:layout_width="wrap_content"
+            android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:text="@string/gravity"
             android:layout_marginTop="8dp"
-            android:textAppearance="?android:attr/textAppearanceMedium" />
+			style="?android:attr/listSeparatorTextViewStyle" />
 
-        <ImageView
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginBottom="8dp"
-            android:scaleType="fitXY"
-            android:src="@drawable/divider_strong_holo"
-            android:contentDescription="@string/divider" />
-        
         <LinearLayout
             android:id="@+id/gravLayout"
             android:layout_width="fill_parent"
@@ -590,20 +528,12 @@
         </LinearLayout>
         
         <TextView
-            android:layout_width="wrap_content"
+            android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:text="@string/gyroscope"
             android:layout_marginTop="8dp"
-            android:textAppearance="?android:attr/textAppearanceMedium" />
+			style="?android:attr/listSeparatorTextViewStyle"/>
 
-        <ImageView
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginBottom="8dp"
-            android:scaleType="fitXY"
-            android:src="@drawable/divider_strong_holo"
-            android:contentDescription="@string/divider" />
-        
         <LinearLayout
             android:id="@+id/gyrLayout"
             android:layout_width="fill_parent"
@@ -677,20 +607,12 @@
         </LinearLayout>
         
         <TextView
-            android:layout_width="wrap_content"
+            android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:text="@string/relative_humidity"
             android:layout_marginTop="8dp"
-            android:textAppearance="?android:attr/textAppearanceMedium" />
+			style="?android:attr/listSeparatorTextViewStyle"/>
 
-        <ImageView
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginBottom="8dp"
-            android:scaleType="fitXY"
-            android:src="@drawable/divider_strong_holo"
-            android:contentDescription="@string/divider" />
-        
         <LinearLayout
             android:id="@+id/humLayout"
             android:layout_width="fill_parent"
