@@ -81,8 +81,8 @@ public final class SysCtlAdapter extends ArrayAdapter<SysCtlEntry>
 		{
 			viewHolder = new ViewHolder();
 
-			viewHolder.nameView = (TextView) workingView.findViewById(R.id.name);
-			viewHolder.valueView = (TextView) workingView.findViewById(R.id.value);
+			viewHolder.nameView = (TextView) workingView.findViewById(R.id.tvTitle);
+			viewHolder.valueView = (TextView) workingView.findViewById(R.id.tvValue);
 
 			workingView.setTag(viewHolder);
 

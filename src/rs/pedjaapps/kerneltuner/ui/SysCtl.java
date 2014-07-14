@@ -56,7 +56,7 @@ import rs.pedjaapps.kerneltuner.utility.Tools;
 
 public class SysCtl extends AbsActivity
 {
-    GridView sysListView;
+    ListView sysListView;
     SysCtlAdapter sysAdapter;
     List<SysCtlEntry> entries;
     ProgressDialog pd;
@@ -93,7 +93,7 @@ public class SysCtl extends AbsActivity
         fs.setOnCheckedChangeListener(new Listener());
 
 
-        sysListView = (GridView) findViewById(R.id.list);
+        sysListView = (ListView) findViewById(R.id.list);
         sysAdapter = new SysCtlAdapter(this, R.layout.sysctl_row);
         sysListView.setAdapter(sysAdapter);
 

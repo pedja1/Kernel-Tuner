@@ -13,18 +13,13 @@
 		android:layout_height="wrap_content" 
 		android:layout_centerHorizontal="true"
 		android:layout_centerVertical="true"/>
-<GridView
+<ListView
     android:id="@+id/list"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
     android:layout_above="@+id/ly3"
     android:layout_alignParentLeft="true"
-	android:numColumns="1"
-    android:layout_below="@+id/horizontalScrollView1"
-	android:divider="?android:attr/dividerHorizontal"
-    android:showDividers="middle">
-
-</GridView>
+    android:layout_below="@+id/horizontalScrollView1"/>
 
 <LinearLayout
         android:id="@+id/ly3"
