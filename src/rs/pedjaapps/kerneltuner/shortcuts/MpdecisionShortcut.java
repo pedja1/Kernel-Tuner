@@ -32,7 +32,6 @@ import rs.pedjaapps.kerneltuner.R;
 import rs.pedjaapps.kerneltuner.helpers.IOHelper;
 import rs.pedjaapps.kerneltuner.ui.Mpdecision;
 import rs.pedjaapps.kerneltuner.ui.TISActivity;
-import rs.pedjaapps.kerneltuner.ui.TISActivityChart;
 
 public class MpdecisionShortcut extends Activity
 {
