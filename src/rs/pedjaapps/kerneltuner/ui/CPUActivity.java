@@ -18,26 +18,21 @@
 */
 package rs.pedjaapps.kerneltuner.ui;
 
-import android.app.ActionBar;
-import android.app.AlertDialog;
-import android.content.DialogInterface;
+import android.app.*;
+import android.content.*;
 import android.os.*;
-import android.view.Gravity;
-import android.view.View;
+import android.view.*;
 import android.widget.*;
-
 import java.util.*;
-
 import rs.pedjaapps.kerneltuner.*;
 import rs.pedjaapps.kerneltuner.helpers.*;
 import rs.pedjaapps.kerneltuner.model.*;
-import rs.pedjaapps.kerneltuner.root.RCommand;
-import rs.pedjaapps.kerneltuner.root.RootUtils;
-import rs.pedjaapps.kerneltuner.utility.Prefs;
-import rs.pedjaapps.kerneltuner.utility.PrefsManager;
+import rs.pedjaapps.kerneltuner.root.*;
+import rs.pedjaapps.kerneltuner.utility.*;
+import android.view.View.*;
 
 
-public class CPUActivity extends AbsActivity implements RootUtils.CommandCallback, AdapterView.OnItemClickListener, CompoundButton.OnCheckedChangeListener
+public class CPUActivity extends AbsActivity implements RootUtils.CommandCallback, AdapterView.OnItemClickListener, CompoundButton.OnCheckedChangeListener, View.OnTouchListener
 {
 
     ListView mList;
@@ -45,6 +40,8 @@ public class CPUActivity extends AbsActivity implements RootUtils.CommandCallbac
     ProgressBar pbLoading;
     boolean showAllCores = false;
 	Handler uiHandler;
+	boolean mcWarningShown = false;
+	Switch mSwitch;
 
     @Override
     public void onCreate(Bundle savedInstanceState)
@@ -56,9 +53,10 @@ public class CPUActivity extends AbsActivity implements RootUtils.CommandCallbac
         showAllCores = PrefsManager.cpuShowAllCores();
         ActionBar.LayoutParams lp = new ActionBar.LayoutParams(ActionBar.LayoutParams.WRAP_CONTENT, ActionBar.LayoutParams.WRAP_CONTENT, Gravity.RIGHT | Gravity.CENTER_VERTICAL);
         View view = getLayoutInflater().inflate(R.layout.layout_cpu_ab_switch, null);
-        Switch mSwitch = (Switch) view.findViewById(R.id.swShowAllCores);
+        mSwitch = (Switch) view.findViewById(R.id.swShowAllCores);
         mSwitch.setChecked(showAllCores);
         mSwitch.setOnCheckedChangeListener(this);
+		mSwitch.setOnTouchListener(this);
 
         getActionBar().setDisplayShowCustomEnabled(true);
         getActionBar().setDisplayShowTitleEnabled(true);
@@ -353,4 +351,30 @@ public class CPUActivity extends AbsActivity implements RootUtils.CommandCallbac
         super.onDestroy();
         RCommand.toggleAllCpu(null, false);
     }
+	
+	@Override
+	public boolean onTouch(View p1, MotionEvent p2)
+	{
+		if(p2.getAction() == MotionEvent.ACTION_DOWN)
+		{
+		if(!showAllCores && !mcWarningShown)
+		{
+			AlertDialog.Builder builder = new AlertDialog.Builder(this);
+			builder.setMessage(R.string.cpu_multicore_warning);
+			builder.setPositiveButton(R.string.yes, new DialogInterface.OnClickListener()
+			{
+					@Override
+					public void onClick(DialogInterface p1, int p2)
+					{
+						mcWarningShown = true;
+						mSwitch.performClick();
+					}
+			});
+			builder.setNegativeButton(R.string.no, null);
+			builder.show();
+		    return true;
+		}
+		}
+		return false;
+	}
 }

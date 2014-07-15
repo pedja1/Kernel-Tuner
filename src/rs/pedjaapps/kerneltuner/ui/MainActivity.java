@@ -31,7 +31,6 @@ import java.io.RandomAccessFile;
 import rs.pedjaapps.kerneltuner.Constants;
 import rs.pedjaapps.kerneltuner.R;
 import rs.pedjaapps.kerneltuner.constants.TempUnit;
-import rs.pedjaapps.kerneltuner.fragments.CpuFragment;
 import rs.pedjaapps.kerneltuner.fragments.MainFragment;
 import rs.pedjaapps.kerneltuner.helpers.IOHelper;
 import rs.pedjaapps.kerneltuner.utility.PrefsManager;
@@ -311,38 +310,22 @@ public class MainActivity extends AbsActivity implements Runnable, View.OnClickL
         String tmp = IOHelper.cpuTemp(cpuTempPath);
         cpuTemp(tmp);
         cpu0update(IOHelper.cpu0CurFreq());
-        if(currentFragment instanceof CpuFragment)
-        {
-            ((CpuFragment)currentFragment).updateCpu(0, IOHelper.cpu0MinFreq(),
-                    IOHelper.cpu0MaxFreq(), true);
-        }
+        
 
         if (IOHelper.cpu1Exists())
         {
             cpu1update(IOHelper.cpu1CurFreq());
-            if(currentFragment instanceof CpuFragment)
-            {
-                ((CpuFragment)currentFragment).updateCpu(1, IOHelper.cpu1MinFreq(),
-                        IOHelper.cpu1MaxFreq(), true);
-            }
+            
         }
         if (IOHelper.cpu2Exists())
         {
             cpu2update(IOHelper.cpu2CurFreq());
-            if(currentFragment instanceof CpuFragment)
-            {
-                ((CpuFragment)currentFragment).updateCpu(2, IOHelper.cpu2MinFreq(),
-                        IOHelper.cpu2MaxFreq(), true);
-            }
+            
         }
         if (IOHelper.cpu3Exists())
         {
             cpu3update(IOHelper.cpu3CurFreq());
-            if(currentFragment instanceof CpuFragment)
-            {
-                ((CpuFragment)currentFragment).updateCpu(3, IOHelper.cpu3MinFreq(),
-                        IOHelper.cpu3MaxFreq(), true);
-            }
+            
         }
         try
         {

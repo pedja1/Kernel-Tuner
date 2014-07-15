@@ -763,5 +763,6 @@
     <string name="screen_density">Density</string>
     <string name="hello_blank_fragment">Hello blank fragment</string>
     <string name="sensors">Sensors</string>
-
+	<string name="cpu_multicore_warning"><b>Warning</b>\nMulti-Core CPU control requires kernel support.\nAre you sure you want to continue?</string>
+	
 </resources>

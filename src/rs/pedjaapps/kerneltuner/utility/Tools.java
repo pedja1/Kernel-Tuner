@@ -17,23 +17,17 @@
  * along with Kernel Tuner. If not, see <http://www.gnu.org/licenses/>.
  */
 package rs.pedjaapps.kerneltuner.utility;
-import java.io.File;
-import java.io.FileOutputStream;
-import java.io.IOException;
-import java.io.OutputStreamWriter;
-import java.text.DecimalFormat;
-import java.text.SimpleDateFormat;
-import java.util.List;
-
-import rs.pedjaapps.kerneltuner.Constants;
-import rs.pedjaapps.kerneltuner.model.SysCtlDatabaseEntry;
-import rs.pedjaapps.kerneltuner.helpers.DatabaseHandler;
-import rs.pedjaapps.kerneltuner.helpers.IOHelper;
-import android.content.Context;
-import android.content.SharedPreferences;
-import android.os.Environment;
-import android.os.StatFs;
-import android.preference.PreferenceManager;
+import android.app.*;
+import android.content.*;
+import android.os.*;
+import android.preference.*;
+import android.text.*;
+import java.io.*;
+import java.text.*;
+import java.util.*;
+import rs.pedjaapps.kerneltuner.*;
+import rs.pedjaapps.kerneltuner.helpers.*;
+import rs.pedjaapps.kerneltuner.model.*;
 
 public class Tools
 {
@@ -975,6 +969,36 @@ public class Tools
         {
             return def;
         }
+    }
+	
+	/**
+     * General Purpose AlertDialog
+     */
+    public static AlertDialog showMessageAlertDialog(Context context, String message,
+                                                     String title, DialogInterface.OnClickListener listener)
+    {
+        AlertDialog.Builder builder = new AlertDialog.Builder(context);
+        builder.setTitle(title != null ? Html.fromHtml(title) : null);
+        builder.setMessage(message != null ? Html.fromHtml(message) : null);
+        builder.setPositiveButton(android.R.string.ok, listener);
+        AlertDialog dialog = builder.create();
+        dialog.show();
+        return dialog;
+    }
+
+    /**
+     * General Purpose AlertDialog
+     */
+    public static AlertDialog showMessageAlertDialog(Context context, int message,
+                                                     int title, DialogInterface.OnClickListener listener)
+    {
+        AlertDialog.Builder builder = new AlertDialog.Builder(context);
+        if(title > 0)builder.setTitle(Html.fromHtml(context.getString(title)));
+        builder.setMessage(Html.fromHtml(context.getString(message)));
+        builder.setPositiveButton(android.R.string.ok, listener);
+        AlertDialog dialog = builder.create();
+        dialog.show();
+        return dialog;
     }
 }
 
