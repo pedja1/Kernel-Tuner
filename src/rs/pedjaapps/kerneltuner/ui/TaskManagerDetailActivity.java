@@ -1,10 +1,21 @@
 package rs.pedjaapps.kerneltuner.ui;
 
+import android.graphics.*;
+import android.os.*;
+import android.util.*;
+import android.view.*;
+import android.widget.*;
+import com.stericson.RootTools.*;
+import com.stericson.RootTools.execution.*;
+import java.io.*;
+import org.apache.commons.io.*;
+import rs.pedjaapps.kerneltuner.*;
+import rs.pedjaapps.kerneltuner.model.*;
+import rs.pedjaapps.kerneltuner.utility.*;
+
 import rs.pedjaapps.kerneltuner.R;
-import rs.pedjaapps.kerneltuner.fragments.TMDetailFragment;
-import android.app.Activity;
-import android.os.Bundle;
-import android.view.MenuItem;
+import rs.pedjaapps.kerneltuner.root.*;
+import com.google.android.gms.common.api.*;
 
 /**
  * An activity representing a single process detail screen. This activity is
@@ -14,46 +25,128 @@ import android.view.MenuItem;
  * This activity is mostly just a 'shell' activity containing nothing more than
  * a {@link TMDetailFragment}.
  */
-public class TaskManagerDetailActivity extends AbsActivity {
+public class TaskManagerDetailActivity extends AbsActivity
+{
 
+	public static final String INTENT_EXTRA_TASK = "task";
+	Task task;
+	int value;
+	
 	@Override
-	protected void onCreate(Bundle savedInstanceState) {
+	protected void onCreate(Bundle savedInstanceState)
+	{
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.activity_tm_detail);
 
-		
 		// Show the Up button in the action bar.
 		getActionBar().setDisplayHomeAsUpEnabled(true);
 
-		// savedInstanceState is non-null when there is fragment state
-		// saved from previous configurations of this activity
-		// (e.g. when rotating the screen from portrait to landscape).
-		// In this case, the fragment will automatically be re-added
-		// to its container so we don't need to manually add it.
-		// For more information, see the Fragments API guide at:
-		//
-		// http://developer.android.com/guide/components/fragments.html
-		//
-		if (savedInstanceState == null) {
-			// Create the detail fragment and add it to the activity
-			// using a fragment transaction.
-			Bundle arguments = new Bundle();
-			arguments.putInt(TMDetailFragment.ARG_ITEM_ID, getIntent()
-					.getIntExtra(TMDetailFragment.ARG_ITEM_ID, 0));
-			TMDetailFragment fragment = new TMDetailFragment();
-			fragment.setArguments(arguments);
-			getFragmentManager().beginTransaction()
-					.add(R.id.process_detail_container, fragment).commit();
+		/*if (mItem != null) {
+		 ((TextView) rootView.findViewById(R.id.process_detail))
+		 .setText(mItem.content);
+		 }*/
+		 task = getIntent().getParcelableExtra(INTENT_EXTRA_TASK);
+		 value = getOomAdj();
+
+		final TextView nice  = (TextView)findViewById(R.id.nice);
+		SeekBar seekBar = (SeekBar)findViewById(R.id.seekBar);
+		LinearLayout ll = (LinearLayout)findViewById(R.id.ll);
+
+		if (value != -1)
+		{
+			seekBar.setProgress(32 - (15 - value));
+			Log.e("", 32 - (15 - value) + "");
+			nice.setText(value + "");
+
+			seekBar.setOnSeekBarChangeListener(new SeekBar.OnSeekBarChangeListener(){
+
+					@Override
+					public void onProgressChanged(SeekBar arg0, int progress,
+												  boolean fromUser)
+					{
+						nice.setText(progress - (32 - 15) + "");
+					}
+
+					@Override
+					public void onStartTrackingTouch(SeekBar arg0)
+					{
+
+					}
+
+					@Override
+					public void onStopTrackingTouch(final SeekBar arg0)
+					{
+						//String set = nice.getText().toString().trim();
+						new RootUtils().exec(new RootUtils.CommandCallbackImpl(){
+							@Override
+							public void onComplete(RootUtils.Status status, String out)
+							{
+								value = getOomAdj();
+								arg0.setProgress(32 - (15 - value));
+								
+								nice.setText(value + "");
+							}
+						}, "echo " + nice.getText().toString().trim() + " > /proc/" + task.getPid() + "/oom_adj");
+					}
+
+				});
+
 		}
-	
+		else
+		{
+			ll.setVisibility(View.GONE);
+			nice.setText("Something went wrong");
+		}
+		TextView p_name = (TextView)findViewById(R.id.p_name);
+		TextView app_name = (TextView)findViewById(R.id.app_name);
+		TextView tvPid = (TextView)findViewById(R.id.pid);
+		TextView memory = (TextView)findViewById(R.id.memory);
+		TextView status = (TextView)findViewById(R.id.status);
+
+		app_name.setText(task.getName());
+		tvPid.setText(task.getPid() + "");
+		memory.setText(Tools.kByteToHumanReadableSize(task.getRss()));
+		try
+		{
+	    	p_name.setText(FileUtils.readFileToString(new File( "/proc/" + task.getPid() + "/cmdline")));
+		}
+		catch (Exception e)
+		{
+
+		}
+		try
+		{
+			String stat = FileUtils.readFileToString(new File( "/proc/" + task.getPid() + "/stat"));
+			status.setText(Tools.getProcessStatus(stat.split("\\s")[2]));
+		}
+		catch (Exception e)
+		{
+
+		}
+		status.setTextColor(Color.parseColor("#FF9900"));
+
+	}
+
+	private int getOomAdj()
+	{
+		try
+		{
+			return Tools.parseInt(FileUtils.readFileToString(new File("/proc/" + task.getPid() + "/oom_adj")).trim(), -1);
+		}
+		catch (IOException e)
+		{
+			return -1;
+		}
 	}
 
 	@Override
-	public boolean onOptionsItemSelected(MenuItem item) {
-		switch (item.getItemId()) {
-		case android.R.id.home:
-			
-			return true;
+	public boolean onOptionsItemSelected(MenuItem item)
+	{
+		switch (item.getItemId())
+		{
+			case android.R.id.home:
+
+				return true;
 		}
 		return super.onOptionsItemSelected(item);
 	}

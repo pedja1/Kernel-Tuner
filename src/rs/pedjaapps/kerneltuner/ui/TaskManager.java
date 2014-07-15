@@ -18,55 +18,41 @@
  */
 package rs.pedjaapps.kerneltuner.ui;
 
+import android.app.*;
 import android.app.ActivityManager.*;
-import android.content.Intent;
-import android.content.SharedPreferences;
-import android.content.pm.ApplicationInfo;
-import android.content.pm.PackageManager;
-import android.graphics.drawable.Drawable;
-import android.os.AsyncTask;
-import android.os.Bundle;
-import android.preference.PreferenceManager;
-import android.util.Log;
-import android.view.LayoutInflater;
-import android.view.Menu;
-import android.view.MenuInflater;
-import android.view.MenuItem;
-import android.view.View;
-import android.view.Window;
-import android.widget.CheckBox;
-import android.widget.CompoundButton;
-import android.widget.ProgressBar;
-import android.widget.RelativeLayout;
-import android.widget.TextView;
-import java.io.BufferedReader;
-import java.io.IOException;
-import java.io.InputStream;
-import java.io.InputStreamReader;
-import java.io.RandomAccessFile;
-import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.Collections;
-import java.util.Comparator;
-import java.util.List;
-import rs.pedjaapps.kerneltuner.R;
-import rs.pedjaapps.kerneltuner.model.TMEntry;
-import rs.pedjaapps.kerneltuner.fragments.TMDetailFragment;
-import rs.pedjaapps.kerneltuner.fragments.TMListFragment;
-import rs.pedjaapps.kerneltuner.utility.Tools;
-import android.app.Activity;
-import android.app.ActivityManager;
+import android.content.*;
+import android.content.pm.*;
+import android.graphics.drawable.*;
+import android.os.*;
+import android.preference.*;
+import android.util.*;
+import android.view.*;
+import android.widget.*;
+import android.widget.AdapterView.*;
+import java.io.*;
+import java.util.*;
+import rs.pedjaapps.kerneltuner.*;
+import rs.pedjaapps.kerneltuner.helpers.*;
+import rs.pedjaapps.kerneltuner.model.*;
 
-public class TaskManager extends AbsActivity implements TMListFragment.Callbacks
+import java.lang.Process;
+
+public class TaskManager extends AbsActivity implements OnItemClickListener
 {
-	
-	
+
 	public static CheckBox system, user, other;
 	SharedPreferences preferences;
 	ProgressBar loading;
 	PackageManager pm;
-	String arch;
 	
+	ListView tmListView;
+	public static TMAdapter tmAdapter;
+	static Drawable dr;
+	public static List<Task> entries;
+	ProgressDialog pd;
+	String set;
+	
+
 	/**
 	 * Foreground Application = 10040
 	 * Secondary Server  	  = 10041
@@ -76,113 +62,98 @@ public class TaskManager extends AbsActivity implements TMListFragment.Callbacks
 	 * Hidden Application     =
 	 * */
 	/*
-	private static final int BACKGROUND = RunningAppProcessInfo.IMPORTANCE_BACKGROUND;
-	private static final int EMPTY = RunningAppProcessInfo.IMPORTANCE_EMPTY;
-	private static final int FOREGROUND = RunningAppProcessInfo.IMPORTANCE_FOREGROUND;
-	private static final int PERCEPTIBLE = RunningAppProcessInfo.IMPORTANCE_PERCEPTIBLE;
-	private static final int SERVICE = RunningAppProcessInfo.IMPORTANCE_SERVICE;
-	private static final int VISIBLE = RunningAppProcessInfo.IMPORTANCE_VISIBLE;
-	*/
-	private boolean mTwoPane;
+	 private static final int BACKGROUND = RunningAppProcessInfo.IMPORTANCE_BACKGROUND;
+	 private static final int EMPTY = RunningAppProcessInfo.IMPORTANCE_EMPTY;
+	 private static final int FOREGROUND = RunningAppProcessInfo.IMPORTANCE_FOREGROUND;
+	 private static final int PERCEPTIBLE = RunningAppProcessInfo.IMPORTANCE_PERCEPTIBLE;
+	 private static final int SERVICE = RunningAppProcessInfo.IMPORTANCE_SERVICE;
+	 private static final int VISIBLE = RunningAppProcessInfo.IMPORTANCE_VISIBLE;
+	 */
+	
 	@Override
 	public void onCreate(Bundle savedInstanceState)
 	{
 		preferences = PreferenceManager.getDefaultSharedPreferences(this);
-		
+
 		requestWindowFeature(Window.FEATURE_INDETERMINATE_PROGRESS);
 		super.onCreate(savedInstanceState);
-		
+
 		getActionBar().setDisplayHomeAsUpEnabled(true);
 		setContentView(R.layout.activity_tm_list);
 
 		getActionBar().setTitle(getResources().getString(R.string.title_task_manager));
 		getActionBar().setSubtitle(null);
 		getActionBar().setIcon(R.drawable.tm);
-		
+
 		View customNav = LayoutInflater.from(this).inflate(R.layout.ram_layout, null);
 
-		((TextView)customNav.findViewById(R.id.free)).setText(getResources().getString(R.string.mem_free)+ getFreeRAM()+"MB");
-		((TextView)customNav.findViewById(R.id.total)).setText(getResources().getString(R.string.mem_free)+ getTotalRAM()+"MB");
+		((TextView)customNav.findViewById(R.id.free)).setText(getResources().getString(R.string.mem_free) + getFreeRAM() + "MB");
+		((TextView)customNav.findViewById(R.id.total)).setText(getResources().getString(R.string.mem_free) + getTotalRAM() + "MB");
 
         //Attach to the action bar
         getActionBar().setCustomView(customNav);
         getActionBar().setDisplayShowCustomEnabled(true);
-		
-		if (findViewById(R.id.process_detail_container) != null) {
-			// The detail container view will be present only in the
-			// large-screen layouts (res/values-large and
-			// res/values-sw600dp). If this view is present, then the
-			// activity should be in two-pane mode.
-			mTwoPane = true;
 
-			// In two-pane mode, list items should be given the
-			// 'activated' state when touched.
-			((TMListFragment) getFragmentManager()
-					.findFragmentById(R.id.process_list))
-					.setActivateOnItemClick(true);
-		}
+		tmListView =  (ListView)findViewById(R.id.list);
 		pm = getPackageManager();
+		
+		tmAdapter = new TMAdapter(this, R.layout.tm_row);
+        tmListView.setAdapter(tmAdapter);
+		tmListView.setOnItemClickListener(this);
 
+		new GetRunningApps().execute();
+		
+	}
 	
-			new GetRunningApps().execute();
-			arch = Tools.getAbi();
-	}
 	@Override
-	public void onItemSelected(int id) {
-		if (mTwoPane) {
-			// In two-pane mode, show the detail view in this activity by
-			// adding or replacing the detail fragment using a
-			// fragment transaction.
-			Bundle arguments = new Bundle();
-			arguments.putInt(TMDetailFragment.ARG_ITEM_ID, id);
-			TMDetailFragment fragment = new TMDetailFragment();
-			fragment.setArguments(arguments);
-			getFragmentManager().beginTransaction()
-					.replace(R.id.process_detail_container, fragment).commit();
-
-		} else {
-			// In single-pane mode, simply start the detail activity
-			// for the selected item ID.
-			Intent detailIntent = new Intent(this, TaskManagerDetailActivity.class);
-			detailIntent.putExtra(TMDetailFragment.ARG_ITEM_ID, id);
-			startActivity(detailIntent);
-		}
+	public void onItemClick(AdapterView<?> p1, View p2, int p3, long p4)
+	{
+		Task task = tmAdapter.getItem(p3);
+		Intent detailIntent = new Intent(this, TaskManagerDetailActivity.class);
+		detailIntent.putExtra(TaskManagerDetailActivity.INTENT_EXTRA_TASK, task);
+		startActivity(detailIntent);
 	}
-	private class Listener implements CompoundButton.OnCheckedChangeListener{
-
+	
+	private class Listener implements CompoundButton.OnCheckedChangeListener
+	{
 		@Override
-		public void onCheckedChanged(CompoundButton arg0, boolean arg1) {
-			 new GetRunningApps().execute();
+		public void onCheckedChanged(CompoundButton arg0, boolean arg1)
+		{
+			new GetRunningApps().execute();
 		}
-
 	}
 
-	public class GetRunningApps extends AsyncTask<String, /*TMEntry*/Void, Void> {
+	public class GetRunningApps extends AsyncTask<String, /*TMEntry*/Void, Void>
+	{
 		String line;
 		@Override
-		protected Void doInBackground(String... args) {
-			TMListFragment.entries = new ArrayList<TMEntry>();
+		protected Void doInBackground(String... args)
+		{
+			entries = new ArrayList<Task>();
 			Process proc = null;
 			try
 			{
-				proc = Runtime.getRuntime().exec(getFilesDir().getPath()+"/ps-"+arch+"\n");
+				proc = Runtime.getRuntime().exec("ps");
 				InputStream inputStream = proc.getInputStream();
 				InputStreamReader inputStreamReader = new InputStreamReader(inputStream);
 				BufferedReader bufferedReader = new BufferedReader(inputStreamReader);
 				int i = 0;
-				while ( ( line = bufferedReader.readLine() ) != null )
+				while ((line = bufferedReader.readLine()) != null)
 				{
 					line = line.trim().replaceAll(" {1,}", " ");
 					String[] temp = line.split("\\s");
 					List<String> tmp = Arrays.asList(temp);
-					if(i>0){
-						if(!tmp.get(4).equals("0")){
-							TMEntry tmpEntry = new TMEntry(getApplicationName(tmp.get(8)), Integer.parseInt(tmp.get(1)), getApplicationIcon(tmp.get(8)), Integer.parseInt(tmp.get(4)), appType(tmp.get(8)));
-							TMListFragment.entries.add(tmpEntry);
+					if (i > 0)
+					{
+						if (!tmp.get(4).equals("0"))
+						{
+							Task tmpEntry = new Task(getApplicationName(tmp.get(8)), Integer.parseInt(tmp.get(1)), getApplicationIcon(tmp.get(8)), Integer.parseInt(tmp.get(4)), appType(tmp.get(8)));
+							entries.add(tmpEntry);
 							//publishProgress(tmpEntry);
 						}
 					}
-					else{
+					else
+					{
 						i++;
 					}
 
@@ -192,56 +163,63 @@ public class TaskManager extends AbsActivity implements TMListFragment.Callbacks
 			}
 			catch (Exception e)
 			{
-				Log.e("du","error "+e.getMessage());
+				Log.e("ps", "error " + e.getMessage());
 			}
 			return null;
 		}
 
 		@Override
-		protected void onPostExecute(Void res) {
+		protected void onPostExecute(Void res)
+		{
 			//	setProgressBarIndeterminateVisibility(false);
 
-			Collections.sort(TMListFragment.entries, new SortByMb());
+			tmAdapter.clear();
+			Collections.sort(entries, new SortByMb());
 
-			for(TMEntry e : TMListFragment.entries){
-				if(e.getType()==2){
-					if(other.isChecked())
+			for (Task e : entries)
+			{
+				if (e.getType() == 2)
+				{
+					if (other.isChecked())
 					{
-						TMListFragment.tmAdapter.add(e);
+						tmAdapter.add(e);
 					}
 				}
-				else if(e.getType()==1){
-					if(user.isChecked())
+				else if (e.getType() == 1)
+				{
+					if (user.isChecked())
 					{
-						TMListFragment.tmAdapter.add(e);
+						tmAdapter.add(e);
 					}
 				}
-				else if(e.getType()==0){
-					if(system.isChecked())
+				else if (e.getType() == 0)
+				{
+					if (system.isChecked())
 					{
-						TMListFragment.tmAdapter.add(e);
+						tmAdapter.add(e);
 					}
 				}
 				setProgressBarIndeterminateVisibility(false);
 			}
-			TMListFragment.tmAdapter.notifyDataSetChanged();
+			tmAdapter.notifyDataSetChanged();
 
 			SharedPreferences.Editor editor = preferences.edit();
 			editor.putBoolean("tm_system", TaskManager.system.isChecked())
 				.putBoolean("tm_user", TaskManager.user.isChecked())
-				.putBoolean("tm_other",TaskManager.other.isChecked())
+				.putBoolean("tm_other", TaskManager.other.isChecked())
 				.apply();
 		}
 		@Override
-		protected void onPreExecute(){
+		protected void onPreExecute()
+		{
 			setProgressBarIndeterminateVisibility(true);
-			TMListFragment.tmAdapter.clear();
-			
+			//tmAdapter.clear();
 		}
 
 	}
 
-	public Drawable getApplicationIcon(String packageName){
+	public Drawable getApplicationIcon(String packageName)
+	{
 		try
 		{
 			return pm.getApplicationIcon(packageName);
@@ -251,7 +229,8 @@ public class TaskManager extends AbsActivity implements TMListFragment.Callbacks
 			return getResources().getDrawable(R.drawable.apk);
 		}
 	}
-	public String getApplicationName(String packageName){
+	public String getApplicationName(String packageName)
+	{
 		try
 		{
 			return (String)pm.getApplicationLabel(pm.getApplicationInfo(packageName, 0));
@@ -265,14 +244,18 @@ public class TaskManager extends AbsActivity implements TMListFragment.Callbacks
 	/**
 	 * @return 0 if system, 1 if user, 2 if unknown
 	 */
-	public int appType(String packageName) {
-		try{
+	public int appType(String packageName)
+	{
+		try
+		{
 			ApplicationInfo ai = pm.getApplicationInfo(packageName, 0);
 			int mask = ApplicationInfo.FLAG_SYSTEM | ApplicationInfo.FLAG_UPDATED_SYSTEM_APP;
-			if((ai.flags & mask) == 0){
+			if ((ai.flags & mask) == 0)
+			{
 				return 1;
 			}
-			else{
+			else
+			{
 				return 0;
 			}
 		}
@@ -282,19 +265,19 @@ public class TaskManager extends AbsActivity implements TMListFragment.Callbacks
 		}
 	}
 
-	class SortByMb implements Comparator<TMEntry>
+	class SortByMb implements Comparator<Task>
 	{
 		@Override
-		public int compare(TMEntry ob1, TMEntry ob2)
+		public int compare(Task ob1, Task ob2)
 		{
 			return ob2.getRss() - ob1.getRss() ;
 		}
 	}
 
-	static class SortByName implements Comparator<TMEntry>
+	static class SortByName implements Comparator<Task>
 	{
 		@Override
-		public int compare(TMEntry s1, TMEntry s2)
+		public int compare(Task s1, Task s2)
 		{
 		    String sub1 = s1.getName();
 		    String sub2 = s2.getName();
@@ -302,24 +285,24 @@ public class TaskManager extends AbsActivity implements TMListFragment.Callbacks
 		} 
 	}
 
-	class SortByType implements Comparator<TMEntry>
+	class SortByType implements Comparator<Task>
 	{
 		@Override
-		public int compare(TMEntry ob1, TMEntry ob2)
+		public int compare(Task ob1, Task ob2)
 		{
 			return ob1.getType() - ob2.getType() ;
 		}
 	}
-	
-	@Override
-	public boolean onCreateOptionsMenu(Menu menu) {
 
+	@Override
+	public boolean onCreateOptionsMenu(Menu menu)
+	{
 		new MenuInflater(this).inflate(R.menu.tm_custom_menu, menu);
 		RelativeLayout relativeLayout = (RelativeLayout) menu.findItem(R.id.layout_item)
-                .getActionView();
+			.getActionView();
 
         View inflatedView = getLayoutInflater().inflate(R.layout.tm_cb_view,
-                null);
+														null);
 
         relativeLayout.addView(inflatedView);
 		loading = (ProgressBar)relativeLayout.findViewById(R.id.loading);
@@ -336,10 +319,12 @@ public class TaskManager extends AbsActivity implements TMListFragment.Callbacks
 		other.setOnCheckedChangeListener(new Listener());
 		return super.onCreateOptionsMenu(menu);
 	}
-	
+
 	@Override
-	public boolean onOptionsItemSelected(MenuItem item) {
-		switch (item.getItemId()) {
+	public boolean onOptionsItemSelected(MenuItem item)
+	{
+		switch (item.getItemId())
+		{
 			case android.R.id.home:
 				Intent intent = new Intent(this, MainActivity.class);
 				intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
@@ -350,22 +335,31 @@ public class TaskManager extends AbsActivity implements TMListFragment.Callbacks
 		}
 		return super.onOptionsItemSelected(item);
 	}
-	
-	public static Integer getTotalRAM() {
+
+	public static Integer getTotalRAM()
+	{
 		RandomAccessFile reader = null;
 		String load = null;
 		Integer mem = null;
-		try {
+		try
+		{
 			reader = new RandomAccessFile("/proc/meminfo", "r");
 			load = reader.readLine();
 			mem = Integer.parseInt(load.substring(load.indexOf(":") + 1,
 												  load.lastIndexOf(" ")).trim()) / 1024;
-		} catch (IOException ex) {
+		}
+		catch (IOException ex)
+		{
 			ex.printStackTrace();
-		} finally {
-			try {
+		}
+		finally
+		{
+			try
+			{
 				reader.close();
-			} catch (IOException e) {
+			}
+			catch (IOException e)
+			{
 
 				e.printStackTrace();
 			}
@@ -373,7 +367,8 @@ public class TaskManager extends AbsActivity implements TMListFragment.Callbacks
 		return mem;
 	}
 
-	public Integer getFreeRAM() {
+	public Integer getFreeRAM()
+	{
 		MemoryInfo mi = new MemoryInfo();
 		ActivityManager activityManager = (ActivityManager) getSystemService(ACTIVITY_SERVICE);
 		activityManager.getMemoryInfo(mi);

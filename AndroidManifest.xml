@@ -43,7 +43,8 @@
             android:name="rs.pedjaapps.kerneltuner.ui.TaskManager"
             android:icon="@drawable/tm"
             android:label="@string/title_task_manager"
-            android:uiOptions="splitActionBarWhenNarrow">
+            android:uiOptions="splitActionBarWhenNarrow"
+			android:configChanges="orientation|screenSize">
             <intent-filter>
                 <action android:name="rs.pedjaapps.kerneltuner.TM"/>
 

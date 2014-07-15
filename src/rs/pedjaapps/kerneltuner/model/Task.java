@@ -18,18 +18,18 @@
  */
 package rs.pedjaapps.kerneltuner.model;
 
-import android.graphics.drawable.Drawable;
+import android.graphics.drawable.*;
+import android.os.*;
 
-public class TMEntry
+public class Task implements Parcelable
 {
-
     int pid;
 	String name;
 	Drawable icon;
 	int rss;
 	int type;
 
-	public TMEntry(String name, int pid, Drawable icon, int rss, int type)
+	public Task(String name, int pid, Drawable icon, int rss, int type)
 	{
 		this.name = name;
 		this.pid = pid;
@@ -62,5 +62,41 @@ public class TMEntry
 	{
 		return name;
 	}
+	
+	 @Override
+    public int describeContents()
+    {
+        return 0;
+    }
+
+    @Override
+    public void writeToParcel(Parcel dest, int flags)
+    {
+        dest.writeInt(this.pid);
+        dest.writeInt(this.rss);
+        dest.writeString(this.name);
+        dest.writeInt(this.type);
+    }
+
+    private Task(Parcel in)
+    {
+        this.pid = in.readInt();
+        this.rss = in.readInt();
+        this.name = in.readString();
+        this.type = in.readInt();
+    }
+
+    public static Creator<Task> CREATOR = new Creator<Task>()
+    {
+        public Task createFromParcel(Parcel source)
+        {
+            return new Task(source);
+        }
+
+        public Task[] newArray(int size)
+        {
+            return new Task[size];
+        }
+    };
 
 }

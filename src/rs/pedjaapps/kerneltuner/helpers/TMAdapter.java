@@ -31,10 +31,10 @@ import android.widget.TextView;
 import com.stericson.RootTools.RootTools;
 import com.stericson.RootTools.execution.CommandCapture;
 import rs.pedjaapps.kerneltuner.R;
-import rs.pedjaapps.kerneltuner.model.TMEntry;
+import rs.pedjaapps.kerneltuner.model.Task;
 import rs.pedjaapps.kerneltuner.utility.Tools;
 
-public final class TMAdapter extends ArrayAdapter<TMEntry>
+public final class TMAdapter extends ArrayAdapter<Task>
 {
 
 	private final int itemsItemLayoutResource;
@@ -53,7 +53,7 @@ public final class TMAdapter extends ArrayAdapter<TMEntry>
 
 		final View view = getWorkingView(convertView);
 		final ViewHolder viewHolder = getViewHolder(view);
-		final TMEntry entry = getItem(position);
+		final Task entry = getItem(position);
 		viewHolder.imageView.setImageDrawable(entry.getIcon());
 		viewHolder.nameView.setText(entry.getName());
 		switch(entry.getType()){

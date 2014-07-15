@@ -6,17 +6,14 @@
               android:baselineAligned="false"
               android:orientation="vertical"
               tools:context=".KernelTuner">
-
-    <fragment
-        android:id="@+id/process_list"
-        android:name="rs.pedjaapps.kerneltuner.fragments.TMListFragment"
+			  
+	<ListView android:id="@+id/list"
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:layout_marginLeft="5dp"
-        android:layout_marginRight="5dp"
-        android:layout_weight="1"
-        tools:context=".TaskManager"
-        tools:layout="@layout/task_manager"/>
+        android:layout_height="0dp"
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentTop="true"
+		android:layout_above="@+id/ly3"
+		android:layout_weight="1"/>
 
     <LinearLayout
         android:id="@+id/ly3"
