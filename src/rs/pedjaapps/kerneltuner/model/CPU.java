@@ -9,6 +9,7 @@ public class CPU
 	public static final int ITEM_TYPE_MIN = -2;
 	public static final int ITEM_TYPE_GOV = -3;
 	public static final int ITEM_TYPE_SCRN = -5;
+	public static final int ITEM_TYPE_INFO = -6;
 	
 	private int type, itemType, cpuNum;
 	private String title, value;

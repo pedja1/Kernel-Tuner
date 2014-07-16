@@ -12,6 +12,7 @@ import java.io.*;
 import rs.pedjaapps.kerneltuner.*;
 import rs.pedjaapps.kerneltuner.ui.*;
 import rs.pedjaapps.kerneltuner.utility.*;
+import rs.pedjaapps.kerneltuner.helpers.*;
 
 /**
  * Created by pedja on 31.5.14..
@@ -32,7 +33,27 @@ public class MainFragment extends Fragment
         boolean hideUnsupportedItems = PrefsManager.hideUnsupportedItems();
         Button gpu = (Button) view.findViewById(R.id.btn_gpu);
 
-        gpu.setOnClickListener(new StartActivityListener((new File(Constants.GPU_SGX540).exists()) ? GpuSGX540.class : Gpu.class));
+		Class<? extends Activity> gpuClass = null;
+		if(new File(Constants.GPU_SGX540).exists())
+		{
+			gpuClass = GpuSGX540.class;
+		}
+		else if(new File(Constants.GPU_3D).exists())
+		{
+			gpuClass = Gpu.class;
+		}
+		else if(new File(Constants.GPU_3D_2).exists())
+		{
+			gpuClass = GpuActivityQNew.class;
+		}
+        if(gpuClass != null)
+		{
+			gpu.setOnClickListener(new StartActivityListener(gpuClass));
+		}
+		else
+		{
+			gpu.setEnabled(false);
+		}
         gpu.setOnLongClickListener(new InfoListener(R.drawable.gpu,
                 getResources().getString(R.string.info_gpu_title),
                 getResources().getString(R.string.info_gpu_text),
@@ -267,7 +288,7 @@ public class MainFragment extends Fragment
                 thermal.setEnabled(false);
             }
         }
-        if (!(new File(Constants.GPU_3D).exists()))
+        if (!IOHelper.gpuExists())
         {
             if (!(new File(Constants.GPU_SGX540).exists()))
             {

@@ -126,6 +126,17 @@
                 <category android:name="android.intent.category.DEFAULT"/>
             </intent-filter>
         </activity>
+		<activity
+            android:name="rs.pedjaapps.kerneltuner.ui.GpuActivityQNew"
+            android:icon="@drawable/gpu"
+            android:label="@string/title_gpu"
+            >
+            <intent-filter>
+                <action android:name="rs.pedjaapps.kerneltuner.GPU"/>
+
+                <category android:name="android.intent.category.DEFAULT"/>
+            </intent-filter>
+        </activity>
         <activity
             android:name="rs.pedjaapps.kerneltuner.ui.GpuSGX540"
             android:icon="@drawable/gpu"

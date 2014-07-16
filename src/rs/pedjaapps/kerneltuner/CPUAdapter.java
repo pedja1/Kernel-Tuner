@@ -31,7 +31,7 @@ public class CPUAdapter extends ArrayAdapter<CPU> implements PinnedSectionListVi
     @Override
     public boolean isEnabled(int position)
     {
-        return getItemViewType(position) == CPU.TYPE_ITEM;
+        return getItemViewType(position) == CPU.TYPE_ITEM && getItem(position).getItemType() != CPU.ITEM_TYPE_INFO;
     }
 
     @Override

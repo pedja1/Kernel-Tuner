@@ -264,7 +264,7 @@ public class CPUActivity extends AbsActivity implements RootUtils.CommandCallbac
             @Override
             public void onClick(DialogInterface dialogInterface, int i)
             {
-                Frequency frequency = FrequencyCollection.getInstance().getFrequencyForIndex(i);
+                Frequency frequency = FrequencyCollection.getInstance().getFrequencyForIndex(i, FrequencyCollection.getInstance().getFrequencies());
                 if (frequency != null) switch (cpu.getItemType())
                 {
                     case CPU.ITEM_TYPE_MAX:

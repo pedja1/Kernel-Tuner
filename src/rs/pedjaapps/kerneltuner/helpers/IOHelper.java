@@ -18,6 +18,10 @@
 */
 package rs.pedjaapps.kerneltuner.helpers;
 
+import android.os.SystemClock;
+import android.text.TextUtils;
+import android.util.Log;
+import com.crashlytics.android.Crashlytics;
 import java.io.BufferedReader;
 import java.io.DataInputStream;
 import java.io.File;
@@ -29,20 +33,14 @@ import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Collections;
 import java.util.Comparator;
+import java.util.HashSet;
 import java.util.List;
-
+import java.util.Set;
 import org.apache.commons.io.FileUtils;
-
 import rs.pedjaapps.kerneltuner.Constants;
 import rs.pedjaapps.kerneltuner.model.Frequency;
 import rs.pedjaapps.kerneltuner.model.TimesEntry;
 import rs.pedjaapps.kerneltuner.utility.Tools;
-
-import android.os.SystemClock;
-import android.text.TextUtils;
-import android.util.Log;
-
-import com.crashlytics.android.Crashlytics;
 
 public class IOHelper
 {
@@ -992,6 +990,26 @@ public class IOHelper
         }
     }
 
+	public static String gpu3dGovernor()
+    {
+        try
+        {
+            File file1 = new File(Constants.GPU_3D_2_GOV);
+            if(file1.exists())
+            {
+                return FileUtils.readFileToString(file1).trim();
+            }
+            else
+            {
+                return "n/a";
+            }
+        }
+        catch (Exception e)
+        {
+            return "n/a";
+        }
+    }
+	
     public static String gpu2d()
     {
         try
@@ -1009,7 +1027,7 @@ public class IOHelper
         List<Frequency> frequencies = gpu3dFrequenciesAsList();
         StringBuilder builder = new StringBuilder();
         int i = 0;
-        for(Frequency fr : frequencies)
+		for(Frequency fr : frequencies)
         {
             if(i != 0)builder.append(", ");
             builder.append(fr.getFrequencyString());
@@ -1025,10 +1043,12 @@ public class IOHelper
             List<Frequency> frequencies = new ArrayList<>();
             File file1 = new File(Constants.GPU_3D_AVAILABLE_FREQUENCIES);
             String[] frqs = FileUtils.readFileToString(file1).trim().split(" ");
+			Set<Integer> values = new HashSet<>();
             for(String freq : frqs)
             {
                 int frInt = Tools.parseInt(freq, -1);
-                if(frInt == -1)continue;
+                if(frInt == -1 || values.contains(frInt))continue;
+				values.add(frInt);
                 Frequency frequency = new Frequency();
                 frequency.setFrequencyValue(frInt);
                 frequency.setFrequencyString(frInt / 1000000 + "MHz");
@@ -1038,7 +1058,7 @@ public class IOHelper
         }
         catch (Exception e)
         {
-            return new ArrayList<>();
+            return new ArrayList<Frequency>();
         }
     }
 

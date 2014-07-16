@@ -604,7 +604,7 @@
     <string name="current">Current</string>
     <string name="_max">Max</string>
     <string name="close">Close</string>
-    <string name="gpu_not_supported">Your device is not supported at the moment\nOnly devices with Adreno 220, 225 and 320 are supported. Kernel support is also required</string>
+    <string name="gpu_not_supported">Your device is not supported at the moment\nOnly devices with Adreno 220, 225 are supported. Kernel support is also required</string>
     <string name="process_details">Process Details</string>
     <string name="reboot">Reboot</string>
     <string name="prefs_general">General</string>
@@ -763,6 +763,9 @@
     <string name="screen_density">Density</string>
     <string name="hello_blank_fragment">Hello blank fragment</string>
     <string name="sensors">Sensors</string>
+	<string name="gpu_governor">GPU Governor</string>
 	<string name="cpu_multicore_warning"><b>Warning</b>\nMulti-Core CPU control requires kernel support.\nAre you sure you want to continue?</string>
+	<string name="warning">Warning</string>
+	<string name="gpu_warning">Not all governors work on all devices/kernels!</string>
 	
 </resources>

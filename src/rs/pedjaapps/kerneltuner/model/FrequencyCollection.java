@@ -71,7 +71,7 @@ public class FrequencyCollection
         }
     }
 
-    public Frequency getFrequencyForIndex(int index)
+    public static Frequency getFrequencyForIndex(int index, List<Frequency> frequencies)
     {
         if(index < 0 || index >= frequencies.size())
         {

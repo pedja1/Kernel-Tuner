@@ -1,11 +1,9 @@
 package rs.pedjaapps.kerneltuner.root;
 
-import com.crashlytics.android.*;
-import com.stericson.RootTools.*;
-import com.stericson.RootTools.execution.*;
-import java.io.*;
+import java.io.File;
 import java.util.ArrayList;
 import java.util.List;
+import rs.pedjaapps.kerneltuner.Constants;
 
 public class RCommand
 {
@@ -95,6 +93,23 @@ public class RCommand
                 "chmod 444 /sys/devices/system/cpu/cpu" + coreNum + "/cpufreq/screen_off_max_freq",
                 "chown system /sys/devices/system/cpu/cpu" + coreNum + "/cpufreq/screen_off_max_freq");
     }
+	
+	public static void setGpuMaxFreq(int freq, RootUtils.CommandCallback callback)
+    {
+        new RootUtils().exec(callback,
+							 "chmod 777 " + Constants.GPU_3D_2,
+							 "echo " + freq + " > " + Constants.GPU_3D_2,
+							 "chmod 444 " + Constants.GPU_3D_2,
+							 "chown system " + Constants.GPU_3D_2);
+    }
 
-
+	public static void setGpuGov(String gov, RootUtils.CommandCallback callback)
+    {
+        new RootUtils().exec(callback,
+							 "chmod 777 " + Constants.GPU_3D_2_GOV,
+							 "echo " + gov + " > " + Constants.GPU_3D_2_GOV,
+							 "chmod 444 " + Constants.GPU_3D_2_GOV,
+							 "chown system " + Constants.GPU_3D_2_GOV);
+    }
+	
 }
