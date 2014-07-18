@@ -14,4 +14,5 @@
 <classpathentry kind="lib" path="/storage/emulated/0/AppProjects/Kernel-Tuner/libs/achartengine-1.0.0.jar"/>
 <classpathentry kind="lib" path="/storage/emulated/0/AppProjects/Kernel-Tuner/libs/android-support-v4.jar"/>
 <classpathentry kind="lib" path="/storage/emulated/0/AppProjects/Kernel-Tuner/libs/commons-io-2.4.jar"/>
+<classpathentry kind="lib" path="/storage/emulated/0/AppProjects/Kernel-Tuner/libs/google-play-services_lib/libs/google-play-services.jar"/>
 </classpath>

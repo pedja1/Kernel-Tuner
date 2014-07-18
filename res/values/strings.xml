@@ -4,7 +4,7 @@
     <string name="title_cpu">CPU Manager</string>
     <string name="title_governor">Governor Manager</string>
     <string name="title_tis">Times In State</string>
-    <string name="title_voltage">Voltage</string>
+    <string name="title_voltage">Voltage Manager</string>
     <string name="title_gpu">GPU Manager</string>
     <string name="title_misc">Misc Tweaks</string>
     <string name="title_profiles">Profiles</string>
@@ -767,5 +767,6 @@
 	<string name="cpu_multicore_warning"><b>Warning</b>\nMulti-Core CPU control requires kernel support.\nAre you sure you want to continue?</string>
 	<string name="warning">Warning</string>
 	<string name="gpu_warning">Not all governors work on all devices/kernels!</string>
+	<string name="voltage_dialog_info">No changes are made until you press \'Apply\'</string>
 	
 </resources>

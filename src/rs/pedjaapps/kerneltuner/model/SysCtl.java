@@ -18,29 +18,54 @@
 */
 package rs.pedjaapps.kerneltuner.model;
 
-public final class SysCtlEntry
+public final class SysCtl
 {
 
-	private final String name;
-	private final String value;
-
-
-	public SysCtlEntry(final String name, final String value)
-	{
-		this.name = name;
-		this.value = value;
-
-
-	}
-    
-	public String getName()
-	{
-		return name;
-	}
+	private int id;
+	private String key;
+	private String value;
 	
+	public SysCtl()
+	{
+		
+	}
+
+	public SysCtl(int id, String key, String value)
+	{
+		this.id = id;
+		this.key = key;
+		this.value = value;
+	}
+
+	public SysCtl(final String name, final String value)
+	{
+		this.key = name;
+		this.value = value;
+	}
+
+	public void setKey(String key)
+	{
+		this.key = key;
+	}
+
+	public String getKey()
+	{
+		return key;
+	}
+
+	public void setValue(String value)
+	{
+		this.value = value;
+	}
+
 	public String getValue()
 	{
 		return value;
+	}
+
+	public void setId(int id)
+	{
+		this.id = id;
 	}
 
 }

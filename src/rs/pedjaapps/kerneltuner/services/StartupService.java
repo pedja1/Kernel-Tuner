@@ -28,14 +28,13 @@ import android.preference.PreferenceManager;
 import android.util.Log;
 import com.stericson.RootTools.RootTools;
 import com.stericson.RootTools.execution.CommandCapture;
-
+import java.io.File;
 import java.util.ArrayList;
 import java.util.List;
-import rs.pedjaapps.kerneltuner.model.SysCtlDatabaseEntry;
+import rs.pedjaapps.kerneltuner.Constants;
 import rs.pedjaapps.kerneltuner.helpers.DatabaseHandler;
 import rs.pedjaapps.kerneltuner.helpers.IOHelper;
-import rs.pedjaapps.kerneltuner.Constants;
-import java.io.File;
+import rs.pedjaapps.kerneltuner.model.SysCtl;
 
 public class StartupService extends Service
 {
@@ -475,8 +474,8 @@ public class StartupService extends Service
 					}
 				}
 				
-				List<SysCtlDatabaseEntry> sysEntries = db.getAllSysCtlEntries();
-				for(SysCtlDatabaseEntry e : sysEntries){
+				List<SysCtl> sysEntries = db.getAllSysCtlEntries();
+				for(SysCtl e : sysEntries){
 					CommandCapture command16 = new CommandCapture(0, 
 					getFilesDir().getPath() + "/busybox sysctl -w " + e.getKey().trim() + "=" + e.getValue().trim());
 					try{

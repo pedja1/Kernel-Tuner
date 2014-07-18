@@ -264,6 +264,16 @@
                 <category android:name="android.intent.category.DEFAULT"/>
             </intent-filter>
         </activity>
+		<activity
+            android:name="rs.pedjaapps.kerneltuner.ui.VoltageActivityTegra"
+            android:icon="@drawable/voltage"
+            android:label="@string/title_voltage">
+            <intent-filter>
+                <action android:name="rs.pedjaapps.kerneltuner.VOLTAGE"/>
+
+                <category android:name="android.intent.category.DEFAULT"/>
+            </intent-filter>
+        </activity>
         <activity
             android:name="rs.pedjaapps.kerneltuner.ui.TISActivity"
             android:icon="@drawable/times"

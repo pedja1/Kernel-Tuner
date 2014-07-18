@@ -26,7 +26,7 @@ import android.os.Parcelable;
 import android.widget.Toast;
 import rs.pedjaapps.kerneltuner.R;
 import rs.pedjaapps.kerneltuner.ui.GovernorActivity;
-import rs.pedjaapps.kerneltuner.ui.SysCtl;
+import rs.pedjaapps.kerneltuner.ui.SysCtlActivity;
 
 public class SysShortcut extends Activity
 {

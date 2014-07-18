@@ -16,23 +16,26 @@
 * You should have received a copy of the GNU General Public License
 * along with Kernel Tuner. If not, see <http://www.gnu.org/licenses/>.
 */
-package rs.pedjaapps.KernelTuner.utility;
-
-import java.io.*;
+package rs.pedjaapps.kerneltuner.utility;
 
 import android.content.Context;
 import android.content.SharedPreferences;
 import android.os.AsyncTask;
 import android.preference.PreferenceManager;
 import android.util.Log;
-import java.util.ArrayList;
-import java.util.List;
-import rs.pedjaapps.KernelTuner.Constants;
-import rs.pedjaapps.KernelTuner.helpers.IOHelper;
-import rs.pedjaapps.KernelTuner.helpers.VoltageAdapter;
-import rs.pedjaapps.KernelTuner.ui.VoltageActivity;
-import com.stericson.RootTools.execution.CommandCapture;
 import com.stericson.RootTools.RootTools;
+import com.stericson.RootTools.execution.CommandCapture;
+import java.io.BufferedReader;
+import java.io.File;
+import java.io.InputStream;
+import java.io.InputStreamReader;
+import java.io.OutputStream;
+import java.util.List;
+import rs.pedjaapps.kerneltuner.Constants;
+import rs.pedjaapps.kerneltuner.helpers.IOHelper;
+import rs.pedjaapps.kerneltuner.helpers.VoltageAdapter;
+import rs.pedjaapps.kerneltuner.model.Voltage;
+import rs.pedjaapps.kerneltuner.ui.AbsVoltageActivity;
 
 
 public class ChangeVoltage extends AsyncTask<String, Void, String>
@@ -48,16 +51,8 @@ public class ChangeVoltage extends AsyncTask<String, Void, String>
 	@Override
 	protected String doInBackground(String... args)
 	{
-		List<IOHelper.VoltageList> voltageList = IOHelper.voltages();
-		List<Integer> voltages = new ArrayList<Integer>();
-		List<String> voltageFreqs =  new ArrayList<String>();
+		List<Voltage> voltages = IOHelper.voltages();
 		
-		for(IOHelper.VoltageList v: voltageList){
-			voltageFreqs.add((v.getFreq()));
-		}
-		for(IOHelper.VoltageList v: voltageList){
-			voltages.add(v.getVoltage());
-		}
 		System.out.println("ChangeVoltage: Changing voltage");
 		if (new File(Constants.VOLTAGE_PATH).exists())
 		{
@@ -71,20 +66,20 @@ public class ChangeVoltage extends AsyncTask<String, Void, String>
 		            InputStream stdout = process.getInputStream();
 
 		            stdin.write(("chmod 777 /sys/devices/system/cpu/cpufreq/vdd_table/vdd_levels\n").getBytes());
-		            int voltageFreqsSize = voltageFreqs.size();
+		            int voltageFreqsSize = voltages.size();
 		            for (int i = 0; i < voltageFreqsSize; i++)
 					{
-						int volt = voltages.get(i) - 12500;
+						int volt = voltages.get(i).getValue() - 12500;
 						if (volt >= 700000 && volt <= 1400000)
 						{
 							stdin
 								.write(("echo "
-											+ voltageFreqs.get(i)
+											+ voltages.get(i).getFreqValue()
 											+ " "
 											+ volt
 											+ " > /sys/devices/system/cpu/cpufreq/vdd_table/vdd_levels\n").getBytes());
 							SharedPreferences.Editor editor = preferences.edit();
-							editor.putString("voltage_" + voltageFreqs.get(i), voltageFreqs.get(i) + " " + volt);
+							editor.putString("voltage_" + voltages.get(i).getValue(), voltages.get(i).getValue() + " " + volt);
 							editor.commit();
 						}
 					}
@@ -121,20 +116,20 @@ public class ChangeVoltage extends AsyncTask<String, Void, String>
 		            InputStream stdout = process.getInputStream();
 
 		            stdin.write(("chmod 777 /sys/devices/system/cpu/cpufreq/vdd_table/vdd_levels\n").getBytes());
-		            int voltageFreqsSize = voltageFreqs.size();
+		            int voltageFreqsSize = voltages.size();
 		            for (int i = 0; i < voltageFreqsSize; i++)
 					{
-						int volt = voltages.get(i) + 12500;
+						int volt = voltages.get(i).getValue() + 12500;
 						if (volt >= 700000 && volt <= 1400000)
 						{
 							stdin
 								.write(("echo "
-											+ voltageFreqs.get(i)
+											+ voltages.get(i).getFreqValue()
 											+ " "
 											+ volt
 											+ " > /sys/devices/system/cpu/cpufreq/vdd_table/vdd_levels\n").getBytes());
 							SharedPreferences.Editor editor = preferences.edit();
-							editor.putString("voltage_" + voltageFreqs.get(i), voltageFreqs.get(i) + " " + volt);
+							editor.putString("voltage_" + voltages.get(i).getFreq(), voltages.get(i).getFreq() + " " + volt);
 							editor.commit();
 						}
 					}
@@ -172,18 +167,18 @@ public class ChangeVoltage extends AsyncTask<String, Void, String>
 		            InputStream stdout = process.getInputStream();
 
 		            stdin.write(("chmod 777 /sys/devices/system/cpu/cpufreq/vdd_table/vdd_levels\n").getBytes());
-		            int volt = voltages.get(Integer.parseInt(args[1])) + 12500;
+		            int volt = voltages.get(Integer.parseInt(args[1])).getValue() + 12500;
 					
 						if (volt >= 700000 && volt <= 1400000)
 						{
 							stdin
 								.write(("echo "
-										+ voltageFreqs.get(Integer.parseInt(args[1]))
+										+ voltages.get(Integer.parseInt(args[1])).getFreqValue()
 										+ " "
 										+ volt
 										+ " > /sys/devices/system/cpu/cpufreq/vdd_table/vdd_levels\n").getBytes());
 							SharedPreferences.Editor editor = preferences.edit();
-						    editor.putString("voltage_" + voltageFreqs.get(Integer.parseInt(args[1])), voltageFreqs.get(Integer.parseInt(args[1])) + " " + volt);
+						    editor.putString("voltage_" + voltages.get(Integer.parseInt(args[1])).getFreq(), voltages.get(Integer.parseInt(args[1])).getFreq() + " " + volt);
 						    editor.commit();
 						}
 					
@@ -220,18 +215,18 @@ public class ChangeVoltage extends AsyncTask<String, Void, String>
 		            InputStream stdout = process.getInputStream();
 
 		            stdin.write(("chmod 777 /sys/devices/system/cpu/cpufreq/vdd_table/vdd_levels\n").getBytes());
-		            int volt = voltages.get(Integer.parseInt(args[1])) - 12500;
+		            int volt = voltages.get(Integer.parseInt(args[1])).getValue() - 12500;
 					
 						if (volt >= 700000 && volt <= 1400000)
 						{
 							stdin
 								.write(("echo "
-										+ voltageFreqs.get(Integer.parseInt(args[1]))
+										+ voltages.get(Integer.parseInt(args[1])).getFreqValue()
 										+ " "
 										+ volt
 										+ " > /sys/devices/system/cpu/cpufreq/vdd_table/vdd_levels\n").getBytes());
 							SharedPreferences.Editor editor = preferences.edit();
-						    editor.putString("voltage_" + voltageFreqs.get(Integer.parseInt(args[1])), voltageFreqs.get(Integer.parseInt(args[1])) + " " + volt);
+						    editor.putString("voltage_" + voltages.get(Integer.parseInt(args[1])).getFreq(), voltages.get(Integer.parseInt(args[1])).getFreq() + " " + volt);
 						    editor.commit();
 						}
 					
@@ -321,19 +316,19 @@ public class ChangeVoltage extends AsyncTask<String, Void, String>
 		            InputStream stdout = process.getInputStream();
 
 		            stdin.write(("chmod 777 /sys/devices/system/cpu/cpufreq/vdd_table/vdd_levels\n").getBytes());
-		            int voltageFreqsSize = voltageFreqs.size();
+		            int voltageFreqsSize = voltages.size();
 		            for (int i = 0; i < voltageFreqsSize; i++)
 					{
 					
 						
 							stdin
 								.write(("echo "
-											+ voltageFreqs.get(i)
+											+ voltages.get(i).getFreqValue()
 											+ " "
 											+ values[i]
 											+ " > /sys/devices/system/cpu/cpufreq/vdd_table/vdd_levels\n").getBytes());
 							SharedPreferences.Editor editor = preferences.edit();
-							editor.putString("voltage_" + voltageFreqs.get(i), voltageFreqs.get(i) + " " + values[i]);
+							editor.putString("voltage_" + voltages.get(i).getFreq(), voltages.get(i).getFreq() + " " + values[i]);
 							editor.commit();
 						
 					
@@ -370,7 +365,7 @@ public class ChangeVoltage extends AsyncTask<String, Void, String>
 			{
 					StringBuilder b = new StringBuilder();
 					for(int i = 0; i < voltages.size(); i++){
-						int volt = voltages.get(i) - 12;
+						int volt = voltages.get(i).getValue() - 12;
 						if (volt >= 700 && volt <= 1400)
 						{
 					    	b.append(volt+" ");
@@ -382,7 +377,7 @@ public class ChangeVoltage extends AsyncTask<String, Void, String>
 										+ b.toString()
 										+ "> /sys/devices/system/cpu/cpu0/cpufreq/UV_mV_table");
 						try{
-							RootTools.getShell(true).add(command).waitForFinish();
+							RootTools.getShell(true).add(command);
 						}
 						catch(Exception e){
 							
@@ -398,7 +393,7 @@ public class ChangeVoltage extends AsyncTask<String, Void, String>
 			{
 				StringBuilder b = new StringBuilder();
 				for(int i = 0; i < voltages.size(); i++){
-					int volt = voltages.get(i) + 12;
+					int volt = voltages.get(i).getValue() + 12;
 					if (volt >= 700 && volt <= 1400)
 					{
 						b.append(volt+" ");
@@ -410,7 +405,7 @@ public class ChangeVoltage extends AsyncTask<String, Void, String>
 															+ b.toString()
 															+ "> /sys/devices/system/cpu/cpu0/cpufreq/UV_mV_table");
 				try{
-					RootTools.getShell(true).add(command).waitForFinish();
+					RootTools.getShell(true).add(command);
 				}
 				catch(Exception e){
 
@@ -422,14 +417,17 @@ public class ChangeVoltage extends AsyncTask<String, Void, String>
 			else if (args[0].equals("singleplus"))
 			{
 				StringBuilder b = new StringBuilder();
-				for(int i = 0; i < voltages.size(); i++){
+				for(int i = 0; i < voltages.size(); i++)
+				{
 					int volt;
 					
-					if(Integer.parseInt(args[1])==i){
-					volt = voltages.get(i) + 12;
+					if(Integer.parseInt(args[1])==i)
+					{
+						volt = voltages.get(i).getValue() + 12;
 					}
-					else{
-						volt = voltages.get(i);
+					else
+					{
+						volt = voltages.get(i).getValue();
 					}
 					if (volt >= 700 && volt <= 1400)
 					{
@@ -442,7 +440,7 @@ public class ChangeVoltage extends AsyncTask<String, Void, String>
 															+ b.toString()
 															+ "> /sys/devices/system/cpu/cpu0/cpufreq/UV_mV_table");
 				try{
-					RootTools.getShell(true).add(command).waitForFinish();
+					RootTools.getShell(true).add(command);
 				}
 				catch(Exception e){
 
@@ -459,10 +457,10 @@ public class ChangeVoltage extends AsyncTask<String, Void, String>
 					int volt;
 
 					if(Integer.parseInt(args[1])==i){
-						volt = voltages.get(i) - 12;
+						volt = voltages.get(i).getValue() - 12;
 					}
 					else{
-						volt = voltages.get(i);
+						volt = voltages.get(i).getValue();
 					}
 					if (volt >= 700 && volt <= 1400)
 					{
@@ -475,7 +473,7 @@ public class ChangeVoltage extends AsyncTask<String, Void, String>
 															+ b.toString()
 															+ "> /sys/devices/system/cpu/cpu0/cpufreq/UV_mV_table");
 				try{
-					RootTools.getShell(true).add(command).waitForFinish();
+					RootTools.getShell(true).add(command);
 				}
 				catch(Exception e){
 
@@ -494,7 +492,7 @@ public class ChangeVoltage extends AsyncTask<String, Void, String>
 						volt = Integer.parseInt(args[1]);
 					}
 					else{
-						volt = voltages.get(i);
+						volt = voltages.get(i).getValue();
 					}
 					if (volt >= 700 && volt <= 1400)
 					{
@@ -507,7 +505,7 @@ public class ChangeVoltage extends AsyncTask<String, Void, String>
 															+ b.toString()
 															+ "> /sys/devices/system/cpu/cpu0/cpufreq/UV_mV_table");
 				try{
-					RootTools.getShell(true).add(command).waitForFinish();
+					RootTools.getShell(true).add(command);
 				}
 				catch(Exception e){
 
@@ -526,7 +524,7 @@ public class ChangeVoltage extends AsyncTask<String, Void, String>
 															+ args[1]
 															+ " > /sys/devices/system/cpu/cpu0/cpufreq/UV_mV_table");
 				try{
-					RootTools.getShell(true).add(command).waitForFinish();
+					RootTools.getShell(true).add(command);
 				}
 				catch(Exception e){
 
@@ -544,8 +542,8 @@ public class ChangeVoltage extends AsyncTask<String, Void, String>
 	@Override
 	protected void onPostExecute(String result)
 	{
-		VoltageActivity.notifyChanges();
-		VoltageAdapter.pd.dismiss();
+		AbsVoltageActivity.notifyChanges();
+		//VoltageAdapter.pd.dismiss();
 	}
 }	
 

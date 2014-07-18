@@ -1,18 +1,26 @@
 package rs.pedjaapps.kerneltuner.fragments;
 
-import android.app.*;
-import android.content.*;
-import android.net.*;
-import android.os.*;
-import android.view.*;
-import android.widget.*;
-
-//import com.google.android.gms.internal.*;
-import java.io.*;
-import rs.pedjaapps.kerneltuner.*;
 import rs.pedjaapps.kerneltuner.ui.*;
-import rs.pedjaapps.kerneltuner.utility.*;
-import rs.pedjaapps.kerneltuner.helpers.*;
+
+import android.app.Activity;
+import android.app.AlertDialog;
+import android.app.Fragment;
+import android.content.DialogInterface;
+import android.content.Intent;
+import android.net.Uri;
+import android.os.Bundle;
+import android.view.LayoutInflater;
+import android.view.View;
+import android.view.ViewGroup;
+import android.widget.Button;
+import android.widget.CheckBox;
+import android.widget.TextView;
+import java.io.File;
+import rs.pedjaapps.kerneltuner.ui.AbsVoltageActivity;
+import rs.pedjaapps.kerneltuner.Constants;
+import rs.pedjaapps.kerneltuner.R;
+import rs.pedjaapps.kerneltuner.helpers.IOHelper;
+import rs.pedjaapps.kerneltuner.utility.PrefsManager;
 
 /**
  * Created by pedja on 31.5.14..
@@ -58,9 +66,28 @@ public class MainFragment extends Fragment
                 getResources().getString(R.string.info_gpu_title),
                 getResources().getString(R.string.info_gpu_text),
                 Constants.G_S_URL_PREFIX + "GPU", true));
-
-        Button voltage = (Button) view.findViewById(R.id.btn_voltage);
-        //voltage.setOnClickListener(new StartActivityListener(VoltageActivity.class));
+				
+		Button voltage = (Button) view.findViewById(R.id.btn_voltage);
+        
+		Class<? extends Activity> voltageClass = null;
+		if(new File(Constants.VOLTAGE_PATH).exists())
+		{
+			voltageClass = VoltageActivity.class;
+		}
+		else if(new File(Constants.VOLTAGE_PATH_TEGRA_3).exists())
+		{
+			voltageClass = VoltageActivityTegra.class;
+		}
+		
+        if(voltageClass != null)
+		{
+			voltage.setOnClickListener(new StartActivityListener(voltageClass));
+		}
+		else
+		{
+			voltage.setEnabled(false);
+		}
+        voltage.setOnClickListener(new StartActivityListener(VoltageActivity.class));
         voltage.setOnLongClickListener(new InfoListener(R.drawable.voltage,
                 getResources().getString(R.string.info_voltage_title),
                 getResources().getString(R.string.info_voltage_text),
@@ -214,7 +241,7 @@ public class MainFragment extends Fragment
                 Constants.G_S_URL_PREFIX + "build.prop", true));
 
         Button sys = (Button) view.findViewById(R.id.btn_sysctl);
-        sys.setOnClickListener(new StartActivityListener(SysCtl.class));
+        sys.setOnClickListener(new StartActivityListener(SysCtlActivity.class));
         sys.setOnLongClickListener(new InfoListener(R.drawable.sysctl,
                 getResources().getString(R.string.info_sysctl_title),
                 getResources().getString(R.string.info_sysctl_text),

@@ -1,8 +1,8 @@
-package rs.pedjaapps.KernelTuner.model;
+package rs.pedjaapps.kerneltuner.model;
 
 import java.util.List;
 
-import rs.pedjaapps.KernelTuner.helpers.IOHelper;
+import rs.pedjaapps.kerneltuner.helpers.IOHelper;
 
 public class VoltageCollection
 {

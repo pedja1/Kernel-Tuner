@@ -46,19 +46,18 @@ import java.util.Arrays;
 import java.util.List;
 
 import rs.pedjaapps.kerneltuner.R;
-import rs.pedjaapps.kerneltuner.model.SysCtlDatabaseEntry;
-import rs.pedjaapps.kerneltuner.model.SysCtlEntry;
+import rs.pedjaapps.kerneltuner.model.SysCtl;
 import rs.pedjaapps.kerneltuner.helpers.DatabaseHandler;
 import rs.pedjaapps.kerneltuner.helpers.SysCtlAdapter;
 import rs.pedjaapps.kerneltuner.root.RootUtils;
 import rs.pedjaapps.kerneltuner.utility.Tools;
 
 
-public class SysCtl extends AbsActivity
+public class SysCtlActivity extends AbsActivity
 {
     ListView sysListView;
     SysCtlAdapter sysAdapter;
-    List<SysCtlEntry> entries;
+    List<SysCtl> entries;
     ProgressDialog pd;
     CheckBox kernel, vm, fs, net;
     SharedPreferences preferences;
@@ -105,8 +104,8 @@ public class SysCtl extends AbsActivity
                                     long is)
             {
                 AlertDialog.Builder builder = new AlertDialog.Builder(v.getContext());
-                final SysCtlEntry tmpEntry = sysAdapter.getItem(pos);
-                builder.setTitle(tmpEntry.getName());
+                final SysCtl tmpEntry = sysAdapter.getItem(pos);
+                builder.setTitle(tmpEntry.getKey());
 
                 builder.setMessage(getResources().getString(R.string.set_new_value));
 
@@ -130,19 +129,19 @@ public class SysCtl extends AbsActivity
                             public void onComplete(RootUtils.Status status, String output)
                             {
                                 sysAdapter.remove(tmpEntry);
-                                sysAdapter.insert(new SysCtlEntry(tmpEntry.getName(), input.getText().toString()), pos);
+                                sysAdapter.insert(new SysCtl(tmpEntry.getKey(), input.getText().toString()), pos);
                                 sysAdapter.notifyDataSetChanged();
 
-                                if (db.sysEntryExists(tmpEntry.getName()))
+                                if (db.sysEntryExists(tmpEntry.getKey()))
                                 {
-                                    db.updateSysEntry(new SysCtlDatabaseEntry(tmpEntry.getName(), input.getText().toString()));
+                                    db.updateSysEntry(new SysCtl(tmpEntry.getKey(), input.getText().toString()));
                                 }
                                 else
                                 {
-                                    db.addSysCtlEntry(new SysCtlDatabaseEntry(tmpEntry.getName(), input.getText().toString()));
+                                    db.addSysCtlEntry(new SysCtl(tmpEntry.getKey(), input.getText().toString()));
                                 }
                             }
-                        }, "sysctl -w " + tmpEntry.getName().trim() + "=" + input.getText().toString().trim());
+                        }, "sysctl -w " + tmpEntry.getKey().trim() + "=" + input.getText().toString().trim());
                     }
                 });
                 builder.setNegativeButton(getResources().getString(R.string.cancel), null);
@@ -165,12 +164,12 @@ public class SysCtl extends AbsActivity
         }
     }
 
-    private class GetSysCtlEntries extends AsyncTask<String, Void, List<SysCtlEntry>>
+    private class GetSysCtlEntries extends AsyncTask<String, Void, List<SysCtl>>
     {
         String line;
 
         @Override
-        protected List<SysCtlEntry> doInBackground(String... args)
+        protected List<SysCtl> doInBackground(String... args)
         {
             entries = new ArrayList<>();
             Process proc;
@@ -191,7 +190,7 @@ public class SysCtl extends AbsActivity
 
                         //System.out.println(line);
                         //	System.out.println(tmp.get(0));
-                        SysCtlEntry tmpEntry = new SysCtlEntry(tmp.get(0), tmp.get(1));
+                        SysCtl tmpEntry = new SysCtl(tmp.get(0), tmp.get(1));
                         entries.add(tmpEntry);
                         //	publishProgress(tmpEntry);
                     }
@@ -208,7 +207,7 @@ public class SysCtl extends AbsActivity
         }
 
         @Override
-        protected void onPostExecute(List<SysCtlEntry> res)
+        protected void onPostExecute(List<SysCtl> res)
         {
             SharedPreferences.Editor editor = preferences.edit();
             editor.putBoolean("sysctl_kernel", kernel.isChecked())
@@ -216,30 +215,30 @@ public class SysCtl extends AbsActivity
                     .putBoolean("sysctl_fs", fs.isChecked())
                     .putBoolean("sysctl_net", net.isChecked())
                     .apply();
-            for (SysCtlEntry e : res)
+            for (SysCtl e : res)
             {
-                if (e.getName().startsWith("kernel"))
+                if (e.getKey().startsWith("kernel"))
                 {
                     if (kernel.isChecked())
                     {
                         sysAdapter.add(e);
                     }
                 }
-                else if (e.getName().startsWith("vm"))
+                else if (e.getKey().startsWith("vm"))
                 {
                     if (vm.isChecked())
                     {
                         sysAdapter.add(e);
                     }
                 }
-                else if (e.getName().startsWith("fs"))
+                else if (e.getKey().startsWith("fs"))
                 {
                     if (fs.isChecked())
                     {
                         sysAdapter.add(e);
                     }
                 }
-                else if (e.getName().startsWith("net"))
+                else if (e.getKey().startsWith("net"))
                 {
                     if (net.isChecked())
                     {

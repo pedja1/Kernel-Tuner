@@ -895,8 +895,8 @@ public class Tools
 		String voltage = voltagebuilder.toString();
 		StringBuilder sysBuilder = new StringBuilder();
 		sysBuilder.append("#!/system/bin/sh \n");
-			List<SysCtlDatabaseEntry> sysEntries = db.getAllSysCtlEntries();
-			for(SysCtlDatabaseEntry e : sysEntries){
+			List<SysCtl> sysEntries = db.getAllSysCtlEntries();
+			for(SysCtl e : sysEntries){
 				sysBuilder.append(c.getFilesDir().getPath() + "/sysctl-"+Tools.getAbi()+" -w " + e.getKey().trim() + "=" + e.getValue().trim()+"\n");
 			}
 		

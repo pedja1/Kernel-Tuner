@@ -1,21 +1,21 @@
 /*
-* This file is part of the Kernel Tuner.
-*
-* Copyright Predrag Čokulov <predragcokulov@gmail.com>
-*
-* Kernel Tuner is free software: you can redistribute it and/or modify
-* it under the terms of the GNU General Public License as published by
-* the Free Software Foundation, either version 3 of the License, or
-* (at your option) any later version.
-*
-* Kernel Tuner is distributed in the hope that it will be useful,
-* but WITHOUT ANY WARRANTY; without even the implied warranty of
-* MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the
-* GNU General Public License for more details.
-*
-* You should have received a copy of the GNU General Public License
-* along with Kernel Tuner. If not, see <http://www.gnu.org/licenses/>.
-*/
+ * This file is part of the Kernel Tuner.
+ *
+ * Copyright Predrag Čokulov <predragcokulov@gmail.com>
+ *
+ * Kernel Tuner is free software: you can redistribute it and/or modify
+ * it under the terms of the GNU General Public License as published by
+ * the Free Software Foundation, either version 3 of the License, or
+ * (at your option) any later version.
+ *
+ * Kernel Tuner is distributed in the hope that it will be useful,
+ * but WITHOUT ANY WARRANTY; without even the implied warranty of
+ * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the
+ * GNU General Public License for more details.
+ *
+ * You should have received a copy of the GNU General Public License
+ * along with Kernel Tuner. If not, see <http://www.gnu.org/licenses/>.
+ */
 package rs.pedjaapps.kerneltuner.helpers;
 
 
@@ -30,10 +30,10 @@ public class DatabaseHandler extends SQLiteOpenHelper
 
     // All Static variables
     // Database Version
-    private static final int DATABASE_VERSION = 2;
+    private static final int DATABASE_VERSION = 1;
 
     // Database Name
-    private static final String DATABASE_NAME = "KTDatabase.db";
+    private static final String DATABASE_NAME = "kt.db";
 
     // table names
     private static final String TABLE_PROFILES = "profiles";
@@ -68,18 +68,16 @@ public class DatabaseHandler extends SQLiteOpenHelper
 	private static final String KEY_PROFILE_IOSCHEDULER = "IOScheduler";
 	private static final String KEY_PROFILE_SDCACHE = "sdCache";
 	private static final String KEY_PROFILE_SWEEP2WAKE = "sweep2wake";
-  
-	
-    
-    private static final String KEY_VOLTAGE_ID = "id";
-    private static final String KEY_VOLTAGE_NAME = "Name";
-    private static final String KEY_VOLTAGE_FREQ = "freq";
-    private static final String KEY_VOLTAGE_VALUE = "value";
 
-	private static final String KEY_SYS_ID = "_id";
+    private static final String KEY_VOLTAGE_ID = "id";
+    private static final String KEY_VOLTAGE_NAME = "profile_name";
+    private static final String KEY_VOLTAGE_FREQ = "frequencies";
+    private static final String KEY_VOLTAGE_VALUE = "voltages";
+
+	private static final String KEY_SYS_ID = "id";
 	private static final String KEY_SYS_KEY = "key";
 	private static final String KEY_SYS_VALUE = "value";
-	
+
     public DatabaseHandler(Context context)
 	{
         super(context, DATABASE_NAME, null, DATABASE_VERSION);
@@ -116,13 +114,16 @@ public class DatabaseHandler extends SQLiteOpenHelper
 			+ KEY_PROFILE_IOSCHEDULER + " TEXT,"
 			+ KEY_PROFILE_SDCACHE + " INTEGER,"
 			+ KEY_PROFILE_SWEEP2WAKE + " INTEGER"
-			
+
 			+
 			")";
         String CREATE_VOLTAGE_TABLE = "CREATE TABLE " + TABLE_VOLTAGE + "("
-    			+ KEY_VOLTAGE_ID + " INTEGER PRIMARY KEY," + KEY_VOLTAGE_NAME + " TEXT," + KEY_VOLTAGE_FREQ + " TEXT," + KEY_VOLTAGE_VALUE + " TEXT"
-    			+
-    			")";
+			+ KEY_VOLTAGE_ID + " INTEGER PRIMARY KEY,"
+			+ KEY_VOLTAGE_NAME + " TEXT," 
+			+ KEY_VOLTAGE_FREQ + " TEXT," 
+			+ KEY_VOLTAGE_VALUE + " TEXT"
+			+
+			")";
 		String CREATE_SYS_TABLE = "CREATE TABLE " + TABLE_SYS + "("
 			+ KEY_SYS_ID + " INTEGER PRIMARY KEY," + KEY_SYS_KEY + " TEXT," + KEY_SYS_VALUE + " TEXT"
 			+
@@ -130,10 +131,10 @@ public class DatabaseHandler extends SQLiteOpenHelper
 		db.execSQL(CREATE_SYS_TABLE);
         db.execSQL(CREATE_PROFILES_TABLE);
         db.execSQL(CREATE_VOLTAGE_TABLE);
-		
+
     }
 
-    
+
     // Upgrading database
     @Override
     public void onUpgrade(SQLiteDatabase db, int oldVersion, int newVersion)
@@ -142,7 +143,7 @@ public class DatabaseHandler extends SQLiteOpenHelper
         db.execSQL("DROP TABLE IF EXISTS " + TABLE_PROFILES);
         db.execSQL("DROP TABLE IF EXISTS " + TABLE_VOLTAGE);
 		db.execSQL("DROP TABLE IF EXISTS " + TABLE_SYS);
-		
+
         // Create tables again
         onCreate(db);
     }
@@ -151,7 +152,7 @@ public class DatabaseHandler extends SQLiteOpenHelper
      * All CRUD(Create, Read, Update, Delete) Operations
      */
 
-  
+
     public void addProfile(Profile profile)
 	{
         SQLiteDatabase db = this.getWritableDatabase();
@@ -170,7 +171,7 @@ public class DatabaseHandler extends SQLiteOpenHelper
         values.put(KEY_PROFILE_CPU1GOV, profile.getCpu1gov());
         values.put(KEY_PROFILE_CPU2GOV, profile.getCpu2gov());
         values.put(KEY_PROFILE_CPU3GOV, profile.getCpu3gov());
-		values.put(KEY_PROFILE_VOLTAGE,profile.getVoltage());
+		values.put(KEY_PROFILE_VOLTAGE, profile.getVoltage());
         values.put(KEY_PROFILE_MTD, profile.getMtd());
         values.put(KEY_PROFILE_MTU, profile.getMtu());
         values.put(KEY_PROFILE_GPU2D, profile.getGpu2d());
@@ -182,14 +183,14 @@ public class DatabaseHandler extends SQLiteOpenHelper
         values.put(KEY_PROFILE_IOSCHEDULER, profile.getIoScheduler());
         values.put(KEY_PROFILE_SDCACHE, profile.getSdcache());
         values.put(KEY_PROFILE_SWEEP2WAKE, profile.getSweep2wake());
-       
+
 
         // Inserting Row
         db.insert(TABLE_PROFILES, null, values);
         db.close(); // Closing database connection
     }
 
-	public void addSysCtlEntry(SysCtlDatabaseEntry entry)
+	public void addSysCtlEntry(SysCtl entry)
 	{
         SQLiteDatabase db = this.getWritableDatabase();
 
@@ -201,10 +202,10 @@ public class DatabaseHandler extends SQLiteOpenHelper
         db.insert(TABLE_SYS, null, values);
         db.close(); // Closing database connection
     }
-	
-	public List<SysCtlDatabaseEntry> getAllSysCtlEntries()
+
+	public List<SysCtl> getAllSysCtlEntries()
 	{
-        List<SysCtlDatabaseEntry> entries = new ArrayList<SysCtlDatabaseEntry>();
+        List<SysCtl> entries = new ArrayList<>();
         // Select All Query
         String selectQuery = "SELECT  * FROM " + TABLE_SYS;
 
@@ -215,11 +216,11 @@ public class DatabaseHandler extends SQLiteOpenHelper
         if (cursor.moveToFirst())
 		{
             do {
-				SysCtlDatabaseEntry entry = new SysCtlDatabaseEntry();
-                entry.setID(Integer.parseInt(cursor.getString(0)));
+				SysCtl entry = new SysCtl();
+                entry.setId(Integer.parseInt(cursor.getString(0)));
                 entry.setKey(cursor.getString(1));
                 entry.setValue(cursor.getString(2));
-               
+
 
                 // Adding  to list
                 entries.add(entry);
@@ -231,8 +232,9 @@ public class DatabaseHandler extends SQLiteOpenHelper
         cursor.close();
         return entries;
     }
-	
-	public boolean sysEntryExists(String name) {
+
+	public boolean sysEntryExists(String name)
+	{
     	SQLiteDatabase db = this.getReadableDatabase();
 
         Cursor cursor = db.query(TABLE_SYS, new String[] { KEY_SYS_ID,
@@ -245,14 +247,14 @@ public class DatabaseHandler extends SQLiteOpenHelper
         db.close();
         return exists;
 	}
-	public void updateSysEntry(SysCtlDatabaseEntry entry)
+	public void updateSysEntry(SysCtl entry)
 	{
         SQLiteDatabase db = this.getWritableDatabase();
 
 		ContentValues values = new ContentValues();
         values.put(KEY_SYS_KEY, entry.getKey());
         values.put(KEY_SYS_VALUE, entry.getValue()); 
-		
+
 
         // updating row
 		db.delete(TABLE_SYS, KEY_SYS_KEY + " = ?",
@@ -260,8 +262,8 @@ public class DatabaseHandler extends SQLiteOpenHelper
         db.insert(TABLE_SYS, null, values);
 		db.close();
 	}
-	
-	
+
+
     // Getting single profile
     public Profile getProfile(int id)
 	{
@@ -293,7 +295,7 @@ public class DatabaseHandler extends SQLiteOpenHelper
 									 KEY_PROFILE_IOSCHEDULER,
 									 KEY_PROFILE_SDCACHE,
 									 KEY_PROFILE_SWEEP2WAKE
-									}, KEY_PROFILE_ID + "=?",
+								 }, KEY_PROFILE_ID + "=?",
 								 new String[] { String.valueOf(id) }, null, null, null, null);
         if (cursor != null)
             cursor.moveToFirst();
@@ -323,10 +325,10 @@ public class DatabaseHandler extends SQLiteOpenHelper
 									  cursor.getString(22),
 									  cursor.getString(23),
 									  cursor.getInt(24),
-									  
+
 									  cursor.getInt(25)
-									
-									  
+
+
 									  );
         // return contact
         db.close();
@@ -334,7 +336,7 @@ public class DatabaseHandler extends SQLiteOpenHelper
         return profile;
     }
 
-   public Profile getProfileByName(String name)
+	public Profile getProfileByName(String name)
 	{
         SQLiteDatabase db = this.getReadableDatabase();
 
@@ -364,7 +366,7 @@ public class DatabaseHandler extends SQLiteOpenHelper
 									 KEY_PROFILE_IOSCHEDULER,
 									 KEY_PROFILE_SDCACHE,
 									 KEY_PROFILE_SWEEP2WAKE
-									}, KEY_PROFILE_NAME + "=?",
+								 }, KEY_PROFILE_NAME + "=?",
 								 new String[] { name }, null, null, null, null);
         if (cursor != null)
             cursor.moveToFirst();
@@ -394,10 +396,10 @@ public class DatabaseHandler extends SQLiteOpenHelper
 									  cursor.getString(22),
 									  cursor.getString(23),
 									  cursor.getInt(24),
-									  
+
 									  cursor.getInt(25)
-									);
-        
+									  );
+
         db.close();
         cursor.close();
         return profile;
@@ -443,10 +445,10 @@ public class DatabaseHandler extends SQLiteOpenHelper
                 profile.setCdepth(cursor.getString(22));
                 profile.setIoScheduler(cursor.getString(23));
                 profile.setSdcache(cursor.getInt(24));
-                
+
                 profile.setSweep2wake(cursor.getInt(25));
-              
-                
+
+
                 // Adding  to list
                 profileList.add(profile);
             } while (cursor.moveToNext());
@@ -477,7 +479,7 @@ public class DatabaseHandler extends SQLiteOpenHelper
         values.put(KEY_PROFILE_CPU1GOV, profile.getCpu1gov());
         values.put(KEY_PROFILE_CPU2GOV, profile.getCpu2gov());
         values.put(KEY_PROFILE_CPU3GOV, profile.getCpu3gov());
-		values.put(KEY_PROFILE_VOLTAGE,profile.getVoltage());
+		values.put(KEY_PROFILE_VOLTAGE, profile.getVoltage());
         values.put(KEY_PROFILE_MTD, profile.getMtd());
         values.put(KEY_PROFILE_MTU, profile.getMtu());
         values.put(KEY_PROFILE_GPU2D, profile.getGpu2d());
@@ -489,13 +491,13 @@ public class DatabaseHandler extends SQLiteOpenHelper
         values.put(KEY_PROFILE_IOSCHEDULER, profile.getIoScheduler());
         values.put(KEY_PROFILE_SDCACHE, profile.getSdcache());
         values.put(KEY_PROFILE_SWEEP2WAKE, profile.getSweep2wake());
-        
-        
+
+
         // updating row
         db.close();
         return db.update(TABLE_PROFILES, values, KEY_PROFILE_ID + " = ?",
 						 new String[] { String.valueOf(profile.getID()) });
-        
+
 	}
 
     // Deleting single profile
@@ -526,163 +528,169 @@ public class DatabaseHandler extends SQLiteOpenHelper
         // return count
         return cursor.getCount();
     }
-    
-    /*public void addVoltage(Voltage voltage)
+
+    public void addVoltage(Voltage voltage)
    	{
-           SQLiteDatabase db = this.getWritableDatabase();
+		SQLiteDatabase db = this.getWritableDatabase();
 
-           ContentValues values = new ContentValues();
-           values.put(KEY_VOLTAGE_NAME, voltage.getName());
-           values.put(KEY_VOLTAGE_FREQ, voltage.getFreq());
-           values.put(KEY_VOLTAGE_VALUE, voltage.getValue()); 
-         
+		ContentValues values = new ContentValues();
+		values.put(KEY_VOLTAGE_NAME, voltage.getName());
+		values.put(KEY_VOLTAGE_FREQ, voltage.getDbFreqs());
+		values.put(KEY_VOLTAGE_VALUE, voltage.getDbValues()); 
 
-           // Inserting Row
-           db.insert(TABLE_VOLTAGE, null, values);
-           db.close(); // Closing database connection
-       }
+		// Inserting Row
+		db.insert(TABLE_VOLTAGE, null, values);
+		db.close(); // Closing database connection
+	}
 
-       // Getting single 
-      public Voltage getVoltage(int id)
+	// Getting single 
+	public Voltage getVoltage(int id)
    	{
-           SQLiteDatabase db = this.getReadableDatabase();
+		SQLiteDatabase db = this.getReadableDatabase();
 
-           Cursor cursor = db.query(TABLE_VOLTAGE, new String[] { KEY_VOLTAGE_ID,
+		Cursor cursor = db.query(TABLE_VOLTAGE, new String[] { KEY_VOLTAGE_ID,
    									 KEY_VOLTAGE_NAME,
    									 KEY_VOLTAGE_FREQ,
    									 KEY_VOLTAGE_VALUE}, KEY_VOLTAGE_ID + "=?",
    								 new String[] { String.valueOf(id) }, null, null, null, null);
-           if (cursor != null)
-               cursor.moveToFirst();
+		if (cursor != null)
+			cursor.moveToFirst();
 
-           Voltage voltage = new Voltage(Integer.parseInt(cursor.getString(0)),
+		Voltage voltage = new Voltage(cursor.getInt(0),
    									  cursor.getString(1),
    									  cursor.getString(2),
-   									cursor.getString(3));
-           // return 
-           db.close();
-           cursor.close();
-           return voltage;
-       }
+									  cursor.getString(3));
+		// return 
+		db.close();
+		cursor.close();
+		return voltage;
+	}
 
-      public Voltage getVoltageByName(String Name)
+	public Voltage getVoltageByName(String Name)
    	{
-           SQLiteDatabase db = this.getReadableDatabase();
+		SQLiteDatabase db = this.getReadableDatabase();
 
-           Cursor cursor = db.query(TABLE_VOLTAGE, new String[] { KEY_VOLTAGE_ID,
-        		   						KEY_VOLTAGE_NAME,
-        		   						KEY_VOLTAGE_FREQ,
+		Cursor cursor = db.query(TABLE_VOLTAGE, new String[] { KEY_VOLTAGE_ID,
+									 KEY_VOLTAGE_NAME,
+									 KEY_VOLTAGE_FREQ,
    									 KEY_VOLTAGE_VALUE }, KEY_VOLTAGE_NAME + "=?",
    								 new String[] { Name }, null, null, null, null);
-           if (cursor != null)
-               cursor.moveToFirst();
+		if (cursor != null)
+			cursor.moveToFirst();
 
-           Voltage voltage = new Voltage(Integer.parseInt(cursor.getString(0)),
+		Voltage voltage = new Voltage(cursor.getInt(0),
    									  cursor.getString(1),
    									  cursor.getString(2),
-   									cursor.getString(3));
-           // return 
-           db.close();
-           cursor.close();
-           return voltage;
-       }
-       
-      public Voltage getVoltageByFreq(String freq)
-      	{
-              SQLiteDatabase db = this.getReadableDatabase();
+									  cursor.getString(3));
+		// return 
+		db.close();
+		cursor.close();
+		return voltage;
+	}
 
-              Cursor cursor = db.query(TABLE_VOLTAGE, new String[] { KEY_VOLTAGE_ID,
-           		   						KEY_VOLTAGE_NAME,
-           		   						KEY_VOLTAGE_FREQ,
-      									 KEY_VOLTAGE_VALUE }, KEY_VOLTAGE_FREQ + "=?",
-      								 new String[] { freq }, null, null, null, null);
-              if (cursor != null)
-                  cursor.moveToFirst();
+	public Voltage getVoltageByFreq(String freq)
+	{
+		SQLiteDatabase db = this.getReadableDatabase();
 
-              Voltage voltage = new Voltage(Integer.parseInt(cursor.getString(0)),
-      									  cursor.getString(1),
-      									  cursor.getString(2),
-      									cursor.getString(3));
-              // return 
-              db.close();
-              cursor.close();
-              return voltage;
-          }
+		Cursor cursor = db.query(TABLE_VOLTAGE, new String[] { KEY_VOLTAGE_ID,
+									 KEY_VOLTAGE_NAME,
+									 KEY_VOLTAGE_FREQ,
+									 KEY_VOLTAGE_VALUE }, KEY_VOLTAGE_FREQ + "=?",
+								 new String[] { freq }, null, null, null, null);
+		if (cursor != null)
+			cursor.moveToFirst();
 
-       // Getting All 
-       public List<Voltage> getAllVoltages()
+		Voltage voltage = new Voltage(cursor.getInt(0),
+									  cursor.getString(1),
+									  cursor.getString(2),
+									  cursor.getString(3));
+		// return 
+		db.close();
+		cursor.close();
+		return voltage;
+	}
+
+	// Getting All 
+	public List<Voltage> getAllVoltages()
    	{
-           List<Voltage> voltageList = new ArrayList<Voltage>();
-           // Select All Query
-           String selectQuery = "SELECT  * FROM " + TABLE_VOLTAGE;
+		List<Voltage> voltageList = new ArrayList<Voltage>();
+		// Select All Query
+		String selectQuery = "SELECT * FROM " + TABLE_VOLTAGE;
 
-           SQLiteDatabase db = this.getWritableDatabase();
-           Cursor cursor = db.rawQuery(selectQuery, null);
+		SQLiteDatabase db = this.getWritableDatabase();
+		Cursor cursor = db.rawQuery(selectQuery, null);
 
-           // looping through all rows and adding to list
-           if (cursor.moveToFirst())
+		// looping through all rows and adding to list
+		if (cursor.moveToFirst())
    		{
-               do {
+			do {
    				Voltage voltage = new Voltage();
-                   voltage.setID(Integer.parseInt(cursor.getString(0)));
-                   voltage.setName(cursor.getString(1));
-                   voltage.setFreq(cursor.getString(2));
-                   voltage.setValue(cursor.getString(3));
-                   
-                   // Adding  to list
-                   voltageList.add(voltage);
-               } while (cursor.moveToNext());
-           }
+				voltage.setId(cursor.getInt(0));
+				voltage.setName(cursor.getString(1));
+				voltage.setDbFreqs(cursor.getString(2));
+				voltage.setDbValues(cursor.getString(3));
+				
+				// Adding  to list
+				voltageList.add(voltage);
+			} while (cursor.moveToNext());
+		}
 
-           // return  list
-           db.close();
-           cursor.close();
-           return voltageList;
-       }
+		// return  list
+		db.close();
+		cursor.close();
+		return voltageList;
+	}
 
-       // Updating single 
-       public int updateVoltage(Voltage voltage)
+	// Updating single 
+	public int updateVoltage(Voltage voltage)
    	{
-           SQLiteDatabase db = this.getWritableDatabase();
+		SQLiteDatabase db = this.getWritableDatabase();
 
-           ContentValues values = new ContentValues();
-           values.put(KEY_VOLTAGE_NAME, voltage.getFreq());
-           values.put(KEY_VOLTAGE_FREQ, voltage.getFreq());
-           values.put(KEY_VOLTAGE_VALUE, voltage.getValue());
+		ContentValues values = new ContentValues();
+		values.put(KEY_VOLTAGE_NAME, voltage.getName());
+		values.put(KEY_VOLTAGE_FREQ, voltage.getDbFreqs());
+		values.put(KEY_VOLTAGE_VALUE, voltage.getDbValues());
 
-           // updating row
-           db.close();
-           return db.update(TABLE_VOLTAGE, values, KEY_VOLTAGE_ID + " = ?",
-   						 new String[] { String.valueOf(voltage.getID()) });
-       }
+		// updating row
+		db.close();
+		return db.update(TABLE_VOLTAGE, values, KEY_VOLTAGE_ID + " = ?",
+   						 new String[] { String.valueOf(voltage.getId()) });
+	}
 
-       // Deleting single 
-       public void deleteVoltage(Voltage voltage)
+	// Deleting single 
+	public void deleteVoltage(Voltage voltage)
    	{
-           SQLiteDatabase db = this.getWritableDatabase();
-           db.delete(TABLE_VOLTAGE, KEY_VOLTAGE_ID + " = ?",
-   				  new String[] { String.valueOf(voltage.getID()) });
-           db.close();
-       }
+		SQLiteDatabase db = this.getWritableDatabase();
+		db.delete(TABLE_VOLTAGE, KEY_VOLTAGE_ID + " = ?",
+   				  new String[] { String.valueOf(voltage.getId()) });
+		db.close();
+	}
 
-       public void deleteVoltageByName(Voltage voltage)
+	public void deleteVoltageByName(Voltage voltage)
    	{
-           SQLiteDatabase db = this.getWritableDatabase();
-           db.delete(TABLE_VOLTAGE, KEY_VOLTAGE_NAME + " = ?",
+		SQLiteDatabase db = this.getWritableDatabase();
+		db.delete(TABLE_VOLTAGE, KEY_VOLTAGE_NAME + " = ?",
    				  new String[] { String.valueOf(voltage.getName()) });
-           db.close();
-       }
-
-       // Getting  Count
-       public int getVoltageCount()
+		db.close();
+	}
+	
+	public void clearVoltage()
    	{
-           String countQuery = "SELECT  * FROM " + TABLE_VOLTAGE;
-           SQLiteDatabase db = this.getReadableDatabase();
-           Cursor cursor = db.rawQuery(countQuery, null);
-           cursor.close();
+		SQLiteDatabase db = this.getWritableDatabase();
+		db.execSQL("DELETE FROM " + TABLE_VOLTAGE);
+		db.close();
+	}
 
-           // return count
-           return cursor.getCount();
-       }
-*/
+	// Getting  Count
+	public int getVoltageCount()
+   	{
+		String countQuery = "SELECT * FROM " + TABLE_VOLTAGE;
+		SQLiteDatabase db = this.getReadableDatabase();
+		Cursor cursor = db.rawQuery(countQuery, null);
+		cursor.close();
+
+		// return count
+		return cursor.getCount();
+	}
+
 }

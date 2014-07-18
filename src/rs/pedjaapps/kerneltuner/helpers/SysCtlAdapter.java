@@ -25,7 +25,7 @@ import android.widget.*;
 import rs.pedjaapps.kerneltuner.*;
 import rs.pedjaapps.kerneltuner.model.*;
 
-public final class SysCtlAdapter extends ArrayAdapter<SysCtlEntry>
+public final class SysCtlAdapter extends ArrayAdapter<SysCtl>
 {
 
 	private final int govItemLayoutResource;
@@ -42,10 +42,10 @@ public final class SysCtlAdapter extends ArrayAdapter<SysCtlEntry>
 
 		final View view = getWorkingView(convertView);
 		final ViewHolder viewHolder = getViewHolder(view);
-		final SysCtlEntry entry = getItem(position);
+		final SysCtl entry = getItem(position);
 
 		viewHolder.valueView.setText(entry.getValue());
-		viewHolder.nameView.setText(entry.getName());
+		viewHolder.nameView.setText(entry.getKey());
 
 
 		return view;

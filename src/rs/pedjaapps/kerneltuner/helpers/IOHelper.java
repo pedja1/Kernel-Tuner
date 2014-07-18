@@ -1,21 +1,21 @@
 /*
-* This file is part of the Kernel Tuner.
-*
-* Copyright Predrag Čokulov <predragcokulov@gmail.com>
-*
-* Kernel Tuner is free software: you can redistribute it and/or modify
-* it under the terms of the GNU General Public License as published by
-* the Free Software Foundation, either version 3 of the License, or
-* (at your option) any later version.
-*
-* Kernel Tuner is distributed in the hope that it will be useful,
-* but WITHOUT ANY WARRANTY; without even the implied warranty of
-* MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the
-* GNU General Public License for more details.
-*
-* You should have received a copy of the GNU General Public License
-* along with Kernel Tuner. If not, see <http://www.gnu.org/licenses/>.
-*/
+ * This file is part of the Kernel Tuner.
+ *
+ * Copyright Predrag Čokulov <predragcokulov@gmail.com>
+ *
+ * Kernel Tuner is free software: you can redistribute it and/or modify
+ * it under the terms of the GNU General Public License as published by
+ * the Free Software Foundation, either version 3 of the License, or
+ * (at your option) any later version.
+ *
+ * Kernel Tuner is distributed in the hope that it will be useful,
+ * but WITHOUT ANY WARRANTY; without even the implied warranty of
+ * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the
+ * GNU General Public License for more details.
+ *
+ * You should have received a copy of the GNU General Public License
+ * along with Kernel Tuner. If not, see <http://www.gnu.org/licenses/>.
+ */
 package rs.pedjaapps.kerneltuner.helpers;
 
 import android.os.SystemClock;
@@ -40,6 +40,7 @@ import org.apache.commons.io.FileUtils;
 import rs.pedjaapps.kerneltuner.Constants;
 import rs.pedjaapps.kerneltuner.model.Frequency;
 import rs.pedjaapps.kerneltuner.model.TimesEntry;
+import rs.pedjaapps.kerneltuner.model.Voltage;
 import rs.pedjaapps.kerneltuner.utility.Tools;
 
 public class IOHelper
@@ -116,7 +117,7 @@ public class IOHelper
 
     public static boolean cpuOnline(int cpu)
     {
-         return new File("/sys/devices/system/cpu/cpu" + cpu + "/cpufreq/scaling_governor").exists();
+		return new File("/sys/devices/system/cpu/cpu" + cpu + "/cpufreq/scaling_governor").exists();
     }
 
     public static boolean gpuExists()
@@ -265,7 +266,7 @@ public class IOHelper
             while ((aDataRow = myReader.readLine()) != null)
             {
                 String[] freqs = aDataRow.split(" ");
-                for(String s : freqs)
+                for (String s : freqs)
                 {
                     Frequency frequency = new Frequency();
                     int value = Tools.parseInt(s, Constants.CPU_OFFLINE_CODE);
@@ -302,13 +303,13 @@ public class IOHelper
 
                     Frequency frequency = new Frequency();
                     int value = Tools.parseInt(freq, Constants.CPU_OFFLINE_CODE);
-                    if(value == Constants.CPU_OFFLINE_CODE) continue;
+                    if (value == Constants.CPU_OFFLINE_CODE) continue;
                     String string = null;
-                    if(freq.length() > 3)
+                    if (freq.length() > 3)
                     {
                         string = freq.trim().substring(0, freq.trim().length() - 3) + "MHz";
                     }
-                    if(TextUtils.isEmpty(string)) continue;
+                    if (TextUtils.isEmpty(string)) continue;
                     frequency.setFrequencyString(string);
                     frequency.setFrequencyValue(value);
                     entries.add(frequency);
@@ -391,7 +392,7 @@ public class IOHelper
     {
         try
         {
-            return Tools.parseInt( FileUtils.readFileToString(new File(Constants.CPU0_MIN_FREQ)).trim(), Constants.CPU_OFFLINE_CODE);
+            return Tools.parseInt(FileUtils.readFileToString(new File(Constants.CPU0_MIN_FREQ)).trim(), Constants.CPU_OFFLINE_CODE);
         }
         catch (Exception e)
         {
@@ -490,7 +491,7 @@ public class IOHelper
     {
         try
         {
-            return Tools.parseInt( FileUtils.readFileToString(new File(Constants.CPU3_MIN_FREQ)).trim(), Constants.CPU_OFFLINE_CODE);
+            return Tools.parseInt(FileUtils.readFileToString(new File(Constants.CPU3_MIN_FREQ)).trim(), Constants.CPU_OFFLINE_CODE);
         }
         catch (Exception e)
         {
@@ -660,46 +661,52 @@ public class IOHelper
     }
 
 
-    /*public static List<Voltage> voltages()
+    public static List<Voltage> voltages()
     {
         List<Voltage> voltages = new ArrayList<Voltage>();
-        if (!voltages.isEmpty())
+        if (new File(Constants.VOLTAGE_PATH).exists())
         {
-            voltages.clear();
+			try
+			{
+				FileInputStream fstream = new FileInputStream(Constants.VOLTAGE_PATH);
+
+				DataInputStream in = new DataInputStream(fstream);
+				BufferedReader br = new BufferedReader(new InputStreamReader(in));
+				String strLine;
+
+				while ((strLine = br.readLine()) != null)
+				{
+					strLine = strLine.trim().replaceAll("\\s+", "");
+					Voltage voltage = new Voltage();
+					String name, frequency = null;
+					String[] vf = strLine.split(":");
+					if(vf.length != 2)continue;
+					int frInt = Tools.parseInt(vf[0], -1);
+					if(frInt < 0)continue;
+					frequency = frInt / 1000 + "MHz";
+					int value = Tools.parseInt(vf[1], -1);
+					if(value < 0)continue;
+					name = value / 1000 + "mV";
+					
+					voltage.setFreq(frequency);
+					voltage.setName(name);
+					voltage.setValue(value);
+					voltage.setFreqValue(frInt);
+					voltage.setDivider(1000);
+					voltage.setMultiplier(1);
+					voltages.add(voltage);
+				}
+
+				in.close();
+				fstream.close();
+				br.close();
+			}
+			catch (Exception e)
+			{
+
+			}
         }
-        try
-        {
-            FileInputStream fstream = new FileInputStream(Constants.VOLTAGE_PATH);
-
-            DataInputStream in = new DataInputStream(fstream);
-            BufferedReader br = new BufferedReader(new InputStreamReader(in));
-            String strLine;
-
-            while ((strLine = br.readLine()) != null)
-            {
-                Voltage voltage = new Voltage();
-                String name, frequency = null;
-                if(strLine.length() > 13)
-                {
-                    frequency = strLine.substring(0, strLine.length() - 13).trim() + "MHz";
-                }
-                name = strLine.substring(0, strLine.length() - 10).trim();
-                int value = Tools.parseInt(strLine.substring(9, strLine.length()).trim(), Constants.CPU_OFFLINE_CODE);
-                if (name == null || frequency == null || value == Constants.CPU_OFFLINE_CODE)
-                {
-                    continue;
-                }
-                voltage.setFreq(frequency);
-                voltage.setName(name);
-                voltage.setValue(value);
-                voltages.add(voltage);
-            }
-
-            in.close();
-            fstream.close();
-            br.close();
-        }
-        catch (Exception e)
+        else if (new File(Constants.VOLTAGE_PATH_TEGRA_3).exists())
         {
             try
             {
@@ -716,7 +723,7 @@ public class IOHelper
                     if (delims.length < 2) continue;
                     Voltage voltage = new Voltage();
                     String name, frequency = null;
-                    if(delims[0].length() > 4)
+                    if (delims[0].length() > 4)
                     {
                         frequency = delims[0].substring(0, delims[0].length() - 4).trim() + "MHz";
                     }
@@ -729,6 +736,8 @@ public class IOHelper
                     voltage.setFreq(frequency);
                     voltage.setName(name);
                     voltage.setValue(value);
+					voltage.setDivider(1);
+					voltage.setMultiplier(1000);
                     voltages.add(voltage);
                 }
 
@@ -742,8 +751,7 @@ public class IOHelper
             }
         }
         return voltages;
-
-    }*/
+    }
 
 
     public static String uptime()
@@ -913,7 +921,7 @@ public class IOHelper
             FileInputStream fIn = new FileInputStream(myFile);
 
             BufferedReader myReader = new BufferedReader(new InputStreamReader(
-                    fIn));
+															 fIn));
             String aDataRow = "";
             String aBuffer = "";
             while ((aDataRow = myReader.readLine()) != null)
@@ -971,11 +979,11 @@ public class IOHelper
         {
             File file1 = new File(Constants.GPU_3D);
             File file2 = new File(Constants.GPU_3D_2);
-            if(file1.exists())
+            if (file1.exists())
             {
                 return Tools.parseInt(FileUtils.readFileToString(file1).trim(), Constants.CPU_OFFLINE_CODE);
             }
-            else if(file2.exists())
+            else if (file2.exists())
             {
                 return Tools.parseInt(FileUtils.readFileToString(file2).trim(), Constants.GPU_OFFLINE_CODE);
             }
@@ -995,7 +1003,7 @@ public class IOHelper
         try
         {
             File file1 = new File(Constants.GPU_3D_2_GOV);
-            if(file1.exists())
+            if (file1.exists())
             {
                 return FileUtils.readFileToString(file1).trim();
             }
@@ -1009,7 +1017,7 @@ public class IOHelper
             return "n/a";
         }
     }
-	
+
     public static String gpu2d()
     {
         try
@@ -1027,9 +1035,9 @@ public class IOHelper
         List<Frequency> frequencies = gpu3dFrequenciesAsList();
         StringBuilder builder = new StringBuilder();
         int i = 0;
-		for(Frequency fr : frequencies)
+		for (Frequency fr : frequencies)
         {
-            if(i != 0)builder.append(", ");
+            if (i != 0)builder.append(", ");
             builder.append(fr.getFrequencyString());
             i++;
         }
@@ -1044,10 +1052,10 @@ public class IOHelper
             File file1 = new File(Constants.GPU_3D_AVAILABLE_FREQUENCIES);
             String[] frqs = FileUtils.readFileToString(file1).trim().split(" ");
 			Set<Integer> values = new HashSet<>();
-            for(String freq : frqs)
+            for (String freq : frqs)
             {
                 int frInt = Tools.parseInt(freq, -1);
-                if(frInt == -1 || values.contains(frInt))continue;
+                if (frInt == -1 || values.contains(frInt))continue;
 				values.add(frInt);
                 Frequency frequency = new Frequency();
                 frequency.setFrequencyValue(frInt);
@@ -1109,7 +1117,7 @@ public class IOHelper
             FileInputStream fIn = new FileInputStream(myFile);
 
             BufferedReader myReader = new BufferedReader(
-                    new InputStreamReader(fIn));
+				new InputStreamReader(fIn));
             String aDataRow = "";
             String aBuffer = "";
             while ((aDataRow = myReader.readLine()) != null)
@@ -1220,11 +1228,11 @@ public class IOHelper
         {
             File battTempFile1 = new File(Constants.BATTERY_TEMP);
             File battTempFile2 = new File(Constants.BATTERY_TEMP2);
-            if(battTempFile1.exists())
+            if (battTempFile1.exists())
             {
                 return Double.parseDouble(FileUtils.readFileToString(battTempFile1).trim());
             }
-            else if(battTempFile2.exists())
+            else if (battTempFile2.exists())
             {
                 return Double.parseDouble(FileUtils.readFileToString(battTempFile2).trim()) / 10;
             }
@@ -1245,11 +1253,11 @@ public class IOHelper
         {
             File file1 = new File(Constants.BATTERY_DRAIN);
             File file2 = new File(Constants.BATTERY_DRAIN2);
-            if(file1.exists())
+            if (file1.exists())
             {
                 return FileUtils.readFileToString(file1).trim() + "mA";
             }
-            else if(file2.exists())
+            else if (file2.exists())
             {
                 return Tools.parseInt(FileUtils.readFileToString(file2).trim(), 1000) / 1000 + "mA";
             }
@@ -1271,11 +1279,11 @@ public class IOHelper
         {
             File file1 = new File(Constants.BATTERY_VOLTAGE);
             File file2 = new File(Constants.BATTERY_VOLTAGE2);
-            if(file1.exists())
+            if (file1.exists())
             {
                 return Integer.parseInt(FileUtils.readFileToString(file1).trim());
             }
-            else if(file2.exists())
+            else if (file2.exists())
             {
                 return Integer.parseInt(FileUtils.readFileToString(file2).trim()) / 1000;
             }
@@ -1320,11 +1328,11 @@ public class IOHelper
         {
             File file1 = new File(Constants.BATTERY_CAPACITY);
             File file2 = new File(Constants.BATTERY_CAPACITY2);
-            if(file1.exists())
+            if (file1.exists())
             {
                 return FileUtils.readFileToString(file1).trim() + "mAh";
             }
-            else if(file2.exists())
+            else if (file2.exists())
             {
                 return FileUtils.readFileToString(file2).trim() + "mAh";
             }
@@ -1586,7 +1594,7 @@ public class IOHelper
 
                     long idle1 = Long.parseLong(toks[5]);
                     long cpu1 = Long.parseLong(toks[2]) + Long.parseLong(toks[3]) + Long.parseLong(toks[4])
-                            + Long.parseLong(toks[6]) + Long.parseLong(toks[7]) + Long.parseLong(toks[8]);
+						+ Long.parseLong(toks[6]) + Long.parseLong(toks[7]) + Long.parseLong(toks[8]);
 
                     try
                     {
@@ -1604,7 +1612,7 @@ public class IOHelper
 
                     long idle2 = Long.parseLong(toks[5]);
                     long cpu2 = Long.parseLong(toks[2]) + Long.parseLong(toks[3]) + Long.parseLong(toks[4])
-                            + Long.parseLong(toks[6]) + Long.parseLong(toks[7]) + Long.parseLong(toks[8]);
+						+ Long.parseLong(toks[6]) + Long.parseLong(toks[7]) + Long.parseLong(toks[8]);
 
                     fLoad = (float) (cpu2 - cpu1) / ((cpu2 + idle2) - (cpu1 + idle1));
 
