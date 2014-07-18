@@ -18,24 +18,48 @@
  */
 package rs.pedjaapps.kerneltuner.ui;
 
-import android.app.*;
-import android.app.ActivityManager.*;
-import android.content.*;
-import android.content.pm.*;
-import android.graphics.drawable.*;
-import android.os.*;
-import android.preference.*;
-import android.util.*;
-import android.view.*;
-import android.widget.*;
-import android.widget.AdapterView.*;
-import java.io.*;
-import java.util.*;
-import rs.pedjaapps.kerneltuner.*;
-import rs.pedjaapps.kerneltuner.helpers.*;
-import rs.pedjaapps.kerneltuner.model.*;
-
-import java.lang.Process;
+import android.app.ActionBar;
+import android.app.ActivityManager;
+import android.app.ActivityManager.MemoryInfo;
+import android.app.ProgressDialog;
+import android.content.Intent;
+import android.content.SharedPreferences;
+import android.content.pm.ApplicationInfo;
+import android.content.pm.PackageManager;
+import android.graphics.drawable.Drawable;
+import android.os.AsyncTask;
+import android.os.Bundle;
+import android.preference.PreferenceManager;
+import android.text.Html;
+import android.util.Log;
+import android.view.Gravity;
+import android.view.LayoutInflater;
+import android.view.Menu;
+import android.view.MenuInflater;
+import android.view.MenuItem;
+import android.view.View;
+import android.view.Window;
+import android.widget.AdapterView;
+import android.widget.AdapterView.OnItemClickListener;
+import android.widget.CheckBox;
+import android.widget.CompoundButton;
+import android.widget.ListView;
+import android.widget.ProgressBar;
+import android.widget.RelativeLayout;
+import android.widget.TextView;
+import java.io.BufferedReader;
+import java.io.IOException;
+import java.io.InputStream;
+import java.io.InputStreamReader;
+import java.io.RandomAccessFile;
+import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.Collections;
+import java.util.Comparator;
+import java.util.List;
+import rs.pedjaapps.kerneltuner.R;
+import rs.pedjaapps.kerneltuner.helpers.TMAdapter;
+import rs.pedjaapps.kerneltuner.model.Task;
 
 public class TaskManager extends AbsActivity implements OnItemClickListener
 {
@@ -85,13 +109,14 @@ public class TaskManager extends AbsActivity implements OnItemClickListener
 		getActionBar().setSubtitle(null);
 		getActionBar().setIcon(R.drawable.tm);
 
+		ActionBar.LayoutParams lp = new ActionBar.LayoutParams(ActionBar.LayoutParams.WRAP_CONTENT, ActionBar.LayoutParams.WRAP_CONTENT, Gravity.RIGHT | Gravity.CENTER_VERTICAL);
 		View customNav = LayoutInflater.from(this).inflate(R.layout.ram_layout, null);
 
-		((TextView)customNav.findViewById(R.id.free)).setText(getResources().getString(R.string.mem_free) + getFreeRAM() + "MB");
-		((TextView)customNav.findViewById(R.id.total)).setText(getResources().getString(R.string.mem_free) + getTotalRAM() + "MB");
+		((TextView)customNav.findViewById(R.id.free)).setText(Html.fromHtml("<b>" + getResources().getString(R.string.mem_free) + "</b>" + getFreeRAM() + "MB"));
+		((TextView)customNav.findViewById(R.id.total)).setText(Html.fromHtml("<b>" + getResources().getString(R.string.mem_total) + "</b>" + getTotalRAM() + "MB"));
 
         //Attach to the action bar
-        getActionBar().setCustomView(customNav);
+        getActionBar().setCustomView(customNav, lp);
         getActionBar().setDisplayShowCustomEnabled(true);
 
 		tmListView =  (ListView)findViewById(R.id.list);
