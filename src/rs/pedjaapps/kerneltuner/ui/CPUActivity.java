@@ -349,7 +349,8 @@ public class CPUActivity extends AbsActivity implements RootUtils.CommandCallbac
     protected void onDestroy()
     {
         super.onDestroy();
-        RCommand.toggleAllCpu(null, false);
+        //RCommand.toggleAllCpu(null, false);
+		//dont disable them, mpdec will handle it
     }
 	
 	@Override
