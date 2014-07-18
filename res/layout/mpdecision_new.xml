@@ -4,7 +4,7 @@
     xmlns:ads="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:layout_margin="15dp"
+    android:layout_margin="5dp"
     tools:context=".KernelTuner" >
 
     <ScrollView
@@ -35,28 +35,29 @@
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:text="@string/service_start_delay"
-                        android:textAppearance="?android:attr/textAppearanceMedium" />
+                        android:textStyle="bold"/>
 
                     <TextView
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:text="@string/start_delay_desc" />
                 </LinearLayout>
-                
+
                 <EditText
                     android:id="@+id/ed1"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:inputType="number" />
+				
                 <TextView
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:text="@string/ms" />
-               
+					android:layout_width="wrap_content"
+					android:layout_height="wrap_content"
+					android:text="@string/ms" />
+
             </LinearLayout>
 
             <ImageView
-               
+
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginBottom="8dp"
@@ -82,7 +83,7 @@
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:text="@string/pause"
-                        android:textAppearance="?android:attr/textAppearanceMedium" />
+                        android:textStyle="bold"/>
 
                     <TextView
                         android:layout_width="wrap_content"
@@ -96,13 +97,13 @@
                     android:layout_height="wrap_content"
                     android:inputType="number" />
                 <TextView
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:text="@string/ms" />
+					android:layout_width="wrap_content"
+					android:layout_height="wrap_content"
+					android:text="@string/ms" />
             </LinearLayout>
 
             <ImageView
-              
+
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginBottom="8dp"
@@ -128,7 +129,7 @@
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:text="@string/max_cpus"
-                        android:textAppearance="?android:attr/textAppearanceMedium" />
+                        android:textStyle="bold" />
 
                     <TextView
                         android:layout_width="wrap_content"
@@ -141,11 +142,11 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:inputType="number" />
-                
+
             </LinearLayout>
 
             <ImageView
-              
+
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginBottom="8dp"
@@ -171,7 +172,7 @@
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:text="@string/min_cpus"
-                        android:textAppearance="?android:attr/textAppearanceMedium" />
+                        android:textStyle="bold" />
 
                     <TextView
                         android:layout_width="wrap_content"
@@ -184,11 +185,11 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:inputType="number" />
-                
+
             </LinearLayout>
 
             <ImageView
-                
+
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginBottom="8dp"
@@ -204,7 +205,7 @@
                 android:layout_marginLeft="5dp"
                 android:layout_marginRight="5dp" >
 
-               <LinearLayout
+				<LinearLayout
                     android:layout_width="0dp"
                     android:layout_height="wrap_content"
                     android:layout_weight="1"
@@ -214,7 +215,7 @@
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:text="@string/idle_frequency"
-                        android:textAppearance="?android:attr/textAppearanceMedium" />
+                        android:textStyle="bold" />
 
                     <TextView
                         android:layout_width="wrap_content"
@@ -226,10 +227,10 @@
                     android:id="@+id/bg"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                     />
+				/>
             </LinearLayout>
             <ImageView
-                
+
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginBottom="8dp"
@@ -245,7 +246,7 @@
                 android:layout_marginLeft="5dp"
                 android:layout_marginRight="5dp" >
 
-               <LinearLayout
+				<LinearLayout
                     android:layout_width="0dp"
                     android:layout_height="wrap_content"
                     android:layout_weight="1"
@@ -255,7 +256,7 @@
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:text="@string/screen_off_frequency"
-                        android:textAppearance="?android:attr/textAppearanceMedium" />
+                        android:textStyle="bold" />
 
                     <TextView
                         android:layout_width="wrap_content"
@@ -267,10 +268,10 @@
                     android:id="@+id/spinner2"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                   />
+				/>
             </LinearLayout>
             <ImageView
-             
+
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginBottom="8dp"
@@ -286,7 +287,7 @@
                 android:layout_marginLeft="5dp"
                 android:layout_marginRight="5dp" >
 
-               <LinearLayout
+				<LinearLayout
                     android:layout_width="0dp"
                     android:layout_height="wrap_content"
                     android:layout_weight="1"
@@ -296,7 +297,7 @@
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:text="@string/single_core_screen_off"
-                        android:textAppearance="?android:attr/textAppearanceMedium" />
+                        android:textStyle="bold" />
 
                     <TextView
                         android:layout_width="wrap_content"
@@ -310,23 +311,14 @@
                     android:layout_height="wrap_content"
                     android:layout_gravity="center_vertical" />
             </LinearLayout>
-            
-            
-             <TextView
-                android:layout_width="wrap_content"
+
+
+			<TextView
+                android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:text="@string/one_cpu_online"
                 android:layout_marginTop="8dp"
-                android:textAppearance="?android:attr/textAppearanceMedium" />
-
-            <ImageView
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_marginBottom="8dp"
-                android:layout_marginLeft="5dp"
-                android:layout_marginRight="5dp"
-                android:scaleType="fitXY"
-                android:src="@drawable/divider_strong_holo" />
+                style="?android:attr/listSeparatorTextViewStyle"/>
 
             <LinearLayout
                 android:layout_width="match_parent"
@@ -344,7 +336,7 @@
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:text="@string/cpu1_hotplug"
-                        android:textAppearance="?android:attr/textAppearanceMedium" />
+                        android:textStyle="bold" />
 
                     <TextView
                         android:layout_width="wrap_content"
@@ -357,13 +349,13 @@
                     android:layout_height="wrap_content"
                     android:inputType="number" />
                 <TextView
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:text="@string/percent" />
+					android:layout_width="wrap_content"
+					android:layout_height="wrap_content"
+					android:text="@string/percent" />
             </LinearLayout>
-            
+
             <ImageView
-               
+
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginBottom="8dp"
@@ -372,7 +364,7 @@
                 android:layout_marginTop="8dp"
                 android:scaleType="fitXY"
                 android:src="@drawable/divider_horizontal_bright" />
-            
+
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
@@ -389,40 +381,32 @@
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:text="@string/cpu1_hotplug_time"
-                        android:textAppearance="?android:attr/textAppearanceMedium" />
+                        android:textStyle="bold" />
 
                     <TextView
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:text="@string/cpu1_hotplug_time_desc" />
                 </LinearLayout>
+				
                 <EditText
                     android:id="@+id/one_cpu_hotplug_time"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:inputType="number" />
                 <TextView
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:text="@string/ms" />
+					android:layout_width="wrap_content"
+					android:layout_height="wrap_content"
+					android:text="@string/ms" />
             </LinearLayout>
-            
+
 
             <TextView
-                android:layout_width="wrap_content"
+                android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:text="@string/two_cpus_online"
                 android:layout_marginTop="8dp"
-                android:textAppearance="?android:attr/textAppearanceMedium" />
-
-            <ImageView
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_marginBottom="8dp"
-                android:layout_marginLeft="5dp"
-                android:layout_marginRight="5dp"
-                android:scaleType="fitXY"
-                android:src="@drawable/divider_strong_holo" />
+                style="?android:attr/listSeparatorTextViewStyle"/>
 
             <LinearLayout
                 android:layout_width="match_parent"
@@ -440,7 +424,7 @@
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:text="@string/cpu2_hotplug"
-                        android:textAppearance="?android:attr/textAppearanceMedium" />
+                        android:textStyle="bold" />
 
                     <TextView
                         android:layout_width="wrap_content"
@@ -453,13 +437,13 @@
                     android:layout_height="wrap_content"
                     android:inputType="number" />
                 <TextView
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:text="@string/percent" />
+					android:layout_width="wrap_content"
+					android:layout_height="wrap_content"
+					android:text="@string/percent" />
             </LinearLayout>
 
             <ImageView
-               
+
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginBottom="8dp"
@@ -468,7 +452,7 @@
                 android:layout_marginTop="8dp"
                 android:scaleType="fitXY"
                 android:src="@drawable/divider_horizontal_bright" />
-            
+
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
@@ -485,7 +469,7 @@
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:text="@string/cpu2_hotplug_time"
-                        android:textAppearance="?android:attr/textAppearanceMedium" />
+                        android:textStyle="bold" />
 
                     <TextView
                         android:layout_width="wrap_content"
@@ -498,13 +482,13 @@
                     android:layout_height="wrap_content"
                     android:inputType="number" />
                 <TextView
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:text="@string/ms" />
+					android:layout_width="wrap_content"
+					android:layout_height="wrap_content"
+					android:text="@string/ms" />
             </LinearLayout>
-            
+
             <ImageView
-               
+
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginBottom="8dp"
@@ -520,7 +504,7 @@
                 android:layout_marginLeft="5dp"
                 android:layout_marginRight="5dp" >
 
-               <LinearLayout
+				<LinearLayout
                     android:layout_width="0dp"
                     android:layout_height="wrap_content"
                     android:layout_weight="1"
@@ -530,7 +514,7 @@
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:text="@string/cpu1_unplug"
-                        android:textAppearance="?android:attr/textAppearanceMedium" />
+                        android:textStyle="bold" />
 
                     <TextView
                         android:layout_width="wrap_content"
@@ -544,14 +528,14 @@
                     android:layout_height="wrap_content"
                     android:inputType="number" />
                 <TextView
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:text="@string/percent" />
-                
+					android:layout_width="wrap_content"
+					android:layout_height="wrap_content"
+					android:text="@string/percent" />
+
             </LinearLayout>
-            
+
             <ImageView
-               
+
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginBottom="8dp"
@@ -560,7 +544,7 @@
                 android:layout_marginTop="8dp"
                 android:scaleType="fitXY"
                 android:src="@drawable/divider_horizontal_bright" />
-            
+
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
@@ -577,7 +561,7 @@
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:text="@string/cpu1_unplug_time"
-                        android:textAppearance="?android:attr/textAppearanceMedium" />
+                        android:textStyle="bold" />
 
                     <TextView
                         android:layout_width="wrap_content"
@@ -590,26 +574,17 @@
                     android:layout_height="wrap_content"
                     android:inputType="number" />
                 <TextView
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:text="@string/ms" />
+					android:layout_width="wrap_content"
+					android:layout_height="wrap_content"
+					android:text="@string/ms" />
             </LinearLayout>
-            
+
             <TextView
-                android:layout_width="wrap_content"
+                android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:text="@string/three_cpus_online"
                 android:layout_marginTop="8dp"
-                android:textAppearance="?android:attr/textAppearanceMedium" />
-
-            <ImageView
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_marginBottom="8dp"
-                android:layout_marginLeft="5dp"
-                android:layout_marginRight="5dp"
-                android:scaleType="fitXY"
-                android:src="@drawable/divider_strong_holo" />
+                style="?android:attr/listSeparatorTextViewStyle"/>
 
             <LinearLayout
                 android:layout_width="match_parent"
@@ -627,7 +602,7 @@
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:text="@string/cpu3_hotplug"
-                        android:textAppearance="?android:attr/textAppearanceMedium" />
+                        android:textStyle="bold"/>
 
                     <TextView
                         android:layout_width="wrap_content"
@@ -640,13 +615,13 @@
                     android:layout_height="wrap_content"
                     android:inputType="number" />
                 <TextView
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:text="@string/percent" />
+					android:layout_width="wrap_content"
+					android:layout_height="wrap_content"
+					android:text="@string/percent" />
             </LinearLayout>
 
             <ImageView
-               
+
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginBottom="8dp"
@@ -655,7 +630,7 @@
                 android:layout_marginTop="8dp"
                 android:scaleType="fitXY"
                 android:src="@drawable/divider_horizontal_bright" />
-            
+
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
@@ -672,7 +647,7 @@
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:text="@string/cpu3_hotplug_time"
-                        android:textAppearance="?android:attr/textAppearanceMedium" />
+                        android:textStyle="bold" />
 
                     <TextView
                         android:layout_width="wrap_content"
@@ -685,13 +660,13 @@
                     android:layout_height="wrap_content"
                     android:inputType="number" />
                 <TextView
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:text="@string/ms" />
+					android:layout_width="wrap_content"
+					android:layout_height="wrap_content"
+					android:text="@string/ms" />
             </LinearLayout>
-            
+
             <ImageView
-               
+
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginBottom="8dp"
@@ -707,7 +682,7 @@
                 android:layout_marginLeft="5dp"
                 android:layout_marginRight="5dp" >
 
-               <LinearLayout
+				<LinearLayout
                     android:layout_width="0dp"
                     android:layout_height="wrap_content"
                     android:layout_weight="1"
@@ -717,7 +692,7 @@
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:text="@string/cpu2_unplug"
-                        android:textAppearance="?android:attr/textAppearanceMedium" />
+                        android:textStyle="bold" />
 
                     <TextView
                         android:layout_width="wrap_content"
@@ -731,14 +706,14 @@
                     android:layout_height="wrap_content"
                     android:inputType="number" />
                 <TextView
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:text="@string/percent" />
-                
+					android:layout_width="wrap_content"
+					android:layout_height="wrap_content"
+					android:text="@string/percent" />
+
             </LinearLayout>
-            
+
             <ImageView
-               
+
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginBottom="8dp"
@@ -747,7 +722,7 @@
                 android:layout_marginTop="8dp"
                 android:scaleType="fitXY"
                 android:src="@drawable/divider_horizontal_bright" />
-            
+
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
@@ -764,7 +739,7 @@
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:text="@string/cpu2_unplug_time"
-                        android:textAppearance="?android:attr/textAppearanceMedium" />
+                        android:textStyle="bold" />
 
                     <TextView
                         android:layout_width="wrap_content"
@@ -777,26 +752,17 @@
                     android:layout_height="wrap_content"
                     android:inputType="number" />
                 <TextView
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:text="@string/ms" />
+					android:layout_width="wrap_content"
+					android:layout_height="wrap_content"
+					android:text="@string/ms" />
             </LinearLayout>
-            
+
             <TextView
-                android:layout_width="wrap_content"
+                android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:text="@string/four_cpus_online"
                 android:layout_marginTop="8dp"
-                android:textAppearance="?android:attr/textAppearanceMedium" />
-
-            <ImageView
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_marginBottom="8dp"
-                android:layout_marginLeft="5dp"
-                android:layout_marginRight="5dp"
-                android:scaleType="fitXY"
-                android:src="@drawable/divider_strong_holo" />
+                style="?android:attr/listSeparatorTextViewStyle"/>
 
             <LinearLayout
                 android:layout_width="match_parent"
@@ -814,7 +780,7 @@
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:text="@string/cpu3_unplug"
-                        android:textAppearance="?android:attr/textAppearanceMedium"/>
+                        android:textStyle="bold"/>
 
                     <TextView
                         android:layout_width="wrap_content"
@@ -827,13 +793,13 @@
                     android:layout_height="wrap_content"
                     android:inputType="number" />
                 <TextView
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:text="@string/percent" />
+					android:layout_width="wrap_content"
+					android:layout_height="wrap_content"
+					android:text="@string/percent" />
             </LinearLayout>
 
             <ImageView
-               
+
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginBottom="8dp"
@@ -842,7 +808,7 @@
                 android:layout_marginTop="8dp"
                 android:scaleType="fitXY"
                 android:src="@drawable/divider_horizontal_bright" />
-            
+
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
@@ -859,7 +825,7 @@
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:text="@string/cpu3_unplug_time"
-                        android:textAppearance="?android:attr/textAppearanceMedium" />
+                        android:textStyle="bold" />
 
                     <TextView
                         android:layout_width="wrap_content"
@@ -872,12 +838,12 @@
                     android:layout_height="wrap_content"
                     android:inputType="number" />
                 <TextView
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:text="@string/ms" />
+					android:layout_width="wrap_content"
+					android:layout_height="wrap_content"
+					android:text="@string/ms" />
             </LinearLayout>
-            
-            
+
+
         </LinearLayout>
     </ScrollView>
 

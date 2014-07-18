@@ -28,4 +28,11 @@ public class Frequency
 	{
 		this.frequencyValue = frequencyValue;
 	}
+
+	@Override
+	public String toString()
+	{
+		return frequencyString;
+	}
+	
 }
