@@ -768,5 +768,7 @@
 	<string name="warning">Warning</string>
 	<string name="gpu_warning">Not all governors work on all devices/kernels!</string>
 	<string name="voltage_dialog_info">No changes are made until you press \'Apply\'</string>
-	
+    <string name="enabled">Enabled</string>
+    <string name="is_mp_enabled">Is MP Decision Enabled</string>
+
 </resources>

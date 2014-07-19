@@ -40,14 +40,14 @@ public class FrequencyCollection
         return array;
     }
 
-    public static int getProgress(int freq, List<Frequency> frequencies)
+    public static int getPositionFromFreq(int freq, List<Frequency> frequencies)
     {
         int offset = 0;
         for(Frequency f : frequencies)
         {
             if(f.getFrequencyValue() == freq)
             {
-                return offset + 1;
+                return offset;
             }
             offset++;
         }

@@ -146,6 +146,7 @@ public final class Constants
 	public static final String S2W_START = "/sys/android_touch/sweep2wake_startbutton";
 	public static final String S2W_BUTTONS = "/sys/android_touch/sweep2wake_buttons";
 	public static final String MPDEC_DELAY = "/sys/kernel/msm_mpdecision/conf/delay";
+    public static final String MPDEC_ENABLED = "/sys/kernel/msm_mpdecision/conf/enabled";
 	public static final String MPDEC_PAUSE = "/sys/kernel/msm_mpdecision/conf/pause";
 	public static final String MPDEC_TIME_UP = "/sys/kernel/msm_mpdecision/conf/twts_threshold_up";
 	public static final String MPDEC_TIME_DOWN = "/sys/kernel/msm_mpdecision/conf/twts_threshold_down";
