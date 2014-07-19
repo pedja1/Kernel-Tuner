@@ -55,7 +55,7 @@ import android.widget.Toast;
 
 
 
-public class Profiles extends Activity
+public class Profiles extends AbsActivity
 {
 	private int _cpu0max;
 	private int _cpu1max;

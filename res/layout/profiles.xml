@@ -12,10 +12,7 @@
 		android:layout_height="wrap_content"
 		android:layout_alignParentTop="true"
 		android:layout_alignParentLeft="true"
-	
-    android:animateLayoutChanges="true"
-		
-		>
+    android:animateLayoutChanges="true">
 		
 	</ListView>
 	
@@ -61,7 +58,6 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_alignParentBottom="true" >
-
 
         <com.google.android.gms.ads.AdView
             android:id="@+id/adView"

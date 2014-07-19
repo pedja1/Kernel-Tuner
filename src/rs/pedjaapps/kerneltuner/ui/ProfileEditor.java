@@ -48,7 +48,7 @@ import android.widget.Spinner;
 import android.widget.TextView;
 import android.widget.Toast;
 
-public class ProfileEditor extends AbsActivity
+public class ProfileEditor extends Activity
 {
 	
 	

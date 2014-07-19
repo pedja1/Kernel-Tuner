@@ -277,7 +277,8 @@
 					android:drawablePadding="5dp"
 					android:ellipsize="marquee"
 					android:marqueeRepeatLimit="marquee_forever"
-					android:background="@drawable/default_button_selector"/>
+					android:background="@drawable/default_button_selector"
+                    android:visibility="visible"/>
 
 			</LinearLayout>
 
