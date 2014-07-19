@@ -4,7 +4,7 @@
     xmlns:ads="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:layout_margin="15dp"
+    android:layout_margin="5dp"
     tools:context=".KernelTuner" >
 
     <ScrollView
@@ -20,17 +20,10 @@
             android:orientation="vertical" >
 
             <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="@string/phase1_low"
-                android:textAppearance="?android:attr/textAppearanceMedium" />
-
-            <ImageView
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_marginBottom="8dp"
-                android:scaleType="fitXY"
-                android:src="@drawable/divider_strong_holo" />
+                android:text="@string/phase1_low"
+                style="?android:attr/listSeparatorTextViewStyle" />
 
             <LinearLayout
                 android:layout_width="match_parent"
@@ -48,7 +41,7 @@
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:text="@string/max_frequency_"
-                        android:textAppearance="?android:attr/textAppearanceMedium" />
+                        android:textStyle="bold"/>
 
                     <TextView
                         android:layout_width="wrap_content"
@@ -91,7 +84,7 @@
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:text="@string/lower_frequency"
-                        android:textAppearance="?android:attr/textAppearanceMedium" />
+                        android:textStyle="bold" />
 
                     <TextView
                         android:layout_width="wrap_content"
@@ -111,8 +104,7 @@
                     android:id="@+id/c1"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="@string/celsius_unit"
-                    android:textAppearance="?android:attr/textAppearanceMedium" />
+                    android:text="@string/celsius_unit" />
 
             </LinearLayout>
 
@@ -143,7 +135,7 @@
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:text="@string/reset_frequency"
-                        android:textAppearance="?android:attr/textAppearanceMedium" />
+                        android:textStyle="bold"/>
 
                     <TextView
                         android:layout_width="wrap_content"
@@ -163,26 +155,17 @@
                     android:id="@+id/c2"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="@string/celsius_unit"
-                    android:textAppearance="?android:attr/textAppearanceMedium" />
+                    android:text="@string/celsius_unit" />
 
             </LinearLayout>
 
             <TextView
                 android:id="@+id/textView5"
-                android:layout_width="wrap_content"
+                android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="8dp"
                 android:text="@string/phase2_medium"
-                android:textAppearance="?android:attr/textAppearanceMedium" />
-
-            <ImageView
-                android:id="@+id/medium_head_image"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_marginBottom="8dp"
-                android:scaleType="fitXY"
-                android:src="@drawable/divider_strong_holo" />
+                style="?android:attr/listSeparatorTextViewStyle" />
 
             <LinearLayout
                 android:layout_width="match_parent"
@@ -200,7 +183,7 @@
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:text="@string/max_frequency_"
-                        android:textAppearance="?android:attr/textAppearanceMedium" />
+                        android:textStyle="bold" />
 
                     <TextView
                         android:layout_width="wrap_content"
@@ -241,7 +224,7 @@
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:text="@string/lower_frequency"
-                        android:textAppearance="?android:attr/textAppearanceMedium" />
+                        android:textStyle="bold" />
 
                     <TextView
                         android:layout_width="wrap_content"
@@ -261,8 +244,7 @@
                     android:id="@+id/c3"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="@string/celsius_unit"
-                    android:textAppearance="?android:attr/textAppearanceMedium" />
+                    android:text="@string/celsius_unit"/>
 
             </LinearLayout>
 
@@ -293,7 +275,7 @@
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:text="@string/reset_frequency"
-                        android:textAppearance="?android:attr/textAppearanceMedium" />
+                        android:textStyle="bold" />
 
                     <TextView
                         android:layout_width="wrap_content"
@@ -313,26 +295,17 @@
                     android:id="@+id/c4"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="@string/celsius_unit"
-                    android:textAppearance="?android:attr/textAppearanceMedium" />
+                    android:text="@string/celsius_unit" />
 
             </LinearLayout>
 
             <TextView
                 android:id="@+id/textView9"
-                android:layout_width="wrap_content"
+                android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="8dp"
                 android:text="@string/phase3_high"
-                android:textAppearance="?android:attr/textAppearanceMedium" />
-
-            <ImageView
-                android:id="@+id/high_head_image"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_marginBottom="8dp"
-                android:scaleType="fitXY"
-                android:src="@drawable/divider_strong_holo" />
+                style="?android:attr/listSeparatorTextViewStyle" />
 
             <LinearLayout
                 android:layout_width="match_parent"
@@ -350,7 +323,7 @@
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:text="@string/max_frequency_"
-                        android:textAppearance="?android:attr/textAppearanceMedium" />
+                        android:textStyle="bold"/>
 
                     <TextView
                         android:layout_width="wrap_content"
@@ -391,7 +364,7 @@
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:text="@string/lower_frequency"
-                        android:textAppearance="?android:attr/textAppearanceMedium" />
+                        android:textStyle="bold" />
 
                     <TextView
                         android:layout_width="wrap_content"
@@ -411,8 +384,7 @@
                     android:id="@+id/c5"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="@string/celsius_unit"
-                    android:textAppearance="?android:attr/textAppearanceMedium" />
+                    android:text="@string/celsius_unit" />
 
             </LinearLayout>
 
@@ -443,7 +415,7 @@
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:text="@string/reset_frequency"
-                        android:textAppearance="?android:attr/textAppearanceMedium" />
+                        android:textStyle="bold" />
 
                     <TextView
                         android:layout_width="wrap_content"
@@ -463,8 +435,7 @@
                     android:id="@+id/c6"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="@string/celsius_unit"
-                    android:textAppearance="?android:attr/textAppearanceMedium" />
+                    android:text="@string/celsius_unit" />
 
             </LinearLayout>
         </LinearLayout>
