@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <!-- Percentage of events to include in reports -->
+    <string name="ga_sampleFrequency">100.0</string>
+
+    <integer name="ga_sessionTimeout">-1</integer>
+
+    <!-- Enable automatic Activity measurement -->
+    <bool name="ga_autoActivityTracking">true</bool>
+
+    <!-- catch and report uncaught exceptions from the app -->
+    <bool name="ga_reportUncaughtExceptions">true</bool>
+
+    <!-- The screen names that will appear in reports -->
+    <screenName name="rs.pedjaapps.kerneltuner.ui.MainActivity">
+        Home
+    </screenName>
+    <screenName name="rs.pedjaapps.kerneltuner.ui.CPUActivity">
+        CPU
+    </screenName>
+    <!--  The following value should be replaced with correct property id. -->
+    <string name="ga_trackingId">UA-52998663-1</string>
+</resources>

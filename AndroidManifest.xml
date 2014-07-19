@@ -28,6 +28,9 @@
 
         <meta-data android:name="com.google.android.gms.version" android:value="@integer/google_play_services_version" />
 
+        <meta-data android:name="com.google.android.gms.analytics.globalConfigResource"
+                   android:resource="@xml/global_tracker" />
+
         <activity
             android:name=".ui.MainActivity"
             android:icon="@drawable/ic_launcher"

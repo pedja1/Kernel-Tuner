@@ -8,6 +8,9 @@ import android.view.View;
 import com.google.android.gms.ads.AdListener;
 import com.google.android.gms.ads.AdRequest;
 import com.google.android.gms.ads.AdView;
+import com.google.android.gms.analytics.GoogleAnalytics;
+import com.google.android.gms.analytics.HitBuilders;
+import com.google.android.gms.analytics.Tracker;
 
 import rs.pedjaapps.kerneltuner.*;
 import rs.pedjaapps.kerneltuner.utility.PrefsManager;
@@ -22,6 +25,7 @@ public abstract class AbsActivity extends FragmentActivity
 	{
 		overridePendingTransition(R.anim.zoom_in_right, R.anim.zoom_out_left);
 		super.onCreate(savedInstanceState);
+        Tracker t = MainApp.getInstance().getTracker(MainApp.TrackerName.APP_TRACKER);
 	}
 
     @Override
@@ -60,6 +64,16 @@ public abstract class AbsActivity extends FragmentActivity
                 displayInterstitial();
             }
         });*/
+
+        //Get an Analytics tracker to report app starts & uncaught exceptions etc.
+        GoogleAnalytics.getInstance(this).reportActivityStart(this);
+    }
+
+    @Override
+    protected void onStop()
+    {
+        super.onStop();
+        GoogleAnalytics.getInstance(this).reportActivityStop(this);
     }
 
     @Override
