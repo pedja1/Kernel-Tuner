@@ -28,124 +28,123 @@ import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.TextView;
+
 import com.stericson.RootTools.RootTools;
 import com.stericson.RootTools.execution.CommandCapture;
+
 import rs.pedjaapps.kerneltuner.R;
 import rs.pedjaapps.kerneltuner.model.Task;
+import rs.pedjaapps.kerneltuner.root.RCommand;
 import rs.pedjaapps.kerneltuner.utility.Tools;
 
 public final class TMAdapter extends ArrayAdapter<Task>
 {
 
-	private final int itemsItemLayoutResource;
+    private final int itemsItemLayoutResource;
     Context c;
-	public TMAdapter(final Context context, final int itemsItemLayoutResource)
-	{
-		
-		super(context, 0);
-		this.itemsItemLayoutResource = itemsItemLayoutResource;
-		this.c = context;
-	}
 
-	@Override
-	public View getView(final int position, final View convertView, final ViewGroup parent)
-	{
+    public TMAdapter(final Context context, final int itemsItemLayoutResource)
+    {
 
-		final View view = getWorkingView(convertView);
-		final ViewHolder viewHolder = getViewHolder(view);
-		final Task entry = getItem(position);
-		viewHolder.imageView.setImageDrawable(entry.getIcon());
-		viewHolder.nameView.setText(entry.getName());
-		switch(entry.getType()){
-			case 0:
-			    viewHolder.nameView.setTextColor(Color.parseColor("#cc3300"));
-			    break;
-			case 1:
-			    viewHolder.nameView.setTextColor(Color.parseColor("#6699ff"));
-			    break;
-			case 2:
-			    viewHolder.nameView.setTextColor(Color.parseColor("#ff9900"));
-				viewHolder.imageView.setImageResource(R.drawable.non_app);
-			    break;
-		}
-		viewHolder.mbView.setText(Tools.kByteToHumanReadableSize(entry.getRss()));
-		viewHolder.pidView.setText("PID: "+entry.getPid());
-		
-		viewHolder.killView.setOnClickListener(new View.OnClickListener() {
-			
-			@Override
-			public void onClick(View arg0) {
-				CommandCapture command = new CommandCapture(0, "kill "+entry.getPid());
-				try{
-					RootTools.getShell(true).add(command);
-				}
-				catch(Exception e){
+        super(context, 0);
+        this.itemsItemLayoutResource = itemsItemLayoutResource;
+        this.c = context;
+    }
 
-				}
-				remove(entry);
-				
-			}
-		});
-		
-		return view;
-	}
+    @Override
+    public View getView(final int position, final View convertView, final ViewGroup parent)
+    {
 
-	private View getWorkingView(final View convertView)
-	{
-		View workingView = null;
+        final View view = getWorkingView(convertView);
+        final ViewHolder viewHolder = getViewHolder(view);
+        final Task entry = getItem(position);
+        viewHolder.imageView.setImageDrawable(entry.getIcon());
+        viewHolder.nameView.setText(entry.getName());
+        switch (entry.getType())
+        {
+            case 0:
+                viewHolder.nameView.setTextColor(Color.parseColor("#cc3300"));
+                break;
+            case 1:
+                viewHolder.nameView.setTextColor(Color.parseColor("#6699ff"));
+                break;
+            case 2:
+                viewHolder.nameView.setTextColor(Color.parseColor("#ff9900"));
+                viewHolder.imageView.setImageResource(R.drawable.non_app);
+                break;
+        }
+        viewHolder.mbView.setText(Tools.kByteToHumanReadableSize(entry.getRss()));
+        viewHolder.pidView.setText("PID: " + entry.getPid());
 
-		if (null == convertView)
-		{
-			final Context context = getContext();
-			final LayoutInflater inflater = (LayoutInflater)context.getSystemService
-			(Context.LAYOUT_INFLATER_SERVICE);
+        viewHolder.killView.setOnClickListener(new View.OnClickListener()
+        {
+            @Override
+            public void onClick(View arg0)
+            {
+                arg0.setEnabled(false);
+                RCommand.killPid(entry.getPid(), null);
+            }
+        });
 
-			workingView = inflater.inflate(itemsItemLayoutResource, null);
-		}
-		else
-		{
-			workingView = convertView;
-		}
+        return view;
+    }
 
-		return workingView;
-	}
+    private View getWorkingView(final View convertView)
+    {
+        View workingView = null;
 
-	private ViewHolder getViewHolder(final View workingView)
-	{
-		final Object tag = workingView.getTag();
-		ViewHolder viewHolder = null;
+        if (null == convertView)
+        {
+            final Context context = getContext();
+            final LayoutInflater inflater = (LayoutInflater) context.getSystemService
+                    (Context.LAYOUT_INFLATER_SERVICE);
+
+            workingView = inflater.inflate(itemsItemLayoutResource, null);
+        }
+        else
+        {
+            workingView = convertView;
+        }
+
+        return workingView;
+    }
+
+    private ViewHolder getViewHolder(final View workingView)
+    {
+        final Object tag = workingView.getTag();
+        ViewHolder viewHolder = null;
 
 
-		if (null == tag || !(tag instanceof ViewHolder))
-		{
-			viewHolder = new ViewHolder();
+        if (null == tag || !(tag instanceof ViewHolder))
+        {
+            viewHolder = new ViewHolder();
 
-			viewHolder.nameView = (TextView) workingView.findViewById(R.id.name);
-			viewHolder.mbView = (TextView) workingView.findViewById(R.id.mb);
-			viewHolder.imageView = (ImageView) workingView.findViewById(R.id.icon);
-			viewHolder.killView = (Button) workingView.findViewById(R.id.kill);
-			viewHolder.pidView = (TextView) workingView.findViewById(R.id.pid);
-			
-			workingView.setTag(viewHolder);
+            viewHolder.nameView = (TextView) workingView.findViewById(R.id.name);
+            viewHolder.mbView = (TextView) workingView.findViewById(R.id.mb);
+            viewHolder.imageView = (ImageView) workingView.findViewById(R.id.icon);
+            viewHolder.killView = (Button) workingView.findViewById(R.id.kill);
+            viewHolder.pidView = (TextView) workingView.findViewById(R.id.pid);
 
-		}
-		else
-		{
-			viewHolder = (ViewHolder) tag;
-		}
+            workingView.setTag(viewHolder);
 
-		return viewHolder;
-	}
+        }
+        else
+        {
+            viewHolder = (ViewHolder) tag;
+        }
 
-	private class ViewHolder
-	{
-		public TextView nameView;
-		public TextView mbView;
-		public ImageView imageView;
-		public Button killView;
-		public TextView pidView;
-	
-	}
+        return viewHolder;
+    }
+
+    private class ViewHolder
+    {
+        public TextView nameView;
+        public TextView mbView;
+        public ImageView imageView;
+        public Button killView;
+        public TextView pidView;
+
+    }
 
 
 }

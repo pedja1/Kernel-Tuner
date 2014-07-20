@@ -29,6 +29,7 @@ import android.content.pm.PackageManager;
 import android.graphics.drawable.Drawable;
 import android.os.AsyncTask;
 import android.os.Bundle;
+import android.os.Handler;
 import android.preference.PreferenceManager;
 import android.text.Html;
 import android.util.Log;
@@ -61,7 +62,7 @@ import rs.pedjaapps.kerneltuner.R;
 import rs.pedjaapps.kerneltuner.helpers.TMAdapter;
 import rs.pedjaapps.kerneltuner.model.Task;
 
-public class TaskManager extends AbsActivity implements OnItemClickListener
+public class TaskManager extends AbsActivity implements OnItemClickListener, Runnable
 {
 
 	public static CheckBox system, user, other;
@@ -75,6 +76,8 @@ public class TaskManager extends AbsActivity implements OnItemClickListener
 	public static List<Task> entries;
 	ProgressDialog pd;
 	String set;
+
+    Handler handler;
 	
 
 	/**
@@ -97,6 +100,7 @@ public class TaskManager extends AbsActivity implements OnItemClickListener
 	@Override
 	public void onCreate(Bundle savedInstanceState)
 	{
+        handler = new Handler();
 		preferences = PreferenceManager.getDefaultSharedPreferences(this);
 
 		requestWindowFeature(Window.FEATURE_INDETERMINATE_PROGRESS);
@@ -126,11 +130,17 @@ public class TaskManager extends AbsActivity implements OnItemClickListener
         tmListView.setAdapter(tmAdapter);
 		tmListView.setOnItemClickListener(this);
 
-		new GetRunningApps().execute();
-		
+        new GetRunningApps(true).execute();
 	}
-	
-	@Override
+
+    @Override
+    protected void onDestroy()
+    {
+        super.onDestroy();
+        if(handler != null)handler.removeCallbacks(this);
+    }
+
+    @Override
 	public void onItemClick(AdapterView<?> p1, View p2, int p3, long p4)
 	{
 		Task task = tmAdapter.getItem(p3);
@@ -138,24 +148,37 @@ public class TaskManager extends AbsActivity implements OnItemClickListener
 		detailIntent.putExtra(TaskManagerDetailActivity.INTENT_EXTRA_TASK, task);
 		startActivity(detailIntent);
 	}
-	
-	private class Listener implements CompoundButton.OnCheckedChangeListener
+
+    @Override
+    public void run()
+    {
+        new GetRunningApps(false).execute();
+    }
+
+    private class Listener implements CompoundButton.OnCheckedChangeListener
 	{
 		@Override
 		public void onCheckedChanged(CompoundButton arg0, boolean arg1)
 		{
-			new GetRunningApps().execute();
+			new GetRunningApps(true).execute();
 		}
 	}
 
 	public class GetRunningApps extends AsyncTask<String, /*TMEntry*/Void, Void>
 	{
 		String line;
-		@Override
+        boolean showProgress;
+
+        public GetRunningApps(boolean showProgress)
+        {
+            this.showProgress = showProgress;
+        }
+
+        @Override
 		protected Void doInBackground(String... args)
 		{
-			entries = new ArrayList<Task>();
-			Process proc = null;
+			entries = new ArrayList<>();
+			Process proc;
 			try
 			{
 				proc = Runtime.getRuntime().exec("ps");
@@ -174,14 +197,12 @@ public class TaskManager extends AbsActivity implements OnItemClickListener
 						{
 							Task tmpEntry = new Task(getApplicationName(tmp.get(8)), Integer.parseInt(tmp.get(1)), getApplicationIcon(tmp.get(8)), Integer.parseInt(tmp.get(4)), appType(tmp.get(8)));
 							entries.add(tmpEntry);
-							//publishProgress(tmpEntry);
 						}
 					}
 					else
 					{
 						i++;
 					}
-
 				}
 				proc.waitFor();
 				proc.destroy();
@@ -198,9 +219,9 @@ public class TaskManager extends AbsActivity implements OnItemClickListener
 		{
 			//	setProgressBarIndeterminateVisibility(false);
 
-			tmAdapter.clear();
 			Collections.sort(entries, new SortByMb());
 
+            tmAdapter.clear();
 			for (Task e : entries)
 			{
 				if (e.getType() == 2)
@@ -233,14 +254,14 @@ public class TaskManager extends AbsActivity implements OnItemClickListener
 				.putBoolean("tm_user", TaskManager.user.isChecked())
 				.putBoolean("tm_other", TaskManager.other.isChecked())
 				.apply();
+            handler.postDelayed(TaskManager.this, 3000);
 		}
 		@Override
 		protected void onPreExecute()
 		{
-			setProgressBarIndeterminateVisibility(true);
+			if(showProgress)setProgressBarIndeterminateVisibility(true);
 			//tmAdapter.clear();
 		}
-
 	}
 
 	public Drawable getApplicationIcon(String packageName)
@@ -326,8 +347,7 @@ public class TaskManager extends AbsActivity implements OnItemClickListener
 		RelativeLayout relativeLayout = (RelativeLayout) menu.findItem(R.id.layout_item)
 			.getActionView();
 
-        View inflatedView = getLayoutInflater().inflate(R.layout.tm_cb_view,
-														null);
+        View inflatedView = getLayoutInflater().inflate(R.layout.tm_cb_view, null);
 
         relativeLayout.addView(inflatedView);
 		loading = (ProgressBar)relativeLayout.findViewById(R.id.loading);
@@ -364,7 +384,7 @@ public class TaskManager extends AbsActivity implements OnItemClickListener
 	public static Integer getTotalRAM()
 	{
 		RandomAccessFile reader = null;
-		String load = null;
+		String load;
 		Integer mem = null;
 		try
 		{
@@ -397,8 +417,6 @@ public class TaskManager extends AbsActivity implements OnItemClickListener
 		MemoryInfo mi = new MemoryInfo();
 		ActivityManager activityManager = (ActivityManager) getSystemService(ACTIVITY_SERVICE);
 		activityManager.getMemoryInfo(mi);
-		Integer mem = (int) (mi.availMem / 1048576L);
-		return mem;
-
+        return (int) (mi.availMem / 1048576L);
 	}
 }
