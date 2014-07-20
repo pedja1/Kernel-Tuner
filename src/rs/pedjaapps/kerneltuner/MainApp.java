@@ -3,6 +3,7 @@ package rs.pedjaapps.kerneltuner;
 import android.app.Application;
 import android.content.Context;
 
+import com.crashlytics.android.Crashlytics;
 import com.google.android.gms.analytics.GoogleAnalytics;
 import com.google.android.gms.analytics.Tracker;
 
@@ -25,6 +26,7 @@ public class MainApp extends Application
 	{
 		super.onCreate();
         context = getApplicationContext();
+        Crashlytics.start(this);
         app = this;
 	}
 
