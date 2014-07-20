@@ -186,8 +186,7 @@
         <activity
             android:name=".ui.About"
             android:icon="@drawable/about"
-            android:label="@string/title_about"
-            android:theme="@android:style/Theme.Holo.Light.Dialog.NoActionBar" >
+            android:label="@string/title_about" >
             <intent-filter>
                 <action android:name="rs.pedjaapps.kerneltuner.About" />
 
@@ -197,12 +196,9 @@
         <activity
             android:name=".ui.Changelog"
             android:icon="@drawable/changelog"
-            android:label="@string/title_changelog"
-            android:theme="@style/Theme.TransparentDark"
-            android:uiOptions="splitActionBarWhenNarrow" >
+            android:label="@string/title_changelog" >
             <intent-filter>
                 <action android:name="rs.pedjaapps.kerneltuner.Changelog" />
-
                 <category android:name="android.intent.category.DEFAULT" />
             </intent-filter>
         </activity>

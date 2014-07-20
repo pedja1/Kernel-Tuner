@@ -34,6 +34,8 @@ import java.util.Arrays;
 import java.util.List;
 import org.apache.commons.io.FileUtils;
 import rs.pedjaapps.kerneltuner.R;
+import rs.pedjaapps.kerneltuner.utility.PrefsManager;
+
 import android.widget.SeekBar;
 
 public class Gpu extends Activity
@@ -75,52 +77,52 @@ public class Gpu extends Activity
 		gpu3dcurent = readFile("/sys/devices/platform/kgsl-3d0.0/kgsl/kgsl-3d0/gpuclk");
 		seek2d = (SeekBar)findViewById(R.id.seek_2d);
 		seek3d = (SeekBar)findViewById(R.id.seek_3d);
-		List<String> adreno220 = Arrays.asList(new String[] {"shooter", "shooteru", "pyramid", "tenderloin", "vigor", "rider", "nozomi", "LT26i", "hikari", "doubleshot", "su640","SHV-E160S" ,"SHV-E160L", "SHV-E120L", "holiday"});
-		List<String> adreno225 = Arrays.asList(new String[] {"evita", "ville", "jewel", "d2spr", "d2tmo" });
-		List<String> adreno320 = Arrays.asList(new String[]{"mako","dlx"});
+		List<String> adreno220 = Arrays.asList("shooter", "shooteru", "pyramid", "tenderloin", "vigor", "rider", "nozomi", "LT26i", "hikari", "doubleshot", "su640","SHV-E160S","SHV-E160L", "SHV-E120L", "holiday");
+		List<String> adreno225 = Arrays.asList("evita", "ville", "jewel", "d2spr", "d2tmo");
+		List<String> adreno320 = Arrays.asList("mako","dlx");
 		if (adreno220.contains(board))
 		{
-			gpu2d = Arrays.asList(new Integer[]{160000000, 200000000, 228571000, 266667000});
-			gpu3d = Arrays.asList(new Integer[]{200000000, 228571000, 266667000, 300000000, 320000000});
+			gpu2d = Arrays.asList(160000000, 200000000, 228571000, 266667000);
+			gpu3d = Arrays.asList(200000000, 228571000, 266667000, 300000000, 320000000);
 		    seekBar(gpu2d.size()-1, gpu3d.size()-1, gpu2d.indexOf(gpu2dmax), gpu3d.indexOf(gpu3dmax));
 		}
 		else if (adreno225.contains(board))
 		{
-			gpu2d = Arrays.asList(new Integer[]{320000000, 266667000, 228571000, 200000000, 160000000, 96000000, 27000000});
-			gpu3d = Arrays.asList(new Integer[]{512000000, 400000000, 320000000, 300000000, 266667000, 228571000, 200000000, 177778000, 27000000});
+			gpu2d = Arrays.asList(320000000, 266667000, 228571000, 200000000, 160000000, 96000000, 27000000);
+			gpu3d = Arrays.asList(512000000, 400000000, 320000000, 300000000, 266667000, 228571000, 200000000, 177778000, 27000000);
 			seekBar(gpu2d.size()-1, gpu3d.size()-1, gpu2d.indexOf(gpu2dmax), gpu3d.indexOf(gpu3dmax));
 		}
 		else if (adreno320.contains(board))
 		{
 			
-			gpu2d = Arrays.asList(new Integer[]{27000000, 48000000, 54857000, 64000000, 
-					 76800000, 
-					 96000000,
-					128000000, 
-					145455000, 
-					160000000, 
-					177778000, 
-					200000000,
-					266667000,
-					300000000});
-			gpu3d = Arrays.asList(new Integer[]{27000000,
-					48000000,
-					54857000,
-					64000000,
-					76800000,
-					96000000,
-					128000000,
-					145455000,
-					160000000,
-					177778000,
-					200000000,
-					228571000,
-					266667000,
-					300000000,
-					320000000,
-					400000000,
-					450000000,
-					500000000});
+			gpu2d = Arrays.asList(27000000, 48000000, 54857000, 64000000,
+                    76800000,
+                    96000000,
+                    128000000,
+                    145455000,
+                    160000000,
+                    177778000,
+                    200000000,
+                    266667000,
+                    300000000);
+			gpu3d = Arrays.asList(27000000,
+                    48000000,
+                    54857000,
+                    64000000,
+                    76800000,
+                    96000000,
+                    128000000,
+                    145455000,
+                    160000000,
+                    177778000,
+                    200000000,
+                    228571000,
+                    266667000,
+                    300000000,
+                    320000000,
+                    400000000,
+                    450000000,
+                    500000000);
 			seekBar(gpu2d.size()-1, gpu3d.size()-1, gpu2d.indexOf(gpu2dmax), gpu3d.indexOf(gpu3dmax));
 		}
 		else{
@@ -193,9 +195,7 @@ public class Gpu extends Activity
 				gpu2dmax = readFile("/sys/devices/platform/kgsl-2d0.0/kgsl/kgsl-2d0/max_gpuclk");
 				max2dTxt.setText(max+": "+(gpu2dmax/1000000) + mhz);
 				seekBar.setProgress(gpu2d.indexOf(gpu2dmax));
-				SharedPreferences.Editor editor = preferences.edit();
-		  	    editor.putString("gpu2d", gpu2dmax+"");
-		  	    editor.commit();
+                PrefsManager.setGpu2d(gpu2dmax);
 				
 			}});
 		seek3d.setOnSeekBarChangeListener(new SeekBar.OnSeekBarChangeListener(){
@@ -228,9 +228,7 @@ public class Gpu extends Activity
 				gpu3dmax = readFile("/sys/devices/platform/kgsl-3d0.0/kgsl/kgsl-3d0/max_gpuclk");
 				max3dTxt.setText(max+": "+(gpu3dmax/1000000) + mhz);
 				seekBar.setProgress(gpu3d.indexOf(gpu3dmax));
-				SharedPreferences.Editor editor = preferences.edit();
-		  	    editor.putString("gpu3d", gpu3dmax+"");
-		  	    editor.commit();
+                PrefsManager.setGpu3d(gpu3dmax);
 				
 			}});
 	}

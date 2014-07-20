@@ -970,8 +970,21 @@ public class Tools
             return def;
         }
     }
-	
-	/**
+
+    public static long parseLong(String value, long def)
+    {
+        try
+        {
+            return Long.parseLong(value);
+        }
+        catch (Exception e)
+        {
+            return def;
+        }
+    }
+
+
+    /**
      * General Purpose AlertDialog
      */
     public static AlertDialog showMessageAlertDialog(Context context, String message,

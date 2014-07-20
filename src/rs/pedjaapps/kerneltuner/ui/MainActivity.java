@@ -10,6 +10,7 @@ import android.content.pm.PackageInfo;
 import android.content.pm.PackageManager;
 import android.graphics.Color;
 import android.os.BatteryManager;
+import android.os.Build;
 import android.os.Bundle;
 import android.os.Handler;
 import android.os.HandlerThread;
@@ -99,6 +100,7 @@ public class MainActivity extends AbsActivity implements Runnable, View.OnClickL
         {
             stopService(new Intent(this, NotificationService.class));
         }*/
+        getActionBar().setSubtitle(Build.MANUFACTURER + " " + Build.MODEL);
     }
 
     @Override
@@ -138,8 +140,8 @@ public class MainActivity extends AbsActivity implements Runnable, View.OnClickL
             int version = pInfo.versionCode;
             if (appVersion != version)
             {
-                Intent myIntent = new Intent(this, Changelog.class);
-                startActivity(myIntent);
+                //Intent myIntent = new Intent(this, Changelog.class);
+                //startActivity(myIntent);
             }
 
             PrefsManager.setAppVersion(version);

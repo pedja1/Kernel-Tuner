@@ -23,7 +23,9 @@ import android.content.*;
 import android.os.*;
 import android.view.*;
 import android.widget.*;
+
 import java.util.*;
+
 import rs.pedjaapps.kerneltuner.*;
 import rs.pedjaapps.kerneltuner.adapter.CPUAdapter;
 import rs.pedjaapps.kerneltuner.helpers.*;
@@ -39,14 +41,14 @@ public class CPUActivity extends AbsActivity implements RootUtils.CommandCallbac
     CPUAdapter mListAdapter;
     ProgressBar pbLoading;
     boolean showAllCores = false;
-	Handler uiHandler;
-	boolean mcWarningShown = false;
-	Switch mSwitch;
+    Handler uiHandler;
+    boolean mcWarningShown = false;
+    Switch mSwitch;
 
     @Override
     public void onCreate(Bundle savedInstanceState)
     {
-		uiHandler = new Handler();
+        uiHandler = new Handler();
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_cpu);
 
@@ -56,7 +58,7 @@ public class CPUActivity extends AbsActivity implements RootUtils.CommandCallbac
         mSwitch = (Switch) view.findViewById(R.id.swShowAllCores);
         mSwitch.setChecked(showAllCores);
         mSwitch.setOnCheckedChangeListener(this);
-		mSwitch.setOnTouchListener(this);
+        mSwitch.setOnTouchListener(this);
 
         getActionBar().setDisplayShowCustomEnabled(true);
         getActionBar().setDisplayShowTitleEnabled(true);
@@ -320,7 +322,7 @@ public class CPUActivity extends AbsActivity implements RootUtils.CommandCallbac
             //allow cpu to settle
             try
             {
-                if(showAllCores)Thread.sleep(1000);
+                if (showAllCores) Thread.sleep(1000);
             }
             catch (InterruptedException e)
             {
@@ -350,32 +352,32 @@ public class CPUActivity extends AbsActivity implements RootUtils.CommandCallbac
     {
         super.onDestroy();
         //RCommand.toggleAllCpu(null, false);
-		//dont disable them, mpdec will handle it
+        //dont disable them, mpdec will handle it
     }
-	
-	@Override
-	public boolean onTouch(View p1, MotionEvent p2)
-	{
-		if(p2.getAction() == MotionEvent.ACTION_DOWN)
-		{
-		if(!showAllCores && !mcWarningShown)
-		{
-			AlertDialog.Builder builder = new AlertDialog.Builder(this);
-			builder.setMessage(R.string.cpu_multicore_warning);
-			builder.setPositiveButton(R.string.yes, new DialogInterface.OnClickListener()
-			{
-					@Override
-					public void onClick(DialogInterface p1, int p2)
-					{
-						mcWarningShown = true;
-						mSwitch.performClick();
-					}
-			});
-			builder.setNegativeButton(R.string.no, null);
-			builder.show();
-		    return true;
-		}
-		}
-		return false;
-	}
+
+    @Override
+    public boolean onTouch(View p1, MotionEvent p2)
+    {
+        if (p2.getAction() == MotionEvent.ACTION_DOWN)
+        {
+            if (!showAllCores && !mcWarningShown)
+            {
+                AlertDialog.Builder builder = new AlertDialog.Builder(this);
+                builder.setMessage(R.string.cpu_multicore_warning);
+                builder.setPositiveButton(R.string.yes, new DialogInterface.OnClickListener()
+                {
+                    @Override
+                    public void onClick(DialogInterface p1, int p2)
+                    {
+                        mcWarningShown = true;
+                        mSwitch.performClick();
+                    }
+                });
+                builder.setNegativeButton(R.string.no, null);
+                builder.show();
+                return true;
+            }
+        }
+        return false;
+    }
 }

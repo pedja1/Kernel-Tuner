@@ -34,6 +34,7 @@ import rs.pedjaapps.kerneltuner.*;
 import rs.pedjaapps.kerneltuner.R;
 
 import rs.pedjaapps.kerneltuner.Constants;
+import rs.pedjaapps.kerneltuner.utility.PrefsManager;
 
 public class GpuSGX540 extends Activity
 {
@@ -133,9 +134,7 @@ public class GpuSGX540 extends Activity
 				gpuCurrent = readFile(Constants.GPU_SGX540);
 				curGpuTxt.setText(current+": " + gpuCurrent + mhz);
 				seekBar.setProgress(gpu.indexOf(gpuCurrent));
-				SharedPreferences.Editor editor = preferences.edit();
-		  	    editor.putString("gpu", gpuCurrent+"");
-		  	    editor.commit();
+                PrefsManager.setGpu2d(gpuCurrent);
 				
 			}});
 	}

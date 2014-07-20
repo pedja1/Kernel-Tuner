@@ -21,13 +21,11 @@
     </string-array>
     
 <string-array name="listDisplayWord" >
- <item>On Boot Completed</item>
- <item>init.d script</item>
+ <item>Enabled</item>
  <item>Disabled</item>
 </string-array>
 <string-array name="listReturnValue" >
  <item>boot</item>
- <item>init.d</item>
  <item>disable</item>
 </string-array>
 

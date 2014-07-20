@@ -4,6 +4,7 @@ import java.io.File;
 import java.util.ArrayList;
 import java.util.List;
 import rs.pedjaapps.kerneltuner.Constants;
+import rs.pedjaapps.kerneltuner.utility.PrefsManager;
 
 public class RCommand
 {
@@ -60,6 +61,7 @@ public class RCommand
 
     public static void setMaxFreq(int coreNum, int freq, RootUtils.CommandCallback callback)
     {
+        PrefsManager.setCpuMaxFreq(coreNum, freq);
         new RootUtils().exec(callback,
                 "chmod 777 /sys/devices/system/cpu/cpu" + coreNum + "/cpufreq/scaling_max_freq",
                 "echo " + freq + " > /sys/devices/system/cpu/cpu" + coreNum + "/cpufreq/scaling_max_freq",
@@ -69,6 +71,7 @@ public class RCommand
 
     public static void setMinFreq(int coreNum, int freq, RootUtils.CommandCallback callback)
     {
+        PrefsManager.setCpuMinFreq(coreNum, freq);
         new RootUtils().exec(callback,
                 "chmod 777 /sys/devices/system/cpu/cpu" + coreNum + "/cpufreq/scaling_min_freq",
                 "echo " + freq + " > /sys/devices/system/cpu/cpu" + coreNum + "/cpufreq/scaling_min_freq",
@@ -78,6 +81,7 @@ public class RCommand
 
     public static void setGovernor(int coreNum, String governor, RootUtils.CommandCallback callback)
     {
+        PrefsManager.setCpuGovernor(coreNum, governor);
         new RootUtils().exec(callback,
                 "chmod 777 /sys/devices/system/cpu/cpu" + coreNum + "/cpufreq/scaling_governor",
                 "echo " + governor + " > /sys/devices/system/cpu/cpu" + coreNum + "/cpufreq/scaling_governor",
@@ -87,6 +91,7 @@ public class RCommand
 
     public static void setMaxScroffFreq(int coreNum, int freq, RootUtils.CommandCallback callback)
     {
+        PrefsManager.setCpuScroffFreq(coreNum, freq);
         new RootUtils().exec(callback,
                 "chmod 777 /sys/devices/system/cpu/cpu" + coreNum + "/cpufreq/screen_off_max_freq",
                 "echo " + freq + " > /sys/devices/system/cpu/cpu" + coreNum + "/cpufreq/screen_off_max_freq",
@@ -96,6 +101,7 @@ public class RCommand
 	
 	public static void setGpuMaxFreq(int freq, RootUtils.CommandCallback callback)
     {
+        PrefsManager.setGpu3d(freq);
         new RootUtils().exec(callback,
 							 "chmod 777 " + Constants.GPU_3D_2,
 							 "echo " + freq + " > " + Constants.GPU_3D_2,
@@ -105,6 +111,7 @@ public class RCommand
 
 	public static void setGpuGov(String gov, RootUtils.CommandCallback callback)
     {
+        PrefsManager.setGpuGovernor(gov);
         new RootUtils().exec(callback,
 							 "chmod 777 " + Constants.GPU_3D_2_GOV,
 							 "echo " + gov + " > " + Constants.GPU_3D_2_GOV,

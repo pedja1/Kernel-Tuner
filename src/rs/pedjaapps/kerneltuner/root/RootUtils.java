@@ -74,15 +74,15 @@ public class RootUtils
 				}
 				catch (TimeoutException e)
 				{
-					handler.post(new Runnable(){
-
+					handler.post(new Runnable()
+                    {
 							@Override
 							public void run()
 							{
 								if(callback != null)callback.onComplete(Status.timeout, output.toString());
 								reset();
 							}
-						});
+                    });
 				}
 				catch (IOException e)
 				{

@@ -119,7 +119,7 @@ public class DatabaseHandler extends SQLiteOpenHelper
 			")";
         String CREATE_VOLTAGE_TABLE = "CREATE TABLE " + TABLE_VOLTAGE + "("
 			+ KEY_VOLTAGE_ID + " INTEGER PRIMARY KEY,"
-			+ KEY_VOLTAGE_NAME + " TEXT," 
+			+ KEY_VOLTAGE_NAME + " TEXT UNIQUE,"
 			+ KEY_VOLTAGE_FREQ + " TEXT," 
 			+ KEY_VOLTAGE_VALUE + " TEXT"
 			+
@@ -539,6 +539,11 @@ public class DatabaseHandler extends SQLiteOpenHelper
 		values.put(KEY_VOLTAGE_VALUE, voltage.getDbValues()); 
 
 		// Inserting Row
+        int id = (int) db.insertWithOnConflict(TABLE_VOLTAGE, null, values, SQLiteDatabase.CONFLICT_IGNORE);
+        if (id == -1)
+        {
+            db.update(TABLE_VOLTAGE, values, "profile_name=?", new String[] {voltage.getName()});
+        }
 		db.insert(TABLE_VOLTAGE, null, values);
 		db.close(); // Closing database connection
 	}
