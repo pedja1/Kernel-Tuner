@@ -183,6 +183,11 @@ public class IOHelper
 
     }
 
+    public static boolean dt2wExists()
+    {
+        return new File(Constants.DT2W).exists();
+    }
+
     public static boolean TISExists()
     {
         boolean i = false;
@@ -908,8 +913,13 @@ public class IOHelper
         return govSettings;
     }
 
+    public static String[] schedulersAsArray()
+    {
+        List<String> schedulers = schedulers();
+        return schedulers.toArray(new String[schedulers.size()]);
+    }
 
-    public static final List<String> schedulers()
+    public static List<String> schedulers()
     {
 
         List<String> schedulers = new ArrayList<String>();
@@ -1071,15 +1081,15 @@ public class IOHelper
     }
 
 
-    public static final int fcharge()
+    public static int fcharge()
     {
         try
         {
-            return Integer.parseInt(FileUtils.readFileToString(new File(Constants.FCHARGE)).trim());
+            return Tools.parseInt(FileUtils.readFileToString(new File(Constants.FCHARGE)).trim(), -1);
         }
         catch (Exception e)
         {
-            return 0;
+            return -1;
         }
     }
 
@@ -1095,7 +1105,7 @@ public class IOHelper
         }
     }
 
-    public static final String cDepth()
+    public static String cDepth()
     {
         try
         {
@@ -1152,45 +1162,57 @@ public class IOHelper
         }
     }
 
-    public static final int s2w()
+    public static int s2w()
     {
         try
         {
-            return Integer.parseInt(FileUtils.readFileToString(new File(Constants.S2W)).trim());
+            return Tools.parseInt(FileUtils.readFileToString(new File(Constants.S2W)).trim(), -1);
         }
         catch (Exception e)
         {
             try
             {
-                return Integer.parseInt(FileUtils.readFileToString(new File(Constants.S2W_ALT)).trim());
+                return Tools.parseInt(FileUtils.readFileToString(new File(Constants.S2W_ALT)).trim(), -1);
             }
             catch (Exception e2)
             {
-                return 0;
+                return -1;
             }
         }
     }
 
-    public static final String readOTG()
+    public static int dt2w()
     {
         try
         {
-            return FileUtils.readFileToString(new File(Constants.OTG)).trim();
+            return Tools.parseInt(FileUtils.readFileToString(new File(Constants.DT2W)).trim(), -1);
+        }
+        catch (IOException e)
+        {
+            return -1;
+        }
+    }
+
+    public static int readOTG()
+    {
+        try
+        {
+            return Tools.parseInt(FileUtils.readFileToString(new File(Constants.OTG)).trim(), -1);
         }
         catch (Exception e)
         {
             try
             {
-                return FileUtils.readFileToString(new File(Constants.OTG_2)).trim();
+                return Tools.parseInt(FileUtils.readFileToString(new File(Constants.OTG_2)).trim(), -1);
             }
             catch (Exception e2)
             {
-                return "";
+                return -1;
             }
         }
     }
 
-    public static final String kernel()
+    public static String kernel()
     {
         try
         {
@@ -1381,7 +1403,7 @@ public class IOHelper
         }
     }
 
-    public static final String mpDelay()
+    public static String mpDelay()
     {
         try
         {
@@ -1393,7 +1415,7 @@ public class IOHelper
         }
     }
 
-    public static final String mpPause()
+    public static String mpPause()
     {
         try
         {
@@ -1405,7 +1427,7 @@ public class IOHelper
         }
     }
 
-    public static final String mpTimeUp()
+    public static String mpTimeUp()
     {
         try
         {
@@ -1417,7 +1439,7 @@ public class IOHelper
         }
     }
 
-    public static final String mpTimeDown()
+    public static String mpTimeDown()
     {
         try
         {
@@ -1429,7 +1451,7 @@ public class IOHelper
         }
     }
 
-    public static final String mpIdleFreq()
+    public static String mpIdleFreq()
     {
         try
         {
@@ -1441,7 +1463,7 @@ public class IOHelper
         }
     }
 
-    public static final String mpScroffFreq()
+    public static String mpScroffFreq()
     {
         try
         {
@@ -1453,7 +1475,7 @@ public class IOHelper
         }
     }
 
-    public static final String mpScroffSingleCore()
+    public static String mpScroffSingleCore()
     {
         try
         {
@@ -1465,7 +1487,7 @@ public class IOHelper
         }
     }
 
-    public static final String thermalLowLow()
+    public static String thermalLowLow()
     {
         try
         {
@@ -1477,7 +1499,7 @@ public class IOHelper
         }
     }
 
-    public static final String thermalLowHigh()
+    public static String thermalLowHigh()
     {
         try
         {
@@ -1489,7 +1511,7 @@ public class IOHelper
         }
     }
 
-    public static final String thermalMidLow()
+    public static String thermalMidLow()
     {
         try
         {
@@ -1501,7 +1523,7 @@ public class IOHelper
         }
     }
 
-    public static final String thermalMidHigh()
+    public static String thermalMidHigh()
     {
         try
         {
@@ -1513,7 +1535,7 @@ public class IOHelper
         }
     }
 
-    public static final String thermalMaxLow()
+    public static String thermalMaxLow()
     {
         try
         {
@@ -1525,7 +1547,7 @@ public class IOHelper
         }
     }
 
-    public static final String thermalMaxHigh()
+    public static String thermalMaxHigh()
     {
         try
         {
@@ -1537,7 +1559,7 @@ public class IOHelper
         }
     }
 
-    public static final String thermalLowFreq()
+    public static String thermalLowFreq()
     {
         try
         {
@@ -1549,7 +1571,7 @@ public class IOHelper
         }
     }
 
-    public static final String thermalMidFreq()
+    public static String thermalMidFreq()
     {
         try
         {
@@ -1561,7 +1583,7 @@ public class IOHelper
         }
     }
 
-    public static final String thermalMaxFreq()
+    public static String thermalMaxFreq()
     {
         try
         {

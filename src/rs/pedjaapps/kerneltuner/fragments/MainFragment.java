@@ -16,7 +16,7 @@ import android.widget.Button;
 import android.widget.CheckBox;
 import android.widget.TextView;
 import java.io.File;
-import rs.pedjaapps.kerneltuner.ui.AbsVoltageActivity;
+
 import rs.pedjaapps.kerneltuner.Constants;
 import rs.pedjaapps.kerneltuner.R;
 import rs.pedjaapps.kerneltuner.helpers.IOHelper;
@@ -146,16 +146,7 @@ public class MainFragment extends Fragment
             @Override
             public void onClick(View v)
             {
-
-                Intent myIntent = null;
-                if (new File(Constants.MPDEC_THR_DOWN).exists())
-                {
-                    myIntent = new Intent(getActivity(), Mpdecision.class);
-                }
-                else if (new File(Constants.MPDEC_THR_0).exists())
-                {
-                    myIntent = new Intent(getActivity(), MpdecisionNew.class);
-                }
+                Intent myIntent = new Intent(getActivity(), Mpdecision.class);
                 startActivity(myIntent);
 
             }
@@ -166,7 +157,7 @@ public class MainFragment extends Fragment
                 Constants.G_S_URL_PREFIX + "mp-decision", true));
 
         Button misc = (Button) view.findViewById(R.id.btn_misc);
-        misc.setOnClickListener(new StartActivityListener(MiscTweaks.class));
+        misc.setOnClickListener(new StartActivityListener(MiscTweaksActivity.class));
         misc.setOnLongClickListener(new InfoListener(R.drawable.misc,
                 getResources().getString(R.string.info_misc_title),
                 getResources().getString(R.string.info_misc_text), "", false));

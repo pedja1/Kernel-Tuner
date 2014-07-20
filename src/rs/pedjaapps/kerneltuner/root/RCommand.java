@@ -111,5 +111,65 @@ public class RCommand
 							 "chmod 444 " + Constants.GPU_3D_2_GOV,
 							 "chown system " + Constants.GPU_3D_2_GOV);
     }
-	
+
+    public static void setScheduler(String scheduler, RootUtils.CommandCallback callback)
+    {
+        new RootUtils().exec(callback,
+                "chmod 777 " + "/sys/block/mmcblk0/queue/scheduler",
+                "echo " + scheduler + " > /sys/block/mmcblk0/queue/scheduler");
+    }
+
+    public static void setReadAhead(String cache, RootUtils.CommandCallback callback)
+    {
+        new RootUtils().exec(callback,
+                "chmod 777 " + "/sys/devices/virtual/bdi/179:0/read_ahead_kb",
+                "echo " + cache + " > /sys/devices/virtual/bdi/179:0/read_ahead_kb");
+    }
+
+    public static void setS2w(int value, String path, RootUtils.CommandCallback callback)
+    {
+        new RootUtils().exec(callback,
+                "chmod 777 " + path,
+                "echo " + value + " > " + path);
+    }
+
+    public static void setDt2w(int value, RootUtils.CommandCallback callback)
+    {
+        new RootUtils().exec(callback,
+                "chmod 777 " + Constants.DT2W,
+                "echo " + value + " > " + Constants.DT2W);
+    }
+
+    public static void setFastcharge(int value, RootUtils.CommandCallback callback)
+    {
+        new RootUtils().exec(callback,
+                "chmod 777 " + Constants.FCHARGE,
+                "echo " + value + " > " + Constants.FCHARGE);
+    }
+
+    public static void setVsync(int value, RootUtils.CommandCallback callback)
+    {
+        new RootUtils().exec(callback,
+                "chmod 777 /sys/kernel/debug/msm_fb/0/vsync_enable",
+                "chmod 777 /sys/kernel/debug/msm_fb/0/hw_vsync_mode",
+                "chmod 777 /sys/kernel/debug/msm_fb/0/backbuff",
+                "echo " + value + " > /sys/kernel/debug/msm_fb/0/vsync_enable",
+                "echo " + (value == 1 ? 1 : 0) + " > /sys/kernel/debug/msm_fb/0/hw_vsync_mode",
+                "echo " + (value == 1 ? 3 : 4) + " > /sys/kernel/debug/msm_fb/0/backbuff");
+    }
+
+    public static void setOtg(int value, RootUtils.CommandCallback callback)
+    {
+        new RootUtils().exec(callback,
+                "chmod 777 /sys/kernel/debug/msm_otg/mode",
+                "chmod 777 /sys/kernel/debug/otg/mode",
+                "echo " + (value == 1 ? "host" : "peripheral") + " > /sys/kernel/debug/otg/mode",
+                "echo " + (value == 1 ? "host" : "peripheral") + " > /sys/kernel/debug/msm_otg/mode");
+    }
+
+    public static void killPid(int pid, RootUtils.CommandCallback callback)
+    {
+        new RootUtils().exec(callback,
+                "kill " + pid);
+    }
 }

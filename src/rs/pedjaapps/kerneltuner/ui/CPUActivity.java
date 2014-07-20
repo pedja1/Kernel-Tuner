@@ -25,11 +25,11 @@ import android.view.*;
 import android.widget.*;
 import java.util.*;
 import rs.pedjaapps.kerneltuner.*;
+import rs.pedjaapps.kerneltuner.adapter.CPUAdapter;
 import rs.pedjaapps.kerneltuner.helpers.*;
 import rs.pedjaapps.kerneltuner.model.*;
 import rs.pedjaapps.kerneltuner.root.*;
 import rs.pedjaapps.kerneltuner.utility.*;
-import android.view.View.*;
 
 
 public class CPUActivity extends AbsActivity implements RootUtils.CommandCallback, AdapterView.OnItemClickListener, CompoundButton.OnCheckedChangeListener, View.OnTouchListener

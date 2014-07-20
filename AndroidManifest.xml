@@ -1,322 +1,308 @@
 <?xml version="1.0" encoding="utf-8"?>
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
-          xmlns:tools="http://schemas.android.com/tools"
-          package="rs.pedjaapps.kerneltuner"
-          android:installLocation="internalOnly"
-          android:versionCode="20140709"
-          android:versionName="1.0.0">
+    package="rs.pedjaapps.kerneltuner"
+    android:installLocation="internalOnly"
+    android:versionCode="20140709"
+    android:versionName="1.0.0" >
 
     <uses-sdk
         android:minSdkVersion="14"
-        android:targetSdkVersion="19"/>
+        android:targetSdkVersion="19" />
 
-    <uses-permission android:name="android.permission.RECEIVE_BOOT_COMPLETED"/>
-    <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE"/>
-    <uses-permission android:name="android.permission.INTERNET"/>
-    <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE"/>
-    <uses-permission android:name="android.permission.READ_LOGS"/>
-    <uses-permission android:name="android.permission.ACCESS_SUPERUSER"/>
-    <uses-permission android:name="com.android.launcher.permission.INSTALL_SHORTCUT"/>
-    <uses-permission android:name="android.permission.WAKE_LOCK"/>
+    <uses-permission android:name="android.permission.RECEIVE_BOOT_COMPLETED" />
+    <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE" />
+    <uses-permission android:name="android.permission.INTERNET" />
+    <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE" />
+    <uses-permission android:name="android.permission.READ_LOGS" />
+    <uses-permission android:name="android.permission.ACCESS_SUPERUSER" />
+    <uses-permission android:name="com.android.launcher.permission.INSTALL_SHORTCUT" />
+    <uses-permission android:name="android.permission.WAKE_LOCK" />
 
     <application
+        android:name=".MainApp"
         android:allowBackup="true"
         android:icon="@drawable/ic_launcher"
         android:label="@string/app_name"
-        android:theme="@style/Theme.Kerneltuner"
-        android:name=".MainApp">
-
-        <meta-data android:name="com.google.android.gms.version" android:value="@integer/google_play_services_version" />
-
-        <meta-data android:name="com.google.android.gms.analytics.globalConfigResource"
-                   android:resource="@xml/global_tracker" />
+        android:theme="@style/Theme.Kerneltuner" >
+        <meta-data
+            android:name="com.google.android.gms.version"
+            android:value="@integer/google_play_services_version" />
+        <meta-data
+            android:name="com.google.android.gms.analytics.globalConfigResource"
+            android:resource="@xml/global_tracker" />
 
         <activity
             android:name=".ui.MainActivity"
             android:icon="@drawable/ic_launcher"
             android:label="@string/app_name"
-            android:windowSoftInputMode="adjustResize">
+            android:windowSoftInputMode="adjustResize" >
             <intent-filter>
-                <action android:name="rs.pedjaapps.kerneltuner.KT"/>
-                <action android:name="android.intent.action.MAIN"/>
-                <category android:name="android.intent.category.LAUNCHER"/>
+                <action android:name="rs.pedjaapps.kerneltuner.KT" />
+                <action android:name="android.intent.action.MAIN" />
+
+                <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
         <activity
-            android:name="rs.pedjaapps.kerneltuner.ui.TaskManager"
+            android:name=".ui.TaskManager"
+            android:configChanges="orientation|screenSize"
             android:icon="@drawable/tm"
             android:label="@string/title_task_manager"
-            android:uiOptions="splitActionBarWhenNarrow"
-			android:configChanges="orientation|screenSize">
+            android:uiOptions="splitActionBarWhenNarrow" >
             <intent-filter>
-                <action android:name="rs.pedjaapps.kerneltuner.TM"/>
+                <action android:name="rs.pedjaapps.kerneltuner.TM" />
 
-                <category android:name="android.intent.category.DEFAULT"/>
+                <category android:name="android.intent.category.DEFAULT" />
             </intent-filter>
         </activity>
         <activity
-            android:name="rs.pedjaapps.kerneltuner.linpack.Tester"
+            android:name=".linpack.Tester"
             android:icon="@drawable/ic_launcher"
             android:label="Linpack"
-            android:uiOptions="splitActionBarWhenNarrow">
+            android:uiOptions="splitActionBarWhenNarrow" >
         </activity>
         <activity
-            android:name="rs.pedjaapps.kerneltuner.ui.TaskManagerDetailActivity"
+            android:name=".ui.TaskManagerDetailActivity"
             android:label="@string/process_details"
-            android:parentActivityName=".ui.TaskManager">
+            android:parentActivityName=".ui.TaskManager" >
             <meta-data
                 android:name="android.support.PARENT_ACTIVITY"
-                android:value=".ui.TaskManager"/>
+                android:value=".ui.TaskManager" />
         </activity>
         <activity
-            android:name="rs.pedjaapps.kerneltuner.ui.SysCtlActivity"
+            android:name=".ui.SysCtlActivity"
             android:icon="@drawable/sysctl"
-            android:label="@string/title_sysctl">
+            android:label="@string/title_sysctl" >
             <intent-filter>
-                <action android:name="rs.pedjaapps.kerneltuner.SYSCTL"/>
+                <action android:name="rs.pedjaapps.kerneltuner.SYSCTL" />
 
-                <category android:name="android.intent.category.DEFAULT"/>
+                <category android:name="android.intent.category.DEFAULT" />
             </intent-filter>
         </activity>
         <activity
-            android:name="rs.pedjaapps.kerneltuner.ui.BuildpropEditor"
+            android:name=".ui.BuildpropEditor"
             android:icon="@drawable/build"
             android:label="@string/title_build"
-            android:uiOptions="splitActionBarWhenNarrow">
+            android:uiOptions="splitActionBarWhenNarrow" >
             <intent-filter>
-                <action android:name="rs.pedjaapps.kerneltuner.BUILD"/>
+                <action android:name="rs.pedjaapps.kerneltuner.BUILD" />
 
-                <category android:name="android.intent.category.DEFAULT"/>
+                <category android:name="android.intent.category.DEFAULT" />
             </intent-filter>
         </activity>
         <activity
-            android:name="rs.pedjaapps.kerneltuner.ui.Preferences"
+            android:name=".ui.Preferences"
             android:icon="@drawable/settings"
-            android:label="@string/title_preferences">
+            android:label="@string/title_preferences" >
             <intent-filter>
-                <action android:name="rs.pedjaapps.kerneltuner.KT"/>
+                <action android:name="rs.pedjaapps.kerneltuner.KT" />
 
-                <category android:name="android.intent.category.DEFAULT"/>
+                <category android:name="android.intent.category.DEFAULT" />
             </intent-filter>
         </activity>
 
         <receiver
-            android:name="rs.pedjaapps.kerneltuner.receiver.StartupReceiver"
-            android:exported="false">
+            android:name=".receiver.StartupReceiver"
+            android:exported="false" >
             <intent-filter>
-                <action android:name="android.intent.action.BOOT_COMPLETED"/>
+                <action android:name="android.intent.action.BOOT_COMPLETED" />
 
-                <category android:name="android.intent.category.HOME"/>
+                <category android:name="android.intent.category.HOME" />
             </intent-filter>
         </receiver>
 
         <service
-            android:name="rs.pedjaapps.kerneltuner.services.StartupService"
-            android:exported="false">
+            android:name=".services.StartupService"
+            android:exported="false" >
             <intent-filter>
-                <action android:name="rs.pedjaapps.kerneltuner.StartupService"/>
+                <action android:name="rs.pedjaapps.kerneltuner.StartupService" />
             </intent-filter>
         </service>
 
         <activity
-            android:name="rs.pedjaapps.kerneltuner.ui.Gpu"
+            android:name=".ui.Gpu"
             android:icon="@drawable/gpu"
             android:label="@string/title_gpu"
-            android:theme="@android:style/Theme.Holo.Light.Dialog.NoActionBar">
+            android:theme="@android:style/Theme.Holo.Light.Dialog.NoActionBar" >
             <intent-filter>
-                <action android:name="rs.pedjaapps.kerneltuner.GPU"/>
+                <action android:name="rs.pedjaapps.kerneltuner.GPU" />
 
-                <category android:name="android.intent.category.DEFAULT"/>
-            </intent-filter>
-        </activity>
-		<activity
-            android:name="rs.pedjaapps.kerneltuner.ui.GpuActivityQNew"
-            android:icon="@drawable/gpu"
-            android:label="@string/title_gpu"
-            >
-            <intent-filter>
-                <action android:name="rs.pedjaapps.kerneltuner.GPU"/>
-
-                <category android:name="android.intent.category.DEFAULT"/>
+                <category android:name="android.intent.category.DEFAULT" />
             </intent-filter>
         </activity>
         <activity
-            android:name="rs.pedjaapps.kerneltuner.ui.GpuSGX540"
+            android:name=".ui.GpuActivityQNew"
             android:icon="@drawable/gpu"
-            android:label="@string/title_gpu"
-            android:theme="@android:style/Theme.Holo.Light.Dialog.NoActionBar">
+            android:label="@string/title_gpu" >
             <intent-filter>
-                <action android:name="rs.pedjaapps.kerneltuner.GPU"/>
+                <action android:name="rs.pedjaapps.kerneltuner.GPU" />
 
-                <category android:name="android.intent.category.DEFAULT"/>
+                <category android:name="android.intent.category.DEFAULT" />
             </intent-filter>
         </activity>
         <activity
-            android:name="rs.pedjaapps.kerneltuner.ui.MiscTweaks"
+            android:name=".ui.GpuSGX540"
+            android:icon="@drawable/gpu"
+            android:label="@string/title_gpu"
+            android:theme="@android:style/Theme.Holo.Light.Dialog.NoActionBar" >
+            <intent-filter>
+                <action android:name="rs.pedjaapps.kerneltuner.GPU" />
+
+                <category android:name="android.intent.category.DEFAULT" />
+            </intent-filter>
+        </activity>
+        <activity
+            android:name=".ui.MiscTweaks"
             android:icon="@drawable/misc"
             android:label="@string/title_misc"
-            android:uiOptions="splitActionBarWhenNarrow">
+            android:uiOptions="splitActionBarWhenNarrow" >
             <intent-filter>
-                <action android:name="rs.pedjaapps.kerneltuner.MISC_TWEAKS"/>
-
-                <category android:name="android.intent.category.DEFAULT"/>
+                <action android:name="rs.pedjaapps.kerneltuner.MISC_TWEAKS" />
+                <category android:name="android.intent.category.DEFAULT" />
             </intent-filter>
         </activity>
         <activity
-            android:name="rs.pedjaapps.kerneltuner.ui.Mpdecision"
+            android:name=".ui.Mpdecision"
             android:icon="@drawable/dual"
             android:label="@string/title_mpdecision"
-            android:uiOptions="splitActionBarWhenNarrow">
+            android:uiOptions="splitActionBarWhenNarrow" >
             <intent-filter>
-                <action android:name="rs.pedjaapps.kerneltuner.MPDECISION"/>
+                <action android:name="rs.pedjaapps.kerneltuner.MPDECISION_NEW" />
 
-                <category android:name="android.intent.category.DEFAULT"/>
+                <category android:name="android.intent.category.DEFAULT" />
             </intent-filter>
         </activity>
         <activity
-            android:name="rs.pedjaapps.kerneltuner.ui.MpdecisionNew"
-            android:icon="@drawable/dual"
-            android:label="@string/title_mpdecision"
-            android:uiOptions="splitActionBarWhenNarrow">
-            <intent-filter>
-                <action android:name="rs.pedjaapps.kerneltuner.MPDECISION_NEW"/>
-
-                <category android:name="android.intent.category.DEFAULT"/>
-            </intent-filter>
-        </activity>
-        <activity
-            android:name="rs.pedjaapps.kerneltuner.ui.Thermald"
+            android:name=".ui.Thermald"
             android:icon="@drawable/temp"
             android:label="@string/title_thermald"
-            android:uiOptions="splitActionBarWhenNarrow">
+            android:uiOptions="splitActionBarWhenNarrow" >
             <intent-filter>
-                <action android:name="rs.pedjaapps.kerneltuner.THERMAL"/>
+                <action android:name="rs.pedjaapps.kerneltuner.THERMAL" />
 
-                <category android:name="android.intent.category.DEFAULT"/>
+                <category android:name="android.intent.category.DEFAULT" />
             </intent-filter>
         </activity>
         <activity
-            android:name="rs.pedjaapps.kerneltuner.ui.About"
+            android:name=".ui.About"
             android:icon="@drawable/about"
             android:label="@string/title_about"
-            android:theme="@android:style/Theme.Holo.Light.Dialog.NoActionBar">
+            android:theme="@android:style/Theme.Holo.Light.Dialog.NoActionBar" >
             <intent-filter>
-                <action android:name="rs.pedjaapps.kerneltuner.About"/>
+                <action android:name="rs.pedjaapps.kerneltuner.About" />
 
-                <category android:name="android.intent.category.DEFAULT"/>
+                <category android:name="android.intent.category.DEFAULT" />
             </intent-filter>
         </activity>
         <activity
-            android:name="rs.pedjaapps.kerneltuner.ui.Changelog"
+            android:name=".ui.Changelog"
             android:icon="@drawable/changelog"
             android:label="@string/title_changelog"
             android:theme="@style/Theme.TransparentDark"
-            android:uiOptions="splitActionBarWhenNarrow">
+            android:uiOptions="splitActionBarWhenNarrow" >
             <intent-filter>
-                <action android:name="rs.pedjaapps.kerneltuner.Changelog"/>
+                <action android:name="rs.pedjaapps.kerneltuner.Changelog" />
 
-                <category android:name="android.intent.category.DEFAULT"/>
+                <category android:name="android.intent.category.DEFAULT" />
             </intent-filter>
         </activity>
         <activity
-            android:name="rs.pedjaapps.kerneltuner.ui.Profiles"
+            android:name=".ui.Profiles"
             android:icon="@drawable/profile"
             android:label="@string/title_profiles"
-            android:uiOptions="splitActionBarWhenNarrow">
+            android:uiOptions="splitActionBarWhenNarrow" >
             <intent-filter>
-                <action android:name="rs.pedjaapps.kerneltuner.PROFILES"/>
+                <action android:name="rs.pedjaapps.kerneltuner.PROFILES" />
 
-                <category android:name="android.intent.category.DEFAULT"/>
+                <category android:name="android.intent.category.DEFAULT" />
             </intent-filter>
         </activity>
         <activity
-            android:name="rs.pedjaapps.kerneltuner.ui.ProfileEditor"
+            android:name=".ui.ProfileEditor"
             android:icon="@drawable/edit_dark"
             android:label="@string/activity_title_profile_editor"
-            android:uiOptions="splitActionBarWhenNarrow">
+            android:uiOptions="splitActionBarWhenNarrow" >
         </activity>
         <activity
             android:name=".ui.SystemInfoActivity"
             android:icon="@drawable/ic_menu_info_details"
-            android:label="@string/info">
+            android:label="@string/info" >
             <intent-filter>
-                <action android:name="rs.pedjaapps.kerneltuner.SystemInfo"/>
+                <action android:name="rs.pedjaapps.kerneltuner.SystemInfo" />
 
-                <category android:name="android.intent.category.DEFAULT"/>
+                <category android:name="android.intent.category.DEFAULT" />
             </intent-filter>
         </activity>
         <activity
-            android:name="rs.pedjaapps.kerneltuner.ui.CPUActivity"
+            android:name=".ui.CPUActivity"
             android:icon="@drawable/ic_launcher"
             android:label="@string/title_cpu"
-            android:screenOrientation="portrait">
+            android:screenOrientation="portrait" >
             <intent-filter>
-                <action android:name="rs.pedjaapps.kerneltuner.CPU"/>
+                <action android:name="rs.pedjaapps.kerneltuner.CPU" />
 
-                <category android:name="android.intent.category.DEFAULT"/>
-            </intent-filter>
-        </activity>
-        
-        <activity
-            android:name="rs.pedjaapps.kerneltuner.ui.VoltageActivity"
-            android:icon="@drawable/voltage"
-            android:label="@string/title_voltage">
-            <intent-filter>
-                <action android:name="rs.pedjaapps.kerneltuner.VOLTAGE"/>
-
-                <category android:name="android.intent.category.DEFAULT"/>
-            </intent-filter>
-        </activity>
-		<activity
-            android:name="rs.pedjaapps.kerneltuner.ui.VoltageActivityTegra"
-            android:icon="@drawable/voltage"
-            android:label="@string/title_voltage">
-            <intent-filter>
-                <action android:name="rs.pedjaapps.kerneltuner.VOLTAGE"/>
-
-                <category android:name="android.intent.category.DEFAULT"/>
+                <category android:name="android.intent.category.DEFAULT" />
             </intent-filter>
         </activity>
         <activity
-            android:name="rs.pedjaapps.kerneltuner.ui.TISActivity"
+            android:name=".ui.VoltageActivity"
+            android:icon="@drawable/voltage"
+            android:label="@string/title_voltage" >
+            <intent-filter>
+                <action android:name="rs.pedjaapps.kerneltuner.VOLTAGE" />
+
+                <category android:name="android.intent.category.DEFAULT" />
+            </intent-filter>
+        </activity>
+        <activity
+            android:name=".ui.VoltageActivityTegra"
+            android:icon="@drawable/voltage"
+            android:label="@string/title_voltage" >
+            <intent-filter>
+                <action android:name="rs.pedjaapps.kerneltuner.VOLTAGE" />
+
+                <category android:name="android.intent.category.DEFAULT" />
+            </intent-filter>
+        </activity>
+        <activity
+            android:name=".ui.TISActivity"
             android:icon="@drawable/times"
-            android:label="@string/title_tis">
+            android:label="@string/title_tis" >
             <intent-filter>
-                <action android:name="rs.pedjaapps.kerneltuner.TIMES"/>
+                <action android:name="rs.pedjaapps.kerneltuner.TIMES" />
 
-                <category android:name="android.intent.category.DEFAULT"/>
+                <category android:name="android.intent.category.DEFAULT" />
             </intent-filter>
         </activity>
-
         <activity
-            android:name="rs.pedjaapps.kerneltuner.ui.GovernorActivity"
+            android:name=".ui.GovernorActivity"
             android:icon="@drawable/dual"
-            android:label="@string/title_governor">
+            android:label="@string/title_governor" >
             <intent-filter>
-                <action android:name="rs.pedjaapps.kerneltuner.GOVERNOR_SETTINGS"/>
+                <action android:name="rs.pedjaapps.kerneltuner.GOVERNOR_SETTINGS" />
 
-                <category android:name="android.intent.category.DEFAULT"/>
+                <category android:name="android.intent.category.DEFAULT" />
             </intent-filter>
         </activity>
         <activity
-            android:name="rs.pedjaapps.kerneltuner.ui.Reboot"
+            android:name=".ui.Reboot"
             android:icon="@drawable/ic_launcher"
-            android:label="@string/reboot">
+            android:label="@string/reboot" >
             <intent-filter>
-                <action android:name="rs.pedjaapps.kerneltuner.REBOOT"/>
+                <action android:name="rs.pedjaapps.kerneltuner.REBOOT" />
 
-                <category android:name="android.intent.category.DEFAULT"/>
+                <category android:name="android.intent.category.DEFAULT" />
             </intent-filter>
         </activity>
         <activity
-            android:name="rs.pedjaapps.kerneltuner.ui.OOM"
+            android:name=".ui.OOM"
             android:icon="@drawable/oom"
             android:label="@string/oom"
-            android:theme="@style/Theme.Dialog.NoTitleBar.Light">
+            android:theme="@style/Theme.Dialog.NoTitleBar.Light" >
             <intent-filter>
-                <action android:name="rs.pedjaapps.kerneltuner.OOM"/>
+                <action android:name="rs.pedjaapps.kerneltuner.OOM" />
 
-                <category android:name="android.intent.category.DEFAULT"/>
+                <category android:name="android.intent.category.DEFAULT" />
             </intent-filter>
         </activity>
         <activity
@@ -324,161 +310,156 @@
             android:configChanges="keyboardHidden|orientation"
             android:icon="@drawable/sd"
             android:label="@string/title_sd"
-            android:screenOrientation="portrait">
+            android:screenOrientation="portrait" >
             <intent-filter>
-                <action android:name="rs.pedjaapps.kerneltuner.SD_ANALYZER"/>
+                <action android:name="rs.pedjaapps.kerneltuner.SD_ANALYZER" />
 
-                <category android:name="android.intent.category.DEFAULT"/>
+                <category android:name="android.intent.category.DEFAULT" />
             </intent-filter>
         </activity>
         <activity
-            android:name="rs.pedjaapps.kerneltuner.ui.TISActivityChart"
-            android:icon="@drawable/times"
-            android:label="@string/title_tis">
-            <intent-filter>
-                <action android:name="rs.pedjaapps.kerneltuner.TIMES_CHART"/>
-
-                <category android:name="android.intent.category.DEFAULT"/>
-            </intent-filter>
-        </activity>
-        <activity
-            android:name="rs.pedjaapps.kerneltuner.ui.FMActivity"
+            android:name=".ui.FMActivity"
             android:icon="@drawable/folder"
-            android:uiOptions="splitActionBarWhenNarrow">
+            android:uiOptions="splitActionBarWhenNarrow" >
         </activity>
         <activity
-            android:name="rs.pedjaapps.kerneltuner.ui.EditActivity"
+            android:name=".ui.EditActivity"
             android:exported="true"
             android:icon="@drawable/ic_locale_plugin"
             android:label="@string/plugin_name"
             android:theme="@style/Theme.Locale.Light"
             android:uiOptions="splitActionBarWhenNarrow"
-            android:windowSoftInputMode="adjustResize"
-            tools:ignore="ExportedActivity">
+            android:windowSoftInputMode="adjustResize" >
             <intent-filter>
-                <action android:name="com.twofortyfouram.locale.intent.action.EDIT_SETTING"/>
+                <action android:name="com.twofortyfouram.locale.intent.action.EDIT_SETTING" />
             </intent-filter>
         </activity>
 
         <receiver
-            android:name="rs.pedjaapps.kerneltuner.receiver.FireReceiver"
+            android:name=".receiver.FireReceiver"
             android:exported="true"
-            android:process=":background"
-            tools:ignore="ExportedReceiver">
+            android:process=":background" >
             <intent-filter>
-                <action android:name="com.twofortyfouram.locale.intent.action.FIRE_SETTING"/>
+                <action android:name="com.twofortyfouram.locale.intent.action.FIRE_SETTING" />
             </intent-filter>
         </receiver>
 
         <activity
-            android:name="rs.pedjaapps.kerneltuner.shortcuts.Shortcuts"
+            android:name=".shortcuts.Shortcuts"
             android:label="Kernel Tuner - Shortcuts"
-            android:uiOptions="splitActionBarWhenNarrow">
+            android:uiOptions="splitActionBarWhenNarrow" >
             <intent-filter>
-                <action android:name="android.intent.action.CREATE_SHORTCUT"/>
+                <action android:name="android.intent.action.CREATE_SHORTCUT" />
 
-                <category android:name="android.intent.category.DEFAULT"/>
+                <category android:name="android.intent.category.DEFAULT" />
             </intent-filter>
         </activity>
         <activity
-            android:name="rs.pedjaapps.kerneltuner.shortcuts.CPUShortcut"
-            android:label="Kernel Tuner - Shortcuts">
+            android:name=".shortcuts.CPUShortcut"
+            android:label="Kernel Tuner - Shortcuts" >
         </activity>
         <activity
-            android:name="rs.pedjaapps.kerneltuner.shortcuts.GovernorShortcut"
-            android:label="Kernel Tuner - Shortcuts">
+            android:name=".shortcuts.GovernorShortcut"
+            android:label="Kernel Tuner - Shortcuts" >
         </activity>
         <activity
-            android:name="rs.pedjaapps.kerneltuner.shortcuts.GPUShortcut"
-            android:label="Kernel Tuner - Shortcuts">
+            android:name=".shortcuts.GPUShortcut"
+            android:label="Kernel Tuner - Shortcuts" >
         </activity>
         <activity
-            android:name="rs.pedjaapps.kerneltuner.shortcuts.InfoShortcut"
-            android:label="Kernel Tuner - Shortcuts">
+            android:name=".shortcuts.InfoShortcut"
+            android:label="Kernel Tuner - Shortcuts" >
         </activity>
         <activity
-            android:name="rs.pedjaapps.kerneltuner.shortcuts.MiscShortcut"
-            android:label="Kernel Tuner - Shortcuts">
+            android:name=".shortcuts.MiscShortcut"
+            android:label="Kernel Tuner - Shortcuts" >
         </activity>
         <activity
-            android:name="rs.pedjaapps.kerneltuner.shortcuts.MpdecisionShortcut"
-            android:label="Kernel Tuner - Shortcuts">
+            android:name=".shortcuts.MpdecisionShortcut"
+            android:label="Kernel Tuner - Shortcuts" >
         </activity>
         <activity
-            android:name="rs.pedjaapps.kerneltuner.shortcuts.ProfilesShortcut"
-            android:label="Kernel Tuner - Shortcuts">
+            android:name=".shortcuts.ProfilesShortcut"
+            android:label="Kernel Tuner - Shortcuts" >
         </activity>
         <activity
-            android:name="rs.pedjaapps.kerneltuner.shortcuts.RebootShortcut"
-            android:label="Kernel Tuner - Shortcuts">
+            android:name=".shortcuts.RebootShortcut"
+            android:label="Kernel Tuner - Shortcuts" >
         </activity>
         <activity
-            android:name="rs.pedjaapps.kerneltuner.shortcuts.ThermaldShortcut"
-            android:label="Kernel Tuner - Shortcuts">
+            android:name=".shortcuts.ThermaldShortcut"
+            android:label="Kernel Tuner - Shortcuts" >
         </activity>
         <activity
-            android:name="rs.pedjaapps.kerneltuner.shortcuts.SwapShortcut"
-            android:label="Kernel Tuner - Shortcuts">
+            android:name=".shortcuts.SwapShortcut"
+            android:label="Kernel Tuner - Shortcuts" >
         </activity>
         <activity
-            android:name="rs.pedjaapps.kerneltuner.shortcuts.TISShortcut"
-            android:label="Kernel Tuner - Shortcuts">
+            android:name=".shortcuts.TISShortcut"
+            android:label="Kernel Tuner - Shortcuts" >
         </activity>
         <activity
-            android:name="rs.pedjaapps.kerneltuner.shortcuts.VoltageShortcut"
-            android:label="Kernel Tuner - Shortcuts">
+            android:name=".shortcuts.VoltageShortcut"
+            android:label="Kernel Tuner - Shortcuts" >
         </activity>
         <activity
-            android:name="rs.pedjaapps.kerneltuner.shortcuts.OOMShortcut"
-            android:label="Kernel Tuner - Shortcuts">
+            android:name=".shortcuts.OOMShortcut"
+            android:label="Kernel Tuner - Shortcuts" >
         </activity>
         <activity
-            android:name="rs.pedjaapps.kerneltuner.shortcuts.SDShortcut"
-            android:label="Kernel Tuner - Shortcuts">
+            android:name=".shortcuts.SDShortcut"
+            android:label="Kernel Tuner - Shortcuts" >
         </activity>
         <activity
-            android:name="rs.pedjaapps.kerneltuner.shortcuts.BuildShortcut"
-            android:label="Kernel Tuner - Shortcuts">
+            android:name=".shortcuts.BuildShortcut"
+            android:label="Kernel Tuner - Shortcuts" >
         </activity>
         <activity
-            android:name="rs.pedjaapps.kerneltuner.shortcuts.SysShortcut"
-            android:label="Kernel Tuner - Shortcuts">
+            android:name=".shortcuts.SysShortcut"
+            android:label="Kernel Tuner - Shortcuts" >
         </activity>
         <activity
-            android:name="rs.pedjaapps.kerneltuner.shortcuts.TmShortcut"
-            android:label="Kernel Tuner - Shortcuts">
+            android:name=".shortcuts.TmShortcut"
+            android:label="Kernel Tuner - Shortcuts" >
         </activity>
-
         <activity
-            android:name="rs.pedjaapps.kerneltuner.ui.BackupRestore"
-            android:label="@string/backup">
+            android:name=".ui.BackupRestore"
+            android:label="@string/backup" >
             <intent-filter>
-                <action android:name="rs.pedjaapps.kerneltuner.ui.BackupRestore"/>
+                <action android:name="rs.pedjaapps.kerneltuner.ui.BackupRestore" />
 
-                <category android:name="android.intent.category.DEFAULT"/>
+                <category android:name="android.intent.category.DEFAULT" />
             </intent-filter>
         </activity>
         <activity
-            android:name="rs.pedjaapps.kerneltuner.ui.LogCat"
+            android:name=".ui.LogCat"
             android:configChanges="keyboardHidden|orientation"
             android:icon="@drawable/log"
             android:label="@string/title_log"
             android:launchMode="singleTop"
-            android:uiOptions="splitActionBarWhenNarrow">
+            android:uiOptions="splitActionBarWhenNarrow" >
             <intent-filter>
-                <action android:name="rs.pedjaapps.kerneltuner.LOGCAT"/>
+                <action android:name="rs.pedjaapps.kerneltuner.LOGCAT" />
 
-                <category android:name="android.intent.category.DEFAULT"/>
+                <category android:name="android.intent.category.DEFAULT" />
             </intent-filter>
         </activity>
 
         <meta-data
             android:name="com.crashlytics.ApiKey"
-            android:value="dfda65c0dfc9a63025b8d6e98dc98ce082190d2b"/>
+            android:value="dfda65c0dfc9a63025b8d6e98dc98ce082190d2b" />
+
         <activity
             android:name="com.google.android.gms.ads.AdActivity"
-            android:configChanges="keyboard|keyboardHidden|orientation|screenLayout|uiMode|screenSize|smallestScreenSize"/>
-
+            android:configChanges="keyboard|keyboardHidden|orientation|screenLayout|uiMode|screenSize|smallestScreenSize" />
+        <activity
+            android:name=".ui.MiscTweaksActivity"
+            android:label="@string/title_activity_misc_tweaks"
+            android:parentActivityName=".ui.MainActivity" >
+            <meta-data
+                android:name="android.support.PARENT_ACTIVITY"
+                android:value="rs.pedjaapps.kerneltuner.ui.MainActivity" />
+        </activity>
     </application>
 
 </manifest>

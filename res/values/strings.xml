@@ -308,7 +308,7 @@
     <string name="_24_bit">24-bit</string>
     <string name="_32_bit">32-bit</string>
     <string name="io_and_sd_card">IO AND SD CARD</string>
-    <string name="io_scheduler">IO Scheduler</string>
+    <string name="io_scheduler">I/O Scheduler</string>
     <string name="set_io_scheduler">Set IO Scheduler</string>
     <string name="sd_card_cache_size">SD Card Cache Size</string>
     <string name="textOn">ON</string>
@@ -763,12 +763,22 @@
     <string name="screen_density">Density</string>
     <string name="hello_blank_fragment">Hello blank fragment</string>
     <string name="sensors">Sensors</string>
-	<string name="gpu_governor">GPU Governor</string>
-	<string name="cpu_multicore_warning"><b>Warning</b>\nMulti-Core CPU control requires kernel support.\nAre you sure you want to continue?</string>
-	<string name="warning">Warning</string>
-	<string name="gpu_warning">Not all governors work on all devices/kernels!</string>
-	<string name="voltage_dialog_info">No changes are made until you press \'Apply\'</string>
+    <string name="gpu_governor">GPU Governor</string>
+    <string name="cpu_multicore_warning"><b>Warning</b>\nMulti-Core CPU control requires kernel support.\nAre you sure you want to continue?</string>
+    <string name="warning">Warning</string>
+    <string name="gpu_warning">Not all governors work on all devices/kernels!</string>
+    <string name="voltage_dialog_info">No changes are made until you press \'Apply\'</string>
     <string name="enabled">Enabled</string>
     <string name="is_mp_enabled">Is MP Decision Enabled</string>
+    <string name="title_activity_misc_tweaks">Kernel Manager</string>
+    <string name="io">I/O</string>
+    <string name="read_ahead_cache_size">Read Ahead Cache Size</string>
+    <string name="s2w_dt2w">S2W/DT2W</string>
+    <string name="doubletap2wake">DoubleTap2Wake/KnockKnock</string>
+    <string name="disabled">Disabled</string>
+    <string name="sweep2wake">Swipe2Wake</string>
+    <string name="otg_with_standard_usb">OTG with standard USB</string>
+    <string name="select_scheduler">Select Scheduler</string>
+    <string name="set">Set</string>
 
 </resources>

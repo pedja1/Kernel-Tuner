@@ -105,6 +105,8 @@ public final class Constants
 	public static final String GPU_2D = "/sys/devices/platform/kgsl-2d0.0/kgsl/kgsl-2d0/max_gpuclk";
 	public static final String CDEPTH = "/sys/kernel/debug/msm_fb/0/bpp";
 	public static final String S2W = "/sys/android_touch/sweep2wake";
+    public static final String S2W_VERSION = "/sys/android_touch/sweep2wake_version";
+    public static final String DT2W = "/sys/android_touch/doubletap2wake";
 	public static final String S2W_ALT = "/sys/android_touch/sweep2wake/s2w_switch";
 	public static final String MPDECISION = "/sys/kernel/msm_mpdecision/conf/enabled";
 	public static final String BUTTONS_LIGHT = "/sys/devices/platform/leds-pm8058/leds/button-backlight/currents";

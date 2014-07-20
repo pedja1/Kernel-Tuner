@@ -1,8 +1,10 @@
-package rs.pedjaapps.kerneltuner;
+package rs.pedjaapps.kerneltuner.adapter;
 
 import android.content.*;
 import android.widget.*;
 import java.util.*;
+
+import rs.pedjaapps.kerneltuner.R;
 import rs.pedjaapps.kerneltuner.model.*;
 import android.view.*;
 
