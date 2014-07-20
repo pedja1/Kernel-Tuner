@@ -1,51 +1,56 @@
 <?xml version="1.0" encoding="utf-8"?>
-    <PreferenceScreen xmlns:android="http://schemas.android.com/apk/res/android"
-                android:title="@string/prefs_general"
-                android:summary=""
-				android:icon="@drawable/settings">
+<PreferenceScreen xmlns:android="http://schemas.android.com/apk/res/android"
+                  android:title="@string/prefs_general"
+                  android:summary=""
+                  android:icon="@drawable/settings">
 
-            <PreferenceCategory android:title="@string/preferences_boot_settings" >
+    <PreferenceCategory android:title="@string/preferences_boot_settings">
         <ListPreference
             android:entries="@array/listDisplayWord"
             android:entryValues="@array/listReturnValue"
-            android:key="disable"
+            android:key="boot"
             android:summary="@string/preferences_boot_settings_apply_summary"
             android:title="@string/preferences_boot_settings_apply_title"
-			android:defaultValue="boot"/>
+            android:defaultValue="disable"/>
     </PreferenceCategory>
-    
 
-    <PreferenceCategory android:title="@string/other" >
-           <CheckBoxPreference
+
+    <PreferenceCategory android:title="@string/other">
+        <!--
+        <CheckBoxPreference
             android:defaultValue="false"
             android:key="htc_one_workaround"
             android:summary="@string/preferences_cpu_htcone_summary"
-            android:title="@string/preferences_cpu_htcone_title" />
-		<CheckBoxPreference
+            android:title="@string/preferences_cpu_htcone_title"/>
+        -->
+        <CheckBoxPreference
             android:defaultValue="false"
             android:key="reset"
             android:summary="@string/prefs_reset_summary"
-            android:title="@string/prefs_reset" />
-		<EditTextPreference
+            android:title="@string/prefs_reset"/>
+
+        <EditTextPreference
             android:defaultValue="1000"
-            android:key="refresh"
+            android:key="cpu_refresh_interval"
             android:summary="@string/prefs_refresh_summary"
             android:title="@string/prefs_refresh"
-			android:inputType="number"/>
-		<ListPreference
+            android:inputType="number"
+            android:numeric="integer"/>
+
+        <ListPreference
             android:entries="@array/tempTitles"
             android:entryValues="@array/tempValues"
             android:key="temp"
             android:summary=""
-            android:title="@string/prefs_temp" 
+            android:title="@string/prefs_temp"
             android:defaultValue="celsius"/>
 
-		<CheckBoxPreference
-			android:defaultValue="true"
-			android:key="profile_notifications"
-			android:summary="@string/prefs_toast_summary"
-			android:title="@string/prefs_toast" />
-		
-         </PreferenceCategory>	
-        
+        <CheckBoxPreference
+            android:defaultValue="true"
+            android:key="profile_notifications"
+            android:summary="@string/prefs_toast_summary"
+            android:title="@string/prefs_toast"/>
+
+    </PreferenceCategory>
+
 </PreferenceScreen>

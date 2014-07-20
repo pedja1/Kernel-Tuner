@@ -7,13 +7,15 @@
 		android:icon="@drawable/ic_launcher">
         <extra android:name="settings" android:value="application" />
     </header>
-    <header 
+    <!--
+    <header
         android:fragment="rs.pedjaapps.kerneltuner.ui.PreferencesFragment"
         android:title="@string/prefs_widget"
         android:summary="@string/prefs_widget_summary"
 		android:icon="@drawable/prefs_widget">
 		<extra android:name="settings" android:value="widget" />
     </header>
+    -->
     <!--
     <header
         android:fragment="rs.pedjaapps.kerneltuner.ui.PreferencesFragment"
@@ -46,6 +48,7 @@
 		<extra android:name="settings" android:value="main" />
     </header>
     -->
+	<!--
 	<header
 		android:title="@string/title_backup"
 		android:summary="@string/prefs_backup_summary"
@@ -54,6 +57,7 @@
 		<intent android:action="rs.pedjaapps.kerneltuner.ui.BackupRestore"
 		/>
 	</header>
+	-->
 
     <header
 		android:title="@string/title_about"
@@ -75,6 +79,7 @@
 
 	</header>
 
+	<!--
 	<header
 		android:title="@string/title_info"
 		android:summary="@string/prefs_info_summary"
@@ -85,4 +90,5 @@
 		/>
 
 	</header>
+	-->
 </preference-headers>
