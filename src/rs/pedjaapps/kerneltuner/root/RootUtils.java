@@ -1,5 +1,7 @@
 package rs.pedjaapps.kerneltuner.root;
 import android.os.*;
+
+import com.crashlytics.android.Crashlytics;
 import com.stericson.RootTools.*;
 import com.stericson.RootTools.exceptions.*;
 import com.stericson.RootTools.execution.*;
@@ -117,4 +119,17 @@ public class RootUtils
 	{
 		exec(null, commands);
 	}
+
+    public void closeAllShells()
+    {
+        try
+        {
+            RootTools.closeAllShells();
+        }
+        catch (IOException e)
+        {
+            e.printStackTrace();
+            Crashlytics.logException(e);
+        }
+    }
 }

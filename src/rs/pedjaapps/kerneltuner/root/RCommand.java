@@ -121,6 +121,7 @@ public class RCommand
 
     public static void setScheduler(String scheduler, RootUtils.CommandCallback callback)
     {
+        PrefsManager.setScheduler(scheduler);
         new RootUtils().exec(callback,
                 "chmod 777 " + "/sys/block/mmcblk0/queue/scheduler",
                 "echo " + scheduler + " > /sys/block/mmcblk0/queue/scheduler");
@@ -128,6 +129,7 @@ public class RCommand
 
     public static void setReadAhead(String cache, RootUtils.CommandCallback callback)
     {
+        PrefsManager.setReadAhead(cache);
         new RootUtils().exec(callback,
                 "chmod 777 " + "/sys/devices/virtual/bdi/179:0/read_ahead_kb",
                 "echo " + cache + " > /sys/devices/virtual/bdi/179:0/read_ahead_kb");
@@ -135,6 +137,7 @@ public class RCommand
 
     public static void setS2w(int value, String path, RootUtils.CommandCallback callback)
     {
+        PrefsManager.setS2W(value);
         new RootUtils().exec(callback,
                 "chmod 777 " + path,
                 "echo " + value + " > " + path);
@@ -142,6 +145,7 @@ public class RCommand
 
     public static void setDt2w(int value, RootUtils.CommandCallback callback)
     {
+        PrefsManager.setDT2W(value);
         new RootUtils().exec(callback,
                 "chmod 777 " + Constants.DT2W,
                 "echo " + value + " > " + Constants.DT2W);
@@ -149,6 +153,7 @@ public class RCommand
 
     public static void setFastcharge(int value, RootUtils.CommandCallback callback)
     {
+        PrefsManager.setFastcharge(value);
         new RootUtils().exec(callback,
                 "chmod 777 " + Constants.FCHARGE,
                 "echo " + value + " > " + Constants.FCHARGE);
@@ -156,6 +161,7 @@ public class RCommand
 
     public static void setVsync(int value, RootUtils.CommandCallback callback)
     {
+        PrefsManager.setVsync(value);
         new RootUtils().exec(callback,
                 "chmod 777 /sys/kernel/debug/msm_fb/0/vsync_enable",
                 "chmod 777 /sys/kernel/debug/msm_fb/0/hw_vsync_mode",
@@ -167,6 +173,7 @@ public class RCommand
 
     public static void setOtg(int value, RootUtils.CommandCallback callback)
     {
+        PrefsManager.setOtg(value);
         new RootUtils().exec(callback,
                 "chmod 777 /sys/kernel/debug/msm_otg/mode",
                 "chmod 777 /sys/kernel/debug/otg/mode",

@@ -19,7 +19,8 @@ public class PrefsManager
         cpu_refresh_interval, is_first_launch, kernel_info, app_version, main_show_temp, main_show_cpu,
         main_show_toggles, main_show_buttons, temp_unit, show_ads, show_cpu_options_dialog, cpu_enable_all,
         cpu_disable_all, hide_unsupported_items, notification_service, cpu_show_all_cores, gpu_3d, gpu_2d,
-        gpu_governor
+        gpu_governor, mpdec_idle_freq, mpdec_enabled, mpdec_max_cpus, mpdec_min_cpus, mpdec_sosc,
+        mpdec_sof, mpdec_pause, mpdec_delay, scheduler, readahead, dt2w, s2w, otg, vsync, fastcharge
     }
 
     public static long getCpuRefreshInterval()
@@ -185,7 +186,7 @@ public class PrefsManager
 
     public static String getCpuGovernor(int core)
     {
-        return prefs.getString("cpu_" + core + "_governor", "");
+        return prefs.getString("cpu_" + core + "_governor", null);
     }
 
     public static void setGpu3d(int freq)
@@ -211,7 +212,7 @@ public class PrefsManager
 
     public static String getGpuGovernor()
     {
-        return prefs.getString(Key.gpu_governor.toString(), "");
+        return prefs.getString(Key.gpu_governor.toString(), null);
     }
 
     public static int getGpu3d()
@@ -222,5 +223,245 @@ public class PrefsManager
     public static int getGpu2d()
     {
         return prefs.getInt(Key.gpu_2d.toString(), -1);
+    }
+
+    public static void setMpdecIdleFreq(int freq)
+    {
+        SharedPreferences.Editor editor = prefs.edit();
+        editor.putInt(Key.mpdec_idle_freq.toString(), freq);
+        editor.apply();
+    }
+
+    public static int getMpdecIdleFreq()
+    {
+        return prefs.getInt(Key.mpdec_idle_freq.toString(), -1);
+    }
+
+    public static void setMpdecEnabled(int enabled)
+    {
+        SharedPreferences.Editor editor = prefs.edit();
+        editor.putInt(Key.mpdec_enabled.toString(), enabled);
+        editor.apply();
+    }
+
+    public static int getMpdecEnabled()
+    {
+        return prefs.getInt(Key.mpdec_enabled.toString(), -1);
+    }
+
+    public static void setMpdecThreshold(int num, int value)
+    {
+        SharedPreferences.Editor editor = prefs.edit();
+        editor.putInt("mpdec_thr_" + num, value);
+        editor.apply();
+    }
+
+    public static int getMpdecThreshold(int num)
+    {
+        return prefs.getInt("mpdec_thr_" + num, -1);
+    }
+
+    public static void setMpdecTime(int num, int value)
+    {
+        SharedPreferences.Editor editor = prefs.edit();
+        editor.putInt("mpdec_time_" + num, value);
+        editor.apply();
+    }
+
+    public static int getMpdecTime(int num)
+    {
+        return prefs.getInt("mpdec_time_" + num, -1);
+    }
+
+    public static void setMpdecMaxCpus(int value)
+    {
+        SharedPreferences.Editor editor = prefs.edit();
+        editor.putInt(Key.mpdec_max_cpus.toString(), value);
+        editor.apply();
+    }
+
+    public static int getMpdecMaxCpus()
+    {
+        return prefs.getInt(Key.mpdec_max_cpus.toString(), -1);
+    }
+
+    public static void setMpdecMinCpus(int value)
+    {
+        SharedPreferences.Editor editor = prefs.edit();
+        editor.putInt(Key.mpdec_min_cpus.toString(), value);
+        editor.apply();
+    }
+
+    public static int getMpdecMinCpus()
+    {
+        return prefs.getInt(Key.mpdec_min_cpus.toString(), -1);
+    }
+
+    public static void setMpdecSoSc(int value)
+    {
+        SharedPreferences.Editor editor = prefs.edit();
+        editor.putInt(Key.mpdec_sosc.toString(), value);
+        editor.apply();
+    }
+
+    public static int getMpdecSoSc()
+    {
+        return prefs.getInt(Key.mpdec_sosc.toString(), -1);
+    }
+
+    public static void setMpdecSoF(int value)
+    {
+        SharedPreferences.Editor editor = prefs.edit();
+        editor.putInt(Key.mpdec_sof.toString(), value);
+        editor.apply();
+    }
+
+    public static int getMpdecSoF()
+    {
+        return prefs.getInt(Key.mpdec_sof.toString(), -1);
+    }
+
+    public static void setMpdecDelay(int value)
+    {
+        SharedPreferences.Editor editor = prefs.edit();
+        editor.putInt(Key.mpdec_delay.toString(), value);
+        editor.apply();
+    }
+
+    public static int getMpdecDelay()
+    {
+        return prefs.getInt(Key.mpdec_delay.toString(), -1);
+    }
+
+    public static void setMpdecPause(int value)
+    {
+        SharedPreferences.Editor editor = prefs.edit();
+        editor.putInt(Key.mpdec_pause.toString(), value);
+        editor.apply();
+    }
+
+    public static int getMpdecPause()
+    {
+        return prefs.getInt(Key.mpdec_pause.toString(), -1);
+    }
+
+    public static void setThermalFreq(int num, int value)
+    {
+        SharedPreferences.Editor editor = prefs.edit();
+        editor.putInt("thermal_freq_" + num, value);
+        editor.apply();
+    }
+
+    public static int getThremalFreq(int num)
+    {
+        return prefs.getInt("thermal_freq_" + num, -1);
+    }
+
+    public static void setThermalLow(int num, int value)
+    {
+        SharedPreferences.Editor editor = prefs.edit();
+        editor.putInt("thermal_tmp_low_" + num, value);
+        editor.apply();
+    }
+
+    public static int getThremalLow(int num)
+    {
+        return prefs.getInt("thermal_tmp_low_" + num, -1);
+    }
+
+    public static void setThermalHigh(int num, int value)
+    {
+        SharedPreferences.Editor editor = prefs.edit();
+        editor.putInt("thermal_tmp_high_" + num, value);
+        editor.apply();
+    }
+
+    public static int getThremalHigh(int num)
+    {
+        return prefs.getInt("thermal_tmp_high_" + num, -1);
+    }
+
+    public static void setScheduler(String scheduler)
+    {
+        SharedPreferences.Editor editor = prefs.edit();
+        editor.putString(Key.scheduler.toString(), scheduler);
+        editor.apply();
+    }
+
+    public static String getScheduer()
+    {
+        return prefs.getString(Key.scheduler.toString(), null);
+    }
+
+    public static void setReadAhead(String readahead)
+    {
+        SharedPreferences.Editor editor = prefs.edit();
+        editor.putString(Key.readahead.toString(), readahead);
+        editor.apply();
+    }
+
+    public static String getReadAhead()
+    {
+        return prefs.getString(Key.readahead.toString(), null);
+    }
+
+    public static void setDT2W(int enabled)
+    {
+        SharedPreferences.Editor editor = prefs.edit();
+        editor.putInt(Key.dt2w.toString(), enabled);
+        editor.apply();
+    }
+
+    public static int getDT2W()
+    {
+        return prefs.getInt(Key.dt2w.toString(), -1);
+    }
+
+    public static void setS2W(int enabled)
+    {
+        SharedPreferences.Editor editor = prefs.edit();
+        editor.putInt(Key.s2w.toString(), enabled);
+        editor.apply();
+    }
+
+    public static int getS2W()
+    {
+        return prefs.getInt(Key.s2w.toString(), -1);
+    }
+
+    public static void setFastcharge(int enabled)
+    {
+        SharedPreferences.Editor editor = prefs.edit();
+        editor.putInt(Key.fastcharge.toString(), enabled);
+        editor.apply();
+    }
+
+    public static int getFastcharge()
+    {
+        return prefs.getInt(Key.fastcharge.toString(), -1);
+    }
+
+    public static void setVsync(int enabled)
+    {
+        SharedPreferences.Editor editor = prefs.edit();
+        editor.putInt(Key.vsync.toString(), enabled);
+        editor.apply();
+    }
+
+    public static int getVsync()
+    {
+        return prefs.getInt(Key.vsync.toString(), -1);
+    }
+
+    public static void setOtg(int value)
+    {
+        SharedPreferences.Editor editor = prefs.edit();
+        editor.putInt(Key.otg.toString(), value);
+        editor.apply();
+    }
+
+    public static int getOtg()
+    {
+        return prefs.getInt(Key.otg.toString(), -1);
     }
 }

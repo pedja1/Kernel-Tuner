@@ -168,13 +168,12 @@ public class OOM extends Activity {
 					}
 
 					public void onStopTrackingTouch(SeekBar p1) {
-						new setOOM().execute(new String[] {
-								Tools.mbToPages(foregroundSeek.getProgress()),
-								Tools.mbToPages(visibleSeek.getProgress()),
-								Tools.mbToPages(secondarySeek.getProgress()),
-								Tools.mbToPages(hiddenSeek.getProgress()),
-								Tools.mbToPages(contentSeek.getProgress()),
-								Tools.mbToPages(emptySeek.getProgress()) });
+						new setOOM().execute(Tools.mbToPages(foregroundSeek.getProgress()),
+                                Tools.mbToPages(visibleSeek.getProgress()),
+                                Tools.mbToPages(secondarySeek.getProgress()),
+                                Tools.mbToPages(hiddenSeek.getProgress()),
+                                Tools.mbToPages(contentSeek.getProgress()),
+                                Tools.mbToPages(emptySeek.getProgress()));
 
 					}
 
@@ -192,13 +191,12 @@ public class OOM extends Activity {
 			}
 
 			public void onStopTrackingTouch(SeekBar p1) {
-				new setOOM().execute(new String[] {
-						Tools.mbToPages(foregroundSeek.getProgress()),
-						Tools.mbToPages(visibleSeek.getProgress()),
-						Tools.mbToPages(secondarySeek.getProgress()),
-						Tools.mbToPages(hiddenSeek.getProgress()),
-						Tools.mbToPages(contentSeek.getProgress()),
-						Tools.mbToPages(emptySeek.getProgress()) });
+				new setOOM().execute(Tools.mbToPages(foregroundSeek.getProgress()),
+                        Tools.mbToPages(visibleSeek.getProgress()),
+                        Tools.mbToPages(secondarySeek.getProgress()),
+                        Tools.mbToPages(hiddenSeek.getProgress()),
+                        Tools.mbToPages(contentSeek.getProgress()),
+                        Tools.mbToPages(emptySeek.getProgress()));
 			}
 
 		});
@@ -215,13 +213,12 @@ public class OOM extends Activity {
 			}
 
 			public void onStopTrackingTouch(SeekBar p1) {
-				new setOOM().execute(new String[] {
-						Tools.mbToPages(foregroundSeek.getProgress()),
-						Tools.mbToPages(visibleSeek.getProgress()),
-						Tools.mbToPages(secondarySeek.getProgress()),
-						Tools.mbToPages(hiddenSeek.getProgress()),
-						Tools.mbToPages(contentSeek.getProgress()),
-						Tools.mbToPages(emptySeek.getProgress()) });
+				new setOOM().execute(Tools.mbToPages(foregroundSeek.getProgress()),
+                        Tools.mbToPages(visibleSeek.getProgress()),
+                        Tools.mbToPages(secondarySeek.getProgress()),
+                        Tools.mbToPages(hiddenSeek.getProgress()),
+                        Tools.mbToPages(contentSeek.getProgress()),
+                        Tools.mbToPages(emptySeek.getProgress()));
 			}
 
 		});
@@ -238,13 +235,12 @@ public class OOM extends Activity {
 			}
 
 			public void onStopTrackingTouch(SeekBar p1) {
-				new setOOM().execute(new String[] {
-						Tools.mbToPages(foregroundSeek.getProgress()),
-						Tools.mbToPages(visibleSeek.getProgress()),
-						Tools.mbToPages(secondarySeek.getProgress()),
-						Tools.mbToPages(hiddenSeek.getProgress()),
-						Tools.mbToPages(contentSeek.getProgress()),
-						Tools.mbToPages(emptySeek.getProgress()) });
+				new setOOM().execute(Tools.mbToPages(foregroundSeek.getProgress()),
+                        Tools.mbToPages(visibleSeek.getProgress()),
+                        Tools.mbToPages(secondarySeek.getProgress()),
+                        Tools.mbToPages(hiddenSeek.getProgress()),
+                        Tools.mbToPages(contentSeek.getProgress()),
+                        Tools.mbToPages(emptySeek.getProgress()));
 			}
 
 		});
@@ -261,13 +257,12 @@ public class OOM extends Activity {
 			}
 
 			public void onStopTrackingTouch(SeekBar p1) {
-				new setOOM().execute(new String[] {
-						Tools.mbToPages(foregroundSeek.getProgress()),
-						Tools.mbToPages(visibleSeek.getProgress()),
-						Tools.mbToPages(secondarySeek.getProgress()),
-						Tools.mbToPages(hiddenSeek.getProgress()),
-						Tools.mbToPages(contentSeek.getProgress()),
-						Tools.mbToPages(emptySeek.getProgress()) });
+				new setOOM().execute(Tools.mbToPages(foregroundSeek.getProgress()),
+                        Tools.mbToPages(visibleSeek.getProgress()),
+                        Tools.mbToPages(secondarySeek.getProgress()),
+                        Tools.mbToPages(hiddenSeek.getProgress()),
+                        Tools.mbToPages(contentSeek.getProgress()),
+                        Tools.mbToPages(emptySeek.getProgress()));
 			}
 
 		});
@@ -284,13 +279,12 @@ public class OOM extends Activity {
 			}
 
 			public void onStopTrackingTouch(SeekBar p1) {
-				new setOOM().execute(new String[] {
-						Tools.mbToPages(foregroundSeek.getProgress()),
-						Tools.mbToPages(visibleSeek.getProgress()),
-						Tools.mbToPages(secondarySeek.getProgress()),
-						Tools.mbToPages(hiddenSeek.getProgress()),
-						Tools.mbToPages(contentSeek.getProgress()),
-						Tools.mbToPages(emptySeek.getProgress()) });
+				new setOOM().execute(Tools.mbToPages(foregroundSeek.getProgress()),
+                        Tools.mbToPages(visibleSeek.getProgress()),
+                        Tools.mbToPages(secondarySeek.getProgress()),
+                        Tools.mbToPages(hiddenSeek.getProgress()),
+                        Tools.mbToPages(contentSeek.getProgress()),
+                        Tools.mbToPages(emptySeek.getProgress()));
 			}
 
 		});
@@ -410,125 +404,112 @@ public class OOM extends Activity {
 
 		switch (item.getItemId()) {
 		case R.id.very_light:
-			new setOOM().execute(new String[] {
-					"512",
-					"1024",
-					"1280",
-					"2048",
-					"3072",
-					"4096" });
+			new setOOM().execute("512",
+                    "1024",
+                    "1280",
+                    "2048",
+                    "3072",
+                    "4096");
 			return true;
 		case R.id.light:
-			new setOOM().execute(new String[] {
-					"1024",
-					"2048",
-					"2560",
-					"4096",
-					"6144",
-					"8192" });
+			new setOOM().execute("1024",
+                    "2048",
+                    "2560",
+                    "4096",
+                    "6144",
+                    "8192");
 			return true;
 		case R.id.medium:
-			new setOOM().execute(new String[] {
-					"1024",
-					"2048",
-					"4096",
-					"8192",
-					"12288",
-					"16384" });
+			new setOOM().execute("1024",
+                    "2048",
+                    "4096",
+                    "8192",
+                    "12288",
+                    "16384");
 			return true;
 
 		case R.id.aggressive:
-			new setOOM().execute(new String[] {
-					"2048",
-					"4096",
-					"8192",
-					"16384",
-					"24576",
-					"32768" });
+			new setOOM().execute("2048",
+                    "4096",
+                    "8192",
+                    "16384",
+                    "24576",
+                    "32768");
 			return true;
 
 		case R.id.very_aggressive:
-			new setOOM().execute(new String[] {
-					"4096",
-					"8192",
-					"16384",
-					"16384",
-					"49152",
-					"65536" });
+			new setOOM().execute("4096",
+                    "8192",
+                    "16384",
+                    "16384",
+                    "49152",
+                    "65536");
 			return true;
 		case R.id._256_multitasking:
-			new setOOM().execute(new String[] {
-					"2048",
-					"3072",
-					"5632",
-					"6144",
-					"6656",
-					"7168" });
+			new setOOM().execute("2048",
+                    "3072",
+                    "5632",
+                    "6144",
+                    "6656",
+                    "7168");
 			return true;
 		case R.id._256_balanced:
-			new setOOM().execute(new String[] {
-					"2048",
-					"3072",
-					"6656",
-					"7168",
-					"7680",
-					"8192" });
+			new setOOM().execute("2048",
+                    "3072",
+                    "6656",
+                    "7168",
+                    "7680",
+                    "8192");
 			return true;
 		case R.id._256_aggressive:
-			new setOOM().execute(new String[] {
-					"2048",
-					"3072",
-					"7168",
-					"7680",
-					"8960",
-					"12800" });
+			new setOOM().execute("2048",
+                    "3072",
+                    "7168",
+                    "7680",
+                    "8960",
+                    "12800");
 			return true;
 			//512
 		case R.id._512_multitasking:
-			new setOOM().execute(new String[] {
-					"2048",
-					"3584",
-					"10240",
-					"12800",
-					"15360",
-					"19200" });
+			new setOOM().execute("2048",
+                    "3584",
+                    "10240",
+                    "12800",
+                    "15360",
+                    "19200");
 			return true;
 		case R.id._512_balanced:
-			new setOOM().execute(new String[] {
-					"2048",
-					"3584",
-					"14080",
-					"17920",
-					"21760",
-					"25600" });
+			new setOOM().execute("2048",
+                    "3584",
+                    "14080",
+                    "17920",
+                    "21760",
+                    "25600");
 			return true;
 		case R.id._512_aggressive:
-			new setOOM().execute(new String[] {
-					"2048",
-					"3584",
-					"19200",
-					"23040",
-					"24320",
-					"32000" });
+			new setOOM().execute("2048",
+                    "3584",
+                    "19200",
+                    "23040",
+                    "24320",
+                    "32000");
 			return true;
 			
 		case R.id._768_aggressive:
-			new setOOM().execute(new String[] {
-					"2048",
-					"4096",
-					"38400",
-					"42240",
-					"46080",
-					"51200" });
+			new setOOM().execute("2048",
+                    "4096",
+                    "38400",
+                    "42240",
+                    "46080",
+                    "51200");
 			return true;
 		case R.id._1000_aggressive:
-			new setOOM().execute(new String[] {
-					"2048",
-					"4096",
-					"51200",
-					"56320",
-					"61440",
-					"65536" });
+			new setOOM().execute("2048",
+                    "4096",
+                    "51200",
+                    "56320",
+                    "61440",
+                    "65536");
 			return true;
 
 		}
@@ -557,58 +538,52 @@ public class OOM extends Activity {
 				{
 					switch(option){
 					case 0:
-						new setOOM().execute(new String[] {
-								Tools.mbToPages(Integer.parseInt(input.getText().toString())),
-								Tools.mbToPages(visibleSeek.getProgress()),
-								Tools.mbToPages(secondarySeek.getProgress()),
-								Tools.mbToPages(hiddenSeek.getProgress()),
-								Tools.mbToPages(contentSeek.getProgress()),
-								Tools.mbToPages(emptySeek.getProgress()) });
+						new setOOM().execute(Tools.mbToPages(Integer.parseInt(input.getText().toString())),
+                                Tools.mbToPages(visibleSeek.getProgress()),
+                                Tools.mbToPages(secondarySeek.getProgress()),
+                                Tools.mbToPages(hiddenSeek.getProgress()),
+                                Tools.mbToPages(contentSeek.getProgress()),
+                                Tools.mbToPages(emptySeek.getProgress()));
 						break;
 					case 1:
-						new setOOM().execute(new String[] {
-								Tools.mbToPages(foregroundSeek.getProgress()),
-								Tools.mbToPages(Integer.parseInt(input.getText().toString())),
-								Tools.mbToPages(secondarySeek.getProgress()),
-								Tools.mbToPages(hiddenSeek.getProgress()),
-								Tools.mbToPages(contentSeek.getProgress()),
-								Tools.mbToPages(emptySeek.getProgress()) });
+						new setOOM().execute(Tools.mbToPages(foregroundSeek.getProgress()),
+                                Tools.mbToPages(Integer.parseInt(input.getText().toString())),
+                                Tools.mbToPages(secondarySeek.getProgress()),
+                                Tools.mbToPages(hiddenSeek.getProgress()),
+                                Tools.mbToPages(contentSeek.getProgress()),
+                                Tools.mbToPages(emptySeek.getProgress()));
 						break;
 					case 2:
-						new setOOM().execute(new String[] {
-								Tools.mbToPages(foregroundSeek.getProgress()),
-								Tools.mbToPages(visibleSeek.getProgress()),
-								Tools.mbToPages(Integer.parseInt(input.getText().toString())),
-								Tools.mbToPages(hiddenSeek.getProgress()),
-								Tools.mbToPages(contentSeek.getProgress()),
-								Tools.mbToPages(emptySeek.getProgress()) });
+						new setOOM().execute(Tools.mbToPages(foregroundSeek.getProgress()),
+                                Tools.mbToPages(visibleSeek.getProgress()),
+                                Tools.mbToPages(Integer.parseInt(input.getText().toString())),
+                                Tools.mbToPages(hiddenSeek.getProgress()),
+                                Tools.mbToPages(contentSeek.getProgress()),
+                                Tools.mbToPages(emptySeek.getProgress()));
 						break;
 					case 3:
-						new setOOM().execute(new String[] {
-								Tools.mbToPages(foregroundSeek.getProgress()),
-								Tools.mbToPages(visibleSeek.getProgress()),
-								Tools.mbToPages(secondarySeek.getProgress()),
-								Tools.mbToPages(Integer.parseInt(input.getText().toString())),
-								Tools.mbToPages(contentSeek.getProgress()),
-								Tools.mbToPages(emptySeek.getProgress()) });
+						new setOOM().execute(Tools.mbToPages(foregroundSeek.getProgress()),
+                                Tools.mbToPages(visibleSeek.getProgress()),
+                                Tools.mbToPages(secondarySeek.getProgress()),
+                                Tools.mbToPages(Integer.parseInt(input.getText().toString())),
+                                Tools.mbToPages(contentSeek.getProgress()),
+                                Tools.mbToPages(emptySeek.getProgress()));
 						break;
 					case 4:
-						new setOOM().execute(new String[] {
-								Tools.mbToPages(foregroundSeek.getProgress()),
-								Tools.mbToPages(visibleSeek.getProgress()),
-								Tools.mbToPages(secondarySeek.getProgress()),
-								Tools.mbToPages(hiddenSeek.getProgress()),
-								Tools.mbToPages(Integer.parseInt(input.getText().toString())),
-								Tools.mbToPages(emptySeek.getProgress()) });
+						new setOOM().execute(Tools.mbToPages(foregroundSeek.getProgress()),
+                                Tools.mbToPages(visibleSeek.getProgress()),
+                                Tools.mbToPages(secondarySeek.getProgress()),
+                                Tools.mbToPages(hiddenSeek.getProgress()),
+                                Tools.mbToPages(Integer.parseInt(input.getText().toString())),
+                                Tools.mbToPages(emptySeek.getProgress()));
 						break;
 					case 5:
-						new setOOM().execute(new String[] {
-								Tools.mbToPages(foregroundSeek.getProgress()),
-								Tools.mbToPages(visibleSeek.getProgress()),
-								Tools.mbToPages(secondarySeek.getProgress()),
-								Tools.mbToPages(hiddenSeek.getProgress()),
-								Tools.mbToPages(contentSeek.getProgress()),
-								Tools.mbToPages(Integer.parseInt(input.getText().toString())) });
+						new setOOM().execute(Tools.mbToPages(foregroundSeek.getProgress()),
+                                Tools.mbToPages(visibleSeek.getProgress()),
+                                Tools.mbToPages(secondarySeek.getProgress()),
+                                Tools.mbToPages(hiddenSeek.getProgress()),
+                                Tools.mbToPages(contentSeek.getProgress()),
+                                Tools.mbToPages(Integer.parseInt(input.getText().toString())));
 						break;
 						
 					}

@@ -26,6 +26,7 @@ import rs.pedjaapps.kerneltuner.model.Frequency;
 import rs.pedjaapps.kerneltuner.model.FrequencyCollection;
 import rs.pedjaapps.kerneltuner.helpers.IOHelper;
 import rs.pedjaapps.kerneltuner.root.RootUtils;
+import rs.pedjaapps.kerneltuner.utility.PrefsManager;
 import rs.pedjaapps.kerneltuner.utility.Tools;
 
 import android.app.ActionBar;
@@ -379,18 +380,19 @@ public class Thermald extends AbsActivity
             @Override
             public void onComplete(RootUtils.Status status, String output)
             {
-                SharedPreferences.Editor editor = preferences.edit();
-                editor.putInt("p1freq", p1freqnew);
-                editor.putInt("p2freq", p2freqnew);
-                editor.putInt("p3freq", p3freqnew);
-                editor.putString("p1low", p1lownew);
-                editor.putString("p1high", p1highnew);
-                editor.putString("p2low", p2lownew);
-                editor.putString("p2high", p2highnew);
-                editor.putString("p3low", p3lownew);
-                editor.putString("p3high", p3highnew);
+                if (status == RootUtils.Status.success)
+                {
+                    PrefsManager.setThermalFreq(1, p1freqnew);
+                    PrefsManager.setThermalFreq(2, p2freqnew);
+                    PrefsManager.setThermalFreq(3, p3freqnew);
+                    PrefsManager.setThermalLow(1, Tools.parseInt(p1lownew, -1));
+                    PrefsManager.setThermalLow(2, Tools.parseInt(p2lownew, -1));
+                    PrefsManager.setThermalLow(3, Tools.parseInt(p3lownew, -1));
+                    PrefsManager.setThermalHigh(1, Tools.parseInt(p1highnew, -1));
+                    PrefsManager.setThermalHigh(2, Tools.parseInt(p2highnew, -1));
+                    PrefsManager.setThermalHigh(3, Tools.parseInt(p3highnew, -1));
+                }
 
-                editor.apply();
                 Thermald.this.pd.dismiss();
                 Thermald.this.finish();
             }

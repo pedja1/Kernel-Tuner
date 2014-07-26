@@ -29,6 +29,7 @@ import rs.pedjaapps.kerneltuner.R;
 import rs.pedjaapps.kerneltuner.model.Frequency;
 import rs.pedjaapps.kerneltuner.model.FrequencyCollection;
 import rs.pedjaapps.kerneltuner.root.RootUtils;
+import rs.pedjaapps.kerneltuner.utility.PrefsManager;
 import rs.pedjaapps.kerneltuner.utility.Tools;
 
 import android.app.ActionBar;
@@ -57,7 +58,6 @@ public class Mpdecision extends AbsActivity
 
     private List<Frequency> freqs = FrequencyCollection.getInstance().getFrequencies();
 
-    private String mpscroff;
     private SharedPreferences preferences;
     private String delay;
     private String pause;
@@ -387,9 +387,7 @@ public class Mpdecision extends AbsActivity
         cmds.add("echo " + thrTxt[11].getText().toString() + " > /sys/kernel/msm_mpdecision/conf/twts_threshold_7");
         cmds.add("echo " + maxCpus.getText().toString() + " > /sys/kernel/msm_mpdecision/conf/max_cpus");
         cmds.add("echo " + minCpus.getText().toString() + " > /sys/kernel/msm_mpdecision/conf/min_cpus");
-        cmds.add("echo " + mpscroff + " > /sys/kernel/msm_mpdecision/conf/scroff_single_core");
         cmds.add("echo " + idle + " > /sys/kernel/msm_mpdecision/conf/idle_freq");
-        //cmds.add("echo " + onoff + " > /sys/kernel/msm_mpdecision/conf/scroff_profile");
         cmds.add("echo " + scroff + " > /sys/kernel/msm_mpdecision/conf/scroff_freq");
         cmds.add("echo " + scroff_single + " > /sys/kernel/msm_mpdecision/conf/scroff_single_core");
         cmds.add("echo " + etDelay.getText().toString() + " > /sys/kernel/msm_mpdecision/conf/delay");
@@ -399,28 +397,29 @@ public class Mpdecision extends AbsActivity
             @Override
             public void onComplete(RootUtils.Status status, String output)
             {
-                preferences = PreferenceManager.getDefaultSharedPreferences(getBaseContext());
-                /*SharedPreferences.Editor editor = preferences.edit();
-                editor.putString("onoff", onoff);
-                editor.putString("idle_freq", idleNew + "");
-                editor.putString("scroff", scroffNew + "");
-                editor.putString("scroff_single", scroff_singleNew);
-                editor.putString("max_cpus", maxCpus.getText().toString());
-                editor.putString("min_cpus", minCpus.getText().toString());
-
-                editor.putString("thr0", thrTxt[0].getText().toString());
-                editor.putString("thr2", thrTxt[1].getText().toString());
-                editor.putString("thr3", thrTxt[2].getText().toString());
-                editor.putString("thr4", thrTxt[3].getText().toString());
-                editor.putString("thr5", thrTxt[4].getText().toString());
-                editor.putString("thr7", thrTxt[5].getText().toString());
-                editor.putString("tim0", thrTxt[0].getText().toString());
-                editor.putString("tim2", thrTxt[1].getText().toString());
-                editor.putString("tim3", thrTxt[2].getText().toString());
-                editor.putString("tim4", thrTxt[3].getText().toString());
-                editor.putString("tim5", thrTxt[4].getText().toString());
-                editor.putString("tim7", thrTxt[5].getText().toString());
-                editor.commit();*/
+                if(status == RootUtils.Status.success)
+                {
+                    PrefsManager.setMpdecEnabled(enabled);
+                    PrefsManager.setMpdecThreshold(0, Tools.parseInt(thrTxt[0].getText().toString(), -1));
+                    PrefsManager.setMpdecTime(0, Tools.parseInt(thrTxt[1].getText().toString(), -1));
+                    PrefsManager.setMpdecThreshold(2, Tools.parseInt(thrTxt[2].getText().toString(), -1));
+                    PrefsManager.setMpdecTime(2, Tools.parseInt(thrTxt[3].getText().toString(), -1));
+                    PrefsManager.setMpdecThreshold(3, Tools.parseInt(thrTxt[4].getText().toString(), -1));
+                    PrefsManager.setMpdecTime(3, Tools.parseInt(thrTxt[5].getText().toString(), -1));
+                    PrefsManager.setMpdecThreshold(4, Tools.parseInt(thrTxt[6].getText().toString(), -1));
+                    PrefsManager.setMpdecTime(4, Tools.parseInt(thrTxt[7].getText().toString(), -1));
+                    PrefsManager.setMpdecThreshold(5, Tools.parseInt(thrTxt[8].getText().toString(), -1));
+                    PrefsManager.setMpdecTime(5, Tools.parseInt(thrTxt[9].getText().toString(), -1));
+                    PrefsManager.setMpdecThreshold(7, Tools.parseInt(thrTxt[10].getText().toString(), -1));
+                    PrefsManager.setMpdecTime(7, Tools.parseInt(thrTxt[11].getText().toString(), -1));
+                    PrefsManager.setMpdecMaxCpus(Tools.parseInt(max_cpus, -1));
+                    PrefsManager.setMpdecMinCpus(Tools.parseInt(min_cpus, -1));
+                    PrefsManager.setMpdecIdleFreq(idle);
+                    PrefsManager.setMpdecSoF(scroff);
+                    PrefsManager.setMpdecSoSc(scroff_single);
+                    PrefsManager.setMpdecDelay(Tools.parseInt(delay, -1));
+                    PrefsManager.setMpdecPause(Tools.parseInt(pause, -1));
+                }
                 Mpdecision.this.pd.dismiss();
                 finish();
             }
