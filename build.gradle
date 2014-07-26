@@ -5,7 +5,7 @@ buildscript {
 
     }
     dependencies {
-        classpath 'com.android.tools.build:gradle:0.11.+'
+        classpath 'com.android.tools.build:gradle:0.12.1'
         classpath 'com.crashlytics.tools.gradle:crashlytics-gradle:1.+'
 
     }
@@ -30,10 +30,10 @@ android {
     }
     signingConfigs {
         release {
-            storeFile = file("../_market/keystore.jks")
-            storePassword = "T3hn1com"
-            keyAlias = "d@t1ng"
-            keyPassword = "T3hn1com"
+            storeFile = file("/home/pedja/kernel_tuner_keystore.jks")
+            storePassword = "kerneltunerkeystore"
+            keyAlias = "k3rn3l_tun3r"
+            keyPassword = "kerneltunerkeystore"
         }
     }
 

@@ -44,24 +44,13 @@ import rs.pedjaapps.kerneltuner.root.RCommand;
 import rs.pedjaapps.kerneltuner.root.RootUtils;
 import rs.pedjaapps.kerneltuner.utility.PrefsManager;
 
-public class StartupService extends IntentService
+public class StartupService extends Service
 {
-    public StartupService(String name)
-    {
-        super(name);
-    }
-
     @Override
     public IBinder onBind(Intent intent)
     {
 
         return null;
-    }
-
-    @Override
-    protected void onHandleIntent(Intent intent)
-    {
-
     }
 
     SharedPreferences sharedPrefs;

@@ -102,7 +102,7 @@
 		</LinearLayout>
 		
 		<ImageView
-			android:id="@+id/divider"
+			android:id="@+id/divider2"
 			android:layout_width="match_parent"
 			android:layout_height="wrap_content"  
 			android:scaleType="fitXY"
@@ -123,7 +123,7 @@
 			android:layout_width="match_parent"
 			android:layout_height="wrap_content" 
 			android:orientation="horizontal"
-			android:layout_below="@+id/divider"
+			android:layout_below="@+id/divider2"
 			style="?android:attr/buttonBarStyle"
 			android:paddingTop="0dip"
 			android:paddingLeft="2dip"
