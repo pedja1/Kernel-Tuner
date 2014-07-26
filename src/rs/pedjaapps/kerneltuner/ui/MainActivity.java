@@ -174,7 +174,7 @@ public class MainActivity extends AbsActivity implements Runnable, View.OnClickL
     {
         File file = new File("/sys/kernel/debug");
 
-        if (!file.exists() && file.list().length >= 0)
+        if (!file.exists() && file.list() != null && file.list().length == 0)
         {
             new RootUtils().exec("mount -t debugfs debugfs /sys/kernel/debug");
         }
