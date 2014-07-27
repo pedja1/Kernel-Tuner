@@ -40,8 +40,9 @@ import android.widget.EditText;
 import android.widget.Spinner;
 import android.widget.Switch;
 
-import com.google.ads.AdRequest;
-import com.google.ads.AdView;
+import com.google.android.gms.ads.AdListener;
+import com.google.android.gms.ads.AdRequest;
+import com.google.android.gms.ads.AdView;
 import com.stericson.RootTools.RootTools;
 import com.stericson.RootTools.execution.CommandCapture;
 import java.util.ArrayList;
@@ -178,9 +179,23 @@ public class Mpdecision extends Activity
 		ActionBar actionBar = getActionBar();
 		actionBar.setDisplayHomeAsUpEnabled(true);
 		boolean ads = preferences.getBoolean("ads", true);
-		if (ads == true)
-		{AdView adView = (AdView)findViewById(R.id.ad);
-			adView.loadAd(new AdRequest());}
+        final AdView adView = (AdView)findViewById(R.id.adView);
+        AdRequest adRequest = new AdRequest.Builder()
+                .addTestDevice(AdRequest.DEVICE_ID_EMULATOR)
+                .addTestDevice("5750ECFACEA6FCE685DE7A97D8C59A5F")
+                .addTestDevice("05FBCDCAC44495595ACE7DC1AEC5C208")
+                .addTestDevice("40AA974617D79A7A6C155B1A2F57D595")
+                .build();
+        if(ads)adView.loadAd(adRequest);
+        adView.setAdListener(new AdListener()
+        {
+            @Override
+            public void onAdLoaded()
+            {
+                super.onAdLoaded();
+                adView.setVisibility(View.VISIBLE);
+            }
+        });
 		this.getWindow().setSoftInputMode(WindowManager.LayoutParams.SOFT_INPUT_STATE_ALWAYS_HIDDEN); 
 
 		delay = IOHelper.mpDelay();

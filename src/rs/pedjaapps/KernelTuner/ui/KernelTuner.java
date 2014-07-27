@@ -39,8 +39,10 @@ import android.view.View;
 import android.view.View.OnClickListener;
 import android.view.View.OnLongClickListener;
 import android.widget.*;
-import com.google.ads.AdRequest;
-import com.google.ads.AdView;
+
+import com.google.android.gms.ads.AdListener;
+import com.google.android.gms.ads.AdRequest;
+import com.google.android.gms.ads.AdView;
 import com.stericson.RootTools.RootTools;
 import com.stericson.RootTools.execution.CommandCapture;
 import rs.pedjaapps.KernelTuner.Constants;
@@ -255,8 +257,23 @@ public class KernelTuner extends Activity implements Runnable {
 		/*
 		 * Load ads if not disabled
 		 */
-		if (preferences.getBoolean("ads", true))
-			((AdView) findViewById(R.id.ad)).loadAd(new AdRequest());
+        final AdView adView = (AdView)findViewById(R.id.adView);
+        AdRequest adRequest = new AdRequest.Builder()
+                .addTestDevice(AdRequest.DEVICE_ID_EMULATOR)
+                .addTestDevice("5750ECFACEA6FCE685DE7A97D8C59A5F")
+                .addTestDevice("05FBCDCAC44495595ACE7DC1AEC5C208")
+                .addTestDevice("40AA974617D79A7A6C155B1A2F57D595")
+                .build();
+        if(preferences.getBoolean("ads", true))adView.loadAd(adRequest);
+        adView.setAdListener(new AdListener()
+        {
+            @Override
+            public void onAdLoaded()
+            {
+                super.onAdLoaded();
+                adView.setVisibility(View.VISIBLE);
+            }
+        });
 
 		editor.putString("kernel", IOHelper.kernel());
 		editor.commit();
@@ -684,8 +701,9 @@ public class KernelTuner extends Activity implements Runnable {
 			String version = pInfo.versionName;
 			if (!versionpref.equals(version)) {
 
-				Intent myIntent = new Intent(c, Changelog.class);
-				startActivity(myIntent);
+				//Intent myIntent = new Intent(c, Changelog.class);
+				//startActivity(myIntent);
+                showNewBetaDialog();
 				if (first) {
 					CopyAssets();
 				}
@@ -700,7 +718,25 @@ public class KernelTuner extends Activity implements Runnable {
 
 	}
 
-	/**
+    private void showNewBetaDialog()
+    {
+        AlertDialog.Builder builder = new AlertDialog.Builder(this);
+        builder.setMessage("New Kernel Tuner Beta Available\nDownload now?");
+        builder.setPositiveButton("Download", new DialogInterface.OnClickListener()
+        {
+            @Override
+            public void onClick(DialogInterface dialogInterface, int i)
+            {
+                Intent intent = new Intent(Intent.ACTION_VIEW);
+                intent.setData(Uri.parse("https://play.google.com/store/apps/details?id=rs.pedjaapps.kerneltuner"));
+                startActivity(Intent.createChooser(intent, "Complete Action Using"));
+            }
+        });
+        builder.setNegativeButton("Cancel", null);
+        builder.show();
+    }
+
+    /**
 	 * CPU Temperature
 	 */
 

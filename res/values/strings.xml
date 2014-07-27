@@ -696,9 +696,8 @@
 	<string name="start_multi">Multi Thread</string>
 	<string name="mflops">Mflops</string>
 	<string name="nres">Norm Res</string>
-	<string name="time">Time</string>
 	<string name="precision">Precision</string>
-	<string name="close">Close</string>
 	<string name="previous_runs">Previous Results</string>
 	<color name="apps_primary">#ffb2cb39</color>
+    <string name="admob_adUnitId_Banner">ca-app-pub-6294976772687752/3873230029</string>
 </resources>
