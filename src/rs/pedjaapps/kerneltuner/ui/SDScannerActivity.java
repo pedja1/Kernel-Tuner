@@ -131,7 +131,7 @@ public class SDScannerActivity extends AbsActivity
                 if(cancel)return null;
                 publishProgress("set_progress", file.getName(), i + "");
                 i++;
-                if(file.isFile() && file.length() == 0)continue;
+                if(file.isFile() && file.length() == 0 && !file.exists())continue;
                 SDScannerEntry entry = new SDScannerEntry();
                 long size = FileUtils.sizeOf(file);
                 entry.setFileName(file.getName());
