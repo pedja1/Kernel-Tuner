@@ -165,6 +165,11 @@ public class GovernorActivity extends AbsActivity
                         try
                         {
                             File myFile = new File("/sys/devices/system/cpu/cpufreq/" + s + "/" + aTemp.trim());
+                            if(!myFile.canRead())
+                            {
+                                Crashlytics.log("Cannot read governor settings: " + myFile.getAbsolutePath());
+                                continue;
+                            }
                             FileInputStream fIn = new FileInputStream(myFile);
                             BufferedReader myReader = new BufferedReader(new InputStreamReader(fIn));
                             String aDataRow;

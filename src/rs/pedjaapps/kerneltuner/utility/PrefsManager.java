@@ -3,6 +3,8 @@ package rs.pedjaapps.kerneltuner.utility;
 import android.content.SharedPreferences;
 import android.preference.PreferenceManager;
 
+import com.crashlytics.android.Crashlytics;
+
 import rs.pedjaapps.kerneltuner.MainApp;
 import rs.pedjaapps.kerneltuner.constants.TempUnit;
 import rs.pedjaapps.kerneltuner.helpers.IOHelper;
@@ -165,7 +167,7 @@ public class PrefsManager
     public static void setCpuGovernor(int core, String governor)
     {
         SharedPreferences.Editor editor = prefs.edit();
-        editor.putInt("cpu_" + core + "_governor", core);
+        editor.putString("cpu_" + core + "_governor", governor);
         editor.apply();
     }
 
@@ -186,7 +188,17 @@ public class PrefsManager
 
     public static String getCpuGovernor(int core)
     {
-        return prefs.getString("cpu_" + core + "_governor", null);
+        try
+        {
+            //i accidentally put this as int, so this is a workaround
+            return prefs.getString("cpu_" + core + "_governor", null);
+        }
+        catch (Exception e)
+        {
+            e.printStackTrace();
+            Crashlytics.logException(e);
+        }
+        return null;
     }
 
     public static void setGpu3d(int freq)
