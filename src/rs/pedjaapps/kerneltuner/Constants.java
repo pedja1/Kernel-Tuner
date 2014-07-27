@@ -96,6 +96,7 @@ public final class Constants
 	public static final String TIMES_IN_STATE_CPU3 = "/sys/devices/system/cpu/cpu3/cpufreq/stats/time_in_state";
 
 	public static final String VOLTAGE_PATH = "/sys/devices/system/cpu/cpufreq/vdd_table/vdd_levels";
+    public static final String VOLTAGE_PATH_2 = "/sys/devices/system/cpu/cpu0/cpufreq/vdd_levels";
 	public static final String VOLTAGE_PATH_TEGRA_3 = "/sys/devices/system/cpu/cpu0/cpufreq/UV_mV_table";
 	public static final String GPU_3D = "/sys/devices/platform/kgsl-3d0.0/kgsl/kgsl-3d0/max_gpuclk";
     public static final String GPU_3D_2 = "/sys/class/kgsl/kgsl-3d0/max_gpuclk";

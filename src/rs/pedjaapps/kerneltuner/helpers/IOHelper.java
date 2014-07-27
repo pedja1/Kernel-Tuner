@@ -671,91 +671,104 @@ public class IOHelper
         List<Voltage> voltages = new ArrayList<Voltage>();
         if (new File(Constants.VOLTAGE_PATH).exists())
         {
-			try
-			{
-				FileInputStream fstream = new FileInputStream(Constants.VOLTAGE_PATH);
-
-				DataInputStream in = new DataInputStream(fstream);
-				BufferedReader br = new BufferedReader(new InputStreamReader(in));
-				String strLine;
-
-				while ((strLine = br.readLine()) != null)
-				{
-					strLine = strLine.trim().replaceAll("\\s+", "");
-					Voltage voltage = new Voltage();
-					String name, frequency = null;
-					String[] vf = strLine.split(":");
-					if(vf.length != 2)continue;
-					int frInt = Tools.parseInt(vf[0], -1);
-					if(frInt < 0)continue;
-					frequency = frInt / 1000 + "MHz";
-					int value = Tools.parseInt(vf[1], -1);
-					if(value < 0)continue;
-					name = value / 1000 + "mV";
-					
-					voltage.setFreq(frequency);
-					voltage.setName(name);
-					voltage.setValue(value);
-					voltage.setFreqValue(frInt);
-					voltage.setDivider(1000);
-					voltage.setMultiplier(1);
-					voltages.add(voltage);
-				}
-
-				in.close();
-				fstream.close();
-				br.close();
-			}
-			catch (Exception e)
-			{
-
-			}
+            parseVoltageM1(voltages, Constants.VOLTAGE_PATH);
+        }
+        if (new File(Constants.VOLTAGE_PATH_2).exists())
+        {
+            parseVoltageM1(voltages, Constants.VOLTAGE_PATH_2);
         }
         else if (new File(Constants.VOLTAGE_PATH_TEGRA_3).exists())
         {
-            try
-            {
-
-                FileInputStream fstream = new FileInputStream(Constants.VOLTAGE_PATH_TEGRA_3);
-
-                DataInputStream in = new DataInputStream(fstream);
-                BufferedReader br = new BufferedReader(new InputStreamReader(in));
-                String strLine;
-
-                while ((strLine = br.readLine()) != null)
-                {
-                    String[] delims = strLine.split("\\s");
-                    if (delims.length < 2) continue;
-                    Voltage voltage = new Voltage();
-                    String name, frequency = null;
-                    if (delims[0].length() > 4)
-                    {
-                        frequency = delims[0].substring(0, delims[0].length() - 4).trim() + "MHz";
-                    }
-                    name = delims[0].substring(0, delims[0].length() - 4);
-                    int value = Tools.parseInt(delims[1], Constants.CPU_OFFLINE_CODE);
-                    if (name == null || frequency == null || value == Constants.CPU_OFFLINE_CODE)
-                    {
-                        continue;
-                    }
-                    voltage.setFreq(frequency);
-                    voltage.setName(name);
-                    voltage.setValue(value);
-					voltage.setDivider(1);
-					voltage.setMultiplier(1000);
-                    voltages.add(voltage);
-                }
-
-                in.close();
-                fstream.close();
-                br.close();
-            }
-            catch (Exception ex)
-            {
-
-            }
+            parseVoltageM2(voltages, Constants.VOLTAGE_PATH_TEGRA_3);
         }
         return voltages;
+    }
+
+    private static void parseVoltageM2(List<Voltage> voltages, String voltagePathTegra3)
+    {
+        try
+        {
+            FileInputStream fstream = new FileInputStream(voltagePathTegra3);
+
+            DataInputStream in = new DataInputStream(fstream);
+            BufferedReader br = new BufferedReader(new InputStreamReader(in));
+            String strLine;
+
+            while ((strLine = br.readLine()) != null)
+            {
+                String[] delims = strLine.split("\\s");
+                if (delims.length < 2) continue;
+                Voltage voltage = new Voltage();
+                String name, frequency = null;
+                if (delims[0].length() > 4)
+                {
+                    frequency = delims[0].substring(0, delims[0].length() - 4).trim() + "MHz";
+                }
+                name = delims[0].substring(0, delims[0].length() - 4);
+                int value = Tools.parseInt(delims[1], Constants.CPU_OFFLINE_CODE);
+                if (name == null || frequency == null || value == Constants.CPU_OFFLINE_CODE)
+                {
+                    continue;
+                }
+                voltage.setFreq(frequency);
+                voltage.setName(name);
+                voltage.setValue(value);
+                voltage.setDivider(1);
+                voltage.setMultiplier(1000);
+                voltages.add(voltage);
+            }
+
+            in.close();
+            fstream.close();
+            br.close();
+        }
+        catch (Exception ex)
+        {
+
+        }
+    }
+
+    private static void parseVoltageM1(List<Voltage> voltages, String path)
+    {
+        try
+        {
+            FileInputStream fstream = new FileInputStream(path);
+
+            DataInputStream in = new DataInputStream(fstream);
+            BufferedReader br = new BufferedReader(new InputStreamReader(in));
+            String strLine;
+
+            while ((strLine = br.readLine()) != null)
+            {
+                strLine = strLine.trim().replaceAll("\\s+", "");
+                Voltage voltage = new Voltage();
+                String name, frequency;
+                String[] vf = strLine.split(":");
+                if(vf.length != 2)continue;
+                int frInt = Tools.parseInt(vf[0], -1);
+                if(frInt < 0)continue;
+                frequency = frInt / 1000 + "MHz";
+                int value = Tools.parseInt(vf[1], -1);
+                if(value < 0)continue;
+                name = value / 1000 + "mV";
+
+                voltage.setFreq(frequency);
+                voltage.setName(name);
+                voltage.setValue(value);
+                voltage.setFreqValue(frInt);
+                voltage.setDivider(1000);
+                voltage.setMultiplier(1);
+                voltages.add(voltage);
+            }
+
+            in.close();
+            fstream.close();
+            br.close();
+        }
+        catch (Exception e)
+        {
+
+        }
     }
 
 
