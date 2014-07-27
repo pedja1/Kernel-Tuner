@@ -23,7 +23,7 @@
 
 	<CheckBoxPreference
 		android:defaultValue="true"
-		android:key="ads"
+		android:key="show_ads"
 		android:summary="@string/preferences_misc_ads_summary"
 		android:title="@string/preferences_misc_ads_title" />
 
