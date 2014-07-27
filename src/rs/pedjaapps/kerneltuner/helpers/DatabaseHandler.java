@@ -580,16 +580,17 @@ public class DatabaseHandler extends SQLiteOpenHelper
 									 KEY_VOLTAGE_FREQ,
    									 KEY_VOLTAGE_VALUE }, KEY_VOLTAGE_NAME + "=?",
    								 new String[] { Name }, null, null, null, null);
-		if (cursor != null)
-			cursor.moveToFirst();
-
-		Voltage voltage = new Voltage(cursor.getInt(0),
-   									  cursor.getString(1),
-   									  cursor.getString(2),
-									  cursor.getString(3));
+        Voltage voltage = null;
+        if (cursor != null && cursor.moveToFirst())
+        {
+            voltage = new Voltage(cursor.getInt(0),
+                    cursor.getString(1),
+                    cursor.getString(2),
+                    cursor.getString(3));
+            cursor.close();
+        }
 		// return 
 		db.close();
-		cursor.close();
 		return voltage;
 	}
 
