@@ -73,7 +73,6 @@ public class TaskManager extends AbsActivity implements OnItemClickListener, Run
 	ListView tmListView;
 	public static TMAdapter tmAdapter;
 	static Drawable dr;
-	public static List<Task> entries;
 	ProgressDialog pd;
 	String set;
 
@@ -164,7 +163,7 @@ public class TaskManager extends AbsActivity implements OnItemClickListener, Run
 		}
 	}
 
-	public class GetRunningApps extends AsyncTask<String, /*TMEntry*/Void, Void>
+	public class GetRunningApps extends AsyncTask<String, /*TMEntry*/Void, List<Task>>
 	{
 		String line;
         boolean showProgress;
@@ -175,9 +174,9 @@ public class TaskManager extends AbsActivity implements OnItemClickListener, Run
         }
 
         @Override
-		protected Void doInBackground(String... args)
+		protected List<Task> doInBackground(String... args)
 		{
-			entries = new ArrayList<>();
+			List<Task> entries = new ArrayList<>();
 			Process proc;
 			try
 			{
@@ -211,11 +210,11 @@ public class TaskManager extends AbsActivity implements OnItemClickListener, Run
 			{
 				Log.e("ps", "error " + e.getMessage());
 			}
-			return null;
+			return entries;
 		}
 
 		@Override
-		protected void onPostExecute(Void res)
+		protected void onPostExecute(List<Task> entries)
 		{
 			//	setProgressBarIndeterminateVisibility(false);
 
