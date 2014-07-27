@@ -65,7 +65,7 @@ import rs.pedjaapps.kerneltuner.model.Task;
 public class TaskManager extends AbsActivity implements OnItemClickListener, Runnable
 {
 
-	public static CheckBox system, user, other;
+	public CheckBox system, user, other;
 	SharedPreferences preferences;
 	ProgressBar loading;
 	PackageManager pm;
@@ -249,9 +249,9 @@ public class TaskManager extends AbsActivity implements OnItemClickListener, Run
 			tmAdapter.notifyDataSetChanged();
 
 			SharedPreferences.Editor editor = preferences.edit();
-			editor.putBoolean("tm_system", TaskManager.system.isChecked())
-				.putBoolean("tm_user", TaskManager.user.isChecked())
-				.putBoolean("tm_other", TaskManager.other.isChecked())
+			editor.putBoolean("tm_system", system.isChecked())
+				.putBoolean("tm_user", user.isChecked())
+				.putBoolean("tm_other", other.isChecked())
 				.apply();
             handler.postDelayed(TaskManager.this, 3000);
 		}
