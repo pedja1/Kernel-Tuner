@@ -95,6 +95,9 @@ public final class Constants
 	public static final String TIMES_IN_STATE_CPU2 = "/sys/devices/system/cpu/cpu2/cpufreq/stats/time_in_state";
 	public static final String TIMES_IN_STATE_CPU3 = "/sys/devices/system/cpu/cpu3/cpufreq/stats/time_in_state";
 
+    public static final String TCP_CONGESTION = "/proc/sys/net/ipv4/tcp_congestion_control";
+    public static final String TCP_AVAILABLE_CONGESTION = "/proc/sys/net/ipv4/tcp_available_congestion_control";
+
 	public static final String VOLTAGE_PATH = "/sys/devices/system/cpu/cpufreq/vdd_table/vdd_levels";
     public static final String VOLTAGE_PATH_2 = "/sys/devices/system/cpu/cpu0/cpufreq/vdd_levels";
 	public static final String VOLTAGE_PATH_TEGRA_3 = "/sys/devices/system/cpu/cpu0/cpufreq/UV_mV_table";

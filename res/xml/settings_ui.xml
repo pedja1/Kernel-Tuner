@@ -27,8 +27,6 @@
 		android:summary="@string/preferences_misc_ads_summary"
 		android:title="@string/preferences_misc_ads_title" />
 
-
-
 </PreferenceScreen>
 
     

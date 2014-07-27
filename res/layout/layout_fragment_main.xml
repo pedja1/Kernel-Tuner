@@ -287,6 +287,23 @@
 				android:layout_height="wrap_content"
 				android:orientation="horizontal">
 
+                <!--
+                <Button
+                    android:id="@+id/btnNetwork"
+                    style="?android:attr/buttonStyleSmall"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:layout_weight="1"
+                    android:drawableLeft="@drawable/main_network"
+                    android:singleLine="true"
+                    android:text="@string/btn_network"
+                    android:gravity="left|center_vertical"
+                    android:drawablePadding="5dp"
+                    android:ellipsize="marquee"
+                    android:marqueeRepeatLimit="marquee_forever"
+                    android:background="@drawable/default_button_selector"/>
+
+                -->
 				<Button
 					android:id="@+id/btn_info"
 					style="?android:attr/buttonStyleSmall"
@@ -306,11 +323,10 @@
 					android:layout_width="match_parent"
 					android:layout_height="match_parent"
 					android:layout_weight="1"/>
-
-				<View
-					android:layout_width="match_parent"
-					android:layout_height="match_parent"
-					android:layout_weight="1"/>
+                <View
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:layout_weight="1"/>
 			</LinearLayout>
 		</LinearLayout>
 	</ScrollView>

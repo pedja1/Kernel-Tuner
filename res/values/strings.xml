@@ -780,5 +780,8 @@
     <string name="otg_with_standard_usb">OTG with standard USB</string>
     <string name="select_scheduler">Select Scheduler</string>
     <string name="set">Set</string>
+    <string name="btn_network">Network</string>
+    <string name="tcp">tcp</string>
+    <string name="tcp_congestion">TCP Congestion</string>
 
 </resources>

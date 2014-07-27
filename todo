@@ -1,1 +1,16 @@
-- update to new ads
+- tcp congestion
+- adb over wifi
+- network manager
+
+- advanced scheduler settings
+- multicore power saving
+- vibrator strenght
+- led control
+- sound control
+- color control
+- logcat - log by running/killed apps
+- entropy ?
+- battery life extender
+- selinux
+- /sys/module/intelli_plug/parameters/intelli_plug_active and /sys/module/intelli_plug/parameters/eco_mode_active
+- binary mpdecision toggle

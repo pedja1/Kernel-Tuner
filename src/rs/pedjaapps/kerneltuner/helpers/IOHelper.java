@@ -135,7 +135,11 @@ public class IOHelper
             i = true;
         }
         return i;
+    }
 
+    public static boolean tcpCongestionControlAvailable()
+    {
+        return new File(Constants.TCP_CONGESTION).exists() && new File(Constants.TCP_AVAILABLE_CONGESTION).exists();
     }
 
     public static boolean voltageExists()
@@ -332,6 +336,36 @@ public class IOHelper
         }
         return entries;
 
+    }
+
+    public static String[] getTcpAvailableCongestion()
+    {
+        try
+        {
+            return FileUtils.readFileToString(new File(Constants.TCP_AVAILABLE_CONGESTION)).trim().split(" ");
+        }
+        catch (Exception e)
+        {
+            return new String[0];
+        }
+
+    }
+
+    public static List<String> getTcpAvailableCongestionAsList()
+    {
+        return Arrays.asList(getTcpAvailableCongestion());
+    }
+
+    public static String getTcpCongestion()
+    {
+        try
+        {
+            return FileUtils.readFileToString(new File(Constants.TCP_CONGESTION)).trim();
+        }
+        catch (Exception e)
+        {
+            return "";
+        }
     }
 
     public static List<String> oom()
