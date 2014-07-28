@@ -146,21 +146,21 @@ public class PrefsManager
     public static void setCpuMaxFreq(int core, int freq)
     {
         SharedPreferences.Editor editor = prefs.edit();
-        editor.putInt("cpu_" + core + "_max", core);
+        editor.putInt("cpu_" + core + "_max", freq);
         editor.apply();
     }
 
     public static void setCpuMinFreq(int core, int freq)
     {
         SharedPreferences.Editor editor = prefs.edit();
-        editor.putInt("cpu_" + core + "_min", core);
+        editor.putInt("cpu_" + core + "_min", freq);
         editor.apply();
     }
 
     public static void setCpuScroffFreq(int core, int freq)
     {
         SharedPreferences.Editor editor = prefs.edit();
-        editor.putInt("cpu_" + core + "_scroff", core);
+        editor.putInt("cpu_" + core + "_scroff", freq);
         editor.apply();
     }
 
@@ -197,6 +197,9 @@ public class PrefsManager
         {
             e.printStackTrace();
             Crashlytics.logException(e);
+            SharedPreferences.Editor editor = prefs.edit();
+            editor.remove("cpu_" + core + "_governor");
+            editor.apply();
         }
         return null;
     }

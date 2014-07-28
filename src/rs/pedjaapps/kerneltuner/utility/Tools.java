@@ -333,7 +333,7 @@ public class Tools
 		String thrdownloadnew = sharedPrefs.getString("thrdownloadnew", "");
 		String thrdownmsnew = sharedPrefs.getString("thrdownmsnew", "");
 		String ldt = sharedPrefs.getString("ldt", "");
-		String s2w = sharedPrefs.getString("s2w", "");
+		String s2w = "";sharedPrefs.getString("s2w", "");
 		String s2wStart = sharedPrefs.getString("s2wStart", "");
 		String s2wEnd = sharedPrefs.getString("s2wEnd", "");
 

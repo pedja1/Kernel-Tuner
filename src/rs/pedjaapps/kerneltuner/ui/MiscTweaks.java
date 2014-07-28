@@ -18,17 +18,7 @@
 */
 package rs.pedjaapps.kerneltuner.ui;
 
-import java.io.File;
-import java.util.List;
-
-import org.apache.commons.io.FileUtils;
-
-import rs.pedjaapps.kerneltuner.Constants;
-import rs.pedjaapps.kerneltuner.R;
-import rs.pedjaapps.kerneltuner.helpers.IOHelper;
-
 import android.app.ActionBar;
-import android.app.Activity;
 import android.app.AlertDialog;
 import android.app.ProgressDialog;
 import android.content.DialogInterface;
@@ -65,6 +55,15 @@ import android.widget.TextView;
 
 import com.stericson.RootTools.RootTools;
 import com.stericson.RootTools.execution.CommandCapture;
+
+import org.apache.commons.io.FileUtils;
+
+import java.io.File;
+import java.util.List;
+
+import rs.pedjaapps.kerneltuner.Constants;
+import rs.pedjaapps.kerneltuner.R;
+import rs.pedjaapps.kerneltuner.helpers.IOHelper;
 
 public class MiscTweaks extends AbsActivity
 {
@@ -441,9 +440,9 @@ public class MiscTweaks extends AbsActivity
             preferences = PreferenceManager
                     .getDefaultSharedPreferences(getBaseContext());
             SharedPreferences.Editor editor = preferences.edit();
-            editor.putString("s2w", s2wnew);
-            editor.putString("s2wStart", s2wStartnew);
-            editor.putString("s2wEnd", s2wEndnew);
+            //editor.putString("s2w", s2wnew);
+            //editor.putString("s2wStart", s2wStartnew);
+            //editor.putString("s2wEnd", s2wEndnew);
 
             editor.commit();
 

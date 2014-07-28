@@ -24,17 +24,18 @@ import android.os.AsyncTask;
 import android.preference.PreferenceManager;
 import android.util.Log;
 import android.widget.Toast;
+
 import java.io.BufferedReader;
 import java.io.InputStream;
 import java.io.InputStreamReader;
 import java.io.OutputStream;
-import java.util.ArrayList;
-import java.util.List;
+
 import rs.pedjaapps.kerneltuner.R;
-import rs.pedjaapps.kerneltuner.model.Profile;
-//import rs.pedjaapps.KernelTuner.model.Voltage;
-import rs.pedjaapps.kerneltuner.helpers.IOHelper;
 import rs.pedjaapps.kerneltuner.helpers.DatabaseHandler;
+import rs.pedjaapps.kerneltuner.helpers.IOHelper;
+import rs.pedjaapps.kerneltuner.model.Profile;
+
+//import rs.pedjaapps.KernelTuner.model.Voltage;
 
 
 public class ProfileApplier extends AsyncTask<String, Void, String>
@@ -379,7 +380,7 @@ public class ProfileApplier extends AsyncTask<String, Void, String>
 			stdin.write(("chmod 777 /sys/android_touch/sweep2wake/s2w_switch\n").getBytes());
 			stdin.write(("echo " + s2w + " > /sys/android_touch/sweep2wake/s2w_switch\n").getBytes());
 			if(s2w!=3){
-			editor.putString("s2w", String.valueOf(s2w));
+			//editor.putString("s2w", String.valueOf(s2w));
 			}
 	  	    editor.commit();
 		}

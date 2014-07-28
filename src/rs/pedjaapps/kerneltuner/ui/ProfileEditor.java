@@ -955,7 +955,7 @@ public boolean onOptionsItemSelected(MenuItem item) {
 		intent.putExtra("cdepth", cdepth);
 		intent.putExtra("io", scheduler);
 		intent.putExtra("sdcache", sdcache);
-		intent.putExtra("s2w", s2w);
+		//intent.putExtra("s2w", s2w);
 		setResult(RESULT_OK, intent);
 		finish();
 		}
