@@ -264,7 +264,7 @@
 					android:marqueeRepeatLimit="marquee_forever"
 					android:background="@drawable/default_button_selector"/>
 
-				<Button
+				<!--<Button
 					android:id="@+id/btn_profiles"
 					style="?android:attr/buttonStyleSmall"
 					android:layout_width="match_parent"
@@ -278,16 +278,8 @@
 					android:ellipsize="marquee"
 					android:marqueeRepeatLimit="marquee_forever"
 					android:background="@drawable/default_button_selector"
-                    android:visibility="visible"/>
+                    android:visibility="visible"/>-->
 
-			</LinearLayout>
-
-			<LinearLayout
-				android:layout_width="fill_parent"
-				android:layout_height="wrap_content"
-				android:orientation="horizontal">
-
-                <!--
                 <Button
                     android:id="@+id/btnNetwork"
                     style="?android:attr/buttonStyleSmall"
@@ -303,7 +295,13 @@
                     android:marqueeRepeatLimit="marquee_forever"
                     android:background="@drawable/default_button_selector"/>
 
-                -->
+			</LinearLayout>
+
+			<LinearLayout
+				android:layout_width="fill_parent"
+				android:layout_height="wrap_content"
+				android:orientation="horizontal">
+
 				<Button
 					android:id="@+id/btn_info"
 					style="?android:attr/buttonStyleSmall"
@@ -327,6 +325,7 @@
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"
                     android:layout_weight="1"/>
+
 			</LinearLayout>
 		</LinearLayout>
 	</ScrollView>

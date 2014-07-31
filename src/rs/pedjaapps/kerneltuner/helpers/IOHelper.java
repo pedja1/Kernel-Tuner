@@ -21,7 +21,11 @@ package rs.pedjaapps.kerneltuner.helpers;
 import android.os.SystemClock;
 import android.text.TextUtils;
 import android.util.Log;
+
 import com.crashlytics.android.Crashlytics;
+
+import org.apache.commons.io.FileUtils;
+
 import java.io.BufferedReader;
 import java.io.DataInputStream;
 import java.io.File;
@@ -36,11 +40,12 @@ import java.util.Comparator;
 import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
-import org.apache.commons.io.FileUtils;
+
 import rs.pedjaapps.kerneltuner.Constants;
 import rs.pedjaapps.kerneltuner.model.Frequency;
 import rs.pedjaapps.kerneltuner.model.TimesEntry;
 import rs.pedjaapps.kerneltuner.model.Voltage;
+import rs.pedjaapps.kerneltuner.root.RCommand;
 import rs.pedjaapps.kerneltuner.utility.Tools;
 
 public class IOHelper
@@ -431,7 +436,7 @@ public class IOHelper
     {
         try
         {
-            return Tools.parseInt(FileUtils.readFileToString(new File(Constants.CPU0_MIN_FREQ)).trim(), Constants.CPU_OFFLINE_CODE);
+            return Tools.parseInt(/*FileUtils.readFileToString(new File(Constants.CPU0_MIN_FREQ)).trim()*/RCommand.readFileContent(Constants.CPU0_MIN_FREQ), Constants.CPU_OFFLINE_CODE);
         }
         catch (Exception e)
         {

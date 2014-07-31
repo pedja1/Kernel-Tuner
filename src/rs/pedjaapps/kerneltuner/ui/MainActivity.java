@@ -34,8 +34,9 @@ import rs.pedjaapps.kerneltuner.R;
 import rs.pedjaapps.kerneltuner.constants.TempUnit;
 import rs.pedjaapps.kerneltuner.fragments.MainFragment;
 import rs.pedjaapps.kerneltuner.helpers.IOHelper;
+import rs.pedjaapps.kerneltuner.root.RCommand;
+import rs.pedjaapps.kerneltuner.root.RootUtils;
 import rs.pedjaapps.kerneltuner.utility.PrefsManager;
-import rs.pedjaapps.kerneltuner.root.*;
 
 /**
  * Created by pedja on 17.4.14..
@@ -91,15 +92,6 @@ public class MainActivity extends AbsActivity implements Runnable, View.OnClickL
         setupView();
 
         showChangelog();
-
-        /*if (PrefsManager.getNotificationService())
-        {
-            startService(new Intent(this, NotificationService.class));
-        }
-        else
-        {
-            stopService(new Intent(this, NotificationService.class));
-        }*/
         getActionBar().setSubtitle(Build.MANUFACTURER + " " + Build.MODEL);
     }
 
@@ -128,6 +120,7 @@ public class MainActivity extends AbsActivity implements Runnable, View.OnClickL
         {
             cpuRefreshHandler.removeCallbacks(this);
         }
+        new RootUtils().closeAllShells();
     }
 
     private void showChangelog()

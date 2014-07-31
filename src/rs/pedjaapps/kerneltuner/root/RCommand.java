@@ -2,6 +2,7 @@ package rs.pedjaapps.kerneltuner.root;
 
 import java.io.File;
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
 import rs.pedjaapps.kerneltuner.Constants;
 import rs.pedjaapps.kerneltuner.utility.PrefsManager;
@@ -185,5 +186,21 @@ public class RCommand
     {
         new RootUtils().exec(callback,
                 "kill " + pid);
+    }
+
+    public static String readFileContent(String path)
+    {
+        RootUtils ru = new RootUtils();
+        return ru.execAndWait("cat " + path);
+    }
+
+    public static String[] readFileContentAsLineArray(String path)
+    {
+        return readFileContent(path).trim().split("\n");
+    }
+
+    public static List<String> readFileContentAsList(String path)
+    {
+        return Arrays.asList(readFileContentAsLineArray(path));
     }
 }
