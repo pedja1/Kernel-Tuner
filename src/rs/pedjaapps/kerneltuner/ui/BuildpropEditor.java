@@ -46,15 +46,16 @@ import com.crashlytics.android.Crashlytics;
 import com.stericson.RootTools.RootTools;
 import com.stericson.RootTools.execution.CommandCapture;
 
+import org.apache.commons.io.FileUtils;
+
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 
-import org.apache.commons.io.FileUtils;
-
 import rs.pedjaapps.kerneltuner.R;
 import rs.pedjaapps.kerneltuner.model.Build;
 import rs.pedjaapps.kerneltuner.helpers.BuildAdapter;
+import rs.pedjaapps.kerneltuner.root.RCommand;
 import rs.pedjaapps.kerneltuner.root.RootUtils;
 import rs.pedjaapps.kerneltuner.utility.Tools;
 
@@ -126,7 +127,7 @@ public class BuildpropEditor extends AbsActivity
     {
         try
         {
-            String bp = FileUtils.readFileToString(new File("/system/build.prop"));
+            String bp = RCommand.readFileContent("/system/build.prop");
             bp = bp.replace(tmpEntry.getName().trim() + "=" + tmpEntry.getValue().trim(), tmpEntry.getName().trim() + "=" + input.getText().toString().trim());
             FileOutputStream fOut = openFileOutput("build.prop", MODE_PRIVATE);
             OutputStreamWriter osw = new OutputStreamWriter(fOut);
@@ -353,14 +354,14 @@ public class BuildpropEditor extends AbsActivity
             public void onClick(DialogInterface dialog, int item)
             {
                 new RootUtils().exec(new RootUtils.CommandCallbackImpl()
-                {
-                    @Override
-                    public void onComplete(RootUtils.Status status, String output)
-                    {
-                        Toast.makeText(BuildpropEditor.this, getString(R.string.build_prop_restored), Toast.LENGTH_LONG).show();
-                        new GetBuildEntries().execute();
-                    }
-                }, "busybox cp -f " + Environment.getExternalStorageDirectory().toString() + "/KernelTuner/build/" + items2[item] + " /system/build.prop",
+                                     {
+                                         @Override
+                                         public void onComplete(RootUtils.Status status, String output)
+                                         {
+                                             Toast.makeText(BuildpropEditor.this, getString(R.string.build_prop_restored), Toast.LENGTH_LONG).show();
+                                             new GetBuildEntries().execute();
+                                         }
+                                     }, "busybox cp -f " + Environment.getExternalStorageDirectory().toString() + "/KernelTuner/build/" + items2[item] + " /system/build.prop",
                         "chmod 644 /system/build.prop");
 
 

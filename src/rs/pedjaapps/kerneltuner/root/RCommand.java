@@ -1,6 +1,7 @@
 package rs.pedjaapps.kerneltuner.root;
 
 import java.io.File;
+import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
@@ -188,18 +189,18 @@ public class RCommand
                 "kill " + pid);
     }
 
-    public static String readFileContent(String path)
+    public static String readFileContent(String path) throws IOException
     {
         RootUtils ru = new RootUtils();
         return ru.execAndWait("cat " + path);
     }
 
-    public static String[] readFileContentAsLineArray(String path)
+    public static String[] readFileContentAsLineArray(String path) throws IOException
     {
         return readFileContent(path).trim().split("\n");
     }
 
-    public static List<String> readFileContentAsList(String path)
+    public static List<String> readFileContentAsList(String path) throws IOException
     {
         return Arrays.asList(readFileContentAsLineArray(path));
     }

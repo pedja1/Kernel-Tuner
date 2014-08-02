@@ -29,11 +29,11 @@ import com.stericson.RootTools.*;
 import com.stericson.RootTools.execution.*;
 import java.io.*;
 import java.util.*;
-import org.apache.commons.io.*;
 import rs.pedjaapps.kerneltuner.*;
 import rs.pedjaapps.kerneltuner.R;
 
 import rs.pedjaapps.kerneltuner.Constants;
+import rs.pedjaapps.kerneltuner.root.RCommand;
 import rs.pedjaapps.kerneltuner.utility.PrefsManager;
 
 public class GpuSGX540 extends Activity
@@ -64,7 +64,7 @@ public class GpuSGX540 extends Activity
 		gpuCurrent = readFile(Constants.GPU_SGX540);
 	    seekGpu = (SeekBar)findViewById(R.id.seek_gpu);
 		
-			gpu = Arrays.asList(new Integer[]{153, 307, 384});
+			gpu = Arrays.asList(153, 307, 384);
 			seekBar(gpu.size()-1, gpu.indexOf(gpuCurrent));
 	
 		/*else{
@@ -143,7 +143,7 @@ public class GpuSGX540 extends Activity
 	{
 		try
 		{
-			return Integer.parseInt(FileUtils.readFileToString(new File(path)).trim());
+			return Integer.parseInt(RCommand.readFileContent(path).trim());
 		}
 		catch (Exception e)
 		{

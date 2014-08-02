@@ -32,8 +32,8 @@ import com.stericson.RootTools.execution.CommandCapture;
 import java.io.File;
 import java.util.Arrays;
 import java.util.List;
-import org.apache.commons.io.FileUtils;
 import rs.pedjaapps.kerneltuner.R;
+import rs.pedjaapps.kerneltuner.root.RCommand;
 import rs.pedjaapps.kerneltuner.utility.PrefsManager;
 
 import android.widget.SeekBar;
@@ -237,7 +237,7 @@ public class Gpu extends Activity
 	{
 		try
 		{
-			return Integer.parseInt(FileUtils.readFileToString(new File(path)).trim());
+			return Integer.parseInt(RCommand.readFileContent(path).trim());
 		}
 		catch (Exception e)
 		{

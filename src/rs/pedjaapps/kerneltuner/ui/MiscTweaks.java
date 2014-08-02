@@ -56,14 +56,13 @@ import android.widget.TextView;
 import com.stericson.RootTools.RootTools;
 import com.stericson.RootTools.execution.CommandCapture;
 
-import org.apache.commons.io.FileUtils;
-
 import java.io.File;
 import java.util.List;
 
 import rs.pedjaapps.kerneltuner.Constants;
 import rs.pedjaapps.kerneltuner.R;
 import rs.pedjaapps.kerneltuner.helpers.IOHelper;
+import rs.pedjaapps.kerneltuner.root.RCommand;
 
 public class MiscTweaks extends AbsActivity
 {
@@ -997,7 +996,7 @@ public class MiscTweaks extends AbsActivity
     {
         try
         {
-            return FileUtils.readFileToString(new File(path)).trim();
+            return RCommand.readFileContent(path).trim();
         }
         catch (Exception e)
         {

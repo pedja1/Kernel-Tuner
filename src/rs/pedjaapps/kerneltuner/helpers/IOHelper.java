@@ -24,8 +24,6 @@ import android.util.Log;
 
 import com.crashlytics.android.Crashlytics;
 
-import org.apache.commons.io.FileUtils;
-
 import java.io.BufferedReader;
 import java.io.DataInputStream;
 import java.io.File;
@@ -122,7 +120,7 @@ public class IOHelper
 
     public static boolean cpuOnline(int cpu)
     {
-		return new File("/sys/devices/system/cpu/cpu" + cpu + "/cpufreq/scaling_governor").exists();
+        return new File("/sys/devices/system/cpu/cpu" + cpu + "/cpufreq/scaling_governor").exists();
     }
 
     public static boolean gpuExists()
@@ -269,35 +267,26 @@ public class IOHelper
 
     public static List<Frequency> frequencies()
     {
-        List<Frequency> entries = new ArrayList<Frequency>();
+        List<Frequency> entries = new ArrayList<>();
         try
         {
-            File myFile = new File(Constants.CPU0_FREQS);
-            FileInputStream fIn = new FileInputStream(myFile);
-
-            BufferedReader myReader = new BufferedReader(new InputStreamReader(fIn));
-            String aDataRow;
-            while ((aDataRow = myReader.readLine()) != null)
+            String data = RCommand.readFileContent(Constants.CPU0_FREQS);
+            String[] freqs = data.split(" ");
+            for (String s : freqs)
             {
-                String[] freqs = aDataRow.split(" ");
-                for (String s : freqs)
+                Frequency frequency = new Frequency();
+                int value = Tools.parseInt(s, Constants.CPU_OFFLINE_CODE);
+                if (value == Constants.CPU_OFFLINE_CODE) continue;
+                String string = null;
+                if (s.length() > 3)
                 {
-                    Frequency frequency = new Frequency();
-                    int value = Tools.parseInt(s, Constants.CPU_OFFLINE_CODE);
-                    if (value == Constants.CPU_OFFLINE_CODE) continue;
-                    String string = null;
-                    if (aDataRow.length() > 3)
-                    {
-                        string = s.trim().substring(0, s.trim().length() - 3) + "MHz";
-                    }
-                    if (TextUtils.isEmpty(string)) continue;
-                    frequency.setFrequencyString(string);
-                    frequency.setFrequencyValue(value);
-                    entries.add(frequency);
+                    string = s.trim().substring(0, s.trim().length() - 3) + "MHz";
                 }
+                if (TextUtils.isEmpty(string)) continue;
+                frequency.setFrequencyString(string);
+                frequency.setFrequencyValue(value);
+                entries.add(frequency);
             }
-            myReader.close();
-            fIn.close();
         }
         catch (Exception e)
         {
@@ -311,7 +300,6 @@ public class IOHelper
 
                 while ((strLine = br.readLine()) != null)
                 {
-
                     String[] delims = strLine.split(" ");
                     String freq = delims[0];
 
@@ -347,13 +335,12 @@ public class IOHelper
     {
         try
         {
-            return FileUtils.readFileToString(new File(Constants.TCP_AVAILABLE_CONGESTION)).trim().split(" ");
+            return RCommand.readFileContent(Constants.TCP_AVAILABLE_CONGESTION).trim().split(" ");
         }
         catch (Exception e)
         {
             return new String[0];
         }
-
     }
 
     public static List<String> getTcpAvailableCongestionAsList()
@@ -365,7 +352,7 @@ public class IOHelper
     {
         try
         {
-            return FileUtils.readFileToString(new File(Constants.TCP_CONGESTION)).trim();
+            return RCommand.readFileContent(Constants.TCP_CONGESTION).trim();
         }
         catch (Exception e)
         {
@@ -377,7 +364,7 @@ public class IOHelper
     {
         try
         {
-            return Arrays.asList(FileUtils.readFileToString(new File(Constants.OOM)).split(","));
+            return Arrays.asList(RCommand.readFileContent(Constants.OOM).split(","));
         }
         catch (Exception e)
         {
@@ -390,13 +377,13 @@ public class IOHelper
     {
         try
         {
-            return FileUtils.readFileToString(new File(Constants.BUTTONS_LIGHT_2)).trim();
+            return RCommand.readFileContent(Constants.BUTTONS_LIGHT_2).trim();
         }
         catch (Exception e)
         {
             try
             {
-                return FileUtils.readFileToString(new File(Constants.BUTTONS_LIGHT)).trim();
+                return RCommand.readFileContent(Constants.BUTTONS_LIGHT).trim();
             }
             catch (Exception ee)
             {
@@ -410,7 +397,8 @@ public class IOHelper
     {
         try
         {
-            return FileUtils.readFileToString(new File(Constants.CPU0_GOVS)).split("\\s");
+            //return RCommand.readFileContent(Constants.CPU0_GOVS)).split("\\s");
+            return RCommand.readFileContent(Constants.CPU0_GOVS).trim().split("\\s");
         }
         catch (Exception e)
         {
@@ -423,7 +411,7 @@ public class IOHelper
     {
         try
         {
-            return Arrays.asList(FileUtils.readFileToString(new File(Constants.CPU0_GOVS)).split("\\s"));
+            return Arrays.asList(RCommand.readFileContent(Constants.CPU0_GOVS).split("\\s"));
         }
         catch (Exception e)
         {
@@ -436,10 +424,11 @@ public class IOHelper
     {
         try
         {
-            return Tools.parseInt(/*FileUtils.readFileToString(new File(Constants.CPU0_MIN_FREQ)).trim()*/RCommand.readFileContent(Constants.CPU0_MIN_FREQ), Constants.CPU_OFFLINE_CODE);
+            return Tools.parseInt(RCommand.readFileContent(Constants.CPU0_MIN_FREQ).trim(), Constants.CPU_OFFLINE_CODE);
         }
         catch (Exception e)
         {
+            e.printStackTrace();
             return Constants.CPU_OFFLINE_CODE;
         }
 
@@ -449,7 +438,7 @@ public class IOHelper
     {
         try
         {
-            return FileUtils.readFileToString(new File(Constants.CPU_MIN)).trim();
+            return RCommand.readFileContent(Constants.CPU_MIN).trim();
         }
         catch (Exception e)
         {
@@ -461,7 +450,7 @@ public class IOHelper
     {
         try
         {
-            return FileUtils.readFileToString(new File(Constants.CPU_MAX)).trim();
+            return RCommand.readFileContent(Constants.CPU_MAX).trim();
         }
         catch (Exception e)
         {
@@ -473,7 +462,7 @@ public class IOHelper
     {
         try
         {
-            return Tools.parseInt(FileUtils.readFileToString(new File(Constants.CPU0_MAX_FREQ)).trim(), Constants.CPU_OFFLINE_CODE);
+            return Tools.parseInt(RCommand.readFileContent(Constants.CPU0_MAX_FREQ).trim(), Constants.CPU_OFFLINE_CODE);
         }
         catch (Exception e)
         {
@@ -486,7 +475,7 @@ public class IOHelper
     {
         try
         {
-            return Tools.parseInt(FileUtils.readFileToString(new File(Constants.CPU1_MIN_FREQ)).trim(), Constants.CPU_OFFLINE_CODE);
+            return Tools.parseInt(RCommand.readFileContent(Constants.CPU1_MIN_FREQ).trim(), Constants.CPU_OFFLINE_CODE);
         }
         catch (Exception e)
         {
@@ -498,7 +487,7 @@ public class IOHelper
     {
         try
         {
-            return Tools.parseInt(FileUtils.readFileToString(new File(Constants.CPU1_MAX_FREQ)).trim(), Constants.CPU_OFFLINE_CODE);
+            return Tools.parseInt(RCommand.readFileContent(Constants.CPU1_MAX_FREQ).trim(), Constants.CPU_OFFLINE_CODE);
         }
         catch (Exception e)
         {
@@ -510,7 +499,7 @@ public class IOHelper
     {
         try
         {
-            return Tools.parseInt(FileUtils.readFileToString(new File(Constants.CPU2_MIN_FREQ)).trim(), Constants.CPU_OFFLINE_CODE);
+            return Tools.parseInt(RCommand.readFileContent(Constants.CPU2_MIN_FREQ).trim(), Constants.CPU_OFFLINE_CODE);
         }
         catch (Exception e)
         {
@@ -523,7 +512,7 @@ public class IOHelper
     {
         try
         {
-            return Tools.parseInt(FileUtils.readFileToString(new File(Constants.CPU2_MAX_FREQ)).trim(), Constants.CPU_OFFLINE_CODE);
+            return Tools.parseInt(RCommand.readFileContent(Constants.CPU2_MAX_FREQ).trim(), Constants.CPU_OFFLINE_CODE);
         }
         catch (Exception e)
         {
@@ -535,7 +524,7 @@ public class IOHelper
     {
         try
         {
-            return Tools.parseInt(FileUtils.readFileToString(new File(Constants.CPU3_MIN_FREQ)).trim(), Constants.CPU_OFFLINE_CODE);
+            return Tools.parseInt(RCommand.readFileContent(Constants.CPU3_MIN_FREQ).trim(), Constants.CPU_OFFLINE_CODE);
         }
         catch (Exception e)
         {
@@ -548,7 +537,7 @@ public class IOHelper
     {
         try
         {
-            return Tools.parseInt(FileUtils.readFileToString(new File(Constants.CPU3_MAX_FREQ)).trim(), Constants.CPU_OFFLINE_CODE);
+            return Tools.parseInt(RCommand.readFileContent(Constants.CPU3_MAX_FREQ).trim(), Constants.CPU_OFFLINE_CODE);
         }
         catch (Exception e)
         {
@@ -561,7 +550,7 @@ public class IOHelper
     {
         try
         {
-            return FileUtils.readFileToString(new File(Constants.CPU0_CURR_FREQ)).trim();
+            return RCommand.readFileContent(Constants.CPU0_CURR_FREQ).trim();
         }
         catch (Exception e)
         {
@@ -573,7 +562,7 @@ public class IOHelper
     {
         try
         {
-            return FileUtils.readFileToString(new File(Constants.CPU1_CURR_FREQ)).trim();
+            return RCommand.readFileContent(Constants.CPU1_CURR_FREQ).trim();
         }
         catch (Exception e)
         {
@@ -585,7 +574,7 @@ public class IOHelper
     {
         try
         {
-            return FileUtils.readFileToString(new File(Constants.CPU2_CURR_FREQ)).trim();
+            return RCommand.readFileContent(Constants.CPU2_CURR_FREQ).trim();
         }
         catch (Exception e)
         {
@@ -598,20 +587,19 @@ public class IOHelper
     {
         try
         {
-            return FileUtils.readFileToString(new File(Constants.CPU3_CURR_FREQ)).trim();
+            return RCommand.readFileContent(Constants.CPU3_CURR_FREQ).trim();
         }
         catch (Exception e)
         {
             return "offline";
         }
-
     }
 
     public static int cpuScreenOffMaxFreq()
     {
         try
         {
-            return Tools.parseInt(FileUtils.readFileToString(new File(Constants.cpuScreenOff)).trim(), Constants.CPU_OFFLINE_CODE);
+            return Tools.parseInt(RCommand.readFileContent(Constants.cpuScreenOff).trim(), Constants.CPU_OFFLINE_CODE);
         }
         catch (Exception e)
         {
@@ -623,77 +611,65 @@ public class IOHelper
     {
         try
         {
-            return FileUtils.readFileToString(new File(Constants.CPU0_CURR_GOV)).trim();
+            return RCommand.readFileContent(Constants.CPU0_CURR_GOV).trim();
         }
         catch (Exception e)
         {
             return "offline";
         }
-
     }
 
     public static String cpu1CurGov()
     {
         try
         {
-            return FileUtils.readFileToString(new File(Constants.CPU1_CURR_GOV)).trim();
+            return RCommand.readFileContent(Constants.CPU1_CURR_GOV).trim();
         }
         catch (Exception e)
         {
             return "offline";
         }
-
     }
 
     public static String cpu2CurGov()
     {
         try
         {
-            return FileUtils.readFileToString(new File(Constants.CPU2_CURR_GOV)).trim();
+            return RCommand.readFileContent(Constants.CPU2_CURR_GOV).trim();
         }
         catch (Exception e)
         {
             return "offline";
         }
-
     }
 
     public static String cpu3CurGov()
     {
         try
         {
-            return FileUtils.readFileToString(new File(Constants.CPU3_CURR_GOV)).trim();
+            return RCommand.readFileContent(Constants.CPU3_CURR_GOV).trim();
         }
         catch (Exception e)
         {
             return "offline";
         }
-
     }
 
 
     public static List<TimesEntry> getTis()
     {
-        List<TimesEntry> times = new ArrayList<TimesEntry>();
+        List<TimesEntry> times = new ArrayList<>();
 
         try
         {
+            String[] lines = RCommand.readFileContentAsLineArray(Constants.TIMES_IN_STATE_CPU0);
 
-            FileInputStream fstream = new FileInputStream(Constants.TIMES_IN_STATE_CPU0);
-
-            DataInputStream in = new DataInputStream(fstream);
-            BufferedReader br = new BufferedReader(new InputStreamReader(in));
-            String strLine;
-
-            while ((strLine = br.readLine()) != null)
+            for (String strLine : lines)
             {
                 String[] delims = strLine.split(" ");
                 times.add(new TimesEntry(Integer.parseInt(delims[0]), Long.parseLong(delims[1])));
                 //System.out.println(strLine);
             }
-            in.close();
-            fstream.close();
-            br.close();
         }
         catch (Exception e)
         {
@@ -707,7 +683,7 @@ public class IOHelper
 
     public static List<Voltage> voltages()
     {
-        List<Voltage> voltages = new ArrayList<Voltage>();
+        List<Voltage> voltages = new ArrayList<>();
         if (new File(Constants.VOLTAGE_PATH).exists())
         {
             parseVoltageM1(voltages, Constants.VOLTAGE_PATH);
@@ -725,41 +701,50 @@ public class IOHelper
 
     private static void parseVoltageM2(List<Voltage> voltages, String voltagePathTegra3)
     {
+        /*
+        300mhz: 775 mV
+        422mhz: 775 mV
+        652mhz: 775 mV
+        729mhz: 780 mV
+        883mhz: 800 mV
+        960mhz: 810 mV
+        1036mhz: 820 mV
+        1190mhz: 840 mV
+        1267mhz: 850 mV
+        1497mhz: 880 mV
+        1574mhz: 890 mV
+        1728mhz: 920 mV
+        1958mhz: 965 mV
+        2265mhz: 1025 mV
+        2457mhz: 1060 mV
+        */
         try
         {
-            FileInputStream fstream = new FileInputStream(voltagePathTegra3);
-
-            DataInputStream in = new DataInputStream(fstream);
-            BufferedReader br = new BufferedReader(new InputStreamReader(in));
-            String strLine;
-
-            while ((strLine = br.readLine()) != null)
+            String[] lines = RCommand.readFileContentAsLineArray(voltagePathTegra3);
+            for (String strLine : lines)
             {
-                String[] delims = strLine.split("\\s");
+                strLine = strLine.replaceAll("\\s+", "");
+                String[] delims = strLine.split(":");
                 if (delims.length < 2) continue;
                 Voltage voltage = new Voltage();
                 String name, frequency = null;
                 if (delims[0].length() > 4)
                 {
-                    frequency = delims[0].substring(0, delims[0].length() - 4).trim() + "MHz";
+                    frequency = delims[0].replaceAll("mhz", "") + "MHz";
                 }
-                name = delims[0].substring(0, delims[0].length() - 4);
-                int value = Tools.parseInt(delims[1], Constants.CPU_OFFLINE_CODE);
-                if (name == null || frequency == null || value == Constants.CPU_OFFLINE_CODE)
+                name = delims[1].replaceAll("mV", "").trim();
+                int value = Tools.parseInt(name, Constants.CPU_OFFLINE_CODE);
+                if (frequency == null || value == Constants.CPU_OFFLINE_CODE)
                 {
                     continue;
                 }
                 voltage.setFreq(frequency);
-                voltage.setName(name);
+                voltage.setName(name + "mV");
                 voltage.setValue(value);
                 voltage.setDivider(1);
                 voltage.setMultiplier(1000);
                 voltages.add(voltage);
             }
-
-            in.close();
-            fstream.close();
-            br.close();
         }
         catch (Exception ex)
         {
@@ -771,24 +756,19 @@ public class IOHelper
     {
         try
         {
-            FileInputStream fstream = new FileInputStream(path);
-
-            DataInputStream in = new DataInputStream(fstream);
-            BufferedReader br = new BufferedReader(new InputStreamReader(in));
-            String strLine;
-
-            while ((strLine = br.readLine()) != null)
+            String[] lines = RCommand.readFileContentAsLineArray(path);
+            for (String strLine : lines)
             {
                 strLine = strLine.trim().replaceAll("\\s+", "");
                 Voltage voltage = new Voltage();
                 String name, frequency;
                 String[] vf = strLine.split(":");
-                if(vf.length != 2)continue;
+                if (vf.length != 2) continue;
                 int frInt = Tools.parseInt(vf[0], -1);
-                if(frInt < 0)continue;
+                if (frInt < 0) continue;
                 frequency = frInt / 1000 + "MHz";
                 int value = Tools.parseInt(vf[1], -1);
-                if(value < 0)continue;
+                if (value < 0) continue;
                 name = value / 1000 + "mV";
 
                 voltage.setFreq(frequency);
@@ -799,10 +779,6 @@ public class IOHelper
                 voltage.setMultiplier(1);
                 voltages.add(voltage);
             }
-
-            in.close();
-            fstream.close();
-            br.close();
         }
         catch (Exception e)
         {
@@ -841,31 +817,31 @@ public class IOHelper
 
     }
 
-    public static final String deepSleep()
+    public static String deepSleep()
     {
         String deepSleep;
 
         int time = (int) (SystemClock.elapsedRealtime() - SystemClock.uptimeMillis());
 
-        String s = ((int) ((time / 1000) % 60)) + "";
-        String m = ((int) ((time / (1000 * 60)) % 60)) + "";
-        String h = ((int) ((time / (1000 * 3600)) % 24)) + "";
-        String d = ((int) (time / (1000 * 60 * 60 * 24))) + "";
+        String s = (time / 1000) % 60 + "";
+        String m = (time / (1000 * 60)) % 60 + "";
+        String h = (time / (1000 * 3600)) % 24 + "";
+        String d = time / (1000 * 60 * 60 * 24) + "";
         StringBuilder builder = new StringBuilder();
         if (!d.equals("0"))
         {
-            builder.append(d + "d:");
+            builder.append(d).append("d:");
         }
         if (!h.equals("0"))
         {
-            builder.append(h + "h:");
+            builder.append(h).append("h:");
         }
         if (!m.equals("0"))
         {
-            builder.append(m + "m:");
+            builder.append(m).append("m:");
         }
 
-        builder.append(s + "s");
+        builder.append(s).append("s");
         deepSleep = builder.toString();
 
         return deepSleep;
@@ -885,11 +861,11 @@ public class IOHelper
         return ret;
     }
 
-    public static final String cpuTemp(int path)
+    public static String cpuTemp(int path)
     {
         try
         {
-            String temp = FileUtils.readFileToString(new File(Constants.CPU_TEMP_PATHS[path])).trim();
+            String temp = RCommand.readFileContent(Constants.CPU_TEMP_PATHS[path]).trim();
             if (temp.length() > 2)
             {
                 return temp.substring(0, temp.length() - (temp.length() - 2));
@@ -905,11 +881,11 @@ public class IOHelper
         }
     }
 
-    public static final String cpuInfo()
+    public static String cpuInfo()
     {
         try
         {
-            return FileUtils.readFileToString(new File(Constants.CPU_INFO)).trim();
+            return RCommand.readFileContent(Constants.CPU_INFO).trim();
         }
         catch (Exception e2)
         {
@@ -929,8 +905,6 @@ public class IOHelper
             for (File file : files)
             {
                 availableGovs.add(file.getName());
-
-
             }
         }
 
@@ -939,7 +913,7 @@ public class IOHelper
 
     }
 
-    public static final List<String> govSettings()
+    public static List<String> govSettings()
     {
 
         List<String> govSettings = new ArrayList<String>();
@@ -955,9 +929,7 @@ public class IOHelper
                 {
                     for (File file : files)
                     {
-
                         govSettings.add(file.getName());
-
                     }
                 }
             }
@@ -973,35 +945,12 @@ public class IOHelper
 
     public static List<String> schedulers()
     {
-
-        List<String> schedulers = new ArrayList<String>();
-
+        List<String> schedulers = new ArrayList<>();
         try
         {
-
-            File myFile = new File(Constants.SCHEDULER);
-            FileInputStream fIn = new FileInputStream(myFile);
-
-            BufferedReader myReader = new BufferedReader(new InputStreamReader(
-															 fIn));
-            String aDataRow = "";
-            String aBuffer = "";
-            while ((aDataRow = myReader.readLine()) != null)
-            {
-                aBuffer += aDataRow + "\n";
-            }
-
-            String schedulersTemp = aBuffer;
-            myReader.close();
-            fIn.close();
-
-            schedulersTemp = schedulersTemp.replace("[", "");
-            schedulersTemp = schedulersTemp.replace("]", "");
-            String[] temp = schedulersTemp.split("\\s");
-            for (String s : temp)
-            {
-                schedulers.add(s);
-            }
+            String schedulersTemp = RCommand.readFileContent(Constants.SCHEDULER);
+            String[] temp = schedulersTemp.replace("[", "").replace("]", "").split("\\s");
+            Collections.addAll(schedulers, temp);
         }
         catch (Exception e)
         {
@@ -1011,11 +960,11 @@ public class IOHelper
         return schedulers;
     }
 
-    public static final String mpup()
+    public static String mpup()
     {
         try
         {
-            return FileUtils.readFileToString(new File(Constants.MPDEC_THR_UP)).trim();
+            return RCommand.readFileContent(Constants.MPDEC_THR_UP).trim();
         }
         catch (Exception e)
         {
@@ -1023,11 +972,11 @@ public class IOHelper
         }
     }
 
-    public static final String mpdown()
+    public static String mpdown()
     {
         try
         {
-            return FileUtils.readFileToString(new File(Constants.MPDEC_THR_DOWN)).trim();
+            return RCommand.readFileContent(Constants.MPDEC_THR_DOWN).trim();
         }
         catch (Exception e)
         {
@@ -1043,11 +992,11 @@ public class IOHelper
             File file2 = new File(Constants.GPU_3D_2);
             if (file1.exists())
             {
-                return Tools.parseInt(FileUtils.readFileToString(file1).trim(), Constants.CPU_OFFLINE_CODE);
+                return Tools.parseInt(RCommand.readFileContent(file1.getAbsolutePath()).trim(), Constants.CPU_OFFLINE_CODE);
             }
             else if (file2.exists())
             {
-                return Tools.parseInt(FileUtils.readFileToString(file2).trim(), Constants.GPU_OFFLINE_CODE);
+                return Tools.parseInt(RCommand.readFileContent(file2.getAbsolutePath()).trim(), Constants.GPU_OFFLINE_CODE);
             }
             else
             {
@@ -1060,14 +1009,14 @@ public class IOHelper
         }
     }
 
-	public static String gpu3dGovernor()
+    public static String gpu3dGovernor()
     {
         try
         {
             File file1 = new File(Constants.GPU_3D_2_GOV);
             if (file1.exists())
             {
-                return FileUtils.readFileToString(file1).trim();
+                return RCommand.readFileContent(file1.getAbsolutePath()).trim();
             }
             else
             {
@@ -1084,7 +1033,7 @@ public class IOHelper
     {
         try
         {
-            return FileUtils.readFileToString(new File(Constants.GPU_2D)).trim();
+            return RCommand.readFileContent(Constants.GPU_2D).trim();
         }
         catch (Exception e)
         {
@@ -1097,9 +1046,9 @@ public class IOHelper
         List<Frequency> frequencies = gpu3dFrequenciesAsList();
         StringBuilder builder = new StringBuilder();
         int i = 0;
-		for (Frequency fr : frequencies)
+        for (Frequency fr : frequencies)
         {
-            if (i != 0)builder.append(", ");
+            if (i != 0) builder.append(", ");
             builder.append(fr.getFrequencyString());
             i++;
         }
@@ -1112,13 +1061,13 @@ public class IOHelper
         {
             List<Frequency> frequencies = new ArrayList<>();
             File file1 = new File(Constants.GPU_3D_AVAILABLE_FREQUENCIES);
-            String[] frqs = FileUtils.readFileToString(file1).trim().split(" ");
-			Set<Integer> values = new HashSet<>();
+            String[] frqs = RCommand.readFileContent(file1.getAbsolutePath()).trim().split(" ");
+            Set<Integer> values = new HashSet<>();
             for (String freq : frqs)
             {
                 int frInt = Tools.parseInt(freq, -1);
-                if (frInt == -1 || values.contains(frInt))continue;
-				values.add(frInt);
+                if (frInt == -1 || values.contains(frInt)) continue;
+                values.add(frInt);
                 Frequency frequency = new Frequency();
                 frequency.setFrequencyValue(frInt);
                 frequency.setFrequencyString(frInt / 1000000 + "MHz");
@@ -1137,7 +1086,7 @@ public class IOHelper
     {
         try
         {
-            return Tools.parseInt(FileUtils.readFileToString(new File(Constants.FCHARGE)).trim(), -1);
+            return Tools.parseInt(RCommand.readFileContent(Constants.FCHARGE).trim(), -1);
         }
         catch (Exception e)
         {
@@ -1149,7 +1098,7 @@ public class IOHelper
     {
         try
         {
-            return Tools.parseInt(FileUtils.readFileToString(new File(Constants.VSYNC)).trim(), -1);
+            return Tools.parseInt(RCommand.readFileContent(Constants.VSYNC).trim(), -1);
         }
         catch (Exception e)
         {
@@ -1161,7 +1110,7 @@ public class IOHelper
     {
         try
         {
-            return FileUtils.readFileToString(new File(Constants.CDEPTH)).trim();
+            return RCommand.readFileContent(Constants.CDEPTH).trim();
         }
         catch (Exception e)
         {
@@ -1169,31 +1118,13 @@ public class IOHelper
         }
     }
 
-    public static final String scheduler()
+    public static String scheduler()
     {
         String scheduler = "";
         try
         {
-
-            File myFile = new File(Constants.SCHEDULER);
-            FileInputStream fIn = new FileInputStream(myFile);
-
-            BufferedReader myReader = new BufferedReader(
-				new InputStreamReader(fIn));
-            String aDataRow = "";
-            String aBuffer = "";
-            while ((aDataRow = myReader.readLine()) != null)
-            {
-                aBuffer += aDataRow + "\n";
-            }
-
-            String schedulers = aBuffer;
-            myReader.close();
-
-            scheduler = schedulers.substring(schedulers.indexOf("[") + 1, schedulers.indexOf("]"));
-            scheduler.trim();
-            fIn.close();
-
+            String schedulers = RCommand.readFileContent(Constants.SCHEDULER);
+            scheduler = schedulers.substring(schedulers.indexOf("[") + 1, schedulers.indexOf("]")).trim();
         }
         catch (Exception e)
         {
@@ -1202,11 +1133,11 @@ public class IOHelper
         return scheduler;
     }
 
-    public static final int sdCache()
+    public static int sdCache()
     {
         try
         {
-            return Integer.parseInt(FileUtils.readFileToString(new File(Constants.SD_CACHE)).trim());
+            return Integer.parseInt(RCommand.readFileContent(Constants.SD_CACHE).trim());
         }
         catch (Exception e)
         {
@@ -1218,13 +1149,13 @@ public class IOHelper
     {
         try
         {
-            return Tools.parseInt(FileUtils.readFileToString(new File(Constants.S2W)).trim(), -1);
+            return Tools.parseInt(RCommand.readFileContent(Constants.S2W).trim(), -1);
         }
         catch (Exception e)
         {
             try
             {
-                return Tools.parseInt(FileUtils.readFileToString(new File(Constants.S2W_ALT)).trim(), -1);
+                return Tools.parseInt(RCommand.readFileContent(Constants.S2W_ALT).trim(), -1);
             }
             catch (Exception e2)
             {
@@ -1237,7 +1168,7 @@ public class IOHelper
     {
         try
         {
-            return Tools.parseInt(FileUtils.readFileToString(new File(Constants.DT2W)).trim(), -1);
+            return Tools.parseInt(RCommand.readFileContent(Constants.DT2W).trim(), -1);
         }
         catch (IOException e)
         {
@@ -1249,13 +1180,13 @@ public class IOHelper
     {
         try
         {
-            return Tools.parseInt(FileUtils.readFileToString(new File(Constants.OTG)).trim(), -1);
+            return Tools.parseInt(RCommand.readFileContent(Constants.OTG).trim(), -1);
         }
         catch (Exception e)
         {
             try
             {
-                return Tools.parseInt(FileUtils.readFileToString(new File(Constants.OTG_2)).trim(), -1);
+                return Tools.parseInt(RCommand.readFileContent(Constants.OTG_2).trim(), -1);
             }
             catch (Exception e2)
             {
@@ -1268,7 +1199,7 @@ public class IOHelper
     {
         try
         {
-            return FileUtils.readFileToString(new File(Constants.KERNEL)).trim();
+            return RCommand.readFileContent(Constants.KERNEL).trim();
         }
         catch (Exception e)
         {
@@ -1288,7 +1219,7 @@ public class IOHelper
     {
         try
         {
-            return Integer.parseInt(FileUtils.readFileToString(new File(Constants.BATTERY_LEVEL)).trim());
+            return Integer.parseInt(RCommand.readFileContent(Constants.BATTERY_LEVEL).trim());
         }
         catch (Exception e)
         {
@@ -1304,11 +1235,11 @@ public class IOHelper
             File battTempFile2 = new File(Constants.BATTERY_TEMP2);
             if (battTempFile1.exists())
             {
-                return Double.parseDouble(FileUtils.readFileToString(battTempFile1).trim());
+                return Double.parseDouble(RCommand.readFileContent(battTempFile1.getAbsolutePath()).trim());
             }
             else if (battTempFile2.exists())
             {
-                return Double.parseDouble(FileUtils.readFileToString(battTempFile2).trim()) / 10;
+                return Double.parseDouble(RCommand.readFileContent(battTempFile2.getAbsolutePath()).trim()) / 10;
             }
             else
             {
@@ -1329,11 +1260,11 @@ public class IOHelper
             File file2 = new File(Constants.BATTERY_DRAIN2);
             if (file1.exists())
             {
-                return FileUtils.readFileToString(file1).trim() + "mA";
+                return RCommand.readFileContent(file1.getAbsolutePath()).trim() + "mA";
             }
             else if (file2.exists())
             {
-                return Tools.parseInt(FileUtils.readFileToString(file2).trim(), 1000) / 1000 + "mA";
+                return Tools.parseInt(RCommand.readFileContent(file2.getAbsolutePath()).trim(), 1000) / 1000 + "mA";
             }
             else
             {
@@ -1355,11 +1286,11 @@ public class IOHelper
             File file2 = new File(Constants.BATTERY_VOLTAGE2);
             if (file1.exists())
             {
-                return Integer.parseInt(FileUtils.readFileToString(file1).trim());
+                return Integer.parseInt(RCommand.readFileContent(file1.getAbsolutePath()).trim());
             }
             else if (file2.exists())
             {
-                return Integer.parseInt(FileUtils.readFileToString(file2).trim()) / 1000;
+                return Integer.parseInt(RCommand.readFileContent(file2.getAbsolutePath()).trim()) / 1000;
             }
             else
             {
@@ -1376,7 +1307,7 @@ public class IOHelper
     {
         try
         {
-            return FileUtils.readFileToString(new File(Constants.BATTERY_TECH)).trim();
+            return RCommand.readFileContent(Constants.BATTERY_TECH).trim();
         }
         catch (Exception e)
         {
@@ -1388,7 +1319,7 @@ public class IOHelper
     {
         try
         {
-            return FileUtils.readFileToString(new File(Constants.BATTERY_HEALTH)).trim();
+            return RCommand.readFileContent(Constants.BATTERY_HEALTH).trim();
         }
         catch (Exception e)
         {
@@ -1404,11 +1335,11 @@ public class IOHelper
             File file2 = new File(Constants.BATTERY_CAPACITY2);
             if (file1.exists())
             {
-                return FileUtils.readFileToString(file1).trim() + "mAh";
+                return RCommand.readFileContent(file1.getAbsolutePath()).trim() + "mAh";
             }
             else if (file2.exists())
             {
-                return FileUtils.readFileToString(file2).trim() + "mAh";
+                return RCommand.readFileContent(file2.getAbsolutePath()).trim() + "mAh";
             }
             else
             {
@@ -1428,7 +1359,7 @@ public class IOHelper
     {
         try
         {
-            return Integer.parseInt(FileUtils.readFileToString(new File(Constants.BATTERY_CHARGING_SOURCE)).trim());
+            return Integer.parseInt(RCommand.readFileContent(Constants.BATTERY_CHARGING_SOURCE).trim());
         }
         catch (Exception e)
         {
@@ -1440,14 +1371,7 @@ public class IOHelper
     {
         try
         {
-            if (FileUtils.readFileToString(new File(Constants.CPU_TEMP_ENABLED)).equals("enabled"))
-            {
-                return true;
-            }
-            else
-            {
-                return false;
-            }
+            return RCommand.readFileContent(Constants.CPU_TEMP_ENABLED).equals("enabled");
         }
         catch (Exception e)
         {
@@ -1459,7 +1383,7 @@ public class IOHelper
     {
         try
         {
-            return FileUtils.readFileToString(new File(Constants.MPDEC_DELAY)).trim();
+            return RCommand.readFileContent(Constants.MPDEC_DELAY).trim();
         }
         catch (Exception e)
         {
@@ -1471,7 +1395,7 @@ public class IOHelper
     {
         try
         {
-            return FileUtils.readFileToString(new File(Constants.MPDEC_PAUSE)).trim();
+            return RCommand.readFileContent(Constants.MPDEC_PAUSE).trim();
         }
         catch (Exception e)
         {
@@ -1483,7 +1407,7 @@ public class IOHelper
     {
         try
         {
-            return FileUtils.readFileToString(new File(Constants.MPDEC_TIME_UP)).trim();
+            return RCommand.readFileContent(Constants.MPDEC_TIME_UP).trim();
         }
         catch (Exception e)
         {
@@ -1495,7 +1419,7 @@ public class IOHelper
     {
         try
         {
-            return FileUtils.readFileToString(new File(Constants.MPDEC_TIME_DOWN)).trim();
+            return RCommand.readFileContent(Constants.MPDEC_TIME_DOWN).trim();
         }
         catch (Exception e)
         {
@@ -1507,7 +1431,7 @@ public class IOHelper
     {
         try
         {
-            return FileUtils.readFileToString(new File(Constants.MPDEC_IDLE_FREQ)).trim();
+            return RCommand.readFileContent(Constants.MPDEC_IDLE_FREQ).trim();
         }
         catch (Exception e)
         {
@@ -1519,7 +1443,7 @@ public class IOHelper
     {
         try
         {
-            return FileUtils.readFileToString(new File(Constants.MPDEC_SCROFF_FREQ)).trim();
+            return RCommand.readFileContent(Constants.MPDEC_SCROFF_FREQ).trim();
         }
         catch (Exception e)
         {
@@ -1531,7 +1455,7 @@ public class IOHelper
     {
         try
         {
-            return FileUtils.readFileToString(new File(Constants.MPDEC_SCROFF_SINGLE)).trim();
+            return RCommand.readFileContent(Constants.MPDEC_SCROFF_SINGLE).trim();
         }
         catch (Exception e)
         {
@@ -1543,7 +1467,7 @@ public class IOHelper
     {
         try
         {
-            return FileUtils.readFileToString(new File(Constants.THERMAL_LOW_LOW)).trim();
+            return RCommand.readFileContent(Constants.THERMAL_LOW_LOW).trim();
         }
         catch (Exception e)
         {
@@ -1555,7 +1479,7 @@ public class IOHelper
     {
         try
         {
-            return FileUtils.readFileToString(new File(Constants.THERMAL_LOW_HIGH)).trim();
+            return RCommand.readFileContent(Constants.THERMAL_LOW_HIGH).trim();
         }
         catch (Exception e)
         {
@@ -1567,7 +1491,7 @@ public class IOHelper
     {
         try
         {
-            return FileUtils.readFileToString(new File(Constants.THERMAL_MID_LOW)).trim();
+            return RCommand.readFileContent(Constants.THERMAL_MID_LOW).trim();
         }
         catch (Exception e)
         {
@@ -1579,7 +1503,7 @@ public class IOHelper
     {
         try
         {
-            return FileUtils.readFileToString(new File(Constants.THERMAL_MID_HIGH)).trim();
+            return RCommand.readFileContent(Constants.THERMAL_MID_HIGH).trim();
         }
         catch (Exception e)
         {
@@ -1591,7 +1515,7 @@ public class IOHelper
     {
         try
         {
-            return FileUtils.readFileToString(new File(Constants.THERMAL_MAX_LOW)).trim();
+            return RCommand.readFileContent(Constants.THERMAL_MAX_LOW).trim();
         }
         catch (Exception e)
         {
@@ -1603,7 +1527,7 @@ public class IOHelper
     {
         try
         {
-            return FileUtils.readFileToString(new File(Constants.THERMAL_MAX_HIGH)).trim();
+            return RCommand.readFileContent(Constants.THERMAL_MAX_HIGH).trim();
         }
         catch (Exception e)
         {
@@ -1615,7 +1539,7 @@ public class IOHelper
     {
         try
         {
-            return FileUtils.readFileToString(new File(Constants.THERMAL_LOW_FREQ)).trim();
+            return RCommand.readFileContent(Constants.THERMAL_LOW_FREQ).trim();
         }
         catch (Exception e)
         {
@@ -1627,7 +1551,7 @@ public class IOHelper
     {
         try
         {
-            return FileUtils.readFileToString(new File(Constants.THERMAL_MID_FREQ)).trim();
+            return RCommand.readFileContent(Constants.THERMAL_MID_FREQ).trim();
         }
         catch (Exception e)
         {
@@ -1639,69 +1563,11 @@ public class IOHelper
     {
         try
         {
-            return FileUtils.readFileToString(new File(Constants.THERMAL_MAX_FREQ)).trim();
+            return RCommand.readFileContent(Constants.THERMAL_MAX_FREQ).trim();
         }
         catch (Exception e)
         {
             return "";
         }
     }
-
-    static int load;
-
-    public static int cpuLoad()
-    {
-        // Do something long
-
-        Runnable runnable = new Runnable()
-        {
-            @Override
-            public void run()
-            {
-                float fLoad = 0;
-                try
-                {
-                    RandomAccessFile reader = new RandomAccessFile("/proc/stat", "r");
-                    String load = reader.readLine();
-
-                    String[] toks = load.split(" ");
-
-                    long idle1 = Long.parseLong(toks[5]);
-                    long cpu1 = Long.parseLong(toks[2]) + Long.parseLong(toks[3]) + Long.parseLong(toks[4])
-						+ Long.parseLong(toks[6]) + Long.parseLong(toks[7]) + Long.parseLong(toks[8]);
-
-                    try
-                    {
-                        Thread.sleep(360);
-                    }
-                    catch (Exception e)
-                    {
-                    }
-
-                    reader.seek(0);
-                    load = reader.readLine();
-                    reader.close();
-
-                    toks = load.split(" ");
-
-                    long idle2 = Long.parseLong(toks[5]);
-                    long cpu2 = Long.parseLong(toks[2]) + Long.parseLong(toks[3]) + Long.parseLong(toks[4])
-						+ Long.parseLong(toks[6]) + Long.parseLong(toks[7]) + Long.parseLong(toks[8]);
-
-                    fLoad = (float) (cpu2 - cpu1) / ((cpu2 + idle2) - (cpu1 + idle1));
-
-                }
-                catch (IOException ex)
-                {
-                    ex.printStackTrace();
-                }
-                load = (int) (fLoad * 100);
-
-
-            }
-        };
-        new Thread(runnable).start();
-        return load;
-    }
-
 }

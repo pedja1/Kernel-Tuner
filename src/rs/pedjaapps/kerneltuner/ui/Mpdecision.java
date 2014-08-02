@@ -22,12 +22,11 @@ import java.io.File;
 import java.util.ArrayList;
 import java.util.List;
 
-import org.apache.commons.io.FileUtils;
-
 import rs.pedjaapps.kerneltuner.Constants;
 import rs.pedjaapps.kerneltuner.R;
 import rs.pedjaapps.kerneltuner.model.Frequency;
 import rs.pedjaapps.kerneltuner.model.FrequencyCollection;
+import rs.pedjaapps.kerneltuner.root.RCommand;
 import rs.pedjaapps.kerneltuner.root.RootUtils;
 import rs.pedjaapps.kerneltuner.utility.PrefsManager;
 import rs.pedjaapps.kerneltuner.utility.Tools;
@@ -223,7 +222,7 @@ public class Mpdecision extends AbsActivity
     {
         try
         {
-            delay = FileUtils.readFileToString(new File(Constants.MPDEC_DELAY));
+            delay = RCommand.readFileContent(Constants.MPDEC_DELAY);
         }
         catch (Exception e)
         {
@@ -233,7 +232,7 @@ public class Mpdecision extends AbsActivity
 
         try
         {
-            pause = FileUtils.readFileToString(new File(Constants.MPDEC_PAUSE));
+            pause = RCommand.readFileContent(Constants.MPDEC_PAUSE);
         }
         catch (Exception e)
         {
@@ -245,8 +244,7 @@ public class Mpdecision extends AbsActivity
         {
             try
             {
-                thr[i] = FileUtils.readFileToString(
-                        new File("/sys/kernel/msm_mpdecision/conf/nwns_threshold_" + i));
+                thr[i] = RCommand.readFileContent("/sys/kernel/msm_mpdecision/conf/nwns_threshold_" + i);
             }
             catch (Exception e)
             {
@@ -257,7 +255,7 @@ public class Mpdecision extends AbsActivity
         {
             try
             {
-                tim[i] = FileUtils.readFileToString(new File("/sys/kernel/msm_mpdecision/conf/twts_threshold_" + i));
+                tim[i] = RCommand.readFileContent("/sys/kernel/msm_mpdecision/conf/twts_threshold_" + i);
             }
             catch (Exception e)
             {
@@ -268,7 +266,7 @@ public class Mpdecision extends AbsActivity
 
         try
         {
-            idle = Tools.parseInt(FileUtils.readFileToString(new File(Constants.MPDEC_IDLE_FREQ)).trim(), -1);
+            idle = Tools.parseInt(RCommand.readFileContent(Constants.MPDEC_IDLE_FREQ).trim(), -1);
         }
         catch (Exception e)
         {
@@ -278,7 +276,7 @@ public class Mpdecision extends AbsActivity
 
         try
         {
-            enabled = Tools.parseInt(FileUtils.readFileToString(new File(Constants.MPDEC_ENABLED)).trim(), -1);
+            enabled = Tools.parseInt(RCommand.readFileContent(Constants.MPDEC_ENABLED).trim(), -1);
         }
         catch (Exception e)
         {
@@ -288,7 +286,7 @@ public class Mpdecision extends AbsActivity
 
         try
         {
-            scroff = Tools.parseInt(FileUtils.readFileToString(new File(Constants.MPDEC_SCROFF_FREQ)).trim(), -1);
+            scroff = Tools.parseInt(RCommand.readFileContent(Constants.MPDEC_SCROFF_FREQ).trim(), -1);
         }
         catch (Exception e)
         {
@@ -298,7 +296,7 @@ public class Mpdecision extends AbsActivity
 
         try
         {
-            scroff_single = Tools.parseInt(FileUtils.readFileToString(new File(Constants.MPDEC_SCROFF_SINGLE)).trim(), -1);
+            scroff_single = Tools.parseInt(RCommand.readFileContent(Constants.MPDEC_SCROFF_SINGLE).trim(), -1);
         }
         catch (Exception e)
         {
@@ -308,7 +306,7 @@ public class Mpdecision extends AbsActivity
         }
         try
         {
-            max_cpus = FileUtils.readFileToString(new File(Constants.MPDEC_MAX_CPUS));
+            max_cpus = RCommand.readFileContent(Constants.MPDEC_MAX_CPUS);
         }
         catch (Exception e)
         {
@@ -317,7 +315,7 @@ public class Mpdecision extends AbsActivity
         }
         try
         {
-            min_cpus = FileUtils.readFileToString(new File(Constants.MPDEC_MIN_CPUS));
+            min_cpus = RCommand.readFileContent(Constants.MPDEC_MIN_CPUS);
         }
         catch (Exception e)
         {

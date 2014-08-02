@@ -5,17 +5,12 @@ import android.os.*;
 import android.util.*;
 import android.view.*;
 import android.widget.*;
-import com.stericson.RootTools.*;
-import com.stericson.RootTools.execution.*;
 import java.io.*;
-import org.apache.commons.io.*;
-import rs.pedjaapps.kerneltuner.*;
 import rs.pedjaapps.kerneltuner.model.*;
 import rs.pedjaapps.kerneltuner.utility.*;
 
 import rs.pedjaapps.kerneltuner.R;
 import rs.pedjaapps.kerneltuner.root.*;
-import com.google.android.gms.common.api.*;
 
 /**
  * An activity representing a single process detail screen. This activity is
@@ -108,7 +103,7 @@ public class TaskManagerDetailActivity extends AbsActivity
 		memory.setText(Tools.kByteToHumanReadableSize(task.getRss()));
 		try
 		{
-	    	p_name.setText(FileUtils.readFileToString(new File( "/proc/" + task.getPid() + "/cmdline")));
+	    	p_name.setText(RCommand.readFileContent("/proc/" + task.getPid() + "/cmdline"));
 		}
 		catch (Exception e)
 		{
@@ -116,7 +111,7 @@ public class TaskManagerDetailActivity extends AbsActivity
 		}
 		try
 		{
-			String stat = FileUtils.readFileToString(new File( "/proc/" + task.getPid() + "/stat"));
+			String stat = RCommand.readFileContent("/proc/" + task.getPid() + "/stat");
 			status.setText(Tools.getProcessStatus(stat.split("\\s")[2]));
 		}
 		catch (Exception e)
@@ -131,7 +126,7 @@ public class TaskManagerDetailActivity extends AbsActivity
 	{
 		try
 		{
-			return Tools.parseInt(FileUtils.readFileToString(new File("/proc/" + task.getPid() + "/oom_adj")).trim(), -1);
+			return Tools.parseInt(RCommand.readFileContent("/proc/" + task.getPid() + "/oom_adj").trim(), -1);
 		}
 		catch (IOException e)
 		{

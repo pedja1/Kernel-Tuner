@@ -173,13 +173,6 @@
     <mapping directory="" vcs="Git" />
   </component>
   <component name="libraryTable">
-    <library name="achartengine-1.0.0">
-      <CLASSES>
-        <root url="jar://$PROJECT_DIR$/libs/achartengine-1.0.0.jar!/" />
-      </CLASSES>
-      <JAVADOC />
-      <SOURCES />
-    </library>
     <library name="commons-io-2.4">
       <CLASSES>
         <root url="jar://$PROJECT_DIR$/libs/commons-io-2.4.jar!/" />

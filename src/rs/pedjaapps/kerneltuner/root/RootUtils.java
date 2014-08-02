@@ -1,5 +1,6 @@
 package rs.pedjaapps.kerneltuner.root;
 
+import android.content.Context;
 import android.os.Handler;
 import android.util.Log;
 
@@ -13,6 +14,8 @@ import java.io.IOException;
 import java.util.concurrent.TimeoutException;
 
 import rs.pedjaapps.kerneltuner.Constants;
+import rs.pedjaapps.kerneltuner.MainApp;
+import rs.pedjaapps.kerneltuner.ui.MainActivity;
 import rs.pedjaapps.kerneltuner.utility.Executor;
 
 public class RootUtils
@@ -24,7 +27,7 @@ public class RootUtils
     public RootUtils()
     {
         reset();
-        handler = new Handler();
+        handler = new Handler(MainApp.getInstance().getMainLooper());
     }
 
     public void reset()
@@ -136,7 +139,7 @@ public class RootUtils
         exec(null, commands);
     }
 
-    public String execAndWait(String... commands)
+    public String execAndWait(String... commands) throws IOException
     {
         if (commandExecuted)
             throw new IllegalArgumentException("You can only execute one command with one instance of RootUtils");
@@ -157,7 +160,9 @@ public class RootUtils
         catch (Exception e)
         {
             e.printStackTrace();
+            throw new IOException(e);
         }
+        if(command.getExitCode() != 0) throw new IOException("Command failed");
         return output.toString();
     }
 

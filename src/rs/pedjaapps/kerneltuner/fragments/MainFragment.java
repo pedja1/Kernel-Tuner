@@ -178,12 +178,12 @@ public class MainFragment extends Fragment
                 getResources().getString(R.string.info_oom_text),
                 Constants.G_S_URL_PREFIX + "oom", true));
 
-        Button profiles = (Button) view.findViewById(R.id.btn_profiles);
+        /*Button profiles = (Button) view.findViewById(R.id.btn_profiles);
         profiles.setOnClickListener(new StartActivityListener(Profiles.class));
         profiles.setOnLongClickListener(new InfoListener(R.drawable.profile,
                 getResources().getString(R.string.info_profiles_title),
                 getResources().getString(R.string.info_profiles_text), "",
-                false));
+                false));*/
 
         Button thermal = (Button) view.findViewById(R.id.btn_thermal);
         thermal.setOnClickListener(new StartActivityListener(Thermald.class));
