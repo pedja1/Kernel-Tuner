@@ -2,6 +2,7 @@ package rs.pedjaapps.kerneltuner.ui;
 
 import android.app.AlertDialog;
 import android.content.DialogInterface;
+import android.content.Intent;
 import android.os.AsyncTask;
 import android.os.Bundle;
 import android.os.Handler;
@@ -13,19 +14,16 @@ import android.widget.EditText;
 import android.widget.ListView;
 import android.widget.ProgressBar;
 
-import java.io.File;
 import java.util.ArrayList;
 import java.util.List;
 
-import rs.pedjaapps.kerneltuner.Constants;
 import rs.pedjaapps.kerneltuner.R;
-import rs.pedjaapps.kerneltuner.adapter.NMAdapter;
 import rs.pedjaapps.kerneltuner.adapter.NMAdapter;
 import rs.pedjaapps.kerneltuner.helpers.IOHelper;
 import rs.pedjaapps.kerneltuner.model.NM;
-import rs.pedjaapps.kerneltuner.model.NM;
 import rs.pedjaapps.kerneltuner.root.RCommand;
 import rs.pedjaapps.kerneltuner.root.RootUtils;
+import siir.es.adbWireless.ADBWirelessActivity;
 
 public class NetworkManagerActivity extends AbsActivity implements AdapterView.OnItemClickListener, RootUtils.CommandCallback
 {
@@ -72,7 +70,7 @@ public class NetworkManagerActivity extends AbsActivity implements AdapterView.O
             nm.setValue(IOHelper.getTcpCongestion());
             list.add(nm);
         }
-        /*nm = new NM();
+        nm = new NM();
         nm.setType(NM.TYPE_HEADER);
         nm.setTitle(getString(R.string.adb));
         list.add(nm);
@@ -80,8 +78,9 @@ public class NetworkManagerActivity extends AbsActivity implements AdapterView.O
         nm = new NM();
         nm.setType(NM.TYPE_ITEM);
         nm.setItemType(NM.ITEM_TYPE_ADB_WIRELESS);
-        nm.setTitle();
-        list.add(nm);*/
+        nm.setTitle(getString(R.string.adb_wireless));
+        nm.setValue(getString(R.string.adb_wireless_desc));
+        list.add(nm);
 
         return list;
     }
@@ -108,6 +107,9 @@ public class NetworkManagerActivity extends AbsActivity implements AdapterView.O
         {
             case NM.ITEM_TYPE_TCP_CONGESTION:
                 showSelectTcpCongestionDialog();
+                break;
+            case NM.ITEM_TYPE_ADB_WIRELESS:
+                startActivity(new Intent(this, ADBWirelessActivity.class));
                 break;
         }
     }

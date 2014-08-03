@@ -17,6 +17,9 @@
     <uses-permission android:name="android.permission.ACCESS_SUPERUSER" />
     <uses-permission android:name="com.android.launcher.permission.INSTALL_SHORTCUT" />
     <uses-permission android:name="android.permission.WAKE_LOCK" />
+<uses-permission android:name="android.permission.VIBRATE" />
+    <uses-permission android:name="android.permission.ACCESS_WIFI_STATE" />
+    <uses-permission android:name="android.permission.CHANGE_WIFI_STATE" />
 
     <application
         android:name=".MainApp"
@@ -455,6 +458,36 @@
                 android:name="android.support.PARENT_ACTIVITY"
                 android:value="rs.pedjaapps.kerneltuner.ui.MainActivity" />
         </activity>
+<activity
+            android:name="siir.es.adbWireless.ADBWirelessActivity"
+            android:configChanges="orientation|keyboardHidden|screenSize"
+            android:label="@string/adb_wireless" >
+            <intent-filter>
+                <action android:name="android.intent.action.MAIN" />
+
+                <category android:name="android.intent.category.LAUNCHER" />
+            </intent-filter>
+        </activity>
+        <activity android:name="siir.es.adbWireless.ManagePreferences" >
+        </activity>
+
+        <receiver android:name="siir.es.adbWireless.TrackShutdown" >
+            <intent-filter>
+                <action android:name="android.intent.action.BOOT_COMPLETED" />
+            </intent-filter>
+        </receiver>
+        <receiver
+            android:name="siir.es.adbWireless.adbWidgetProvider"
+            android:enabled="true" >
+            <intent-filter>
+                <action android:name="android.appwidget.action.APPWIDGET_UPDATE" />
+                <action android:name="siir.es.adbwireless.widget_update" />
+            </intent-filter>
+
+            <meta-data
+                android:name="android.appwidget.provider"
+                android:resource="@xml/adb_appwidget_info" />
+        </receiver>
     </application>
 
 </manifest>
