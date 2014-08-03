@@ -45,29 +45,17 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="6afbc739-60f1-4f6b-aae0-39d3d74cedc2" name="Default" comment="">
-      <change type="DELETED" beforePath="$PROJECT_DIR$/src/rs/pedjaapps/kerneltuner/ui/MiscTweaks.java" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/src/rs/pedjaapps/kerneltuner/utility/ChangeVoltage.java" afterPath="" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/res/layout/list_item_switch.xml" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/AndroidManifest.xml" afterPath="$PROJECT_DIR$/AndroidManifest.xml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/rs/pedjaapps/kerneltuner/helpers/DatabaseHandler.java" afterPath="$PROJECT_DIR$/src/rs/pedjaapps/kerneltuner/helpers/DatabaseHandler.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/rs/pedjaapps/kerneltuner/ui/GovernorActivity.java" afterPath="$PROJECT_DIR$/src/rs/pedjaapps/kerneltuner/ui/GovernorActivity.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/rs/pedjaapps/kerneltuner/ui/Gpu.java" afterPath="$PROJECT_DIR$/src/rs/pedjaapps/kerneltuner/ui/Gpu.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/rs/pedjaapps/kerneltuner/ui/GpuSGX540.java" afterPath="$PROJECT_DIR$/src/rs/pedjaapps/kerneltuner/ui/GpuSGX540.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/rs/pedjaapps/kerneltuner/helpers/IOHelper.java" afterPath="$PROJECT_DIR$/src/rs/pedjaapps/kerneltuner/helpers/IOHelper.java" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/Kernel-Tuner.iws" afterPath="$PROJECT_DIR$/Kernel-Tuner.iws" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/rs/pedjaapps/kerneltuner/ui/MainActivity.java" afterPath="$PROJECT_DIR$/src/rs/pedjaapps/kerneltuner/ui/MainActivity.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/rs/pedjaapps/kerneltuner/fragments/MainFragment.java" afterPath="$PROJECT_DIR$/src/rs/pedjaapps/kerneltuner/fragments/MainFragment.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/rs/pedjaapps/kerneltuner/shortcuts/MiscShortcut.java" afterPath="$PROJECT_DIR$/src/rs/pedjaapps/kerneltuner/shortcuts/MiscShortcut.java" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/rs/pedjaapps/kerneltuner/model/NM.java" afterPath="$PROJECT_DIR$/src/rs/pedjaapps/kerneltuner/model/NM.java" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/rs/pedjaapps/kerneltuner/adapter/NMAdapter.java" afterPath="$PROJECT_DIR$/src/rs/pedjaapps/kerneltuner/adapter/NMAdapter.java" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/rs/pedjaapps/kerneltuner/ui/NetworkManagerActivity.java" afterPath="$PROJECT_DIR$/src/rs/pedjaapps/kerneltuner/ui/NetworkManagerActivity.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/rs/pedjaapps/kerneltuner/ui/OOM.java" afterPath="$PROJECT_DIR$/src/rs/pedjaapps/kerneltuner/ui/OOM.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/rs/pedjaapps/kerneltuner/ui/ProfileEditor.java" afterPath="$PROJECT_DIR$/src/rs/pedjaapps/kerneltuner/ui/ProfileEditor.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/rs/pedjaapps/kerneltuner/ui/Reboot.java" afterPath="$PROJECT_DIR$/src/rs/pedjaapps/kerneltuner/ui/Reboot.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/rs/pedjaapps/kerneltuner/root/RootUtils.java" afterPath="$PROJECT_DIR$/src/rs/pedjaapps/kerneltuner/root/RootUtils.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/rs/pedjaapps/kerneltuner/ui/SDScannerActivity.java" afterPath="$PROJECT_DIR$/src/rs/pedjaapps/kerneltuner/ui/SDScannerActivity.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/rs/pedjaapps/kerneltuner/ui/SystemInfoActivity.java" afterPath="$PROJECT_DIR$/src/rs/pedjaapps/kerneltuner/ui/SystemInfoActivity.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/rs/pedjaapps/kerneltuner/fragments/SystemInfoFragment.java" afterPath="$PROJECT_DIR$/src/rs/pedjaapps/kerneltuner/fragments/SystemInfoFragment.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/rs/pedjaapps/kerneltuner/ui/TaskManager.java" afterPath="$PROJECT_DIR$/src/rs/pedjaapps/kerneltuner/ui/TaskManager.java" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/rs/pedjaapps/kerneltuner/utility/PrefsManager.java" afterPath="$PROJECT_DIR$/src/rs/pedjaapps/kerneltuner/utility/PrefsManager.java" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/rs/pedjaapps/kerneltuner/root/RCommand.java" afterPath="$PROJECT_DIR$/src/rs/pedjaapps/kerneltuner/root/RCommand.java" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/rs/pedjaapps/kerneltuner/services/StartupService.java" afterPath="$PROJECT_DIR$/src/rs/pedjaapps/kerneltuner/services/StartupService.java" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/res/values/strings.xml" afterPath="$PROJECT_DIR$/res/values/strings.xml" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/todo" afterPath="$PROJECT_DIR$/todo" />
     </list>
     <ignored path="Kernel-Tuner.iws" />
     <ignored path=".idea/workspace.xml" />
@@ -127,8 +115,8 @@
         <option name="LOG_MESSAGE" value="" />
       </breakpoint>
     </breakpoint_any>
-    <ui_properties converted="true" />
     <breakpoint_rules converted="true" />
+    <ui_properties converted="true" />
   </component>
   <component name="ExecutionTargetManager" SELECTED_TARGET="default_target" />
   <component name="FavoritesManager">
@@ -139,8 +127,8 @@
       <file leaf-file-name="todo" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/todo">
           <provider selected="true" editor-type-id="text-editor">
-            <state vertical-scroll-proportion="0.0" vertical-offset="0" max-vertical-offset="396">
-              <caret line="15" column="26" selection-start-line="15" selection-start-column="26" selection-end-line="15" selection-end-column="26" />
+            <state vertical-scroll-proportion="0.0" vertical-offset="0" max-vertical-offset="378">
+              <caret line="8" column="15" selection-start-line="8" selection-start-column="15" selection-end-line="8" selection-end-column="15" />
               <folding />
             </state>
           </provider>
@@ -149,29 +137,56 @@
       <file leaf-file-name="NetworkManagerActivity.java" pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/src/rs/pedjaapps/kerneltuner/ui/NetworkManagerActivity.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state vertical-scroll-proportion="0.39285713" vertical-offset="595" max-vertical-offset="3762">
-              <caret line="66" column="0" selection-start-line="66" selection-start-column="0" selection-end-line="66" selection-end-column="0" />
+            <state vertical-scroll-proportion="0.78571427" vertical-offset="1208" max-vertical-offset="4302">
+              <caret line="83" column="23" selection-start-line="83" selection-start-column="23" selection-end-line="83" selection-end-column="23" />
               <folding>
-                <element signature="e#1656#1657#0" expanded="true" />
-                <element signature="e#1694#1695#0" expanded="true" />
-                <element signature="e#1954#1977#0" expanded="true" />
-                <element signature="e#2155#2189#0" expanded="true" />
-                <element signature="e#3503#3533#0" expanded="true" />
-                <element signature="e#3887#3925#0" expanded="true" />
-                <element signature="e#3927#4197#0" expanded="true" />
-                <element signature="e#4186#4187#0" expanded="true" />
-                <element signature="e#4234#4275#0" expanded="true" />
-                <element signature="e#4277#4281#0" expanded="true" />
-                <element signature="e#4493#4529#0" expanded="true" />
-                <element signature="e#4566#4581#0" expanded="true" />
-                <element signature="e#4583#4587#0" expanded="true" />
-                <element signature="e#4684#4941#0" expanded="true" />
-                <element signature="e#4930#4931#0" expanded="true" />
-                <element signature="e#7020#7021#0" expanded="true" />
-                <element signature="e#7065#7066#0" expanded="true" />
-                <element signature="e#7132#7133#0" expanded="true" />
-                <element signature="e#7193#7194#0" expanded="true" />
+                <element signature="imports" expanded="true" />
+                <element signature="e#1652#1653#0" expanded="true" />
+                <element signature="e#1690#1691#0" expanded="true" />
+                <element signature="e#1948#1971#0" expanded="true" />
+                <element signature="e#2147#2181#0" expanded="true" />
+                <element signature="e#3401#3431#0" expanded="true" />
+                <element signature="e#3785#3823#0" expanded="true" />
+                <element signature="e#3825#4095#0" expanded="true" />
+                <element signature="e#4084#4085#0" expanded="true" />
+                <element signature="e#4132#4173#0" expanded="true" />
+                <element signature="e#4175#4179#0" expanded="true" />
+                <element signature="e#4395#4436#0" expanded="true" />
+                <element signature="e#4473#4488#0" expanded="true" />
+                <element signature="e#4490#4494#0" expanded="true" />
+                <element signature="e#4599#4860#0" expanded="true" />
+                <element signature="e#4849#4850#0" expanded="true" />
+                <element signature="e#5096#5111#0" expanded="true" />
+                <element signature="e#5113#5117#0" expanded="true" />
+                <element signature="e#5165#5193#0" expanded="true" />
+                <element signature="e#5195#5222#0" expanded="true" />
+                <element signature="e#5257#6725#0" expanded="true" />
+                <element signature="e#6714#6715#0" expanded="true" />
+                <element signature="e#6927#6928#0" expanded="true" />
+                <element signature="e#6972#6973#0" expanded="true" />
+                <element signature="e#7039#7040#0" expanded="true" />
+                <element signature="e#7100#7101#0" expanded="true" />
               </folding>
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="AndroidManifest.xml" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/AndroidManifest.xml">
+          <provider selected="true" editor-type-id="text-editor">
+            <state vertical-scroll-proportion="0.0" vertical-offset="0" max-vertical-offset="8388">
+              <caret line="5" column="32" selection-start-line="5" selection-start-column="32" selection-end-line="5" selection-end-column="32" />
+              <folding />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="RCommand.java" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/src/rs/pedjaapps/kerneltuner/root/RCommand.java">
+          <provider selected="true" editor-type-id="text-editor">
+            <state vertical-scroll-proportion="-7.814815" vertical-offset="3443" max-vertical-offset="3888">
+              <caret line="209" column="16" selection-start-line="209" selection-start-column="16" selection-end-line="209" selection-end-column="16" />
+              <folding />
             </state>
           </provider>
         </entry>
@@ -179,33 +194,8 @@
       <file leaf-file-name="NM.java" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/src/rs/pedjaapps/kerneltuner/model/NM.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state vertical-scroll-proportion="0.0" vertical-offset="0" max-vertical-offset="630">
-              <caret line="8" column="52" selection-start-line="8" selection-start-column="52" selection-end-line="8" selection-end-column="52" />
-              <folding />
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file leaf-file-name="MainFragment.java" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/src/rs/pedjaapps/kerneltuner/fragments/MainFragment.java">
-          <provider selected="true" editor-type-id="text-editor">
-            <state vertical-scroll-proportion="0.0" vertical-offset="2628" max-vertical-offset="6858">
-              <caret line="188" column="76" selection-start-line="188" selection-start-column="76" selection-end-line="188" selection-end-column="76" />
-              <folding>
-                <element signature="e#7610#7663#0" expanded="true" />
-                <element signature="e#7681#7733#0" expanded="true" />
-                <element signature="e#7735#7737#0" expanded="true" />
-                <element signature="e#7755#7760#0" expanded="true" />
-              </folding>
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file leaf-file-name="strings.xml" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/res/values/strings.xml">
-          <provider selected="true" editor-type-id="text-editor">
-            <state vertical-scroll-proportion="0.0" vertical-offset="7079" max-vertical-offset="14328">
-              <caret line="403" column="30" selection-start-line="403" selection-start-column="30" selection-end-line="403" selection-end-column="30" />
+            <state vertical-scroll-proportion="0.0" vertical-offset="35" max-vertical-offset="648">
+              <caret line="10" column="55" selection-start-line="10" selection-start-column="55" selection-end-line="10" selection-end-column="55" />
               <folding />
             </state>
           </provider>
@@ -214,9 +204,20 @@
       <file leaf-file-name="NMAdapter.java" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/src/rs/pedjaapps/kerneltuner/adapter/NMAdapter.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state vertical-scroll-proportion="0.0" vertical-offset="559" max-vertical-offset="1386">
-              <caret line="20" column="11" selection-start-line="20" selection-start-column="11" selection-end-line="20" selection-end-column="11" />
-              <folding />
+            <state vertical-scroll-proportion="0.0" vertical-offset="828" max-vertical-offset="1764">
+              <caret line="77" column="0" selection-start-line="77" selection-start-column="0" selection-end-line="77" selection-end-column="0" />
+              <folding>
+                <element signature="imports" expanded="true" />
+                <element signature="e#631#632#0" expanded="true" />
+                <element signature="e#787#788#0" expanded="true" />
+                <element signature="e#828#829#0" expanded="true" />
+                <element signature="e#874#875#0" expanded="true" />
+                <element signature="e#889#890#0" expanded="true" />
+                <element signature="e#1488#1493#0" expanded="true" />
+                <element signature="e#1783#1788#0" expanded="true" />
+                <element signature="e#2267#2268#0" expanded="true" />
+                <element signature="e#2316#2317#0" expanded="true" />
+              </folding>
             </state>
           </provider>
         </entry>
@@ -229,7 +230,6 @@
               <folding>
                 <element signature="e#0#37658#0" expanded="true" />
                 <element signature="imports" expanded="true" />
-                <element signature="e#22586#22594#0" expanded="true" />
               </folding>
             </state>
           </provider>
@@ -238,7 +238,7 @@
       <file leaf-file-name="RootUtils.java" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/src/rs/pedjaapps/kerneltuner/root/RootUtils.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state vertical-scroll-proportion="0.0" vertical-offset="1819" max-vertical-offset="3204">
+            <state vertical-scroll-proportion="0.0" vertical-offset="2412" max-vertical-offset="3690">
               <caret line="156" column="0" selection-start-line="156" selection-start-column="0" selection-end-line="156" selection-end-column="0" />
               <folding />
             </state>
@@ -935,7 +935,6 @@
   <component name="IdeDocumentHistory">
     <option name="changedFiles">
       <list>
-        <option value="$PROJECT_DIR$/src/rs/pedjaapps/kerneltuner/model/Misc.java" />
         <option value="$PROJECT_DIR$/src/rs/pedjaapps/kerneltuner/ui/MiscTweaksActivity.java" />
         <option value="$PROJECT_DIR$/src/rs/pedjaapps/kerneltuner/MainApp.java" />
         <option value="$PROJECT_DIR$/res/xml/preference_header.xml" />
@@ -950,16 +949,11 @@
         <option value="$PROJECT_DIR$/src/rs/pedjaapps/kerneltuner/ui/Thermald.java" />
         <option value="$PROJECT_DIR$/res/layout/gpu.xml" />
         <option value="$PROJECT_DIR$/res/layout/ram_layout.xml" />
-        <option value="$PROJECT_DIR$/src/rs/pedjaapps/kerneltuner/services/StartupService.java" />
         <option value="$PROJECT_DIR$/src/rs/pedjaapps/kerneltuner/receiver/StartupReceiver.java" />
-        <option value="$PROJECT_DIR$/src/rs/pedjaapps/kerneltuner/utility/PrefsManager.java" />
         <option value="$PROJECT_DIR$/src/rs/pedjaapps/kerneltuner/ui/NetworkManager.java" />
-        <option value="$PROJECT_DIR$/src/rs/pedjaapps/kerneltuner/adapter/NMAdapter.java" />
         <option value="$PROJECT_DIR$/res/layout/layout_fragment_main.xml" />
         <option value="$PROJECT_DIR$/src/rs/pedjaapps/kerneltuner/Constants.java" />
         <option value="$PROJECT_DIR$/res/xml/settings_ui.xml" />
-        <option value="$PROJECT_DIR$/todo" />
-        <option value="$PROJECT_DIR$/src/rs/pedjaapps/kerneltuner/root/RCommand.java" />
         <option value="$PROJECT_DIR$/src/rs/pedjaapps/kerneltuner/ui/SysCtlActivity.java" />
         <option value="$PROJECT_DIR$/src/rs/pedjaapps/kerneltuner/ui/VoltageActivity.java" />
         <option value="$PROJECT_DIR$/src/rs/pedjaapps/kerneltuner/ui/TaskManagerDetailActivity.java" />
@@ -983,8 +977,14 @@
         <option value="$PROJECT_DIR$/src/rs/pedjaapps/kerneltuner/ui/SDScannerActivity.java" />
         <option value="$PROJECT_DIR$/res/values/strings.xml" />
         <option value="$PROJECT_DIR$/src/rs/pedjaapps/kerneltuner/fragments/MainFragment.java" />
-        <option value="$PROJECT_DIR$/AndroidManifest.xml" />
+        <option value="$PROJECT_DIR$/src/rs/pedjaapps/kerneltuner/root/RCommand.java" />
+        <option value="$PROJECT_DIR$/src/rs/pedjaapps/kerneltuner/utility/PrefsManager.java" />
+        <option value="$PROJECT_DIR$/src/rs/pedjaapps/kerneltuner/services/StartupService.java" />
+        <option value="$PROJECT_DIR$/todo" />
         <option value="$PROJECT_DIR$/src/rs/pedjaapps/kerneltuner/model/NM.java" />
+        <option value="$PROJECT_DIR$/AndroidManifest.xml" />
+        <option value="$PROJECT_DIR$/res/layout/list_item_switch.xml" />
+        <option value="$PROJECT_DIR$/src/rs/pedjaapps/kerneltuner/adapter/NMAdapter.java" />
         <option value="$PROJECT_DIR$/src/rs/pedjaapps/kerneltuner/ui/NetworkManagerActivity.java" />
       </list>
     </option>
@@ -1021,6 +1021,7 @@
       <sortByType />
     </navigator>
     <panes>
+      <pane id="PackagesPane" />
       <pane id="ProjectPane">
         <subPane>
           <PATH>
@@ -1329,13 +1330,30 @@
               <option name="myItemType" value="com.android.tools.idea.gradle.projectView.AndroidPsiDirectoryNode" />
             </PATH_ELEMENT>
             <PATH_ELEMENT>
+              <option name="myItemId" value="res" />
+              <option name="myItemType" value="com.android.tools.idea.gradle.projectView.AndroidPsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="layout" />
+              <option name="myItemType" value="com.android.tools.idea.gradle.projectView.AndroidPsiDirectoryNode" />
+            </PATH_ELEMENT>
+          </PATH>
+          <PATH>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="Kernel-Tuner" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.ProjectViewProjectNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="Kernel-Tuner" />
+              <option name="myItemType" value="com.android.tools.idea.gradle.projectView.AndroidPsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
               <option name="myItemId" value="libs" />
               <option name="myItemType" value="com.android.tools.idea.gradle.projectView.AndroidPsiDirectoryNode" />
             </PATH_ELEMENT>
           </PATH>
         </subPane>
       </pane>
-      <pane id="PackagesPane" />
       <pane id="Scope" />
     </panes>
   </component>
@@ -1437,6 +1455,19 @@
       </ExternalSystemSettings>
       <method />
     </configuration>
+    <configuration default="true" type="Applet" factoryName="Applet">
+      <module name="" />
+      <option name="MAIN_CLASS_NAME" />
+      <option name="HTML_FILE_NAME" />
+      <option name="HTML_USED" value="false" />
+      <option name="WIDTH" value="400" />
+      <option name="HEIGHT" value="300" />
+      <option name="POLICY_FILE" value="$APPLICATION_HOME_DIR$/bin/appletviewer.policy" />
+      <option name="VM_PARAMETERS" />
+      <option name="ALTERNATIVE_JRE_PATH_ENABLED" value="false" />
+      <option name="ALTERNATIVE_JRE_PATH" />
+      <method />
+    </configuration>
     <configuration default="true" type="TestNG" factoryName="TestNG">
       <extension name="coverage" enabled="false" merge="false" sample_coverage="true" runner="idea" />
       <module name="" />
@@ -1463,19 +1494,6 @@
       <envs />
       <properties />
       <listeners />
-      <method />
-    </configuration>
-    <configuration default="true" type="Applet" factoryName="Applet">
-      <module name="" />
-      <option name="MAIN_CLASS_NAME" />
-      <option name="HTML_FILE_NAME" />
-      <option name="HTML_USED" value="false" />
-      <option name="WIDTH" value="400" />
-      <option name="HEIGHT" value="300" />
-      <option name="POLICY_FILE" value="$APPLICATION_HOME_DIR$/bin/appletviewer.policy" />
-      <option name="VM_PARAMETERS" />
-      <option name="ALTERNATIVE_JRE_PATH_ENABLED" value="false" />
-      <option name="ALTERNATIVE_JRE_PATH" />
       <method />
     </configuration>
     <configuration default="true" type="Application" factoryName="Application">
@@ -1802,7 +1820,13 @@
       <option name="project" value="LOCAL" />
       <updated>1406998385451</updated>
     </task>
-    <option name="localTasksCounter" value="38" />
+    <task id="LOCAL-00038" summary="Fixed few crashes">
+      <created>1407060364222</created>
+      <option name="number" value="00038" />
+      <option name="project" value="LOCAL" />
+      <updated>1407060364222</updated>
+    </task>
+    <option name="localTasksCounter" value="39" />
     <servers />
   </component>
   <component name="TodoView" selected-index="0">
@@ -1835,7 +1859,6 @@
       <window_info id="Preview" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.32753405" sideWeight="0.5" order="4" side_tool="false" content_ui="tabs" />
       <window_info id="Palette" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="5" side_tool="false" content_ui="tabs" />
       <window_info id="Terminal" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.3294509" sideWeight="0.5" order="7" side_tool="false" content_ui="tabs" />
-      <window_info id="Find" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.3294509" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
       <window_info id="Ant Build" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.25" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
       <window_info id="Debug" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.39933443" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
       <window_info id="Event Log" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.3294509" sideWeight="0.5" order="7" side_tool="true" content_ui="tabs" />
@@ -1855,6 +1878,7 @@
       <window_info id="Hierarchy" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.25" sideWeight="0.5" order="2" side_tool="false" content_ui="combo" />
       <window_info id="Cvs" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.25" sideWeight="0.5" order="4" side_tool="false" content_ui="tabs" />
       <window_info id="Message" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="0" side_tool="false" content_ui="tabs" />
+      <window_info id="Find" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.3294509" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
       <window_info id="Inspection" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.4" sideWeight="0.5" order="5" side_tool="false" content_ui="tabs" />
     </layout>
   </component>
@@ -1875,7 +1899,6 @@
     <option name="myTodoPanelSettings">
       <TodoPanelSettings />
     </option>
-    <MESSAGE value="added some screenshots" />
     <MESSAGE value="New app icon" />
     <MESSAGE value="Fixed crash with profile" />
     <MESSAGE value="fixed crash in landscape and crash on task manager on tablet" />
@@ -1900,7 +1923,8 @@
     <MESSAGE value="Started working on network manager" />
     <MESSAGE value="Removed some old code&#10;Read all files as root" />
     <MESSAGE value="updated version" />
-    <option name="LAST_COMMIT_MESSAGE" value="updated version" />
+    <MESSAGE value="Fixed few crashes" />
+    <option name="LAST_COMMIT_MESSAGE" value="Fixed few crashes" />
   </component>
   <component name="XDebuggerManager">
     <breakpoint-manager>
@@ -2089,20 +2113,6 @@
     <option name="FILTER_TARGETS" value="false" />
   </component>
   <component name="editorHistoryManager">
-    <entry file="file://$PROJECT_DIR$/src/rs/pedjaapps/kerneltuner/utility/Tools.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.0" vertical-offset="16777" max-vertical-offset="17928">
-          <caret line="965" column="0" selection-start-line="965" selection-start-column="0" selection-end-line="965" selection-end-column="0" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/rs/pedjaapps/kerneltuner/ui/GpuActivityQNew.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.6697819" vertical-offset="1729" max-vertical-offset="3060">
-          <caret line="140" column="42" selection-start-line="140" selection-start-column="42" selection-end-line="140" selection-end-column="42" />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/src/rs/pedjaapps/kerneltuner/utility/ChangeGovernorSettings.java">
       <provider selected="true" editor-type-id="text-editor">
         <state vertical-scroll-proportion="0.20879121" vertical-offset="302" max-vertical-offset="774">
@@ -2168,29 +2178,16 @@
       <provider selected="true" editor-type-id="text-editor">
         <state vertical-scroll-proportion="0.0" vertical-offset="1571" max-vertical-offset="2718">
           <caret line="128" column="38" selection-start-line="128" selection-start-column="38" selection-end-line="128" selection-end-column="38" />
-          <folding />
         </state>
       </provider>
       <provider editor-type-id="android-designer">
         <state />
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/src/rs/pedjaapps/kerneltuner/services/StartupService.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.0" vertical-offset="3222" max-vertical-offset="4518">
-          <caret line="183" column="8" selection-start-line="183" selection-start-column="8" selection-end-line="183" selection-end-column="8" />
-          <folding>
-            <element signature="e#0#12531#0" expanded="false" />
-            <element signature="imports" expanded="false" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/res/layout/activity_main.xml">
       <provider selected="true" editor-type-id="text-editor">
         <state vertical-scroll-proportion="-7.4615383" vertical-offset="2956" max-vertical-offset="3996">
           <caret line="175" column="46" selection-start-line="175" selection-start-column="46" selection-end-line="175" selection-end-column="46" />
-          <folding />
         </state>
       </provider>
       <provider editor-type-id="android-designer">
@@ -2228,14 +2225,6 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/src/rs/pedjaapps/kerneltuner/utility/PrefsManager.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.0" vertical-offset="1059" max-vertical-offset="7470">
-          <caret line="87" column="44" selection-start-line="84" selection-start-column="36" selection-end-line="84" selection-end-column="44" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/res/xml/settings_ui.xml">
       <provider selected="true" editor-type-id="text-editor">
         <state vertical-scroll-proportion="0.42705572" vertical-offset="325" max-vertical-offset="702">
@@ -2268,15 +2257,6 @@
       <provider selected="true" editor-type-id="text-editor">
         <state vertical-scroll-proportion="0.33333334" vertical-offset="1085" max-vertical-offset="4068">
           <caret line="125" column="38" selection-start-line="125" selection-start-column="38" selection-end-line="125" selection-end-column="38" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/rs/pedjaapps/kerneltuner/root/RCommand.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.0" vertical-offset="3277" max-vertical-offset="3726">
-          <caret line="202" column="84" selection-start-line="202" selection-start-column="84" selection-end-line="202" selection-end-column="84" />
-          <folding />
         </state>
       </provider>
     </entry>
@@ -2292,11 +2272,6 @@
       <provider selected="true" editor-type-id="text-editor">
         <state vertical-scroll-proportion="0.0" vertical-offset="2111" max-vertical-offset="2718">
           <caret line="128" column="96" selection-start-line="128" selection-start-column="96" selection-end-line="128" selection-end-column="96" />
-          <folding>
-            <element signature="imports" expanded="false" />
-            <element signature="e#2092#2355#0" expanded="false" />
-            <element signature="e#2346#2347#0" expanded="false" />
-          </folding>
         </state>
       </provider>
     </entry>
@@ -2319,7 +2294,6 @@
       <provider selected="true" editor-type-id="text-editor">
         <state vertical-scroll-proportion="0.0" vertical-offset="632" max-vertical-offset="1548">
           <caret line="48" column="60" selection-start-line="48" selection-start-column="60" selection-end-line="48" selection-end-column="60" />
-          <folding />
         </state>
       </provider>
     </entry>
@@ -2345,10 +2319,6 @@
       <provider selected="true" editor-type-id="text-editor">
         <state vertical-scroll-proportion="0.0" vertical-offset="3767" max-vertical-offset="4158">
           <caret line="245" column="8" selection-start-line="245" selection-start-column="8" selection-end-line="245" selection-end-column="8" />
-          <folding>
-            <element signature="imports" expanded="false" />
-            <element signature="e#8334#8335#0" expanded="false" />
-          </folding>
         </state>
       </provider>
     </entry>
@@ -2356,10 +2326,6 @@
       <provider selected="true" editor-type-id="text-editor">
         <state vertical-scroll-proportion="0.0" vertical-offset="2053" max-vertical-offset="2448">
           <caret line="146" column="74" selection-start-line="146" selection-start-column="74" selection-end-line="146" selection-end-column="74" />
-          <folding>
-            <element signature="imports" expanded="false" />
-            <element signature="e#4194#4195#0" expanded="false" />
-          </folding>
         </state>
       </provider>
     </entry>
@@ -2379,20 +2345,6 @@
       <provider selected="true" editor-type-id="text-editor">
         <state vertical-scroll-proportion="0.0" vertical-offset="3623" max-vertical-offset="9504">
           <caret line="300" column="21" selection-start-line="300" selection-start-column="21" selection-end-line="300" selection-end-column="21" />
-          <folding>
-            <element signature="e#8997#8998#0" expanded="false" />
-            <element signature="e#9058#9059#0" expanded="false" />
-            <element signature="e#9121#9122#0" expanded="false" />
-            <element signature="e#9181#9182#0" expanded="false" />
-            <element signature="e#9242#9243#0" expanded="false" />
-            <element signature="e#9301#9302#0" expanded="false" />
-            <element signature="e#15311#15312#0" expanded="false" />
-            <element signature="e#15887#15888#0" expanded="false" />
-            <element signature="e#16463#16464#0" expanded="false" />
-            <element signature="e#17039#17040#0" expanded="false" />
-            <element signature="e#17615#17616#0" expanded="false" />
-            <element signature="e#18191#18192#0" expanded="false" />
-          </folding>
         </state>
       </provider>
     </entry>
@@ -2400,9 +2352,6 @@
       <provider selected="true" editor-type-id="text-editor">
         <state vertical-scroll-proportion="0.0" vertical-offset="15107" max-vertical-offset="16506">
           <caret line="911" column="64" selection-start-line="911" selection-start-column="64" selection-end-line="911" selection-end-column="64" />
-          <folding>
-            <element signature="e#30134#30135#0" expanded="false" />
-          </folding>
         </state>
       </provider>
     </entry>
@@ -2410,10 +2359,6 @@
       <provider selected="true" editor-type-id="text-editor">
         <state vertical-scroll-proportion="0.0" vertical-offset="1315" max-vertical-offset="2520">
           <caret line="144" column="57" selection-start-line="144" selection-start-column="57" selection-end-line="144" selection-end-column="57" />
-          <folding>
-            <element signature="e#3011#3012#0" expanded="false" />
-            <element signature="e#4737#4739#0" expanded="false" />
-          </folding>
         </state>
       </provider>
     </entry>
@@ -2421,7 +2366,6 @@
       <provider selected="true" editor-type-id="text-editor">
         <state vertical-scroll-proportion="0.0" vertical-offset="1710" max-vertical-offset="2718">
           <caret line="155" column="34" selection-start-line="155" selection-start-column="34" selection-end-line="155" selection-end-column="34" />
-          <folding />
         </state>
       </provider>
     </entry>
@@ -2429,13 +2373,6 @@
       <provider selected="true" editor-type-id="text-editor">
         <state vertical-scroll-proportion="0.0" vertical-offset="3209" max-vertical-offset="6462">
           <caret line="252" column="13" selection-start-line="252" selection-start-column="13" selection-end-line="252" selection-end-column="13" />
-          <folding>
-            <element signature="e#6632#6633#0" expanded="false" />
-            <element signature="e#6695#6696#0" expanded="false" />
-            <element signature="e#11075#11090#0" expanded="false" />
-            <element signature="e#11092#11095#0" expanded="false" />
-            <element signature="e#11234#11235#0" expanded="false" />
-          </folding>
         </state>
       </provider>
     </entry>
@@ -2454,7 +2391,6 @@
       <provider selected="true" editor-type-id="text-editor">
         <state vertical-scroll-proportion="0.0" vertical-offset="109" max-vertical-offset="648">
           <caret line="39" column="8" selection-start-line="39" selection-start-column="8" selection-end-line="39" selection-end-column="8" />
-          <folding />
         </state>
       </provider>
     </entry>
@@ -2462,7 +2398,6 @@
       <provider selected="true" editor-type-id="text-editor">
         <state vertical-scroll-proportion="0.0" vertical-offset="0" max-vertical-offset="738">
           <caret line="29" column="13" selection-start-line="29" selection-start-column="13" selection-end-line="29" selection-end-column="13" />
-          <folding />
         </state>
       </provider>
     </entry>
@@ -2481,7 +2416,6 @@
       <provider selected="true" editor-type-id="text-editor">
         <state vertical-scroll-proportion="0.0" vertical-offset="414" max-vertical-offset="936">
           <caret line="65" column="30" selection-start-line="65" selection-start-column="30" selection-end-line="65" selection-end-column="30" />
-          <folding />
         </state>
       </provider>
     </entry>
@@ -2496,14 +2430,6 @@
         <state />
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/todo">
-      <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.0" vertical-offset="0" max-vertical-offset="396">
-          <caret line="15" column="26" selection-start-line="15" selection-start-column="26" selection-end-line="15" selection-end-column="26" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/res/values/strings.xml">
       <provider selected="true" editor-type-id="text-editor">
         <state vertical-scroll-proportion="0.0" vertical-offset="7079" max-vertical-offset="14310">
@@ -2516,52 +2442,7 @@
       <provider selected="true" editor-type-id="text-editor">
         <state vertical-scroll-proportion="0.0" vertical-offset="2628" max-vertical-offset="6858">
           <caret line="188" column="76" selection-start-line="188" selection-start-column="76" selection-end-line="188" selection-end-column="76" />
-          <folding>
-            <element signature="e#7610#7663#0" expanded="true" />
-            <element signature="e#7681#7733#0" expanded="true" />
-            <element signature="e#7735#7737#0" expanded="true" />
-            <element signature="e#7755#7760#0" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/AndroidManifest.xml">
-      <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="-10.037037" vertical-offset="7901" max-vertical-offset="8388">
-          <caret line="454" column="56" selection-start-line="454" selection-start-column="56" selection-end-line="454" selection-end-column="56" />
-          <folding>
-            <element signature="e#1112#1130#0" expanded="true" />
-            <element signature="e#1285#1324#0" expanded="true" />
-            <element signature="e#1620#1638#0" expanded="true" />
-            <element signature="e#2176#2204#0" expanded="true" />
-            <element signature="e#2814#2839#0" expanded="true" />
-            <element signature="e#3190#3212#0" expanded="true" />
-            <element signature="e#3577#3598#0" expanded="true" />
-            <element signature="e#4018#4045#0" expanded="true" />
-            <element signature="e#5000#5019#0" expanded="true" />
-            <element signature="e#5458#5477#0" expanded="true" />
-            <element signature="e#5831#5850#0" expanded="true" />
-            <element signature="e#6285#6311#0" expanded="true" />
-            <element signature="e#6733#6757#0" expanded="true" />
-            <element signature="e#7170#7191#0" expanded="true" />
-            <element signature="e#7553#7578#0" expanded="true" />
-            <element signature="e#7940#7964#0" expanded="true" />
-            <element signature="e#8390#8429#0" expanded="true" />
-            <element signature="e#8661#8675#0" expanded="true" />
-            <element signature="e#9046#9065#0" expanded="true" />
-            <element signature="e#9478#9501#0" expanded="true" />
-            <element signature="e#9874#9897#0" expanded="true" />
-            <element signature="e#10259#10278#0" expanded="true" />
-            <element signature="e#10642#10666#0" expanded="true" />
-            <element signature="e#11039#11055#0" expanded="true" />
-            <element signature="e#11406#11419#0" expanded="true" />
-            <element signature="e#11908#11926#0" expanded="true" />
-            <element signature="e#12572#12593#0" expanded="true" />
-            <element signature="e#16220#16236#0" expanded="true" />
-            <element signature="e#16663#16682#0" expanded="true" />
-            <element signature="e#17458#17494#0" expanded="true" />
-            <element signature="e#17836#17876#0" expanded="true" />
-          </folding>
+          <folding />
         </state>
       </provider>
     </entry>
@@ -2575,14 +2456,6 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/src/rs/pedjaapps/kerneltuner/adapter/NMAdapter.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.0" vertical-offset="559" max-vertical-offset="1386">
-          <caret line="20" column="11" selection-start-line="20" selection-start-column="11" selection-end-line="20" selection-end-column="11" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/src/rs/pedjaapps/kerneltuner/helpers/IOHelper.java">
       <provider selected="true" editor-type-id="text-editor">
         <state vertical-scroll-proportion="0.0" vertical-offset="2163" max-vertical-offset="28098">
@@ -2590,7 +2463,6 @@
           <folding>
             <element signature="e#0#37658#0" expanded="true" />
             <element signature="imports" expanded="true" />
-            <element signature="e#22586#22594#0" expanded="true" />
           </folding>
         </state>
       </provider>
@@ -2603,38 +2475,130 @@
         </state>
       </provider>
     </entry>
+    <entry file="file://$PROJECT_DIR$/src/rs/pedjaapps/kerneltuner/root/RCommand.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="-7.814815" vertical-offset="3443" max-vertical-offset="3888">
+          <caret line="209" column="16" selection-start-line="209" selection-start-column="16" selection-end-line="209" selection-end-column="16" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/rs/pedjaapps/kerneltuner/utility/PrefsManager.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="-8.481482" vertical-offset="7205" max-vertical-offset="7596">
+          <caret line="492" column="49" selection-start-line="492" selection-start-column="49" selection-end-line="492" selection-end-column="49" />
+          <folding>
+            <element signature="e#1217#1221#0" expanded="false" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/rs/pedjaapps/kerneltuner/services/StartupService.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="0.0" vertical-offset="2232" max-vertical-offset="3816">
+          <caret line="182" column="71" selection-start-line="182" selection-start-column="71" selection-end-line="182" selection-end-column="71" />
+          <folding>
+            <element signature="e#10143#10147#0" expanded="false" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/todo">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="0.0" vertical-offset="0" max-vertical-offset="378">
+          <caret line="8" column="15" selection-start-line="8" selection-start-column="15" selection-end-line="8" selection-end-column="15" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/AndroidManifest.xml">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="0.0" vertical-offset="0" max-vertical-offset="8388">
+          <caret line="5" column="32" selection-start-line="5" selection-start-column="32" selection-end-line="5" selection-end-column="32" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
     <entry file="file://$PROJECT_DIR$/src/rs/pedjaapps/kerneltuner/model/NM.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.0" vertical-offset="0" max-vertical-offset="630">
-          <caret line="8" column="52" selection-start-line="8" selection-start-column="52" selection-end-line="8" selection-end-column="52" />
+        <state vertical-scroll-proportion="0.0" vertical-offset="35" max-vertical-offset="648">
+          <caret line="10" column="55" selection-start-line="10" selection-start-column="55" selection-end-line="10" selection-end-column="55" />
           <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/res/layout/list_item_cpu.xml">
+      <provider editor-type-id="text-editor">
+        <state vertical-scroll-proportion="0.0" vertical-offset="0" max-vertical-offset="576">
+          <caret line="0" column="0" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
+          <folding />
+        </state>
+      </provider>
+      <provider selected="true" editor-type-id="android-designer">
+        <state />
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/res/layout/list_item_switch.xml">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="0.8372093" vertical-offset="108" max-vertical-offset="576">
+          <caret line="22" column="35" selection-start-line="22" selection-start-column="35" selection-end-line="22" selection-end-column="35" />
+          <folding />
+        </state>
+      </provider>
+      <provider editor-type-id="android-designer">
+        <state />
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/rs/pedjaapps/kerneltuner/adapter/NMAdapter.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="0.0" vertical-offset="828" max-vertical-offset="1764">
+          <caret line="77" column="0" selection-start-line="77" selection-start-column="0" selection-end-line="77" selection-end-column="0" />
+          <folding>
+            <element signature="imports" expanded="true" />
+            <element signature="e#631#632#0" expanded="true" />
+            <element signature="e#787#788#0" expanded="true" />
+            <element signature="e#828#829#0" expanded="true" />
+            <element signature="e#874#875#0" expanded="true" />
+            <element signature="e#889#890#0" expanded="true" />
+            <element signature="e#1488#1493#0" expanded="true" />
+            <element signature="e#1783#1788#0" expanded="true" />
+            <element signature="e#2267#2268#0" expanded="true" />
+            <element signature="e#2316#2317#0" expanded="true" />
+          </folding>
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/src/rs/pedjaapps/kerneltuner/ui/NetworkManagerActivity.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.39285713" vertical-offset="595" max-vertical-offset="3762">
-          <caret line="66" column="0" selection-start-line="66" selection-start-column="0" selection-end-line="66" selection-end-column="0" />
+        <state vertical-scroll-proportion="0.78571427" vertical-offset="1208" max-vertical-offset="4302">
+          <caret line="83" column="23" selection-start-line="83" selection-start-column="23" selection-end-line="83" selection-end-column="23" />
           <folding>
-            <element signature="e#1656#1657#0" expanded="true" />
-            <element signature="e#1694#1695#0" expanded="true" />
-            <element signature="e#1954#1977#0" expanded="true" />
-            <element signature="e#2155#2189#0" expanded="true" />
-            <element signature="e#3503#3533#0" expanded="true" />
-            <element signature="e#3887#3925#0" expanded="true" />
-            <element signature="e#3927#4197#0" expanded="true" />
-            <element signature="e#4186#4187#0" expanded="true" />
-            <element signature="e#4234#4275#0" expanded="true" />
-            <element signature="e#4277#4281#0" expanded="true" />
-            <element signature="e#4493#4529#0" expanded="true" />
-            <element signature="e#4566#4581#0" expanded="true" />
-            <element signature="e#4583#4587#0" expanded="true" />
-            <element signature="e#4684#4941#0" expanded="true" />
-            <element signature="e#4930#4931#0" expanded="true" />
-            <element signature="e#7020#7021#0" expanded="true" />
-            <element signature="e#7065#7066#0" expanded="true" />
-            <element signature="e#7132#7133#0" expanded="true" />
-            <element signature="e#7193#7194#0" expanded="true" />
+            <element signature="imports" expanded="true" />
+            <element signature="e#1652#1653#0" expanded="true" />
+            <element signature="e#1690#1691#0" expanded="true" />
+            <element signature="e#1948#1971#0" expanded="true" />
+            <element signature="e#2147#2181#0" expanded="true" />
+            <element signature="e#3401#3431#0" expanded="true" />
+            <element signature="e#3785#3823#0" expanded="true" />
+            <element signature="e#3825#4095#0" expanded="true" />
+            <element signature="e#4084#4085#0" expanded="true" />
+            <element signature="e#4132#4173#0" expanded="true" />
+            <element signature="e#4175#4179#0" expanded="true" />
+            <element signature="e#4395#4436#0" expanded="true" />
+            <element signature="e#4473#4488#0" expanded="true" />
+            <element signature="e#4490#4494#0" expanded="true" />
+            <element signature="e#4599#4860#0" expanded="true" />
+            <element signature="e#4849#4850#0" expanded="true" />
+            <element signature="e#5096#5111#0" expanded="true" />
+            <element signature="e#5113#5117#0" expanded="true" />
+            <element signature="e#5165#5193#0" expanded="true" />
+            <element signature="e#5195#5222#0" expanded="true" />
+            <element signature="e#5257#6725#0" expanded="true" />
+            <element signature="e#6714#6715#0" expanded="true" />
+            <element signature="e#6927#6928#0" expanded="true" />
+            <element signature="e#6972#6973#0" expanded="true" />
+            <element signature="e#7039#7040#0" expanded="true" />
+            <element signature="e#7100#7101#0" expanded="true" />
           </folding>
         </state>
       </provider>

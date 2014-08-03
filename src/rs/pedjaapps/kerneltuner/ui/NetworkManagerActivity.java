@@ -19,10 +19,10 @@ import java.util.List;
 
 import rs.pedjaapps.kerneltuner.Constants;
 import rs.pedjaapps.kerneltuner.R;
-import rs.pedjaapps.kerneltuner.adapter.MiscAdapter;
+import rs.pedjaapps.kerneltuner.adapter.NMAdapter;
 import rs.pedjaapps.kerneltuner.adapter.NMAdapter;
 import rs.pedjaapps.kerneltuner.helpers.IOHelper;
-import rs.pedjaapps.kerneltuner.model.Misc;
+import rs.pedjaapps.kerneltuner.model.NM;
 import rs.pedjaapps.kerneltuner.model.NM;
 import rs.pedjaapps.kerneltuner.root.RCommand;
 import rs.pedjaapps.kerneltuner.root.RootUtils;
@@ -61,17 +61,27 @@ public class NetworkManagerActivity extends AbsActivity implements AdapterView.O
         if (IOHelper.tcpCongestionControlAvailable())
         {
             nm = new NM();
-            nm.setType(Misc.TYPE_HEADER);
+            nm.setType(NM.TYPE_HEADER);
             nm.setTitle(getString(R.string.tcp));
             list.add(nm);
 
             nm = new NM();
-            nm.setType(Misc.TYPE_ITEM);
+            nm.setType(NM.TYPE_ITEM);
             nm.setItemType(NM.ITEM_TYPE_TCP_CONGESTION);
             nm.setTitle(getString(R.string.tcp_congestion));
             nm.setValue(IOHelper.getTcpCongestion());
             list.add(nm);
         }
+        /*nm = new NM();
+        nm.setType(NM.TYPE_HEADER);
+        nm.setTitle(getString(R.string.adb));
+        list.add(nm);
+
+        nm = new NM();
+        nm.setType(NM.TYPE_ITEM);
+        nm.setItemType(NM.ITEM_TYPE_ADB_WIRELESS);
+        nm.setTitle();
+        list.add(nm);*/
 
         return list;
     }
@@ -93,26 +103,16 @@ public class NetworkManagerActivity extends AbsActivity implements AdapterView.O
     {
         //we don't check whether its a header or item because header cant be clicked
         //(isEnabled returns false for header in adapter)
-        /*Misc misc = mListAdapter.getItem(i);
-        switch (misc.getItemType())
+        NM nm = mListAdapter.getItem(i);
+        switch (nm.getItemType())
         {
-            case Misc.ITEM_TYPE_SCHEDULER:
-                showSelectSchedulerDialog();
+            case NM.ITEM_TYPE_TCP_CONGESTION:
+                showSelectTcpCongestionDialog();
                 break;
-            case Misc.ITEM_TYPE_SD_READ_AHEAD:
-                showSetReadAheadDialog(misc);
-                break;
-            case Misc.ITEM_TYPE_DT2W:
-            case Misc.ITEM_TYPE_S2W:
-            case Misc.ITEM_TYPE_FASTCHARGE:
-            case Misc.ITEM_TYPE_VSYNC:
-            case Misc.ITEM_TYPE_OTG:
-                showToggleDialog(misc);
-                break;
-        }*/
+        }
     }
 
-    private void showSetReadAheadDialog(Misc misc)
+    private void showSetReadAheadDialog(NM misc)
     {
         AlertDialog.Builder builder = new AlertDialog.Builder(this);
 
@@ -139,26 +139,26 @@ public class NetworkManagerActivity extends AbsActivity implements AdapterView.O
     }
 
 
-    private void showSelectSchedulerDialog()
+    private void showSelectTcpCongestionDialog()
     {
         AlertDialog.Builder builder = new AlertDialog.Builder(this);
-        builder.setTitle(getString(R.string.select_scheduler));
+        builder.setTitle(getString(R.string.select_tcp_congestion));
         builder.setNegativeButton(R.string.cancel, null);
 
-        final String[] items = IOHelper.schedulersAsArray();
+        final String[] items = IOHelper.getTcpAvailableCongestion();
         builder.setItems(items, new DialogInterface.OnClickListener()
         {
             @Override
             public void onClick(DialogInterface dialogInterface, int i)
             {
-                RCommand.setScheduler(items[i], NetworkManagerActivity.this);
+                RCommand.setTcpCongestion(items[i], NetworkManagerActivity.this);
             }
         });
 
         builder.show();
     }
 
-    private void showToggleDialog(final Misc misc)
+    private void showToggleDialog(final NM misc)
     {
         AlertDialog.Builder builder = new AlertDialog.Builder(this);
         builder.setTitle(misc.getTitle());
@@ -172,7 +172,7 @@ public class NetworkManagerActivity extends AbsActivity implements AdapterView.O
             {
                 switch (misc.getItemType())
                 {
-                    /*case Misc.ITEM_TYPE_S2W:
+                    /*case NM.ITEM_TYPE_S2W:
                         switch (s2wMethod)
                         {
                             case std:
@@ -185,16 +185,16 @@ public class NetworkManagerActivity extends AbsActivity implements AdapterView.O
                                 break;
                         }
                         break;
-                    case Misc.ITEM_TYPE_DT2W:
+                    case NM.ITEM_TYPE_DT2W:
                         RCommand.setDt2w(i, NetworkManagerActivity.this);
                         break;
-                    case Misc.ITEM_TYPE_FASTCHARGE:
+                    case NM.ITEM_TYPE_FASTCHARGE:
                         RCommand.setFastcharge(i, NetworkManagerActivity.this);
                         break;
-                    case Misc.ITEM_TYPE_VSYNC:
+                    case NM.ITEM_TYPE_VSYNC:
                         RCommand.setVsync(i, NetworkManagerActivity.this);
                         break;
-                    case Misc.ITEM_TYPE_OTG:
+                    case NM.ITEM_TYPE_OTG:
                         RCommand.setOtg(i, NetworkManagerActivity.this);
                         break;*/
                 }

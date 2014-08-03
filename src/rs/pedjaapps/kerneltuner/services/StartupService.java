@@ -180,6 +180,7 @@ public class StartupService extends Service
         RCommand.setFastcharge(PrefsManager.getFastcharge(), null);
         RCommand.setVsync(PrefsManager.getVsync(), null);
         RCommand.setOtg(PrefsManager.getOtg(), null);
+        RCommand.setTcpCongestion(PrefsManager.getTcpCongestion(), null);
 
         Voltage voltage = db.getVoltageByName("boot");
         if(voltage != null)

@@ -22,7 +22,8 @@ public class PrefsManager
         main_show_toggles, main_show_buttons, temp_unit, show_ads, show_cpu_options_dialog, cpu_enable_all,
         cpu_disable_all, hide_unsupported_items, notification_service, cpu_show_all_cores, gpu_3d, gpu_2d,
         gpu_governor, mpdec_idle_freq, mpdec_enabled, mpdec_max_cpus, mpdec_min_cpus, mpdec_sosc,
-        mpdec_sof, mpdec_pause, mpdec_delay, scheduler, readahead, dt2w, s2w, otg, vsync, fastcharge
+        mpdec_sof, mpdec_pause, mpdec_delay, scheduler, readahead, dt2w, s2w, otg, vsync, fastcharge,
+        tcp_congestion
     }
 
     public static long getCpuRefreshInterval()
@@ -478,5 +479,17 @@ public class PrefsManager
     public static int getOtg()
     {
         return prefs.getInt(Key.otg.toString(), -1);
+    }
+
+    public static void setTcpCongestion(String tcp)
+    {
+        SharedPreferences.Editor editor = prefs.edit();
+        editor.putString(Key.tcp_congestion.toString(), tcp);
+        editor.apply();
+    }
+
+    public static String getTcpCongestion()
+    {
+        return prefs.getString(Key.tcp_congestion.toString(), null);
     }
 }

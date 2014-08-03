@@ -204,4 +204,13 @@ public class RCommand
     {
         return Arrays.asList(readFileContentAsLineArray(path));
     }
+
+    public static void setTcpCongestion(String tcp, RootUtils.CommandCallback callback)
+    {
+        PrefsManager.setTcpCongestion(tcp);
+        new RootUtils().exec(callback,
+                "chmod 777 " + Constants.TCP_CONGESTION,
+                "echo " + tcp + " > " + Constants.TCP_CONGESTION);
+    }
+
 }

@@ -11,7 +11,7 @@ import android.widget.TextView;
 import java.util.List;
 
 import rs.pedjaapps.kerneltuner.R;
-import rs.pedjaapps.kerneltuner.model.Misc;
+import rs.pedjaapps.kerneltuner.model.NM;
 import rs.pedjaapps.kerneltuner.model.NM;
 
 public class NMAdapter extends ArrayAdapter<NM> implements PinnedSectionListView.PinnedSectionListAdapter
@@ -39,7 +39,7 @@ public class NMAdapter extends ArrayAdapter<NM> implements PinnedSectionListView
     @Override
     public boolean isEnabled(int position)
     {
-        return getItemViewType(position) == Misc.TYPE_ITEM
+        return getItemViewType(position) == NM.TYPE_ITEM
                 && getItem(position).getItemType() != NM.ITEM_TYPE_INFO
                 && getItemViewType(position) != NM.TYPE_ITEM_SWITCH;
     }
@@ -48,7 +48,7 @@ public class NMAdapter extends ArrayAdapter<NM> implements PinnedSectionListView
 	public View getView(int position, View convertView, ViewGroup parent)
 	{
         NM item = getItem(position);
-		if(getItem(position).getType() == Misc.TYPE_HEADER)
+		if(getItem(position).getType() == NM.TYPE_HEADER)
 		{
 
 			if(convertView == null || convertView.getId() != R.id.tvHeader)
@@ -57,7 +57,7 @@ public class NMAdapter extends ArrayAdapter<NM> implements PinnedSectionListView
 			}
 			((TextView)convertView).setText(item.getTitle());
 		}
-		else if(getItem(position).getType() == Misc.TYPE_ITEM)
+		else if(getItem(position).getType() == NM.TYPE_ITEM)
 		{
 			ViewHolder holder;
 			if(convertView == null   || convertView.getId() != R.id.llContainer)
@@ -81,7 +81,7 @@ public class NMAdapter extends ArrayAdapter<NM> implements PinnedSectionListView
     @Override
     public boolean isItemViewTypePinned(int viewType)
     {
-        return viewType == Misc.TYPE_HEADER;
+        return viewType == NM.TYPE_HEADER;
     }
 
     class ViewHolder

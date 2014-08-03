@@ -786,5 +786,8 @@
     <string name="tcp">tcp</string>
     <string name="tcp_congestion">TCP Congestion</string>
     <string name="title_activity_network_manager">Network Manager</string>
+    <string name="select_tcp_congestion">Select TCP Congestion</string>
+    <string name="adb">ADB</string>
+    <string name="adb_wireless">ADB Over WiFi</string>
 
 </resources>
