@@ -42,8 +42,9 @@ import com.crashlytics.android.Crashlytics;
 import com.stericson.RootTools.RootTools;
 
 import rs.pedjaapps.kerneltuner.R;
+import rs.pedjaapps.kerneltuner.ui.AbsActivity;
 
-public class ADBWirelessActivity extends Activity
+public class ADBWirelessActivity extends AbsActivity
 {
 
     public static final String PORT = "5555";
