@@ -9,6 +9,7 @@ public class NM
 	public static final int ITEM_TYPE_TCP_CONGESTION = -1;
     public static final int ITEM_TYPE_INFO = -12;
     public static final int ITEM_TYPE_ADB_WIRELESS = -2;
+    public static final int ITEM_TYPE_PHONE_INFO = -3;
 
     private int type, itemType;
 	private String title, value;

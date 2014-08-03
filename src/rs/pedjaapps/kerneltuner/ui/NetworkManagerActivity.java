@@ -82,6 +82,18 @@ public class NetworkManagerActivity extends AbsActivity implements AdapterView.O
         nm.setValue(getString(R.string.adb_wireless_desc));
         list.add(nm);
 
+        nm = new NM();
+        nm.setType(NM.TYPE_HEADER);
+        nm.setTitle(getString(R.string.nm_info));
+        list.add(nm);
+
+        nm = new NM();
+        nm.setType(NM.TYPE_ITEM);
+        nm.setItemType(NM.ITEM_TYPE_PHONE_INFO);
+        nm.setTitle(getString(R.string.phone_info));
+        nm.setValue(getString(R.string.phone_info_desc));
+        list.add(nm);
+
         return list;
     }
 
@@ -110,6 +122,11 @@ public class NetworkManagerActivity extends AbsActivity implements AdapterView.O
                 break;
             case NM.ITEM_TYPE_ADB_WIRELESS:
                 startActivity(new Intent(this, ADBWirelessActivity.class));
+                break;
+            case NM.ITEM_TYPE_PHONE_INFO:
+                Intent intent = new Intent();
+                intent.setClassName("com.android.settings", "com.android.settings.RadioInfo");
+                startActivity(intent);
                 break;
         }
     }

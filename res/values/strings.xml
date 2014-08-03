@@ -874,6 +874,9 @@
     <string name="default_screenon">false</string>
     <string name="pref_screenon_key">key_screenon</string>
     <string name="adb_wireless_desc">Use ADB Over WiFi</string>
+    <string name="phone_info">Phone Info</string>
+    <string name="phone_info_desc">Launches \'Phone Info\' Screen</string>
+    <string name="nm_info">Info</string>
     <!-- End 1.5.4 -->
 
 </resources>
