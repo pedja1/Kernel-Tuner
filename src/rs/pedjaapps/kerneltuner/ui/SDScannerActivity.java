@@ -155,7 +155,7 @@ public class SDScannerActivity extends AbsActivity
             else if("set_progress".equals(values[0]))
             {
                 pd.setMessage(values[1]);
-                pd.setProgress(Integer.parseInt(values[2]));
+                pd.setProgress(Tools.parseInt(values[2], 0));
             }
             super.onProgressUpdate();
         }

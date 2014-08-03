@@ -2,8 +2,8 @@
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
     package="rs.pedjaapps.kerneltuner"
     android:installLocation="internalOnly"
-    android:versionCode="20140802"
-    android:versionName="1.0.0.2" >
+    android:versionCode="20140803"
+    android:versionName="1.0.0.3" >
 
     <uses-sdk
         android:minSdkVersion="14"
@@ -113,7 +113,7 @@
 
         <service
             android:name=".services.StartupService"
-            android:exported="false" >
+            android:exported="true" >
             <intent-filter>
                 <action android:name="rs.pedjaapps.kerneltuner.StartupService" />
             </intent-filter>
@@ -148,16 +148,6 @@
             <intent-filter>
                 <action android:name="rs.pedjaapps.kerneltuner.GPU" />
 
-                <category android:name="android.intent.category.DEFAULT" />
-            </intent-filter>
-        </activity>
-        <activity
-            android:name=".ui.MiscTweaks"
-            android:icon="@drawable/misc"
-            android:label="@string/title_misc"
-            android:uiOptions="splitActionBarWhenNarrow" >
-            <intent-filter>
-                <action android:name="rs.pedjaapps.kerneltuner.MISC_TWEAKS" />
                 <category android:name="android.intent.category.DEFAULT" />
             </intent-filter>
         </activity>
@@ -451,6 +441,15 @@
         <activity
             android:name=".ui.MiscTweaksActivity"
             android:label="@string/title_activity_misc_tweaks"
+            android:parentActivityName=".ui.MainActivity" >
+            <meta-data
+                android:name="android.support.PARENT_ACTIVITY"
+                android:value="rs.pedjaapps.kerneltuner.ui.MainActivity" />
+        </activity>
+
+        <activity
+            android:name=".ui.NetworkManagerActivity"
+            android:label="@string/title_activity_network_manager"
             android:parentActivityName=".ui.MainActivity" >
             <meta-data
                 android:name="android.support.PARENT_ACTIVITY"

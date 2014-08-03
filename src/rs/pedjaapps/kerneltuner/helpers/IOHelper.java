@@ -667,7 +667,7 @@ public class IOHelper
             for (String strLine : lines)
             {
                 String[] delims = strLine.split(" ");
-                times.add(new TimesEntry(Integer.parseInt(delims[0]), Long.parseLong(delims[1])));
+                times.add(new TimesEntry(Tools.parseInt(delims[0], 0), Long.parseLong(delims[1])));
                 //System.out.println(strLine);
             }
         }
@@ -1137,7 +1137,7 @@ public class IOHelper
     {
         try
         {
-            return Integer.parseInt(RCommand.readFileContent(Constants.SD_CACHE).trim());
+            return Tools.parseInt(RCommand.readFileContent(Constants.SD_CACHE).trim(), 0);
         }
         catch (Exception e)
         {
@@ -1219,7 +1219,7 @@ public class IOHelper
     {
         try
         {
-            return Integer.parseInt(RCommand.readFileContent(Constants.BATTERY_LEVEL).trim());
+            return Tools.parseInt(RCommand.readFileContent(Constants.BATTERY_LEVEL).trim(), 0);
         }
         catch (Exception e)
         {
@@ -1286,11 +1286,11 @@ public class IOHelper
             File file2 = new File(Constants.BATTERY_VOLTAGE2);
             if (file1.exists())
             {
-                return Integer.parseInt(RCommand.readFileContent(file1.getAbsolutePath()).trim());
+                return Tools.parseInt(RCommand.readFileContent(file1.getAbsolutePath()).trim(), 0);
             }
             else if (file2.exists())
             {
-                return Integer.parseInt(RCommand.readFileContent(file2.getAbsolutePath()).trim()) / 1000;
+                return Tools.parseInt(RCommand.readFileContent(file2.getAbsolutePath()).trim(), 0) / 1000;
             }
             else
             {
@@ -1359,7 +1359,7 @@ public class IOHelper
     {
         try
         {
-            return Integer.parseInt(RCommand.readFileContent(Constants.BATTERY_CHARGING_SOURCE).trim());
+            return Tools.parseInt(RCommand.readFileContent(Constants.BATTERY_CHARGING_SOURCE).trim(), 0);
         }
         catch (Exception e)
         {

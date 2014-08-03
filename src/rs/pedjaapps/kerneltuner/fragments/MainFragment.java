@@ -185,6 +185,13 @@ public class MainFragment extends Fragment
                 getResources().getString(R.string.info_profiles_text), "",
                 false));*/
 
+        Button network = (Button) view.findViewById(R.id.btnNetwork);
+        network.setOnClickListener(new StartActivityListener(NetworkManagerActivity.class));
+        network.setOnLongClickListener(new InfoListener(R.drawable.main_network,
+                getResources().getString(R.string.info_network_title),
+                getResources().getString(R.string.info_network_text), "",
+                false));
+
         Button thermal = (Button) view.findViewById(R.id.btn_thermal);
         thermal.setOnClickListener(new StartActivityListener(Thermald.class));
 

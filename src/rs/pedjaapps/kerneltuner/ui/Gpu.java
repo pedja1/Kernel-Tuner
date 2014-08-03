@@ -35,6 +35,7 @@ import java.util.List;
 import rs.pedjaapps.kerneltuner.R;
 import rs.pedjaapps.kerneltuner.root.RCommand;
 import rs.pedjaapps.kerneltuner.utility.PrefsManager;
+import rs.pedjaapps.kerneltuner.utility.Tools;
 
 import android.widget.SeekBar;
 
@@ -237,12 +238,12 @@ public class Gpu extends Activity
 	{
 		try
 		{
-			return Integer.parseInt(RCommand.readFileContent(path).trim());
+			return Tools.parseInt(RCommand.readFileContent(path).trim(), 0);
 		}
 		catch (Exception e)
 		{
 			return 0;
-				}
+        }
 	}
     
 }

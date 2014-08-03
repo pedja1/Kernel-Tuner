@@ -245,8 +245,8 @@ public class SystemInfoFragment extends Fragment
         {
             reader = new RandomAccessFile("/proc/meminfo", "r");
             load = reader.readLine();
-            mem = Integer.parseInt(load.substring(load.indexOf(":") + 1,
-                    load.lastIndexOf(" ")).trim()) / 1024;
+            mem = Tools.parseInt(load.substring(load.indexOf(":") + 1,
+                    load.lastIndexOf(" ")).trim(), 0) / 1024;
         }
         catch (IOException ex)
         {

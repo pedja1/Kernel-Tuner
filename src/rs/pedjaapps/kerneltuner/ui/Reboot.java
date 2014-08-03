@@ -30,15 +30,14 @@ import android.os.Bundle;
 
 public class Reboot extends Activity
 {
-	private String reboot;
-	
 
-	@Override
+
+    @Override
 	public void onCreate(Bundle savedInstanceState)
 	{
 		super.onCreate(savedInstanceState);
 		Intent intent = getIntent();
-		reboot = intent.getExtras().getString("reboot");
+        String reboot = intent.getExtras().getString("reboot");
 		
 		CommandCapture command = new CommandCapture(0,
             getFilesDir().getPath()+"/reboot " + reboot);

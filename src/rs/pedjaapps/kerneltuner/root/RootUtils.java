@@ -55,7 +55,7 @@ public class RootUtils
 
     public enum Status
     {
-        success, no_root, timeout, io_exception
+        success, no_root, timeout, io_exception, unknown_error
     }
 
     public void exec(final CommandCallback callback, String... commands)
@@ -125,6 +125,19 @@ public class RootUtils
                         {
                             if (callback != null)
                                 callback.onComplete(Status.no_root, output.toString());
+                            reset();
+                        }
+                    });
+                }
+                catch (Exception e)
+                {
+                    handler.post(new Runnable()
+                    {
+                        @Override
+                        public void run()
+                        {
+                            if (callback != null)
+                                callback.onComplete(Status.unknown_error, output.toString());
                             reset();
                         }
                     });

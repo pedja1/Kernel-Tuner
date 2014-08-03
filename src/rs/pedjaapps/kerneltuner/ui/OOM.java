@@ -293,12 +293,12 @@ public class OOM extends Activity {
 
 	public final void updateUI(){
 		try{
-		foreground = Integer.parseInt(oom.get(0).trim()) * 4 / 1024;
-		visible = Integer.parseInt(oom.get(1).trim()) * 4 / 1024;
-		secondary = Integer.parseInt(oom.get(2).trim()) * 4 / 1024;
-		hidden = Integer.parseInt(oom.get(3).trim()) * 4 / 1024;
-		content = Integer.parseInt(oom.get(4).trim()) * 4 / 1024;
-		empty = Integer.parseInt(oom.get(5).trim()) * 4 / 1024;
+		foreground = Tools.parseInt(oom.get(0).trim(), 0) * 4 / 1024;
+		visible = Tools.parseInt(oom.get(1).trim(), 0) * 4 / 1024;
+		secondary = Tools.parseInt(oom.get(2).trim(), 0) * 4 / 1024;
+		hidden = Tools.parseInt(oom.get(3).trim(), 0) * 4 / 1024;
+		content = Tools.parseInt(oom.get(4).trim(), 0) * 4 / 1024;
+		empty = Tools.parseInt(oom.get(5).trim(), 0) * 4 / 1024;
 		}
 		catch(Exception e){
 			foreground=0;
@@ -538,7 +538,7 @@ public class OOM extends Activity {
 				{
 					switch(option){
 					case 0:
-						new setOOM().execute(Tools.mbToPages(Integer.parseInt(input.getText().toString())),
+						new setOOM().execute(Tools.mbToPages(Tools.parseInt(input.getText().toString(), 0)),
                                 Tools.mbToPages(visibleSeek.getProgress()),
                                 Tools.mbToPages(secondarySeek.getProgress()),
                                 Tools.mbToPages(hiddenSeek.getProgress()),
@@ -547,7 +547,7 @@ public class OOM extends Activity {
 						break;
 					case 1:
 						new setOOM().execute(Tools.mbToPages(foregroundSeek.getProgress()),
-                                Tools.mbToPages(Integer.parseInt(input.getText().toString())),
+                                Tools.mbToPages(Tools.parseInt(input.getText().toString(), 0)),
                                 Tools.mbToPages(secondarySeek.getProgress()),
                                 Tools.mbToPages(hiddenSeek.getProgress()),
                                 Tools.mbToPages(contentSeek.getProgress()),
@@ -556,7 +556,7 @@ public class OOM extends Activity {
 					case 2:
 						new setOOM().execute(Tools.mbToPages(foregroundSeek.getProgress()),
                                 Tools.mbToPages(visibleSeek.getProgress()),
-                                Tools.mbToPages(Integer.parseInt(input.getText().toString())),
+                                Tools.mbToPages(Tools.parseInt(input.getText().toString(), 0)),
                                 Tools.mbToPages(hiddenSeek.getProgress()),
                                 Tools.mbToPages(contentSeek.getProgress()),
                                 Tools.mbToPages(emptySeek.getProgress()));
@@ -565,7 +565,7 @@ public class OOM extends Activity {
 						new setOOM().execute(Tools.mbToPages(foregroundSeek.getProgress()),
                                 Tools.mbToPages(visibleSeek.getProgress()),
                                 Tools.mbToPages(secondarySeek.getProgress()),
-                                Tools.mbToPages(Integer.parseInt(input.getText().toString())),
+                                Tools.mbToPages(Tools.parseInt(input.getText().toString(), 0)),
                                 Tools.mbToPages(contentSeek.getProgress()),
                                 Tools.mbToPages(emptySeek.getProgress()));
 						break;
@@ -574,7 +574,7 @@ public class OOM extends Activity {
                                 Tools.mbToPages(visibleSeek.getProgress()),
                                 Tools.mbToPages(secondarySeek.getProgress()),
                                 Tools.mbToPages(hiddenSeek.getProgress()),
-                                Tools.mbToPages(Integer.parseInt(input.getText().toString())),
+                                Tools.mbToPages(Tools.parseInt(input.getText().toString(), 0)),
                                 Tools.mbToPages(emptySeek.getProgress()));
 						break;
 					case 5:
@@ -583,7 +583,7 @@ public class OOM extends Activity {
                                 Tools.mbToPages(secondarySeek.getProgress()),
                                 Tools.mbToPages(hiddenSeek.getProgress()),
                                 Tools.mbToPages(contentSeek.getProgress()),
-                                Tools.mbToPages(Integer.parseInt(input.getText().toString())));
+                                Tools.mbToPages(Tools.parseInt(input.getText().toString(), 0)));
 						break;
 						
 					}

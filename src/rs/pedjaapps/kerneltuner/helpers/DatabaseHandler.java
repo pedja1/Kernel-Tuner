@@ -217,7 +217,7 @@ public class DatabaseHandler extends SQLiteOpenHelper
 		{
             do {
 				SysCtl entry = new SysCtl();
-                entry.setId(Integer.parseInt(cursor.getString(0)));
+                entry.setId(cursor.getInt(0));
                 entry.setKey(cursor.getString(1));
                 entry.setValue(cursor.getString(2));
 
@@ -300,7 +300,7 @@ public class DatabaseHandler extends SQLiteOpenHelper
         if (cursor != null)
             cursor.moveToFirst();
 
-        Profile profile = new Profile(Integer.parseInt(cursor.getString(0)),
+        Profile profile = new Profile(cursor.getInt(0),
 									  cursor.getString(1),
 									  cursor.getString(2),
 									  cursor.getString(3), 
@@ -371,7 +371,7 @@ public class DatabaseHandler extends SQLiteOpenHelper
         if (cursor != null)
             cursor.moveToFirst();
 
-        Profile profile = new Profile(Integer.parseInt(cursor.getString(0)),
+        Profile profile = new Profile(cursor.getInt(0),
 									  cursor.getString(1),
 									  cursor.getString(2),
 									  cursor.getString(3), 
@@ -420,7 +420,7 @@ public class DatabaseHandler extends SQLiteOpenHelper
 		{
             do {
 				Profile profile = new Profile();
-                profile.setID(Integer.parseInt(cursor.getString(0)));
+                profile.setID(cursor.getInt(0));
                 profile.setName(cursor.getString(1));
                 profile.setCpu0min(cursor.getString(2));
                 profile.setCpu0max(cursor.getString(3));

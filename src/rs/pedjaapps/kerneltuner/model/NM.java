@@ -6,14 +6,7 @@ public class NM
 	public static final int TYPE_ITEM = 1;
     public static final int TYPE_ITEM_SWITCH = 2;
 	
-	public static final int ITEM_TYPE_SCHEDULER = -1;
-    public static final int ITEM_TYPE_SD_READ_AHEAD = -2;
-    public static final int ITEM_TYPE_DT2W = -3;
-    public static final int ITEM_TYPE_S2W = -4;
-    public static final int ITEM_TYPE_FASTCHARGE = -5;
-    public static final int ITEM_TYPE_VSYNC = -6;
-    public static final int ITEM_TYPE_OTG = -7;
-    public static final int ITEM_TYPE_CD = -8;
+	public static final int ITEM_TYPE_TCP_CONGESTION = -1;
     public static final int ITEM_TYPE_INFO = -12;
 	
 	private int type, itemType;

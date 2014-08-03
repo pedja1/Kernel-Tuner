@@ -35,6 +35,7 @@ import rs.pedjaapps.kerneltuner.R;
 import rs.pedjaapps.kerneltuner.Constants;
 import rs.pedjaapps.kerneltuner.root.RCommand;
 import rs.pedjaapps.kerneltuner.utility.PrefsManager;
+import rs.pedjaapps.kerneltuner.utility.Tools;
 
 public class GpuSGX540 extends Activity
 {
@@ -143,7 +144,7 @@ public class GpuSGX540 extends Activity
 	{
 		try
 		{
-			return Integer.parseInt(RCommand.readFileContent(path).trim());
+			return Tools.parseInt(RCommand.readFileContent(path).trim(), 0);
 		}
 		catch (Exception e)
 		{

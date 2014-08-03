@@ -54,199 +54,26 @@ public class NetworkManagerActivity extends AbsActivity implements AdapterView.O
         onComplete(null, null);
     }
 
-    private List<Misc> populateList()
+    private List<NM> populateList()
     {
-        List<Misc> list = new ArrayList<>();
-        Misc misc;
+        List<NM> list = new ArrayList<>();
+        NM nm;
         if (IOHelper.tcpCongestionControlAvailable())
         {
-            misc = new Misc();
-            misc.setType(Misc.TYPE_HEADER);
-            misc.setTitle(getString(R.string.tcp));
-            list.add(misc);
+            nm = new NM();
+            nm.setType(Misc.TYPE_HEADER);
+            nm.setTitle(getString(R.string.tcp));
+            list.add(nm);
 
-            misc = new Misc();
-            misc.setType(Misc.TYPE_ITEM);
-            misc.setItemType(Misc.ITEM_TYPE_SCHEDULER);
-            misc.setTitle(getString(R.string.tcp_congestion));
-            misc.setValue(IOHelper.getTcpCongestion());
-            list.add(misc);
+            nm = new NM();
+            nm.setType(Misc.TYPE_ITEM);
+            nm.setItemType(NM.ITEM_TYPE_TCP_CONGESTION);
+            nm.setTitle(getString(R.string.tcp_congestion));
+            nm.setValue(IOHelper.getTcpCongestion());
+            list.add(nm);
         }
 
-        if (IOHelper.sdcacheExists())
-        {
-            misc = new Misc();
-            misc.setType(Misc.TYPE_ITEM);
-            misc.setItemType(Misc.ITEM_TYPE_SD_READ_AHEAD);
-            misc.setTitle(getString(R.string.read_ahead_cache_size));
-            misc.setValue(IOHelper.sdCache() + "KB");
-            list.add(misc);
-        }
-
-        if (IOHelper.s2wExists() || IOHelper.dt2wExists())
-        {
-            misc = new Misc();
-            misc.setType(Misc.TYPE_HEADER);
-            misc.setTitle(getString(R.string.s2w_dt2w));
-            list.add(misc);
-
-            if(IOHelper.dt2wExists())
-            {
-                misc = new Misc();
-                misc.setType(Misc.TYPE_ITEM);
-                misc.setItemType(Misc.ITEM_TYPE_DT2W);
-                misc.setTitle(getString(R.string.doubletap2wake));
-                misc.setValue(getDescForDt2w());
-                list.add(misc);
-            }
-            if(IOHelper.s2wExists())
-            {
-                misc = new Misc();
-                misc.setType(Misc.TYPE_ITEM);
-                misc.setItemType(Misc.ITEM_TYPE_S2W);
-                misc.setTitle(getString(R.string.sweep2wake));
-                misc.setValue(getDescForS2w());
-                list.add(misc);
-            }
-        }
-        misc = new Misc();
-        misc.setType(Misc.TYPE_HEADER);
-        misc.setTitle(getString(R.string.other));
-        list.add(misc);
-
-        if (IOHelper.fchargeExists())
-        {
-            misc = new Misc();
-            misc.setType(Misc.TYPE_ITEM);
-            misc.setItemType(Misc.ITEM_TYPE_FASTCHARGE);
-            misc.setTitle(getString(R.string.fastcharge));
-            misc.setValue(getDescForFastcharge());
-            list.add(misc);
-        }
-
-        if (IOHelper.vsyncExists())
-        {
-            misc = new Misc();
-            misc.setType(Misc.TYPE_ITEM);
-            misc.setItemType(Misc.ITEM_TYPE_VSYNC);
-            misc.setTitle(getString(R.string.vsync));
-            misc.setValue(getDescForVsync());
-            list.add(misc);
-        }
-
-        if (IOHelper.otgExists())
-        {
-            misc = new Misc();
-            misc.setType(Misc.TYPE_ITEM);
-            misc.setItemType(Misc.ITEM_TYPE_OTG);
-            misc.setTitle(getString(R.string.otg_with_standard_usb));
-            misc.setValue(getDescForOtg());
-            list.add(misc);
-        }
-        /*if (IOHelper.cdExists())
-        {
-            misc = new Misc();
-            misc.setType(Misc.TYPE_ITEM);
-            misc.setItemType(Misc.ITEM_TYPE_CD);
-            misc.setTitle(getString(R.string.color_depth));
-            misc.setValue(getDescForColorDepth());
-            list.add(misc);
-        }*/
         return list;
-    }
-
-    private String getDescForDt2w()
-    {
-        int dt2w = IOHelper.dt2w();
-        switch (dt2w)
-        {
-            case 0:
-                return getString(R.string.disabled);
-            case 1:
-                return getString(R.string.enabled);
-            default:
-                return getString(R.string.unknown);
-        }
-    }
-
-    private String getDescForColorDepth()
-    {
-        String cDepth = IOHelper.cDepth();
-        switch (cDepth)
-        {
-            case "16":
-            case "24":
-            case "32":
-                return cDepth + "-bit";
-            default:
-                return getString(R.string.unknown);
-        }
-    }
-
-    private String getDescForOtg()
-    {
-        int otg = IOHelper.readOTG();
-        switch (otg)
-        {
-            case 0:
-                return getString(R.string.disabled);
-            case 1:
-                return getString(R.string.enabled);
-            default:
-                return getString(R.string.unknown);
-        }
-    }
-
-    private String getDescForFastcharge()
-    {
-        int fcharge = IOHelper.fcharge();
-        switch (fcharge)
-        {
-            case 0:
-                return getString(R.string.disabled);
-            case 1:
-                return getString(R.string.enabled);
-            default:
-                return getString(R.string.unknown);
-        }
-    }
-
-    private String getDescForVsync()
-    {
-        int vsync = IOHelper.vsync();
-        switch (vsync)
-        {
-            case 0:
-                return getString(R.string.disabled);
-            case 1:
-                return getString(R.string.enabled);
-            default:
-                return getString(R.string.unknown);
-        }
-    }
-
-
-    private String getDescForS2w()
-    {
-        if(new File(Constants.S2W).exists())
-        {
-            //s2wMethod = S2WMehod.std;
-        }
-        else if(new File(Constants.S2W_ALT).exists())
-        {
-            //s2wMethod = S2WMehod.alt;
-        }
-        int s2w = IOHelper.s2w();
-        switch (s2w)
-        {
-            case 0:
-                return getString(R.string.disabled);
-            case 1:
-                return getString(R.string.enabled);
-            default:
-                return getString(R.string.unknown);
-        }
-
     }
 
     @Override
@@ -379,11 +206,11 @@ public class NetworkManagerActivity extends AbsActivity implements AdapterView.O
     }
 
 
-    private class ATPopulateCpuList extends AsyncTask<Void, Void, List<Misc>>
+    private class ATPopulateCpuList extends AsyncTask<Void, Void, List<NM>>
     {
 
         @Override
-        protected List<Misc> doInBackground(Void... voids)
+        protected List<NM> doInBackground(Void... voids)
         {
             return populateList();
         }
@@ -395,10 +222,10 @@ public class NetworkManagerActivity extends AbsActivity implements AdapterView.O
         }
 
         @Override
-        protected void onPostExecute(List<Misc> list)
+        protected void onPostExecute(List<NM> list)
         {
             mListAdapter.clear();
-            //mListAdapter.addAll(list);
+            mListAdapter.addAll(list);
             mListAdapter.notifyDataSetChanged();
             pbLoading.setVisibility(View.GONE);
         }

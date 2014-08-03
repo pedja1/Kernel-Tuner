@@ -27,6 +27,8 @@ import rs.pedjaapps.kerneltuner.model.FrequencyCollection;
 import rs.pedjaapps.kerneltuner.model.Profile;
 import rs.pedjaapps.kerneltuner.helpers.DatabaseHandler;
 import rs.pedjaapps.kerneltuner.helpers.IOHelper;
+import rs.pedjaapps.kerneltuner.utility.Tools;
+
 import android.app.Activity;
 import android.content.Intent;
 import android.os.Bundle;
@@ -907,7 +909,7 @@ public boolean onOptionsItemSelected(MenuItem item) {
 		int fcharge = -1;
 		int sdcache = 0;
 		try{
-			sdcache = Integer.parseInt(ed4.getText().toString());
+			sdcache = Tools.parseInt(ed4.getText().toString(), 0);
 		}catch(NumberFormatException e){
 			
 		}

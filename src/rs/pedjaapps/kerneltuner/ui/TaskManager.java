@@ -61,6 +61,7 @@ import java.util.List;
 import rs.pedjaapps.kerneltuner.R;
 import rs.pedjaapps.kerneltuner.helpers.TMAdapter;
 import rs.pedjaapps.kerneltuner.model.Task;
+import rs.pedjaapps.kerneltuner.utility.Tools;
 
 public class TaskManager extends AbsActivity implements OnItemClickListener, Runnable
 {
@@ -194,7 +195,7 @@ public class TaskManager extends AbsActivity implements OnItemClickListener, Run
 					{
 						if (!tmp.get(4).equals("0"))
 						{
-							Task tmpEntry = new Task(getApplicationName(tmp.get(8)), Integer.parseInt(tmp.get(1)), getApplicationIcon(tmp.get(8)), Integer.parseInt(tmp.get(4)), appType(tmp.get(8)));
+							Task tmpEntry = new Task(getApplicationName(tmp.get(8)), Tools.parseInt(tmp.get(1), 0), getApplicationIcon(tmp.get(8)), Tools.parseInt(tmp.get(4), 0), appType(tmp.get(8)));
 							entries.add(tmpEntry);
 						}
 					}
@@ -248,11 +249,14 @@ public class TaskManager extends AbsActivity implements OnItemClickListener, Run
 			}
 			tmAdapter.notifyDataSetChanged();
 
-			SharedPreferences.Editor editor = preferences.edit();
-			editor.putBoolean("tm_system", system.isChecked())
-				.putBoolean("tm_user", user.isChecked())
-				.putBoolean("tm_other", other.isChecked())
-				.apply();
+            if (preferences != null)
+            {
+                SharedPreferences.Editor editor = preferences.edit();
+                editor.putBoolean("tm_system", system.isChecked())
+                    .putBoolean("tm_user", user.isChecked())
+                    .putBoolean("tm_other", other.isChecked())
+                    .apply();
+            }
             handler.postDelayed(TaskManager.this, 3000);
 		}
 		@Override
@@ -389,8 +393,8 @@ public class TaskManager extends AbsActivity implements OnItemClickListener, Run
 		{
 			reader = new RandomAccessFile("/proc/meminfo", "r");
 			load = reader.readLine();
-			mem = Integer.parseInt(load.substring(load.indexOf(":") + 1,
-												  load.lastIndexOf(" ")).trim()) / 1024;
+			mem = Tools.parseInt(load.substring(load.indexOf(":") + 1,
+												  load.lastIndexOf(" ")).trim(), 0) / 1024;
 		}
 		catch (IOException ex)
 		{

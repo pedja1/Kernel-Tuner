@@ -87,7 +87,7 @@ public class SystemInfoActivity extends AbsActivity
             vsync = IOHelper.vsync();
             try
             {
-                cdepth = Integer.parseInt(IOHelper.cDepth());
+                cdepth = Tools.parseInt(IOHelper.cDepth(), 0);
             }
             catch (Exception e)
             {
@@ -142,7 +142,7 @@ public class SystemInfoActivity extends AbsActivity
                     aBuffer += aDataRow + "\n";
                 }
 
-                mpdec = Integer.parseInt(aBuffer.trim());
+                mpdec = Tools.parseInt(aBuffer.trim(), -1);
                 myReader.close();
                 fIn.close();
             }

@@ -37,6 +37,7 @@ import rs.pedjaapps.kerneltuner.helpers.IOHelper;
 import rs.pedjaapps.kerneltuner.root.RCommand;
 import rs.pedjaapps.kerneltuner.root.RootUtils;
 import rs.pedjaapps.kerneltuner.utility.PrefsManager;
+import rs.pedjaapps.kerneltuner.utility.Tools;
 
 /**
  * Created by pedja on 17.4.14..
@@ -477,7 +478,7 @@ public class MainActivity extends AbsActivity implements Runnable, View.OnClickL
                     {
                         tmpCputemp = String.valueOf((int) (Double.parseDouble(tmpCputemp) * 1.8) + 32);
                         tvCputemptxt.setText(tmpCputemp + "°F");
-                        int temp = Integer.parseInt(tmpCputemp);
+                        int temp = Tools.parseInt(tmpCputemp, 0);
 
                         if (temp < 113)
                         {
@@ -496,7 +497,7 @@ public class MainActivity extends AbsActivity implements Runnable, View.OnClickL
                     else if (tempUnit == TempUnit.celsius)
                     {
                         tvCputemptxt.setText(tmpCputemp + "°C");
-                        int temp = Integer.parseInt(tmpCputemp);
+                        int temp = Tools.parseInt(tmpCputemp, 0);
                         if (temp < 45)
                         {
                             tvCputemptxt.setTextColor(Color.GREEN);
@@ -516,7 +517,7 @@ public class MainActivity extends AbsActivity implements Runnable, View.OnClickL
                         tmpCputemp = String.valueOf((int) (Double.parseDouble(tmpCputemp) + 273.15));
 
                         tvCputemptxt.setText(tmpCputemp + "°K");
-                        int temp = Integer.parseInt(tmpCputemp);
+                        int temp = Tools.parseInt(tmpCputemp, 0);
                         if (temp < 318)
                         {
                             tvCputemptxt.setTextColor(Color.GREEN);

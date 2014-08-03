@@ -400,6 +400,8 @@
     <string name="info_oom_text">OOM(Out Of Memory)\nAndroid system will use this values to determin which application to terminate to release memory</string>
     <string name="info_profiles_title">Profiles</string>
     <string name="info_profiles_text">Create settings profiles to be applied at differente conditions\nUse with one of these applications to apply profiles depending on conditions:\n\n    *Llama\n    *Tasker\n    *Locale</string>
+    <string name="info_network_title">Network Manager</string>
+    <string name="info_network_text">Various network related tweaks:\n\n    *ADB over WiFi\n    *TCP Congestion</string>
     <string name="info_thermal_title">Thermal</string>
     <string name="info_thermal_text">This option allows you to set thermal options for your cpu.\nEach time CPU temperature reaches certain threshold cpu frequency will be lowered to prevent overheating\nWhen temperature lowers cpu frequency will reset</string>
     <string name="info_sd_title">SD Analyzer</string>
@@ -783,5 +785,6 @@
     <string name="btn_network">Network</string>
     <string name="tcp">tcp</string>
     <string name="tcp_congestion">TCP Congestion</string>
+    <string name="title_activity_network_manager">Network Manager</string>
 
 </resources>

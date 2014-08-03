@@ -30,6 +30,7 @@ import rs.pedjaapps.kerneltuner.R;
 import rs.pedjaapps.kerneltuner.model.Governor;
 import rs.pedjaapps.kerneltuner.helpers.GovernorSettingsAdapter;
 import rs.pedjaapps.kerneltuner.helpers.IOHelper;
+import rs.pedjaapps.kerneltuner.root.RCommand;
 import rs.pedjaapps.kerneltuner.utility.ChangeGovernorSettings;
 
 import android.app.ActionBar;
@@ -164,27 +165,11 @@ public class GovernorActivity extends AbsActivity
                     {
                         try
                         {
-                            File myFile = new File("/sys/devices/system/cpu/cpufreq/" + s + "/" + aTemp.trim());
-                            if(!myFile.canRead())
-                            {
-                                Crashlytics.log("Cannot read governor settings: " + myFile.getAbsolutePath());
-                                continue;
-                            }
-                            FileInputStream fIn = new FileInputStream(myFile);
-                            BufferedReader myReader = new BufferedReader(new InputStreamReader(fIn));
-                            String aDataRow;
-                            String aBuffer = "";
-                            while ((aDataRow = myReader.readLine()) != null)
-                            {
-                                aBuffer += aDataRow + "\n";
-                            }
+                            String data = RCommand.readFileContent("/sys/devices/system/cpu/cpufreq/" + s + "/" + aTemp.trim());
 
-                            myReader.close();
-
-                            entries.add(new Governor(aTemp, aBuffer.trim()));
-                            govValues.add(aBuffer);
+                            entries.add(new Governor(aTemp, data.trim()));
+                            govValues.add(data);
                             governors.add(s);
-
                         }
                         catch (Exception e)
                         {
