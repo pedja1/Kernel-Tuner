@@ -38,19 +38,21 @@ public class adbWidgetProvider extends AppWidgetProvider
 {
 
     private static String ACTION_CLICK = "siir.es.adbwireless.widget_update";
-    private RemoteViews views = new RemoteViews("siir.es.adbWireless", R.layout.adb_appwidget);
-
-    @Override
+    
+	
+	@Override
     public void onUpdate(Context context, AppWidgetManager appWidgetManager, int[] appWidgetIds)
     {
-        super.onUpdate(context, appWidgetManager, appWidgetIds);
-
-        SharedPreferences settings = context.getSharedPreferences("wireless", 0);
+		super.onUpdate(context, appWidgetManager, appWidgetIds);
+		
+		SharedPreferences settings = context.getSharedPreferences("wireless", 0);
         ADBWirelessActivity.mState = settings.getBoolean("mState", false);
         ADBWirelessActivity.wifiState = settings.getBoolean("wifiState", false);
 
         for (int appWidgetId : appWidgetIds)
         {
+			RemoteViews views = new RemoteViews(context.getPackageName(), R.layout.adb_appwidget);
+			
             Intent intent = new Intent(context, adbWidgetProvider.class);
             intent.setAction(ACTION_CLICK);
             PendingIntent pendingIntent = PendingIntent.getBroadcast(context, 0, intent, 0);
@@ -113,6 +115,8 @@ public class adbWidgetProvider extends AppWidgetProvider
 
             try
             {
+				RemoteViews views = new RemoteViews(context.getPackageName(), R.layout.adb_appwidget);
+				
                 if (ADBWirelessActivity.mState)
                 {
                     views.setImageViewResource(R.id.widgetButton, R.drawable.widget);
@@ -132,6 +136,7 @@ public class adbWidgetProvider extends AppWidgetProvider
             }
             catch (Exception e)
             {
+				e.printStackTrace();
             }
         }
     }

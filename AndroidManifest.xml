@@ -458,15 +458,11 @@
                 android:name="android.support.PARENT_ACTIVITY"
                 android:value="rs.pedjaapps.kerneltuner.ui.MainActivity" />
         </activity>
-<activity
+        <activity
             android:name="siir.es.adbWireless.ADBWirelessActivity"
             android:configChanges="orientation|keyboardHidden|screenSize"
             android:label="@string/adb_wireless" >
-            <intent-filter>
-                <action android:name="android.intent.action.MAIN" />
-
-                <category android:name="android.intent.category.LAUNCHER" />
-            </intent-filter>
+            
         </activity>
         <activity android:name="siir.es.adbWireless.ManagePreferences" >
         </activity>
@@ -478,7 +474,8 @@
         </receiver>
         <receiver
             android:name="siir.es.adbWireless.adbWidgetProvider"
-            android:enabled="true" >
+            android:enabled="true"
+			android:label="@string/adb_wireless">
             <intent-filter>
                 <action android:name="android.appwidget.action.APPWIDGET_UPDATE" />
                 <action android:name="siir.es.adbwireless.widget_update" />

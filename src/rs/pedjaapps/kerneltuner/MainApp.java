@@ -26,7 +26,7 @@ public class MainApp extends Application
 	{
 		super.onCreate();
         context = getApplicationContext();
-        Crashlytics.start(this);
+        //Crashlytics.start(this);
         app = this;
 	}
 

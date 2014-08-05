@@ -2,6 +2,7 @@
     android:initialLayout="@layout/adb_appwidget"
     android:minWidth="72dp"
     android:minHeight="40dp"
-    android:updatePeriodMillis="5000" >
+    android:updatePeriodMillis="5000"
+	android:previewImage="@drawable/widgeton">
 
 </appwidget-provider>

@@ -58,8 +58,6 @@ public class ADBWirelessActivity extends AbsActivity
     private TextView tv_footer_3;
     private ImageView iv_button;
 
-    private Toast toastBack;
-
     public static RemoteViews remoteViews = new RemoteViews("siir.es.adbWireless", R.layout.adb_appwidget);
 
     @Override
