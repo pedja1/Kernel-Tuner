@@ -335,7 +335,7 @@ public class PreferencesFragment extends PreferenceFragment
 
     private void app()
     {
-        tempPrefList = (ListPreference) findPreference("temp");
+        tempPrefList = (ListPreference) findPreference("temp_unit");
         tempPrefList.setDefaultValue(tempPrefList.getEntryValues()[0]);
         String temp = tempPrefList.getValue();
         if (temp == null)

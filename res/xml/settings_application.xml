@@ -40,7 +40,7 @@
         <ListPreference
             android:entries="@array/tempTitles"
             android:entryValues="@array/tempValues"
-            android:key="temp"
+            android:key="temp_unit"
             android:summary=""
             android:title="@string/prefs_temp"
             android:defaultValue="celsius"/>

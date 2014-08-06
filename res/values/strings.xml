@@ -216,7 +216,7 @@
     <string name="proceed">Proceed</string>
     <string name="log_writen">Log written to: </string>
     <string name="log_error">Error while making log file: </string>
-    <string name="press_again_to_exit">Press back again to exit.</string>
+    <string name="press_again_to_exit">Press <b>Back</b> again to exit.</string>
     <string name="profile">Profile</string>
     <string name="applied">Applied</string>
     <string name="unchanged">Unchanged</string>
@@ -274,6 +274,8 @@
     <string name="remember">Remember Choice</string>
     <string name="head_capacitive_buttons_backlight">CAPACITIVE BUTTONS BACKLIGHT</string>
     <string name="celsius_unit">°C</string>
+    <string name="fahrenheit_unit">°F</string>
+    <string name="kelvin_unit">°K</string>
     <string name="head_fastcharge">FASTCHARGE</string>
     <string name="toggle_fastcharge_mode">Toggle fastcharge mode</string>
     <string name="head_vsync">VSYNC</string>
@@ -417,7 +419,9 @@
     <string name="info_logs_title">LogCat</string>
     <string name="info_logs_text">Display Device Logs</string>
     <string name="info_ok">Got It!</string>
-    <string name="info_more">Im stil confused</string>
+    <string name="info_fm_title">File Manager</string>
+    <string name="info_fm_text">Root File Manager</string>
+	<string name="info_more">Im stil confused</string>
     <string name="s2w_off">OFF</string>
     <string name="s2w_on_no_bl">ON with no backlight</string>
     <string name="s2w_on">ON with backlight</string>
@@ -671,7 +675,9 @@
     <string name="btn_oom">OOM</string>
     <string name="btn_swap">Swap</string>
     <string name="btn_profiles">Profiles</string>
-    <string name="btn_info">System Info</string>
+    <string name="btn_fm">File Manager</string>
+    
+	<string name="btn_info">System Info</string>
     <string name="txt_cpu0">CPU0: %s</string>
     <string name="txtCpu1">CPU1: %s</string>
     <string name="txtCpu2">CPU2: %s</string>

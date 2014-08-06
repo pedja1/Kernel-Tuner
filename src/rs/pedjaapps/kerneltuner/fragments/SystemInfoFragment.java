@@ -16,17 +16,17 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ListView;
 import android.widget.ProgressBar;
-
 import java.io.IOException;
 import java.io.RandomAccessFile;
 import java.util.ArrayList;
 import java.util.List;
-
 import rs.pedjaapps.kerneltuner.R;
 import rs.pedjaapps.kerneltuner.adapter.SystemInfoAdapter;
+import rs.pedjaapps.kerneltuner.constants.TempUnit;
 import rs.pedjaapps.kerneltuner.helpers.IOHelper;
 import rs.pedjaapps.kerneltuner.model.Frequency;
 import rs.pedjaapps.kerneltuner.model.SystemInfo;
+import rs.pedjaapps.kerneltuner.utility.PrefsManager;
 import rs.pedjaapps.kerneltuner.utility.Tools;
 
 /**
@@ -45,6 +45,7 @@ public class SystemInfoFragment extends Fragment
     SystemInfoAdapter mAdapter;
     ProgressBar pbLoading;
     Type type;
+	TempUnit tempUnit;
 
     public static Fragment newInstance(Type type)
     {
@@ -58,6 +59,7 @@ public class SystemInfoFragment extends Fragment
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState)
     {
+		tempUnit = PrefsManager.getTempUnit();
         Bundle args = getArguments();
         type = (Type) args.getSerializable(TYPE);
 
@@ -130,7 +132,19 @@ public class SystemInfoFragment extends Fragment
         info = new SystemInfo();
         info.setType(SystemInfo.TYPE_ITEM);
         info.setTitle(getString(R.string.temperature));
-        info.setValue(IOHelper.batteryTemp() + getString(R.string.celsius_unit));
+		double tmp = IOHelper.batteryTemp();
+		if (tempUnit == TempUnit.fahrenheit)
+		{
+			info.setValue((tmp * 1.8 + 32)  + getString(R.string.fahrenheit_unit));
+		}
+		else if (tempUnit == TempUnit.celsius)
+		{
+			info.setValue(tmp + getString(R.string.celsius_unit));
+		}
+		else if (tempUnit == TempUnit.kelvin)
+		{
+			info.setValue((tmp + 273.15)  + getString(R.string.kelvin_unit));
+		}
         systemInfos.add(info);
         info = new SystemInfo();
         info.setType(SystemInfo.TYPE_ITEM);
