@@ -1,332 +1,338 @@
 <?xml version="1.0" encoding="utf-8"?>
-<SlidingRelativeLayout
-	xmlns:android="http://schemas.android.com/apk/res/android"
+<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
 	android:layout_width="match_parent"
-	android:layout_height="match_parent"
-	>
-	<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+	android:layout_height="match_parent">
+
+	<LinearLayout
+		android:id="@+id/buttons_layout"
 		android:layout_width="match_parent"
-		android:layout_height="match_parent">
+		android:layout_height="wrap_content"
+		android:orientation="vertical">
 
 		<LinearLayout
-			android:id="@+id/buttons_layout"
 			android:layout_width="match_parent"
 			android:layout_height="wrap_content"
-			android:orientation="vertical">
+			android:orientation="horizontal">
 
-			<LinearLayout
+			<Button
+				android:id="@+id/btn_cpu"
+				style="?android:attr/buttonStyleSmall"
 				android:layout_width="match_parent"
-				android:layout_height="wrap_content"
-				android:orientation="horizontal">
+				android:layout_height="match_parent"
+				android:layout_gravity="center_vertical"
+				android:layout_weight="1"
+				android:drawableLeft="@drawable/main_cpu"
+				android:singleLine="true"
+				android:text="@string/btn_cpu"
+				android:gravity="left|center_vertical"
+				android:drawablePadding="5dp"
+				android:ellipsize="marquee"
+				android:marqueeRepeatLimit="marquee_forever"
+				android:background="@drawable/default_button_selector"/>
 
-				<Button
-					android:id="@+id/btn_cpu"
-					style="?android:attr/buttonStyleSmall"
-					android:layout_width="match_parent"
-					android:layout_height="match_parent"
-					android:layout_gravity="center_vertical"
-					android:layout_weight="1"
-					android:drawableLeft="@drawable/main_cpu"
-					android:singleLine="true"
-					android:text="@string/btn_cpu"
-					android:gravity="left|center_vertical"
-					android:drawablePadding="5dp"
-					android:ellipsize="marquee"
-					android:marqueeRepeatLimit="marquee_forever"
-					android:background="@drawable/default_button_selector"/>
+			<Button
+				android:id="@+id/btn_times"
+				style="?android:attr/buttonStyleSmall"
+				android:layout_width="match_parent"
+				android:layout_height="match_parent"
+				android:layout_gravity="center_vertical"
+				android:layout_weight="1"
+				android:drawableLeft="@drawable/main_times"
+				android:singleLine="true"
+				android:text="@string/btn_times"
+				android:gravity="left|center_vertical"
+				android:drawablePadding="5dp"
+				android:ellipsize="marquee"
+				android:marqueeRepeatLimit="marquee_forever"
+				android:background="@drawable/default_button_selector"/>
 
-				<Button
-					android:id="@+id/btn_times"
-					style="?android:attr/buttonStyleSmall"
-					android:layout_width="match_parent"
-					android:layout_height="match_parent"
-					android:layout_gravity="center_vertical"
-					android:layout_weight="1"
-					android:drawableLeft="@drawable/main_times"
-					android:singleLine="true"
-					android:text="@string/btn_times"
-					android:gravity="left|center_vertical"
-					android:drawablePadding="5dp"
-					android:ellipsize="marquee"
-					android:marqueeRepeatLimit="marquee_forever"
-					android:background="@drawable/default_button_selector"/>
-
-				<Button
-					android:id="@+id/btn_voltage"
-					style="?android:attr/buttonStyleSmall"
-					android:layout_width="match_parent"
-					android:layout_height="match_parent"
-					android:layout_gravity="center_vertical"
-					android:layout_weight="1"
-					android:drawableLeft="@drawable/main_voltage"
-					android:singleLine="true"
-					android:text="@string/btn_voltage"
-					android:gravity="left|center_vertical"
-					android:drawablePadding="5dp"
-					android:ellipsize="marquee"
-					android:marqueeRepeatLimit="marquee_forever"
-					android:background="@drawable/default_button_selector"/>
+			<Button
+				android:id="@+id/btn_voltage"
+				style="?android:attr/buttonStyleSmall"
+				android:layout_width="match_parent"
+				android:layout_height="match_parent"
+				android:layout_gravity="center_vertical"
+				android:layout_weight="1"
+				android:drawableLeft="@drawable/main_voltage"
+				android:singleLine="true"
+				android:text="@string/btn_voltage"
+				android:gravity="left|center_vertical"
+				android:drawablePadding="5dp"
+				android:ellipsize="marquee"
+				android:marqueeRepeatLimit="marquee_forever"
+				android:background="@drawable/default_button_selector"/>
 
 
-			</LinearLayout>
-
-			<LinearLayout
-				android:layout_width="fill_parent"
-				android:layout_height="wrap_content"
-				android:orientation="horizontal">
-
-				<Button
-					android:id="@+id/btn_gpu"
-					style="?android:attr/buttonStyleSmall"
-					android:layout_width="match_parent"
-					android:layout_height="match_parent"
-					android:layout_weight="1"
-					android:drawableLeft="@drawable/main_gpu"
-					android:singleLine="true"
-					android:text="@string/btn_gpu"
-					android:gravity="left|center_vertical"
-					android:drawablePadding="5dp"
-					android:ellipsize="marquee"
-					android:marqueeRepeatLimit="marquee_forever"
-					android:background="@drawable/default_button_selector"/>
-
-				<Button
-					android:id="@+id/btn_mpdecision"
-					style="?android:attr/buttonStyleSmall"
-					android:layout_width="match_parent"
-					android:layout_height="match_parent"
-					android:layout_weight="1"
-					android:drawableLeft="@drawable/main_mp"
-					android:singleLine="true"
-					android:text="@string/btn_mpdecision"
-					android:gravity="left|center_vertical"
-					android:drawablePadding="5dp"
-					android:ellipsize="marquee"
-					android:marqueeRepeatLimit="marquee_forever"
-					android:background="@drawable/default_button_selector"/>
-
-				<Button
-					android:id="@+id/btn_thermal"
-					style="?android:attr/buttonStyleSmall"
-					android:layout_width="match_parent"
-					android:layout_height="match_parent"
-					android:layout_weight="1"
-					android:drawableLeft="@drawable/main_thermal"
-					android:singleLine="true"
-					android:text="@string/btn_thermal"
-					android:gravity="left|center_vertical"
-					android:drawablePadding="5dp"
-					android:ellipsize="marquee"
-					android:marqueeRepeatLimit="marquee_forever"
-					android:background="@drawable/default_button_selector"/>
-
-
-			</LinearLayout>
-
-			<LinearLayout
-				android:layout_width="fill_parent"
-				android:layout_height="wrap_content"
-				android:orientation="horizontal">
-
-				<Button
-					android:id="@+id/btn_governor"
-					style="?android:attr/buttonStyleSmall"
-					android:layout_width="match_parent"
-					android:layout_height="match_parent"
-					android:layout_gravity="center_vertical"
-					android:layout_weight="1"
-					android:drawableLeft="@drawable/main_governor"
-					android:singleLine="true"
-					android:text="@string/btn_governor"
-					android:gravity="left|center_vertical"
-					android:drawablePadding="5dp"
-					android:ellipsize="marquee"
-					android:marqueeRepeatLimit="marquee_forever"
-					android:background="@drawable/default_button_selector"/>
-
-				<Button
-					android:id="@+id/btn_misc"
-					style="?android:attr/buttonStyleSmall"
-					android:layout_width="match_parent"
-					android:layout_height="match_parent"
-					android:layout_weight="1"
-					android:drawableLeft="@drawable/main_misc"
-					android:singleLine="true"
-					android:text="@string/btn_misc"
-					android:gravity="left|center_vertical"
-					android:drawablePadding="5dp"
-					android:ellipsize="marquee"
-					android:marqueeRepeatLimit="marquee_forever"
-					android:background="@drawable/default_button_selector"/>
-
-				<Button
-					android:id="@+id/btn_task_manager"
-					style="?android:attr/buttonStyleSmall"
-					android:layout_width="match_parent"
-					android:layout_height="match_parent"
-					android:layout_weight="1"
-					android:drawableLeft="@drawable/main_tm"
-					android:singleLine="true"
-					android:text="@string/btn_task_manager"
-					android:gravity="left|center_vertical"
-					android:drawablePadding="5dp"
-					android:ellipsize="marquee"
-					android:marqueeRepeatLimit="marquee_forever"
-					android:background="@drawable/default_button_selector"/>
-
-
-			</LinearLayout>
-
-			<LinearLayout
-				android:layout_width="fill_parent"
-				android:layout_height="wrap_content"
-				android:orientation="horizontal">
-
-				<Button
-					android:id="@+id/btn_build"
-					style="?android:attr/buttonStyleSmall"
-					android:layout_width="match_parent"
-					android:layout_height="match_parent"
-					android:layout_weight="1"
-					android:drawableLeft="@drawable/main_build"
-					android:singleLine="true"
-					android:text="@string/btn_build"
-					android:gravity="left|center_vertical"
-					android:drawablePadding="5dp"
-					android:ellipsize="marquee"
-					android:marqueeRepeatLimit="marquee_forever"
-					android:background="@drawable/default_button_selector"/>
-
-				<Button
-					android:id="@+id/btn_sysctl"
-					style="?android:attr/buttonStyleSmall"
-					android:layout_width="match_parent"
-					android:layout_height="match_parent"
-					android:layout_weight="1"
-					android:drawableLeft="@drawable/main_sysctl"
-					android:singleLine="true"
-					android:text="@string/btn_sysctl"
-					android:gravity="left|center_vertical"
-					android:drawablePadding="5dp"
-					android:ellipsize="marquee"
-					android:marqueeRepeatLimit="marquee_forever"
-					android:background="@drawable/default_button_selector"/>
-
-				<Button
-					android:id="@+id/btn_logcat"
-					style="?android:attr/buttonStyleSmall"
-					android:layout_width="match_parent"
-					android:layout_height="match_parent"
-					android:layout_weight="1"
-					android:drawableLeft="@drawable/main_log"
-					android:singleLine="true"
-					android:text="@string/btn_logcat"
-					android:gravity="left|center_vertical"
-					android:drawablePadding="5dp"
-					android:ellipsize="marquee"
-					android:marqueeRepeatLimit="marquee_forever"
-					android:background="@drawable/default_button_selector"/>
-
-			</LinearLayout>
-
-			<LinearLayout
-				android:layout_width="fill_parent"
-				android:layout_height="wrap_content"
-				android:orientation="horizontal">
-
-				<Button
-					android:id="@+id/btn_oom"
-					style="?android:attr/buttonStyleSmall"
-					android:layout_width="match_parent"
-					android:layout_height="match_parent"
-					android:layout_weight="1"
-					android:drawableLeft="@drawable/main_oom"
-					android:singleLine="true"
-					android:text="@string/btn_oom"
-					android:gravity="left|center_vertical"
-					android:drawablePadding="5dp"
-					android:ellipsize="marquee"
-					android:marqueeRepeatLimit="marquee_forever"
-					android:background="@drawable/default_button_selector"/>
-
-				<Button
-					android:id="@+id/btn_sd"
-					style="?android:attr/buttonStyleSmall"
-					android:layout_width="match_parent"
-					android:layout_height="match_parent"
-					android:layout_weight="1"
-					android:drawableLeft="@drawable/main_sd"
-					android:singleLine="true"
-					android:text="@string/btn_sd"
-					android:gravity="left|center_vertical"
-					android:drawablePadding="5dp"
-					android:ellipsize="marquee"
-					android:marqueeRepeatLimit="marquee_forever"
-					android:background="@drawable/default_button_selector"/>
-
-				<!--<Button
-					android:id="@+id/btn_profiles"
-					style="?android:attr/buttonStyleSmall"
-					android:layout_width="match_parent"
-					android:layout_height="match_parent"
-					android:layout_weight="1"
-					android:drawableLeft="@drawable/main_profiles"
-					android:singleLine="true"
-					android:text="@string/btn_profiles"
-					android:gravity="left|center_vertical"
-					android:drawablePadding="5dp"
-					android:ellipsize="marquee"
-					android:marqueeRepeatLimit="marquee_forever"
-					android:background="@drawable/default_button_selector"
-                    android:visibility="visible"/>-->
-
-                <Button
-                    android:id="@+id/btnNetwork"
-                    style="?android:attr/buttonStyleSmall"
-                    android:layout_width="match_parent"
-                    android:layout_height="match_parent"
-                    android:layout_weight="1"
-                    android:drawableLeft="@drawable/main_network"
-                    android:singleLine="true"
-                    android:text="@string/btn_network"
-                    android:gravity="left|center_vertical"
-                    android:drawablePadding="5dp"
-                    android:ellipsize="marquee"
-                    android:marqueeRepeatLimit="marquee_forever"
-                    android:background="@drawable/default_button_selector"/>
-
-			</LinearLayout>
-
-			<LinearLayout
-				android:layout_width="fill_parent"
-				android:layout_height="wrap_content"
-				android:orientation="horizontal">
-
-				<Button
-					android:id="@+id/btn_info"
-					style="?android:attr/buttonStyleSmall"
-					android:layout_width="match_parent"
-					android:layout_height="match_parent"
-					android:layout_weight="1"
-					android:drawableLeft="@drawable/main_info"
-					android:singleLine="true"
-					android:text="@string/btn_info"
-					android:gravity="left|center_vertical"
-					android:drawablePadding="5dp"
-					android:ellipsize="marquee"
-					android:marqueeRepeatLimit="marquee_forever"
-					android:background="@drawable/default_button_selector"/>
-
-				<View
-					android:layout_width="match_parent"
-					android:layout_height="match_parent"
-					android:layout_weight="1"/>
-                <View
-                    android:layout_width="match_parent"
-                    android:layout_height="match_parent"
-                    android:layout_weight="1"/>
-
-			</LinearLayout>
 		</LinearLayout>
-	</ScrollView>
-</SlidingRelativeLayout>
+
+		<LinearLayout
+			android:layout_width="fill_parent"
+			android:layout_height="wrap_content"
+			android:orientation="horizontal">
+
+			<Button
+				android:id="@+id/btn_gpu"
+				style="?android:attr/buttonStyleSmall"
+				android:layout_width="match_parent"
+				android:layout_height="match_parent"
+				android:layout_weight="1"
+				android:drawableLeft="@drawable/main_gpu"
+				android:singleLine="true"
+				android:text="@string/btn_gpu"
+				android:gravity="left|center_vertical"
+				android:drawablePadding="5dp"
+				android:ellipsize="marquee"
+				android:marqueeRepeatLimit="marquee_forever"
+				android:background="@drawable/default_button_selector"/>
+
+			<Button
+				android:id="@+id/btn_mpdecision"
+				style="?android:attr/buttonStyleSmall"
+				android:layout_width="match_parent"
+				android:layout_height="match_parent"
+				android:layout_weight="1"
+				android:drawableLeft="@drawable/main_mp"
+				android:singleLine="true"
+				android:text="@string/btn_mpdecision"
+				android:gravity="left|center_vertical"
+				android:drawablePadding="5dp"
+				android:ellipsize="marquee"
+				android:marqueeRepeatLimit="marquee_forever"
+				android:background="@drawable/default_button_selector"/>
+
+			<Button
+				android:id="@+id/btn_thermal"
+				style="?android:attr/buttonStyleSmall"
+				android:layout_width="match_parent"
+				android:layout_height="match_parent"
+				android:layout_weight="1"
+				android:drawableLeft="@drawable/main_thermal"
+				android:singleLine="true"
+				android:text="@string/btn_thermal"
+				android:gravity="left|center_vertical"
+				android:drawablePadding="5dp"
+				android:ellipsize="marquee"
+				android:marqueeRepeatLimit="marquee_forever"
+				android:background="@drawable/default_button_selector"/>
+
+
+		</LinearLayout>
+
+		<LinearLayout
+			android:layout_width="fill_parent"
+			android:layout_height="wrap_content"
+			android:orientation="horizontal">
+
+			<Button
+				android:id="@+id/btn_governor"
+				style="?android:attr/buttonStyleSmall"
+				android:layout_width="match_parent"
+				android:layout_height="match_parent"
+				android:layout_gravity="center_vertical"
+				android:layout_weight="1"
+				android:drawableLeft="@drawable/main_governor"
+				android:singleLine="true"
+				android:text="@string/btn_governor"
+				android:gravity="left|center_vertical"
+				android:drawablePadding="5dp"
+				android:ellipsize="marquee"
+				android:marqueeRepeatLimit="marquee_forever"
+				android:background="@drawable/default_button_selector"/>
+
+			<Button
+				android:id="@+id/btn_misc"
+				style="?android:attr/buttonStyleSmall"
+				android:layout_width="match_parent"
+				android:layout_height="match_parent"
+				android:layout_weight="1"
+				android:drawableLeft="@drawable/main_misc"
+				android:singleLine="true"
+				android:text="@string/btn_misc"
+				android:gravity="left|center_vertical"
+				android:drawablePadding="5dp"
+				android:ellipsize="marquee"
+				android:marqueeRepeatLimit="marquee_forever"
+				android:background="@drawable/default_button_selector"/>
+
+			<Button
+				android:id="@+id/btn_task_manager"
+				style="?android:attr/buttonStyleSmall"
+				android:layout_width="match_parent"
+				android:layout_height="match_parent"
+				android:layout_weight="1"
+				android:drawableLeft="@drawable/main_tm"
+				android:singleLine="true"
+				android:text="@string/btn_task_manager"
+				android:gravity="left|center_vertical"
+				android:drawablePadding="5dp"
+				android:ellipsize="marquee"
+				android:marqueeRepeatLimit="marquee_forever"
+				android:background="@drawable/default_button_selector"/>
+
+
+		</LinearLayout>
+
+		<LinearLayout
+			android:layout_width="fill_parent"
+			android:layout_height="wrap_content"
+			android:orientation="horizontal">
+
+			<Button
+				android:id="@+id/btn_build"
+				style="?android:attr/buttonStyleSmall"
+				android:layout_width="match_parent"
+				android:layout_height="match_parent"
+				android:layout_weight="1"
+				android:drawableLeft="@drawable/main_build"
+				android:singleLine="true"
+				android:text="@string/btn_build"
+				android:gravity="left|center_vertical"
+				android:drawablePadding="5dp"
+				android:ellipsize="marquee"
+				android:marqueeRepeatLimit="marquee_forever"
+				android:background="@drawable/default_button_selector"/>
+
+			<Button
+				android:id="@+id/btn_sysctl"
+				style="?android:attr/buttonStyleSmall"
+				android:layout_width="match_parent"
+				android:layout_height="match_parent"
+				android:layout_weight="1"
+				android:drawableLeft="@drawable/main_sysctl"
+				android:singleLine="true"
+				android:text="@string/btn_sysctl"
+				android:gravity="left|center_vertical"
+				android:drawablePadding="5dp"
+				android:ellipsize="marquee"
+				android:marqueeRepeatLimit="marquee_forever"
+				android:background="@drawable/default_button_selector"/>
+
+			<Button
+				android:id="@+id/btn_logcat"
+				style="?android:attr/buttonStyleSmall"
+				android:layout_width="match_parent"
+				android:layout_height="match_parent"
+				android:layout_weight="1"
+				android:drawableLeft="@drawable/main_log"
+				android:singleLine="true"
+				android:text="@string/btn_logcat"
+				android:gravity="left|center_vertical"
+				android:drawablePadding="5dp"
+				android:ellipsize="marquee"
+				android:marqueeRepeatLimit="marquee_forever"
+				android:background="@drawable/default_button_selector"/>
+
+		</LinearLayout>
+
+		<LinearLayout
+			android:layout_width="fill_parent"
+			android:layout_height="wrap_content"
+			android:orientation="horizontal">
+
+			<Button
+				android:id="@+id/btn_oom"
+				style="?android:attr/buttonStyleSmall"
+				android:layout_width="match_parent"
+				android:layout_height="match_parent"
+				android:layout_weight="1"
+				android:drawableLeft="@drawable/main_oom"
+				android:singleLine="true"
+				android:text="@string/btn_oom"
+				android:gravity="left|center_vertical"
+				android:drawablePadding="5dp"
+				android:ellipsize="marquee"
+				android:marqueeRepeatLimit="marquee_forever"
+				android:background="@drawable/default_button_selector"/>
+
+			<Button
+				android:id="@+id/btn_sd"
+				style="?android:attr/buttonStyleSmall"
+				android:layout_width="match_parent"
+				android:layout_height="match_parent"
+				android:layout_weight="1"
+				android:drawableLeft="@drawable/main_sd"
+				android:singleLine="true"
+				android:text="@string/btn_sd"
+				android:gravity="left|center_vertical"
+				android:drawablePadding="5dp"
+				android:ellipsize="marquee"
+				android:marqueeRepeatLimit="marquee_forever"
+				android:background="@drawable/default_button_selector"/>
+
+			<!--<Button
+			android:id="@+id/btn_profiles"
+			style="?android:attr/buttonStyleSmall"
+			android:layout_width="match_parent"
+			android:layout_height="match_parent"
+			android:layout_weight="1"
+			android:drawableLeft="@drawable/main_profiles"
+			android:singleLine="true"
+			android:text="@string/btn_profiles"
+			android:gravity="left|center_vertical"
+			android:drawablePadding="5dp"
+			android:ellipsize="marquee"
+			android:marqueeRepeatLimit="marquee_forever"
+			android:background="@drawable/default_button_selector"
+			android:visibility="visible"/>-->
+
+			<Button
+				android:id="@+id/btnNetwork"
+				style="?android:attr/buttonStyleSmall"
+				android:layout_width="match_parent"
+				android:layout_height="match_parent"
+				android:layout_weight="1"
+				android:drawableLeft="@drawable/main_network"
+				android:singleLine="true"
+				android:text="@string/btn_network"
+				android:gravity="left|center_vertical"
+				android:drawablePadding="5dp"
+				android:ellipsize="marquee"
+				android:marqueeRepeatLimit="marquee_forever"
+				android:background="@drawable/default_button_selector"/>
+
+		</LinearLayout>
+
+		<LinearLayout
+			android:layout_width="fill_parent"
+			android:layout_height="wrap_content"
+			android:orientation="horizontal">
+
+			<Button
+				android:id="@+id/btn_fm"
+				style="?android:attr/buttonStyleSmall"
+				android:layout_width="match_parent"
+				android:layout_height="match_parent"
+				android:layout_weight="1"
+				android:drawableLeft="@drawable/main_file_manager"
+				android:singleLine="true"
+				android:text="@string/btn_fm"
+				android:gravity="left|center_vertical"
+				android:drawablePadding="5dp"
+				android:ellipsize="marquee"
+				android:marqueeRepeatLimit="marquee_forever"
+				android:background="@drawable/default_button_selector"/>
+			
+			
+			<Button
+				android:id="@+id/btn_info"
+				style="?android:attr/buttonStyleSmall"
+				android:layout_width="match_parent"
+				android:layout_height="match_parent"
+				android:layout_weight="1"
+				android:drawableLeft="@drawable/main_info"
+				android:singleLine="true"
+				android:text="@string/btn_info"
+				android:gravity="left|center_vertical"
+				android:drawablePadding="5dp"
+				android:ellipsize="marquee"
+				android:marqueeRepeatLimit="marquee_forever"
+				android:background="@drawable/default_button_selector"/>
+
+			<View
+				android:layout_width="match_parent"
+				android:layout_height="match_parent"
+				android:layout_weight="1"/>
+
+		</LinearLayout>
+	</LinearLayout>
+</ScrollView>

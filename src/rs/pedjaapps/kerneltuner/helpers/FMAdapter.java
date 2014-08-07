@@ -29,34 +29,29 @@ public final class FMAdapter extends ArrayAdapter<FMEntry>
 {
 
 	private final int itemsItemLayoutResource;
-    Context c;
-	public FMAdapter(final Context context, final int itemsItemLayoutResource)
+    public FMAdapter(final Context context, final int itemsItemLayoutResource)
 	{
-		
 		super(context, 0);
 		this.itemsItemLayoutResource = itemsItemLayoutResource;
-		this.c = context;
 	}
 
 	@Override
 	public View getView(final int position, final View convertView, final ViewGroup parent)
 	{
-
 		final View view = getWorkingView(convertView);
 		final ViewHolder viewHolder = getViewHolder(view);
 		final FMEntry entry = getItem(position);
 
-		
-			
 		viewHolder.nameView.setText(entry.getName());
-		viewHolder.dateView.setText(entry.getDate());
-		viewHolder.sizeView.setText(entry.getSize());
-		if(entry.getFolder()==1){
+		viewHolder.summaryView.setText(entry.getDate() + " " + (entry.isFolder() ? "" : entry.getSizeHr()));
+		
+		if(entry.isFolder())
+		{
 			viewHolder.imageView.setImageResource(R.drawable.folder);
 		}
-		else{
+		else
+		{
 			viewHolder.imageView.setImageResource(R.drawable.file);
-			
 		}
 		
 		return view;
@@ -92,9 +87,8 @@ public final class FMAdapter extends ArrayAdapter<FMEntry>
 		{
 			viewHolder = new ViewHolder();
 
-			viewHolder.nameView = (TextView) workingView.findViewById(R.id.name);
-			viewHolder.dateView = (TextView) workingView.findViewById(R.id.date);
-			viewHolder.sizeView = (TextView) workingView.findViewById(R.id.size);
+			viewHolder.nameView = (TextView) workingView.findViewById(R.id.tvName);
+			viewHolder.summaryView = (TextView) workingView.findViewById(R.id.tvSummary);
 			viewHolder.imageView = (ImageView) workingView.findViewById(R.id.image);
 			
 			workingView.setTag(viewHolder);
@@ -111,8 +105,7 @@ public final class FMAdapter extends ArrayAdapter<FMEntry>
 	private class ViewHolder
 	{
 		public TextView nameView;
-		public TextView dateView;
-		public TextView sizeView;
+		public TextView summaryView;
 		public ImageView imageView;
 	
 	}

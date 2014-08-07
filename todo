@@ -1,5 +1,10 @@
-- network manager
+- sshd
+- basic network scanner
+- firewall(iptables)
+- wake on lan
 
+
+- prefs manager
 - advanced scheduler settings
 - multicore power saving
 - vibrator strenght
@@ -13,3 +18,11 @@
 - /sys/module/intelli_plug/parameters/intelli_plug_active and /sys/module/intelli_plug/parameters/eco_mode_active
 - binary mpdecision toggle
 - linpack
+- basic app manage
+- take screenshot
+- basic text editor
+- entropy
+- basic file manager
+- basic terminal
+- basic sql manager
+- fix tmp

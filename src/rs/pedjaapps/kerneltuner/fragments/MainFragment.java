@@ -252,6 +252,13 @@ public class MainFragment extends Fragment
                 getResources().getString(R.string.info_logs_text),
                 Constants.G_S_URL_PREFIX + "swap", true));
 
+		Button fm = (Button) view.findViewById(R.id.btn_fm);
+        fm.setOnClickListener(new StartActivityListener(FMActivity.class));
+        fm.setOnLongClickListener(new InfoListener(R.drawable.folder,
+			getResources().getString(R.string.info_fm_title),
+			getResources().getString(R.string.info_fm_text),
+			"", false));
+
         if (!(new File(Constants.CPU0_FREQS).exists()))
         {
             if (!(new File(Constants.TIMES_IN_STATE_CPU0).exists()))

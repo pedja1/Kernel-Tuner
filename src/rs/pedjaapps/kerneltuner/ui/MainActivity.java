@@ -14,6 +14,7 @@ import android.os.Build;
 import android.os.Bundle;
 import android.os.Handler;
 import android.os.HandlerThread;
+import android.text.Html;
 import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
@@ -22,13 +23,10 @@ import android.widget.Button;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 import android.widget.Toast;
-
 import com.crashlytics.android.Crashlytics;
-
 import java.io.File;
 import java.io.IOException;
 import java.io.RandomAccessFile;
-
 import rs.pedjaapps.kerneltuner.Constants;
 import rs.pedjaapps.kerneltuner.R;
 import rs.pedjaapps.kerneltuner.constants.TempUnit;
@@ -642,9 +640,7 @@ public class MainActivity extends AbsActivity implements Runnable, View.OnClickL
     {
         if (mLastBackPressTime < java.lang.System.currentTimeMillis() - 4000)
         {
-            mToast = Toast.makeText(this,
-                    getResources().getString(R.string.press_again_to_exit),
-                    Toast.LENGTH_SHORT);
+            mToast = Toast.makeText(this, Html.fromHtml(getResources().getString(R.string.press_again_to_exit)), Toast.LENGTH_SHORT);
             mToast.show();
             mLastBackPressTime = java.lang.System.currentTimeMillis();
         }
