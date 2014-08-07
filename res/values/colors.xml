@@ -3,6 +3,6 @@
     <color name="black_overlay">#66000000</color>
     <color name="splash_back">#0099cc</color>
     <color name="white">#fff</color>
-	<color name="grey">#e4e4e4</color>
+	<color name="light_grey">#e4e4e4</color>
 	
 </resources>
