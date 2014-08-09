@@ -31,6 +31,7 @@ import android.widget.ListView;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.Comparator;
+import java.util.Date;
 import java.util.HashMap;
 import java.util.List;
 import java.util.regex.Matcher;
@@ -40,6 +41,7 @@ import rs.pedjaapps.kerneltuner.helpers.FMAdapter;
 import rs.pedjaapps.kerneltuner.model.FMEntry;
 import rs.pedjaapps.kerneltuner.root.RootUtils;
 import rs.pedjaapps.kerneltuner.utility.Tools;
+import siir.es.adbWireless.Utils;
 
 public class FMActivity extends AbsActivity
 {
@@ -67,6 +69,14 @@ public class FMActivity extends AbsActivity
 	 * Regexp pattern to parse the result from ls.
 	 */
 	private static Pattern sLsPattern = Pattern.compile("^([bcdlsp-][-r][-w][-xsS][-r][-w][-xsS][-r][-w][-xstST])\\s+(\\S+)\\s+(\\S+)\\s+([\\d\\s,]*)\\s+(\\d{4}-\\d\\d-\\d\\d)\\s+(\\d\\d:\\d\\d)\\s+(.*)$"); //$NON-NLS-1$
+
+    /**
+     * Regex pattern to parse result from LIST_FILES_CMD below
+     * */
+    private static Pattern fileListPattern = Pattern.compile("kt:\\s+(\\d{3})\\s+(\\d+)\\s+(\\d+)\\s+(\\w+)\\s+.*'(.*)'.*\\s+.*'(.*)'.*");//$NON-NLS-1$
+
+    private static final String LIST_FILES_CMD = "CURR_DIR='{path}'; IFS=$'\\n'; for f in $(ls -a); do if [ -d $CURR_DIR$f ]; then if [ -h $CURR_DIR$f ]; then echo \"kt: \"`stat -c '%a %s %Y' $CURR_DIR$f`\" dl '\"$f\"' '`readlink -f \"$f\"`'\"; else echo \"kt: \"`stat -c '%a %s %Y' $CURR_DIR$f`\" d '\"$f\"' ''\"; fi elif [ -f $CURR_DIR$f ]; then if [ -h $CURR_DIR$f ]; then echo \"kt: \"`stat -c '%a %s %Y' $CURR_DIR$f`\" fl '\"$f\"' '`readlink -f \"$f\"`'\"; else echo \"kt: \"`stat -c '%a %s %Y' $CURR_DIR$f`\" f '\"$f\"' ''\"; fi else echo \"kt: \"`stat -c '%a %s %Y' $CURR_DIR$f`\" - '\"$f\"' ''\"; fi done";
+
 	String path;
 	FMAdapter fAdapter;
 	ListView fListView;
@@ -134,87 +144,40 @@ public class FMActivity extends AbsActivity
 					String[] files = output.split("\n");
 					for (String line : files)
 					{
-						Matcher m = sLsPattern.matcher(line);
-						if (m.matches() == false) continue;
-						System.out.println("ls line: " + line);
+						Matcher m = fileListPattern.matcher(line);
+						if (!m.matches()) continue;
+						System.out.println("list files line: " + line);
 						
 						FMEntry entry = new FMEntry();
 						// get the name
-						entry.setName(m.group(7));
+						entry.setName(m.group(5));
+                        System.out.println("list file nane: " + entry.getName());
 						entry.setPath(path + (path.endsWith("/") ? "" : "/") + entry.getName());
 						// get the rest of the groups
-						String permissions = m.group(1);
-						entry.setOwner(m.group(2));
-						entry.setGroup(m.group(3));
-						entry.setSize(m.group(4));
-						entry.setSizeHr(Tools.byteToHumanReadableSize(Tools.parseLong(entry.getSize() ,0)));
-						entry.setDate(m.group(5));
-						entry.setTime(m.group(6));
-						String info = null;
+						entry.setPermissions(Tools.parseInt(m.group(1), 0));
+						entry.setSize(m.group(2));
+						entry.setSizeHr(Tools.byteToHumanReadableSize(Tools.parseLong(entry.getSize(), 0)));
+						entry.setDate(new Date(Tools.parseLong(m.group(3), 0) * 1000));
+						entry.setDateHr(Tools.msToDate(entry.getDate().getTime()));
+						entry.setLink(m.group(6));
 						// and the type
 						int objectType = TYPE_OTHER;
-						switch (permissions.charAt(0)) 
+						switch (m.group(4))
 						{
-							case '-':
+							case "d":
+								objectType = TYPE_DIRECTORY;
+								break;
+							case "dl":
+								objectType = TYPE_DIRECTORY_LINK;
+								break;
+							case "f":
 								objectType = TYPE_FILE;
 								break;
-							case 'b':
-								objectType = TYPE_BLOCK;
-								break;
-							case 'c':
-								objectType = TYPE_CHARACTER;
-								break;
-							case 'd':
-								objectType = TYPE_DIRECTORY;
-								entry.setFolder(1);
-								break;
-							case 'l':
+							case "fl":
 								objectType = TYPE_LINK;
 								break;
-							case 's':
-								objectType = TYPE_SOCKET;
-								break;
-							case 'p':
-								objectType = TYPE_FIFO;
-								break;
 						}
-						// now check what we may be linking to
-						if (objectType == TYPE_LINK) 
-						{
-							String name = entry.getName();
-							String[] segments = name.split("\\s->\\s"); //$NON-NLS-1$
-							// we should have 2 segments
-							if (segments.length == 2) 
-							{
-								// update the entry name to not contain the link
-								name = segments[0];
-								// and the link name
-								info = segments[1];
-								// now get the path to the link
-								String[] pathSegments = info.split(FILE_SEPARATOR);
-								if (pathSegments.length == 1)
-								{
-									// the link is to something in the same directory,
-									// unless the link is ..
-									if ("..".equals(pathSegments[0])) 
-									{ //$NON-NLS-1$
-										// set the type and we're done.
-										objectType = TYPE_DIRECTORY_LINK;
-									    entry.setFolder(1);
-										entry.setPath(info);
-									} 
-									else 
-									{
-										// either we found the object already
-										// or we'll find it later.
-									}
-								}
-							}
-							// add an arrow in front to specify it's a link.
-							info = "-> " + info; //$NON-NLS-1$;
-							entry.setInfo(info);
-						}
-						
+                        entry.setType(objectType);
 						e.add(entry);
 						
 					}
@@ -231,7 +194,7 @@ public class FMActivity extends AbsActivity
 					System.out.println("ls error: " + status);
 				}
 			}
-		}, "ls -al " + path);
+		}, LIST_FILES_CMD.replace("{path}", path));
 	}
 
 	static class SortFolderFirst implements Comparator<FMEntry>
@@ -239,8 +202,8 @@ public class FMActivity extends AbsActivity
 		@Override
 		public int compare(FMEntry p1, FMEntry p2)
 		{
-	        if (p1.getFolder() < p2.getFolder()) return 1;
-	        if (p1.getFolder() > p2.getFolder()) return -1;
+	        if (p1.getType() < p2.getType()) return 1;
+	        if (p1.getType() > p2.getType()) return -1;
 	        return 0;
 	    }   
 

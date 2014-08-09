@@ -18,21 +18,22 @@
  */
 package rs.pedjaapps.kerneltuner.model;
 
+import java.util.Date;
+
+import rs.pedjaapps.kerneltuner.ui.FMActivity;
+
 public class FMEntry
 {
 
 	private String name;
-	private String date;
+	private Date date;
+    private String dateHr;
 	private String size;
 	private String sizeHr;
-	private int folder;
 	private String path;
-	private String info;
-	private String permissions;
-	private String time;
-	private String owner;
-	private String group;
+	private int permissions;
 	private int type;
+    private String link;
 
 	public FMEntry()
 	{
@@ -59,7 +60,7 @@ public class FMEntry
 		this.name = name;
 	}
 
-	public void setDate(String date)
+	public void setDate(Date date)
 	{
 		this.date = date;
 	}
@@ -67,56 +68,6 @@ public class FMEntry
 	public void setSize(String size)
 	{
 		this.size = size;
-	}
-
-	public void setInfo(String info)
-	{
-		this.info = info;
-	}
-
-	public String getInfo()
-	{
-		return info;
-	}
-
-	public void setPermissions(String permissions)
-	{
-		this.permissions = permissions;
-	}
-
-	public String getPermissions()
-	{
-		return permissions;
-	}
-
-	public void setTime(String time)
-	{
-		this.time = time;
-	}
-
-	public String getTime()
-	{
-		return time;
-	}
-
-	public void setOwner(String owner)
-	{
-		this.owner = owner;
-	}
-
-	public String getOwner()
-	{
-		return owner;
-	}
-
-	public void setGroup(String group)
-	{
-		this.group = group;
-	}
-
-	public String getGroup()
-	{
-		return group;
 	}
 
 	public void setType(int type)
@@ -129,16 +80,6 @@ public class FMEntry
 		return type;
 	}
 
-	public void setFolder(int folder)
-	{
-		this.folder = folder;
-	}
-
-	public int getFolder()
-	{
-		return folder;
-	}
-
 	public String getName()
 	{
 		return name;
@@ -149,7 +90,7 @@ public class FMEntry
 		return size;
 	}
 
-	public String getDate()
+	public Date getDate()
 	{
 		return date;
 	}
@@ -161,7 +102,36 @@ public class FMEntry
 
 	public boolean isFolder()
 	{
-		return folder == 1;
+		return type == FMActivity.TYPE_DIRECTORY || type == FMActivity.TYPE_DIRECTORY_LINK;
 	}
 
+    public int getPermissions()
+    {
+        return permissions;
+    }
+
+    public void setPermissions(int permissions)
+    {
+        this.permissions = permissions;
+    }
+
+    public String getDateHr()
+    {
+        return dateHr;
+    }
+
+    public void setDateHr(String dateHr)
+    {
+        this.dateHr = dateHr;
+    }
+
+    public String getLink()
+    {
+        return link;
+    }
+
+    public void setLink(String link)
+    {
+        this.link = link;
+    }
 }
