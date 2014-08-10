@@ -26,3 +26,4 @@
 - basic terminal
 - basic sql manager
 - fix tmp
+- for every root command exec check if success first

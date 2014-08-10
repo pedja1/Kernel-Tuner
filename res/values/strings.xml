@@ -883,6 +883,13 @@
     <string name="phone_info">Phone Info</string>
     <string name="phone_info_desc">Launches \'Phone Info\' Screen</string>
     <string name="nm_info">Info</string>
+    <string name="file_manager">File Manager</string>
+    <string name="search">Search</string>
+    <string name="sort">Sort</string>
+    <string name="home">Home</string>
+    <string name="fm_new_title">Create New...</string>
+    <string name="file">File</string>
+    <string name="folder">Folder</string>
     <!-- End 1.5.4 -->
 
 </resources>

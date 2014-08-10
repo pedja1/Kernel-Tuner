@@ -307,9 +307,10 @@
             </intent-filter>
         </activity>
         <activity
-            android:name=".ui.FMActivity"
-            android:icon="@drawable/folder"
-            android:uiOptions="splitActionBarWhenNarrow" >
+            android:name=".filemanager.FMActivity"
+            android:icon="@drawable/fm_folder"
+            android:uiOptions="splitActionBarWhenNarrow"
+            android:label="@string/file_manager">
         </activity>
         <activity
             android:name=".ui.EditActivity"

@@ -1,5 +1,6 @@
 package rs.pedjaapps.kerneltuner.fragments;
 
+import rs.pedjaapps.kerneltuner.filemanager.FMActivity;
 import rs.pedjaapps.kerneltuner.ui.*;
 
 import android.app.Activity;

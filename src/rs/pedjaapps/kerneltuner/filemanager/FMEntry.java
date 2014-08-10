@@ -16,11 +16,11 @@
  * You should have received a copy of the GNU General Public License
  * along with Kernel Tuner. If not, see <http://www.gnu.org/licenses/>.
  */
-package rs.pedjaapps.kerneltuner.model;
+package rs.pedjaapps.kerneltuner.filemanager;
 
 import java.util.Date;
 
-import rs.pedjaapps.kerneltuner.ui.FMActivity;
+import rs.pedjaapps.kerneltuner.filemanager.FMActivity;
 
 public class FMEntry
 {
@@ -28,12 +28,13 @@ public class FMEntry
 	private String name;
 	private Date date;
     private String dateHr;
-	private String size;
+	private long size;
 	private String sizeHr;
 	private String path;
 	private int permissions;
 	private int type;
     private String link;
+    private FMUtils.FileType mimeType = FMUtils.FileType.unknown;
 
 	public FMEntry()
 	{
@@ -65,7 +66,7 @@ public class FMEntry
 		this.date = date;
 	}
 
-	public void setSize(String size)
+	public void setSize(long size)
 	{
 		this.size = size;
 	}
@@ -85,7 +86,7 @@ public class FMEntry
 		return name;
 	}
 
-	public String getSize()
+	public long getSize()
 	{
 		return size;
 	}
@@ -133,5 +134,15 @@ public class FMEntry
     public void setLink(String link)
     {
         this.link = link;
+    }
+
+    public FMUtils.FileType getMimeType()
+    {
+        return mimeType;
+    }
+
+    public void setMimeType(FMUtils.FileType mimeType)
+    {
+        this.mimeType = mimeType;
     }
 }
