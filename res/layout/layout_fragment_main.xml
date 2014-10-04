@@ -297,6 +297,7 @@
 			android:layout_height="wrap_content"
 			android:orientation="horizontal">
 
+			<!--
 			<Button
 				android:id="@+id/btn_fm"
 				style="?android:attr/buttonStyleSmall"
@@ -311,6 +312,7 @@
 				android:ellipsize="marquee"
 				android:marqueeRepeatLimit="marquee_forever"
 				android:background="@drawable/default_button_selector"/>
+			-->
 			
 			
 			<Button
@@ -332,6 +334,11 @@
 				android:layout_width="match_parent"
 				android:layout_height="match_parent"
 				android:layout_weight="1"/>
+
+            <View
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:layout_weight="1"/>
 
 		</LinearLayout>
 	</LinearLayout>

@@ -18,15 +18,22 @@
  */
 package rs.pedjaapps.kerneltuner.utility;
 
+import android.app.Activity;
 import android.app.AlertDialog;
+import android.content.ActivityNotFoundException;
 import android.content.Context;
 import android.content.DialogInterface;
+import android.content.Intent;
+import android.net.Uri;
 import android.os.Environment;
 import android.os.StatFs;
 import android.text.Html;
+import android.util.Log;
 
 import java.text.DecimalFormat;
 import java.text.SimpleDateFormat;
+
+import rs.pedjaapps.kerneltuner.R;
 
 public class Tools
 {
@@ -357,6 +364,33 @@ public class Tools
         AlertDialog dialog = builder.create();
         dialog.show();
         return dialog;
+    }
+
+    public static void paypalDonate(Activity activity)
+    {
+        Uri.Builder uriBuilder = new Uri.Builder();
+        uriBuilder.scheme("https").authority("www.paypal.com").path("cgi-bin/webscr");
+        uriBuilder.appendQueryParameter("cmd", "_donations");
+
+        uriBuilder.appendQueryParameter("business", "pcokulov@gmail.com");
+        uriBuilder.appendQueryParameter("lc", "US");
+        uriBuilder.appendQueryParameter("item_name", "Kernel Tuner Donate");
+        uriBuilder.appendQueryParameter("no_note", "1");
+        uriBuilder.appendQueryParameter("no_shipping", "1");
+        uriBuilder.appendQueryParameter("currency_code", "USD");
+        Uri payPalUri = uriBuilder.build();
+
+        // Start your favorite browser
+        try
+        {
+            Intent viewIntent = new Intent(Intent.ACTION_VIEW, payPalUri);
+            activity.startActivity(viewIntent);
+        }
+        catch (ActivityNotFoundException e)
+        {
+            showMessageAlertDialog(activity,R.string.donations__alert_dialog_no_browser,
+                    R.string.donations__alert_dialog_title, null);
+        }
     }
 }
 

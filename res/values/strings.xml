@@ -892,4 +892,11 @@
     <string name="folder">Folder</string>
     <!-- End 1.5.4 -->
 
+
+    <string name="donations__button_close">Close</string>
+    <string name="donations__alert_dialog_title">Error occurred</string>
+    <string name="donations__alert_dialog_no_browser">No browser was found to open a website!</string>
+    <string name="donate">Donate</string>
+    <string name="donate_with_paypal">Donate with PayPal</string>
+
 </resources>

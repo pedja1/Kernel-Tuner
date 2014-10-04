@@ -21,6 +21,7 @@ package rs.pedjaapps.kerneltuner.ui;
 import java.util.List;
 
 import rs.pedjaapps.kerneltuner.R;
+import rs.pedjaapps.kerneltuner.utility.Tools;
 
 import android.app.ActionBar;
 import android.content.Intent;
@@ -67,5 +68,18 @@ public class Preferences extends PreferenceActivity
     protected boolean isValidFragment(String fragmentName)
     {
         return PreferencesFragment.class.getName().equals(fragmentName);
+    }
+
+    @Override
+    public void onHeaderClick(Header header, int position)
+    {
+        if("donate".equals(header.fragmentArguments.getString("settings")))
+        {
+            Tools.paypalDonate(this);
+        }
+        else
+        {
+            super.onHeaderClick(header, position);
+        }
     }
 }

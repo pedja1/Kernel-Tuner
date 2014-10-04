@@ -91,4 +91,11 @@
 
 	</header>
 	-->
+
+    <header
+        android:title="@string/donate"
+        android:summary="@string/donate_with_paypal"
+        android:icon="@drawable/donate">
+        <extra android:name="settings" android:value="donate" />
+    </header>
 </preference-headers>
