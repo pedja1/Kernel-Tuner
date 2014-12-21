@@ -19,7 +19,7 @@ public class PrefsManager
     enum Key
     {
         cpu_refresh_interval, is_first_launch, kernel_info, app_version, main_show_temp, main_show_cpu,
-        main_show_toggles, main_show_buttons, temp_unit, show_ads, show_cpu_options_dialog, cpu_enable_all,
+        main_show_toggles, main_show_buttons, temp_unit, is_pro_version, pro_shown, show_cpu_options_dialog, cpu_enable_all,
         cpu_disable_all, hide_unsupported_items, notification_service, cpu_show_all_cores, gpu_3d, gpu_2d,
         gpu_governor, mpdec_idle_freq, mpdec_enabled, mpdec_max_cpus, mpdec_min_cpus, mpdec_sosc,
         mpdec_sof, mpdec_pause, mpdec_delay, scheduler, readahead, dt2w, s2w, otg, vsync, fastcharge,
@@ -81,9 +81,28 @@ public class PrefsManager
         return TempUnit.fromString(tempUnit);
     }
 
-    public static boolean showAds()
+    public static boolean isProVersion()
     {
-        return prefs.getBoolean(Key.show_ads.toString(), true);
+        return prefs.getBoolean(Key.is_pro_version.toString(), false);
+    }
+
+    public static void setPro(boolean pro)
+    {
+        SharedPreferences.Editor editor = prefs.edit();
+        editor.putBoolean(Key.is_pro_version.toString(), pro);
+        editor.apply();
+    }
+
+    public static boolean isProDialogShown()
+    {
+        return prefs.getBoolean(Key.pro_shown.toString(), false);
+    }
+
+    public static void setProDialogShown(boolean pro)
+    {
+        SharedPreferences.Editor editor = prefs.edit();
+        editor.putBoolean(Key.pro_shown.toString(), pro);
+        editor.apply();
     }
 
     public static boolean showCpuOptionDialog()

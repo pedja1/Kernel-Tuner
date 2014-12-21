@@ -31,7 +31,7 @@ import rs.pedjaapps.kerneltuner.root.RootUtils;
 import rs.pedjaapps.kerneltuner.utility.PrefsManager;
 import rs.pedjaapps.kerneltuner.utility.Tools;
 
-import android.app.ActionBar;
+import android.support.v7.app.ActionBar;
 import android.app.ProgressDialog;
 import android.content.Intent;
 import android.content.SharedPreferences;
@@ -97,7 +97,7 @@ public class Mpdecision extends AbsActivity
         idleSpinner = (Spinner) findViewById(R.id.bg);
         scroffSpinner = (Spinner) findViewById(R.id.spinner2);
 
-        ActionBar actionBar = getActionBar();
+        ActionBar actionBar = getSupportActionBar();
         actionBar.setDisplayHomeAsUpEnabled(true);
         this.getWindow().setSoftInputMode(WindowManager.LayoutParams.SOFT_INPUT_STATE_ALWAYS_HIDDEN);
         maxCpus = (EditText) findViewById(R.id.max_cpus);

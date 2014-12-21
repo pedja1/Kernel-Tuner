@@ -18,7 +18,7 @@
  */
 package rs.pedjaapps.kerneltuner.ui;
 
-import android.app.ActionBar;
+import android.support.v7.app.ActionBar;
 import android.app.AlertDialog;
 import android.content.DialogInterface;
 import android.content.Intent;
@@ -60,7 +60,7 @@ public abstract class AbsVoltageActivity extends AbsActivity implements AdapterV
 
         setContentView(R.layout.voltage);
 
-        ActionBar actionBar = getActionBar();
+        ActionBar actionBar = getSupportActionBar();
         actionBar.setDisplayHomeAsUpEnabled(true);
         actionBar.setSubtitle(driverName());
 

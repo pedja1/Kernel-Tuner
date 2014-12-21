@@ -58,12 +58,13 @@ public class ADBWirelessActivity extends AbsActivity
     private TextView tv_footer_3;
     private ImageView iv_button;
 
-    public static RemoteViews remoteViews = new RemoteViews("siir.es.adbWireless", R.layout.adb_appwidget);
+    public static RemoteViews remoteViews;
 
     @Override
     public void onCreate(Bundle savedInstanceState)
     {
         super.onCreate(savedInstanceState);
+        remoteViews = new RemoteViews(getPackageName(), R.layout.adb_appwidget);
 
         setContentView(R.layout.adb_wireless_main);
 
@@ -169,7 +170,7 @@ public class ADBWirelessActivity extends AbsActivity
     }
 
     @Override
-    public boolean onMenuItemSelected(int featureId, MenuItem item)
+    public boolean onOptionsItemSelected(MenuItem item)
     {
         switch (item.getItemId())
         {
@@ -178,7 +179,7 @@ public class ADBWirelessActivity extends AbsActivity
                 startActivityForResult(i, Utils.ACTIVITY_SETTINGS);
                 break;
         }
-        return super.onMenuItemSelected(featureId, item);
+        return super.onOptionsItemSelected(item);
     }
 
     @Override

@@ -72,7 +72,7 @@ public class SysCtlActivity extends AbsActivity
         super.onCreate(savedInstanceState);
         setContentView(R.layout.sysctl);
 
-        getActionBar().setDisplayHomeAsUpEnabled(true);
+        getSupportActionBar().setDisplayHomeAsUpEnabled(true);
 
         arch = Tools.getAbi();
         loading = (ProgressBar) findViewById(R.id.loading);
@@ -252,7 +252,7 @@ public class SysCtlActivity extends AbsActivity
             }
             sysAdapter.notifyDataSetChanged();
             loading.setVisibility(View.GONE);
-            //setProgressBarIndeterminateVisibility(false);
+            //setSupportProgressBarIndeterminateVisibility(false);
 
         }
 

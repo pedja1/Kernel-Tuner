@@ -94,7 +94,7 @@ public class FMActivity extends AbsActivity
 	@Override
     public void onCreate(Bundle savedInstanceState)
 	{
-		requestWindowFeature(Window.FEATURE_INDETERMINATE_PROGRESS);
+		supportRequestWindowFeature(Window.FEATURE_INDETERMINATE_PROGRESS);
         super.onCreate(savedInstanceState);
 
 		setContentView(R.layout.fm);
@@ -109,7 +109,7 @@ public class FMActivity extends AbsActivity
 
 		ls(path, false);
 
-		getActionBar().setSubtitle(path);
+		getSupportActionBar().setSubtitle(path);
 		fListView.setOnItemClickListener(new AdapterView.OnItemClickListener()
 		{
 				@Override
@@ -169,7 +169,7 @@ public class FMActivity extends AbsActivity
 
 	private void ls(final String path, final boolean back)
 	{
-        setProgressBarIndeterminateVisibility(true);
+        setSupportProgressBarIndeterminateVisibility(true);
 
 		new RootUtils().exec(new RootUtils.CommandCallbackImpl()
 		{
@@ -374,8 +374,8 @@ public class FMActivity extends AbsActivity
                 Parcelable state = listScrollStates.get(path);
                 if(state != null)fListView.post(new RestoreListStateRunnable(state));
             }
-            setProgressBarIndeterminateVisibility(false);
-            getActionBar().setSubtitle(path);
+            setSupportProgressBarIndeterminateVisibility(false);
+            getSupportActionBar().setSubtitle(path);
         }
     }
 

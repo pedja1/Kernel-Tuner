@@ -18,12 +18,14 @@
 */
 package rs.pedjaapps.kerneltuner.ui;
 
-import android.app.*;
+import android.app.AlertDialog;
 import android.content.*;
 import android.os.*;
+import android.support.v7.app.ActionBar;
 import android.view.*;
 import android.widget.*;
 
+import java.io.File;
 import java.util.*;
 
 import rs.pedjaapps.kerneltuner.*;
@@ -60,9 +62,9 @@ public class CPUActivity extends AbsActivity implements RootUtils.CommandCallbac
         mSwitch.setOnCheckedChangeListener(this);
         mSwitch.setOnTouchListener(this);
 
-        getActionBar().setDisplayShowCustomEnabled(true);
-        getActionBar().setDisplayShowTitleEnabled(true);
-        getActionBar().setCustomView(view, lp);
+        getSupportActionBar().setDisplayShowCustomEnabled(true);
+        getSupportActionBar().setDisplayShowTitleEnabled(true);
+        getSupportActionBar().setCustomView(view, lp);
 
         pbLoading = (ProgressBar) findViewById(R.id.pbLoading);
         mList = (ListView) findViewById(R.id.list);
@@ -70,6 +72,27 @@ public class CPUActivity extends AbsActivity implements RootUtils.CommandCallbac
         mListAdapter = new CPUAdapter(this, new ArrayList<CPU>());
         mList.setAdapter(mListAdapter);
         refreshView();
+
+        if (new File(Constants.MPDECISION).exists())
+        {
+            Button mp = (Button) findViewById(R.id.btn_mpdecision);
+            mp.setOnClickListener(new SimpleStartActivityListener(Mpdecision.class));
+            mp.setOnLongClickListener(new InfoListener(R.drawable.dual,
+                    getResources().getString(R.string.info_mpd_title),
+                    getResources().getString(R.string.info_mpd_text),
+                    Constants.G_S_URL_PREFIX + "mp-decision", true));
+        }
+        if (new File(Constants.THERMALD).exists())
+        {
+            Button thermal = (Button) findViewById(R.id.btn_thermal);
+            thermal.setOnClickListener(new SimpleStartActivityListener(Thermald.class));
+
+            thermal.setOnLongClickListener(new InfoListener(R.drawable.temp,
+                    getResources().getString(R.string.info_thermal_title),
+                    getResources().getString(R.string.info_thermal_text), "", false));
+        }
+
+
     }
 
     private void refreshView()
@@ -266,7 +289,7 @@ public class CPUActivity extends AbsActivity implements RootUtils.CommandCallbac
             @Override
             public void onClick(DialogInterface dialogInterface, int i)
             {
-                Frequency frequency = FrequencyCollection.getInstance().getFrequencyForIndex(i, FrequencyCollection.getInstance().getFrequencies());
+                Frequency frequency = FrequencyCollection.getFrequencyForIndex(i, FrequencyCollection.getInstance().getFrequencies());
                 if (frequency != null) switch (cpu.getItemType())
                 {
                     case CPU.ITEM_TYPE_MAX:

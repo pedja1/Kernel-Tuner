@@ -36,7 +36,7 @@ import org.w3c.dom.Node;
 import org.xml.sax.SAXException;
 
 import rs.pedjaapps.kerneltuner.R;
-import android.app.ActionBar;
+import android.support.v7.app.ActionBar;
 import android.app.Activity;
 import android.app.AlertDialog;
 import android.app.ProgressDialog;
@@ -169,7 +169,7 @@ public class BackupRestore extends AbsActivity
 		super.onCreate(savedInstanceState);
 		
 		setContentView(R.layout.backup_restore);
-		ActionBar actionBar = getActionBar();
+		ActionBar actionBar = getSupportActionBar();
 		actionBar.setDisplayHomeAsUpEnabled(true);
 		Button backup = (Button) findViewById(R.id.backup);
 		Button restore = (Button) findViewById(R.id.restore);

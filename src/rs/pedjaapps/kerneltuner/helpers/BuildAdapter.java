@@ -22,38 +22,37 @@ package rs.pedjaapps.kerneltuner.helpers;
 import android.content.*;
 import android.view.*;
 import android.widget.*;
+
+import java.util.List;
+
 import rs.pedjaapps.kerneltuner.*;
 import rs.pedjaapps.kerneltuner.model.*;
 
 public final class BuildAdapter extends ArrayAdapter<Build>
 {
 
-	private final int govItemLayoutResource;
-
-	public BuildAdapter(final Context context, final int govItemLayoutResource)
+	public BuildAdapter(final Context context, List<Build> build)
 	{
-		super(context, 0);
-		this.govItemLayoutResource = govItemLayoutResource;
+		super(context, 0, build);
 	}
 
 	@Override
 	public View getView(final int position, final View convertView, final ViewGroup parent)
 	{
 
-		final View view = getWorkingView(convertView);
+		final View view = getWorkingView(convertView, parent);
 		final ViewHolder viewHolder = getViewHolder(view);
 		final Build entry = getItem(position);
 
-		viewHolder.tvValue.setText(entry.getValue());
-		viewHolder.tvTitle.setText(entry.getName());
-
+		viewHolder.tvValue.setText(entry.value);
+		viewHolder.tvTitle.setText(entry.key);
 
 		return view;
 	}
 
-	private View getWorkingView(final View convertView)
+	private View getWorkingView(final View convertView, ViewGroup parent)
 	{
-		View workingView = null;
+		View workingView;
 
 		if (null == convertView)
 		{
@@ -61,7 +60,7 @@ public final class BuildAdapter extends ArrayAdapter<Build>
 			final LayoutInflater inflater = (LayoutInflater)context.getSystemService
 			(Context.LAYOUT_INFLATER_SERVICE);
 
-			workingView = inflater.inflate(govItemLayoutResource, null);
+			workingView = inflater.inflate(R.layout.build_row, parent, false);
 		}
 		else
 		{
@@ -74,7 +73,7 @@ public final class BuildAdapter extends ArrayAdapter<Build>
 	private ViewHolder getViewHolder(final View workingView)
 	{
 		final Object tag = workingView.getTag();
-		ViewHolder viewHolder = null;
+		ViewHolder viewHolder;
 
 
 		if (null == tag || !(tag instanceof ViewHolder))
@@ -99,7 +98,6 @@ public final class BuildAdapter extends ArrayAdapter<Build>
 	{
 		public TextView tvTitle;
 		public TextView tvValue;
-
 	}
 
 

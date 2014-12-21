@@ -21,7 +21,9 @@ import java.io.File;
 import rs.pedjaapps.kerneltuner.Constants;
 import rs.pedjaapps.kerneltuner.R;
 import rs.pedjaapps.kerneltuner.helpers.IOHelper;
+import rs.pedjaapps.kerneltuner.utility.InfoListener;
 import rs.pedjaapps.kerneltuner.utility.PrefsManager;
+import rs.pedjaapps.kerneltuner.utility.SimpleStartActivityListener;
 
 /**
  * Created by pedja on 31.5.14..
@@ -57,7 +59,7 @@ public class MainFragment extends Fragment
 		}
         if(gpuClass != null)
 		{
-			gpu.setOnClickListener(new StartActivityListener(gpuClass));
+			gpu.setOnClickListener(new SimpleStartActivityListener(gpuClass));
 		}
 		else
 		{
@@ -82,13 +84,13 @@ public class MainFragment extends Fragment
 		
         if(voltageClass != null)
 		{
-			voltage.setOnClickListener(new StartActivityListener(voltageClass));
+			voltage.setOnClickListener(new SimpleStartActivityListener(voltageClass));
 		}
 		else
 		{
 			voltage.setEnabled(false);
 		}
-        voltage.setOnClickListener(new StartActivityListener(VoltageActivity.class));
+        voltage.setOnClickListener(new SimpleStartActivityListener(VoltageActivity.class));
         voltage.setOnLongClickListener(new InfoListener(R.drawable.voltage,
                 getResources().getString(R.string.info_voltage_title),
                 getResources().getString(R.string.info_voltage_text),
@@ -140,31 +142,16 @@ public class MainFragment extends Fragment
                 getResources().getString(R.string.info_tis_text),
                 Constants.G_S_URL_PREFIX + "cpu times_in_state", true));
 
-        Button mp = (Button) view.findViewById(R.id.btn_mpdecision);
-        mp.setOnClickListener(new View.OnClickListener()
-        {
 
-            @Override
-            public void onClick(View v)
-            {
-                Intent myIntent = new Intent(getActivity(), Mpdecision.class);
-                startActivity(myIntent);
-
-            }
-        });
-        mp.setOnLongClickListener(new InfoListener(R.drawable.dual,
-                getResources().getString(R.string.info_mpd_title),
-                getResources().getString(R.string.info_mpd_text),
-                Constants.G_S_URL_PREFIX + "mp-decision", true));
 
         Button misc = (Button) view.findViewById(R.id.btn_misc);
-        misc.setOnClickListener(new StartActivityListener(MiscTweaksActivity.class));
+        misc.setOnClickListener(new SimpleStartActivityListener(MiscTweaksActivity.class));
         misc.setOnLongClickListener(new InfoListener(R.drawable.misc,
                 getResources().getString(R.string.info_misc_title),
                 getResources().getString(R.string.info_misc_text), "", false));
 
         Button governor = (Button) view.findViewById(R.id.btn_governor);
-        governor.setOnClickListener(new StartActivityListener(
+        governor.setOnClickListener(new SimpleStartActivityListener(
                 GovernorActivity.class));
         governor.setOnLongClickListener(new InfoListener(
                 R.drawable.main_governor, getResources().getString(
@@ -173,7 +160,7 @@ public class MainFragment extends Fragment
                 + "linux governors", true));
 
         Button oom = (Button) view.findViewById(R.id.btn_oom);
-        oom.setOnClickListener(new StartActivityListener(OOM.class));
+        oom.setOnClickListener(new SimpleStartActivityListener(OOM.class));
         oom.setOnLongClickListener(new InfoListener(R.drawable.oom,
                 getResources().getString(R.string.info_oom_title),
                 getResources().getString(R.string.info_oom_text),
@@ -187,21 +174,14 @@ public class MainFragment extends Fragment
                 false));*/
 
         Button network = (Button) view.findViewById(R.id.btnNetwork);
-        network.setOnClickListener(new StartActivityListener(NetworkManagerActivity.class));
+        network.setOnClickListener(new SimpleStartActivityListener(NetworkManagerActivity.class));
         network.setOnLongClickListener(new InfoListener(R.drawable.main_network,
                 getResources().getString(R.string.info_network_title),
                 getResources().getString(R.string.info_network_text), "",
                 false));
 
-        Button thermal = (Button) view.findViewById(R.id.btn_thermal);
-        thermal.setOnClickListener(new StartActivityListener(Thermald.class));
-
-        thermal.setOnLongClickListener(new InfoListener(R.drawable.temp,
-                getResources().getString(R.string.info_thermal_title),
-                getResources().getString(R.string.info_thermal_text), "", false));
-
         Button sd = (Button) view.findViewById(R.id.btn_sd);
-        sd.setOnClickListener(new StartActivityListener(
+        sd.setOnClickListener(new SimpleStartActivityListener(
                 SDScannerActivity.class));
         sd.setOnLongClickListener(new InfoListener(R.drawable.sd,
                 getResources().getString(R.string.info_sd_title),
@@ -225,14 +205,14 @@ public class MainFragment extends Fragment
                 false));
 
         Button tm = (Button) view.findViewById(R.id.btn_task_manager);
-        tm.setOnClickListener(new StartActivityListener(TaskManager.class));
+        tm.setOnClickListener(new SimpleStartActivityListener(TaskManager.class));
         tm.setOnLongClickListener(new InfoListener(R.drawable.tm,
                 getResources().getString(R.string.info_tm_title),
                 getResources().getString(R.string.info_tm_text),
                 Constants.G_S_URL_PREFIX + "task manager", true));
 
         Button build = (Button) view.findViewById(R.id.btn_build);
-        build.setOnClickListener(new StartActivityListener(
+        build.setOnClickListener(new SimpleStartActivityListener(
                 BuildpropEditor.class));
         build.setOnLongClickListener(new InfoListener(R.drawable.build,
                 getResources().getString(R.string.info_build_title),
@@ -240,21 +220,21 @@ public class MainFragment extends Fragment
                 Constants.G_S_URL_PREFIX + "build.prop", true));
 
         Button sys = (Button) view.findViewById(R.id.btn_sysctl);
-        sys.setOnClickListener(new StartActivityListener(SysCtlActivity.class));
+        sys.setOnClickListener(new SimpleStartActivityListener(SysCtlActivity.class));
         sys.setOnLongClickListener(new InfoListener(R.drawable.sysctl,
                 getResources().getString(R.string.info_sysctl_title),
                 getResources().getString(R.string.info_sysctl_text),
                 Constants.G_S_URL_PREFIX + "sysctl", true));
 
         Button log = (Button) view.findViewById(R.id.btn_logcat);
-        log.setOnClickListener(new StartActivityListener(LogCat.class));
+        log.setOnClickListener(new SimpleStartActivityListener(LogCat.class));
         log.setOnLongClickListener(new InfoListener(R.drawable.swap,
                 getResources().getString(R.string.info_logs_title),
                 getResources().getString(R.string.info_logs_text),
                 Constants.G_S_URL_PREFIX + "swap", true));
 
 		/*Button fm = (Button) view.findViewById(R.id.btn_fm);
-        fm.setOnClickListener(new StartActivityListener(FMActivity.class));
+        fm.setOnClickListener(new SimpleStartActivityListener(FMActivity.class));
         fm.setOnLongClickListener(new InfoListener(R.drawable.folder,
 			getResources().getString(R.string.info_fm_title),
 			getResources().getString(R.string.info_fm_text),
@@ -299,28 +279,6 @@ public class MainFragment extends Fragment
                 tis.setEnabled(false);
             }
         }
-        if (!(new File(Constants.MPDECISION).exists()))
-        {
-            if (hideUnsupportedItems)
-            {
-                mp.setVisibility(View.GONE);
-            }
-            else
-            {
-                mp.setEnabled(false);
-            }
-        }
-        if (!(new File(Constants.THERMALD).exists()))
-        {
-            if (hideUnsupportedItems)
-            {
-                thermal.setVisibility(View.GONE);
-            }
-            else
-            {
-                thermal.setEnabled(false);
-            }
-        }
         if (!IOHelper.gpuExists())
         {
             if (!(new File(Constants.GPU_SGX540).exists()))
@@ -336,75 +294,6 @@ public class MainFragment extends Fragment
             }
         }
         return view;
-    }
-
-    class StartActivityListener implements View.OnClickListener
-    {
-        Class<?> cls;
-
-        public StartActivityListener(Class<?> cls)
-        {
-            this.cls = cls;
-        }
-
-        @Override
-        public void onClick(View v)
-        {
-            startActivity(new Intent(getActivity(), cls));
-        }
-    }
-
-    class InfoListener implements View.OnLongClickListener
-    {
-
-        int icon;
-        String title;
-        String text;
-        String url;
-        boolean more;
-
-        public InfoListener(int icon, String title, String text, String url, boolean more)
-        {
-            this.icon = icon;
-            this.title = title;
-            this.text = text;
-            this.url = url;
-            this.more = more;
-        }
-
-        @Override
-        public boolean onLongClick(View v)
-        {
-            AlertDialog.Builder builder = new AlertDialog.Builder(getActivity());
-
-            builder.setTitle(title);
-
-            builder.setIcon(icon);
-            LayoutInflater inflater = getActivity().getLayoutInflater();
-            View view = inflater.inflate(R.layout.text_view_layout, null);
-            TextView tv = (TextView) view.findViewById(R.id.tv);
-            tv.setText(text);
-
-            builder.setPositiveButton(getResources().getString(R.string.info_ok), null);
-            if (more)
-            {
-                builder.setNeutralButton(R.string.info_more, new DialogInterface.OnClickListener()
-                {
-                    @Override
-                    public void onClick(DialogInterface arg0, int arg1)
-                    {
-                        Uri uri = Uri.parse(url);
-                        Intent intent = new Intent(Intent.ACTION_VIEW, uri);
-                        startActivity(intent);
-                    }
-                });
-            }
-            builder.setView(view);
-            AlertDialog alert = builder.create();
-
-            alert.show();
-            return true;
-        }
     }
 
     private void cpuOptionsDialog()

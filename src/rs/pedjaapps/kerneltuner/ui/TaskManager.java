@@ -18,7 +18,7 @@
  */
 package rs.pedjaapps.kerneltuner.ui;
 
-import android.app.ActionBar;
+import android.support.v7.app.ActionBar;
 import android.app.ActivityManager;
 import android.app.ActivityManager.MemoryInfo;
 import android.app.ProgressDialog;
@@ -65,7 +65,6 @@ import rs.pedjaapps.kerneltuner.utility.Tools;
 
 public class TaskManager extends AbsActivity implements OnItemClickListener, Runnable
 {
-
 	public CheckBox system, user, other;
 	SharedPreferences preferences;
 	ProgressBar loading;
@@ -103,15 +102,15 @@ public class TaskManager extends AbsActivity implements OnItemClickListener, Run
         handler = new Handler();
 		preferences = PreferenceManager.getDefaultSharedPreferences(this);
 
-		requestWindowFeature(Window.FEATURE_INDETERMINATE_PROGRESS);
+		supportRequestWindowFeature(Window.FEATURE_INDETERMINATE_PROGRESS);
 		super.onCreate(savedInstanceState);
 
-		getActionBar().setDisplayHomeAsUpEnabled(true);
+		getSupportActionBar().setDisplayHomeAsUpEnabled(true);
 		setContentView(R.layout.activity_tm_list);
 
-		getActionBar().setTitle(getResources().getString(R.string.title_task_manager));
-		getActionBar().setSubtitle(null);
-		getActionBar().setIcon(R.drawable.tm);
+		getSupportActionBar().setTitle(getResources().getString(R.string.title_task_manager));
+		getSupportActionBar().setSubtitle(null);
+		getSupportActionBar().setIcon(R.drawable.tm);
 
 		ActionBar.LayoutParams lp = new ActionBar.LayoutParams(ActionBar.LayoutParams.WRAP_CONTENT, ActionBar.LayoutParams.WRAP_CONTENT, Gravity.RIGHT | Gravity.CENTER_VERTICAL);
 		View customNav = LayoutInflater.from(this).inflate(R.layout.ram_layout, null);
@@ -120,8 +119,8 @@ public class TaskManager extends AbsActivity implements OnItemClickListener, Run
 		((TextView)customNav.findViewById(R.id.total)).setText(Html.fromHtml("<b>" + getResources().getString(R.string.mem_total) + "</b>" + getTotalRAM() + "MB"));
 
         //Attach to the action bar
-        getActionBar().setCustomView(customNav, lp);
-        getActionBar().setDisplayShowCustomEnabled(true);
+        getSupportActionBar().setCustomView(customNav, lp);
+        getSupportActionBar().setDisplayShowCustomEnabled(true);
 
 		tmListView =  (ListView)findViewById(R.id.list);
 		pm = getPackageManager();
@@ -129,6 +128,19 @@ public class TaskManager extends AbsActivity implements OnItemClickListener, Run
 		tmAdapter = new TMAdapter(this, R.layout.tm_row);
         tmListView.setAdapter(tmAdapter);
 		tmListView.setOnItemClickListener(this);
+
+		loading = (ProgressBar)findViewById(R.id.loading);
+		system = (CheckBox)findViewById(R.id.system);
+		user = (CheckBox)findViewById(R.id.user);
+		other = (CheckBox)findViewById(R.id.other);
+
+		system.setChecked(preferences.getBoolean("tm_system", false));
+		user.setChecked(preferences.getBoolean("tm_user", true));
+		other.setChecked(preferences.getBoolean("tm_other", false));
+
+		system.setOnCheckedChangeListener(new Listener());
+		user.setOnCheckedChangeListener(new Listener());
+		other.setOnCheckedChangeListener(new Listener());
 
         new GetRunningApps(true).execute();
 	}
@@ -217,7 +229,7 @@ public class TaskManager extends AbsActivity implements OnItemClickListener, Run
 		@Override
 		protected void onPostExecute(List<Task> entries)
 		{
-			//	setProgressBarIndeterminateVisibility(false);
+			//	setSupportProgressBarIndeterminateVisibility(false);
 
 			Collections.sort(entries, new SortByMb());
 
@@ -245,7 +257,7 @@ public class TaskManager extends AbsActivity implements OnItemClickListener, Run
 						tmAdapter.add(e);
 					}
 				}
-				setProgressBarIndeterminateVisibility(false);
+				setSupportProgressBarIndeterminateVisibility(false);
 			}
 			tmAdapter.notifyDataSetChanged();
 
@@ -262,7 +274,7 @@ public class TaskManager extends AbsActivity implements OnItemClickListener, Run
 		@Override
 		protected void onPreExecute()
 		{
-			if(showProgress)setProgressBarIndeterminateVisibility(true);
+			if(showProgress)setSupportProgressBarIndeterminateVisibility(true);
 			//tmAdapter.clear();
 		}
 	}
@@ -344,31 +356,6 @@ public class TaskManager extends AbsActivity implements OnItemClickListener, Run
 	}
 
 	@Override
-	public boolean onCreateOptionsMenu(Menu menu)
-	{
-		new MenuInflater(this).inflate(R.menu.tm_custom_menu, menu);
-		RelativeLayout relativeLayout = (RelativeLayout) menu.findItem(R.id.layout_item)
-			.getActionView();
-
-        View inflatedView = getLayoutInflater().inflate(R.layout.tm_cb_view, null);
-
-        relativeLayout.addView(inflatedView);
-		loading = (ProgressBar)relativeLayout.findViewById(R.id.loading);
-		system = (CheckBox)relativeLayout.findViewById(R.id.system);
-		user = (CheckBox)relativeLayout.findViewById(R.id.user);
-		other = (CheckBox)relativeLayout.findViewById(R.id.other);
-
-		system.setChecked(preferences.getBoolean("tm_system", false));
-		user.setChecked(preferences.getBoolean("tm_user", true));
-		other.setChecked(preferences.getBoolean("tm_other", false));
-
-		system.setOnCheckedChangeListener(new Listener());
-		user.setOnCheckedChangeListener(new Listener());
-		other.setOnCheckedChangeListener(new Listener());
-		return super.onCreateOptionsMenu(menu);
-	}
-
-	@Override
 	public boolean onOptionsItemSelected(MenuItem item)
 	{
 		switch (item.getItemId())
@@ -377,9 +364,7 @@ public class TaskManager extends AbsActivity implements OnItemClickListener, Run
 				Intent intent = new Intent(this, MainActivity.class);
 				intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
 				startActivity(intent);
-
 				return true;
-
 		}
 		return super.onOptionsItemSelected(item);
 	}

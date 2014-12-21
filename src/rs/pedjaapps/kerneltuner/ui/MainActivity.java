@@ -1,21 +1,22 @@
 package rs.pedjaapps.kerneltuner.ui;
 
-import android.app.ActionBar;
+import android.app.AlertDialog;
+import android.content.DialogInterface;
+import android.content.pm.PackageInfo;
+import android.os.AsyncTask;
+import android.support.v4.content.LocalBroadcastManager;
+import android.support.v7.app.ActionBar;
 import android.app.Fragment;
 import android.content.BroadcastReceiver;
 import android.content.Context;
 import android.content.Intent;
 import android.content.IntentFilter;
-import android.content.pm.PackageInfo;
-import android.content.pm.PackageManager;
 import android.graphics.Color;
 import android.os.BatteryManager;
-import android.os.Build;
 import android.os.Bundle;
 import android.os.Handler;
 import android.os.HandlerThread;
 import android.text.Html;
-import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
@@ -23,15 +24,17 @@ import android.widget.Button;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 import android.widget.Toast;
-import com.crashlytics.android.Crashlytics;
+
 import java.io.File;
 import java.io.IOException;
 import java.io.RandomAccessFile;
-import rs.pedjaapps.kerneltuner.Constants;
+import java.util.List;
+
 import rs.pedjaapps.kerneltuner.R;
 import rs.pedjaapps.kerneltuner.constants.TempUnit;
 import rs.pedjaapps.kerneltuner.fragments.MainFragment;
 import rs.pedjaapps.kerneltuner.helpers.IOHelper;
+import rs.pedjaapps.kerneltuner.receiver.PackageChangeReceiver;
 import rs.pedjaapps.kerneltuner.root.RCommand;
 import rs.pedjaapps.kerneltuner.root.RootUtils;
 import rs.pedjaapps.kerneltuner.utility.PrefsManager;
@@ -39,6 +42,9 @@ import rs.pedjaapps.kerneltuner.utility.Tools;
 
 /**
  * Created by pedja on 17.4.14..
+ *
+ * This file is part of Kernel Tuner
+ * Copyright Predrag Čokulov 2014
  */
 public class MainActivity extends AbsActivity implements Runnable, View.OnClickListener
 {
@@ -74,7 +80,7 @@ public class MainActivity extends AbsActivity implements Runnable, View.OnClickL
     public void onCreate(Bundle savedInstanceState)
     {
         super.onCreate(savedInstanceState);
-        setContentView(getLayoutRes());
+        setContentView(R.layout.activity_main);
 
         cpuRefreshInterval = PrefsManager.getCpuRefreshInterval();
         boolean firstLaunch = PrefsManager.isFirstLaunch();
@@ -88,10 +94,59 @@ public class MainActivity extends AbsActivity implements Runnable, View.OnClickL
             logKernelInfo();
         }
 
+        checkProVersion();
+
         setupView();
 
-        showChangelog();
-        getActionBar().setSubtitle(Build.MANUFACTURER + " " + Build.MODEL);
+        //if(getSupportActionBar() != null)getSupportActionBar().setSubtitle(Build.MANUFACTURER + " " + Build.MODEL);
+    }
+
+    private void showByProDialog()
+    {
+        if(PrefsManager.isProDialogShown() || PrefsManager.isProVersion())return;
+        AlertDialog.Builder builder = new AlertDialog.Builder(this);
+        builder.setTitle(R.string.go_pro);
+        builder.setMessage(R.string.go_pro_summary);
+        builder.setPositiveButton(R.string.ok, new DialogInterface.OnClickListener()
+        {
+            @Override
+            public void onClick(DialogInterface dialog, int which)
+            {
+                Tools.goPro(MainActivity.this);
+            }
+        });
+        builder.setNegativeButton(R.string.cancel, null);
+        builder.setCancelable(false);
+        builder.show();
+        PrefsManager.setProDialogShown(true);
+    }
+
+    private void checkProVersion()
+    {
+        new AsyncTask<String, String, String>()
+        {
+            @Override
+            protected String doInBackground(String... params)
+            {
+                List<PackageInfo> packageList = getPackageManager().getInstalledPackages(0);
+                for (PackageInfo pi : packageList)
+                {
+                    if(pi.packageName.equals(PackageChangeReceiver.PRO_PACKAGE_NAME))
+                    {
+                        PrefsManager.setPro(true);
+                        LocalBroadcastManager.getInstance(MainActivity.this).sendBroadcast(new Intent(ACTION_TOGGLE_PRO_VERSION));
+                        return null;
+                    }
+                }
+                return null;
+            }
+
+            @Override
+            protected void onPostExecute(String s)
+            {
+                showByProDialog();
+            }
+        }.execute();
     }
 
     @Override
@@ -122,30 +177,6 @@ public class MainActivity extends AbsActivity implements Runnable, View.OnClickL
         new RootUtils().closeAllShells();
     }
 
-    private void showChangelog()
-    {
-        int appVersion = PrefsManager.getAppVersion();
-
-        try
-        {
-            PackageInfo pInfo = getPackageManager().getPackageInfo(getPackageName(), 0);
-            int version = pInfo.versionCode;
-            if (appVersion != version)
-            {
-                //Intent myIntent = new Intent(this, Changelog.class);
-                //startActivity(myIntent);
-            }
-
-            PrefsManager.setAppVersion(version);
-        }
-        catch (PackageManager.NameNotFoundException e)
-        {
-            Log.e(Constants.LOG_TAG, e.getMessage());
-            Crashlytics.logException(e);
-            e.printStackTrace();
-        }
-    }
-
     private void logKernelInfo()
     {
         PrefsManager.setKernelInfo();
@@ -172,11 +203,6 @@ public class MainActivity extends AbsActivity implements Runnable, View.OnClickL
         }
     }
 
-    public int getLayoutRes()
-    {
-        return R.layout.activity_main;
-    }
-
     public void setupView()
     {
 
@@ -188,9 +214,9 @@ public class MainActivity extends AbsActivity implements Runnable, View.OnClickL
         tvBatteryTemp = (TextView) findViewById(R.id.txtBatteryTemp);
         llCpuTemp = (LinearLayout) findViewById(R.id.temp_cpu_layout);
 
-        ActionBar actionBar = getActionBar();
+        ActionBar actionBar = getSupportActionBar();
         //actionBar.setSubtitle("Various kernel and system tuning");
-        actionBar.setHomeButtonEnabled(false);
+        if(actionBar != null )actionBar.setHomeButtonEnabled(false);
 
         HandlerThread cpuRefreshThread = new HandlerThread("cpu_refresh_thread");
         cpuRefreshThread.start();
@@ -303,22 +329,22 @@ public class MainActivity extends AbsActivity implements Runnable, View.OnClickL
     {
         String tmp = IOHelper.cpuTemp(cpuTempPath);
         cpuTemp(tmp);
-        cpu0update(IOHelper.cpu0CurFreq());
+        cpu0update(IOHelper.cpuCurFreq(0));
         
 
         if (IOHelper.cpu1Exists())
         {
-            cpu1update(IOHelper.cpu1CurFreq());
+            cpu1update(IOHelper.cpuCurFreq(1));
             
         }
         if (IOHelper.cpu2Exists())
         {
-            cpu2update(IOHelper.cpu2CurFreq());
+            cpu2update(IOHelper.cpuCurFreq(2));
             
         }
         if (IOHelper.cpu3Exists())
         {
-            cpu3update(IOHelper.cpu3CurFreq());
+            cpu3update(IOHelper.cpuCurFreq(3));
             
         }
         try
@@ -619,9 +645,7 @@ public class MainActivity extends AbsActivity implements Runnable, View.OnClickL
     {
         menu.add(1, 1, 1, getString(R.string.settings))
                 .setIcon(R.drawable.settings_dark)
-                .setShowAsAction(
-                        MenuItem.SHOW_AS_ACTION_ALWAYS
-                                | MenuItem.SHOW_AS_ACTION_WITH_TEXT);
+                .setShowAsAction(MenuItem.SHOW_AS_ACTION_ALWAYS | MenuItem.SHOW_AS_ACTION_WITH_TEXT);
         return true;
     }
 

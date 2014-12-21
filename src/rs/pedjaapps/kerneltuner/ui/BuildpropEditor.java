@@ -18,10 +18,7 @@
 */
 package rs.pedjaapps.kerneltuner.ui;
 
-import java.io.*;
-
 import android.app.AlertDialog;
-import android.app.ProgressDialog;
 import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
@@ -43,18 +40,23 @@ import android.widget.ListView;
 import android.widget.Toast;
 
 import com.crashlytics.android.Crashlytics;
-import com.stericson.RootTools.RootTools;
-import com.stericson.RootTools.execution.CommandCapture;
 
 import org.apache.commons.io.FileUtils;
 
+import java.io.BufferedReader;
+import java.io.File;
+import java.io.FileInputStream;
+import java.io.FileOutputStream;
+import java.io.InputStreamReader;
+import java.io.OutputStreamWriter;
 import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.List;
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
 
 import rs.pedjaapps.kerneltuner.R;
-import rs.pedjaapps.kerneltuner.model.Build;
 import rs.pedjaapps.kerneltuner.helpers.BuildAdapter;
+import rs.pedjaapps.kerneltuner.model.Build;
 import rs.pedjaapps.kerneltuner.root.RCommand;
 import rs.pedjaapps.kerneltuner.root.RootUtils;
 import rs.pedjaapps.kerneltuner.utility.Tools;
@@ -65,25 +67,25 @@ public class BuildpropEditor extends AbsActivity
 
     ListView bListView;
     BuildAdapter bAdapter;
-    List<Build> entries;
-    ProgressDialog pd;
     SharedPreferences preferences;
-    String arch = Tools.getAbi();
+    List<Build> entries;
+
+    Pattern buildPropertyLine = Pattern.compile("(\\S+)=(\\S+)");
 
     @Override
     public void onCreate(Bundle savedInstanceState)
     {
+        entries = new ArrayList<>();
         preferences = PreferenceManager.getDefaultSharedPreferences(this);
 
+        supportRequestWindowFeature(Window.FEATURE_INDETERMINATE_PROGRESS);
         super.onCreate(savedInstanceState);
-        requestWindowFeature(Window.FEATURE_INDETERMINATE_PROGRESS);
         setContentView(R.layout.build);
-        getActionBar().setDisplayHomeAsUpEnabled(true);
+        getSupportActionBar().setDisplayHomeAsUpEnabled(true);
 
         bListView = (ListView) findViewById(R.id.list);
-        bAdapter = new BuildAdapter(this, R.layout.build_row);
+        bAdapter = new BuildAdapter(this, new ArrayList<Build>());
         bListView.setAdapter(bAdapter);
-
 
         bListView.setOnItemClickListener(new AdapterView.OnItemClickListener()
         {
@@ -91,15 +93,13 @@ public class BuildpropEditor extends AbsActivity
             public void onItemClick(AdapterView<?> arg0, View v, final int pos, long is)
             {
                 AlertDialog.Builder builder = new AlertDialog.Builder(v.getContext());
-                final Build tmpEntry = bAdapter.getItem(pos);
-                builder.setTitle(tmpEntry.getName());
-
-                //builder.setMessage("Set new value!");
+                final Build build = bAdapter.getItem(pos);
+                builder.setTitle(build.key);
 
                 builder.setIcon(R.drawable.build);
 
                 final EditText input = new EditText(v.getContext());
-                input.setText(tmpEntry.getValue());
+                input.setText(build.value);
                 input.selectAll();
                 input.setGravity(Gravity.CENTER_HORIZONTAL);
                 input.requestFocus();
@@ -109,7 +109,8 @@ public class BuildpropEditor extends AbsActivity
                     @Override
                     public void onClick(DialogInterface dialog, int which)
                     {
-                        saveBuildProp(tmpEntry, input, pos);
+                        build.value = input.getText().toString().trim();
+                        saveBuildProp(build);
                     }
                 });
                 builder.setNegativeButton(getResources().getString(R.string.cancel), null);
@@ -123,32 +124,44 @@ public class BuildpropEditor extends AbsActivity
         new GetBuildEntries().execute();
     }
 
-    private void saveBuildProp(final Build tmpEntry, final EditText input, final int position)
+    private void saveBuildProp(Build build)
     {
         try
         {
-            String bp = RCommand.readFileContent("/system/build.prop");
-            bp = bp.replace(tmpEntry.getName().trim() + "=" + tmpEntry.getValue().trim(), tmpEntry.getName().trim() + "=" + input.getText().toString().trim());
+            Build buildFromAll = Build.getBuildByKey(entries, build.key);
+            buildFromAll.value = build.value;
+            StringBuilder builder = new StringBuilder();
+            for(Build bld : entries)
+            {
+                if(bld.isProperty)
+                {
+                    builder.append(bld.key).append("=").append(bld.value);
+                }
+                else
+                {
+                    builder.append(bld.value);
+                }
+                builder.append("\n");
+            }
             FileOutputStream fOut = openFileOutput("build.prop", MODE_PRIVATE);
             OutputStreamWriter osw = new OutputStreamWriter(fOut);
-            osw.write(bp);
+            osw.write(builder.toString());
             osw.flush();
             osw.close();
 
             new RootUtils().exec(new RootUtils.CommandCallbackImpl()
-                                 {
-                                     @Override
-                                     public void onComplete(RootUtils.Status status, String output)
-                                     {
-                                         System.out.println(output);
-                                         Toast.makeText(BuildpropEditor.this, getString(R.string.bprop_saved), Toast.LENGTH_LONG).show();
-                                         bAdapter.remove(tmpEntry);
-                                         bAdapter.insert(new Build(tmpEntry.getName(), input.getText().toString()), position);
-                                         bAdapter.notifyDataSetChanged();
-                                     }
-                                 }, "busybox cp -f /system/build.prop /system/build.prop.bk",
+             {
+                 @Override
+                 public void onComplete(RootUtils.Status status, String output)
+                 {
+                     System.out.println(output);
+                     Toast.makeText(BuildpropEditor.this, getString(R.string.bprop_saved), Toast.LENGTH_LONG).show();
+                     bAdapter.notifyDataSetChanged();
+                 }
+             }, "mount -o remount,rw /system",
+                    "busybox cp -f /system/build.prop /system/build.prop.bk",
                     "busybox cp -f " + getFilesDir().getPath() + "/build.prop /system/build.prop",
-                    "chmod 644 /system/build.prop");
+                    "chmod 644 /system/build.prop", "mount -o remount,ro /system");
 
         }
         catch (Exception e)
@@ -166,37 +179,29 @@ public class BuildpropEditor extends AbsActivity
         @Override
         protected Void doInBackground(String... args)
         {
-            entries = new ArrayList<Build>();
-            //Process proc = null;
+            entries.clear();
             try
             {
-                //	proc = Runtime.getRuntime().exec(getFilesDir().getPath() + "/toolbox getprop");
-
                 File myFile = new File("/system/build.prop");
                 FileInputStream fIn = new FileInputStream(myFile);
 
-                BufferedReader bufferedReader = new BufferedReader(
-                        new InputStreamReader(fIn));
+                BufferedReader bufferedReader = new BufferedReader(new InputStreamReader(fIn));
                 while ((line = bufferedReader.readLine()) != null)
                 {
-
-                    if (!line.startsWith("#") && !line.startsWith(" ") && line.length() != 0)
+                    Matcher matcher = buildPropertyLine.matcher(line);
+                    Build build = new Build();
+                    if (matcher.matches())
                     {
-                        String[] temp = line.trim().split("=");
-                        List<String> tmp = Arrays.asList(temp);
-                        Build tmpEntry;
-                        if (tmp.size() == 2)
-                        {
-                            tmpEntry = new Build(tmp.get(0), tmp.get(1));
-                        }
-                        else
-                        {
-                            tmpEntry = new Build(tmp.get(0), "");
-                        }
-                        entries.add(tmpEntry);
-                        publishProgress(tmpEntry);
+                        build.key = matcher.group(1);
+                        build.value = matcher.group(2);
+                        build.isProperty = true;
                     }
-
+                    else
+                    {
+                        build.value = line;
+                        build.isProperty = false;
+                    }
+                    entries.add(build);
                 }
                 bufferedReader.close();
             }
@@ -208,25 +213,20 @@ public class BuildpropEditor extends AbsActivity
         }
 
         @Override
-        protected void onProgressUpdate(Build... values)
-        {
-
-            bAdapter.add(values[0]);
-            bAdapter.notifyDataSetChanged();
-
-            super.onProgressUpdate();
-        }
-
-        @Override
         protected void onPostExecute(Void res)
         {
-            setProgressBarIndeterminateVisibility(false);
+            setSupportProgressBarIndeterminateVisibility(false);
+            for (Build build : entries)
+            {
+                if (build.isProperty) bAdapter.add(build);
+            }
+            bAdapter.notifyDataSetChanged();
         }
 
         @Override
         protected void onPreExecute()
         {
-            setProgressBarIndeterminateVisibility(true);
+            setSupportProgressBarIndeterminateVisibility(true);
             bAdapter.clear();
         }
 
@@ -235,7 +235,6 @@ public class BuildpropEditor extends AbsActivity
     @Override
     public boolean onCreateOptionsMenu(Menu menu)
     {
-
         menu.add(0, 0, 0, getString(R.string.add)).setShowAsAction(MenuItem.SHOW_AS_ACTION_IF_ROOM);
         menu.add(0, 1, 1, getString(R.string.backup)).setShowAsAction(MenuItem.SHOW_AS_ACTION_IF_ROOM);
         menu.add(0, 2, 2, getString(R.string.restore)).setShowAsAction(MenuItem.SHOW_AS_ACTION_IF_ROOM);
@@ -277,11 +276,10 @@ public class BuildpropEditor extends AbsActivity
 
         builder.setIcon(R.drawable.build);
 
-        LayoutInflater inflater = (LayoutInflater) this
-                .getSystemService(Context.LAYOUT_INFLATER_SERVICE);
+        LayoutInflater inflater = (LayoutInflater) this.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
         View view = inflater.inflate(R.layout.build_add_layout, null);
-        final EditText key = (EditText) view.findViewById(R.id.key);
-        final EditText value = (EditText) view.findViewById(R.id.value);
+        final EditText tvKey = (EditText) view.findViewById(R.id.key);
+        final EditText tvValue = (EditText) view.findViewById(R.id.value);
 
         builder.setPositiveButton(R.string.add, new DialogInterface.OnClickListener()
         {
@@ -293,10 +291,21 @@ public class BuildpropEditor extends AbsActivity
                     @Override
                     public void onComplete(RootUtils.Status status, String output)
                     {
-                        bAdapter.add(new Build(key.getText().toString(), value.getText().toString()));
+                        Build build = new Build();
+                        build.key = tvKey.getText().toString().trim();
+                        build.value = tvValue.getText().toString().trim();
+                        build.isProperty = true;
+                        entries.add(build);
+                        bAdapter.clear();
+                        for (Build bld : entries)
+                        {
+                            if (bld.isProperty) bAdapter.add(bld);
+                        }
                         bAdapter.notifyDataSetChanged();
                     }
-                }, "echo " + key.getText().toString() + "=" + value.getText().toString() + " >> /system/build.prop");
+                }, "mount -o remount,rw /system",
+                    "echo " + tvKey.getText().toString() + "=" + tvValue.getText().toString() + " >> /system/build.prop",
+                    "mount -o remount,ro /system");
 
             }
         });

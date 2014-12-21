@@ -35,6 +35,7 @@
         <option name="modules">
           <set>
             <option value="$PROJECT_DIR$" />
+            <option value="$PROJECT_DIR$/KernelTunerPro" />
           </set>
         </option>
       </GradleProjectSettings>
@@ -164,15 +165,27 @@
   <component name="ProjectModuleManager">
     <modules>
       <module fileurl="file://$PROJECT_DIR$/Kernel-Tuner.iml" filepath="$PROJECT_DIR$/Kernel-Tuner.iml" />
+      <module fileurl="file://$PROJECT_DIR$/KernelTunerPro/KernelTunerPro.iml" filepath="$PROJECT_DIR$/KernelTunerPro/KernelTunerPro.iml" />
     </modules>
   </component>
   <component name="ProjectRootManager" version="2" languageLevel="JDK_1_7" assert-keyword="true" jdk-15="true" project-jdk-name="JDK" project-jdk-type="JavaSDK">
     <output url="file://$PROJECT_DIR$/build/classes" />
   </component>
+  <component name="ProjectType">
+    <option name="id" value="Android" />
+  </component>
   <component name="VcsDirectoryMappings">
     <mapping directory="" vcs="Git" />
   </component>
   <component name="libraryTable">
+    <library name="appcompat-v7-21.0.3">
+      <CLASSES>
+        <root url="jar://$PROJECT_DIR$/build/intermediates/exploded-aar/com.android.support/appcompat-v7/21.0.3/classes.jar!/" />
+        <root url="file://$PROJECT_DIR$/build/intermediates/exploded-aar/com.android.support/appcompat-v7/21.0.3/res" />
+      </CLASSES>
+      <JAVADOC />
+      <SOURCES />
+    </library>
     <library name="commons-io-2.4">
       <CLASSES>
         <root url="jar://$PROJECT_DIR$/libs/commons-io-2.4.jar!/" />
@@ -182,17 +195,17 @@
         <root url="jar://$USER_HOME$/.ideaLibSources/commons-io-2.4-sources.jar!/" />
       </SOURCES>
     </library>
-    <library name="crashlytics">
+    <library name="crashlytics-1.1.13">
       <CLASSES>
-        <root url="jar://$PROJECT_DIR$/libs/crashlytics.jar!/" />
+        <root url="jar://$USER_HOME$/.gradle/caches/modules-2/files-2.1/com.crashlytics.android/crashlytics/1.1.13/e821eafa1bf489a26bdb71f95078c26785b37a1/crashlytics-1.1.13.jar!/" />
       </CLASSES>
       <JAVADOC />
       <SOURCES />
     </library>
-    <library name="play-services-4.3.23">
+    <library name="play-services-6.5.87">
       <CLASSES>
-        <root url="jar://$PROJECT_DIR$/build/intermediates/exploded-aar/com.google.android.gms/play-services/4.3.23/classes.jar!/" />
-        <root url="file://$PROJECT_DIR$/build/intermediates/exploded-aar/com.google.android.gms/play-services/4.3.23/res" />
+        <root url="file://$PROJECT_DIR$/build/intermediates/exploded-aar/com.google.android.gms/play-services/6.5.87/res" />
+        <root url="jar://$PROJECT_DIR$/build/intermediates/exploded-aar/com.google.android.gms/play-services/6.5.87/classes.jar!/" />
       </CLASSES>
       <JAVADOC />
       <SOURCES />
@@ -204,24 +217,34 @@
       <JAVADOC />
       <SOURCES />
     </library>
-    <library name="support-v4-19.1.0">
+    <library name="support-annotations-21.0.3">
       <CLASSES>
-        <root url="jar://$USER_HOME$/android-studio/sdk/extras/android/m2repository/com/android/support/support-v4/19.1.0/support-v4-19.1.0.jar!/" />
+        <root url="jar://$USER_HOME$/android-studio/sdk/extras/android/m2repository/com/android/support/support-annotations/21.0.3/support-annotations-21.0.3.jar!/" />
       </CLASSES>
       <JAVADOC />
       <SOURCES>
-        <root url="jar://$USER_HOME$/android-studio/sdk/extras/android/m2repository/com/android/support/support-v4/19.1.0/support-v4-19.1.0-sources.jar!/" />
+        <root url="jar://$USER_HOME$/android-studio/sdk/extras/android/m2repository/com/android/support/support-annotations/21.0.3/support-annotations-21.0.3-sources.jar!/" />
       </SOURCES>
     </library>
-    <library name="universal-image-loader-1.9.2">
+    <library name="support-v4-21.0.3">
       <CLASSES>
-        <root url="jar://$USER_HOME$/.gradle/caches/modules-2/files-2.1/com.nostra13.universalimageloader/universal-image-loader/1.9.2/9e025bc5b84968e7d6ac765e660a70b3e5a87432/universal-image-loader-1.9.2.jar!/" />
+        <root url="file://$PROJECT_DIR$/build/intermediates/exploded-aar/com.android.support/support-v4/21.0.3/res" />
+        <root url="jar://$PROJECT_DIR$/build/intermediates/exploded-aar/com.android.support/support-v4/21.0.3/libs/internal_impl-21.0.3.jar!/" />
+        <root url="jar://$PROJECT_DIR$/build/intermediates/exploded-aar/com.android.support/support-v4/21.0.3/classes.jar!/" />
       </CLASSES>
       <JAVADOC />
       <SOURCES>
-        <root url="jar://$USER_HOME$/.gradle/caches/modules-2/files-2.1/com.nostra13.universalimageloader/universal-image-loader/1.9.2/e52a7a5d1dbd9f817f314aa28a037d546a9241c2/universal-image-loader-1.9.2-sources.jar!/" />
+        <root url="jar://$USER_HOME$/android-studio/sdk/extras/android/m2repository/com/android/support/support-v4/21.0.3/support-v4-21.0.3-sources.jar!/" />
+      </SOURCES>
+    </library>
+    <library name="universal-image-loader-1.9.3">
+      <CLASSES>
+        <root url="jar://$USER_HOME$/.gradle/caches/modules-2/files-2.1/com.nostra13.universalimageloader/universal-image-loader/1.9.3/a85588bec3e2c4584d593d3f15df1677321bca72/universal-image-loader-1.9.3.jar!/" />
+      </CLASSES>
+      <JAVADOC />
+      <SOURCES>
+        <root url="jar://$USER_HOME$/.gradle/caches/modules-2/files-2.1/com.nostra13.universalimageloader/universal-image-loader/1.9.3/3af7bbe53f48e328c99582dd15d6e5e7dbe1c27a/universal-image-loader-1.9.3-sources.jar!/" />
       </SOURCES>
     </library>
   </component>
 </project>
-

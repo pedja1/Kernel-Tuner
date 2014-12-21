@@ -30,7 +30,7 @@ import rs.pedjaapps.kerneltuner.helpers.DatabaseHandler;
 import rs.pedjaapps.kerneltuner.helpers.IOHelper;
 import rs.pedjaapps.kerneltuner.helpers.ProfilesAdapter;
 import rs.pedjaapps.kerneltuner.utility.ProfileApplier;
-import android.app.ActionBar;
+import android.support.v7.app.ActionBar;
 import android.app.Activity;
 import android.app.AlertDialog;
 import android.app.ProgressDialog;
@@ -267,7 +267,7 @@ catch (InterruptedException e1)
 		
 		ImageView add = (ImageView)findViewById(R.id.add);
 		add.setImageResource(R.drawable.add_light);
-		ActionBar actionBar = getActionBar();
+		ActionBar actionBar = getSupportActionBar();
 		actionBar.setDisplayHomeAsUpEnabled(true);
 		
 		db = new DatabaseHandler(this);

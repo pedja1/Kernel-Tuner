@@ -18,7 +18,7 @@
 - /sys/module/intelli_plug/parameters/intelli_plug_active and /sys/module/intelli_plug/parameters/eco_mode_active
 - binary mpdecision toggle
 - linpack
-- basic app manage
+- basic app manager
 - take screenshot
 - basic text editor
 - entropy
@@ -27,3 +27,15 @@
 - basic sql manager
 - fix tmp
 - for every root command exec check if success first
+
+-- PRIORITY --
+
+- system info - tabs instead of strip
+- ab in logcat and prefs
+- merge aLogcatROOT
+- fix checkboxes in file manager
+
+--changelog
+- improved build prop editor
+- fixed oom on lolipop
+- glimpses of material design

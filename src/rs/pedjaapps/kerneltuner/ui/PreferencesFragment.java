@@ -18,12 +18,13 @@
 */
 package rs.pedjaapps.kerneltuner.ui;
 
-import android.app.*;
 import android.app.ActivityManager.*;
+import android.app.AlertDialog;
 import android.content.*;
 import android.os.*;
 import android.preference.*;
 import android.preference.Preference.*;
+import android.support.v7.app.ActionBar;
 import android.view.MenuItem;
 
 import rs.pedjaapps.kerneltuner.*;
@@ -60,37 +61,38 @@ public class PreferencesFragment extends PreferenceFragment
     {
         super.onCreate(savedInstanceState);
 
-        ActionBar ab = getActivity().getActionBar();
+        //TODO ab
+        //ActionBar ab = ((AbsActivity)getActivity()).getSupportActionBar();
         String settings = getArguments().getString("settings");
         if ("application".equals(settings))
         {
             addPreferencesFromResource(R.xml.settings_application);
             app();
-            ab.setSubtitle(getResources().getString(R.string.preferences_subtitle_genereal));
+            //ab.setSubtitle(getResources().getString(R.string.preferences_subtitle_genereal));
         }
         else if ("widget".equals(settings))
         {
             addPreferencesFromResource(R.xml.settings_widget);
             widget();
-            ab.setSubtitle(getResources().getString(R.string.preferences_subtitle_widget));
+            //ab.setSubtitle(getResources().getString(R.string.preferences_subtitle_widget));
         }
         else if ("ui".equals(settings))
         {
             addPreferencesFromResource(R.xml.settings_ui);
             ui();
-            ab.setSubtitle(getResources().getString(R.string.preferences_subtitle_ui));
+            //ab.setSubtitle(getResources().getString(R.string.preferences_subtitle_ui));
         }
         else if ("logcat".equals(settings))
         {
             addPreferencesFromResource(R.xml.settings_logcat);
             logcat();
-            ab.setSubtitle(getResources().getString(R.string.preferences_subtitle_logcat));
+            //ab.setSubtitle(getResources().getString(R.string.preferences_subtitle_logcat));
         }
         else if ("main".equals(settings))
         {
             addPreferencesFromResource(R.xml.settings_main);
             main();
-            ab.setSubtitle(getResources().getString(R.string.preferences_subtitle_main));
+            //ab.setSubtitle(getResources().getString(R.string.preferences_subtitle_main));
         }
     }
 

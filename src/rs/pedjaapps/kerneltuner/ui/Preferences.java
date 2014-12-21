@@ -23,11 +23,16 @@ import java.util.List;
 import rs.pedjaapps.kerneltuner.R;
 import rs.pedjaapps.kerneltuner.utility.Tools;
 
-import android.app.ActionBar;
+import android.net.Uri;
+import android.support.v7.app.ActionBar;
 import android.content.Intent;
 import android.os.Bundle;
 import android.preference.PreferenceActivity;
+import android.support.v7.widget.Toolbar;
+import android.view.LayoutInflater;
 import android.view.MenuItem;
+import android.view.View;
+import android.widget.LinearLayout;
 
 
 public class Preferences extends PreferenceActivity
@@ -39,14 +44,21 @@ public class Preferences extends PreferenceActivity
     }
 
     @Override
-    public void onCreate(Bundle savedInstanceState)
+    protected void onPostCreate(Bundle savedInstanceState)
     {
-        super.onCreate(savedInstanceState);
+        super.onPostCreate(savedInstanceState);
 
-        ActionBar actionBar = getActionBar();
-        actionBar.setDisplayHomeAsUpEnabled(true);
-        actionBar.setSubtitle(getResources().getString(R.string.preferences_subtitle));
-
+        LinearLayout root = (LinearLayout)findViewById(android.R.id.list).getParent().getParent().getParent();
+        Toolbar bar = (Toolbar) LayoutInflater.from(this).inflate(R.layout.settings_toolbar, root, false);
+        root.addView(bar, 0); // insert at top
+        bar.setNavigationOnClickListener(new View.OnClickListener()
+        {
+            @Override
+            public void onClick(View v)
+            {
+                finish();
+            }
+        });
     }
 
     @Override
@@ -73,13 +85,20 @@ public class Preferences extends PreferenceActivity
     @Override
     public void onHeaderClick(Header header, int position)
     {
-        if("donate".equals(header.fragmentArguments.getString("settings")))
+
+        if (header.fragmentArguments != null)
         {
-            Tools.paypalDonate(this);
+            if("go_pro".equals(header.fragmentArguments.getString("settings")))
+            {
+                Tools.goPro(this);
+            }
+            else if("about".equals(header.fragmentArguments.getString("settings")))
+            {
+                startActivity(new Intent(this, About.class));
+            }
         }
-        else
-        {
-            super.onHeaderClick(header, position);
-        }
+
+        super.onHeaderClick(header, position);
+
     }
 }

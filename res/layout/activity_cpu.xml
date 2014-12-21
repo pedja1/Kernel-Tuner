@@ -10,7 +10,7 @@
         android:layout_width="match_parent"
         android:id="@+id/list"
         android:padding="5dp"
-        android:layout_above="@+id/adView"/>
+        android:layout_above="@+id/llBottomOptions"/>
 
     <ProgressBar
         android:layout_width="wrap_content"
@@ -18,15 +18,62 @@
         android:layout_centerInParent="true"
         android:id="@+id/pbLoading"/>
 
-    <com.google.android.gms.ads.AdView
-        android:id="@+id/adView"
-        android:layout_width="wrap_content"
+    <LinearLayout
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        ads:adUnitId="@string/admob_adUnitId_Banner"
-        ads:adSize="BANNER"
-        android:layout_centerHorizontal="true"
         android:layout_alignParentBottom="true"
-        android:layout_marginTop="5dp"
-        android:visibility="gone"/>
-</RelativeLayout>
+        android:orientation="vertical"
+        android:id="@+id/llBottomOptions">
 
+        <LinearLayout
+            android:layout_width="fill_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            android:padding="5dp">
+
+            <Button
+                android:id="@+id/btn_mpdecision"
+                style="?android:attr/buttonStyleSmall"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:layout_weight="1"
+                android:drawableLeft="@drawable/main_mp"
+                android:singleLine="true"
+                android:text="@string/btn_mpdecision"
+                android:gravity="left|center_vertical"
+                android:drawablePadding="5dp"
+                android:ellipsize="marquee"
+                android:marqueeRepeatLimit="marquee_forever"
+                android:background="@drawable/default_button_selector"
+                android:visibility="gone"/>
+
+            <Button
+                android:id="@+id/btn_thermal"
+                style="?android:attr/buttonStyleSmall"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:layout_weight="1"
+                android:drawableLeft="@drawable/main_thermal"
+                android:singleLine="true"
+                android:text="@string/btn_thermal"
+                android:gravity="left|center_vertical"
+                android:drawablePadding="5dp"
+                android:ellipsize="marquee"
+                android:marqueeRepeatLimit="marquee_forever"
+                android:background="@drawable/default_button_selector"
+                android:visibility="gone"/>
+
+        </LinearLayout>
+
+        <com.google.android.gms.ads.AdView
+            android:id="@+id/adView"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            ads:adUnitId="@string/admob_adUnitId_Banner"
+            ads:adSize="BANNER"
+            android:layout_gravity="center_horizontal"
+            android:layout_marginTop="5dp"
+            android:visibility="gone"/>
+    </LinearLayout>
+
+</RelativeLayout>

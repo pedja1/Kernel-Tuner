@@ -29,16 +29,18 @@
         android:fragment="rs.pedjaapps.kerneltuner.ui.PreferencesFragment"
         android:title="@string/title_log"
         android:summary="@string/prefs_log_summary" 
-		android:icon="@drawable/log">
+		android:icon="@drawable/ic_settings_logact">
 		<extra android:name="settings" android:value="logcat" />
     </header>
-    <header 
+    <!--
+    <header
         android:fragment="rs.pedjaapps.kerneltuner.ui.PreferencesFragment"
         android:title="@string/prefs_ui"
-        android:summary="@string/prefs_ui_summary" 
-		android:icon="@drawable/theme">
+        android:summary="@string/prefs_ui_summary"
+		android:icon="@drawable/ic_settings_ui">
 		<extra android:name="settings" android:value="ui" />
     </header>
+    -->
     <!--
     <header
         android:fragment="rs.pedjaapps.kerneltuner.ui.PreferencesFragment"
@@ -62,13 +64,14 @@
     <header
 		android:title="@string/title_about"
 		android:summary="@string/prefs_about_summary"
-		android:icon="@drawable/about">
+		android:icon="@drawable/ic_settings_about">
 
-		<intent android:action="rs.pedjaapps.kerneltuner.About"
+        <extra android:name="settings" android:value="about" />
 		/>
 
 	</header>
 
+	<!--
 	<header
 		android:title="@string/title_changelog"
 		android:summary="@string/prefs_changelog_summary"
@@ -78,6 +81,7 @@
 		/>
 
 	</header>
+	-->
 
 	<!--
 	<header
@@ -93,9 +97,9 @@
 	-->
 
     <header
-        android:title="@string/donate"
-        android:summary="@string/donate_with_paypal"
-        android:icon="@drawable/donate">
-        <extra android:name="settings" android:value="donate" />
+        android:title="@string/go_pro"
+        android:summary="@string/go_pro_summary"
+        android:icon="@drawable/ic_settings_donate">
+        <extra android:name="settings" android:value="go_pro" />
     </header>
 </preference-headers>

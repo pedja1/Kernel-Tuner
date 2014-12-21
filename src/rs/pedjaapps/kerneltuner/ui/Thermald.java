@@ -29,7 +29,7 @@ import rs.pedjaapps.kerneltuner.root.RootUtils;
 import rs.pedjaapps.kerneltuner.utility.PrefsManager;
 import rs.pedjaapps.kerneltuner.utility.Tools;
 
-import android.app.ActionBar;
+import android.support.v7.app.ActionBar;
 import android.app.Activity;
 import android.app.ProgressDialog;
 import android.content.Intent;
@@ -90,7 +90,7 @@ public class Thermald extends AbsActivity
 
         setContentView(R.layout.thermald);
 
-        ActionBar actionBar = getActionBar();
+        ActionBar actionBar = getSupportActionBar();
         actionBar.setDisplayHomeAsUpEnabled(true);
 
         p1freq = Tools.parseInt(IOHelper.thermalLowFreq(), -1);

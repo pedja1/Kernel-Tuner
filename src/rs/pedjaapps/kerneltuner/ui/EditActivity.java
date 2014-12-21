@@ -248,13 +248,13 @@ public final class EditActivity extends AbsActivity
     @TargetApi(11)
     private void setupActionBarApi11()
     {
-        getActionBar().setSubtitle(BreadCrumber.generateBreadcrumb(getApplicationContext(), getIntent(), getString(R.string.plugin_name)));
+        getSupportActionBar().setSubtitle(BreadCrumber.generateBreadcrumb(getApplicationContext(), getIntent(), getString(R.string.plugin_name)));
     }
 
     @TargetApi(14)
     private void setupActionBarApi14()
     {
-        getActionBar().setDisplayHomeAsUpEnabled(true);
+        getSupportActionBar().setDisplayHomeAsUpEnabled(true);
 
         /*
          * Note: There is a small TOCTOU error here, in that the host could be uninstalled right after
@@ -266,7 +266,7 @@ public final class EditActivity extends AbsActivity
          */
         try
         {
-            getActionBar().setIcon(getPackageManager().getApplicationIcon(getCallingPackage()));
+            getSupportActionBar().setIcon(getPackageManager().getApplicationIcon(getCallingPackage()));
         }
         catch (final NameNotFoundException e)
         {
@@ -278,7 +278,7 @@ public final class EditActivity extends AbsActivity
     }
 
     @Override
-    public boolean onMenuItemSelected(final int featureId, final MenuItem item)
+    public boolean onOptionsItemSelected(final MenuItem item)
     {
         final int id = item.getItemId();
 

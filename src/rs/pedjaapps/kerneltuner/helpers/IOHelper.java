@@ -44,6 +44,7 @@ import rs.pedjaapps.kerneltuner.model.Frequency;
 import rs.pedjaapps.kerneltuner.model.TimesEntry;
 import rs.pedjaapps.kerneltuner.model.Voltage;
 import rs.pedjaapps.kerneltuner.root.RCommand;
+import rs.pedjaapps.kerneltuner.root.RootUtils;
 import rs.pedjaapps.kerneltuner.utility.Tools;
 
 public class IOHelper
@@ -364,11 +365,15 @@ public class IOHelper
     {
         try
         {
+            if(!new File(Constants.OOM).canRead())
+            {
+                new RootUtils().execAndWait("chmod 664 " + Constants.OOM);
+            }
             return Arrays.asList(RCommand.readFileContent(Constants.OOM).split(","));
         }
         catch (Exception e)
         {
-            return new ArrayList<String>();
+            return new ArrayList<>();
         }
 
     }
@@ -546,53 +551,20 @@ public class IOHelper
 
     }
 
-    public static String cpu0CurFreq()
+    public static String cpuCurFreq(int core)
     {
         try
         {
-            return RCommand.readFileContent(Constants.CPU0_CURR_FREQ).trim();
+            String freq = RCommand.readFileContent(String.format(Constants.CPU_CURR_FREQ, core)).trim();
+            if(TextUtils.isDigitsOnly(freq))
+            {
+                return freq;
+            }
         }
-        catch (Exception e)
+        catch (Exception ignore)
         {
-            return "offline";
         }
-    }
-
-    public static String cpu1CurFreq()
-    {
-        try
-        {
-            return RCommand.readFileContent(Constants.CPU1_CURR_FREQ).trim();
-        }
-        catch (Exception e)
-        {
-            return "offline";
-        }
-    }
-
-    public static String cpu2CurFreq()
-    {
-        try
-        {
-            return RCommand.readFileContent(Constants.CPU2_CURR_FREQ).trim();
-        }
-        catch (Exception e)
-        {
-            return "offline";
-        }
-
-    }
-
-    public static String cpu3CurFreq()
-    {
-        try
-        {
-            return RCommand.readFileContent(Constants.CPU3_CURR_FREQ).trim();
-        }
-        catch (Exception e)
-        {
-            return "offline";
-        }
+        return "offline";
     }
 
     public static int cpuScreenOffMaxFreq()

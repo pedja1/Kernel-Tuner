@@ -18,29 +18,23 @@
 */
 package rs.pedjaapps.kerneltuner.model;
 
+import java.util.List;
+
 public final class Build
 {
+	public String key;
+	public String value;
+	public boolean isProperty;
 
-	private final String name;
-	private final String value;
-
-
-	public Build(final String name, final String value)
+	public static Build getBuildByKey(List<Build> list, String key)
 	{
-		this.name = name;
-		this.value = value;
-
-
+		for(Build build : list)
+		{
+			if(build.isProperty && key.equals(build.key))
+			{
+				return build;
+			}
+		}
+		return null;
 	}
-    
-	public String getName()
-	{
-		return name;
-	}
-	
-	public String getValue()
-	{
-		return value;
-	}
-
 }

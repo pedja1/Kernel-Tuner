@@ -18,12 +18,13 @@
 */
 package rs.pedjaapps.kerneltuner.ui;
 
-
-import android.app.*;
+import android.app.AlertDialog;
+import android.app.ProgressDialog;
 import android.content.*;
 import android.content.DialogInterface.*;
 import android.graphics.*;
 import android.os.*;
+import android.support.v7.app.ActionBar;
 import android.view.*;
 import android.widget.*;
 
@@ -64,7 +65,7 @@ public class SDScannerActivity extends AbsActivity
         super.onCreate(savedInstanceState);
 
         setContentView(R.layout.sd_analyzer_list);
-        ActionBar actionBar = getActionBar();
+        ActionBar actionBar = getSupportActionBar();
         actionBar.setDisplayHomeAsUpEnabled(true);
 
         ListView sDListView = (ListView) findViewById(R.id.list);

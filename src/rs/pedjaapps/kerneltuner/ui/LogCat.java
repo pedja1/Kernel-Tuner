@@ -150,11 +150,13 @@ public class LogCat extends ListActivity
 
         //getWindow().setTitle(getResources().getString(R.string.app_name));
 
-        getActionBar().setSubtitle(getString(R.string.running));
+        //getSupportActionBar().setSubtitle(getString(R.string.running));
+        //TODO actionbar
         mThis = this;
         mPrefs = new Prefs(this);
 
-        getActionBar().setDisplayHomeAsUpEnabled(true);
+        //getSupportActionBar().setDisplayHomeAsUpEnabled(true);
+        // todo ab
 
         mLogList = (ListView) findViewById(android.R.id.list);
         mLogList.setOnCreateContextMenuListener(new View.OnCreateContextMenuListener()
@@ -542,7 +544,8 @@ public class LogCat extends ListActivity
         {
             return;
         }
-        getActionBar().setSubtitle(getString(R.string.paused));
+        //getSupportActionBar().setSubtitle(getString(R.string.paused));
+        //todo ab
         if (mLogcat != null)
         {
             mLogcat.setPlay(false);
@@ -557,7 +560,8 @@ public class LogCat extends ListActivity
         {
             return;
         }
-        getActionBar().setSubtitle(R.string.running);
+        //getSupportActionBar().setSubtitle(R.string.running);
+        //todo ab
         if (mLogcat != null)
         {
             mLogcat.setPlay(true);

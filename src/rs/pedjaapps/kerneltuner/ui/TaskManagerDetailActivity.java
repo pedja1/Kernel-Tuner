@@ -34,7 +34,7 @@ public class TaskManagerDetailActivity extends AbsActivity
 		setContentView(R.layout.activity_tm_detail);
 
 		// Show the Up button in the action bar.
-		getActionBar().setDisplayHomeAsUpEnabled(true);
+		getSupportActionBar().setDisplayHomeAsUpEnabled(true);
 
 		/*if (mItem != null) {
 		 ((TextView) rootView.findViewById(R.id.process_detail))

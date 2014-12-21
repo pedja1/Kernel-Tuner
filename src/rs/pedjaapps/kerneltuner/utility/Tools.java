@@ -24,6 +24,8 @@ import android.content.ActivityNotFoundException;
 import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
+import android.content.pm.PackageInfo;
+import android.content.pm.PackageManager;
 import android.net.Uri;
 import android.os.Environment;
 import android.os.StatFs;
@@ -390,6 +392,26 @@ public class Tools
         {
             showMessageAlertDialog(activity,R.string.donations__alert_dialog_no_browser,
                     R.string.donations__alert_dialog_title, null);
+        }
+    }
+
+    public static void goPro(Activity activity)
+    {
+        Intent intent = new Intent(Intent.ACTION_VIEW);
+        intent.setData(Uri.parse("https://play.google.com/store/apps/details?id=rs.pedjaapps.kerneltunerpro.app"));
+        activity.startActivity(Intent.createChooser(intent, null));
+    }
+
+    public static String getAppVersion(Activity activity)
+    {
+        try
+        {
+            PackageInfo pInfo = activity.getPackageManager().getPackageInfo(activity.getPackageName(), 0);
+            return pInfo.versionName;
+        }
+        catch (PackageManager.NameNotFoundException e)
+        {
+            return null;
         }
     }
 }

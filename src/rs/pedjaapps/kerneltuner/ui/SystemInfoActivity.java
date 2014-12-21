@@ -35,7 +35,7 @@ import rs.pedjaapps.kerneltuner.helpers.IOHelper;
 import rs.pedjaapps.kerneltuner.utility.Tools;
 
 import android.annotation.SuppressLint;
-import android.app.ActionBar;
+import android.support.v7.app.ActionBar;
 import android.app.ActivityManager;
 import android.app.ActivityManager.MemoryInfo;
 import android.app.Fragment;
