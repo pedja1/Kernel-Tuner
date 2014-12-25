@@ -66,6 +66,8 @@ import android.view.ViewGroup;
 import android.widget.LinearLayout;
 import android.widget.ProgressBar;
 import android.widget.TextView;
+import com.astuetz.*;
+import android.support.v7.widget.*;
 
 public class SystemInfoActivity extends AbsActivity
 {
@@ -174,9 +176,15 @@ public class SystemInfoActivity extends AbsActivity
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_system_info);
 
+		Toolbar toolbar = (Toolbar)findViewById(R.id.toolbar);
+		setSupportActionBar(toolbar);
+		
         ViewPager mPager = (ViewPager)findViewById(R.id.pager);
         SystemInfoPagerAdapter mPagerAdapter = new SystemInfoPagerAdapter(getSupportFragmentManager(), this);
         mPager.setAdapter(mPagerAdapter);
+		
+		PagerSlidingTabStrip tabs = (PagerSlidingTabStrip)findViewById(R.id.tabs);
+		tabs.setViewPager(mPager);
     }
 
     @Override

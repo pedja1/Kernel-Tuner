@@ -17,6 +17,7 @@ import rs.pedjaapps.kerneltuner.Constants;
 import rs.pedjaapps.kerneltuner.MainApp;
 import rs.pedjaapps.kerneltuner.ui.MainActivity;
 import rs.pedjaapps.kerneltuner.utility.Executor;
+import android.os.*;
 
 public class RootUtils
 {
@@ -27,7 +28,7 @@ public class RootUtils
     public RootUtils()
     {
         reset();
-        handler = new Handler(MainApp.getInstance().getMainLooper());
+        handler = new Handler(Looper.getMainLooper());
     }
 
     public void reset()
@@ -181,10 +182,13 @@ public class RootUtils
 
     private void commandWait(Command cmd) throws Exception
     {
+		if(Looper.myLooper() == Looper.getMainLooper())System.out.println("Command wait start");
         int waitTill = 50;
         int waitTillMultiplier = 2;
         int waitTillLimit = 3200; //7 tries, 6350 msec
 
+		long start = System.currentTimeMillis();
+		
         while (!cmd.isFinished() && waitTill <= waitTillLimit)
         {
             synchronized (cmd)
@@ -207,18 +211,26 @@ public class RootUtils
         {
             Log.e(Constants.LOG_TAG, "Could not finish root command in " + (waitTill / waitTillMultiplier));
         }
+		if(Looper.getMainLooper() == Looper.myLooper())System.out.println("command wait finished in " + (System.currentTimeMillis() - start));
     }
 
-    public void closeAllShells()
+    public static void closeAllShells()
     {
-        try
-        {
-            RootTools.closeAllShells();
-        }
-        catch (IOException e)
-        {
-            e.printStackTrace();
-            Crashlytics.logException(e);
-        }
+		Executor.getInstance().executeSingleTask(new Runnable()
+		{
+			@Override
+			public void run()
+			{
+				try
+				{
+					RootTools.closeAllShells();
+				}
+				catch (IOException e)
+				{
+					e.printStackTrace();
+					Crashlytics.logException(e);
+				}
+			}
+		});
     }
 }

@@ -1,44 +1,30 @@
 package rs.pedjaapps.kerneltuner.ui;
 
-import android.app.AlertDialog;
-import android.content.DialogInterface;
-import android.content.pm.PackageInfo;
-import android.os.AsyncTask;
-import android.support.v4.content.LocalBroadcastManager;
+
+import android.content.*;
+import android.content.pm.*;
+import android.graphics.*;
+import android.os.*;
+import android.support.v4.content.*;
+import android.support.v7.app.*;
+import android.support.v7.widget.*;
+import android.text.*;
+import android.view.*;
+import android.widget.*;
+import java.io.*;
+import java.util.*;
+import rs.pedjaapps.kerneltuner.*;
+import rs.pedjaapps.kerneltuner.constants.*;
+import rs.pedjaapps.kerneltuner.fragments.*;
+import rs.pedjaapps.kerneltuner.helpers.*;
+import rs.pedjaapps.kerneltuner.receiver.*;
+import rs.pedjaapps.kerneltuner.root.*;
+import rs.pedjaapps.kerneltuner.ui.*;
+import rs.pedjaapps.kerneltuner.utility.*;
+
 import android.support.v7.app.ActionBar;
-import android.app.Fragment;
-import android.content.BroadcastReceiver;
-import android.content.Context;
-import android.content.Intent;
-import android.content.IntentFilter;
-import android.graphics.Color;
-import android.os.BatteryManager;
-import android.os.Bundle;
-import android.os.Handler;
-import android.os.HandlerThread;
-import android.text.Html;
-import android.view.Menu;
-import android.view.MenuItem;
-import android.view.View;
-import android.widget.Button;
-import android.widget.LinearLayout;
-import android.widget.TextView;
-import android.widget.Toast;
-
-import java.io.File;
-import java.io.IOException;
-import java.io.RandomAccessFile;
-import java.util.List;
-
-import rs.pedjaapps.kerneltuner.R;
-import rs.pedjaapps.kerneltuner.constants.TempUnit;
-import rs.pedjaapps.kerneltuner.fragments.MainFragment;
-import rs.pedjaapps.kerneltuner.helpers.IOHelper;
-import rs.pedjaapps.kerneltuner.receiver.PackageChangeReceiver;
-import rs.pedjaapps.kerneltuner.root.RCommand;
-import rs.pedjaapps.kerneltuner.root.RootUtils;
-import rs.pedjaapps.kerneltuner.utility.PrefsManager;
-import rs.pedjaapps.kerneltuner.utility.Tools;
+import android.support.v7.widget.Toolbar;
+import android.app.*;
 
 /**
  * Created by pedja on 17.4.14..
@@ -49,7 +35,7 @@ import rs.pedjaapps.kerneltuner.utility.Tools;
 public class MainActivity extends AbsActivity implements Runnable, View.OnClickListener
 {
     private long cpuRefreshInterval;
-    final int cpuTempPath = IOHelper.getCpuTempPath();
+    int cpuTempPath;
     boolean hideUnsupportedItems;
 
     private long mLastBackPressTime = 0;
@@ -73,31 +59,47 @@ public class MainActivity extends AbsActivity implements Runnable, View.OnClickL
 
     private TempUnit tempUnit;
     Handler cpuRefreshHandler;
-    Handler uiHandler = new Handler();
+    Handler uiHandler;
     Fragment currentFragment;
 
     @Override
     public void onCreate(Bundle savedInstanceState)
     {
+		System.out.println("Main activity onCreate");
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
+		//Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
+		//setSupportActionBar(toolbar);
+		
+		uiHandler = new Handler();
+		cpuTempPath = IOHelper.getCpuTempPath();
+		
         cpuRefreshInterval = PrefsManager.getCpuRefreshInterval();
-        boolean firstLaunch = PrefsManager.isFirstLaunch();
+        final boolean firstLaunch = PrefsManager.isFirstLaunch();
         tempUnit = PrefsManager.getTempUnit();
         hideUnsupportedItems = PrefsManager.hideUnsupportedItems();
 
-        mountDebugFileSystem();
-        enableTmemperatureMonitor();
-        if (firstLaunch)
-        {
-            logKernelInfo();
-        }
-
+		Executor.getInstance().executeSingleTask(new Runnable()
+		{
+			@Override
+			public void run()
+			{
+				mountDebugFileSystem();
+				enableTmemperatureMonitor();
+				if (firstLaunch)
+				{
+					logKernelInfo();
+				}
+			}
+		});
+        
         checkProVersion();
 
         setupView();
-
+		
+		System.out.println("Main activity onCreate end");
+        
         //if(getSupportActionBar() != null)getSupportActionBar().setSubtitle(Build.MANUFACTURER + " " + Build.MODEL);
     }
 
@@ -174,12 +176,12 @@ public class MainActivity extends AbsActivity implements Runnable, View.OnClickL
         {
             cpuRefreshHandler.removeCallbacks(this);
         }
-        new RootUtils().closeAllShells();
+        RootUtils.closeAllShells();
     }
 
     private void logKernelInfo()
     {
-        PrefsManager.setKernelInfo();
+		PrefsManager.setKernelInfo();
     }
 
     private void enableTmemperatureMonitor()
@@ -292,6 +294,7 @@ public class MainActivity extends AbsActivity implements Runnable, View.OnClickL
         }
         currentFragment = MainFragment.newInstance();
         getFragmentManager().beginTransaction().replace(R.id.flFragmentContainer, currentFragment).commit();
+		System.out.println("setupview");
     }
 
     @Override
@@ -327,6 +330,7 @@ public class MainActivity extends AbsActivity implements Runnable, View.OnClickL
     @Override
     public void run()
     {
+		System.out.println("refresh ...");
         String tmp = IOHelper.cpuTemp(cpuTempPath);
         cpuTemp(tmp);
         cpu0update(IOHelper.cpuCurFreq(0));

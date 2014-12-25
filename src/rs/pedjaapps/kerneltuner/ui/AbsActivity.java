@@ -1,24 +1,20 @@
 package rs.pedjaapps.kerneltuner.ui;
 
 import android.app.*;
-import android.content.BroadcastReceiver;
-import android.content.Context;
-import android.content.Intent;
-import android.content.IntentFilter;
+import android.content.*;
 import android.os.*;
-import android.support.v4.content.LocalBroadcastManager;
-import android.support.v7.app.ActionBarActivity;
-import android.text.Html;
-import android.view.View;
-
-import com.google.android.gms.ads.AdListener;
-import com.google.android.gms.ads.AdRequest;
-import com.google.android.gms.ads.AdView;
-import com.google.android.gms.analytics.GoogleAnalytics;
-import com.google.android.gms.analytics.Tracker;
-
+import android.support.v4.content.*;
+import android.support.v7.app.*;
+import android.support.v7.widget.*;
+import android.text.*;
+import android.view.*;
+import android.widget.*;
+import com.google.android.gms.ads.*;
+import com.google.android.gms.analytics.*;
 import rs.pedjaapps.kerneltuner.*;
-import rs.pedjaapps.kerneltuner.utility.PrefsManager;
+import rs.pedjaapps.kerneltuner.utility.*;
+
+import android.support.v7.widget.Toolbar;
 
 /**
  * Created by pedja on 17.4.14..
@@ -33,6 +29,13 @@ public abstract class AbsActivity extends ActionBarActivity
 	{
 		overridePendingTransition(R.anim.zoom_in_right, R.anim.zoom_out_left);
 		super.onCreate(savedInstanceState);
+		/*ViewGroup root = (ViewGroup) getWindow().getDecorView();//.findViewById(android.R.id.content);
+		//LinearLayout root = (LinearLayout)findViewById(android.R.id.list).getParent().getParent().getParent();
+		Toolbar toolbar = (Toolbar) getLayoutInflater().inflate(R.layout.toolbar, root, false);
+		root.addView(toolbar, 0); // insert at top
+        
+		setSupportActionBar(toolbar);*/
+		
         Tracker t = MainApp.getInstance().getTracker(MainApp.TrackerName.APP_TRACKER);
         IntentFilter filter = new IntentFilter();
         filter.addAction(ACTION_TOGGLE_PRO_VERSION);
@@ -78,7 +81,7 @@ public abstract class AbsActivity extends ActionBarActivity
         });*/
 
         //Get an Analytics tracker to report app starts & uncaught exceptions etc.
-        GoogleAnalytics.getInstance(this).reportActivityStart(this);
+		GoogleAnalytics.getInstance(this).reportActivityStart(this);
     }
 
     @Override

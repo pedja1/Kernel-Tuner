@@ -13,6 +13,7 @@ import com.nostra13.universalimageloader.core.ImageLoaderConfiguration;
 import com.nostra13.universalimageloader.core.decode.ImageDecoder;
 
 import java.util.HashMap;
+import com.google.android.gms.analytics.*;
 
 public class MainApp extends Application
 {
@@ -49,14 +50,11 @@ public class MainApp extends Application
                 .defaultDisplayImageOptions(defaultDisplayImageOptions)
                 .build();
         ImageLoader.getInstance().init(config);
+		System.out.println("App created");
 	}
 
-	public static synchronized MainApp getInstance()
+	public static MainApp getInstance()
 	{
-		if(app == null)
-        {
-			app = new MainApp();
-		}
 		return app;
 	}
 
@@ -70,6 +68,9 @@ public class MainApp extends Application
         if (!mTrackers.containsKey(trackerId))
         {
             GoogleAnalytics analytics = GoogleAnalytics.getInstance(this);
+			analytics.setDryRun(false);
+			analytics.getLogger().setLogLevel(Logger.LogLevel.VERBOSE);
+			analytics.setLocalDispatchPeriod(30);
             Tracker t = analytics.newTracker(R.xml.app_tracker);
             mTrackers.put(trackerId, t);
         }

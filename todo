@@ -34,8 +34,3 @@
 - ab in logcat and prefs
 - merge aLogcatROOT
 - fix checkboxes in file manager
-
---changelog
-- improved build prop editor
-- fixed oom on lolipop
-- glimpses of material design
