@@ -46,6 +46,7 @@ public class SystemInfoFragment extends Fragment
     ProgressBar pbLoading;
     Type type;
 	TempUnit tempUnit;
+	private ATGetData atGetData;
 
     public static Fragment newInstance(Type type)
     {
@@ -69,10 +70,19 @@ public class SystemInfoFragment extends Fragment
         mAdapter = new SystemInfoAdapter(getActivity(), new ArrayList<SystemInfo>());
         mListView.setAdapter(mAdapter);
 
-        new ATGetData(type).execute();
+        atGetData = new ATGetData(type);
+		atGetData.execute();
 
         return view;
     }
+
+	@Override
+	public void onDestroy()
+	{
+		if(atGetData != null)atGetData.cancel(true);
+		super.onDestroy();
+	}
+	
 
     private class ATGetData extends AsyncTask<Void, Void, List<SystemInfo>>
     {

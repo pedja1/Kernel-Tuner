@@ -124,6 +124,7 @@ public class SDScannerActivity extends AbsActivity
         {
             List<SDScannerEntry> fms = new ArrayList<>();
             File[] files = new File(args[0]).listFiles();
+			if(files == null || files.length == 0)return fms;
             max = files.length;
             publishProgress("set_max");
             int i = 0;
@@ -132,7 +133,7 @@ public class SDScannerActivity extends AbsActivity
                 if(cancel)return null;
                 publishProgress("set_progress", file.getName(), i + "");
                 i++;
-                if(file.isFile() && file.length() == 0 && !file.exists())continue;
+                if(file == null || (file.isFile() && file.length() == 0) || !file.exists())continue;
                 SDScannerEntry entry = new SDScannerEntry();
                 long size = FileUtils.sizeOf(file);
                 entry.setFileName(file.getName());

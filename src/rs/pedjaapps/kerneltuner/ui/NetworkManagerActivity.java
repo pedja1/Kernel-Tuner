@@ -1,29 +1,20 @@
 package rs.pedjaapps.kerneltuner.ui;
 
-import android.app.AlertDialog;
-import android.content.DialogInterface;
-import android.content.Intent;
-import android.os.AsyncTask;
-import android.os.Bundle;
-import android.os.Handler;
-import android.text.InputType;
-import android.view.Gravity;
-import android.view.View;
-import android.widget.AdapterView;
-import android.widget.EditText;
-import android.widget.ListView;
-import android.widget.ProgressBar;
-
-import java.util.ArrayList;
-import java.util.List;
-
-import rs.pedjaapps.kerneltuner.R;
-import rs.pedjaapps.kerneltuner.adapter.NMAdapter;
-import rs.pedjaapps.kerneltuner.helpers.IOHelper;
-import rs.pedjaapps.kerneltuner.model.NM;
-import rs.pedjaapps.kerneltuner.root.RCommand;
-import rs.pedjaapps.kerneltuner.root.RootUtils;
-import siir.es.adbWireless.ADBWirelessActivity;
+import android.app.*;
+import android.content.*;
+import android.os.*;
+import android.text.*;
+import android.view.*;
+import android.widget.*;
+import java.util.*;
+import rs.pedjaapps.kerneltuner.*;
+import rs.pedjaapps.kerneltuner.adapter.*;
+import rs.pedjaapps.kerneltuner.helpers.*;
+import rs.pedjaapps.kerneltuner.model.*;
+import rs.pedjaapps.kerneltuner.root.*;
+import rs.pedjaapps.kerneltuner.utility.*;
+import siir.es.adbWireless.*;
+import com.crashlytics.android.Crashlytics;
 
 public class NetworkManagerActivity extends AbsActivity implements AdapterView.OnItemClickListener, RootUtils.CommandCallback
 {
@@ -124,9 +115,17 @@ public class NetworkManagerActivity extends AbsActivity implements AdapterView.O
                 startActivity(new Intent(this, ADBWirelessActivity.class));
                 break;
             case NM.ITEM_TYPE_PHONE_INFO:
-                Intent intent = new Intent();
-                intent.setClassName("com.android.settings", "com.android.settings.RadioInfo");
-                startActivity(intent);
+				try
+				{
+                	Intent intent = new Intent();
+                	intent.setClassName("com.android.settings", "com.android.settings.RadioInfo");
+                	startActivity(intent);
+				}
+				catch(Exception e)
+				{
+					Tools.showToast(this, R.string.unsuppprted_option);
+					Crashlytics.logException(e);
+				}
                 break;
         }
     }

@@ -27,10 +27,11 @@
 - basic sql manager
 - fix tmp
 - for every root command exec check if success first
+- log every root command
 
 -- PRIORITY --
 
-- system info - tabs instead of strip
 - ab in logcat and prefs
 - merge aLogcatROOT
 - fix checkboxes in file manager
+- wifi adb design

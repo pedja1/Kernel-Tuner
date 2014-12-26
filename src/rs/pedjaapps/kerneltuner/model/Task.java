@@ -28,6 +28,7 @@ public class Task implements Parcelable
 	Drawable icon;
 	int rss;
 	int type;
+	boolean killDisabled;
 
 	public Task(String name, int pid, Drawable icon, int rss, int type)
 	{
@@ -36,6 +37,16 @@ public class Task implements Parcelable
 		this.icon = icon;
 		this.rss = rss;
 		this.type = type;
+	}
+
+	public void setKillDisabled(boolean killDisabled)
+	{
+		this.killDisabled = killDisabled;
+	}
+
+	public boolean isKillDisabled()
+	{
+		return killDisabled;
 	}
 
 	public int getPid()

@@ -78,6 +78,8 @@ public class TaskManager extends AbsActivity implements OnItemClickListener, Run
 
     Handler handler;
 	
+	ProgressBar pbLoading;
+	
 
 	/**
 	 * Foreground Application = 10040
@@ -102,12 +104,13 @@ public class TaskManager extends AbsActivity implements OnItemClickListener, Run
         handler = new Handler();
 		preferences = PreferenceManager.getDefaultSharedPreferences(this);
 
-		supportRequestWindowFeature(Window.FEATURE_INDETERMINATE_PROGRESS);
 		super.onCreate(savedInstanceState);
 
 		getSupportActionBar().setDisplayHomeAsUpEnabled(true);
 		setContentView(R.layout.activity_tm_list);
 
+		pbLoading = (ProgressBar)findViewById(R.id.pbLoading);
+		
 		getSupportActionBar().setTitle(getResources().getString(R.string.title_task_manager));
 		getSupportActionBar().setSubtitle(null);
 		getSupportActionBar().setIcon(R.drawable.tm);
@@ -229,8 +232,6 @@ public class TaskManager extends AbsActivity implements OnItemClickListener, Run
 		@Override
 		protected void onPostExecute(List<Task> entries)
 		{
-			//	setSupportProgressBarIndeterminateVisibility(false);
-
 			Collections.sort(entries, new SortByMb());
 
             tmAdapter.clear();
@@ -257,7 +258,6 @@ public class TaskManager extends AbsActivity implements OnItemClickListener, Run
 						tmAdapter.add(e);
 					}
 				}
-				setSupportProgressBarIndeterminateVisibility(false);
 			}
 			tmAdapter.notifyDataSetChanged();
 
@@ -270,11 +270,12 @@ public class TaskManager extends AbsActivity implements OnItemClickListener, Run
                     .apply();
             }
             handler.postDelayed(TaskManager.this, 3000);
+			pbLoading.setVisibility(View.GONE);
 		}
 		@Override
 		protected void onPreExecute()
 		{
-			if(showProgress)setSupportProgressBarIndeterminateVisibility(true);
+			if(showProgress)pbLoading.setVisibility(View.VISIBLE);
 			//tmAdapter.clear();
 		}
 	}

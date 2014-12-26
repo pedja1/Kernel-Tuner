@@ -75,13 +75,14 @@ public final class TMAdapter extends ArrayAdapter<Task>
         }
         viewHolder.mbView.setText(Tools.kByteToHumanReadableSize(entry.getRss()));
         viewHolder.pidView.setText("PID: " + entry.getPid());
-
+		viewHolder.killView.setEnabled(!entry.isKillDisabled());
         viewHolder.killView.setOnClickListener(new View.OnClickListener()
         {
             @Override
             public void onClick(View arg0)
             {
                 arg0.setEnabled(false);
+				entry.setKillDisabled(true);
                 RCommand.killPid(entry.getPid(), null);
             }
         });

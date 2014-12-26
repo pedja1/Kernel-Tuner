@@ -911,5 +911,6 @@
                                 •<a href="https://pedjaapps.net">Homepage<a/><br>]]>
     </string>
 
+	<string name="unsuppprted_option">Looks like this is not supported on your device.</string>
 
 </resources>

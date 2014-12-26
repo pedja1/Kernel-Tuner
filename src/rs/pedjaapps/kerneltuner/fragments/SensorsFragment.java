@@ -421,8 +421,8 @@ public class SensorsFragment extends Fragment
     @Override
     public void onDestroy()
     {
-        m_sensormgr.unregisterListener(senseventListener);
-        super.onPause();
+        if(m_sensormgr != null)m_sensormgr.unregisterListener(senseventListener);
+        super.onDestroy();
     }
 
 }

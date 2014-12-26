@@ -45,11 +45,11 @@
             android:title="@string/prefs_temp"
             android:defaultValue="celsius"/>
 
-        <CheckBoxPreference
+        <!--<CheckBoxPreference
             android:defaultValue="true"
             android:key="profile_notifications"
             android:summary="@string/prefs_toast_summary"
-            android:title="@string/prefs_toast"/>
+            android:title="@string/prefs_toast"/>-->
 
     </PreferenceCategory>
 

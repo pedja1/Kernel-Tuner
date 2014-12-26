@@ -13,7 +13,6 @@
     <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE" />
     <uses-permission android:name="android.permission.READ_LOGS" />
     <uses-permission android:name="android.permission.ACCESS_SUPERUSER" />
-    <uses-permission android:name="com.android.launcher.permission.INSTALL_SHORTCUT" />
     <uses-permission android:name="android.permission.WAKE_LOCK" />
 	<uses-permission android:name="android.permission.VIBRATE" />
     <uses-permission android:name="android.permission.ACCESS_WIFI_STATE" />
@@ -48,8 +47,7 @@
             android:name=".ui.TaskManager"
             android:configChanges="orientation|screenSize"
             android:icon="@drawable/tm"
-            android:label="@string/title_task_manager"
-            android:uiOptions="splitActionBarWhenNarrow" >
+            android:label="@string/title_task_manager">
             <intent-filter>
                 <action android:name="rs.pedjaapps.kerneltuner.TM" />
 
@@ -184,32 +182,7 @@
                 <category android:name="android.intent.category.DEFAULT" />
             </intent-filter>
         </activity>
-        <activity
-            android:name=".ui.Changelog"
-            android:icon="@drawable/changelog"
-            android:label="@string/title_changelog" >
-            <intent-filter>
-                <action android:name="rs.pedjaapps.kerneltuner.Changelog" />
-                <category android:name="android.intent.category.DEFAULT" />
-            </intent-filter>
-        </activity>
-        <activity
-            android:name=".ui.Profiles"
-            android:icon="@drawable/profile"
-            android:label="@string/title_profiles"
-            android:uiOptions="splitActionBarWhenNarrow" >
-            <intent-filter>
-                <action android:name="rs.pedjaapps.kerneltuner.PROFILES" />
-
-                <category android:name="android.intent.category.DEFAULT" />
-            </intent-filter>
-        </activity>
-        <activity
-            android:name=".ui.ProfileEditor"
-            android:icon="@drawable/edit_dark"
-            android:label="@string/activity_title_profile_editor"
-            android:uiOptions="splitActionBarWhenNarrow" >
-        </activity>
+        
         <activity
             android:name=".ui.SystemInfoActivity"
             android:icon="@drawable/ic_menu_info_details"
@@ -311,27 +284,6 @@
             android:uiOptions="splitActionBarWhenNarrow"
             android:label="@string/file_manager">
         </activity>
-        <activity
-            android:name=".ui.EditActivity"
-            android:exported="true"
-            android:icon="@drawable/ic_locale_plugin"
-            android:label="@string/plugin_name"
-            android:theme="@style/Theme.Locale.Light"
-            android:uiOptions="splitActionBarWhenNarrow"
-            android:windowSoftInputMode="adjustResize" >
-            <intent-filter>
-                <action android:name="com.twofortyfouram.locale.intent.action.EDIT_SETTING" />
-            </intent-filter>
-        </activity>
-
-        <receiver
-            android:name=".receiver.FireReceiver"
-            android:exported="true"
-            android:process=":background" >
-            <intent-filter>
-                <action android:name="com.twofortyfouram.locale.intent.action.FIRE_SETTING" />
-            </intent-filter>
-        </receiver>
 
         <receiver android:name=".receiver.PackageChangeReceiver">
             <intent-filter>
@@ -340,94 +292,6 @@
                 <data android:scheme="package"/>
             </intent-filter>
         </receiver>
-
-        <activity
-            android:name=".shortcuts.Shortcuts"
-            android:label="Kernel Tuner - Shortcuts"
-            android:uiOptions="splitActionBarWhenNarrow" >
-            <intent-filter>
-                <action android:name="android.intent.action.CREATE_SHORTCUT" />
-
-                <category android:name="android.intent.category.DEFAULT" />
-            </intent-filter>
-        </activity>
-        <activity
-            android:name=".shortcuts.CPUShortcut"
-            android:label="Kernel Tuner - Shortcuts" >
-        </activity>
-        <activity
-            android:name=".shortcuts.GovernorShortcut"
-            android:label="Kernel Tuner - Shortcuts" >
-        </activity>
-        <activity
-            android:name=".shortcuts.GPUShortcut"
-            android:label="Kernel Tuner - Shortcuts" >
-        </activity>
-        <activity
-            android:name=".shortcuts.InfoShortcut"
-            android:label="Kernel Tuner - Shortcuts" >
-        </activity>
-        <activity
-            android:name=".shortcuts.MiscShortcut"
-            android:label="Kernel Tuner - Shortcuts" >
-        </activity>
-        <activity
-            android:name=".shortcuts.MpdecisionShortcut"
-            android:label="Kernel Tuner - Shortcuts" >
-        </activity>
-        <activity
-            android:name=".shortcuts.ProfilesShortcut"
-            android:label="Kernel Tuner - Shortcuts" >
-        </activity>
-        <activity
-            android:name=".shortcuts.RebootShortcut"
-            android:label="Kernel Tuner - Shortcuts" >
-        </activity>
-        <activity
-            android:name=".shortcuts.ThermaldShortcut"
-            android:label="Kernel Tuner - Shortcuts" >
-        </activity>
-        <activity
-            android:name=".shortcuts.SwapShortcut"
-            android:label="Kernel Tuner - Shortcuts" >
-        </activity>
-        <activity
-            android:name=".shortcuts.TISShortcut"
-            android:label="Kernel Tuner - Shortcuts" >
-        </activity>
-        <activity
-            android:name=".shortcuts.VoltageShortcut"
-            android:label="Kernel Tuner - Shortcuts" >
-        </activity>
-        <activity
-            android:name=".shortcuts.OOMShortcut"
-            android:label="Kernel Tuner - Shortcuts" >
-        </activity>
-        <activity
-            android:name=".shortcuts.SDShortcut"
-            android:label="Kernel Tuner - Shortcuts" >
-        </activity>
-        <activity
-            android:name=".shortcuts.BuildShortcut"
-            android:label="Kernel Tuner - Shortcuts" >
-        </activity>
-        <activity
-            android:name=".shortcuts.SysShortcut"
-            android:label="Kernel Tuner - Shortcuts" >
-        </activity>
-        <activity
-            android:name=".shortcuts.TmShortcut"
-            android:label="Kernel Tuner - Shortcuts" >
-        </activity>
-        <activity
-            android:name=".ui.BackupRestore"
-            android:label="@string/backup" >
-            <intent-filter>
-                <action android:name="rs.pedjaapps.kerneltuner.ui.BackupRestore" />
-
-                <category android:name="android.intent.category.DEFAULT" />
-            </intent-filter>
-        </activity>
         <activity
             android:name=".ui.LogCat"
             android:configChanges="keyboardHidden|orientation"
