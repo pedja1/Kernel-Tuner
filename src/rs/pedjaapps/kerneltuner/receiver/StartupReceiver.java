@@ -26,6 +26,7 @@ import android.preference.PreferenceManager;
 
 import rs.pedjaapps.kerneltuner.helpers.IOHelper;
 import rs.pedjaapps.kerneltuner.utility.AppReset;
+import rs.pedjaapps.kerneltuner.services.*;
 
 
 public class StartupReceiver extends BroadcastReceiver
@@ -61,8 +62,7 @@ public class StartupReceiver extends BroadcastReceiver
         {
             if (applyonboot.equals("boot"))
             {
-                Intent serviceIntent = new Intent();
-                serviceIntent.setAction("rs.pedjaapps.kerneltuner.StartupService");
+                Intent serviceIntent = new Intent(context, StartupService.class);
                 context.startService(serviceIntent);
             }
         }
