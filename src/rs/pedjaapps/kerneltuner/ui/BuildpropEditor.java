@@ -78,7 +78,6 @@ public class BuildpropEditor extends AbsActivity
         entries = new ArrayList<>();
         preferences = PreferenceManager.getDefaultSharedPreferences(this);
 
-        supportRequestWindowFeature(Window.FEATURE_INDETERMINATE_PROGRESS);
         super.onCreate(savedInstanceState);
         setContentView(R.layout.build);
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
@@ -215,7 +214,6 @@ public class BuildpropEditor extends AbsActivity
         @Override
         protected void onPostExecute(Void res)
         {
-            setSupportProgressBarIndeterminateVisibility(false);
             for (Build build : entries)
             {
                 if (build.isProperty) bAdapter.add(build);
@@ -226,7 +224,6 @@ public class BuildpropEditor extends AbsActivity
         @Override
         protected void onPreExecute()
         {
-            setSupportProgressBarIndeterminateVisibility(true);
             bAdapter.clear();
         }
 
