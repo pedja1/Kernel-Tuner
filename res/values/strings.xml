@@ -395,6 +395,8 @@
     <string name="info_cpu_text">CPU(Central Processing Unit)\nThis option allows you to change CPU clock speed(frequency) and governor\nChanging frequency and governors is core-independent. Most devices supports this function</string>
     <string name="info_tis_title">Times in State</string>
     <string name="info_tis_text">Displays time CPU has spent in each frequency</string>
+    <string name="info_app_title">Application Manager</string>
+    <string name="info_app_text">Manager installed applications</string>
     <string name="info_mpd_title">MP-Decision</string>
     <string name="info_mpd_text">MP-Decision determins when to enable/disable CPU cores\n You can tune MP-Decision options here</string>
     <string name="info_misc_title">Misc Tweaks</string>
@@ -912,5 +914,8 @@
     </string>
 
 	<string name="unsuppprted_option">Looks like this is not supported on your device.</string>
+    <string name="btn_app">App Mgr</string>
+    <string name="application_manager">Application Manager</string>
+    <string name="details">Details</string>
 
 </resources>

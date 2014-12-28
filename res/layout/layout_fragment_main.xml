@@ -169,7 +169,6 @@
             android:layout_height="wrap_content"
             android:orientation="horizontal">
 
-
             <Button
                 android:id="@+id/btn_logcat"
                 android:textSize="12sp"
@@ -197,6 +196,23 @@
                 android:gravity="left|center_vertical"
                 android:drawablePadding="5dp"
                 android:ellipsize="end"/>
+
+<!--
+            <Button
+                android:id="@+id/btn_app_manager"
+                android:textSize="12sp"
+                android:textAllCaps="true"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:layout_weight="1"
+                android:drawableLeft="@drawable/main_app"
+                android:singleLine="true"
+                android:text="@string/btn_app"
+                android:gravity="left|center_vertical"
+                android:drawablePadding="5dp"
+                android:ellipsize="end"/>
+
+-->
 
             <Button
                 android:id="@+id/btn_oom"
@@ -249,6 +265,11 @@
                 android:drawablePadding="5dp"
                 android:ellipsize="end"/>
 
+            <View
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:layout_weight="1"/>
+
             <!--
             <Button
                 android:id="@+id/btn_fm"
@@ -265,10 +286,6 @@
                 android:marqueeRepeatLimit="marquee_forever"/>
 
             -->
-            <View
-                android:layout_width="match_parent"
-                android:layout_height="match_parent"
-                android:layout_weight="1"/>
 
         </LinearLayout>
 

@@ -193,13 +193,16 @@ public class TaskManager extends AbsActivity implements OnItemClickListener, Run
 		protected List<Task> doInBackground(String... args)
 		{
 			List<Task> entries = new ArrayList<>();
-			Process proc;
+			Process proc = null;
+			InputStream inputStream = null;
+			InputStreamReader inputStreamReader = null;
+			BufferedReader bufferedReader = null;
 			try
 			{
 				proc = Runtime.getRuntime().exec("ps");
-				InputStream inputStream = proc.getInputStream();
-				InputStreamReader inputStreamReader = new InputStreamReader(inputStream);
-				BufferedReader bufferedReader = new BufferedReader(inputStreamReader);
+				inputStream = proc.getInputStream();
+				inputStreamReader = new InputStreamReader(inputStream);
+				bufferedReader = new BufferedReader(inputStreamReader);
 				int i = 0;
 				while ((line = bufferedReader.readLine()) != null)
 				{
@@ -225,6 +228,18 @@ public class TaskManager extends AbsActivity implements OnItemClickListener, Run
 			catch (Exception e)
 			{
 				Log.e("ps", "error " + e.getMessage());
+			}
+			finally
+			{
+				try
+				{
+					if(inputStream != null)inputStream.close();
+					if(inputStreamReader != null)inputStreamReader.close();
+					if(bufferedReader != null)bufferedReader.close();
+				}
+				catch (IOException ignore)
+				{
+				}
 			}
 			return entries;
 		}

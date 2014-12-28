@@ -1,6 +1,6 @@
 package rs.pedjaapps.kerneltuner.fragments;
 
-import rs.pedjaapps.kerneltuner.filemanager.FMActivity;
+import rs.pedjaapps.kerneltuner.appmanager.ApplicationManagerActivity;
 import rs.pedjaapps.kerneltuner.ui.*;
 
 import android.app.Activity;
@@ -8,14 +8,13 @@ import android.app.AlertDialog;
 import android.app.Fragment;
 import android.content.DialogInterface;
 import android.content.Intent;
-import android.net.Uri;
 import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.CheckBox;
-import android.widget.TextView;
+
 import java.io.File;
 
 import rs.pedjaapps.kerneltuner.Constants;
@@ -142,7 +141,19 @@ public class MainFragment extends Fragment
                 getResources().getString(R.string.info_tis_text),
                 Constants.G_S_URL_PREFIX + "cpu times_in_state", true));
 
-
+        /*Button app = (Button) view.findViewById(R.id.btn_app_manager);
+        app.setOnClickListener(new View.OnClickListener()
+        {
+            @Override
+            public void onClick(View v)
+            {
+                Intent myIntent = new Intent(getActivity(), ApplicationManagerActivity.class);
+                startActivity(myIntent);
+            }
+        });
+        app.setOnLongClickListener(new InfoListener(R.drawable.main_app,
+                getResources().getString(R.string.info_tis_title),
+                getResources().getString(R.string.info_tis_text), null, true));*/
 
         Button misc = (Button) view.findViewById(R.id.btn_misc);
         misc.setOnClickListener(new SimpleStartActivityListener(MiscTweaksActivity.class));

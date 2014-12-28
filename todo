@@ -3,7 +3,6 @@
 - firewall(iptables)
 - wake on lan
 
-
 - prefs manager
 - advanced scheduler settings
 - multicore power saving
@@ -31,7 +30,7 @@
 
 -- PRIORITY --
 
-- ab in logcat and prefs
+- ab in logcat
 - merge aLogcatROOT
 - fix checkboxes in file manager
 - wifi adb design

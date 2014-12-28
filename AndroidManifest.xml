@@ -2,8 +2,8 @@
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
     package="rs.pedjaapps.kerneltuner"
     android:installLocation="internalOnly"
-    android:versionCode="20141221"
-    android:versionName="1.0.1.0" >
+    android:versionCode="20141228"
+    android:versionName="1.0.1.2" >
 	
 	<uses-sdk android:minSdkVersion="14" android:targetSdkVersion="21"/>
 
@@ -57,8 +57,7 @@
         <activity
             android:name=".linpack.Tester"
             android:icon="@drawable/ic_launcher"
-            android:label="Linpack"
-            android:uiOptions="splitActionBarWhenNarrow" >
+            android:label="Linpack" >
         </activity>
         <activity
             android:name=".ui.TaskManagerDetailActivity"
@@ -81,8 +80,7 @@
         <activity
             android:name=".ui.BuildpropEditor"
             android:icon="@drawable/build"
-            android:label="@string/title_build"
-            android:uiOptions="splitActionBarWhenNarrow" >
+            android:label="@string/title_build" >
             <intent-filter>
                 <action android:name="rs.pedjaapps.kerneltuner.BUILD" />
 
@@ -153,8 +151,7 @@
         <activity
             android:name=".ui.Mpdecision"
             android:icon="@drawable/dual"
-            android:label="@string/title_mpdecision"
-            android:uiOptions="splitActionBarWhenNarrow" >
+            android:label="@string/title_mpdecision" >
             <intent-filter>
                 <action android:name="rs.pedjaapps.kerneltuner.MPDECISION_NEW" />
 
@@ -164,8 +161,7 @@
         <activity
             android:name=".ui.Thermald"
             android:icon="@drawable/temp"
-            android:label="@string/title_thermald"
-            android:uiOptions="splitActionBarWhenNarrow" >
+            android:label="@string/title_thermald" >
             <intent-filter>
                 <action android:name="rs.pedjaapps.kerneltuner.THERMAL" />
 
@@ -281,8 +277,12 @@
         <activity
             android:name=".filemanager.FMActivity"
             android:icon="@drawable/fm_folder"
-            android:uiOptions="splitActionBarWhenNarrow"
             android:label="@string/file_manager">
+        </activity>
+
+        <activity
+            android:name=".appmanager.ApplicationManagerActivity"
+            android:label="@string/application_manager">
         </activity>
 
         <receiver android:name=".receiver.PackageChangeReceiver">
@@ -297,8 +297,7 @@
             android:configChanges="keyboardHidden|orientation"
             android:icon="@drawable/log"
             android:label="@string/title_log"
-            android:launchMode="singleTop"
-            android:uiOptions="splitActionBarWhenNarrow" >
+            android:launchMode="singleTop" >
             <intent-filter>
                 <action android:name="rs.pedjaapps.kerneltuner.LOGCAT" />
 

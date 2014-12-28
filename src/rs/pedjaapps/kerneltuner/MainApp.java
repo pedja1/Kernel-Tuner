@@ -33,7 +33,7 @@ public class MainApp extends Application
 	{
 		super.onCreate();
         context = getApplicationContext();
-        //Crashlytics.start(this);
+        Crashlytics.start(this);
         app = this;
         defaultDisplayImageOptions = new DisplayImageOptions.Builder()
                 .cacheInMemory(true)

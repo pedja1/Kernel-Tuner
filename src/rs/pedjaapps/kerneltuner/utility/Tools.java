@@ -65,7 +65,7 @@ public class Tools
 
     }
 
-    public static String kByteToHumanReadableSize(int size)
+    public static String kByteToHumanReadableSize(long size)
     {
         String hrSize = "";
         double m = size / 1024.0;
