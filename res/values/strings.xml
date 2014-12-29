@@ -904,7 +904,7 @@
     <string name="donate">Donate</string>
     <string name="donate_with_paypal">Donate with PayPal</string>
     <string name="go_pro_summary">Support developer and remove ads.</string>
-    <string name="go_pro">By PRO version</string>
+    <string name="go_pro">Buy PRO version</string>
     <string name="about_html" formatted="false"><![CDATA[<b>Kernel Tuner</b><br>version %s<br><br>
         <b>More Applications</b><br>• <a href="https://play.google.com/store/apps/developer?id=Predrag+Čokulov">Google Play Store</a><br><br>
         <b>Follow Me</b><br>•<a href="https://plus.google.com/115273553144904124119">Google+</a><br><br>
