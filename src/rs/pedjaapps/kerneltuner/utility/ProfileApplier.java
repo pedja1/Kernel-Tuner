@@ -32,7 +32,6 @@ import java.io.OutputStream;
 
 import rs.pedjaapps.kerneltuner.R;
 import rs.pedjaapps.kerneltuner.helpers.DatabaseHandler;
-import rs.pedjaapps.kerneltuner.helpers.IOHelper;
 import rs.pedjaapps.kerneltuner.model.Profile;
 
 //import rs.pedjaapps.KernelTuner.model.Voltage;

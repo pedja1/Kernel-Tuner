@@ -30,7 +30,6 @@ import java.util.*;
 
 import rs.pedjaapps.kerneltuner.*;
 import rs.pedjaapps.kerneltuner.adapter.CPUAdapter;
-import rs.pedjaapps.kerneltuner.helpers.*;
 import rs.pedjaapps.kerneltuner.model.*;
 import rs.pedjaapps.kerneltuner.root.*;
 import rs.pedjaapps.kerneltuner.utility.*;
@@ -77,7 +76,7 @@ public class CPUActivity extends AbsActivity implements RootUtils.CommandCallbac
         {
             Button mp = (Button) findViewById(R.id.btn_mpdecision);
             mp.setOnClickListener(new SimpleStartActivityListener(Mpdecision.class));
-            mp.setOnLongClickListener(new InfoListener(R.drawable.dual,
+            mp.setOnLongClickListener(new InfoListener(R.drawable.main_mp,
                     getResources().getString(R.string.info_mpd_title),
                     getResources().getString(R.string.info_mpd_text),
                     Constants.G_S_URL_PREFIX + "mp-decision", true));
@@ -88,12 +87,11 @@ public class CPUActivity extends AbsActivity implements RootUtils.CommandCallbac
             Button thermal = (Button) findViewById(R.id.btn_thermal);
             thermal.setOnClickListener(new SimpleStartActivityListener(Thermald.class));
 
-            thermal.setOnLongClickListener(new InfoListener(R.drawable.temp,
+            thermal.setOnLongClickListener(new InfoListener(R.drawable.main_thermal,
                     getResources().getString(R.string.info_thermal_title),
                     getResources().getString(R.string.info_thermal_text), "", false));
             thermal.setVisibility(View.VISIBLE);
         }
-
 
     }
 

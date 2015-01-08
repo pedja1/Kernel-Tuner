@@ -27,9 +27,9 @@ import java.io.*;
 import java.util.*;
 import rs.pedjaapps.kerneltuner.*;
 import rs.pedjaapps.kerneltuner.adapter.CPUAdapter;
-import rs.pedjaapps.kerneltuner.helpers.*;
 import rs.pedjaapps.kerneltuner.model.*;
 import rs.pedjaapps.kerneltuner.root.*;
+import rs.pedjaapps.kerneltuner.utility.IOHelper;
 
 
 public class GpuActivityQNew extends AbsActivity implements AdapterView.OnItemClickListener, RootUtils.CommandCallback

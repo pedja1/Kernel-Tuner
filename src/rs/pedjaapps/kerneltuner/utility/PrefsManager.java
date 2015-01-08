@@ -7,7 +7,6 @@ import com.crashlytics.android.Crashlytics;
 
 import rs.pedjaapps.kerneltuner.MainApp;
 import rs.pedjaapps.kerneltuner.constants.TempUnit;
-import rs.pedjaapps.kerneltuner.helpers.IOHelper;
 
 /**
  * Created by pedja on 17.4.14..

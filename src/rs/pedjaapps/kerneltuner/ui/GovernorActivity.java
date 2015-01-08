@@ -19,17 +19,14 @@
 package rs.pedjaapps.kerneltuner.ui;
 
 
-import java.io.BufferedReader;
 import java.io.File;
-import java.io.FileInputStream;
-import java.io.InputStreamReader;
 import java.util.ArrayList;
 import java.util.List;
 
 import rs.pedjaapps.kerneltuner.R;
 import rs.pedjaapps.kerneltuner.model.Governor;
 import rs.pedjaapps.kerneltuner.helpers.GovernorSettingsAdapter;
-import rs.pedjaapps.kerneltuner.helpers.IOHelper;
+import rs.pedjaapps.kerneltuner.utility.IOHelper;
 import rs.pedjaapps.kerneltuner.root.RCommand;
 import rs.pedjaapps.kerneltuner.utility.ChangeGovernorSettings;
 

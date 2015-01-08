@@ -16,13 +16,15 @@
  * You should have received a copy of the GNU General Public License
  * along with Kernel Tuner. If not, see <http://www.gnu.org/licenses/>.
  */
-package rs.pedjaapps.kerneltuner.helpers;
+package rs.pedjaapps.kerneltuner.utility;
 
 import android.os.SystemClock;
 import android.text.TextUtils;
 import android.util.Log;
 
 import com.crashlytics.android.Crashlytics;
+
+import org.apache.commons.io.FileUtils;
 
 import java.io.BufferedReader;
 import java.io.DataInputStream;
@@ -1540,6 +1542,18 @@ public class IOHelper
         catch (Exception e)
         {
             return "";
+        }
+    }
+
+    public static long sizeOf(File file)
+    {
+        try
+        {
+            return FileUtils.sizeOf(file);
+        }
+        catch (Exception e)
+        {
+            return 0;
         }
     }
 }

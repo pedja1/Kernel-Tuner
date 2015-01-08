@@ -2,7 +2,7 @@ package rs.pedjaapps.kerneltuner.model;
 
 import java.util.List;
 
-import rs.pedjaapps.kerneltuner.helpers.IOHelper;
+import rs.pedjaapps.kerneltuner.utility.IOHelper;
 
 public class VoltageCollection
 {

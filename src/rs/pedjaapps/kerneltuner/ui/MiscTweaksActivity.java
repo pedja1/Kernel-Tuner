@@ -20,7 +20,7 @@ import java.util.List;
 import rs.pedjaapps.kerneltuner.Constants;
 import rs.pedjaapps.kerneltuner.adapter.MiscAdapter;
 import rs.pedjaapps.kerneltuner.R;
-import rs.pedjaapps.kerneltuner.helpers.IOHelper;
+import rs.pedjaapps.kerneltuner.utility.IOHelper;
 import rs.pedjaapps.kerneltuner.model.Misc;
 import rs.pedjaapps.kerneltuner.root.RCommand;
 import rs.pedjaapps.kerneltuner.root.RootUtils;
