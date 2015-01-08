@@ -130,15 +130,10 @@ public class MainActivity extends AbsActivity implements Runnable, View.OnClickL
             @Override
             protected String doInBackground(String... params)
             {
-                List<PackageInfo> packageList = getPackageManager().getInstalledPackages(0);
-                for (PackageInfo pi : packageList)
+                if(Tools.isPackageInstalled(PackageChangeReceiver.PRO_PACKAGE_NAME, MainActivity.this))
                 {
-                    if(pi.packageName.equals(PackageChangeReceiver.PRO_PACKAGE_NAME))
-                    {
-                        PrefsManager.setPro(true);
-                        LocalBroadcastManager.getInstance(MainActivity.this).sendBroadcast(new Intent(ACTION_TOGGLE_PRO_VERSION));
-                        return null;
-                    }
+                    PrefsManager.setPro(true);
+                    LocalBroadcastManager.getInstance(MainActivity.this).sendBroadcast(new Intent(ACTION_TOGGLE_PRO_VERSION));
                 }
                 return null;
             }
