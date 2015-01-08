@@ -134,7 +134,9 @@ public class RCommand
         PrefsManager.setReadAhead(cache);
         new RootUtils().exec(callback,
                 "chmod 777 " + "/sys/devices/virtual/bdi/179:0/read_ahead_kb",
-                "echo " + cache + " > /sys/devices/virtual/bdi/179:0/read_ahead_kb");
+                "chmod 777 " + "/sys/devices/virtual/bdi/179:32/read_ahead_kb",
+                "echo " + cache + " > /sys/devices/virtual/bdi/179:32/read_ahead_kb",
+                "echo " + cache + " > /sys/devices/virtual/bdi/179:32/read_ahead_kb");
     }
 
     public static void setS2w(int value, String path, RootUtils.CommandCallback callback)
