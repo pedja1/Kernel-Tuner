@@ -375,7 +375,7 @@ public class CPUActivity extends AbsActivity implements RootUtils.CommandCallbac
     {
         super.onDestroy();
         //RCommand.toggleAllCpu(null, false);
-        //dont disable them, mpdec will handle it
+        if(PrefsManager.getMpdecEnabled() == -1 || PrefsManager.getMpdecEnabled() == 0)RCommand.toggleMpDecision(null, true);
     }
 
     @Override

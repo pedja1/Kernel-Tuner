@@ -110,6 +110,7 @@ public final class Constants
     public static final String DT2W = "/sys/android_touch/doubletap2wake";
 	public static final String S2W_ALT = "/sys/android_touch/sweep2wake/s2w_switch";
 	public static final String MPDECISION = "/sys/kernel/msm_mpdecision/conf/enabled";
+	public static final String MPDECISION_BINARY = "/system/bin/mpdecision";
 	public static final String BUTTONS_LIGHT = "/sys/devices/platform/leds-pm8058/leds/button-backlight/currents";
 	public static final String BUTTONS_LIGHT_2 = "/sys/devices/platform/msm_ssbi.0/pm8921-core/pm8xxx-led/leds/button-backlight/currents";
 	public static final String SD_CACHE = "/sys/devices/virtual/bdi/179:0/read_ahead_kb";
