@@ -73,7 +73,7 @@ public class CPUActivity extends AbsActivity implements RootUtils.CommandCallbac
         mList.setAdapter(mListAdapter);
         refreshView();
 
-        if (new File(Constants.MPDECISION).exists())
+        if (new File(Constants.MPDECISION).exists()/* || new File(Constants.MPDECISION_BINARY).exists()*/)
         {
             Button mp = (Button) findViewById(R.id.btn_mpdecision);
             mp.setOnClickListener(new SimpleStartActivityListener(Mpdecision.class));
@@ -81,8 +81,9 @@ public class CPUActivity extends AbsActivity implements RootUtils.CommandCallbac
                     getResources().getString(R.string.info_mpd_title),
                     getResources().getString(R.string.info_mpd_text),
                     Constants.G_S_URL_PREFIX + "mp-decision", true));
+            mp.setVisibility(View.VISIBLE);
         }
-        if (new File(Constants.THERMALD).exists())
+        if (new File(Constants.THERMALD).exists()/* || new File(Constants.THERMALD_BINARY).exists()*/)
         {
             Button thermal = (Button) findViewById(R.id.btn_thermal);
             thermal.setOnClickListener(new SimpleStartActivityListener(Thermald.class));
@@ -90,6 +91,7 @@ public class CPUActivity extends AbsActivity implements RootUtils.CommandCallbac
             thermal.setOnLongClickListener(new InfoListener(R.drawable.temp,
                     getResources().getString(R.string.info_thermal_title),
                     getResources().getString(R.string.info_thermal_text), "", false));
+            thermal.setVisibility(View.VISIBLE);
         }
 
 
