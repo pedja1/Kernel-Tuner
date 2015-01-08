@@ -37,6 +37,7 @@ import rs.pedjaapps.kerneltuner.*;
 import rs.pedjaapps.kerneltuner.model.*;
 import rs.pedjaapps.kerneltuner.helpers.SDAdapter;
 
+import rs.pedjaapps.kerneltuner.utility.IOHelper;
 import rs.pedjaapps.kerneltuner.utility.Tools;
 
 public class SDScannerActivity extends AbsActivity
@@ -135,7 +136,8 @@ public class SDScannerActivity extends AbsActivity
                 i++;
                 if(file == null || (file.isFile() && file.length() == 0) || !file.exists())continue;
                 SDScannerEntry entry = new SDScannerEntry();
-                long size = FileUtils.sizeOf(file);
+                long size = IOHelper.sizeOf(file);
+                if(size <= 0)continue;
                 entry.setFileName(file.getName());
                 entry.setFolder(!file.isFile());
                 entry.setHRsize(Tools.byteToHumanReadableSize(size));
