@@ -1,6 +1,5 @@
 package rs.pedjaapps.kerneltuner.fragments;
 
-import rs.pedjaapps.kerneltuner.appmanager.ApplicationManagerActivity;
 import rs.pedjaapps.kerneltuner.ui.*;
 
 import android.app.Activity;
@@ -19,7 +18,7 @@ import java.io.File;
 
 import rs.pedjaapps.kerneltuner.Constants;
 import rs.pedjaapps.kerneltuner.R;
-import rs.pedjaapps.kerneltuner.helpers.IOHelper;
+import rs.pedjaapps.kerneltuner.utility.IOHelper;
 import rs.pedjaapps.kerneltuner.utility.InfoListener;
 import rs.pedjaapps.kerneltuner.utility.PrefsManager;
 import rs.pedjaapps.kerneltuner.utility.SimpleStartActivityListener;
@@ -64,7 +63,7 @@ public class MainFragment extends Fragment
 		{
 			gpu.setEnabled(false);
 		}
-        gpu.setOnLongClickListener(new InfoListener(R.drawable.gpu,
+        gpu.setOnLongClickListener(new InfoListener(R.drawable.main_gpu,
                 getResources().getString(R.string.info_gpu_title),
                 getResources().getString(R.string.info_gpu_text),
                 Constants.G_S_URL_PREFIX + "GPU", true));
@@ -94,7 +93,7 @@ public class MainFragment extends Fragment
 			voltage.setEnabled(false);
 		}
         voltage.setOnClickListener(new SimpleStartActivityListener(VoltageActivity.class));
-        voltage.setOnLongClickListener(new InfoListener(R.drawable.voltage,
+        voltage.setOnLongClickListener(new InfoListener(R.drawable.main_voltage,
                 getResources().getString(R.string.info_voltage_title),
                 getResources().getString(R.string.info_voltage_text),
                 Constants.G_S_URL_PREFIX + "undervolting cpu", true));
@@ -125,7 +124,7 @@ public class MainFragment extends Fragment
 				fragmentTransactionExtended.commit();*/
             }
         });
-        cpu.setOnLongClickListener(new InfoListener(R.drawable.ic_launcher,
+        cpu.setOnLongClickListener(new InfoListener(R.drawable.main_cpu,
                 getResources().getString(R.string.info_cpu_title),
                 getResources().getString(R.string.info_cpu_text),
                 Constants.G_S_URL_PREFIX + "CPU", true));
@@ -140,7 +139,7 @@ public class MainFragment extends Fragment
                 startActivity(myIntent);
             }
         });
-        tis.setOnLongClickListener(new InfoListener(R.drawable.times,
+        tis.setOnLongClickListener(new InfoListener(R.drawable.main_times,
                 getResources().getString(R.string.info_tis_title),
                 getResources().getString(R.string.info_tis_text),
                 Constants.G_S_URL_PREFIX + "cpu times_in_state", true));
@@ -161,7 +160,7 @@ public class MainFragment extends Fragment
 
         Button misc = (Button) view.findViewById(R.id.btn_misc);
         misc.setOnClickListener(new SimpleStartActivityListener(MiscTweaksActivity.class));
-        misc.setOnLongClickListener(new InfoListener(R.drawable.misc,
+        misc.setOnLongClickListener(new InfoListener(R.drawable.main_misc,
                 getResources().getString(R.string.info_misc_title),
                 getResources().getString(R.string.info_misc_text), "", false));
 
@@ -176,7 +175,7 @@ public class MainFragment extends Fragment
 
         Button oom = (Button) view.findViewById(R.id.btn_oom);
         oom.setOnClickListener(new SimpleStartActivityListener(OOM.class));
-        oom.setOnLongClickListener(new InfoListener(R.drawable.oom,
+        oom.setOnLongClickListener(new InfoListener(R.drawable.main_oom,
                 getResources().getString(R.string.info_oom_title),
                 getResources().getString(R.string.info_oom_text),
                 Constants.G_S_URL_PREFIX + "oom", true));
@@ -198,7 +197,7 @@ public class MainFragment extends Fragment
         Button sd = (Button) view.findViewById(R.id.btn_sd);
         sd.setOnClickListener(new SimpleStartActivityListener(
                 SDScannerActivity.class));
-        sd.setOnLongClickListener(new InfoListener(R.drawable.sd,
+        sd.setOnLongClickListener(new InfoListener(R.drawable.main_sd,
                 getResources().getString(R.string.info_sd_title),
                 getResources().getString(R.string.info_sd_text), "", false));
 
@@ -214,14 +213,14 @@ public class MainFragment extends Fragment
                 startActivity(myIntent);
             }
         });
-        info.setOnLongClickListener(new InfoListener(R.drawable.info,
+        info.setOnLongClickListener(new InfoListener(R.drawable.main_info,
                 getResources().getString(R.string.info_sys_info_title),
                 getResources().getString(R.string.info_sys_info_text), "",
                 false));
 
         Button tm = (Button) view.findViewById(R.id.btn_task_manager);
         tm.setOnClickListener(new SimpleStartActivityListener(TaskManager.class));
-        tm.setOnLongClickListener(new InfoListener(R.drawable.tm,
+        tm.setOnLongClickListener(new InfoListener(R.drawable.main_tm,
                 getResources().getString(R.string.info_tm_title),
                 getResources().getString(R.string.info_tm_text),
                 Constants.G_S_URL_PREFIX + "task manager", true));
@@ -229,21 +228,21 @@ public class MainFragment extends Fragment
         Button build = (Button) view.findViewById(R.id.btn_build);
         build.setOnClickListener(new SimpleStartActivityListener(
                 BuildpropEditor.class));
-        build.setOnLongClickListener(new InfoListener(R.drawable.build,
+        build.setOnLongClickListener(new InfoListener(R.drawable.main_build,
                 getResources().getString(R.string.info_build_title),
                 getResources().getString(R.string.info_build_text),
                 Constants.G_S_URL_PREFIX + "build.prop", true));
 
         Button sys = (Button) view.findViewById(R.id.btn_sysctl);
         sys.setOnClickListener(new SimpleStartActivityListener(SysCtlActivity.class));
-        sys.setOnLongClickListener(new InfoListener(R.drawable.sysctl,
+        sys.setOnLongClickListener(new InfoListener(R.drawable.main_sysctl,
                 getResources().getString(R.string.info_sysctl_title),
                 getResources().getString(R.string.info_sysctl_text),
                 Constants.G_S_URL_PREFIX + "sysctl", true));
 
         Button log = (Button) view.findViewById(R.id.btn_logcat);
         log.setOnClickListener(new SimpleStartActivityListener(LogCat.class));
-        log.setOnLongClickListener(new InfoListener(R.drawable.swap,
+        log.setOnLongClickListener(new InfoListener(R.drawable.main_log,
                 getResources().getString(R.string.info_logs_title),
                 getResources().getString(R.string.info_logs_text),
                 Constants.G_S_URL_PREFIX + "swap", true));

@@ -20,28 +20,21 @@ package rs.pedjaapps.kerneltuner.services;
 
 
 import android.app.IntentService;
-import android.app.Service;
 import android.content.Intent;
 import android.content.SharedPreferences;
-import android.os.AsyncTask;
 import android.os.IBinder;
 import android.preference.PreferenceManager;
 import android.util.Log;
-
-import com.stericson.RootTools.RootTools;
-import com.stericson.RootTools.execution.CommandCapture;
-
 import java.io.File;
 import java.util.ArrayList;
 import java.util.List;
-
 import rs.pedjaapps.kerneltuner.Constants;
 import rs.pedjaapps.kerneltuner.helpers.DatabaseHandler;
-import rs.pedjaapps.kerneltuner.helpers.IOHelper;
 import rs.pedjaapps.kerneltuner.model.SysCtl;
 import rs.pedjaapps.kerneltuner.model.Voltage;
 import rs.pedjaapps.kerneltuner.root.RCommand;
 import rs.pedjaapps.kerneltuner.root.RootUtils;
+import rs.pedjaapps.kerneltuner.utility.IOHelper;
 import rs.pedjaapps.kerneltuner.utility.PrefsManager;
 
 public class StartupService extends IntentService

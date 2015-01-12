@@ -18,23 +18,20 @@
 */
 package rs.pedjaapps.kerneltuner.ui;
 
-import java.util.ArrayList;
 import java.util.List;
 
 import rs.pedjaapps.kerneltuner.R;
 import rs.pedjaapps.kerneltuner.model.Frequency;
 import rs.pedjaapps.kerneltuner.model.FrequencyCollection;
-import rs.pedjaapps.kerneltuner.helpers.IOHelper;
+import rs.pedjaapps.kerneltuner.utility.IOHelper;
 import rs.pedjaapps.kerneltuner.root.RootUtils;
 import rs.pedjaapps.kerneltuner.utility.PrefsManager;
 import rs.pedjaapps.kerneltuner.utility.Tools;
 
 import android.support.v7.app.ActionBar;
-import android.app.Activity;
 import android.app.ProgressDialog;
 import android.content.Intent;
 import android.content.SharedPreferences;
-import android.os.AsyncTask;
 import android.os.Bundle;
 import android.preference.PreferenceManager;
 import android.view.Menu;
@@ -48,9 +45,6 @@ import android.widget.ArrayAdapter;
 import android.widget.EditText;
 import android.widget.Spinner;
 import android.widget.TextView;
-
-import com.stericson.RootTools.RootTools;
-import com.stericson.RootTools.execution.CommandCapture;
 
 public class Thermald extends AbsActivity
 {

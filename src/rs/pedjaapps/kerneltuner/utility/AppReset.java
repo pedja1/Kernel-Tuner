@@ -22,10 +22,8 @@ package rs.pedjaapps.kerneltuner.utility;
 import android.content.Context;
 import android.content.SharedPreferences;
 import android.preference.PreferenceManager;
-import java.util.ArrayList;
-import java.util.List;
 
-import rs.pedjaapps.kerneltuner.helpers.IOHelper;
+import java.util.List;
 
 
 public class AppReset

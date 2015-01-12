@@ -30,7 +30,6 @@ import java.util.*;
 
 import rs.pedjaapps.kerneltuner.*;
 import rs.pedjaapps.kerneltuner.adapter.CPUAdapter;
-import rs.pedjaapps.kerneltuner.helpers.*;
 import rs.pedjaapps.kerneltuner.model.*;
 import rs.pedjaapps.kerneltuner.root.*;
 import rs.pedjaapps.kerneltuner.utility.*;
@@ -73,25 +72,26 @@ public class CPUActivity extends AbsActivity implements RootUtils.CommandCallbac
         mList.setAdapter(mListAdapter);
         refreshView();
 
-        if (new File(Constants.MPDECISION).exists())
+        if (new File(Constants.MPDECISION).exists()/* || new File(Constants.MPDECISION_BINARY).exists()*/)
         {
             Button mp = (Button) findViewById(R.id.btn_mpdecision);
             mp.setOnClickListener(new SimpleStartActivityListener(Mpdecision.class));
-            mp.setOnLongClickListener(new InfoListener(R.drawable.dual,
+            mp.setOnLongClickListener(new InfoListener(R.drawable.main_mp,
                     getResources().getString(R.string.info_mpd_title),
                     getResources().getString(R.string.info_mpd_text),
                     Constants.G_S_URL_PREFIX + "mp-decision", true));
+            mp.setVisibility(View.VISIBLE);
         }
-        if (new File(Constants.THERMALD).exists())
+        if (new File(Constants.THERMALD).exists()/* || new File(Constants.THERMALD_BINARY).exists()*/)
         {
             Button thermal = (Button) findViewById(R.id.btn_thermal);
             thermal.setOnClickListener(new SimpleStartActivityListener(Thermald.class));
 
-            thermal.setOnLongClickListener(new InfoListener(R.drawable.temp,
+            thermal.setOnLongClickListener(new InfoListener(R.drawable.main_thermal,
                     getResources().getString(R.string.info_thermal_title),
                     getResources().getString(R.string.info_thermal_text), "", false));
+            thermal.setVisibility(View.VISIBLE);
         }
-
 
     }
 
@@ -375,7 +375,7 @@ public class CPUActivity extends AbsActivity implements RootUtils.CommandCallbac
     {
         super.onDestroy();
         //RCommand.toggleAllCpu(null, false);
-        //dont disable them, mpdec will handle it
+        if(PrefsManager.getMpdecEnabled() == -1 || PrefsManager.getMpdecEnabled() == 0)RCommand.toggleMpDecision(null, true);
     }
 
     @Override

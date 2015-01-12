@@ -2,28 +2,22 @@ package rs.pedjaapps.kerneltuner.ui;
 
 
 import android.content.*;
-import android.content.pm.*;
 import android.graphics.*;
 import android.os.*;
 import android.support.v4.content.*;
-import android.support.v7.app.*;
-import android.support.v7.widget.*;
 import android.text.*;
 import android.view.*;
 import android.widget.*;
 import java.io.*;
-import java.util.*;
+
 import rs.pedjaapps.kerneltuner.*;
 import rs.pedjaapps.kerneltuner.constants.*;
 import rs.pedjaapps.kerneltuner.fragments.*;
-import rs.pedjaapps.kerneltuner.helpers.*;
 import rs.pedjaapps.kerneltuner.receiver.*;
 import rs.pedjaapps.kerneltuner.root.*;
-import rs.pedjaapps.kerneltuner.ui.*;
 import rs.pedjaapps.kerneltuner.utility.*;
 
 import android.support.v7.app.ActionBar;
-import android.support.v7.widget.Toolbar;
 import android.app.*;
 import rs.pedjaapps.kerneltuner.filemanager.FMActivity;
 
@@ -132,13 +126,11 @@ public class MainActivity extends AbsActivity implements Runnable, View.OnClickL
             @Override
             protected String doInBackground(String... params)
             {
-                    if(Tools.isPackageInstalled(PackageChangeReceiver.PRO_PACKAGE_NAME, MainActivity.this))
-                    {
-                        PrefsManager.setPro(true);
-                        LocalBroadcastManager.getInstance(MainActivity.this).sendBroadcast(new Intent(ACTION_TOGGLE_PRO_VERSION));
-                        return null;
-                    }
-                
+                if(Tools.isPackageInstalled(PackageChangeReceiver.PRO_PACKAGE_NAME, MainActivity.this))
+                {
+                    PrefsManager.setPro(true);
+                    LocalBroadcastManager.getInstance(MainActivity.this).sendBroadcast(new Intent(ACTION_TOGGLE_PRO_VERSION));
+                }
                 return null;
             }
 

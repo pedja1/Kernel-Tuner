@@ -21,7 +21,7 @@ package rs.pedjaapps.kerneltuner.ui;
 import java.util.List;
 
 import rs.pedjaapps.kerneltuner.R;
-import rs.pedjaapps.kerneltuner.helpers.IOHelper;
+import rs.pedjaapps.kerneltuner.utility.IOHelper;
 import rs.pedjaapps.kerneltuner.utility.Tools;
 import android.app.Activity;
 import android.app.AlertDialog;

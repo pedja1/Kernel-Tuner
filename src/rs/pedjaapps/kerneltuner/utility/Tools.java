@@ -18,15 +18,24 @@
  */
 package rs.pedjaapps.kerneltuner.utility;
 
-import android.app.*;
-import android.content.*;
-import android.content.pm.*;
-import android.net.*;
-import android.os.*;
-import android.text.*;
-import android.widget.*;
-import java.text.*;
-import rs.pedjaapps.kerneltuner.*;
+import android.app.Activity;
+import android.app.AlertDialog;
+import android.content.ActivityNotFoundException;
+import android.content.Context;
+import android.content.DialogInterface;
+import android.content.Intent;
+import android.content.pm.PackageInfo;
+import android.content.pm.PackageManager;
+import android.net.Uri;
+import android.os.Environment;
+import android.os.StatFs;
+import android.text.Html;
+import android.widget.Toast;
+
+import java.text.DecimalFormat;
+import java.text.SimpleDateFormat;
+
+import rs.pedjaapps.kerneltuner.R;
 
 public class Tools
 {
@@ -393,7 +402,7 @@ public class Tools
         }
         catch (ActivityNotFoundException e)
         {
-            showMessageAlertDialog(activity,R.string.donations__alert_dialog_no_browser,
+            showMessageAlertDialog(activity, R.string.donations__alert_dialog_no_browser,
                     R.string.donations__alert_dialog_title, null);
         }
     }
@@ -433,19 +442,19 @@ public class Tools
     {
         Toast.makeText(context, Html.fromHtml(context.getString(resId)), Toast.LENGTH_LONG).show();
     }
-	
-	public static boolean isPackageInstalled(String packagename, Context context) 
-	{
-		PackageManager pm = context.getPackageManager();
-		try 
-		{
-			pm.getPackageInfo(packagename, PackageManager.GET_ACTIVITIES);
-			return true;
-		} 
-		catch (PackageManager.NameNotFoundException e) 
-		{
-			return false;
-		}
-	}
+
+    public static boolean isPackageInstalled(String packagename, Context context)
+    {
+        PackageManager pm = context.getPackageManager();
+        try
+        {
+            pm.getPackageInfo(packagename, PackageManager.GET_ACTIVITIES);
+            return true;
+        }
+        catch (PackageManager.NameNotFoundException e)
+        {
+            return false;
+        }
+    }
 }
 

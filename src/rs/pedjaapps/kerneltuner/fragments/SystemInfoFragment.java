@@ -23,7 +23,7 @@ import java.util.List;
 import rs.pedjaapps.kerneltuner.R;
 import rs.pedjaapps.kerneltuner.adapter.SystemInfoAdapter;
 import rs.pedjaapps.kerneltuner.constants.TempUnit;
-import rs.pedjaapps.kerneltuner.helpers.IOHelper;
+import rs.pedjaapps.kerneltuner.utility.IOHelper;
 import rs.pedjaapps.kerneltuner.model.Frequency;
 import rs.pedjaapps.kerneltuner.model.SystemInfo;
 import rs.pedjaapps.kerneltuner.utility.PrefsManager;

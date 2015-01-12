@@ -20,16 +20,12 @@ package rs.pedjaapps.kerneltuner.ui;
 
 
 import android.content.Intent;
-import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.os.SystemClock;
-import android.preference.PreferenceManager;
 import android.support.v7.app.ActionBar;
-import android.view.LayoutInflater;
 import android.view.MenuItem;
 import android.view.View;
 import android.view.View.OnClickListener;
-import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.ListView;
 import android.widget.TextView;
@@ -38,7 +34,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 import rs.pedjaapps.kerneltuner.R;
-import rs.pedjaapps.kerneltuner.helpers.IOHelper;
+import rs.pedjaapps.kerneltuner.utility.IOHelper;
 import rs.pedjaapps.kerneltuner.helpers.TISAdapter;
 import rs.pedjaapps.kerneltuner.model.TISEntry;
 import rs.pedjaapps.kerneltuner.model.TimesEntry;

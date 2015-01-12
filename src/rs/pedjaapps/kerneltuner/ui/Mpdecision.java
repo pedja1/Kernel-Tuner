@@ -53,8 +53,6 @@ import android.widget.Switch;
 
 public class Mpdecision extends AbsActivity
 {
-
-
     private List<Frequency> freqs = FrequencyCollection.getInstance().getFrequencies();
 
     private SharedPreferences preferences;
