@@ -475,6 +475,7 @@ public class SystemInfoFragment extends Fragment
         info.setType(SystemInfo.TYPE_HEADER);
         info.setTitle(getString(R.string.applications));
         systemInfos.add(info);
+		//todo fix transactiontoolongexception here
         List<PackageInfo> apps = getActivity().getPackageManager().getInstalledPackages(0);
         int system = 0;
         int user = 0;

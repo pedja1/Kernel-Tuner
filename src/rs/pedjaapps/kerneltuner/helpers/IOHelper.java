@@ -157,6 +157,10 @@ public class IOHelper
         {
             i = true;
         }
+		else if (new File(Constants.VOLTAGE_PATH_2).exists())
+        {
+            i = true;
+        }
         return i;
 
     }

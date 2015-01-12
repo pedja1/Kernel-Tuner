@@ -25,6 +25,7 @@ import rs.pedjaapps.kerneltuner.utility.*;
 import android.support.v7.app.ActionBar;
 import android.support.v7.widget.Toolbar;
 import android.app.*;
+import rs.pedjaapps.kerneltuner.filemanager.FMActivity;
 
 /**
  * Created by pedja on 17.4.14..
@@ -65,6 +66,7 @@ public class MainActivity extends AbsActivity implements Runnable, View.OnClickL
     @Override
     public void onCreate(Bundle savedInstanceState)
     {
+		//startActivity(new Intent(this, FMActivity.class));
 		System.out.println("Main activity onCreate");
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
@@ -130,16 +132,13 @@ public class MainActivity extends AbsActivity implements Runnable, View.OnClickL
             @Override
             protected String doInBackground(String... params)
             {
-                List<PackageInfo> packageList = getPackageManager().getInstalledPackages(0);
-                for (PackageInfo pi : packageList)
-                {
-                    if(pi.packageName.equals(PackageChangeReceiver.PRO_PACKAGE_NAME))
+                    if(Tools.isPackageInstalled(PackageChangeReceiver.PRO_PACKAGE_NAME, MainActivity.this))
                     {
                         PrefsManager.setPro(true);
                         LocalBroadcastManager.getInstance(MainActivity.this).sendBroadcast(new Intent(ACTION_TOGGLE_PRO_VERSION));
                         return null;
                     }
-                }
+                
                 return null;
             }
 
@@ -504,7 +503,7 @@ public class MainActivity extends AbsActivity implements Runnable, View.OnClickL
                 {
                     if (tempUnit == TempUnit.fahrenheit)
                     {
-                        tmpCputemp = String.valueOf((int) (Double.parseDouble(tmpCputemp) * 1.8) + 32);
+                        tmpCputemp = String.valueOf((int) (Tools.parseDouble(tmpCputemp, 0) * 1.8) + 32);
                         tvCputemptxt.setText(tmpCputemp + "°F");
                         int temp = Tools.parseInt(tmpCputemp, 0);
 
@@ -542,7 +541,7 @@ public class MainActivity extends AbsActivity implements Runnable, View.OnClickL
 
                     else if (tempUnit == TempUnit.kelvin)
                     {
-                        tmpCputemp = String.valueOf((int) (Double.parseDouble(tmpCputemp) + 273.15));
+                        tmpCputemp = String.valueOf((int) (Tools.parseDouble(tmpCputemp, 0) + 273.15));
 
                         tvCputemptxt.setText(tmpCputemp + "°K");
                         int temp = Tools.parseInt(tmpCputemp, 0);

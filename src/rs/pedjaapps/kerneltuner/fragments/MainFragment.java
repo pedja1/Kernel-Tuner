@@ -76,6 +76,10 @@ public class MainFragment extends Fragment
 		{
 			voltageClass = VoltageActivity.class;
 		}
+		else if(new File(Constants.VOLTAGE_PATH_2).exists())
+		{
+			voltageClass = VoltageActivity1.class;
+		}
 		else if(new File(Constants.VOLTAGE_PATH_TEGRA_3).exists())
 		{
 			voltageClass = VoltageActivityTegra.class;
@@ -269,6 +273,8 @@ public class MainFragment extends Fragment
         {
             if (!(new File(Constants.VOLTAGE_PATH_TEGRA_3).exists()))
             {
+				if (!(new File(Constants.VOLTAGE_PATH_2).exists()))
+				{
                 if (hideUnsupportedItems)
                 {
                     voltage.setVisibility(View.GONE);
@@ -277,6 +283,7 @@ public class MainFragment extends Fragment
                 {
                     voltage.setEnabled(false);
                 }
+				}
             }
         }
         if (!(new File(Constants.TIMES_IN_STATE_CPU0).exists()))

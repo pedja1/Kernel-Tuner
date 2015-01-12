@@ -31,6 +31,18 @@ import rs.pedjaapps.kerneltuner.*;
 public class Tools
 {
 
+	public static double parseDouble(String value, int def)
+	{
+		try
+		{
+			return Double.parseDouble(value);
+		}
+		catch(Exception e)
+		{
+			return def;
+		}
+	}
+	
     public static String byteToHumanReadableSize(long size)
     {
         String hrSize = "0.00B";
@@ -421,5 +433,19 @@ public class Tools
     {
         Toast.makeText(context, Html.fromHtml(context.getString(resId)), Toast.LENGTH_LONG).show();
     }
+	
+	public static boolean isPackageInstalled(String packagename, Context context) 
+	{
+		PackageManager pm = context.getPackageManager();
+		try 
+		{
+			pm.getPackageInfo(packagename, PackageManager.GET_ACTIVITIES);
+			return true;
+		} 
+		catch (PackageManager.NameNotFoundException e) 
+		{
+			return false;
+		}
+	}
 }
 

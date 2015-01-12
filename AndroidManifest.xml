@@ -201,6 +201,16 @@
                 <category android:name="android.intent.category.DEFAULT" />
             </intent-filter>
         </activity>
+		<activity
+            android:name=".ui.VoltageActivity1"
+            android:icon="@drawable/voltage"
+            android:label="@string/title_voltage" >
+            <intent-filter>
+                <action android:name="rs.pedjaapps.kerneltuner.VOLTAGE" />
+
+                <category android:name="android.intent.category.DEFAULT" />
+            </intent-filter>
+        </activity>
         <activity
             android:name=".ui.VoltageActivity"
             android:icon="@drawable/voltage"

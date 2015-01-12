@@ -44,12 +44,22 @@ import rs.pedjaapps.kerneltuner.root.RCommand;
 import rs.pedjaapps.kerneltuner.root.RootUtils;
 import rs.pedjaapps.kerneltuner.utility.PrefsManager;
 
-public class StartupService extends Service
+public class StartupService extends IntentService
 {
+	public StartupService()
+	{
+		super("startup_service");
+	}
+
+	@Override
+	protected void onHandleIntent(Intent p1)
+	{
+		// TODO: Implement this method
+	}
+	
     @Override
     public IBinder onBind(Intent intent)
     {
-
         return null;
     }
 
@@ -234,6 +244,7 @@ public class StartupService extends Service
         }
         new RootUtils().exec(aditionalCommands.toArray(new String[aditionalCommands.size()]));
         new RootUtils().closeAllShells();
+		stopSelf();
         return super.onStartCommand(intent, flags, startId);
     }
 
