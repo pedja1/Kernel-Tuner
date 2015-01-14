@@ -169,6 +169,10 @@ public final class Constants
 	public static final String THERMAL_MAX_LOW = "/sys/kernel/msm_thermal/conf/allowed_max_low";
 	public static final String THERMAL_MAX_HIGH = "/sys/kernel/msm_thermal/conf/allowed_max_high";
 	
+	
+	public static final String SELINUX = "/sys/fs/selinux/enforce";
+	
+	
 	public static final String[] CPU_TEMP_PATHS = new String[]{
 	"/sys/devices/system/cpu/cpu0/cpufreq/cpu_temp",
 	"/sys/devices/system/cpu/cpu0/cpufreq/FakeShmoo_cpu_temp",

@@ -39,7 +39,7 @@ public class MiscAdapter extends ArrayAdapter<Misc> implements PinnedSectionList
     @Override
     public boolean isEnabled(int position)
     {
-        return getItemViewType(position) == Misc.TYPE_ITEM && getItem(position).getItemType() != Misc.ITEM_TYPE_INFO;
+        return getItemViewType(position) == Misc.TYPE_ITEM && getItem(position).getItemType() != Misc.ITEM_TYPE_INFO && getItem(position).isEnabled();
     }
 
     @Override

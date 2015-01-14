@@ -8,6 +8,7 @@ import java.util.List;
 
 import rs.pedjaapps.kerneltuner.Constants;
 import rs.pedjaapps.kerneltuner.utility.PrefsManager;
+import rs.pedjaapps.kerneltuner.utility.IOHelper;
 
 public class RCommand
 {
@@ -217,6 +218,36 @@ public class RCommand
         new RootUtils().exec(callback,
                 "chmod 777 " + Constants.TCP_CONGESTION,
                 "echo " + tcp + " > " + Constants.TCP_CONGESTION);
+    }
+	
+	public static void changeSeLinuxMode(RootUtils.CommandCallback callback)
+    {
+		changeSeLinuxMode(-1, callback);
+	}
+	public static void changeSeLinuxMode(int mode, RootUtils.CommandCallback callback)
+    {
+		if(mode != -1)
+		{
+			new RootUtils().exec(callback, "/system/bin/setenforce " + mode);
+			return;
+		}
+		int curr = IOHelper.se();
+		switch(curr)
+		{
+			case 1:
+				PrefsManager.setSeLinux(0);
+				new RootUtils().exec(callback, "/system/bin/setenforce 0");
+				break;
+			case 0:
+				PrefsManager.setSeLinux(1);
+				new RootUtils().exec(callback, "/system/bin/setenforce 1");
+				break;
+			default:
+				if(callback != null)callback.onComplete(RootUtils.Status.unknown_error, "se_read_failed");
+				break;
+		}
+        
+        
     }
 
     public static void toggleMpDecision(RootUtils.CommandCallback callback, boolean on_off)

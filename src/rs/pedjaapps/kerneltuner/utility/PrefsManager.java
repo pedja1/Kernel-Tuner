@@ -22,7 +22,7 @@ public class PrefsManager
         cpu_disable_all, hide_unsupported_items, notification_service, cpu_show_all_cores, gpu_3d, gpu_2d,
         gpu_governor, mpdec_idle_freq, mpdec_enabled, mpdec_max_cpus, mpdec_min_cpus, mpdec_sosc,
         mpdec_sof, mpdec_pause, mpdec_delay, scheduler, readahead, dt2w, s2w, otg, vsync, fastcharge,
-        tcp_congestion
+        tcp_congestion, se
     }
 
     public static long getCpuRefreshInterval()
@@ -51,6 +51,18 @@ public class PrefsManager
     {
         SharedPreferences.Editor editor = prefs.edit();
         editor.putInt(Key.app_version.toString(), version);
+        editor.apply();
+    }
+	
+	public static int getSeLinux()
+    {
+        return prefs.getInt(Key.se.toString(), -1);
+    }
+
+    public static void setSeLinux(int se)
+    {
+        SharedPreferences.Editor editor = prefs.edit();
+        editor.putInt(Key.se.toString(), se);
         editor.apply();
     }
 

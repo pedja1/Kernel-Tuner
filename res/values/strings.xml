@@ -918,4 +918,9 @@
     <string name="application_manager">Application Manager</string>
     <string name="details">Details</string>
 
+	<string name="selinux">SELinux</string>
+	<string name="permissive">Permissive</string>
+	<string name="enforcing">Enforcing</string>
+	<string name="selinux_read_failed">Failed to read current SELinux mode</string>
+	
 </resources>

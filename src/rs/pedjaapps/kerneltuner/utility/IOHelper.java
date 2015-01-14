@@ -73,6 +73,11 @@ public class IOHelper
         return i;
 
     }
+	
+	public static boolean selinuxExists()
+    {
+        return new File(Constants.SELINUX).exists();
+    }
 
     public static boolean thermaldExists()
     {
@@ -423,6 +428,19 @@ public class IOHelper
         catch (Exception e)
         {
             return new ArrayList<>();
+        }
+
+    }
+	
+	public static int se()
+    {
+        try
+        {
+            return Tools.parseInt(RCommand.readFileContent(Constants.SELINUX).trim(), -1);
+        }
+        catch (Exception e)
+        {
+            return -1;
         }
 
     }

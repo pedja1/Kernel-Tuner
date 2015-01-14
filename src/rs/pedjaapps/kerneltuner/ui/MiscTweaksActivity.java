@@ -12,18 +12,17 @@ import android.widget.AdapterView;
 import android.widget.EditText;
 import android.widget.ListView;
 import android.widget.ProgressBar;
-
 import java.io.File;
 import java.util.ArrayList;
 import java.util.List;
-
 import rs.pedjaapps.kerneltuner.Constants;
-import rs.pedjaapps.kerneltuner.adapter.MiscAdapter;
 import rs.pedjaapps.kerneltuner.R;
-import rs.pedjaapps.kerneltuner.utility.IOHelper;
+import rs.pedjaapps.kerneltuner.adapter.MiscAdapter;
 import rs.pedjaapps.kerneltuner.model.Misc;
 import rs.pedjaapps.kerneltuner.root.RCommand;
 import rs.pedjaapps.kerneltuner.root.RootUtils;
+import rs.pedjaapps.kerneltuner.utility.IOHelper;
+import rs.pedjaapps.kerneltuner.utility.Tools;
 
 public class MiscTweaksActivity extends AbsActivity implements AdapterView.OnItemClickListener, RootUtils.CommandCallback
 {
@@ -142,6 +141,17 @@ public class MiscTweaksActivity extends AbsActivity implements AdapterView.OnIte
             misc.setValue(getDescForOtg());
             list.add(misc);
         }
+		if (IOHelper.selinuxExists())
+        {
+            misc = new Misc();
+            misc.setType(Misc.TYPE_ITEM);
+            misc.setItemType(Misc.ITEM_TYPE_SELINUX);
+			int se = IOHelper.se();
+            misc.setTitle(getString(R.string.selinux));
+            misc.setValue(getDescForSe(se));
+			if(se != 1 && se != 0)misc.setEnabled(false);
+            list.add(misc);
+        }
         /*if (IOHelper.cdExists())
         {
             misc = new Misc();
@@ -152,6 +162,19 @@ public class MiscTweaksActivity extends AbsActivity implements AdapterView.OnIte
             list.add(misc);
         }*/
         return list;
+    }
+	
+	private String getDescForSe(int se)
+    {
+        switch (se)
+        {
+            case 0:
+                return getString(R.string.permissive);
+            case 1:
+                return getString(R.string.enforcing);
+            default:
+                return getString(R.string.unknown);
+        }
     }
 
     private String getDescForDt2w()
@@ -251,6 +274,10 @@ public class MiscTweaksActivity extends AbsActivity implements AdapterView.OnIte
     @Override
     public void onComplete(RootUtils.Status status, String output)
     {
+		if(status == RootUtils.Status.unknown_error && "se_read_failed".equals(output))
+		{
+			Tools.showToast(this, R.string.selinux_read_failed);
+		}
         new ATPopulateCpuList().execute();
     }
 
@@ -281,8 +308,16 @@ public class MiscTweaksActivity extends AbsActivity implements AdapterView.OnIte
             case Misc.ITEM_TYPE_OTG:
                 showToggleDialog(misc);
                 break;
+			case Misc.ITEM_TYPE_SELINUX:
+				changeSelinuxMode();
+				break;
         }
     }
+
+	private void changeSelinuxMode()
+	{
+		RCommand.changeSeLinuxMode(MiscTweaksActivity.this);
+	}
 
     private void showSetReadAheadDialog(Misc misc)
     {

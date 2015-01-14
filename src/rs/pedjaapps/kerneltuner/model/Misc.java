@@ -13,10 +13,22 @@ public class Misc
     public static final int ITEM_TYPE_VSYNC = -6;
     public static final int ITEM_TYPE_OTG = -7;
     public static final int ITEM_TYPE_CD = -8;
+	public static final int ITEM_TYPE_SELINUX = -9;
     public static final int ITEM_TYPE_INFO = -12;
 	
 	private int type, itemType;
 	private String title, value;
+	private boolean enabled = true;
+
+	public void setEnabled(boolean enabled)
+	{
+		this.enabled = enabled;
+	}
+
+	public boolean isEnabled()
+	{
+		return enabled;
+	}
 
 	public void setType(int type)
 	{
