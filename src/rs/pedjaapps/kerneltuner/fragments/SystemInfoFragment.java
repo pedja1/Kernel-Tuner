@@ -28,6 +28,7 @@ import rs.pedjaapps.kerneltuner.model.Frequency;
 import rs.pedjaapps.kerneltuner.model.SystemInfo;
 import rs.pedjaapps.kerneltuner.utility.PrefsManager;
 import rs.pedjaapps.kerneltuner.utility.Tools;
+import android.os.TransactionTooLargeException;
 
 /**
  * Created by pedja on 13.7.14..
@@ -476,7 +477,15 @@ public class SystemInfoFragment extends Fragment
         info.setTitle(getString(R.string.applications));
         systemInfos.add(info);
 		//todo fix transactiontoolongexception here
-        List<PackageInfo> apps = getActivity().getPackageManager().getInstalledPackages(0);
+        List<PackageInfo> apps = new ArrayList<>(); 
+		try
+		{
+			apps = getActivity().getPackageManager().getInstalledPackages(0);
+		}
+		catch (Exception e)
+		{
+			
+		}
         int system = 0;
         int user = 0;
         for (PackageInfo packageInfo : apps)
