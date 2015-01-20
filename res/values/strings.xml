@@ -693,13 +693,6 @@
     <string name="txtBatteryTemp">Battery Temperature:</string>
     <string name="btn_sd">SD Analyzer</string>
     <string name="running_benchmark">Running benchmark...</string>
-    <string name="start_single">Single Thread</string>
-    <string name="start_multi">Multi Thread</string>
-    <string name="mflops">Mflops</string>
-    <string name="nres">Norm Res</string>
-    <string name="time">Time</string>
-    <string name="precision">Precision</string>
-    <string name="previous_runs">Previous Results</string>
 
     <color name="apps_primary">#ffb2cb39</color>
 
@@ -925,15 +918,12 @@
 	
 	<string name="linpack">Linpack</string>
 	
-	<string name="running_benchmark">Running linpack...</string>
 	<string name="start_single">Run Linpack</string>
 	<string name="mflops">Mflops</string>
 	<string name="nres">Norm Res</string>
 	<string name="time">Time</string>
 	<string name="precision">Precision</string>
-	<string name="close">Close</string>
 	<string name="previous_runs">Previous Results</string>
-	<color name="apps_primary">#ffb2cb39</color>
 	
 	
 </resources>

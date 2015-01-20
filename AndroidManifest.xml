@@ -2,8 +2,8 @@
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
     package="rs.pedjaapps.kerneltuner"
     android:installLocation="internalOnly"
-    android:versionCode="20150110"
-    android:versionName="1.0.1.3" >
+    android:versionCode="20150122"
+    android:versionName="1.0.1.5" >
 	
 	<uses-sdk android:minSdkVersion="14" android:targetSdkVersion="21"/>
 
