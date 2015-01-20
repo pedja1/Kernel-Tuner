@@ -242,8 +242,8 @@ public abstract class AbsVoltageActivity extends AbsActivity implements AdapterV
     public static void notifyChanges()
     {
         voltageAdapter.clear();
-        VoltageCollection.getInstance().readVoltages();
-        for (Voltage entry : VoltageCollection.getInstance().getVoltages())
+        voltages = VoltageCollection.getInstance().readVoltages().getVoltages();
+        for (Voltage entry : voltages)
         {
             voltageAdapter.add(entry);
         }

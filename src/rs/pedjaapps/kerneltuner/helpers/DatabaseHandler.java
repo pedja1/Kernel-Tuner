@@ -539,12 +539,15 @@ public class DatabaseHandler extends SQLiteOpenHelper
 		values.put(KEY_VOLTAGE_VALUE, voltage.getDbValues()); 
 
 		// Inserting Row
-        int id = (int) db.insertWithOnConflict(TABLE_VOLTAGE, null, values, SQLiteDatabase.CONFLICT_IGNORE);
-        if (id == -1)
+        /*int id = (int) */db.insertWithOnConflict(TABLE_VOLTAGE, null, values, SQLiteDatabase.CONFLICT_REPLACE);
+        /*if (id == -1)
         {
             db.update(TABLE_VOLTAGE, values, "profile_name=?", new String[] {voltage.getName()});
         }
-		db.insert(TABLE_VOLTAGE, null, values);
+        else
+        {
+            db.insert(TABLE_VOLTAGE, null, values);
+        }*/
 		db.close(); // Closing database connection
 	}
 

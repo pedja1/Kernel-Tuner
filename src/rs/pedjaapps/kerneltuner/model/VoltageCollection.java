@@ -18,9 +18,10 @@ public class VoltageCollection
         return voltageCollection;
     }
 
-    public void readVoltages()
+    public VoltageCollection readVoltages()
     {
         voltages = IOHelper.voltages();
+        return this;
     }
 
     public VoltageCollection()
