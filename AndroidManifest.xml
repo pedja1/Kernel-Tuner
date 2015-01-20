@@ -347,6 +347,12 @@
         </activity>
         <activity android:name="siir.es.adbWireless.ManagePreferences" >
         </activity>
+		
+		<activity
+            android:label="@string/linpack"
+            android:name="rs.pedjaapps.linpack.LinpackMainActivity">
+           
+        </activity>
 
         <receiver android:name="siir.es.adbWireless.TrackShutdown" >
             <intent-filter>

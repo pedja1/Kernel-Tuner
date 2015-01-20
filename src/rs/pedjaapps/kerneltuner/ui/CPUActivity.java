@@ -33,6 +33,7 @@ import rs.pedjaapps.kerneltuner.adapter.CPUAdapter;
 import rs.pedjaapps.kerneltuner.model.*;
 import rs.pedjaapps.kerneltuner.root.*;
 import rs.pedjaapps.kerneltuner.utility.*;
+import rs.pedjaapps.linpack.LinpackMainActivity;
 
 
 public class CPUActivity extends AbsActivity implements RootUtils.CommandCallback, AdapterView.OnItemClickListener, CompoundButton.OnCheckedChangeListener, View.OnTouchListener
@@ -243,6 +244,18 @@ public class CPUActivity extends AbsActivity implements RootUtils.CommandCallbac
             cpu.setValue(IOHelper.cpuScreenOffMaxFreq() / 1000 + getString(R.string.mhz));
             list.add(cpu);
         }
+		
+		cpu = new CPU();
+		cpu.setType(CPU.TYPE_HEADER);
+		cpu.setTitle(getString(R.string.linpack));
+		list.add(cpu);
+
+		cpu = new CPU();
+		cpu.setType(CPU.TYPE_ITEM);
+		cpu.setItemType(CPU.ITEM_TYPE_LINPACK);
+		cpu.setTitle(getString(R.string.linpack));
+		cpu.setValue(getString(R.string.start_single));
+		list.add(cpu);
         return list;
     }
 
@@ -274,6 +287,9 @@ public class CPUActivity extends AbsActivity implements RootUtils.CommandCallbac
             case CPU.ITEM_TYPE_GOV:
                 showSelectGovDialog(cpu);
                 break;
+			case CPU.ITEM_TYPE_LINPACK:
+				startActivity(new Intent(this, LinpackMainActivity.class));
+				break;
         }
     }
 

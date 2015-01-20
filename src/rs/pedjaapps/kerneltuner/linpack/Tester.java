@@ -96,23 +96,6 @@ public class Tester extends Activity {
 					startTester(0);
 				}
 			});
-		start_multi = (Button)findViewById(R.id.start_multi);
-		start_multi.setOnClickListener(new View.OnClickListener(){
-
-				public void onClick(View p1)
-				{
-					mflopsTextView.setText(R.string.running_benchmark);
-					nresTextView.setText("0");
-					timeTextView.setText("0");
-					precisionTextView.setText("0");
-					start_single.setEnabled(false);
-					start_multi.setEnabled(false);
-					startTester(1);
-				}
-			});
-		
-		
-        
     }
     
     public static void average(Bundle result, Bundle[] list) {
