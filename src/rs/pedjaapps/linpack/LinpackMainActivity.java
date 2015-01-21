@@ -12,6 +12,7 @@ import android.widget.Button;
 import android.widget.ListView;
 import android.widget.TextView;
 import java.text.DecimalFormat;
+import java.text.DecimalFormatSymbols;
 import java.text.SimpleDateFormat;
 import java.util.Collections;
 import java.util.Date;
@@ -36,8 +37,15 @@ public class LinpackMainActivity extends AbsActivity implements Runnable
 
     private long startTime;
 
-    final DecimalFormat mflopsFormat = new DecimalFormat("0.000");
-    final DecimalFormat nResFormat = new DecimalFormat("0.00");
+    static final DecimalFormat mflopsFormat = new DecimalFormat("0.000");
+    static final DecimalFormat nResFormat = new DecimalFormat("0.00");
+	static final DecimalFormatSymbols dfs = new DecimalFormatSymbols();
+    static
+	{
+		dfs.setDecimalSeparator('.');
+		mflopsFormat.setDecimalFormatSymbols(dfs);
+		nResFormat.setDecimalFormatSymbols(dfs);
+	}
     SimpleDateFormat f = new SimpleDateFormat("dd MMM yy HH:mm:ss");
 
     /**
