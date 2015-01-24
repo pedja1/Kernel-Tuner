@@ -13,10 +13,8 @@
 - logcat - log by running/killed apps
 - entropy ?
 - battery life extender
-- selinux
 - /sys/module/intelli_plug/parameters/intelli_plug_active and /sys/module/intelli_plug/parameters/eco_mode_active
 - binary mpdecision toggle
-- linpack
 - basic app manager
 - take screenshot
 - basic text editor
@@ -34,3 +32,6 @@
 - merge aLogcatROOT
 - fix checkboxes in file manager
 - wifi adb design
+
+
+proc/sys/kernel/random/entropy_avail
