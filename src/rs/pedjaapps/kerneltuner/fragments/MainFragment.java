@@ -47,13 +47,13 @@ public class MainFragment extends Fragment
 		{
 			gpuClass = GpuSGX540.class;
 		}
+        else if(new File(Constants.GPU_3D_2).exists())
+        {
+            gpuClass = GpuActivityQNew.class;
+        }
 		else if(new File(Constants.GPU_3D).exists())
 		{
 			gpuClass = Gpu.class;
-		}
-		else if(new File(Constants.GPU_3D_2).exists())
-		{
-			gpuClass = GpuActivityQNew.class;
 		}
         if(gpuClass != null)
 		{
