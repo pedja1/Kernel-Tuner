@@ -102,6 +102,7 @@ public final class Constants
     public static final String GPU_3D_2 = "/sys/class/kgsl/kgsl-3d0/max_gpuclk";
 	public static final String GPU_3D_2_GOV = "/sys/class/kgsl/kgsl-3d0/pwrscale/trustzone/governor";
     public static final String GPU_2D_2 = "/sys/class/kgsl/kgsl-2d0/max_gpuclk";
+    public static final String GPU_3D_2_AVAILABLE_FREQUENCIES = "/sys/class/kgsl/kgsl-3d0/gpu_available_frequencies";
     public static final String GPU_3D_AVAILABLE_FREQUENCIES = "/sys/class/kgsl/kgsl-3d0/gpu_available_frequencies";
 	public static final String GPU_2D = "/sys/devices/platform/kgsl-2d0.0/kgsl/kgsl-2d0/max_gpuclk";
 	public static final String CDEPTH = "/sys/kernel/debug/msm_fb/0/bpp";

@@ -43,6 +43,7 @@ public class LinpackMainActivity extends AbsActivity implements Runnable
     static
 	{
 		dfs.setDecimalSeparator('.');
+        dfs.setGroupingSeparator('.');
 		mflopsFormat.setDecimalFormatSymbols(dfs);
 		nResFormat.setDecimalFormatSymbols(dfs);
 	}

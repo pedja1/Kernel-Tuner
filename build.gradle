@@ -80,4 +80,5 @@ dependencies {
     compile 'com.jpardogo.materialtabstrip:library:1.0.6'
     compile files("libs/commons-io-2.4.jar")
     compile files("libs/RootTools-3.5.jar")
+    compile files("libs/annotations.jar")
 }

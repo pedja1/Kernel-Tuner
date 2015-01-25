@@ -32,7 +32,6 @@ import java.io.File;
 import java.io.FileInputStream;
 import java.io.IOException;
 import java.io.InputStreamReader;
-import java.io.RandomAccessFile;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Collections;
@@ -40,6 +39,8 @@ import java.util.Comparator;
 import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
 
 import rs.pedjaapps.kerneltuner.Constants;
 import rs.pedjaapps.kerneltuner.model.Frequency;
@@ -52,53 +53,29 @@ import rs.pedjaapps.kerneltuner.utility.Tools;
 public class IOHelper
 {
 
+    public static final Pattern voltagePattern1 = Pattern.compile("\\s*(\\d+):\\s*(\\d+)\\s*");
+    public static final Pattern voltagePattern2 = Pattern.compile("\\s*(\\d+)mhz:\\s*(\\d+)\\s*mV\\s*");
+    public static Matcher voltageMatcher1 = null;
+    public static Matcher voltageMatcher2 = null;
+
     public static boolean freqsExists()
     {
-        boolean i = false;
-        if (new File(Constants.CPU0_FREQS).exists())
-        {
-            i = true;
-        }
-        return i;
-
+        return new File(Constants.CPU0_FREQS).exists();
     }
 
     public static boolean oomExists()
     {
-        boolean i = false;
-        if (new File(Constants.OOM).exists())
-        {
-            i = true;
-        }
-        return i;
-
-    }
-	
-	public static boolean selinuxExists()
-    {
-        return new File(Constants.SELINUX).exists();
+        return new File(Constants.OOM).exists();
     }
 
     public static boolean thermaldExists()
     {
-        boolean i = false;
-        if (new File(Constants.THERMALD).exists())
-        {
-            i = true;
-        }
-        return i;
-
+        return new File(Constants.THERMALD).exists();
     }
 
     public static boolean swapsExists()
     {
-        boolean i = false;
-        if (new File(Constants.SWAPS).exists())
-        {
-            i = true;
-        }
-        return i;
-
+        return new File(Constants.SWAPS).exists();
     }
 
     public static boolean cpu0Exists()
@@ -140,12 +117,12 @@ public class IOHelper
 
     public static boolean cdExists()
     {
-        boolean i = false;
-        if (new File(Constants.CDEPTH).exists())
-        {
-            i = true;
-        }
-        return i;
+        return new File(Constants.CDEPTH).exists();
+    }
+
+    public static boolean selinuxExists()
+    {
+        return new File(Constants.SELINUX).exists();
     }
 
     public static boolean tcpCongestionControlAvailable()
@@ -161,6 +138,10 @@ public class IOHelper
             i = true;
         }
         else if (new File(Constants.VOLTAGE_PATH_TEGRA_3).exists())
+        {
+            i = true;
+        }
+		else if (new File(Constants.VOLTAGE_PATH_2).exists())
         {
             i = true;
         }
@@ -205,24 +186,12 @@ public class IOHelper
 
     public static boolean TISExists()
     {
-        boolean i = false;
-        if (new File(Constants.TIMES_IN_STATE_CPU0).exists())
-        {
-            i = true;
-        }
-        return i;
-
+        return new File(Constants.TIMES_IN_STATE_CPU0).exists();
     }
 
     public static boolean mpdecisionExists()
     {
-        boolean i = false;
-        if (new File(Constants.MPDECISION).exists())
-        {
-            i = true;
-        }
-        return i;
-
+        return new File(Constants.MPDECISION).exists();
     }
 
     public static boolean buttonsExists()
@@ -242,35 +211,17 @@ public class IOHelper
 
     public static boolean sdcacheExists()
     {
-        boolean i = false;
-        if (new File(Constants.SD_CACHE).exists())
-        {
-            i = true;
-        }
-        return i;
-
+        return new File(Constants.SD_CACHE).exists();
     }
 
     public static boolean vsyncExists()
     {
-        boolean i = false;
-        if (new File(Constants.VSYNC).exists())
-        {
-            i = true;
-        }
-        return i;
-
+        return new File(Constants.VSYNC).exists();
     }
 
     public static boolean fchargeExists()
     {
-        boolean i = false;
-        if (new File(Constants.FCHARGE).exists())
-        {
-            i = true;
-        }
-        return i;
-
+        return new File(Constants.FCHARGE).exists();
     }
 
     public static List<Frequency> frequencies()
@@ -431,7 +382,6 @@ public class IOHelper
         }
 
     }
-	
 	public static int se()
     {
         try
@@ -715,22 +665,24 @@ public class IOHelper
             String[] lines = RCommand.readFileContentAsLineArray(voltagePathTegra3);
             for (String strLine : lines)
             {
-                strLine = strLine.replaceAll("\\s+", "");
-                String[] delims = strLine.split(":");
-                if (delims.length < 2) continue;
+                //strLine = strLine.replaceAll("\\s+", "");
+                //String[] delims = strLine.split(":");
+                //if (delims.length < 2) continue;
+                resetMatcher(voltageMatcher2, strLine, voltagePattern2);
+                if(!voltageMatcher2.matches())continue;
                 Voltage voltage = new Voltage();
-                String name, frequency = null;
-                if (delims[0].length() > 4)
+                String name = voltageMatcher2.group(2), frequency = voltageMatcher2.group(1);
+                /*if (delims[0].length() > 4)
                 {
                     frequency = delims[0].replaceAll("mhz", "") + "MHz";
                 }
-                name = delims[1].replaceAll("mV", "").trim();
+                name = delims[1].replaceAll("mV", "").trim();*/
                 int value = Tools.parseInt(name, Constants.CPU_OFFLINE_CODE);
                 if (frequency == null || value == Constants.CPU_OFFLINE_CODE)
                 {
                     continue;
                 }
-                voltage.setFreq(frequency);
+                voltage.setFreq(frequency + "MHz");
                 voltage.setName(name + "mV");
                 voltage.setValue(value);
                 voltage.setDivider(1);
@@ -751,15 +703,17 @@ public class IOHelper
             String[] lines = RCommand.readFileContentAsLineArray(path);
             for (String strLine : lines)
             {
-                strLine = strLine.trim().replaceAll("\\s+", "");
+                //strLine = strLine.trim().replaceAll("\\s+", "");
+                resetMatcher(voltageMatcher1, strLine, voltagePattern1);
+                if(!voltageMatcher1.matches())continue;
                 Voltage voltage = new Voltage();
-                String name, frequency;
-                String[] vf = strLine.split(":");
-                if (vf.length != 2) continue;
-                int frInt = Tools.parseInt(vf[0], -1);
+                String name = voltageMatcher1.group(2), frequency = voltageMatcher1.group(1);
+                //String[] vf = strLine.split(":");
+                //if (vf.length != 2) continue;
+                int frInt = Tools.parseInt(frequency, -1);
                 if (frInt < 0) continue;
                 frequency = frInt / 1000 + "MHz";
-                int value = Tools.parseInt(vf[1], -1);
+                int value = Tools.parseInt(name, -1);
                 if (value < 0) continue;
                 name = value / 1000 + "mV";
 
@@ -776,6 +730,12 @@ public class IOHelper
         {
 
         }
+    }
+
+    private static void resetMatcher(Matcher matcher, String input, Pattern pattern)
+    {
+        if(matcher == null)matcher = pattern.matcher(input);
+        else matcher.reset(input);
     }
 
 
@@ -1052,7 +1012,7 @@ public class IOHelper
         try
         {
             List<Frequency> frequencies = new ArrayList<>();
-            File file1 = new File(Constants.GPU_3D_AVAILABLE_FREQUENCIES);
+            File file1 = new File(Constants.GPU_3D_2_AVAILABLE_FREQUENCIES);
             String[] frqs = RCommand.readFileContent(file1.getAbsolutePath()).trim().split(" ");
             Set<Integer> values = new HashSet<>();
             for (String freq : frqs)
@@ -1562,7 +1522,6 @@ public class IOHelper
             return "";
         }
     }
-
     public static long sizeOf(File file)
     {
         try

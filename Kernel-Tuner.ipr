@@ -806,6 +806,13 @@
     <mapping directory="" vcs="Git" />
   </component>
   <component name="libraryTable">
+    <library name="annotations">
+      <CLASSES>
+        <root url="jar://$PROJECT_DIR$/libs/annotations.jar!/" />
+      </CLASSES>
+      <JAVADOC />
+      <SOURCES />
+    </library>
     <library name="appcompat-v7-21.0.3">
       <CLASSES>
         <root url="jar://$PROJECT_DIR$/build/intermediates/exploded-aar/com.android.support/appcompat-v7/21.0.3/classes.jar!/" />
