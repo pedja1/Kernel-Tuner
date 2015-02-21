@@ -668,7 +668,7 @@ public class IOHelper
                 //strLine = strLine.replaceAll("\\s+", "");
                 //String[] delims = strLine.split(":");
                 //if (delims.length < 2) continue;
-                resetMatcher(voltageMatcher2, strLine, voltagePattern2);
+                voltageMatcher2 = resetMatcher(voltageMatcher2, strLine, voltagePattern2);
                 if(!voltageMatcher2.matches())continue;
                 Voltage voltage = new Voltage();
                 String name = voltageMatcher2.group(2), frequency = voltageMatcher2.group(1);
@@ -704,7 +704,7 @@ public class IOHelper
             for (String strLine : lines)
             {
                 //strLine = strLine.trim().replaceAll("\\s+", "");
-                resetMatcher(voltageMatcher1, strLine, voltagePattern1);
+                voltageMatcher1 = resetMatcher(voltageMatcher1, strLine, voltagePattern1);
                 if(!voltageMatcher1.matches())continue;
                 Voltage voltage = new Voltage();
                 String name = voltageMatcher1.group(2), frequency = voltageMatcher1.group(1);
@@ -732,10 +732,10 @@ public class IOHelper
         }
     }
 
-    private static void resetMatcher(Matcher matcher, String input, Pattern pattern)
+    private static Matcher resetMatcher(Matcher matcher, String input, Pattern pattern)
     {
-        if(matcher == null)matcher = pattern.matcher(input);
-        else matcher.reset(input);
+        if(matcher == null)return pattern.matcher(input);
+        else return matcher.reset(input);
     }
 
 
