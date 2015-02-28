@@ -27,8 +27,7 @@ import rs.pedjaapps.kerneltuner.utility.IOHelper;
 import rs.pedjaapps.kerneltuner.model.Frequency;
 import rs.pedjaapps.kerneltuner.model.SystemInfo;
 import rs.pedjaapps.kerneltuner.utility.PrefsManager;
-import rs.pedjaapps.kerneltuner.utility.Tools;
-import android.os.TransactionTooLargeException;
+import rs.pedjaapps.kerneltuner.utility.Utility;
 
 /**
  * Created by pedja on 13.7.14..
@@ -190,12 +189,12 @@ public class SystemInfoFragment extends Fragment
         int freeRAM = getFreeRAM();
         int totalRAM = getTotalRAM();
         int usedRAM = totalRAM - freeRAM;
-        String freeInternal = Tools.byteToHumanReadableSize(Tools.getAvailableSpaceInBytesOnInternalStorage());
-        String usedInternal = Tools.byteToHumanReadableSize(Tools.getUsedSpaceInBytesOnInternalStorage());
-        String totalInternal = Tools.byteToHumanReadableSize(Tools.getTotalSpaceInBytesOnInternalStorage());
-        String freeExternal = Tools.byteToHumanReadableSize(Tools.getAvailableSpaceInBytesOnExternalStorage());
-        String usedExternal = Tools.byteToHumanReadableSize(Tools.getUsedSpaceInBytesOnExternalStorage());
-        String totalExternal = Tools.byteToHumanReadableSize(Tools.getTotalSpaceInBytesOnExternalStorage());
+        String freeInternal = Utility.byteToHumanReadableSize(Utility.getAvailableSpaceInBytesOnInternalStorage());
+        String usedInternal = Utility.byteToHumanReadableSize(Utility.getUsedSpaceInBytesOnInternalStorage());
+        String totalInternal = Utility.byteToHumanReadableSize(Utility.getTotalSpaceInBytesOnInternalStorage());
+        String freeExternal = Utility.byteToHumanReadableSize(Utility.getAvailableSpaceInBytesOnExternalStorage());
+        String usedExternal = Utility.byteToHumanReadableSize(Utility.getUsedSpaceInBytesOnExternalStorage());
+        String totalExternal = Utility.byteToHumanReadableSize(Utility.getTotalSpaceInBytesOnExternalStorage());
 
         List<SystemInfo> systemInfos = new ArrayList<>();
         SystemInfo info = new SystemInfo();
@@ -270,7 +269,7 @@ public class SystemInfoFragment extends Fragment
         {
             reader = new RandomAccessFile("/proc/meminfo", "r");
             load = reader.readLine();
-            mem = Tools.parseInt(load.substring(load.indexOf(":") + 1,
+            mem = Utility.parseInt(load.substring(load.indexOf(":") + 1,
                     load.lastIndexOf(" ")).trim(), 0) / 1024;
         }
         catch (IOException ex)

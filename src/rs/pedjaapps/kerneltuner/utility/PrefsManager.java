@@ -5,6 +5,7 @@ import android.preference.PreferenceManager;
 
 import com.crashlytics.android.Crashlytics;
 
+import rs.pedjaapps.kerneltuner.BuildConfig;
 import rs.pedjaapps.kerneltuner.MainApp;
 import rs.pedjaapps.kerneltuner.constants.TempUnit;
 
@@ -22,12 +23,22 @@ public class PrefsManager
         cpu_disable_all, hide_unsupported_items, notification_service, cpu_show_all_cores, gpu_3d, gpu_2d,
         gpu_governor, mpdec_idle_freq, mpdec_enabled, mpdec_max_cpus, mpdec_min_cpus, mpdec_sosc,
         mpdec_sof, mpdec_pause, mpdec_delay, scheduler, readahead, dt2w, s2w, otg, vsync, fastcharge,
-        tcp_congestion, se
+        tcp_congestion, se, DEBUG
+    }
+
+    public static boolean DEBUG()
+    {
+        return prefs.getBoolean(Key.DEBUG.toString(), BuildConfig.DEBUG);
+    }
+
+    public static boolean DEBUG(boolean debug)
+    {
+        return prefs.getBoolean(Key.DEBUG.toString(), debug);
     }
 
     public static long getCpuRefreshInterval()
     {
-        return Tools.parseLong(prefs.getString(Key.cpu_refresh_interval.toString(), "1000"), 1000);
+        return Utility.parseLong(prefs.getString(Key.cpu_refresh_interval.toString(), "1000"), 1000);
     }
 
     public static boolean isFirstLaunch()

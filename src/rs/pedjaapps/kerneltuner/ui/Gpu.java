@@ -29,13 +29,13 @@ import android.widget.Button;
 import android.widget.TextView;
 import com.stericson.RootTools.RootTools;
 import com.stericson.RootTools.execution.CommandCapture;
-import java.io.File;
+
 import java.util.Arrays;
 import java.util.List;
 import rs.pedjaapps.kerneltuner.R;
 import rs.pedjaapps.kerneltuner.root.RCommand;
 import rs.pedjaapps.kerneltuner.utility.PrefsManager;
-import rs.pedjaapps.kerneltuner.utility.Tools;
+import rs.pedjaapps.kerneltuner.utility.Utility;
 
 import android.widget.SeekBar;
 
@@ -238,7 +238,7 @@ public class Gpu extends Activity
 	{
 		try
 		{
-			return Tools.parseInt(RCommand.readFileContent(path).trim(), 0);
+			return Utility.parseInt(RCommand.readFileContent(path).trim(), 0);
 		}
 		catch (Exception e)
 		{

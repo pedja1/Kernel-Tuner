@@ -2,23 +2,37 @@ package rs.pedjaapps.linpack;
 
 import android.app.AlertDialog;
 import android.graphics.Color;
+import android.os.Build;
 import android.os.Bundle;
 import android.os.Handler;
 import android.os.HandlerThread;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.Button;
 import android.widget.ListView;
 import android.widget.TextView;
+
+import org.apache.commons.io.IOUtils;
+
 import java.text.DecimalFormat;
 import java.text.DecimalFormatSymbols;
 import java.text.SimpleDateFormat;
 import java.util.Collections;
 import java.util.Date;
 import java.util.List;
+
+import rs.pedjaapps.kerneltuner.Constants;
 import rs.pedjaapps.kerneltuner.R;
+import rs.pedjaapps.kerneltuner.fragments.SystemInfoFragment;
+import rs.pedjaapps.kerneltuner.model.SystemInfo;
+import rs.pedjaapps.kerneltuner.network.Internet;
+import rs.pedjaapps.kerneltuner.network.RequestBuilder;
 import rs.pedjaapps.kerneltuner.ui.AbsActivity;
+import rs.pedjaapps.kerneltuner.ui.SystemInfoActivity;
+import rs.pedjaapps.kerneltuner.utility.DeviceID;
+import rs.pedjaapps.kerneltuner.utility.IOHelper;
 
 
 public class LinpackMainActivity extends AbsActivity implements Runnable
@@ -199,6 +213,21 @@ public class LinpackMainActivity extends AbsActivity implements Runnable
                 start_single.setEnabled(true);
             }
         });
+        RequestBuilder builder = new RequestBuilder(RequestBuilder.Method.GET);
+        builder.setRequestUrl(Constants.URL_LINPACK);
+        builder.setCommand(RequestBuilder.CONTROLLER.scores, RequestBuilder.ACTION.add);
+        builder.setParam(RequestBuilder.PARAM.device, Build.DEVICE);
+        builder.setParam(RequestBuilder.PARAM.device_id, DeviceID.getPsuedoUniqueID());
+        builder.setParam(RequestBuilder.PARAM.device_name, Build.MODEL);
+        builder.setParam(RequestBuilder.PARAM.mflops, result.mflops + "");
+        builder.setParam(RequestBuilder.PARAM.norm_res, result.nres + "");
+        builder.setParam(RequestBuilder.PARAM.exec_time, result.time + "");
+        builder.setParam(RequestBuilder.PARAM.precision, result.precision + "");
+        builder.setParam(RequestBuilder.PARAM.cores, Runtime.getRuntime().availableProcessors() + "");
+        builder.setParam(RequestBuilder.PARAM.frequency, IOHelper.cpu0MaxFreq() + "");
+        builder.setParam(RequestBuilder.PARAM.memory, SystemInfoFragment.getTotalRAM() + "");
+        Internet.Response response = Internet.executeHttpRequest(builder);
+        Log.d(Constants.LOG_TAG, response.toString());
     }
 
     public native Result runLinpack(Class mClass);

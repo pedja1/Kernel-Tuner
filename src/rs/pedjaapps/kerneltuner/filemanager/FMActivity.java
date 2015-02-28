@@ -20,19 +20,15 @@ package rs.pedjaapps.kerneltuner.filemanager;
 
 import android.app.AlertDialog;
 import android.content.DialogInterface;
-import android.content.Intent;
 import android.os.AsyncTask;
 import android.os.Bundle;
 import android.os.Parcelable;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
-import android.view.Window;
 import android.widget.AdapterView;
 import android.widget.ListView;
 
-import java.net.FileNameMap;
-import java.net.URLConnection;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.Comparator;
@@ -45,7 +41,7 @@ import java.util.regex.Pattern;
 import rs.pedjaapps.kerneltuner.R;
 import rs.pedjaapps.kerneltuner.root.RootUtils;
 import rs.pedjaapps.kerneltuner.ui.AbsActivity;
-import rs.pedjaapps.kerneltuner.utility.Tools;
+import rs.pedjaapps.kerneltuner.utility.Utility;
 
 public class FMActivity extends AbsActivity
 {
@@ -330,11 +326,11 @@ public class FMActivity extends AbsActivity
                 System.out.println("list file nane: " + entry.getName());
                 entry.setPath(path + (path.endsWith(FILE_SEPARATOR) ? "" : FILE_SEPARATOR) + entry.getName());
                 // get the rest of the groups
-                entry.setPermissions(Tools.parseInt(m.group(1), 0));
-                entry.setSize(Tools.parseLong(m.group(2), 0));
-                entry.setSizeHr(Tools.byteToHumanReadableSize(entry.getSize()));
-                entry.setDate(new Date(Tools.parseLong(m.group(3), 0) * 1000));
-                entry.setDateHr(Tools.msToDate(entry.getDate().getTime()));
+                entry.setPermissions(Utility.parseInt(m.group(1), 0));
+                entry.setSize(Utility.parseLong(m.group(2), 0));
+                entry.setSizeHr(Utility.byteToHumanReadableSize(entry.getSize()));
+                entry.setDate(new Date(Utility.parseLong(m.group(3), 0) * 1000));
+                entry.setDateHr(Utility.msToDate(entry.getDate().getTime()));
                 entry.setLink(m.group(6));
                 entry.setMimeType(FMUtils.getFileType(entry.getPath()));
                 // and the type

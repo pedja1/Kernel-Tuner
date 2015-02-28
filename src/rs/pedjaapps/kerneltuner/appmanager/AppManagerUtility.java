@@ -6,7 +6,7 @@ import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
 import rs.pedjaapps.kerneltuner.root.RootUtils;
-import rs.pedjaapps.kerneltuner.utility.Tools;
+import rs.pedjaapps.kerneltuner.utility.Utility;
 
 /**
  * Created by pedja on 27.12.14..
@@ -31,7 +31,7 @@ public class AppManagerUtility
             Matcher matcher = duSizePattern.matcher(apkSizeString);
             if(matcher.find())
             {
-                total += Tools.parseLong(matcher.group(1), 0);
+                total += Utility.parseLong(matcher.group(1), 0);
             }
             if(fullSize)
             {
@@ -39,7 +39,7 @@ public class AppManagerUtility
                 matcher = duSizePattern.matcher(dirSize);
                 if(matcher.find())
                 {
-                    total += Tools.parseLong(matcher.group(1), 0);
+                    total += Utility.parseLong(matcher.group(1), 0);
                 }
             }
             app.size = total;

@@ -122,7 +122,7 @@ public class NetworkManagerActivity extends AbsActivity implements AdapterView.O
 				}
 				catch(Exception e)
 				{
-					Tools.showToast(this, R.string.unsuppprted_option);
+					Utility.showToast(this, R.string.unsuppprted_option);
 					Crashlytics.logException(e);
 				}
                 break;

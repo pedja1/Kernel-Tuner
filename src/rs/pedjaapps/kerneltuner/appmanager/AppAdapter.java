@@ -11,7 +11,7 @@ import android.widget.TextView;
 import java.util.List;
 
 import rs.pedjaapps.kerneltuner.R;
-import rs.pedjaapps.kerneltuner.utility.Tools;
+import rs.pedjaapps.kerneltuner.utility.Utility;
 
 /**
  * Created by pedja on 27.12.14..
@@ -49,7 +49,7 @@ public class AppAdapter extends ArrayAdapter<App>
         holder.tvLabel.setText(app.appLabel);
         if(app.size != 0)
         {
-            holder.tvSize.setText(Tools.kByteToHumanReadableSize(app.size));
+            holder.tvSize.setText(Utility.kByteToHumanReadableSize(app.size));
             holder.tvSize.setVisibility(View.VISIBLE);
         }
         else

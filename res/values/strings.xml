@@ -924,6 +924,8 @@
 	<string name="time">Time</string>
 	<string name="precision">Precision</string>
 	<string name="previous_runs">Previous Results</string>
-	
+
+    <string name="network_error">Error connecting to server.</string>
+    <string name="unknown_error">An error occurred, please try again.</string>
 	
 </resources>

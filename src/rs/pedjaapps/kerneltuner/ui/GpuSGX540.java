@@ -27,15 +27,15 @@ import android.view.View.*;
 import android.widget.*;
 import com.stericson.RootTools.*;
 import com.stericson.RootTools.execution.*;
-import java.io.*;
+
 import java.util.*;
-import rs.pedjaapps.kerneltuner.*;
+
 import rs.pedjaapps.kerneltuner.R;
 
 import rs.pedjaapps.kerneltuner.Constants;
 import rs.pedjaapps.kerneltuner.root.RCommand;
 import rs.pedjaapps.kerneltuner.utility.PrefsManager;
-import rs.pedjaapps.kerneltuner.utility.Tools;
+import rs.pedjaapps.kerneltuner.utility.Utility;
 
 public class GpuSGX540 extends Activity
 {
@@ -144,7 +144,7 @@ public class GpuSGX540 extends Activity
 	{
 		try
 		{
-			return Tools.parseInt(RCommand.readFileContent(path).trim(), 0);
+			return Utility.parseInt(RCommand.readFileContent(path).trim(), 0);
 		}
 		catch (Exception e)
 		{

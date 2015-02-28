@@ -26,7 +26,7 @@ import java.io.InputStreamReader;
 import rs.pedjaapps.kerneltuner.R;
 import rs.pedjaapps.kerneltuner.adapter.SystemInfoPagerAdapter;
 import rs.pedjaapps.kerneltuner.utility.IOHelper;
-import rs.pedjaapps.kerneltuner.utility.Tools;
+import rs.pedjaapps.kerneltuner.utility.Utility;
 
 import android.content.Intent;
 import android.os.AsyncTask;
@@ -57,7 +57,7 @@ public class SystemInfoActivity extends AbsActivity
             vsync = IOHelper.vsync();
             try
             {
-                cdepth = Tools.parseInt(IOHelper.cDepth(), 0);
+                cdepth = Utility.parseInt(IOHelper.cDepth(), 0);
             }
             catch (Exception e)
             {
@@ -112,7 +112,7 @@ public class SystemInfoActivity extends AbsActivity
                     aBuffer += aDataRow + "\n";
                 }
 
-                mpdec = Tools.parseInt(aBuffer.trim(), -1);
+                mpdec = Utility.parseInt(aBuffer.trim(), -1);
                 myReader.close();
                 fIn.close();
             }

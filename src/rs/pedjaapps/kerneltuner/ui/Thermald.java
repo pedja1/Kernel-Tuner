@@ -26,7 +26,7 @@ import rs.pedjaapps.kerneltuner.model.FrequencyCollection;
 import rs.pedjaapps.kerneltuner.utility.IOHelper;
 import rs.pedjaapps.kerneltuner.root.RootUtils;
 import rs.pedjaapps.kerneltuner.utility.PrefsManager;
-import rs.pedjaapps.kerneltuner.utility.Tools;
+import rs.pedjaapps.kerneltuner.utility.Utility;
 
 import android.support.v7.app.ActionBar;
 import android.app.ProgressDialog;
@@ -87,9 +87,9 @@ public class Thermald extends AbsActivity
         ActionBar actionBar = getSupportActionBar();
         actionBar.setDisplayHomeAsUpEnabled(true);
 
-        p1freq = Tools.parseInt(IOHelper.thermalLowFreq(), -1);
-        p2freq = Tools.parseInt(IOHelper.thermalMidFreq(), -1);
-        p3freq = Tools.parseInt(IOHelper.thermalMaxFreq(), -1);
+        p1freq = Utility.parseInt(IOHelper.thermalLowFreq(), -1);
+        p2freq = Utility.parseInt(IOHelper.thermalMidFreq(), -1);
+        p3freq = Utility.parseInt(IOHelper.thermalMaxFreq(), -1);
         String p1low = convertTemp(IOHelper.thermalLowLow());
         String p2low = convertTemp(IOHelper.thermalMidLow());
         String p3low = convertTemp(IOHelper.thermalMaxLow());
@@ -379,12 +379,12 @@ public class Thermald extends AbsActivity
                     PrefsManager.setThermalFreq(1, p1freqnew);
                     PrefsManager.setThermalFreq(2, p2freqnew);
                     PrefsManager.setThermalFreq(3, p3freqnew);
-                    PrefsManager.setThermalLow(1, Tools.parseInt(p1lownew, -1));
-                    PrefsManager.setThermalLow(2, Tools.parseInt(p2lownew, -1));
-                    PrefsManager.setThermalLow(3, Tools.parseInt(p3lownew, -1));
-                    PrefsManager.setThermalHigh(1, Tools.parseInt(p1highnew, -1));
-                    PrefsManager.setThermalHigh(2, Tools.parseInt(p2highnew, -1));
-                    PrefsManager.setThermalHigh(3, Tools.parseInt(p3highnew, -1));
+                    PrefsManager.setThermalLow(1, Utility.parseInt(p1lownew, -1));
+                    PrefsManager.setThermalLow(2, Utility.parseInt(p2lownew, -1));
+                    PrefsManager.setThermalLow(3, Utility.parseInt(p3lownew, -1));
+                    PrefsManager.setThermalHigh(1, Utility.parseInt(p1highnew, -1));
+                    PrefsManager.setThermalHigh(2, Utility.parseInt(p2highnew, -1));
+                    PrefsManager.setThermalHigh(3, Utility.parseInt(p3highnew, -1));
                 }
 
                 Thermald.this.pd.dismiss();

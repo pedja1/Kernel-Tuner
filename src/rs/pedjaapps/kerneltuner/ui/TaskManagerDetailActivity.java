@@ -100,7 +100,7 @@ public class TaskManagerDetailActivity extends AbsActivity
 
 		app_name.setText(task.getName());
 		tvPid.setText(task.getPid() + "");
-		memory.setText(Tools.kByteToHumanReadableSize(task.getRss()));
+		memory.setText(Utility.kByteToHumanReadableSize(task.getRss()));
 		try
 		{
 	    	p_name.setText(RCommand.readFileContent("/proc/" + task.getPid() + "/cmdline"));
@@ -112,7 +112,7 @@ public class TaskManagerDetailActivity extends AbsActivity
 		try
 		{
 			String stat = RCommand.readFileContent("/proc/" + task.getPid() + "/stat");
-			status.setText(Tools.getProcessStatus(stat.split("\\s")[2]));
+			status.setText(Utility.getProcessStatus(stat.split("\\s")[2]));
 		}
 		catch (Exception e)
 		{
@@ -126,7 +126,7 @@ public class TaskManagerDetailActivity extends AbsActivity
 	{
 		try
 		{
-			return Tools.parseInt(RCommand.readFileContent("/proc/" + task.getPid() + "/oom_adj").trim(), -1);
+			return Utility.parseInt(RCommand.readFileContent("/proc/" + task.getPid() + "/oom_adj").trim(), -1);
 		}
 		catch (IOException e)
 		{

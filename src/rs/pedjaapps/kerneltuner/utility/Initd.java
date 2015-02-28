@@ -29,7 +29,7 @@ public class Initd extends AsyncTask<String, Void, String>
 	public Initd(Context context){
 		c = context;
 	}
-    String arch = Tools.getAbi();
+    String arch = Utility.getAbi();
 	@Override
 	protected String doInBackground(String... args)
 	{

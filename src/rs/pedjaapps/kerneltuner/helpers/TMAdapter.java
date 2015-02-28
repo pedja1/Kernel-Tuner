@@ -29,13 +29,10 @@ import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.TextView;
 
-import com.stericson.RootTools.RootTools;
-import com.stericson.RootTools.execution.CommandCapture;
-
 import rs.pedjaapps.kerneltuner.R;
 import rs.pedjaapps.kerneltuner.model.Task;
 import rs.pedjaapps.kerneltuner.root.RCommand;
-import rs.pedjaapps.kerneltuner.utility.Tools;
+import rs.pedjaapps.kerneltuner.utility.Utility;
 
 public final class TMAdapter extends ArrayAdapter<Task>
 {
@@ -73,7 +70,7 @@ public final class TMAdapter extends ArrayAdapter<Task>
                 viewHolder.imageView.setImageResource(R.drawable.non_app);
                 break;
         }
-        viewHolder.mbView.setText(Tools.kByteToHumanReadableSize(entry.getRss()));
+        viewHolder.mbView.setText(Utility.kByteToHumanReadableSize(entry.getRss()));
         viewHolder.pidView.setText("PID: " + entry.getPid());
 		viewHolder.killView.setEnabled(!entry.isKillDisabled());
         viewHolder.killView.setOnClickListener(new View.OnClickListener()

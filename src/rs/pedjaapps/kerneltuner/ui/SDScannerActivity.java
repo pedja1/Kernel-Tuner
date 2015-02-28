@@ -22,13 +22,10 @@ import android.app.AlertDialog;
 import android.app.ProgressDialog;
 import android.content.*;
 import android.content.DialogInterface.*;
-import android.graphics.*;
 import android.os.*;
 import android.support.v7.app.ActionBar;
 import android.view.*;
 import android.widget.*;
-
-import org.apache.commons.io.FileUtils;
 
 import java.io.*;
 import java.util.*;
@@ -38,7 +35,7 @@ import rs.pedjaapps.kerneltuner.model.*;
 import rs.pedjaapps.kerneltuner.helpers.SDAdapter;
 
 import rs.pedjaapps.kerneltuner.utility.IOHelper;
-import rs.pedjaapps.kerneltuner.utility.Tools;
+import rs.pedjaapps.kerneltuner.utility.Utility;
 
 public class SDScannerActivity extends AbsActivity
 {
@@ -140,7 +137,7 @@ public class SDScannerActivity extends AbsActivity
                 if(size <= 0)continue;
                 entry.setFileName(file.getName());
                 entry.setFolder(!file.isFile());
-                entry.setHRsize(Tools.byteToHumanReadableSize(size));
+                entry.setHRsize(Utility.byteToHumanReadableSize(size));
                 entry.setPath(file.getAbsolutePath());
                 entry.setSize(size);
                 fms.add(entry);
@@ -159,7 +156,7 @@ public class SDScannerActivity extends AbsActivity
             else if("set_progress".equals(values[0]))
             {
                 pd.setMessage(values[1]);
-                pd.setProgress(Tools.parseInt(values[2], 0));
+                pd.setProgress(Utility.parseInt(values[2], 0));
             }
             super.onProgressUpdate();
         }

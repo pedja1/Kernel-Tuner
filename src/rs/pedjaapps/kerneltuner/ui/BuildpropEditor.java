@@ -33,7 +33,6 @@ import android.view.LayoutInflater;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
-import android.view.Window;
 import android.widget.AdapterView;
 import android.widget.EditText;
 import android.widget.ListView;
@@ -57,9 +56,8 @@ import java.util.regex.Pattern;
 import rs.pedjaapps.kerneltuner.R;
 import rs.pedjaapps.kerneltuner.helpers.BuildAdapter;
 import rs.pedjaapps.kerneltuner.model.Build;
-import rs.pedjaapps.kerneltuner.root.RCommand;
 import rs.pedjaapps.kerneltuner.root.RootUtils;
-import rs.pedjaapps.kerneltuner.utility.Tools;
+import rs.pedjaapps.kerneltuner.utility.Utility;
 
 
 public class BuildpropEditor extends AbsActivity
@@ -329,7 +327,7 @@ public class BuildpropEditor extends AbsActivity
         try
         {
             //RootExecuter.exec(new String[]{"cp /system/build.prop "+Environment.getExternalStorageDirectory().toString()+"/KernelTuner/build.prop"});
-            FileUtils.copyFile(new File("/system/build.prop"), new File(Environment.getExternalStorageDirectory().toString() + "/KernelTuner/build/build.prop-" + Tools.msToDateSimple(System.currentTimeMillis())));
+            FileUtils.copyFile(new File("/system/build.prop"), new File(Environment.getExternalStorageDirectory().toString() + "/KernelTuner/build/build.prop-" + Utility.msToDateSimple(System.currentTimeMillis())));
             Toast.makeText(this, getString(R.string.build_prop_backedup) + Environment.getExternalStorageDirectory().toString() + "/KernelTuner/build/", Toast.LENGTH_LONG).show();
         }
         catch (Exception e)

@@ -46,7 +46,15 @@ public final class Constants
      */
     // TODO: Change this to your application's own log tag
     public static final String LOG_TAG = "Kernel Tuner"; //$NON-NLS-1$
-	
+
+    public static final String URL_LINPACK = "http://linpack.pedjaapps.net/api.json/";
+
+    /**
+     * HTTP connection timeout
+     * */
+    public static final int CONN_TIMEOUT = 2 * 60 * 1000;
+    public static final String ENCODING = "UTF-8";
+
 	/**
 	 *Paths
 	 */

@@ -35,18 +35,14 @@ import android.text.Html;
 import android.util.Log;
 import android.view.Gravity;
 import android.view.LayoutInflater;
-import android.view.Menu;
-import android.view.MenuInflater;
 import android.view.MenuItem;
 import android.view.View;
-import android.view.Window;
 import android.widget.AdapterView;
 import android.widget.AdapterView.OnItemClickListener;
 import android.widget.CheckBox;
 import android.widget.CompoundButton;
 import android.widget.ListView;
 import android.widget.ProgressBar;
-import android.widget.RelativeLayout;
 import android.widget.TextView;
 import java.io.BufferedReader;
 import java.io.IOException;
@@ -61,7 +57,7 @@ import java.util.List;
 import rs.pedjaapps.kerneltuner.R;
 import rs.pedjaapps.kerneltuner.helpers.TMAdapter;
 import rs.pedjaapps.kerneltuner.model.Task;
-import rs.pedjaapps.kerneltuner.utility.Tools;
+import rs.pedjaapps.kerneltuner.utility.Utility;
 
 public class TaskManager extends AbsActivity implements OnItemClickListener, Runnable
 {
@@ -213,7 +209,7 @@ public class TaskManager extends AbsActivity implements OnItemClickListener, Run
 					{
 						if (!tmp.get(4).equals("0"))
 						{
-							Task tmpEntry = new Task(getApplicationName(tmp.get(8)), Tools.parseInt(tmp.get(1), 0), getApplicationIcon(tmp.get(8)), Tools.parseInt(tmp.get(4), 0), appType(tmp.get(8)));
+							Task tmpEntry = new Task(getApplicationName(tmp.get(8)), Utility.parseInt(tmp.get(1), 0), getApplicationIcon(tmp.get(8)), Utility.parseInt(tmp.get(4), 0), appType(tmp.get(8)));
 							entries.add(tmpEntry);
 						}
 					}
@@ -394,8 +390,8 @@ public class TaskManager extends AbsActivity implements OnItemClickListener, Run
 		{
 			reader = new RandomAccessFile("/proc/meminfo", "r");
 			load = reader.readLine();
-			mem = Tools.parseInt(load.substring(load.indexOf(":") + 1,
-												  load.lastIndexOf(" ")).trim(), 0) / 1024;
+			mem = Utility.parseInt(load.substring(load.indexOf(":") + 1,
+                    load.lastIndexOf(" ")).trim(), 0) / 1024;
 		}
 		catch (IOException ex)
 		{

@@ -1,5 +1,7 @@
 package rs.pedjaapps.kerneltuner.root;
 
+import org.apache.commons.io.FileUtils;
+
 import java.io.File;
 import java.io.IOException;
 import java.util.ArrayList;
@@ -198,8 +200,15 @@ public class RCommand
 
     public static String readFileContent(String path) throws IOException
     {
-        RootUtils ru = new RootUtils();
-        return ru.execAndWait("cat " + path);
+        try
+        {
+            return FileUtils.readFileToString(new File(path));
+        }
+        catch (IOException e)
+        {
+            RootUtils ru = new RootUtils();
+            return ru.execAndWait("cat " + path);
+        }
     }
 
     public static String[] readFileContentAsLineArray(String path) throws IOException

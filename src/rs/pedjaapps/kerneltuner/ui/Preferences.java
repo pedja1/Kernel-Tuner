@@ -21,10 +21,8 @@ package rs.pedjaapps.kerneltuner.ui;
 import java.util.List;
 
 import rs.pedjaapps.kerneltuner.R;
-import rs.pedjaapps.kerneltuner.utility.Tools;
+import rs.pedjaapps.kerneltuner.utility.Utility;
 
-import android.net.Uri;
-import android.support.v7.app.ActionBar;
 import android.content.Intent;
 import android.os.Bundle;
 import android.preference.PreferenceActivity;
@@ -90,7 +88,7 @@ public class Preferences extends PreferenceActivity
         {
             if("go_pro".equals(header.fragmentArguments.getString("settings")))
             {
-                Tools.goPro(this);
+                Utility.goPro(this);
             }
             else if("about".equals(header.fragmentArguments.getString("settings")))
             {

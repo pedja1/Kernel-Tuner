@@ -38,7 +38,7 @@ import rs.pedjaapps.kerneltuner.utility.IOHelper;
 import rs.pedjaapps.kerneltuner.helpers.TISAdapter;
 import rs.pedjaapps.kerneltuner.model.TISEntry;
 import rs.pedjaapps.kerneltuner.model.TimesEntry;
-import rs.pedjaapps.kerneltuner.utility.Tools;
+import rs.pedjaapps.kerneltuner.utility.Utility;
 
 public class TISActivity extends AbsActivity
 {
@@ -61,8 +61,8 @@ public class TISActivity extends AbsActivity
 
         tisListView = (ListView) findViewById(R.id.list);
         tisAdapter = new TISAdapter(this, R.layout.tis_list_item);
-        String deepSleep = Tools.msToHumanReadableTime(SystemClock.elapsedRealtime() - SystemClock.uptimeMillis());
-        String bootTime = Tools.msToHumanReadableTime(SystemClock.elapsedRealtime());
+        String deepSleep = Utility.msToHumanReadableTime(SystemClock.elapsedRealtime() - SystemClock.uptimeMillis());
+        String bootTime = Utility.msToHumanReadableTime(SystemClock.elapsedRealtime());
         TextView deepSleepText = (TextView) findViewById(R.id.deep_sleep);
         TextView bootTimeText = (TextView) findViewById(R.id.boot_time);
         deepSleepText.setText(deepSleep);
@@ -98,8 +98,8 @@ public class TISActivity extends AbsActivity
 
     private void setDeepSleepAndUptime()
     {
-        String deepSleep = Tools.msToHumanReadableTime(SystemClock.elapsedRealtime() - SystemClock.uptimeMillis());
-        String bootTime = Tools.msToHumanReadableTime(SystemClock.elapsedRealtime());
+        String deepSleep = Utility.msToHumanReadableTime(SystemClock.elapsedRealtime() - SystemClock.uptimeMillis());
+        String bootTime = Utility.msToHumanReadableTime(SystemClock.elapsedRealtime());
         TextView deepSleepText = (TextView) findViewById(R.id.deep_sleep);
         TextView bootTimeText = (TextView) findViewById(R.id.boot_time);
         deepSleepText.setText(deepSleep);
@@ -115,7 +115,7 @@ public class TISActivity extends AbsActivity
         long totalTime = totalTime();
         for (TimesEntry t : times)
         {
-            entries.add(new TISEntry((t.getFreq() / 1000) + getResources().getString(R.string.mhz), Tools.msToHumanReadableTime2(t.getTime()), (t.getTime() * 100 / totalTime) + "%", (int) (t.getTime() * 100 / totalTime)));
+            entries.add(new TISEntry((t.getFreq() / 1000) + getResources().getString(R.string.mhz), Utility.msToHumanReadableTime2(t.getTime()), (t.getTime() * 100 / totalTime) + "%", (int) (t.getTime() * 100 / totalTime)));
         }
 
 

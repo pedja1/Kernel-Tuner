@@ -22,7 +22,7 @@ import rs.pedjaapps.kerneltuner.model.Misc;
 import rs.pedjaapps.kerneltuner.root.RCommand;
 import rs.pedjaapps.kerneltuner.root.RootUtils;
 import rs.pedjaapps.kerneltuner.utility.IOHelper;
-import rs.pedjaapps.kerneltuner.utility.Tools;
+import rs.pedjaapps.kerneltuner.utility.Utility;
 
 public class MiscTweaksActivity extends AbsActivity implements AdapterView.OnItemClickListener, RootUtils.CommandCallback
 {
@@ -276,7 +276,7 @@ public class MiscTweaksActivity extends AbsActivity implements AdapterView.OnIte
     {
 		if(status == RootUtils.Status.unknown_error && "se_read_failed".equals(output))
 		{
-			Tools.showToast(this, R.string.selinux_read_failed);
+			Utility.showToast(this, R.string.selinux_read_failed);
 		}
         new ATPopulateCpuList().execute();
     }

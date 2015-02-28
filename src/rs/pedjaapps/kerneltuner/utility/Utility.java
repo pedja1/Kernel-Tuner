@@ -32,12 +32,13 @@ import android.os.StatFs;
 import android.text.Html;
 import android.widget.Toast;
 
+import java.net.URLEncoder;
 import java.text.DecimalFormat;
 import java.text.SimpleDateFormat;
 
 import rs.pedjaapps.kerneltuner.R;
 
-public class Tools
+public class Utility
 {
 
 	public static double parseDouble(String value, int def)
@@ -455,6 +456,15 @@ public class Tools
         {
             return false;
         }
+    }
+
+    /**
+     * Encode string as URL UTF-8
+     */
+    @SuppressWarnings("deprecation")
+    public static String encodeString(String string)
+    {
+        return URLEncoder.encode(string);
     }
 }
 

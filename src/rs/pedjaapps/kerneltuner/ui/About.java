@@ -19,7 +19,7 @@
 package rs.pedjaapps.kerneltuner.ui;
 
 import rs.pedjaapps.kerneltuner.R;
-import rs.pedjaapps.kerneltuner.utility.Tools;
+import rs.pedjaapps.kerneltuner.utility.Utility;
 
 import android.os.Bundle;
 import android.support.v7.app.ActionBarActivity;
@@ -37,7 +37,7 @@ public class About extends ActionBarActivity
         setContentView(R.layout.about);
 
         TextView tvText = (TextView)findViewById(R.id.tvText);
-        tvText.setText(Html.fromHtml(getString(R.string.about_html, Tools.getAppVersion(this))));
+        tvText.setText(Html.fromHtml(getString(R.string.about_html, Utility.getAppVersion(this))));
         tvText.setMovementMethod(LinkMovementMethod.getInstance());
     }
 }

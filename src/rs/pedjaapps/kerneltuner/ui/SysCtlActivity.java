@@ -21,7 +21,6 @@ package rs.pedjaapps.kerneltuner.ui;
 
 import android.widget.*;
 
-import android.app.Activity;
 import android.app.AlertDialog;
 import android.app.ProgressDialog;
 import android.content.DialogInterface;
@@ -35,9 +34,6 @@ import android.view.Gravity;
 import android.view.MenuItem;
 import android.view.View;
 
-import com.stericson.RootTools.RootTools;
-import com.stericson.RootTools.execution.CommandCapture;
-
 import java.io.BufferedReader;
 import java.io.InputStream;
 import java.io.InputStreamReader;
@@ -50,7 +46,7 @@ import rs.pedjaapps.kerneltuner.model.SysCtl;
 import rs.pedjaapps.kerneltuner.helpers.DatabaseHandler;
 import rs.pedjaapps.kerneltuner.helpers.SysCtlAdapter;
 import rs.pedjaapps.kerneltuner.root.RootUtils;
-import rs.pedjaapps.kerneltuner.utility.Tools;
+import rs.pedjaapps.kerneltuner.utility.Utility;
 
 
 public class SysCtlActivity extends AbsActivity
@@ -74,7 +70,7 @@ public class SysCtlActivity extends AbsActivity
 
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
 
-        arch = Tools.getAbi();
+        arch = Utility.getAbi();
         loading = (ProgressBar) findViewById(R.id.loading);
         kernel = (CheckBox) findViewById(R.id.kernel);
         vm = (CheckBox) findViewById(R.id.vm);

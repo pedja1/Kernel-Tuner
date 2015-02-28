@@ -18,7 +18,6 @@
 */
 package rs.pedjaapps.kerneltuner.ui;
 
-import java.io.File;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -29,7 +28,7 @@ import rs.pedjaapps.kerneltuner.model.FrequencyCollection;
 import rs.pedjaapps.kerneltuner.root.RCommand;
 import rs.pedjaapps.kerneltuner.root.RootUtils;
 import rs.pedjaapps.kerneltuner.utility.PrefsManager;
-import rs.pedjaapps.kerneltuner.utility.Tools;
+import rs.pedjaapps.kerneltuner.utility.Utility;
 
 import android.support.v7.app.ActionBar;
 import android.app.ProgressDialog;
@@ -264,7 +263,7 @@ public class Mpdecision extends AbsActivity
 
         try
         {
-            idle = Tools.parseInt(RCommand.readFileContent(Constants.MPDEC_IDLE_FREQ).trim(), -1);
+            idle = Utility.parseInt(RCommand.readFileContent(Constants.MPDEC_IDLE_FREQ).trim(), -1);
         }
         catch (Exception e)
         {
@@ -274,7 +273,7 @@ public class Mpdecision extends AbsActivity
 
         try
         {
-            enabled = Tools.parseInt(RCommand.readFileContent(Constants.MPDEC_ENABLED).trim(), -1);
+            enabled = Utility.parseInt(RCommand.readFileContent(Constants.MPDEC_ENABLED).trim(), -1);
         }
         catch (Exception e)
         {
@@ -284,7 +283,7 @@ public class Mpdecision extends AbsActivity
 
         try
         {
-            scroff = Tools.parseInt(RCommand.readFileContent(Constants.MPDEC_SCROFF_FREQ).trim(), -1);
+            scroff = Utility.parseInt(RCommand.readFileContent(Constants.MPDEC_SCROFF_FREQ).trim(), -1);
         }
         catch (Exception e)
         {
@@ -294,7 +293,7 @@ public class Mpdecision extends AbsActivity
 
         try
         {
-            scroff_single = Tools.parseInt(RCommand.readFileContent(Constants.MPDEC_SCROFF_SINGLE).trim(), -1);
+            scroff_single = Utility.parseInt(RCommand.readFileContent(Constants.MPDEC_SCROFF_SINGLE).trim(), -1);
         }
         catch (Exception e)
         {
@@ -396,25 +395,25 @@ public class Mpdecision extends AbsActivity
                 if(status == RootUtils.Status.success)
                 {
                     PrefsManager.setMpdecEnabled(enabled);
-                    PrefsManager.setMpdecThreshold(0, Tools.parseInt(thrTxt[0].getText().toString(), -1));
-                    PrefsManager.setMpdecTime(0, Tools.parseInt(thrTxt[1].getText().toString(), -1));
-                    PrefsManager.setMpdecThreshold(2, Tools.parseInt(thrTxt[2].getText().toString(), -1));
-                    PrefsManager.setMpdecTime(2, Tools.parseInt(thrTxt[3].getText().toString(), -1));
-                    PrefsManager.setMpdecThreshold(3, Tools.parseInt(thrTxt[4].getText().toString(), -1));
-                    PrefsManager.setMpdecTime(3, Tools.parseInt(thrTxt[5].getText().toString(), -1));
-                    PrefsManager.setMpdecThreshold(4, Tools.parseInt(thrTxt[6].getText().toString(), -1));
-                    PrefsManager.setMpdecTime(4, Tools.parseInt(thrTxt[7].getText().toString(), -1));
-                    PrefsManager.setMpdecThreshold(5, Tools.parseInt(thrTxt[8].getText().toString(), -1));
-                    PrefsManager.setMpdecTime(5, Tools.parseInt(thrTxt[9].getText().toString(), -1));
-                    PrefsManager.setMpdecThreshold(7, Tools.parseInt(thrTxt[10].getText().toString(), -1));
-                    PrefsManager.setMpdecTime(7, Tools.parseInt(thrTxt[11].getText().toString(), -1));
-                    PrefsManager.setMpdecMaxCpus(Tools.parseInt(max_cpus, -1));
-                    PrefsManager.setMpdecMinCpus(Tools.parseInt(min_cpus, -1));
+                    PrefsManager.setMpdecThreshold(0, Utility.parseInt(thrTxt[0].getText().toString(), -1));
+                    PrefsManager.setMpdecTime(0, Utility.parseInt(thrTxt[1].getText().toString(), -1));
+                    PrefsManager.setMpdecThreshold(2, Utility.parseInt(thrTxt[2].getText().toString(), -1));
+                    PrefsManager.setMpdecTime(2, Utility.parseInt(thrTxt[3].getText().toString(), -1));
+                    PrefsManager.setMpdecThreshold(3, Utility.parseInt(thrTxt[4].getText().toString(), -1));
+                    PrefsManager.setMpdecTime(3, Utility.parseInt(thrTxt[5].getText().toString(), -1));
+                    PrefsManager.setMpdecThreshold(4, Utility.parseInt(thrTxt[6].getText().toString(), -1));
+                    PrefsManager.setMpdecTime(4, Utility.parseInt(thrTxt[7].getText().toString(), -1));
+                    PrefsManager.setMpdecThreshold(5, Utility.parseInt(thrTxt[8].getText().toString(), -1));
+                    PrefsManager.setMpdecTime(5, Utility.parseInt(thrTxt[9].getText().toString(), -1));
+                    PrefsManager.setMpdecThreshold(7, Utility.parseInt(thrTxt[10].getText().toString(), -1));
+                    PrefsManager.setMpdecTime(7, Utility.parseInt(thrTxt[11].getText().toString(), -1));
+                    PrefsManager.setMpdecMaxCpus(Utility.parseInt(max_cpus, -1));
+                    PrefsManager.setMpdecMinCpus(Utility.parseInt(min_cpus, -1));
                     PrefsManager.setMpdecIdleFreq(idle);
                     PrefsManager.setMpdecSoF(scroff);
                     PrefsManager.setMpdecSoSc(scroff_single);
-                    PrefsManager.setMpdecDelay(Tools.parseInt(delay, -1));
-                    PrefsManager.setMpdecPause(Tools.parseInt(pause, -1));
+                    PrefsManager.setMpdecDelay(Utility.parseInt(delay, -1));
+                    PrefsManager.setMpdecPause(Utility.parseInt(pause, -1));
                 }
                 Mpdecision.this.pd.dismiss();
                 finish();
