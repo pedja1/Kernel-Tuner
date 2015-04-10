@@ -659,13 +659,15 @@ void daxpy(int n, REAL da, REAL dx[], int incx, REAL dy[], int incy)
 #ifdef UNROLL
 
         m = n % 4;
-        if ( m != 0) {
+        if ( m != 0) 
+		{
                 for (i = 0; i < m; i++) 
                         dy[i] = dy[i] + da*dx[i];
                         
                 if (n < 4) return;
         }
-        for (i = m; i < n; i = i + 4) {
+        for (i = m; i < n; i = i + 4) 
+		{
                 dy[i] = dy[i] + da*dx[i];
                 dy[i+1] = dy[i+1] + da*dx[i+1];
                 dy[i+2] = dy[i+2] + da*dx[i+2];

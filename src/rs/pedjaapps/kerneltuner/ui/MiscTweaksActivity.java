@@ -141,7 +141,7 @@ public class MiscTweaksActivity extends AbsActivity implements AdapterView.OnIte
             misc.setValue(getDescForOtg());
             list.add(misc);
         }
-		if (IOHelper.selinuxExists())
+		/*if (IOHelper.selinuxExists())
         {
             misc = new Misc();
             misc.setType(Misc.TYPE_ITEM);
@@ -151,7 +151,7 @@ public class MiscTweaksActivity extends AbsActivity implements AdapterView.OnIte
             misc.setValue(getDescForSe(se));
 			if(se != 1 && se != 0)misc.setEnabled(false);
             list.add(misc);
-        }
+        }*/
         /*if (IOHelper.cdExists())
         {
             misc = new Misc();

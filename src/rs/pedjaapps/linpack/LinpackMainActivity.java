@@ -33,6 +33,7 @@ import rs.pedjaapps.kerneltuner.ui.AbsActivity;
 import rs.pedjaapps.kerneltuner.ui.SystemInfoActivity;
 import rs.pedjaapps.kerneltuner.utility.DeviceID;
 import rs.pedjaapps.kerneltuner.utility.IOHelper;
+import rs.pedjaapps.kerneltuner.utility.Utility;
 
 
 public class LinpackMainActivity extends AbsActivity implements Runnable
@@ -187,8 +188,8 @@ public class LinpackMainActivity extends AbsActivity implements Runnable
                 result.time = System.currentTimeMillis() - startTime;
                 startTime = 0;
                 result.date = new Date();
-                result.mflops = Double.parseDouble(mflopsFormat.format(result.mflops));
-                result.nres = Double.parseDouble(nResFormat.format(result.nres));
+                result.mflops = Utility.parseDouble(mflopsFormat.format(result.mflops), 0);
+                result.nres = Utility.parseDouble(nResFormat.format(result.nres), 0);
 
                 db.addResult(result);
 

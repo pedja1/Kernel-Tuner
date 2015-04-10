@@ -16,6 +16,7 @@ import rs.pedjaapps.kerneltuner.fragments.*;
 import rs.pedjaapps.kerneltuner.receiver.*;
 import rs.pedjaapps.kerneltuner.root.*;
 import rs.pedjaapps.kerneltuner.utility.*;
+import rs.pedjaapps.linpack.LinpackMainActivity;
 
 import android.support.v7.app.ActionBar;
 import android.app.*;
@@ -59,7 +60,7 @@ public class MainActivity extends AbsActivity implements Runnable, View.OnClickL
     @Override
     public void onCreate(Bundle savedInstanceState)
     {
-		//startActivity(new Intent(this, FMActivity.class));
+		//startActivity(new Intent(this, LinpackMainActivity.class));
 		System.out.println("Main activity onCreate");
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
@@ -94,7 +95,7 @@ public class MainActivity extends AbsActivity implements Runnable, View.OnClickL
         setupView();
 		
 		System.out.println("Main activity onCreate end");
-        
+
         //if(getSupportActionBar() != null)getSupportActionBar().setSubtitle(Build.MANUFACTURER + " " + Build.MODEL);
     }
 

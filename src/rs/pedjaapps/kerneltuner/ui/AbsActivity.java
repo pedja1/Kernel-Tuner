@@ -12,6 +12,7 @@ import android.widget.*;
 import com.google.android.gms.ads.*;
 import com.google.android.gms.analytics.*;
 import rs.pedjaapps.kerneltuner.*;
+import rs.pedjaapps.kerneltuner.R;
 import rs.pedjaapps.kerneltuner.utility.*;
 
 import android.support.v7.widget.Toolbar;

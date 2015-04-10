@@ -786,25 +786,6 @@ REAL ddot(int n, REAL dx[], int incx, REAL dy[], int incy)
         return(dtemp);
 
 #endif
-
-#ifdef NEON
-
-
-        m = n % 5;
-        if (m != 0) {
-                for (i = 0; i < m; i++)
-                        dtemp = dtemp + dx[i]*dy[i];
-                if (n < 5) return(dtemp);
-        }
-        for (i = m; i < n; i = i + 5) {
-                dtemp = dtemp + dx[i]*dy[i] +
-                dx[i+1]*dy[i+1] + dx[i+2]*dy[i+2] +
-                dx[i+3]*dy[i+3] + dx[i+4]*dy[i+4];
-        }
-        return(dtemp);
-
-#endif
-
 }
 
 /*----------------------*/ 
@@ -844,25 +825,6 @@ void dscal(int n, REAL da, REAL dx[], int incx)
 #endif
 
 #ifdef UNROLL
-
-
-        m = n % 5;
-        if (m != 0) {
-                for (i = 0; i < m; i++)
-                        dx[i] = da*dx[i];
-                if (n < 5) return;
-        }
-        for (i = m; i < n; i = i + 5){
-                dx[i] = da*dx[i];
-                dx[i+1] = da*dx[i+1];
-                dx[i+2] = da*dx[i+2];
-                dx[i+3] = da*dx[i+3];
-                dx[i+4] = da*dx[i+4];
-        }
-
-#endif
-
-#ifdef NEON
 
 
         m = n % 5;
