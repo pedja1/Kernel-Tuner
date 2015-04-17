@@ -42,7 +42,8 @@ This project relies on following libraries:
 * [Android Universal Image Loader](https://github.com/nostra13/Android-Universal-Image-Loader) -Apache Licence 2.0
 * [Android Support Library](http://developer.android.com/tools/support-library/index.html)
 * [Pager Sliding Tab Strip](https://github.com/jpardogo/PagerSlidingTabStrip) - Apache Licence 2.0
-#### Closed Source
+
+#### Closed Source  
 * [Crashlytics](crashlytics.com)
 * [Google Play Service](https://developer.android.com/google/play-services/index.html)
 
