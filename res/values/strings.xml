@@ -471,6 +471,7 @@
     <string name="system_info_cpu">CPU</string>
     <string name="system_info_sensors">Sensors</string>
     <string name="unknown">Unknown</string>
+    <string name="unknown_">Unknown (%s)</string>
     <string name="backup">Backup</string>
     <string name="restore">Restore</string>
     <string name="backup_note">Backup all application data to external storage.\\n\\nNote: All existing data will be wiped before restore.</string>
@@ -910,11 +911,6 @@
     <string name="btn_app">App Mgr</string>
     <string name="application_manager">Application Manager</string>
     <string name="details">Details</string>
-
-	<string name="selinux">SELinux</string>
-	<string name="permissive">Permissive</string>
-	<string name="enforcing">Enforcing</string>
-	<string name="selinux_read_failed">Failed to read current SELinux mode</string>
 	
 	<string name="linpack">Linpack</string>
 	
@@ -927,5 +923,10 @@
 
     <string name="network_error">Error connecting to server.</string>
     <string name="unknown_error">An error occurred, please try again.</string>
-	
+    <string name="entropy">Entropy</string>
+    <string name="read">Read</string>
+    <string name="write">Write</string>
+    <string name="entropy_level">Entropy Available</string>
+    <string name="entropy_pool_size">Entropy Pool Size</string>
+
 </resources>

@@ -6,19 +6,164 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent">
 
-    <com.devadvance.circularseekbar.CircularSeekBar
+    <LinearLayout
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        app:start_angle="270"
-        app:end_angle="270"
-        app:circle_x_radius="100"
-        app:circle_y_radius="100"
-        app:use_custom_radii="true"
-        app:progress="25"
-        app:max="100"
-        app:pointer_alpha_ontouch="100"
-        app:pointer_color="#0174DF"
-        app:pointer_halo_color="#880174DF"/>
+        android:layout_gravity="center"
+        android:orientation="vertical"
+        android:layout_centerHorizontal="true"
+        android:id="@+id/llAvailable"
+        android:layout_marginTop="50dp">
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/entropy_level"
+            android:textAllCaps="true"
+            android:textStyle="bold"
+            android:textSize="24sp"/>
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textSize="20sp"
+            android:layout_marginTop="10dp"
+            android:text="3% (160)"
+            android:layout_gravity="center_horizontal"
+            android:id="@+id/tvAvailable"/>
+    </LinearLayout>
+
+    <LinearLayout
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center"
+        android:orientation="vertical"
+        android:layout_below="@+id/llAvailable"
+        android:layout_centerHorizontal="true"
+        android:id="@+id/llPoolSize"
+        android:layout_marginTop="20dp">
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/entropy_pool_size"
+            android:textAllCaps="true"
+            android:textStyle="bold"
+            android:textSize="20sp"/>
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textSize="18sp"
+            android:layout_marginTop="10dp"
+            android:text="4096"
+            android:layout_gravity="center_horizontal"
+            android:id="@+id/tvPoolSize"/>
+    </LinearLayout>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:id="@+id/llSeekBars"
+        android:layout_marginTop="10dp"
+        android:layout_below="@+id/llPoolSize">
+
+        <FrameLayout
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="1">
+
+            <com.devadvance.circularseekbar.CircularSeekBar
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                app:start_angle="90"
+                app:end_angle="90"
+                app:circle_x_radius="70"
+                app:circle_y_radius="70"
+                app:use_custom_radii="true"
+                app:progress="30"
+                app:max="100"
+                app:pointer_alpha_ontouch="100"
+                app:pointer_color="#0174DF"
+                app:pointer_halo_color="#880174DF"
+                android:id="@+id/sbRead"
+                />
+
+            <LinearLayout
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center"
+                android:orientation="vertical">
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="@string/read"
+                    android:textAllCaps="true"
+                    android:textStyle="bold"
+                    android:textSize="16sp"/>
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="64"
+                    android:textSize="14sp"
+                    android:layout_gravity="center"
+                    android:id="@+id/tvRead"/>
+
+            </LinearLayout>
+        </FrameLayout>
+
+
+        <FrameLayout
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="1">
+
+            <com.devadvance.circularseekbar.CircularSeekBar
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                app:start_angle="90"
+                app:end_angle="90"
+                app:circle_x_radius="70"
+                app:circle_y_radius="70"
+                app:use_custom_radii="true"
+                app:progress="30"
+                app:max="100"
+                app:pointer_alpha_ontouch="100"
+                app:pointer_color="#0174DF"
+                app:pointer_halo_color="#880174DF"
+                android:id="@+id/sbWrite"
+                />
+
+            <LinearLayout
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center"
+                android:orientation="vertical">
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="@string/write"
+                    android:textAllCaps="true"
+                    android:textStyle="bold"
+                    android:textSize="16sp"/>
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="64"
+                    android:textSize="14sp"
+                    android:layout_gravity="center"
+                    android:id="@+id/tvWrite"/>
+
+            </LinearLayout>
+        </FrameLayout>
+
+    </LinearLayout>
+
+
 
     <LinearLayout
         android:id="@+id/ly3"

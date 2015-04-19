@@ -64,18 +64,6 @@ public class PrefsManager
         editor.putInt(Key.app_version.toString(), version);
         editor.apply();
     }
-	
-	public static int getSeLinux()
-    {
-        return prefs.getInt(Key.se.toString(), -1);
-    }
-
-    public static void setSeLinux(int se)
-    {
-        SharedPreferences.Editor editor = prefs.edit();
-        editor.putInt(Key.se.toString(), se);
-        editor.apply();
-    }
 
     public static boolean getMainShowTemp()
     {

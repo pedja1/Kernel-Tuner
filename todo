@@ -6,7 +6,7 @@
 - prefs manager
 - advanced scheduler settings
 - multicore power saving
-- vibrator strenght
+- vibrator strength
 - led control
 - sound control
 - color control
@@ -18,13 +18,10 @@
 - basic app manager
 - take screenshot
 - basic text editor
-- entropy
 - basic file manager
 - basic terminal
 - basic sql manager
 - fix tmp
-- for every root command exec check if success first
-- log every root command
 
 -- PRIORITY --
 
@@ -35,3 +32,19 @@
 
 
 proc/sys/kernel/random/entropy_avail
+"/sys/devices/system/cpu/cpufreq/ondemand/gboost", "/sys/devices/system/cpu/cpufreq/elementalx/gboost"
+"/sys/devices/platform/kgsl-3d0.0/kgsl/kgsl-3d0/gpuclk", "/sys/class/kgsl/kgsl-3d0/gpuclk", "/sys/kernel/tegra_gpu/gpu_rate"
+"/sys/devices/platform/kgsl-3d0.0/kgsl/kgsl-3d0/max_gpuclk", "/sys/class/kgsl/kgsl-3d0/max_gpuclk", "/sys/kernel/tegra_gpu/gpu_cap_rate"
+"/sys/devices/platform/kgsl-3d0.0/kgsl/kgsl-3d0/min_pwrlevel", "/sys/class/kgsl/kgsl-3d0/min_pwrlevel"
+"/sys/devices/platform/kgsl-3d0.0/kgsl/kgsl-3d0/gpu_available_frequencies", "/sys/class/kgsl/kgsl-3d0/gpu_available_frequencies", "/sys/kernel/tegra_gpu/gpu_available_rates"
+"/sys/devices/platform/kgsl-3d0.0/kgsl/kgsl-3d0/pwrscale/trustzone/governor", "/sys/class/kgsl/kgsl-3d0/pwrscale/trustzone/governor", "/sys/class/kgsl/kgsl-3d0/devfreq/governor"
+"/sys/module/lm3630_bl/parameters/backlight_dimmer", "/sys/module/msm_fb/parameters/backlight_dimmer", "/sys/module/mdss_dsi/parameters/backlight_dimmer", "/sys/backlight_dimmer/backlight_dimmer"
+"/sys/devices/system/cpu/cpu0/cpufreq/UV_mV_table", "/sys/devices/system/cpu/cpufreq/vdd_table/vdd_levels", "/sys/devices/system/cpu/cpu0/cpufreq/vdd_levels"
+"/sys/class/timed_output/vibrator/amp", "/sys/class/timed_output/vibrator/voltage_level", "/sys/drv2605/rtp_strength"
+"/sys/module/hall_sensor/parameters/disable_cover", "/sys/module/lid/parameters/enable_lid"
+"/sys/android_touch/sweep2wake", "/sys/android_key/sweep2wake"
+"/sys/android_touch/doubletap2wake", "/sys/android_key/doubletap2wake", "/sys/devices/platform/spi-tegra114.2/spi_master/spi2/spi2.0/input/input0/wake_gesture", "/sys/devices/f9966000.i2c/i2c-1/1-004a/tsp"
+"/sys/android_touch/pocket_detect", "/sys/android_key/pocket_detect"
+"/sys/devices/platform/kcal_ctrl.0/kcal_ctrl", "/sys/devices/platform/DIAG0.0/power_rail_ctrl"
+"/sys/devices/platform/kcal_ctrl.0/kcal", "/sys/devices/platform/DIAG0.0/power_rail"
+"/sys/module/msm_thermal/parameters/limit_temp_degC", "/sys/module/msm_thermal/parameters/temp_threshold"

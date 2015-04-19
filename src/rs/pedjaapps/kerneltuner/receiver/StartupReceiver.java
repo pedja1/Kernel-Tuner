@@ -24,8 +24,6 @@ import android.content.Intent;
 import android.content.SharedPreferences;
 import android.preference.PreferenceManager;
 
-import rs.pedjaapps.kerneltuner.utility.IOHelper;
-import rs.pedjaapps.kerneltuner.utility.AppReset;
 import rs.pedjaapps.kerneltuner.services.*;
 
 
@@ -33,38 +31,15 @@ public class StartupReceiver extends BroadcastReceiver
 {
     SharedPreferences sharedPrefs;
 
-    private boolean isNewKernel()
-    {
-        boolean newKernel = false;
-        String savedKernel = sharedPrefs.getString("kernel", "");
-        if (!savedKernel.equals(""))
-        {
-            if (!(savedKernel.equals(IOHelper.kernel())))
-            {
-
-            }
-        }
-        return newKernel;
-    }
-
     @Override
     public void onReceive(Context context, Intent intent)
     {
         sharedPrefs = PreferenceManager.getDefaultSharedPreferences(context);
         String applyonboot = sharedPrefs.getString("boot", "boot");
-        boolean resetPref = sharedPrefs.getBoolean("reset", false);
-        if (isNewKernel() && resetPref)
+        if (applyonboot.equals("boot"))
         {
-            AppReset reset = new AppReset(context);
-            reset.reset();
-        }
-        else
-        {
-            if (applyonboot.equals("boot"))
-            {
-                Intent serviceIntent = new Intent(context, StartupService.class);
-                context.startService(serviceIntent);
-            }
+            Intent serviceIntent = new Intent(context, StartupService.class);
+            context.startService(serviceIntent);
         }
     }
 }

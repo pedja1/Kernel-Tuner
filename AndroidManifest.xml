@@ -1,14 +1,12 @@
 <?xml version="1.0" encoding="utf-8"?>
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
     package="rs.pedjaapps.kerneltuner"
-    android:installLocation="internalOnly"
-    android:versionCode="20150410"
-    android:versionName="1.0.1.8" >
+    android:installLocation="internalOnly" >
 
     <uses-permission android:name="android.permission.RECEIVE_BOOT_COMPLETED" />
-    <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE" />
-    <uses-permission android:name="android.permission.INTERNET" />
-    <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE" />
+        <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE" />
+        <uses-permission android:name="android.permission.INTERNET" />
+        <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE" />
     <uses-permission android:name="android.permission.READ_LOGS" />
     <uses-permission android:name="android.permission.ACCESS_SUPERUSER" />
     <uses-permission android:name="android.permission.WAKE_LOCK" />
@@ -56,6 +54,11 @@
             android:name=".linpack.Tester"
             android:icon="@drawable/ic_launcher"
             android:label="Linpack" >
+        </activity>
+        <activity
+            android:name=".ui.EntropyActivity"
+            android:icon="@drawable/ic_launcher"
+            android:label="@string/entropy" >
         </activity>
         <activity
             android:name=".ui.TaskManagerDetailActivity"

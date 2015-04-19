@@ -13,7 +13,6 @@ public class Misc
     public static final int ITEM_TYPE_VSYNC = -6;
     public static final int ITEM_TYPE_OTG = -7;
     public static final int ITEM_TYPE_CD = -8;
-	public static final int ITEM_TYPE_SELINUX = -9;
     public static final int ITEM_TYPE_INFO = -12;
 	
 	private int type, itemType;

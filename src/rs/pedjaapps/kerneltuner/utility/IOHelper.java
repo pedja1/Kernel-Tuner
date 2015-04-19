@@ -119,11 +119,6 @@ public class IOHelper
         return new File(Constants.CDEPTH).exists();
     }
 
-    public static boolean selinuxExists()
-    {
-        return new File(Constants.SELINUX).exists();
-    }
-
     public static boolean tcpCongestionControlAvailable()
     {
         return new File(Constants.TCP_CONGESTION).exists() && new File(Constants.TCP_AVAILABLE_CONGESTION).exists();
@@ -378,18 +373,6 @@ public class IOHelper
         catch (Exception e)
         {
             return new ArrayList<>();
-        }
-
-    }
-	public static int se()
-    {
-        try
-        {
-            return Utility.parseInt(RCommand.readFileContent(Constants.SELINUX).trim(), -1);
-        }
-        catch (Exception e)
-        {
-            return -1;
         }
 
     }

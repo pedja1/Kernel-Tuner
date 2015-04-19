@@ -173,8 +173,6 @@ public class StartupService extends IntentService
         aditionalCommands.add("echo " + PrefsManager.getThremalHigh(2) + " > /sys/kernel/msm_thermal/conf/allowed_mid_high");
         aditionalCommands.add("echo " + PrefsManager.getThremalLow(3) + " > /sys/kernel/msm_thermal/conf/allowed_max_low");
         aditionalCommands.add("echo " + PrefsManager.getThremalHigh(3) + " > /sys/kernel/msm_thermal/conf/allowed_max_high");
-
-		//aditionalCommands.add("/system/bin/setenforce " + PrefsManager.getSeLinux());
 		
         RCommand.setScheduler(PrefsManager.getScheduer(), null);
         RCommand.setReadAhead(PrefsManager.getReadAhead(), null);

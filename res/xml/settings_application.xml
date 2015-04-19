@@ -23,11 +23,13 @@
             android:summary="@string/preferences_cpu_htcone_summary"
             android:title="@string/preferences_cpu_htcone_title"/>
         -->
+        <!--
         <CheckBoxPreference
             android:defaultValue="false"
             android:key="reset"
             android:summary="@string/prefs_reset_summary"
             android:title="@string/prefs_reset"/>
+        -->
 
         <EditTextPreference
             android:defaultValue="1000"
