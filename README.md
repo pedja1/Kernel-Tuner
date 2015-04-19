@@ -1,7 +1,7 @@
 #  Kernel Tuner 
 ## Various kernel and system tuning 
 
-![logo](http://dl.dropbox.com/u/21407545/kt_logo.png)
+![logo](https://raw.githubusercontent.com/pedja1/Kernel-Tuner/master/dsgn/Kernel%20Tuner-feature-graphic.png)
 ### Features:
 
 * Full CPU controll
@@ -35,22 +35,17 @@
 
 This project relies on following libraries: 
 
-* [aChartEngine](http://code.google.com/p/achartengine/) - Apache License 2.0
+#### Open Source
 * [Apache Commons IO](http://commons.apache.org/proper/commons-io/) - Apache License 2.0
-* [ActionBarSherlock](http://actionbarsherlock.com/) - Apache License 2.0
-* [Locale Plugin](http://www.twofortyfouram.com/developer) - Apache License 2.0
-
-This project also includes modified code from the following open source projects:
-
-* [SwitchCompatLibrary](https://github.com/ankri/SwitchCompatLibrary) - Apache License 2.0
+* [Root Tools](https://github.com/Stericson/RootTools) - Apache Licence 2.0 (I think)
 * [aLogcat](http://code.google.com/p/alogcat/) - GNU GPL v3
+* [Android Universal Image Loader](https://github.com/nostra13/Android-Universal-Image-Loader) -Apache Licence 2.0
+* [Android Support Library](http://developer.android.com/tools/support-library/index.html)
+* [Pager Sliding Tab Strip](https://github.com/jpardogo/PagerSlidingTabStrip) - Apache Licence 2.0
 
-### Thanks
-
-* anryl@xda - for helping me with executing root commands
-* kragnegrozor@xda - for suggesting how to improve "completely disable cpu1" option
-* e3d@xda - for hosting
-* vault1965@anthrax-kernels - for icon
+#### Closed Source  
+* [Crashlytics](crashlytics.com)
+* [Google Play Service](https://developer.android.com/google/play-services/index.html)
 
 "*"  feature needs kernel support
 
