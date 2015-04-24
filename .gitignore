@@ -25,3 +25,4 @@ lint.xml
 *.iws
 /.gradle
 /build
+/obj
