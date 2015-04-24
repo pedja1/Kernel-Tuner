@@ -1,5 +1,5 @@
 #  Kernel Tuner 
-## Various kernel and system tuning 
+## Take control of your device
 
 ![logo](https://raw.githubusercontent.com/pedja1/Kernel-Tuner/master/dsgn/Kernel%20Tuner-feature-graphic.png)
 ### Features:
