@@ -199,9 +199,9 @@ public final class EditActivity extends Activity
                  * This is the blurb concisely describing what your setting's state is. This is simply used
                  * for display in the UI.
                  */
-                if (profile.length() > getResources().getInteger(R.integer.twofortyfouram_locale_maximum_blurb_length))
+                if (profile.length() > 50)
                 {
-                    resultIntent.putExtra(com.twofortyfouram.locale.Intent.EXTRA_STRING_BLURB, profile.substring(0, getResources().getInteger(R.integer.twofortyfouram_locale_maximum_blurb_length)));
+                    resultIntent.putExtra(com.twofortyfouram.locale.Intent.EXTRA_STRING_BLURB, profile.substring(0, 50));
                 }
                 else
                 {

@@ -18,21 +18,12 @@
 */
 package rs.pedjaapps.KernelTuner.ui;
 
-import android.app.*;
-import android.content.*;
-import android.os.*;
-import android.preference.*;
-import android.view.*;
-import android.widget.*;
-import android.widget.AdapterView.*;
-import android.widget.CompoundButton.*;
 import com.google.android.gms.ads.*;
 import com.stericson.RootTools.RootTools;
 import com.stericson.RootTools.execution.CommandCapture;
 
 import java.io.*;
 import java.util.*;
-import rs.pedjaapps.KernelTuner.helpers.*;
 
 import org.apache.commons.io.FileUtils;
 
@@ -61,10 +52,6 @@ import android.widget.EditText;
 import android.widget.Spinner;
 import android.widget.Switch;
 
-import com.google.ads.AdRequest;
-import com.google.ads.AdView;
-import com.stericson.RootTools.RootTools;
-import com.stericson.RootTools.execution.CommandCapture;
 
 public class MpdecisionNew extends Activity
 {

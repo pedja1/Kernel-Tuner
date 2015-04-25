@@ -38,6 +38,7 @@ import org.achartengine.*;
 import org.achartengine.model.*;
 import org.achartengine.renderer.*;
 import rs.pedjaapps.KernelTuner.*;
+import rs.pedjaapps.KernelTuner.R;
 import rs.pedjaapps.KernelTuner.entry.*;
 import java.lang.Process;
 import rs.pedjaapps.KernelTuner.tools.Tools;

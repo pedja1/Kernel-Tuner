@@ -1,23 +1,29 @@
 buildscript {
     repositories {
         mavenCentral()
+        jcenter()
+        maven { url 'http://download.crashlytics.com/maven' }
     }
     dependencies {
-        classpath 'com.android.tools.build:gradle:0.4'
+        classpath 'com.android.tools.build:gradle:1.1.1'
+        classpath 'com.crashlytics.tools.gradle:crashlytics-gradle:1.14.3'
     }
 }
-apply plugin: 'android'
-
-dependencies {
+apply plugin: 'com.android.application'
+apply plugin: 'crashlytics'
+repositories {
+    jcenter()
+    maven { url 'http://download.crashlytics.com/maven' }
+    flatDir { dirs 'aars' }
 }
 
 android {
-    compileSdkVersion 17
-    buildToolsVersion "17"
+    compileSdkVersion 22
+    buildToolsVersion "22.0.1"
 
     defaultConfig {
         minSdkVersion 14
-        targetSdkVersion 17
+        targetSdkVersion 22
     }
     sourceSets {
         main {
@@ -32,4 +38,11 @@ android {
 
         instrumentTest.setRoot('tests')
     }
+}
+
+dependencies {
+    compile fileTree(dir: 'libs', include: ['*.jar'])
+    compile 'com.google.android.gms:play-services:7.0.0'
+    compile 'com.android.support:support-v4:22.0.0'
+    compile 'com.crashlytics.android:crashlytics:1.1.13'
 }

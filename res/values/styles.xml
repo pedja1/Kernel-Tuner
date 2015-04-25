@@ -1,6 +1,14 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
 
+<!-- Dark style for all standard Locale and Locale plug-in Activity instances -->
+    <style name="Theme.Locale.Dark" parent="android:Theme" />
+
+    <!-- Light style for use within Locale.  This theme is usually not used.  The only place Locale uses this theme is to make dialogs look correct on Android 2.3 and earlier, because http://developer.android.com/reference/android/app/AlertDialog.Builder.html#getContext() requires Android 3.0. -->
+    <style name="Theme.Locale.Light" parent="android:Theme.Light" />
+
+    <!-- Style for Activities that look like a dialog -->
+    <style name="Theme.Locale.Dialog" parent="@android:style/Theme.Translucent.NoTitleBar" />
     <style name="Theme.Transparent" parent="android:Theme.Holo.Dialog">
         <item name="android:windowIsTranslucent">true</item>
         <item name="android:windowBackground">@drawable/lcd_background_black</item>

@@ -1,5 +1,6 @@
 package rs.pedjaapps.KernelTuner.ui;
 
+import com.crashlytics.android.Crashlytics;
 import rs.pedjaapps.KernelTuner.Constants;
 import rs.pedjaapps.KernelTuner.MainApp;
 import rs.pedjaapps.KernelTuner.R;
@@ -22,6 +23,7 @@ public class SplashActivity extends Activity
 	public void onCreate(Bundle savedInstanceState)
 	{
 		super.onCreate(savedInstanceState);
+		Crashlytics.start(this);
 		setContentView(R.layout.splash);
 		Log.e(Constants.LOG_TAG, ">>> APP START");
 		PreLoad preLoad = new PreLoad();

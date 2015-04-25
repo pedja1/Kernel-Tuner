@@ -791,18 +791,10 @@ public class KernelTuner extends Activity implements Runnable
 			String version = pInfo.versionName;
 			if (!versionpref.equals(version))
 			{
-
-<<<<<<< HEAD
-				Intent myIntent = new Intent(c, Changelog.class);
-				startActivity(myIntent);
-				if (first)
-				{
-=======
 				//Intent myIntent = new Intent(c, Changelog.class);
 				//startActivity(myIntent);
                 showNewBetaDialog();
 				if (first) {
->>>>>>> 9afa5ec99468908fb3a277810613b39e2b4d8a2a
 					CopyAssets();
 				}
 
