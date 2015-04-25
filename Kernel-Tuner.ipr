@@ -383,9 +383,9 @@
       <JAVADOC />
       <SOURCES />
     </library>
-    <library name="RootTools-3.5">
+    <library name="RootShell">
       <CLASSES>
-        <root url="jar://$PROJECT_DIR$/libs/RootTools-3.5.jar!/" />
+        <root url="jar://$PROJECT_DIR$/libs/RootShell.jar!/" />
       </CLASSES>
       <JAVADOC />
       <SOURCES />

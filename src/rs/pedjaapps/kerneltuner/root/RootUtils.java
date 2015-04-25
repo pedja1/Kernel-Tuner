@@ -1,21 +1,17 @@
 package rs.pedjaapps.kerneltuner.root;
 
-import android.content.Context;
 import android.os.Handler;
 import android.util.Log;
 
 import com.crashlytics.android.Crashlytics;
-import com.stericson.RootTools.RootTools;
-import com.stericson.RootTools.exceptions.RootDeniedException;
-import com.stericson.RootTools.execution.Command;
-import com.stericson.RootTools.execution.CommandCapture;
+import com.stericson.RootShell.RootShell;
+import com.stericson.RootShell.exceptions.RootDeniedException;
+import com.stericson.RootShell.execution.Command;
 
 import java.io.IOException;
 import java.util.concurrent.TimeoutException;
 
 import rs.pedjaapps.kerneltuner.Constants;
-import rs.pedjaapps.kerneltuner.MainApp;
-import rs.pedjaapps.kerneltuner.ui.MainActivity;
 import rs.pedjaapps.kerneltuner.utility.Executor;
 import android.os.*;
 
@@ -64,10 +60,10 @@ public class RootUtils
         if (commandExecuted)
             throw new IllegalArgumentException("You can only execute one command with one instance of RootUtils");
         commandExecuted = true;
-        final CommandCapture command = new CommandCapture(0, commands)
+        final Command command = new Command(0, commands)
         {
             @Override
-            public void output(int id, String line)
+            public void commandOutput(int id, String line)
             {
                 output.append(line).append("\n");
                 if (callback != null) callback.out(line);
@@ -87,7 +83,7 @@ public class RootUtils
             {
                 try
                 {
-                    RootTools.getShell(true).add(command);
+                    RootShell.getShell(true).add(command);
                 }
                 catch (TimeoutException e)
                 {
@@ -158,17 +154,17 @@ public class RootUtils
         if (commandExecuted)
             throw new IllegalArgumentException("You can only execute one command with one instance of RootUtils");
         commandExecuted = true;
-        final CommandCapture command = new CommandCapture(0, commands)
+        final Command command = new Command(0, commands)
         {
             @Override
-            public void output(int id, String line)
+            public void commandOutput(int id, String line)
             {
                 output.append(line).append("\n");
             }
         };
         try
         {
-            RootTools.getShell(true).add(command);
+            RootShell.getShell(true).add(command);
             commandWait(command);
         }
         catch (Exception e)
@@ -223,7 +219,7 @@ public class RootUtils
 			{
 				try
 				{
-					RootTools.closeAllShells();
+					RootShell.closeAllShells();
 				}
 				catch (IOException e)
 				{

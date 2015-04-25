@@ -59,7 +59,6 @@ public class MainActivity extends AbsActivity implements Runnable, View.OnClickL
     @Override
     public void onCreate(Bundle savedInstanceState)
     {
-		startActivity(new Intent(this, EntropyActivity.class));
 		System.out.println("Main activity onCreate");
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);

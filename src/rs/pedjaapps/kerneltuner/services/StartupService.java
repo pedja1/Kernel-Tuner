@@ -184,6 +184,8 @@ public class StartupService extends IntentService
         RCommand.setVsync(PrefsManager.getVsync(), null);
         RCommand.setOtg(PrefsManager.getOtg(), null);
         RCommand.setTcpCongestion(PrefsManager.getTcpCongestion(), null);
+        RCommand.setEntropyReadThreshold(PrefsManager.getEntropyRead());
+        RCommand.setEntropyWriteThreshold(PrefsManager.getEntropyWrite());
 
         Voltage voltage = db.getVoltageByName("boot");
         if(voltage != null)

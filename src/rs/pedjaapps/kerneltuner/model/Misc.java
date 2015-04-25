@@ -14,7 +14,8 @@ public class Misc
     public static final int ITEM_TYPE_OTG = -7;
     public static final int ITEM_TYPE_CD = -8;
     public static final int ITEM_TYPE_INFO = -12;
-	
+    public static final int ITEM_TYPE_ENTROPY = -13;
+
 	private int type, itemType;
 	private String title, value;
 	private boolean enabled = true;

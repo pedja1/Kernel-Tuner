@@ -22,8 +22,9 @@ import android.content.Context;
 import android.content.SharedPreferences;
 import android.os.AsyncTask;
 import android.preference.PreferenceManager;
-import com.stericson.RootTools.RootTools;
-import com.stericson.RootTools.execution.CommandCapture;
+
+import com.stericson.RootShell.RootShell;
+import com.stericson.RootShell.execution.Command;
 
 
 public class ChangeGovernorSettings extends AsyncTask<String, Void, String>
@@ -40,11 +41,11 @@ public class ChangeGovernorSettings extends AsyncTask<String, Void, String>
 	@Override
 	protected String doInBackground(String... args)
 	{
-            CommandCapture command = new CommandCapture(0,
+            Command command = new Command(0,
 				"chmod 777 /sys/devices/system/cpu/cpufreq/" + args[2] + "/" + args[1].trim(),
                 "echo " + args[0].trim() + " > /sys/devices/system/cpu/cpufreq/" + args[2] + "/" + args[1].trim());
 			try{
-			RootTools.getShell(true).add(command);
+			RootShell.getShell(true).add(command);
 			}
 			catch(Exception e){
 				

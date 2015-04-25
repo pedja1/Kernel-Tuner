@@ -928,5 +928,7 @@
     <string name="write">Write</string>
     <string name="entropy_level">Entropy Available</string>
     <string name="entropy_pool_size">Entropy Pool Size</string>
+    <string name="change_entropy">Change Entropy Settings</string>
+
 
 </resources>

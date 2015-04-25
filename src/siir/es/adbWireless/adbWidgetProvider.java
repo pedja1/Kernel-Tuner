@@ -29,7 +29,8 @@ import android.os.Vibrator;
 import android.widget.RemoteViews;
 import android.widget.Toast;
 
-import com.stericson.RootTools.RootTools;
+
+import com.stericson.RootShell.RootShell;
 
 import rs.pedjaapps.kerneltuner.R;
 import rs.pedjaapps.kerneltuner.root.RootUtils;
@@ -76,7 +77,7 @@ public class adbWidgetProvider extends AppWidgetProvider
         if (intent.getAction().equals(ACTION_CLICK))
         {
 
-            if (!RootTools.isAccessGiven())
+            if (!RootShell.isAccessGiven())
             {
                 Toast.makeText(context, R.string.no_root, Toast.LENGTH_LONG).show();
                 return;

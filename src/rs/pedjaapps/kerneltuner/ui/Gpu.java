@@ -27,8 +27,6 @@ import android.view.View;
 import android.view.View.OnClickListener;
 import android.widget.Button;
 import android.widget.TextView;
-import com.stericson.RootTools.RootTools;
-import com.stericson.RootTools.execution.CommandCapture;
 
 import java.util.Arrays;
 import java.util.List;
@@ -38,6 +36,9 @@ import rs.pedjaapps.kerneltuner.utility.PrefsManager;
 import rs.pedjaapps.kerneltuner.utility.Utility;
 
 import android.widget.SeekBar;
+
+import com.stericson.RootShell.RootShell;
+import com.stericson.RootShell.execution.Command;
 
 public class Gpu extends Activity
 {
@@ -182,13 +183,13 @@ public class Gpu extends Activity
 
 			@Override
 			public void onStopTrackingTouch(SeekBar seekBar) {
-				CommandCapture command = new CommandCapture(0, 
+				Command command = new Command(0,
 			            "chmod 777 /sys/devices/platform/kgsl-2d1.1/kgsl/kgsl-2d1/max_gpuclk",
 			            "chmod 777 /sys/devices/platform/kgsl-2d0.0/kgsl/kgsl-2d0/max_gpuclk",
 			            "echo " + selected2d + " > /sys/devices/platform/kgsl-2d0.0/kgsl/kgsl-2d0/max_gpuclk",
 			            "echo " + selected2d + " > /sys/devices/platform/kgsl-2d1.1/kgsl/kgsl-2d1/max_gpuclk");
 				try{
-					RootTools.getShell(true).add(command);
+					RootShell.getShell(true).add(command);
 				}
 				catch(Exception e){
 
@@ -217,11 +218,11 @@ public class Gpu extends Activity
 
 			@Override
 			public void onStopTrackingTouch(SeekBar seekBar) {
-				CommandCapture command = new CommandCapture(0,  
+				Command command = new Command(0,
 						"chmod 777 /sys/devices/platform/kgsl-3d0.0/kgsl/kgsl-3d0/max_gpuclk",
 			            "echo " + selected3d + " > /sys/devices/platform/kgsl-3d0.0/kgsl/kgsl-3d0/max_gpuclk");
 				try{
-					RootTools.getShell(true).add(command);
+					RootShell.getShell(true).add(command);
 				}
 				catch(Exception e){
 

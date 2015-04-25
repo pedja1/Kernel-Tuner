@@ -39,7 +39,7 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import com.crashlytics.android.Crashlytics;
-import com.stericson.RootTools.RootTools;
+import com.stericson.RootShell.RootShell;
 
 import rs.pedjaapps.kerneltuner.R;
 import rs.pedjaapps.kerneltuner.ui.AbsActivity;
@@ -78,7 +78,7 @@ public class ADBWirelessActivity extends AbsActivity
             Utils.mNotificationManager = (NotificationManager) getSystemService(NOTIFICATION_SERVICE);
         }
 
-        if (!RootTools.isAccessGiven())
+        if (!RootShell.isAccessGiven())
         {
             AlertDialog.Builder builder = new AlertDialog.Builder(this);
             builder.setMessage(getString(R.string.no_root)).setCancelable(true)

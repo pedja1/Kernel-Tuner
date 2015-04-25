@@ -76,12 +76,9 @@ android {
 dependencies {
     compile 'com.nostra13.universalimageloader:universal-image-loader:1.9.3'
     compile 'com.google.android.gms:play-services:7.0.0'
-    //compile fileTree(dir: 'libs', include: ['*.jar'])
+    compile fileTree(dir: 'libs', include: ['*.jar'])
     compile 'com.android.support:support-v4:22.0.0'
     compile 'com.android.support:appcompat-v7:22.0.0'
     compile 'com.crashlytics.android:crashlytics:1.1.13'
     compile 'com.jpardogo.materialtabstrip:library:1.0.6'
-    compile files("libs/commons-io-2.4.jar")
-    compile files("libs/RootTools-3.5.jar")
-    compile files("libs/annotations.jar")
 }

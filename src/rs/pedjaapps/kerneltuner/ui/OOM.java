@@ -44,8 +44,8 @@ import android.widget.EditText;
 import android.widget.SeekBar;
 import android.widget.SeekBar.OnSeekBarChangeListener;
 
-import com.stericson.RootTools.RootTools;
-import com.stericson.RootTools.execution.CommandCapture;
+import com.stericson.RootShell.RootShell;
+import com.stericson.RootShell.execution.Command;
 
 public class OOM extends Activity {
 
@@ -329,7 +329,7 @@ public class OOM extends Activity {
 		protected Object doInBackground(String... args) {
 		
 			
-			CommandCapture command = new CommandCapture(0,
+			Command command = new Command(0,
 	            "echo "
 						+ args[0]
 						+ ","
@@ -344,7 +344,7 @@ public class OOM extends Activity {
 						+ args[5]
 						+ " > /sys/module/lowmemorykiller/parameters/minfree\n");
 			try{
-				RootTools.getShell(true).add(command);
+				RootShell.getShell(true).add(command);
 			}
 			catch(Exception e){
 

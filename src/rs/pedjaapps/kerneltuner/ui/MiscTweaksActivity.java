@@ -2,6 +2,7 @@ package rs.pedjaapps.kerneltuner.ui;
 
 import android.app.AlertDialog;
 import android.content.DialogInterface;
+import android.content.Intent;
 import android.os.AsyncTask;
 import android.os.Bundle;
 import android.os.Handler;
@@ -150,6 +151,13 @@ public class MiscTweaksActivity extends AbsActivity implements AdapterView.OnIte
             misc.setValue(getDescForColorDepth());
             list.add(misc);
         }*/
+
+        misc = new Misc();
+        misc.setType(Misc.TYPE_ITEM);
+        misc.setItemType(Misc.ITEM_TYPE_ENTROPY);
+        misc.setTitle(getString(R.string.entropy));
+        misc.setValue(getString(R.string.change_entropy));
+        list.add(misc);
         return list;
     }
 	
@@ -280,6 +288,9 @@ public class MiscTweaksActivity extends AbsActivity implements AdapterView.OnIte
             case Misc.ITEM_TYPE_VSYNC:
             case Misc.ITEM_TYPE_OTG:
                 showToggleDialog(misc);
+                break;
+            case Misc.ITEM_TYPE_ENTROPY:
+                startActivity(new Intent(this, EntropyActivity.class));
                 break;
         }
     }

@@ -25,8 +25,9 @@ import android.preference.*;
 import android.view.*;
 import android.view.View.*;
 import android.widget.*;
-import com.stericson.RootTools.*;
-import com.stericson.RootTools.execution.*;
+
+import com.stericson.RootShell.RootShell;
+import com.stericson.RootShell.execution.Command;
 
 import java.util.*;
 
@@ -123,11 +124,11 @@ public class GpuSGX540 extends Activity
 
 			@Override
 			public void onStopTrackingTouch(SeekBar seekBar) {
-				CommandCapture command = new CommandCapture(0, 
+				Command command = new Command(0,
 			            "chmod 777 " + Constants.GPU_SGX540,
 			            "echo " + selectedGpu + " > "+ Constants.GPU_SGX540);
 				try{
-					RootTools.getShell(true).add(command);
+					RootShell.getShell(true).add(command);
 				}
 				catch(Exception e){
 

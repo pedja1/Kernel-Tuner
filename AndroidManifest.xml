@@ -253,16 +253,6 @@
             </intent-filter>
         </activity>
         <activity
-            android:name=".ui.Reboot"
-            android:icon="@drawable/ic_launcher"
-            android:label="@string/reboot" >
-            <intent-filter>
-                <action android:name="rs.pedjaapps.kerneltuner.REBOOT" />
-
-                <category android:name="android.intent.category.DEFAULT" />
-            </intent-filter>
-        </activity>
-        <activity
             android:name=".ui.OOM"
             android:icon="@drawable/oom"
             android:label="@string/oom"

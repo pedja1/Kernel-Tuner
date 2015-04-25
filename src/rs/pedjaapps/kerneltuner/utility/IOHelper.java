@@ -1515,4 +1515,52 @@ public class IOHelper
             return 0;
         }
     }
+
+    public static int getEntropyAvailable()
+    {
+        try
+        {
+            return Utility.parseInt(FileUtils.readFileToString(Constants.ENTROPY_AVAILABLE).trim(), 0);
+        }
+        catch (Exception e)
+        {
+            return 0;
+        }
+    }
+
+    public static int getEntropyPoolSize()
+    {
+        try
+        {
+            return Utility.parseInt(FileUtils.readFileToString(Constants.ENTROPY_POOL_SIZE).trim(), 0);
+        }
+        catch (Exception e)
+        {
+            return 0;
+        }
+    }
+
+    public static int getEntropyReadThreshold()
+    {
+        try
+        {
+            return Utility.parseInt(FileUtils.readFileToString(Constants.ENTROPY_READ_THRESHOLD).trim(), 0);
+        }
+        catch (Exception e)
+        {
+            return 0;
+        }
+    }
+
+    public static int getEntropyWriteThreshold()
+    {
+        try
+        {
+            return Utility.parseInt(FileUtils.readFileToString(Constants.ENTROPY_WRITE_THRESHOLD).trim(), 0);
+        }
+        catch (Exception e)
+        {
+            return 0;
+        }
+    }
 }

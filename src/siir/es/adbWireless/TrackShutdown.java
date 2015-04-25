@@ -24,7 +24,8 @@ import android.content.Intent;
 import android.content.SharedPreferences;
 import android.widget.Toast;
 
-import com.stericson.RootTools.RootTools;
+
+import com.stericson.RootShell.RootShell;
 
 import rs.pedjaapps.kerneltuner.R;
 
@@ -38,12 +39,12 @@ public class TrackShutdown extends BroadcastReceiver
         SharedPreferences settings = context.getSharedPreferences("wireless", 0);
         SharedPreferences.Editor editor = settings.edit();
         editor.putBoolean("mState", false);
-        editor.commit();
+        editor.apply();
 
         if (Utils.prefsOnBoot(context))
         {
 
-            if (!RootTools.isAccessGiven())
+            if (!RootShell.isAccessGiven())
             {
                 Toast.makeText(context, R.string.no_root, Toast.LENGTH_LONG).show();
                 return;

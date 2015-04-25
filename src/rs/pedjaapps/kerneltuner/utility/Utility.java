@@ -32,9 +32,15 @@ import android.os.StatFs;
 import android.text.Html;
 import android.widget.Toast;
 
+import com.stericson.RootShell.RootShell;
+import com.stericson.RootShell.exceptions.RootDeniedException;
+import com.stericson.RootShell.execution.Command;
+
+import java.io.IOException;
 import java.net.URLEncoder;
 import java.text.DecimalFormat;
 import java.text.SimpleDateFormat;
+import java.util.concurrent.TimeoutException;
 
 import rs.pedjaapps.kerneltuner.R;
 
@@ -466,5 +472,24 @@ public class Utility
     {
         return URLEncoder.encode(string);
     }
+
+    public static int calculatePercent(int current, int max)
+    {
+        return (int) (100f / ((float)max / (float)current));
+    }
+
+    public static int getIndexForValue(int[] array, int value)
+    {
+        for(int i = 0; i < array.length; i++)
+        {
+            if (array[i] == value)
+            {
+                return i;
+            }
+        }
+        return 0;
+    }
+
+
 }
 

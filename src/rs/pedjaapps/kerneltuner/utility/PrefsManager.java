@@ -23,7 +23,7 @@ public class PrefsManager
         cpu_disable_all, hide_unsupported_items, notification_service, cpu_show_all_cores, gpu_3d, gpu_2d,
         gpu_governor, mpdec_idle_freq, mpdec_enabled, mpdec_max_cpus, mpdec_min_cpus, mpdec_sosc,
         mpdec_sof, mpdec_pause, mpdec_delay, scheduler, readahead, dt2w, s2w, otg, vsync, fastcharge,
-        tcp_congestion, se, DEBUG
+        tcp_congestion, se, DEBUG, entropy_write, entropy_read
     }
 
     public static boolean DEBUG()
@@ -31,9 +31,11 @@ public class PrefsManager
         return prefs.getBoolean(Key.DEBUG.toString(), BuildConfig.DEBUG);
     }
 
-    public static boolean DEBUG(boolean debug)
+    public static void DEBUG(boolean debug)
     {
-        return prefs.getBoolean(Key.DEBUG.toString(), debug);
+        SharedPreferences.Editor editor = prefs.edit();
+        editor.putBoolean(Key.DEBUG.toString(), debug);
+        editor.apply();
     }
 
     public static long getCpuRefreshInterval()
@@ -520,5 +522,29 @@ public class PrefsManager
     public static String getTcpCongestion()
     {
         return prefs.getString(Key.tcp_congestion.toString(), null);
+    }
+
+    public static int getEntropyRead()
+    {
+        return prefs.getInt(Key.entropy_read.toString(), 0);
+    }
+
+    public static void setEntropyRead(int read)
+    {
+        SharedPreferences.Editor editor = prefs.edit();
+        editor.putInt(Key.entropy_read.toString(), read);
+        editor.apply();
+    }
+
+    public static int getEntropyWrite()
+    {
+        return prefs.getInt(Key.entropy_write.toString(), 0);
+    }
+
+    public static void setEntropyWrite(int read)
+    {
+        SharedPreferences.Editor editor = prefs.edit();
+        editor.putInt(Key.entropy_write.toString(), read);
+        editor.apply();
     }
 }

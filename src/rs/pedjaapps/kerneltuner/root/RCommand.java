@@ -1,5 +1,9 @@
 package rs.pedjaapps.kerneltuner.root;
 
+import com.stericson.RootShell.RootShell;
+import com.stericson.RootShell.exceptions.RootDeniedException;
+import com.stericson.RootShell.execution.Command;
+
 import org.apache.commons.io.FileUtils;
 
 import java.io.File;
@@ -7,6 +11,7 @@ import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
+import java.util.concurrent.TimeoutException;
 
 import rs.pedjaapps.kerneltuner.Constants;
 import rs.pedjaapps.kerneltuner.utility.PrefsManager;
@@ -238,6 +243,18 @@ public class RCommand
         if (new File(Constants.MPDECISION_BINARY).exists())
             commands.add(on_off ? "start" : "stop" + " mpdecision");
         new RootUtils().exec(callback, commands.toArray(new String[commands.size()]));
+    }
+
+    public static void setEntropyWriteThreshold(int value)
+    {
+        new RootUtils().exec((RootUtils.CommandCallback)null, "echo " + value + " > " + Constants.ENTROPY_WRITE_THRESHOLD);
+        PrefsManager.setEntropyWrite(value);
+    }
+
+    public static void setEntropyReadThreshold(int value)
+    {
+        new RootUtils().exec((RootUtils.CommandCallback)null, "echo " + value + " > " + Constants.ENTROPY_READ_THRESHOLD);
+        PrefsManager.setEntropyRead(value);
     }
 
 }

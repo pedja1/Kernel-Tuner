@@ -193,11 +193,12 @@ public final class Constants
 	
 	public static final String GPU_SGX540 = "/sys/devices/system/cpu/cpu0/cpufreq/gpu_max_freq";
 	public static final String IVA = "/sys/devices/system/cpu/cpu0/cpufreq/iva_freq_oc";
-	
 
-    public static final int SPLASH_MINIMUM_STAY_TIME = 5; // seconds
 
-    public static final int HANDLER_SPLASH_COMPLETE = 1001;
+	public static final File ENTROPY_AVAILABLE = new File("/proc/sys/kernel/random/entropy_avail");
+	public static final File ENTROPY_POOL_SIZE = new File("/proc/sys/kernel/random/poolsize");
+	public static final File ENTROPY_READ_THRESHOLD = new File("/proc/sys/kernel/random/read_wakeup_threshold");
+	public static final File ENTROPY_WRITE_THRESHOLD = new File("/proc/sys/kernel/random/write_wakeup_threshold");
 	
     /**
      * Flag to enable logcat messages.
