@@ -49,9 +49,25 @@ import android.widget.AdapterView.OnItemClickListener;
 import android.widget.EditText;
 import android.widget.ListView;
 import android.widget.TextView;
+import java.io.BufferedReader;
+import java.io.File;
+import java.io.FileInputStream;
+import java.io.InputStreamReader;
+import java.util.ArrayList;
+import java.util.List;
+import rs.pedjaapps.KernelTuner.ui.KernelTuner;
+import rs.pedjaapps.KernelTuner.R;
+import rs.pedjaapps.KernelTuner.entry.GovEntry;
+import rs.pedjaapps.KernelTuner.helpers.IOHelper;
+import rs.pedjaapps.KernelTuner.helpers.GovernorSettingsAdapter;
+import rs.pedjaapps.KernelTuner.tools.ChangeGovernorSettings;
+import android.content.Context;
 
-import com.google.ads.AdRequest;
-import com.google.ads.AdView;
+import com.google.android.gms.ads.AdListener;
+import com.google.android.gms.ads.AdRequest;
+import com.google.android.gms.ads.AdView;
+
+import rs.pedjaapps.KernelTuner.tools.Tools;
 
 public class GovernorActivity extends Activity
 {
@@ -80,9 +96,23 @@ public class GovernorActivity extends Activity
 		actionBar.setDisplayHomeAsUpEnabled(true);
 
 		boolean ads = preferences.getBoolean("ads", true);
-		if (ads == true)
-		{AdView adView = (AdView)findViewById(R.id.ad);
-			adView.loadAd(new AdRequest());}
+        final AdView adView = (AdView)findViewById(R.id.adView);
+        AdRequest adRequest = new AdRequest.Builder()
+                .addTestDevice(AdRequest.DEVICE_ID_EMULATOR)
+                .addTestDevice("5750ECFACEA6FCE685DE7A97D8C59A5F")
+                .addTestDevice("05FBCDCAC44495595ACE7DC1AEC5C208")
+                .addTestDevice("40AA974617D79A7A6C155B1A2F57D595")
+                .build();
+        if(ads)adView.loadAd(adRequest);
+        adView.setAdListener(new AdListener()
+        {
+            @Override
+            public void onAdLoaded()
+            {
+                super.onAdLoaded();
+                adView.setVisibility(View.VISIBLE);
+            }
+        });
 		govListView = (ListView) findViewById(R.id.list);
 		if (!availableGovs.isEmpty())
 		{

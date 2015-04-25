@@ -27,7 +27,8 @@ import android.os.*;
 import android.preference.*;
 import android.view.*;
 import android.widget.*;
-import com.google.ads.*;
+import com.google.android.gms.ads.*;
+
 import java.util.*;
 import org.achartengine.*;
 import org.achartengine.model.*;
@@ -114,9 +115,23 @@ public class TISActivityChart extends Activity
 	    mRenderer.setZoomButtonsVisible(false);
 	    mRenderer.setStartAngle(90);
 		boolean ads = preferences.getBoolean("ads", true);
-		if (ads == true)
-		{AdView adView = (AdView)findViewById(R.id.ad);
-			adView.loadAd(new AdRequest());}
+        final AdView adView = (AdView)findViewById(R.id.adView);
+        com.google.android.gms.ads.AdRequest adRequest = new com.google.android.gms.ads.AdRequest.Builder()
+                .addTestDevice(com.google.android.gms.ads.AdRequest.DEVICE_ID_EMULATOR)
+                .addTestDevice("5750ECFACEA6FCE685DE7A97D8C59A5F")
+                .addTestDevice("05FBCDCAC44495595ACE7DC1AEC5C208")
+                .addTestDevice("40AA974617D79A7A6C155B1A2F57D595")
+                .build();
+        if(ads)adView.loadAd(adRequest);
+        adView.setAdListener(new AdListener()
+        {
+            @Override
+            public void onAdLoaded()
+            {
+                super.onAdLoaded();
+                adView.setVisibility(View.VISIBLE);
+            }
+        });
 			
 		setDeepSleepAndUptime();
 		getTISEntries();

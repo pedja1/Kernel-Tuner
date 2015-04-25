@@ -18,8 +18,21 @@
 */
 package rs.pedjaapps.KernelTuner.ui;
 
-import java.io.File;
-import java.util.List;
+import android.app.*;
+import android.content.*;
+import android.os.*;
+import android.preference.*;
+import android.view.*;
+import android.widget.*;
+import android.widget.AdapterView.*;
+import android.widget.CompoundButton.*;
+import com.google.android.gms.ads.*;
+import com.stericson.RootTools.RootTools;
+import com.stericson.RootTools.execution.CommandCapture;
+
+import java.io.*;
+import java.util.*;
+import rs.pedjaapps.KernelTuner.helpers.*;
 
 import org.apache.commons.io.FileUtils;
 
@@ -201,9 +214,23 @@ public class MpdecisionNew extends Activity
 		ActionBar actionBar = getActionBar();
 		actionBar.setDisplayHomeAsUpEnabled(true);
 		boolean ads = preferences.getBoolean("ads", true);
-		if (ads == true)
-		{AdView adView = (AdView)findViewById(R.id.ad);
-			adView.loadAd(new AdRequest());}
+        final AdView adView = (AdView)findViewById(R.id.adView);
+        com.google.android.gms.ads.AdRequest adRequest = new com.google.android.gms.ads.AdRequest.Builder()
+                .addTestDevice(com.google.android.gms.ads.AdRequest.DEVICE_ID_EMULATOR)
+                .addTestDevice("5750ECFACEA6FCE685DE7A97D8C59A5F")
+                .addTestDevice("05FBCDCAC44495595ACE7DC1AEC5C208")
+                .addTestDevice("40AA974617D79A7A6C155B1A2F57D595")
+                .build();
+        if(ads)adView.loadAd(adRequest);
+        adView.setAdListener(new AdListener()
+        {
+            @Override
+            public void onAdLoaded()
+            {
+                super.onAdLoaded();
+                adView.setVisibility(View.VISIBLE);
+            }
+        });
 		this.getWindow().setSoftInputMode(WindowManager.LayoutParams.SOFT_INPUT_STATE_ALWAYS_HIDDEN); 
 		maxCpus = (EditText)findViewById(R.id.max_cpus);
 		minCpus = (EditText)findViewById(R.id.min_cpus);

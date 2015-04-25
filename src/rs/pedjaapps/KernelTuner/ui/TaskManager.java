@@ -39,8 +39,6 @@ import android.widget.CompoundButton;
 import android.widget.ProgressBar;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
-import com.google.ads.AdRequest;
-import com.google.ads.AdView;
 import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStream;
@@ -58,6 +56,10 @@ import rs.pedjaapps.KernelTuner.fragments.TMListFragment;
 import rs.pedjaapps.KernelTuner.tools.Tools;
 import android.app.Activity;
 import android.app.ActivityManager;
+
+import com.google.android.gms.ads.AdListener;
+import com.google.android.gms.ads.AdRequest;
+import com.google.android.gms.ads.AdView;
 
 public class TaskManager extends Activity implements TMListFragment.Callbacks
 {
@@ -126,11 +128,23 @@ public class TaskManager extends Activity implements TMListFragment.Callbacks
 		pm = getPackageManager();
 		
 		final boolean ads = preferences.getBoolean("ads", true);
-		if (ads == true)
-		{
-			AdView adView = (AdView)findViewById(R.id.ad);
-			adView.loadAd(new AdRequest());
-		}
+        final AdView adView = (AdView)findViewById(R.id.adView);
+        AdRequest adRequest = new AdRequest.Builder()
+                .addTestDevice(AdRequest.DEVICE_ID_EMULATOR)
+                .addTestDevice("5750ECFACEA6FCE685DE7A97D8C59A5F")
+                .addTestDevice("05FBCDCAC44495595ACE7DC1AEC5C208")
+                .addTestDevice("40AA974617D79A7A6C155B1A2F57D595")
+                .build();
+        if(ads)adView.loadAd(adRequest);
+        adView.setAdListener(new AdListener()
+        {
+            @Override
+            public void onAdLoaded()
+            {
+                super.onAdLoaded();
+                adView.setVisibility(View.VISIBLE);
+            }
+        });
 	
 			new GetRunningApps().execute();
 			arch = Tools.getAbi();
