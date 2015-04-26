@@ -55,7 +55,7 @@ public class RCommand
     {
         List<String> commands = new ArrayList<>();
         commands.add("echo " + (on_off ? 1 : 0) + " > /sys/kernel/msm_mpdecision/conf/enabled");
-        if (new File(Constants.MPDECISION_BINARY).exists()) commands.add("stop mpdecision");
+        if (Constants.MPDECISION_BINARY.exists()) commands.add("stop mpdecision");
         for (int i = 0; i < 4; i++)
         {
             if (new File("/sys/devices/system/cpu/cpu" + i + "/online").exists())
@@ -203,25 +203,25 @@ public class RCommand
                 "kill " + pid);
     }
 
-    public static String readFileContent(String path) throws IOException
+    public static String readFileContent(File file) throws IOException
     {
         try
         {
-            return FileUtils.readFileToString(new File(path));
+            return FileUtils.readFileToString(file);
         }
         catch (IOException e)
         {
             RootUtils ru = new RootUtils();
-            return ru.execAndWait("cat " + path);
+            return ru.execAndWait("cat " + file.getAbsolutePath());
         }
     }
 
-    public static String[] readFileContentAsLineArray(String path) throws IOException
+    public static String[] readFileContentAsLineArray(File path) throws IOException
     {
         return readFileContent(path).trim().split("\n");
     }
 
-    public static List<String> readFileContentAsList(String path) throws IOException
+    public static List<String> readFileContentAsList(File path) throws IOException
     {
         return Arrays.asList(readFileContentAsLineArray(path));
     }
@@ -238,9 +238,9 @@ public class RCommand
     public static void toggleMpDecision(RootUtils.CommandCallback callback, boolean on_off)
     {
         List<String> commands = new ArrayList<>();
-        if (new File(Constants.MPDECISION).exists())
+        if (Constants.MPDECISION.exists())
             commands.add("echo " + (on_off ? 1 : 0) + " > " + Constants.MPDECISION);
-        if (new File(Constants.MPDECISION_BINARY).exists())
+        if (Constants.MPDECISION_BINARY.exists())
             commands.add(on_off ? "start" : "stop" + " mpdecision");
         new RootUtils().exec(callback, commands.toArray(new String[commands.size()]));
     }

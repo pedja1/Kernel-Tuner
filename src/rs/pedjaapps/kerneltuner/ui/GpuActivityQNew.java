@@ -65,7 +65,7 @@ public class GpuActivityQNew extends AbsActivity implements AdapterView.OnItemCl
         cpu.setTitle(getString(R.string.gpu));
         list.add(cpu);
 
-		if(new File(Constants.GPU_3D_2).exists())
+		if(Constants.GPU_3D_2.exists())
 		{
         cpu = new CPU();
         cpu.setType(CPU.TYPE_ITEM);
@@ -75,7 +75,7 @@ public class GpuActivityQNew extends AbsActivity implements AdapterView.OnItemCl
         list.add(cpu);
 		}
 
-		if(new File(Constants.GPU_3D_2_GOV).exists())
+		if(Constants.GPU_3D_2_GOV.exists())
 		{
         cpu = new CPU();
         cpu.setType(CPU.TYPE_ITEM);

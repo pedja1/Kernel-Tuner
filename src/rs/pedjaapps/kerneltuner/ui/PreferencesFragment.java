@@ -35,20 +35,12 @@ public class PreferencesFragment extends PreferenceFragment
     private ListPreference bootPrefList;
     private EditTextPreference widgetPref;
     private ListPreference tempPrefList;
-    private ListPreference notifPrefList;
-    private CheckBoxPreference notifBox;
-    private PreferenceScreen notifScreen;
-    private CheckBoxPreference htcOneOverride;
-    private ListPreference tisList;
-    private CheckBoxPreference resetApp;
-    private ListPreference cpuList;
     private ListPreference widgetPrefList;
     private ListPreference unsupportedPrefList;
     private CheckBoxPreference mainCpuPref;
     private CheckBoxPreference mainTempPref;
     private CheckBoxPreference mainTogglesPref;
     private CheckBoxPreference mainButtonsPref;
-    private CheckBoxPreference mainStylePref;
     private EditTextPreference refreshPref;
     private ListPreference levelPrefList;
     private ListPreference formatPrefList;
@@ -76,12 +68,6 @@ public class PreferencesFragment extends PreferenceFragment
             widget();
             //ab.setSubtitle(getResources().getString(R.string.preferences_subtitle_widget));
         }
-        else if ("ui".equals(settings))
-        {
-            addPreferencesFromResource(R.xml.settings_ui);
-            ui();
-            //ab.setSubtitle(getResources().getString(R.string.preferences_subtitle_ui));
-        }
         else if ("logcat".equals(settings))
         {
             addPreferencesFromResource(R.xml.settings_logcat);
@@ -103,7 +89,7 @@ public class PreferencesFragment extends PreferenceFragment
         mainTempPref = (CheckBoxPreference) findPreference("main_temp");
         mainTogglesPref = (CheckBoxPreference) findPreference("main_toggles");
         mainButtonsPref = (CheckBoxPreference) findPreference("main_buttons");
-        mainStylePref = (CheckBoxPreference) findPreference("main_style");
+        CheckBoxPreference mainStylePref = (CheckBoxPreference) findPreference("main_style");
 
         mainStylePref.setOnPreferenceChangeListener(new Preference.OnPreferenceChangeListener()
         {
@@ -295,46 +281,6 @@ public class PreferencesFragment extends PreferenceFragment
         });
     }
 
-    private void ui()
-    {
-
-		/*tisList = (ListPreference) findPreference("tis_open_as");
-		tisList.setDefaultValue(tisList.getEntryValues()[0]);
-        String tis = tisList.getValue();
-        if (tis == null) {
-        	tisList.setValue((String)tisList.getEntryValues()[0]);
-        	tis = tisList.getValue();
-        }
-        tisList.setSummary(tisList.getEntries()[tisList.findIndexOfValue(tis)]);
-
-        tisList.setOnPreferenceChangeListener(new OnPreferenceChangeListener() {
-				@Override
-				public boolean onPreferenceChange(Preference preference, Object newValue) {
-					tisList.setSummary(tisList.getEntries()[tisList.findIndexOfValue(newValue.toString())]);
-
-					return true;
-				}
-			});*/
-
-        /*cpuList = (ListPreference) findPreference("show_cpu_as");
-		cpuList.setDefaultValue(cpuList.getEntryValues()[0]);
-        String cpu = cpuList.getValue();
-        if (cpu == null) {
-        	cpuList.setValue((String)cpuList.getEntryValues()[0]);
-        	cpu = cpuList.getValue();
-        }
-        cpuList.setSummary(cpuList.getEntries()[cpuList.findIndexOfValue(cpu)]);
-
-        cpuList.setOnPreferenceChangeListener(new OnPreferenceChangeListener() {
-				@Override
-				public boolean onPreferenceChange(Preference preference, Object newValue) {
-					cpuList.setSummary(cpuList.getEntries()[cpuList.findIndexOfValue(newValue.toString())]);
-
-					return true;
-				}
-			}); */
-    }
-
     private void app()
     {
         tempPrefList = (ListPreference) findPreference("temp_unit");
@@ -393,40 +339,6 @@ public class PreferencesFragment extends PreferenceFragment
                 refreshPref.setSummary(newValue.toString() + "ms");
                 return true;
             }
-        });
-
-        resetApp = (CheckBoxPreference) findPreference("reset");
-        resetApp.setOnPreferenceClickListener(new OnPreferenceClickListener()
-        {
-            @Override
-            public boolean onPreferenceClick(Preference arg0)
-            {
-                if (resetApp.isChecked())
-                {
-                    AlertDialog.Builder builder = new AlertDialog.Builder(
-                            PreferencesFragment.this.getActivity());
-
-                    builder.setMessage("This will not work if init.d is selected for restoring settings after reboot.\n\n init.d scripts are executed before this application can start");
-
-                    builder.setIcon(R.drawable.ic_menu_info_details);
-
-                    builder.setPositiveButton(getResources().getString(R.string.ok), new DialogInterface.OnClickListener()
-                    {
-                        @Override
-                        public void onClick(DialogInterface dialog, int which)
-                        {
-
-                        }
-                    });
-
-
-                    AlertDialog alert = builder.create();
-
-                    alert.show();
-                }
-                return false;
-            }
-
         });
     }
 

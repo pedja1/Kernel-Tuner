@@ -235,11 +235,11 @@ public class MiscTweaksActivity extends AbsActivity implements AdapterView.OnIte
 
     private String getDescForS2w()
     {
-        if(new File(Constants.S2W).exists())
+        if(Constants.S2W.exists())
         {
             s2wMethod = S2WMehod.std;
         }
-        else if(new File(Constants.S2W_ALT).exists())
+        else if(Constants.S2W_ALT.exists())
         {
             s2wMethod = S2WMehod.alt;
         }
@@ -359,10 +359,10 @@ public class MiscTweaksActivity extends AbsActivity implements AdapterView.OnIte
                         switch (s2wMethod)
                         {
                             case std:
-                                RCommand.setS2w(i, Constants.S2W, MiscTweaksActivity.this);
+                                RCommand.setS2w(i, Constants.S2W.getAbsolutePath(), MiscTweaksActivity.this);
                                 break;
                             case alt:
-                                RCommand.setS2w(i, Constants.S2W_ALT, MiscTweaksActivity.this);
+                                RCommand.setS2w(i, Constants.S2W_ALT.getAbsolutePath(), MiscTweaksActivity.this);
                                 break;
                             case err:
                                 break;

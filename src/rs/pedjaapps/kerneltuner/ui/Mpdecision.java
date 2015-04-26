@@ -18,6 +18,7 @@
 */
 package rs.pedjaapps.kerneltuner.ui;
 
+import java.io.File;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -241,7 +242,7 @@ public class Mpdecision extends AbsActivity
         {
             try
             {
-                thr[i] = RCommand.readFileContent("/sys/kernel/msm_mpdecision/conf/nwns_threshold_" + i);
+                thr[i] = RCommand.readFileContent(new File("/sys/kernel/msm_mpdecision/conf/nwns_threshold_" + i));
             }
             catch (Exception e)
             {
@@ -252,7 +253,7 @@ public class Mpdecision extends AbsActivity
         {
             try
             {
-                tim[i] = RCommand.readFileContent("/sys/kernel/msm_mpdecision/conf/twts_threshold_" + i);
+                tim[i] = RCommand.readFileContent(new File("/sys/kernel/msm_mpdecision/conf/twts_threshold_" + i));
             }
             catch (Exception e)
             {

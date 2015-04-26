@@ -61,7 +61,7 @@ public class StartupService extends IntentService
     @Override
     public void onCreate()
     {
-        Log.d("rs.pedjaapps.KernelTuner", "StartupService created");
+        Log.d(Constants.LOG_TAG, "StartupService created");
         sharedPrefs = PreferenceManager.getDefaultSharedPreferences(this);
         super.onCreate();
     }
@@ -69,7 +69,7 @@ public class StartupService extends IntentService
     @Override
     public int onStartCommand(Intent intent, int flags, int startId)
     {
-        Log.d("rs.pedjaapps.KernelTuner", "StartupService started");
+        Log.d(Constants.LOG_TAG, "StartupService started");
         DatabaseHandler db = new DatabaseHandler(this);
         List<Voltage> voltageList = IOHelper.voltages();
 
@@ -177,8 +177,8 @@ public class StartupService extends IntentService
         RCommand.setScheduler(PrefsManager.getScheduer(), null);
         RCommand.setReadAhead(PrefsManager.getReadAhead(), null);
         int s2w = PrefsManager.getS2W();
-        RCommand.setS2w(s2w,  Constants.S2W, null);
-        RCommand.setS2w(s2w,  Constants.S2W_ALT, null);
+        RCommand.setS2w(s2w,  Constants.S2W.getAbsolutePath(), null);
+        RCommand.setS2w(s2w,  Constants.S2W_ALT.getAbsolutePath(), null);
         RCommand.setDt2w(PrefsManager.getDT2W(), null);
         RCommand.setFastcharge(PrefsManager.getFastcharge(), null);
         RCommand.setVsync(PrefsManager.getVsync(), null);
@@ -190,7 +190,7 @@ public class StartupService extends IntentService
         Voltage voltage = db.getVoltageByName("boot");
         if(voltage != null)
         {
-            if(new File(Constants.VOLTAGE_PATH).exists())
+            if(Constants.VOLTAGE_PATH.exists())
             {
                 aditionalCommands.add("chmod 777 " + Constants.VOLTAGE_PATH);
                 String[] freqs = voltage.getDbFreqs().trim().split(",");
@@ -200,7 +200,7 @@ public class StartupService extends IntentService
                     aditionalCommands.add("echo '" + freqs[i] + " " + voltages[i] + "' > " + Constants.VOLTAGE_PATH);
                 }
             }
-            if(new File(Constants.VOLTAGE_PATH_TEGRA_3).exists())
+            if(Constants.VOLTAGE_PATH_TEGRA_3.exists())
             {
                 aditionalCommands.add("chmod 777 " + Constants.VOLTAGE_PATH_TEGRA_3);
                 String voltages = voltage.getDbValues().trim();
@@ -238,7 +238,7 @@ public class StartupService extends IntentService
             aditionalCommands.add(getFilesDir().getPath() + "/busybox sysctl -w " + e.getKey().trim() + "=" + e.getValue().trim());
         }
         new RootUtils().exec(aditionalCommands.toArray(new String[aditionalCommands.size()]));
-        new RootUtils().closeAllShells();
+        RootUtils.closeAllShells();
 		stopSelf();
         return super.onStartCommand(intent, flags, startId);
     }
@@ -246,7 +246,7 @@ public class StartupService extends IntentService
     @Override
     public void onDestroy()
     {
-        Log.d("rs.pedjaapps.KernelTuner", "StartupService destroyed");
+        Log.d(Constants.LOG_TAG, "StartupService destroyed");
         super.onDestroy();
     }
 }

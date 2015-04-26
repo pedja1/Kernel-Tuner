@@ -43,11 +43,11 @@ public class RootUtils
         }
     }
 
-    public static interface CommandCallback
+    public interface CommandCallback
     {
-        public void onComplete(Status status, String output);
+        void onComplete(Status status, String output);
 
-        public void out(String line);
+        void out(String line);
     }
 
     public enum Status

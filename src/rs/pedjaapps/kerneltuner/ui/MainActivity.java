@@ -319,7 +319,6 @@ public class MainActivity extends AbsActivity implements Runnable, View.OnClickL
     @Override
     public void run()
     {
-		System.out.println("refresh ...");
         String tmp = IOHelper.cpuTemp(cpuTempPath);
         cpuTemp(tmp);
         cpu0update(IOHelper.cpuCurFreq(0));

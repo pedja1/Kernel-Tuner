@@ -162,7 +162,7 @@ public class GovernorActivity extends AbsActivity
                     {
                         try
                         {
-                            String data = RCommand.readFileContent("/sys/devices/system/cpu/cpufreq/" + s + "/" + aTemp.trim());
+                            String data = RCommand.readFileContent(new File("/sys/devices/system/cpu/cpufreq/" + s + "/" + aTemp.trim()));
 
                             entries.add(new Governor(aTemp, data.trim()));
                             govValues.add(data);

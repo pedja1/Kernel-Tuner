@@ -59,83 +59,95 @@ public class IOHelper
 
     public static boolean freqsExists()
     {
-        return new File(Constants.CPU0_FREQS).exists();
+        return Constants.CPU0_FREQS.exists();
     }
 
     public static boolean oomExists()
     {
-        return new File(Constants.OOM).exists();
+        return Constants.OOM.exists();
     }
 
     public static boolean thermaldExists()
     {
-        return new File(Constants.THERMALD).exists();
+        return Constants.THERMALD.exists();
     }
 
     public static boolean swapsExists()
     {
-        return new File(Constants.SWAPS).exists();
+        return Constants.SWAPS.exists();
     }
 
     public static boolean cpu0Exists()
     {
-        return new File(Constants.cpu0online).exists();
+        return Constants.cpu0online.exists();
     }
 
     public static boolean cpu1Exists()
     {
-        return new File(Constants.cpu1online).exists();
+        return Constants.cpu1online.exists();
     }
 
     public static boolean cpu2Exists()
     {
-        return new File(Constants.cpu2online).exists();
+        return Constants.cpu2online.exists();
     }
 
     public static boolean cpu3Exists()
     {
-        return new File(Constants.cpu3online).exists();
+        return Constants.cpu3online.exists();
     }
 
     public static boolean cpuScreenOff()
     {
-        return new File(Constants.cpuScreenOff).exists();
+        return Constants.cpuScreenOff.exists();
     }
 
     public static boolean cpuOnline(int cpu)
     {
-        return new File("/sys/devices/system/cpu/cpu" + cpu + "/cpufreq/scaling_governor").exists();
+        switch (cpu)
+        {
+            case 0:
+                return Constants.CPU0_CURR_GOV.exists();
+            case 1:
+                return Constants.CPU1_CURR_GOV.exists();
+            case 2:
+                return Constants.CPU2_CURR_GOV.exists();
+            case 3:
+                return Constants.CPU3_CURR_GOV.exists();
+            default:
+                return false;
+        }
     }
 
     public static boolean gpuExists()
     {
-        File file1 = new File(Constants.GPU_3D);
-        File file2 = new File(Constants.GPU_3D_2);
+        File file1 = Constants.GPU_3D;
+        File file2 = Constants.GPU_3D_2;
         return file1.exists() || file2.exists();
     }
 
     public static boolean cdExists()
     {
-        return new File(Constants.CDEPTH).exists();
+        return Constants.CDEPTH.exists();
     }
 
     public static boolean tcpCongestionControlAvailable()
     {
-        return new File(Constants.TCP_CONGESTION).exists() && new File(Constants.TCP_AVAILABLE_CONGESTION).exists();
+        return Constants.TCP_CONGESTION.exists() && Constants.TCP_AVAILABLE_CONGESTION.exists();
     }
 
     public static boolean voltageExists()
     {
         boolean i = false;
-        if (new File(Constants.VOLTAGE_PATH).exists())
+        if (Constants.VOLTAGE_PATH.exists())
         {
             i = true;
         }
-        else if (new File(Constants.VOLTAGE_PATH_TEGRA_3).exists())
+        else if (Constants.VOLTAGE_PATH_TEGRA_3.exists())
         {
             i = true;
         }
-		else if (new File(Constants.VOLTAGE_PATH_2).exists())
+		else if (Constants.VOLTAGE_PATH_2.exists())
         {
             i = true;
         }
@@ -146,11 +158,11 @@ public class IOHelper
     public static boolean otgExists()
     {
         boolean i = false;
-        if (new File(Constants.OTG).exists())
+        if (Constants.OTG.exists())
         {
             i = true;
         }
-        else if (new File(Constants.OTG_2).exists())
+        else if (Constants.OTG_2.exists())
         {
             i = true;
         }
@@ -161,11 +173,11 @@ public class IOHelper
     public static boolean s2wExists()
     {
         boolean i = false;
-        if (new File(Constants.S2W).exists())
+        if (Constants.S2W.exists())
         {
             i = true;
         }
-        else if (new File(Constants.S2W_ALT).exists())
+        else if (Constants.S2W_ALT.exists())
         {
             i = true;
         }
@@ -175,27 +187,27 @@ public class IOHelper
 
     public static boolean dt2wExists()
     {
-        return new File(Constants.DT2W).exists();
+        return Constants.DT2W.exists();
     }
 
     public static boolean TISExists()
     {
-        return new File(Constants.TIMES_IN_STATE_CPU0).exists();
+        return Constants.TIMES_IN_STATE_CPU0.exists();
     }
 
     public static boolean mpdecisionExists()
     {
-        return new File(Constants.MPDECISION).exists();
+        return Constants.MPDECISION.exists();
     }
 
     public static boolean buttonsExists()
     {
         boolean i = false;
-        if (new File(Constants.BUTTONS_LIGHT).exists())
+        if (Constants.BUTTONS_LIGHT.exists())
         {
             i = true;
         }
-        else if (new File(Constants.BUTTONS_LIGHT_2).exists())
+        else if (Constants.BUTTONS_LIGHT_2.exists())
         {
             i = true;
         }
@@ -205,17 +217,17 @@ public class IOHelper
 
     public static boolean sdcacheExists()
     {
-        return new File(Constants.SD_CACHE).exists();
+        return Constants.SD_CACHE.exists();
     }
 
     public static boolean vsyncExists()
     {
-        return new File(Constants.VSYNC).exists();
+        return Constants.VSYNC.exists();
     }
 
     public static boolean fchargeExists()
     {
-        return new File(Constants.FCHARGE).exists();
+        return Constants.FCHARGE.exists();
     }
 
     public static List<Frequency> frequencies()
@@ -317,7 +329,7 @@ public class IOHelper
     {
         try
         {
-            if(!new File(Constants.OOM).canRead())
+            if(!Constants.OOM.canRead())
             {
                 new RootUtils().execAndWait("chmod 664 " + Constants.OOM);
             }
@@ -505,9 +517,28 @@ public class IOHelper
 
     public static String cpuCurFreq(int core)
     {
+        File path;
+        switch (core)
+        {
+            case 0:
+                path = Constants.CPU0_CURR_FREQ;
+                break;
+            case 1:
+                path = Constants.CPU1_CURR_FREQ;
+                break;
+            case 2:
+                path = Constants.CPU2_CURR_FREQ;
+                break;
+            case 3:
+                path = Constants.CPU3_CURR_FREQ;
+                break;
+            default:
+                path = Constants.CPU0_CURR_FREQ;
+                break;
+        }
         try
         {
-            String freq = RCommand.readFileContent(String.format(Constants.CPU_CURR_FREQ, core)).trim();
+            String freq = RCommand.readFileContent(path).trim();
             if(TextUtils.isDigitsOnly(freq))
             {
                 return freq;
@@ -608,22 +639,22 @@ public class IOHelper
     public static List<Voltage> voltages()
     {
         List<Voltage> voltages = new ArrayList<>();
-        if (new File(Constants.VOLTAGE_PATH).exists())
+        if (Constants.VOLTAGE_PATH.exists())
         {
             parseVoltageM1(voltages, Constants.VOLTAGE_PATH);
         }
-        if (new File(Constants.VOLTAGE_PATH_2).exists())
+        if (Constants.VOLTAGE_PATH_2.exists())
         {
             parseVoltageM1(voltages, Constants.VOLTAGE_PATH_2);
         }
-        else if (new File(Constants.VOLTAGE_PATH_TEGRA_3).exists())
+        else if (Constants.VOLTAGE_PATH_TEGRA_3.exists())
         {
             parseVoltageM2(voltages, Constants.VOLTAGE_PATH_TEGRA_3);
         }
         return voltages;
     }
 
-    private static void parseVoltageM2(List<Voltage> voltages, String voltagePathTegra3)
+    private static void parseVoltageM2(List<Voltage> voltages, File voltagePathTegra3)
     {
         /*
         300mhz: 775 mV
@@ -678,7 +709,7 @@ public class IOHelper
         }
     }
 
-    private static void parseVoltageM1(List<Voltage> voltages, String path)
+    private static void parseVoltageM1(List<Voltage> voltages, File path)
     {
         try
         {
@@ -786,7 +817,7 @@ public class IOHelper
         int ret = 10;
         for (int i = 0; i < Constants.CPU_TEMP_PATHS.length; i++)
         {
-            if (new File(Constants.CPU_TEMP_PATHS[i]).exists())
+            if (Constants.CPU_TEMP_PATHS[i].exists())
             {
                 ret = i;
                 break;
@@ -829,12 +860,11 @@ public class IOHelper
 
     public static List<String> availableGovs()
     {
-        File govs = new File("/sys/devices/system/cpu/cpufreq/");
         List<String> availableGovs = new ArrayList<>();
 
-        if (govs.exists())
+        if (Constants.GOVERNOR_SETTINGS.exists())
         {
-            File[] files = govs.listFiles();
+            File[] files = Constants.GOVERNOR_SETTINGS.listFiles();
 
             for (File file : files)
             {
@@ -842,7 +872,7 @@ public class IOHelper
             }
         }
 
-        availableGovs.removeAll(Arrays.asList("vdd_table"));
+        availableGovs.removeAll(Collections.singletonList("vdd_table"));
         return availableGovs;
 
     }
@@ -922,15 +952,15 @@ public class IOHelper
     {
         try
         {
-            File file1 = new File(Constants.GPU_3D);
-            File file2 = new File(Constants.GPU_3D_2);
+            File file1 = Constants.GPU_3D;
+            File file2 = Constants.GPU_3D_2;
             if (file1.exists())
             {
-                return Utility.parseInt(RCommand.readFileContent(file1.getAbsolutePath()).trim(), Constants.CPU_OFFLINE_CODE);
+                return Utility.parseInt(RCommand.readFileContent(file1).trim(), Constants.CPU_OFFLINE_CODE);
             }
             else if (file2.exists())
             {
-                return Utility.parseInt(RCommand.readFileContent(file2.getAbsolutePath()).trim(), Constants.GPU_OFFLINE_CODE);
+                return Utility.parseInt(RCommand.readFileContent(file2).trim(), Constants.GPU_OFFLINE_CODE);
             }
             else
             {
@@ -947,10 +977,10 @@ public class IOHelper
     {
         try
         {
-            File file1 = new File(Constants.GPU_3D_2_GOV);
+            File file1 = Constants.GPU_3D_2_GOV;
             if (file1.exists())
             {
-                return RCommand.readFileContent(file1.getAbsolutePath()).trim();
+                return RCommand.readFileContent(file1).trim();
             }
             else
             {
@@ -994,8 +1024,8 @@ public class IOHelper
         try
         {
             List<Frequency> frequencies = new ArrayList<>();
-            File file1 = new File(Constants.GPU_3D_2_AVAILABLE_FREQUENCIES);
-            String[] frqs = RCommand.readFileContent(file1.getAbsolutePath()).trim().split(" ");
+            File file1 = Constants.GPU_3D_2_AVAILABLE_FREQUENCIES;
+            String[] frqs = RCommand.readFileContent(file1).trim().split(" ");
             Set<Integer> values = new HashSet<>();
             for (String freq : frqs)
             {
@@ -1165,15 +1195,15 @@ public class IOHelper
     {
         try
         {
-            File battTempFile1 = new File(Constants.BATTERY_TEMP);
-            File battTempFile2 = new File(Constants.BATTERY_TEMP2);
+            File battTempFile1 = Constants.BATTERY_TEMP;
+            File battTempFile2 = Constants.BATTERY_TEMP2;
             if (battTempFile1.exists())
             {
-                return Double.parseDouble(RCommand.readFileContent(battTempFile1.getAbsolutePath()).trim());
+                return Double.parseDouble(RCommand.readFileContent(battTempFile1).trim());
             }
             else if (battTempFile2.exists())
             {
-                return Double.parseDouble(RCommand.readFileContent(battTempFile2.getAbsolutePath()).trim()) / 10;
+                return Double.parseDouble(RCommand.readFileContent(battTempFile2).trim()) / 10;
             }
             else
             {
@@ -1190,15 +1220,15 @@ public class IOHelper
     {
         try
         {
-            File file1 = new File(Constants.BATTERY_DRAIN);
-            File file2 = new File(Constants.BATTERY_DRAIN2);
+            File file1 = Constants.BATTERY_DRAIN;
+            File file2 = Constants.BATTERY_DRAIN2;
             if (file1.exists())
             {
-                return RCommand.readFileContent(file1.getAbsolutePath()).trim() + "mA";
+                return RCommand.readFileContent(file1).trim() + "mA";
             }
             else if (file2.exists())
             {
-                return Utility.parseInt(RCommand.readFileContent(file2.getAbsolutePath()).trim(), 1000) / 1000 + "mA";
+                return Utility.parseInt(RCommand.readFileContent(file2).trim(), 1000) / 1000 + "mA";
             }
             else
             {
@@ -1216,15 +1246,15 @@ public class IOHelper
     {
         try
         {
-            File file1 = new File(Constants.BATTERY_VOLTAGE);
-            File file2 = new File(Constants.BATTERY_VOLTAGE2);
+            File file1 = Constants.BATTERY_VOLTAGE;
+            File file2 = Constants.BATTERY_VOLTAGE2;
             if (file1.exists())
             {
-                return Utility.parseInt(RCommand.readFileContent(file1.getAbsolutePath()).trim(), 0);
+                return Utility.parseInt(RCommand.readFileContent(file1).trim(), 0);
             }
             else if (file2.exists())
             {
-                return Utility.parseInt(RCommand.readFileContent(file2.getAbsolutePath()).trim(), 0) / 1000;
+                return Utility.parseInt(RCommand.readFileContent(file2).trim(), 0) / 1000;
             }
             else
             {
@@ -1265,15 +1295,15 @@ public class IOHelper
     {
         try
         {
-            File file1 = new File(Constants.BATTERY_CAPACITY);
-            File file2 = new File(Constants.BATTERY_CAPACITY2);
+            File file1 = Constants.BATTERY_CAPACITY;
+            File file2 = Constants.BATTERY_CAPACITY2;
             if (file1.exists())
             {
-                return RCommand.readFileContent(file1.getAbsolutePath()).trim() + "mAh";
+                return RCommand.readFileContent(file1).trim() + "mAh";
             }
             else if (file2.exists())
             {
-                return RCommand.readFileContent(file2.getAbsolutePath()).trim() + "mAh";
+                return RCommand.readFileContent(file2).trim() + "mAh";
             }
             else
             {

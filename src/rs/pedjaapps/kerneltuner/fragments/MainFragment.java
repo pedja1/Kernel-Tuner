@@ -43,15 +43,15 @@ public class MainFragment extends Fragment
         Button gpu = (Button) view.findViewById(R.id.btn_gpu);
 
 		Class<? extends Activity> gpuClass = null;
-		if(new File(Constants.GPU_SGX540).exists())
+		if(Constants.GPU_SGX540.exists())
 		{
 			gpuClass = GpuSGX540.class;
 		}
-        else if(new File(Constants.GPU_3D_2).exists())
+        else if(Constants.GPU_3D_2.exists())
         {
             gpuClass = GpuActivityQNew.class;
         }
-		else if(new File(Constants.GPU_3D).exists())
+		else if(Constants.GPU_3D.exists())
 		{
 			gpuClass = Gpu.class;
 		}
@@ -71,15 +71,15 @@ public class MainFragment extends Fragment
 		Button voltage = (Button) view.findViewById(R.id.btn_voltage);
         
 		Class<? extends Activity> voltageClass = null;
-		if(new File(Constants.VOLTAGE_PATH).exists())
+		if(Constants.VOLTAGE_PATH.exists())
 		{
 			voltageClass = VoltageActivity.class;
 		}
-		else if(new File(Constants.VOLTAGE_PATH_2).exists())
+		else if(Constants.VOLTAGE_PATH_2.exists())
 		{
 			voltageClass = VoltageActivity1.class;
 		}
-		else if(new File(Constants.VOLTAGE_PATH_TEGRA_3).exists())
+		else if(Constants.VOLTAGE_PATH_TEGRA_3.exists())
 		{
 			voltageClass = VoltageActivityTegra.class;
 		}
@@ -254,9 +254,9 @@ public class MainFragment extends Fragment
 			getResources().getString(R.string.info_fm_text),
 			"", false));*/
 
-        if (!(new File(Constants.CPU0_FREQS).exists()))
+        if (!(Constants.CPU0_FREQS.exists()))
         {
-            if (!(new File(Constants.TIMES_IN_STATE_CPU0).exists()))
+            if (!(Constants.TIMES_IN_STATE_CPU0.exists()))
             {
                 if (hideUnsupportedItems)
                 {
@@ -268,11 +268,11 @@ public class MainFragment extends Fragment
                 }
             }
         }
-        if (!(new File(Constants.VOLTAGE_PATH).exists()))
+        if (!(Constants.VOLTAGE_PATH.exists()))
         {
-            if (!(new File(Constants.VOLTAGE_PATH_TEGRA_3).exists()))
+            if (!(Constants.VOLTAGE_PATH_TEGRA_3.exists()))
             {
-				if (!(new File(Constants.VOLTAGE_PATH_2).exists()))
+				if (!(Constants.VOLTAGE_PATH_2.exists()))
 				{
                 if (hideUnsupportedItems)
                 {
@@ -285,7 +285,7 @@ public class MainFragment extends Fragment
 				}
             }
         }
-        if (!(new File(Constants.TIMES_IN_STATE_CPU0).exists()))
+        if (!(Constants.TIMES_IN_STATE_CPU0.exists()))
         {
             if (hideUnsupportedItems)
             {
@@ -298,7 +298,7 @@ public class MainFragment extends Fragment
         }
         if (!IOHelper.gpuExists())
         {
-            if (!(new File(Constants.GPU_SGX540).exists()))
+            if (!(Constants.GPU_SGX540.exists()))
             {
                 if (hideUnsupportedItems)
                 {

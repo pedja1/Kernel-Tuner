@@ -29,6 +29,7 @@ import android.widget.*;
 import com.stericson.RootShell.RootShell;
 import com.stericson.RootShell.execution.Command;
 
+import java.io.File;
 import java.util.*;
 
 import rs.pedjaapps.kerneltuner.R;
@@ -141,7 +142,7 @@ public class GpuSGX540 extends Activity
 			}});
 	}
 
-    private Integer readFile(String path)
+    private Integer readFile(File path)
 	{
 		try
 		{

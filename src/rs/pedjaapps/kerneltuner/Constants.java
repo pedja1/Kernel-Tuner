@@ -44,7 +44,7 @@ public final class Constants
     /**
      * Log tag for logcat messages
      */
-    // TODO: Change this to your application's own log tag
+
     public static final String LOG_TAG = "Kernel Tuner"; //$NON-NLS-1$
 
     public static final String URL_LINPACK = "http://linpack.pedjaapps.net/api.json/";
@@ -63,136 +63,142 @@ public final class Constants
     public static final int GPU_OFFLINE_CODE = -55;
     public static final int GPU_NOT_AVAILABLE = -55;
 	
-    public static final String G_S_URL_PREFIX = "https://www.google.com/search?q=";
-	public static final String cpu0online = "/sys/devices/system/cpu/cpu0/online"; 
-	public static final String cpu1online = "/sys/devices/system/cpu/cpu1/online"; 
-	public static final String cpu2online = "/sys/devices/system/cpu/cpu2/online"; 
-	public static final String cpu3online = "/sys/devices/system/cpu/cpu3/online";
-    public static final String cpuScreenOff = "/sys/devices/system/cpu/cpu0/cpufreq/screen_off_max_freq";
+    public static final File G_S_URL_PREFIX = new File("https://www.google.com/search?q=");
+	public static final File cpu0online = new File("/sys/devices/system/cpu/cpu0/online");
+	public static final File cpu1online = new File("/sys/devices/system/cpu/cpu1/online");
+	public static final File cpu2online = new File("/sys/devices/system/cpu/cpu2/online");
+	public static final File cpu3online = new File("/sys/devices/system/cpu/cpu3/online");
+    public static final File cpuScreenOff = new File("/sys/devices/system/cpu/cpu0/cpufreq/screen_off_max_freq");
 
 
-	public static final String CPU0_FREQS = "/sys/devices/system/cpu/cpu0/cpufreq/scaling_available_frequencies";
-	public static final String SWAPS = "/proc/swaps";
+	public static final File CPU0_FREQS = new File("/sys/devices/system/cpu/cpu0/cpufreq/scaling_available_frequencies");
+	public static final File SWAPS = new File("/proc/swaps");
 
-	public static final String CPU_CURR_FREQ = "/sys/devices/system/cpu/cpu%s/cpufreq/scaling_cur_freq";
+	public static final File CPU0_CURR_FREQ = new File("/sys/devices/system/cpu/cpu0/cpufreq/scaling_cur_freq");
+	public static final File CPU1_CURR_FREQ = new File("/sys/devices/system/cpu/cpu1/cpufreq/scaling_cur_freq");
+	public static final File CPU2_CURR_FREQ = new File("/sys/devices/system/cpu/cpu2/cpufreq/scaling_cur_freq");
+	public static final File CPU3_CURR_FREQ = new File("/sys/devices/system/cpu/cpu3/cpufreq/scaling_cur_freq");
 
-	public static final String CPU0_MAX_FREQ = "/sys/devices/system/cpu/cpu0/cpufreq/scaling_max_freq";
-	public static final String CPU1_MAX_FREQ = "/sys/devices/system/cpu/cpu1/cpufreq/scaling_max_freq";
-	public static final String CPU2_MAX_FREQ = "/sys/devices/system/cpu/cpu2/cpufreq/scaling_max_freq";
-	public static final String CPU3_MAX_FREQ = "/sys/devices/system/cpu/cpu3/cpufreq/scaling_max_freq";
+	public static final File CPU0_MAX_FREQ = new File("/sys/devices/system/cpu/cpu0/cpufreq/scaling_max_freq");
+	public static final File CPU1_MAX_FREQ = new File("/sys/devices/system/cpu/cpu1/cpufreq/scaling_max_freq");
+	public static final File CPU2_MAX_FREQ = new File("/sys/devices/system/cpu/cpu2/cpufreq/scaling_max_freq");
+	public static final File CPU3_MAX_FREQ = new File("/sys/devices/system/cpu/cpu3/cpufreq/scaling_max_freq");
 
-	public static final String CPU0_MIN_FREQ = "/sys/devices/system/cpu/cpu0/cpufreq/scaling_min_freq";
-	public static final String CPU1_MIN_FREQ = "/sys/devices/system/cpu/cpu1/cpufreq/scaling_min_freq";
-	public static final String CPU2_MIN_FREQ = "/sys/devices/system/cpu/cpu2/cpufreq/scaling_min_freq";
-	public static final String CPU3_MIN_FREQ = "/sys/devices/system/cpu/cpu3/cpufreq/scaling_min_freq";
+	public static final File CPU0_MIN_FREQ = new File("/sys/devices/system/cpu/cpu0/cpufreq/scaling_min_freq");
+	public static final File CPU1_MIN_FREQ = new File("/sys/devices/system/cpu/cpu1/cpufreq/scaling_min_freq");
+	public static final File CPU2_MIN_FREQ = new File("/sys/devices/system/cpu/cpu2/cpufreq/scaling_min_freq");
+	public static final File CPU3_MIN_FREQ = new File("/sys/devices/system/cpu/cpu3/cpufreq/scaling_min_freq");
 
-	public static final String CPU0_CURR_GOV = "/sys/devices/system/cpu/cpu0/cpufreq/scaling_governor";
-	public static final String CPU1_CURR_GOV = "/sys/devices/system/cpu/cpu1/cpufreq/scaling_governor";
-	public static final String CPU2_CURR_GOV = "/sys/devices/system/cpu/cpu2/cpufreq/scaling_governor";
-	public static final String CPU3_CURR_GOV = "/sys/devices/system/cpu/cpu3/cpufreq/scaling_governor";
+	public static final File CPU0_CURR_GOV = new File("/sys/devices/system/cpu/cpu0/cpufreq/scaling_governor");
+	public static final File CPU1_CURR_GOV = new File("/sys/devices/system/cpu/cpu1/cpufreq/scaling_governor");
+	public static final File CPU2_CURR_GOV = new File("/sys/devices/system/cpu/cpu2/cpufreq/scaling_governor");
+	public static final File CPU3_CURR_GOV = new File("/sys/devices/system/cpu/cpu3/cpufreq/scaling_governor");
 
-	public static final String CPU0_GOVS = "/sys/devices/system/cpu/cpu0/cpufreq/scaling_available_governors";
-	public static final String CPU1_GOVS = "/sys/devices/system/cpu/cpu1/cpufreq/scaling_available_governors";
-	public static final String CPU2_GOVS = "/sys/devices/system/cpu/cpu2/cpufreq/scaling_available_governors";
-	public static final String CPU3_GOVS = "/sys/devices/system/cpu/cpu3/cpufreq/scaling_available_governors";
-	public static final String TIMES_IN_STATE_CPU0 = "/sys/devices/system/cpu/cpu0/cpufreq/stats/time_in_state";
-	public static final String TIMES_IN_STATE_CPU1 = "/sys/devices/system/cpu/cpu1/cpufreq/stats/time_in_state";
-	public static final String TIMES_IN_STATE_CPU2 = "/sys/devices/system/cpu/cpu2/cpufreq/stats/time_in_state";
-	public static final String TIMES_IN_STATE_CPU3 = "/sys/devices/system/cpu/cpu3/cpufreq/stats/time_in_state";
+	public static final File CPU0_GOVS = new File("/sys/devices/system/cpu/cpu0/cpufreq/scaling_available_governors");
+	public static final File CPU1_GOVS = new File("/sys/devices/system/cpu/cpu1/cpufreq/scaling_available_governors");
+	public static final File CPU2_GOVS = new File("/sys/devices/system/cpu/cpu2/cpufreq/scaling_available_governors");
+	public static final File CPU3_GOVS = new File("/sys/devices/system/cpu/cpu3/cpufreq/scaling_available_governors");
+	public static final File TIMES_IN_STATE_CPU0 = new File("/sys/devices/system/cpu/cpu0/cpufreq/stats/time_in_state");
+	public static final File TIMES_IN_STATE_CPU1 = new File("/sys/devices/system/cpu/cpu1/cpufreq/stats/time_in_state");
+	public static final File TIMES_IN_STATE_CPU2 = new File("/sys/devices/system/cpu/cpu2/cpufreq/stats/time_in_state");
+	public static final File TIMES_IN_STATE_CPU3 = new File("/sys/devices/system/cpu/cpu3/cpufreq/stats/time_in_state");
 
-    public static final String TCP_CONGESTION = "/proc/sys/net/ipv4/tcp_congestion_control";
-    public static final String TCP_AVAILABLE_CONGESTION = "/proc/sys/net/ipv4/tcp_available_congestion_control";
+    public static final File TCP_CONGESTION = new File("/proc/sys/net/ipv4/tcp_congestion_control");
+    public static final File TCP_AVAILABLE_CONGESTION = new File("/proc/sys/net/ipv4/tcp_available_congestion_control");
 
-	public static final String VOLTAGE_PATH = "/sys/devices/system/cpu/cpufreq/vdd_table/vdd_levels";
-    public static final String VOLTAGE_PATH_2 = "/sys/devices/system/cpu/cpu0/cpufreq/vdd_levels";
-	public static final String VOLTAGE_PATH_TEGRA_3 = "/sys/devices/system/cpu/cpu0/cpufreq/UV_mV_table";
-	public static final String GPU_3D = "/sys/devices/platform/kgsl-3d0.0/kgsl/kgsl-3d0/max_gpuclk";
-    public static final String GPU_3D_2 = "/sys/class/kgsl/kgsl-3d0/max_gpuclk";
-	public static final String GPU_3D_2_GOV = "/sys/class/kgsl/kgsl-3d0/pwrscale/trustzone/governor";
-    public static final String GPU_2D_2 = "/sys/class/kgsl/kgsl-2d0/max_gpuclk";
-    public static final String GPU_3D_2_AVAILABLE_FREQUENCIES = "/sys/class/kgsl/kgsl-3d0/gpu_available_frequencies";
-    public static final String GPU_3D_AVAILABLE_FREQUENCIES = "/sys/class/kgsl/kgsl-3d0/gpu_available_frequencies";
-	public static final String GPU_2D = "/sys/devices/platform/kgsl-2d0.0/kgsl/kgsl-2d0/max_gpuclk";
-	public static final String CDEPTH = "/sys/kernel/debug/msm_fb/0/bpp";
-	public static final String S2W = "/sys/android_touch/sweep2wake";
-    public static final String S2W_VERSION = "/sys/android_touch/sweep2wake_version";
-    public static final String DT2W = "/sys/android_touch/doubletap2wake";
-	public static final String S2W_ALT = "/sys/android_touch/sweep2wake/s2w_switch";
-	public static final String MPDECISION = "/sys/kernel/msm_mpdecision/conf/enabled";
-	public static final String MPDECISION_BINARY = "/system/bin/mpdecision";
-	public static final String BUTTONS_LIGHT = "/sys/devices/platform/leds-pm8058/leds/button-backlight/currents";
-	public static final String BUTTONS_LIGHT_2 = "/sys/devices/platform/msm_ssbi.0/pm8921-core/pm8xxx-led/leds/button-backlight/currents";
-	public static final String SD_CACHE = "/sys/devices/virtual/bdi/179:0/read_ahead_kb";
-	public static final String VSYNC = "/sys/kernel/debug/msm_fb/0/vsync_enable";
-	public static final String FCHARGE = "/sys/kernel/fast_charge/force_fast_charge";
-	public static final String OOM = "/sys/module/lowmemorykiller/parameters/minfree";
-	public static final String THERMALD = "/sys/kernel/msm_thermal/conf/allowed_low_freq";
-	public static final String THERMALD_BINARY = "/system/bin/thermald";
-	public static final String SCHEDULER = "/sys/block/mmcblk0/queue/scheduler";
-	public static final String OTG = "/sys/kernel/debug/msm_otg/mode";
-	public static final String OTG_2= "/sys/kernel/debug/otg/mode";
-	public static final String CPU_MIN= "/sys/devices/system/cpu/cpu0/cpufreq/cpuinfo_min_freq";
-	public static final String CPU_MAX= "/sys/devices/system/cpu/cpu0/cpufreq/cpuinfo_max_freq";
-	public static final String CPU_INFO = "/proc/cpuinfo";
-    public static final String CPU_TEMP = "/sys/class/thermal/thermal_zone1/temp";
-	public static final String MPDEC_THR_UP = "/sys/kernel/msm_mpdecision/conf/nwns_threshold_up";
-	public static final String MPDEC_THR_DOWN = "/sys/kernel/msm_mpdecision/conf/nwns_threshold_down";
-	public static final String KERNEL = "/proc/version";
-	public static final String BATTERY_LEVEL = "/sys/class/power_supply/battery/capacity";
-	public static final String BATTERY_TEMP = "/sys/class/power_supply/battery/batt_temp";
-    public static final String BATTERY_TEMP2 = "/sys/class/power_supply/battery/temp";
-	public static final String BATTERY_DRAIN = "/sys/class/power_supply/battery/batt_current";
-    public static final String BATTERY_DRAIN2 = "/sys/class/power_supply/battery/current_now";
-	public static final String BATTERY_VOLTAGE = "/sys/class/power_supply/battery/batt_vol";
-    public static final String BATTERY_VOLTAGE2 = "/sys/class/power_supply/battery/voltage_now";
-	public static final String BATTERY_TECH = "/sys/class/power_supply/battery/technology";
-	public static final String BATTERY_HEALTH = "/sys/class/power_supply/battery/health";
-	public static final String BATTERY_CAPACITY = "/sys/class/power_supply/battery/full_bat";
-    public static final String BATTERY_CAPACITY2 = "/sys/class/power_supply/battery/charge_full_design";
-	public static final String BATTERY_CHARGING_SOURCE = "/sys/class/power_supply/battery/charging_source";
-	public static final String CPU_TEMP_ENABLED = "/sys/devices/virtual/thermal/thermal_zone1/mode";
-	public static final String MPDEC_THR_0 = "/sys/kernel/msm_mpdecision/conf/nwns_threshold_0";
-	public static final String NOTIF_LED = "/sys/kernel/notification_leds/off_timer_multiplier";
-	public static final String THERMAL_LOW_FREQ = 	"/sys/kernel/msm_thermal/conf/allowed_low_freq";
-	public static final String READ_AHEAD_KB = 	"/sys/devices/virtual/bdi/179:0/read_ahead_kb";
-	public static final String NLT = "/sys/kernel/notification_leds/off_timer_multiplier";
-	public static final String S2W_END = "/sys/android_touch/sweep2wake_endbutton";
-	public static final String S2W_START = "/sys/android_touch/sweep2wake_startbutton";
-	public static final String S2W_BUTTONS = "/sys/android_touch/sweep2wake_buttons";
-	public static final String MPDEC_DELAY = "/sys/kernel/msm_mpdecision/conf/delay";
-    public static final String MPDEC_ENABLED = "/sys/kernel/msm_mpdecision/conf/enabled";
-	public static final String MPDEC_PAUSE = "/sys/kernel/msm_mpdecision/conf/pause";
-	public static final String MPDEC_TIME_UP = "/sys/kernel/msm_mpdecision/conf/twts_threshold_up";
-	public static final String MPDEC_TIME_DOWN = "/sys/kernel/msm_mpdecision/conf/twts_threshold_down";
-	public static final String MPDEC_IDLE_FREQ = "/sys/kernel/msm_mpdecision/conf/idle_freq";
-	public static final String MPDEC_SCROFF_FREQ = "/sys/kernel/msm_mpdecision/conf/scroff_freq";
-	public static final String MPDEC_SCROFF_SINGLE = "/sys/kernel/msm_mpdecision/conf/scroff_single_core";
-	public static final String MPDEC_MAX_CPUS = "/sys/kernel/msm_mpdecision/conf/max_cpus";
-	public static final String MPDEC_MIN_CPUS = "/sys/kernel/msm_mpdecision/conf/min_cpus";
-	public static final String THERMAL_MID_FREQ = "/sys/kernel/msm_thermal/conf/allowed_mid_freq";
-	public static final String THERMAL_MAX_FREQ = "/sys/kernel/msm_thermal/conf/allowed_max_freq";
-	public static final String THERMAL_LOW_LOW = "/sys/kernel/msm_thermal/conf/allowed_low_low";
-	public static final String THERMAL_LOW_HIGH = "/sys/kernel/msm_thermal/conf/allowed_low_high";
-	public static final String THERMAL_MID_LOW = "/sys/kernel/msm_thermal/conf/allowed_mid_low";
-	public static final String THERMAL_MID_HIGH = "/sys/kernel/msm_thermal/conf/allowed_mid_high";
-	public static final String THERMAL_MAX_LOW = "/sys/kernel/msm_thermal/conf/allowed_max_low";
-	public static final String THERMAL_MAX_HIGH = "/sys/kernel/msm_thermal/conf/allowed_max_high";
+	public static final File GOVERNOR_SETTINGS = new File("/sys/devices/system/cpu/cpufreq/");
+	public static final File VOLTAGE_PATH = new File("/sys/devices/system/cpu/cpufreq/vdd_table/vdd_levels");
+    public static final File VOLTAGE_PATH_2 = new File("/sys/devices/system/cpu/cpu0/cpufreq/vdd_levels");
+	public static final File VOLTAGE_PATH_TEGRA_3 = new File("/sys/devices/system/cpu/cpu0/cpufreq/UV_mV_table");
+	public static final File GPU_3D = new File("/sys/devices/platform/kgsl-3d0.0/kgsl/kgsl-3d0/max_gpuclk");
+	public static final File GPU_3D_CURRENT = new File("/sys/devices/platform/kgsl-3d0.0/kgsl/kgsl-3d0/gpuclk");
+    public static final File GPU_3D_2 = new File("/sys/class/kgsl/kgsl-3d0/max_gpuclk");
+	public static final File GPU_3D_2_GOV = new File("/sys/class/kgsl/kgsl-3d0/pwrscale/trustzone/governor");
+    public static final File GPU_2D_2 = new File("/sys/class/kgsl/kgsl-2d0/max_gpuclk");
+    public static final File GPU_3D_2_AVAILABLE_FREQUENCIES = new File("/sys/class/kgsl/kgsl-3d0/gpu_available_frequencies");
+    public static final File GPU_3D_AVAILABLE_FREQUENCIES = new File("/sys/class/kgsl/kgsl-3d0/gpu_available_frequencies");
+	public static final File GPU_2D = new File("/sys/devices/platform/kgsl-2d0.0/kgsl/kgsl-2d0/max_gpuclk");
+	public static final File GPU_2D_CURRENT = new File("/sys/devices/platform/kgsl-2d0.0/kgsl/kgsl-2d0/gpuclk");
+	public static final File CDEPTH = new File("/sys/kernel/debug/msm_fb/0/bpp");
+	public static final File S2W = new File("/sys/android_touch/sweep2wake");
+    public static final File S2W_VERSION = new File("/sys/android_touch/sweep2wake_version");
+    public static final File DT2W = new File("/sys/android_touch/doubletap2wake");
+	public static final File S2W_ALT = new File("/sys/android_touch/sweep2wake/s2w_switch");
+	public static final File MPDECISION = new File("/sys/kernel/msm_mpdecision/conf/enabled");
+	public static final File MPDECISION_BINARY = new File("/system/bin/mpdecision");
+	public static final File BUTTONS_LIGHT = new File("/sys/devices/platform/leds-pm8058/leds/button-backlight/currents");
+	public static final File BUTTONS_LIGHT_2 = new File("/sys/devices/platform/msm_ssbi.0/pm8921-core/pm8xxx-led/leds/button-backlight/currents");
+	public static final File SD_CACHE = new File("/sys/devices/virtual/bdi/179:0/read_ahead_kb");
+	public static final File VSYNC = new File("/sys/kernel/debug/msm_fb/0/vsync_enable");
+	public static final File FCHARGE = new File("/sys/kernel/fast_charge/force_fast_charge");
+	public static final File OOM = new File("/sys/module/lowmemorykiller/parameters/minfree");
+	public static final File THERMALD = new File("/sys/kernel/msm_thermal/conf/allowed_low_freq");
+	public static final File THERMALD_BINARY = new File("/system/bin/thermald");
+	public static final File SCHEDULER = new File("/sys/block/mmcblk0/queue/scheduler");
+	public static final File OTG = new File("/sys/kernel/debug/msm_otg/mode");
+	public static final File OTG_2= new File("/sys/kernel/debug/otg/mode");
+	public static final File CPU_MIN= new File("/sys/devices/system/cpu/cpu0/cpufreq/cpuinfo_min_freq");
+	public static final File CPU_MAX= new File("/sys/devices/system/cpu/cpu0/cpufreq/cpuinfo_max_freq");
+	public static final File CPU_INFO = new File("/proc/cpuinfo");
+    public static final File CPU_TEMP = new File("/sys/class/thermal/thermal_zone1/temp");
+	public static final File MPDEC_THR_UP = new File("/sys/kernel/msm_mpdecision/conf/nwns_threshold_up");
+	public static final File MPDEC_THR_DOWN = new File("/sys/kernel/msm_mpdecision/conf/nwns_threshold_down");
+	public static final File KERNEL = new File("/proc/version");
+	public static final File BATTERY_LEVEL = new File("/sys/class/power_supply/battery/capacity");
+	public static final File BATTERY_TEMP = new File("/sys/class/power_supply/battery/batt_temp");
+    public static final File BATTERY_TEMP2 = new File("/sys/class/power_supply/battery/temp");
+	public static final File BATTERY_DRAIN = new File("/sys/class/power_supply/battery/batt_current");
+    public static final File BATTERY_DRAIN2 = new File("/sys/class/power_supply/battery/current_now");
+	public static final File BATTERY_VOLTAGE = new File("/sys/class/power_supply/battery/batt_vol");
+    public static final File BATTERY_VOLTAGE2 = new File("/sys/class/power_supply/battery/voltage_now");
+	public static final File BATTERY_TECH = new File("/sys/class/power_supply/battery/technology");
+	public static final File BATTERY_HEALTH = new File("/sys/class/power_supply/battery/health");
+	public static final File BATTERY_CAPACITY = new File("/sys/class/power_supply/battery/full_bat");
+    public static final File BATTERY_CAPACITY2 = new File("/sys/class/power_supply/battery/charge_full_design");
+	public static final File BATTERY_CHARGING_SOURCE = new File("/sys/class/power_supply/battery/charging_source");
+	public static final File CPU_TEMP_ENABLED = new File("/sys/devices/virtual/thermal/thermal_zone1/mode");
+	public static final File MPDEC_THR_0 = new File("/sys/kernel/msm_mpdecision/conf/nwns_threshold_0");
+	public static final File NOTIF_LED = new File("/sys/kernel/notification_leds/off_timer_multiplier");
+	public static final File THERMAL_LOW_FREQ = new File("/sys/kernel/msm_thermal/conf/allowed_low_freq");
+	public static final File READ_AHEAD_KB = new File("/sys/devices/virtual/bdi/179:0/read_ahead_kb");
+	public static final File NLT = new File("/sys/kernel/notification_leds/off_timer_multiplier");
+	public static final File S2W_END = new File("/sys/android_touch/sweep2wake_endbutton");
+	public static final File S2W_START = new File("/sys/android_touch/sweep2wake_startbutton");
+	public static final File S2W_BUTTONS = new File("/sys/android_touch/sweep2wake_buttons");
+	public static final File MPDEC_DELAY = new File("/sys/kernel/msm_mpdecision/conf/delay");
+    public static final File MPDEC_ENABLED = new File("/sys/kernel/msm_mpdecision/conf/enabled");
+	public static final File MPDEC_PAUSE = new File("/sys/kernel/msm_mpdecision/conf/pause");
+	public static final File MPDEC_TIME_UP = new File("/sys/kernel/msm_mpdecision/conf/twts_threshold_up");
+	public static final File MPDEC_TIME_DOWN = new File("/sys/kernel/msm_mpdecision/conf/twts_threshold_down");
+	public static final File MPDEC_IDLE_FREQ = new File("/sys/kernel/msm_mpdecision/conf/idle_freq");
+	public static final File MPDEC_SCROFF_FREQ = new File("/sys/kernel/msm_mpdecision/conf/scroff_freq");
+	public static final File MPDEC_SCROFF_SINGLE = new File("/sys/kernel/msm_mpdecision/conf/scroff_single_core");
+	public static final File MPDEC_MAX_CPUS = new File("/sys/kernel/msm_mpdecision/conf/max_cpus");
+	public static final File MPDEC_MIN_CPUS = new File("/sys/kernel/msm_mpdecision/conf/min_cpus");
+	public static final File THERMAL_MID_FREQ = new File("/sys/kernel/msm_thermal/conf/allowed_mid_freq");
+	public static final File THERMAL_MAX_FREQ = new File("/sys/kernel/msm_thermal/conf/allowed_max_freq");
+	public static final File THERMAL_LOW_LOW = new File("/sys/kernel/msm_thermal/conf/allowed_low_low");
+	public static final File THERMAL_LOW_HIGH = new File("/sys/kernel/msm_thermal/conf/allowed_low_high");
+	public static final File THERMAL_MID_LOW = new File("/sys/kernel/msm_thermal/conf/allowed_mid_low");
+	public static final File THERMAL_MID_HIGH = new File("/sys/kernel/msm_thermal/conf/allowed_mid_high");
+	public static final File THERMAL_MAX_LOW = new File("/sys/kernel/msm_thermal/conf/allowed_max_low");
+	public static final File THERMAL_MAX_HIGH = new File("/sys/kernel/msm_thermal/conf/allowed_max_high");
 	
-	public static final String[] CPU_TEMP_PATHS = new String[]{
-	"/sys/devices/system/cpu/cpu0/cpufreq/cpu_temp",
-	"/sys/devices/system/cpu/cpu0/cpufreq/FakeShmoo_cpu_temp",
-	"/sys/class/thermal/thermal_zone1/temp",
-	"/sys/class/i2c-adapter/i2c-4/4-004c/temperature",
-	"/sys/devices/platform/tegra-i2c.3/i2c-4/4-004c/temperature",
-    "/sys/devices/platform/omap/omap_temp_sensor.0/temperature",
-	"/sys/devices/platform/tegra_tmon/temp1_input",
-	"/sys/kernel/debug/tegra_thermal/temp_tj",
-	"/sys/devices/platform/s5p-tmu/temperature",
-	"/sys/class/thermal/thermal_zone0/temp"
+	public static final File[] CPU_TEMP_PATHS = new File[]{
+	new File("/sys/devices/system/cpu/cpu0/cpufreq/cpu_temp"),
+	new File("/sys/devices/system/cpu/cpu0/cpufreq/FakeShmoo_cpu_temp"),
+	new File("/sys/class/thermal/thermal_zone1/temp"),
+	new File("/sys/class/i2c-adapter/i2c-4/4-004c/temperature"),
+	new File("/sys/devices/platform/tegra-i2c.3/i2c-4/4-004c/temperature"),
+    new File("/sys/devices/platform/omap/omap_temp_sensor.0/temperature"),
+	new File("/sys/devices/platform/tegra_tmon/temp1_input"),
+	new File("/sys/kernel/debug/tegra_thermal/temp_tj"),
+	new File("/sys/devices/platform/s5p-tmu/temperature"),
+	new File("/sys/class/thermal/thermal_zone0/temp")
 	};
 	
-	public static final String GPU_SGX540 = "/sys/devices/system/cpu/cpu0/cpufreq/gpu_max_freq";
-	public static final String IVA = "/sys/devices/system/cpu/cpu0/cpufreq/iva_freq_oc";
+	public static final File GPU_SGX540 = new File("/sys/devices/system/cpu/cpu0/cpufreq/gpu_max_freq");
+	public static final File IVA = new File("/sys/devices/system/cpu/cpu0/cpufreq/iva_freq_oc");
 
 
 	public static final File ENTROPY_AVAILABLE = new File("/proc/sys/kernel/random/entropy_avail");

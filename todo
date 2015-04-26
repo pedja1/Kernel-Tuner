@@ -30,8 +30,6 @@
 - fix checkboxes in file manager
 - wifi adb design
 
-
-proc/sys/kernel/random/entropy_avail
 "/sys/devices/system/cpu/cpufreq/ondemand/gboost", "/sys/devices/system/cpu/cpufreq/elementalx/gboost"
 "/sys/devices/platform/kgsl-3d0.0/kgsl/kgsl-3d0/gpuclk", "/sys/class/kgsl/kgsl-3d0/gpuclk", "/sys/kernel/tegra_gpu/gpu_rate"
 "/sys/devices/platform/kgsl-3d0.0/kgsl/kgsl-3d0/max_gpuclk", "/sys/class/kgsl/kgsl-3d0/max_gpuclk", "/sys/kernel/tegra_gpu/gpu_cap_rate"

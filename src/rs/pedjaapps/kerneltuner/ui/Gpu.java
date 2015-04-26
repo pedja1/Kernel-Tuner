@@ -28,8 +28,11 @@ import android.view.View.OnClickListener;
 import android.widget.Button;
 import android.widget.TextView;
 
+import java.io.File;
 import java.util.Arrays;
 import java.util.List;
+
+import rs.pedjaapps.kerneltuner.Constants;
 import rs.pedjaapps.kerneltuner.R;
 import rs.pedjaapps.kerneltuner.root.RCommand;
 import rs.pedjaapps.kerneltuner.utility.PrefsManager;
@@ -73,10 +76,10 @@ public class Gpu extends Activity
 		super.onCreate(savedInstanceState);
 		   
 		setContentView(R.layout.gpu);
-		gpu2dmax = readFile("/sys/devices/platform/kgsl-2d0.0/kgsl/kgsl-2d0/max_gpuclk");
-		gpu3dmax = readFile("/sys/devices/platform/kgsl-3d0.0/kgsl/kgsl-3d0/max_gpuclk");
-		gpu2dcurent = readFile("/sys/devices/platform/kgsl-2d0.0/kgsl/kgsl-2d0/gpuclk");
-		gpu3dcurent = readFile("/sys/devices/platform/kgsl-3d0.0/kgsl/kgsl-3d0/gpuclk");
+		gpu2dmax = readFile(Constants.GPU_2D);
+		gpu3dmax = readFile(Constants.GPU_3D);
+		gpu2dcurent = readFile(Constants.GPU_2D_CURRENT);
+		gpu3dcurent = readFile(Constants.GPU_3D_CURRENT);
 		seek2d = (SeekBar)findViewById(R.id.seek_2d);
 		seek3d = (SeekBar)findViewById(R.id.seek_3d);
 		List<String> adreno220 = Arrays.asList("shooter", "shooteru", "pyramid", "tenderloin", "vigor", "rider", "nozomi", "LT26i", "hikari", "doubleshot", "su640","SHV-E160S","SHV-E160L", "SHV-E120L", "holiday");
@@ -194,7 +197,7 @@ public class Gpu extends Activity
 				catch(Exception e){
 
 				}
-				gpu2dmax = readFile("/sys/devices/platform/kgsl-2d0.0/kgsl/kgsl-2d0/max_gpuclk");
+				gpu2dmax = readFile(Constants.GPU_2D);
 				max2dTxt.setText(max+": "+(gpu2dmax/1000000) + mhz);
 				seekBar.setProgress(gpu2d.indexOf(gpu2dmax));
                 PrefsManager.setGpu2d(gpu2dmax);
@@ -227,7 +230,7 @@ public class Gpu extends Activity
 				catch(Exception e){
 
 				}
-				gpu3dmax = readFile("/sys/devices/platform/kgsl-3d0.0/kgsl/kgsl-3d0/max_gpuclk");
+				gpu3dmax = readFile(Constants.GPU_3D);
 				max3dTxt.setText(max+": "+(gpu3dmax/1000000) + mhz);
 				seekBar.setProgress(gpu3d.indexOf(gpu3dmax));
                 PrefsManager.setGpu3d(gpu3dmax);
@@ -235,7 +238,7 @@ public class Gpu extends Activity
 			}});
 	}
 
-    private Integer readFile(String path)
+    private Integer readFile(File path)
 	{
 		try
 		{

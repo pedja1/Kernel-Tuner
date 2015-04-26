@@ -28,8 +28,8 @@ android {
         minSdkVersion 14
         targetSdkVersion 22
         applicationId "rs.pedjaapps.kt"
-        versionCode 20150417
-        versionName "1.1.0"
+        versionCode 20150426
+        versionName "1.1.1"
     }
     signingConfigs {
         release {
