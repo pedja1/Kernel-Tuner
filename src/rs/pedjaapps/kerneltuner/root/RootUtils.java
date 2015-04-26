@@ -52,7 +52,7 @@ public class RootUtils
 
     public enum Status
     {
-        success, no_root, timeout, io_exception, unknown_error
+        success, no_root, timeout, io_exception, terminated, unknown_error
     }
 
     public void exec(final CommandCallback callback, String... commands)
@@ -67,12 +67,20 @@ public class RootUtils
             {
                 output.append(line).append("\n");
                 if (callback != null) callback.out(line);
+                super.commandOutput(id, line);
             }
 
             @Override
             public void commandCompleted(int id, int exitCode)
             {
                 if (callback != null) callback.onComplete(Status.success, output.toString());
+                reset();
+            }
+
+            @Override
+            public void commandTerminated(int id, String reason)
+            {
+                if (callback != null) callback.onComplete(Status.terminated, output.toString());
                 reset();
             }
         };
@@ -160,6 +168,7 @@ public class RootUtils
             public void commandOutput(int id, String line)
             {
                 output.append(line).append("\n");
+                super.commandOutput(id, line);
             }
         };
         try
