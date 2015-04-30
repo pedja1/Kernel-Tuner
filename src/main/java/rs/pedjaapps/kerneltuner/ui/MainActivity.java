@@ -1,15 +1,17 @@
 package rs.pedjaapps.kerneltuner.ui;
 
 
+import android.app.*;
 import android.content.*;
 import android.graphics.*;
 import android.os.*;
 import android.support.v4.content.*;
+import android.support.v7.app.*;
 import android.text.*;
+import android.util.*;
 import android.view.*;
 import android.widget.*;
 import java.io.*;
-
 import rs.pedjaapps.kerneltuner.*;
 import rs.pedjaapps.kerneltuner.constants.*;
 import rs.pedjaapps.kerneltuner.fragments.*;
@@ -18,7 +20,6 @@ import rs.pedjaapps.kerneltuner.root.*;
 import rs.pedjaapps.kerneltuner.utility.*;
 
 import android.support.v7.app.ActionBar;
-import android.app.*;
 
 /**
  * Created by pedja on 17.4.14..
@@ -55,6 +56,7 @@ public class MainActivity extends AbsActivity implements Runnable, View.OnClickL
     Handler cpuRefreshHandler;
     Handler uiHandler;
     Fragment currentFragment;
+	boolean refreshRunning = false;
 
     @Override
     public void onCreate(Bundle savedInstanceState)
@@ -163,9 +165,11 @@ public class MainActivity extends AbsActivity implements Runnable, View.OnClickL
         super.onDestroy();
         if (cpuRefreshHandler != null)
         {
+			Log.d(Constants.LOG_TAG, "MainActivity onDestroy removeCallback");
             cpuRefreshHandler.removeCallbacks(this);
         }
         RootUtils.closeAllShells();
+		refreshRunning = false;
     }
 
     private void logKernelInfo()
@@ -213,7 +217,8 @@ public class MainActivity extends AbsActivity implements Runnable, View.OnClickL
         cpuRefreshThread.start();
         cpuRefreshHandler = new Handler(cpuRefreshThread.getLooper());
         cpuRefreshHandler.postDelayed(this, cpuRefreshInterval);
-
+		refreshRunning = true;
+		
         cpu1toggle = (Button) findViewById(R.id.btn_cpu1_toggle);
         cpu1toggle.setOnClickListener(this);
 
@@ -319,6 +324,8 @@ public class MainActivity extends AbsActivity implements Runnable, View.OnClickL
     @Override
     public void run()
     {
+		Log.d(Constants.LOG_TAG, "MainActivity: run()");
+		if(!refreshRunning)return;
         String tmp = IOHelper.cpuTemp(cpuTempPath);
         cpuTemp(tmp);
         cpu0update(IOHelper.cpuCurFreq(0));

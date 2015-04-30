@@ -27,7 +27,7 @@ android {
     defaultConfig {
         minSdkVersion 14
         targetSdkVersion 22
-        applicationId "rs.pedjaapps.kt"
+        applicationId "rs.pedjaapps.kerneltuner"
         versionCode 20150426
         versionName "1.1.1"
     }
@@ -74,11 +74,11 @@ android {
 }
 
 dependencies {
+	compile project(':PagerSlidingTabStrip:library')
     compile 'com.nostra13.universalimageloader:universal-image-loader:1.9.3'
-    compile 'com.google.android.gms:play-services:7.0.0'
+    compile 'com.google.android.gms:play-services-ads:7.0.0'
     compile fileTree(dir: 'libs', include: ['*.jar'])
-    compile 'com.android.support:support-v4:22.0.0'
     compile 'com.android.support:appcompat-v7:22.0.0'
     compile 'com.crashlytics.android:crashlytics:1.1.13'
-    compile 'com.jpardogo.materialtabstrip:library:1.0.6'
+    //compile 'com.jpardogo.materialtabstrip:library:1.0.6'
 }

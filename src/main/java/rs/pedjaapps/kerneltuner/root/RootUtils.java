@@ -1,19 +1,18 @@
 package rs.pedjaapps.kerneltuner.root;
 
-import android.os.Handler;
-import android.util.Log;
-
-import com.crashlytics.android.Crashlytics;
-import com.stericson.RootShell.RootShell;
-import com.stericson.RootShell.exceptions.RootDeniedException;
-import com.stericson.RootShell.execution.Command;
-
-import java.io.IOException;
-import java.util.concurrent.TimeoutException;
-
-import rs.pedjaapps.kerneltuner.Constants;
-import rs.pedjaapps.kerneltuner.utility.Executor;
 import android.os.*;
+import android.util.*;
+import com.crashlytics.android.*;
+import com.stericson.RootShell.*;
+import com.stericson.RootShell.exceptions.*;
+import com.stericson.RootShell.execution.*;
+import java.io.*;
+import java.util.*;
+import java.util.concurrent.*;
+import rs.pedjaapps.kerneltuner.*;
+import rs.pedjaapps.kerneltuner.utility.*;
+
+import rs.pedjaapps.kerneltuner.utility.Executor;
 
 public class RootUtils
 {
@@ -157,7 +156,7 @@ public class RootUtils
         exec(null, commands);
     }
 
-    public String execAndWait(String... commands) throws IOException
+    public String execAndWait(final String... commands) throws IOException
     {
         if (commandExecuted)
             throw new IllegalArgumentException("You can only execute one command with one instance of RootUtils");
@@ -169,6 +168,7 @@ public class RootUtils
             {
                 output.append(line).append("\n");
                 super.commandOutput(id, line);
+				Log.d(Constants.LOG_TAG, "execAndWait " + Arrays.toString(commands));
             }
         };
         try
@@ -196,6 +196,7 @@ public class RootUtils
 		
         while (!cmd.isFinished() && waitTill <= waitTillLimit)
         {
+			//todo this sync is broken...
             synchronized (cmd)
             {
                 try

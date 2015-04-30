@@ -36,8 +36,9 @@ import android.widget.HeaderViewListAdapter;
 import android.widget.ListAdapter;
 import android.widget.ListView;
 import android.widget.SectionIndexer;
+import rs.pedjaapps.kerneltuner.*;
 
-import rs.pedjaapps.kerneltuner.BuildConfig;
+
 
 
 /**
