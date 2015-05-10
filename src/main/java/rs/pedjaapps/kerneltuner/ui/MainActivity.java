@@ -402,11 +402,11 @@ public class MainActivity extends AbsActivity implements Runnable, View.OnClickL
             {
                 if (!freq.equals("offline") && freq.length() > 3)
                 {
-                    tvCpu0prog.setText(getString(R.string.txt_cpu0, freq.trim().substring(0, freq.length() - 3) + "MHz"));
+                    tvCpu0prog.setText(getString(R.string.txt_cpu0) + freq.trim().substring(0, freq.length() - 3) + "MHz");
                 }
                 else
                 {
-                    tvCpu0prog.setText(getString(R.string.txt_cpu0, "offline"));
+                    tvCpu0prog.setText(getString(R.string.txt_cpu0) + "offline");
                 }
             }
         });
@@ -421,11 +421,11 @@ public class MainActivity extends AbsActivity implements Runnable, View.OnClickL
             {
                 if (!freq.equals("offline") && freq.length() > 3)
                 {
-                    tvCpu1prog.setText(getString(R.string.txtCpu1, freq.trim().substring(0, freq.length() - 3) + "MHz"));
+                    tvCpu1prog.setText(getString(R.string.txtCpu1) + freq.trim().substring(0, freq.length() - 3) + "MHz");
                 }
                 else
                 {
-                    tvCpu1prog.setText(getString(R.string.txtCpu1, "offline"));
+                    tvCpu1prog.setText(getString(R.string.txtCpu1) + "offline");
                 }
             }
         });
@@ -440,11 +440,11 @@ public class MainActivity extends AbsActivity implements Runnable, View.OnClickL
             {
                 if (!freq.equals("offline") && freq.length() > 3)
                 {
-                    tvCpu2prog.setText(getString(R.string.txtCpu2, freq.trim().substring(0, freq.length() - 3) + "MHz"));
+                    tvCpu2prog.setText(getString(R.string.txtCpu2) + freq.trim().substring(0, freq.length() - 3) + "MHz");
                 }
                 else
                 {
-                    tvCpu2prog.setText(getString(R.string.txtCpu2, "offline"));
+                    tvCpu2prog.setText(getString(R.string.txtCpu2) + "offline");
                 }
             }
         });
@@ -459,11 +459,11 @@ public class MainActivity extends AbsActivity implements Runnable, View.OnClickL
             {
                 if (!freq.equals("offline") && freq.length() > 3)
                 {
-                    tvCpu3prog.setText(getString(R.string.txtCpu3, freq.trim().substring(0, freq.length() - 3) + "MHz"));
+                    tvCpu3prog.setText(getString(R.string.txtCpu3) + freq.trim().substring(0, freq.length() - 3) + "MHz");
                 }
                 else
                 {
-                    tvCpu3prog.setText(getString(R.string.txtCpu3, "offline"));
+                    tvCpu3prog.setText(getString(R.string.txtCpu3) + "offline");
                 }
             }
         });
@@ -476,7 +476,7 @@ public class MainActivity extends AbsActivity implements Runnable, View.OnClickL
             @Override
             public void run()
             {
-                tvCpuLoad.setText(getString(R.string.txt_cpu_load, load + "%"));
+                tvCpuLoad.setText(getString(R.string.txt_cpu_load) + load + "%");
             }
         });
     }

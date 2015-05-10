@@ -11,8 +11,7 @@
 - sound control
 - color control
 - logcat - log by running/killed apps
-- entropy ?
-- battery life extender
+- battery life extender - /sys/class/misc/batterylifeextender/charging_limit
 - /sys/module/intelli_plug/parameters/intelli_plug_active and /sys/module/intelli_plug/parameters/eco_mode_active
 - binary mpdecision toggle
 - basic app manager
