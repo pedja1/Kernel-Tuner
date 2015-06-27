@@ -1,0 +1,19 @@
+<resources>
+    <string name="app_name">Kernel Tuner</string>
+    <string name="hello_world">Hello world!</string>
+    <string name="drawer_open">open</string>
+    <string name="drawer_closed">closed</string>
+    <string name="cpu">CPU</string>
+    <string name="gpu">GPU</string>
+    <string name="misc">Misclaneous</string>
+    <string name="task_manager">Task Manager</string>
+    <string name="overview">Overview</string>
+    <string name="build_prop_editor">build.prop Editor</string>
+    <string name="sysctl_editor">sysctl Editor</string>
+    <string name="logcat_viewer">Logcat Viewer</string>
+    <string name="network_manager">Network Manager</string>
+    <string name="oom">OOM</string>
+    <string name="system_information">System Information</string>
+    <string name="settings">Settings</string>
+    <string name="offline">offline</string>
+</resources>

@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+
+    <style name="OverviewCard">
+        <item name="android:layout_width">match_parent</item>
+        <item name="android:layout_height">wrap_content</item>
+        <item name="cardUseCompatPadding">true</item>
+        <item name="contentPadding">8dp</item>
+        <item name="cardCornerRadius">2dp</item>
+    </style>
+
+    <style name="OverviewCardBackgroundText">
+        <item name="android:layout_width">wrap_content</item>
+        <item name="android:layout_height">wrap_content</item>
+        <item name="android:textAllCaps">true</item>
+        <item name="android:textSize">60sp</item>
+        <item name="font">Ubuntu-B.ttf</item>
+        <item name="android:layout_gravity">center</item>
+        <item name="android:textColor">@color/alpha_lite_grey</item>
+        <item name="android:shadowColor">@color/text_shadow</item>
+        <item name="android:shadowDx">-1</item>
+        <item name="android:shadowDy">-1</item>
+        <item name="android:shadowRadius">2</item>
+    </style>
+</resources>

@@ -1,0 +1,49 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android">
+    <group android:checkableBehavior="single">
+        <item
+            android:title="@string/overview"
+            android:icon="@drawable/main_overview"
+            android:id="@+id/menuOverview"/>
+
+        <item
+            android:title="@string/cpu"
+            android:icon="@drawable/main_cpu"/>
+
+        <item
+            android:title="@string/gpu"
+            android:icon="@drawable/main_gpu"/>
+
+        <item
+            android:title="@string/misc"
+            android:icon="@drawable/main_misc"/>
+
+        <item
+            android:title="@string/task_manager"
+            android:icon="@drawable/main_tm"/>
+
+        <item
+            android:title="@string/build_prop_editor"
+            android:icon="@drawable/main_build"/>
+
+        <item
+            android:title="@string/sysctl_editor"
+            android:icon="@drawable/main_sysctl"/>
+
+        <item
+            android:title="@string/logcat_viewer"
+            android:icon="@drawable/main_log"/>
+
+        <item
+            android:title="@string/network_manager"
+            android:icon="@drawable/main_network"/>
+
+        <item
+            android:title="@string/oom"
+            android:icon="@drawable/main_oom"/>
+
+        <item
+            android:title="@string/system_information"
+            android:icon="@drawable/main_info"/>
+    </group>
+</menu>
