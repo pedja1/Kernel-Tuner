@@ -9,4 +9,9 @@
     <color name="divider">#B6B6B6</color>
     <color name="alpha_lite_grey">#fffbfbfb</color>
     <color name="text_shadow">#7fb3b3b3</color>
+
+    <color name="material_blue">#2196F3</color>
+    <color name="material_green">#4CAF50</color>
+    <color name="material_orange">#FF9800</color>
+    <color name="material_red">#F44336</color>
 </resources>

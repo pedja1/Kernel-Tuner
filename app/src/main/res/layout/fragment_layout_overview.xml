@@ -1,103 +1,240 @@
 <?xml version="1.0" encoding="utf-8"?>
-<android.support.v4.widget.NestedScrollView
+<ScrollView
     xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
-    android:layout_height="match_parent"
-    android:layout_gravity="fill_vertical">
+    android:layout_height="match_parent">
 
     <LinearLayout
-        android:orientation="vertical"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        android:layout_gravity="fill_vertical"
         android:paddingLeft="@dimen/fragment_horizontal_margin"
         android:paddingRight="@dimen/fragment_horizontal_margin"
         android:paddingTop="@dimen/fragment_vertical_margin"
-        android:paddingBottom="@dimen/fragment_vertical_margin">
+        android:paddingBottom="@dimen/fragment_vertical_margin"
+        android:orientation="vertical"
+        android:showDividers="middle"
+        android:divider="@drawable/divider">
 
-        <android.support.v7.widget.CardView
-            style="@style/OverviewCard"
-            android:id="@+id/cvCpu">
-
-            <com.pedja1.fontwidget.widget.FTextView
-                style="@style/OverviewCardBackgroundText"
-                android:text="@string/cpu"
-                />
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="0dp"
+            android:orientation="vertical"
+            android:layout_weight="1.2"
+            android:gravity="center_vertical"
+            android:padding="20dp"
+            android:id="@+id/llCpu">
 
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:orientation="vertical">
+                android:orientation="horizontal">
 
-                <LinearLayout
-                    android:layout_width="match_parent"
+
+                <ImageView
+                    android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:layout_marginTop="10dp">
+                    android:src="@drawable/main_cpu"
+                    android:layout_marginLeft="10dp"/>
 
-                    <com.pedja1.fontwidget.widget.FTextView
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:text="@string/offline"
-                        android:textSize="20sp"
-                        android:layout_weight="1"
-                        android:gravity="right"
-                        android:layout_marginRight="35dp"
-                        />
-
-                    <com.pedja1.fontwidget.widget.FTextView
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:text="@string/offline"
-                        android:textSize="20sp"
-                        android:layout_weight="1"
-                        android:gravity="left"
-                        />
-
-
-                </LinearLayout>
-
-                <LinearLayout
-                    android:layout_width="match_parent"
+                <com.pedja1.fontwidget.widget.FTextView
+                    android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:layout_marginTop="20dp">
-
-                    <com.pedja1.fontwidget.widget.FTextView
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:text="@string/offline"
-                        android:textSize="20sp"
-                        android:layout_weight="1"
-                        android:gravity="right"
-                        android:layout_marginRight="35dp"
-                        />
-
-                    <com.pedja1.fontwidget.widget.FTextView
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:text="@string/offline"
-                        android:textSize="20sp"
-                        android:layout_weight="1"
-                        android:gravity="left"
-                        />
-
-
-                </LinearLayout>
+                    android:layout_gravity="center_vertical"
+                    android:id="@+id/tvCpuTemp"
+                    android:text="67"
+                    android:layout_marginLeft="5dp"/>
 
             </LinearLayout>
 
-        </android.support.v7.widget.CardView>
 
-        <android.support.v7.widget.CardView
-            style="@style/OverviewCard"
-            android:id="@+id/cvGpu">
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="10dp"
+                android:paddingLeft="20dp"
+                android:paddingRight="20dp">
 
-            <com.pedja1.fontwidget.widget.FTextView
-                style="@style/OverviewCardBackgroundText"
-                android:text="@string/gpu"
-                />
+                <com.pedja1.fontwidget.widget.FTextView
+                    style="@style/OverviewCpu"
+                    android:gravity="right"
+                    android:layout_marginRight="35dp"
+                    android:id="@+id/tvCpu0"
+                    />
 
-        </android.support.v7.widget.CardView>
+                <com.pedja1.fontwidget.widget.FTextView
+                    style="@style/OverviewCpu"
+                    android:gravity="left"
+                    android:id="@+id/tvCpu1"
+                    />
+
+
+            </LinearLayout>
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="20dp"
+                android:paddingLeft="20dp"
+                android:paddingRight="20dp">
+
+                <com.pedja1.fontwidget.widget.FTextView
+                    style="@style/OverviewCpu"
+                    android:gravity="right"
+                    android:layout_marginRight="35dp"
+                    android:id="@+id/tvCpu2"
+                    />
+
+                <com.pedja1.fontwidget.widget.FTextView
+                    style="@style/OverviewCpu"
+                    android:gravity="left"
+                    android:id="@+id/tvCpu3"
+                    />
+
+
+            </LinearLayout>
+
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="0dp"
+            android:orientation="vertical"
+            android:layout_weight="1"
+            android:gravity="center_vertical"
+            android:padding="20dp"
+            android:id="@+id/llGpu">
+
+            <ImageView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:src="@drawable/main_gpu"
+                android:layout_marginLeft="10dp"/>
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="10dp"
+                android:paddingLeft="20dp"
+                android:paddingRight="20dp">
+
+                <com.pedja1.fontwidget.widget.FTextView
+                    style="@style/OverviewGpu"
+                    android:gravity="right"
+                    android:layout_marginRight="35dp"
+                    android:id="@+id/tvGpuF"
+                    />
+
+                <com.pedja1.fontwidget.widget.FTextView
+                    style="@style/OverviewGpu"
+                    android:gravity="left"
+                    android:id="@+id/tvGpuMax"
+                    />
+
+
+            </LinearLayout>
+
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="0dp"
+            android:orientation="vertical"
+            android:layout_weight="1"
+            android:gravity="center_vertical"
+            android:padding="20dp"
+            android:id="@+id/llBatt">
+
+            <ImageView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:src="@drawable/main_battery"
+                android:layout_marginLeft="10dp"/>
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="10dp"
+                android:paddingLeft="20dp"
+                android:paddingRight="20dp">
+
+                <com.pedja1.fontwidget.widget.FTextView
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:textSize="18sp"
+                    android:gravity="right"
+                    android:layout_marginRight="35dp"
+                    android:text="Level: 37%"
+                    android:id="@+id/tvBattLevel"
+                    />
+
+                <com.pedja1.fontwidget.widget.FTextView
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:textSize="18sp"
+                    android:gravity="left"
+                    android:text="Temp: 56"
+                    android:id="@+id/tvBattTemp"
+                    />
+
+
+            </LinearLayout>
+
+
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="0dp"
+            android:orientation="vertical"
+            android:layout_weight="1"
+            android:gravity="center_vertical"
+            android:padding="20dp"
+            android:id="@+id/llMem">
+
+            <ImageView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:src="@drawable/main_oom"
+                android:layout_marginLeft="10dp"/>
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="10dp"
+                android:paddingLeft="20dp"
+                android:paddingRight="20dp">
+
+                <com.pedja1.fontwidget.widget.FTextView
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:textSize="18sp"
+                    android:gravity="right"
+                    android:layout_marginRight="35dp"
+                    android:text="Free: 654MB"
+                    android:id="@+id/tvMemFree"
+                    />
+
+                <com.pedja1.fontwidget.widget.FTextView
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:textSize="18sp"
+                    android:gravity="left"
+                    android:text="Max: 2048MB"
+                    android:id="@+id/tvMemMax"
+                    />
+
+
+            </LinearLayout>
+
+
+        </LinearLayout>
 
 
     </LinearLayout>
-</android.support.v4.widget.NestedScrollView>
+</ScrollView>

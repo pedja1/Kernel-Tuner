@@ -16,4 +16,8 @@
     <string name="system_information">System Information</string>
     <string name="settings">Settings</string>
     <string name="offline">offline</string>
+    <string name="free_mb">Free: %s MB</string>
+    <string name="max_mb">Max: %s MB</string>
+    <string name="batt_level" formatted="false"><![CDATA[Level: <font color=\'#%06X\'>%s%%</font>]]></string>
+    <string name="batt_temp" formatted="false"><![CDATA[Temp: <font color=\'#%06X\'>%s°C</font>]]></string>
 </resources>

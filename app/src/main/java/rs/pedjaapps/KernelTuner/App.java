@@ -17,10 +17,12 @@ public class App extends Application
         super.onCreate();
         app = this;
 
+        //Fabric.with(this, new Crashlytics());
+
         TypefaceHolder.getInstance().setDefaultFont("Roboto-Regular.ttf", TypefaceHolder.Source.asset, getApplicationContext());
     }
 
-    public static App getApp()
+    public static App get()
     {
         return app;
     }
