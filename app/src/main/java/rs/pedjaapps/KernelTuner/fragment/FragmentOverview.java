@@ -105,7 +105,9 @@ public class FragmentOverview extends AbsFragment
         public CpuGpuMonitor(View view)
         {
             tvCpuTemp = (FTextView)view.findViewById(R.id.tvCpuTemp);
-
+			if(IOHelper.getCpuTempPath() < 0)
+				tvCpuTemp.setVisibility(View.GONE);
+			
             tvCpu0 = (FTextView)view.findViewById(R.id.tvCpu0);
             tvCpu1 = (FTextView)view.findViewById(R.id.tvCpu1);
             tvCpu2 = (FTextView)view.findViewById(R.id.tvCpu2);
@@ -145,6 +147,8 @@ public class FragmentOverview extends AbsFragment
             final CpuFreq cpu3 = IOHelper.cpuCurFreq(3);
             final GpuFreq gpuFreq = IOHelper.gpu3DCurFreq();
             final GpuFreq gpuMaxFreq = IOHelper.gpu3DMaxFreq();
+		
+			final int cpuTemp = IOHelper.cpuTemp();
 
             uiHandler.post(new Runnable()
             {
@@ -164,6 +168,9 @@ public class FragmentOverview extends AbsFragment
                     tvGpuMax.setText(gpuMaxFreq != null ? gpuMaxFreq.formatted : tvCpu0.getContext().getString(R.string.offline));
                     tvGpuF.setTextColor(gpuFreq != null ? AppColor.PRIMARY_TEXT : AppColor.SECONDARY_TEXT);
                     tvGpuMax.setTextColor(gpuMaxFreq != null ? AppColor.PRIMARY_TEXT : AppColor.SECONDARY_TEXT);
+					
+					tvCpuTemp.setTextColor(cpuTempColorFromTemp(cpuTemp));
+					tvCpuTemp.setText(cpuTemp + "°C");
                 }
             });
             workerHandler.postDelayed(this, REFRESH_INTERVAL);
@@ -180,6 +187,26 @@ public class FragmentOverview extends AbsFragment
         {
             running = false;
             workerHandler.removeCallbacks(this);
+        }
+		
+		private int cpuTempColorFromTemp(int temp)
+        {
+            if(temp >= 70)
+            {
+                return AppColor.MATERIAL_RED;
+            }
+            else if(temp >= 55)
+            {
+                return AppColor.MATERIAL_ORANGE;
+            }
+            else if(temp >= 35)
+            {
+                return AppColor.MATERIAL_GREEN;
+            }
+            else
+            {
+                return AppColor.MATERIAL_BLUE;
+            }
         }
     }
 
@@ -307,15 +334,15 @@ public class FragmentOverview extends AbsFragment
 
         private int battTempColorFromtemp(float temp)
         {
-            if(temp >= 70)
+            if(temp >= 60)
             {
                 return AppColor.MATERIAL_RED;
             }
-            else if(temp >= 50)
+            else if(temp >= 40)
             {
                 return AppColor.MATERIAL_ORANGE;
             }
-            else if(temp >= 30)
+            else if(temp >= 20)
             {
                 return AppColor.MATERIAL_GREEN;
             }

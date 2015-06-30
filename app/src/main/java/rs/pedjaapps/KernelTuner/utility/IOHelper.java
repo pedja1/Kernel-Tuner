@@ -798,7 +798,7 @@ public class IOHelper
 
     public static int getCpuTempPath()
     {
-        int ret = 10;
+        int ret = -1;
         for (int i = 0; i < Constants.CPU_TEMP_PATHS.length; i++)
         {
             if (Constants.CPU_TEMP_PATHS[i].exists())
@@ -810,23 +810,23 @@ public class IOHelper
         return ret;
     }
 
-    public static String cpuTemp(int path)
+    public static int cpuTemp()
     {
         try
         {
-            String temp = RCommand.readFileContent(Constants.CPU_TEMP_PATHS[path]).trim();
+            String temp = RCommand.readFileContent(Constants.CPU_TEMP_PATHS[getCpuTempPath()]).trim();
             if (temp.length() > 2)
             {
-                return temp.substring(0, temp.length() - (temp.length() - 2));
+                return Utility.parseInt(temp.substring(0, temp.length() - (temp.length() - 2)), 0);
             }
             else
             {
-                return temp;
+                return Utility.parseInt(temp, 0);
             }
         }
         catch (Exception e2)
         {
-            return "0";
+            return 0;
         }
     }
 
