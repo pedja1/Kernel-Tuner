@@ -3,6 +3,11 @@
 #  Kernel Tuner 
 ## Take control of your device
 
+[![Quality Gate](http://skynetsoftware.org:9000/api/badges/gate?key=Kernel-Tuner)](http://skynetsoftware.org:9000/dashboard/index/Kernel-Tuner)
+[![Quality Gate](http://skynetsoftware.org:9000/api/badges/measure?key=Kernel-Tuner&metric=ncloc)](http://skynetsoftware.org:9000/dashboard/index/Kernel-Tuner)
+[![Quality Gate](http://skynetsoftware.org:9000/api/badges/measure?key=Kernel-Tuner&metric=vulnerabilities)](http://skynetsoftware.org:9000/dashboard/index/Kernel-Tuner)
+[![Quality Gate](http://skynetsoftware.org:9000/api/badges/measure?key=Kernel-Tuner&metric=bugs)](http://skynetsoftware.org:9000/dashboard/index/Kernel-Tuner)
+
 ![logo](https://raw.githubusercontent.com/pedja1/Kernel-Tuner/master/dsgn/Kernel%20Tuner-feature-graphic.png)
 ### Features:
 
